@@ -10,7 +10,7 @@ namespace Fluent
 {
     [TemplatePart(Name = "PART_RibbonPanel", Type = typeof(RibbonPanel))]
     [ContentProperty("Tabs")]
-    public class RibbonControl: FrameworkElement, IAddChild
+    public class RibbonTabControl: FrameworkElement, IAddChild
     {
         #region Статический атрибуты
 
@@ -43,9 +43,9 @@ namespace Fluent
 
         #region Инициализация
 
-        static RibbonControl()
+        static RibbonTabControl()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             /*DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(typeof(RibbonControl)));
 
             DefaultResourceDictionary = new ResourceDictionary();
@@ -63,7 +63,7 @@ namespace Fluent
         /// <returns>Правильный словарь</returns>
         private static object OnCoerceStyle(DependencyObject o, object value)
         {
-            if (value == null) value = RibbonControl.DefaultWindowStyle;
+            if (value == null) value = RibbonTabControl.DefaultWindowStyle;
             return value;
         }
 
@@ -76,7 +76,7 @@ namespace Fluent
             if(panel == null) throw new Exception("Incorrect control template.");
         }
 
-        public RibbonControl()
+        public RibbonTabControl()
         {
             tabs = new UIElementCollection(this, this);
         }

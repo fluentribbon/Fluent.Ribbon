@@ -4,7 +4,18 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     Title="Window1" Height="300" Width="300">
     <Grid>
-        <Fluent:RibbonControl/>
-        <Fluent:RibbonTab/>
+        <Fluent:RibbonTabControl/>
+        <Fluent:RibbonTabItem Style="{StaticResource RibbonTabStyle}" Margin="83,0,92,52" VerticalAlignment="Bottom" Height="49" HorizontalAlignment="Stretch"/>
+        <TabControl HorizontalAlignment="Left" Width="100" Margin="41,35,0,127">
+        	<TabItem>
+        		<TabItem.Header>
+        			<Button Width="75" Content="Button"/>
+        		</TabItem.Header>
+        		<Grid/>
+        	</TabItem>
+        	<TabItem Header="TabItem">
+        		<Grid/>
+        	</TabItem>
+        </TabControl>
     </Grid>
 </Window>

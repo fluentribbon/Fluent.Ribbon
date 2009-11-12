@@ -16,7 +16,7 @@ namespace Fluent
         SelectedForKeyTip
     }
 
-    public class RibbonTab:ContentControl
+    public class RibbonTabItem:ContentControl
     {
         #region Attributes
         
@@ -36,7 +36,7 @@ namespace Fluent
         /// <summary>
         /// Get os set tab header
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(RibbonTab), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(""));
 
         /// <summary>
         /// Get or set tab state
@@ -50,7 +50,7 @@ namespace Fluent
         /// <summary>
         /// Get or set tab state
         /// </summary>
-        internal static readonly DependencyProperty TabStateProperty = DependencyProperty.Register("TabState", typeof(RibbonTabState), typeof(RibbonTab), new FrameworkPropertyMetadata(RibbonTabState.Unselected, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTabStateChanged));
+        internal static readonly DependencyProperty TabStateProperty = DependencyProperty.Register("TabState", typeof(RibbonTabState), typeof(RibbonTabItem), new FrameworkPropertyMetadata(RibbonTabState.Unselected, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTabStateChanged));
 
         #endregion
 
@@ -65,15 +65,15 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        static RibbonTab()
+        static RibbonTabItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTab), new FrameworkPropertyMetadata(typeof(RibbonTab)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
         }
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RibbonTab()
+        public RibbonTabItem()
         {
             
         }
@@ -84,7 +84,7 @@ namespace Fluent
 
         private static void OnTabStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTab tab = d as RibbonTab;
+            RibbonTabItem tab = d as RibbonTabItem;
             if (tab.TabChanged != null) tab.TabChanged(tab, (RoutedEventArgs)EventArgs.Empty);
         }
 
