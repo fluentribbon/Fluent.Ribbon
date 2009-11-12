@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent">
+	<Style x:Key="RibbonTabStyle" TargetType="{x:Type Fluent:RibbonTab}"/>
+</ResourceDictionary>
