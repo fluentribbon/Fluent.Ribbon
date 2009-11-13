@@ -2,11 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-    Title="Window1" Height="300" Width="300">
+    Title="Window1" Height="345" Width="680">
     <Grid>
-        <Fluent:RibbonTabControl/>
-        <Fluent:RibbonTabItem Style="{StaticResource RibbonTabStyle}" Margin="83,0,92,52" VerticalAlignment="Bottom" Height="49" HorizontalAlignment="Stretch"/>
-        <TabControl HorizontalAlignment="Left" Width="100" Margin="41,35,0,127">
+        <Fluent:RibbonTabControl Margin="0,0,0,45" HorizontalAlignment="Left" Width="284"/>
+        <Fluent:RibbonTabItem Style="{StaticResource RibbonTabStyle}" Margin="83,0,0,97" VerticalAlignment="Bottom" Height="49" HorizontalAlignment="Left" Width="109"/>
+        <TabControl HorizontalAlignment="Left" Width="100" Margin="41,35,0,0" VerticalAlignment="Top" Height="100">
         	<TabItem>
         		<TabItem.Header>
         			<Button Width="75" Content="Button"/>
@@ -17,5 +17,15 @@
         		<Grid/>
         	</TabItem>
         </TabControl>
+		<Border  Margin="186,42,44,0" VerticalAlignment="Top" Height="100" BorderBrush="Black" BorderThickness="1" Background="#FFF4F4F4" >
+        <Fluent:RibbonTabPanel VerticalAlignment="Top" Height="100" Orientation="Horizontal" ReduceOrder="A, B,D, C, D, E,E,F,F,F">
+        	<Fluent:RibbonGroupBox x:Name="A" HorizontalAlignment="Left" Width="65" Header="A"/>
+        	<Fluent:RibbonGroupBox x:Name="B" HorizontalAlignment="Left" Width="65" Header="B"/>
+			<Fluent:RibbonGroupBox x:Name="C" HorizontalAlignment="Left" Width="65" Header="C"/>
+			<Fluent:RibbonGroupBox x:Name="D" HorizontalAlignment="Left" Width="65" Header="D"/>
+			<Fluent:RibbonGroupBox x:Name="E" HorizontalAlignment="Left" Width="65" Header="E"/>
+			<Fluent:RibbonGroupBox x:Name="F" HorizontalAlignment="Left" Width="65" Header="F"/>
+        </Fluent:RibbonTabPanel>
+		</Border>
     </Grid>
 </Window>

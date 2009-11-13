@@ -8,7 +8,7 @@ using System.Windows.Markup;
 
 namespace Fluent
 {
-    [TemplatePart(Name = "PART_RibbonPanel", Type = typeof(RibbonPanel))]
+    [TemplatePart(Name = "PART_RibbonPanel", Type = typeof(RibbonTabPanel))]
     [ContentProperty("Tabs")]
     public class RibbonTabControl: FrameworkElement, IAddChild
     {
@@ -25,7 +25,7 @@ namespace Fluent
 
         private UIElementCollection tabs;
 
-        private RibbonPanel panel;
+        private RibbonTabPanel panel;
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            panel = FindName("PART_RibbonPanel") as RibbonPanel;
+            panel = FindName("PART_RibbonPanel") as RibbonTabPanel;
             if(panel == null) throw new Exception("Incorrect control template.");
         }
 

@@ -69,9 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RibbonControl.cs" />
     <Compile Include="RibbonTabControl.cs" />
-    <Compile Include="RibbonGroup.cs" />
-    <Compile Include="RibbonPanel.cs" />
+    <Compile Include="RibbonGroupBox.cs" />
+    <Compile Include="RibbonTabPanel.cs" />
     <Compile Include="RibbonTabItem.cs" />
   </ItemGroup>
   <ItemGroup>
