@@ -18,14 +18,14 @@
         	</TabItem>
         </TabControl>
 		<Border  Margin="186,42,44,0" VerticalAlignment="Top" Height="100" BorderBrush="Black" BorderThickness="1" Background="#FFF4F4F4" >
-        <Fluent:RibbonTabPanel VerticalAlignment="Top" Height="100" Orientation="Horizontal" ReduceOrder="A, B,D, C, D, E,E,F,F,F">
+      <Fluent:RibbonGroupsContainer VerticalAlignment="Top" Height="100" Orientation="Horizontal" ReduceOrder="A, B,D, C, D, E,E,F,F,F">
         	<Fluent:RibbonGroupBox x:Name="A" HorizontalAlignment="Left" Width="65" Header="A"/>
         	<Fluent:RibbonGroupBox x:Name="B" HorizontalAlignment="Left" Width="65" Header="B"/>
 			<Fluent:RibbonGroupBox x:Name="C" HorizontalAlignment="Left" Width="65" Header="C"/>
 			<Fluent:RibbonGroupBox x:Name="D" HorizontalAlignment="Left" Width="65" Header="D"/>
 			<Fluent:RibbonGroupBox x:Name="E" HorizontalAlignment="Left" Width="65" Header="E"/>
 			<Fluent:RibbonGroupBox x:Name="F" HorizontalAlignment="Left" Width="65" Header="F"/>
-        </Fluent:RibbonTabPanel>
+        </Fluent:RibbonGroupsContainer>
 		</Border>
     </Grid>
 </Window>

@@ -72,7 +72,7 @@
     <Compile Include="RibbonControl.cs" />
     <Compile Include="RibbonTabControl.cs" />
     <Compile Include="RibbonGroupBox.cs" />
-    <Compile Include="RibbonTabPanel.cs" />
+    <Compile Include="RibbonGroupsContainer.cs" />
     <Compile Include="RibbonTabItem.cs" />
   </ItemGroup>
   <ItemGroup>

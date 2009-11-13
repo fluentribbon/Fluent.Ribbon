@@ -10,7 +10,7 @@ namespace Fluent
     /// Represent panel with ribbon group.
     /// It is automatically adjusting size of controls
     /// </summary>
-    public class RibbonTabPanel : StackPanel
+    public class RibbonGroupsContainer : StackPanel
     {
         #region Reduce Order
         
@@ -30,12 +30,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ReduceOrderProperty =
-            DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonTabPanel), new UIPropertyMetadata(ReduceOrderPropertyChanged));
+            DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonGroupsContainer), new UIPropertyMetadata(ReduceOrderPropertyChanged));
 
 
         static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabPanel ribbonPanel = (RibbonTabPanel)d;
+            RibbonGroupsContainer ribbonPanel = (RibbonGroupsContainer)d;
             ribbonPanel.cachedConstraint = ribbonPanel.cachedDesiredSize = new Size();
             ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] {',',' '}, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
