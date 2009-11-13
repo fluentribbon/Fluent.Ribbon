@@ -57,6 +57,18 @@ namespace Fluent
 
         #endregion
 
+        #region Initialization
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public RibbonGroupsContainer(): base()
+        {
+            Orientation = Orientation.Horizontal;
+        }
+
+        #endregion
+
         #region Layout Overridings
 
         /// <summary>

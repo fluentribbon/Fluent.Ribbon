@@ -31,7 +31,7 @@
 						</Rectangle>
 						<ContentPresenter HorizontalAlignment="Left" Margin="1,0,1,1" Grid.RowSpan="1" Grid.Row="1" ContentSource="SelectedContent"/>
 						<Grid x:Name="TabsGrid" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Grid.RowSpan="1">
-							<Fluent:RibbonTabPanel HorizontalAlignment="Stretch" Width="Auto" IsItemsHost="True" Margin="60,0,0,0" Orientation="Horizontal"/>							
+							<Fluent:RibbonTabsContainer HorizontalAlignment="Stretch" Width="Auto" IsItemsHost="True" Margin="60,0,0,0"/>							
 						</Grid>
 						<Popup PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}">
 							<Border Width="{Binding ActualWidth, ElementName=ContentGrid, Mode=Default}" Height="86" BorderBrush="#FFB8B8B8">
