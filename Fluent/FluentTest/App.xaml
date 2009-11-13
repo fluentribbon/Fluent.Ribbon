@@ -7,7 +7,6 @@
      	<ResourceDictionary>
 		 	<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/Fluent;component\Styles\generic.xaml"/>
-				<ResourceDictionary Source="/Fluent;Component/Styles/Office2010/Colors/Fonts.xaml"/>				
 			</ResourceDictionary.MergedDictionaries>
 		 </ResourceDictionary>
     </Application.Resources>

@@ -1,41 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Fluent
 {
-    [TemplatePart(Name = "PART_RibbonPanel", Type = typeof(RibbonGroupsContainer))]
-    [ContentProperty("Tabs")]
-    public class RibbonTabControl: FrameworkElement, IAddChild
+    [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter)), StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
+    public class RibbonTabControl: Selector
     {
-        #region Статический атрибуты
-
-        // Дефолтный стиль для окна
-        private static readonly Style DefaultWindowStyle = null;
-        // Дефолтный словарь с темами
-        private static readonly ResourceDictionary DefaultResourceDictionary = null;
+        #region Constants
+        
+        private const string SelectedContentHostTemplateName = "PART_SelectedContentHost";
 
         #endregion
 
-        #region Атрибуты
+        #region Dependency propeties
+        
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
 
-        private UIElementCollection tabs;
+        #endregion
 
-        private RibbonGroupsContainer panel;
+        #region Attrinutes
 
         #endregion
 
         #region Свойства
 
-        public UIElementCollection Tabs
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public object SelectedContent
         {
             get
             {
-                return tabs;
+                return base.GetValue(SelectedContentProperty);
+            }
+            internal set
+            {
+                base.SetValue(SelectedContentPropertyKey, value);
             }
         }
 
@@ -45,56 +53,146 @@ namespace Fluent
 
         static RibbonTabControl()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-            /*DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(typeof(RibbonControl)));
-
-            DefaultResourceDictionary = new ResourceDictionary();
-            DefaultResourceDictionary.BeginInit();
-            DefaultResourceDictionary.Source = new Uri("Fluent;component/Styles/DefaultSkinWindowStyle.xaml", UriKind.Relative);
-            DefaultResourceDictionary.EndInit();
-            DefaultWindowStyle = (Style)DefaultResourceDictionary["DefaultSkinWindowStyle"];*/
-        }
-
-        /// <summary>
-        /// При необходимости устанавливается ныжный стиль
-        /// </summary>
-        /// <param name="o">Не используется</param>
-        /// <param name="value">Значение из словаря</param>
-        /// <returns>Правильный словарь</returns>
-        private static object OnCoerceStyle(DependencyObject o, object value)
-        {
-            if (value == null) value = RibbonTabControl.DefaultWindowStyle;
-            return value;
-        }
-
-        /// <summary>
-        /// При применении нового стиля
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            panel = FindName("PART_RibbonPanel") as RibbonGroupsContainer;
-            if(panel == null) throw new Exception("Incorrect control template.");
-        }
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
+        }                
 
         public RibbonTabControl()
         {
-            tabs = new UIElementCollection(this, this);
+
         }
 
         #endregion
 
-        #region Реализация IAddChild
+        #region Overrides
 
-        public void AddChild(object value)
+        protected override void OnInitialized(EventArgs e)
         {
-            Tabs.Add(value as UIElement);
+            base.OnInitialized(e);
+            //base.CanSelectMultiple = false;
+            base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
         }
 
-        public void AddText(string text)
+        protected override DependencyObject GetContainerForItemOverride()
         {
-            TextBlock textBox = new TextBlock();
-            textBox.Text = text;
-            Tabs.Add(textBox);
+            return new RibbonTabItem();
+        }
+
+        /// <summary>
+        /// On new style applying
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            /*contentPresenter = FindName(SelectedContentHostTemplateName) as ContentPresenter;
+            if (contentPresenter == null) throw new Exception("Incorrect control template.");*/
+        }
+
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return (item is RibbonTabItem);
+        }
+
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+            if ((e.Action == NotifyCollectionChangedAction.Remove) && (base.SelectedIndex == -1))
+            {
+                int startIndex = e.OldStartingIndex + 1;
+                if (startIndex > base.Items.Count)
+                {
+                    startIndex = 0;
+                }
+                RibbonTabItem item = this.FindNextTabItem(startIndex, -1);
+                if (item != null)
+                {
+                    item.IsSelected = true;
+                }
+            }
+        }
+
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            base.OnSelectionChanged(e);            
+            this.UpdateSelectedContent();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        // Get selected ribbon tab item
+        private RibbonTabItem GetSelectedTabItem()
+        {
+            object selectedItem = base.SelectedItem;
+            if (selectedItem == null)
+            {
+                return null;
+            }
+            RibbonTabItem item = selectedItem as RibbonTabItem;
+            if (item == null)
+            {
+                item = base.ItemContainerGenerator.ContainerFromIndex(base.SelectedIndex) as RibbonTabItem;
+            }
+            return item;
+        }
+
+        private RibbonTabItem FindNextTabItem(int startIndex, int direction)
+        {
+            if (direction != 0)
+            {
+                int index = startIndex;
+                for (int i = 0; i < base.Items.Count; i++)
+                {
+                    index += direction;
+                    if (index >= base.Items.Count)
+                    {
+                        index = 0;
+                    }
+                    else if (index < 0)
+                    {
+                        index = base.Items.Count - 1;
+                    }
+                    RibbonTabItem item2 = base.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
+                    if (((item2 != null) && item2.IsEnabled) && (item2.Visibility == Visibility.Visible))
+                    {
+                        return item2;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void UpdateSelectedContent()
+        {
+            if (base.SelectedIndex < 0)
+            {
+                this.SelectedContent = null;
+            }
+            else
+            {
+                RibbonTabItem selectedTabItem = this.GetSelectedTabItem();
+                if (selectedTabItem != null)
+                {
+                    FrameworkElement parent = VisualTreeHelper.GetParent(selectedTabItem) as FrameworkElement;
+                    this.SelectedContent = selectedTabItem.Content;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Event handling
+
+        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        {
+            if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {
+                //if (base.HasItems && (base._selectedItems.Count == 0))
+                if (base.HasItems && (base.SelectedIndex == -1))
+                {
+                    base.SelectedIndex = 0;
+                }
+                this.UpdateSelectedContent();
+            }
         }
 
         #endregion

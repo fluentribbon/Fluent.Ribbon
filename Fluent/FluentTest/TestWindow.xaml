@@ -4,28 +4,23 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     Title="Window1" Height="345" Width="680">
     <Grid>
-        <Fluent:RibbonTabControl Margin="0,0,0,45" HorizontalAlignment="Left" Width="284"/>
-        <Fluent:RibbonTabItem Style="{StaticResource RibbonTabStyle}" Margin="83,0,0,97" VerticalAlignment="Bottom" Height="49" HorizontalAlignment="Left" Width="109"/>
-        <TabControl HorizontalAlignment="Left" Width="100" Margin="41,35,0,0" VerticalAlignment="Top" Height="100">
-        	<TabItem>
-        		<TabItem.Header>
-        			<Button Width="75" Content="Button"/>
-        		</TabItem.Header>
-        		<Grid/>
-        	</TabItem>
-        	<TabItem Header="TabItem">
-        		<Grid/>
-        	</TabItem>
-        </TabControl>
-		<Border  Margin="186,42,44,0" VerticalAlignment="Top" Height="100" BorderBrush="Black" BorderThickness="1" Background="#FFF4F4F4" >
-      <Fluent:RibbonGroupsContainer VerticalAlignment="Top" Height="100" Orientation="Horizontal" ReduceOrder="A, B,D, C, D, E,E,F,F,F">
-        	<Fluent:RibbonGroupBox x:Name="A" HorizontalAlignment="Left" Width="65" Header="A"/>
-        	<Fluent:RibbonGroupBox x:Name="B" HorizontalAlignment="Left" Width="65" Header="B"/>
-			<Fluent:RibbonGroupBox x:Name="C" HorizontalAlignment="Left" Width="65" Header="C"/>
-			<Fluent:RibbonGroupBox x:Name="D" HorizontalAlignment="Left" Width="65" Header="D"/>
-			<Fluent:RibbonGroupBox x:Name="E" HorizontalAlignment="Left" Width="65" Header="E"/>
-			<Fluent:RibbonGroupBox x:Name="F" HorizontalAlignment="Left" Width="65" Header="F"/>
-        </Fluent:RibbonGroupsContainer>
-		</Border>
+        <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0">
+        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        		<Fluent:RibbonGroupsContainer Orientation="Horizontal" HorizontalAlignment="Left" ReduceOrder="A,B,A,B,B,A,C,C,C">
+        			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100"/>
+        			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100"/>
+        			<Fluent:RibbonGroupBox x:Name="C" Header="C" Width="100"/>
+        		</Fluent:RibbonGroupsContainer>
+        	</Fluent:RibbonTabItem>
+        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        		<Rectangle Fill="#FF0100FF" Stroke="Black" Width="100" Height="100"/>
+        	</Fluent:RibbonTabItem>
+        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        		<Rectangle Fill="#FF00FF05" Stroke="Black" Width="100" Height="100"/>
+        	</Fluent:RibbonTabItem>
+        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        		<Rectangle Fill="#FFFF00CB" Stroke="Black" Width="100" Height="100"/>
+        	</Fluent:RibbonTabItem>
+        </Fluent:RibbonTabControl>
     </Grid>
 </Window>

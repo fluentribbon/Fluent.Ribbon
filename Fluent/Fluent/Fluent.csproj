@@ -74,6 +74,7 @@
     <Compile Include="RibbonGroupBox.cs" />
     <Compile Include="RibbonGroupsContainer.cs" />
     <Compile Include="RibbonTabItem.cs" />
+    <Compile Include="RibbonTabPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\Office2010\Silver.xaml">
@@ -104,11 +105,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Office2010\Controls\RibbonControl.xaml">
+    <Page Include="Styles\Office2010\Controls\RibbonTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Styles\Office2010\Controls\RibbonTab.xaml">
+    <Page Include="Styles\Office2010\Controls\RibbonTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
