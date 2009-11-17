@@ -165,14 +165,24 @@ namespace Fluent
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) || !this.IsSelected))
+            if (((e.Source == this) &&(e.ClickCount==2)))
             {
-                if(TabControlParent.SelectedItem is RibbonTabItem)
+                e.Handled = true;
+                if (TabControlParent != null) TabControlParent.IsMinimized = !TabControlParent.IsMinimized;
+            }
+            else if (((e.Source == this) || !this.IsSelected))
+            {
+                if (TabControlParent!=null) if (TabControlParent.SelectedItem is RibbonTabItem)
                     (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
                 e.Handled = true;
                 this.IsSelected = true;
-            }
-            base.OnMouseLeftButtonDown(e);
+            }            
+            //base.OnMouseLeftButtonDown(e);
+        }
+
+        protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
+        {            
+            e.Handled = true;
         }
 
         #endregion

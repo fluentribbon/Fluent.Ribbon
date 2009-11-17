@@ -51,7 +51,7 @@ namespace Fluent
 
             // If the constraint and desired size are equal to those in the cache, skip
             // this layout measure pass.
-            if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
+            //if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
             {
                 cachedConstraint = constraint;
                 cachedDesiredSize = desiredSize;

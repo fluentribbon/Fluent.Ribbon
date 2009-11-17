@@ -9,15 +9,16 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace Fluent
 {
-    [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter)), StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
+    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
+    [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     public class RibbonTabControl: Selector
     {
         #region Constants
         
-        private const string SelectedContentHostTemplateName = "PART_SelectedContentHost";
 
         #endregion
 
@@ -25,10 +26,16 @@ namespace Fluent
         
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged));
 
         #endregion
 
-        #region Attrinutes
+        #region Fields
+
+        private Popup popup = null;
+
+        private object oldSelectedItem = null;
 
         #endregion
 
@@ -47,6 +54,18 @@ namespace Fluent
             }
         }
 
+        public bool IsMinimized
+        {
+            get { return (bool)GetValue(IsMinimizedProperty); }
+            set { SetValue(IsMinimizedProperty, value); }
+        }
+
+        public bool IsOpen
+        {
+            get { return (bool)GetValue(IsOpenProperty); }
+            set { SetValue(IsOpenProperty, value); }
+        }
+
         #endregion
 
         #region Инициализация
@@ -54,11 +73,13 @@ namespace Fluent
         static RibbonTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
+
+            EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
         }                
 
         public RibbonTabControl()
-        {
-
+        {            
         }
 
         #endregion
@@ -82,6 +103,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            popup = GetTemplateChild("PART_Popup") as Popup;
+
             /*contentPresenter = FindName(SelectedContentHostTemplateName) as ContentPresenter;
             if (contentPresenter == null) throw new Exception("Incorrect control template.");*/
         }
@@ -105,14 +128,57 @@ namespace Fluent
                 if (item != null)
                 {
                     item.IsSelected = true;
-                }
+                }                
             }
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            base.OnSelectionChanged(e);            
-            this.UpdateSelectedContent();
+            base.OnSelectionChanged(e);
+            if (e.AddedItems.Count > 0)
+            {
+                if (IsMinimized)
+                {
+                    if (oldSelectedItem == e.AddedItems[0])
+                        IsOpen = !IsOpen;
+                    else IsOpen = true;
+                }
+                this.UpdateSelectedContent();
+            }
+            if (e.RemovedItems.Count > 0) oldSelectedItem = e.RemovedItems[0];
+        }
+
+        protected override void OnLostMouseCapture(MouseEventArgs e)
+        {
+            if (Mouse.Captured != this)
+            {
+                UIElement selectedTabGroupsPopupChild = popup.Child;
+                if (e.OriginalSource == this)
+                {
+                    // If Ribbon loses capture because something outside popup is clicked - close the popup
+                    if (Mouse.Captured == null || !selectedTabGroupsPopupChild.IsAncestorOf(Mouse.Captured as DependencyObject))
+                    {
+                        this.IsOpen = false;
+                    }
+                }
+                else
+                {
+                    // If control inside Ribbon loses capture - restore capture to Ribbon
+                    if (selectedTabGroupsPopupChild.IsAncestorOf(e.OriginalSource as DependencyObject))
+                    {
+                        if (this.IsOpen && Mouse.Captured == null)
+                        {
+                            Mouse.Capture(this, CaptureMode.SubTree);
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        this.IsOpen = false;
+                    }
+                }
+            }
+            base.OnLostMouseCapture(e);
         }
 
         #endregion
@@ -192,6 +258,59 @@ namespace Fluent
                     base.SelectedIndex = 0;
                 }
                 this.UpdateSelectedContent();
+            }
+        }
+
+        private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabControl tab = d as RibbonTabControl;
+            if(!tab.IsMinimized) tab.IsOpen = false;
+            else if (Mouse.Captured == tab)
+            {
+                Mouse.Capture(null);
+            }
+        }
+
+        private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
+        {
+            RibbonTabControl ribbon = (RibbonTabControl)sender;
+            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
+            {
+                if (Mouse.Captured == ribbon)
+                {
+                    ribbon.IsOpen = false;
+                    Mouse.Capture(null);
+                }
+            }
+        }
+
+        private void OnRibbonTabPopupClosing()
+        {
+            if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+            }
+        }
+
+        private void OnRibbonTabPopupOpening()
+        {
+            if (IsMinimized)
+            {
+                Mouse.Capture(this, CaptureMode.SubTree);
+            }
+        }
+
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabControl ribbon = (RibbonTabControl)d;
+
+            if (ribbon.IsOpen)
+            {
+                ribbon.OnRibbonTabPopupOpening();
+            }
+            else
+            {
+                ribbon.OnRibbonTabPopupClosing();
             }
         }
 
