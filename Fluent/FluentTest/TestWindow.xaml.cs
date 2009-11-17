@@ -23,5 +23,10 @@ namespace FluentTest
         {
             InitializeComponent();
         }
+
+        private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Launcher button pressed!!!");
+        }
     }
 }

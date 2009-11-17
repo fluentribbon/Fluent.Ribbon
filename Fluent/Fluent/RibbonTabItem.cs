@@ -19,15 +19,31 @@ namespace Fluent
 
         public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(RibbonTabItem.OnIsSelectedChanged)));
 
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
         #endregion
 
         #region Fields
 
-        Border contentContainer = null;
+        private Border contentContainer = null;
 
         #endregion
 
         #region Properties
+
+        public bool IsMinimized
+        {
+            get { return (bool)GetValue(IsMinimizedProperty); }
+            set { SetValue(IsMinimizedProperty, value); }
+        }
+
+        public bool IsOpen
+        {
+            get { return (bool)GetValue(IsOpenProperty); }
+            set { SetValue(IsOpenProperty, value); }
+        }
+
 
         #region IsContextual
 
@@ -129,6 +145,7 @@ namespace Fluent
 
         protected override Size MeasureOverride(Size constraint)
         {
+            if (contentContainer == null) return base.MeasureOverride(constraint);
             contentContainer.Padding = new Thickness(Whitespace, contentContainer.Padding.Top, Whitespace, contentContainer.Padding.Bottom);
             Size baseConstraint = base.MeasureOverride(constraint);
             double totalWidth = contentContainer.DesiredSize.Width;
@@ -178,11 +195,6 @@ namespace Fluent
                 this.IsSelected = true;
             }            
             //base.OnMouseLeftButtonDown(e);
-        }
-
-        protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
-        {            
-            e.Handled = true;
         }
 
         #endregion

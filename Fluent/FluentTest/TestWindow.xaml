@@ -7,9 +7,9 @@
         <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0">
         	<Fluent:RibbonTabItem Header="Home" Style="{DynamicResource RibbonTabItemStyle}">
         		<Fluent:RibbonGroupsContainer Orientation="Horizontal" HorizontalAlignment="Left" ReduceOrder="A,B,A,B,B,A,C,C,C">
-        			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100"/>
-        			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100"/>
-        			<Fluent:RibbonGroupBox x:Name="C" Header="C" Width="100"/>
+        			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick"/>
+        			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}"/>
+        			<Fluent:RibbonGroupBox x:Name="C" Header="C" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}"/>
         		</Fluent:RibbonGroupsContainer>
         	</Fluent:RibbonTabItem>
         	<Fluent:RibbonTabItem Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">
@@ -26,6 +26,5 @@
           <Fluent:RibbonTabItem Header="Design" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"/>
           <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"/>
         </Fluent:RibbonTabControl>
-        <Fluent:RibbonTabItem Header="RibbonTabItem" Height="20" Style="{DynamicResource RibbonTabItemStyle}" HorizontalAlignment="Stretch" Whitespace="0" Background="#FF5D2727" IsSelected="True" Margin="0,144,0,0"/>
     </Grid>
 </Window>
