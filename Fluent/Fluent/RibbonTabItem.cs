@@ -12,6 +12,7 @@ using System.Windows.Markup;
 
 namespace Fluent
 {
+    [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     public class RibbonTabItem:HeaderedContentControl
     {
         #region Dependency properties
@@ -22,9 +23,32 @@ namespace Fluent
 
         #region Fields
 
+        Border contentContainer = null;
+
         #endregion
 
         #region Properties
+
+        #region IsContextual
+
+        /// <summary>
+        /// Gets or sets whether tab item is contextual
+        /// </summary>
+        public bool IsContextual
+        {
+            get { return (bool)GetValue(IsContextualProperty); }
+            set { SetValue(IsContextualProperty, value); }
+        }
+                       
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsContextual.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>  
+        public static readonly DependencyProperty IsContextualProperty =
+            DependencyProperty.Register("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
+        #endregion
+
 
         [Bindable(true), Category("Appearance")]
         public bool IsSelected
@@ -102,6 +126,29 @@ namespace Fluent
         #endregion
 
         #region Overrides
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            contentContainer.Padding = new Thickness(Whitespace, contentContainer.Padding.Top, Whitespace, contentContainer.Padding.Bottom);
+            Size baseConstraint = base.MeasureOverride(constraint);
+            double totalWidth = contentContainer.DesiredSize.Width;
+            (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            double headerWidth = contentContainer.Child.DesiredSize.Width;
+            if (totalWidth < headerWidth+Whitespace*2)
+            {
+                double newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
+                contentContainer.Padding = new Thickness(newPaddings, contentContainer.Padding.Top, newPaddings, contentContainer.Padding.Bottom);
+            }
+            return baseConstraint;
+        }
+
+        /// <summary>
+        /// On new style applying
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            contentContainer = GetTemplateChild("PART_ContentContainer") as Border;
+        }
 
         protected override void OnContentChanged(object oldContent, object newContent)
         {

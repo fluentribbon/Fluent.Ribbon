@@ -5,22 +5,27 @@
     Title="Window1" Height="345" Width="680">
     <Grid>
         <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0">
-        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        	<Fluent:RibbonTabItem Header="Home" Style="{DynamicResource RibbonTabItemStyle}">
         		<Fluent:RibbonGroupsContainer Orientation="Horizontal" HorizontalAlignment="Left" ReduceOrder="A,B,A,B,B,A,C,C,C">
         			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100"/>
         			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100"/>
         			<Fluent:RibbonGroupBox x:Name="C" Header="C" Width="100"/>
         		</Fluent:RibbonGroupsContainer>
         	</Fluent:RibbonTabItem>
-        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
-        		<Rectangle Fill="#FF0100FF" Stroke="Black" Width="100" Height="100"/>
-        	</Fluent:RibbonTabItem>
-        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        	<Fluent:RibbonTabItem Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">
         		<Rectangle Fill="#FF00FF05" Stroke="Black" Width="100" Height="100"/>
         	</Fluent:RibbonTabItem>
-        	<Fluent:RibbonTabItem Header="RibbonTabItem" Style="{DynamicResource RibbonTabItemStyle}">
+        	<Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
         		<Rectangle Fill="#FFFF00CB" Stroke="Black" Width="100" Height="100"/>
         	</Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}"/>
+          <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}"/>
+          <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}"/>
+          <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}"/>
+          <Fluent:RibbonTabItem Header="Format" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"/>
+          <Fluent:RibbonTabItem Header="Design" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"/>
+          <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"/>
         </Fluent:RibbonTabControl>
+        <Fluent:RibbonTabItem Header="RibbonTabItem" Height="20" Style="{DynamicResource RibbonTabItemStyle}" HorizontalAlignment="Stretch" Whitespace="0" Background="#FF5D2727" IsSelected="True" Margin="0,144,0,0"/>
     </Grid>
 </Window>
