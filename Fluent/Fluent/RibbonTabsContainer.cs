@@ -63,7 +63,7 @@ namespace Fluent
             // the tab selection and hover states is reached (usial tabs)
             double overflowWidth = desiredSize.Width - constraint.Width;
             double whitespace = (Children[0] as RibbonTabItem).Whitespace;
-            RibbonTabItem[] contextualTabs = Children.Cast<RibbonTabItem>().ToArray();
+            RibbonTabItem[] contextualTabs = Children.Cast<RibbonTabItem>().Where(x => x.IsContextual).ToArray();
             double contextualTabsCount = contextualTabs.Length;
             double regularTabsCount = Children.Count - contextualTabsCount;
             if (overflowWidth < regularTabsCount * whitespace * 2)

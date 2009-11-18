@@ -8,5 +8,6 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabControl.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonGroupBox.xaml"/>
+	<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScreenTip.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -18,7 +18,12 @@
         	<Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
         		<Rectangle Fill="#FFFF00CB" Stroke="Black" Width="100" Height="100"/>
         	</Fluent:RibbonTabItem>
-          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}"/>
+          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="sdf" 
+                                Fluent:ScreenTip.Title="Screen Tip Title"
+                                Fluent:ScreenTip.Text="Screen Tip Text Screen Tip Text Screen Tip Text Screen Tip Text Screen Tip Text"
+                                Fluent:ScreenTip.DisableReason="Disable Reason Text Disable Reason Text Disable Reason Text"
+                                Fluent:ScreenTip.Image="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png"
+                                Fluent:ScreenTip.Help="Press F1 для получния помосЧи"/>
           <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}"/>
           <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}"/>
           <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}"/>
