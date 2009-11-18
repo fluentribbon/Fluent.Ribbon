@@ -24,9 +24,21 @@ namespace Fluent
           "Title",
           typeof(string),
           typeof(ScreenTip),
-          new FrameworkPropertyMetadata("Title",
-              FrameworkPropertyMetadataOptions.None)
+          new FrameworkPropertyMetadata("",
+              FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChangedCallback)
         );
+
+        static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((d as FrameworkElement).ToolTip == null)
+            {
+                ToolTip toolTip = new ToolTip();
+                (d as FrameworkElement).ToolTip = toolTip;
+                ToolTipService.SetShowOnDisabled(d, true);
+                ToolTipService.SetShowDuration(d, 20000);
+                ToolTipService.SetInitialShowDelay(d, 900);
+            }
+        }
 
         /// <summary>
         /// Sets value of attached property Title for the given element
@@ -34,7 +46,7 @@ namespace Fluent
         /// <param name="element">The given element</param>
         /// <param name="value">Value</param>
         public static void SetTitle(UIElement element, string value)
-        {
+        {            
             element.SetValue(TitleProperty, value);
         }
 
@@ -42,6 +54,10 @@ namespace Fluent
         /// Gets value of the attached property Title of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Title"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Title of the screen tip")]
         public static string GetTitle(UIElement element)
         {
             return (string)element.GetValue(TitleProperty);
@@ -59,7 +75,7 @@ namespace Fluent
           "Text",
           typeof(string),
           typeof(ScreenTip),
-          new FrameworkPropertyMetadata("Text",
+          new FrameworkPropertyMetadata("",
               FrameworkPropertyMetadataOptions.None)
         );
 
@@ -77,6 +93,10 @@ namespace Fluent
         /// Gets value of the attached property Text of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Text"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Main text of the screen tip")]
         public static string GetText(UIElement element)
         {
             return (string)element.GetValue(TextProperty);
@@ -112,6 +132,10 @@ namespace Fluent
         /// Gets value of the attached property Text of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Disable Reason"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Describe here what would cause disable of the control")]
         public static string GetDisableReason(UIElement element)
         {
             return (string)element.GetValue(DisableReasonProperty);
@@ -147,6 +171,10 @@ namespace Fluent
         /// Gets value of the attached property Help of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Help Text"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Help message")]
         public static string GetHelp(UIElement element)
         {
             return (string)element.GetValue(HelpProperty);
@@ -182,9 +210,52 @@ namespace Fluent
         /// Gets value of the attached property Image of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Image"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Image of the screen tip")]
         public static ImageSource GetImage(UIElement element)
         {
             return (ImageSource)element.GetValue(ImageProperty);
+        }
+
+        #endregion
+
+        #region Width Attached Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Width.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty WidthProperty = DependencyProperty.RegisterAttached(
+          "Width",
+          typeof(double),
+          typeof(ScreenTip),
+          new FrameworkPropertyMetadata((double)260.0,
+              FrameworkPropertyMetadataOptions.None)
+        );
+
+        /// <summary>
+        /// Sets value of attached property Width for the given element
+        /// </summary>
+        /// <param name="element">The given element</param>
+        /// <param name="value">Value</param>
+        public static void SetWidth(UIElement element, double value)
+        {
+            element.SetValue(ImageProperty, value);
+        }
+
+        /// <summary>
+        /// Gets value of the attached property Width of the given element
+        /// </summary>
+        /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Width"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Width of the screen tip")]
+        public static double GetWidth(UIElement element)
+        {
+            return (double)element.GetValue(ImageProperty);
         }
 
         #endregion

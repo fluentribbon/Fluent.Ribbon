@@ -3,40 +3,139 @@
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	
     <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
-      <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
-          <Border MinHeight="50" CornerRadius="1" BorderThickness="1" BorderBrush="#FF767676">
-          	<Border.Background>
-          		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-          			<GradientStop Color="White" Offset="0"/>
-          			<GradientStop Color="#FFEAEAF4" Offset="1"/>
-          			<GradientStop Color="#FFF6F6FA" Offset="0.746"/>
-          		</LinearGradientBrush>
-          	</Border.Background>
-          	<StackPanel >
-          		<TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" FontWeight="Bold" Text="{Binding Path=(Fluent:ScreenTip.Title), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
-          		<StackPanel x:Name="imageAndTextSection" Orientation="Horizontal">
-					<Image Margin="6,0,0,6" Source="{Binding Path=(Fluent:ScreenTip.Image), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"></Image>
-          			<TextBlock TextWrapping="Wrap" Width="200" Margin="12,0,8,4" Foreground="#FF414141"  Text="{Binding Path=(Fluent:ScreenTip.Text), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
-          		</StackPanel>
-          		<Border x:Name="separator" Height="2" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1"/>
-				<Grid x:Name="disableReasonSection">
-					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png" />
-					<StackPanel>
-						<TextBlock x:Name="disableReasonText"  Text="{Binding Path=(Fluent:ScreenTip.DisableReason), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141"/>
-						<TextBlock x:Name="helpText"  Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141"/>
-					</StackPanel>
-				</Grid>
-				<Grid x:Name="helpSection">
-					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\HelpSmall.png"/>
-					<TextBlock  Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141" FontWeight="Bold"/>
-				</Grid>
-          	</StackPanel>
-          </Border>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="11,-1,1,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
+              <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
+                  <GradientStop Color="#7F000000" Offset="0"/>
+                  <GradientStop Offset="1"/>
+                </LinearGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,11,0,1" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
+              <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="1.002,0" MappingMode="RelativeToBoundingBox">
+                  <GradientStop Color="#7F000000" Offset="0"/>
+                  <GradientStop Offset="1"/>
+                </LinearGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1">
+              <Rectangle.Fill>
+                <RadialGradientBrush Center="-0.003,0.011" GradientOrigin="-0.003,0.011" RadiusX="1.006" RadiusY="1">
+                  <GradientStop Color="#7F000000" Offset="0.002"/>
+                  <GradientStop Offset="1"/>
+                </RadialGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,5,0,0" VerticalAlignment="Top" Height="6" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
+              <Rectangle.Fill>
+                <RadialGradientBrush Center="-0.01,1.004" GradientOrigin="-0.01,1.004" RadiusX="1.006" RadiusY="1">
+                  <GradientStop Color="#7F000000" Offset="0.002"/>
+                  <GradientStop Offset="1"/>
+                </RadialGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Left" Margin="5,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Width="6">
+              <Rectangle.Fill>
+                <RadialGradientBrush Center="1.003,-0.006" GradientOrigin="1.003,-0.006" RadiusX="1.006" RadiusY="1">
+                  <GradientStop Color="#7F000000" Offset="0.002"/>
+                  <GradientStop Offset="1"/>
+                </RadialGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+
+            
+            <Border Grid.RowSpan="1" CornerRadius="2" BorderThickness="1" BorderBrush="#FF767676">
+              <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                  <GradientStop Color="White" Offset="0"/>
+                  <GradientStop Color="#FFEAEAF4" Offset="1"/>
+                  <GradientStop Color="#FFF6F6FA" Offset="0.746"/>
+                </LinearGradientBrush>
+              </Border.Background>
+
+              <Grid>
+                <StackPanel x:Name="screenTipPanel" Width="{Binding Path=(Fluent:ScreenTip.Width), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}">
+                  <TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" FontWeight="Bold" Text="{Binding Path=(Fluent:ScreenTip.Title), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
+                  <Grid x:Name="imageAndTextSection">
+          			<Grid.ColumnDefinitions>
+          				<ColumnDefinition Width="Auto"/>
+          				<ColumnDefinition Width="*"/>
+          			</Grid.ColumnDefinitions>
+					<Image Margin="7,5,3,7" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Path=(Fluent:ScreenTip.Image), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
+          			<TextBlock Text="{Binding Path=(Fluent:ScreenTip.Text), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="8,0,8,6" Foreground="#FF414141" Grid.Column="1"/>
+          		</Grid>
+                  <Border x:Name="separator" Height="2" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1" IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
+                  <Grid x:Name="disableReasonSection">
+                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png" />                    
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<TextBlock x:Name="disableReasonText" Text="{Binding Path=(Fluent:ScreenTip.DisableReason), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" HorizontalAlignment="Stretch"/>
+						<TextBlock x:Name="helpText" Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="1" HorizontalAlignment="Stretch"/>
+					</Grid>
+                  </Grid>
+                  <Grid x:Name="helpSection">
+                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\HelpSmall.png"/>
+                    <TextBlock Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,6,6" Foreground="#FF414141" FontWeight="Bold" HorizontalAlignment="Stretch"/>
+                  </Grid>
+                </StackPanel>
+
+                <TextBlock x:Name="regularToolTipText" Text="{TemplateBinding Content}" Margin="5,3,5,3" Visibility="Collapsed"/>
+              </Grid>
+            </Border>
+          </Grid>
+
+          <ControlTemplate.Triggers>
+            <Trigger Property="Text" SourceName="title" Value="">
+              <Setter Property="Visibility" TargetName="screenTipPanel" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Visibility" SourceName="screenTipPanel" Value="Collapsed">
+              <Setter Property="Visibility" TargetName="regularToolTipText" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" SourceName="separator" Value="False">
+              <Setter Property="Visibility" TargetName="disableReasonSection" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" SourceName="separator" Value="True">
+              <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="Text" SourceName="helpText" Value=""/>
+                <Condition Property="Text" Value="" SourceName="disableReasonText"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
+            </MultiTrigger>
+            <Trigger Property="Text" SourceName="disableReasonText" Value="">
+              <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>              
+            </Trigger>
+            <Trigger Property="Text" SourceName="helpText" Value="">
+              <Setter Property="Visibility" TargetName="helpText" Value="Collapsed"/>
+              <Setter Property="Visibility" TargetName="helpSection" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Visibility" SourceName="disableReasonSection" Value="Visible">
+              <Setter Property="Visibility" TargetName="helpSection" Value="Collapsed"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+          
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -58,19 +157,27 @@
           			<GradientStop Color="#FFF6F6FA" Offset="0.746"/>
           		</LinearGradientBrush>
           	</Border.Background>
-          	<StackPanel >
+          	<StackPanel Width="250" >
           		<TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" Foreground="#FF414141" FontWeight="Bold" Text="{Binding Fluent:ScreenTip.Title, ElementName=title, Mode=OneWay}"/>
-          		<StackPanel x:Name="imageAndTextSection" Orientation="Horizontal">
-					<Image Margin="6,0,0,6"></Image>
-          			<TextBlock Text="Insert a picture of any program that is not minimized to the taskbar. \nClick Screen Clipping to insert a picture of any part of screen." TextWrapping="Wrap" Width="200" Margin="12,0,8,4" Foreground="#FF414141"/>
-          		</StackPanel>
+          		<Grid x:Name="imageAndTextSection">
+          			<Grid.ColumnDefinitions>
+          				<ColumnDefinition Width="Auto"/>
+          				<ColumnDefinition Width="*"/>
+          			</Grid.ColumnDefinitions>
+					<Image Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+          			<TextBlock Text="Insert a picture of any program that is not minimized to the taskbar. \nClick Screen Clipping to insert a picture of any part of screen." TextWrapping="Wrap" Margin="1,0,8,6" Foreground="#FF414141" Grid.Column="1"/>
+          		</Grid>
           		<Border x:Name="separator" Height="2" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1"/>
 				<Grid x:Name="disableReasonSection">
 					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0"/>
-					<StackPanel>
-						<TextBlock x:Name="disableReasonText" Text="This command is currently disabled. This document has been opened in Compatability mode. To use this feature, convert your document to a new file format by clicking the File tab and then clicking Convert" TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141"/>
-						<TextBlock x:Name="helpText" Text="Press F1 for more help." TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141"/>
-					</StackPanel>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<TextBlock x:Name="disableReasonText" Text="This command is currently disabled. This document has been opened in Compatability mode. To use this feature, convert your document to a new file format by clicking the File tab and then clicking Convert" TextWrapping="Wrap" Margin="41.5,0,5.5,6" Foreground="#FF414141" Grid.RowSpan="1" HorizontalAlignment="Stretch"/>
+						<TextBlock x:Name="helpText" Text="Press F1 for more help." TextWrapping="Wrap" Margin="41.5,0,6.5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="1" HorizontalAlignment="Stretch"/>
+					</Grid>
 				</Grid>
 				<Grid x:Name="helpSection">
 					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0"/>

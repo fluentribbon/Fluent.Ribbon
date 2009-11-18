@@ -5,7 +5,7 @@
     Title="Window1" Height="345" Width="680">
     <Grid>
         <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0">
-        	<Fluent:RibbonTabItem Header="Home" Style="{DynamicResource RibbonTabItemStyle}">
+        	<Fluent:RibbonTabItem Header="Home" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip">
         		<Fluent:RibbonGroupsContainer Orientation="Horizontal" HorizontalAlignment="Left" ReduceOrder="A,B,A,B,B,A,C,C,C">
         			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick"/>
         			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}"/>
@@ -18,12 +18,13 @@
         	<Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
         		<Rectangle Fill="#FFFF00CB" Stroke="Black" Width="100" Height="100"/>
         	</Fluent:RibbonTabItem>
-          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="sdf" 
-                                Fluent:ScreenTip.Title="Screen Tip Title"
-                                Fluent:ScreenTip.Text="Screen Tip Text Screen Tip Text Screen Tip Text Screen Tip Text Screen Tip Text"
-                                Fluent:ScreenTip.DisableReason="Disable Reason Text Disable Reason Text Disable Reason Text"
-                                Fluent:ScreenTip.Image="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png"
-                                Fluent:ScreenTip.Help="Press F1 для получния помосЧи"/>
+          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}" IsEnabled="False"
+                                Fluent:ScreenTip.Title="Insert Chart"
+                                Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#x0a;&#x0a;Bar, Pie, Line, Area and Surface are same of the available types."
+                                Fluent:ScreenTip.Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
+                                Fluent:ScreenTip.Help="Press F1 for more help."
+                                Fluent:ScreenTip.DisableReason="Disable reason reason."
+                                Fluent:ScreenTip.Width="300"/>
           <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}"/>
           <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}"/>
           <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}"/>
