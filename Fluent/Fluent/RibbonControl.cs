@@ -74,10 +74,111 @@ namespace Fluent
         /// Gets value of the attached property Size of the given element
         /// </summary>
         /// <param name="element">The given element</param>
-        /// <param name="value">Value</param>
+        [System.ComponentModel.Browsable(false)]
         public static RibbonControlSize GetSize(UIElement element)
         {
             return (RibbonControlSize)element.GetValue(SizeProperty);
+        }
+
+        #endregion
+        
+        #region SizeDefinition Attached Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = DependencyProperty.RegisterAttached(
+          "SizeDefinition",
+          typeof(string),
+          typeof(RibbonControl),
+          new FrameworkPropertyMetadata("Large, Middle, Small",
+              FrameworkPropertyMetadataOptions.AffectsArrange |
+              FrameworkPropertyMetadataOptions.AffectsMeasure |
+              FrameworkPropertyMetadataOptions.AffectsRender |
+              FrameworkPropertyMetadataOptions.AffectsParentArrange |
+              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+              OnSizeDefinitionPropertyChanged)
+        );
+
+        static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {            
+            // Find parent group box
+            RibbonGroupBox groupBox = FindParentRibbonGroupBox(d);
+            if (groupBox == null) return;
+            SetAppropriateSize((UIElement)d, groupBox.State);
+        }
+
+        // Finds parent group box
+        static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
+        {
+            while (!(o is RibbonGroupBox)) { o = VisualTreeHelper.GetParent(o); if (o == null) break; }
+            return o == null ? null : (RibbonGroupBox)o;
+        }
+
+        /// <summary>
+        /// Sets appropriate size of the control according to the 
+        /// given group box state and control's size definition
+        /// </summary>
+        /// <param name="element">UI Element</param>
+        /// <param name="state">Group box state</param>
+        public static void SetAppropriateSize(UIElement element, RibbonGroupBoxState state)
+        {
+            int index = (int)state;
+            if (state == RibbonGroupBoxState.Collapsed) index = 0;
+            SetSize(element, GetThreeSizeDefinition(element)[index]);
+        }
+
+        /// <summary>
+        /// Sets value of attached property SizeDefinition for the given element
+        /// </summary>
+        /// <param name="element">The given element</param>
+        /// <param name="value">Value</param>
+        public static void SetSizeDefinition(UIElement element, string value)
+        {
+            element.SetValue(SizeDefinitionProperty, value);
+        }
+
+        /// <summary>
+        /// Gets value of the attached property SizeDefinition of the given element
+        /// </summary>
+        /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Size Definition"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Ribbon Control Properties"),
+        System.ComponentModel.Description("Enumerate using comma what sizes need to be used from bigger to larger. For example: Large, Middle, Small")]
+        public static string GetSizeDefinition(UIElement element)
+        {
+            return (string)element.GetValue(SizeDefinitionProperty);
+        }
+
+        /// <summary>
+        /// Gets value of the attached property SizeDefinition of the given element
+        /// </summary>
+        /// <param name="element">The given element</param>
+        public static RibbonControlSize[] GetThreeSizeDefinition(UIElement element)
+        {
+            string[] splitted = (GetSizeDefinition(element)).Split(new char[] { ' ', ',', ';', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            int count = Math.Min(splitted.Length, 3);
+            if (count == 0) return new RibbonControlSize[] { RibbonControlSize.Large, RibbonControlSize.Large, RibbonControlSize.Large };
+
+            RibbonControlSize[] sizes = new RibbonControlSize[3];
+            for (int i = 0; i < count; i++)
+            {
+                switch(splitted[i])
+                {
+                    case "Large": sizes[i] = RibbonControlSize.Large; break;
+                    case "Middle": sizes[i] = RibbonControlSize.Middle; break;
+                    case "Small": sizes[i] = RibbonControlSize.Small; break;
+                    default: sizes[i] = RibbonControlSize.Large; break;
+                }
+            }
+            for (int i = count; i < 3; i++)
+            {
+                sizes[i] = sizes[count - 1];
+            }
+            return sizes;
         }
 
         #endregion
@@ -112,6 +213,10 @@ namespace Fluent
         /// Gets value of the attached property LargeIcon of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Large Icon"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Ribbon Control Properties"),
+        System.ComponentModel.Description("Large Icon of the control to use it in a style")]
         public static ImageSource GetLargeIcon(UIElement element)
         {
             return (ImageSource)element.GetValue(LargeIconProperty);
@@ -147,6 +252,10 @@ namespace Fluent
         /// Gets value of the attached property SmallIcon of the given element
         /// </summary>
         /// <param name="element">The given element</param>
+        [System.ComponentModel.DisplayName("Small Icon"),
+        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
+        System.ComponentModel.Category("Ribbon Control Properties"),
+        System.ComponentModel.Description("Small Icon of the control to use it in a style")]
         public static ImageSource GetSmallIcon(UIElement element)
         {
             return (ImageSource)element.GetValue(SmallIconProperty);
