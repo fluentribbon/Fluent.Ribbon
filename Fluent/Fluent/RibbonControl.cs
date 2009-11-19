@@ -46,8 +46,19 @@ namespace Fluent
           new FrameworkPropertyMetadata(RibbonControlSize.Large, 
               FrameworkPropertyMetadataOptions.AffectsArrange |
               FrameworkPropertyMetadataOptions.AffectsMeasure |
-              FrameworkPropertyMetadataOptions.AffectsRender)
+              FrameworkPropertyMetadataOptions.AffectsRender |
+              FrameworkPropertyMetadataOptions.AffectsParentArrange |
+              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+              OnSizePropertyChanged)
         );
+
+        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement) d;
+            //(VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateMeasure();
+            /*(VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateArrange();
+            (VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateVisual();*/
+        }
 
         /// <summary>
         /// Sets value of attached property Size for the given element

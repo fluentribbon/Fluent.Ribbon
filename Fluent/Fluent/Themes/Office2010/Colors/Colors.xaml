@@ -1,5 +1,33 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<!-- Resource dictionary entries should be defined here. -->
+	<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="#FFF4DC91"/>
+	<LinearGradientBrush x:Key="ButtonHoverOuterBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFEEC955" Offset="0"/>
+		<GradientStop Color="#FFF3D54A" Offset="1"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ButtonHoverInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFFAE9A4" Offset="0"/>
+		<GradientStop Color="#FFFAEDB9" Offset="1"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ButtonHoverInnerBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFFDF8E5" Offset="0"/>
+		<GradientStop Color="#FFFCFAF1" Offset="1"/>
+	</LinearGradientBrush>
+		
+	<SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush" Color="#FFDCA351"/>
+	<LinearGradientBrush x:Key="ButtonPressedOuterBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFCC8C48" Offset="0"/>
+		<GradientStop Color="#FFC49D4D" Offset="1"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ButtonPressedInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFFBD678" Offset="0"/>
+		<GradientStop Color="#FFFFE48A" Offset="1"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ButtonPressedInnerBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFF6C865" Offset="0"/>
+		<GradientStop Color="#FFFFE48A" Offset="1"/>
+	</LinearGradientBrush>
+	
+	<SolidColorBrush x:Key="TransparentBrush" Color="#00000000"/>
 </ResourceDictionary>

@@ -13,12 +13,12 @@
 				</Rectangle>
 			</Grid>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="1" BorderThickness="1,0" Margin="0"/>
-			<TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" TextWrapping="Wrap" Margin="0,38,0,0"/>
+			<Fluent:ControlLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource ControlLabelStyle}"/>
 			<Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
 				<Image Source="{TemplateBinding Image}"/>
 			</Border>
 			<Popup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" IsOpen="{TemplateBinding IsOpen}" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True">
-				<Grid Width="308.95" Height="Auto">
+				<Grid Width="Auto" Height="Auto">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="5"/>
@@ -78,10 +78,10 @@
 									<ColumnDefinition Width="*"/>
 									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
-								<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="Wrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}"/>
-								<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Content="Button" Grid.Column="1"/>
+								<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Padding="2,0" TextTrimming="CharacterEllipsis"/>
+								<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 							</Grid>
-							<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,2,0"/>
+							<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,2,0" Orientation="Vertical"/>
 						</Grid>
 					</Border>
 				</Grid>
@@ -107,11 +107,11 @@
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-		<Style.Triggers>
+		<!--<Style.Triggers>
 			<Trigger Property="State" Value="Collapsed">
 				<Setter Property="Template" Value="{DynamicResource RibbonGroupBoxCollapsedControlTemplate}"/>
 			</Trigger>
-		</Style.Triggers>
+		</Style.Triggers>-->
 	</Style>
 	<ControlTemplate x:Key="RibbonGroupBoxControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">
 		<ControlTemplate.Resources>
@@ -146,10 +146,10 @@
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="Wrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}"/>
-				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Content="Button" Grid.Column="1"/>
+				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis"/>
+				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 			</Grid>
-			<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,3,0"/>
+			<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,3,0" Orientation="Vertical"/>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
 		</Grid>
 		<ControlTemplate.Triggers>
@@ -162,6 +162,31 @@
 			<EventTrigger RoutedEvent="Mouse.MouseEnter">
 				<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
 			</EventTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+	<ControlTemplate x:Key="DialogLauncherButtonControlTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
+			<Border x:Name="border1" Width="Auto" Height="Auto" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
+				<Image Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png" SnapsToDevicePixels="True" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 </ResourceDictionary>

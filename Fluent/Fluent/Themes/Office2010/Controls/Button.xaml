@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+	<Style x:Key="RibbonButtonStyle" TargetType="{x:Type Button}">
+		<Setter Property="Focusable" Value="False"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
+		<Setter Property="Height" Value="Auto"/>
+    <Setter Property="Width" Value="Auto"/>
+		<Style.Triggers>
+      <!--<Trigger Property="Fluent:RibbonControl.Size" Value="Large">
+        <Setter Property="Height" Value="66"/>
+        <Setter Property="Width" Value="100"/>
+      </Trigger>
+      <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="100"/>
+      </Trigger>
+      <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="22"/>
+      </Trigger>-->
+		</Style.Triggers>
+	</Style>
+	<ControlTemplate x:Key="RibbonButtonControlTemplate" TargetType="{x:Type Button}">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="66">
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+				<StackPanel x:Name="stackPanel" Width="121" Orientation="Vertical">
+					<Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="{Binding Path=(Fluent:RibbonControl.LargeIcon), RelativeSource={RelativeSource TemplatedParent}}"/>
+					<Fluent:ControlLabel x:Name="controlLabel" Text="{TemplateBinding Content}" Style="{DynamicResource ControlLabelStyle}"/>
+				</StackPanel>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="Fluent:RibbonControl.Size" Value="Small">
+				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+				<Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>				
+			</Trigger>
+			<Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
+				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>			
+			</Trigger>
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+    
+</ResourceDictionary>

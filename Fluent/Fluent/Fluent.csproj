@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlLabel.cs" />
     <Compile Include="ScreenTip.cs" />
     <Compile Include="RibbonTabsContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +106,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Office2010\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\ControlLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Office2010\Controls\ScreenTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -141,6 +150,9 @@
   <ItemGroup>
     <Resource Include="Themes\Office2010\Images\HelpSmall.png" />
     <Resource Include="Themes\Office2010\Images\WarningSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\DialogLauncher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

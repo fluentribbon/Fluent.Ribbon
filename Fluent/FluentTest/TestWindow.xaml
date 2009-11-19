@@ -1,15 +1,23 @@
-﻿<Window x:Class="FluentTest.TestWindow"
+﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-    Title="Window1" Height="345" Width="680">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="FluentTest.TestWindow"
+    Title="Window1" Height="345" Width="880" mc:Ignorable="d">
     <Grid>
         <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0">
         	<Fluent:RibbonTabItem Header="Home" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip">
-        		<Fluent:RibbonGroupsContainer Orientation="Horizontal" HorizontalAlignment="Left" ReduceOrder="A,B,A,B,B,A,C,C,C">
-        			<Fluent:RibbonGroupBox x:Name="A" Header="A" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick"/>
-        			<Fluent:RibbonGroupBox x:Name="B" Header="B" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}"/>
-        			<Fluent:RibbonGroupBox x:Name="C" Header="C" Width="100" Style="{DynamicResource RibbonGroupBoxStyle}"/>
+        		<Fluent:RibbonGroupsContainer HorizontalAlignment="Stretch" ReduceOrder="A">
+              <Fluent:RibbonGroupBox x:Name="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+                <WrapPanel Orientation="Vertical" Width="Auto" Height="85">
+                <Button Content="Button" Click="OnBtnClick" Width="100" Height="66"/>
+                <Button Content="Button" Width="100" Height="66"/>
+                <Button Content="Button" Width="100" Height="66"/>
+                <Button Content="Button" Width="100" Height="66"/>
+                <Button Content="Button" Width="100" Height="66"/>
+                <Button Content="Button" Width="100" Height="66"/>
+                </WrapPanel>
+              </Fluent:RibbonGroupBox>
         		</Fluent:RibbonGroupsContainer>
         	</Fluent:RibbonTabItem>
         	<Fluent:RibbonTabItem Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">

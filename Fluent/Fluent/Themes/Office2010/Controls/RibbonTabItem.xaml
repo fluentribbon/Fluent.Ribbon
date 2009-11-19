@@ -79,6 +79,7 @@
 							<MultiTrigger.Conditions>
 								<Condition Property="IsMouseOver" Value="True"/>
 								<Condition Property="Selector.IsSelected" Value="False"/>
+								<Condition Property="IsMinimized" Value="False"/>
 							</MultiTrigger.Conditions>
 							<Setter Property="Visibility" TargetName="hoverGrid" Value="Visible"/>
 						</MultiTrigger>

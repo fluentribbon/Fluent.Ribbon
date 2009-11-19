@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,7 +12,7 @@ namespace Fluent
     /// Represent panel with ribbon group.
     /// It is automatically adjusting size of controls
     /// </summary>
-    public class RibbonGroupsContainer : StackPanel
+    public class RibbonGroupsContainer : Panel
     {
         #region Reduce Order
         
@@ -64,7 +66,6 @@ namespace Fluent
         /// </summary>
         public RibbonGroupsContainer(): base()
         {
-            Orientation = Orientation.Horizontal;
         }
 
         #endregion
@@ -81,17 +82,18 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            Size desiredSize = base.MeasureOverride(constraint);
+            Size infinitySize = new Size(Double.PositiveInfinity, constraint.Height);
+            Size desiredSize = GetChildrenDesiredSize(infinitySize);
 
             // If the constraint and desired size are equal to those in the cache, skip
             // this layout measure pass.
-            if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
+            //if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
             {
                 cachedConstraint = constraint;
                 cachedDesiredSize = desiredSize;
 
                 // If we have more available space - try to expand groups
-                while (GetChildrenWidth() <= constraint.Width)
+                while (desiredSize.Width <= constraint.Width)
                 {
                     bool hasMoreVariants = reduceOrderIndex < reduceOrder.Length - 1;
                     if (!hasMoreVariants) break;
@@ -101,11 +103,11 @@ namespace Fluent
                     IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
                     
 
-                    desiredSize = base.MeasureOverride(constraint);                    
+                    desiredSize = GetChildrenDesiredSize(infinitySize);                    
                 }
 
                 // If not enough space - go to next variant
-                while (GetChildrenWidth() > constraint.Width)
+                while (desiredSize.Width > constraint.Width)
                 {
                     bool hasMoreVariants = reduceOrderIndex >= 0;
                     if (!hasMoreVariants) break;
@@ -114,10 +116,10 @@ namespace Fluent
                     DecreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
                     reduceOrderIndex--;
 
-                    desiredSize = base.MeasureOverride(constraint);                    
+                    desiredSize = GetChildrenDesiredSize(infinitySize);                     
                 }                
             }
-
+            cachedDesiredSize = desiredSize;
             return desiredSize;
         }
 
@@ -128,11 +130,24 @@ namespace Fluent
         double GetChildrenWidth()
         {
             double result = 0;
-            foreach (UIElement child in this.Children)
+            foreach (UIElement child in this.InternalChildren)
             {
                 result += child.DesiredSize.Width;
             }
-            return result + 3;
+            return result;
+        }
+
+        Size GetChildrenDesiredSize(Size availableSize)
+        {
+            double width = 0;
+            double height = 0;
+            foreach (UIElement child in this.InternalChildren)
+            {
+                child.Measure(availableSize);
+                width += child.DesiredSize.Width;
+                height = Math.Max(height, child.DesiredSize.Height);
+            }
+            return new Size(width, height);
         }
 
         
@@ -144,6 +159,7 @@ namespace Fluent
             if (item == null) return;
             RibbonGroupBox groupBox = (RibbonGroupBox)item;
             if(groupBox.State != RibbonGroupBoxState.Large) groupBox.State = groupBox.State - 1;
+            Debug.WriteLine("Group increased to " + groupBox.State);
         }
 
         // Decrease size of the item
@@ -153,6 +169,22 @@ namespace Fluent
             if (item == null) return;
             RibbonGroupBox groupBox = (RibbonGroupBox)item;
             if(groupBox.State != RibbonGroupBoxState.Collapsed) groupBox.State = groupBox.State + 1;
+            Debug.WriteLine("Group decrased to " + groupBox.State);
+        }
+
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            Rect finalRect = new Rect(finalSize);
+
+            foreach (UIElement item in InternalChildren)
+            {
+                finalRect.Width = item.DesiredSize.Width;
+                finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
+                item.Arrange(finalRect);
+                finalRect.X += item.DesiredSize.Width;
+            }
+            return finalSize;
         }
 
         #endregion

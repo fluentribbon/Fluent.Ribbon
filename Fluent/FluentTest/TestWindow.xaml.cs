@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Fluent;
 
 namespace FluentTest
 {
@@ -27,6 +28,11 @@ namespace FluentTest
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Launcher button pressed!!!");
+        }
+
+        private void OnBtnClick(object sender, RoutedEventArgs e)
+        {
+            RibbonControl.SetSize(sender as UIElement, (RibbonControlSize)(((int)RibbonControl.GetSize(sender as UIElement) + 1) % 3));
         }
     }
 }

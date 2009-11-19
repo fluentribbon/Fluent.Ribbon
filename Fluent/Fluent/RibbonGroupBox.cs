@@ -39,7 +39,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    public class RibbonGroupBox : ItemsControl
+    public class RibbonGroupBox :GroupBox//ItemsControl
     {
         #region Fields
 
@@ -77,18 +77,54 @@ namespace Fluent
             if (ribbonGroupBoxState == RibbonGroupBoxState.Collapsed)
             {
                 // TODO: implement collapsed state
-                ribbonGroupBox.Width = double.NaN;
+                //ribbonGroupBox.Width = double.NaN;
+                /*for (int i = 0; i < ribbonGroupBox.Items.Count; i++)
+                {
+                    RibbonControl.SetSize((UIElement)ribbonGroupBox.Items[i], RibbonControlSize.Large);
+                }*/
             }
             else
             {
                 // TODO: implement it properly
-                switch(ribbonGroupBoxState)
+                /*switch (ribbonGroupBoxState)
                 {
-                    case RibbonGroupBoxState.Large: ribbonGroupBox.Width = 65; break;
-                    case RibbonGroupBoxState.Middle: ribbonGroupBox.Width = 45; break;
-                    case RibbonGroupBoxState.Small: ribbonGroupBox.Width = 30; break;
+                    case RibbonGroupBoxState.Large: (ribbonGroupBox.Content as Button).Width = 300; break;
+                    case RibbonGroupBoxState.Middle: (ribbonGroupBox.Content as Button).Width = 150; break;
+                    case RibbonGroupBoxState.Small: (ribbonGroupBox.Content as Button).Width = 50; break;
+                }*/
+                //(ribbonGroupBox.Parent as RibbonGroupsContainer).InvalidateMeasure();
+                /*switch(ribbonGroupBoxState)
+                {
+                    case RibbonGroupBoxState.Large: ribbonGroupBox.Width = 300; break;
+                    case RibbonGroupBoxState.Middle: ribbonGroupBox.Width = 150; break;
+                    case RibbonGroupBoxState.Small: ribbonGroupBox.Width = 50; break;
+                }*/
+                UIElementCollection Items = (ribbonGroupBox.Content as WrapPanel).Children;
+                for(int i=0;i<Items.Count;i++)
+                {
+                    //RibbonControl.SetSize((UIElement)ribbonGroupBox.Items[i], (RibbonControlSize)ribbonGroupBoxState);
+                    if(ribbonGroupBoxState==RibbonGroupBoxState.Large)
+                    {
+                        (Items[i] as Button).Width = 100;
+                        (Items[i] as Button).Height = 66;
+                    }
+                    else if (ribbonGroupBoxState == RibbonGroupBoxState.Middle)
+                    {
+                        (Items[i] as Button).Width = 50;
+                        (Items[i] as Button).Height = 22;
+                    }
+                    else if (ribbonGroupBoxState == RibbonGroupBoxState.Small)
+                    {
+                        (Items[i] as Button).Width = 22;
+                        (Items[i] as Button).Height = 22;
+                    }
                 }
-                
+                //(ribbonGroupBox.Parent as RibbonGroupsContainer).InvalidateMeasure();
+                //(ribbonGroupBox.Content as WrapPanel).InvalidateArrange();
+                //(VisualTreeHelper.GetParent(ribbonGroupBox.Items[0] as DependencyObject) as WrapPanel).InvalidateArrange();
+                //(VisualTreeHelper.GetParent(ribbonGroupBox.Items[0] as DependencyObject) as WrapPanel).InvalidateMeasure();
+                //ribbonGroupBox.InvalidateVisual();
+                //ribbonGroupBox.UpdateLayout();
             }
         }
 
@@ -148,7 +184,7 @@ namespace Fluent
 
         static RibbonGroupBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
+            //DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
 
             EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
             EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
