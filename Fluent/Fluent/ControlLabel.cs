@@ -32,7 +32,12 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for HasTwoLines.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasTwoLinesProperty =
-            DependencyProperty.Register("HasTwoLines", typeof(bool), typeof(ControlLabel), new UIPropertyMetadata(true));
+            DependencyProperty.Register("HasTwoLines", typeof(bool), typeof(ControlLabel), new UIPropertyMetadata(true,OnHasTwoLinesChanged));
+
+        private static void OnHasTwoLinesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as ControlLabel).UpdateTextRun();
+        }
 
         public bool HasGlyph
         {
@@ -42,8 +47,12 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for HasGlyph.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasGlyphProperty =
-            DependencyProperty.Register("HasGlyph", typeof(bool), typeof(ControlLabel), new UIPropertyMetadata(false));
+            DependencyProperty.Register("HasGlyph", typeof(bool), typeof(ControlLabel), new UIPropertyMetadata(false, OnHasGlyphChanged));
 
+        private static void OnHasGlyphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as ControlLabel).UpdateTextRun();
+        }
 
 
         public string Text

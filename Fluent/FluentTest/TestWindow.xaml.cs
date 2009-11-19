@@ -34,5 +34,6 @@ namespace FluentTest
         {
             RibbonControl.SetSize(sender as UIElement, (RibbonControlSize)(((int)RibbonControl.GetSize(sender as UIElement) + 1) % 3));
         }
+
     }
 }

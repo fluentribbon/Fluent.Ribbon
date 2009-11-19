@@ -73,6 +73,16 @@ namespace Fluent
         #region Layout Overridings
 
         /// <summary>
+        ///   Returns a collection of the panel's UIElements.
+        /// </summary>
+        /// <param name="logicalParent">The logical parent of the collection to be created.</param>
+        /// <returns>Returns an ordered collection of elements that have the specified logical parent.</returns>
+        protected override UIElementCollection CreateUIElementCollection(FrameworkElement logicalParent)
+        {
+            return new UIElementCollection(this, Parent as FrameworkElement);
+        }
+
+        /// <summary>
         /// Measures all of the RibbonGroupBox, and resize them appropriately
         /// to fit within the available room
         /// </summary>
@@ -87,7 +97,7 @@ namespace Fluent
 
             // If the constraint and desired size are equal to those in the cache, skip
             // this layout measure pass.
-            //if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
+            if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
             {
                 cachedConstraint = constraint;
                 cachedDesiredSize = desiredSize;
@@ -119,7 +129,7 @@ namespace Fluent
                     desiredSize = GetChildrenDesiredSize(infinitySize);                     
                 }                
             }
-            cachedDesiredSize = desiredSize;
+
             return desiredSize;
         }
 
@@ -159,7 +169,6 @@ namespace Fluent
             if (item == null) return;
             RibbonGroupBox groupBox = (RibbonGroupBox)item;
             if(groupBox.State != RibbonGroupBoxState.Large) groupBox.State = groupBox.State - 1;
-            Debug.WriteLine("Group increased to " + groupBox.State);
         }
 
         // Decrease size of the item
@@ -169,7 +178,6 @@ namespace Fluent
             if (item == null) return;
             RibbonGroupBox groupBox = (RibbonGroupBox)item;
             if(groupBox.State != RibbonGroupBoxState.Collapsed) groupBox.State = groupBox.State + 1;
-            Debug.WriteLine("Group decrased to " + groupBox.State);
         }
 
 

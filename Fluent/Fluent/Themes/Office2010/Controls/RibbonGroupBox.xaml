@@ -81,7 +81,7 @@
 								<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Padding="2,0" TextTrimming="CharacterEllipsis"/>
 								<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 							</Grid>
-							<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,2,0" Orientation="Vertical"/>
+							<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical"/>
 						</Grid>
 					</Border>
 				</Grid>
@@ -107,11 +107,11 @@
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-		<!--<Style.Triggers>
+		<Style.Triggers>
 			<Trigger Property="State" Value="Collapsed">
 				<Setter Property="Template" Value="{DynamicResource RibbonGroupBoxCollapsedControlTemplate}"/>
 			</Trigger>
-		</Style.Triggers>-->
+		</Style.Triggers>
 	</Style>
 	<ControlTemplate x:Key="RibbonGroupBoxControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">
 		<ControlTemplate.Resources>
@@ -149,7 +149,7 @@
 				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis"/>
 				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 			</Grid>
-			<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="0,0,3,0" Orientation="Vertical"/>
+			<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical"/>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
 		</Grid>
 		<ControlTemplate.Triggers>

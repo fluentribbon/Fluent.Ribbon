@@ -5,29 +5,30 @@
 		<Setter Property="Focusable" Value="False"/>
 		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
-		<Setter Property="Height" Value="Auto"/>
+		<Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
 		<Style.Triggers>
-      <!--<Trigger Property="Fluent:RibbonControl.Size" Value="Large">
+      <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
         <Setter Property="Height" Value="66"/>
-        <Setter Property="Width" Value="100"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Height" Value="22"/>
-        <Setter Property="Width" Value="100"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
         <Setter Property="Height" Value="22"/>
         <Setter Property="Width" Value="22"/>
-      </Trigger>-->
+      </Trigger>
 		</Style.Triggers>
 	</Style>
 	<ControlTemplate x:Key="RibbonButtonControlTemplate" TargetType="{x:Type Button}">
-		<Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="66">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
-				<StackPanel x:Name="stackPanel" Width="121" Orientation="Vertical">
-					<Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="{Binding Path=(Fluent:RibbonControl.LargeIcon), RelativeSource={RelativeSource TemplatedParent}}"/>
-					<Fluent:ControlLabel x:Name="controlLabel" Text="{TemplateBinding Content}" Style="{DynamicResource ControlLabelStyle}"/>
+				<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
+					<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{Binding Path=(Fluent:RibbonControl.LargeIcon), RelativeSource={RelativeSource TemplatedParent}}" Width="32" Margin="2"/>
+					<Fluent:ControlLabel x:Name="controlLabel" Text="{TemplateBinding Content}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2"/>
 				</StackPanel>
 			</Border>
 		</Border>
@@ -35,11 +36,24 @@
 			<Trigger Property="Fluent:RibbonControl.Size" Value="Small">
 				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
 				<Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
-				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>				
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>
+				<Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+				<Setter Property="Width" TargetName="iconImage" Value="16"/>
+				<Setter Property="Height" TargetName="iconImage" Value="16"/>
+				<Setter Property="Margin" TargetName="iconImage" Value="2"/>				
 			</Trigger>
 			<Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
 				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>			
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=(Fluent:RibbonControl.SmallIcon), RelativeSource={RelativeSource TemplatedParent}}"/>
+				<Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+				<Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+				<Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+				<Setter Property="Margin" TargetName="controlLabel" Value="2,0,2,2"/>
+				<Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
+				<Setter Property="Width" TargetName="iconImage" Value="16"/>
+				<Setter Property="Height" TargetName="iconImage" Value="16"/>
+				<Setter Property="Margin" TargetName="iconImage" Value="2"/>
+				<Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Top"/>			
 			</Trigger>
 			<Trigger Property="IsPressed" Value="True">
 				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>

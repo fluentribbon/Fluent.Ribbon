@@ -52,12 +52,27 @@ namespace Fluent
               OnSizePropertyChanged)
         );
 
+        ///     When the ControlSizeDefinition property changes we need to invalidate the parent chain measure so that
+        ///     the RibbonGroupsContainer can calculate the new size within the same MeasureOverride call.  This property
+        ///     usually changes from RibbonGroupsContainer.MeasureOverride.
         private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            FrameworkElement element = (FrameworkElement) d;
-            //(VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateMeasure();
-            /*(VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateArrange();
-            (VisualTreeHelper.GetParent(d) as WrapPanel).InvalidateVisual();*/
+            Visual visual = d as Visual;
+            while (visual != null)
+            {
+                UIElement uiElement = visual as UIElement;
+                if (uiElement != null)
+                {
+                    if (uiElement is RibbonGroupsContainer)
+                    {
+                        break;
+                    }
+
+                    uiElement.InvalidateMeasure();
+                }
+
+                visual = VisualTreeHelper.GetParent(visual) as Visual;
+            }
         }
 
         /// <summary>
@@ -105,8 +120,11 @@ namespace Fluent
         {            
             // Find parent group box
             RibbonGroupBox groupBox = FindParentRibbonGroupBox(d);
-            if (groupBox == null) return;
-            SetAppropriateSize((UIElement)d, groupBox.State);
+            if (groupBox != null)
+            {
+                SetAppropriateSize((UIElement) d, groupBox.State);
+            }
+            else SetAppropriateSize((UIElement)d, RibbonGroupBoxState.Large);
         }
 
         // Finds parent group box
