@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -10,7 +12,7 @@ namespace Fluent
     /// Represent panel with ribbon tab items.
     /// It is automatically adjusting size of tabs
     /// </summary>
-    public class RibbonTabsContainer : StackPanel
+    public class RibbonTabsContainer : Panel, IScrollInfo
     {
         #region Fields
 
@@ -25,7 +27,7 @@ namespace Fluent
         /// </summary>
         public RibbonTabsContainer() : base()
         {
-            Orientation = Orientation.Horizontal;
+
         }
 
         #endregion
@@ -43,7 +45,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             if (Children.Count == 0) return constraint;
-            Size desiredSize = base.MeasureOverride(constraint);
+            Size desiredSize = MeasureChildrenDesiredSize(constraint);
 
             
             // Performs steps as described in "2007 MICROSOFT® OFFICE FLUENT™ 
@@ -55,6 +57,7 @@ namespace Fluent
             {
                 // Hide separator lines between tabs
                 HideSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -70,11 +73,12 @@ namespace Fluent
             {
                 double decreaseValue = overflowWidth / (double)regularTabsCount;
                 foreach (RibbonTabItem tab in Children) if (!tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
-                desiredSize = new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
 
                 // Add separator lines between 
                 // tabs to assist readability
                 HideSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -88,11 +92,12 @@ namespace Fluent
                 foreach (RibbonTabItem tab in Children)
                     if (tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
                     else tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
-                desiredSize = new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
 
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -135,10 +140,11 @@ namespace Fluent
                     sortedRegularTabItems[i].Measure(new Size(requiredWidth, constraint.Height));
                 }
 
-                desiredSize = new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -154,10 +160,11 @@ namespace Fluent
                 {
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, constraint.Height));
                 }
-                desiredSize = new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -199,10 +206,11 @@ namespace Fluent
                     sortedContextualTabItems[i].Measure(new Size(requiredWidth, constraint.Height));
                 }
 
-                desiredSize = new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
             else
@@ -215,35 +223,58 @@ namespace Fluent
                 {
                     sortedContextualTabItems[i].Measure(new Size(settedWidth, constraint.Height));
                 }
-                desiredSize = new Size(GetChildrenWidth(), desiredSize.Height);
+                desiredSize = GetChildrenDesiredSize();// new Size(GetChildrenWidth(), desiredSize.Height);
 
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators();
+                VerifyScrollData(constraint.Width, desiredSize.Width);
                 return desiredSize;
             }
 
             // Step 7. Display a horizontal scroll button
             // TODO:
-
-
+            
             
         }
 
-        
-
-        /// <summary>
-        /// Calculates the total width of all children
-        /// </summary>
-        /// <returns>Returns the total width</returns>
-        double GetChildrenWidth()
+        Size MeasureChildrenDesiredSize(Size availableSize)
         {
-            double result = 0;
-            foreach (UIElement child in this.Children)
+            double width = 0;
+            double height = 0;
+            foreach (UIElement child in this.InternalChildren)
             {
-                result += child.DesiredSize.Width;
+                child.Measure(availableSize);
+                width += child.DesiredSize.Width;
+                height = Math.Max(height, child.DesiredSize.Height);
             }
-            return result + 3;
+            return new Size(width, height);
+        }
+
+        Size GetChildrenDesiredSize()
+        {
+            double width = 0;
+            double height = 0;
+            foreach (UIElement child in this.InternalChildren)
+            {
+                width += child.DesiredSize.Width;
+                height = Math.Max(height, child.DesiredSize.Height);
+            }
+            return new Size(width, height);
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            Rect finalRect = new Rect(finalSize);
+            finalRect.X = -HorizontalOffset;
+            foreach (UIElement item in InternalChildren)
+            {
+                finalRect.Width = item.DesiredSize.Width;
+                finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
+                item.Arrange(finalRect);
+                finalRect.X += item.DesiredSize.Width;
+            }
+            return finalSize;
         }
 
         void ShowSeparators()
@@ -255,7 +286,308 @@ namespace Fluent
         {
             foreach (RibbonTabItem tab in Children) if (tab.IsSeparatorVisible) tab.IsSeparatorVisible = false;
         }
+        
+        #endregion
+
+        #region IScrollInfo Members
+
+        public ScrollViewer ScrollOwner
+        {
+            get { return ScrollData.ScrollOwner; }
+            set { ScrollData.ScrollOwner = value; }
+        }
+
+        public void SetHorizontalOffset(double offset)
+        {
+            double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"),scrollData.ExtentWidth, scrollData.ViewportWidth);
+            //if (!DoubleUtil.AreClose(ScrollData.OffsetX, newValue))
+            if (ScrollData.OffsetX!= newValue)
+            {
+                scrollData.OffsetX = newValue;
+                InvalidateArrange();
+            }
+        }
+
+        public double ExtentWidth
+        {
+            get { return ScrollData.ExtentWidth; }
+        }
+
+        public double HorizontalOffset
+        {
+            get { return ScrollData.OffsetX; }
+        }
+
+        public double ViewportWidth
+        {
+            get { return ScrollData.ViewportWidth; }
+        }
+
+        public void LineLeft()
+        {
+            SetHorizontalOffset(HorizontalOffset - 16.0);
+        }
+
+        public void LineRight()
+        {
+            SetHorizontalOffset(HorizontalOffset + 16.0);
+        }
+
+        // This is optimized for horizontal scrolling only
+        public Rect MakeVisible(Visual visual, Rect rectangle)
+        {
+            // We can only work on visuals that are us or children.
+            // An empty rect has no size or position.  We can't meaningfully use it.
+            if (rectangle.IsEmpty
+                || visual == null
+                || visual == (Visual)this
+                || !this.IsAncestorOf(visual))
+            {
+                return Rect.Empty;
+            }
+
+            // Compute the child's rect relative to (0,0) in our coordinate space.
+            GeneralTransform childTransform = visual.TransformToAncestor(this);
+
+            rectangle = childTransform.TransformBounds(rectangle);
+
+            // Initialize the viewport
+            Rect viewport = new Rect(HorizontalOffset, rectangle.Top, ViewportWidth, rectangle.Height);
+            rectangle.X += viewport.X;
+
+            // Compute the offsets required to minimally scroll the child maximally into view.
+            double minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
+
+            // We have computed the scrolling offsets; scroll to them.
+            SetHorizontalOffset(minX);
+
+            // Compute the visible rectangle of the child relative to the viewport.
+            viewport.X = minX;
+            rectangle.Intersect(viewport);
+
+            rectangle.X -= viewport.X;
+
+            // Return the rectangle
+            return rectangle;
+        }
+
+        internal static double ComputeScrollOffsetWithMinimalScroll(
+            double topView,
+            double bottomView,
+            double topChild,
+            double bottomChild)
+        {
+            // # CHILD POSITION       CHILD SIZE      SCROLL      REMEDY
+            // 1 Above viewport       <= viewport     Down        Align top edge of child & viewport
+            // 2 Above viewport       > viewport      Down        Align bottom edge of child & viewport
+            // 3 Below viewport       <= viewport     Up          Align bottom edge of child & viewport
+            // 4 Below viewport       > viewport      Up          Align top edge of child & viewport
+            // 5 Entirely within viewport             NA          No scroll.
+            // 6 Spanning viewport                    NA          No scroll.
+            //
+            // Note: "Above viewport" = childTop above viewportTop, childBottom above viewportBottom
+            //       "Below viewport" = childTop below viewportTop, childBottom below viewportBottom
+            // These child thus may overlap with the viewport, but will scroll the same direction
+            /*bool fAbove = DoubleUtil.LessThan(topChild, topView) && DoubleUtil.LessThan(bottomChild, bottomView);
+            bool fBelow = DoubleUtil.GreaterThan(bottomChild, bottomView) && DoubleUtil.GreaterThan(topChild, topView);*/
+            bool fAbove = (topChild< topView) && (bottomChild< bottomView);
+            bool fBelow = (bottomChild> bottomView) && (topChild> topView);
+            bool fLarger = (bottomChild - topChild) > (bottomView - topView);
+
+            // Handle Cases:  1 & 4 above
+            if ((fAbove && !fLarger)
+               || (fBelow && fLarger))
+            {
+                return topChild;
+            }
+
+            // Handle Cases: 2 & 3 above
+            else if (fAbove || fBelow)
+            {
+                return bottomChild - (bottomView - topView);
+            }
+
+            // Handle cases: 5 & 6 above.
+            return topView;
+        }
+
+        // Does not support other scrolling than LineLeft/LineRight
+        public void MouseWheelDown()
+        {
+        }
+
+        public void MouseWheelLeft()
+        {
+        }
+
+        public void MouseWheelRight()
+        {
+        }
+
+        public void MouseWheelUp()
+        {
+        }
+
+        public void LineDown()
+        {
+        }
+
+        public void LineUp()
+        {
+        }
+
+        public void PageDown()
+        {
+        }
+
+        public void PageLeft()
+        {
+        }
+
+        public void PageRight()
+        {
+        }
+
+        public void PageUp()
+        {
+        }
+
+        public void SetVerticalOffset(double offset)
+        {
+        }
+
+        public bool CanVerticallyScroll
+        {
+            get { return false; }
+            set { }
+        }
+
+        public bool CanHorizontallyScroll
+        {
+            get { return true; }
+            set { }
+        }
+
+        public double ExtentHeight
+        {
+            get { return 0.0; }
+        }
+
+        public double VerticalOffset
+        {
+            get { return 0.0; }
+        }
+
+        public double ViewportHeight
+        {
+            get { return 0.0; }
+        }
+
+        private ScrollData ScrollData
+        {
+            get
+            {
+                return scrollData ?? (scrollData = new ScrollData());
+            }
+        }
+
+        private ScrollData scrollData;
+
+        internal static double ValidateInputOffset(double offset, string parameterName)
+        {
+            if (double.IsNaN(offset))
+            {
+                throw new ArgumentOutOfRangeException(parameterName);
+            }
+
+            return Math.Max(0.0, offset);
+        }
+
+        // Verifies scrolling data using the passed viewport and extent as newly computed values.
+        // Checks the X/Y offset and coerces them into the range [0, Extent - ViewportSize]
+        // If extent, viewport, or the newly coerced offsets are different than the existing offset,
+        //   cachces are updated and InvalidateScrollInfo() is called.
+        private void VerifyScrollData(double viewportWidth, double extentWidth)
+        {
+            bool isValid = true;
+
+            if (Double.IsInfinity(viewportWidth))
+            {
+                viewportWidth = extentWidth;
+            }
+
+            double offsetX = CoerceOffset(ScrollData.OffsetX, extentWidth, viewportWidth);
+
+            /*isValid &= DoubleUtil.AreClose(viewportWidth, ScrollData.ViewportWidth);
+            isValid &= DoubleUtil.AreClose(extentWidth, ScrollData.ExtentWidth);
+            isValid &= DoubleUtil.AreClose(ScrollData.OffsetX, offsetX);*/
+
+            isValid &= (viewportWidth == ScrollData.ViewportWidth);
+            isValid &= (extentWidth == ScrollData.ExtentWidth);
+            isValid &= (ScrollData.OffsetX == offsetX);
+
+            ScrollData.ViewportWidth = viewportWidth;
+            ScrollData.ExtentWidth = extentWidth;
+            ScrollData.OffsetX = offsetX;
+
+            if (!isValid)
+            {
+                if (ScrollOwner != null)
+                {
+                    ScrollOwner.InvalidateScrollInfo();
+                }
+            }
+        }
+
+        // Returns an offset coerced into the [0, Extent - Viewport] range.
+        // Internal because it is also used by other Avalon ISI implementations (just to avoid code duplication).
+        internal static double CoerceOffset(double offset, double extent, double viewport)
+        {
+            if (offset > extent - viewport)
+            {
+                offset = extent - viewport;
+            }
+
+            if (offset < 0)
+            {
+                offset = 0;
+            }
+
+            return offset;
+        }
 
         #endregion
     }
+
+    #region ScrollData
+
+     /// <summary>
+     /// Helper class to hold scrolling data.
+     /// This class exists to reduce working set when SCP is delegating to another implementation of ISI.
+     /// Standard "extra pointer always for less data sometimes" cache savings model:
+     /// </summary>
+    internal class ScrollData
+    {
+        /// <summary>
+        /// Scroll viewer
+        /// </summary>
+        internal ScrollViewer ScrollOwner;
+
+        /// <summary>
+        /// Scroll offset
+        /// </summary>
+        internal double OffsetX;
+
+        /// <summary>
+        /// ViewportSize is computed from our FinalSize, but may be in different units.
+        /// </summary>
+        internal double ViewportWidth;
+        /// <summary>
+        /// Extent is the total size of our content.
+        /// </summary>
+        internal double ExtentWidth; 
+    }
+
+
+    #endregion ScrollData    
 }

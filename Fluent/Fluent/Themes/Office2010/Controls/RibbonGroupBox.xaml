@@ -141,15 +141,15 @@
 					</Rectangle.Fill>
 				</Rectangle>
 			</Grid>
-			<Grid Margin="0,0,3,0" Grid.Row="1">
+			<Grid x:Name="PART_DownGrid" Margin="0,0,3,0" Grid.Row="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis"/>
+				<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
 				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 			</Grid>
-			<WrapPanel VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical"/>
+			<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical"/>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
 		</Grid>
 		<ControlTemplate.Triggers>

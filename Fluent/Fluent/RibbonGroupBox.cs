@@ -39,6 +39,8 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
+    [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     public class RibbonGroupBox :ItemsControl
     {
         #region Fields
@@ -46,6 +48,9 @@ namespace Fluent
         private Button dialogLauncherButton = null;
 
         private Popup popup = null;
+
+        private Grid downGrid = null;
+        private Panel upPanel = null;
 
         #endregion
 
@@ -176,6 +181,8 @@ namespace Fluent
             if (dialogLauncherButton != null) dialogLauncherButton.Click += OnDialogLauncherButtonClick;
 
             popup = GetTemplateChild("PART_Popup") as Popup;
+            downGrid = GetTemplateChild("PART_DownGrid") as Grid;
+            upPanel = GetTemplateChild("PART_UpPanel") as Panel;
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -218,6 +225,16 @@ namespace Fluent
                 }
             }
             base.OnLostMouseCapture(e);
+        }
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            if ((upPanel == null) || (downGrid == null)) return base.MeasureOverride(constraint);
+            upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
+            double width = upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right;
+            Size size = new Size(width,constraint.Height);
+            (upPanel.Parent as Grid).Measure(size);
+            return size;
         }
 
         #endregion

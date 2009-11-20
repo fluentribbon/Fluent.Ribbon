@@ -15,19 +15,21 @@
 						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1,0,0" Grid.Row="1" BorderBrush="{DynamicResource RibbonTopBorderBrush}" Background="{DynamicResource RibbonBackgoundBrush}"/>
 						<Border HorizontalAlignment="Stretch" Margin="1,0,1,1" Grid.Row="1" Grid.RowSpan="1">
 						<ContentControl x:Name="mainContentControl">
-							<ContentPresenter x:Name="contentPresenter" ContentSource="SelectedContent" Margin="0"/>
+							<ScrollViewer x:Name="contentPresenter" HorizontalAlignment="Stretch" Margin="0" Style="{DynamicResource RibbonScrollViewer}" Content="{TemplateBinding SelectedContent}"/>
 						</ContentControl>
 						</Border>
 						<Border x:Name="shadowBorder" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderBrush="{DynamicResource RibbonBottomBorderBrush}" BorderThickness="0,1,0,0" Background="{DynamicResource RibbonShadowBrush}"/>
 						<Grid x:Name="TabsGrid" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Grid.RowSpan="1">
-							<Fluent:RibbonTabsContainer HorizontalAlignment="Stretch" Width="Auto" IsItemsHost="True" Margin="60,0,0,0"/>							
+							<ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Stretch" Margin="60,0,0,0" Width="Auto" Style="{DynamicResource RibbonScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+								<Fluent:RibbonTabsContainer IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch"/>							
+							</ScrollViewer>
 						</Grid>
 						<Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsOpen}" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1">
 							<Grid Width="Auto" Height="Auto">
-														<Grid.RowDefinitions>
-							<RowDefinition Height="86"/>
-							<RowDefinition Height="5"/>
-						</Grid.RowDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="86"/>
+								<RowDefinition Height="5"/>
+							</Grid.RowDefinitions>
 								<Border Width="{Binding ActualWidth, ElementName=ContentGrid, Mode=Default}" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" Background="{DynamicResource RibbonBackgoundBrush}" BorderThickness="0,1,0,0">
 									<ContentControl x:Name="contentControl"/>
 								</Border>

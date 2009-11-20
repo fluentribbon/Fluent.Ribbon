@@ -45,7 +45,7 @@
 								</Border>
 							</Border>
 						</Grid>
-						<Border x:Name="PART_ContentContainer" HorizontalAlignment="Stretch" Margin="3,2" VerticalAlignment="Stretch" Padding="12,0" d:LayoutOverrides="GridBox">
+						<Border x:Name="PART_ContentContainer" HorizontalAlignment="Stretch" Margin="4,2" VerticalAlignment="Stretch" Padding="15,0,0,0" d:LayoutOverrides="GridBox">
 							<ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
 						</Border>
 						<Grid x:Name="separatorGrid" Margin="0" Visibility="Collapsed">
