@@ -184,14 +184,16 @@ namespace Fluent
             // down to a minimum of about three characters.
             double regularTabsWidth = sortedRegularTabItems.Sum(x => x.DesiredSize.Width);
             double minimumRegularTabsWidth = 30.0 * sortedRegularTabItems.Length;
-            if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
-            {
-                double settedWidth = (regularTabsWidth - overflowWidth) / (double)tabs.Length;
-                for (int i = 0; i < reduceCount; i++)
-                {
-                    sortedRegularTabItems[i].Measure(new Size(settedWidth, constraint.Height));
-                }
-                desiredSize = GetChildrenDesiredSize();// new Size(desiredSize.Width - overflowWidth, desiredSize.Height);
+            
+           double settedWidth = Math.Max(30, (regularTabsWidth - overflowWidth) / (double)tabs.Length);
+           for (int i = 0; i < reduceCount; i++)
+           {
+                sortedRegularTabItems[i].Measure(new Size(settedWidth, constraint.Height));
+           }
+
+           if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
+           {
+                desiredSize = GetChildrenDesiredSize();
                 // Add separator lines between 
                 // tabs to assist readability
                 ShowSeparators(tabs);
@@ -203,7 +205,7 @@ namespace Fluent
             double reduceValue = overflowWidth / (double)tabsInContextualGroupsCount;
             foreach (RibbonContextualTabGroup group in contextualGroups)
             {
-                group.Measure(new Size(group.DesiredSize.Width - reduceValue * (double)group.Items.Count, group.DesiredSize.Width));
+                group.Measure(new Size(Math.Max(30.0 * (double)group.Items.Count, group.DesiredSize.Width - reduceValue * (double)group.Items.Count), group.DesiredSize.Width));
             }
             desiredSize = GetChildrenDesiredSize();
 
