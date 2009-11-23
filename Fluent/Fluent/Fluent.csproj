@@ -18,6 +18,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
+    <UICulture>en-US</UICulture>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RibbonContextualTabGroup.cs" />
     <Compile Include="ControlLabel.cs" />
     <Compile Include="ScreenTip.cs" />
     <Compile Include="RibbonTabsContainer.cs" />
@@ -107,6 +109,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
