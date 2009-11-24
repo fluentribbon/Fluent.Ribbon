@@ -27,6 +27,8 @@ namespace Fluent
         #region Fields
 
         private Border contentContainer = null;
+        
+        private double desiredWidth = 0;
 
         #endregion
 
@@ -110,7 +112,33 @@ namespace Fluent
         // Using a DependencyProperty as the backing store for IsSeparatorVisible.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
             DependencyProperty.Register("IsSeparatorVisible", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
-        
+
+
+        public RibbonContextualTabGroup Group
+        {
+            get { return (RibbonContextualTabGroup)GetValue(GroupProperty); }
+            set { SetValue(GroupProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Group.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GroupProperty =
+            DependencyProperty.Register("Group", typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnGroupChanged));
+
+        private static void OnGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem tab = d as RibbonTabItem;
+            if (e.OldValue != null) (e.OldValue as RibbonContextualTabGroup).RemoveTabItem(tab);
+            if (e.NewValue != null) (e.NewValue as RibbonContextualTabGroup).AppendTabItem(tab);
+        }
+
+        /// <summary>
+        /// Gets or sets desired width of the tab item
+        /// </summary>
+        internal double DesiredWidth
+        {
+            get { return desiredWidth; }
+            set { desiredWidth = value; InvalidateMeasure(); }
+        }
 
 
         #endregion
@@ -136,7 +164,12 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            
+            this.Loaded += OnLayoutUpdated;                                      
+        }
+
+        private void OnLayoutUpdated(object sender, EventArgs e)
+        {
+            if(Group!=null) (Group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
         #endregion
@@ -145,9 +178,13 @@ namespace Fluent
 
         protected override Size MeasureOverride(Size constraint)
         {
+            //Size size = base.MeasureOverride(constraint);
+            //size.Width = Math.Min(Math.Max(size.Width, desiredWidth), constraint.Width);
+
             if (contentContainer == null) return base.MeasureOverride(constraint);
             contentContainer.Padding = new Thickness(Whitespace, contentContainer.Padding.Top, Whitespace, contentContainer.Padding.Bottom);
             Size baseConstraint = base.MeasureOverride(constraint);
+            baseConstraint.Width = Math.Min(Math.Max(baseConstraint.Width, desiredWidth), constraint.Width);
             double totalWidth = contentContainer.DesiredSize.Width;
             (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double headerWidth = contentContainer.Child.DesiredSize.Width;

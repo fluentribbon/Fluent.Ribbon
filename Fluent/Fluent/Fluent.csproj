@@ -69,8 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RibbonContextualTabGroup.cs" />
     <Compile Include="ControlLabel.cs" />
+    <Compile Include="RibbonContextualTabGroup.cs" />
+    <Compile Include="RibbonContextualGroupsContainer.cs" />
+    <Compile Include="RibbonTitleBar.cs" />
     <Compile Include="ScreenTip.cs" />
     <Compile Include="RibbonTabsContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,15 +114,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Office2010\Controls\ControlLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Office2010\Controls\RibbonScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonTitleBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,18 +4,58 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Fluent
 {
-    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]    
-    [TemplatePart(Name = "PART_BorderTop", Type = typeof(Border))]
-    [TemplatePart(Name = "PART_BorderBottom", Type = typeof(Border))]
-    public class RibbonContextualTabGroup : HeaderedItemsControl
+    public class RibbonContextualTabGroup: Control
     {
-        #region Fields
+        #region
 
-        private Border borderTop = null;
-        private Border borderBottom = null;
+        private List<RibbonTabItem> items = new List<RibbonTabItem>();
+
+        private double cachedWidth = 0;
+
+        #endregion
+
+        #region Properties
+
+        public string Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup), new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
+
+        private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as RibbonContextualTabGroup).cachedWidth = 0;
+        }
+
+        public double WhitespaceExtender
+        {
+            get { return (double)GetValue(WhitespaceExtenderProperty); }
+            set { SetValue(WhitespaceExtenderProperty, value); }
+        }
+
+        internal List<RibbonTabItem> Items
+        {
+            get { return items; }
+        }
+
+        // Using a DependencyProperty as the backing store for RightOffset.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WhitespaceExtenderProperty =
+            DependencyProperty.Register("WhitespaceExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
+
+
+        internal double CachedWidth
+        {
+            get { return cachedWidth; }
+            set { cachedWidth = value; }
+        }
 
         #endregion
 
@@ -24,6 +64,14 @@ namespace Fluent
         static RibbonContextualTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
+
+            //VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Visible, OnVisibilityChanged));
+        }
+
+        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
+            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
         }
 
         public RibbonContextualTabGroup()
@@ -33,37 +81,17 @@ namespace Fluent
 
         #endregion
 
-        #region Overrides
+        #region Internal Methods
 
-        protected override DependencyObject GetContainerForItemOverride()
+        internal void AppendTabItem(RibbonTabItem item)
         {
-            return new RibbonTabItem();
+            Items.Add(item);
+            item.Visibility = Visibility;
         }
 
-        protected override bool IsItemItsOwnContainerOverride(object item)
+        internal void RemoveTabItem(RibbonTabItem item)
         {
-            return (item is RibbonTabItem);
-        }
-
-        public override void OnApplyTemplate()
-        {
-            borderTop = GetTemplateChild("PART_BorderTop") as Border;
-            borderBottom = GetTemplateChild("PART_BorderBottom") as Border;
-        }
-
-        protected override Size MeasureOverride(Size constraint)
-        {
-            if ((borderTop == null) || (borderBottom == null)) return base.MeasureOverride(constraint);
-            Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-            borderTop.Measure(infinity);
-            borderBottom.Measure(infinity);
-            double widthTop = borderTop.DesiredSize.Width;
-            double widthBottom = borderBottom.DesiredSize.Width;
-            double width = Math.Min(Math.Max(widthTop, widthBottom),constraint.Width);
-            //TODO: need to conside width of caption buttons for top border
-            borderTop.Measure(new Size(width,double.PositiveInfinity));
-            borderBottom.Measure(new Size(width, double.PositiveInfinity));
-            return new Size(width, borderTop.DesiredSize.Height + borderBottom.DesiredSize.Height);
+            Items.Remove(item);            
         }
 
         #endregion

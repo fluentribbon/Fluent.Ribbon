@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Fluent
 {
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
     public class RibbonTabControl: Selector
     {
         #region Constants
@@ -28,6 +30,7 @@ namespace Fluent
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged));
+        public static readonly DependencyProperty ToolbarProperty = DependencyProperty.Register("Toolbar", typeof(UIElement), typeof(RibbonTabControl), new UIPropertyMetadata(null, OnToolbarChanged));
 
         #endregion
 
@@ -66,6 +69,34 @@ namespace Fluent
             set { SetValue(IsOpenProperty, value); }
         }
 
+        public UIElement Toolbar
+        {
+            get { return (UIElement)GetValue(ToolbarProperty); }
+            set { SetValue(ToolbarProperty, value); }
+        }        
+
+        internal bool CanScroll
+        {
+            get 
+            {
+                IScrollInfo scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
+                if(scrollInfo!=null)return (scrollInfo.ExtentWidth >scrollInfo.ViewportWidth); 
+                else return false;
+            }
+        }
+
+        #endregion
+
+        #region Protected Properties
+
+        /// <summary>
+        ///   Gets an enumerator for the Ribbon's logical children.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get { return new RibbonTabControlLogicalChildrenEnumerator(this.Toolbar, this.Items); }
+        }
+
         #endregion
 
         #region Инициализация
@@ -79,7 +110,7 @@ namespace Fluent
         }                
 
         public RibbonTabControl()
-        {            
+        {
         }
 
         #endregion
@@ -248,6 +279,26 @@ namespace Fluent
 
         #region Event handling
 
+        private static void OnToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabControl ribbon = (RibbonTabControl)d;
+
+            UIElement oldToolbar = e.OldValue as UIElement;
+            UIElement newToolbar = e.NewValue as UIElement;
+
+            // Remove Logical tree link
+            if (oldToolbar != null)
+            {
+                ribbon.RemoveLogicalChild(oldToolbar);
+            }
+
+            // Add Logical tree link
+            if (newToolbar != null)
+            {
+                ribbon.AddLogicalChild(newToolbar);
+            }
+        }
+
         private void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
             if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
@@ -312,6 +363,146 @@ namespace Fluent
             {
                 ribbon.OnRibbonTabPopupClosing();
             }
+        }
+
+        #endregion
+
+        #region RibbonLogicalChildEnumerator Class
+
+        /// <summary>
+        ///   An enumerator for the logical children of the Ribbon.
+        /// </summary>
+        private class RibbonTabControlLogicalChildrenEnumerator : IEnumerator
+        {
+            #region Fields
+
+            private UIElement toolbar;
+
+            /// <summary>
+            ///   The Ribbon's collection of tabs.
+            /// </summary>
+            private ItemCollection items;
+
+            /// <summary>
+            ///   The current position of enumeration.
+            /// </summary>
+            private Position postition;
+
+            /// <summary>
+            ///   The current tab index if we are currently enumerating the Ribbon's tabs.
+            /// </summary>
+            private int index = -1;
+
+            #endregion
+
+            #region Constructors
+
+            /// <summary>
+            ///   Initializes a new instance of the RibbonLogicalChildrenEnumerator class.
+            /// </summary>
+            /// <param name="ribbonApplicationMenu">The RibbonApplicationMenu of the Ribbon to be enumerated.</param>
+            /// <param name="ribbonQuickAccessToolBar">The RibbonQuickAccessToolbar of the Ribbon to be enumerated.</param>
+            /// <param name="tabs">The collection of RibbonTabs of the Ribbon to be enumerated.</param>
+            /// <param name="contextualTabGroups">The collection of RibbonContextualTabGroups of the Ribbon to be enumerated.</param>
+            public RibbonTabControlLogicalChildrenEnumerator(UIElement toolbar, ItemCollection items)
+            {
+                postition = Position.None;
+                this.toolbar = toolbar;
+                this.items = items;
+            }
+
+            #endregion
+
+            #region Position Enum
+
+            /// <summary>
+            ///   An enum indicating the current position of enumeration.
+            /// </summary>
+            private enum Position
+            {
+                /// <summary>
+                ///   Indicates that the enumeration is not currently within the Ribbon's
+                ///   logical children.
+                /// </summary>
+                None,
+
+                /// <summary>
+                ///   Indicates enumeration is currently at the ApplicationMenu.
+                /// </summary>
+                Toolbar,
+
+                /// <summary>
+                ///   Indicates enumeration is currently at the QuickAccessToolbar.
+                /// </summary>
+                Items
+            }
+
+            #endregion
+
+            #region Public Properties
+
+            /// <summary>
+            ///   Gets the object at the enumerators current position.
+            /// </summary>
+            public object Current
+            {
+                get
+                {
+                    switch (postition)
+                    {
+                        case Position.Toolbar:
+                            return toolbar;
+                        case Position.Items:
+                            return items[index];
+                    }
+
+                    throw new InvalidOperationException();
+                }
+            }
+
+            #endregion
+
+            #region Public Methods
+
+            /// <summary>
+            ///   Advances the enumerator to the next logical child of the Ribbon.
+            /// </summary>
+            /// <returns>True if the enumerator was successfully advanced, false otherwise.</returns>
+            public bool MoveNext()
+            {
+                if (postition == Position.None)
+                {
+                    postition = Position.Toolbar;
+                    if (items != null)
+                    {
+                        return true;
+                    }
+                }
+
+                if (postition == Position.Items)
+                {
+                    if (index < items.Count - 1)
+                    {
+                        index++;
+                        return true;
+                    }
+                }
+
+                this.Reset();
+
+                return false;
+            }
+
+            /// <summary>
+            ///   Resets the RibbonLogicalChildrenEnumerator.
+            /// </summary>
+            public void Reset()
+            {
+                postition = Position.None;
+                index = -1;
+            }
+
+            #endregion
         }
 
         #endregion

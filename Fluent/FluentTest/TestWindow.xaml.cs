@@ -38,7 +38,16 @@ namespace FluentTest
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
         {
-            RibbonControl.SetSize(sender as UIElement, (RibbonControlSize)(((int)RibbonControl.GetSize(sender as UIElement) + 1) % 3));
+            if (tabGroup1.Visibility == Visibility.Visible)
+            {
+                tabGroup1.Visibility = System.Windows.Visibility.Collapsed;
+                tabGroup2.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                tabGroup1.Visibility = System.Windows.Visibility.Visible;
+                tabGroup2.Visibility = System.Windows.Visibility.Visible;
+            }
         }
 
     }
