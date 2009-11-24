@@ -3,12 +3,14 @@
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	
     <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+	<!--<Style x:Key="FFF" TargetType="Label">-->
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Template">
       <Setter.Value>
+	  	<!--<ControlTemplate TargetType="Label">-->
         <ControlTemplate TargetType="ToolTip">
           <Grid>
             <Grid.ColumnDefinitions>
@@ -88,14 +90,17 @@
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<TextBlock x:Name="disableReasonText" Text="{Binding Path=(Fluent:ScreenTip.DisableReason), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" HorizontalAlignment="Stretch"/>
-						<TextBlock x:Name="helpText" Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="1" HorizontalAlignment="Stretch"/>
+						<TextBlock x:Name="disableReasonHeader" x:Uid="disableReasonHeader" Text="This command is currently disabled." TextWrapping="Wrap" Margin="28,0,5,2" Foreground="#FF414141" HorizontalAlignment="Stretch" Grid.Row="0" FontWeight="Bold"/>
+						<TextBlock x:Name="disableReasonText" Text="{Binding Path=(Fluent:ScreenTip.DisableReason), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" HorizontalAlignment="Stretch" Grid.Row="1"/>
+						<TextBlock x:Name="helpText"  TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="2" HorizontalAlignment="Stretch" Text="{Binding Text, ElementName=textBlock, Mode=Default}"/>
 					</Grid>
                   </Grid>
                   <Grid x:Name="helpSection">
                     <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\HelpSmall.png"/>
-                    <TextBlock Text="{Binding Path=(Fluent:ScreenTip.Help), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" TextWrapping="Wrap" Margin="28,0,6,6" Foreground="#FF414141" FontWeight="Bold" HorizontalAlignment="Stretch"/>
+                    <TextBlock x:Uid="HelpText" x:Name="textBlock" Text="Press F1 to more help." TextWrapping="Wrap" Margin="28,0,6,6" Foreground="#FF414141" FontWeight="Bold" HorizontalAlignment="Stretch"/>
+					<ContentControl x:Name="helpTopic" Content="{Binding Path=(Fluent:ScreenTip.HelpTopic), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" Visibility="Collapsed"/>
                   </Grid>
                 </StackPanel>
 
@@ -127,7 +132,7 @@
             <Trigger Property="Text" SourceName="disableReasonText" Value="">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>              
             </Trigger>
-            <Trigger Property="Text" SourceName="helpText" Value="">
+            <Trigger Property="Content" SourceName="helpTopic" Value="{x:Null}">
               <Setter Property="Visibility" TargetName="helpText" Value="Collapsed"/>
               <Setter Property="Visibility" TargetName="helpSection" Value="Collapsed"/>
             </Trigger>
@@ -140,53 +145,4 @@
       </Setter.Value>
     </Setter>
     </Style>
-
-
-  <Style x:Key="RRR" TargetType="{x:Type Label}">
-    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Label">
-          <Border MinHeight="50" CornerRadius="1" BorderThickness="1" BorderBrush="#FF767676">
-          	<Border.Background>
-          		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-          			<GradientStop Color="White" Offset="0"/>
-          			<GradientStop Color="#FFEAEAF4" Offset="1"/>
-          			<GradientStop Color="#FFF6F6FA" Offset="0.746"/>
-          		</LinearGradientBrush>
-          	</Border.Background>
-          	<StackPanel Width="250" >
-          		<TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" Foreground="#FF414141" FontWeight="Bold" Text="{Binding Fluent:ScreenTip.Title, ElementName=title, Mode=OneWay}"/>
-          		<Grid x:Name="imageAndTextSection">
-          			<Grid.ColumnDefinitions>
-          				<ColumnDefinition Width="Auto"/>
-          				<ColumnDefinition Width="*"/>
-          			</Grid.ColumnDefinitions>
-					<Image Margin="5" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-          			<TextBlock Text="Insert a picture of any program that is not minimized to the taskbar. \nClick Screen Clipping to insert a picture of any part of screen." TextWrapping="Wrap" Margin="1,0,8,6" Foreground="#FF414141" Grid.Column="1"/>
-          		</Grid>
-          		<Border x:Name="separator" Height="2" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1"/>
-				<Grid x:Name="disableReasonSection">
-					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0"/>
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
-						<TextBlock x:Name="disableReasonText" Text="This command is currently disabled. This document has been opened in Compatability mode. To use this feature, convert your document to a new file format by clicking the File tab and then clicking Convert" TextWrapping="Wrap" Margin="41.5,0,5.5,6" Foreground="#FF414141" Grid.RowSpan="1" HorizontalAlignment="Stretch"/>
-						<TextBlock x:Name="helpText" Text="Press F1 for more help." TextWrapping="Wrap" Margin="41.5,0,6.5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="1" HorizontalAlignment="Stretch"/>
-					</Grid>
-				</Grid>
-				<Grid x:Name="helpSection">
-					<Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0"/>
-					<TextBlock Text="Press F1 for more help." TextWrapping="Wrap" Width="185" Margin="26,0,8,6" Foreground="#FF414141" FontWeight="Bold"/>
-				</Grid>
-          	</StackPanel>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
 </ResourceDictionary>

@@ -23,6 +23,12 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
+            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+        }
+
+        void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start((string)e.HelpTopic);
         }
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)

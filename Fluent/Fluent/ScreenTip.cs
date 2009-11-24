@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Windows.Input;
 using System.Linq;
 using System.Text;
 
@@ -30,13 +31,16 @@ namespace Fluent
 
         static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as FrameworkElement).ToolTip == null)
+            ToolTip toolTip = ((FrameworkElement)d).ToolTip as ToolTip;
+            if (toolTip == null)
             {
-                ToolTip toolTip = new ToolTip();
+                toolTip = new ToolTip();
                 (d as FrameworkElement).ToolTip = toolTip;
                 ToolTipService.SetShowOnDisabled(d, true);
                 ToolTipService.SetShowDuration(d, 20000);
                 ToolTipService.SetInitialShowDelay(d, 900);
+                toolTip.Opened += OnToolTipOpened;
+                toolTip.Closed += OnToolTipClosed;
             }
         }
 
@@ -61,6 +65,48 @@ namespace Fluent
         public static string GetTitle(UIElement element)
         {
             return (string)element.GetValue(TitleProperty);
+        }
+
+        #endregion
+
+        #region F1 Help Handling
+
+        // Currently opened tooltip & focused element
+        static ToolTip openedToolTip = null;
+        static IInputElement focusedElement = null;
+
+        static void OnToolTipClosed(object sender, RoutedEventArgs e)
+        {
+            openedToolTip = null;
+            if (focusedElement != null)
+            {
+                focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
+                focusedElement = null;
+            }
+        }
+
+        static void OnToolTipOpened(object sender, RoutedEventArgs e)
+        {
+            ToolTip toolTip = (ToolTip)sender;
+            openedToolTip = toolTip;
+            if (toolTip.PlacementTarget != null && GetHelpTopic(toolTip.PlacementTarget) != null)
+            {
+                focusedElement = Keyboard.FocusedElement;
+                if (focusedElement != null)
+                {
+                    focusedElement.PreviewKeyDown += new KeyEventHandler(OnFocusedElementPreviewKeyDown);
+                }
+            }
+        }
+
+        static void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((openedToolTip == null) && (openedToolTip.PlacementTarget != null)) return;
+            if (e.Key == Key.F1)
+            {
+                e.Handled = true;
+                if (HelpPressed != null) HelpPressed(null, new ScreenTipHelpEventArgs(GetHelpTopic(openedToolTip.PlacementTarget)));
+            }
         }
 
         #endregion
@@ -149,11 +195,11 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Help.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HelpProperty = DependencyProperty.RegisterAttached(
-          "Help",
-          typeof(string),
+        public static readonly DependencyProperty HelpTopicProperty = DependencyProperty.RegisterAttached(
+          "HelpTopic",
+          typeof(object),
           typeof(ScreenTip),
-          new FrameworkPropertyMetadata("",
+          new FrameworkPropertyMetadata(null,
               FrameworkPropertyMetadataOptions.None)
         );
 
@@ -162,22 +208,22 @@ namespace Fluent
         /// </summary>
         /// <param name="element">The given element</param>
         /// <param name="value">Value</param>
-        public static void SetHelp(UIElement element, string value)
+        public static void SetHelpTopic(UIElement element, object value)
         {
-            element.SetValue(HelpProperty, value);
+            element.SetValue(HelpTopicProperty, value);
         }
 
         /// <summary>
         /// Gets value of the attached property Help of the given element
         /// </summary>
         /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("Help Text"),
+        [System.ComponentModel.DisplayName("Help Topic"),
         AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
         System.ComponentModel.Category("Screen Tip"),
-        System.ComponentModel.Description("Help message")]
-        public static string GetHelp(UIElement element)
+        System.ComponentModel.Description("Help topic (it will be used to execute help)")]
+        public static string GetHelpTopic(UIElement element)
         {
-            return (string)element.GetValue(HelpProperty);
+            return (string)element.GetValue(HelpTopicProperty);
         }
 
         #endregion
@@ -259,5 +305,35 @@ namespace Fluent
         }
 
         #endregion
+
+        #region Help Invocation
+
+        /// <summary>
+        /// Occurs when user press F1 on ScreenTip with HelpTopic filled
+        /// </summary>
+        public static event EventHandler<ScreenTipHelpEventArgs> HelpPressed;
+       
+
+        #endregion
+    }
+
+    /// <summary>
+    /// Event args for HelpPressed event handler
+    /// </summary>
+    public class ScreenTipHelpEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Gets help topic associated with screen tip
+        /// </summary>
+        public object HelpTopic { get; private set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="helpTopic">Help topic</param>
+        public ScreenTipHelpEventArgs(object helpTopic)
+        {
+            HelpTopic = helpTopic;
+        }
     }
 }
