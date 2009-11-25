@@ -288,7 +288,7 @@ namespace Fluent
         /// <param name="value">Value</param>
         public static void SetWidth(UIElement element, double value)
         {
-            element.SetValue(ImageProperty, value);
+            element.SetValue(WidthProperty, value);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace Fluent
         System.ComponentModel.Description("Width of the screen tip")]
         public static double GetWidth(UIElement element)
         {
-            return (double)element.GetValue(ImageProperty);
+            return (double)element.GetValue(WidthProperty);
         }
 
         #endregion

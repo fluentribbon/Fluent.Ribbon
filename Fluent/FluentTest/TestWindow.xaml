@@ -9,11 +9,17 @@
           <Fluent:RibbonTitleBar.Header>
             <TextBlock Text="{Binding Title, ElementName=window, Mode=Default}" />
           </Fluent:RibbonTitleBar.Header>
+          <Fluent:RibbonTitleBar.QuickAccessToolbar>
+            <Fluent:QuickAccessToolbar x:Name="quickAccessToolbar" Width="Auto" HorizontalAlignment="Left">
+              <Button>1</Button>
+              <Button>2</Button>
+            </Fluent:QuickAccessToolbar>
+          </Fluent:RibbonTitleBar.QuickAccessToolbar>
         	<Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
         	<Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
           <Fluent:RibbonContextualTabGroup x:Name="tabGroup3" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
         </Fluent:RibbonTitleBar>
-        <Fluent:RibbonTabControl x:Name="ribbonTabControl" VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0">
+        <Fluent:RibbonTabControl x:Name="ribbonTabControl" VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0" MouseRightButtonUp="OnMouseRightButtonUp">
         	<Fluent:RibbonTabControl.Toolbar>
         		<StackPanel Orientation="Horizontal">
 					    <Button Content="1"/>
@@ -44,6 +50,7 @@
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+                <CheckBox Width="100" Height="20">Lalala</CheckBox>
               </Fluent:RibbonGroupBox>
             </Fluent:RibbonGroupsContainer>
         	</Fluent:RibbonTabItem>

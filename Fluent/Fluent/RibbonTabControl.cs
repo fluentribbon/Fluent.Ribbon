@@ -210,7 +210,7 @@ namespace Fluent
                 }
             }
             base.OnLostMouseCapture(e);
-        }
+        }        
 
         #endregion
 

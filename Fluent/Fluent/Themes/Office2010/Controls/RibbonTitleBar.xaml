@@ -6,8 +6,8 @@
     </Style>
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate" TargetType="{x:Type Fluent:RibbonTitleBar}">
     	<Grid Height="25">
-    		<Rectangle x:Name="PART_QuickAccessToolbarHolder" Fill="White" Stroke="Black" HorizontalAlignment="Left" Width="100"/>
-    		<TextBlock x:Name="PART_HeaderHolder" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="Wrap"/>
+    		<ContentPresenter x:Name="PART_QuickAccessToolbarHolder" ContentSource="QuickAccessToolbar"/>
+    		<ContentPresenter x:Name="PART_HeaderHolder" ContentSource="Header" />
 			<Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer" IsItemsHost="True"/>
     	</Grid>
     </ControlTemplate>

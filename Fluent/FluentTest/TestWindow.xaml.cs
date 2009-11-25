@@ -26,13 +26,8 @@ namespace FluentTest
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
 
 
-            ribbonTabControl.MouseDown += new MouseButtonEventHandler(OnRibbonTabControlMouseDown);
         }
 
-        void OnRibbonTabControlMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            QuickAccessItemsProvider.FindAccessedControl(ribbonTabControl, e.GetPosition(ribbonTabControl));
-        }
 
         void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
@@ -50,13 +45,29 @@ namespace FluentTest
             {
                 tabGroup1.Visibility = System.Windows.Visibility.Collapsed;
                 tabGroup2.Visibility = System.Windows.Visibility.Collapsed;
+                tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
             {
                 tabGroup1.Visibility = System.Windows.Visibility.Visible;
                 tabGroup2.Visibility = System.Windows.Visibility.Visible;
+                tabGroup3.Visibility = System.Windows.Visibility.Visible;
             }
         }
-
+        private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            UIElement element = QuickAccessItemsProvider.FindAccessedControl((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
+            if (element != null)
+            {
+                UIElement control = QuickAccessItemsProvider.GetItem(element);
+                if(control is CheckBox)
+                {
+                    (control as CheckBox).Width = 100;
+                    (control as CheckBox).Height = 22;
+                }
+                if (quickAccessToolbar.Items.Contains(control)) quickAccessToolbar.Items.Remove(control);
+                else quickAccessToolbar.Items.Add(control);
+            }            
+        }
     }
 }

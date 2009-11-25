@@ -99,10 +99,13 @@ namespace Fluent
             
             // TODO: check, maybe copy style is not required for quick access toolbar items
             item.Style = button.Style;
+            RibbonControl.SetSize(item, RibbonControlSize.Small);
+
 
             // Syncronization
             item.Click += new RoutedEventHandler(OnButtonClick);
             
+            cachedQuickAccessButtons.Add(button, item);
             return item;
         }
 
@@ -121,7 +124,9 @@ namespace Fluent
         {
             if (cachedQuickAccessCheckBoxes.ContainsKey(checkBox)) return cachedQuickAccessCheckBoxes[checkBox];
 
-            Button item = new Button();
+            CheckBox item = new CheckBox();
+            item.Content = checkBox.Content.ToString();
+
 
             // Copy ScreenTip data
             CopyScreenTip(checkBox, item);
@@ -132,9 +137,12 @@ namespace Fluent
             item.Style = checkBox.Style;
 
             // Syncronization
-            item.Click += new RoutedEventHandler(OnCheckBoxClick);
+            item.Checked += new RoutedEventHandler(OnCheckBoxChecked);
+            item.Unchecked += new RoutedEventHandler(OnCheckBoxChecked);
             checkBox.Checked += new RoutedEventHandler(OnHostCheckBoxChecked);
+            checkBox.Unchecked += new RoutedEventHandler(OnHostCheckBoxChecked);
 
+            cachedQuickAccessCheckBoxes.Add(checkBox, item);
             return item;
         }
 
@@ -143,10 +151,9 @@ namespace Fluent
             cachedQuickAccessCheckBoxes[sender as CheckBox].IsChecked = (sender as CheckBox).IsChecked;
         }
 
-        static void OnCheckBoxClick(object sender, RoutedEventArgs e)
+        static void OnCheckBoxChecked(object sender, RoutedEventArgs e)
         {
-            // Redirect to the host control
-            cachedQuickAccessCheckBoxes.Where(x => x.Value == sender).First().Key.RaiseEvent(e);
+            cachedQuickAccessCheckBoxes.Where(x => x.Value == sender).First().Key.IsChecked = (sender as CheckBox).IsChecked;
         }
 
         #endregion

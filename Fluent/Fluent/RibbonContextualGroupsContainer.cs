@@ -90,7 +90,9 @@ namespace Fluent
                 }
                 child.Measure(new Size(finalWidth, availableSize.Height));
             }
-            return new Size(x, availableSize.Height);
+            double height = availableSize.Height;
+            if (double.IsPositiveInfinity(height)) height = 0;
+            return new Size(x, height);
         }
 
         #endregion
