@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlLabel.cs" />
+    <Compile Include="QuickAccessItemsProvider.cs" />
     <Compile Include="RibbonContextualTabGroup.cs" />
     <Compile Include="RibbonContextualGroupsContainer.cs" />
     <Compile Include="RibbonTitleBar.cs" />

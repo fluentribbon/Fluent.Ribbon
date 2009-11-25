@@ -24,6 +24,14 @@ namespace FluentTest
         {
             InitializeComponent();
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+
+
+            ribbonTabControl.MouseDown += new MouseButtonEventHandler(OnRibbonTabControlMouseDown);
+        }
+
+        void OnRibbonTabControlMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            QuickAccessItemsProvider.FindAccessedControl(ribbonTabControl, e.GetPosition(ribbonTabControl));
         }
 
         void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)

@@ -13,7 +13,7 @@
         	<Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
           <Fluent:RibbonContextualTabGroup x:Name="tabGroup3" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
         </Fluent:RibbonTitleBar>
-        <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0">
+        <Fluent:RibbonTabControl x:Name="ribbonTabControl" VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0">
         	<Fluent:RibbonTabControl.Toolbar>
         		<StackPanel Orientation="Horizontal">
 					    <Button Content="1"/>
