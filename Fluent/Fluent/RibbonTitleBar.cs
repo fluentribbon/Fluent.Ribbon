@@ -19,6 +19,10 @@ namespace Fluent
         private FrameworkElement headerHolder = null;
         private Panel itemsContainer = null;
 
+        private Rect quickAccessToolbarRect;
+        private Rect headerRect;
+        private Rect itemsRect;
+
         #endregion
 
         #region Properties
@@ -68,7 +72,56 @@ namespace Fluent
             headerHolder = GetTemplateChild("PART_HeaderHolder") as FrameworkElement;
             itemsContainer = GetTemplateChild("PART_ItemsContainer") as Panel;
         }
-        
+
+        protected override Size MeasureOverride(Size constraint)
+        {
+            if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.MeasureOverride(constraint);
+            Update(constraint);
+            
+            itemsContainer.Measure(itemsRect.Size);
+
+            return constraint;
+        }
+
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.ArrangeOverride(arrangeBounds);
+            itemsContainer.Arrange(itemsRect);
+            return arrangeBounds;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void Update(Size constraint)
+        {
+            List<RibbonContextualTabGroup> visibleGroups = new List<RibbonContextualTabGroup>();
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i] is RibbonContextualTabGroup)
+                {
+                    RibbonContextualTabGroup group = Items[i] as RibbonContextualTabGroup;
+                    if ((group.Visibility == Visibility.Visible) && (group.Items.Count > 0)) visibleGroups.Add(group);
+                }
+            }
+
+            if ((visibleGroups.Count == 0)||((visibleGroups[0].Items[0].Parent as RibbonTabControl).CanScroll))
+            {
+                itemsRect = new Rect(0,0,0,0);
+            }
+            else
+            {
+                RibbonTabItem firstItem = visibleGroups[0].Items[0];
+                RibbonTabItem lastItem = visibleGroups[visibleGroups.Count - 1].Items[visibleGroups[visibleGroups.Count - 1].Items.Count - 1];
+
+                double startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                double endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+
+                itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
+            }
+        }
+
         #endregion
     }
 }

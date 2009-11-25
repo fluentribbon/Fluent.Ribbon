@@ -90,7 +90,7 @@ namespace Fluent
                 }
                 child.Measure(new Size(finalWidth, availableSize.Height));
             }
-            return new Size(x, 25/*availableSize.Height*/);
+            return new Size(x, availableSize.Height);
         }
 
         #endregion

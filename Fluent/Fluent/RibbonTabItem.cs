@@ -72,7 +72,7 @@ namespace Fluent
         public bool IsSelected
         {
             get
-            {
+            {                
                 return (bool)base.GetValue(IsSelectedProperty);
             }
             set
@@ -81,7 +81,7 @@ namespace Fluent
             }
         }
 
-        private RibbonTabControl TabControlParent
+        internal RibbonTabControl TabControlParent
         {
             get
             {
@@ -164,7 +164,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            this.Loaded += OnLayoutUpdated;                                      
+            this.Loaded += OnLayoutUpdated;
+            this.SizeChanged += OnLayoutUpdated;        
         }
 
         private void OnLayoutUpdated(object sender, EventArgs e)
@@ -178,20 +179,26 @@ namespace Fluent
 
         protected override Size MeasureOverride(Size constraint)
         {
-            //Size size = base.MeasureOverride(constraint);
-            //size.Width = Math.Min(Math.Max(size.Width, desiredWidth), constraint.Width);
-
             if (contentContainer == null) return base.MeasureOverride(constraint);
             contentContainer.Padding = new Thickness(Whitespace, contentContainer.Padding.Top, Whitespace, contentContainer.Padding.Bottom);
-            Size baseConstraint = base.MeasureOverride(constraint);
-            baseConstraint.Width = Math.Min(Math.Max(baseConstraint.Width, desiredWidth), constraint.Width);
-            double totalWidth = contentContainer.DesiredSize.Width;
+            Size baseConstraint = base.MeasureOverride(constraint);            
+            double totalWidth = contentContainer.DesiredSize.Width - contentContainer.Margin.Left - contentContainer.Margin.Right;
             (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double headerWidth = contentContainer.Child.DesiredSize.Width;
-            if (totalWidth < headerWidth+Whitespace*2)
+            if (totalWidth < headerWidth + Whitespace * 2)
             {
                 double newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
                 contentContainer.Padding = new Thickness(newPaddings, contentContainer.Padding.Top, newPaddings, contentContainer.Padding.Bottom);
+            }
+            else
+            {
+                if (desiredWidth != 0)
+                {
+                    if (constraint.Width > desiredWidth) baseConstraint.Width = desiredWidth;
+                    else
+                        baseConstraint.Width = headerWidth + Whitespace*2 + contentContainer.Margin.Left +
+                                               contentContainer.Margin.Right;
+                }
             }
             return baseConstraint;
         }
@@ -243,7 +250,7 @@ namespace Fluent
             RibbonTabItem container = d as RibbonTabItem;
             bool newValue = (bool)e.NewValue;
             RibbonTabControl tabControlParent = container.TabControlParent;
-            
+
             if (newValue)
             {
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));

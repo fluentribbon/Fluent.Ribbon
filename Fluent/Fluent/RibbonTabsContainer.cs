@@ -75,6 +75,7 @@ namespace Fluent
                 double decreaseValue = overflowWidth / (double)regularTabsCount;
                 foreach (RibbonTabItem tab in Children) if (!tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
                 desiredSize = GetChildrenDesiredSize();
+                if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
@@ -92,18 +93,27 @@ namespace Fluent
                 double decreaseValue = (overflowWidth - regularTabsWhitespace) / (double)contextualTabsCount;
                 foreach (RibbonTabItem tab in Children)
                 {                    
-                    if (!tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
+                    if (!tab.IsContextual)
+                    {
+                        double widthBeforeMeasure = tab.DesiredSize.Width;
+                        tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace*2.0), tab.DesiredSize.Height));
+                        overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                    }
                 }
                 foreach (RibbonTabItem tab in reversedChildren)
                 {                    
-                    double widthBeforeMeasure = tab.DesiredSize.Width;
-                    if (tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
+                    if (tab.IsContextual)
+                    {
+                        double widthBeforeMeasure = tab.DesiredSize.Width;
+                        tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
 
-                    // Contextual tabs may overreduce, so check that
-                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-                    if (overflowWidth < 0) break;
+                        // Contextual tabs may overreduce, so check that
+                        overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                        if (overflowWidth < 0) break;
+                    }
                 }
                 desiredSize = GetChildrenDesiredSize();
+                if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
@@ -119,9 +129,12 @@ namespace Fluent
             // (Regular tabs)
             foreach (RibbonTabItem tab in Children)
             {
-                double widthBeforeMeasure = tab.DesiredSize.Width;
-                if (!tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
-                overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                if (!tab.IsContextual)
+                {
+                    double widthBeforeMeasure = tab.DesiredSize.Width;
+                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
+                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                }
             }
             foreach (RibbonTabItem tab in reversedChildren)
             {
@@ -135,6 +148,7 @@ namespace Fluent
                     if (overflowWidth < 0)
                     {
                         desiredSize = GetChildrenDesiredSize();
+                        if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
 
                         // Add separator lines between 
                         // tabs to assist readability
@@ -175,6 +189,8 @@ namespace Fluent
                 }
 
                 desiredSize = GetChildrenDesiredSize();
+                if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
+
                 // Add separator lines between 
                 // tabs to assist readability
                 UpdateSeparators(true, true);
@@ -195,6 +211,8 @@ namespace Fluent
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, constraint.Height));
                 }
                 desiredSize = GetChildrenDesiredSize();
+                if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
+
                 // Add separator lines between 
                 // tabs to assist readability
                 UpdateSeparators(true, true);
@@ -235,20 +253,14 @@ namespace Fluent
                 // Reduce regular tabs
                 double requiredWidth = sortedContextualTabItems[reduceCount].DesiredSize.Width;
                 if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / (double)reduceCount;
-                foreach (RibbonTabItem tab in reversedChildren)
-                {                    
-                    if (tab.IsContextual)
-                    {
-                        double widthBeforeMeasure = tab.DesiredSize.Width;
-                        tab.Measure(new Size(requiredWidth, tab.DesiredSize.Height));
-
-                        // Contextual tabs may overreduce, so check that
-                        overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-                        if (overflowWidth < 0) break;
-                    }
+                for (int i = 0; i < reduceCount; i++)
+                {
+                    sortedContextualTabItems[i].Measure(new Size(requiredWidth, constraint.Height));
                 }
 
                 desiredSize = GetChildrenDesiredSize();
+                if (desiredSize.Width > constraint.Width) desiredSize.Width = constraint.Width;
+
                 // Add separator lines between 
                 // tabs to assist readability
                 UpdateSeparators(true, true);
@@ -261,7 +273,7 @@ namespace Fluent
                 double minimumContextualTabsWidth = 30.0 * sortedContextualTabItems.Length;
 
                 double settedWidth = Math.Max(30, (contextualTabsWidth - overflowWidth) / (double)contextualTabsCount);
-                for (int i = 0; i < reduceCount; i++)
+                for (int i = 0; i < sortedContextualTabItems.Length; i++)
                 {
                     sortedContextualTabItems[i].Measure(new Size(settedWidth, constraint.Height));
                 }
@@ -577,13 +589,14 @@ namespace Fluent
             isValid &= AreClose(extentWidth, ScrollData.ExtentWidth);
             isValid &= AreClose(ScrollData.OffsetX, offsetX);
 
-            isValid &= (viewportWidth == ScrollData.ViewportWidth);
+            /*isValid &= (viewportWidth == ScrollData.ViewportWidth);
             isValid &= (extentWidth == ScrollData.ExtentWidth);
-            isValid &= (ScrollData.OffsetX == offsetX);
+            isValid &= (ScrollData.OffsetX == offsetX);*/
 
             
             ScrollData.ViewportWidth = viewportWidth;
-            ScrollData.ExtentWidth = extentWidth;
+            if (AreClose(viewportWidth, extentWidth)) ScrollData.ExtentWidth = viewportWidth;
+            else ScrollData.ExtentWidth = extentWidth;
             ScrollData.OffsetX = offsetX;
 
             if (!isValid)
@@ -599,7 +612,7 @@ namespace Fluent
 
         bool AreClose(double a, double b)
         {
-            return Math.Abs(a - b) < 0.5;
+            return Math.Abs(a - b) < 1.5;
         }
 
         // Returns an offset coerced into the [0, Extent - Viewport] range.

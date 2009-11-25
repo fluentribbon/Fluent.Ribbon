@@ -95,5 +95,22 @@ namespace Fluent
         }
 
         #endregion
+
+        #region Override
+
+        protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if ((e.ClickCount == 1) && (items.Count > 0))
+            {
+                if (items[0].TabControlParent != null) if (items[0].TabControlParent.SelectedItem is RibbonTabItem)
+                        (items[0].TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                e.Handled = true;
+                if (items[0].TabControlParent != null) if (items[0].TabControlParent.IsMinimized) items[0].TabControlParent.IsMinimized = false;
+                items[0].IsSelected = true;
+            }
+            base.OnMouseLeftButtonUp(e);
+        }
+
+        #endregion
     }
 }

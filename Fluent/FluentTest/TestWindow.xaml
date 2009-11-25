@@ -5,12 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Window1" Height="345" Width="880" mc:Ignorable="d">
     <Grid>
-        <Fluent:RibbonTitleBar VerticalAlignment="Top" Style="{DynamicResource RibbonTitleBarStyle}" Margin="0,0,50,0">
+        <Fluent:RibbonTitleBar VerticalAlignment="Top" Style="{DynamicResource RibbonTitleBarStyle}" Margin="0,0,0,0" Height="25">
           <Fluent:RibbonTitleBar.Header>
             <TextBlock Text="{Binding Title, ElementName=window, Mode=Default}" />
           </Fluent:RibbonTitleBar.Header>
         	<Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
         	<Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
+          <Fluent:RibbonContextualTabGroup x:Name="tabGroup3" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
         </Fluent:RibbonTitleBar>
         <Fluent:RibbonTabControl VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0">
         	<Fluent:RibbonTabControl.Toolbar>
@@ -68,7 +69,7 @@
                                 Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#x0a;&#x0a;Bar, Pie, Line, Area and Surface are same of the available types."                                
                                 Fluent:ScreenTip.HelpTopic="calc"
                                 Fluent:ScreenTip.Width="300" Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
-          <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
+          <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup3, Mode=OneWay}"/>
         </Fluent:RibbonTabControl>
     </Grid>
 </Window>

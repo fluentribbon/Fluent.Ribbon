@@ -3,20 +3,22 @@
     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonContextualTabGroupStyle" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
     	<Setter Property="Template" Value="{DynamicResource RibbonContextualTabGroupControlTemplate1}"/>
+    	<Setter Property="Width" Value="Auto"/>
     </Style>
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate1" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
-    	<Grid Height="25">
-    		<Border BorderBrush="#FF8D0D9F" BorderThickness="1,1,1,0" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="25">
-    			<Border.Background>
-    				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    					<GradientStop Color="#FFE106FF" Offset="0.006"/>
-    					<GradientStop Color="#7FE847FF" Offset="1"/>
-    					<GradientStop Color="#FFE212FF" Offset="0.106"/>
-    					<GradientStop Color="#FF8D0D9F" Offset="0.115"/>
-    				</LinearGradientBrush>
-    			</Border.Background>
-    			<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis"/>
-    		</Border>
-    	</Grid>
+    	<Border BorderBrush="#FF8D0D9F" BorderThickness="1,1,1,0" VerticalAlignment="Top" Height="25" Width="Auto">
+    		<Border.Background>
+    			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    				<GradientStop Color="#FFE106FF" Offset="0.006"/>
+    				<GradientStop Color="#7FE847FF" Offset="1"/>
+    				<GradientStop Color="#FFE212FF" Offset="0.106"/>
+    				<GradientStop Color="#FF8D0D9F" Offset="0.115"/>
+    			</LinearGradientBrush>
+    		</Border.Background>
+    		<Grid Margin="0">
+    			<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0" TextTrimming="None" Foreground="#00000000"/>
+    			<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis"/>
+    		</Grid>
+    	</Border>
     </ControlTemplate>
 </ResourceDictionary>
