@@ -56,10 +56,9 @@ namespace FluentTest
         }
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            UIElement element = QuickAccessItemsProvider.FindAccessedControl((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
-            if (element != null)
-            {
-                UIElement control = QuickAccessItemsProvider.GetItem(element);
+            UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
+            if (control != null)
+            {               
                 if(control is CheckBox)
                 {
                     (control as CheckBox).Width = 100;

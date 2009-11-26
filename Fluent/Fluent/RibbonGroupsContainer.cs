@@ -44,7 +44,7 @@ namespace Fluent
             ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] {',',' '}, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
-            // TODO: maybe InvalidateMeasure?
+            ribbonPanel.InvalidateMeasure();
             ribbonPanel.InvalidateArrange();
         }
 

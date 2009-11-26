@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +43,10 @@ namespace Fluent
         {
             if (element is IQuickAccessItemProvider) return true;
             if ((element is Button) ||
-                (element is CheckBox)) return true;
+                (element is CheckBox) ||
+                (element is RadioButton) ||
+                (element is ComboBox) ||
+                (element is TextBox)) return true;
             else return false;
         }
 
@@ -50,26 +55,41 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        public static UIElement GetItem(UIElement element)
+        public static UIElement GetQuickAccessItem(UIElement element)
         {
             // If control supports the interface just return what it provides
             if (element is IQuickAccessItemProvider) return (element as IQuickAccessItemProvider).GetQuickAccessToolbarItem();
 
-            // Predefined controls
+            // Predefined controls            
+            if (element is TextBox) return GetTextBoxQuickAccessItem(element as TextBox);
+            if (element is ComboBox) return GetComboBoxQuickAccessItem(element as ComboBox);
             if (element is Button) return GetButtonQuickAccessItem(element as Button);
-            if (element is CheckBox) return GetCheckBoxQuickAccessItem(element as CheckBox);
+            if (element is ToggleButton) return GetToggleButtonQuickAccessItem(element as ToggleButton);
 
             // The control isn't supported
             throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
         }
         
         /// <summary>
+        /// Finds the top supported control and gets quick access item from it
+        /// </summary>
+        /// <param name="visual">Visual</param>
+        /// <param name="point">Point</param>
+        /// <returns>Point</returns>
+        public static UIElement PickQuickAccessItem(Visual visual, Point point)
+        {
+            UIElement element = FindSupportedControl(visual, point);
+            if (element != null) return GetQuickAccessItem(element);
+            else return null;
+        }
+
+        /// <summary>
         /// Finds the top supported control
         /// </summary>
         /// <param name="visual">Visual</param>
         /// <param name="point">Point</param>
         /// <returns>Point</returns>
-        public static UIElement FindAccessedControl(Visual visual, Point point)
+        public static UIElement FindSupportedControl(Visual visual, Point point)
         {
             HitTestResult result = VisualTreeHelper.HitTest(visual, point);
             UIElement element = result.VisualHit as UIElement;
@@ -91,20 +111,27 @@ namespace Fluent
             if (cachedQuickAccessButtons.ContainsKey(button)) return cachedQuickAccessButtons[button];
 
             Button item = new Button();
+            item.Focusable = false;
 
+
+            // Copy common properties
+            BindControlProperties(button, item);
             // Copy ScreenTip data
-            CopyScreenTip(button, item);
+            BindScreenTip(button, item);
+            // Bind small icon
             // Copy small icon
-            RibbonControl.SetSmallIcon(item, RibbonControl.GetSmallIcon(button));
-            
+            if (RibbonControl.GetSmallIcon(button) != null)
+                Bind(button, item, "(Fluent:RibbonControl.SmallIcon)",
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+
             // TODO: check, maybe copy style is not required for quick access toolbar items
-            item.Style = button.Style;
+            Bind(button, item, "Style", Button.StyleProperty, BindingMode.OneWay);
             RibbonControl.SetSize(item, RibbonControlSize.Small);
 
 
             // Syncronization
-            item.Click += new RoutedEventHandler(OnButtonClick);
-            
+            item.Click += OnButtonClick;
+
             cachedQuickAccessButtons.Add(button, item);
             return item;
         }
@@ -117,59 +144,175 @@ namespace Fluent
 
         #endregion
 
-        #region CheckBoxes
+        #region CheckBoxes & RadioButtons (ToggleButtons)
 
-        static Dictionary<CheckBox, CheckBox> cachedQuickAccessCheckBoxes = new Dictionary<CheckBox, CheckBox>();
-        static UIElement GetCheckBoxQuickAccessItem(CheckBox checkBox)
+        static Dictionary<ToggleButton, ToggleButton> cachedQuickAccessToggleButtons = new Dictionary<ToggleButton, ToggleButton>();
+        static UIElement GetToggleButtonQuickAccessItem(ToggleButton toggleButton)
         {
-            if (cachedQuickAccessCheckBoxes.ContainsKey(checkBox)) return cachedQuickAccessCheckBoxes[checkBox];
+            if (cachedQuickAccessToggleButtons.ContainsKey(toggleButton)) return cachedQuickAccessToggleButtons[toggleButton];
 
-            CheckBox item = new CheckBox();
-            item.Content = checkBox.Content.ToString();
-
-
+            ToggleButton item = new ToggleButton();
+            item.Focusable = false;
+            item.Content = (toggleButton.Content != null) ? toggleButton.Content.ToString() : null;
+            
+            // Copy common properties
+            BindControlProperties(toggleButton, item);
             // Copy ScreenTip data
-            CopyScreenTip(checkBox, item);
+            BindScreenTip(toggleButton, item);
             // Copy small icon
-            RibbonControl.SetSmallIcon(item, RibbonControl.GetSmallIcon(checkBox));
+            if (RibbonControl.GetSmallIcon(toggleButton) != null) 
+                Bind(toggleButton, item, "(Fluent:RibbonControl.SmallIcon)", 
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
             
             // TODO: check, maybe copy style is not required for quick access toolbar items
-            item.Style = checkBox.Style;
+            Bind(toggleButton, item, "Style", ToggleButton.StyleProperty, BindingMode.OneWay);
 
-            // Syncronization
-            item.Checked += new RoutedEventHandler(OnCheckBoxChecked);
-            item.Unchecked += new RoutedEventHandler(OnCheckBoxChecked);
-            checkBox.Checked += new RoutedEventHandler(OnHostCheckBoxChecked);
-            checkBox.Unchecked += new RoutedEventHandler(OnHostCheckBoxChecked);
+            // Syncronization            
+            Bind(toggleButton, item, "IsChecked", ToggleButton.IsCheckedProperty, BindingMode.TwoWay);
 
-            cachedQuickAccessCheckBoxes.Add(checkBox, item);
+            cachedQuickAccessToggleButtons.Add(toggleButton, item);
             return item;
-        }
-
-        static void OnHostCheckBoxChecked(object sender, RoutedEventArgs e)
-        {
-            cachedQuickAccessCheckBoxes[sender as CheckBox].IsChecked = (sender as CheckBox).IsChecked;
-        }
-
-        static void OnCheckBoxChecked(object sender, RoutedEventArgs e)
-        {
-            cachedQuickAccessCheckBoxes.Where(x => x.Value == sender).First().Key.IsChecked = (sender as CheckBox).IsChecked;
         }
 
         #endregion
 
+        #region ComboBoxes
+
+        static Dictionary<ComboBox, ComboBox> cachedQuickAccessComboBoxes = new Dictionary<ComboBox, ComboBox>();
+        static UIElement GetComboBoxQuickAccessItem(ComboBox comboBox)
+        {
+            if (cachedQuickAccessComboBoxes.ContainsKey(comboBox)) return cachedQuickAccessComboBoxes[comboBox];
+
+            ComboBox item = new ComboBox();
+            item.Focusable = false;
+            
+
+            // Copy common properties
+            BindControlProperties(comboBox, item);
+            // Copy ScreenTip data
+            BindScreenTip(comboBox, item);
+            // Copy small icon
+            if (RibbonControl.GetSmallIcon(comboBox) != null)
+                Bind(comboBox, item, "(Fluent:RibbonControl.SmallIcon)",
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+
+
+            Bind(comboBox, item, "Width", ComboBox.WidthProperty, BindingMode.OneWay);
+            Bind(comboBox, item, "Heigth", ComboBox.HeightProperty, BindingMode.OneWay);
+            Bind(comboBox, item, "MaxDropDownHeight", ComboBox.MaxDropDownHeightProperty, BindingMode.OneWay);
+            Bind(comboBox, item, "StaysOpenOnEdit", ComboBox.StaysOpenOnEditProperty, BindingMode.OneWay);
+            
+
+            Bind(comboBox, item, "IsEditable", ComboBox.IsEditableProperty, BindingMode.OneWay);
+            Bind(comboBox, item, "IsReadOnly", ComboBox.IsReadOnlyProperty, BindingMode.TwoWay);
+            Bind(comboBox, item, "Text", ComboBox.TextProperty, BindingMode.TwoWay);
+
+            cachedQuickAccessComboBoxes.Add(comboBox, item);
+            return item;
+        }
+
+        #endregion
+
+        #region TextBoxes
+
+        static Dictionary<TextBox, TextBox> cachedQuickAccessTextBoxes = new Dictionary<TextBox, TextBox>();
+        static UIElement GetTextBoxQuickAccessItem(TextBox textBox)
+        {
+            if (cachedQuickAccessTextBoxes.ContainsKey(textBox)) return cachedQuickAccessTextBoxes[textBox];
+
+            TextBox item = new TextBox();
+            //item.Focusable = false;
+            Bind(textBox, item, "Width", Control.WidthProperty, BindingMode.OneWay);
+            Bind(textBox, item, "Heigth", Control.HeightProperty, BindingMode.OneWay);
+
+            // Copy common properties
+            BindControlProperties(textBox, item);
+            // Copy ScreenTip data
+            BindScreenTip(textBox, item);
+            // Copy small icon
+            if (RibbonControl.GetSmallIcon(textBox) != null)
+                Bind(textBox, item, "(Fluent:RibbonControl.SmallIcon)",
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+                        
+            Bind(textBox, item, "IsReadOnly", TextBox.IsReadOnlyProperty, BindingMode.OneWay);
+            //Bind(textBox, item, "Text", TextBox.TextProperty, BindingMode.OneWay);
+            Bind(textBox, item, "CharacterCasing", TextBox.CharacterCasingProperty, BindingMode.OneWay);
+            Bind(textBox, item, "MaxLength", TextBox.MaxLengthProperty, BindingMode.OneWay);
+            Bind(textBox, item, "MaxLines", TextBox.MaxLinesProperty, BindingMode.OneWay);
+            Bind(textBox, item, "MinLines", TextBox.MinLinesProperty, BindingMode.OneWay);
+            Bind(textBox, item, "TextAlignment", TextBox.TextAlignmentProperty, BindingMode.OneWay);
+            Bind(textBox, item, "TextDecorations", TextBox.TextDecorationsProperty, BindingMode.OneWay);
+            Bind(textBox, item, "TextWrapping", TextBox.TextWrappingProperty, BindingMode.OneWay);
+
+            // Binding for Text we have to do manually, 
+            // because the binding doesn't work properly 
+            // if focus will be remain in one of the controls
+            item.Text = textBox.Text;
+            textBox.TextChanged += delegate { item.Text = textBox.Text; };
+            item.TextChanged += delegate { textBox.Text = item.Text; };
+
+            cachedQuickAccessTextBoxes.Add(textBox, item);
+            return item;
+        }
+
+        #endregion
+        
         #region Common Stuff
 
         // Copies ScreenTip data
-        static void CopyScreenTip(FrameworkElement from, FrameworkElement to)
+        static void BindScreenTip(FrameworkElement source, FrameworkElement target)
+        {            
+            Bind(source, target, "(Fluent:ScreenTip.Title)", ScreenTip.TitleProperty, BindingMode.OneWay);
+            Bind(source, target, "(Fluent:ScreenTip.Text)", ScreenTip.TextProperty, BindingMode.OneWay);
+            Bind(source, target, "(Fluent:ScreenTip.Image)", ScreenTip.ImageProperty, BindingMode.OneWay);
+            Bind(source, target, "(Fluent:ScreenTip.DisableReason)", ScreenTip.DisableReasonProperty, BindingMode.OneWay);
+            Bind(source, target, "(Fluent:ScreenTip.HelpTopic)", ScreenTip.HelpTopicProperty, BindingMode.OneWay);
+            Bind(source, target, "(Fluent:ScreenTip.Width)", ScreenTip.WidthProperty, BindingMode.OneWay);
+            Bind(source, target, "ToolTip", FrameworkElement.ToolTipProperty, BindingMode.OneWay);
+        }
+
+
+        static void BindControlProperties(Control source, Control target)
         {
-            ScreenTip.SetTitle(to, ScreenTip.GetTitle(from));
-            ScreenTip.SetText(to, ScreenTip.GetText(from));
-            ScreenTip.SetImage(to, ScreenTip.GetImage(from));
-            ScreenTip.SetDisableReason(to, ScreenTip.GetDisableReason(from));
-            ScreenTip.SetHelpTopic(to, ScreenTip.GetHelpTopic(from));
-            ScreenTip.SetWidth(to, ScreenTip.GetWidth(from));
-            to.ToolTip = from.ToolTip;
+            if (source is ButtonBase)
+            {
+                Bind(source, target, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+                Bind(source, target, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                Bind(source, target, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                Bind(source, target, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+            }
+
+            Bind(source, target, "ContextMenu", Control.ContextMenuProperty, BindingMode.OneWay);
+
+            Bind(source, target, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);
+            Bind(source, target, "FontSize", Control.FontSizeProperty, BindingMode.OneWay);
+            Bind(source, target, "FontStretch", Control.FontStretchProperty, BindingMode.OneWay);
+            Bind(source, target, "FontStyle", Control.FontStyleProperty, BindingMode.OneWay);
+            Bind(source, target, "FontWeight", Control.FontWeightProperty, BindingMode.OneWay);
+
+            Bind(source, target, "Foreground", Control.ForegroundProperty, BindingMode.OneWay);
+            Bind(source, target, "IsEnabled", Control.IsEnabledProperty, BindingMode.OneWay);
+            Bind(source, target, "Opacity", Control.OpacityProperty, BindingMode.OneWay);
+            Bind(source, target, "SnapsToDevicePixels", Control.SnapsToDevicePixelsProperty, BindingMode.OneWay);
+            Bind(source, target, "Visibility", Control.VisibilityProperty, BindingMode.OneWay);            
+        }
+
+        #endregion
+
+        #region Binding
+
+        static void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property)
+        {
+            Bind(source, target, path, property, BindingMode.OneWay);
+        }
+
+        static void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
+        {
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(path);
+            binding.Source = source;
+            binding.Mode = mode;
+            target.SetBinding(property, binding);
         }
 
         #endregion

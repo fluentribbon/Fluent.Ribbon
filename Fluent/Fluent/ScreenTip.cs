@@ -9,6 +9,8 @@ using System.Text;
 
 namespace Fluent
 {    
+    // TODO: change default values of ScreenTip properties to null and fix control template triggers
+
     /// <summary>
     /// Includes attached properties for controls 
     /// that want to be in ribbon group
@@ -25,23 +27,22 @@ namespace Fluent
           "Title",
           typeof(string),
           typeof(ScreenTip),
-          new FrameworkPropertyMetadata("",
-              FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChangedCallback)
+          new FrameworkPropertyMetadata("", TitlePropertyChanged)
         );
 
-        static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void TitlePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ToolTip toolTip = ((FrameworkElement)d).ToolTip as ToolTip;
             if (toolTip == null)
             {
                 toolTip = new ToolTip();
                 (d as FrameworkElement).ToolTip = toolTip;
-                ToolTipService.SetShowOnDisabled(d, true);
-                ToolTipService.SetShowDuration(d, 20000);
-                ToolTipService.SetInitialShowDelay(d, 900);
                 toolTip.Opened += OnToolTipOpened;
                 toolTip.Closed += OnToolTipClosed;
             }
+            ToolTipService.SetShowOnDisabled(d, true);
+            ToolTipService.SetShowDuration(d, 20000);
+            ToolTipService.SetInitialShowDelay(d, 900);
         }
 
         /// <summary>

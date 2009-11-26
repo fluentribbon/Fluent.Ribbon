@@ -49,8 +49,22 @@
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-                <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-                <CheckBox Width="100" Height="20">Lalala</CheckBox>
+                <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" 
+                        IsEnabled="{Binding ElementName=checkBox1, Path=IsChecked, Mode=OneWay}"
+                        Fluent:ScreenTip.Title="Insert Chart"
+                        Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
+                        Fluent:ScreenTip.Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
+                        Fluent:ScreenTip.HelpTopic="mspaint"
+                        Fluent:ScreenTip.DisableReason="Disable reason reason."
+                        Fluent:ScreenTip.Width="300"/>
+                <CheckBox x:Name="checkBox1" Width="100" Height="20">Lalala</CheckBox>
+				<TextBox x:Name="textBox1" Width="100" Height="20">dads</TextBox>
+				<ComboBox x:Name="comboBox1" Width="100" Height="20">
+					<MenuItem Header="First"/>
+					<MenuItem Header="Second"/>
+					<Separator/>
+					<MenuItem Header="End"/>
+				</ComboBox>
               </Fluent:RibbonGroupBox>
             </Fluent:RibbonGroupsContainer>
         	</Fluent:RibbonTabItem>
