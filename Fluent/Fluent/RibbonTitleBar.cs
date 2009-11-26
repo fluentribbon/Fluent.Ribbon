@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,27 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for QuickAccessToolbar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty QuickAccessToolbarProperty =
-            DependencyProperty.Register("QuickAccessToolbar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null));
+            DependencyProperty.Register("QuickAccessToolbar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null,OnQuickAccessToolbarChanged));
+
+        private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTitleBar titleBar = (RibbonTitleBar)d;
+
+            UIElement oldToolbar = e.OldValue as UIElement;
+            UIElement newToolbar = e.NewValue as UIElement;
+
+            // Remove Logical tree link
+            if (oldToolbar != null)
+            {
+                titleBar.RemoveLogicalChild(oldToolbar);
+            }
+
+            // Add Logical tree link
+            if (newToolbar != null)
+            {
+                titleBar.AddLogicalChild(newToolbar);
+            }        
+        }
 
         public HorizontalAlignment HeaderAlignment
         {
@@ -46,6 +67,18 @@ namespace Fluent
         // Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register("HeaderAlignment", typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
+
+        #endregion
+
+        #region Protected Properties
+
+        /// <summary>
+        ///   Gets an enumerator for the Ribbon's logical children.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get { return new RibbonTitleBarLogicalChildrenEnumerator(this.Header as UIElement, this.QuickAccessToolbar, this.Items); }
+        }
 
         #endregion
 
@@ -188,14 +221,14 @@ namespace Fluent
                 }
                 else if(HeaderAlignment==HorizontalAlignment.Center)
                 {
-                    if((startX-quickAccessToolbarWidth<150)||(endX<constraint.Width/2))
+                    if (((startX - quickAccessToolbarWidth < 150) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                     {
                         double allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);                        
                     }
                     else
                     {
-                        double allTextWidth = startX - quickAccessToolbarWidth;
+                        double allTextWidth = Math.Max(0,startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
@@ -203,7 +236,7 @@ namespace Fluent
                 {
                     if (startX - quickAccessToolbarWidth > 150)
                     {
-                        double allTextWidth = startX - quickAccessToolbarWidth;
+                        double allTextWidth = Math.Max(0,startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth - headerHolder.DesiredSize.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
@@ -227,6 +260,153 @@ namespace Fluent
                 }
                 
             }
+        }
+
+        #endregion
+
+        #region RibbonLogicalChildEnumerator Class
+
+        /// <summary>
+        ///   An enumerator for the logical children of the Ribbon.
+        /// </summary>
+        private class RibbonTitleBarLogicalChildrenEnumerator : IEnumerator
+        {
+            #region Fields
+
+            private UIElement toolbar;
+
+            private UIElement header;
+
+            /// <summary>
+            ///   The Ribbon's collection of tabs.
+            /// </summary>
+            private ItemCollection items;
+
+            /// <summary>
+            ///   The current position of enumeration.
+            /// </summary>
+            private Position postition;
+
+            /// <summary>
+            ///   The current tab index if we are currently enumerating the Ribbon's tabs.
+            /// </summary>
+            private int index = 0;
+
+            #endregion
+
+            #region Constructors
+
+            public RibbonTitleBarLogicalChildrenEnumerator(UIElement header, UIElement toolbar, ItemCollection items)
+            {
+                postition = Position.None;
+                this.toolbar = toolbar;
+                this.toolbar = header;
+                this.items = items;
+            }
+
+            #endregion
+
+            #region Position Enum
+
+            /// <summary>
+            ///   An enum indicating the current position of enumeration.
+            /// </summary>
+            private enum Position
+            {
+                /// <summary>
+                ///   Indicates that the enumeration is not currently within the Ribbon's
+                ///   logical children.
+                /// </summary>
+                None,
+
+                Toolbar,
+                Header,
+
+                /// <summary>
+                ///   Indicates enumeration is currently at the QuickAccessToolbar.
+                /// </summary>
+                Items
+            }
+
+            #endregion
+
+            #region Public Properties
+
+            /// <summary>
+            ///   Gets the object at the enumerators current position.
+            /// </summary>
+            public object Current
+            {
+                get
+                {
+                    switch (postition)
+                    {
+                        case Position.Toolbar:
+                            return toolbar;
+                        case Position.Header:
+                            return header;
+                        case Position.Items:
+                            return items[index];
+                    }
+
+                    throw new InvalidOperationException();
+                }
+            }
+
+            #endregion
+
+            #region Public Methods
+
+            /// <summary>
+            ///   Advances the enumerator to the next logical child of the Ribbon.
+            /// </summary>
+            /// <returns>True if the enumerator was successfully advanced, false otherwise.</returns>
+            public bool MoveNext()
+            {
+                if (postition == Position.None)
+                {
+                    postition = Position.Header;
+                    return true;                    
+                }
+                if (postition == Position.Header)
+                {
+                    postition = Position.Toolbar;                    
+                    return true;
+                }
+
+                if (postition == Position.Toolbar)
+                {
+                    postition = Position.Items;
+                    if ((items != null)&&(items.Count>0))
+                    {
+                        return true;
+                    }
+                }
+
+                if (postition == Position.Items)
+                {
+                    if (index < items.Count - 2)
+                    {
+                        index++;
+                        return true;
+                    }
+                }
+
+                this.Reset();
+
+                return false;
+            }
+
+            /// <summary>
+            ///   Resets the RibbonLogicalChildrenEnumerator.
+            /// </summary>
+            public void Reset()
+            {
+                postition = Position.None;
+                index = 0;
+            }
+
+            #endregion
         }
 
         #endregion

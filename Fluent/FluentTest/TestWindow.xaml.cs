@@ -23,9 +23,7 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
-            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
-
-
+            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);            
         }
 
 
@@ -45,13 +43,13 @@ namespace FluentTest
             {
                 tabGroup1.Visibility = System.Windows.Visibility.Collapsed;
                 tabGroup2.Visibility = System.Windows.Visibility.Collapsed;
-                tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
+               // tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
             {
                 tabGroup1.Visibility = System.Windows.Visibility.Visible;
                 tabGroup2.Visibility = System.Windows.Visibility.Visible;
-                tabGroup3.Visibility = System.Windows.Visibility.Visible;
+                //tabGroup3.Visibility = System.Windows.Visibility.Visible;
             }
         }
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)

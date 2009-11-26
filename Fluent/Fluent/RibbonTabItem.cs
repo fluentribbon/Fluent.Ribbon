@@ -141,6 +141,29 @@ namespace Fluent
         }
 
 
+
+        public bool HasLeftGroupBorder
+        {
+            get { return (bool)GetValue(HasLeftGroupBorderProperty); }
+            set { SetValue(HasLeftGroupBorderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HasLeftGroupBorderProperty =
+            DependencyProperty.Register("HasLeftGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
+
+        public bool HasRightGroupBorder
+        {
+            get { return (bool)GetValue(HasRightGroupBorderProperty); }
+            set { SetValue(HasRightGroupBorderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HasRightGroupBorderProperty =
+            DependencyProperty.Register("HasRightGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
+
         #endregion
 
         #region Events
@@ -161,11 +184,13 @@ namespace Fluent
 
         /// <summary>
         /// Default constructor
-        /// </summary>
+                /// </summary>
         public RibbonTabItem()
         {
-            this.Loaded += OnLayoutUpdated;
-            this.SizeChanged += OnLayoutUpdated;        
+            /*this.Loaded += OnLayoutUpdated;
+            this.SizeChanged += OnLayoutUpdated;*/
+
+            //this.LayoutUpdated += OnLayoutUpdated;        
         }
 
         private void OnLayoutUpdated(object sender, EventArgs e)
@@ -240,6 +265,7 @@ namespace Fluent
             }            
             //base.OnMouseLeftButtonDown(e);
         }
+
 
         #endregion
 

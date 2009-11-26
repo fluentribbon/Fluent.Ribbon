@@ -85,6 +85,19 @@ namespace Fluent
             }
         }
 
+
+        internal RibbonTabItem SelectedTabItem
+        {
+            get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
+            set { SetValue(SelectedTabItemProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
+        internal static readonly DependencyProperty SelectedTabItemProperty =
+            DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
+
+
+
         #endregion
 
         #region Protected Properties
@@ -210,11 +223,55 @@ namespace Fluent
                 }
             }
             base.OnLostMouseCapture(e);
-        }        
+        }
+
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            ProcessMouseWheel(e);
+
+            /*if (e.Delta > 0)
+                if (SelectedIndex > 0) SelectedIndex--;
+            if (e.Delta < 0)
+                if (SelectedIndex < Items.Count-1) SelectedIndex++;*/
+            e.Handled = true;
+        }
 
         #endregion
 
         #region Private methods
+
+        internal void ProcessMouseWheel(MouseWheelEventArgs e)
+        {
+            if (IsMinimized) return;
+            List<RibbonTabItem> visualItems = new List<RibbonTabItem>();
+            int selectedIndex = -1;
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if ((Items[i] as RibbonTabItem).Visibility == Visibility.Visible)
+                {
+                    visualItems.Add((Items[i] as RibbonTabItem));
+                    if ((Items[i] as RibbonTabItem).IsSelected) selectedIndex = i;
+                }
+            }
+            if (e.Delta > 0)
+            {
+                if (selectedIndex > 0)
+                {
+                    visualItems[selectedIndex].IsSelected = false;
+                    selectedIndex--;
+                    visualItems[selectedIndex].IsSelected = true;
+                }
+            }
+            if (e.Delta < 0)
+            {
+                if (selectedIndex < visualItems.Count - 1)
+                {
+                    visualItems[selectedIndex].IsSelected = false;
+                    selectedIndex++;
+                    visualItems[selectedIndex].IsSelected = true;
+                }
+            }
+        }
 
         // Get selected ribbon tab item
         private RibbonTabItem GetSelectedTabItem()
@@ -262,7 +319,9 @@ namespace Fluent
         {
             if (base.SelectedIndex < 0)
             {
+
                 this.SelectedContent = null;
+                SelectedTabItem = null;
             }
             else
             {
@@ -271,9 +330,14 @@ namespace Fluent
                 {
                     FrameworkElement parent = VisualTreeHelper.GetParent(selectedTabItem) as FrameworkElement;
                     this.SelectedContent = selectedTabItem.Content;
+
+                    SelectedTabItem = selectedTabItem;
                 }
             }
         }
+
+        
+
 
         #endregion
 
@@ -391,19 +455,12 @@ namespace Fluent
             /// <summary>
             ///   The current tab index if we are currently enumerating the Ribbon's tabs.
             /// </summary>
-            private int index = -1;
+            private int index = 0;
 
             #endregion
 
             #region Constructors
 
-            /// <summary>
-            ///   Initializes a new instance of the RibbonLogicalChildrenEnumerator class.
-            /// </summary>
-            /// <param name="ribbonApplicationMenu">The RibbonApplicationMenu of the Ribbon to be enumerated.</param>
-            /// <param name="ribbonQuickAccessToolBar">The RibbonQuickAccessToolbar of the Ribbon to be enumerated.</param>
-            /// <param name="tabs">The collection of RibbonTabs of the Ribbon to be enumerated.</param>
-            /// <param name="contextualTabGroups">The collection of RibbonContextualTabGroups of the Ribbon to be enumerated.</param>
             public RibbonTabControlLogicalChildrenEnumerator(UIElement toolbar, ItemCollection items)
             {
                 postition = Position.None;
@@ -473,6 +530,11 @@ namespace Fluent
                 if (postition == Position.None)
                 {
                     postition = Position.Toolbar;
+                    return true;
+                }
+                if (postition == Position.Toolbar)
+                {
+                    postition = Position.Items;
                     if (items != null)
                     {
                         return true;
@@ -481,7 +543,7 @@ namespace Fluent
 
                 if (postition == Position.Items)
                 {
-                    if (index < items.Count - 1)
+                    if (index < items.Count - 2)
                     {
                         index++;
                         return true;
@@ -499,7 +561,7 @@ namespace Fluent
             public void Reset()
             {
                 postition = Position.None;
-                index = -1;
+                index = 0;
             }
 
             #endregion

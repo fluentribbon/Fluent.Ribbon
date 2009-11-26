@@ -4,22 +4,27 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Window1" Height="345" Width="880" mc:Ignorable="d">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FFEBEDF0" Offset="0"/>
+			<GradientStop Color="#FFBABEC2" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
     <Grid>
         <Fluent:RibbonTitleBar VerticalAlignment="Top" Style="{DynamicResource RibbonTitleBarStyle}" Margin="0,0,0,0" Height="25">
-          <Fluent:RibbonTitleBar.Header>
-            <TextBlock Text="{Binding Title, ElementName=window, Mode=Default}" />
-          </Fluent:RibbonTitleBar.Header>
-          <Fluent:RibbonTitleBar.QuickAccessToolbar>
+            <Fluent:RibbonTitleBar.Header>
+                <TextBlock Text="{Binding Title, ElementName=window, Mode=Default}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+            </Fluent:RibbonTitleBar.Header>
+            <Fluent:RibbonTitleBar.QuickAccessToolbar>
             <Fluent:QuickAccessToolbar x:Name="quickAccessToolbar" Width="Auto" HorizontalAlignment="Left">
               <Button>1</Button>
               <Button>2</Button>
             </Fluent:QuickAccessToolbar>
           </Fluent:RibbonTitleBar.QuickAccessToolbar>
-        	<Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
-        	<Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
-          <Fluent:RibbonContextualTabGroup x:Name="tabGroup3" Style="{DynamicResource RibbonContextualTabGroupStyle}"/>
+        	<Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="#FFA55D18" Background="#FFFFAD00"/>
+        	<Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="#FF6B3AA7" Background="#FF8200FF"/>
         </Fluent:RibbonTitleBar>
-        <Fluent:RibbonTabControl x:Name="ribbonTabControl" VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" SelectedIndex="0" Margin="0,25,0,0" MouseRightButtonUp="OnMouseRightButtonUp">
+        <Fluent:RibbonTabControl x:Name="ribbonTabControl" VerticalAlignment="Top" Style="{DynamicResource RibbonTabControlStyle}" Margin="0,25,0,0" MouseRightButtonUp="OnMouseRightButtonUp">
         	<Fluent:RibbonTabControl.Toolbar>
         		<StackPanel Orientation="Horizontal">
 					    <Button Content="1"/>
@@ -49,48 +54,92 @@
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
                 <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-                <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" 
-                        IsEnabled="{Binding ElementName=checkBox1, Path=IsChecked, Mode=OneWay}"
+                <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"
                         Fluent:ScreenTip.Title="Insert Chart"
-                        Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
-                        Fluent:ScreenTip.Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
-                        Fluent:ScreenTip.HelpTopic="mspaint"
-                        Fluent:ScreenTip.DisableReason="Disable reason reason."
-                        Fluent:ScreenTip.Width="300"/>
-                <CheckBox x:Name="checkBox1" Width="100" Height="20">Lalala</CheckBox>
-				<TextBox x:Name="textBox1" Width="100" Height="20">dads</TextBox>
-				<ComboBox x:Name="comboBox1" Width="100" Height="20">
-					<MenuItem Header="First"/>
-					<MenuItem Header="Second"/>
-					<Separator/>
-					<MenuItem Header="End"/>
-				</ComboBox>
-              </Fluent:RibbonGroupBox>
-            </Fluent:RibbonGroupsContainer>
-        	</Fluent:RibbonTabItem>
-        	<Fluent:RibbonTabItem Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">
-        		<Rectangle Fill="#FF00FF05" Stroke="Black" Width="100" Height="100"/>
-        	</Fluent:RibbonTabItem>
-        	<Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
-        		<Rectangle Fill="#FFFF00CB" Stroke="Black" Width="100" Height="100"/>
-        	</Fluent:RibbonTabItem>
-          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}" IsEnabled="False"
-                                Fluent:ScreenTip.Title="Insert Chart"
                                 Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
                                 Fluent:ScreenTip.Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
                                 Fluent:ScreenTip.HelpTopic="http:\\fluent.codeplex.com"
                                 Fluent:ScreenTip.DisableReason="Disable reason reason."
                                 Fluent:ScreenTip.Width="300"/>
-          <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}"/>
-          <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}"/>
-          <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}"/>
-          <Fluent:RibbonTabItem Header="Format" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup1, Mode=OneWay}"/>
+                <CheckBox Width="100" Height="20">Lalala</CheckBox>
+                <TextBox Width="100" Height="20"/>
+                <ComboBox Width="100" Height="20">
+                  <ComboBoxItem>1</ComboBoxItem>
+                  <ComboBoxItem>2</ComboBoxItem>
+                  <ComboBoxItem>3</ComboBoxItem>
+                  <ComboBoxItem>4</ComboBoxItem>
+                  <ComboBoxItem>5</ComboBoxItem>
+                </ComboBox>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+        	</Fluent:RibbonTabItem>
+        	<Fluent:RibbonTabItem Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">
+            <Fluent:RibbonGroupsContainer>
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+        	</Fluent:RibbonTabItem>
+        	<Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+        	</Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}"
+                                Fluent:ScreenTip.Title="Insert Chart"
+                                Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
+                                Fluent:ScreenTip.Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
+                                Fluent:ScreenTip.HelpTopic="http:\\fluent.codeplex.com"
+                                Fluent:ScreenTip.DisableReason="Disable reason reason."
+                                Fluent:ScreenTip.Width="300">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
+          <Fluent:RibbonTabItem Header="Format" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
           <Fluent:RibbonTabItem Header="Design" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"
                                 Fluent:ScreenTip.Title="For Test"
                                 Fluent:ScreenTip.Text="Insert a chart to illustarate and compare data. &#x0a;&#x0a;Bar, Pie, Line, Area and Surface are same of the available types."                                
                                 Fluent:ScreenTip.HelpTopic="calc"
                                 Fluent:ScreenTip.Width="300" Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
-          <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup3, Mode=OneWay}"/>
+          <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
+            <Fluent:RibbonGroupsContainer >
+              <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+                <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              </Fluent:RibbonGroupBox>
+            </Fluent:RibbonGroupsContainer>
+          </Fluent:RibbonTabItem>
         </Fluent:RibbonTabControl>
     </Grid>
 </Window>

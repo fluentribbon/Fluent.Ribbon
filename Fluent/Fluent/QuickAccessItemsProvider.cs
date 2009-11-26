@@ -207,6 +207,9 @@ namespace Fluent
             Bind(comboBox, item, "IsReadOnly", ComboBox.IsReadOnlyProperty, BindingMode.TwoWay);
             Bind(comboBox, item, "Text", ComboBox.TextProperty, BindingMode.TwoWay);
 
+            item.ItemsSource = comboBox.Items;            
+            Bind(comboBox, item, "Items", ComboBox.ItemsSourceProperty, BindingMode.OneWay);
+
             cachedQuickAccessComboBoxes.Add(comboBox, item);
             return item;
         }

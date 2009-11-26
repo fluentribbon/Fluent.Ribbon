@@ -72,6 +72,7 @@ namespace Fluent
         {
             RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
             for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
+            (group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
         public RibbonContextualTabGroup()
@@ -87,11 +88,24 @@ namespace Fluent
         {
             Items.Add(item);
             item.Visibility = Visibility;
+            UpdateGroupBorders();
+        }
+
+        private void UpdateGroupBorders()
+        {
+            for (int i = 0; i < items.Count;i++ )
+            {
+                if (i == 0) items[i].HasLeftGroupBorder = true;
+                else items[i].HasLeftGroupBorder = false;
+                if (i == items.Count - 1) items[i].HasRightGroupBorder = true;
+                else items[i].HasRightGroupBorder = false;
+            }
         }
 
         internal void RemoveTabItem(RibbonTabItem item)
         {
-            Items.Remove(item);            
+            Items.Remove(item);
+            UpdateGroupBorders();
         }
 
         #endregion

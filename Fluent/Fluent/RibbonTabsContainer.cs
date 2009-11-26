@@ -44,7 +44,8 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (Children.Count == 0) return constraint;
+            if (InternalChildren.Count == 0) return constraint;
+
             Size desiredSize = MeasureChildrenDesiredSize(constraint);
 
             
@@ -331,6 +332,19 @@ namespace Fluent
                 item.Arrange(finalRect);
                 finalRect.X += item.DesiredSize.Width;
             }
+
+            for (int i = 0; i < InternalChildren.Count; i++)
+            {
+                if (InternalChildren[i] is RibbonTabItem)
+                {
+                    if ((InternalChildren[i] as RibbonTabItem).Group != null)
+                    {
+                        ((InternalChildren[i] as RibbonTabItem).Group.Parent as RibbonTitleBar).InvalidateMeasure();
+                        break;
+                    }
+                }
+            }
+
             return finalSize;
         }
 

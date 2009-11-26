@@ -12,22 +12,68 @@
 							<RowDefinition x:Name="rowDefinition" Height="86"/>
 							<RowDefinition x:Name="rowDefinition1" Height="5"/>
 						</Grid.RowDefinitions>
-						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1,0,0" Grid.Row="1" BorderBrush="{DynamicResource RibbonTopBorderBrush}" Background="{DynamicResource RibbonBackgoundBrush}"/>
+						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1" Grid.Row="1" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}"/>
 						<Border HorizontalAlignment="Stretch" Margin="1,0,1,1" Grid.Row="1" Grid.RowSpan="1">
 						<ContentControl x:Name="mainContentControl">
 							<ScrollViewer x:Name="contentPresenter" HorizontalAlignment="Stretch" Margin="0" Style="{DynamicResource RibbonScrollViewer}" Content="{TemplateBinding SelectedContent}"/>
 						</ContentControl>
 						</Border>
-						<Border x:Name="shadowBorder" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderBrush="{DynamicResource RibbonBottomBorderBrush}" BorderThickness="0,1,0,0" Background="{DynamicResource RibbonShadowBrush}"/>
+						<Border x:Name="shadowBorder" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderThickness="0,1,0,0" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">
+							<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
+						<Border x:Name="shadowBorder_Copy" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderThickness="0,1,0,0" Background="Black" BorderBrush="Black" Opacity="0.3">
+
+							<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
 						<Grid x:Name="TabsGrid" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Grid.RowSpan="1">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*"/>
 								<ColumnDefinition Width="Auto"/>
 							</Grid.ColumnDefinitions>
-							<ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Stretch" Margin="60,0,0,0" Width="Auto" Style="{DynamicResource RibbonScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,0,0,1" VerticalAlignment="Bottom" Height="23">
+								<Rectangle.Fill>
+									<RadialGradientBrush RadiusY="1" Center="1,1" GradientOrigin="1,1" RadiusX="1">
+										<GradientStop Offset="1"/>
+										<GradientStop Color="#D8FFFFFF"/>
+									</RadialGradientBrush>
+								</Rectangle.Fill>
+							</Rectangle>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,0,15,1" Height="23" VerticalAlignment="Bottom">
+								<Rectangle.Fill>
+									<RadialGradientBrush RadiusY="1" Center="0,1" GradientOrigin="0,1" RadiusX="1">
+										<GradientStop Offset="1"/>
+										<GradientStop Color="#D8FFFFFF"/>
+									</RadialGradientBrush>
+								</Rectangle.Fill>
+							</Rectangle>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,0,50,1" VerticalAlignment="Bottom">
+								<Rectangle.Fill>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Offset="0"/>
+										<GradientStop Color="#D8FFFFFF" Offset="1"/>
+									</LinearGradientBrush>
+								</Rectangle.Fill>
+							</Rectangle>
+							<ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Stretch" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch"/>							
 							</ScrollViewer>
-							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal">
+							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
 								<ContentPresenter ContentSource="Toolbar"/>
 							</StackPanel>
 						</Grid>
@@ -37,10 +83,31 @@
 								<RowDefinition Height="86"/>
 								<RowDefinition Height="5"/>
 							</Grid.RowDefinitions>
-								<Border Width="{Binding ActualWidth, ElementName=ContentGrid, Mode=Default}" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" Background="{DynamicResource RibbonBackgoundBrush}" BorderThickness="0,1,0,0">
+								<Border Width="{Binding ActualWidth, ElementName=ContentGrid, Mode=Default}" Height="Auto" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}" BorderThickness="0,1">
 									<ContentControl x:Name="contentControl"/>
 								</Border>
-								<Border Background="{DynamicResource RibbonShadowBrush}" Margin="0,-1,0,0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderBrush="{DynamicResource RibbonBottomBorderBrush}" BorderThickness="0,1,0,0" Height="6"/>
+								<Border Margin="0,-1,0,0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderThickness="0,1,0,0" Height="6" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">									
+								<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
+								<Border Margin="0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderThickness="0,1,0,0" Height="6" BorderBrush="Black" Background="Black" Opacity="0.3">									
+									<Border.OpacityMask>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="Black" Offset="0.003"/>
+											<GradientStop Color="#00000000" Offset="0.991"/>
+											<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+											<GradientStop Color="#FF040404" Offset="0.15"/>
+										</LinearGradientBrush>
+									</Border.OpacityMask>
+
+								</Border>
 							</Grid>
 						</Popup>
 					</Grid>
