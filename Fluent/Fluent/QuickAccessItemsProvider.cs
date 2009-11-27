@@ -5,6 +5,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,17 +58,21 @@ namespace Fluent
         /// <returns>Control which represents quick access toolbar item</returns>
         public static UIElement GetQuickAccessItem(UIElement element)
         {
-            // If control supports the interface just return what it provides
-            if (element is IQuickAccessItemProvider) return (element as IQuickAccessItemProvider).GetQuickAccessToolbarItem();
+            UIElement result = null;
+
+            // If control supports the interface just return what it provides            
+            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).GetQuickAccessToolbarItem();
 
             // Predefined controls            
-            if (element is TextBox) return GetTextBoxQuickAccessItem(element as TextBox);
-            if (element is ComboBox) return GetComboBoxQuickAccessItem(element as ComboBox);
-            if (element is Button) return GetButtonQuickAccessItem(element as Button);
-            if (element is ToggleButton) return GetToggleButtonQuickAccessItem(element as ToggleButton);
+            else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);
+            else if (element is ComboBox) result = GetComboBoxQuickAccessItem(element as ComboBox);
+            else if (element is Button) result = GetButtonQuickAccessItem(element as Button);
+            else if (element is ToggleButton) result = GetToggleButtonQuickAccessItem(element as ToggleButton);
 
             // The control isn't supported
-            throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
+            if (element == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
+                        
+            return result;
         }
         
         /// <summary>

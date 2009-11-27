@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Linq;
@@ -213,7 +214,7 @@ namespace Fluent
           "LargeIcon",
           typeof(ImageSource),
           typeof(RibbonControl),
-          new FrameworkPropertyMetadata(null,
+          new FrameworkPropertyMetadata(new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png")),
               FrameworkPropertyMetadataOptions.None)
         );
 
@@ -252,7 +253,7 @@ namespace Fluent
           "SmallIcon",
           typeof(ImageSource),
           typeof(RibbonControl),
-          new FrameworkPropertyMetadata(null,
+          new FrameworkPropertyMetadata(new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png")),
               FrameworkPropertyMetadataOptions.None)
         );
 
