@@ -23,7 +23,20 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
-            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);            
+            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+            PreviewKeyUp += new KeyEventHandler(OnWindowKeyDown);
+        }
+
+        void OnWindowKeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.System) &&
+                ((e.SystemKey == Key.LeftAlt) ||
+                 (e.SystemKey == Key.RightAlt) ||
+                 (e.SystemKey == Key.F10)))
+            {
+                KeyTip.Show(ribbonTabControl);
+                e.Handled = true;
+            }
         }
 
 
@@ -36,6 +49,12 @@ namespace FluentTest
         {
             MessageBox.Show("Launcher button pressed!!!");
         }
+
+        void OnShowKeyTipsClick(object sender, RoutedEventArgs e)
+        {
+            KeyTip.Show(ribbonTabControl);
+        }
+        
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
         {

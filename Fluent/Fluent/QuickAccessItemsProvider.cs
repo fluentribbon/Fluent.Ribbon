@@ -12,6 +12,9 @@ using System.Text;
 
 namespace Fluent
 {
+    // TODO: create QuickAccessShortcut with Target property to use it in XAML
+    // TODO: make QuickAccessItemsProvider internal class
+
     /// <summary>
     /// This interface must be implemented for controls
     /// which are intended to insert to quick access toolbar
