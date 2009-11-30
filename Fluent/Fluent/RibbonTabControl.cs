@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Fluent
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
+    [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
     public class RibbonTabControl: Selector
     {
         #region Constants
@@ -30,7 +32,6 @@ namespace Fluent
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged));
-        public static readonly DependencyProperty ToolbarProperty = DependencyProperty.Register("Toolbar", typeof(UIElement), typeof(RibbonTabControl), new UIPropertyMetadata(null, OnToolbarChanged));
 
         #endregion
 
@@ -39,6 +40,10 @@ namespace Fluent
         private Popup popup = null;
 
         private object oldSelectedItem = null;
+
+        private ObservableCollection<UIElement> toolbarItems = null;
+
+        private Panel toolbarPanel = null;
 
         #endregion
 
@@ -69,12 +74,6 @@ namespace Fluent
             set { SetValue(IsOpenProperty, value); }
         }
 
-        public UIElement Toolbar
-        {
-            get { return (UIElement)GetValue(ToolbarProperty); }
-            set { SetValue(ToolbarProperty, value); }
-        }        
-
         internal bool CanScroll
         {
             get 
@@ -96,18 +95,49 @@ namespace Fluent
         internal static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
-
-
-        #endregion
-
-        #region Protected Properties
-
-        /// <summary>
-        ///   Gets an enumerator for the Ribbon's logical children.
-        /// </summary>
-        protected override IEnumerator LogicalChildren
+        public ObservableCollection<UIElement> ToolbarItems
         {
-            get { return new RibbonTabControlLogicalChildrenEnumerator(this.Toolbar, this.Items); }
+            get
+            {
+                if (this.toolbarItems == null)
+                {
+                    this.toolbarItems = new ObservableCollection<UIElement>();
+                    this.toolbarItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                }
+                return this.toolbarItems;
+            }
+        }
+
+        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (toolbarPanel != null) toolbarPanel.Children.Add(obj2 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (toolbarPanel != null) toolbarPanel.Children.Remove(obj3 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (toolbarPanel != null) toolbarPanel.Children.Remove(obj4 as UIElement);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (toolbarPanel != null) toolbarPanel.Children.Add(obj5 as UIElement);
+                    }
+                    break;
+            }
+
         }
 
         #endregion
@@ -148,9 +178,18 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             popup = GetTemplateChild("PART_Popup") as Popup;
-
-            /*contentPresenter = FindName(SelectedContentHostTemplateName) as ContentPresenter;
-            if (contentPresenter == null) throw new Exception("Incorrect control template.");*/
+            if (toolbarPanel != null)
+            {
+                toolbarPanel.Children.Clear();
+            }
+            toolbarPanel = GetTemplateChild("PART_ToolbarPanel") as Panel;
+            if ((toolbarPanel != null) && (toolbarItems != null))
+            {
+                for (int i = 0; i < toolbarItems.Count; i++)
+                {
+                    toolbarPanel.Children.Add(toolbarItems[i]);
+                }
+            }
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)
@@ -329,7 +368,7 @@ namespace Fluent
                 if (selectedTabItem != null)
                 {
                     FrameworkElement parent = VisualTreeHelper.GetParent(selectedTabItem) as FrameworkElement;
-                    this.SelectedContent = selectedTabItem.Content;
+                    this.SelectedContent = selectedTabItem.GroupsContainer;
 
                     SelectedTabItem = selectedTabItem;
                 }

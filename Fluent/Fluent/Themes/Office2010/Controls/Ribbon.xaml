@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+    <Style x:Key="RibbonStyle" TargetType="{x:Type Fluent:Ribbon}">
+    	<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    	<Setter Property="Template" Value="{DynamicResource RibbonControlTemplate}"/>
+    </Style>
+    <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
+    	<Grid Width="Auto" Height="Auto">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="0.748*"/>
+    			<RowDefinition Height="0.252*"/>
+    		</Grid.RowDefinitions>
+    		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,111,0" Header="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" VerticalAlignment="Top"/>
+    		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0"/>
+    		<Border Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
+    			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
+    				<Fluent:QuickAccessToolbar x:Name="PART_QuickAccessToolbar" VerticalAlignment="Top" Style="{DynamicResource QuickAccessToolbarStyle}" HorizontalAlignment="Left"/>
+    			</Border>
+    		</Border>
+    	</Grid>
+    </ControlTemplate>
+</ResourceDictionary>

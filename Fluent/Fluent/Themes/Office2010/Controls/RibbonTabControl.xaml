@@ -74,7 +74,7 @@
 								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch"/>							
 							</ScrollViewer>
 							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
-								<ContentPresenter ContentSource="Toolbar"/>
+								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal"/>
 							</StackPanel>
 						</Grid>
 						<Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsOpen}" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1">

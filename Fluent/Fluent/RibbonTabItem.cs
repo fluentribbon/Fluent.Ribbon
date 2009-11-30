@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,8 @@ using System.Windows.Markup;
 namespace Fluent
 {
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
-    public class RibbonTabItem:HeaderedContentControl
+    [ContentProperty("Groups")]
+    public class RibbonTabItem:Control
     {
         #region Dependency properties
 
@@ -30,9 +33,18 @@ namespace Fluent
         
         private double desiredWidth = 0;
 
+        private ObservableCollection<RibbonGroupBox> groups = null;
+
+        private RibbonGroupsContainer groupsContainer = new RibbonGroupsContainer();
+
         #endregion
 
         #region Properties
+
+        public RibbonGroupsContainer GroupsContainer
+        {
+            get { return groupsContainer; }
+        }
 
         public bool IsMinimized
         {
@@ -46,6 +58,11 @@ namespace Fluent
             set { SetValue(IsOpenProperty, value); }
         }
 
+        public string ReduceOrder
+        {
+            get { return groupsContainer.ReduceOrder; }
+            set { groupsContainer.ReduceOrder = value; }
+        }
 
         #region IsContextual
 
@@ -164,6 +181,65 @@ namespace Fluent
             DependencyProperty.Register("HasRightGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
 
+        public ObservableCollection<RibbonGroupBox> Groups
+        {
+            get
+            {
+                if (this.groups == null)
+                {
+                    this.groups = new ObservableCollection<RibbonGroupBox>();
+                    this.groups.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnGroupsCollectionChanged);
+                }
+                return this.groups;
+            }
+        }
+
+        private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (groupsContainer != null) groupsContainer.Children.Add(obj2 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (groupsContainer != null) groupsContainer.Children.Remove(obj3 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (groupsContainer != null) groupsContainer.Children.Remove(obj4 as UIElement);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (groupsContainer != null) groupsContainer.Children.Add(obj5 as UIElement);
+                    }
+                    break;
+            }
+
+        }
+
+
+
+        public object Header
+        {
+            get { return (object)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null));
+
+
+
         #endregion
 
         #region Events
@@ -236,7 +312,7 @@ namespace Fluent
             contentContainer = GetTemplateChild("PART_ContentContainer") as Border;
         }
 
-        protected override void OnContentChanged(object oldContent, object newContent)
+        /*protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
             if (this.IsSelected)
@@ -247,7 +323,7 @@ namespace Fluent
                     tabControlParent.SelectedContent = newContent;
                 }
             }
-        }
+        }*/
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {

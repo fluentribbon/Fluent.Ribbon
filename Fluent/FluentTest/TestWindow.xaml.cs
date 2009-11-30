@@ -23,22 +23,8 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
-            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
-            PreviewKeyUp += new KeyEventHandler(OnWindowKeyDown);
+            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);            
         }
-
-        void OnWindowKeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                 (e.SystemKey == Key.RightAlt) ||
-                 (e.SystemKey == Key.F10)))
-            {
-                KeyTip.Show(ribbonTabControl);
-                e.Handled = true;
-            }
-        }
-
 
         void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
@@ -49,12 +35,6 @@ namespace FluentTest
         {
             MessageBox.Show("Launcher button pressed!!!");
         }
-
-        void OnShowKeyTipsClick(object sender, RoutedEventArgs e)
-        {
-            KeyTip.Show(ribbonTabControl);
-        }
-        
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
         {
@@ -73,7 +53,7 @@ namespace FluentTest
         }
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
+            /*UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
             if (control != null)
             {               
                 if(control is CheckBox)
@@ -83,7 +63,7 @@ namespace FluentTest
                 }
                 if (quickAccessToolbar.Items.Contains(control)) quickAccessToolbar.Items.Remove(control);
                 else quickAccessToolbar.Items.Add(control);
-            }            
+            }            */
         }
     }
 }

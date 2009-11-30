@@ -44,7 +44,7 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (InternalChildren.Count == 0) return constraint;
+            if (InternalChildren.Count == 0) return base.MeasureOverride(constraint);
 
             Size desiredSize = MeasureChildrenDesiredSize(constraint);
 

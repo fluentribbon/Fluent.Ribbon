@@ -100,6 +100,7 @@ namespace Fluent
         public static UIElement FindSupportedControl(Visual visual, Point point)
         {
             HitTestResult result = VisualTreeHelper.HitTest(visual, point);
+            if (result == null) return null;
             UIElement element = result.VisualHit as UIElement;
             while (element != null)
             {

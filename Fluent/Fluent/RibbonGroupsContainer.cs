@@ -167,21 +167,27 @@ namespace Fluent
         // Increase size of the item
         void IncreaseGroupBoxSize(string name)
         {
-            object item = FindName(name);
-            if (item == null) return;
-            RibbonGroupBox groupBox = (RibbonGroupBox)item;
+            RibbonGroupBox groupBox = FindGroup(name);
+            if (groupBox == null) return;
             if(groupBox.State != RibbonGroupBoxState.Large) groupBox.State = groupBox.State - 1;
         }
 
         // Decrease size of the item
         void DecreaseGroupBoxSize(string name)
         {
-            object item = FindName(name);
-            if (item == null) return;
-            RibbonGroupBox groupBox = (RibbonGroupBox)item;
+            RibbonGroupBox groupBox = FindGroup(name);
+            if (groupBox == null) return;
             if(groupBox.State != RibbonGroupBoxState.Collapsed) groupBox.State = groupBox.State + 1;
         }
 
+        private RibbonGroupBox FindGroup(string name)
+        {
+            foreach (FrameworkElement child in InternalChildren)
+            {
+                if (child.Name == name) return child as RibbonGroupBox;
+            }
+            return null;
+        }
 
         protected override Size ArrangeOverride(Size finalSize)
         {

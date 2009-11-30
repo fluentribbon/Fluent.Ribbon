@@ -70,7 +70,7 @@ namespace Fluent
 
         #endregion
 
-        #region Protected Properties
+        /*#region Protected Properties
 
         /// <summary>
         ///   Gets an enumerator for the Ribbon's logical children.
@@ -80,7 +80,7 @@ namespace Fluent
             get { return new RibbonTitleBarLogicalChildrenEnumerator(this.Header as UIElement, this.QuickAccessToolbar, this.Items); }
         }
 
-        #endregion
+        #endregion*/
 
         #region Initialize
 
@@ -91,7 +91,6 @@ namespace Fluent
 
         public RibbonTitleBar()
         {
-            
         }
 
         #endregion
@@ -258,7 +257,6 @@ namespace Fluent
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                     }
                 }
-                
             }
         }
 

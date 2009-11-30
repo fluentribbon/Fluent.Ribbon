@@ -72,8 +72,12 @@
     <Compile Include="ControlLabel.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTip.cs" />
+    <Compile Include="DropDownButton.cs" />
     <Compile Include="QuickAccessItemsProvider.cs" />
     <Compile Include="QuickAccessToolbar.cs" />
+    <Compile Include="Ribbon.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="RibbonContextualTabGroup.cs" />
     <Compile Include="RibbonContextualGroupsContainer.cs" />
     <Compile Include="RibbonTitleBar.cs" />
@@ -125,6 +129,22 @@
     <Page Include="Themes\Office2010\Controls\KeyTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\DropDownButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\QuickAccessToolbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\Ribbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
       <SubType>Designer</SubType>
