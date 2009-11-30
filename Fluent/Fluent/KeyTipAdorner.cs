@@ -48,7 +48,7 @@ namespace Fluent
         void FindKeyTips(UIElement element)
         {
             string keys = KeyTip.GetKeys(element);
-            if (keys != null)
+            if ((keys != null) && !((element is RibbonGroupBox)&&(element as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
             {
                 // Gotcha!
                 KeyTip keyTip = new KeyTip();
@@ -63,11 +63,21 @@ namespace Fluent
             }
 
             // Check children
-            int childrenCount = VisualTreeHelper.GetChildrenCount(element);
-            for (int i = 0; i < childrenCount; i++)
+            if (element is RibbonTabControl)
             {
-                UIElement child = VisualTreeHelper.GetChild(element, i) as UIElement;
-                if (child != null) FindKeyTips(child);
+                RibbonTabControl ribbonTabControl = (RibbonTabControl)element;
+                foreach (UIElement item in ribbonTabControl.Items) FindKeyTips(item);
+            }
+            else
+            {
+                if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
+
+                int childrenCount = VisualTreeHelper.GetChildrenCount(element);
+                for (int i = 0; i < childrenCount; i++)
+                {
+                    UIElement child = VisualTreeHelper.GetChild(element, i) as UIElement;
+                    if (child != null) FindKeyTips(child);
+                }
             }
         }
 
@@ -81,17 +91,32 @@ namespace Fluent
         /// </summary>
         /// <param name="keys"Keys></param>
         /// <returns>Element</returns>
-        public UIElement GetElement(string keys)
+        public UIElement TryGetElement(string keys)
         {
-            return  associatedElements[0];
-
             for(int i = 0; i < keyTips.Count; i++)
             {
-                if (keyTips[i].Content == keys) return associatedElements[i];
+                string keysUpper = keys.ToUpper();
+                string contentUpper = (keyTips[i].Content as string).ToUpper();
+                if (keysUpper == contentUpper) return associatedElements[i];
             }
             return null;
         }
 
+        /// <summary>
+        /// Is one of the elements starts with the given chars
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public bool IsElementsStartWith(string keys)
+        {
+            for (int i = 0; i < keyTips.Count; i++)
+            {
+                string keysUpper = keys.ToUpper();
+                string contentUpper = (keyTips[i].Content as string).ToUpper();
+                if (contentUpper.StartsWith(keysUpper)) return true;
+            }
+            return false;
+        }
 
         #endregion
 
@@ -151,9 +176,82 @@ namespace Fluent
 
         void UpdateKeyTipPositions()
         {
+            if (keyTips.Count == 0) return;
+
+            double[] rows = null;
+            if (AdornedElement is RibbonGroupsContainer)
+            {
+                RibbonGroupsContainer container = (RibbonGroupsContainer)AdornedElement;
+                if (container.Children.Count != 0)
+                {
+                    RibbonGroupBox groupBox = (RibbonGroupBox)container.Children[0];
+                    Panel panel = groupBox.GetPanel();
+                    if (panel != null)
+                    {
+                        double height = container.DesiredSize.Height;
+                        rows = new double[]
+                        {
+                            panel.TranslatePoint(new Point(0, 0), AdornedElement).Y,
+                            panel.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
+                            panel.TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
+                            height
+                        };
+                    }
+                }
+            }
+
             for (int i = 0; i < keyTips.Count; i++)
             {
-                keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(0, 0), AdornedElement);
+                if (associatedElements[i] is RibbonTabItem)
+                {
+                    // Ribbon Tab Item Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].DesiredSize;
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                            elementSize.Height - keyTipSize.Height / 2.0), AdornedElement);
+                }
+                else if (associatedElements[i] is RibbonGroupBox)
+                {
+                    // Ribbon Group Box Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].DesiredSize;
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                            elementSize.Height + 1), AdornedElement);
+                }
+                else 
+                {
+                    if (RibbonControl.GetSize(associatedElements[i]) != RibbonControlSize.Large)
+                    {
+                        Point translatedPoint = associatedElements[i].TranslatePoint(new Point(8, 8), AdornedElement);
+                        // Snapping to rows if it present
+                        if (rows != null)
+                        {
+                            int index = 0;
+                            double mindistance = Math.Abs(rows[0] - translatedPoint.Y);
+                            for (int j = 1; j < rows.Length; j++)
+                            {
+                                double distance = Math.Abs(rows[j] - translatedPoint.Y);
+                                if (distance < mindistance)
+                                {
+                                    mindistance = distance;
+                                    index = j;
+                                }
+                            }
+                            translatedPoint.Y = rows[index] - keyTips[i].DesiredSize.Height / 2.0;
+                        }
+                        keyTipPositions[i] = translatedPoint;
+                    }
+                    else
+                    {
+                        Point translatedPoint = associatedElements[i].TranslatePoint(new Point(
+                            associatedElements[i].DesiredSize.Width / 2.0,
+                            associatedElements[i].DesiredSize.Height - 8), AdornedElement);
+                        if (rows != null) translatedPoint.Y = rows[2] - keyTips[i].DesiredSize.Height / 2.0;
+                        keyTipPositions[i] = translatedPoint;
+                    }
+                }
             }
         }
 

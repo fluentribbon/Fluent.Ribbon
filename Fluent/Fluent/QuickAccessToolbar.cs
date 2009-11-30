@@ -49,6 +49,7 @@ namespace Fluent
         {
             if (this.Parent is RibbonTitleBar) (this.Parent as RibbonTitleBar).InvalidateMeasure();
             base.OnItemsChanged(e);
+            UpdateKeyTips();
         }
 
         public override void OnApplyTemplate()
@@ -70,6 +71,19 @@ namespace Fluent
             toolbarPopup = GetTemplateChild("PART_ToolbarPopup") as Popup;
         }
 
+
+        #endregion
+
+        #region Methods
+
+        void UpdateKeyTips()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                // TODO: generate keys for quick access items properly
+                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], (i + 1).ToString());
+            }
+        }
 
         #endregion
 

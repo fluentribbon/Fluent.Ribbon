@@ -160,6 +160,16 @@ namespace Fluent
 
         #endregion
 
+        #region Methods
+
+        /// <summary>
+        /// Gets a panel with items
+        /// </summary>
+        /// <returns></returns>
+        internal Panel GetPanel() { return upPanel; }
+
+        #endregion
+
         #region Overrides
 
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
