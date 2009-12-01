@@ -91,20 +91,40 @@ namespace Fluent
 
         #region Overrides
 
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
             if (Popup != null)
             {
+                Popup.StaysOpen = true;
                 Popup.PlacementTarget = this;
-                Popup.Placement = PlacementMode.Bottom;            
-                IsOpen = !IsOpen;                
+                Popup.Placement = PlacementMode.Bottom;
+                //(Popup as ExtendedPopup).IngnoreFirstClose = true;
+                Popup.IsOpen = !Popup.IsOpen;
+                if (IsOpen) Mouse.Capture(Popup, CaptureMode.Element/*SubTree*/);
+                //Mouse.Capture(this, CaptureMode.Element/*SubTree*/);
+                e.Handled = true;
             }
-            base.OnMouseLeftButtonDown(e);
+            //base.OnMouseLeftButtonDown(e);
+        }
+
+        protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            //base.OnMouseLeftButtonUp(e);
+            /*if (Popup != null)
+            {
+                if (Mouse.Captured == this)
+                {
+                    Mouse.Capture(null);
+                }
+                e.Handled = true;
+                IsOpen = true;
+                //Popup.StaysOpen = false;
+            }*/
         }
 
         protected override void OnLostMouseCapture(MouseEventArgs e)
         {
-            if (Popup != null)
+            /*if (Popup != null)
             {
                 if (Mouse.Captured != this)
                 {
@@ -136,7 +156,7 @@ namespace Fluent
                     }
                 }
             }
-            base.OnLostMouseCapture(e);
+            base.OnLostMouseCapture(e);*/
         }
 
         #endregion
@@ -145,20 +165,17 @@ namespace Fluent
 
         private void OnPopupClosing()
         {
-            if (Mouse.Captured == this)
-            {
-                Mouse.Capture(null);
-            }
+            
         }
 
         private void OnPopupOpening()
         {
-            Mouse.Capture(this, CaptureMode.SubTree);
+            
         }
 
         private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+            /*DropDownButton button = (DropDownButton)sender;
             if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
             {
                 if (Mouse.Captured == button)
@@ -166,7 +183,7 @@ namespace Fluent
                     button.IsOpen = false;                    
                     Mouse.Capture(null);
                 }
-            }
+            }*/
         }
 
         private static void OnPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -201,11 +218,13 @@ namespace Fluent
 
             if (ribbon.IsOpen)
             {
-                ribbon.OnPopupOpening();
+                //ribbon.OnPopupOpening();
+                ribbon.IsHitTestVisible = false;
             }
             else
             {
-                ribbon.OnPopupClosing();
+                //ribbon.OnPopupClosing();
+                ribbon.IsHitTestVisible = true;
             }
         }
 
