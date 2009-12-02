@@ -13,7 +13,9 @@ using System.Text;
 namespace Fluent
 {
     /// <summary>
-    /// Represents adorner for KeyTips
+    /// Represents adorner for KeyTips. 
+    /// KeyTipAdorners is chained to produce one from another. 
+    /// Detaching root adorner couses detaching all adorners in the chain
     /// </summary>
     internal class KeyTipAdorner : Adorner
     {

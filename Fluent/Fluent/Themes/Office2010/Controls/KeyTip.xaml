@@ -3,6 +3,11 @@
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	
     <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip">
+    	<Style.Triggers>
+    		<Trigger Property="IsEnabled" Value="False">
+    			<Setter Property="Opacity" Value="0.5"/>
+    		</Trigger>
+    	</Style.Triggers> 
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

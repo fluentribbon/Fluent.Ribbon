@@ -12,9 +12,6 @@ using System.Text;
 
 namespace Fluent
 {
-    // TODO: create QuickAccessShortcut with Target property to use it in XAML
-    // TODO: make QuickAccessItemsProvider internal class
-
     /// <summary>
     /// This interface must be implemented for controls
     /// which are intended to insert to quick access toolbar
@@ -22,18 +19,117 @@ namespace Fluent
     public interface IQuickAccessItemProvider
     {
         /// <summary>
-        /// Gets control which represents quick access toolbar item.
+        /// Gets control which represents shortcut item.
         /// This item MUST be syncronized with the original 
-        /// and send command to original one control
+        /// and send command to original one control.
         /// </summary>
-        /// <returns>Control which represents quick access toolbar item</returns>
-        UIElement GetQuickAccessToolbarItem();
+        /// <returns>Control which represents shortcut item</returns>
+        UIElement CreateQuickAccessShortcut();
+    }
+
+    /// <summary>
+    /// Peresents quick access shortcut to another control
+    /// </summary>
+    public class QuickAccessItem : ContentControl
+    {
+        #region Initialization
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public QuickAccessItem()
+        {
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="target">Shortcut target</param>
+        /// <param name="pinned">Is Pinned</param>
+        /// <param name="title">Title</param>
+        public QuickAccessItem(Control target, bool pinned, string title)
+        {
+            Shortcut = target;
+            IsPinned = pinned;
+            Title = title;
+        }
+
+        #endregion
+
+        #region Shortcut Property
+
+        /// <summary>
+        /// Gets or sets shortcut control
+        /// </summary>
+        public Control Shortcut
+        {
+            get { return (Control)GetValue(ShortcutProperty); }
+            set { SetValue(ShortcutProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for shortcut. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ShortcutProperty =
+            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessItem), new UIPropertyMetadata(null, OnShortcutChanged));
+
+
+        static void OnShortcutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            QuickAccessItem shortcut = (QuickAccessItem)d;
+            if (e.NewValue == null)
+            {
+                shortcut.Content = null;
+            }
+            else shortcut.Content = QuickAccessItemsProvider.GetQuickAccessItem((UIElement)e.NewValue);
+        }
+
+        #endregion
+
+        #region Title Property
+        
+        /// <summary>
+        /// Gets or sets title for QAI
+        /// </summary>
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Title.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(QuickAccessItem), new UIPropertyMetadata(null));
+
+
+        #endregion
+
+        #region IsPinned Property
+        
+        /// <summary>
+        /// Gets or sets whether the item is pinned in QAT and accessed from QAT's menu
+        /// </summary>
+        public bool IsPinned
+        {
+            get { return (bool)GetValue(IsPinnedProperty); }
+            set { SetValue(IsPinnedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsPinned.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsPinnedProperty =
+            DependencyProperty.Register("IsPinned", typeof(bool), typeof(QuickAccessItem), new UIPropertyMetadata(true));
+
+        #endregion
     }
 
     /// <summary>
     /// The class responds to mine controls for QuickAccessToolbar
     /// </summary>
-    public static class QuickAccessItemsProvider
+    internal static class QuickAccessItemsProvider
     {
         #region Public Methods
 
@@ -59,12 +155,12 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        public static UIElement GetQuickAccessItem(UIElement element)
+        public static QuickAccessItem GetQuickAccessItem(UIElement element)
         {
             UIElement result = null;
 
             // If control supports the interface just return what it provides            
-            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).GetQuickAccessToolbarItem();
+            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).CreateQuickAccessShortcut();
 
             // Predefined controls            
             else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);
@@ -74,8 +170,11 @@ namespace Fluent
 
             // The control isn't supported
             if (element == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
-                        
-            return result;
+
+            QuickAccessItem item = new QuickAccessItem();
+            item.IsPinned = false;
+            item.Content = result;
+            return item;
         }
         
         /// <summary>
@@ -84,7 +183,7 @@ namespace Fluent
         /// <param name="visual">Visual</param>
         /// <param name="point">Point</param>
         /// <returns>Point</returns>
-        public static UIElement PickQuickAccessItem(Visual visual, Point point)
+        public static QuickAccessItem PickQuickAccessItem(Visual visual, Point point)
         {
             UIElement element = FindSupportedControl(visual, point);
             if (element != null) return GetQuickAccessItem(element);
@@ -114,10 +213,9 @@ namespace Fluent
 
         #region Buttons
 
-        static Dictionary<Button, Button> cachedQuickAccessButtons = new Dictionary<Button, Button>();
         static UIElement GetButtonQuickAccessItem(Button button)
         {
-            if (cachedQuickAccessButtons.ContainsKey(button)) return cachedQuickAccessButtons[button];
+           
 
             Button item = new Button();
             item.Focusable = false;
@@ -139,26 +237,20 @@ namespace Fluent
 
 
             // Syncronization
-            item.Click += OnButtonClick;
+            item.Click += delegate(object sender, RoutedEventArgs e) { button.RaiseEvent(e); };
 
-            cachedQuickAccessButtons.Add(button, item);
+            
             return item;
-        }
-
-        static void OnButtonClick(object sender, RoutedEventArgs e)
-        {
-            // Redirect to the host control
-            cachedQuickAccessButtons.Where(x=>x.Value == sender).First().Key.RaiseEvent(e);
         }
 
         #endregion
 
         #region CheckBoxes & RadioButtons (ToggleButtons)
 
-        static Dictionary<ToggleButton, ToggleButton> cachedQuickAccessToggleButtons = new Dictionary<ToggleButton, ToggleButton>();
+        
         static UIElement GetToggleButtonQuickAccessItem(ToggleButton toggleButton)
         {
-            if (cachedQuickAccessToggleButtons.ContainsKey(toggleButton)) return cachedQuickAccessToggleButtons[toggleButton];
+           
 
             ToggleButton item = new ToggleButton();
             item.Focusable = false;
@@ -179,7 +271,6 @@ namespace Fluent
             // Syncronization            
             Bind(toggleButton, item, "IsChecked", ToggleButton.IsCheckedProperty, BindingMode.TwoWay);
 
-            cachedQuickAccessToggleButtons.Add(toggleButton, item);
             return item;
         }
 
@@ -187,10 +278,9 @@ namespace Fluent
 
         #region ComboBoxes
 
-        static Dictionary<ComboBox, ComboBox> cachedQuickAccessComboBoxes = new Dictionary<ComboBox, ComboBox>();
         static UIElement GetComboBoxQuickAccessItem(ComboBox comboBox)
         {
-            if (cachedQuickAccessComboBoxes.ContainsKey(comboBox)) return cachedQuickAccessComboBoxes[comboBox];
+
 
             ComboBox item = new ComboBox();
             item.Focusable = false;
@@ -219,18 +309,16 @@ namespace Fluent
             item.ItemsSource = comboBox.Items;            
             Bind(comboBox, item, "Items", ComboBox.ItemsSourceProperty, BindingMode.OneWay);
 
-            cachedQuickAccessComboBoxes.Add(comboBox, item);
             return item;
         }
 
         #endregion
 
         #region TextBoxes
-
-        static Dictionary<TextBox, TextBox> cachedQuickAccessTextBoxes = new Dictionary<TextBox, TextBox>();
+                
         static UIElement GetTextBoxQuickAccessItem(TextBox textBox)
         {
-            if (cachedQuickAccessTextBoxes.ContainsKey(textBox)) return cachedQuickAccessTextBoxes[textBox];
+           
 
             TextBox item = new TextBox();
             //item.Focusable = false;
@@ -263,7 +351,7 @@ namespace Fluent
             textBox.TextChanged += delegate { item.Text = textBox.Text; };
             item.TextChanged += delegate { textBox.Text = item.Text; };
 
-            cachedQuickAccessTextBoxes.Add(textBox, item);
+           
             return item;
         }
 
