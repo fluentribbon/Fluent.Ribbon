@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,20 +12,42 @@ using System.Text;
 
 namespace Fluent
 {
-    // TODO: make KeyTipAdorner internal class
-
     /// <summary>
     /// Represents adorner for KeyTips
     /// </summary>
-    public class KeyTipAdorner : Adorner
+    internal class KeyTipAdorner : Adorner
     {
         #region Fields
         
         // KeyTips that have been
         // found on this element
-        List<KeyTip> keyTips;
-        List<UIElement> associatedElements;
+        List<KeyTip> keyTips = new List<KeyTip>();
+        List<UIElement> associatedElements = new List<UIElement>();
         Point[] keyTipPositions;
+
+        // Parent adorner
+        KeyTipAdorner parentAdorner = null;
+        KeyTipAdorner childAdorner = null;
+        // Focused element
+        UIElement focusedElement = null;
+
+        // Is this adorner attached to the adorned element?
+        bool attached = false;
+
+        // Current entered chars
+        string enteredKeys = "";
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Determines whether at least one on the adorners in the chain is alive
+        /// </summary>
+        public bool IsAdornerChainAlive
+        {
+            get { return attached || (childAdorner != null && childAdorner.IsAdornerChainAlive); }
+        }
 
         #endregion
 
@@ -34,10 +57,10 @@ namespace Fluent
         /// Construcotor
         /// </summary>
         /// <param name="adornedElement"></param>
-        public KeyTipAdorner(UIElement adornedElement) : base(adornedElement)
+        /// <param name="parentAdorner">Parent adorner or null</param>
+        public KeyTipAdorner(UIElement adornedElement, KeyTipAdorner parentAdorner) : base(adornedElement)
         {
-            keyTips = new List<KeyTip>();
-            associatedElements = new List<UIElement>();
+            this.parentAdorner = parentAdorner;
 
             // Try to find supported elements
             FindKeyTips(adornedElement);
@@ -53,6 +76,11 @@ namespace Fluent
                 // Gotcha!
                 KeyTip keyTip = new KeyTip();
                 keyTip.Content = keys;
+                // Bind IsEnabled property
+                Binding binding = new Binding("IsEnabled");
+                binding.Source = element;
+                binding.Mode = BindingMode.OneWay;
+                keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
 
                 // Add to list & visual 
                 // children collections
@@ -84,17 +112,175 @@ namespace Fluent
 
         #endregion
 
+        #region Attach & Detach
+
+        /// <summary>
+        /// Attaches this adorner to the adorned element
+        /// </summary>
+        public void Attach()
+        {
+            if (attached) return;
+
+            FrameworkElement adornedElement = (FrameworkElement)AdornedElement;
+            if (!adornedElement.IsLoaded)
+            {
+                // Delay attaching
+                adornedElement.Loaded += OnDelayAttach;
+                return;
+            }
+
+            focusedElement = Keyboard.FocusedElement as UIElement;
+            if (focusedElement != null)
+            {
+                focusedElement.LostFocus += OnInputActionOccured;                
+                focusedElement.PreviewKeyDown += OnPreviewKeyDown;
+                focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+            }
+            GetTopLevelElement(AdornedElement).PreviewMouseDown += OnInputActionOccured;
+
+            // Show this adorner
+            GetAdornerLayer(AdornedElement).Add(this);
+            // Clears previous user input
+            enteredKeys = "";
+            attached = true;
+        }
+
+        void OnDelayAttach(object sender, EventArgs args)
+        {
+            ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
+            Attach();
+        }
+
+        /// <summary>
+        /// Detaches this adorner from the adorned element
+        /// </summary> 
+        public void Detach()
+        {
+            if (childAdorner != null) childAdorner.Detach();
+
+            // Maybe adorner awaiting attaching, cancel it
+            ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
+
+            if (!attached) return;
+            if (focusedElement != null)
+            {
+                focusedElement.LostFocus -= OnInputActionOccured;
+                focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
+                focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                focusedElement = null;
+            }
+            GetTopLevelElement(AdornedElement).PreviewMouseDown -= OnInputActionOccured;
+
+            // Show this adorner
+            GetAdornerLayer(AdornedElement).Remove(this);
+            // Clears previous user input
+            enteredKeys = "";
+            attached = false;
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) Back();
+            else
+            {
+                string newKey = (new KeyConverter()).ConvertToString(e.Key);
+                if (Char.IsLetterOrDigit(newKey, 0))
+                {
+                    e.Handled = true;
+                    if (IsElementsStartWith(enteredKeys + newKey))
+                    {
+                        enteredKeys += newKey;
+                        UIElement element = TryGetElement(enteredKeys);
+                        if (element != null) Forward(element);
+                    }
+                    else System.Media.SystemSounds.Beep.Play();
+                }                
+            }
+        }
+
+        void OnPreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
+
+        void OnInputActionOccured(object sender, RoutedEventArgs e)
+        {
+            Detach();
+            if (childAdorner != null) childAdorner.Detach();
+        }
+
+        #endregion
+
+        static AdornerLayer GetAdornerLayer(UIElement element)
+        {
+            UIElement current = element;
+            while (true)
+            {
+                current = (UIElement)VisualTreeHelper.GetParent(current);
+                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+            }
+        }
+
+        static UIElement GetTopLevelElement(UIElement element)
+        {
+            UIElement current = element;
+            while (true)
+            {
+                current = VisualTreeHelper.GetParent(element) as UIElement;
+                if (current == null) return element;
+                element = current;
+            }
+        }
+
+        
+
         #region Methods
+
+        // Back to the previous adorner
+        void Back()
+        {
+            Detach();
+            if (parentAdorner != null) parentAdorner.Attach();
+        }
+
+        // Forward to the next element
+        void Forward(UIElement element)
+        {
+            Detach();
+
+            // Special cases
+            if (element is RibbonTabItem)
+            {
+                RibbonTabItem tabItem = (RibbonTabItem)element;
+                (tabItem.Parent as RibbonTabControl).SelectedItem = tabItem;
+                childAdorner = new KeyTipAdorner(tabItem.GroupsContainer, this);
+                childAdorner.Attach();
+            }
+            else if (element is Button)
+            {
+                (element as Button).RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+            }
+            else
+            {
+                childAdorner = new KeyTipAdorner(element, this);
+                childAdorner.Attach();
+            }
+        }
 
         /// <summary>
         /// Gets element keytipped by keys
         /// </summary>
         /// <param name="keys"Keys></param>
         /// <returns>Element</returns>
-        public UIElement TryGetElement(string keys)
+        UIElement TryGetElement(string keys)
         {
             for(int i = 0; i < keyTips.Count; i++)
             {
+                if (!keyTips[i].IsEnabled) continue;
                 string keysUpper = keys.ToUpper();
                 string contentUpper = (keyTips[i].Content as string).ToUpper();
                 if (keysUpper == contentUpper) return associatedElements[i];
@@ -111,6 +297,7 @@ namespace Fluent
         {
             for (int i = 0; i < keyTips.Count; i++)
             {
+                if (!keyTips[i].IsEnabled) continue;
                 string keysUpper = keys.ToUpper();
                 string contentUpper = (keyTips[i].Content as string).ToUpper();
                 if (contentUpper.StartsWith(keysUpper)) return true;

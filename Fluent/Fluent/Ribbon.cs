@@ -25,8 +25,8 @@ namespace Fluent
         private RibbonTabControl tabControl = null;
         private QuickAccessToolbar quickAccessToolbar = null;
         
-        // Window where ribbon is
-        Window window = null;
+        // Handles F10, Alt and so on
+        KeyTipService keyTipService = null;
 
         #endregion
 
@@ -189,46 +189,10 @@ namespace Fluent
         /// </summary>
         public Ribbon()
         {
-            Loaded += OnRibbonLoaded;
-            Unloaded += new RoutedEventHandler(OnRibbonUnloaded);
+            keyTipService = new KeyTipService(this);
         }
                 
-        void OnRibbonLoaded(object sender, RoutedEventArgs e)
-        {   
-            UIElement element = this;
-            while(true)
-            {
-                element = (UIElement)VisualTreeHelper.GetParent(element);                
-                if (element is Window) 
-                {
-                    window = (Window)element;
-                    window.PreviewKeyUp += new KeyEventHandler(OnWindowKeyUp);
-                    return;
-                }
-            }
-        }
-
-        void OnRibbonUnloaded(object sender, RoutedEventArgs e)
-        {
-            if (window != null)
-            {
-                window.PreviewKeyUp -= OnWindowKeyUp;
-                window = null;
-            }
-        }
-
-        void OnWindowKeyUp(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10)))
-            {
-                e.Handled = true;
-                KeyTip.Show(this);
-            }
-        }
-        
+               
 
         #endregion        
 

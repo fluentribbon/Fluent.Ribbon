@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlLabel.cs" />
+    <Compile Include="KeyTipService.cs" />
     <Compile Include="ExtendedPopup.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTip.cs" />
