@@ -73,25 +73,7 @@ namespace Fluent
         // Find key tips on the given element
         void FindKeyTips(UIElement element)
         {
-            string keys = KeyTip.GetKeys(element);
-            if ((keys != null) && !((element is RibbonGroupBox)&&(element as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
-            {
-                // Gotcha!
-                KeyTip keyTip = new KeyTip();
-                keyTip.Content = keys;
-                // Bind IsEnabled property
-                Binding binding = new Binding("IsEnabled");
-                binding.Source = element;
-                binding.Mode = BindingMode.OneWay;
-                keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
-
-                // Add to list & visual 
-                // children collections
-                keyTips.Add(keyTip);
-                base.AddVisualChild(keyTip);
-                associatedElements.Add(element);
-                return;
-            }
+            
 
             /*// Check children
             if (element is RibbonTabControl)
@@ -110,14 +92,36 @@ namespace Fluent
                     if (child != null) FindKeyTips(child);
                 }
             }*/
-            //if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
-            //else
+            if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
+            else
             {
                 IEnumerable children = LogicalTreeHelper.GetChildren(element);
-                foreach (object child in children)
+                foreach (object item in children)
                 {
-                    UIElement ch = child as UIElement;
-                    if (ch != null) FindKeyTips(ch);
+                    UIElement child = item as UIElement;
+                    if (child != null)
+                    {
+                        string keys = KeyTip.GetKeys(child);
+                        if ((keys != null) && !((child is RibbonGroupBox) && (child as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
+                        {
+                            // Gotcha!
+                            KeyTip keyTip = new KeyTip();
+                            keyTip.Content = keys;
+                            // Bind IsEnabled property
+                            Binding binding = new Binding("IsEnabled");
+                            binding.Source = child;
+                            binding.Mode = BindingMode.OneWay;
+                            keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
+
+                            // Add to list & visual 
+                            // children collections
+                            keyTips.Add(keyTip);
+                            base.AddVisualChild(keyTip);
+                            associatedElements.Add(child);
+                            continue;
+                        }
+                        FindKeyTips(child);
+                    }
                 }
             }
         }
@@ -265,7 +269,7 @@ namespace Fluent
         {
             Detach();
 
-            // Special cases
+            /*// Special cases
             if (element is RibbonTabItem)
             {
                 RibbonTabItem tabItem = (RibbonTabItem)element;
@@ -281,7 +285,14 @@ namespace Fluent
             {
                 childAdorner = new KeyTipAdorner(element, this);
                 childAdorner.Attach();
-            }
+            }*/
+
+            element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+            childAdorner = new KeyTipAdorner(element, this);
+            if (childAdorner.keyTips.Count != 0)
+            {                
+                childAdorner.Attach();
+            }            
         }
 
         /// <summary>
