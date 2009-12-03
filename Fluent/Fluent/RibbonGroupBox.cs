@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -149,8 +150,8 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
 
-            EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
-            EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            /*EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));*/
         }
 
         public RibbonGroupBox()
@@ -191,16 +192,32 @@ namespace Fluent
             if (dialogLauncherButton != null) dialogLauncherButton.Click += OnDialogLauncherButtonClick;
 
             popup = GetTemplateChild("PART_Popup") as Popup;
+
+            if(popup!=null)
+            {
+                if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
+                AddLogicalChild(popup);
+                Binding binding = new Binding("IsOpen");
+                binding.Mode = BindingMode.TwoWay;
+                binding.Source = this;
+                popup.SetBinding(Popup.IsOpenProperty, binding);
+            }
+
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (State == RibbonGroupBoxState.Collapsed) IsOpen = !IsOpen;
+            if ((State == RibbonGroupBoxState.Collapsed)&&(popup!=null)&&(!IsOpen))
+            {                
+                IsOpen = true;
+                Mouse.Capture(popup, CaptureMode.Element);
+                e.Handled = true;
+            }
         }
 
-        protected override void OnLostMouseCapture(MouseEventArgs e)
+        /*protected override void OnLostMouseCapture(MouseEventArgs e)
         {
             if (popup != null)
             {
@@ -235,7 +252,7 @@ namespace Fluent
                 }
             }
             base.OnLostMouseCapture(e);
-        }
+        }*/
 
         protected override Size MeasureOverride(Size constraint)
         {
@@ -255,7 +272,7 @@ namespace Fluent
         {
             if (DialogLauncherButtonClick != null) DialogLauncherButtonClick(this, e);
         }
-
+        /*
         private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
             RibbonGroupBox ribbon = (RibbonGroupBox)sender;
@@ -268,23 +285,25 @@ namespace Fluent
                 }
             }
         }
-
+        */
         private void OnRibbonGroupBoxPopupClosing()
         {
-            if (Mouse.Captured == this)
+            /*if (Mouse.Captured == this)
             {
                 Mouse.Capture(null);
-            }
+            }*/
+            IsHitTestVisible = true;
         }
 
         private void OnRibbonGroupBoxPopupOpening()
         {
-            if (State == RibbonGroupBoxState.Collapsed)
+            /*if (State == RibbonGroupBoxState.Collapsed)
             {
                 Mouse.Capture(this, CaptureMode.SubTree);
-            }
+            }*/
+            IsHitTestVisible = false;
         }
-
+        
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupBox ribbon = (RibbonGroupBox)d;

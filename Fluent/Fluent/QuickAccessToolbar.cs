@@ -16,6 +16,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_Menu", Type = typeof(Menu))]
     [TemplatePart(Name = "PART_MenuPopup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ToolbarPopup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_ShowAbove", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
     public class QuickAccessToolbar:ToolBar
     {
         #region Fields
@@ -26,7 +28,28 @@ namespace Fluent
         private Menu menu = null;
         private Popup menuPopup = null;
         private Popup toolbarPopup = null;
-        
+
+        private MenuItem showAbove = null;
+        private MenuItem showBelow = null;
+
+        #endregion
+
+        #region Properties
+
+
+
+        public bool ShowAboveRibbon
+        {
+            get { return (bool)GetValue(ShowAboveRibbonProperty); }
+            set { SetValue(ShowAboveRibbonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowAboveRibbonProperty =
+            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolbar), new UIPropertyMetadata(false));
+
+
+
         #endregion
 
         #region Initialize
@@ -47,7 +70,7 @@ namespace Fluent
 
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (this.Parent is RibbonTitleBar) (this.Parent as RibbonTitleBar).InvalidateMeasure();
+            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
             base.OnItemsChanged(e);
             UpdateKeyTips();
         }
@@ -69,8 +92,27 @@ namespace Fluent
             menu = GetTemplateChild("PART_Menu") as Menu;
             menuPopup = GetTemplateChild("PART_MenuPopup") as Popup;
             toolbarPopup = GetTemplateChild("PART_ToolbarPopup") as Popup;
+
+            if (showAbove != null) showAbove.Click -= OnShowAboveClick;
+            if (showBelow != null) showBelow.Click -= OnShowBelowClick;
+            
+            showAbove = GetTemplateChild("PART_ShowAbove") as MenuItem;            
+            showBelow = GetTemplateChild("PART_ShowBelow") as MenuItem;
+
+            if (showAbove != null) showAbove.Click += OnShowAboveClick;
+            if (showBelow != null) showBelow.Click += OnShowBelowClick;
+
         }
 
+        private void OnShowBelowClick(object sender, RoutedEventArgs e)
+        {
+            ShowAboveRibbon = false;
+        }
+
+        private void OnShowAboveClick(object sender, RoutedEventArgs e)
+        {
+            ShowAboveRibbon = true;
+        }
 
         #endregion
 

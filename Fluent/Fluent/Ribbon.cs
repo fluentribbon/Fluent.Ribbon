@@ -24,13 +24,36 @@ namespace Fluent
         private RibbonTitleBar titleBar = null;
         private RibbonTabControl tabControl = null;
         private QuickAccessToolbar quickAccessToolbar = null;
-        
+
+        private Panel layoutRoot = null;
+
         // Handles F10, Alt and so on
         KeyTipService keyTipService = null;
 
         #endregion
 
         #region Properties
+
+        internal  RibbonTitleBar TitleBar
+        {
+            get { return titleBar; }
+        }
+
+        public bool ShowQuickAccessToolbarAboveRibbon
+        {
+            get { return (bool)GetValue(ShowQuickAccessToolbarAboveRibbonProperty); }
+            set { SetValue(ShowQuickAccessToolbarAboveRibbonProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowQuickAccessToolbarAboveRibbonProperty =
+            DependencyProperty.Register("ShowQuickAccessToolbarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnShowQuickAccesToolbarAboveRibbonChanged));
+
+        private static void OnShowQuickAccesToolbarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if((d as Ribbon).titleBar !=null)(d as Ribbon).titleBar.InvalidateMeasure();
+        }
+
 
         public ObservableCollection<RibbonContextualTabGroup> Groups
         {
@@ -175,6 +198,16 @@ namespace Fluent
             get { return quickAccessToolbar; }
         }
 
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList list = new ArrayList();
+                list.Add(layoutRoot);
+                return list.GetEnumerator();
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -191,15 +224,17 @@ namespace Fluent
         {
             keyTipService = new KeyTipService(this);
         }
-                
-               
-
+                              
         #endregion        
 
         #region Overrides
 
         public override void OnApplyTemplate()
         {
+            if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
+            layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
+            if (layoutRoot != null) AddLogicalChild(layoutRoot);
+            
             if(titleBar!=null)
             {
                 titleBar.Items.Clear();

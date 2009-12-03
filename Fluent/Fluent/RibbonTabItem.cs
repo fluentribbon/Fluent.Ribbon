@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -81,6 +82,16 @@ namespace Fluent
         /// </summary>  
         public static readonly DependencyProperty IsContextualProperty =
             DependencyProperty.Register("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
+        protected override System.Collections.IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList array = new ArrayList();
+                array.Add(groupsContainer);
+                return array.GetEnumerator();
+            }
+        }
 
         #endregion
 
@@ -260,13 +271,17 @@ namespace Fluent
 
         /// <summary>
         /// Default constructor
-                /// </summary>
+        /// </summary>
         public RibbonTabItem()
         {
-            /*this.Loaded += OnLayoutUpdated;
-            this.SizeChanged += OnLayoutUpdated;*/
+            AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+        }
 
-            //this.LayoutUpdated += OnLayoutUpdated;        
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
+                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+            IsSelected = true;
         }
 
         private void OnLayoutUpdated(object sender, EventArgs e)

@@ -25,20 +25,18 @@
       </Fluent:Ribbon.ToolbarItems>
       <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip" ReduceOrder="A,A,B,A,B,C,B,C,C">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="A" x:Name="A" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:DropDownButton Height="100" Content="DropDownButton" Style="{DynamicResource RibbonDropDownButtonStyle}">
-            <Fluent:DropDownButton.Popup>
-              <Fluent:ExtendedPopup Height="100" Width="100" StaysOpen="True" AllowsTransparency="True">
+          <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton">
+            <Fluent:DropDownButton.PopupContent>
                 <Border Background="Red">
                   <StackPanel>
-                    <Button Width="75" Height="25" Focusable="False">Lala</Button>
+                    <Button  Fluent:KeyTip.Keys="W" Width="75" Height="25" Focusable="False" x:Name="testButton" Click="OnTestClick">Lala</Button>
                     <TextBox Width="75" Height="25"></TextBox>
                   </StackPanel>
                 </Border>
-              </Fluent:ExtendedPopup>
-            </Fluent:DropDownButton.Popup>
+            </Fluent:DropDownButton.PopupContent>
           </Fluent:DropDownButton>
           <Button Fluent:KeyTip.Keys="SS" x:Name="ss" Content="Button165465465564564654" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
-          <Button Fluent:KeyTip.Keys="KT" Content="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Content="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Button Fluent:KeyTip.Keys="G" Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Button Content="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
@@ -128,6 +126,5 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
     </Fluent:Ribbon>
-    <Grid VerticalAlignment="Top" Height="25" MouseLeftButtonDown="OnCaptionLeftMouseDown" Background="#7FFF0000" Cursor="SizeAll"/>
   </Grid>
 </Window>

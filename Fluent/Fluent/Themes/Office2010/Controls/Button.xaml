@@ -3,13 +3,13 @@
 	xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	<Style x:Key="RibbonButtonStyle" TargetType="{x:Type Button}">
 		<Setter Property="Focusable" Value="False"/>
-		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
 		<Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
 		<Style.Triggers>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
         <Setter Property="Height" Value="66"/>
@@ -71,7 +71,21 @@
 				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
 				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
 			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
+	<Style x:Key="ControlStyleEmptyFocus" TargetType="{x:Type Control}">
+		<Setter Property="Template" Value="{DynamicResource ControlFocusEmptyTemplate}"/>
+	</Style>
+	<ControlTemplate x:Key="ControlFocusEmptyTemplate" TargetType="{x:Type Control}"/>
     
 </ResourceDictionary>

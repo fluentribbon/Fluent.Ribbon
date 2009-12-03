@@ -48,13 +48,13 @@ namespace Fluent
             // Remove Logical tree link
             if (oldToolbar != null)
             {
-                titleBar.RemoveLogicalChild(oldToolbar);
+                if (LogicalTreeHelper.GetParent(oldToolbar) == titleBar) titleBar.RemoveLogicalChild(oldToolbar);
             }
 
             // Add Logical tree link
             if (newToolbar != null)
             {
-                titleBar.AddLogicalChild(newToolbar);
+                if (LogicalTreeHelper.GetParent(newToolbar) == null) titleBar.AddLogicalChild(newToolbar);
             }        
         }
 

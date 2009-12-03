@@ -7,60 +7,68 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Fluent
 {
     public class ExtendedPopup:Popup
-    {
-        private bool canClose = false;
+    {     
+        private bool ignoreNextDeactivate;
 
-        public bool IngnoreFirstClose { get; set; }
+        #region Properties
+
+        private bool IgnoreNextDeactivate
+        {
+            get { return ignoreNextDeactivate; }
+            set
+            {
+                ignoreNextDeactivate = value;
+                if ((ignoreNextDeactivate) && (ParentPopup != null) && (ParentPopup.IsOpen)) ParentPopup.IgnoreNextDeactivate = true;
+            }
+        }
+
+        internal ExtendedPopup ParentPopup { get; set; }
+
+        #endregion
 
         #region Constructors
 
-        static ExtendedPopup()
+        public ExtendedPopup()
         {
-            //IsOpenProperty.AddOwner(typeof(ExtendedPopup), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsOpenChanged, OnIsCoerceCallback));
-        }
-
-        private static object OnIsCoerceCallback(DependencyObject d, object basevalue)
-        {
-            //return !((d as ExtendedPopup).canClose)&&((bool)basevalue);
-            if((bool)basevalue == false)
-            {
-                return !((d as ExtendedPopup).canClose);
-            }
-            return true;
-        }
-
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            /*if((bool)e.NewValue==false)
-            {
-                Window.GetWindow(d).Activate();
-            }*/
+            IgnoreNextDeactivate = false;
         }
 
         #endregion
 
         #region Overrides
-
-        protected override void OnLostKeyboardFocus(System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            //IsOpen = false;
-        }
-
+        
         protected override void OnOpened(EventArgs e)
         {            
             PopupAnimation = PopupAnimation.None;
-            var hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
+            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
             ((HwndSource)PresentationSource.FromVisual(this.Child)).AddHook(WindowProc);
-            //int styleEx = GetWindowLong(hwnd, GWL_EXSTYLE);
-            //SetWindowLong(hwnd, GWL_EXSTYLE, styleEx | WS_EX_TOPMOST | WS_EX_NOACTIVATE | WS_EX_NOPARENTNOTIFY | WS_EX_PALETTEWINDOW);
+
+            ParentPopup = FindParentPopup();
+            if((ParentPopup!=null) &&(ParentPopup.IsOpen))
+                ParentPopup.IgnoreNextDeactivate = true;
+            
             SetActiveWindow(hwnd);
-            //Keyboard.AddPreviewLostKeyboardFocusHandler(this,OnFocusChanged);
-            //Keyboard.AddGotKeyboardFocusHandler(this,OnFocusChanged);
         }
+
+        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+        {
+            if(ParentPopup!=null)
+                ignoreNextDeactivate = true;
+            base.OnPreviewMouseDown(e);            
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
+            SetActiveWindow(hwnd);
+            base.OnMouseDown(e);
+        }
+
         protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (Mouse.Captured == this)
@@ -76,9 +84,31 @@ namespace Fluent
             PopupAnimation = PopupAnimation.None;
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                IsOpen = false;
+                e.Handled = true;
+                return;
+            }
+            base.OnKeyDown(e);
+        }
+
         #endregion
 
         #region Private methods
+
+        private ExtendedPopup FindParentPopup()
+        {
+            UIElement element = this.Parent as UIElement;
+            while (element != null)
+            {
+                if (element is ExtendedPopup) return element as ExtendedPopup;
+                element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+            }
+            return null;
+        }
 
         // Функиця окна
         private IntPtr WindowProc(
@@ -94,31 +124,37 @@ namespace Fluent
                     {
                         if (((short)wParam.ToInt32()) == 0)
                         {
-                            if (lParam != hwnd)
+                            if ((lParam != hwnd) && (!IgnoreNextDeactivate))
                             {
-                                //IsOpen = false;
-                                //canClose = true;
-                                if (!IngnoreFirstClose) PopupAnimation = PopupAnimation.Fade;
-                                else IngnoreFirstClose = false;
+                                if((ParentPopup!=null)&&(ParentPopup.IsOpen))
+                                {
+                                    IntPtr parentHwnd = ((HwndSource)PresentationSource.FromVisual(ParentPopup.Child)).Handle;
+                                    SendMessage(parentHwnd, 0x0006, wParam.ToInt32(),lParam);
+                                }
+                                PopupAnimation = PopupAnimation.Fade;
                                 IsOpen = false;
-                                //handled = true;
                             }
+                            else IgnoreNextDeactivate = false;
                         }
                         else
                         {
-
-                            IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                            SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);
-                            handled = true;
-
+                            if (ParentPopup == null)
+                            {
+                                IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                                SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);                                
+                            }
                         }
+                        handled = true;
                         break;
                     }
                 case 0x0021:
                     {
-                        IntPtr parentHwnd = (IntPtr)wParam;
-                        SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);
-                        handled = true;
+                        if (ParentPopup == null)
+                        {
+                            IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                            SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);
+                            handled = true;
+                        }
                         break;
                     }
             }

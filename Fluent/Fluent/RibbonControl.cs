@@ -214,7 +214,7 @@ namespace Fluent
           "LargeIcon",
           typeof(ImageSource),
           typeof(RibbonControl),
-          new FrameworkPropertyMetadata(new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png")),
+          new FrameworkPropertyMetadata(/*new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png"))*/null,
               FrameworkPropertyMetadataOptions.None)
         );
 
@@ -253,7 +253,7 @@ namespace Fluent
           "SmallIcon",
           typeof(ImageSource),
           typeof(RibbonControl),
-          new FrameworkPropertyMetadata(new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png")),
+          new FrameworkPropertyMetadata(/*new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png"))*/null,
               FrameworkPropertyMetadataOptions.None)
         );
 

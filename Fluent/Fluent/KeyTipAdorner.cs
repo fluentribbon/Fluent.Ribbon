@@ -92,8 +92,8 @@ namespace Fluent
                     if (child != null) FindKeyTips(child);
                 }
             }*/
-            if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
-            else
+            //if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
+            //else
             {
                 IEnumerable children = LogicalTreeHelper.GetChildren(element);
                 foreach (object item in children)
@@ -156,10 +156,11 @@ namespace Fluent
             GetTopLevelElement(AdornedElement).PreviewMouseDown += OnInputActionOccured;
 
             // Show this adorner
-            GetAdornerLayer(AdornedElement).Add(this);
+            GetAdornerLayer(associatedElements[0]).Add(this);
             // Clears previous user input
             enteredKeys = "";
             attached = true;
+
         }
 
         void OnDelayAttach(object sender, EventArgs args)
@@ -189,7 +190,7 @@ namespace Fluent
             GetTopLevelElement(AdornedElement).PreviewMouseDown -= OnInputActionOccured;
 
             // Show this adorner
-            GetAdornerLayer(AdornedElement).Remove(this);
+            GetAdornerLayer(associatedElements[0]).Remove(this);
             // Clears previous user input
             enteredKeys = "";
             attached = false;
@@ -464,6 +465,8 @@ namespace Fluent
                     }
                 }
             }
+
+            ;
         }
 
         /// <summary>

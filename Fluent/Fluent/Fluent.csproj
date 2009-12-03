@@ -70,11 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlLabel.cs" />
-    <Compile Include="KeyTipService.cs" />
-    <Compile Include="ExtendedPopup.cs" />
+    <Compile Include="ExtendedPopup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GroupSeparator.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTip.cs" />
     <Compile Include="DropDownButton.cs" />
+    <Compile Include="KeyTipService.cs" />
     <Compile Include="QuickAccessItem.cs" />
     <Compile Include="QuickAccessToolbar.cs" />
     <Compile Include="Ribbon.cs">

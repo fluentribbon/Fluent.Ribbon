@@ -268,10 +268,6 @@ namespace Fluent
         {
             ProcessMouseWheel(e);
 
-            /*if (e.Delta > 0)
-                if (SelectedIndex > 0) SelectedIndex--;
-            if (e.Delta < 0)
-                if (SelectedIndex < Items.Count-1) SelectedIndex++;*/
             e.Handled = true;
         }
 
