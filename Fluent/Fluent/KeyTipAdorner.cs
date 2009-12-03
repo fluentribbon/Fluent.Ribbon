@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -92,7 +93,7 @@ namespace Fluent
                 return;
             }
 
-            // Check children
+            /*// Check children
             if (element is RibbonTabControl)
             {
                 RibbonTabControl ribbonTabControl = (RibbonTabControl)element;
@@ -107,6 +108,16 @@ namespace Fluent
                 {
                     UIElement child = VisualTreeHelper.GetChild(element, i) as UIElement;
                     if (child != null) FindKeyTips(child);
+                }
+            }*/
+            //if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
+            //else
+            {
+                IEnumerable children = LogicalTreeHelper.GetChildren(element);
+                foreach (object child in children)
+                {
+                    UIElement ch = child as UIElement;
+                    if (ch != null) FindKeyTips(ch);
                 }
             }
         }
