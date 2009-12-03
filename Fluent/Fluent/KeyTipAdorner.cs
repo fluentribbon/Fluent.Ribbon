@@ -69,59 +69,36 @@ namespace Fluent
             FindKeyTips(adornedElement);
             keyTipPositions = new Point[keyTips.Count];
         }
-
+                
         // Find key tips on the given element
         void FindKeyTips(UIElement element)
         {
-            
-
-            /*// Check children
-            if (element is RibbonTabControl)
+            IEnumerable children = LogicalTreeHelper.GetChildren(element);
+            foreach (object item in children)
             {
-                RibbonTabControl ribbonTabControl = (RibbonTabControl)element;
-                foreach (UIElement item in ribbonTabControl.Items) FindKeyTips(item);
-            }
-            else
-            {
-                if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
-
-                int childrenCount = VisualTreeHelper.GetChildrenCount(element);
-                for (int i = 0; i < childrenCount; i++)
+                UIElement child = item as UIElement;
+                if (child != null)
                 {
-                    UIElement child = VisualTreeHelper.GetChild(element, i) as UIElement;
-                    if (child != null) FindKeyTips(child);
-                }
-            }*/
-            //if (element is Ribbon) FindKeyTips((element as Ribbon).QuickAccessToolbar);
-            //else
-            {
-                IEnumerable children = LogicalTreeHelper.GetChildren(element);
-                foreach (object item in children)
-                {
-                    UIElement child = item as UIElement;
-                    if (child != null)
+                    string keys = KeyTip.GetKeys(child);
+                    if ((keys != null) && !((child is RibbonGroupBox) && (child as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
                     {
-                        string keys = KeyTip.GetKeys(child);
-                        if ((keys != null) && !((child is RibbonGroupBox) && (child as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
-                        {
-                            // Gotcha!
-                            KeyTip keyTip = new KeyTip();
-                            keyTip.Content = keys;
-                            // Bind IsEnabled property
-                            Binding binding = new Binding("IsEnabled");
-                            binding.Source = child;
-                            binding.Mode = BindingMode.OneWay;
-                            keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
+                        // Gotcha!
+                        KeyTip keyTip = new KeyTip();
+                        keyTip.Content = keys;
+                        // Bind IsEnabled property
+                        Binding binding = new Binding("IsEnabled");
+                        binding.Source = child;
+                        binding.Mode = BindingMode.OneWay;
+                        keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
 
-                            // Add to list & visual 
-                            // children collections
-                            keyTips.Add(keyTip);
-                            base.AddVisualChild(keyTip);
-                            associatedElements.Add(child);
-                            continue;
-                        }
-                        FindKeyTips(child);
+                        // Add to list & visual 
+                        // children collections
+                        keyTips.Add(keyTip);
+                        base.AddVisualChild(keyTip);
+                        associatedElements.Add(child);
+                        continue;
                     }
+                    FindKeyTips(child);
                 }
             }
         }
@@ -233,6 +210,8 @@ namespace Fluent
 
         #endregion
 
+        #region Static Methods
+
         static AdornerLayer GetAdornerLayer(UIElement element)
         {
             UIElement current = element;
@@ -254,7 +233,7 @@ namespace Fluent
             }
         }
 
-        
+        #endregion
 
         #region Methods
 
@@ -270,31 +249,26 @@ namespace Fluent
         {
             Detach();
 
-            /*// Special cases
-            if (element is RibbonTabItem)
-            {
-                RibbonTabItem tabItem = (RibbonTabItem)element;
-                (tabItem.Parent as RibbonTabControl).SelectedItem = tabItem;
-                childAdorner = new KeyTipAdorner(tabItem.GroupsContainer, this);
-                childAdorner.Attach();
-            }
-            else if (element is Button)
-            {
-                (element as Button).RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
-            }
-            else
-            {
-                childAdorner = new KeyTipAdorner(element, this);
-                childAdorner.Attach();
-            }*/
-
             element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
-            childAdorner = new KeyTipAdorner(element, this);
+
+            object obj = LogicalTreeHelper.GetChildren(element).Cast<object>().FirstOrDefault();
+            if (obj == null) return;
+
+            UIElement child = obj as UIElement;
+            if (child == null) return;
+            
+            if (GetTopLevelElement(child) != GetTopLevelElement(element)) 
+                childAdorner = new KeyTipAdorner(child, this);
+            else
+                childAdorner = new KeyTipAdorner(element, this);
+
             if (childAdorner.keyTips.Count != 0)
             {                
                 childAdorner.Attach();
             }            
         }
+
+        
 
         /// <summary>
         /// Gets element keytipped by keys
@@ -331,6 +305,8 @@ namespace Fluent
         }
 
         #endregion
+
+        #region Layout & Visual Children
 
         /// <summary>
         /// Positions child elements and determines
@@ -479,5 +455,7 @@ namespace Fluent
                 return this.keyTips.Count;
             }
         }
+
+        #endregion
     }
 }

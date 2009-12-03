@@ -91,7 +91,7 @@ namespace Fluent
             get
             {
                 ArrayList list = new ArrayList();
-                list.Add(popup);
+                list.Add(PopupContent);
                 return list.GetEnumerator();
             }
         }
