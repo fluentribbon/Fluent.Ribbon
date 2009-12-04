@@ -11,14 +11,21 @@
 			
     				
 						<ContentControl x:Name="menuContentControl">
-							<Menu x:Name="quickAccessMenu" Style="{DynamicResource ContextPopupMenuStyle}">
-								<Fluent:GroupSeparator Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
-								<MenuItem Style="{DynamicResource ContentMenuItemStyle}" Header="MenuItem"/>
-								<Separator Style="{DynamicResource MenuSeparatorStyle}"/>
-								<MenuItem Style="{DynamicResource ContentMenuItemStyle}" Header="MenuItem"/>
-								<MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Header="Show Below the Ribbon" Margin="0"/>
-								<MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Header="Show Above the Ribbon" Visibility="Collapsed"/>
-							</Menu>
+              <Border x:Name="quickAccessMenu" SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1">
+                <Grid Width="Auto" Height="Auto">
+                  <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="25,1,0,1" Width="1" Height="Auto" Data="M119.5,65.5 L113,121"/>
+                  <StackPanel x:Name="quickAccessMenuu">
+                    <Fluent:GroupSeparator Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
+                    <Fluent:MenuItem Style="{DynamicResource ContentMenuItemStyle}" Text="MenuItem"/>
+                    <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
+                    <Fluent:MenuItem Style="{DynamicResource ContentMenuItemStyle}" Text="MenuItem"/>
+                    <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
+                    <Fluent:MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Above the Ribbon" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+                </Grid>
+              </Border>
+              
 							</ContentControl>
 					
     		</Fluent:DropDownButton>
@@ -41,19 +48,21 @@
     				</Border>
     			
     		</Fluent:DropDownButton>
-    		<Rectangle Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="Auto" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
-    		<Rectangle Fill="Black" Stroke="White" Width="3" Height="Auto" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
+    		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="Auto" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
+    		<Rectangle x:Name="rectangle1" Fill="Black" Stroke="White" Width="3" Height="Auto" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
     		<ToolBarPanel x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" IsItemsHost="True" VerticalAlignment="Stretch"/>    		  		
     	</DockPanel>
     	<ControlTemplate.Triggers>
     		<Trigger Property="ShowAboveRibbon" Value="False">
     			<Setter Property="Visibility" TargetName="PART_ShowBelow" Value="Collapsed"/>
     			<Setter Property="Visibility" TargetName="PART_ShowAbove" Value="Visible"/>
+    			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+    			<Setter Property="Visibility" TargetName="rectangle1" Value="Collapsed"/>
     		</Trigger>
     		<Trigger Property="HasOverflowItems" Value="True">
     			<Setter Property="Visibility" TargetName="PART_ToolbarDownButton" Value="Visible"/>
     			<Setter Property="Visibility" TargetName="PART_MenuDownButton" Value="Collapsed"/>
-    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=quickAccessMenu, Mode=OneWay}"/>
+    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=quickAccessMenuu, Mode=OneWay}"/>
     			<Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>
     		</Trigger>
     	</ControlTemplate.Triggers>

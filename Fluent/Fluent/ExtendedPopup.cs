@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -22,8 +23,7 @@ namespace Fluent
             get { return ignoreNextDeactivate; }
             set
             {
-                ignoreNextDeactivate = value;
-                if ((ignoreNextDeactivate) && (ParentPopup != null) && (ParentPopup.IsOpen)) ParentPopup.IgnoreNextDeactivate = true;
+                ignoreNextDeactivate = value;                
             }
         }
 
@@ -32,6 +32,23 @@ namespace Fluent
         #endregion
 
         #region Constructors
+
+        static ExtendedPopup()
+        {
+            ChildProperty.AddOwner(typeof (ExtendedPopup), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.Inherits, OnChildChanged,OnCoerceChildChanged));
+        }
+
+        private static object OnCoerceChildChanged(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) return new Control();
+            return basevalue;
+        }
+
+        private static void OnChildChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
 
         public ExtendedPopup()
         {
@@ -105,7 +122,9 @@ namespace Fluent
             while (element != null)
             {
                 if (element is ExtendedPopup) return element as ExtendedPopup;
-                element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
+                if(parent!=null) element = parent;
+                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
             }
             return null;
         }

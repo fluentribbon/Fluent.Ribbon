@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -135,6 +136,15 @@ namespace Fluent
             DependencyProperty.Register("Image", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
 
+        protected override System.Collections.IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList array = new ArrayList();
+                array.AddRange(Items);
+                return array.GetEnumerator();
+            }
+        }
 
         #endregion
 
@@ -156,7 +166,12 @@ namespace Fluent
 
         public RibbonGroupBox()
         {
+            AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+        }
 
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            if(State==RibbonGroupBoxState.Collapsed)IsOpen = true;
         }
 
         #endregion
@@ -190,13 +205,13 @@ namespace Fluent
             if (dialogLauncherButton != null) dialogLauncherButton.Click -= OnDialogLauncherButtonClick;
             dialogLauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
             if (dialogLauncherButton != null) dialogLauncherButton.Click += OnDialogLauncherButtonClick;
-
+            
+            //if (popup != null) RemoveLogicalChild(popup);
             popup = GetTemplateChild("PART_Popup") as Popup;
-
             if(popup!=null)
             {
-                if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
-                AddLogicalChild(popup);
+                //if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
+                //AddLogicalChild(popup);
                 Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;

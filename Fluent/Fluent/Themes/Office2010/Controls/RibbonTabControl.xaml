@@ -77,7 +77,7 @@
 								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal"/>
 							</StackPanel>
 						</Grid>
-						<Popup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsOpen}" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1">
+						<Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1" IsOpen="{TemplateBinding IsOpen}">
 							<Grid Width="Auto" Height="Auto">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="86"/>
@@ -109,7 +109,7 @@
 
 								</Border>
 							</Grid>
-						</Popup>
+						</Fluent:ExtendedPopup>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMinimized" Value="True">

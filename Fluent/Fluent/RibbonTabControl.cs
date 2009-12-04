@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Input;
@@ -148,8 +149,8 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
 
-            EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
-            EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            /*EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            EventManager.RegisterClassHandler(typeof(RibbonTabControl), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));*/
         }                
 
         public RibbonTabControl()
@@ -177,7 +178,17 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            //if (popup != null) RemoveLogicalChild(popup);
             popup = GetTemplateChild("PART_Popup") as Popup;
+            if (popup != null)
+            {
+                //if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
+                //AddLogicalChild(popup);
+                Binding binding = new Binding("IsOpen");
+                binding.Mode = BindingMode.TwoWay;
+                binding.Source = this;
+                popup.SetBinding(Popup.IsOpenProperty, binding);
+            }
             if (toolbarPanel != null)
             {
                 toolbarPanel.Children.Clear();
@@ -224,13 +235,22 @@ namespace Fluent
                 {
                     if (oldSelectedItem == e.AddedItems[0])
                         IsOpen = !IsOpen;
-                    else IsOpen = true;
+                    else
+                    {
+                        IsOpen = true;                        
+                    }
+                    if (e.AddedItems[0] is RibbonTabItem) (e.AddedItems[0] as RibbonTabItem).IsHitTestVisible = false;
                 }
+
                 this.UpdateSelectedContent();
             }
-            if (e.RemovedItems.Count > 0) oldSelectedItem = e.RemovedItems[0];
+            if (e.RemovedItems.Count > 0)
+            {
+                oldSelectedItem = e.RemovedItems[0];
+                if(oldSelectedItem is RibbonTabItem) (oldSelectedItem as RibbonTabItem).IsHitTestVisible = true;
+            }
         }
-
+        /*
         protected override void OnLostMouseCapture(MouseEventArgs e)
         {
             if (Mouse.Captured != this)
@@ -263,11 +283,15 @@ namespace Fluent
             }
             base.OnLostMouseCapture(e);
         }
-
+        */
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
             ProcessMouseWheel(e);
 
+            /*if (e.Delta > 0)
+                if (SelectedIndex > 0) SelectedIndex--;
+            if (e.Delta < 0)
+                if (SelectedIndex < Items.Count-1) SelectedIndex++;*/
             e.Handled = true;
         }
 
@@ -378,7 +402,7 @@ namespace Fluent
 
         #region Event handling
 
-        private static void OnToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /*private static void OnToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTabControl ribbon = (RibbonTabControl)d;
 
@@ -396,7 +420,7 @@ namespace Fluent
             {
                 ribbon.AddLogicalChild(newToolbar);
             }
-        }
+        }*/
 
         private void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
@@ -414,11 +438,14 @@ namespace Fluent
         private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTabControl tab = d as RibbonTabControl;
-            if(!tab.IsMinimized) tab.IsOpen = false;
-            else if (Mouse.Captured == tab)
+            if (!tab.IsMinimized)
+            {
+                tab.IsOpen = false;
+            }
+            /*else if (Mouse.Captured == tab)
             {
                 Mouse.Capture(null);
-            }
+            }*/
         }
 
         private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
@@ -436,18 +463,20 @@ namespace Fluent
 
         private void OnRibbonTabPopupClosing()
         {
-            if (Mouse.Captured == this)
+            /*if (Mouse.Captured == this)
             {
                 Mouse.Capture(null);
-            }
-        }
+            }*/
+            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = true;
+         }
 
         private void OnRibbonTabPopupOpening()
         {
-            if (IsMinimized)
+           /*if (IsMinimized)
             {
                 Mouse.Capture(this, CaptureMode.SubTree);
-            }
+            }*/
+            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = false;
         }
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

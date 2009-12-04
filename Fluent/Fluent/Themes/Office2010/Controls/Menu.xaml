@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Fluent="clr-namespace:Fluent" mc:Ignorable="d">
-	<Style x:Key="ContentMenuItemStyle" TargetType="{x:Type MenuItem}">
+	<Style x:Key="ContentMenuItemStyle" TargetType="{x:Type Fluent:MenuItem}">
 		<Setter Property="Template" Value="{DynamicResource ContentMenuItemControlTemplate}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
 	</Style>
-	<ControlTemplate x:Key="ContentMenuItemControlTemplate" TargetType="{x:Type MenuItem}">
+	<ControlTemplate x:Key="ContentMenuItemControlTemplate" TargetType="{x:Type Fluent:MenuItem}">
 		<Grid Width="Auto" Height="22" Background="#00000000">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="25"/>
@@ -15,11 +15,11 @@
 			<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="2">
 				<Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
 			</Border>
-			<ContentPresenter ContentSource="Header" Width="Auto" Height="Auto" Margin="9,2" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width, Height"/>
-			<ContentPresenter HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" ContentSource="Icon"/>
+			<TextBlock Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,2" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width, Height"/>
+			<Image HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}"/>
 		</Grid>
 		<ControlTemplate.Triggers>
-			<Trigger Property="IsHighlighted" Value="True">
+			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
 			</Trigger>
 		</ControlTemplate.Triggers>
