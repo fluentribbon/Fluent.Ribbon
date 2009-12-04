@@ -24,7 +24,7 @@ namespace Fluent
         
         // KeyTips that have been
         // found on this element
-        List<KeyTip> keyTips = new List<KeyTip>();
+        List<KeyTip> keyTips = new List<KeyTip>();        
         List<UIElement> associatedElements = new List<UIElement>();
         Point[] keyTipPositions;
 
@@ -66,12 +66,12 @@ namespace Fluent
             this.parentAdorner = parentAdorner;
 
             // Try to find supported elements
-            FindKeyTips(adornedElement);
+            FindKeyTips(adornedElement, false);
             keyTipPositions = new Point[keyTips.Count];
         }
                 
         // Find key tips on the given element
-        void FindKeyTips(UIElement element)
+        void FindKeyTips(UIElement element, bool hide)
         {
             IEnumerable children = LogicalTreeHelper.GetChildren(element);
             foreach (object item in children)
@@ -80,25 +80,46 @@ namespace Fluent
                 if (child != null)
                 {
                     string keys = KeyTip.GetKeys(child);
-                    if ((keys != null) && !((child is RibbonGroupBox) && (child as RibbonGroupBox).State != RibbonGroupBoxState.Collapsed))
+                    if (keys != null)
                     {
                         // Gotcha!
                         KeyTip keyTip = new KeyTip();
                         keyTip.Content = keys;
-                        // Bind IsEnabled property
-                        Binding binding = new Binding("IsEnabled");
-                        binding.Source = child;
-                        binding.Mode = BindingMode.OneWay;
-                        keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
+                        keyTip.Visibility = hide ? Visibility.Collapsed : Visibility.Visible;  
+                        
 
                         // Add to list & visual 
                         // children collections
-                        keyTips.Add(keyTip);
+                        keyTips.Add(keyTip);                        
                         base.AddVisualChild(keyTip);
                         associatedElements.Add(child);
-                        continue;
+
+
+                        if (child is RibbonGroupBox) 
+                        {
+                            if ((child as RibbonGroupBox).State == RibbonGroupBoxState.Collapsed)
+                            {
+                                keyTip.Visibility = Visibility.Visible;
+                                FindKeyTips(child, true);
+                                continue;
+                            }
+                            else keyTip.Visibility = Visibility.Collapsed;                            
+                        }
+                        else 
+                        {
+                            // Bind IsEnabled property
+                            Binding binding = new Binding("IsEnabled");
+                            binding.Source = child;
+                            binding.Mode = BindingMode.OneWay;
+                            keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
+                            continue;
+                        }
                     }
-                    FindKeyTips(child);
+
+                    if ((child is RibbonGroupBox) &&
+                       ((child as RibbonGroupBox).State == RibbonGroupBoxState.Collapsed))
+                            FindKeyTips(child, true);
+                    else FindKeyTips(child, hide);
                 }
             }
         }
@@ -123,6 +144,13 @@ namespace Fluent
                 return;
             }
 
+            if (!(associatedElements[0] as FrameworkElement).IsLoaded)
+            {
+                // Delay attaching
+                (associatedElements[0] as FrameworkElement).Loaded += OnDelayAttach;
+                return;
+            }
+
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
             {
@@ -136,6 +164,7 @@ namespace Fluent
             GetAdornerLayer(associatedElements[0]).Add(this);
             // Clears previous user input
             enteredKeys = "";
+            FilterKeyTips();
             attached = true;
 
         }
@@ -143,6 +172,7 @@ namespace Fluent
         void OnDelayAttach(object sender, EventArgs args)
         {
             ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
+            ((FrameworkElement)associatedElements[0]).Loaded -= OnDelayAttach;
             Attach();
         }
 
@@ -191,6 +221,7 @@ namespace Fluent
                         enteredKeys += newKey;
                         UIElement element = TryGetElement(enteredKeys);
                         if (element != null) Forward(element);
+                        else FilterKeyTips();
                     }
                     else System.Media.SystemSounds.Beep.Play();
                 }                
@@ -304,6 +335,29 @@ namespace Fluent
             return false;
         }
 
+        Visibility[] backupedVisibilities = null;
+        // Hide / unhide keytips relative matching to entered keys
+        void FilterKeyTips()
+        {
+            if (backupedVisibilities == null)
+            {
+                // Backup current visibility of key tips
+                backupedVisibilities = new Visibility[keyTips.Count];
+                for (int i = 0; i < backupedVisibilities.Length; i++)
+                {
+                    backupedVisibilities[i] = keyTips[i].Visibility;
+                }
+            }
+
+            // Hide / unhide keytips relative matching to entered keys
+            for (int i = 0; i < keyTips.Count; i++)
+            {
+                string keys = (string)keyTips[i].Content;
+                if (enteredKeys == "") keyTips[i].Visibility = backupedVisibilities[i];
+                else keyTips[i].Visibility = keys.StartsWith(enteredKeys) ? backupedVisibilities[i] : Visibility.Collapsed;
+            }
+        }
+
         #endregion
 
         #region Layout & Visual Children
@@ -327,17 +381,7 @@ namespace Fluent
 
             return finalSize;
         }
-
-        /// <summary>
-        /// Returns a child at the specified index from a collection of child elements
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested child element in the collection</param>
-        /// <returns>The requested child element</returns>
-        protected override Visual GetVisualChild(int index)
-        {
-            return this.keyTips[index];
-        }
-
+               
         /// <summary>
         /// Measures KeyTips
         /// </summary>
@@ -362,29 +406,38 @@ namespace Fluent
             return result;
         }
 
+        /// <summary>
+        /// Gets parent RibbonGroupBox or null
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        RibbonGroupBox GetGroupBox(DependencyObject element)
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(element);
+            if (parent == null) return null;
+            if (parent is RibbonGroupBox) return (RibbonGroupBox)parent;
+            return GetGroupBox(parent);
+        }
+
         void UpdateKeyTipPositions()
         {
             if (keyTips.Count == 0) return;
 
             double[] rows = null;
-            if (AdornedElement is RibbonGroupsContainer)
+            RibbonGroupBox groupBox = GetGroupBox(associatedElements[0]);
+            if (groupBox != null)
             {
-                RibbonGroupsContainer container = (RibbonGroupsContainer)AdornedElement;
-                if (container.Children.Count != 0)
+                Panel panel = groupBox.GetPanel();
+                if (panel != null)
                 {
-                    RibbonGroupBox groupBox = (RibbonGroupBox)container.Children[0];
-                    Panel panel = groupBox.GetPanel();
-                    if (panel != null)
-                    {
-                        double height = container.DesiredSize.Height;
-                        rows = new double[]
+                    double height = groupBox.DesiredSize.Height;
+                    rows = new double[]
                         {
                             panel.TranslatePoint(new Point(0, 0), AdornedElement).Y,
                             panel.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
                             panel.TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
-                            height
+                            panel.TranslatePoint(new Point(0, height), AdornedElement).Y                            
                         };
-                    }
                 }
             }
 
@@ -434,7 +487,7 @@ namespace Fluent
                     else
                     {
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(
-                            associatedElements[i].DesiredSize.Width / 2.0,
+                            associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
                             associatedElements[i].DesiredSize.Height - 8), AdornedElement);
                         if (rows != null) translatedPoint.Y = rows[2] - keyTips[i].DesiredSize.Height / 2.0;
                         keyTipPositions[i] = translatedPoint;
@@ -454,6 +507,16 @@ namespace Fluent
             {
                 return this.keyTips.Count;
             }
+        }
+
+        /// <summary>
+        /// Returns a child at the specified index from a collection of child elements
+        /// </summary>
+        /// <param name="index">The zero-based index of the requested child element in the collection</param>
+        /// <returns>The requested child element</returns>
+        protected override Visual GetVisualChild(int index)
+        {
+            return this.keyTips[index];
         }
 
         #endregion
