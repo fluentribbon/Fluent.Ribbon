@@ -183,7 +183,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Focusable" Value="False"/>
 		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="Whitespace" Value="12"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
