@@ -106,7 +106,7 @@ namespace Fluent
             if (e.Key == Key.Escape)
             {
                 IsOpen = false;
-                e.Handled = true;
+                //e.Handled = true;
                 return;
             }
             base.OnKeyDown(e);

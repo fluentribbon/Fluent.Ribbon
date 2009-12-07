@@ -61,15 +61,18 @@ namespace Fluent
         /// </summary>
         /// <param name="adornedElement"></param>
         /// <param name="parentAdorner">Parent adorner or null</param>
-        public KeyTipAdorner(UIElement adornedElement, KeyTipAdorner parentAdorner) : base(adornedElement)
+        public KeyTipAdorner(UIElement adornedElement, UIElement keyTipElementContainer, KeyTipAdorner parentAdorner)
+            : base(adornedElement)
         {
             this.parentAdorner = parentAdorner;
 
             // Try to find supported elements
-            FindKeyTips(adornedElement, false);
+            FindKeyTips(keyTipElementContainer, false);
+
             keyTipPositions = new Point[keyTips.Count];
         }
-                
+
+           
         // Find key tips on the given element
         void FindKeyTips(UIElement element, bool hide)
         {
@@ -151,6 +154,7 @@ namespace Fluent
                 return;
             }
 
+            Keyboard.Focus(adornedElement);
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
             {
@@ -282,16 +286,16 @@ namespace Fluent
 
             element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
 
-            object obj = LogicalTreeHelper.GetChildren(element).Cast<object>().FirstOrDefault();
-            if (obj == null) return;
-
-            UIElement child = obj as UIElement;
-            if (child == null) return;
-            
-            if (GetTopLevelElement(child) != GetTopLevelElement(element)) 
-                childAdorner = new KeyTipAdorner(child, this);
+            UIElement[] children = LogicalTreeHelper.GetChildren(element)
+                .Cast<object>()
+                .Where(x => x is UIElement)
+                .Cast<UIElement>().ToArray();
+            if (children.Length == 0) return;
+                    
+            if (GetTopLevelElement(children[0]) != GetTopLevelElement(element))
+                childAdorner = new KeyTipAdorner(children[0], element, this);
             else
-                childAdorner = new KeyTipAdorner(element, this);
+                childAdorner = new KeyTipAdorner(element, element, this);
 
             if (childAdorner.keyTips.Count != 0)
             {                
@@ -413,9 +417,9 @@ namespace Fluent
         /// <returns></returns>
         RibbonGroupBox GetGroupBox(DependencyObject element)
         {
+            if (element == null) return null;
+            if (element is RibbonGroupBox) return (RibbonGroupBox)element;
             DependencyObject parent = VisualTreeHelper.GetParent(element);
-            if (parent == null) return null;
-            if (parent is RibbonGroupBox) return (RibbonGroupBox)parent;
             return GetGroupBox(parent);
         }
 
@@ -433,10 +437,10 @@ namespace Fluent
                     double height = groupBox.DesiredSize.Height;
                     rows = new double[]
                         {
-                            panel.TranslatePoint(new Point(0, 0), AdornedElement).Y,
-                            panel.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
-                            panel.TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
-                            panel.TranslatePoint(new Point(0, height), AdornedElement).Y                            
+                            groupBox.TranslatePoint(new Point(0, 0), AdornedElement).Y,
+                            groupBox.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
+                            groupBox.TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
+                            groupBox.TranslatePoint(new Point(0, height), AdornedElement).Y                            
                         };
                 }
             }
@@ -465,7 +469,7 @@ namespace Fluent
                 {
                     if (RibbonControl.GetSize(associatedElements[i]) != RibbonControlSize.Large)
                     {
-                        Point translatedPoint = associatedElements[i].TranslatePoint(new Point(8, 8), AdornedElement);
+                        Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present
                         if (rows != null)
                         {

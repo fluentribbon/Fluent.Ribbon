@@ -93,7 +93,7 @@ namespace Fluent
                 if (timer.IsEnabled)
                 {
                     timer.Stop();
-                    activeAdornerChain = new KeyTipAdorner(host, null);
+                    activeAdornerChain = new KeyTipAdorner(host, host, null);
                     activeAdornerChain.Attach();
                 }
             }
@@ -103,7 +103,7 @@ namespace Fluent
         {
             if (activeAdornerChain == null)
             {
-                activeAdornerChain = new KeyTipAdorner(host, null);
+                activeAdornerChain = new KeyTipAdorner(host, host, null);
                 activeAdornerChain.Attach();
             }
             timer.Stop();
