@@ -20,8 +20,18 @@ namespace Fluent
     /// </summary>
     internal class KeyTipAdorner : Adorner
     {
+        #region Events
+
+        /// <summary>
+        /// This event is occured when adorner is 
+        /// detached and is not able to be attached again
+        /// </summary>
+        public event EventHandler Terminated;
+
+        #endregion
+
         #region Fields
-        
+
         // KeyTips that have been
         // found on this element
         List<KeyTip> keyTips = new List<KeyTip>();        
@@ -33,12 +43,16 @@ namespace Fluent
         KeyTipAdorner childAdorner = null;
         // Focused element
         UIElement focusedElement = null;
+        
 
         // Is this adorner attached to the adorned element?
         bool attached = false;
 
         // Current entered chars
         string enteredKeys = "";
+
+        // Designate that this adorner is terminated
+        bool terminated = false;
 
         #endregion
 
@@ -154,6 +168,7 @@ namespace Fluent
                 return;
             }
 
+            
             Keyboard.Focus(adornedElement);
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
@@ -205,6 +220,22 @@ namespace Fluent
             // Clears previous user input
             enteredKeys = "";
             attached = false;
+        }
+
+
+        #endregion
+
+        #region Termination
+
+        public void Terminate()
+        {
+            if (terminated) return;
+            terminated = true;
+
+            Detach();
+            if (parentAdorner != null) parentAdorner.Terminate();
+            if (childAdorner != null) childAdorner.Terminate();
+            if (Terminated != null) Terminated(this, EventArgs.Empty);
         }
 
         #endregion
@@ -274,23 +305,25 @@ namespace Fluent
 
         // Back to the previous adorner
         void Back()
-        {
-            Detach();
-            if (parentAdorner != null) parentAdorner.Attach();
+        {            
+            if (parentAdorner != null)
+            {
+                Detach();
+                parentAdorner.Attach();
+            }
+            else Terminate();
         }
 
         // Forward to the next element
         void Forward(UIElement element)
         {
-            Detach();
-
             element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
 
             UIElement[] children = LogicalTreeHelper.GetChildren(element)
                 .Cast<object>()
                 .Where(x => x is UIElement)
                 .Cast<UIElement>().ToArray();
-            if (children.Length == 0) return;
+            if (children.Length == 0) { Terminate(); return; }
                     
             if (GetTopLevelElement(children[0]) != GetTopLevelElement(element))
                 childAdorner = new KeyTipAdorner(children[0], element, this);
@@ -298,9 +331,11 @@ namespace Fluent
                 childAdorner = new KeyTipAdorner(element, element, this);
 
             if (childAdorner.keyTips.Count != 0)
-            {                
+            {
+                Detach();
                 childAdorner.Attach();
-            }            
+            }
+            else Terminate();
         }
 
         

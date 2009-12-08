@@ -21,11 +21,13 @@ namespace Fluent
         #region Fields
 
         // Host element, usually this is Ribbon
-        FrameworkElement host = null;
+        Ribbon ribbon = null;
         // Timer to show KeyTips with delay
         DispatcherTimer timer = null;
         // Is KeyTips Actived now
         KeyTipAdorner activeAdornerChain = null;
+        // This element must be remembered to restore it
+        IInputElement backUpFocusedElement = null;
 
         #endregion
 
@@ -35,12 +37,12 @@ namespace Fluent
         /// Default constrctor
         /// </summary>
         /// <param name="element">Host element</param>
-        public KeyTipService(FrameworkElement element)
+        public KeyTipService(Ribbon ribbon)
         {
-            host = element;
+            this.ribbon = ribbon;
 
-            if (!host.IsLoaded) host.Loaded += OnDelayedInitialization;
-            else Attach(host);
+            if (!ribbon.IsLoaded) ribbon.Loaded += OnDelayedInitialization;
+            else Attach(ribbon);
 
             // Initialize timer
             timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, OnDelayedShow, Dispatcher.CurrentDispatcher);
@@ -49,13 +51,13 @@ namespace Fluent
 
         void OnDelayedInitialization(object sender, EventArgs args)
         {
-            host.Loaded -= OnDelayedInitialization;
-            Attach(host);
+            ribbon.Loaded -= OnDelayedInitialization;
+            Attach(ribbon);
         }
 
         void Attach(FrameworkElement element)
         {
-            Window window = GetElementWindow(host);
+            Window window = GetElementWindow(ribbon);
             if (window == null) return;
 
             window.PreviewKeyDown += new KeyEventHandler(OnWindowPreviewKeyDown);
@@ -77,7 +79,7 @@ namespace Fluent
                     activeAdornerChain = null;
                     timer.Start();
                 }
-                else { activeAdornerChain.Detach(); activeAdornerChain = null; }
+                else { activeAdornerChain.Terminate(); activeAdornerChain = null; }
             }
         }
 
@@ -93,17 +95,29 @@ namespace Fluent
                 if (timer.IsEnabled)
                 {
                     timer.Stop();
-                    activeAdornerChain = new KeyTipAdorner(host, host, null);
+                    ribbon.Focusable = true;
+                    backUpFocusedElement = Keyboard.FocusedElement;
+                    activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);                    
+                    activeAdornerChain.Terminated += OnAdornerChainTerminated;
                     activeAdornerChain.Attach();
                 }
             }
+        }
+
+        void OnAdornerChainTerminated(object sender, EventArgs e)
+        {
+            ribbon.Focusable = false;
+            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;
+            if (backUpFocusedElement != null) backUpFocusedElement.Focus();
         }
 
         void OnDelayedShow(object sender, EventArgs e)
         {
             if (activeAdornerChain == null)
             {
-                activeAdornerChain = new KeyTipAdorner(host, host, null);
+                ribbon.Focusable = true;
+                backUpFocusedElement = Keyboard.FocusedElement;
+                activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
                 activeAdornerChain.Attach();
             }
             timer.Stop();

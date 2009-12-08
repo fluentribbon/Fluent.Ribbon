@@ -28,7 +28,7 @@
                 HelpTopic="http:\\fluent.codeplex.com"
                 DisableReason="Disable reason reason."
                 Width="190"
-                IsRibbonAligned ="False"/>
+                IsRibbonAligned ="False"/> 
           </Button.ToolTip>
         </Button>
         <Fluent:QuickAccessItem Shortcut="{Binding ElementName=ss}" />
@@ -132,5 +132,6 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
     </Fluent:Ribbon>
+    <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button"/>
   </Grid>
 </Window>
