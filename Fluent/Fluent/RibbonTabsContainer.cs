@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Fluent
@@ -27,7 +28,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabsContainer() : base()
         {
-
+            Focusable = false;
+            FocusManager.SetIsFocusScope(this, false);
         }
 
         #endregion

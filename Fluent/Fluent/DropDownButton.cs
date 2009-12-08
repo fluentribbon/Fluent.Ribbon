@@ -15,7 +15,7 @@ using System.Windows.Media;
 namespace Fluent
 {
     [ContentProperty("PopupContent")]
-    public class DropDownButton: Control
+    public class DropDownButton: RibbonControl
     {
         #region Fields
 
@@ -24,27 +24,6 @@ namespace Fluent
         #endregion
 
         #region Properties
-
-        public string Text
-        {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(DropDownButton), new UIPropertyMetadata(""));
-
-
-        public ImageSource SmallIcon
-        {
-            get { return (ImageSource)GetValue(SmallIconProperty); }
-            set { SetValue(SmallIconProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SmallIconProperty =
-            DependencyProperty.Register("SmallIcon", typeof(ImageSource), typeof(DropDownButton), new UIPropertyMetadata(null));
 
         public ImageSource LargeIcon
         {
@@ -124,7 +103,7 @@ namespace Fluent
         /// </summary>
         public DropDownButton()
         {
-            AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
@@ -140,9 +119,6 @@ namespace Fluent
         {
             if ((popup != null)&&(!popup.IsOpen))
             {
-                /*popup.StaysOpen = true;
-                popup.PlacementTarget = this;
-                popup.Placement = PlacementMode.Bottom;*/
                 popup.IsOpen = !popup.IsOpen;
                 if (IsOpen) Mouse.Capture(popup, CaptureMode.Element);
                 e.Handled = true;

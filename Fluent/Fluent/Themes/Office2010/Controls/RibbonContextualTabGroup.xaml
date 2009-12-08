@@ -4,6 +4,7 @@
     <Style x:Key="RibbonContextualTabGroupStyle" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
     	<Setter Property="Template" Value="{DynamicResource RibbonContextualTabGroupControlTemplate1}"/>
     	<Setter Property="Width" Value="Auto"/>
+    	<Setter Property="Focusable" Value="False"/>
     </Style>
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate1" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
     	<Border Margin="2,0,0,0" VerticalAlignment="Top" Width="Auto" Height="25" BorderThickness="1,0" Background="{DynamicResource TransparentBrush}">

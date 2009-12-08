@@ -22,6 +22,9 @@
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
 			</Trigger>
+			<Trigger Property="IsFocused" Value="True">
+				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
+			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
     

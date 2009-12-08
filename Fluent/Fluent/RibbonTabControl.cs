@@ -389,7 +389,7 @@ namespace Fluent
                 {
                     FrameworkElement parent = VisualTreeHelper.GetParent(selectedTabItem) as FrameworkElement;
                     this.SelectedContent = selectedTabItem.GroupsContainer;
-
+                    UpdateLayout();
                     SelectedTabItem = selectedTabItem;
                 }
             }

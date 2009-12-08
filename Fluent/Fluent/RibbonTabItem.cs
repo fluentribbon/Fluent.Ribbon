@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -249,7 +250,49 @@ namespace Fluent
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null));
 
+        #region Focusable
 
+        /// <summary>
+        /// Handles IsEnabled changes
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e">The event data.</param>
+        private static void OnFocusableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+
+        /// <summary>
+        /// Coerces IsEnabled 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="basevalue"></param>
+        /// <returns></returns>
+        private static object CoerceFocusable(DependencyObject d, object basevalue)
+        {
+            if (d is RibbonTabItem)
+            {
+                RibbonTabItem control = (d as RibbonTabItem);
+                Ribbon ribbon = control.FindParentRibbon();
+                if (ribbon != null)
+                {
+                    return ((bool)basevalue) && ribbon.Focusable;
+                }
+            }
+            return basevalue;
+        }
+
+        private Ribbon FindParentRibbon()
+        {
+            DependencyObject element = this.Parent;
+            while (element != null)
+            {
+                if (element is Ribbon) return element as Ribbon;
+                element = VisualTreeHelper.GetParent(element);
+            }
+            return null;
+        }
+
+        #endregion 
 
         #endregion
 
@@ -267,6 +310,7 @@ namespace Fluent
         static RibbonTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
+            FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
         }
 
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -10,33 +13,71 @@ using System.Windows.Media;
 
 namespace Fluent
 {
-    [TemplatePart(Name = "PART_MenuDownButton", Type = typeof(ToggleButton))]
-    [TemplatePart(Name = "PART_MenuDownPopupButton", Type = typeof(ToggleButton))]
-    [TemplatePart(Name = "PART_ToolbarDownButton", Type = typeof(ToggleButton))]
-    [TemplatePart(Name = "PART_Menu", Type = typeof(Menu))]
-    [TemplatePart(Name = "PART_MenuPopup", Type = typeof(Popup))]
-    [TemplatePart(Name = "PART_ToolbarPopup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ShowAbove", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
     public class QuickAccessToolbar:ToolBar
     {
         #region Fields
 
-        private ToggleButton menuDownButton = null;
-        private ToggleButton menuDownPopupButton = null;
-        private ToggleButton toolbarDownButton = null;
-        private Menu menu = null;
-        private Popup menuPopup = null;
-        private Popup toolbarPopup = null;
-
         private MenuItem showAbove = null;
         private MenuItem showBelow = null;
+
+        private Panel menuPanel = null;
+
+        private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
+
+        private Panel rootPanel = null;
 
         #endregion
 
         #region Properties
 
+        public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
+        {
+            get
+            {
+                if (this.quickAccessItems == null)
+                {
+                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    this.quickAccessItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnQuickAccessItemsCollectionChanged);
+                }
+                return this.quickAccessItems;
+            }
+        }
 
+        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (menuPanel != null) menuPanel.Children.Add(obj2 as QuickAccessMenuItem);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (menuPanel != null) menuPanel.Children.Remove(obj3 as QuickAccessMenuItem);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (menuPanel != null) menuPanel.Children.Remove(obj4 as QuickAccessMenuItem);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (menuPanel != null) menuPanel.Children.Add(obj5 as QuickAccessMenuItem);
+                    }
+                    break;
+            }
+
+        }
 
         public bool ShowAboveRibbon
         {
@@ -48,7 +89,19 @@ namespace Fluent
         public static readonly DependencyProperty ShowAboveRibbonProperty =
             DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolbar), new UIPropertyMetadata(false));
 
-
+        protected override System.Collections.IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList array = new ArrayList();                                
+                foreach (var item in Items)
+                {
+                    if(!GetIsOverflowItem(item as DependencyObject))array.Add(item);
+                }
+                array.Add(rootPanel);
+                return array.GetEnumerator();
+            }
+        }
 
         #endregion
 
@@ -57,7 +110,7 @@ namespace Fluent
         static QuickAccessToolbar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolbar), new FrameworkPropertyMetadata(typeof(QuickAccessToolbar)));            
-        }
+        }        
 
         public QuickAccessToolbar()
         {
@@ -81,17 +134,17 @@ namespace Fluent
             if (menuDownPopupButton != null) menuDownPopupButton.PreviewMouseLeftButtonDown -= OnMenuDownButtonClick;
             if (toolbarDownButton != null) toolbarDownButton.PreviewMouseLeftButtonDown -= OnToolbatDownButtonClick;
             */
-            menuDownButton = GetTemplateChild("PART_MenuDownButton") as ToggleButton;
+            /*menuDownButton = GetTemplateChild("PART_MenuDownButton") as ToggleButton;
             menuDownPopupButton = GetTemplateChild("PART_MenuDownButtonPopup") as ToggleButton;
-            toolbarDownButton = GetTemplateChild("PART_ToolbarDownButton") as ToggleButton;
+            toolbarDownButton = GetTemplateChild("PART_ToolbarDownButton") as ToggleButton;*/
             /*
             if (menuDownButton != null) menuDownButton.PreviewMouseLeftButtonDown += OnMenuDownButtonClick;
             if (menuDownPopupButton != null) menuDownPopupButton.PreviewMouseLeftButtonDown += OnMenuDownButtonClick;
             if (toolbarDownButton != null) toolbarDownButton.PreviewMouseLeftButtonDown += OnToolbatDownButtonClick;
             */
-            menu = GetTemplateChild("PART_Menu") as Menu;
+            /*menu = GetTemplateChild("PART_Menu") as Menu;
             menuPopup = GetTemplateChild("PART_MenuPopup") as Popup;
-            toolbarPopup = GetTemplateChild("PART_ToolbarPopup") as Popup;
+            toolbarPopup = GetTemplateChild("PART_ToolbarPopup") as Popup;*/
 
             if (showAbove != null) showAbove.Click -= OnShowAboveClick;
             if (showBelow != null) showBelow.Click -= OnShowBelowClick;
@@ -102,6 +155,25 @@ namespace Fluent
             if (showAbove != null) showAbove.Click += OnShowAboveClick;
             if (showBelow != null) showBelow.Click += OnShowBelowClick;
 
+            if (menuPanel != null)
+            {
+                menuPanel.Children.Clear();
+            }
+            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
+            if ((menuPanel != null) && (quickAccessItems != null))
+            {
+                for (int i = 0; i < quickAccessItems.Count; i++)
+                {
+                    menuPanel.Children.Add(quickAccessItems[i]);
+                }
+            }
+
+            if (rootPanel != null) RemoveLogicalChild(rootPanel);
+            rootPanel = GetTemplateChild("PART_RootPanel") as Panel;
+            if (rootPanel != null)
+            {
+                AddLogicalChild(rootPanel);
+            }
         }
 
         private void OnShowBelowClick(object sender, RoutedEventArgs e)

@@ -30,6 +30,8 @@ namespace Fluent
         // Handles F10, Alt and so on
         KeyTipService keyTipService = null;
 
+        private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
+
         #endregion
 
         #region Properties
@@ -203,9 +205,56 @@ namespace Fluent
             get
             {
                 ArrayList list = new ArrayList();
-                list.Add(layoutRoot);
+                if(layoutRoot!=null)list.Add(layoutRoot);
+                if(ShowQuickAccessToolbarAboveRibbon)if (quickAccessToolbar != null) list.Add(quickAccessToolbar);
                 return list.GetEnumerator();
             }
+        }
+
+
+        public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
+        {
+            get
+            {
+                if (this.quickAccessItems == null)
+                {
+                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    this.quickAccessItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnQuickAccessItemsCollectionChanged);
+                }
+                return this.quickAccessItems;
+            }
+        }
+
+        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Add(obj2 as QuickAccessMenuItem);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Remove(obj3 as QuickAccessMenuItem);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Remove(obj4 as QuickAccessMenuItem);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Add(obj5 as QuickAccessMenuItem);
+                    }
+                    break;
+            }
+
         }
 
         #endregion
@@ -228,6 +277,11 @@ namespace Fluent
         #endregion        
 
         #region Overrides
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            if (tabControl != null) (tabControl.SelectedItem as RibbonTabItem).Focus();
+        }
 
         public override void OnApplyTemplate()
         {
@@ -272,7 +326,18 @@ namespace Fluent
                 }
             }
 
+            if (quickAccessToolbar != null)
+            {
+                quickAccessToolbar.QuickAccessItems.Clear();
+            }
             quickAccessToolbar = GetTemplateChild("PART_QuickAccessToolbar") as QuickAccessToolbar;
+            if ((quickAccessToolbar != null) && (quickAccessItems != null))
+            {
+                for (int i = 0; i < quickAccessItems.Count; i++)
+                {
+                    quickAccessToolbar.QuickAccessItems.Add(quickAccessItems[i]);
+                }
+            }
         }
 
         #endregion

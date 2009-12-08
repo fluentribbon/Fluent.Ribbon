@@ -168,7 +168,7 @@ namespace Fluent
                 return;
             }
 
-            
+            //FocusManager.SetFocusedElement(FocusManager.GetFocusScope(adornedElement), adornedElement);
             Keyboard.Focus(adornedElement);
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
@@ -270,8 +270,7 @@ namespace Fluent
 
         void OnInputActionOccured(object sender, RoutedEventArgs e)
         {
-            Detach();
-            if (childAdorner != null) childAdorner.Detach();
+            Terminate();
         }
 
         #endregion
@@ -293,7 +292,7 @@ namespace Fluent
             UIElement current = element;
             while (true)
             {
-                current = VisualTreeHelper.GetParent(element) as UIElement;
+                current = (VisualTreeHelper.GetParent(element)) as UIElement;
                 if (current == null) return element;
                 element = current;
             }
@@ -317,6 +316,7 @@ namespace Fluent
         // Forward to the next element
         void Forward(UIElement element)
         {
+            Detach();
             element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
 
             UIElement[] children = LogicalTreeHelper.GetChildren(element)
@@ -502,7 +502,7 @@ namespace Fluent
                 }
                 else 
                 {
-                    if (RibbonControl.GetSize(associatedElements[i]) != RibbonControlSize.Large)
+                    if ((associatedElements[i] is RibbonControl)&&((associatedElements[i] as RibbonControl).Size != RibbonControlSize.Large))
                     {
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present

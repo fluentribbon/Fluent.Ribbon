@@ -76,7 +76,7 @@ namespace Fluent
         
         public ControlLabel()
         {
-            
+            this.Focusable = false;
         }
 
         #endregion

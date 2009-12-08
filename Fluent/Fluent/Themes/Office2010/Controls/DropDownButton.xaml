@@ -2,14 +2,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent">
   <Style x:Key="RibbonDropDownButtonStyle" TargetType="{x:Type Fluent:DropDownButton}">
-    <Setter Property="Focusable" Value="False"/>
-    <Setter Property="IsTabStop" Value="False"/>
     <Setter Property="Template" Value="{DynamicResource RibbonDropDownButtonControlTemplate}"/>
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Style.Triggers>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
         <Setter Property="Height" Value="66"/>
@@ -29,8 +28,8 @@
         <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
           <Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2"/>
           <Fluent:ControlLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
-          <Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True">
-          	<Grid Width="Auto" Height="Auto">
+          <Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="0" HorizontalOffset="0">
+          	<Grid Width="Auto" Height="Auto" Margin="30,20">
           		<Grid.ColumnDefinitions>
           			<ColumnDefinition Width="*"/>
           			<ColumnDefinition Width="5"/>
@@ -117,6 +116,16 @@
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsMouseOver" Value="True"/>
+          <Condition Property="IsOpen" Value="False"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+      </MultiTrigger>
+	  <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsFocused" Value="True"/>
           <Condition Property="IsOpen" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>

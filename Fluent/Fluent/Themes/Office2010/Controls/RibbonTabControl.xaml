@@ -3,6 +3,7 @@
     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonTabControlStyle" TargetType="{x:Type Fluent:RibbonTabControl}">
     	<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
     	<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Fluent:RibbonTabControl}">
@@ -14,8 +15,8 @@
 						</Grid.RowDefinitions>
 						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1" Grid.Row="1" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}"/>
 						<Border HorizontalAlignment="Stretch" Margin="1,0,1,1" Grid.Row="1" Grid.RowSpan="1">
-						<ContentControl x:Name="mainContentControl">
-							<ScrollViewer x:Name="contentPresenter" HorizontalAlignment="Stretch" Margin="0" Style="{DynamicResource RibbonScrollViewer}" Content="{TemplateBinding SelectedContent}"/>
+						<ContentControl x:Name="mainContentControl" Focusable="False">
+							<ScrollViewer x:Name="contentPresenter" HorizontalAlignment="Stretch" Margin="0" Style="{DynamicResource RibbonScrollViewer}" Content="{TemplateBinding SelectedContent}" Focusable="False"/>
 						</ContentControl>
 						</Border>
 						<Border x:Name="shadowBorder" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderThickness="0,1,0,0" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">
@@ -71,14 +72,14 @@
 								</Rectangle.Fill>
 							</Rectangle>
 							<ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Stretch" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch"/>							
+								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False"/>							
 							</ScrollViewer>
 							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
-								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal"/>
+								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal" FocusManager.IsFocusScope="False"/>
 							</StackPanel>
 						</Grid>
-						<Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1" IsOpen="{TemplateBinding IsOpen}">
-							<Grid Width="Auto" Height="Auto">
+						<Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=TabsGrid, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="0" IsOpen="{TemplateBinding IsOpen}" HorizontalOffset="0">
+							<Grid Width="Auto" Height="Auto" Margin="30,20">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="86"/>
 								<RowDefinition Height="5"/>
@@ -127,5 +128,6 @@
     	<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    	<Setter Property="Focusable" Value="False"/>
     </Style>
 </ResourceDictionary>

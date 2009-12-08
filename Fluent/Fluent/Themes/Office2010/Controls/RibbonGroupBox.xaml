@@ -17,8 +17,8 @@
 			<Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
 				<Image Source="{TemplateBinding Image}"/>
 			</Border>
-			<Fluent:ExtendedPopup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True">
-				<Grid Width="Auto" Height="Auto">
+			<Fluent:ExtendedPopup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True" VerticalOffset="0" HorizontalOffset="0">
+				<Grid Width="Auto" Height="Auto" Margin="30,20">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="5"/>
@@ -88,6 +88,9 @@
 			</Fluent:ExtendedPopup>
 		</Grid>
 		<ControlTemplate.Triggers>
+			<Trigger Property="IsFocused" Value="True">
+				<Setter Property="Opacity" TargetName="hoverGrid" Value="1"/>
+			</Trigger>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Opacity" TargetName="hoverGrid" Value="1"/>
 			</Trigger>
@@ -107,9 +110,13 @@
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
+		<Setter Property="Focusable" Value="False"/>
 		<Style.Triggers>
 			<Trigger Property="State" Value="Collapsed">
 				<Setter Property="Template" Value="{DynamicResource RibbonGroupBoxCollapsedControlTemplate}"/>
+				<Setter Property="Focusable" Value="True"/>
 			</Trigger>
 		</Style.Triggers>
 	</Style>
@@ -149,7 +156,7 @@
 				<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
 				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 			</Grid>
-			<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical"/>
+			<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
 		</Grid>
 		<ControlTemplate.Triggers>

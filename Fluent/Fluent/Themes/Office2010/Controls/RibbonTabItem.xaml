@@ -101,6 +101,11 @@
 								</Border>
 							</Border>
 						</Grid>
+						<Grid x:Name="focusedGrid" Margin="2,0,0,0" Visibility="Collapsed" Grid.ColumnSpan="1">
+							<Border x:Name="border_Copy5" Margin="1,0,1,1" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}">
+								<Border x:Name="border_Copy6" Margin="0" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+							</Border>
+						</Grid>
 						<Border x:Name="PART_ContentContainer" HorizontalAlignment="Stretch" Margin="6,2,4,2" VerticalAlignment="Stretch" Padding="15,0,0,0" Grid.ColumnSpan="1">
 							<ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
 						</Border>
@@ -124,6 +129,9 @@
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter Property="Visibility" TargetName="focusedGrid" Value="Visible"/>
+						</Trigger>
 						<Trigger Property="HasRightGroupBorder" Value="False">
 							<Setter Property="BorderThickness" TargetName="border3" Value="1,0,0,0"/>
 							<Setter Property="BorderThickness" TargetName="border4" Value="1,0,0,0"/>
@@ -190,6 +198,7 @@
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Margin" Value="0"/>		
 		<Setter Property="BorderBrush" Value="{Binding Group.BorderBrush, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
 	</Style>
 
 </ResourceDictionary>

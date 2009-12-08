@@ -3,6 +3,7 @@
   <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter"/>
   <Style x:Key="RibbonScrollViewer" TargetType="{x:Type ScrollViewer}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
+	<Setter Property="FocusManager.IsFocusScope" Value="False"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -55,5 +56,6 @@
     <Setter Property="CanContentScroll" Value="True"/>
     <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
     <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="Focusable" Value="False"/>
   </Style>
 </ResourceDictionary>

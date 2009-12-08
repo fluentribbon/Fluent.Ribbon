@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -26,32 +27,21 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         UIElement CreateQuickAccessShortcut();
     }
-
+    
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
-    public class QuickAccessItem : ContentControl
+    /// 
+    [ContentProperty("Shortcut")]
+    public class QuickAccessMenuItem : MenuItem
     {
         #region Initialization
 
         /// <summary>
         /// Default constructor
         /// </summary>
-        public QuickAccessItem()
+        public QuickAccessMenuItem()
         {
-        }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="target">Shortcut target</param>
-        /// <param name="pinned">Is Pinned</param>
-        /// <param name="title">Title</param>
-        public QuickAccessItem(Control target, bool pinned, string title)
-        {
-            Shortcut = target;
-            IsPinned = pinned;
-            Title = title;
         }
 
         #endregion
@@ -72,58 +62,39 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShortcutProperty =
-            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessItem), new UIPropertyMetadata(null, OnShortcutChanged));
+            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null, OnShortcutChanged));
 
 
         static void OnShortcutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            QuickAccessItem shortcut = (QuickAccessItem)d;
-            if (e.NewValue == null)
+            
+        }
+
+        #endregion
+
+        protected override void OnClick(RoutedEventArgs e)
+        {
+            base.OnClick(e);
+            QuickAccessToolbar toolbar = FindQuickAccessToolbar();
+            if (toolbar != null)
             {
-                shortcut.Content = null;
+                toolbar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
+                toolbar.InvalidateMeasure();
             }
-            else shortcut.Content = QuickAccessItemsProvider.GetQuickAccessItem((UIElement)e.NewValue);
         }
 
-        #endregion
-
-        #region Title Property
-        
-        /// <summary>
-        /// Gets or sets title for QAI
-        /// </summary>
-        public string Title
+        private QuickAccessToolbar FindQuickAccessToolbar()
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            UIElement element = this.Parent as UIElement;
+            while (element != null)
+            {
+                if (element is QuickAccessToolbar) return (element as QuickAccessToolbar);
+                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
+                if (parent != null) element = parent;
+                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+            }
+            return null;
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(QuickAccessItem), new UIPropertyMetadata(null));
-
-
-        #endregion
-
-        #region IsPinned Property
-        
-        /// <summary>
-        /// Gets or sets whether the item is pinned in QAT and accessed from QAT's menu
-        /// </summary>
-        public bool IsPinned
-        {
-            get { return (bool)GetValue(IsPinnedProperty); }
-            set { SetValue(IsPinnedProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for IsPinned.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsPinnedProperty =
-            DependencyProperty.Register("IsPinned", typeof(bool), typeof(QuickAccessItem), new UIPropertyMetadata(true));
-
-        #endregion
     }
 
     /// <summary>
@@ -155,7 +126,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        public static QuickAccessItem GetQuickAccessItem(UIElement element)
+        public static UIElement GetQuickAccessItem(UIElement element)
         {
             UIElement result = null;
 
@@ -169,12 +140,9 @@ namespace Fluent
             else if (element is ToggleButton) result = GetToggleButtonQuickAccessItem(element as ToggleButton);
 
             // The control isn't supported
-            if (element == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
-
-            QuickAccessItem item = new QuickAccessItem();
-            item.IsPinned = false;
-            item.Content = result;
-            return item;
+            if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
+            
+            return result;
         }
         
         /// <summary>
@@ -183,7 +151,7 @@ namespace Fluent
         /// <param name="visual">Visual</param>
         /// <param name="point">Point</param>
         /// <returns>Point</returns>
-        public static QuickAccessItem PickQuickAccessItem(Visual visual, Point point)
+        public static UIElement PickQuickAccessItem(Visual visual, Point point)
         {
             UIElement element = FindSupportedControl(visual, point);
             if (element != null) return GetQuickAccessItem(element);
@@ -227,15 +195,14 @@ namespace Fluent
             BindScreenTip(button, item);
             // Bind small icon
             // Copy small icon
-            if (RibbonControl.GetSmallIcon(button) != null)
-                Bind(button, item, "(Fluent:RibbonControl.SmallIcon)",
-                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+            if (button.Icon != null)
+                Bind(button, item, "Icon",RibbonControl.IconProperty, BindingMode.OneWay);
 
             // TODO: check, maybe copy style is not required for quick access toolbar items
             Bind(button, item, "Style", Button.StyleProperty, BindingMode.OneWay);
-            RibbonControl.SetSize(item, RibbonControlSize.Small);
+            item.Size = RibbonControlSize.Small;
 
-
+            
             // Syncronization
             item.Click += delegate(object sender, RoutedEventArgs e) { button.RaiseEvent(e); };
 
@@ -261,9 +228,9 @@ namespace Fluent
             // Copy ScreenTip data
             BindScreenTip(toggleButton, item);
             // Copy small icon
-            if (RibbonControl.GetSmallIcon(toggleButton) != null) 
+            /*if (RibbonControl.GetSmallIcon(toggleButton) != null) 
                 Bind(toggleButton, item, "(Fluent:RibbonControl.SmallIcon)", 
-                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);*/
             
             // TODO: check, maybe copy style is not required for quick access toolbar items
             Bind(toggleButton, item, "Style", ToggleButton.StyleProperty, BindingMode.OneWay);
@@ -291,9 +258,9 @@ namespace Fluent
             // Copy ScreenTip data
             BindScreenTip(comboBox, item);
             // Copy small icon
-            if (RibbonControl.GetSmallIcon(comboBox) != null)
+            /*if (RibbonControl.GetSmallIcon(comboBox) != null)
                 Bind(comboBox, item, "(Fluent:RibbonControl.SmallIcon)",
-                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);*/
 
 
             Bind(comboBox, item, "Width", ComboBox.WidthProperty, BindingMode.OneWay);
@@ -330,9 +297,9 @@ namespace Fluent
             // Copy ScreenTip data
             BindScreenTip(textBox, item);
             // Copy small icon
-            if (RibbonControl.GetSmallIcon(textBox) != null)
+            /*if (RibbonControl.GetSmallIcon(textBox) != null)
                 Bind(textBox, item, "(Fluent:RibbonControl.SmallIcon)",
-                    RibbonControl.SmallIconProperty, BindingMode.OneWay);
+                    RibbonControl.SmallIconProperty, BindingMode.OneWay);*/
                         
             Bind(textBox, item, "IsReadOnly", TextBox.IsReadOnlyProperty, BindingMode.OneWay);
             //Bind(textBox, item, "Text", TextBox.TextProperty, BindingMode.OneWay);

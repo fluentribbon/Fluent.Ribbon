@@ -6,6 +6,8 @@
     	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     	<Setter Property="Template" Value="{DynamicResource RibbonControlTemplate}"/>
+    	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+		<Setter Property="FocusManager.IsFocusScope" Value="True"/>
     </Style>
     <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
     	<Grid x:Name="PART_LayoutRoot" Width="Auto" Height="Auto">

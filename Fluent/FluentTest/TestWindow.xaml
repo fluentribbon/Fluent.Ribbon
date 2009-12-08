@@ -2,8 +2,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+    xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Window1" Height="345" Width="880" mc:Ignorable="d">
+  <Window.CommandBindings>
+    <CommandBinding Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"
+                    Executed="ExecutedCustomCommand"
+                    CanExecute="CanExecuteCustomCommand"/>
+  </Window.CommandBindings>
   <Window.Background>
     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
       <GradientStop Color="#FFEBEDF0" Offset="0"/>
@@ -17,9 +23,9 @@
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="Green" Background="Lime"/>
       </Fluent:Ribbon.Groups>
       <Fluent:Ribbon.ToolbarItems>
-        <Button  Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.Size="Small"/>
-        <Button  Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.Size="Small"/>
-        <Button  Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.Size="Small">
+        <Button />
+        <Button />
+        <Button >
           <Button.ToolTip>
             <Fluent:ScreenTip
                 Title="Insert Chart"
@@ -31,9 +37,17 @@
                 IsRibbonAligned ="False"/> 
           </Button.ToolTip>
         </Button>
-        <Fluent:QuickAccessItem Shortcut="{Binding ElementName=ss}" />
         
       </Fluent:Ribbon.ToolbarItems>
+      <Fluent:Ribbon.QuickAccessItems>
+        <Fluent:QuickAccessMenuItem Text="Test1" Style="{DynamicResource ContentMenuItemStyle}" Height="22">
+			    <Fluent:QuickAccessMenuItem.Shortcut>
+            <Fluent:Button Style="{DynamicResource RibbonButtonStyle}">LL</Fluent:Button>			
+			    </Fluent:QuickAccessMenuItem.Shortcut>
+		    </Fluent:QuickAccessMenuItem>
+        <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test2" Style="{DynamicResource ContentMenuItemStyle}" Height="22"/>
+        <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test3" Style="{DynamicResource ContentMenuItemStyle}" Height="22"/>
+      </Fluent:Ribbon.QuickAccessItems>
       <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip" ReduceOrder="A,A,B,A,B,C,B,C,C">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="A" x:Name="A" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton">
@@ -45,39 +59,40 @@
                   </StackPanel>
                 </Border>
             </Fluent:DropDownButton.PopupContent>
-          </Fluent:DropDownButton>
-          <Button Fluent:KeyTip.Keys="SS" x:Name="ss" Content="Button165465465564564654" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
-          <Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Content="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Fluent:KeyTip.Keys="G" Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-        </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupB" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-        </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C"  x:Name="C" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupC" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Button Content="Button" Fluent:KeyTip.Keys="L" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Fluent:KeyTip.Keys="E" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Fluent:KeyTip.Keys="R" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Fluent:KeyTip.Keys="T" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="Button" Fluent:KeyTip.Keys="D" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Button Content="AAA" Fluent:KeyTip.Keys="F" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">
-            <Button.ToolTip>
+            <Fluent:DropDownButton.ToolTip>
               <Fluent:ScreenTip
                   Title="Insert Chart"
                   Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
                   Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
                   HelpTopic="http:\\fluent.codeplex.com"
                   DisableReason="Disable reason reason."
-                  Width="190"/>                  
-            </Button.ToolTip>
-          </Button>
+                  Width="190"/>
+            </Fluent:DropDownButton.ToolTip>
+          </Fluent:DropDownButton>
+          <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+          <Fluent:Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Text="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Button Fluent:KeyTip.Keys="G" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Button Text="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+        </Fluent:RibbonGroupBox>
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupB" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
+          <Button Width="25" Height="25" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}">Lala</Button>
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+        </Fluent:RibbonGroupBox>
+        <Fluent:RibbonGroupBox x:Name="C" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupC" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="L" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="E" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="R" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="T" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="D" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="F" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"
+                  />
           <CheckBox Width="100" Height="20">Lalala</CheckBox>
           <TextBox Width="100" Height="20"/>
           <ComboBox Width="100" Height="20">
@@ -91,44 +106,42 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Fluent:KeyTip.Keys="O" Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Page Layout" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="References" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Mailings" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Review" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="View" Style="{DynamicResource RibbonTabItemStyle}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+          
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Design" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True"
                              Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
       <Fluent:RibbonTabItem Header="Layout" Style="{DynamicResource RibbonTabItemStyle}" IsContextual="True" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
         <Fluent:RibbonGroupBox Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
-          <Button Content="Button" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Fluent:RibbonControl.SmallIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Fluent:RibbonControl.LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+          
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
     </Fluent:Ribbon>

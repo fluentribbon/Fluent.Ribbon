@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="ControlLabel.cs" />
     <Compile Include="ExtendedPopup.cs">
       <SubType>Code</SubType>
@@ -79,7 +80,7 @@
     <Compile Include="DropDownButton.cs" />
     <Compile Include="KeyTipService.cs" />
     <Compile Include="MenuItem.cs" />
-    <Compile Include="QuickAccessItem.cs" />
+    <Compile Include="QuickAccessMenuItem.cs" />
     <Compile Include="QuickAccessToolbar.cs" />
     <Compile Include="Ribbon.cs">
       <SubType>Code</SubType>
@@ -129,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\ControlLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\EmptyFocusStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

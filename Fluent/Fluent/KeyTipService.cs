@@ -95,6 +95,7 @@ namespace Fluent
                 if (timer.IsEnabled)
                 {
                     timer.Stop();
+                    FocusManager.SetIsFocusScope(ribbon, true);
                     ribbon.Focusable = true;
                     backUpFocusedElement = Keyboard.FocusedElement;
                     activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);                    
@@ -107,6 +108,7 @@ namespace Fluent
         void OnAdornerChainTerminated(object sender, EventArgs e)
         {
             ribbon.Focusable = false;
+            FocusManager.SetIsFocusScope(ribbon, false);
             ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;
             if (backUpFocusedElement != null) backUpFocusedElement.Focus();
         }
@@ -115,6 +117,7 @@ namespace Fluent
         {
             if (activeAdornerChain == null)
             {
+                FocusManager.SetIsFocusScope(ribbon, true);
                 ribbon.Focusable = true;
                 backUpFocusedElement = Keyboard.FocusedElement;
                 activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);

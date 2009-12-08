@@ -3,22 +3,23 @@
 	xmlns:Fluent="clr-namespace:Fluent" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Style x:Key="QuickAccessToolbarStyle" TargetType="{x:Type Fluent:QuickAccessToolbar}">
     	<Setter Property="Template" Value="{DynamicResource QuickAccessToolbarControlTemplate}"/>
+		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
     </Style>
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate" TargetType="{x:Type Fluent:QuickAccessToolbar}">
-    	<DockPanel>
-    		<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" Text="M" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource RibbonDropDownButtonStyle}" Height="22" Fluent:RibbonControl.SizeDefinition="Small" DockPanel.Dock="Right">
+    	<DockPanel x:Name="PART_RootPanel">
+    		<ContentControl x:Name="menuContentControl" DockPanel.Dock="Right" HorizontalAlignment="Right" Focusable="False">
+			<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" Text="M" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource RibbonDropDownButtonStyle}" Height="22" DockPanel.Dock="Right">
 			
 			
     				
-						<ContentControl x:Name="menuContentControl">
+						
               <Border x:Name="quickAccessMenu" SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1">
                 <Grid Width="Auto" Height="Auto">
                   <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="25,1,0,1" Width="1" Height="Auto" Data="M119.5,65.5 L113,121"/>
                   <StackPanel x:Name="quickAccessMenuu">
                     <Fluent:GroupSeparator Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
-                    <Fluent:MenuItem Style="{DynamicResource ContentMenuItemStyle}" Text="MenuItem"/>
+                    <StackPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
-                    <Fluent:MenuItem Style="{DynamicResource ContentMenuItemStyle}" Text="MenuItem"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
                     <Fluent:MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Above the Ribbon" Visibility="Collapsed"/>
                   </StackPanel>
@@ -26,31 +27,24 @@
                 </Grid>
               </Border>
               
-							</ContentControl>
+							
 					
     		</Fluent:DropDownButton>
-    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource RibbonDropDownButtonStyle}" Height="22" Fluent:RibbonControl.SizeDefinition="Small" DockPanel.Dock="Right">
+			</ContentControl>
+    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource RibbonDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small">
 			
 			  				
     				<Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" BorderThickness="1" BorderBrush="#FFB6BABF" Background="#FFE9EDF1" Height="28">
     					<StackPanel Orientation="Horizontal" Background="{x:Null}" Width="Auto" Height="Auto" Margin="1">
     						<ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto"/>
-    						<Fluent:DropDownButton x:Name="PART_MenuDownPopupButton" Width="13" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource RibbonDropDownButtonStyle}" Height="22">
-
-						
-						
-    						
-    							<ContentControl x:Name="popupContentControl"/>
-    						
-							
-    					</Fluent:DropDownButton>
+    						<ContentControl x:Name="popupContentControl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" Background="Red" Height="22" Focusable="False"/>
     					</StackPanel>
     				</Border>
     			
     		</Fluent:DropDownButton>
     		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="Auto" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
     		<Rectangle x:Name="rectangle1" Fill="Black" Stroke="White" Width="3" Height="Auto" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
-    		<ToolBarPanel x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" IsItemsHost="True" VerticalAlignment="Stretch"/>    		  		
+    		<ToolBarPanel x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" IsItemsHost="True" VerticalAlignment="Stretch" FocusManager.IsFocusScope="False"/>    		  		
     	</DockPanel>
     	<ControlTemplate.Triggers>
     		<Trigger Property="ShowAboveRibbon" Value="False">
@@ -59,11 +53,10 @@
     			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
     			<Setter Property="Visibility" TargetName="rectangle1" Value="Collapsed"/>
     		</Trigger>
-    		<Trigger Property="HasOverflowItems" Value="True">
+    		<Trigger Property="HasOverflowItems" Value="True">    			
     			<Setter Property="Visibility" TargetName="PART_ToolbarDownButton" Value="Visible"/>
-    			<Setter Property="Visibility" TargetName="PART_MenuDownButton" Value="Collapsed"/>
-    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=quickAccessMenuu, Mode=OneWay}"/>
-    			<Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>
+    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=PART_MenuDownButton, Mode=OneWay}"/>    			
+				<Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>    			
     		</Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
