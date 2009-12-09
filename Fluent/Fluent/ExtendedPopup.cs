@@ -105,8 +105,9 @@ namespace Fluent
         {
             if (e.Key == Key.Escape)
             {
+                e.Handled = true;                
+                if (ParentPopup != null) ParentPopup.IgnoreNextDeactivate = true;
                 IsOpen = false;
-                //e.Handled = true;
                 return;
             }
             base.OnKeyDown(e);
@@ -129,6 +130,22 @@ namespace Fluent
             return null;
         }
 
+        private void ClosePopup(IntPtr wParam, IntPtr lParam)
+        {
+            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(Child)).Handle;
+            if ((lParam != hwnd) && (!IgnoreNextDeactivate))
+            {                                    
+                PopupAnimation = PopupAnimation.Fade;
+                IsOpen = false;
+                if ((ParentPopup != null) && (ParentPopup.IsOpen))
+                {
+                    ParentPopup.ClosePopup(wParam, lParam);
+                }
+            }
+            else IgnoreNextDeactivate = false;                
+                        
+        }
+
         // Функиця окна
         private IntPtr WindowProc(
                    IntPtr hwnd,
@@ -143,30 +160,30 @@ namespace Fluent
                     {
                         if (((short)wParam.ToInt32()) == 0)
                         {
-                            if ((lParam != hwnd) && (!IgnoreNextDeactivate))
+                            ClosePopup(wParam, lParam);
+                            /*if ((lParam != hwnd) && (!IgnoreNextDeactivate))
                             {
-                                if((ParentPopup!=null)&&(ParentPopup.IsOpen))
+                                /*if((ParentPopup!=null)&&(ParentPopup.IsOpen))
                                 {
-                                    IntPtr parentHwnd = ((HwndSource)PresentationSource.FromVisual(ParentPopup.Child)).Handle;
-                                    SendMessage(parentHwnd, 0x0006, wParam.ToInt32(),lParam);
-                                }
-                                PopupAnimation = PopupAnimation.Fade;
-                                IsOpen = false;
-                            }
-                            else IgnoreNextDeactivate = false;
+                                    /*IntPtr parentHwnd = ((HwndSource)PresentationSource.FromVisual(ParentPopup.Child)).Handle;
+                                    SendMessage(parentHwnd, 0x0006, wParam.ToInt32(),lParam);*/
+                                   /* ParentPopup.ClosePopup(wParam, lParam);
+                                }*/                                
+                           /*     
+                            }  */                          
                         }
-                        else
+                        /*else
                         {
                             if (ParentPopup == null)
                             {
                                 IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
                                 SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);                                
                             }
-                        }
+                        }*/
                         handled = true;
                         break;
                     }
-                case 0x0021:
+                /*case 0x0021:
                     {
                         if (ParentPopup == null)
                         {
@@ -175,7 +192,7 @@ namespace Fluent
                             handled = true;
                         }
                         break;
-                    }
+                    }*/
             }
             return IntPtr.Zero;
         }

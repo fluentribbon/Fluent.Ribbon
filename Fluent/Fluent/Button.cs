@@ -163,7 +163,7 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            OnClick(e);
+            e.Handled = true;            
         }
 
         #endregion

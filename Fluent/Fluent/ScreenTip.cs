@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -48,42 +49,59 @@ namespace Fluent
             if (PlacementTarget == null) return new CustomPopupPlacement[] {};
 
             Ribbon ribbon = null;
-            RibbonGroupsContainer groupsContainer = null;
-            FindControls(PlacementTarget, ref ribbon, ref groupsContainer);
+            UIElement topLevelElement = null;
+            FindControls(PlacementTarget, ref ribbon, ref topLevelElement);
+            //UIElement topLevelElementChild = (UIElement)(VisualTreeHelper.GetChildrenCount(topLevelElement) == 0 ? null : VisualTreeHelper.GetChild(topLevelElement, 0));
 
             
             if (IsRibbonAligned && (ribbon != null))
             {
                 double belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), PlacementTarget).Y;
                 double aboveY = ribbon.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 2), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 2), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
-            else if (IsRibbonAligned && (groupsContainer != null))
+            else if (IsRibbonAligned && (!(topLevelElement is Window)))
             {
-                double belowY = groupsContainer.TranslatePoint(new Point(0, groupsContainer.ActualHeight), PlacementTarget).Y;
-                double aboveY = groupsContainer.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 3), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 3), PopupPrimaryAxis.Horizontal);
+                // Placed on Popup?                
+                UIElement decoratorChild = GetDecoratorChild(topLevelElement);
+                double belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), PlacementTarget).Y;
+                double aboveY = decoratorChild.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
+                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
             else
             {
                 double x = Mouse.GetPosition(PlacementTarget).X;
                 return new CustomPopupPlacement[] { 
-                    new CustomPopupPlacement(new Point(x, PlacementTarget.RenderSize.Height + 2), PopupPrimaryAxis.Horizontal),
-                    new CustomPopupPlacement(new Point(x, -popupSize.Height - 2), PopupPrimaryAxis.Horizontal)};
+                    new CustomPopupPlacement(new Point(x, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
+                    new CustomPopupPlacement(new Point(x, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
             }
         }
 
-        void FindControls(DependencyObject obj, ref Ribbon ribbon, ref RibbonGroupsContainer groupsContainer)
+        UIElement GetDecoratorChild(UIElement popupRoot)
+        {
+            if (popupRoot == null) return null;
+            if (popupRoot is AdornerDecorator) return ((AdornerDecorator)popupRoot).Child;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
+            {
+                UIElement element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
+                if (element != null) return element;
+            }
+            return null;
+        }
+
+        void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
         {
             if (obj == null) return;
             if (obj is Ribbon) ribbon = (Ribbon)obj;
-            if (obj is RibbonGroupsContainer) groupsContainer = (RibbonGroupsContainer)obj;
-            DependencyObject parentVisual = VisualTreeHelper.GetParent(obj);
-            FindControls(parentVisual, ref ribbon, ref groupsContainer);            
+
+            UIElement parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
+            if (parentVisual == null) topLevelElement = obj;
+            else FindControls(parentVisual, ref ribbon, ref topLevelElement);            
         }
 
         #endregion

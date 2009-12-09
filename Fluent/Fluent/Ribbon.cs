@@ -272,6 +272,7 @@ namespace Fluent
         public Ribbon()
         {
             keyTipService = new KeyTipService(this);
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
         }
                               
         #endregion        

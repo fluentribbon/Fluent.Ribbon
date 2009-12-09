@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Threading;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -62,6 +63,24 @@ namespace Fluent
 
             window.PreviewKeyDown += new KeyEventHandler(OnWindowPreviewKeyDown);
             window.PreviewKeyUp += new KeyEventHandler(OnWindowPreviewKeyUp);
+
+            // Hookup non client area messages
+            ((HwndSource)PresentationSource.FromVisual(window)).AddHook(WindowProc);
+        }
+
+        // Window's messages hook up
+        IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Mouse clicks in non client area
+            if ((msg >= 161) && (msg <= 173))
+            {
+                if (activeAdornerChain != null)
+                {
+                    activeAdornerChain.Terminate();
+                    activeAdornerChain = null;
+                }
+            }
+            return IntPtr.Zero;
         }
 
         void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)        

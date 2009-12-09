@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -47,6 +48,7 @@ namespace Fluent
 
         // Is this adorner attached to the adorned element?
         bool attached = false;
+        HwndSource attachedHwndSource = null;
 
         // Current entered chars
         string enteredKeys = "";
@@ -150,8 +152,9 @@ namespace Fluent
         /// Attaches this adorner to the adorned element
         /// </summary>
         public void Attach()
-        {
+        {            
             if (attached) return;
+            Log("Attach begin");
 
             FrameworkElement adornedElement = (FrameworkElement)AdornedElement;
             if (!adornedElement.IsLoaded)
@@ -160,23 +163,24 @@ namespace Fluent
                 adornedElement.Loaded += OnDelayAttach;
                 return;
             }
-
+/*
             if (!(associatedElements[0] as FrameworkElement).IsLoaded)
             {
                 // Delay attaching
                 (associatedElements[0] as FrameworkElement).Loaded += OnDelayAttach;
                 return;
-            }
-
-            //FocusManager.SetFocusedElement(FocusManager.GetFocusScope(adornedElement), adornedElement);
-            Keyboard.Focus(adornedElement);
+            }*/
+            
+            // Focus current adorned element
+           // Keyboard.Focus(adornedElement);
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
             {
-                focusedElement.LostFocus += OnInputActionOccured;                
+                focusedElement.LostFocus += OnFocusLost;                
                 focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp += OnPreviewKeyUp;
             }
+            else Log("[!] Focus Setup Failed");
             GetTopLevelElement(AdornedElement).PreviewMouseDown += OnInputActionOccured;
 
             // Show this adorner
@@ -184,8 +188,40 @@ namespace Fluent
             // Clears previous user input
             enteredKeys = "";
             FilterKeyTips();
-            attached = true;
+            
 
+            // Hookup window activation
+            attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(adornedElement));
+            if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
+
+            attached = true;
+            Log("Attach end");
+        }
+
+        // Try to set focus on the given element or it's child
+        bool Focus(DependencyObject obj)
+        {
+            if (obj is IInputElement) 
+            {
+                IInputElement inputElement = (IInputElement)obj;
+                if ((inputElement.Focusable) && (inputElement.Focus())) return true;
+            }
+            else for(int i =0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+                if (Focus(VisualTreeHelper.GetChild(obj, i))) return true;
+
+            return false;
+        }
+
+        // Window's messages hook up
+        IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Check whether window is deactivated (wParam == 0)
+            if ((msg == 6) && (wParam == IntPtr.Zero) && (attached))
+            {
+                Log("The host window is deactivated, keytips will be terminated");
+                Terminate();
+            }
+            return IntPtr.Zero;
         }
 
         void OnDelayAttach(object sender, EventArgs args)
@@ -200,15 +236,25 @@ namespace Fluent
         /// </summary> 
         public void Detach()
         {
-            if (childAdorner != null) childAdorner.Detach();
+            if (childAdorner != null) childAdorner.Detach();            
+            if (!attached) return;
+
+
+            Log("Detach Begin");
+
+            // Remove window hookup
+            if ((attachedHwndSource != null)&&(!attachedHwndSource.IsDisposed))
+            {
+                // Crashes in a few time if invoke immediately ???
+                AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)delegate { attachedHwndSource.RemoveHook(WindowProc); });
+            }
 
             // Maybe adorner awaiting attaching, cancel it
             ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
-
-            if (!attached) return;
+                        
             if (focusedElement != null)
             {
-                focusedElement.LostFocus -= OnInputActionOccured;
+                focusedElement.LostFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
                 focusedElement = null;
@@ -220,6 +266,8 @@ namespace Fluent
             // Clears previous user input
             enteredKeys = "";
             attached = false;
+
+            Log("Detach End");
         }
 
 
@@ -236,6 +284,8 @@ namespace Fluent
             if (parentAdorner != null) parentAdorner.Terminate();
             if (childAdorner != null) childAdorner.Terminate();
             if (Terminated != null) Terminated(this, EventArgs.Empty);
+
+            Log("Termination");
         }
 
         #endregion
@@ -244,6 +294,7 @@ namespace Fluent
 
         void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            Log(" Key Down " + e.Key.ToString() + e.OriginalSource.ToString());
             if (e.Key == Key.Escape) Back();
             else
             {
@@ -270,7 +321,32 @@ namespace Fluent
 
         void OnInputActionOccured(object sender, RoutedEventArgs e)
         {
-            Terminate();
+            if (attached)
+            {
+                Log("Input Action, Keystips will be terminated");
+                Terminate();
+            }
+        }
+
+        void OnFocusLost(object sender, RoutedEventArgs e)
+        {
+            if (attached)
+            {
+                Log("Focus Lost");  
+                UIElement previousFocusedElementElement = focusedElement;
+                focusedElement.LostFocus -= OnFocusLost;
+                focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
+                focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                focusedElement = Keyboard.FocusedElement as UIElement;
+                if (focusedElement != null)
+                {
+                    Log("Focus Changed from " + previousFocusedElementElement.ToString() + " to " + focusedElement.ToString());
+                    focusedElement.LostFocus += OnFocusLost;
+                    focusedElement.PreviewKeyDown += OnPreviewKeyDown;
+                    focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                }
+                else Log("Focus Not Restored"); 
+            }
         }
 
         #endregion
@@ -307,6 +383,7 @@ namespace Fluent
         {            
             if (parentAdorner != null)
             {
+                Log("Back");
                 Detach();
                 parentAdorner.Attach();
             }
@@ -556,6 +633,15 @@ namespace Fluent
         protected override Visual GetVisualChild(int index)
         {
             return this.keyTips[index];
+        }
+
+        #endregion
+
+        #region Logging
+
+        void Log(string message)
+        {
+            System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
         }
 
         #endregion
