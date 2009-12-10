@@ -91,8 +91,8 @@ namespace Fluent
         
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
-            if(ParentPopup!=null)
-                ignoreNextDeactivate = true;
+            /*if(ParentPopup!=null)
+                ignoreNextDeactivate = true;*/
             base.OnPreviewMouseDown(e);            
         }
 
@@ -132,6 +132,12 @@ namespace Fluent
                 e.Handled = true;                
                 if (ParentPopup != null) ParentPopup.IgnoreNextDeactivate = true;
                 IsOpen = false;
+                return;
+            }
+            if ((e.Key==Key.System)&&((e.SystemKey == Key.LeftAlt)||(e.SystemKey == Key.RightAlt)||(e.SystemKey == Key.F10)))
+            {
+                if (e.SystemKey != Key.F10) e.Handled = true;
+                ClosePopup(IntPtr.Zero,IntPtr.Zero);
                 return;
             }
             base.OnKeyDown(e);

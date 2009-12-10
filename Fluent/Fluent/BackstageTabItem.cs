@@ -68,7 +68,7 @@ namespace Fluent
         private void OnClick(object sender, RoutedEventArgs e)
         {
             if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                    (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
             IsSelected = true;
         }
 

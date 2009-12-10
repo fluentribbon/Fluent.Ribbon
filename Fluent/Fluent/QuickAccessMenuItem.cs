@@ -136,8 +136,8 @@ namespace Fluent
             // Predefined controls            
             else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);
             else if (element is ComboBox) result = GetComboBoxQuickAccessItem(element as ComboBox);
-            else if (element is Button) result = GetButtonQuickAccessItem(element as Button);
             else if (element is ToggleButton) result = GetToggleButtonQuickAccessItem(element as ToggleButton);
+            else if (element is Button) result = GetButtonQuickAccessItem(element as Button);            
 
             // The control isn't supported
             if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
@@ -223,6 +223,7 @@ namespace Fluent
             item.Focusable = false;
             //item.Content = (toggleButton.Content != null) ? toggleButton.Content.ToString() : null;
             item.Text = toggleButton.Text;
+            item.Size = RibbonControlSize.Small;
             
             // Copy common properties
             BindControlProperties(toggleButton, item);

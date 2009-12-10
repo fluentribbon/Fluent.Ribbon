@@ -18,8 +18,8 @@
     		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,111,0" Header="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" VerticalAlignment="Top">
     			<Fluent:RibbonTitleBar HorizontalAlignment="Left"/>
     		</Fluent:RibbonTitleBar>
-    		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0"/>
-    		<Fluent:ToggleButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{DynamicResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}"/>
+    		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False"/>
+    		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{DynamicResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}" Fluent:KeyTip.Keys="{TemplateBinding BackstageKeyTipKeys}"/>
     		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
     			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">
@@ -36,7 +36,7 @@
     		</Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
-    <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+    <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:BackstageButton}">
     	<Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}"/>
     	<Setter Property="Width" Value="56"/>
     	<Setter Property="Height" Value="22"/>
@@ -45,7 +45,7 @@
     	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     	<Setter Property="Foreground" Value="White"/>
     </Style>
-    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
     	<Border Width="56" Height="22" CornerRadius="1,1,0,0" Background="{TemplateBinding Background}">
     		<Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
     			<Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
@@ -65,7 +65,7 @@
     							</RadialGradientBrush>
     						</Rectangle.Fill>
     					</Rectangle>
-    					<TextBlock Margin="2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    					<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     				</Grid>
     			</Border>
     		</Border>
@@ -74,7 +74,6 @@
     		<MultiTrigger>
     			<MultiTrigger.Conditions>
     				<Condition Property="IsMouseOver" Value="True"/>
-    				<Condition Property="IsPressed" Value="False"/>
     			</MultiTrigger.Conditions>
     			<Setter Property="Fill" TargetName="rectangle">
     				<Setter.Value>
@@ -95,7 +94,7 @@
     			</Setter>
     			<Setter Property="BorderBrush" TargetName="border" Value="#B2FFFFFF"/>
     		</MultiTrigger>
-    		<Trigger Property="IsChecked" Value="True">
+    		<Trigger Property="IsOpen" Value="True">
     			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
     			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
     			<Setter Property="BorderBrush" TargetName="border" Value="#59FFFFFF"/>
@@ -112,8 +111,7 @@
 			<MultiTrigger>
     			<MultiTrigger.Conditions>
     				<Condition Property="IsMouseOver" Value="True"/>
-    				<Condition Property="IsPressed" Value="False"/>
-					<Condition Property="IsChecked" Value="True"/>
+					<Condition Property="IsOpen" Value="True"/>
     			</MultiTrigger.Conditions>
     			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
     			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>

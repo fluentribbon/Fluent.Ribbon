@@ -96,9 +96,9 @@ namespace Fluent
                 ArrayList array = new ArrayList();                                
                 foreach (var item in Items)
                 {
-                    if(!GetIsOverflowItem(item as DependencyObject))array.Add(item);
+                    if((item is DependencyObject)&&(!GetIsOverflowItem(item as DependencyObject)))array.Add(item);
                 }
-                array.Add(rootPanel);
+                if(HasOverflowItems)array.Add(rootPanel);
                 return array.GetEnumerator();
             }
         }

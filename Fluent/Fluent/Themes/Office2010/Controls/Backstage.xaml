@@ -9,8 +9,10 @@
   	</Style>
   <ControlTemplate x:Key="BackstageButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
   	<Grid>
-  		<Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="0" CornerRadius="1" Background="{TemplateBinding Background}" Visibility="Collapsed">
-  			<Border BorderBrush="#A5FFFFFF" BorderThickness="1" Margin="1" CornerRadius="1" Background="#D7D0D0D0"/>
+  		<Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="0" CornerRadius="1" Visibility="Collapsed" Background="{TemplateBinding Background}">
+  			<Border Margin="0" CornerRadius="1" BorderThickness="1" BorderBrush="#19000000" Background="#BFFFFFFF">
+  				<Border BorderBrush="#7FFFFFFF" BorderThickness="1" CornerRadius="1" Background="#33FFFFFF"/>
+  			</Border>
   		</Border>
   		<StackPanel Orientation="Horizontal" Margin="16,0,5,0" HorizontalAlignment="Left" VerticalAlignment="Center">
   			<Image Width="16" Height="16" HorizontalAlignment="Left" Source="{TemplateBinding Icon}"/>
@@ -41,8 +43,8 @@
   			<ColumnDefinition Width="*"/>
   		</Grid.ColumnDefinitions>
   		<Grid Margin="0" Height="Auto" Grid.Column="1">
-  			<Border HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="Auto" Height="Auto" Background="{TemplateBinding Background}" BorderThickness="0">
-  				<Image Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+  			<Border HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
+  				<Image Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="343" Height="181" SnapsToDevicePixels="True"/>
   			</Border>
   			<ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent"/>
   		</Grid>
@@ -61,7 +63,7 @@
   					</LinearGradientBrush>
   				</Border.Background>
   			</Border>
-  			<StackPanel Margin="0" Height="Auto" IsItemsHost="True"/>
+  			<StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True"/>
   		</Grid>
   		<Border Margin="0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}">
   			<Rectangle Stroke="{x:Null}" StrokeThickness="0">

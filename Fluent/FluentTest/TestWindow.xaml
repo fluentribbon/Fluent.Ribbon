@@ -17,24 +17,24 @@
     </LinearGradientBrush>
   </Window.Background>
   <Grid>
-    <Fluent:Ribbon VerticalAlignment="Top" Style="{DynamicResource RibbonStyle}" BackstageBrush="Red">
+    <Fluent:Ribbon VerticalAlignment="Top" Style="{DynamicResource RibbonStyle}" BackstageBrush="Red" BackstageKeyTipKeys="F">
       <Fluent:Ribbon.Groups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="Magenta" Background="Purple"/>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="Green" Background="Lime"/>
       </Fluent:Ribbon.Groups>
       <Fluent:Ribbon.BackstageItems>
-        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-        <Fluent:Button Text="Lala2"/>
-        <Fluent:BackstageTabItem Text="Lala" Style="{StaticResource BackstageTabItemStyle}">
+        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q"/>
+        <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
+        <Fluent:BackstageTabItem Text="Lala" Style="{StaticResource BackstageTabItemStyle}" Fluent:KeyTip.Keys="E">
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala2" Style="{StaticResource BackstageTabItemStyle}">
+        <Fluent:BackstageTabItem Text="Lala2" Style="{StaticResource BackstageTabItemStyle}" Fluent:KeyTip.Keys="R">
           <Grid Background="Green" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala3" Style="{StaticResource BackstageTabItemStyle}">
+        <Fluent:BackstageTabItem Text="Lala3" Style="{StaticResource BackstageTabItemStyle}" Fluent:KeyTip.Keys="T">
           <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:Button Text="Lala"/>
+        <Fluent:Button Text="Lala" Fluent:KeyTip.Keys="Y"/>
       </Fluent:Ribbon.BackstageItems>
       <Fluent:Ribbon.ToolbarItems>
         <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small"/>
@@ -103,7 +103,7 @@
                   Width="190"/>
             </Fluent:DropDownButton.ToolTip>
           </Fluent:DropDownButton>
-          <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" Fluent:RibbonControl.SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+          <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" SizeDefinition="Large,Large,Large" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
           <Fluent:Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Text="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Button Fluent:KeyTip.Keys="G" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Style="{DynamicResource RibbonButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>

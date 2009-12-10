@@ -16,7 +16,7 @@ using System.Windows.Markup;
 namespace Fluent
 {
     [ContentProperty("Tabs")]
-    [TemplatePart(Name = "PART_BackstageButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     public class Ribbon: Control
     {
         #region Fields
@@ -31,9 +31,7 @@ namespace Fluent
 
         private Panel layoutRoot = null;
 
-        private Button backstageButton = null;
-
-        Backstage backstage = new Backstage();
+        private BackstageButton backstageButton = null;
 
         // Handles F10, Alt and so on
         KeyTipService keyTipService = null;
@@ -41,6 +39,8 @@ namespace Fluent
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
 
         private BackstageAdorner adorner = null;
+
+        private RibbonTabItem savedTabItem = null;
 
         #endregion
 
@@ -61,7 +61,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BackstageKeyTipKeysProperty =
-            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata(null));
+            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata(""));
 
 
 
@@ -306,32 +306,30 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (backstage != null) backstage.Items.Add(obj2 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Add(obj2 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (backstage != null) backstage.Items.Remove(obj3 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(obj3 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (backstage != null) backstage.Items.Remove(obj4 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(obj4 as UIElement);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (backstage != null) backstage.Items.Add(obj5 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Add(obj5 as UIElement);
                     }
                     break;
             }
 
         }
-
-
 
         public bool IsBackstageOpen
         {
@@ -381,10 +379,7 @@ namespace Fluent
         {
             keyTipService = new KeyTipService(this);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
-            backstage.Style = Application.Current.Resources["BackstageStyle"] as Style;
-            Binding binding = new Binding("BackstageBrush");
-            binding.Source = this;
-            backstage.SetBinding(Backstage.BackgroundProperty, binding);
+            Focusable = false;
         }
                               
         #endregion        
@@ -420,9 +415,14 @@ namespace Fluent
                 tabControl.Items.Clear();
                 tabControl.ToolbarItems.Clear();
                 tabControl.PreviewMouseRightButtonUp -= OnTabControlRightButtonUp;
+                tabControl.SelectionChanged -= OnTabControlSelectionChanged;
             }
             tabControl = GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
-            if (tabControl != null) tabControl.PreviewMouseRightButtonUp += OnTabControlRightButtonUp;
+            if (tabControl != null)
+            {
+                tabControl.PreviewMouseRightButtonUp += OnTabControlRightButtonUp;
+                tabControl.SelectionChanged += OnTabControlSelectionChanged;
+            }
             if ((tabControl != null)&&(tabs!=null))
             {
                 for (int i = 0; i < tabs.Count; i++)
@@ -451,10 +451,36 @@ namespace Fluent
                     quickAccessToolbar.QuickAccessItems.Add(quickAccessItems[i]);
                 }
             }
-            if (backstageButton != null) backstageButton.Click -= OnBackstageButtonClick;
-            backstageButton=GetTemplateChild("PART_BackstageButton") as Button;
-            if (backstageButton != null) backstageButton.Click += OnBackstageButtonClick;
+            if (backstageButton != null)
+            {
+                backstageButton.Backstage.Items.Clear();
+            }
+            backstageButton = GetTemplateChild("PART_BackstageButton") as BackstageButton;
+            if (backstageButton != null) 
+            {
+                Binding binding = new Binding("IsBackstageOpen");
+                binding.Mode = BindingMode.TwoWay;
+                binding.Source = this;
+                backstageButton.SetBinding(BackstageButton.IsOpenProperty, binding);
 
+                for (int i = 0; i < backstageItems.Count; i++)
+                {
+                    backstageButton.Backstage.Items.Add(backstageItems[i]);
+                }
+            }
+
+        }
+
+        private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(e.AddedItems.Count>0)
+            {
+                if(IsBackstageOpen)
+                {
+                    savedTabItem = e.AddedItems[0] as RibbonTabItem;
+                    IsBackstageOpen = false;
+                }
+            }
         }
 
         #endregion
@@ -498,16 +524,32 @@ namespace Fluent
             {                
                 UIElement topLevelElement = Window.GetWindow(this).Content as UIElement;
                 double topOffset=backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                adorner = new BackstageAdorner(topLevelElement, backstage, topOffset);
-
+                adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
             }            
             layer.Add(adorner);
-        }
+            if (tabControl != null)
+            {
+                savedTabItem = tabControl.SelectedItem as RibbonTabItem;
+                tabControl.SelectedItem = null;
+            }
+            if(quickAccessToolbar!=null) quickAccessToolbar.IsEnabled = false;
+            if(titleBar!=null) titleBar.IsEnabled = false;
+            Window.GetWindow(this).PreviewKeyDown += OnBackstageEscapeKeyDown;
+        }        
 
         private void HideBackstage()
         {
             AdornerLayer layer = GetAdornerLayer(this);
             layer.Remove(adorner);
+            if (tabControl != null) tabControl.SelectedItem = savedTabItem;
+            if (quickAccessToolbar != null) quickAccessToolbar.IsEnabled = true;
+            if (titleBar != null) titleBar.IsEnabled = true;
+            Window.GetWindow(this).PreviewKeyDown -= OnBackstageEscapeKeyDown;
+        }
+
+        private void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key==Key.Escape)IsBackstageOpen = false;
         }
 
         #endregion

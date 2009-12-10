@@ -61,8 +61,8 @@ namespace Fluent
             Window window = GetElementWindow(ribbon);
             if (window == null) return;
 
-            window.PreviewKeyDown += new KeyEventHandler(OnWindowPreviewKeyDown);
-            window.PreviewKeyUp += new KeyEventHandler(OnWindowPreviewKeyUp);
+            window.KeyDown += new KeyEventHandler(OnWindowKeyDown);
+            window.KeyUp += new KeyEventHandler(OnWindowKeyUp);
 
             // Hookup non client area messages
             ((HwndSource)PresentationSource.FromVisual(window)).AddHook(WindowProc);
@@ -83,7 +83,7 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
-        void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)        
+        void OnWindowKeyDown(object sender, KeyEventArgs e)        
         {
             
             if ((e.Key == Key.System) &&
@@ -91,7 +91,7 @@ namespace Fluent
                 (e.SystemKey == Key.RightAlt) ||
                 (e.SystemKey == Key.F10)))
             {
-                e.Handled = true;
+                //e.Handled = true;
                 if (e.IsRepeat) return;
                 if ((activeAdornerChain == null) || (!activeAdornerChain.IsAdornerChainAlive))
                 {
@@ -102,7 +102,7 @@ namespace Fluent
             }
         }
 
-        void OnWindowPreviewKeyUp(object sender, KeyEventArgs e)
+        void OnWindowKeyUp(object sender, KeyEventArgs e)
         {            
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||

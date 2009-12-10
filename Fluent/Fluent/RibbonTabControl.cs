@@ -303,9 +303,23 @@ namespace Fluent
 
         #region Private methods
 
+        private Ribbon FindParentRibbon()
+        {
+            DependencyObject element = this;
+            while(LogicalTreeHelper.GetParent(element)!=null)
+            {
+                element = LogicalTreeHelper.GetParent(element);
+                if (element is Ribbon) return (element as Ribbon);
+            }
+            return null;
+        }
+
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
             if (IsMinimized) return;
+            Ribbon parentRibbon = FindParentRibbon();
+            if((parentRibbon!=null)&&(parentRibbon.Focusable)) return;
+            if(SelectedItem==null) return;
             List<RibbonTabItem> visualItems = new List<RibbonTabItem>();
             int selectedIndex = -1;
             for (int i = 0; i < Items.Count; i++)

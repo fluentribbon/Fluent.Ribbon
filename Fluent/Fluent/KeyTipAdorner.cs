@@ -60,6 +60,8 @@ namespace Fluent
 
         DispatcherTimer timerFocusTracking = null;
 
+        AdornerLayer adornerLayer = null;
+
         #endregion
 
         #region Properties
@@ -189,7 +191,8 @@ namespace Fluent
             GetTopLevelElement(AdornedElement).PreviewMouseDown += OnInputActionOccured;
 
             // Show this adorner
-            GetAdornerLayer(associatedElements[0]).Add(this);
+            adornerLayer = GetAdornerLayer(associatedElements[0]);
+            adornerLayer.Add(this);
             // Clears previous user input
             enteredKeys = "";
             FilterKeyTips();
@@ -295,7 +298,7 @@ namespace Fluent
             GetTopLevelElement(AdornedElement).PreviewMouseDown -= OnInputActionOccured;
 
             // Show this adorner
-            GetAdornerLayer(associatedElements[0]).Remove(this);
+            adornerLayer.Remove(this);
             // Clears previous user input
             enteredKeys = "";
             attached = false;
@@ -462,7 +465,11 @@ namespace Fluent
         void Forward(UIElement element, bool click)
         {
             Detach();
-            if (click) element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+            if (click)
+            {
+                element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+                element.UpdateLayout();
+            }
 
             UIElement[] children = LogicalTreeHelper.GetChildren(element)
                 .Cast<object>()
