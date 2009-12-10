@@ -159,11 +159,12 @@ namespace Fluent
         protected virtual void OnClick(RoutedEventArgs e)
         {
             ExecuteCommand();
+            //e.Handled = true;
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
-        {
-            e.Handled = true;            
+        {                                                
+            OnClick(e);
         }
 
         #endregion

@@ -16,16 +16,15 @@
     			<RowDefinition Height="0.252*"/>
     		</Grid.RowDefinitions>
     		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,111,0" Header="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" VerticalAlignment="Top">
-				<Fluent:RibbonTitleBar HorizontalAlignment="Left">
-					
-				</Fluent:RibbonTitleBar>
-			</Fluent:RibbonTitleBar>
+    			<Fluent:RibbonTitleBar HorizontalAlignment="Left"/>
+    		</Fluent:RibbonTitleBar>
     		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0"/>
+    		<Fluent:ToggleButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{DynamicResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}"/>
     		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
     			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">
-						<Fluent:QuickAccessToolbar x:Name="PART_QuickAccessToolbar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolbarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
-					</ContentControl>
+    					<Fluent:QuickAccessToolbar x:Name="PART_QuickAccessToolbar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolbarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
+    				</ContentControl>
     			</Border>
     		</Border>
     	</Grid>
@@ -35,6 +34,100 @@
 				<Setter Property="Content" TargetName="contentControl" Value="{x:Null}"/>
 				<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
     		</Trigger>
+    	</ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+    	<Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}"/>
+    	<Setter Property="Width" Value="56"/>
+    	<Setter Property="Height" Value="22"/>
+    	<Setter Property="Background" Value="Blue"/>
+    	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    	<Setter Property="Foreground" Value="White"/>
+    </Style>
+    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+    	<Border Width="56" Height="22" CornerRadius="1,1,0,0" Background="{TemplateBinding Background}">
+    		<Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
+    			<Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
+    				<Border.Background>
+    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    						<GradientStop Color="#66FFFFFF" Offset="0"/>
+    						<GradientStop Offset="1"/>
+    						<GradientStop Offset="0.5"/>
+    					</LinearGradientBrush>
+    				</Border.Background>
+    				<Grid>
+    					<Rectangle x:Name="rectangle" StrokeThickness="0">
+    						<Rectangle.Fill>
+    							<RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+    								<GradientStop Color="#66FFFFFF" Offset="0.015"/>
+    								<GradientStop Offset="1"/>
+    							</RadialGradientBrush>
+    						</Rectangle.Fill>
+    					</Rectangle>
+    					<TextBlock Margin="2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    				</Grid>
+    			</Border>
+    		</Border>
+    	</Border>
+    	<ControlTemplate.Triggers>
+    		<MultiTrigger>
+    			<MultiTrigger.Conditions>
+    				<Condition Property="IsMouseOver" Value="True"/>
+    				<Condition Property="IsPressed" Value="False"/>
+    			</MultiTrigger.Conditions>
+    			<Setter Property="Fill" TargetName="rectangle">
+    				<Setter.Value>
+    					<RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+    						<GradientStop Color="#B2FFFFFF" Offset="0.015"/>
+    						<GradientStop Offset="1"/>
+    					</RadialGradientBrush>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="Background" TargetName="border">
+    				<Setter.Value>
+    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    						<GradientStop Color="#B2FFFFFF" Offset="0.011"/>
+    						<GradientStop Offset="1"/>
+    						<GradientStop Offset="0.5"/>
+    					</LinearGradientBrush>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="BorderBrush" TargetName="border" Value="#B2FFFFFF"/>
+    		</MultiTrigger>
+    		<Trigger Property="IsChecked" Value="True">
+    			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
+    			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+    			<Setter Property="BorderBrush" TargetName="border" Value="#59FFFFFF"/>
+    			<Setter Property="Background" TargetName="border">
+    				<Setter.Value>
+    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    						<GradientStop Color="Transparent" Offset="0"/>
+    						<GradientStop Offset="1" Color="#59FFFFFF"/>
+    						<GradientStop Offset="0"/>
+    					</LinearGradientBrush>
+    				</Setter.Value>
+    			</Setter>
+    		</Trigger>
+			<MultiTrigger>
+    			<MultiTrigger.Conditions>
+    				<Condition Property="IsMouseOver" Value="True"/>
+    				<Condition Property="IsPressed" Value="False"/>
+					<Condition Property="IsChecked" Value="True"/>
+    			</MultiTrigger.Conditions>
+    			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
+    			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+    			<Setter Property="BorderBrush" TargetName="border" Value="#99FFFFFF"/>
+    			<Setter Property="Background" TargetName="border">
+    				<Setter.Value>
+    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    						<GradientStop Color="Transparent" Offset="0"/>
+    						<GradientStop Offset="1" Color="#99FFFFFF"/>
+    						<GradientStop Offset="0"/>
+    					</LinearGradientBrush>
+    				</Setter.Value>
+    			</Setter>
+    		</MultiTrigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

@@ -221,16 +221,17 @@ namespace Fluent
 
             ToggleButton item = new ToggleButton();
             item.Focusable = false;
-            item.Content = (toggleButton.Content != null) ? toggleButton.Content.ToString() : null;
+            //item.Content = (toggleButton.Content != null) ? toggleButton.Content.ToString() : null;
+            item.Text = toggleButton.Text;
             
             // Copy common properties
             BindControlProperties(toggleButton, item);
             // Copy ScreenTip data
             BindScreenTip(toggleButton, item);
             // Copy small icon
-            /*if (RibbonControl.GetSmallIcon(toggleButton) != null) 
-                Bind(toggleButton, item, "(Fluent:RibbonControl.SmallIcon)", 
-                    RibbonControl.SmallIconProperty, BindingMode.OneWay);*/
+            if (toggleButton.Icon != null) 
+                Bind(toggleButton, item, "Icon", 
+                    RibbonControl.IconProperty, BindingMode.OneWay);
             
             // TODO: check, maybe copy style is not required for quick access toolbar items
             Bind(toggleButton, item, "Style", ToggleButton.StyleProperty, BindingMode.OneWay);

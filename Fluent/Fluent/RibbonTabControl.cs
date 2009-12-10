@@ -5,11 +5,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Input;
@@ -178,7 +180,7 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            //if (popup != null) RemoveLogicalChild(popup);
+            //if (popup != null) RemoveLogicalChild(popup);            
             popup = GetTemplateChild("PART_Popup") as Popup;
             if (popup != null)
             {
@@ -188,6 +190,8 @@ namespace Fluent
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 popup.SetBinding(Popup.IsOpenProperty, binding);
+
+                popup.CustomPopupPlacementCallback = CustomPopupPlacementMethod;
             }
             if (toolbarPanel != null)
             {
@@ -476,8 +480,79 @@ namespace Fluent
             {
                 Mouse.Capture(this, CaptureMode.SubTree);
             }*/
-            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = false;
+            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = false;            
         }
+
+        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
+        {
+            if ((popup != null) && (SelectedTabItem != null))
+            {
+                // Get current workarea                
+                Point tabItemPos = SelectedTabItem.PointToScreen(new Point(0, 0));
+                Rect tabItemRect = new Rect();
+                tabItemRect.left = (int)tabItemPos.X;
+                tabItemRect.top = (int)tabItemPos.Y;
+                tabItemRect.right = (int)tabItemPos.X + (int)SelectedTabItem.ActualWidth;
+                tabItemRect.bottom = (int)tabItemPos.Y + (int)SelectedTabItem.ActualHeight;
+
+                uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+                System.IntPtr monitor = MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+                if (monitor != System.IntPtr.Zero)
+                {
+                    MonitorInfo monitorInfo = new MonitorInfo();
+                    monitorInfo.size = (uint)Marshal.SizeOf(monitorInfo);
+                    GetMonitorInfo(monitor, ref monitorInfo);
+
+                    Point startPoint = PointToScreen(new Point(0, 0));
+                    double inWindowRibbonWidth = monitorInfo.work.right - Math.Max(monitorInfo.work.left, startPoint.X);
+
+                    double actualWidth = ActualWidth;
+                    double startOffset = 0;
+                    if (startPoint.X < monitorInfo.work.left)
+                    {
+                        actualWidth -= monitorInfo.work.left - startPoint.X;
+                        //startOffset = monitorInfo.work.left - startPoint.X;
+                        startPoint.X = monitorInfo.work.left;
+                    }
+                    // Set width
+                    popup.Width = Math.Min(actualWidth, inWindowRibbonWidth);
+                    return new CustomPopupPlacement[]
+                               {
+                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, SelectedTabItem.ActualHeight-(popup.Child as FrameworkElement).Margin.Top), PopupPrimaryAxis.None),
+                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, -(SelectedContent as RibbonGroupsContainer).ActualHeight-(popup.Child as FrameworkElement).Margin.Bottom), PopupPrimaryAxis.None),
+                               };
+                }
+            }
+            return null;
+        }
+
+        #region Interop
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct Rect
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct MonitorInfo
+        {
+            public uint size;
+            public Rect monitor;
+            public Rect work;
+            public uint flags;
+        }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr MonitorFromRect([In] ref Rect lprc, uint dwFlags);
+
+        [DllImport("user32.dll")]
+        static extern bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfo lpmi);
+
+        #endregion
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

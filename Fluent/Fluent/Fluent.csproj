@@ -69,6 +69,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backstage.cs" />
+    <Compile Include="BackstageAdorner.cs" />
+    <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ControlLabel.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="RibbonGroupBox.cs" />
     <Compile Include="RibbonGroupsContainer.cs" />
     <Compile Include="RibbonTabItem.cs" />
+    <Compile Include="ToggleButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
@@ -126,6 +130,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Office2010\Controls\Backstage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\BackstageTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Office2010\Controls\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +145,10 @@
     <Page Include="Themes\Office2010\Controls\ControlLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\EmptyFocusStyle.xaml">
       <SubType>Designer</SubType>
@@ -212,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\DefaultSmallIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\BackstageCorner.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,16 +17,30 @@
     </LinearGradientBrush>
   </Window.Background>
   <Grid>
-    <Fluent:Ribbon VerticalAlignment="Top" Style="{DynamicResource RibbonStyle}">
+    <Fluent:Ribbon VerticalAlignment="Top" Style="{DynamicResource RibbonStyle}" BackstageBrush="Red">
       <Fluent:Ribbon.Groups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="Magenta" Background="Purple"/>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" Style="{DynamicResource RibbonContextualTabGroupStyle}" BorderBrush="Green" Background="Lime"/>
       </Fluent:Ribbon.Groups>
+      <Fluent:Ribbon.BackstageItems>
+        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+        <Fluent:Button Text="Lala2"/>
+        <Fluent:BackstageTabItem Text="Lala" Style="{StaticResource BackstageTabItemStyle}">
+          <Grid Background="Red" Opacity="0.3" Margin="50"/>
+        </Fluent:BackstageTabItem>
+        <Fluent:BackstageTabItem Text="Lala2" Style="{StaticResource BackstageTabItemStyle}">
+          <Grid Background="Green" Opacity="0.3" Margin="50"/>
+        </Fluent:BackstageTabItem>
+        <Fluent:BackstageTabItem Text="Lala3" Style="{StaticResource BackstageTabItemStyle}">
+          <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
+        </Fluent:BackstageTabItem>
+        <Fluent:Button Text="Lala"/>
+      </Fluent:Ribbon.BackstageItems>
       <Fluent:Ribbon.ToolbarItems>
-        <Button />
-        <Button />
-        <Button >
-          <Button.ToolTip>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small"/>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small"/>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small">
+          <Fluent:Button.ToolTip>
             <Fluent:ScreenTip
                 Title="Insert Chart"
                 Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
@@ -35,8 +49,8 @@
                 DisableReason="Disable reason reason."
                 Width="190"
                 IsRibbonAligned ="False"/> 
-          </Button.ToolTip>
-        </Button>
+          </Fluent:Button.ToolTip>
+        </Fluent:Button>
         
       </Fluent:Ribbon.ToolbarItems>
       <Fluent:Ribbon.QuickAccessItems>
@@ -50,6 +64,8 @@
       </Fluent:Ribbon.QuickAccessItems>
       <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip" ReduceOrder="A,A,B,A,B,C,B,C,C">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="A" x:Name="A" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala1</Fluent:ToggleButton>
+          <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala2</Fluent:ToggleButton>
           <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton">
             <Fluent:DropDownButton.PopupContent>
                 <Border Background="Red">
@@ -145,6 +161,6 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
     </Fluent:Ribbon>
-    <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button"/>
+    <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button" Click="OnSomeTestClick"/>
   </Grid>
 </Window>

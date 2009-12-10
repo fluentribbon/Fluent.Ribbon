@@ -17,8 +17,8 @@
 			<Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
 				<Image Source="{TemplateBinding Image}"/>
 			</Border>
-			<Fluent:ExtendedPopup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True" VerticalOffset="0" HorizontalOffset="0">
-				<Grid Width="Auto" Height="Auto" Margin="30,20">
+			<Fluent:ExtendedPopup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True">
+				<Grid Width="Auto" Height="Auto" Margin="0,20">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="5"/>

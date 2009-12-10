@@ -88,7 +88,7 @@ namespace Fluent
             previousFocusedElement = Keyboard.FocusedElement;
             SetActiveWindow(hwndSource.Handle);
         }
-
+        
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
         {
             if(ParentPopup!=null)

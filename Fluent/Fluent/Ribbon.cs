@@ -6,6 +6,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +16,7 @@ using System.Windows.Markup;
 namespace Fluent
 {
     [ContentProperty("Tabs")]
+    [TemplatePart(Name = "PART_BackstageButton", Type = typeof(Button))]
     public class Ribbon: Control
     {
         #region Fields
@@ -21,16 +24,23 @@ namespace Fluent
         private ObservableCollection<RibbonContextualTabGroup> groups = null;
         private ObservableCollection<RibbonTabItem> tabs = null;
         private ObservableCollection<UIElement> toolbarItems = null;
+        private ObservableCollection<UIElement> backstageItems = null;
         private RibbonTitleBar titleBar = null;
         private RibbonTabControl tabControl = null;
         private QuickAccessToolbar quickAccessToolbar = null;
 
         private Panel layoutRoot = null;
 
+        private Button backstageButton = null;
+
+        Backstage backstage = new Backstage();
+
         // Handles F10, Alt and so on
         KeyTipService keyTipService = null;
 
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
+
+        private BackstageAdorner adorner = null;
 
         #endregion
 
@@ -257,6 +267,85 @@ namespace Fluent
 
         }
 
+        public ObservableCollection<UIElement> BackstageItems
+        {
+            get
+            {
+                if (this.backstageItems == null)
+                {
+                    this.backstageItems = new ObservableCollection<UIElement>();
+                    this.backstageItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnBackstageItemsCollectionChanged);
+                }
+                return this.backstageItems;
+            }
+        }
+
+        private void OnBackstageItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (backstage != null) backstage.Items.Add(obj2 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (backstage != null) backstage.Items.Remove(obj3 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (backstage != null) backstage.Items.Remove(obj4 as UIElement);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (backstage != null) backstage.Items.Add(obj5 as UIElement);
+                    }
+                    break;
+            }
+
+        }
+
+
+
+        public bool IsBackstageOpen
+        {
+            get { return (bool)GetValue(IsBackstageOpenProperty); }
+            set { SetValue(IsBackstageOpenProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsBackstageOpen.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsBackstageOpenProperty =
+            DependencyProperty.Register("IsBackstageOpen", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
+
+        private static void OnIsBackstageOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if((bool)e.NewValue)
+            {
+                (d as Ribbon).ShowBackstage();
+            }
+            else
+            {
+                (d as Ribbon).HideBackstage();
+            }
+        }
+
+        public Brush BackstageBrush
+        {
+            get { return (Brush)GetValue(BackstageBrushProperty); }
+            set { SetValue(BackstageBrushProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BackstageBrush.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BackstageBrushProperty =
+            DependencyProperty.Register("BackstageBrush", typeof(Brush), typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
+
         #endregion
 
         #region Constructors
@@ -273,6 +362,10 @@ namespace Fluent
         {
             keyTipService = new KeyTipService(this);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
+            backstage.Style = Application.Current.Resources["BackstageStyle"] as Style;
+            Binding binding = new Binding("BackstageBrush");
+            binding.Source = this;
+            backstage.SetBinding(Backstage.BackgroundProperty, binding);
         }
                               
         #endregion        
@@ -339,11 +432,20 @@ namespace Fluent
                     quickAccessToolbar.QuickAccessItems.Add(quickAccessItems[i]);
                 }
             }
+            if (backstageButton != null) backstageButton.Click -= OnBackstageButtonClick;
+            backstageButton=GetTemplateChild("PART_BackstageButton") as Button;
+            if (backstageButton != null) backstageButton.Click += OnBackstageButtonClick;
+
         }
 
         #endregion
 
         #region Event handling
+
+        private void OnBackstageButtonClick(object sender, RoutedEventArgs e)
+        {
+            IsBackstageOpen = !IsBackstageOpen;
+        }
 
         private void OnTabControlRightButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -363,6 +465,43 @@ namespace Fluent
                     else quickAccessToolbar.Items.Add(control);
                     quickAccessToolbar.InvalidateMeasure();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private void ShowBackstage()
+        {            
+            AdornerLayer layer = GetAdornerLayer(this);
+            if (adorner == null)
+            {                
+                UIElement topLevelElement = Window.GetWindow(this).Content as UIElement;
+                double topOffset=backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
+                adorner = new BackstageAdorner(topLevelElement, backstage, topOffset);
+
+            }            
+            layer.Add(adorner);
+        }
+
+        private void HideBackstage()
+        {
+            AdornerLayer layer = GetAdornerLayer(this);
+            layer.Remove(adorner);
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        static AdornerLayer GetAdornerLayer(UIElement element)
+        {
+            UIElement current = element;
+            while (true)
+            {
+                current = (UIElement)VisualTreeHelper.GetParent(current);
+                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
             }
         }
 

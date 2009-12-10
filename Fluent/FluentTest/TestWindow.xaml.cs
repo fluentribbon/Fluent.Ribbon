@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -102,5 +103,11 @@ namespace FluentTest
             e.CanExecute = canEx;
         }
 
+        private void OnSomeTestClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("lala");
+        }
+
     }
+
 }
