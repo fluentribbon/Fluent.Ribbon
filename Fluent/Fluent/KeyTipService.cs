@@ -121,9 +121,7 @@ namespace Fluent
                     ribbon.Focusable = true;
                     ribbon.Focus();
 
-                    activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
-                    activeAdornerChain.Terminated += OnAdornerChainTerminated;
-                    activeAdornerChain.Attach();
+                    Show();
                 }
                 else if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
                 {
@@ -146,14 +144,17 @@ namespace Fluent
 
         void OnDelayedShow(object sender, EventArgs e)
         {
-            if (activeAdornerChain == null)
-            {                
-                // Back up focused element to restore it in the end
-                backUpFocusedElement = Keyboard.FocusedElement;                
-                activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
-                activeAdornerChain.Attach();
-            }
+            if (activeAdornerChain == null) Show();
             timer.Stop();
+        }
+
+        void Show()
+        {          
+            activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
+            activeAdornerChain.Terminated += OnAdornerChainTerminated;
+
+            if (ribbon.IsBackstageOpen) activeAdornerChain.Forward(ribbon.BackstageKeyTipKeys, false);
+            else activeAdornerChain.Attach();
         }
 
         #endregion

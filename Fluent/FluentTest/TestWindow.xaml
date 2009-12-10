@@ -62,7 +62,25 @@
         <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test2" Style="{DynamicResource ContentMenuItemStyle}" Height="22"/>
         <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test3" Style="{DynamicResource ContentMenuItemStyle}" Height="22"/>
       </Fluent:Ribbon.QuickAccessItems>
-      <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip" ReduceOrder="A,A,B,A,B,C,B,C,C">
+      
+      <!--Clipboard Tab-->
+      <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" Style="{DynamicResource RibbonTabItemStyle}" ToolTip="Regular Tool Tip" ReduceOrder="A,A,Clipboard,B,A,B,C,B,C,C">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Style="{DynamicResource RibbonGroupBoxStyle}" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:DropDownButton Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">  
+            <Fluent:DropDownButton.ToolTip>
+               <Fluent:ScreenTip
+                  Title="Paste (Ctrl+V)"
+                  Text="Paste the contents of the Clipboard."
+                  Width="190"/>
+            </Fluent:DropDownButton.ToolTip>
+          </Fluent:DropDownButton>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small" />
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small"/>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
+      </Fluent:RibbonGroupBox>
+      <!--Clipboard Tab-->
+        
+        
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="A" x:Name="A" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala1</Fluent:ToggleButton>
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala2</Fluent:ToggleButton>

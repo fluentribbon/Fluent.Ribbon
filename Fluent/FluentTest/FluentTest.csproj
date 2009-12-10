@@ -114,6 +114,13 @@
   <ItemGroup>
     <Resource Include="Images\SampleImageForScreenTip.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Paste.png" />
+    <Resource Include="Images\PasteLarge.png" />
+    <Resource Include="Images\Cut.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\FormatPainter.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

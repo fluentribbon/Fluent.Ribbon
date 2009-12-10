@@ -46,6 +46,25 @@ namespace Fluent
 
         #region Properties
 
+
+        /// <summary>
+        /// Gets or sets KeyTip.Keys for Backstage
+        /// </summary>
+        public string BackstageKeyTipKeys
+        {
+            get { return (string)GetValue(BackstageKeyTipKeysProperty); }
+            set { SetValue(BackstageKeyTipKeysProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for BackstageKeyTipKeys. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty BackstageKeyTipKeysProperty =
+            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata(null));
+
+
+
         internal  RibbonTitleBar TitleBar
         {
             get { return titleBar; }

@@ -43,6 +43,7 @@ namespace Fluent
         // Parent adorner
         KeyTipAdorner parentAdorner = null;
         KeyTipAdorner childAdorner = null;
+
         // Focused element
         UIElement focusedElement = null;
         
@@ -440,11 +441,28 @@ namespace Fluent
             else Terminate();
         }
 
+        /// <summary>
+        /// Forwards to the elements with the given keys
+        /// </summary>
+        /// <param name="keys">Keys</param>
+        /// <param name="click">If true the element will be clicked</param>
+        /// <returns>If the element will be found the function will return true</returns>
+        public bool Forward(string keys, bool click)
+        {
+            UIElement element = TryGetElement(keys);
+            if (element == null) return false;
+            Forward(element, click);
+            return true;
+        }
+
         // Forward to the next element
-        void Forward(UIElement element)
+        void Forward(UIElement element) { Forward(element, true); }
+
+        // Forward to the next element
+        void Forward(UIElement element, bool click)
         {
             Detach();
-            element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+            if (click) element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
 
             UIElement[] children = LogicalTreeHelper.GetChildren(element)
                 .Cast<object>()
