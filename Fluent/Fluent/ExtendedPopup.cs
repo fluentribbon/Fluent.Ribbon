@@ -13,8 +13,20 @@ using System.Windows.Media;
 namespace Fluent
 {
     public class ExtendedPopup:Popup
-    {     
+    {
+        #region Fields
+
+        // ????
         private bool ignoreNextDeactivate;
+        // Backup current active window to setup 
+        // it when this popup will be closed
+        IntPtr previousActiveWindowHwnd = IntPtr.Zero;
+        // Current HwndSource of this Popup
+        HwndSource hwndSource = null;
+
+        IInputElement previousFocusedElement = null;
+
+        #endregion
 
         #region Properties
 
@@ -35,7 +47,7 @@ namespace Fluent
 
         static ExtendedPopup()
         {
-            ChildProperty.AddOwner(typeof (ExtendedPopup), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.Inherits, OnChildChanged,OnCoerceChildChanged));
+            ChildProperty.AddOwner(typeof (ExtendedPopup), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.Inherits, OnChildChanged,OnCoerceChildChanged));            
         }
 
         private static object OnCoerceChildChanged(DependencyObject d, object basevalue)
@@ -53,6 +65,7 @@ namespace Fluent
         public ExtendedPopup()
         {
             IgnoreNextDeactivate = false;
+            
         }
 
         #endregion
@@ -62,14 +75,18 @@ namespace Fluent
         protected override void OnOpened(EventArgs e)
         {            
             PopupAnimation = PopupAnimation.None;
-            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
-            ((HwndSource)PresentationSource.FromVisual(this.Child)).AddHook(WindowProc);
+
+            hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
+            if (hwndSource != null) hwndSource.AddHook(WindowProc);
 
             ParentPopup = FindParentPopup();
             if((ParentPopup!=null) &&(ParentPopup.IsOpen))
                 ParentPopup.IgnoreNextDeactivate = true;
-            
-            SetActiveWindow(hwnd);
+
+            // Backup previous active window and set popup's window as active
+            previousActiveWindowHwnd = GetActiveWindow();
+            previousFocusedElement = Keyboard.FocusedElement;
+            SetActiveWindow(hwndSource.Handle);
         }
 
         protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
@@ -99,6 +116,13 @@ namespace Fluent
         {
             base.OnClosed(e);
             PopupAnimation = PopupAnimation.None;
+
+            // Restore active window and focus
+            SetActiveWindow(previousActiveWindowHwnd);
+            Keyboard.Focus(previousFocusedElement);
+
+            // Remove hook
+            if ((hwndSource != null) && (!hwndSource.IsDisposed)) hwndSource.RemoveHook(WindowProc);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -172,18 +196,18 @@ namespace Fluent
                            /*     
                             }  */                          
                         }
-                        /*else
+                        else
                         {
                             if (ParentPopup == null)
                             {
                                 IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
                                 SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);                                
                             }
-                        }*/
+                        }
                         handled = true;
                         break;
                     }
-                /*case 0x0021:
+                case 0x0021:
                     {
                         if (ParentPopup == null)
                         {
@@ -192,7 +216,7 @@ namespace Fluent
                             handled = true;
                         }
                         break;
-                    }*/
+                    }
             }
             return IntPtr.Zero;
         }
@@ -215,6 +239,12 @@ namespace Fluent
 
         [DllImport("user32.dll")]
         private static extern IntPtr SetActiveWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetFocus(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetActiveWindow();
 
         [DllImport("User32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);

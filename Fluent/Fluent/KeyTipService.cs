@@ -110,16 +110,28 @@ namespace Fluent
                 (e.SystemKey == Key.F10)))
             {
                 e.Handled = true;
-                
+
                 if (timer.IsEnabled)
                 {
                     timer.Stop();
+                    backUpFocusedElement = Keyboard.FocusedElement;
+
+                    // Focus ribbon
                     FocusManager.SetIsFocusScope(ribbon, true);
                     ribbon.Focusable = true;
-                    backUpFocusedElement = Keyboard.FocusedElement;
-                    activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);                    
+                    ribbon.Focus();
+
+                    activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
                     activeAdornerChain.Terminated += OnAdornerChainTerminated;
                     activeAdornerChain.Attach();
+                }
+                else if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
+                {
+                    // Focus ribbon
+                    backUpFocusedElement = Keyboard.FocusedElement;
+                    FocusManager.SetIsFocusScope(ribbon, true);
+                    ribbon.Focusable = true;
+                    ribbon.Focus();
                 }
             }
         }
@@ -135,10 +147,9 @@ namespace Fluent
         void OnDelayedShow(object sender, EventArgs e)
         {
             if (activeAdornerChain == null)
-            {
-                FocusManager.SetIsFocusScope(ribbon, true);
-                ribbon.Focusable = true;
-                backUpFocusedElement = Keyboard.FocusedElement;
+            {                
+                // Back up focused element to restore it in the end
+                backUpFocusedElement = Keyboard.FocusedElement;                
                 activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
                 activeAdornerChain.Attach();
             }

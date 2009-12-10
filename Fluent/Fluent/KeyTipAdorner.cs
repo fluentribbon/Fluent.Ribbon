@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Windows;
+using System.Windows.Threading;
 using System.Windows.Interop;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -55,6 +56,8 @@ namespace Fluent
 
         // Designate that this adorner is terminated
         bool terminated = false;
+
+        DispatcherTimer timerFocusTracking = null;
 
         #endregion
 
@@ -176,6 +179,7 @@ namespace Fluent
             focusedElement = Keyboard.FocusedElement as UIElement;
             if (focusedElement != null)
             {
+                Log("Focus Attached to " + focusedElement.ToString());
                 focusedElement.LostFocus += OnFocusLost;                
                 focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp += OnPreviewKeyUp;
@@ -194,8 +198,35 @@ namespace Fluent
             attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(adornedElement));
             if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
 
+            // Start timer to track focus changing
+            if (timerFocusTracking == null)
+            {
+                timerFocusTracking = new DispatcherTimer(DispatcherPriority.ApplicationIdle, Dispatcher.CurrentDispatcher);
+                timerFocusTracking.Interval = TimeSpan.FromMilliseconds(50);
+                timerFocusTracking.Tick += OnTimerFocusTrackingTick;
+            }
+            timerFocusTracking.Start();
+
             attached = true;
             Log("Attach end");
+        }
+
+        void OnTimerFocusTrackingTick(object sender, EventArgs e)
+        {
+            if (focusedElement != Keyboard.FocusedElement)
+            {
+                Log("Focus is changed, but focus lost is not occured");
+                if (focusedElement != null)
+                {
+                    focusedElement.LostFocus -= OnFocusLost;
+                    focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
+                    focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                }
+                focusedElement = (UIElement)Keyboard.FocusedElement;
+                focusedElement.LostFocus += OnFocusLost;
+                focusedElement.PreviewKeyDown += OnPreviewKeyDown;
+                focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+            }
         }
 
         // Try to set focus on the given element or it's child
@@ -253,12 +284,13 @@ namespace Fluent
             ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
                         
             if (focusedElement != null)
-            {
+            {                
                 focusedElement.LostFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
                 focusedElement = null;
             }
+
             GetTopLevelElement(AdornedElement).PreviewMouseDown -= OnInputActionOccured;
 
             // Show this adorner
@@ -266,6 +298,9 @@ namespace Fluent
             // Clears previous user input
             enteredKeys = "";
             attached = false;
+
+            // Stop timer to track focus changing
+            timerFocusTracking.Stop();
 
             Log("Detach End");
         }
@@ -275,6 +310,9 @@ namespace Fluent
 
         #region Termination
 
+        /// <summary>
+        /// Terminate whole key tip's adorner chain
+        /// </summary>
         public void Terminate()
         {
             if (terminated) return;
@@ -294,8 +332,20 @@ namespace Fluent
 
         void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Log(" Key Down " + e.Key.ToString() + e.OriginalSource.ToString());
-            if (e.Key == Key.Escape) Back();
+            Log("Key Down " + e.Key.ToString() + " ("+ e.OriginalSource.ToString() + ")");
+            if (Visibility == Visibility.Hidden) return;
+
+            if ((!(AdornedElement is ContextMenu)) && 
+                ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) || 
+                (e.Key == Key.NumPad0) || (e.Key == Key.NumPad1) || (e.Key == Key.NumPad2) || 
+                (e.Key == Key.NumPad3) || (e.Key == Key.NumPad4) || (e.Key == Key.NumPad5) ||
+                (e.Key == Key.NumPad6) || (e.Key == Key.NumPad7) || (e.Key == Key.NumPad7) ||
+                (e.Key == Key.NumPad8) || (e.Key == Key.NumPad9) || 
+                (e.Key == Key.Enter) || (e.Key == Key.Tab)))
+            {
+                 Visibility = Visibility.Hidden;
+            }
+            else if (e.Key == Key.Escape) Back();
             else
             {
                 string newKey = (new KeyConverter()).ConvertToString(e.Key);
@@ -577,7 +627,14 @@ namespace Fluent
                         new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                             elementSize.Height + 1), AdornedElement);
                 }
-                else 
+                else if (IsWithinQuickAccessToolbar(associatedElements[i]))
+                {
+                    Point translatedPoint = associatedElements[i].TranslatePoint(new Point(
+                            associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
+                            associatedElements[i].DesiredSize.Height - keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
+                    keyTipPositions[i] = translatedPoint;
+                }
+                else
                 {
                     if ((associatedElements[i] is RibbonControl)&&((associatedElements[i] as RibbonControl).Size != RibbonControlSize.Large))
                     {
@@ -610,8 +667,15 @@ namespace Fluent
                     }
                 }
             }
+        }
 
-            ;
+        // Determines whether the element is children to quick access toolbar
+        bool IsWithinQuickAccessToolbar(UIElement element)
+        {
+            UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
+            if (parent is QuickAccessToolbar) return true;
+            if (parent == null) return false;
+            return IsWithinQuickAccessToolbar(parent);
         }
 
         /// <summary>
@@ -641,7 +705,8 @@ namespace Fluent
 
         void Log(string message)
         {
-            System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
+            // Uncomment in case of emergency
+            // System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
         }
 
         #endregion

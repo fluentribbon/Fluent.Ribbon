@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="ContextMenu.cs" />
     <Compile Include="ControlLabel.cs" />
     <Compile Include="ExtendedPopup.cs">
       <SubType>Code</SubType>
