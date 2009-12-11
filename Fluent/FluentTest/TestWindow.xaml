@@ -74,8 +74,15 @@
                   Width="190"/>
             </Fluent:DropDownButton.ToolTip>
           </Fluent:DropDownButton>
-        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small" />
-        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small"/>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" IsEnabled="False" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small">
+          <Fluent:Button.ToolTip>
+            <Fluent:ScreenTip
+               Title="Cut (Ctrl+X)"
+               Text="Cut the contents to the Clipboard."
+               Width="190"/>
+          </Fluent:Button.ToolTip>
+          </Fluent:Button>
+        <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" IsEnabled="False" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small"/>
         <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
       <!--Clipboard Tab-->
