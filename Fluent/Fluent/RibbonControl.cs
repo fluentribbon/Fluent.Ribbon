@@ -491,7 +491,18 @@ namespace Fluent
 
             ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
             ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(900));
+            ToolTipService.BetweenShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(0));
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));
+
+            
+        }
+
+        /// <summary>
+        /// Default contructor
+        /// </summary>
+        public RibbonControl()
+        {
+            
         }
 
         #endregion

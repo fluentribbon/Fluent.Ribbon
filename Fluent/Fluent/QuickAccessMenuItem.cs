@@ -31,7 +31,6 @@ namespace Fluent
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
-    /// 
     [ContentProperty("Shortcut")]
     public class QuickAccessMenuItem : MenuItem
     {
@@ -72,6 +71,12 @@ namespace Fluent
 
         #endregion
 
+        #region Event Handlers
+
+        /// <summary>
+        /// Handles click events
+        /// </summary>
+        /// <param name="e">Event args</param>
         protected override void OnClick(RoutedEventArgs e)
         {
             base.OnClick(e);
@@ -83,7 +88,11 @@ namespace Fluent
             }
         }
 
-        private QuickAccessToolbar FindQuickAccessToolbar()
+        #endregion
+
+        #region Private Methods
+
+        QuickAccessToolbar FindQuickAccessToolbar()
         {
             UIElement element = this.Parent as UIElement;
             while (element != null)
@@ -95,6 +104,8 @@ namespace Fluent
             }
             return null;
         }
+
+        #endregion
     }
 
     /// <summary>
@@ -191,12 +202,11 @@ namespace Fluent
 
             // Copy common properties
             BindControlProperties(button, item);
-            // Copy ScreenTip data
-            BindScreenTip(button, item);
             // Bind small icon
-            // Copy small icon
             if (button.Icon != null)
                 Bind(button, item, "Icon",RibbonControl.IconProperty, BindingMode.OneWay);
+            if (button.LargeIcon != null)
+                Bind(button, item, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
 
             // TODO: check, maybe copy style is not required for quick access toolbar items
             Bind(button, item, "Style", Button.StyleProperty, BindingMode.OneWay);
@@ -227,8 +237,7 @@ namespace Fluent
             
             // Copy common properties
             BindControlProperties(toggleButton, item);
-            // Copy ScreenTip data
-            BindScreenTip(toggleButton, item);
+
             // Copy small icon
             if (toggleButton.Icon != null) 
                 Bind(toggleButton, item, "Icon", 
@@ -257,8 +266,7 @@ namespace Fluent
 
             // Copy common properties
             BindControlProperties(comboBox, item);
-            // Copy ScreenTip data
-            BindScreenTip(comboBox, item);
+            
             // Copy small icon
             /*if (RibbonControl.GetSmallIcon(comboBox) != null)
                 Bind(comboBox, item, "(Fluent:RibbonControl.SmallIcon)",
@@ -296,8 +304,7 @@ namespace Fluent
 
             // Copy common properties
             BindControlProperties(textBox, item);
-            // Copy ScreenTip data
-            BindScreenTip(textBox, item);
+            
             // Copy small icon
             /*if (RibbonControl.GetSmallIcon(textBox) != null)
                 Bind(textBox, item, "(Fluent:RibbonControl.SmallIcon)",
@@ -327,20 +334,7 @@ namespace Fluent
         #endregion
         
         #region Common Stuff
-
-        // Copies ScreenTip data
-        static void BindScreenTip(FrameworkElement source, FrameworkElement target)
-        {            
-            Bind(source, target, "(Fluent:ScreenTip.Title)", ScreenTip.TitleProperty, BindingMode.OneWay);
-            Bind(source, target, "(Fluent:ScreenTip.Text)", ScreenTip.TextProperty, BindingMode.OneWay);
-            Bind(source, target, "(Fluent:ScreenTip.Image)", ScreenTip.ImageProperty, BindingMode.OneWay);
-            Bind(source, target, "(Fluent:ScreenTip.DisableReason)", ScreenTip.DisableReasonProperty, BindingMode.OneWay);
-            Bind(source, target, "(Fluent:ScreenTip.HelpTopic)", ScreenTip.HelpTopicProperty, BindingMode.OneWay);
-            Bind(source, target, "(Fluent:ScreenTip.Width)", ScreenTip.WidthProperty, BindingMode.OneWay);
-            Bind(source, target, "ToolTip", FrameworkElement.ToolTipProperty, BindingMode.OneWay);
-        }
-
-
+               
         static void BindControlProperties(Control source, Control target)
         {
             if (source is ButtonBase)
@@ -351,6 +345,7 @@ namespace Fluent
                 Bind(source, target, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
             }
 
+            Bind(source, target, "ToolTip", Control.ToolTipProperty, BindingMode.OneWay);
             Bind(source, target, "ContextMenu", Control.ContextMenuProperty, BindingMode.OneWay);
 
             Bind(source, target, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);

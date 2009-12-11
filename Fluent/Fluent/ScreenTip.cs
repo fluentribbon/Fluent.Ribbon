@@ -51,9 +51,11 @@ namespace Fluent
             Ribbon ribbon = null;
             UIElement topLevelElement = null;
             FindControls(PlacementTarget, ref ribbon, ref topLevelElement);
-            
-            
-            if (IsRibbonAligned && (ribbon != null))
+
+            // Exclude QAT items
+            bool notQuickAccessItem = !IsQuickAccessItem(PlacementTarget);
+
+            if (notQuickAccessItem && IsRibbonAligned && (ribbon != null))
             {
                 double belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), PlacementTarget).Y;
                 double aboveY = ribbon.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
@@ -61,7 +63,7 @@ namespace Fluent
                 CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
-            else if (IsRibbonAligned && (!(topLevelElement is Window)))
+            else if (notQuickAccessItem && IsRibbonAligned && (!(topLevelElement is Window)))
             {
                 // Placed on Popup?                
                 UIElement decoratorChild = GetDecoratorChild(topLevelElement);
@@ -78,6 +80,19 @@ namespace Fluent
                     new CustomPopupPlacement(new Point(x, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
                     new CustomPopupPlacement(new Point(x, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
             }
+        }
+
+        bool IsQuickAccessItem(UIElement element)
+        {
+            UIElement parent = null;
+            do
+            {
+                parent = LogicalTreeHelper.GetParent(element) as UIElement;
+                if (parent is QuickAccessToolbar) return true;
+                element = parent;
+            }
+            while (element != null); 
+            return false;
         }
 
         UIElement GetDecoratorChild(UIElement popupRoot)
