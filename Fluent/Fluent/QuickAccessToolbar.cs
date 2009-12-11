@@ -190,12 +190,24 @@ namespace Fluent
 
         #region Methods
 
+        // Updates keys for keytip access
         void UpdateKeyTips()
         {
-            for (int i = 0; i < Items.Count; i++)
+            for (int i = 0; i < Math.Min(9, Items.Count); i++)
             {
-                // TODO: generate keys for quick access items properly
+                // 1, 2, 3, ... , 9
                 if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], (i + 1).ToString());
+            }
+            for (int i = 9; i < Math.Min(18, Items.Count); i++)
+            {
+                // 09, 08, 07, ... , 01
+                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + (18 - i).ToString());
+            }
+            char startChar = 'A';
+            for (int i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
+            {
+                // 0A, 0B, 0C, ... , 0Z
+                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + startChar++);
             }
         }
 

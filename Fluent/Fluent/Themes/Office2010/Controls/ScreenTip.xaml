@@ -118,7 +118,7 @@
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
-                <Condition Property="Text" SourceName="helpText" Value=""/>
+                <Condition Property="Content" SourceName="helpTopic" Value="{x:Null}"/>
                 <Condition Property="Text" Value="" SourceName="disableReasonText"/>
               </MultiTrigger.Conditions>
               <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>

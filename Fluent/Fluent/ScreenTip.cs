@@ -51,8 +51,7 @@ namespace Fluent
             Ribbon ribbon = null;
             UIElement topLevelElement = null;
             FindControls(PlacementTarget, ref ribbon, ref topLevelElement);
-            //UIElement topLevelElementChild = (UIElement)(VisualTreeHelper.GetChildrenCount(topLevelElement) == 0 ? null : VisualTreeHelper.GetChild(topLevelElement, 0));
-
+            
             
             if (IsRibbonAligned && (ribbon != null))
             {
