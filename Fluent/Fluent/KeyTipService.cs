@@ -37,7 +37,7 @@ namespace Fluent
         /// <summary>
         /// Default constrctor
         /// </summary>
-        /// <param name="element">Host element</param>
+        /// <param name="ribbon">Host element</param>
         public KeyTipService(Ribbon ribbon)
         {
             this.ribbon = ribbon;
@@ -74,7 +74,7 @@ namespace Fluent
             // Mouse clicks in non client area
             if ((msg >= 161) && (msg <= 173))
             {
-                if (activeAdornerChain != null)
+                if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
                 {
                     activeAdornerChain.Terminate();
                     activeAdornerChain = null;
@@ -84,14 +84,12 @@ namespace Fluent
         }
 
         void OnWindowKeyDown(object sender, KeyEventArgs e)        
-        {
-            
+        {   
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
                 (e.SystemKey == Key.RightAlt) ||
                 (e.SystemKey == Key.F10)))
             {
-                //e.Handled = true;
                 if (e.IsRepeat) return;
                 if ((activeAdornerChain == null) || (!activeAdornerChain.IsAdornerChainAlive))
                 {
@@ -110,7 +108,6 @@ namespace Fluent
                 (e.SystemKey == Key.F10)))
             {
                 e.Handled = true;
-
                 if (timer.IsEnabled)
                 {
                     timer.Stop();
@@ -136,10 +133,10 @@ namespace Fluent
 
         void OnAdornerChainTerminated(object sender, EventArgs e)
         {
+            if (backUpFocusedElement != null) backUpFocusedElement.Focus();
             ribbon.Focusable = false;
             FocusManager.SetIsFocusScope(ribbon, false);
-            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;
-            if (backUpFocusedElement != null) backUpFocusedElement.Focus();
+            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;            
         }
 
         void OnDelayedShow(object sender, EventArgs e)

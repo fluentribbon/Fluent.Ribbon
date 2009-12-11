@@ -350,10 +350,10 @@ namespace Fluent
                  Visibility = Visibility.Hidden;
             }
             else if (e.Key == Key.Escape) Back();
-            else
+            else 
             {
                 string newKey = (new KeyConverter()).ConvertToString(e.Key);
-                if (Char.IsLetterOrDigit(newKey, 0))
+                if ((newKey.Length == 1)&&(Char.IsLetterOrDigit(newKey, 0)))
                 {
                     e.Handled = true;
                     if (IsElementsStartWith(enteredKeys + newKey))
@@ -634,11 +634,11 @@ namespace Fluent
 
             for (int i = 0; i < keyTips.Count; i++)
             {
-                if (associatedElements[i] is RibbonTabItem)
+                if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is BackstageButton))
                 {
                     // Ribbon Tab Item Exclusive Placement
                     Size keyTipSize = keyTips[i].DesiredSize;
-                    Size elementSize = associatedElements[i].DesiredSize;
+                    Size elementSize = associatedElements[i].RenderSize;
                     keyTipPositions[i] = associatedElements[i].TranslatePoint(
                         new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                             elementSize.Height - keyTipSize.Height / 2.0), AdornedElement);

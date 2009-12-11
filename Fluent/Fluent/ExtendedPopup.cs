@@ -136,8 +136,11 @@ namespace Fluent
             }
             if ((e.Key==Key.System)&&((e.SystemKey == Key.LeftAlt)||(e.SystemKey == Key.RightAlt)||(e.SystemKey == Key.F10)))
             {
-                if (e.SystemKey != Key.F10) e.Handled = true;
-                ClosePopup(IntPtr.Zero,IntPtr.Zero);
+                if (e.SystemKey != Key.F10)
+                {
+                    ClosePopup(IntPtr.Zero, IntPtr.Zero);
+                }
+                else e.Handled = true;
                 return;
             }
             base.OnKeyDown(e);
@@ -162,7 +165,8 @@ namespace Fluent
 
         private void ClosePopup(IntPtr wParam, IntPtr lParam)
         {
-            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(Child)).Handle;
+            if (hwndSource == null) return;
+            IntPtr hwnd = hwndSource.Handle;
             if ((lParam != hwnd) && (!IgnoreNextDeactivate))
             {                                    
                 PopupAnimation = PopupAnimation.Fade;
