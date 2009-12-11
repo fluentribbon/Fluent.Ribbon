@@ -1,6 +1,53 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent">
+	<Style x:Key="RibbonTabControlToggleButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+		<Setter Property="Template" Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}"/>
+		<Setter Property="Height" Value="22"/>
+    <Setter Property="Width" Value="22"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+	</Style>
+	<ControlTemplate x:Key="RibbonTabControlToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="22" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="22">
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+				<Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="Auto" Margin="2"/>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>			
+			<Trigger Property="IsChecked" Value="True">		
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+			</Trigger>	
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>					
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
     <Style x:Key="RibbonTabControlStyle" TargetType="{x:Type Fluent:RibbonTabControl}">
     	<Setter Property="VerticalAlignment" Value="Top"/>
 		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
@@ -75,6 +122,10 @@
 								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False"/>							
 							</ScrollViewer>
 							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
+								<Grid Width="22" Height="22">
+									<Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png" Stretch="None" Visibility="Collapsed"/>
+									<Fluent:ToggleButton x:Name="PART_MinimizeButton" Margin="0" Width="22" Height="22" Size="Small" Style="{DynamicResource RibbonTabControlToggleButtonStyle}" Icon="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png" LargeIcon="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png" IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+								</Grid>
 								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal" FocusManager.IsFocusScope="False"/>
 							</StackPanel>
 						</Grid>
@@ -120,7 +171,16 @@
 							<Setter Property="Content" TargetName="contentControl" Value="{Binding ElementName=contentPresenter, Mode=OneWay}"/>
 							<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
 							<Setter Property="Visibility" TargetName="shadowBorder" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="image" Value="Collapsed"/>
 						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsOpen" Value="True"/>
+								<Condition Property="IsMinimized" Value="True"/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Visibility" TargetName="image" Value="Visible"/>
+							<Setter Property="Opacity" TargetName="PART_MinimizeButton" Value="0"/>
+						</MultiTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>

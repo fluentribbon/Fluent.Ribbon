@@ -462,10 +462,12 @@ namespace Fluent
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 backstageButton.SetBinding(BackstageButton.IsOpenProperty, binding);
-
-                for (int i = 0; i < backstageItems.Count; i++)
+                if (backstageItems != null)
                 {
-                    backstageButton.Backstage.Items.Add(backstageItems[i]);
+                    for (int i = 0; i < backstageItems.Count; i++)
+                    {
+                        backstageButton.Backstage.Items.Add(backstageItems[i]);
+                    }
                 }
             }
 

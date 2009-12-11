@@ -233,6 +233,15 @@
   <ItemGroup>
     <Resource Include="Themes\Office2010\Images\BackstageCorner.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\QuickAccessToolbarExtender.png" />
+    <Resource Include="Themes\Office2010\Images\RibbonPin.png" />
+    <Resource Include="Themes\Office2010\Images\QuickAccessToolbarDropDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\RibbonCollapse.png" />
+    <Resource Include="Themes\Office2010\Images\RibbonExpand.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

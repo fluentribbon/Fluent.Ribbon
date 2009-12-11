@@ -88,7 +88,7 @@
       <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
-        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=SmallIcon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
@@ -96,7 +96,7 @@
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=SmallIcon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
         <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
         <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
