@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,24 +13,31 @@ using System.Windows.Media;
 
 namespace Fluent
 {
-    public class ExtendedPopup:Popup
+    /// <summary>
+    /// Represents popup. This popup has Microsoft Office behavior
+    /// </summary>
+    public class RibbonPopup:Popup, IDisposable
     {
         #region Fields
 
-        // ????
+        // Designates that next deactivate should be skipped
         private bool ignoreNextDeactivate;
         // Backup current active window to setup 
         // it when this popup will be closed
+        [SuppressMessage("Microsoft.Reliability", "CA2006")]
         IntPtr previousActiveWindowHwnd = IntPtr.Zero;
         // Current HwndSource of this Popup
-        HwndSource hwndSource = null;
-
-        IInputElement previousFocusedElement = null;
+        HwndSource hwndSource;
+        // Previous focused element
+        IInputElement previousFocusedElement;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets whether next deactivate should be skipped
+        /// </summary>
         private bool IgnoreNextDeactivate
         {
             get { return ignoreNextDeactivate; }
@@ -38,40 +46,40 @@ namespace Fluent
                 ignoreNextDeactivate = value;                
             }
         }
-
-        internal ExtendedPopup ParentPopup { get; set; }
+        /// <summary>
+        /// Gets or sets parent popup
+        /// </summary>
+        internal RibbonPopup ParentPopup { get; set; }
 
         #endregion
 
         #region Constructors
 
-        static ExtendedPopup()
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public RibbonPopup()
         {
-            ChildProperty.AddOwner(typeof (ExtendedPopup), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.Inherits, OnChildChanged,OnCoerceChildChanged));            
+            IgnoreNextDeactivate = false;            
         }
 
-        private static object OnCoerceChildChanged(DependencyObject d, object basevalue)
+        /// <summary>
+        /// Finalizer
+        /// </summary>
+        ~RibbonPopup()
         {
-            if (basevalue == null) return new Control();
-            return basevalue;
-        }
-
-        private static void OnChildChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
-
-
-        public ExtendedPopup()
-        {
-            IgnoreNextDeactivate = false;
-            
+            Dispose(false);
         }
 
         #endregion
 
         #region Overrides
         
+        /// <summary>
+        /// Responds to the condition in which the value of the Popup.IsOpen property 
+        /// changes from false to true.
+        /// </summary>
+        /// <param name="e">The event arguments.</param>
         protected override void OnOpened(EventArgs e)
         {            
             PopupAnimation = PopupAnimation.None;
@@ -84,25 +92,29 @@ namespace Fluent
                 ParentPopup.IgnoreNextDeactivate = true;
 
             // Backup previous active window and set popup's window as active
-            previousActiveWindowHwnd = GetActiveWindow();
+            previousActiveWindowHwnd = NativeMethods.GetActiveWindow();
             previousFocusedElement = Keyboard.FocusedElement;
-            SetActiveWindow(hwndSource.Handle);
+            NativeMethods.SetActiveWindow(hwndSource.Handle);
         }
         
-        protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-        {
-            /*if(ParentPopup!=null)
-                ignoreNextDeactivate = true;*/
-            base.OnPreviewMouseDown(e);            
-        }
-
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseDown attached event reaches
+        /// an element in its route that is derived from this class. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// This event data reports details about the mouse button that was pressed and the handled state.</param>
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
-            SetActiveWindow(hwnd);
+            NativeMethods.SetActiveWindow(hwnd);
             base.OnMouseDown(e);
         }
 
+        /// <summary>
+        /// Provides class handling for the System.Windows.UIElement.PreviewMouseLeftButtonUp event.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (Mouse.Captured == this)
@@ -112,19 +124,33 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Responds when the value of the Popup.IsOpen property changes from to true to false.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             PopupAnimation = PopupAnimation.None;
 
             // Restore active window and focus
-            SetActiveWindow(previousActiveWindowHwnd);
+            NativeMethods.SetActiveWindow(previousActiveWindowHwnd);
             Keyboard.Focus(previousFocusedElement);
 
             // Remove hook
-            if ((hwndSource != null) && (!hwndSource.IsDisposed)) hwndSource.RemoveHook(WindowProc);
+            if ((hwndSource != null) && (!hwndSource.IsDisposed))
+            {
+                hwndSource.RemoveHook(WindowProc);
+                hwndSource = null;
+            }
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyDown attached event 
+        /// reaches an element in its route that is derived from this class. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -150,12 +176,17 @@ namespace Fluent
 
         #region Private methods
 
-        private ExtendedPopup FindParentPopup()
+        /// <summary>
+        /// Find parent popup
+        /// </summary>
+        /// <returns>Parent popup or null if not finded</returns>
+        private RibbonPopup FindParentPopup()
         {
             UIElement element = this.Parent as UIElement;
             while (element != null)
             {
-                if (element is ExtendedPopup) return element as ExtendedPopup;
+                RibbonPopup ribbonPopup = element as RibbonPopup;
+                if (ribbonPopup != null) return ribbonPopup;
                 UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
                 if(parent!=null) element = parent;
                 else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
@@ -163,6 +194,11 @@ namespace Fluent
             return null;
         }
 
+        /// <summary>
+        /// Closes popup
+        /// </summary>
+        /// <param name="wParam">wParam of windows message</param>
+        /// <param name="lParam">lParam of windows message</param>
         private void ClosePopup(IntPtr wParam, IntPtr lParam)
         {
             if (hwndSource == null) return;
@@ -180,7 +216,15 @@ namespace Fluent
                         
         }
 
-        // Функиця окна
+        /// <summary>
+        /// Window function
+        /// </summary>
+        /// <param name="hwnd"></param>
+        /// <param name="msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <param name="handled"></param>
+        /// <returns></returns>
         private IntPtr WindowProc(
                    IntPtr hwnd,
                    int msg,
@@ -190,39 +234,29 @@ namespace Fluent
         {
             switch (msg)
             {
-                case 0x0006:
+                case 0x0006/*WM_ACTIVATE*/:
                     {
                         if (((short)wParam.ToInt32()) == 0)
                         {
-                            ClosePopup(wParam, lParam);
-                            /*if ((lParam != hwnd) && (!IgnoreNextDeactivate))
-                            {
-                                /*if((ParentPopup!=null)&&(ParentPopup.IsOpen))
-                                {
-                                    /*IntPtr parentHwnd = ((HwndSource)PresentationSource.FromVisual(ParentPopup.Child)).Handle;
-                                    SendMessage(parentHwnd, 0x0006, wParam.ToInt32(),lParam);*/
-                                   /* ParentPopup.ClosePopup(wParam, lParam);
-                                }*/                                
-                           /*     
-                            }  */                          
+                            ClosePopup(wParam, lParam);                     
                         }
                         else
                         {
                             if (ParentPopup == null)
                             {
                                 IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                                SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);                                
+                                NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);                                
                             }
                         }
                         handled = true;
                         break;
                     }
-                case 0x0021:
+                case 0x0021/*WM_MOUSEACTIVATE*/:
                     {
                         if (ParentPopup == null)
                         {
                             IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                            SendMessage(parentHwnd, 0x0086, 1, IntPtr.Zero);
+                            NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
                             handled = true;
                         }
                         break;
@@ -231,68 +265,33 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
+        
+
+        #endregion
+
+        #region Implementation of IDisposable
+
         /// <summary>
-        /// Послать сообщение
+        /// Dispose
         /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="Msg"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(
-            IntPtr hWnd, // handle to destination window 
-            int Msg, // message 
-            int wParam, // first message parameter 
-            IntPtr lParam // second message parameter 
-        );
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SetActiveWindow(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr SetFocus(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetActiveWindow();
-
-        [DllImport("User32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
-
-        [DllImport("User32.dll")]
-        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-        public const int GWL_STYLE = (-16);
-        public const int GWL_EXSTYLE = (-20);
-
-        public const int WS_EX_DLGMODALFRAME = 0x00000001;
-        public const int WS_EX_NOPARENTNOTIFY = 0x00000004;
-        public const int WS_EX_TOPMOST = 0x00000008;
-        public const int WS_EX_ACCEPTFILES = 0x00000010;
-        public const int WS_EX_TRANSPARENT = 0x00000020;
-        public const int WS_EX_MDICHILD = 0x00000040;
-        public const int WS_EX_TOOLWINDOW = 0x00000080;
-        public const int WS_EX_WINDOWEDGE = 0x00000100;
-        public const int WS_EX_CLIENTEDGE = 0x00000200;
-        public const int WS_EX_CONTEXTHELP = 0x00000400;
-        public const int WS_EX_RIGHT = 0x00001000;
-        public const int WS_EX_LEFT = 0x00000000;
-        public const int WS_EX_RTLREADING = 0x00002000;
-        public const int WS_EX_LTRREADING = 0x00000000;
-        public const int WS_EX_LEFTSCROLLBAR = 0x00004000;
-        public const int WS_EX_RIGHTSCROLLBAR = 0x00000000;
-        public const int WS_EX_CONTROLPARENT = 0x00010000;
-        public const int WS_EX_STATICEDGE = 0x00020000;
-        public const int WS_EX_APPWINDOW = 0x00040000;
-        public const int WS_EX_OVERLAPPEDWINDOW = (WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE);
-        public const int WS_EX_PALETTEWINDOW = (WS_EX_WINDOWEDGE | WS_EX_TOOLWINDOW | WS_EX_TOPMOST);
-        public const int WS_EX_LAYERED = 0x00080000;
-        // Disable inheritence of mirroring by children
-        public const int WS_EX_NOINHERITLAYOUT = 0x00100000;
-        // Right to left mirroring
-        public const int WS_EX_LAYOUTRTL = 0x00400000;
-        public const int WS_EX_COMPOSITED = 0x02000000;
-        public const int WS_EX_NOACTIVATE = 0x08000000;
+        /// <param name="value">Clean up both managed and native resources or only native resources</param>
+        protected virtual void Dispose(bool value)
+        {
+            if ((hwndSource != null) && (!hwndSource.IsDisposed))
+            {
+                hwndSource.RemoveHook(WindowProc);
+                hwndSource = null;
+            }            
+        }
+        
+        /// <summary>
+        /// Disposes
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);            
+        }
 
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -47,12 +48,16 @@ namespace Fluent
     {
         #region Fields
 
-        private Button dialogLauncherButton = null;
+        // Dialog launcher button
+        private Button dialogLauncherButton;
 
-        private Popup popup = null;
+        // Dropdown poup
+        private Popup popup;
 
-        private Grid downGrid = null;
-        private Panel upPanel = null;
+        // Down part
+        private Grid downGrid;
+        // up part
+        private Panel upPanel;
 
         #endregion
 
@@ -76,6 +81,11 @@ namespace Fluent
         public static readonly DependencyProperty StateProperty =
             DependencyProperty.Register("State", typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new UIPropertyMetadata(RibbonGroupBoxState.Large, StatePropertyChanged));
 
+        /// <summary>
+        /// On state property changed
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
         static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
@@ -84,7 +94,8 @@ namespace Fluent
             SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);
 
         }
-
+        
+        // Set child sizes
         private static void SetChildSizes(RibbonGroupBoxState ribbonGroupBoxState, RibbonGroupBox ribbonGroupBox)
         {                            
             for (int i = 0; i < ribbonGroupBox.Items.Count; i++)
@@ -95,47 +106,68 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>
+        /// Gets or sets group box header
+        /// </summary>
         public string Header
         {
             get { return (string)GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata("RibbonGroupBox"));
 
+        /// <summary>
+        /// Gets or sets dialog launcher button visibility
+        /// </summary>
         public bool IsDialogLauncherButtonVisible
         {
             get { return (bool)GetValue(IsDialogLauncherButtonVisibleProperty); }
             set { SetValue(IsDialogLauncherButtonVisibleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsDialogLauncherButtonVisible.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsDialogLauncherButtonVisible.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsDialogLauncherButtonVisibleProperty =
             DependencyProperty.Register("IsDialogLauncherButtonVisible", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false));
 
+        /// <summary>
+        /// Gets or sets drop down popup visibility
+        /// </summary>
         public bool IsOpen
         {
             get { return (bool)GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
         }
-
+        
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged));
 
-
-
+        /// <summary>
+        /// Gets or sets image for group box
+        /// </summary>
         public ImageSource Image
         {
             get { return (ImageSource)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("Image", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
-
+        /// <summary>
+        /// Gets an enumerator for the logical child objects of the System.Windows.Controls.ItemsControl object.
+        /// </summary>
         protected override System.Collections.IEnumerator LogicalChildren
         {
             get
@@ -150,25 +182,37 @@ namespace Fluent
 
         #region Events
 
+        /// <summary>
+        /// Dialog launcher btton click event
+        /// </summary>
         public event RoutedEventHandler DialogLauncherButtonClick;
 
         #endregion
 
         #region Initialize
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonGroupBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
-
-            /*EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
-            EventManager.RegisterClassHandler(typeof(RibbonGroupBox), Mouse.PreviewMouseUpOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));*/
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public RibbonGroupBox()
         {
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
+        /// <summary>
+        /// Click event handler
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
             if(State==RibbonGroupBoxState.Collapsed)IsOpen = true;
@@ -188,6 +232,10 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// Invoked when the System.Windows.Controls.ItemsControl.Items property changes.
+        /// </summary>
+        /// <param name="e">Information about the change.</param>
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
@@ -200,18 +248,19 @@ namespace Fluent
             base.OnItemsChanged(e);
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code 
+        /// or internal processes call System.Windows.FrameworkElement.ApplyTemplate().
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (dialogLauncherButton != null) dialogLauncherButton.Click -= OnDialogLauncherButtonClick;
             dialogLauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
             if (dialogLauncherButton != null) dialogLauncherButton.Click += OnDialogLauncherButtonClick;
             
-            //if (popup != null) RemoveLogicalChild(popup);
             popup = GetTemplateChild("PART_Popup") as Popup;
             if(popup!=null)
             {
-                //if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
-                //AddLogicalChild(popup);
                 Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
@@ -222,6 +271,13 @@ namespace Fluent
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed 
+        /// event reaches an element in its route that is derived from this class. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if ((State == RibbonGroupBoxState.Collapsed)&&(popup!=null)&&(!IsOpen))
@@ -232,43 +288,11 @@ namespace Fluent
             }
         }
 
-        /*protected override void OnLostMouseCapture(MouseEventArgs e)
-        {
-            if (popup != null)
-            {
-                if (Mouse.Captured != this)
-                {
-                    UIElement selectedPopupChild = popup.Child;
-                    if (e.OriginalSource == this)
-                    {
-                        // If Ribbon loses capture because something outside popup is clicked - close the popup
-                        if (Mouse.Captured == null ||
-                            !selectedPopupChild.IsAncestorOf(Mouse.Captured as DependencyObject))
-                        {
-                            this.IsOpen = false;
-                        }
-                    }
-                    else
-                    {
-                        // If control inside Ribbon loses capture - restore capture to Ribbon
-                        if (selectedPopupChild.IsAncestorOf(e.OriginalSource as DependencyObject))
-                        {
-                            if (this.IsOpen && Mouse.Captured == null)
-                            {
-                                Mouse.Capture(this, CaptureMode.SubTree);
-                                e.Handled = true;
-                            }
-                        }
-                        else
-                        {
-                            this.IsOpen = false;
-                        }
-                    }
-                }
-            }
-            base.OnLostMouseCapture(e);
-        }*/
-
+        /// <summary>
+        /// Called to remeasure a control.
+        /// </summary>
+        /// <param name="constraint">The maximum size that the method can return.</param>
+        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
             if ((upPanel == null) || (downGrid == null)) return base.MeasureOverride(constraint);
@@ -283,42 +307,33 @@ namespace Fluent
 
         #region Event handling
 
+        /// <summary>
+        /// Dialog launcher button click handler
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">the event data</param>
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             if (DialogLauncherButtonClick != null) DialogLauncherButtonClick(this, e);
         }
-        /*
-        private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
-        {
-            RibbonGroupBox ribbon = (RibbonGroupBox)sender;
-            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
-            {
-                if (Mouse.Captured == ribbon)
-                {
-                    ribbon.IsOpen = false;
-                    Mouse.Capture(null);
-                }
-            }
-        }
-        */
+        
+        // Handles popup closing
         private void OnRibbonGroupBoxPopupClosing()
         {
-            /*if (Mouse.Captured == this)
-            {
-                Mouse.Capture(null);
-            }*/
             IsHitTestVisible = true;
         }
 
+        // handles popup opening
         private void OnRibbonGroupBoxPopupOpening()
         {
-            /*if (State == RibbonGroupBoxState.Collapsed)
-            {
-                Mouse.Capture(this, CaptureMode.SubTree);
-            }*/
             IsHitTestVisible = false;
         }
         
+        /// <summary>
+        /// handles IsOpen propertyu changes
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupBox ribbon = (RibbonGroupBox)d;

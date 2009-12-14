@@ -51,12 +51,12 @@
 			<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFC7C8C9" StrokeDashArray="2 2" Margin="32,1,3,2" VerticalAlignment="Center" Height="1" Data="M0,0L1,0"/>
 		</Grid>
 	</ControlTemplate>
-	<Style x:Key="MenuGroupSeparatorStyle" TargetType="{x:Type Fluent:GroupSeparator}">
+	<Style x:Key="MenuGroupSeparatorStyle" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
 		<Setter Property="Template" Value="{DynamicResource MenuGroupSeparatorControlTemplate}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 	</Style>
-	<ControlTemplate x:Key="MenuGroupSeparatorControlTemplate" TargetType="{x:Type Fluent:GroupSeparator}">
+	<ControlTemplate x:Key="MenuGroupSeparatorControlTemplate" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
 		<Grid Height="21" Background="#FFF0F2F5">
 			<TextBlock Margin="7,0" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
 		</Grid>

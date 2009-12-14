@@ -15,7 +15,7 @@
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
         <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,3,0,0">
           <Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-2,0,2,0"/>
-          <Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="-1" HorizontalOffset="0">
+          <Fluent:RibbonPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="-1" HorizontalOffset="0">
           	<Grid Width="Auto" Height="Auto" Margin="30,20">
           		<Grid.ColumnDefinitions>
           			<ColumnDefinition Width="*"/>
@@ -67,7 +67,7 @@
           		</Rectangle>
           		<ContentPresenter Grid.ColumnSpan="1" ContentSource="PopupContent"/>
           	</Grid>
-          </Fluent:ExtendedPopup>
+          </Fluent:RibbonPopup>
         </StackPanel>
       </Border>
     </Border>
@@ -117,14 +117,14 @@
       </MultiTrigger>
     </ControlTemplate.Triggers>
   </ControlTemplate> 
-    <Style x:Key="QuickAccessToolbarStyle" TargetType="{x:Type Fluent:QuickAccessToolbar}">
+    <Style x:Key="QuickAccessToolbarStyle" TargetType="{x:Type Fluent:QuickAccessToolBar}">
     	<Setter Property="Template" Value="{DynamicResource QuickAccessToolbarControlTemplate}"/>
 		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
     </Style>
-    <ControlTemplate x:Key="QuickAccessToolbarControlTemplate" TargetType="{x:Type Fluent:QuickAccessToolbar}">
+    <ControlTemplate x:Key="QuickAccessToolbarControlTemplate" TargetType="{x:Type Fluent:QuickAccessToolBar}">
     	<DockPanel x:Name="PART_RootPanel">
     		<ContentControl x:Name="menuContentControl" DockPanel.Dock="Right" HorizontalAlignment="Right" Focusable="False">
-			<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" Text="M" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolbarDropDown.png" Size="Small">
+			<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" Text="M" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png" Size="Small">
 			
 			
     				
@@ -133,7 +133,7 @@
                 <Grid Width="Auto" Height="Auto">
                   <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="25,1,0,1" Width="1" Height="Auto" Data="M119.5,65.5 L113,121"/>
                   <StackPanel x:Name="quickAccessMenuu">
-                    <Fluent:GroupSeparator Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
+                    <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
                     <StackPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
@@ -147,7 +147,7 @@
 					
     		</Fluent:DropDownButton>
 			</ContentControl>
-    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolbarExtender.png">
+    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png">
 			
 			  				
     				<Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" BorderThickness="1" BorderBrush="#FFB6BABF" Background="#FFE9EDF1" Height="28">

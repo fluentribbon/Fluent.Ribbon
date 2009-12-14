@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,13 +12,23 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents Backstage tab control.
+    /// </summary>
     public class Backstage: Selector
     {
         #region Properties
-
+        
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(Backstage), new FrameworkPropertyMetadata(null));
+        
+        /// <summary>
+        /// Dependency property SelectedContent
+        /// </summary>
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Gets content for selected tab
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedContent
         {
@@ -35,11 +46,18 @@ namespace Fluent
 
         #region Constructors
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Backstage()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Backstage()
         {
             
@@ -49,27 +67,41 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// Raises the System.Windows.FrameworkElement.Initialized event. 
+        /// This method is invoked whenever System.Windows.FrameworkElement.
+        /// IsInitialized is set to true internally.
+        /// </summary>
+        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
             base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
         }
 
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new BackstageTabItem();
         }
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
-
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return ((item is BackstageTabItem)||(item is Button));
         }
 
+        /// <summary>
+        /// Updates the current selection when an item in the System.Windows.Controls.Primitives.Selector has changed
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
@@ -88,6 +120,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Called when the selection changes.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
@@ -101,8 +137,7 @@ namespace Fluent
 
         #region Private methods
 
-
-        // Get selected ribbon tab item
+        // Gets selected ribbon tab item
         private BackstageTabItem GetSelectedTabItem()
         {
             object selectedItem = base.SelectedItem;
@@ -119,6 +154,7 @@ namespace Fluent
             return item;
         }
 
+        // Finds next tab item
         private BackstageTabItem FindNextTabItem(int startIndex, int direction)
         {
             if (direction != 0)
@@ -145,6 +181,7 @@ namespace Fluent
             return null;
         }
 
+        // Updates selected content
         private void UpdateSelectedContent()
         {
             if (base.SelectedIndex < 0)
@@ -157,7 +194,6 @@ namespace Fluent
                 BackstageTabItem selectedTabItem = this.GetSelectedTabItem();
                 if (selectedTabItem != null)
                 {
-                    FrameworkElement parent = VisualTreeHelper.GetParent(selectedTabItem) as FrameworkElement;
                     this.SelectedContent = selectedTabItem.Content;
                     UpdateLayout();
                 }
@@ -168,6 +204,7 @@ namespace Fluent
 
         #region Event handling
 
+        // Handles GeneratorStatusChange
         private void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
             if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)

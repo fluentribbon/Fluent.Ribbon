@@ -22,13 +22,18 @@ namespace Fluent
         #region Fields
 
         // Host element, usually this is Ribbon
-        Ribbon ribbon = null;
+        Ribbon ribbon;
         // Timer to show KeyTips with delay
-        DispatcherTimer timer = null;
+        DispatcherTimer timer;
         // Is KeyTips Actived now
-        KeyTipAdorner activeAdornerChain = null;
+        KeyTipAdorner activeAdornerChain;
         // This element must be remembered to restore it
-        IInputElement backUpFocusedElement = null;
+        IInputElement backUpFocusedElement;
+        // Window where we attached
+        Window window;
+        // Whether we attached to window
+        bool attached;
+
 
         #endregion
 
@@ -43,7 +48,7 @@ namespace Fluent
             this.ribbon = ribbon;
 
             if (!ribbon.IsLoaded) ribbon.Loaded += OnDelayedInitialization;
-            else Attach(ribbon);
+            else Attach();
 
             // Initialize timer
             timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, OnDelayedShow, Dispatcher.CurrentDispatcher);
@@ -53,12 +58,17 @@ namespace Fluent
         void OnDelayedInitialization(object sender, EventArgs args)
         {
             ribbon.Loaded -= OnDelayedInitialization;
-            Attach(ribbon);
+            Attach();
         }
 
-        void Attach(FrameworkElement element)
+        /// <summary>
+        /// Attaches self
+        /// </summary>
+        public void Attach()
         {
-            Window window = GetElementWindow(ribbon);
+            if (attached) return;
+            attached = true;
+            window = GetElementWindow(ribbon);
             if (window == null) return;
 
             window.KeyDown += new KeyEventHandler(OnWindowKeyDown);
@@ -66,6 +76,21 @@ namespace Fluent
 
             // Hookup non client area messages
             ((HwndSource)PresentationSource.FromVisual(window)).AddHook(WindowProc);
+        }
+
+        /// <summary>
+        /// Detachs self
+        /// </summary>
+        public void Detach()
+        {
+            if (!attached) return;
+            attached = false;
+
+            window.KeyDown -= new KeyEventHandler(OnWindowKeyDown);
+            window.KeyUp -= new KeyEventHandler(OnWindowKeyUp);
+
+            // Hookup non client area messages
+            ((HwndSource)PresentationSource.FromVisual(window)).RemoveHook(WindowProc);
         }
 
         // Window's messages hook up
@@ -163,13 +188,14 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Elemet</param>
         /// <returns>Window where element is loacated or null</returns>
-        Window GetElementWindow(UIElement element)
+        static Window GetElementWindow(UIElement element)
         {
             while (true)
             {
                 element = VisualTreeHelper.GetParent(element) as UIElement;
                 if (element == null) return null;
-                if (element is Window) return (Window)element;
+                Window window = element as Window;
+                if (window != null) return window;
             }
         }
 

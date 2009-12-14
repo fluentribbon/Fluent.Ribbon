@@ -8,10 +8,20 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents contextual groups container
+    /// </summary>
     public class RibbonContextualGroupsContainer: Panel
     {
         #region Overrides
 
+        /// <summary>
+        /// When overridden in a derived class, positions child elements and determines a size for
+        /// a System.Windows.FrameworkElement derived class.
+        /// </summary>
+        /// <param name="finalSize">The final area within the parent that this element should 
+        /// use to arrange itself and its children.</param>
+        /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
             Rect finalRect = new Rect(finalSize);
@@ -25,12 +35,20 @@ namespace Fluent
             return finalSize;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, measures the size in layout required for 
+        /// child elements and determines a size for the System.Windows.FrameworkElement-derived class.
+        /// </summary>
+        /// <param name="availableSize">The available size that this element can give to child elements. 
+        /// Infinity can be specified as a value to indicate that the element will size to whatever content is available.</param>
+        /// <returns>The size that this element determines it needs during layout, based on its calculations of child element sizes.</returns>
         protected override Size MeasureOverride(Size availableSize)
         {
             double x = 0;
             Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (RibbonContextualTabGroup child in InternalChildren)
             {
+                // Calculate width of tab items of the group
                 double tabsWidth = 0;
                 for(int i=0;i<child.Items.Count;i++)
                 {
@@ -42,6 +60,7 @@ namespace Fluent
                 bool tabWasChanged = false;                
                 if(groupWidth>tabsWidth)
                 {
+                    // If tab's width is less than group's width we have to stretch tabs
                     double delta = (groupWidth - tabsWidth) / child.Items.Count;
                     for (int i = 0; i < child.Items.Count; i++)
                     {
@@ -56,6 +75,8 @@ namespace Fluent
 
                 if (tabWasChanged)
                 {
+                    // If we have changed tabs layout we have 
+                    // to invalidate down to RibbonTabsContainer 
                     Visual visual = child.Items[0] as Visual;
                     while (visual != null)
                     {
@@ -80,7 +101,7 @@ namespace Fluent
                     }
                 }
 
-
+                // Calc final width and measure the group using it 
                 double finalWidth = tabsWidth;
                 x += finalWidth;
                 if (x > availableSize.Width)

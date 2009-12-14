@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -13,27 +15,35 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents quick access toolbar
+    /// </summary>
     [TemplatePart(Name = "PART_ShowAbove", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
-    public class QuickAccessToolbar:ToolBar
+    public class QuickAccessToolBar:ToolBar
     {
         #region Fields
 
-        private MenuItem showAbove = null;
-        private MenuItem showBelow = null;
-
-        private Panel menuPanel = null;
-
-        private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
-
-        private Panel rootPanel = null;
+        // Show above menu item
+        private MenuItem showAbove;
+        // Show below menu item
+        private MenuItem showBelow;
+        // Menu panel
+        private Panel menuPanel;
+        // Items of quick access menu
+        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
+        // Root panel of control
+        private Panel rootPanel;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// Gets quick access menu items
+        /// </summary>
         public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
         {
             get
@@ -46,7 +56,11 @@ namespace Fluent
                 return this.quickAccessItems;
             }
         }
-
+        /// <summary>
+        /// Handles quick access menu items chages
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -79,16 +93,24 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// Gets or sets whether quick access toolbar showes above ribbon
+        /// </summary>
         public bool ShowAboveRibbon
         {
             get { return (bool)GetValue(ShowAboveRibbonProperty); }
             set { SetValue(ShowAboveRibbonProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
-            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolbar), new UIPropertyMetadata(false));
+            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
 
+        /// <summary>
+        /// Gets an enumerator to the logical child elements of the System.Windows.Controls.HeaderedItemsControl.
+        /// </summary>
         protected override System.Collections.IEnumerator LogicalChildren
         {
             get
@@ -96,7 +118,8 @@ namespace Fluent
                 ArrayList array = new ArrayList();                                
                 foreach (var item in Items)
                 {
-                    if((item is DependencyObject)&&(!GetIsOverflowItem(item as DependencyObject)))array.Add(item);
+                    DependencyObject dependencyObject = item as DependencyObject;
+                    if ((dependencyObject != null) && (!GetIsOverflowItem(dependencyObject))) array.Add(item);
                 }
                 if(HasOverflowItems)array.Add(rootPanel);
                 return array.GetEnumerator();
@@ -107,12 +130,19 @@ namespace Fluent
 
         #region Initialize
 
-        static QuickAccessToolbar()
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        static QuickAccessToolBar()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolbar), new FrameworkPropertyMetadata(typeof(QuickAccessToolbar)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));            
         }        
 
-        public QuickAccessToolbar()
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public QuickAccessToolBar()
         {
 
         }
@@ -121,6 +151,11 @@ namespace Fluent
 
         #region Override
 
+        /// <summary>
+        /// Called when the System.Windows.Controls.ItemsControl.Items property changes.
+        /// </summary>
+        /// <param name="e">The arguments for the System.Collections.Specialized.INotifyCollectionChanged.CollectionChanged 
+        /// event.</param>
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
@@ -128,24 +163,12 @@ namespace Fluent
             UpdateKeyTips();
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or 
+        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
+        /// </summary>
         public override void OnApplyTemplate()
         {
-            /*if (menuDownButton != null) menuDownButton.PreviewMouseLeftButtonDown -= OnMenuDownButtonClick;
-            if (menuDownPopupButton != null) menuDownPopupButton.PreviewMouseLeftButtonDown -= OnMenuDownButtonClick;
-            if (toolbarDownButton != null) toolbarDownButton.PreviewMouseLeftButtonDown -= OnToolbatDownButtonClick;
-            */
-            /*menuDownButton = GetTemplateChild("PART_MenuDownButton") as ToggleButton;
-            menuDownPopupButton = GetTemplateChild("PART_MenuDownButtonPopup") as ToggleButton;
-            toolbarDownButton = GetTemplateChild("PART_ToolbarDownButton") as ToggleButton;*/
-            /*
-            if (menuDownButton != null) menuDownButton.PreviewMouseLeftButtonDown += OnMenuDownButtonClick;
-            if (menuDownPopupButton != null) menuDownPopupButton.PreviewMouseLeftButtonDown += OnMenuDownButtonClick;
-            if (toolbarDownButton != null) toolbarDownButton.PreviewMouseLeftButtonDown += OnToolbatDownButtonClick;
-            */
-            /*menu = GetTemplateChild("PART_Menu") as Menu;
-            menuPopup = GetTemplateChild("PART_MenuPopup") as Popup;
-            toolbarPopup = GetTemplateChild("PART_ToolbarPopup") as Popup;*/
-
             if (showAbove != null) showAbove.Click -= OnShowAboveClick;
             if (showBelow != null) showBelow.Click -= OnShowBelowClick;
             
@@ -176,11 +199,21 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles show below menu item click
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnShowBelowClick(object sender, RoutedEventArgs e)
         {
             ShowAboveRibbon = false;
         }
 
+        /// <summary>
+        /// Handles show above menu item click
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnShowAboveClick(object sender, RoutedEventArgs e)
         {
             ShowAboveRibbon = true;
@@ -196,12 +229,12 @@ namespace Fluent
             for (int i = 0; i < Math.Min(9, Items.Count); i++)
             {
                 // 1, 2, 3, ... , 9
-                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], (i + 1).ToString());
+                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
             }
             for (int i = 9; i < Math.Min(18, Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
-                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + (18 - i).ToString());
+                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
             char startChar = 'A';
             for (int i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
@@ -210,10 +243,6 @@ namespace Fluent
                 if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + startChar++);
             }
         }
-
-        #endregion
-
-        #region Event handling
 
         #endregion
     }

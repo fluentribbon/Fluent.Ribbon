@@ -37,7 +37,7 @@ namespace Fluent
         public static readonly DependencyProperty ReduceOrderProperty =
             DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonGroupsContainer), new UIPropertyMetadata(ReduceOrderPropertyChanged));
 
-
+        // handles ReduseOrder property changed
         static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupsContainer ribbonPanel = (RibbonGroupsContainer)d;
@@ -58,7 +58,7 @@ namespace Fluent
         // A cached copy of the desired size from the previous layout pass.
         Size cachedDesiredSize;
         string[] reduceOrder = new string[0];
-        int reduceOrderIndex = 0;
+        int reduceOrderIndex;
 
         #endregion
 
@@ -91,24 +91,24 @@ namespace Fluent
         /// Measures all of the RibbonGroupBox, and resize them appropriately
         /// to fit within the available room
         /// </summary>
-        /// <param name="constraint">The available size that this element can give to child elements.</param>
+        /// <param name="availableSize">The available size that this element can give to child elements.</param>
         /// <returns>The size that the groups container determines it needs during 
         /// layout, based on its calculations of child element sizes.
         /// </returns>
-        protected override Size MeasureOverride(Size constraint)
+        protected override Size MeasureOverride(Size availableSize)
         {
-            Size infinitySize = new Size(Double.PositiveInfinity, constraint.Height);
+            Size infinitySize = new Size(Double.PositiveInfinity, availableSize.Height);
             Size desiredSize = GetChildrenDesiredSize(infinitySize);
 
-            // If the constraint and desired size are equal to those in the cache, skip
+            // If the availableSize and desired size are equal to those in the cache, skip
             // this layout measure pass.
-            if ((constraint != cachedConstraint) || (desiredSize != cachedDesiredSize))
+            if ((availableSize != cachedConstraint) || (desiredSize != cachedDesiredSize))
             {
-                cachedConstraint = constraint;
+                cachedConstraint = availableSize;
                 cachedDesiredSize = desiredSize;
 
                 // If we have more available space - try to expand groups
-                while (desiredSize.Width <= constraint.Width)
+                while (desiredSize.Width <= availableSize.Width)
                 {
                     bool hasMoreVariants = reduceOrderIndex < reduceOrder.Length - 1;
                     if (!hasMoreVariants) break;
@@ -122,7 +122,7 @@ namespace Fluent
                 }
 
                 // If not enough space - go to next variant
-                while (desiredSize.Width > constraint.Width)
+                while (desiredSize.Width > availableSize.Width)
                 {
                     bool hasMoreVariants = reduceOrderIndex >= 0;
                     if (!hasMoreVariants) break;
@@ -134,7 +134,7 @@ namespace Fluent
                     desiredSize = GetChildrenDesiredSize(infinitySize);                     
                 }                
             }
-            VerifyScrollData(constraint.Width, desiredSize.Width);
+            VerifyScrollData(availableSize.Width, desiredSize.Width);
             return desiredSize;
         }
 
@@ -192,6 +192,12 @@ namespace Fluent
             return null;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, positions child elements and determines 
+        /// a size for a System.Windows.FrameworkElement derived class.
+        /// </summary>
+        /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+        /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
             Rect finalRect = new Rect(finalSize);
@@ -210,49 +216,76 @@ namespace Fluent
 
         #region IScrollInfo Members
 
+        /// <summary>
+        /// Gets or sets a System.Windows.Controls.ScrollViewer element that controls scrolling behavior.
+        /// </summary>
         public ScrollViewer ScrollOwner
         {
             get { return ScrollData.ScrollOwner; }
             set { ScrollData.ScrollOwner = value; }
         }
 
+        /// <summary>
+        /// Sets the amount of horizontal offset.
+        /// </summary>
+        /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
         public void SetHorizontalOffset(double offset)
         {
             double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), scrollData.ExtentWidth, scrollData.ViewportWidth);
-            //if (!DoubleUtil.AreClose(ScrollData.OffsetX, newValue))
             if (ScrollData.OffsetX != newValue)
             {
                 scrollData.OffsetX = newValue;
                 InvalidateArrange();
             }
         }
-
+        /// <summary>
+        /// Gets the horizontal size of the extent.
+        /// </summary>
         public double ExtentWidth
         {
             get { return ScrollData.ExtentWidth; }
         }
 
+        /// <summary>
+        /// Gets the horizontal offset of the scrolled content.
+        /// </summary>
         public double HorizontalOffset
         {
             get { return ScrollData.OffsetX; }
         }
 
+        /// <summary>
+        /// Gets the horizontal size of the viewport for this content.
+        /// </summary>
         public double ViewportWidth
         {
             get { return ScrollData.ViewportWidth; }
         }
 
+        /// <summary>
+        /// Scrolls left within content by one logical unit.
+        /// </summary>
         public void LineLeft()
         {
             SetHorizontalOffset(HorizontalOffset - 16.0);
         }
 
+        /// <summary>
+        /// Scrolls right within content by one logical unit.
+        /// </summary>
         public void LineRight()
         {
             SetHorizontalOffset(HorizontalOffset + 16.0);
         }
 
-        // This is optimized for horizontal scrolling only
+        
+        /// <summary>
+        /// Forces content to scroll until the coordinate space of a System.Windows.Media.Visual object is visible.
+        /// This is optimized for horizontal scrolling only
+        /// </summary>
+        /// <param name="visual">A System.Windows.Media.Visual that becomes visible.</param>
+        /// <param name="rectangle">A bounding rectangle that identifies the coordinate space to make visible.</param>
+        /// <returns>A System.Windows.Rect that is visible.</returns>
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
             // We can only work on visuals that are us or children.
@@ -290,7 +323,7 @@ namespace Fluent
             return rectangle;
         }
 
-        internal static double ComputeScrollOffsetWithMinimalScroll(
+        static double ComputeScrollOffsetWithMinimalScroll(
             double topView,
             double bottomView,
             double topChild,
@@ -330,78 +363,112 @@ namespace Fluent
             return topView;
         }
 
-        // Does not support other scrolling than LineLeft/LineRight
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void MouseWheelDown()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void MouseWheelLeft()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void MouseWheelRight()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void MouseWheelUp()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void LineDown()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void LineUp()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void PageDown()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void PageLeft()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void PageRight()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public void PageUp()
         {
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
+        /// <param name="offset"></param>
         public void SetVerticalOffset(double offset)
         {
         }
-
+        /// <summary>
+        /// Gets or sets a value that indicates whether scrolling on the vertical axis is possible.
+        /// </summary>
         public bool CanVerticallyScroll
         {
             get { return false; }
             set { }
         }
-
+        /// <summary>
+        /// Gets or sets a value that indicates whether scrolling on the horizontal axis is possible.
+        /// </summary>
         public bool CanHorizontallyScroll
         {
             get { return true; }
             set { }
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public double ExtentHeight
         {
             get { return 0.0; }
-        }
+        }/// <summary>
+        /// Not implemented
+        /// </summary>
 
         public double VerticalOffset
         {
             get { return 0.0; }
         }
-
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public double ViewportHeight
         {
             get { return 0.0; }
         }
-
+        
+        // Gets scroll data info
         private ScrollData ScrollData
         {
             get
@@ -410,9 +477,11 @@ namespace Fluent
             }
         }
 
+        // Scroll data info
         private ScrollData scrollData;
 
-        internal static double ValidateInputOffset(double offset, string parameterName)
+        // Validates input offset
+        static double ValidateInputOffset(double offset, string parameterName)
         {
             if (double.IsNaN(offset))
             {
@@ -459,8 +528,7 @@ namespace Fluent
         }
 
         // Returns an offset coerced into the [0, Extent - Viewport] range.
-        // Internal because it is also used by other Avalon ISI implementations (just to avoid code duplication).
-        internal static double CoerceOffset(double offset, double extent, double viewport)
+        static double CoerceOffset(double offset, double extent, double viewport)
         {
             if (offset > extent - viewport)
             {

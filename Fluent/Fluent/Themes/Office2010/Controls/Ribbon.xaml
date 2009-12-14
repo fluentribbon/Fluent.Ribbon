@@ -23,14 +23,14 @@
     		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
     			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">
-    					<Fluent:QuickAccessToolbar x:Name="PART_QuickAccessToolbar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolbarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
+    					<Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
     				</ContentControl>
     			</Border>
     		</Border>
     	</Grid>
     	<ControlTemplate.Triggers>
-    		<Trigger Property="ShowQuickAccessToolbarAboveRibbon" Value="True">
-    			<Setter Property="QuickAccessToolbar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolbar, Mode=OneWay}"/>
+    		<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
+    			<Setter Property="QuickAccessToolBar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}"/>
 				<Setter Property="Content" TargetName="contentControl" Value="{x:Null}"/>
 				<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
     		</Trigger>

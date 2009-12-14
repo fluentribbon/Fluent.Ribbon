@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -10,12 +11,21 @@ using System.Windows.Input;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents backstage tab item
+    /// </summary>
     public class BackstageTabItem : ContentControl
     {
         #region Properties
 
+        /// <summary>
+        /// Dependency property for isSelected
+        /// </summary>
         public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(BackstageTabItem.OnIsSelectedChanged)));
         
+        /// <summary>
+        /// Gets or sets whether the tab is selected
+        /// </summary>
         [Bindable(true), Category("Appearance")]
         public bool IsSelected
         {
@@ -29,6 +39,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets parent tab control
+        /// </summary>
         internal Backstage TabControlParent
         {
             get
@@ -37,15 +50,18 @@ namespace Fluent
             }
         }
 
-
-
+        /// <summary>
+        /// Gets or sets tab items text
+        /// </summary>
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(BackstageTabItem), new UIPropertyMetadata(""));
 
@@ -55,16 +71,28 @@ namespace Fluent
 
         #region Constructors
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public BackstageTabItem()
         {
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
+        /// <summary>
+        /// Handles click event
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
             if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
@@ -75,7 +103,12 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
+        
+        /// <summary>
+        /// Called when the System.Windows.Controls.ContentControl.Content property changes.
+        /// </summary>
+        /// <param name="oldContent">The old value of the System.Windows.Controls.ContentControl.Content property.</param>
+        /// <param name="newContent">The new value of the System.Windows.Controls.ContentControl.Content property.</param>
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
@@ -89,6 +122,12 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised on this element. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e"> The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (((e.Source == this) || !this.IsSelected))
@@ -97,19 +136,18 @@ namespace Fluent
                         (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
                 e.Handled = true;
                 this.IsSelected = true;
-            }
-            //base.OnMouseLeftButtonDown(e);
+            }            
         }
 
         #endregion
 
         #region Private methods
 
+        // Handles IsSelected changed
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             BackstageTabItem container = d as BackstageTabItem;
             bool newValue = (bool)e.NewValue;
-            Backstage tabControlParent = container.TabControlParent;
 
             if (newValue)
             {
@@ -121,21 +159,33 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles selected event
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected virtual void OnSelected(RoutedEventArgs e)
         {
-            this.HandleIsSelectedChanged(true, e);
+            this.HandleIsSelectedChanged(e);
         }
 
+        /// <summary>
+        /// Handles unselected event
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected virtual void OnUnselected(RoutedEventArgs e)
         {
-            this.HandleIsSelectedChanged(false, e);
+            this.HandleIsSelectedChanged(e);
         }
 
         #endregion
 
         #region Event handling
 
-        private void HandleIsSelectedChanged(bool newValue, RoutedEventArgs e)
+        /// <summary>
+        /// Handles IsSelected changed
+        /// </summary>
+        /// <param name="e">The event data.</param>
+        private void HandleIsSelectedChanged(RoutedEventArgs e)
         {
             base.RaiseEvent(e);
         }

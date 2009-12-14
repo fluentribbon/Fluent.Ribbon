@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -32,8 +33,7 @@ namespace Fluent
     }
 
     /// <summary>
-    /// Includes attached properties for controls 
-    /// that want to be in ribbon group
+    /// Represent base class for Fluent controls
     /// </summary>
     public abstract class RibbonControl:Control, ICommandSource
     {        
@@ -80,7 +80,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gte sor sets Size for the element
+        /// Gets sor sets Size for the element
         /// </summary>
         public RibbonControlSize Size
         {
@@ -109,22 +109,25 @@ namespace Fluent
               OnSizeDefinitionPropertyChanged)
         );
 
+        // Handles SizeDefinitionProperty changes
         static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {            
             // Find parent group box
             RibbonGroupBox groupBox = FindParentRibbonGroupBox(d);
+            UIElement element = (UIElement) d;
             if (groupBox != null)
             {
-                SetAppropriateSize((UIElement) d, groupBox.State);
+                SetAppropriateSize(element, groupBox.State);
             }
-            else SetAppropriateSize((UIElement)d, RibbonGroupBoxState.Large);
+            else SetAppropriateSize(element, RibbonGroupBoxState.Large);
         }
 
         // Finds parent group box
+        [SuppressMessage("Microsoft.Performance", "CA1800")]
         static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
         {
             while (!(o is RibbonGroupBox)) { o = VisualTreeHelper.GetParent(o); if (o == null) break; }
-            return o == null ? null : (RibbonGroupBox)o;
+            return (RibbonGroupBox)o;
         }
 
         /// <summary>
@@ -137,12 +140,13 @@ namespace Fluent
         {
             int index = (int)state;
             if (state == RibbonGroupBoxState.Collapsed) index = 0;
-            if (element is RibbonControl) (element as RibbonControl).Size = GetThreeSizeDefinition(element)[index];
+            RibbonControl control = (element as RibbonControl);
+            if (control!=null) control.Size = GetThreeSizeDefinition(element)[index];
         }
 
 
         /// <summary>
-        /// Get or set SizeDefinition for element
+        /// Gets or sets SizeDefinition for element
         /// </summary>
         public string SizeDefinition
         {
@@ -184,7 +188,7 @@ namespace Fluent
         #region Text
 
         /// <summary>
-        /// Get or set element Text
+        /// Gets or sets element Text
         /// </summary>
         public string Text
         {
@@ -192,7 +196,10 @@ namespace Fluent
             set { SetValue(TextProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Text.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(RibbonControl), new UIPropertyMetadata(""));
 
@@ -201,7 +208,7 @@ namespace Fluent
         #region Icon
 
         /// <summary>
-        /// Get or set Icon for the element
+        /// Gets or sets Icon for the element
         /// </summary>
         public ImageSource Icon
         {
@@ -209,10 +216,11 @@ namespace Fluent
             set { SetValue(IconProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonControl), new UIPropertyMetadata(null));
-            //new UIPropertyMetadata(new BitmapImage(new Uri("pack://application:,,,/Fluent;component/Images/DefaultSmallIcon.png"))));
+            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonControl), new UIPropertyMetadata(null));            
         
         #endregion
 
@@ -305,6 +313,7 @@ namespace Fluent
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
 
         // Keep a copy of the handler so it doesn't get garbage collected.
+        [SuppressMessage("Microsoft.Performance", "CA1823")]
         private static EventHandler canExecuteChangedHandler;
 
         /// <summary>
@@ -413,9 +422,10 @@ namespace Fluent
         /// <returns></returns>
         private static object CoerceIsEnabled(DependencyObject d, object basevalue)
         {
-            if(d is RibbonControl)
+            RibbonControl control = (d as RibbonControl);
+            if (control!=null)
             {
-                RibbonControl control = (d as RibbonControl);
+                
                 if (control.Command != null)
                 {
                     return ((bool) basevalue) && control.CanExecuteCommand();
@@ -423,15 +433,6 @@ namespace Fluent
             }
             return basevalue;
         }
-
-        protected override bool IsEnabledCore
-        {
-            get
-            {
-                return (base.IsEnabledCore && this.CanExecuteCommand());
-            }
-        }
-
 
         #endregion        
 
@@ -454,9 +455,9 @@ namespace Fluent
         /// <returns></returns>
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
-            if (d is RibbonControl)
-            {
-                RibbonControl control = (d as RibbonControl);
+            RibbonControl control = (d as RibbonControl);
+            if (control!=null)
+            {                
                 Ribbon ribbon = control.FindParentRibbon();
                 if (ribbon != null)
                 {
@@ -466,12 +467,14 @@ namespace Fluent
             return basevalue;
         }
 
+        // Find parent ribbon
         private Ribbon FindParentRibbon()
         {
             DependencyObject element = this.Parent;
             while (element != null)
             {
-                if (element is Ribbon) return element as Ribbon;
+                Ribbon ribbon = element as Ribbon;
+                if (ribbon != null) return ribbon;
                 element = VisualTreeHelper.GetParent(element);
             }
             return null;
@@ -484,6 +487,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
             IsEnabledProperty.AddOwner(typeof (RibbonControl), new FrameworkPropertyMetadata(OnIsEnabledChanged, CoerceIsEnabled));
@@ -492,23 +496,18 @@ namespace Fluent
             ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
             ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(900));
             ToolTipService.BetweenShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(0));
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));
-
-            
-        }
-
-        /// <summary>
-        /// Default contructor
-        /// </summary>
-        public RibbonControl()
-        {
-            
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));            
         }
 
         #endregion
 
         #region Overrides
-
+        
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
+        /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
         protected override void OnKeyUp(KeyEventArgs e)
         {
             if((e.Key==Key.Return)||(e.Key==Key.Space))

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Documents;
@@ -40,7 +41,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">The given element</param>
         /// <param name="value">Value</param>
-        public static void SetKeys(UIElement element, string value)
+        public static void SetKeys(DependencyObject element, string value)
         {
             element.SetValue(KeysProperty, value);
         }
@@ -53,7 +54,7 @@ namespace Fluent
         AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
         System.ComponentModel.Category("KeyTips"),
         System.ComponentModel.Description("Key sequence for the given element")]
-        public static string GetKeys(UIElement element)
+        public static string GetKeys(DependencyObject element)
         {
             return (string)element.GetValue(KeysProperty);
         }
@@ -63,6 +64,7 @@ namespace Fluent
         #region Initialization
         
         // Static constructor
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static KeyTip()
         {
             // Override metadata to allow slyling

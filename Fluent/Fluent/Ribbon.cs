@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -15,32 +16,45 @@ using System.Windows.Markup;
 
 namespace Fluent
 {
+    /// <summary>
+    ///   Represents the main Ribbon control which consists of multiple tabs, each of which
+    ///   containing groups of controls.  The Ribbon also provides improved context
+    ///   menus, enhanced screen tips, and keyboard shortcuts.
+    /// </summary>
     [ContentProperty("Tabs")]
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     public class Ribbon: Control
     {
         #region Fields
 
-        private ObservableCollection<RibbonContextualTabGroup> groups = null;
-        private ObservableCollection<RibbonTabItem> tabs = null;
-        private ObservableCollection<UIElement> toolbarItems = null;
-        private ObservableCollection<UIElement> backstageItems = null;
-        private RibbonTitleBar titleBar = null;
-        private RibbonTabControl tabControl = null;
-        private QuickAccessToolbar quickAccessToolbar = null;
-
-        private Panel layoutRoot = null;
-
-        private BackstageButton backstageButton = null;
+        // Collection of contextual tab groups
+        private ObservableCollection<RibbonContextualTabGroup> groups;
+        // Collection of tabs
+        private ObservableCollection<RibbonTabItem> tabs;
+        // Collection of toolbar items
+        private ObservableCollection<UIElement> toolBarItems;
+        // Collection of backstagetems
+        private ObservableCollection<UIElement> backstageItems;
+        // Ribbon title bar
+        private RibbonTitleBar titleBar;
+        // Ribbon tab control
+        private RibbonTabControl tabControl;
+        // Ribbon quick access toolbar
+        private QuickAccessToolBar quickAccessToolBar;
+        // Ribbon layout root
+        private Panel layoutRoot;
+        // Ribbon backstage button
+        private BackstageButton backstageButton;
 
         // Handles F10, Alt and so on
-        KeyTipService keyTipService = null;
-
-        private ObservableCollection<QuickAccessMenuItem> quickAccessItems = null;
-
-        private BackstageAdorner adorner = null;
-
-        private RibbonTabItem savedTabItem = null;
+        KeyTipService keyTipService;
+        
+        // Collection of quickaccess menu items
+        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
+        // Adornet for backstage
+        private BackstageAdorner adorner;
+        // Saved when backstage opened tab item
+        private RibbonTabItem savedTabItem;
 
         #endregion
 
@@ -64,28 +78,43 @@ namespace Fluent
             DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata(""));
 
 
-
+        /// <summary>
+        /// Gets ribbon titlebar
+        /// </summary>
         internal  RibbonTitleBar TitleBar
         {
             get { return titleBar; }
         }
 
-        public bool ShowQuickAccessToolbarAboveRibbon
+        /// <summary>
+        /// Gets or sets whether quick access toolbar showes above ribbon
+        /// </summary>
+        public bool ShowQuickAccessToolBarAboveRibbon
         {
-            get { return (bool)GetValue(ShowQuickAccessToolbarAboveRibbonProperty); }
-            set { SetValue(ShowQuickAccessToolbarAboveRibbonProperty, value); }
+            get { return (bool)GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
+            set { SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ShowQuickAccessToolbarAboveRibbonProperty =
-            DependencyProperty.Register("ShowQuickAccessToolbarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnShowQuickAccesToolbarAboveRibbonChanged));
-
-        private static void OnShowQuickAccesToolbarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
+            DependencyProperty.Register("ShowQuickAccessToolBarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnShowQuickAccesToolBarAboveRibbonChanged));
+        
+        /// <summary>
+        /// Handles ShowQuickAccessToolBarAboveRibbon property changed
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
+        private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if((d as Ribbon).titleBar !=null)(d as Ribbon).titleBar.InvalidateMeasure();
+            Ribbon ribbon = d as Ribbon;
+            if (ribbon.titleBar != null) ribbon.titleBar.InvalidateMeasure();
         }
 
-
+        /// <summary>
+        /// Gets collection of contextual tab groups
+        /// </summary>
         public ObservableCollection<RibbonContextualTabGroup> Groups
         {
             get
@@ -98,7 +127,11 @@ namespace Fluent
                 return this.groups;
             }
         }
-
+        /// <summary>
+        /// Handles collection of contextual tab groups ghanges
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -131,6 +164,9 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// gets collection of ribbon tabs
+        /// </summary>
         public ObservableCollection<RibbonTabItem> Tabs
         {
             get
@@ -144,6 +180,11 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles collection of ribbon tabs changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -175,20 +216,27 @@ namespace Fluent
             }
 
         }
-
-        public ObservableCollection<UIElement> ToolbarItems
+        /// <summary>
+        /// Gets collection of toolbar items
+        /// </summary>
+        public ObservableCollection<UIElement> ToolBarItems
         {
             get
             {
-                if (this.toolbarItems == null)
+                if (this.toolBarItems == null)
                 {
-                    this.toolbarItems = new ObservableCollection<UIElement>();
-                    this.toolbarItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                    this.toolBarItems = new ObservableCollection<UIElement>();
+                    this.toolBarItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
                 }
-                return this.toolbarItems;
+                return this.toolBarItems;
             }
         }
 
+        /// <summary>
+        /// handles colection of toolbar i8tenms changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -196,25 +244,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.ToolbarItems.Add(obj2 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Add(obj2 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolbarItems.Remove(obj3 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Remove(obj3 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolbarItems.Remove(obj4 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Remove(obj4 as UIElement);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.ToolbarItems.Add(obj5 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Add(obj5 as UIElement);
                     }
                     break;
             }
@@ -224,23 +272,28 @@ namespace Fluent
         /// <summary>
         /// Gets quick access toolbar associated with the ribbon
         /// </summary>
-        internal QuickAccessToolbar QuickAccessToolbar
+        internal QuickAccessToolBar QuickAccessToolBar
         {
-            get { return quickAccessToolbar; }
+            get { return quickAccessToolBar; }
         }
 
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element.
+        /// </summary>
         protected override IEnumerator LogicalChildren
         {
             get
             {
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
-                if(ShowQuickAccessToolbarAboveRibbon)if (quickAccessToolbar != null) list.Add(quickAccessToolbar);
+                if(ShowQuickAccessToolBarAboveRibbon)if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 return list.GetEnumerator();
             }
         }
 
-
+        /// <summary>
+        /// Gets collectionof quick access menu items
+        /// </summary>
         public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
         {
             get
@@ -253,7 +306,11 @@ namespace Fluent
                 return this.quickAccessItems;
             }
         }
-
+        /// <summary>
+        /// Handles collectionof quick access menu items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -261,31 +318,34 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Add(obj2 as QuickAccessMenuItem);
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj2 as QuickAccessMenuItem);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Remove(obj3 as QuickAccessMenuItem);
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj3 as QuickAccessMenuItem);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Remove(obj4 as QuickAccessMenuItem);
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj4 as QuickAccessMenuItem);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (quickAccessToolbar != null) quickAccessToolbar.QuickAccessItems.Add(obj5 as QuickAccessMenuItem);
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj5 as QuickAccessMenuItem);
                     }
                     break;
             }
 
         }
 
+        /// <summary>
+        /// Gets collection of backstage items
+        /// </summary>
         public ObservableCollection<UIElement> BackstageItems
         {
             get
@@ -299,6 +359,11 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles collection of backstage items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Th event data</param>
         private void OnBackstageItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -331,35 +396,51 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// Gets or sets whether backstage is opened
+        /// </summary>
         public bool IsBackstageOpen
         {
             get { return (bool)GetValue(IsBackstageOpenProperty); }
             set { SetValue(IsBackstageOpenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsBackstageOpen.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsBackstageOpen.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsBackstageOpenProperty =
             DependencyProperty.Register("IsBackstageOpen", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
 
+        /// <summary>
+        /// Handles IsBackstageOpen property changes
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
         private static void OnIsBackstageOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            Ribbon ribbon = d as Ribbon;
             if((bool)e.NewValue)
             {
-                (d as Ribbon).ShowBackstage();
+                ribbon.ShowBackstage();
             }
             else
             {
-                (d as Ribbon).HideBackstage();
+                ribbon.HideBackstage();
             }
         }
 
+        /// <summary>
+        /// Gets or sets backstage brush
+        /// </summary>
         public Brush BackstageBrush
         {
             get { return (Brush)GetValue(BackstageBrushProperty); }
             set { SetValue(BackstageBrushProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for BackstageBrush.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for BackstageBrush.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty BackstageBrushProperty =
             DependencyProperty.Register("BackstageBrush", typeof(Brush), typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
 
@@ -367,6 +448,10 @@ namespace Fluent
 
         #region Constructors
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Ribbon()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
@@ -380,17 +465,27 @@ namespace Fluent
             keyTipService = new KeyTipService(this);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
             Focusable = false;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
         }
-                              
+
         #endregion        
 
         #region Overrides
 
+        /// <summary>
+        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus event reaches this element in its route.
+        /// </summary>
+        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (tabControl != null) (tabControl.SelectedItem as RibbonTabItem).Focus();
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or 
+        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
@@ -413,7 +508,7 @@ namespace Fluent
             if (tabControl != null)
             {
                 tabControl.Items.Clear();
-                tabControl.ToolbarItems.Clear();
+                tabControl.ToolBarItems.Clear();
                 tabControl.PreviewMouseRightButtonUp -= OnTabControlRightButtonUp;
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
             }
@@ -431,24 +526,24 @@ namespace Fluent
                 }
             }
 
-            if ((tabControl != null) && (toolbarItems != null))
+            if ((tabControl != null) && (toolBarItems != null))
             {
-                for (int i = 0; i < toolbarItems.Count; i++)
+                for (int i = 0; i < toolBarItems.Count; i++)
                 {
-                    tabControl.ToolbarItems.Add(toolbarItems[i]);
+                    tabControl.ToolBarItems.Add(toolBarItems[i]);
                 }
             }
 
-            if (quickAccessToolbar != null)
+            if (quickAccessToolBar != null)
             {
-                quickAccessToolbar.QuickAccessItems.Clear();
+                quickAccessToolBar.QuickAccessItems.Clear();
             }
-            quickAccessToolbar = GetTemplateChild("PART_QuickAccessToolbar") as QuickAccessToolbar;
-            if ((quickAccessToolbar != null) && (quickAccessItems != null))
+            quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
+            if ((quickAccessToolBar != null) && (quickAccessItems != null))
             {
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
-                    quickAccessToolbar.QuickAccessItems.Add(quickAccessItems[i]);
+                    quickAccessToolBar.QuickAccessItems.Add(quickAccessItems[i]);
                 }
             }
             if (backstageButton != null)
@@ -473,11 +568,16 @@ namespace Fluent
 
         }
 
+        #endregion
+
+        #region Event handling
+
+        // Handles tab control selection chaged
         private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(e.AddedItems.Count>0)
+            if (e.AddedItems.Count > 0)
             {
-                if(IsBackstageOpen)
+                if (IsBackstageOpen)
                 {
                     savedTabItem = e.AddedItems[0] as RibbonTabItem;
                     IsBackstageOpen = false;
@@ -485,40 +585,38 @@ namespace Fluent
             }
         }
 
-        #endregion
-
-        #region Event handling
-
-        private void OnBackstageButtonClick(object sender, RoutedEventArgs e)
-        {
-            IsBackstageOpen = !IsBackstageOpen;
-        }
-
+        // handles tab control right button click
         private void OnTabControlRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (quickAccessToolbar != null)
+            if (quickAccessToolBar != null)
             {
-                UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl),
-                                                                                 e.GetPosition(
-                                                                                     sender as RibbonTabControl));
+                RibbonTabControl ribbonTabControl = sender as RibbonTabControl;
+                UIElement control = QuickAccessItemsProvider.PickQuickAccessItem(ribbonTabControl,
+                                                                                 e.GetPosition(ribbonTabControl));
                 if (control != null)
-                {
-                    if (control is CheckBox)
-                    {
-                        (control as CheckBox).Width = 100;
-                        (control as CheckBox).Height = 22;
-                    }
-                    if (quickAccessToolbar.Items.Contains(control)) quickAccessToolbar.Items.Remove(control);
-                    else quickAccessToolbar.Items.Add(control);
-                    quickAccessToolbar.InvalidateMeasure();
+                {                    
+                    if (quickAccessToolBar.Items.Contains(control)) quickAccessToolBar.Items.Remove(control);
+                    else quickAccessToolBar.Items.Add(control);
+                    quickAccessToolBar.InvalidateMeasure();
                 }
             }
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            keyTipService.Attach();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            keyTipService.Detach();
         }
 
         #endregion
 
         #region Private methods
 
+        // Show backstage
         private void ShowBackstage()
         {            
             AdornerLayer layer = GetAdornerLayer(this);
@@ -534,21 +632,23 @@ namespace Fluent
                 savedTabItem = tabControl.SelectedItem as RibbonTabItem;
                 tabControl.SelectedItem = null;
             }
-            if(quickAccessToolbar!=null) quickAccessToolbar.IsEnabled = false;
+            if(quickAccessToolBar!=null) quickAccessToolBar.IsEnabled = false;
             if(titleBar!=null) titleBar.IsEnabled = false;
             Window.GetWindow(this).PreviewKeyDown += OnBackstageEscapeKeyDown;
         }        
 
+        // hide backstage
         private void HideBackstage()
         {
             AdornerLayer layer = GetAdornerLayer(this);
             layer.Remove(adorner);
             if (tabControl != null) tabControl.SelectedItem = savedTabItem;
-            if (quickAccessToolbar != null) quickAccessToolbar.IsEnabled = true;
+            if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = true;
             if (titleBar != null) titleBar.IsEnabled = true;
             Window.GetWindow(this).PreviewKeyDown -= OnBackstageEscapeKeyDown;
         }
 
+        // Handles backstage Esc key keydown
         private void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key==Key.Escape)IsBackstageOpen = false;
@@ -558,6 +658,11 @@ namespace Fluent
 
         #region Static Methods
 
+        /// <summary>
+        /// Get adorner layer for element
+        /// </summary>
+        /// <param name="element">Element</param>
+        /// <returns>Adorner layer</returns>
         static AdornerLayer GetAdornerLayer(UIElement element)
         {
             UIElement current = element;

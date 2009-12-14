@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -61,13 +62,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShortcutProperty =
-            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null, OnShortcutChanged));
-
-
-        static void OnShortcutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
+            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -80,11 +75,11 @@ namespace Fluent
         protected override void OnClick(RoutedEventArgs e)
         {
             base.OnClick(e);
-            QuickAccessToolbar toolbar = FindQuickAccessToolbar();
-            if (toolbar != null)
+            QuickAccessToolBar toolBar = FindQuickAccessToolbar();
+            if (toolBar != null)
             {
-                toolbar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
-                toolbar.InvalidateMeasure();
+                toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
+                toolBar.InvalidateMeasure();
             }
         }
 
@@ -92,12 +87,17 @@ namespace Fluent
 
         #region Private Methods
 
-        QuickAccessToolbar FindQuickAccessToolbar()
+        /// <summary>
+        /// Finds quickaccess toolbar
+        /// </summary>
+        /// <returns>QuickAccessToolBar or null if not finded</returns>
+        QuickAccessToolBar FindQuickAccessToolbar()
         {
             UIElement element = this.Parent as UIElement;
             while (element != null)
             {
-                if (element is QuickAccessToolbar) return (element as QuickAccessToolbar);
+                QuickAccessToolBar quickAccessToolbar = element as QuickAccessToolBar;
+                if (quickAccessToolbar != null) return quickAccessToolbar;
                 UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
                 if (parent != null) element = parent;
                 else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
@@ -109,7 +109,7 @@ namespace Fluent
     }
 
     /// <summary>
-    /// The class responds to mine controls for QuickAccessToolbar
+    /// The class responds to mine controls for QuickAccessToolBar
     /// </summary>
     internal static class QuickAccessItemsProvider
     {
@@ -137,6 +137,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
+        [SuppressMessage("Microsoft.Performance", "CA1800")]
         public static UIElement GetQuickAccessItem(UIElement element)
         {
             UIElement result = null;
@@ -148,7 +149,7 @@ namespace Fluent
             else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);
             else if (element is ComboBox) result = GetComboBoxQuickAccessItem(element as ComboBox);
             else if (element is ToggleButton) result = GetToggleButtonQuickAccessItem(element as ToggleButton);
-            else if (element is Button) result = GetButtonQuickAccessItem(element as Button);            
+            else if (element is Button) result = GetButtonQuickAccessItem((Button)element);            
 
             // The control isn't supported
             if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
@@ -364,11 +365,6 @@ namespace Fluent
         #endregion
 
         #region Binding
-
-        static void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property)
-        {
-            Bind(source, target, path, property, BindingMode.OneWay);
-        }
 
         static void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
         {

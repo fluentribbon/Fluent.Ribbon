@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -26,6 +27,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ScreenTip() { DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip))); }
 
         /// <summary>
@@ -82,13 +84,13 @@ namespace Fluent
             }
         }
 
-        bool IsQuickAccessItem(UIElement element)
+        static bool IsQuickAccessItem(UIElement element)
         {
             UIElement parent = null;
             do
             {
                 parent = LogicalTreeHelper.GetParent(element) as UIElement;
-                if (parent is QuickAccessToolbar) return true;
+                if (parent is QuickAccessToolBar) return true;
                 element = parent;
             }
             while (element != null); 
@@ -98,7 +100,8 @@ namespace Fluent
         UIElement GetDecoratorChild(UIElement popupRoot)
         {
             if (popupRoot == null) return null;
-            if (popupRoot is AdornerDecorator) return ((AdornerDecorator)popupRoot).Child;
+            AdornerDecorator decorator = (AdornerDecorator) popupRoot;
+            if (decorator!=null) return decorator.Child;
 
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
             {
@@ -111,7 +114,8 @@ namespace Fluent
         void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
         {
             if (obj == null) return;
-            if (obj is Ribbon) ribbon = (Ribbon)obj;
+            Ribbon objRibbon = obj as Ribbon;
+            if (objRibbon!=null) ribbon = objRibbon;
 
             UIElement parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
             if (parentVisual == null) topLevelElement = obj;
@@ -269,7 +273,7 @@ namespace Fluent
         #region F1 Help Handling
 
         // Currently focused element
-        IInputElement focusedElement = null;
+        IInputElement focusedElement;
 
         void OnToolTipClosed(object sender, RoutedEventArgs e)
         {        

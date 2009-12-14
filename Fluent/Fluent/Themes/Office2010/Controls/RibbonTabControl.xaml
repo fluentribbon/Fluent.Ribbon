@@ -129,7 +129,7 @@
 								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal" FocusManager.IsFocusScope="False"/>
 							</StackPanel>
 						</Grid>
-						<Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="0" IsOpen="{TemplateBinding IsOpen}" HorizontalOffset="0" Placement="Custom">
+						<Fluent:RibbonPopup x:Name="PART_Popup" PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="0" IsOpen="{TemplateBinding IsOpen}" HorizontalOffset="0" Placement="Custom">
 							<Grid Width="Auto" Height="Auto" Margin="0,20">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="86"/>
@@ -161,7 +161,7 @@
 
 								</Border>
 							</Grid>
-						</Fluent:ExtendedPopup>
+						</Fluent:RibbonPopup>
 					</Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMinimized" Value="True">

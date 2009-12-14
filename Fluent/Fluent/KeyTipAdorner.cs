@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
 using System.Windows.Interop;
@@ -41,26 +43,26 @@ namespace Fluent
         Point[] keyTipPositions;
 
         // Parent adorner
-        KeyTipAdorner parentAdorner = null;
-        KeyTipAdorner childAdorner = null;
+        KeyTipAdorner parentAdorner;
+        KeyTipAdorner childAdorner;
 
         // Focused element
-        UIElement focusedElement = null;
+        UIElement focusedElement;
         
 
         // Is this adorner attached to the adorned element?
-        bool attached = false;
-        HwndSource attachedHwndSource = null;
+        bool attached;
+        HwndSource attachedHwndSource;
 
         // Current entered chars
         string enteredKeys = "";
 
         // Designate that this adorner is terminated
-        bool terminated = false;
+        bool terminated;
 
-        DispatcherTimer timerFocusTracking = null;
+        DispatcherTimer timerFocusTracking;
 
-        AdornerLayer adornerLayer = null;
+        AdornerLayer adornerLayer;
 
         #endregion
 
@@ -83,6 +85,7 @@ namespace Fluent
         /// </summary>
         /// <param name="adornedElement"></param>
         /// <param name="parentAdorner">Parent adorner or null</param>
+        /// <param name="keyTipElementContainer">The element which is container for elements</param>
         public KeyTipAdorner(UIElement adornedElement, UIElement keyTipElementContainer, KeyTipAdorner parentAdorner)
             : base(adornedElement)
         {
@@ -102,6 +105,7 @@ namespace Fluent
             foreach (object item in children)
             {
                 UIElement child = item as UIElement;
+                RibbonGroupBox groupBox = (child as RibbonGroupBox);
                 if (child != null)
                 {
                     string keys = KeyTip.GetKeys(child);
@@ -120,9 +124,10 @@ namespace Fluent
                         associatedElements.Add(child);
 
 
-                        if (child is RibbonGroupBox) 
+                        
+                        if (groupBox!=null) 
                         {
-                            if ((child as RibbonGroupBox).State == RibbonGroupBoxState.Collapsed)
+                            if (groupBox.State == RibbonGroupBoxState.Collapsed)
                             {
                                 keyTip.Visibility = Visibility.Visible;
                                 FindKeyTips(child, true);
@@ -141,8 +146,8 @@ namespace Fluent
                         }
                     }
 
-                    if ((child is RibbonGroupBox) &&
-                       ((child as RibbonGroupBox).State == RibbonGroupBoxState.Collapsed))
+                    if ((groupBox!=null) &&
+                       (groupBox.State == RibbonGroupBoxState.Collapsed))
                             FindKeyTips(child, true);
                     else FindKeyTips(child, hide);
                 }
@@ -231,20 +236,6 @@ namespace Fluent
                 focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp += OnPreviewKeyUp;
             }
-        }
-
-        // Try to set focus on the given element or it's child
-        bool Focus(DependencyObject obj)
-        {
-            if (obj is IInputElement) 
-            {
-                IInputElement inputElement = (IInputElement)obj;
-                if ((inputElement.Focusable) && (inputElement.Focus())) return true;
-            }
-            else for(int i =0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-                if (Focus(VisualTreeHelper.GetChild(obj, i))) return true;
-
-            return false;
         }
 
         // Window's messages hook up
@@ -495,15 +486,15 @@ namespace Fluent
         /// <summary>
         /// Gets element keytipped by keys
         /// </summary>
-        /// <param name="keys"Keys></param>
+        /// <param name="keys"></param>
         /// <returns>Element</returns>
         UIElement TryGetElement(string keys)
         {
             for(int i = 0; i < keyTips.Count; i++)
             {
                 if (!keyTips[i].IsEnabled) continue;
-                string keysUpper = keys.ToUpper();
-                string contentUpper = (keyTips[i].Content as string).ToUpper();
+                string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
+                string contentUpper = (keyTips[i].Content as string).ToUpper(CultureInfo.CurrentUICulture);
                 if (keysUpper == contentUpper) return associatedElements[i];
             }
             return null;
@@ -519,14 +510,14 @@ namespace Fluent
             for (int i = 0; i < keyTips.Count; i++)
             {
                 if (!keyTips[i].IsEnabled) continue;
-                string keysUpper = keys.ToUpper();
-                string contentUpper = (keyTips[i].Content as string).ToUpper();
-                if (contentUpper.StartsWith(keysUpper)) return true;
+                string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
+                string contentUpper = (keyTips[i].Content as string).ToUpper(CultureInfo.CurrentUICulture);
+                if (contentUpper.StartsWith(keysUpper, StringComparison.CurrentCulture)) return true;
             }
             return false;
         }
 
-        Visibility[] backupedVisibilities = null;
+        Visibility[] backupedVisibilities;
         // Hide / unhide keytips relative matching to entered keys
         void FilterKeyTips()
         {
@@ -544,8 +535,8 @@ namespace Fluent
             for (int i = 0; i < keyTips.Count; i++)
             {
                 string keys = (string)keyTips[i].Content;
-                if (enteredKeys == "") keyTips[i].Visibility = backupedVisibilities[i];
-                else keyTips[i].Visibility = keys.StartsWith(enteredKeys) ? backupedVisibilities[i] : Visibility.Collapsed;
+                if (string.IsNullOrEmpty(enteredKeys)) keyTips[i].Visibility = backupedVisibilities[i];
+                else keyTips[i].Visibility = keys.StartsWith(enteredKeys,StringComparison.CurrentCulture) ? backupedVisibilities[i] : Visibility.Collapsed;
             }
         }
 
@@ -605,7 +596,8 @@ namespace Fluent
         RibbonGroupBox GetGroupBox(DependencyObject element)
         {
             if (element == null) return null;
-            if (element is RibbonGroupBox) return (RibbonGroupBox)element;
+            RibbonGroupBox groupBox = element as RibbonGroupBox;
+            if (groupBox != null) return groupBox;
             DependencyObject parent = VisualTreeHelper.GetParent(element);
             return GetGroupBox(parent);
         }
@@ -698,7 +690,7 @@ namespace Fluent
         bool IsWithinQuickAccessToolbar(UIElement element)
         {
             UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
-            if (parent is QuickAccessToolbar) return true;
+            if (parent is QuickAccessToolBar) return true;
             if (parent == null) return false;
             return IsWithinQuickAccessToolbar(parent);
         }
@@ -728,6 +720,8 @@ namespace Fluent
 
         #region Logging
 
+        [SuppressMessage("Microsoft.Performance", "CA1822")]
+        [SuppressMessage("Microsoft.Performance", "CA1801")]
         void Log(string message)
         {
             // Uncomment in case of emergency

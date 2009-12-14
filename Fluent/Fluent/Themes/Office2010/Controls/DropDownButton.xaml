@@ -27,8 +27,8 @@
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
         <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
           <Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2"/>
-          <Fluent:ControlLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
-          <Fluent:ExtendedPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="-1" HorizontalOffset="0">
+          <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
+          <Fluent:RibbonPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="-1" HorizontalOffset="0">
           	<Grid Width="Auto" Height="Auto" Margin="30,20">
           		<Grid.ColumnDefinitions>
           			<ColumnDefinition Width="*"/>
@@ -80,7 +80,7 @@
           		</Rectangle>
           		<ContentPresenter Grid.ColumnSpan="1" ContentSource="PopupContent"/>
           	</Grid>
-          </Fluent:ExtendedPopup>
+          </Fluent:RibbonPopup>
         </StackPanel>
       </Border>
     </Border>

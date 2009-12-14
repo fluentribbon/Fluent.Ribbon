@@ -19,25 +19,31 @@
     <SccProvider>SAK</SccProvider>
     <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
     <UICulture>en-US</UICulture>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Properties\FluentStrongName.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Fluent.XML</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRules>-Microsoft.Design#CA1020</CodeAnalysisRules>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Fluent.XML</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRules>-Microsoft.Design#CA1020</CodeAnalysisRules>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore">
@@ -75,18 +81,19 @@
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
-    <Compile Include="ControlLabel.cs" />
-    <Compile Include="ExtendedPopup.cs">
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="TwoLineLabel.cs" />
+    <Compile Include="RibbonPopup.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GroupSeparator.cs" />
+    <Compile Include="GroupSeparatorMenuItem.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTip.cs" />
     <Compile Include="DropDownButton.cs" />
     <Compile Include="KeyTipService.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="QuickAccessMenuItem.cs" />
-    <Compile Include="QuickAccessToolbar.cs" />
+    <Compile Include="QuickAccessToolBar.cs" />
     <Compile Include="Ribbon.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
+    <None Include="Properties\FluentStrongName.snk" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -143,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Office2010\Controls\ControlLabel.xaml">
+    <Page Include="Themes\Office2010\Controls\TwoLineLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

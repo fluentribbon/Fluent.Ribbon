@@ -8,18 +8,30 @@ using System.Windows.Media;
 
 namespace Fluent
 {
-    public class BackstageAdorner :Adorner
+    /// <summary>
+    /// Represents adorner for Backstage
+    /// </summary>
+    internal class BackstageAdorner :Adorner
     {
         #region Fields
 
+        // Backstage
         private UIElement backstage = null;
+        // Adorner offset from top of window
         private double topOffset = 0;
+        // Collection of visual children
         VisualCollection visualChildren;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Cpnstructor
+        /// </summary>
+        /// <param name="adornedElement">Adorned element</param>
+        /// <param name="backstage">Backstage</param>
+        /// <param name="topOffset">Adorner offset from top of window</param>
         public BackstageAdorner(UIElement adornedElement, UIElement backstage, double topOffset)
             : base(adornedElement)
         {

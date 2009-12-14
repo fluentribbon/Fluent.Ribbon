@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -8,6 +9,9 @@ using System.Windows.Controls;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents title bar
+    /// </summary>
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonContextualTabGroup))]
     [TemplatePart(Name = "PART_QuickAccessToolbarHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_HeaderHolder", Type = typeof(FrameworkElement))]
@@ -16,28 +20,39 @@ namespace Fluent
     {
         #region Fields
 
-        private FrameworkElement quickAccessToolbarHolder = null;
-        private FrameworkElement headerHolder = null;
-        private Panel itemsContainer = null;
-
+        // Quick access toolbar holder
+        private FrameworkElement quickAccessToolbarHolder;
+        // Header holder
+        private FrameworkElement headerHolder;
+        // Items container
+        private Panel itemsContainer;
+        // Quick access toolbar rect
         private Rect quickAccessToolbarRect;
+        // Header rect
         private Rect headerRect;
+        // Items rect
         private Rect itemsRect;
 
         #endregion
 
         #region Properties
 
-        public UIElement QuickAccessToolbar
+        /// <summary>
+        /// Gets or sets quick access toolbar
+        /// </summary>
+        public UIElement QuickAccessToolBar
         {
-            get { return (UIElement)GetValue(QuickAccessToolbarProperty); }
-            set { SetValue(QuickAccessToolbarProperty, value); }
+            get { return (UIElement)GetValue(QuickAccessToolBarProperty); }
+            set { SetValue(QuickAccessToolBarProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for QuickAccessToolbar.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty QuickAccessToolbarProperty =
-            DependencyProperty.Register("QuickAccessToolbar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null,OnQuickAccessToolbarChanged));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessToolBarProperty =
+            DependencyProperty.Register("QuickAccessToolBar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null,OnQuickAccessToolbarChanged));
 
+        // Handles QuickAccessToolBar property chages
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTitleBar titleBar = (RibbonTitleBar)d;
@@ -58,37 +73,37 @@ namespace Fluent
             }        
         }
 
+        /// <summary>
+        /// Gets or sets header alignment
+        /// </summary>
         public HorizontalAlignment HeaderAlignment
         {
             get { return (HorizontalAlignment)GetValue(HeaderAlignmentProperty); }
             set { SetValue(HeaderAlignmentProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
+        /// </summary> 
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register("HeaderAlignment", typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
 
         #endregion
 
-        /*#region Protected Properties
-
-        /// <summary>
-        ///   Gets an enumerator for the Ribbon's logical children.
-        /// </summary>
-        protected override IEnumerator LogicalChildren
-        {
-            get { return new RibbonTitleBarLogicalChildrenEnumerator(this.Header as UIElement, this.QuickAccessToolbar, this.Items); }
-        }
-
-        #endregion*/
-
         #region Initialize
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public RibbonTitleBar()
         {
         }
@@ -97,16 +112,29 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new RibbonContextualTabGroup();
         }
 
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item"> The item to check.</param>
+        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return (item is RibbonContextualTabGroup);
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes 
+        /// call System.Windows.FrameworkElement.ApplyTemplate().
+        /// </summary>
         public override void OnApplyTemplate()
         {
             quickAccessToolbarHolder = GetTemplateChild("PART_QuickAccessToolbarHolder") as FrameworkElement;
@@ -114,6 +142,11 @@ namespace Fluent
             itemsContainer = GetTemplateChild("PART_ItemsContainer") as Panel;
         }
 
+        /// <summary>
+        /// Called to remeasure a control.
+        /// </summary>
+        /// <param name="constraint">The maximum size that the method can return.</param>
+        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
             if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.MeasureOverride(constraint);
@@ -128,6 +161,11 @@ namespace Fluent
             return resultSize;
         }
 
+        /// <summary>
+        /// Called to arrange and size the content of a System.Windows.Controls.Control object.
+        /// </summary>
+        /// <param name="arrangeBounds">The computed size that is used to arrange the content.</param>
+        /// <returns>The size of the control.</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.ArrangeOverride(arrangeBounds);
@@ -141,6 +179,7 @@ namespace Fluent
 
         #region Private methods
 
+        // Update items size and positions
         private void Update(Size constraint)
         {
             List<RibbonContextualTabGroup> visibleGroups = new List<RibbonContextualTabGroup>();
@@ -258,153 +297,6 @@ namespace Fluent
                     }
                 }
             }
-        }
-
-        #endregion
-
-        #region RibbonLogicalChildEnumerator Class
-
-        /// <summary>
-        ///   An enumerator for the logical children of the Ribbon.
-        /// </summary>
-        private class RibbonTitleBarLogicalChildrenEnumerator : IEnumerator
-        {
-            #region Fields
-
-            private UIElement toolbar;
-
-            private UIElement header;
-
-            /// <summary>
-            ///   The Ribbon's collection of tabs.
-            /// </summary>
-            private ItemCollection items;
-
-            /// <summary>
-            ///   The current position of enumeration.
-            /// </summary>
-            private Position postition;
-
-            /// <summary>
-            ///   The current tab index if we are currently enumerating the Ribbon's tabs.
-            /// </summary>
-            private int index = 0;
-
-            #endregion
-
-            #region Constructors
-
-            public RibbonTitleBarLogicalChildrenEnumerator(UIElement header, UIElement toolbar, ItemCollection items)
-            {
-                postition = Position.None;
-                this.toolbar = toolbar;
-                this.toolbar = header;
-                this.items = items;
-            }
-
-            #endregion
-
-            #region Position Enum
-
-            /// <summary>
-            ///   An enum indicating the current position of enumeration.
-            /// </summary>
-            private enum Position
-            {
-                /// <summary>
-                ///   Indicates that the enumeration is not currently within the Ribbon's
-                ///   logical children.
-                /// </summary>
-                None,
-
-                Toolbar,
-                Header,
-
-                /// <summary>
-                ///   Indicates enumeration is currently at the QuickAccessToolbar.
-                /// </summary>
-                Items
-            }
-
-            #endregion
-
-            #region Public Properties
-
-            /// <summary>
-            ///   Gets the object at the enumerators current position.
-            /// </summary>
-            public object Current
-            {
-                get
-                {
-                    switch (postition)
-                    {
-                        case Position.Toolbar:
-                            return toolbar;
-                        case Position.Header:
-                            return header;
-                        case Position.Items:
-                            return items[index];
-                    }
-
-                    throw new InvalidOperationException();
-                }
-            }
-
-            #endregion
-
-            #region Public Methods
-
-            /// <summary>
-            ///   Advances the enumerator to the next logical child of the Ribbon.
-            /// </summary>
-            /// <returns>True if the enumerator was successfully advanced, false otherwise.</returns>
-            public bool MoveNext()
-            {
-                if (postition == Position.None)
-                {
-                    postition = Position.Header;
-                    return true;                    
-                }
-                if (postition == Position.Header)
-                {
-                    postition = Position.Toolbar;                    
-                    return true;
-                }
-
-                if (postition == Position.Toolbar)
-                {
-                    postition = Position.Items;
-                    if ((items != null)&&(items.Count>0))
-                    {
-                        return true;
-                    }
-                }
-
-                if (postition == Position.Items)
-                {
-                    if (index < items.Count - 2)
-                    {
-                        index++;
-                        return true;
-                    }
-                }
-
-                this.Reset();
-
-                return false;
-            }
-
-            /// <summary>
-            ///   Resets the RibbonLogicalChildrenEnumerator.
-            /// </summary>
-            public void Reset()
-            {
-                postition = Position.None;
-                index = 0;
-            }
-
-            #endregion
         }
 
         #endregion

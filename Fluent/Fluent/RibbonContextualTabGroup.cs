@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -8,49 +9,73 @@ using System.Windows.Data;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents contextual tab group
+    /// </summary>
     public class RibbonContextualTabGroup: Control
     {
         #region
 
+        // Collection of ribbon tab items
         private List<RibbonTabItem> items = new List<RibbonTabItem>();
 
-        private double cachedWidth = 0;
+        // Cached width
+        private double cachedWidth;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets group header
+        /// </summary>
         public string Header
         {
             get { return (string)GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup), new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
 
+        /// <summary>
+        /// Handles header chages
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data.</param>
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as RibbonContextualTabGroup).cachedWidth = 0;
         }
 
-        public double WhitespaceExtender
+        /// <summary>
+        /// Gets or space whitespace extender
+        /// </summary>
+        public double IndentExtender
         {
-            get { return (double)GetValue(WhitespaceExtenderProperty); }
-            set { SetValue(WhitespaceExtenderProperty, value); }
+            get { return (double)GetValue(IndentExtenderProperty); }
+            set { SetValue(IndentExtenderProperty, value); }
         }
-
+        /// <summary>
+        /// Gets collection of tab items
+        /// </summary>
         internal List<RibbonTabItem> Items
         {
             get { return items; }
         }
 
-        // Using a DependencyProperty as the backing store for RightOffset.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WhitespaceExtenderProperty =
-            DependencyProperty.Register("WhitespaceExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for RightOffset.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IndentExtenderProperty =
+            DependencyProperty.Register("IndentExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
 
-
+        /// <summary>
+        /// Gets or sets chached width
+        /// </summary>
         internal double CachedWidth
         {
             get { return cachedWidth; }
@@ -61,13 +86,21 @@ namespace Fluent
 
         #region Initialize
 
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonContextualTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
 
             VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Collapsed, OnVisibilityChanged));
         }
-
+        /// <summary>
+        /// Handles visibility prioperty changed
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
@@ -75,6 +108,9 @@ namespace Fluent
             (group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public RibbonContextualTabGroup()
         {
             
@@ -84,6 +120,10 @@ namespace Fluent
 
         #region Internal Methods
 
+        /// <summary>
+        /// Appends tab item
+        /// </summary>
+        /// <param name="item">Ribbon tab item</param>
         internal void AppendTabItem(RibbonTabItem item)
         {
             Items.Add(item);
@@ -91,6 +131,7 @@ namespace Fluent
             UpdateGroupBorders();
         }
 
+        // Update group border
         private void UpdateGroupBorders()
         {
             for (int i = 0; i < items.Count;i++ )
@@ -102,6 +143,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Removes tab item
+        /// </summary>
+        /// <param name="item">Ribbon tab item</param>
         internal void RemoveTabItem(RibbonTabItem item)
         {
             Items.Remove(item);
@@ -112,6 +157,13 @@ namespace Fluent
 
         #region Override
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp routed event 
+        /// reaches an element in its route that is derived from this class. Implement this method to 
+        /// add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was released.</param>
         protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
         {
             if ((e.ClickCount == 1) && (items.Count > 0))

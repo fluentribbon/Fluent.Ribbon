@@ -36,7 +36,7 @@
         </Fluent:BackstageTabItem>
         <Fluent:Button Text="Lala" Fluent:KeyTip.Keys="Y"/>
       </Fluent:Ribbon.BackstageItems>
-      <Fluent:Ribbon.ToolbarItems>
+      <Fluent:Ribbon.ToolBarItems>
         <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small"/>
         <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small"/>
         <Fluent:Button Style="{DynamicResource RibbonButtonStyle}" Size="Small">
@@ -52,7 +52,7 @@
           </Fluent:Button.ToolTip>
         </Fluent:Button>
         
-      </Fluent:Ribbon.ToolbarItems>
+      </Fluent:Ribbon.ToolBarItems>
       <Fluent:Ribbon.QuickAccessItems>
         <Fluent:QuickAccessMenuItem Text="Test1" Style="{DynamicResource ContentMenuItemStyle}" Height="22">
 			    <Fluent:QuickAccessMenuItem.Shortcut>

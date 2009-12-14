@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -10,6 +11,9 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents button
+    /// </summary>
     [ContentProperty("Text")]
     public class Button: RibbonControl
     {
@@ -24,13 +28,16 @@ namespace Fluent
             private set { SetValue(IsPressedProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsPressed.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsPressed.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsPressedProperty =
             DependencyProperty.Register("IsPressed", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
 
 
         /// <summary>
-        /// Gets a value that indicates whether the mouse pointer is located over this element (including visual children elements that are inside its bounds).
+        /// Gets a value that indicates whether the mouse pointer is located over this element 
+        /// (including visual children elements that are inside its bounds).
         /// </summary>
         public new bool IsMouseOver
         {
@@ -38,7 +45,9 @@ namespace Fluent
             private set { SetValue(IsMouseOverProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsMouseOver.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsMouseOver.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly new DependencyProperty IsMouseOverProperty =
             DependencyProperty.Register("IsMouseOver", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
 
@@ -51,7 +60,9 @@ namespace Fluent
             set { SetValue(LargeIconProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register("LargeIcon", typeof(ImageSource), typeof(Button), new UIPropertyMetadata(null));
 
@@ -62,6 +73,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));            
@@ -80,7 +92,8 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs when the left mouse button is pressed while the mouse pointer is over this control.
+        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs 
+        /// when the left mouse button is pressed while the mouse pointer is over this control.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
@@ -92,7 +105,8 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs when the left mouse button is released while the mouse pointer is over this control.
+        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs 
+        /// when the left mouse button is released while the mouse pointer is over this control.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
@@ -110,6 +124,11 @@ namespace Fluent
             base.OnMouseLeftButtonDown(e);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseMove attached event reaches an element 
+        /// in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;    
@@ -140,12 +159,22 @@ namespace Fluent
             base.OnMouseMove(e);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseLeave attached event is raised on this element. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
         protected override void OnMouseLeave(MouseEventArgs e)
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsMouseOver = false;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseEnter attached event is raised on this element. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e"> The System.Windows.Input.MouseEventArgs that contains the event data.</param>
         protected override void OnMouseEnter(MouseEventArgs e)
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
@@ -156,22 +185,24 @@ namespace Fluent
 
         #region Protected methods
 
+        /// <summary>
+        /// Handles click event
+        /// </summary>
+        /// <param name="e">The event data</param>
         protected virtual void OnClick(RoutedEventArgs e)
         {
             ExecuteCommand();
-            //e.Handled = true;
         }
 
+        /// <summary>
+        /// Handles click event
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {                                                
             OnClick(e);
         }
-
-        #endregion
-
-        #region Private methods
-
-        
 
         #endregion
     }
