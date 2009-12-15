@@ -65,7 +65,7 @@
           				</RadialGradientBrush>
           			</Rectangle.Fill>
           		</Rectangle>
-          		<ContentPresenter Grid.ColumnSpan="1" ContentSource="PopupContent"/>
+          		
           	</Grid>
           </Fluent:RibbonPopup>
         </StackPanel>

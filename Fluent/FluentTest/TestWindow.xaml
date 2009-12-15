@@ -92,14 +92,12 @@
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala1</Fluent:ToggleButton>
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala2</Fluent:ToggleButton>
           <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton">
-            <Fluent:DropDownButton.PopupContent>
-                <Border Background="Red">
-                  <StackPanel>
+            <Fluent:DropDownButton.Items>
+
                     <Button  Fluent:KeyTip.Keys="W" Width="75" Height="25" Focusable="False" x:Name="testButton" Click="OnTestClick">Lala</Button>
                     <TextBox Width="75" Height="25"></TextBox>
-                  </StackPanel>
-                </Border>
-            </Fluent:DropDownButton.PopupContent>
+            </Fluent:DropDownButton.Items>
+
             <Fluent:DropDownButton.ToolTip>
               <Fluent:ScreenTip
                   Title="Insert Chart"
@@ -186,6 +184,14 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
     </Fluent:Ribbon>
-    <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button" Click="OnSomeTestClick"/>
+    <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button" Click="OnSomeTestClick">
+      <Button.ContextMenu>
+        <Fluent:ContextMenu>
+          <Fluent:MenuItem Text="Lala" Style="{DynamicResource ContentMenuItemStyle}"/>
+          <Fluent:MenuItem Text="Lala1" Style="{DynamicResource ContentMenuItemStyle}"/>
+          <Fluent:MenuItem Text="Lala2" Style="{DynamicResource ContentMenuItemStyle}"/>
+        </Fluent:ContextMenu>
+      </Button.ContextMenu>
+    </Button>
   </Grid>
 </Window>

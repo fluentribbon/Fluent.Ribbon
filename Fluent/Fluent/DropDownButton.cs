@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -18,15 +20,16 @@ namespace Fluent
     /// <summary>
     /// Represents drop down button
     /// </summary>
-    [ContentProperty("PopupContent")]
+    [ContentProperty("Items")]
     public class DropDownButton: RibbonControl
     {
         #region Fields
 
-        /// <summary>
-        /// Popup
-        /// </summary>
-        private RibbonPopup popup;
+        // Context menu
+        private ContextMenu contextMenu;
+
+        // Collection of toolbar items
+        private ObservableCollection<UIElement> items;
 
         #endregion
 
@@ -78,23 +81,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
             DependencyProperty.Register("IsOpen", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(false,OnIsOpenChanged));
-
-        /// <summary>
-        /// Gets or sets popup content
-        /// </summary>
-        public object PopupContent
-        {
-            get { return (object)GetValue(PopupContentProperty); }
-            set { SetValue(PopupContentProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for PopupContent.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty PopupContentProperty =
-            DependencyProperty.Register("PopupContent", typeof(object), typeof(DropDownButton), new UIPropertyMetadata(null));
-
+        
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
         /// </summary>
@@ -102,10 +89,63 @@ namespace Fluent
         {
             get
             {
-                ArrayList list = new ArrayList();
-                list.Add(PopupContent);
-                return list.GetEnumerator();
+                /*ArrayList list = new ArrayList();
+                list.Add(PopupContent);*/
+                return items.GetEnumerator();
             }
+        }
+
+        /// <summary>
+        /// Gets collection of menu items
+        /// </summary>
+        public ObservableCollection<UIElement> Items
+        {
+            get
+            {
+                if (this.items == null)
+                {
+                    this.items = new ObservableCollection<UIElement>();
+                    this.items.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                }
+                return this.items;
+            }
+        }
+
+        /// <summary>
+        /// handles colection of menu items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
+        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (contextMenu != null) contextMenu.Items.Add(obj2 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (contextMenu != null) contextMenu.Items.Remove(obj3 as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (contextMenu != null) contextMenu.Items.Remove(obj4 as UIElement);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (contextMenu != null) contextMenu.Items.Add(obj5 as UIElement);
+                    }
+                    break;
+            }
+
         }
 
         #endregion
@@ -129,6 +169,13 @@ namespace Fluent
         /// </summary>
         public DropDownButton()
         {
+            contextMenu = new ContextMenu();
+            Binding binding = new Binding("IsOpen");
+            binding.Mode = BindingMode.TwoWay;
+            binding.Source = this;
+            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
+            contextMenu.PlacementTarget = this;
+            contextMenu.Placement = PlacementMode.Bottom;
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
@@ -150,30 +197,11 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if ((popup != null)&&(!popup.IsOpen))
+            if ((contextMenu != null) && (!contextMenu.IsOpen))
             {
-                popup.IsOpen = !popup.IsOpen;
-                if (IsOpen) Mouse.Capture(popup, CaptureMode.Element);
+                contextMenu.IsOpen = !contextMenu.IsOpen; 
+               
                 e.Handled = true;
-            }
-        }
-
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes 
-        /// call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            if (popup != null) RemoveLogicalChild(popup);
-            popup = GetTemplateChild("PART_Popup") as RibbonPopup;
-            if(popup!=null)
-            {
-                if (popup.Parent != null) (popup.Parent as Panel).Children.Remove(popup);
-                AddLogicalChild(popup);
-                Binding binding = new Binding("IsOpen");
-                binding.Mode = BindingMode.TwoWay;
-                binding.Source = this;
-                popup.SetBinding(Popup.IsOpenProperty, binding);
             }
         }
 

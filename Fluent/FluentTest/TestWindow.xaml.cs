@@ -99,8 +99,8 @@ namespace FluentTest
 
         private bool canEx = true;
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
-        {            
-            e.CanExecute = canEx;
+        {
+            e.CanExecute = true;// canEx;
         }
 
         private void OnSomeTestClick(object sender, RoutedEventArgs e)

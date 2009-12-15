@@ -16,7 +16,8 @@ namespace Fluent
     /// <summary>
     /// Represents popup. This popup has Microsoft Office behavior
     /// </summary>
-    public class RibbonPopup:Popup, IDisposable
+    [SuppressMessage("Microsoft.Design", "CA1049")]
+    public class RibbonPopup:Popup
     {
         #region Fields
 
@@ -38,7 +39,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether next deactivate should be skipped
         /// </summary>
-        private bool IgnoreNextDeactivate
+        internal bool IgnoreNextDeactivate
         {
             get { return ignoreNextDeactivate; }
             set
@@ -61,14 +62,6 @@ namespace Fluent
         public RibbonPopup()
         {
             IgnoreNextDeactivate = false;            
-        }
-
-        /// <summary>
-        /// Finalizer
-        /// </summary>
-        ~RibbonPopup()
-        {
-            Dispose(false);
         }
 
         #endregion
@@ -94,7 +87,7 @@ namespace Fluent
             // Backup previous active window and set popup's window as active
             previousActiveWindowHwnd = NativeMethods.GetActiveWindow();
             previousFocusedElement = Keyboard.FocusedElement;
-            NativeMethods.SetActiveWindow(hwndSource.Handle);
+            Activate();
         }
         
         /// <summary>
@@ -176,6 +169,11 @@ namespace Fluent
 
         #region Private methods
 
+        internal void Activate()
+        {
+            if(hwndSource!=null)NativeMethods.SetActiveWindow(hwndSource.Handle);
+        }
+
         /// <summary>
         /// Find parent popup
         /// </summary>
@@ -244,7 +242,7 @@ namespace Fluent
                         {
                             if (ParentPopup == null)
                             {
-                                IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                                IntPtr parentHwnd = previousActiveWindowHwnd;// (new WindowInteropHelper(Window.GetWindow(this))).Handle;
                                 NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);                                
                             }
                         }
@@ -255,7 +253,7 @@ namespace Fluent
                     {
                         if (ParentPopup == null)
                         {
-                            IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                            IntPtr parentHwnd = previousActiveWindowHwnd;// (new WindowInteropHelper(Window.GetWindow(this))).Handle;
                             NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
                             handled = true;
                         }
@@ -266,32 +264,6 @@ namespace Fluent
         }
 
         
-
-        #endregion
-
-        #region Implementation of IDisposable
-
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        /// <param name="value">Clean up both managed and native resources or only native resources</param>
-        protected virtual void Dispose(bool value)
-        {
-            if ((hwndSource != null) && (!hwndSource.IsDisposed))
-            {
-                hwndSource.RemoveHook(WindowProc);
-                hwndSource = null;
-            }            
-        }
-        
-        /// <summary>
-        /// Disposes
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);            
-        }
 
         #endregion
     }
