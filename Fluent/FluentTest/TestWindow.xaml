@@ -91,13 +91,11 @@
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="A" x:Name="A" Style="{DynamicResource RibbonGroupBoxStyle}" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala1</Fluent:ToggleButton>
           <Fluent:ToggleButton Style="{DynamicResource RibbonToggleButtonStyle}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png">Lala2</Fluent:ToggleButton>
-          <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton">
+          <Fluent:DropDownButton Text="Lala" Style="{DynamicResource RibbonDropDownButtonStyle}" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Both">
             <Fluent:DropDownButton.Items>
-
                     <Button  Fluent:KeyTip.Keys="W" Width="75" Height="25" Focusable="False" x:Name="testButton" Click="OnTestClick">Lala</Button>
                     <TextBox Width="75" Height="25"></TextBox>
             </Fluent:DropDownButton.Items>
-
             <Fluent:DropDownButton.ToolTip>
               <Fluent:ScreenTip
                   Title="Insert Chart"
@@ -186,8 +184,13 @@
     </Fluent:Ribbon>
     <Button HorizontalAlignment="Left" Margin="33,0,0,18" VerticalAlignment="Bottom" Width="118" Height="80" Content="Button" Click="OnSomeTestClick">
       <Button.ContextMenu>
-        <Fluent:ContextMenu>
-          <Fluent:MenuItem Text="Lala" Style="{DynamicResource ContentMenuItemStyle}"/>
+        <Fluent:ContextMenu ResizeMode="Vertical">
+          <Fluent:MenuItem Text="Lala" Style="{DynamicResource ContentMenuItemStyle}">
+            <Fluent:MenuItem Text="Lala5" Style="{DynamicResource ContentMenuItemStyle}"/>
+            <Fluent:MenuItem Text="Lala6" Style="{DynamicResource ContentMenuItemStyle}"/>
+            <Fluent:MenuItem Text="Lala7" Style="{DynamicResource ContentMenuItemStyle}"/>
+            <Fluent:MenuItem Text="Lala8" Style="{DynamicResource ContentMenuItemStyle}"/>
+          </Fluent:MenuItem>
           <Fluent:MenuItem Text="Lala1" Style="{DynamicResource ContentMenuItemStyle}"/>
           <Fluent:MenuItem Text="Lala2" Style="{DynamicResource ContentMenuItemStyle}"/>
         </Fluent:ContextMenu>

@@ -16,9 +16,29 @@ using System.Windows.Threading;
 namespace Fluent
 {
     /// <summary>
+    /// Represents context menu resize mode
+    /// </summary>
+    public enum ContextMenuResizeMode
+    {
+        /// <summary>
+        /// Contet menu can`t resize
+        /// </summary>
+        None=0,
+        /// <summary>
+        /// Context menu can only resize vertical
+        /// </summary>
+        Vertical,
+        /// <summary>
+        /// Context menu can only vertical and horizontal
+        /// </summary>
+        Both
+    }
+    /// <summary>
     /// Represents a pop-up menu that enables a control 
     /// to expose functionality that is specific to the context of the control
     /// </summary>
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     public class ContextMenu : System.Windows.Controls.ContextMenu
     {
         #region Fields
@@ -28,9 +48,34 @@ namespace Fluent
         // Initializing flag to prevent context menu closing while initializing
         private bool isInInitializing;
 
+        // Thumb to resize in both directions
+        private Thumb resizeBothThumb;
+        // Thumb to resize vertical
+        private Thumb resizeVerticalThumb;
+
         #endregion
 
         #region Properties        
+
+        internal RibbonPopup RibbonPopup
+        {
+            get { return popup;}
+        }
+
+        /// <summary>
+        /// Gets or sets context menu resize mode
+        /// </summary>
+        public ContextMenuResizeMode ResizeMode
+        {
+            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
+            set { SetValue(ResizeModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ResizeModeProperty =
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ContextMenu), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -57,9 +102,77 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new RibbonTabItem();
+        }
+
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or 
+        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            if(resizeVerticalThumb!=null)
+            {
+                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+            }
+            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
+            }
+
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+            }
+            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta += OnResizeBothDelta;
+            }
+        }
+
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonUp(e);
+            IsOpen = false;
+            e.Handled = true;
+        }
+
         #endregion
 
         #region Private methods
+
+        // Handles resize both drag
+        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
+        {
+            if (double.IsNaN(Width)) Width = ActualWidth;
+            if (double.IsNaN(Height)) Height = ActualHeight;
+            Width = Math.Max(0, Width + e.HorizontalChange);
+            Height = Math.Max(0, Height + e.VerticalChange);
+        }
+        // Handles resize vertical drag
+        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
+        {
+            if (double.IsNaN(Height)) Height = ActualHeight;
+            Height = Math.Max(0, Height + e.VerticalChange);
+        }
 
         // Coerce IsOpen property
         private static object CoerceIsOpen(DependencyObject d, object basevalue)
@@ -108,6 +221,7 @@ namespace Fluent
                     Invoke(VisualTreeHelper.GetParent(this), new object[] { this });
             }
             catch(TargetException){}
+            catch (TargetInvocationException) { }
             // Create new ribbon popup
             popup = new RibbonPopup();            
             this.popup.AllowsTransparency = true;

@@ -89,8 +89,6 @@ namespace Fluent
         {
             get
             {
-                /*ArrayList list = new ArrayList();
-                list.Add(PopupContent);*/
                 return items.GetEnumerator();
             }
         }
@@ -148,6 +146,22 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// Gets or sets context menu resize mode
+        /// </summary>
+        public ContextMenuResizeMode MenuResizeMode
+        {
+            get { return (ContextMenuResizeMode)GetValue(MenuResizeModeProperty); }
+            set { SetValue(MenuResizeModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MenuResizeModeProperty =
+            DependencyProperty.Register("MenuResizeMode", typeof(ContextMenuResizeMode), typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
+
+
         #endregion
 
         #region Initialize
@@ -168,14 +182,7 @@ namespace Fluent
         /// Default constructor
         /// </summary>
         public DropDownButton()
-        {
-            contextMenu = new ContextMenu();
-            Binding binding = new Binding("IsOpen");
-            binding.Mode = BindingMode.TwoWay;
-            binding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
-            contextMenu.PlacementTarget = this;
-            contextMenu.Placement = PlacementMode.Bottom;
+        {            
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
@@ -197,9 +204,9 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if ((contextMenu != null) && (!contextMenu.IsOpen))
+            if (!IsOpen)
             {
-                contextMenu.IsOpen = !contextMenu.IsOpen; 
+                IsOpen = !IsOpen; 
                
                 e.Handled = true;
             }
@@ -218,6 +225,11 @@ namespace Fluent
         {
             DropDownButton ribbon = (DropDownButton)d;
 
+            if (ribbon.contextMenu == null)
+            {
+                ribbon.CreateMenu();
+            }
+
             if (ribbon.IsOpen)
             {                
                 ribbon.IsHitTestVisible = false;
@@ -226,6 +238,32 @@ namespace Fluent
             {
                 ribbon.IsHitTestVisible = true;
             }
+        }
+
+        // Creates context menu
+        private void CreateMenu()
+        {
+            contextMenu = new ContextMenu();
+            foreach (UIElement item in Items)
+            {
+                contextMenu.Items.Add(item);
+            }
+            contextMenu.IsOpen = true;
+
+            Binding binding = new Binding("IsOpen");
+            binding.Mode = BindingMode.TwoWay;
+            binding.Source = this;
+            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
+
+            Binding resizeModeBinding = new Binding("MenuResizeMode");
+            resizeModeBinding.Mode = BindingMode.OneWay;
+            resizeModeBinding.Source = this;
+            contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
+
+            contextMenu.PlacementTarget = this;
+            contextMenu.Placement = PlacementMode.Bottom;
+
+            AddLogicalChild(contextMenu.RibbonPopup);
         }
 
         #endregion

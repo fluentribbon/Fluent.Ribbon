@@ -28,20 +28,105 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
     
-	<Style x:Key="ContextPopupMenuStyle" TargetType="{x:Type Menu}">
+	<Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}">
 		<Setter Property="Template" Value="{DynamicResource ContextPopupMenuControlTemplate}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+		<Setter Property="MinWidth" Value="120"/>
 	</Style>
-	<ControlTemplate x:Key="ContextPopupMenuControlTemplate" TargetType="{x:Type Menu}">
-		<Border SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1">
-			<Grid Width="Auto" Height="Auto">
-				<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="25,1,0,1" Width="1" Height="Auto" Data="M119.5,65.5 L113,121"/>
-				<StackPanel Margin="1" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height"/>
-				<Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
-			</Grid>
-		</Border>
+	<ControlTemplate x:Key="ContextPopupMenuControlTemplate" TargetType="{x:Type Fluent:ContextMenu}">
+		<Grid Height="Auto">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="10"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="10"/>
+			</Grid.ColumnDefinitions>
+			<Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="11" Height="11" Grid.Row="1" Grid.Column="1" StrokeThickness="0" Margin="-1,-1,0,0">
+				<Rectangle.Fill>
+					<RadialGradientBrush RadiusX="0.984" Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusY="1">
+						<GradientStop Color="#3F000000" Offset="0"/>
+						<GradientStop Color="#00000000" Offset="1"/>
+					</RadialGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,10,0,0" VerticalAlignment="Top" Width="11" Height="11" Grid.Column="1" Grid.Row="0">
+				<Rectangle.Fill>
+					<RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
+						<GradientStop Color="#3F000000" Offset="0"/>
+						<GradientStop Color="#00000000" Offset="1"/>
+					</RadialGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="10,-1,0,0" VerticalAlignment="Top" Width="11" Height="11" Grid.Column="0" Grid.Row="1">
+				<Rectangle.Fill>
+					<RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
+						<GradientStop Color="#3F000000" Offset="0"/>
+						<GradientStop Color="#00000000" Offset="1"/>
+					</RadialGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Rectangle StrokeThickness="0" HorizontalAlignment="Stretch" Margin="21,-1,1,0" VerticalAlignment="Top" Width="Auto" Height="11" Grid.Column="0" Grid.Row="1">
+				<Rectangle.Fill>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
+						<GradientStop Color="#3F000000" Offset="0"/>
+						<GradientStop Color="#00000000" Offset="1"/>
+					</LinearGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,21,0,1" VerticalAlignment="Stretch" Width="11" Height="Auto" Grid.Column="1" Grid.Row="0">
+				<Rectangle.Fill>
+					<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox">
+						<GradientStop Color="#3F000000" Offset="0"/>
+						<GradientStop Color="#00000000" Offset="1"/>
+					</LinearGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Border SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height">
+				<Grid Width="Auto" Height="Auto">
+					<Grid Margin="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+						<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M119.5,65.5 L113,121" Grid.RowSpan="2"/>
+						<StackPanel Margin="0" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height" Grid.RowSpan="1"/>
+						<Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="#FFDDE7EE" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1">
+							<Border.Background>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="White" Offset="0"/>
+									<GradientStop Color="#FFD8DBDF" Offset="1"/>
+									<GradientStop Color="#FFF2F4F5" Offset="0.529"/>
+								</LinearGradientBrush>
+							</Border.Background>
+							<Grid>
+								<Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
+								<Thumb x:Name="PART_ResizeBothThumb" HorizontalAlignment="Right" Margin="0,0,0,-90" Width="10" Height="10" VerticalAlignment="Top" Cursor="SizeNWSE" Template="{DynamicResource ResizeBothThumbControlTemplate}"/>
+							</Grid>
+						</Border>
+					</Grid>
+					<Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+				</Grid>
+			</Border>
+		</Grid>
+		<ControlTemplate.Triggers>
+			<Trigger Property="ResizeMode" Value="None">
+				<Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
+			</Trigger>
+			<Trigger Property="ResizeMode" Value="Both">
+				<Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Collapsed"/>
+        <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
+        <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+			</Trigger>
+			<Trigger Property="ResizeMode" Value="Vertical">
+				<Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
+        <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
+        <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+			</Trigger>
+		</ControlTemplate.Triggers>
 	</ControlTemplate>
 	<Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
 		<Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
@@ -59,6 +144,38 @@
 	<ControlTemplate x:Key="MenuGroupSeparatorControlTemplate" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
 		<Grid Height="21" Background="#FFF0F2F5">
 			<TextBlock Margin="7,0" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+		</Grid>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ResizeBothThumbControlTemplate" TargetType="{x:Type Thumb}">
+		<Grid Background="#00000000">
+			<Rectangle Fill="White" StrokeThickness="0" Width="2" Height="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,2,1"/>
+			<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,2,5" VerticalAlignment="Bottom" Width="2" Height="2"/>
+			<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,6,1" VerticalAlignment="Bottom" Width="2" Height="2"/>
+			<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,3,2" VerticalAlignment="Bottom" Width="2" Height="2"/>
+			<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,3,6" VerticalAlignment="Bottom" Width="2" Height="2"/>
+			<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Right" Margin="0,0,7,2" VerticalAlignment="Bottom" Width="2" Height="2"/>
+		</Grid>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ResizeVerticalThumbControlTemplate" TargetType="{x:Type Thumb}">
+		<Grid Background="#00000000">
+			<StackPanel Margin="0,1,0,0" Orientation="Horizontal" d:LayoutOverrides="Height" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Grid HorizontalAlignment="Left" Margin="1,0,0,0" Width="Auto" Height="Auto">
+					<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="2" Height="2"/>
+					<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Center" Margin="0,0,1,1" VerticalAlignment="Center" Width="2" Height="2"/>
+				</Grid>
+				<Grid HorizontalAlignment="Left" Margin="1,0,0,0" Width="Auto" Height="Auto">
+					<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="2" Height="2"/>
+					<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Center" Margin="0,0,1,1" VerticalAlignment="Center" Width="2" Height="2"/>
+				</Grid>
+				<Grid HorizontalAlignment="Left" Margin="1,0,0,0" Width="Auto" Height="Auto">
+					<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="2" Height="2"/>
+					<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Center" Margin="0,0,1,1" VerticalAlignment="Center" Width="2" Height="2"/>
+				</Grid>
+				<Grid HorizontalAlignment="Left" Margin="1,0,0,0" Width="Auto" Height="Auto">
+					<Rectangle Fill="White" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="2" Height="2"/>
+					<Rectangle Fill="#FFB5BEC7" StrokeThickness="0" HorizontalAlignment="Center" Margin="0,0,1,1" VerticalAlignment="Center" Width="2" Height="2"/>
+				</Grid>
+			</StackPanel>
 		</Grid>
 	</ControlTemplate>
     
