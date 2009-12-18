@@ -250,10 +250,26 @@ namespace Fluent
             }
         }
 
+        private RibbonPopup FindParentPopup()
+        {
+            UIElement element = this.Parent as UIElement;
+            while (element != null)
+            {
+                RibbonPopup ribbonPopup = element as RibbonPopup;
+                if (ribbonPopup != null) return ribbonPopup;
+                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element);
+                if (parent != null) element = parent;
+                else element = (UIElement)LogicalTreeHelper.GetParent(element);
+            }
+            return null;
+        }
+
         // Creates context menu
         private void CreateMenu()
         {
             isInitializing = true;
+            RibbonPopup parentPopup = FindParentPopup();
+            if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
@@ -278,6 +294,11 @@ namespace Fluent
             isInitializing = false;
             IsOpen = true;
             Mouse.Capture(contextMenu.RibbonPopup);
+            if (parentPopup != null)
+            {
+                parentPopup.IgnoreNextDeactivate = false;
+                if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
+            }
             contextMenu.IsOpen = true;
         }
 

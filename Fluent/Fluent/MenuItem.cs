@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -141,7 +142,7 @@ namespace Fluent
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             MenuItem menu = d as MenuItem;
-            if(d!=null)
+            if(menu!=null)
             {
                 if(menu.contextMenu==null) menu.CreateMenu();
             }
@@ -232,6 +233,8 @@ namespace Fluent
         // Creates context menu
         private void CreateMenu()
         {
+            RibbonPopup parentPopup= FindParentPopup();
+            if(parentPopup!=null) parentPopup.IgnoreNextDeactivate = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
@@ -252,6 +255,11 @@ namespace Fluent
             contextMenu.Placement = PlacementMode.Right;
 
             AddLogicalChild(contextMenu.RibbonPopup);
+            if (parentPopup != null)
+            {
+                parentPopup.IgnoreNextDeactivate = false;
+                if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
+            }
         }
 
         #endregion

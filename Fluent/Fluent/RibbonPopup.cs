@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -44,7 +45,8 @@ namespace Fluent
             get { return ignoreNextDeactivate; }
             set
             {
-                ignoreNextDeactivate = value;                
+                ignoreNextDeactivate = value;  
+                Debug.WriteLine("IgnoreNextDeactiovate is "+value);
             }
         }
         /// <summary>
@@ -61,7 +63,7 @@ namespace Fluent
         /// </summary>
         public RibbonPopup()
         {
-            IgnoreNextDeactivate = false;            
+            //IgnoreNextDeactivate = false;            
         }
 
         #endregion
