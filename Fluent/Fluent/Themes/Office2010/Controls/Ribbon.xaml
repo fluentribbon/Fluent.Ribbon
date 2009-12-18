@@ -23,7 +23,7 @@
     					<BlurEffect Radius="10"/>
     				</Rectangle.Effect>
     			</Rectangle>
-    			<TextBlock x:Name="textBlock" Margin="0,3,0,0" VerticalAlignment="Center" TextWrapping="Wrap" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black"/>
+    			<TextBlock x:Name="textBlock" Margin="0,3,0,0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
     		</Grid>
 				</Fluent:RibbonTitleBar.Header>
     			
