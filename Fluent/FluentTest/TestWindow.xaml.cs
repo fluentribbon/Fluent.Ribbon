@@ -26,7 +26,13 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
-           ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+           
+            Loaded += delegate
+            {
+                tabGroup1.Visibility = System.Windows.Visibility.Visible;
+                tabGroup2.Visibility = System.Windows.Visibility.Visible;
+            };
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {

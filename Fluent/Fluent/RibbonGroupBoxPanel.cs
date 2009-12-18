@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Fluent
 {
-    class RibbonGroupBoxPanel
+    /*class RibbonGroupBoxPanel
     {
-    }
+    }*/
 }

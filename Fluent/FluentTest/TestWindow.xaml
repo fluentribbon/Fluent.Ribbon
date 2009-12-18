@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Window1" Height="345" Width="1280" mc:Ignorable="d" Style="{StaticResource RibbonWindowStyle}">
+    Title="Fluent Ribbon Control Suite CTP1" Height="345" Width="1000" mc:Ignorable="d" Style="{StaticResource RibbonWindowStyle}">
   <Fluent:RibbonWindow.Resources>
 		<LinearGradientBrush x:Key="SeparatorBrush" EndPoint="0.5,1" StartPoint="0.5,0">
 			<GradientStop Color="#FFBFC3C7" Offset="0.659"/>
@@ -107,9 +107,9 @@
 				</ComboBox>
 				<Fluent:Button Icon="Images\GrowFont.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
 				<Fluent:Button Icon="Images\ShrinkFont.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
+        <Line X1="0" Y1="0" X2="0" Y2="22" Width="0.3" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
         <Fluent:DropDownButton Icon="Images\ChangeCase.png" Style="{DynamicResource RibbonDropDownButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
+        <Line X1="0" Y1="0" X2="0" Y2="22" Width="0.3" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
         <Fluent:Button Icon="Images\ClearFormatting.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
 				<Fluent:Button Icon="Images\Bold.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button Icon="Images\Italic.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
@@ -117,7 +117,7 @@
         <Fluent:Button Icon="Images\Strikethrough.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button Icon="Images\Subscript.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button Icon="Images\Superscript.png" Style="{DynamicResource RibbonButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
+        <Line X1="0" Y1="0" X2="0" Y2="22" Width="0.3" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
 		    <Fluent:DropDownButton Icon="Images\TextEffects.png" Style="{DynamicResource RibbonDropDownButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton Icon="Images\TextHighlightColor.png" Style="{DynamicResource RibbonDropDownButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton Icon="Images\FontColor.png" Style="{DynamicResource RibbonDropDownButtonStyle}"  HorizontalAlignment="Left" SizeDefinition="Small"/>
@@ -239,17 +239,7 @@
         </Fluent:ContextMenu>
       </Button.ContextMenu>
     </Button>
-    <Border HorizontalAlignment="Left" Margin="256,204,0,0" VerticalAlignment="Top" BorderThickness="1" BorderBrush="Black" Height="73">
-    	<Fluent:RibbonToolBarTray HorizontalAlignment="Left">
-    		<TextBox Text="Te" VerticalAlignment="Top" MinWidth="23" MinHeight="16" MaxLines="1" Height="16"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="1"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="2"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="3"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="4"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="5"/>
-    		<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Content="6"/>
-    	</Fluent:RibbonToolBarTray>
-    </Border>
+   
   </Grid>
 
 </Fluent:RibbonWindow>

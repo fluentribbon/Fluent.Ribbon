@@ -26,6 +26,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets order of elements in condensed state
+        /// (for example, 0,1,2;3,4;5,6)
         /// </summary>
         public string CondensedOrder
         {
@@ -65,6 +66,7 @@ namespace Fluent
 
         #region IsCondensed
 
+        // TODO: add behavior to toolbar tray corresponds current size of the ribbon groupbox
 
         /// <summary>
         /// Gets or sets whether the tray is condensed state 
@@ -137,6 +139,8 @@ namespace Fluent
                         // Break to next row
                         x = 0;
 
+                        // If the current row has a stretchable control 
+                        // we split before the current control to make the next row larger
                         if (hasStretchable)
                         {
                             hasStretchable = false;
@@ -174,7 +178,7 @@ namespace Fluent
             {
                 double maxWidth;
                 double[] widths;
-                CalculateCondensedWidths(out maxWidth, out widths);
+                CalculateCondensedWidths(condensedOrder, out maxWidth, out widths);
                 return new Size(maxWidth, Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height);
             }
             else
@@ -219,13 +223,12 @@ namespace Fluent
         {
             if (Children.Count == 0) return finalSize;
             
-
             return IsCondensed ? 
                 ArrangeCondensed(condensedOrder, finalSize) : 
                 ArrangeUncondensed(finalSize);
         }
 
-        int[] MakeArray(int from, int to)
+        static int[] MakeArray(int from, int to)
         {
             int[] array = new int[to - from + 1];
             for (int i = from; i <= to; i++)
@@ -282,9 +285,9 @@ namespace Fluent
             return finalSize;
         }
 
-        private void FindWhereWeCanSplitUncondensed(out int breakIndex, out double firstPartWidth, out double maxWidth)
+        // Calculates where we can split and widths
+        void FindWhereWeCanSplitUncondensed(out int breakIndex, out double firstPartWidth, out double maxWidth)
         {
-            double childrenHeight = Children[0].DesiredSize.Height;
             double totalWidth = GetChildrenWidth();
             double threshold = totalWidth / 2.0;
 
@@ -318,50 +321,23 @@ namespace Fluent
             maxWidth = Math.Max(firstPartWidth, totalWidth - firstPartWidth);
         }
 
-        /*Size MeasureCondensed(int[][] condensedOrder, Size availableSize)
-        {
-            if (Children.Count == 0) return new Size(0,0);
-
-            // Calculate max width
-            double maxWidth = 0;
-            double[] widths = new double[3];
-            for (int i = 0; i < 3; i++)
-            {
-                // Calculate max width
-                double width = 0;
-                for (int j = 0; j < condensedOrder[i].Length; j++)
-                {
-                    width += Children[condensedOrder[i][j]].DesiredSize.Width;
-                }
-                widths[i] = width;
-                maxWidth = Math.Max(maxWidth, width);
-            }
-
-            // Remeasure stretchable                     
-            for (int i = 0; i < 3; i++)
-            {                
-                for (int j = 0; j < condensedOrder[i].Length; j++)
-                {
-                    FrameworkElement element = Children[condensedOrder[i][j]] as FrameworkElement;                   
-                    if (element.HorizontalAlignment == HorizontalAlignment.Stretch)
-                    {                        
-                        double width = maxWidth - widths[i] + element.DesiredSize.Width;
-                        element.Measure(new Size(width, element.DesiredSize.Height));                        
-                    }
-                }
-            }
-
-            return new Size(maxWidth, Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height);
-        }*/
-
-        Size ArrangeCondensed(int[][] condensedOrder, Size finalSize)
+        // Arranges children using the given condensedOrder
+        Size ArrangeCondensed(int[][] order, Size finalSize)
         {
             if (Children.Count == 0) return finalSize;
             double childrenHeight = Children[0].DesiredSize.Height;
 
             double maxWidth;
             double[] widths;
-            CalculateCondensedWidths(out maxWidth, out widths);
+            CalculateCondensedWidths(order, out maxWidth, out widths);
+
+            // Removes skipped items
+            if (order[0].Length + order[1].Length + order[2].Length < Children.Count)
+            {
+                // TODO: fix this dirty way to hide skipped controls in toolbar tray
+                Rect empty = new Rect(-10000, -10000, 0.01, 0.01);
+                foreach (UIElement item in Children) item.Arrange(empty);
+            }
 
             // Arranging            
             double space = (finalSize.Height - (childrenHeight * 3.0)) / 4.0;
@@ -370,12 +346,15 @@ namespace Fluent
             {
                 double x = 0;
                 bool stillSeekStretching = true;
-                for (int j = 0; j < condensedOrder[i].Length; j++)
+                for (int j = 0; j < order[i].Length; j++)
                 {            
-                    FrameworkElement element = Children[condensedOrder[i][j]] as FrameworkElement;
+                    FrameworkElement element = Children[order[i][j]] as FrameworkElement;
                     if (element == null) continue;
                     if (stillSeekStretching && element.HorizontalAlignment == HorizontalAlignment.Stretch)
                     {
+                        // We have found a stretchable item. 
+                        // Let the stretchable item take all 
+                        // available space in the current row
                         stillSeekStretching = false;
                         double w = maxWidth - widths[i] + element.DesiredSize.Width;
                         element.Arrange(new Rect(x, y, w, childrenHeight));
@@ -393,7 +372,7 @@ namespace Fluent
             return new Size(maxWidth, finalSize.Height);
         }
 
-        private void CalculateCondensedWidths(out double maxWidth, out double[] widths)
+        void CalculateCondensedWidths(int[][] order, out double maxWidth, out double[] widths)
         {
             // Calculate max width
             maxWidth = 0;
@@ -402,9 +381,9 @@ namespace Fluent
             {
                 // Calculate max width
                 double width = 0;
-                for (int j = 0; j < condensedOrder[i].Length; j++)
+                for (int j = 0; j < order[i].Length; j++)
                 {
-                    width += Children[condensedOrder[i][j]].DesiredSize.Width;
+                    width += Children[order[i][j]].DesiredSize.Width;
                 }
                 widths[i] = width;
                 maxWidth = Math.Max(maxWidth, width);

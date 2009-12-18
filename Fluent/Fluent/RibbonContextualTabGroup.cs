@@ -105,6 +105,7 @@ namespace Fluent
         {
             RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
             for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
+            // TODO: Fix: crashes if set Visibility = "Visible" in XAML
             (group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
