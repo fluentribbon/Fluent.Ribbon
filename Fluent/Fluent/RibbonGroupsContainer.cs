@@ -172,7 +172,21 @@ namespace Fluent
         {
             RibbonGroupBox groupBox = FindGroup(name);
             if (groupBox == null) return;
-            if(groupBox.State != RibbonGroupBoxState.Large) groupBox.State = groupBox.State - 1;
+            if (groupBox.State != RibbonGroupBoxState.Large)
+            {
+                groupBox.State = groupBox.State - 1;
+                InvalidateMeasureRecursive(groupBox);
+            }
+        }
+
+        void InvalidateMeasureRecursive(UIElement element)
+        {
+            if (element == null) return;
+            element.InvalidateMeasure();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                InvalidateMeasureRecursive(VisualTreeHelper.GetChild(element, i) as UIElement);
+            }
         }
 
         // Decrease size of the item
@@ -180,7 +194,11 @@ namespace Fluent
         {
             RibbonGroupBox groupBox = FindGroup(name);
             if (groupBox == null) return;
-            if(groupBox.State != RibbonGroupBoxState.Collapsed) groupBox.State = groupBox.State + 1;
+            if (groupBox.State != RibbonGroupBoxState.Collapsed)
+            {
+                groupBox.State = groupBox.State + 1;
+                InvalidateMeasureRecursive(groupBox);
+            }
         }
 
         private RibbonGroupBox FindGroup(string name)

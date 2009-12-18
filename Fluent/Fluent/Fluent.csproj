@@ -82,6 +82,8 @@
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="RibbonGroupBoxPanel.cs" />
+    <Compile Include="RibbonToolBarTray.cs" />
     <Compile Include="TwoLineLabel.cs" />
     <Compile Include="RibbonPopup.cs">
       <SubType>Code</SubType>

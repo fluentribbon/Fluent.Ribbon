@@ -100,8 +100,22 @@ namespace Fluent
         {                            
             for (int i = 0; i < ribbonGroupBox.Items.Count; i++)
             {
-                RibbonControl.SetAppropriateSize((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
-            }            
+                SetAppropriateSizeRecursive((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
+                //RibbonControl.SetAppropriateSize((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
+            }
+        }
+
+        static void SetAppropriateSizeRecursive(UIElement root, RibbonGroupBoxState ribbonGroupBoxState)
+        {
+            if (root == null) return;
+            if (root is RibbonControl) RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
+            if (root is RibbonToolBarTray) ((RibbonToolBarTray)root).IsCondensed = !(ribbonGroupBoxState == RibbonGroupBoxState.Collapsed || ribbonGroupBoxState == RibbonGroupBoxState.Large);
+
+            int childrenCount = VisualTreeHelper.GetChildrenCount(root);
+            for (int i = 0; i < childrenCount; i++)
+            {
+                SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root,i) as UIElement, ribbonGroupBoxState);
+            }
         }
 
         #endregion

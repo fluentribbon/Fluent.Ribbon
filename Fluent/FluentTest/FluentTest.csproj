@@ -121,6 +121,21 @@
     <Resource Include="Images\Copy.png" />
     <Resource Include="Images\FormatPainter.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bold.png" />
+    <Resource Include="Images\ChangeCase.png" />
+    <Resource Include="Images\ClearFormatting.png" />
+    <Resource Include="Images\FontColor.png" />
+    <Resource Include="Images\GrowFont.png" />
+    <Resource Include="Images\Italic.png" />
+    <Resource Include="Images\ShrinkFont.png" />
+    <Resource Include="Images\Strikethrough.png" />
+    <Resource Include="Images\Subscript.png" />
+    <Resource Include="Images\Superscript.png" />
+    <Resource Include="Images\TextEffects.png" />
+    <Resource Include="Images\TextHighlightColor.png" />
+    <Resource Include="Images\Underline.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

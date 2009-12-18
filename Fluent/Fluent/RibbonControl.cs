@@ -56,12 +56,13 @@ namespace Fluent
               OnSizePropertyChanged)
         );
 
-        ///     When the ControlSizeDefinition property changes we need to invalidate the parent chain measure so that
-        ///     the RibbonGroupsContainer can calculate the new size within the same MeasureOverride call.  This property
-        ///     usually changes from RibbonGroupsContainer.MeasureOverride.
+        // When the ControlSizeDefinition property changes we need to invalidate 
+        // the parent chain measure so that the RibbonGroupsContainer can calculate 
+        // the new size within the same MeasureOverride call.  This property
+        // usually changes from RibbonGroupsContainer.MeasureOverride.
         private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Visual visual = d as Visual;
+            /*Visual visual = d as Visual;
             while (visual != null)
             {
                 UIElement uiElement = visual as UIElement;
@@ -76,7 +77,7 @@ namespace Fluent
                 }
 
                 visual = VisualTreeHelper.GetParent(visual) as Visual;
-            }
+            }*/
         }
 
         /// <summary>
