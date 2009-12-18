@@ -81,9 +81,11 @@
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
+    <Compile Include="MenuPanel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="RibbonGroupBoxPanel.cs" />
     <Compile Include="RibbonToolBarTray.cs" />
+    <Compile Include="RibbonWindow.cs" />
     <Compile Include="TwoLineLabel.cs" />
     <Compile Include="RibbonPopup.cs">
       <SubType>Code</SubType>
@@ -205,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Office2010\RibbonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Office2010\Fonts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,6 +257,13 @@
   <ItemGroup>
     <Resource Include="Themes\Office2010\Images\RibbonCollapse.png" />
     <Resource Include="Themes\Office2010\Images\RibbonExpand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\CaptionButtonClose.png" />
+    <Resource Include="Themes\Office2010\Images\CaptionButtonMaximize.png" />
+    <Resource Include="Themes\Office2010\Images\CaptionButtonMinimize.png" />
+    <Resource Include="Themes\Office2010\Images\CaptionButtonNormalize.png" />
+    <Resource Include="Themes\Office2010\Images\ResizeGrip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

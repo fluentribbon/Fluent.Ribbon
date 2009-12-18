@@ -9,7 +9,7 @@
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate" TargetType="{x:Type Fluent:RibbonTitleBar}">
     	<Grid Height="25">
     		<ContentPresenter x:Name="PART_QuickAccessToolbarHolder" ContentSource="QuickAccessToolBar"/>
-    		<ContentPresenter x:Name="PART_HeaderHolder" ContentSource="Header" />
+    		<ContentPresenter x:Name="PART_HeaderHolder" ContentSource="Header" IsHitTestVisible="False" />
 			<Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer" IsItemsHost="True"/>
     	</Grid>
     </ControlTemplate>

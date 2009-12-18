@@ -21,7 +21,7 @@ namespace FluentTest
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class TestWindow : Window
+    public partial class TestWindow : RibbonWindow
     {
         public TestWindow()
         {

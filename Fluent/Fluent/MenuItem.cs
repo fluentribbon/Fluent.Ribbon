@@ -41,7 +41,8 @@ namespace Fluent
         {
             get
             {
-                return items.GetEnumerator();
+                if (items != null) return items.GetEnumerator();
+                else return (new ArrayList()).GetEnumerator();
             }
         }
 
@@ -115,7 +116,9 @@ namespace Fluent
             private set { SetValue(HasItemsProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for HasItems.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HasItems.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty HasItemsProperty =
             DependencyProperty.Register("HasItems", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
 
@@ -128,7 +131,9 @@ namespace Fluent
             set { SetValue(IsOpenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
             DependencyProperty.Register("IsOpen", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false,OnIsOpenChanged));
 
@@ -141,6 +146,22 @@ namespace Fluent
                 if(menu.contextMenu==null) menu.CreateMenu();
             }
         }
+
+        /// <summary>
+        /// Gets or sets context menu resize mode
+        /// </summary>
+        public ContextMenuResizeMode MenuResizeMode
+        {
+            get { return (ContextMenuResizeMode)GetValue(MenuResizeModeProperty); }
+            set { SetValue(MenuResizeModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MenuResizeModeProperty =
+            DependencyProperty.Register("MenuResizeMode", typeof(ContextMenuResizeMode), typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
+
 
         #endregion
 
@@ -221,6 +242,12 @@ namespace Fluent
             binding.Mode = BindingMode.TwoWay;
             binding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
+            
+            Binding resizeModeBinding = new Binding("MenuResizeMode");
+            resizeModeBinding.Mode = BindingMode.OneWay;
+            resizeModeBinding.Source = this;
+            contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
+
             contextMenu.PlacementTarget = this;
             contextMenu.Placement = PlacementMode.Right;
 

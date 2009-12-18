@@ -138,7 +138,7 @@
 				<RowDefinition Height="*"/>
 				<RowDefinition Height="16"/>
 			</Grid.RowDefinitions>
-			<Grid x:Name="hoverGrid" Background="{DynamicResource GroupHoverBrush}" HorizontalAlignment="Stretch" Margin="0,0,3,1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" ClipToBounds="True" Opacity="0" Grid.RowSpan="2">
+			<Grid x:Name="hoverGrid" Background="{DynamicResource GroupHoverBrush}" HorizontalAlignment="Stretch" Margin="0,0,1,1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" ClipToBounds="True" Opacity="0" Grid.RowSpan="2">
 				<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto">
 					<Rectangle.Fill>
 						<RadialGradientBrush Center="0.505,1" GradientOrigin="0.505,1">
@@ -148,7 +148,7 @@
 					</Rectangle.Fill>
 				</Rectangle>
 			</Grid>
-			<Grid x:Name="PART_DownGrid" Margin="0,0,3,0" Grid.Row="1">
+			<Grid x:Name="PART_DownGrid" Margin="0,0,4,0" Grid.Row="1">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>
@@ -156,7 +156,7 @@
 				<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
 				<Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}"/>
 			</Grid>
-			<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,5,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
+			<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,1,2,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
 			<Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
 		</Grid>
 		<ControlTemplate.Triggers>

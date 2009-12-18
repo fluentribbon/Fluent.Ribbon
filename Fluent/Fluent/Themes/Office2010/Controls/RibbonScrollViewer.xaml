@@ -13,7 +13,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Left" Width="8">
+                                      Focusable="false" HorizontalAlignment="Left" Width="8" Height="22" VerticalAlignment="Bottom">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -33,7 +33,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Right" Width="8">
+                                      Focusable="false" HorizontalAlignment="Right" Width="8" Height="22" VerticalAlignment="Bottom">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"

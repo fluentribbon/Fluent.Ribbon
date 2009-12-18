@@ -14,60 +14,7 @@
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="13">
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
         <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,3,0,0">
-          <Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-2,0,2,0"/>
-          <Fluent:RibbonPopup x:Name="PART_Popup" PlacementTarget="{Binding ElementName=border, Mode=OneWay}" AllowsTransparency="True" VerticalOffset="-1" HorizontalOffset="0">
-          	<Grid Width="Auto" Height="Auto" Margin="30,20">
-          		<Grid.ColumnDefinitions>
-          			<ColumnDefinition Width="*"/>
-          			<ColumnDefinition Width="5"/>
-          		</Grid.ColumnDefinitions>
-          		<Grid.RowDefinitions>
-          			<RowDefinition Height="*"/>
-          			<RowDefinition Height="5"/>
-          		</Grid.RowDefinitions>
-          		<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="11,-1,1,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
-          			<Rectangle.Fill>
-          				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-          					<GradientStop Color="#7F000000" Offset="0"/>
-          					<GradientStop Offset="1"/>
-          				</LinearGradientBrush>
-          			</Rectangle.Fill>
-          		</Rectangle>
-          		<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,11,0,1" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-          			<Rectangle.Fill>
-          				<LinearGradientBrush EndPoint="1.002,0" MappingMode="RelativeToBoundingBox">
-          					<GradientStop Color="#7F000000" Offset="0"/>
-          					<GradientStop Offset="1"/>
-          				</LinearGradientBrush>
-          			</Rectangle.Fill>
-          		</Rectangle>
-          		<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1">
-          			<Rectangle.Fill>
-          				<RadialGradientBrush Center="-0.003,0.011" GradientOrigin="-0.003,0.011" RadiusX="1.006" RadiusY="1">
-          					<GradientStop Color="#7F000000" Offset="0.002"/>
-          					<GradientStop Offset="1"/>
-          				</RadialGradientBrush>
-          			</Rectangle.Fill>
-          		</Rectangle>
-          		<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,5,0,0" VerticalAlignment="Top" Height="6" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-          			<Rectangle.Fill>
-          				<RadialGradientBrush Center="-0.01,1.004" GradientOrigin="-0.01,1.004" RadiusX="1.006" RadiusY="1">
-          					<GradientStop Color="#7F000000" Offset="0.002"/>
-          					<GradientStop Offset="1"/>
-          				</RadialGradientBrush>
-          			</Rectangle.Fill>
-          		</Rectangle>
-          		<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Left" Margin="5,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Width="6">
-          			<Rectangle.Fill>
-          				<RadialGradientBrush Center="1.003,-0.006" GradientOrigin="1.003,-0.006" RadiusX="1.006" RadiusY="1">
-          					<GradientStop Color="#7F000000" Offset="0.002"/>
-          					<GradientStop Offset="1"/>
-          				</RadialGradientBrush>
-          			</Rectangle.Fill>
-          		</Rectangle>
-          		
-          	</Grid>
-          </Fluent:RibbonPopup>
+          <Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-2,0,2,0"/>          
         </StackPanel>
       </Border>
     </Border>
@@ -129,19 +76,13 @@
 			
     				
 						
-              <Border x:Name="quickAccessMenu" SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1">
-                <Grid Width="Auto" Height="Auto">
-                  <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="25,1,0,1" Width="1" Height="Auto" Data="M119.5,65.5 L113,121"/>
-                  <StackPanel x:Name="quickAccessMenuu">
+              
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
                     <StackPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
                     <Fluent:MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Above the Ribbon" Visibility="Collapsed"/>
-                  </StackPanel>
-                  <Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
-                </Grid>
-              </Border>
+              
               
 							
 					
@@ -150,12 +91,12 @@
     		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png">
 			
 			  				
-    				<Border HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" BorderThickness="1" BorderBrush="#FFB6BABF" Background="#FFE9EDF1" Height="28">
+    				
     					<StackPanel Orientation="Horizontal" Background="{x:Null}" Width="Auto" Height="Auto" Margin="1">
     						<ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" IsEnabled="{TemplateBinding IsEnabled}"/>
-    						<ContentControl x:Name="popupContentControl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" Background="Red" Height="22" Focusable="False"/>
+    						<Label x:Name="popupContentControl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" Background="Red" Height="22" Focusable="False"/>
     					</StackPanel>
-    				</Border>
+    				
     			
     		</Fluent:DropDownButton>
     		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="Auto" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
@@ -171,9 +112,9 @@
     		</Trigger>
     		<Trigger Property="HasOverflowItems" Value="True">    			
     			<Setter Property="Visibility" TargetName="PART_ToolbarDownButton" Value="Visible"/>
-    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=PART_MenuDownButton, Mode=OneWay}"/>    			
-				<Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>    			
-    		</Trigger>
+    			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=PART_MenuDownButton, Mode=OneWay}"/>
+          <Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>
+        </Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

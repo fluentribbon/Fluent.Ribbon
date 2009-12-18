@@ -232,9 +232,12 @@ namespace Fluent
                     focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
                 }
                 focusedElement = (UIElement)Keyboard.FocusedElement;
-                focusedElement.LostFocus += OnFocusLost;
-                focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                if (focusedElement != null)
+                {
+                    focusedElement.LostFocus += OnFocusLost;
+                    focusedElement.PreviewKeyDown += OnPreviewKeyDown;
+                    focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                }
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
@@ -83,7 +84,8 @@ namespace Fluent
 
         /// <summary>
         /// Static constructor
-        /// </summary>
+        /// </summary>]
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ContextMenu()
         {
             IsOpenProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsOpenChanged,CoerceIsOpen));
@@ -148,6 +150,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp routed event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. The event data reports that the left mouse button was released.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonUp(e);

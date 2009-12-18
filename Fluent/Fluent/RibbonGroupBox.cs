@@ -311,10 +311,10 @@ namespace Fluent
         {
             if ((upPanel == null) || (downGrid == null)) return base.MeasureOverride(constraint);
             upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
-            double width = upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right;
+            double width = upPanel.DesiredSize.Width +upPanel.Margin.Left + upPanel.Margin.Right;
             Size size = new Size(width,constraint.Height);
             (upPanel.Parent as Grid).Measure(size);
-            return size;
+            return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);
         }
 
         #endregion

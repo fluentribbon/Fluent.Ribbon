@@ -26,7 +26,7 @@
 		<Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
 				<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical">
-					<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2"/>
+					<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
 					<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2"/>
 				</StackPanel>
 			</Border>
@@ -38,19 +38,20 @@
 				<Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
 				<Setter Property="Width" TargetName="iconImage" Value="16"/>
 				<Setter Property="Height" TargetName="iconImage" Value="16"/>
-				<Setter Property="Margin" TargetName="iconImage" Value="2"/>				
-				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>				
+				<Setter Property="Margin" TargetName="iconImage" Value="1,2,2,2"/>				
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+				<Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>				
 			</Trigger>
 			<Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
 				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
 				<Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
 				<Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
 				<Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-				<Setter Property="Margin" TargetName="controlLabel" Value="2,0,2,2"/>
+				<Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>
 				<Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
 				<Setter Property="Width" TargetName="iconImage" Value="16"/>
 				<Setter Property="Height" TargetName="iconImage" Value="16"/>
-				<Setter Property="Margin" TargetName="iconImage" Value="2"/>
+				<Setter Property="Margin" TargetName="iconImage" Value="1,2,2,2"/>
 				<Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Top"/>			
 				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>				
 			</Trigger>

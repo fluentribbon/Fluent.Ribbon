@@ -15,8 +15,18 @@
     			<RowDefinition Height="0.748*"/>
     			<RowDefinition Height="0.252*"/>
     		</Grid.RowDefinitions>
-    		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,111,0" Header="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" VerticalAlignment="Top">
-    			<Fluent:RibbonTitleBar HorizontalAlignment="Left"/>
+    		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,111,0" VerticalAlignment="Top">
+				<Fluent:RibbonTitleBar.Header>
+					<Grid>
+    			<Rectangle x:Name="rectangle" Fill="#7FFFFFFF" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-4,5,-4,3" Width="{Binding ActualWidth, ElementName=textBlock, Mode=Default}" Height="{Binding ActualHeight, ElementName=textBlock, Mode=Default}" RadiusX="2" RadiusY="2">
+    				<Rectangle.Effect>
+    					<BlurEffect Radius="10"/>
+    				</Rectangle.Effect>
+    			</Rectangle>
+    			<TextBlock x:Name="textBlock" Margin="0,3,0,0" VerticalAlignment="Center" TextWrapping="Wrap" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black"/>
+    		</Grid>
+				</Fluent:RibbonTitleBar.Header>
+    			
     		</Fluent:RibbonTitleBar>
     		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False"/>
     		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{DynamicResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}" Fluent:KeyTip.Keys="{TemplateBinding BackstageKeyTipKeys}"/>
@@ -27,12 +37,14 @@
     				</ContentControl>
     			</Border>
     		</Border>
+    		
     	</Grid>
     	<ControlTemplate.Triggers>
     		<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
     			<Setter Property="QuickAccessToolBar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}"/>
 				<Setter Property="Content" TargetName="contentControl" Value="{x:Null}"/>
 				<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+				<Setter Property="Margin" TargetName="PART_QuickAccessToolBar" Value="0,2,0,0"/>
     		</Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>

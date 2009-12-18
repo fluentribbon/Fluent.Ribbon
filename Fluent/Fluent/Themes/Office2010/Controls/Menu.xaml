@@ -11,14 +11,26 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="25"/>
 				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="2">
+			<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="3">
 				<Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
 			</Border>
-			<TextBlock Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,2" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width, Height"/>
+			<TextBlock x:Name="textBlock" Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,3,6,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width"/>
 			<Image HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}"/>
+			<Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="5,0,4,0" Width="4" Data="M0,0L1,1 0,2z" Height="6" Grid.Column="3">
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">
+						<GradientStop Color="Black" Offset="1"/>
+						<GradientStop Color="#FF828282"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
 		</Grid>
 		<ControlTemplate.Triggers>
+			<Trigger Property="HasItems" Value="False">
+				<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
+			</Trigger>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
 			</Trigger>
@@ -93,7 +105,7 @@
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
 						<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M119.5,65.5 L113,121" Grid.RowSpan="2"/>
-						<StackPanel Margin="0" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height" Grid.RowSpan="1"/>
+						<Fluent:MenuPanel Margin="0" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height" Grid.RowSpan="1"/>
 						<Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="#FFDDE7EE" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1">
 							<Border.Background>
 								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

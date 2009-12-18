@@ -31,6 +31,8 @@ namespace Fluent
         // Collection of toolbar items
         private ObservableCollection<UIElement> items;
 
+        private bool isInitializing;
+
         #endregion
 
         #region Properties
@@ -80,8 +82,15 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(false,OnIsOpenChanged));
-        
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(false,OnIsOpenChanged, CoerceIsOpen));
+
+        // Coerce IsOpen
+        private static object CoerceIsOpen(DependencyObject d, object basevalue)
+        {
+            if((d as DropDownButton).isInitializing) return true;
+            return basevalue;
+        }
+
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
         /// </summary>
@@ -89,7 +98,8 @@ namespace Fluent
         {
             get
             {
-                return items.GetEnumerator();
+                if (items != null) return items.GetEnumerator();
+                else return (new ArrayList()).GetEnumerator();
             }
         }
 
@@ -243,6 +253,7 @@ namespace Fluent
         // Creates context menu
         private void CreateMenu()
         {
+            isInitializing = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
@@ -264,6 +275,10 @@ namespace Fluent
             contextMenu.Placement = PlacementMode.Bottom;
 
             AddLogicalChild(contextMenu.RibbonPopup);
+            isInitializing = false;
+            IsOpen = true;
+            Mouse.Capture(contextMenu.RibbonPopup);
+            contextMenu.IsOpen = true;
         }
 
         #endregion
