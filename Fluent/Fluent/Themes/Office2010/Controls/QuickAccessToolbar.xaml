@@ -13,9 +13,19 @@
   <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate" TargetType="{x:Type Fluent:DropDownButton}">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="22" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="13">
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
-        <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,3,0,0">
-          <Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-2,0,2,0"/>          
-        </StackPanel>
+        <Grid x:Name="grid" Margin="0" Background="#00000000">
+      		<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed" Margin="0">
+        		<Rectangle.Fill>
+        			<RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
+        				<GradientStop Color="#7FFFFFFF" Offset="0"/>
+        				<GradientStop Offset="1"/>
+        			</RadialGradientBrush>
+        		</Rectangle.Fill>
+        	</Rectangle>
+        	<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="-1,4,0,0" Background="#00000000">
+        		<Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-3,0,2,0"/>          
+        	</StackPanel>
+      	</Grid>
       </Border>
     </Border>
     <ControlTemplate.Triggers>
@@ -25,6 +35,7 @@
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
         <Setter Property="Margin" TargetName="iconImage" Value="2"/>
+        <Setter Property="Margin" TargetName="grid" Value="0"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
@@ -51,6 +62,9 @@
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+        <Setter Property="Margin" TargetName="rectangle" Value="0"/>
+        <Setter Property="Margin" TargetName="grid" Value="0"/>
       </MultiTrigger>
 	  <MultiTrigger>
         <MultiTrigger.Conditions>
@@ -61,6 +75,7 @@
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </MultiTrigger>
     </ControlTemplate.Triggers>
   </ControlTemplate> 
@@ -71,14 +86,14 @@
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate" TargetType="{x:Type Fluent:QuickAccessToolBar}">
     	<DockPanel x:Name="PART_RootPanel">
     		<ContentControl x:Name="menuContentControl" DockPanel.Dock="Right" HorizontalAlignment="Right" Focusable="False">
-			<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" Text="M" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png" Size="Small">
+			<Fluent:DropDownButton x:Name="PART_MenuDownButton" Width="13" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png" Size="Small">
 			
 			
     				
 						
               
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
-                    <StackPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
+                    <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
                     <Fluent:MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Above the Ribbon" Visibility="Collapsed"/>
@@ -92,15 +107,15 @@
 			
 			  				
     				
-    					<StackPanel Orientation="Horizontal" Background="{x:Null}" Width="Auto" Height="Auto" Margin="1">
-    						<ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" IsEnabled="{TemplateBinding IsEnabled}"/>
-    						<Label x:Name="popupContentControl" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" Background="Red" Height="22" Focusable="False"/>
+    					<StackPanel Orientation="Horizontal" Background="#FFE9EDF1" Width="Auto" Height="26" Margin="-1">
+    						<ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" IsEnabled="{TemplateBinding IsEnabled}" VerticalAlignment="Center" Margin="1,0,0,0"/>
+    						<Label x:Name="popupContentControl" VerticalAlignment="Center" HorizontalAlignment="Left" Width="13" Background="{x:Null}" Height="22" Focusable="False" Padding="0" Margin="1,0"/>
     					</StackPanel>
     				
     			
     		</Fluent:DropDownButton>
-    		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="Auto" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
-    		<Rectangle x:Name="rectangle1" Fill="Black" Stroke="White" Width="3" Height="Auto" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
+    		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="15" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
+    		<Rectangle x:Name="rectangle1" Fill="Black" Stroke="White" Width="3" Height="15" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
     		<ToolBarPanel x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" IsItemsHost="True" VerticalAlignment="Stretch" FocusManager.IsFocusScope="False" IsEnabled="{TemplateBinding IsEnabled}"/>    		  		
     	</DockPanel>
     	<ControlTemplate.Triggers>

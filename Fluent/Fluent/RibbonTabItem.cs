@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -114,9 +122,11 @@ namespace Fluent
         {
             get
             {
-                ArrayList array = new ArrayList();
+                /*ArrayList array = new ArrayList();
                 array.Add(groupsContainer);
-                return array.GetEnumerator();
+                return array.GetEnumerator();*/
+                if (Groups != null) return Groups.GetEnumerator();
+                else return (new ArrayList()).GetEnumerator();
             }
         }
 
@@ -273,6 +283,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Add(obj2 as UIElement);
+                        AddLogicalChild(obj2);
                     }
                     break;
 
@@ -280,6 +291,7 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Remove(obj3 as UIElement);
+                        RemoveLogicalChild(obj3);
                     }
                     break;
 
@@ -287,10 +299,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Remove(obj4 as UIElement);
+                        RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Add(obj5 as UIElement);
+                        AddLogicalChild(obj5);
                     }
                     break;
             }
@@ -368,8 +382,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabItem()
         {
+            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTabItemStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -432,7 +454,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDownÂ routed event is raised 
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised 
         /// on this element. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 

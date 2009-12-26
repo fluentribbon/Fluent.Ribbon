@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -77,9 +85,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ToggleButton()
         {
+            StyleProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(typeof(ToggleButton)));
         }
 
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultToggleButtonStyle;
+            return basevalue;
+        }
         /// <summary>
         /// Default constructor
         /// </summary>

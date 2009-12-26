@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Media;
@@ -28,7 +36,18 @@ namespace Fluent
         /// Static constructor
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810")]
-        static ScreenTip() { DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip))); }
+        static ScreenTip()
+        {
+            //StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultScreenTipStyle;
+            return basevalue;
+        }
 
         /// <summary>
         /// Default constructor
@@ -100,7 +119,7 @@ namespace Fluent
         UIElement GetDecoratorChild(UIElement popupRoot)
         {
             if (popupRoot == null) return null;
-            AdornerDecorator decorator = (AdornerDecorator) popupRoot;
+            AdornerDecorator decorator = popupRoot as AdornerDecorator;
             if (decorator!=null) return decorator.Child;
 
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)

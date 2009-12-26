@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -46,7 +54,6 @@ namespace Fluent
             set
             {
                 ignoreNextDeactivate = value;  
-                Debug.WriteLine("IgnoreNextDeactiovate is "+value);
             }
         }
         /// <summary>
@@ -63,7 +70,9 @@ namespace Fluent
         /// </summary>
         public RibbonPopup()
         {
-            //IgnoreNextDeactivate = false;            
+            //IgnoreNextDeactivate = false;  
+            Focusable = false;
+            FocusManager.SetIsFocusScope(this,true);
         }
 
         #endregion
@@ -76,7 +85,8 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The event arguments.</param>
         protected override void OnOpened(EventArgs e)
-        {            
+        {
+            base.OnOpened(e);
             PopupAnimation = PopupAnimation.None;
 
             hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
@@ -89,11 +99,11 @@ namespace Fluent
             // Backup previous active window and set popup's window as active
             previousActiveWindowHwnd = NativeMethods.GetActiveWindow();
             previousFocusedElement = Keyboard.FocusedElement;
-            Activate();
+            Activate();                                    
         }
         
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseDownÂ attached event reaches
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseDown attached event reaches
         /// an element in its route that is derived from this class. 
         /// Implement this method to add class handling for this event.
         /// </summary>
@@ -129,8 +139,8 @@ namespace Fluent
             PopupAnimation = PopupAnimation.None;
 
             // Restore active window and focus
-            NativeMethods.SetActiveWindow(previousActiveWindowHwnd);
-            Keyboard.Focus(previousFocusedElement);
+            //NativeMethods.SetActiveWindow(previousActiveWindowHwnd);
+            //Keyboard.Focus(previousFocusedElement);
 
             // Remove hook
             if ((hwndSource != null) && (!hwndSource.IsDisposed))
@@ -141,7 +151,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyDownÂ attached event 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyDown attached event 
         /// reaches an element in its route that is derived from this class. 
         /// Implement this method to add class handling for this event.
         /// </summary>
@@ -231,7 +241,7 @@ namespace Fluent
                    IntPtr wParam,
                    IntPtr lParam,
                    ref bool handled)
-        {
+        {            
             switch (msg)
             {
                 case 0x0006/*WM_ACTIVATE*/:

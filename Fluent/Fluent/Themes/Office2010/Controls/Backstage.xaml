@@ -35,8 +35,8 @@
   </Style>
   <ControlTemplate x:Key="BackstageControlTemplate" TargetType="{x:Type Fluent:Backstage}">
   	<ControlTemplate.Resources>
-		<Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
-	</ControlTemplate.Resources>	
+		  <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
+	  </ControlTemplate.Resources>	
   	<Grid Background="{DynamicResource ActiveTabBackgroundBrush}">
   		<Grid.ColumnDefinitions>
   			<ColumnDefinition Width="107"/>

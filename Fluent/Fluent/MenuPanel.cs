@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +35,7 @@ namespace Fluent
             double maxWidth = 0;
             if (!double.IsPositiveInfinity(availableSize.Width)) maxWidth = availableSize.Width;
             List<UIElement> nonItemsElements = new List<UIElement>();
-            foreach (var child in InternalChildren)
+            foreach (object child in InternalChildren)
             {
                 MenuItem item = child as MenuItem;
                 if((item!=null)&&(item.Visibility!=Visibility.Collapsed))
@@ -45,7 +53,7 @@ namespace Fluent
                         totalHeight += separator.DesiredSize.Height;
                         maxWidth = Math.Max(maxWidth, separator.DesiredSize.Width);
                     }
-                    else nonItemsElements.Add(child as UIElement);
+                    else if(child is UIElement) nonItemsElements.Add(child as UIElement);
                 }
             }
 
@@ -111,11 +119,19 @@ namespace Fluent
                 else
                 {
                     Separator separator = child as Separator;
-                    if ((separator != null)&&(separator.Visibility!=Visibility.Collapsed))
+                    if ((separator != null) && (separator.Visibility != Visibility.Collapsed))
                     {
                         totalHeight += separator.DesiredSize.Height;
                     }
-                    else nonItemsElements.Add(child as UIElement);
+                    else
+                    {
+                        MenuPanel panel = child as MenuPanel;
+                        if(panel!=null)
+                        {
+                            totalHeight += panel.DesiredSize.Height;
+                        }
+                        else nonItemsElements.Add(child as UIElement);
+                    }
                 }
             }
 
@@ -127,13 +143,13 @@ namespace Fluent
                 if ((element != null)&&(element.Visibility!=Visibility.Collapsed))
                 {                    
                     double height = deltaHeight;
-                    if (element is MenuItem) height = element.DesiredSize.Height;
+                    if ((element is MenuItem)||(element is Separator)||(element is MenuPanel)) height = element.DesiredSize.Height;
                     element.Arrange(new Rect(0, y, finalSize.Width, height));
                     y += height;
                 }
             }
 
-            return finalSize;
+            return finalSize;            
         }
 
         #endregion

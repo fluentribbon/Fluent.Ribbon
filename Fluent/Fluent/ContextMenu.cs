@@ -1,5 +1,16 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
@@ -38,8 +49,6 @@ namespace Fluent
     /// Represents a pop-up menu that enables a control 
     /// to expose functionality that is specific to the context of the control
     /// </summary>
-    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     public class ContextMenu : System.Windows.Controls.ContextMenu
     {
         #region Fields
@@ -49,10 +58,10 @@ namespace Fluent
         // Initializing flag to prevent context menu closing while initializing
         private bool isInInitializing;
 
-        // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
-        // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        // Collection of toolbar items
+        private ObservableCollection<UIElement> items;
+
+        private ContextMenuBar menuBar;
 
         #endregion
 
@@ -78,6 +87,63 @@ namespace Fluent
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ContextMenu), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
+        /// <summary>
+        /// Gets collection of menu items
+        /// </summary>
+        public new ObservableCollection<UIElement> Items
+        {
+            get
+            {
+                if (this.items == null)
+                {
+                    this.items = new ObservableCollection<UIElement>();
+                    this.items.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                }
+                return this.items;
+            }
+        }
+
+        /// <summary>
+        /// handles colection of menu items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
+        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (object obj2 in e.NewItems)
+                    {
+                        if (menuBar != null) menuBar.Items.Add(obj2 as UIElement);
+                        else AddLogicalChild(obj2);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (object obj3 in e.OldItems)
+                    {
+                        if (menuBar != null) menuBar.Items.Remove(obj3 as UIElement);
+                        else RemoveLogicalChild(obj3);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (object obj4 in e.OldItems)
+                    {
+                        if (menuBar != null) menuBar.Items.Remove(obj4 as UIElement);
+                        else RemoveLogicalChild(obj4);
+                    }
+                    foreach (object obj5 in e.NewItems)
+                    {
+                        if (menuBar != null) menuBar.Items.Add(obj5 as UIElement);
+                        else AddLogicalChild(obj5);
+                    }
+                    break;
+            }
+
+        }
+
         #endregion
 
         #region Constructor
@@ -88,8 +154,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ContextMenu()
         {
-            IsOpenProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsOpenChanged,CoerceIsOpen));
-            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));
+            StyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(typeof(ContextMenu)));
+            IsOpenProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsOpenChanged, CoerceIsOpen));
+            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));            
+        }
+
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultContextMenuStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -97,7 +171,6 @@ namespace Fluent
         /// </summary>
         public ContextMenu()
         {
-            
         }
 
         #endregion
@@ -110,7 +183,7 @@ namespace Fluent
         /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new RibbonTabItem();
+            return new MenuItem();
         }
 
         /// <summary>
@@ -120,38 +193,11 @@ namespace Fluent
         /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return true;
+            return (item is FrameworkElement);
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or 
-        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            if(resizeVerticalThumb!=null)
-            {
-                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
-            }
-            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (resizeVerticalThumb != null)
-            {
-                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
-            }
-
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta -= OnResizeBothDelta;
-            }
-            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta += OnResizeBothDelta;
-            }
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUpÂ routed event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp routed event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. The event data reports that the left mouse button was released.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -161,24 +207,78 @@ namespace Fluent
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyDown attached event 
+        /// reaches an element in its route that is derived from this class. 
+        /// Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                IsOpen = false;
+                return;
+            }
+            if ((e.Key == Key.System) &&
+                ((e.SystemKey == Key.LeftAlt) || (e.SystemKey == Key.RightAlt) || (e.SystemKey == Key.F10)))
+            {
+                if (e.SystemKey != Key.F10)
+                {
+                    IsOpen = false;
+                }
+                else e.Handled = true;
+                return;
+            }
+            if (e.Key == Key.Up)
+            {
+                if (Keyboard.FocusedElement == this)
+                {
+                    if (Items.Count > 0)
+                    {
+                        FocusManager.SetFocusedElement(this, Items[Items.Count - 1] as IInputElement);
+                        //Keyboard.Focus(Items[Items.Count - 1] as IInputElement);
+                    }
+                }
+                else
+                    (Keyboard.FocusedElement as FrameworkElement).MoveFocus(
+                        new TraversalRequest(FocusNavigationDirection.Previous));
+                e.Handled = true;
+                return;
+            }
+            if (e.Key == Key.Down)
+            {
+                if (Keyboard.FocusedElement == this)
+                {
+                    if (Items.Count > 0)
+                    {
+                        FocusManager.SetFocusedElement(this, Items[0] as IInputElement);
+                        //Keyboard.Focus(Items[0] as IInputElement);
+                    }
+                }
+                else
+                    (Keyboard.FocusedElement as FrameworkElement).MoveFocus(
+                        new TraversalRequest(FocusNavigationDirection.Next));
+                e.Handled = true;
+                return;
+            }
+            if(e.Key==Key.Left)
+            {
+                if(popup.ParentPopup!=null)
+                {
+                    IsOpen = false;
+                    popup.ParentPopup.Activate();
+                    Keyboard.Focus(popup.ParentPopup.Child);
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+
         #endregion
 
         #region Private methods
-
-        // Handles resize both drag
-        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (double.IsNaN(Width)) Width = ActualWidth;
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Width = Math.Max(0, Width + e.HorizontalChange);
-            Height = Math.Max(0, Height + e.VerticalChange);
-        }
-        // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Height = Math.Max(0, Height + e.VerticalChange);
-        }
 
         // Coerce IsOpen property
         private static object CoerceIsOpen(DependencyObject d, object basevalue)
@@ -198,49 +298,68 @@ namespace Fluent
                     // Creates new ribbon popup and prevents it`s closing
                     menu.isInInitializing = true;
                     menu.HookupParentPopup();
-                    menu.IsOpen = true;                    
-                    Mouse.Capture(null);
                     menu.isInInitializing = false;
+                    Mouse.Capture(null);
                     menu.popup.IgnoreNextDeactivate = false;
                     menu.popup.Activate();
-                }                
+                }
+                Keyboard.Focus(menu.menuBar);
+                if (Keyboard.FocusedElement != null)
+                {
+                    Keyboard.FocusedElement.PreviewKeyDown += menu.OnFocusedElementKeyDown;
+                    Keyboard.FocusedElement.LostKeyboardFocus += menu.OnFocusedElementLostFocus;
+                }
             }
+            else FocusManager.SetFocusedElement(menu,null);
             //TODO: Strange behavior of command when our context menu is opened
         }
+
+        private void OnFocusedElementLostFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            (sender as IInputElement).PreviewKeyDown -= OnFocusedElementKeyDown;
+            (sender as IInputElement).LostKeyboardFocus -= OnFocusedElementLostFocus;
+            if((!Items.Contains(e.NewFocus as UIElement))&&(e.NewFocus is IInputElement))
+            {
+                (e.NewFocus as IInputElement).PreviewKeyDown += OnFocusedElementKeyDown;
+                (e.NewFocus as IInputElement).LostKeyboardFocus += OnFocusedElementLostFocus;
+            }
+        }
+
+        private void OnFocusedElementKeyDown(object sender, KeyEventArgs e)
+        {
+            OnPreviewKeyDown(e);
+        }
+
         // Creates ribbon popup and removes original System.Windows.Controls.ContextMenu popup
         private void HookupParentPopup()
         {
             // Find original popup
             Popup originalPopup = (typeof(System.Windows.Controls.ContextMenu).
                 GetField("_parentPopup", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this) as Popup);
-            // Remove context menu from original popup logical children
-            try
-            {
-                originalPopup.Child = null;
-            }
-            catch (InvalidOperationException){}
-            // Remove context menu from original popup visual children
-            try
-            {              
-                typeof(FrameworkElement).
-                    GetMethod("RemoveVisualChild", BindingFlags.NonPublic | BindingFlags.Instance).
-                    Invoke(VisualTreeHelper.GetParent(this), new object[] { this });
-            }
-            catch(TargetException){}
-            catch (TargetInvocationException) { }
-            // Create new ribbon popup
-            popup = new RibbonPopup();            
-            this.popup.AllowsTransparency = true;
-            // Replace original popup with ribbon popup
-            typeof(System.Windows.Controls.ContextMenu).
-                GetField("_parentPopup", BindingFlags.NonPublic | BindingFlags.Instance).
-                SetValue(this, popup);
-            // Preventing ribbon popup closing
-            popup.IgnoreNextDeactivate = true;
-            // Set ribbon popup bindings
-            CreatePopupRoot(this.popup, this);
             // Closing original popup
             originalPopup.IsOpen = false;
+
+
+            popup = new RibbonPopup();
+            this.popup.AllowsTransparency = true;
+                
+            menuBar = new ContextMenuBar();
+            for (int i = 0; i < Items.Count;i++ )
+            {
+                RemoveLogicalChild(items[i]);
+                menuBar.Items.Add(items[i]);
+            }
+
+            Binding binding = new Binding("ResizeMode");
+            binding.Mode = BindingMode.TwoWay;
+            binding.Source = this;
+            menuBar.SetBinding(ContextMenuBar.ResizeModeProperty, binding);
+
+            // Preventing ribbon popup closing
+            popup.IgnoreNextDeactivate = true;
+            popup.Child = menuBar;
+            // Set ribbon popup bindings
+            CreatePopupRoot(this.popup, this);
         }
         // Set popup bindings
         static void CreatePopupRoot(RibbonPopup popup, UIElement child)
@@ -249,7 +368,6 @@ namespace Fluent
             binding.Mode = BindingMode.OneWay;
             binding.Source = child;
             popup.SetBinding(Popup.PlacementTargetProperty, binding);
-            popup.Child = child;
             binding = new Binding("VerticalOffset");
             binding.Mode = BindingMode.OneWay;
             binding.Source = child;

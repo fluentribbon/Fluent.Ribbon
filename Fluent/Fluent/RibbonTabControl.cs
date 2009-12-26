@@ -1,4 +1,12 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -180,8 +188,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabControl()
         {
+            StyleProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
-        }                
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTabControlStyle;
+            return basevalue;
+        }
         
         /// <summary>
         /// Default constructor
@@ -231,9 +247,12 @@ namespace Fluent
 
                 popup.CustomPopupPlacementCallback = CustomPopupPlacementMethod;
             }
-            if (toolbarPanel != null)
+            if ((toolbarPanel != null) && (toolBarItems != null))
             {
-                toolbarPanel.Children.Clear();
+                for (int i = 0; i < toolBarItems.Count; i++)
+                {
+                    toolbarPanel.Children.Remove(toolBarItems[i]);
+                }
             }
             toolbarPanel = GetTemplateChild("PART_ToolbarPanel") as Panel;
             if ((toolbarPanel != null) && (toolBarItems != null))

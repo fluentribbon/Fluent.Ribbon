@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -111,9 +112,59 @@ namespace FluentTest
 
         private void OnSomeTestClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("lala");
+            //MessageBox.Show("lala");
+            CheckLogicalTree(ribbon);
+            logicalTreeView.Items.Clear();
+            BuildLogicalTree(ribbon, null);
         }
 
+        void CheckLogicalTree(DependencyObject root)
+        {
+            var children = LogicalTreeHelper.GetChildren(root);
+            foreach (var child in children)
+            {
+                if (child is DependencyObject)
+                {
+                    if (LogicalTreeHelper.GetParent(child as DependencyObject) != root)
+                    {
+                        Debug.WriteLine(string.Format("Incorrect logical parent in element - {0} in {1}", child.ToString(), root.ToString()));
+                    }
+                    CheckLogicalTree(child as DependencyObject);
+                }
+            }
+        }
+
+        void BuildLogicalTree(DependencyObject root, TreeViewItem item)
+        {
+            TreeViewItem newItem = new TreeViewItem();
+            newItem.Header = String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement)?(root as FrameworkElement).Name:"");
+            if(item!=null)
+            {
+                item.Items.Add(newItem);
+            }
+            else
+            {
+                logicalTreeView.Items.Add(newItem);
+            }
+            var children = LogicalTreeHelper.GetChildren(root);
+            foreach (var child in children)
+            {
+                if (child is DependencyObject)
+                {
+                    BuildLogicalTree(child as DependencyObject, newItem);
+                }
+            }
+        }
+
+        private void OnSilverClick(object sender, RoutedEventArgs e)
+        {
+            ThemesManager.SetTheme(this,Themes.Office2010Silver);            
+        }
+
+        private void OnBlackClick(object sender, RoutedEventArgs e)
+        {
+            ThemesManager.SetTheme(this, Themes.Office2010Black);
+        }
     }
 
 }

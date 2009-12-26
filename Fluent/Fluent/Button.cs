@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -76,7 +84,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
+            StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));            
+        }
+
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultButtonStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -113,7 +128,7 @@ namespace Fluent
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsPressed = false;
-            Mouse.Capture(null);
+            if(Mouse.Captured==this)Mouse.Capture(null);
             Point position = Mouse.PrimaryDevice.GetPosition(this);
             if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
             {
@@ -125,7 +140,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseMoveÂ attached event reaches an element 
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseMove attached event reaches an element 
         /// in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
@@ -160,7 +175,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseLeaveÂ attached event is raised on this element. 
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseLeave attached event is raised on this element. 
         /// Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
@@ -171,7 +186,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseEnterÂ attached event is raised on this element. 
+        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseEnter attached event is raised on this element. 
         /// Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e"> The System.Windows.Input.MouseEventArgs that contains the event data.</param>

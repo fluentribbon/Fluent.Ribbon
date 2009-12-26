@@ -1,4 +1,12 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -99,7 +107,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
-            DependencyProperty.Register("ShowQuickAccessToolBarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnShowQuickAccesToolBarAboveRibbonChanged));
+            DependencyProperty.Register("ShowQuickAccessToolBarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
         
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
@@ -286,7 +294,7 @@ namespace Fluent
             {
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
-                if(ShowQuickAccessToolBarAboveRibbon)if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
+                //if(ShowQuickAccessToolBarAboveRibbon)if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 return list.GetEnumerator();
             }
         }
@@ -454,7 +462,15 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Ribbon()
         {
+            StyleProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -491,10 +507,13 @@ namespace Fluent
             if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
             if (layoutRoot != null) AddLogicalChild(layoutRoot);
-            
-            if(titleBar!=null)
+
+            if ((titleBar != null) && (groups != null))
             {
-                titleBar.Items.Clear();
+                for (int i = 0; i < groups.Count; i++)
+                {
+                    titleBar.Items.Remove(groups[i]);
+                }
             }
             titleBar = GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
             if((titleBar!=null)&&(groups!=null))
@@ -507,10 +526,23 @@ namespace Fluent
 
             if (tabControl != null)
             {
-                tabControl.Items.Clear();
-                tabControl.ToolBarItems.Clear();
                 tabControl.PreviewMouseRightButtonUp -= OnTabControlRightButtonUp;
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
+            }
+            if ((tabControl != null) && (tabs != null))
+            {
+                for (int i = 0; i < tabs.Count; i++)
+                {
+                    tabControl.Items.Remove(tabs[i]);
+                }
+            }
+
+            if ((tabControl != null) && (toolBarItems != null))
+            {
+                for (int i = 0; i < toolBarItems.Count; i++)
+                {
+                    tabControl.ToolBarItems.Remove(toolBarItems[i]);
+                }
             }
             tabControl = GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
             if (tabControl != null)
@@ -534,9 +566,12 @@ namespace Fluent
                 }
             }
 
-            if (quickAccessToolBar != null)
+            if ((quickAccessToolBar != null) && (quickAccessItems != null))
             {
-                quickAccessToolBar.QuickAccessItems.Clear();
+                for (int i = 0; i < quickAccessItems.Count; i++)
+                {
+                    quickAccessToolBar.QuickAccessItems.Remove(quickAccessItems[i]);
+                }
             }
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
             if ((quickAccessToolBar != null) && (quickAccessItems != null))
@@ -548,7 +583,13 @@ namespace Fluent
             }
             if (backstageButton != null)
             {
-                backstageButton.Backstage.Items.Clear();
+                if (backstageItems != null)
+                {
+                    for (int i = 0; i < backstageItems.Count; i++)
+                    {
+                        backstageButton.Backstage.Items.Remove(backstageItems[i]);
+                    }
+                }
             }
             backstageButton = GetTemplateChild("PART_BackstageButton") as BackstageButton;
             if (backstageButton != null) 

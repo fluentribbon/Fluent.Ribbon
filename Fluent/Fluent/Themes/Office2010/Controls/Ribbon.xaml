@@ -10,6 +10,8 @@
 		<Setter Property="FocusManager.IsFocusScope" Value="True"/>
     </Style>
     <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
+      <ControlTemplate.Resources>
+      </ControlTemplate.Resources>
     	<Grid x:Name="PART_LayoutRoot" Width="Auto" Height="Auto">
     		<Grid.RowDefinitions>
     			<RowDefinition Height="0.748*"/>
@@ -40,9 +42,9 @@
     		
     	</Grid>
     	<ControlTemplate.Triggers>
-    		<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
-    			<Setter Property="QuickAccessToolBar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}"/>
+    		<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">    			
 				<Setter Property="Content" TargetName="contentControl" Value="{x:Null}"/>
+        <Setter Property="QuickAccessToolBar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}"/>
 				<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
 				<Setter Property="Margin" TargetName="PART_QuickAccessToolBar" Value="0,2,0,0"/>
     		</Trigger>
@@ -58,7 +60,7 @@
     	<Setter Property="Foreground" Value="White"/>
     </Style>
     <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
-    	<Border Width="56" Height="22" CornerRadius="1,1,0,0" Background="{TemplateBinding Background}">
+    	<Border Width="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
     		<Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
     			<Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
     				<Border.Background>

@@ -2,7 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 	
-    <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="Fluent:ScreenTip">
+    <Style x:Key="ScreenTipStyle" TargetType="{x:Type Fluent:ScreenTip}">
 	<!--<Style x:Key="FFF" TargetType="Label">-->
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -11,7 +11,7 @@
     <Setter Property="Template">
       <Setter.Value>
 	  	<!--<ControlTemplate TargetType="Label">-->
-        <ControlTemplate TargetType="Fluent:ScreenTip">
+        <ControlTemplate TargetType="{x:Type Fluent:ScreenTip}">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>

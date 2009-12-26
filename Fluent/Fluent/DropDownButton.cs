@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -98,8 +106,18 @@ namespace Fluent
         {
             get
             {
-                if (items != null) return items.GetEnumerator();
-                else return (new ArrayList()).GetEnumerator();
+                if (contextMenu != null)
+                {
+                    ArrayList list = new ArrayList();
+                    if (contextMenu.RibbonPopup != null) list.Add(contextMenu.RibbonPopup);
+                    else list.Add(contextMenu);
+                    return list.GetEnumerator();
+                }
+                else
+                {
+                    if (items != null) return items.GetEnumerator();
+                    else return (new ArrayList()).GetEnumerator();
+                }
             }
         }
 
@@ -132,6 +150,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Add(obj2 as UIElement);
+                        else AddLogicalChild(obj2);
                     }
                     break;
 
@@ -139,6 +158,7 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Remove(obj3 as UIElement);
+                        else RemoveLogicalChild(obj3);
                     }
                     break;
 
@@ -146,10 +166,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Remove(obj4 as UIElement);
+                        else RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Add(obj5 as UIElement);
+                        else AddLogicalChild(obj5);
                     }
                     break;
             }
@@ -182,10 +204,18 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
+            StyleProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownButton),
                                                      new FrameworkPropertyMetadata(typeof(DropDownButton)));                       
 
 
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultDropDownButtonStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -199,6 +229,7 @@ namespace Fluent
         private void OnClick(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+            e.Handled = true;
         }
 
         #endregion
@@ -206,20 +237,21 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDownÂ routed event 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
         /// reaches an element in its route that is derived from this class. Implement this method to add 
         /// class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
             if (!IsOpen)
             {
-                IsOpen = !IsOpen; 
-               
-                e.Handled = true;
+                /*IsOpen = !IsOpen;                
+                e.Handled = true;*/
             }
+            RaiseEvent(new RoutedEventArgs(ClickEvent,this));
+            e.Handled = true;
         }
 
         #endregion
@@ -273,6 +305,7 @@ namespace Fluent
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
+                RemoveLogicalChild(item);
                 contextMenu.Items.Add(item);
             }
             contextMenu.IsOpen = true;

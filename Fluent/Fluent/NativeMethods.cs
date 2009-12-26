@@ -1,4 +1,12 @@
-п»їusing System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -344,7 +352,7 @@ namespace Fluent
             public int y;
             /*
             /// <summary>
-            /// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+            /// Конструктор
             /// </summary>
             /// <param name="x">Specifies the x-coordinate of the point. </param>
             /// <param name="y">Specifies the y-coordinate of the point.</param>
@@ -456,14 +464,14 @@ namespace Fluent
         public static extern IntPtr GetActiveWindow();
         
         /// <summary>
-        /// РЎС‚Р°РЅРґР°СЂС‚РЅР°СЏ РїСЂРѕС†РµРґСѓСЂР° РѕРєРЅР°
+        /// Стандартная процедура окна
         /// </summary>
-        /// <param name="hwnd">РҐСЌРЅРґР» РѕРєРЅР°</param>
-        /// <param name="msg">РЎРѕРѕР±С‰РµРЅРёРµ</param>
-        /// <param name="wParam">РџСЂР°СЂР°РјРµС‚СЂ</param>
-        /// <param name="lParam">РџР°СЂР°РјРµС‚СЂ</param>
-        /// <param name="plResult">Р РµР·СѓР»СЊС‚Р°С‚</param>
-        /// <returns>Р РµР·СѓР»СЊС‚Р°С‚</returns>
+        /// <param name="hwnd">Хэндл окна</param>
+        /// <param name="msg">Сообщение</param>
+        /// <param name="wParam">Прараметр</param>
+        /// <param name="lParam">Параметр</param>
+        /// <param name="plResult">Результат</param>
+        /// <returns>Результат</returns>
         [DllImport("dwmapi.dll", PreserveSig = false)]
         public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 

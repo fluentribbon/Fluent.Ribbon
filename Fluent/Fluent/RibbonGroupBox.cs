@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -211,7 +219,15 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonGroupBox()
         {
+            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
+            return basevalue;
         }
 
         /// <summary>
@@ -229,7 +245,11 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if(State==RibbonGroupBoxState.Collapsed)IsOpen = true;
+            if (State == RibbonGroupBoxState.Collapsed)
+            {
+                IsOpen = true;
+                e.Handled = true;
+            }
         }
 
         #endregion
@@ -286,7 +306,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDownÂ routed 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed 
         /// event reaches an element in its route that is derived from this class. 
         /// Implement this method to add class handling for this event.
         /// </summary>
@@ -295,10 +315,10 @@ namespace Fluent
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if ((State == RibbonGroupBoxState.Collapsed)&&(popup!=null)&&(!IsOpen))
-            {                
-                IsOpen = true;
-                Mouse.Capture(popup, CaptureMode.Element);
+            {
                 e.Handled = true;
+                Mouse.Capture(popup, CaptureMode.Element);
+                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent,this));                
             }
         }
 

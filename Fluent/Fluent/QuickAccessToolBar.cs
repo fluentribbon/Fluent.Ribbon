@@ -1,4 +1,12 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,6 +77,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (menuPanel != null) menuPanel.Children.Add(obj2 as QuickAccessMenuItem);
+                        else AddLogicalChild(obj2);
                     }
                     break;
 
@@ -76,6 +85,7 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (menuPanel != null) menuPanel.Children.Remove(obj3 as QuickAccessMenuItem);
+                        else RemoveLogicalChild(obj3);
                     }
                     break;
 
@@ -83,10 +93,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (menuPanel != null) menuPanel.Children.Remove(obj4 as QuickAccessMenuItem);
+                        else RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (menuPanel != null) menuPanel.Children.Add(obj5 as QuickAccessMenuItem);
+                        else AddLogicalChild(obj5);
                     }
                     break;
             }
@@ -106,7 +118,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
-            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
 
         /// <summary>
         /// Gets an enumerator to the logical child elements of the System.Windows.Controls.HeaderedItemsControl.
@@ -136,8 +148,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
+            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));            
-        }        
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaulQuickAccessToolBarStyle;
+            return basevalue;
+        }
 
         /// <summary>
         /// Default constructor
@@ -158,7 +178,7 @@ namespace Fluent
         /// event.</param>
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
+            if (this.Parent is RibbonTitleBar) (this.Parent as RibbonTitleBar).InvalidateMeasure();
             base.OnItemsChanged(e);
             UpdateKeyTips();
         }
@@ -182,14 +202,23 @@ namespace Fluent
             {
                 menuPanel.Children.Clear();
             }
+            else if(quickAccessItems!=null)
+            {
+                for (int i = 0; i < quickAccessItems.Count; i++)
+                {
+                    RemoveLogicalChild(quickAccessItems[i]);
+                }
+            }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
             if ((menuPanel != null) && (quickAccessItems != null))
             {
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     menuPanel.Children.Add(quickAccessItems[i]);
+                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.ShortcutProperty);
                 }
             }
+            
 
             if (rootPanel != null) RemoveLogicalChild(rootPanel);
             rootPanel = GetTemplateChild("PART_RootPanel") as Panel;

@@ -1,4 +1,12 @@
-ï»¿using System;
+#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +22,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -21,7 +30,7 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty("Items")]
-    public class MenuItem: Button
+    public class MenuItem: RibbonControl
     {
         #region Fields
 
@@ -31,9 +40,55 @@ namespace Fluent
         // Collection of toolbar items
         private ObservableCollection<UIElement> items;
 
+        private DispatcherTimer focusTimer;
+
         #endregion
 
         #region Properies
+
+        /// <summary>
+        /// Gets or sets whether MenuItem is checked
+        /// </summary>
+        public bool IsChecked
+        {
+            get { return (bool)GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsCheckedProperty =
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false,OnIsCheckedChanged));
+
+        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if((bool)e.NewValue)
+            {
+                if((d as MenuItem).Checked!=null)(d as MenuItem).Checked(d,new RoutedEventArgs());
+            }
+            else
+            {
+                if ((d as MenuItem).Unchecked != null) (d as MenuItem).Unchecked(d, new RoutedEventArgs());
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether MenuItem can auto check
+        /// </summary>
+        public bool CanAutoCheck
+        {
+            get { return (bool)GetValue(CanAutoCheckProperty); }
+            set { SetValue(CanAutoCheckProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAutoCheck.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAutoCheckProperty =
+            DependencyProperty.Register("CanAutoCheck", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
+
+
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
@@ -42,8 +97,18 @@ namespace Fluent
         {
             get
             {
-                if (items != null) return items.GetEnumerator();
-                else return (new ArrayList()).GetEnumerator();
+                if (contextMenu != null)
+                {
+                    ArrayList list = new ArrayList();
+                    if (contextMenu.RibbonPopup != null) list.Add(contextMenu.RibbonPopup);
+                    else list.Add(contextMenu);
+                    return list.GetEnumerator();
+                }
+                else
+                {
+                    if (items != null) return items.GetEnumerator();
+                    else return (new ArrayList()).GetEnumerator();
+                }
             }
         }
 
@@ -79,6 +144,7 @@ namespace Fluent
                         {
                             contextMenu.Items.Add(obj2 as UIElement);                            
                         }
+                        else AddLogicalChild(obj2);
                         HasItems = true;
                     }
                     break;
@@ -90,6 +156,7 @@ namespace Fluent
                         {
                             contextMenu.Items.Remove(obj3 as UIElement);                            
                         }
+                        else RemoveLogicalChild(obj3);
                         if (items.Count == 0) HasItems = false;
                     }
                     break;
@@ -98,10 +165,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Remove(obj4 as UIElement);
+                        else RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (contextMenu != null) contextMenu.Items.Add(obj5 as UIElement);
+                        else AddLogicalChild(obj5);
                     }
                     break;
             }
@@ -166,6 +235,13 @@ namespace Fluent
 
         #endregion
 
+        #region Events
+
+        public event RoutedEventHandler Checked;
+        public event RoutedEventHandler Unchecked;
+
+        #endregion
+
         #region Constructor
 
         /// <summary>
@@ -174,7 +250,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static MenuItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(typeof(MenuItem)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(typeof(MenuItem)));
+            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null));            
         }
 
         /// <summary>
@@ -182,12 +259,83 @@ namespace Fluent
         /// </summary>
         public MenuItem()
         {
-
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs 
+        /// when the left mouse button is released while the mouse pointer is over this control.
+        /// </summary>
+        /// <param name="e">The event data.</param>
+        protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if ((!IsEnabled) || (!IsHitTestVisible)) return;
+            if (Mouse.Captured == this) Mouse.Capture(null);
+            Point position = Mouse.PrimaryDevice.GetPosition(this);
+            if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
+            {
+                RoutedEventArgs ee = new RoutedEventArgs(RibbonControl.ClickEvent, this);
+                RaiseEvent(ee);
+                e.Handled = true;
+                return;
+            }
+            base.OnMouseLeftButtonDown(e);
+        }
+
+        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            Keyboard.Focus(this.Parent as IInputElement);
+            FocusManager.SetFocusedElement(this.Parent, this);
+        }
+
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+            FocusManager.SetFocusedElement(this.Parent, this);
+            if(focusTimer==null)
+            {
+                focusTimer = new DispatcherTimer();
+                focusTimer.Interval = TimeSpan.FromSeconds(0.5);
+                focusTimer.Tick += OnFocusTimerTick;
+            }
+            focusTimer.Start();
+        }
+
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            if(focusTimer!=null)focusTimer.Stop();
+            if (IsOpen) IsOpen = false;
+        }
+
+        protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            
+        }
+
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            base.OnMouseLeave(e);
+            if (focusTimer != null) focusTimer.Stop();
+            if(!IsOpen) FocusManager.SetFocusedElement(this.Parent, null);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if(HasItems)
+            {
+                if (e.Key == Key.Right)
+                {
+                    RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+                    e.Handled = true;
+                    return;
+                }
+            }
+            base.OnKeyDown(e);
+        }
 
         #endregion
 
@@ -197,19 +345,51 @@ namespace Fluent
         /// Handles click event
         /// </summary>
         /// <param name="e">The event data</param>
-        protected override void OnClick(RoutedEventArgs e)
+        protected virtual void OnClick(RoutedEventArgs e)
         {
-            base.OnClick(e);
-            if(HasItems)
+            ExecuteCommand();            
+            if(CanAutoCheck)
             {
+                IsChecked = !IsChecked;
+            }
+            if (HasItems)
+            {
+                RibbonPopup parentPopup = null;
+                if (Parent is ContextMenu)
+                {
+                    parentPopup = (Parent as ContextMenu).RibbonPopup;
+                }
+                if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
                 IsOpen = true;
                 e.Handled = true;
             }
-            /*else
+        }
+
+        /// <summary>
+        /// Handles click event
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void OnFocusTimerTick(object sender, EventArgs e)
+        {
+            if (IsFocused)
             {
-                RibbonPopup popup = FindParentPopup();
-                if (popup != null) popup.IsOpen = false;    
-            }*/            
+                if ((!IsOpen) && (HasItems))
+                {
+                    RibbonPopup parentPopup = null;
+                    if (Parent is ContextMenu)
+                    {
+                        parentPopup = (Parent as ContextMenu).RibbonPopup;
+                    }
+                    if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
+                    IsOpen = true;
+                }                
+            }
         }
 
         #endregion
@@ -238,6 +418,7 @@ namespace Fluent
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
+                RemoveLogicalChild(item);
                 contextMenu.Items.Add(item);
             }
             contextMenu.IsOpen = true;

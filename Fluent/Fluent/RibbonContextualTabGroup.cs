@@ -1,4 +1,12 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright � Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -92,10 +100,19 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonContextualTabGroup()
         {
+            StyleProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
 
             VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Collapsed, OnVisibilityChanged));
         }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonContextualTabGroupStyle;
+            return basevalue;
+        }
+
         /// <summary>
         /// Handles visibility prioperty changed
         /// </summary>
@@ -159,7 +176,7 @@ namespace Fluent
         #region Override
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp routed event 
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp�routed event 
         /// reaches an element in its route that is derived from this class. Implement this method to 
         /// add class handling for this event.
         /// </summary>
