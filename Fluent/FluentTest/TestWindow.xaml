@@ -126,8 +126,17 @@
 
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick">
+            <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
+            <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
+              <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
+              <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
+              <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
+            </Fluent:MenuItem>
+          </Fluent:SplitButton>
           <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
           <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
+          
           <Fluent:DropDownButton Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
             <Fluent:DropDownButton.Items>
               <Button Height="Auto" Fluent:KeyTip.Keys="W" x:Name="testButton" Click="OnTestClick" VerticalAlignment="Stretch">Lala</Button>

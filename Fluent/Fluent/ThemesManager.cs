@@ -94,6 +94,11 @@ namespace Fluent
             get{ return DefaultResourceDictionary["RibbonDropDownButtonStyle"] as Style;}
         }
 
+        internal static Style DefaultSplitButtonStyle
+        {
+            get { return DefaultResourceDictionary["RibbonSplitButtonStyle"] as Style; }
+        }
+
         internal static Style DefaultGroupSeparatorMenuItemStyle
         {
             get { return DefaultResourceDictionary["MenuGroupSeparatorStyle"] as Style; }

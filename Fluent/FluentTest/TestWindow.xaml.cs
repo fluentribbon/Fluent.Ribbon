@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -164,6 +164,11 @@ namespace FluentTest
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
             ThemesManager.SetTheme(this, Themes.Office2010Black);
+        }
+
+        private void OnSplitClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Split Clicked!!!");
         }
     }
 
