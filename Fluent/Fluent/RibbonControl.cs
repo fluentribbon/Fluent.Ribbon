@@ -1,7 +1,7 @@
-#region Copyright and License Information
+ï»¿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -89,7 +89,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets sor sets Size for the element
+        /// Gets or sets Size for the element
         /// </summary>
         public RibbonControlSize Size
         {
@@ -251,7 +251,7 @@ namespace Fluent
             }
         }
         /// <summary>
-        /// Identifies the RibbonControl.Click routed event.
+        /// Identifies the RibbonControl.Clickï¿½routed event.
         /// </summary>
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(RibbonControl));
 
@@ -308,16 +308,16 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
+        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameterï¿½dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
         /// <summary>
-        /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
+        /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Commandï¿½dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
 
         /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
+        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTargetï¿½dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
 
@@ -513,7 +513,7 @@ namespace Fluent
         #region Overrides
         
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUpï¿½attached event reaches 
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>

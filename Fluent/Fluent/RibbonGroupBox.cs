@@ -1,7 +1,7 @@
-#region Copyright and License Information
+ï»¿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -116,7 +116,11 @@ namespace Fluent
         static void SetAppropriateSizeRecursive(UIElement root, RibbonGroupBoxState ribbonGroupBoxState)
         {
             if (root == null) return;
-            if (root is RibbonControl) RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
+            if (root is RibbonControl)
+            {
+                RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
+                return;
+            }
             if (root is RibbonToolBarTray) ((RibbonToolBarTray)root).IsCondensed = !(ribbonGroupBoxState == RibbonGroupBoxState.Collapsed || ribbonGroupBoxState == RibbonGroupBoxState.Large);
 
             int childrenCount = VisualTreeHelper.GetChildrenCount(root);
@@ -306,7 +310,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDownï¿½routed 
         /// event reaches an element in its route that is derived from this class. 
         /// Implement this method to add class handling for this event.
         /// </summary>

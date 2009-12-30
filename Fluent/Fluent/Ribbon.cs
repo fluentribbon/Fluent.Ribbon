@@ -25,9 +25,9 @@ using System.Windows.Markup;
 namespace Fluent
 {
     /// <summary>
-    ///   Represents the main Ribbon control which consists of multiple tabs, each of which
-    ///   containing groups of controls.  The Ribbon also provides improved context
-    ///   menus, enhanced screen tips, and keyboard shortcuts.
+    /// Represents the main Ribbon control which consists of multiple tabs, each of which
+    /// containing groups of controls.  The Ribbon also provides improved context
+    /// menus, enhanced screen tips, and keyboard shortcuts.
     /// </summary>
     [ContentProperty("Tabs")]
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]

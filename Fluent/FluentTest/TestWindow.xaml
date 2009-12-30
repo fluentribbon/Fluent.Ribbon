@@ -126,44 +126,46 @@
 
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick">
-            <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
-            <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
-              <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
-              <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
-              <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
-            </Fluent:MenuItem>
-          </Fluent:SplitButton>
-          <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
-          <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
+            <Fluent:RibbonToolBar>
+              <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick">
+                <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
+                <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
+                  <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
+                  <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
+                  <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
+                </Fluent:MenuItem>
+              </Fluent:SplitButton>
+              <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
+              <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
+              <Fluent:DropDownButton Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
+                <Fluent:DropDownButton.Items>
+                  <Button Height="Auto" Fluent:KeyTip.Keys="W" x:Name="testButton" Click="OnTestClick" VerticalAlignment="Stretch">Lala</Button>
+                  <TextBox Height="Auto" VerticalAlignment="Stretch"></TextBox>
+                  <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
+                  <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
+                    <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
+                    <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
+                    <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
+                  </Fluent:MenuItem>
+                </Fluent:DropDownButton.Items>
+                <Fluent:DropDownButton.ToolTip>
+                  <Fluent:ScreenTip
+                      Title="Insert Chart"
+                      Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
+                      Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
+                      HelpTopic="http:\\fluent.codeplex.com"
+                      DisableReason="Disable reason reason."
+                      Width="190"/>
+                </Fluent:DropDownButton.ToolTip>
+              </Fluent:DropDownButton>
           
-          <Fluent:DropDownButton Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
-            <Fluent:DropDownButton.Items>
-              <Button Height="Auto" Fluent:KeyTip.Keys="W" x:Name="testButton" Click="OnTestClick" VerticalAlignment="Stretch">Lala</Button>
-              <TextBox Height="Auto" VerticalAlignment="Stretch"></TextBox>
-              <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
-              <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
-                <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
-                <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
-                <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
-              </Fluent:MenuItem>
-            </Fluent:DropDownButton.Items>
-            <Fluent:DropDownButton.ToolTip>
-              <Fluent:ScreenTip
-                  Title="Insert Chart"
-                  Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
-                  Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
-                  HelpTopic="http:\\fluent.codeplex.com"
-                  DisableReason="Disable reason reason."
-                  Width="190"/>
-            </Fluent:DropDownButton.ToolTip>
-          </Fluent:DropDownButton>
-          <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" SizeDefinition="Large,Large,Large" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
-          <Fluent:Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Text="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Button Fluent:KeyTip.Keys="G" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Button Text="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Button Text="Button" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+              <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" SizeDefinition="Large,Large,Large" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
+              <Fluent:Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Text="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+              <Fluent:Button Fluent:KeyTip.Keys="G" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+              <Fluent:Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+              <Fluent:Button Text="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+              <Fluent:Button Text="Button" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+            </Fluent:RibbonToolBar>
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="LongLongGroupB" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>

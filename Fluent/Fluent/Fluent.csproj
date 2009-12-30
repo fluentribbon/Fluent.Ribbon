@@ -82,9 +82,12 @@
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
+    <Compile Include="RibbonToolBarControlGroup.cs" />
+    <Compile Include="RibbonToolBarRow.cs" />
     <Compile Include="MenuPanel.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="RibbonGroupBoxPanel.cs" />
+    <Compile Include="RibbonToolBar.cs" />
+    <Compile Include="RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="RibbonToolBarTray.cs" />
     <Compile Include="RibbonWindow.cs" />
     <Compile Include="SplitButton.cs" />
