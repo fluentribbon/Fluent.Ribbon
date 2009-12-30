@@ -264,5 +264,15 @@ namespace Fluent
         #endregion
 
         #endregion
+
+        public override UIElement CreateQuickAccessItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BindQuickAccessItem(FrameworkElement element)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

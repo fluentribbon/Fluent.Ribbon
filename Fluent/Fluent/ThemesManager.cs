@@ -240,7 +240,7 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for Theme.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ThemeProperty =
-            DependencyProperty.RegisterAttached("Theme", typeof(Themes), typeof(Window), new UIPropertyMetadata(Themes.Default, OnThemeChanged));
+            DependencyProperty.RegisterAttached("Theme", typeof(Themes), typeof(ThemesManager), new UIPropertyMetadata(Themes.Default, OnThemeChanged));
 
         private static void OnThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

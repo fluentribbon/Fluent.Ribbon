@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -217,6 +218,35 @@ namespace Fluent
         private void OnClick(object sender, RoutedEventArgs e)
         {                                                
             OnClick(e);
+        }
+
+        #endregion
+
+        #region Quick Access Item Creating
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public override UIElement CreateQuickAccessItem()
+        {
+            Button button = new Button();
+            BindQuickAccessItem(button);
+            return button;
+        }
+
+        /// <summary>
+        /// This method must be overriden to bind properties to use in quick access creating
+        /// </summary>
+        /// <param name="element">Toolbar item</param>
+        protected override void BindQuickAccessItem(FrameworkElement element)
+        {
+            Button button = element as Button;
+            if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
+            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
+            base.BindQuickAccessItem(element);
         }
 
         #endregion

@@ -77,14 +77,24 @@
       <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="A,A,Clipboard,Font,B,A,B,C,B,C,C">
 
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:DropDownButton Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">  
-            <Fluent:DropDownButton.ToolTip>
+          <Fluent:SplitButton Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
+            <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
                   Title="Paste (Ctrl+V)"
                   Text="Paste the contents of the Clipboard."
                   Width="190"/>
-            </Fluent:DropDownButton.ToolTip>
-          </Fluent:DropDownButton>
+            </Fluent:SplitButton.ToolTip>
+            <Fluent:GroupSeparatorMenuItem Text="Paste Options:"></Fluent:GroupSeparatorMenuItem>
+            <Border Background="White" BorderThickness="0,0,0,1" BorderBrush="Silver">
+              <StackPanel Orientation="Horizontal">
+                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="K"/>
+                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="M"/>
+                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="T"/>
+              </StackPanel>
+            </Border>
+            <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S"/>
+            <Fluent:MenuItem Text="Set Default Paste..." Fluent:KeyTip.Keys="A"/>
+          </Fluent:SplitButton>
         <Fluent:Button IsEnabled="False" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small">
           <Fluent:Button.ToolTip>
             <Fluent:ScreenTip

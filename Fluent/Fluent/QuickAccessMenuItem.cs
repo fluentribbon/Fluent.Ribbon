@@ -34,7 +34,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        UIElement CreateQuickAccessShortcut();
+        UIElement CreateQuickAccessItem();
     }
     
     /// <summary>
@@ -161,7 +161,7 @@ namespace Fluent
             UIElement result = null;
 
             // If control supports the interface just return what it provides            
-            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).CreateQuickAccessShortcut();
+            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).CreateQuickAccessItem();
 
             // Predefined controls            
             else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);

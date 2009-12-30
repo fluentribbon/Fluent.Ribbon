@@ -22,6 +22,9 @@
       </Trigger>
     </Style.Triggers>
   </Style>
+  <Style x:Key="InnerButtonStyle" TargetType="{x:Type Fluent:Button}">
+		<Setter Property="Template" Value="{DynamicResource InnerButtonControlTemplate}"/>
+</Style>
   <ControlTemplate x:Key="RibbonSplitButtonControlTemplate" TargetType="{x:Type Fluent:SplitButton}">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
@@ -34,7 +37,8 @@
       				</RadialGradientBrush>
       			</Rectangle.Fill>
       		</Rectangle>
-      		<Fluent:Button x:Name="PART_Button" Margin="0,0,0,27" Height="Auto"/>
+      		<Fluent:Button x:Name="PART_Button" Margin="-2,-2,-2,27" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}"/>
+      		<Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="Transparent" BorderThickness="0,1,0,0" Margin="-1,0"/>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" IsHitTestVisible="False">
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
       			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
@@ -53,7 +57,11 @@
         <Setter Property="Margin" TargetName="iconImage" Value="1,2,0,2"/>
         <Setter Property="Margin" TargetName="controlLabel" Value="-2,-2,2,2"/>
         <Setter Property="Width" TargetName="controlLabel" Value="10"/>
-        <Setter Property="Margin" TargetName="PART_Button" Value="0,0,8,0"/>
+        <Setter Property="Margin" TargetName="PART_Button" Value="-2,-2,8,-2"/>
+        <Setter Property="VerticalAlignment" TargetName="downRect" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" TargetName="downRect" Value="Right"/>
+        <Setter Property="Height" TargetName="downRect" Value="Auto"/>
+        <Setter Property="Width" TargetName="downRect" Value="8"/>
       </Trigger>
       <Trigger Property="Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
@@ -67,13 +75,18 @@
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
         <Setter Property="Margin" TargetName="iconImage" Value="1,2,2,2"/>
         <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Top"/>
-        <Setter Property="Margin" TargetName="PART_Button" Value="0,0,8,0"/>
+        <Setter Property="Margin" TargetName="PART_Button" Value="-2,-2,8,-2"/>
+        <Setter Property="HorizontalAlignment" TargetName="downRect" Value="Right"/>
+        <Setter Property="VerticalAlignment" TargetName="downRect" Value="Stretch"/>
+        <Setter Property="Height" TargetName="downRect" Value="Auto"/>
+        <Setter Property="Width" TargetName="downRect" Value="8"/>
+        <Setter Property="Style" TargetName="PART_Button" Value="{DynamicResource InnerButtonStyle}"/>
       </Trigger>
       <Trigger Property="IsOpen" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+		<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </Trigger>
       <MultiTrigger>
@@ -81,11 +94,19 @@
           <Condition Property="IsMouseOver" Value="True"/>
           <Condition Property="IsOpen" Value="False"/>
         </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>        
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+		<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+      </MultiTrigger>
+      <MultiTrigger>
+      	<MultiTrigger.Conditions>
+      		<Condition Property="IsMouseOver" SourceName="downRect" Value="True"/>
+      		<Condition Property="IsOpen" Value="False"/>
+      	</MultiTrigger.Conditions>
+		<Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+		<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+		<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
       </MultiTrigger>
 	  <MultiTrigger>
         <MultiTrigger.Conditions>
@@ -93,11 +114,61 @@
           <Condition Property="IsOpen" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>        
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+		<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </MultiTrigger>
     </ControlTemplate.Triggers>
-  </ControlTemplate>    
+  </ControlTemplate>
+  
+  <ControlTemplate x:Key="InnerButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="2,2,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2,2,0,0" Background="{DynamicResource TransparentBrush}">
+				<Grid Height="Auto">
+					<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
+						<Rectangle.Fill>
+							<RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
+								<GradientStop Color="#7FFFFFFF" Offset="0"/>
+								<GradientStop Offset="1"/>
+							</RadialGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
+						<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource ControlLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>			
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+				<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
 </ResourceDictionary>

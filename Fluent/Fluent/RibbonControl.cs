@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -43,7 +44,7 @@ namespace Fluent
     /// <summary>
     /// Represent base class for Fluent controls
     /// </summary>
-    public abstract class RibbonControl:Control, ICommandSource
+    public abstract class RibbonControl:Control, ICommandSource, IQuickAccessItemProvider
     {        
         #region Size Property
 
@@ -525,6 +526,68 @@ namespace Fluent
                 e.Handled = true;
             }
             base.OnKeyUp(e);
+        }
+
+        #endregion
+
+        #region QuickAccess
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public abstract UIElement CreateQuickAccessItem();
+
+        /// <summary>
+        /// This method must be overriden to bind properties to use in quick access creating
+        /// </summary>
+        /// <param name="element">Toolbar item</param>
+        protected virtual void BindQuickAccessItem(FrameworkElement element)
+        {
+            Bind(this, element, "CommandParameter", RibbonControl.CommandParameterProperty, BindingMode.OneWay);
+            Bind(this, element, "CommandTarget", RibbonControl.CommandTargetProperty, BindingMode.OneWay);
+            Bind(this, element, "Command", RibbonControl.CommandProperty, BindingMode.OneWay);
+
+            Bind(this, element, "ToolTip", Control.ToolTipProperty, BindingMode.OneWay);
+
+            Bind(this, element, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);
+            Bind(this, element, "FontSize", Control.FontSizeProperty, BindingMode.OneWay);
+            Bind(this, element, "FontStretch", Control.FontStretchProperty, BindingMode.OneWay);
+            Bind(this, element, "FontStyle", Control.FontStyleProperty, BindingMode.OneWay);
+            Bind(this, element, "FontWeight", Control.FontWeightProperty, BindingMode.OneWay);
+
+            Bind(this, element, "Foreground", Control.ForegroundProperty, BindingMode.OneWay);
+            Bind(this, element, "IsEnabled", Control.IsEnabledProperty, BindingMode.OneWay);
+            Bind(this, element, "Opacity", Control.OpacityProperty, BindingMode.OneWay);
+            Bind(this, element, "SnapsToDevicePixels", Control.SnapsToDevicePixelsProperty, BindingMode.OneWay);
+
+            if (Icon != null) Bind(this, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            if (Text != null) Bind(this, element, "Text", RibbonControl.TextProperty, BindingMode.OneWay);
+
+            (element as RibbonControl).Size = RibbonControlSize.Small;
+        }
+
+        #endregion        
+
+        #region Binding
+
+        /// <summary>
+        /// Binds elements property
+        /// </summary>
+        /// <param name="source">Source element</param>
+        /// <param name="target">Target element</param>
+        /// <param name="path">Property path</param>
+        /// <param name="property">Property to bind</param>
+        /// <param name="mode">Binding mode</param>
+        static protected void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
+        {
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(path);
+            binding.Source = source;
+            binding.Mode = mode;
+            target.SetBinding(property, binding);
         }
 
         #endregion
