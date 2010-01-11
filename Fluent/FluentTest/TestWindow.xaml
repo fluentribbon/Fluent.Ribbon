@@ -180,8 +180,8 @@
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="LongLongGroupB" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
           <Button Width="25" Height="25" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}">Lala</Button>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Freeze" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnFreezeClick"/>
+          <Fluent:Button Text="Unfreeze" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnUnfreezeClick"/>
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>

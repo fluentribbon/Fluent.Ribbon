@@ -170,6 +170,16 @@ namespace FluentTest
         {
             MessageBox.Show("Split Clicked!!!");
         }
+
+        private void OnUnfreezeClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.IsSnapped = false;
+        }
+
+        private void OnFreezeClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.IsSnapped = true;
+        }
     }
 
 }

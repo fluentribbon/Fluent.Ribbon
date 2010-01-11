@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
@@ -66,6 +68,11 @@ namespace Fluent
         private Grid downGrid;
         // up part
         private Panel upPanel;
+
+        // Freezed image (created during snapping)
+        Image snappedImage;
+        // Visuals which were removed diring snapping
+        Visual[] snappedVisuals;
 
         #endregion
 
@@ -265,6 +272,81 @@ namespace Fluent
         /// </summary>
         /// <returns></returns>
         internal Panel GetPanel() { return upPanel; }
+
+        #endregion
+
+        #region Snapping
+
+        /// <summary>
+        /// Snaps / Unsnaps the Visual 
+        /// (remove visuals and substitute with freezed image)
+        /// </summary>
+        public bool IsSnapped 
+        { 
+            get
+            {
+                return snappedImage != null;
+            }
+            set
+            {
+                if (value == IsSnapped) return;
+
+                if (value)
+                {
+                    // Render the freezed image
+                    snappedImage = new Image();
+                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                    renderTargetBitmap.Render(this);
+                    snappedImage.Source = renderTargetBitmap;
+
+                    // Detach current visual children
+                    snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
+                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                    {
+                        snappedVisuals[childIndex] = (Visual)VisualTreeHelper.GetChild(this, childIndex);
+                        RemoveVisualChild(snappedVisuals[childIndex]);
+                    }
+
+                    // Attach freezed image
+                    AddVisualChild(snappedImage);
+                }
+                else
+                {
+                    RemoveVisualChild(snappedImage);
+                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                    {
+                        AddVisualChild(snappedVisuals[childIndex]);
+                    }
+
+                    // Clean up
+                    snappedImage = null;
+                    snappedVisuals = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets visual children count
+        /// </summary>
+        protected override int VisualChildrenCount
+        {
+            get 
+            {
+                if (IsSnapped) return 1; 
+                return base.VisualChildrenCount; 
+            }
+        }
+
+        /// <summary>
+        /// Returns a child at the specified index from a collection of child elements
+        /// </summary>
+        /// <param name="index">The zero-based index of the requested child element in the collection</param>
+        /// <returns>The requested child element</returns>
+        protected override Visual GetVisualChild(int index)
+        {
+            if (IsSnapped) return snappedImage; 
+            return base.GetVisualChild(index);
+        }
 
         #endregion
 

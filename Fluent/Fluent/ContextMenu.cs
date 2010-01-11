@@ -65,7 +65,7 @@ namespace Fluent
 
         #endregion
 
-        #region Properties        
+        #region Properties
 
         internal RibbonPopup RibbonPopup
         {
