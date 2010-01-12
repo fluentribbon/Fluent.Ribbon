@@ -196,6 +196,14 @@ namespace Fluent
 
         #endregion
 
+        #region Events
+
+        public event EventHandler MenuOpened;
+        public event EventHandler MenuClosed;
+
+        #endregion
+
+
         #region Initialize
 
         /// <summary>
@@ -309,6 +317,8 @@ namespace Fluent
                 contextMenu.Items.Add(item);
             }
             contextMenu.IsOpen = true;
+            contextMenu.RibbonPopup.Opened += OnMenuOpened;
+            contextMenu.RibbonPopup.Closed += OnMenuClosed;
 
             Binding binding = new Binding("IsOpen");
             binding.Mode = BindingMode.TwoWay;
@@ -321,7 +331,7 @@ namespace Fluent
             contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
 
             contextMenu.PlacementTarget = this;
-            contextMenu.Placement = PlacementMode.Bottom;
+            contextMenu.Placement = PlacementMode.Bottom;            
 
             AddLogicalChild(contextMenu.RibbonPopup);
             isInitializing = false;
@@ -333,6 +343,16 @@ namespace Fluent
                 if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
             }
             contextMenu.IsOpen = true;
+        }
+
+        private void OnMenuClosed(object sender, EventArgs e)
+        {            
+            if (MenuClosed != null) MenuClosed(this, e);
+        }
+
+        private void OnMenuOpened(object sender, EventArgs e)
+        {
+            if (MenuOpened != null) MenuOpened(this, e);
         }
 
         #endregion

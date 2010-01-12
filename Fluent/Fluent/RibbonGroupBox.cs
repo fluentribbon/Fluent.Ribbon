@@ -54,7 +54,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
-    public class RibbonGroupBox :ItemsControl
+    public class RibbonGroupBox :ItemsControl, IQuickAccessItemProvider
     {
         #region Fields
 
@@ -73,6 +73,8 @@ namespace Fluent
         Image snappedImage;
         // Visuals which were removed diring snapping
         Visual[] snappedVisuals;
+        // Is visual currently snapped
+        private bool isSnapped;
 
         #endregion
 
@@ -106,8 +108,7 @@ namespace Fluent
             RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
             RibbonGroupBoxState ribbonGroupBoxState = (RibbonGroupBoxState)e.NewValue;
 
-            SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);
-
+            SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);            
         }
         
         // Set child sizes
@@ -134,7 +135,7 @@ namespace Fluent
             for (int i = 0; i < childrenCount; i++)
             {
                 SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root,i) as UIElement, ribbonGroupBoxState);
-            }
+            }            
         }
 
         #endregion
@@ -285,27 +286,27 @@ namespace Fluent
         { 
             get
             {
-                return snappedImage != null;
+                return isSnapped;
             }
             set
             {
-                if (value == IsSnapped) return;
+                if (value == isSnapped) return;
 
                 if (value)
                 {
                     // Render the freezed image
                     snappedImage = new Image();
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                    renderTargetBitmap.Render(this);
+                    renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                     snappedImage.Source = renderTargetBitmap;
 
                     // Detach current visual children
-                    snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
+                    /*snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
                     for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
                     {
                         snappedVisuals[childIndex] = (Visual)VisualTreeHelper.GetChild(this, childIndex);
                         RemoveVisualChild(snappedVisuals[childIndex]);
-                    }
+                    }*/
 
                     // Attach freezed image
                     AddVisualChild(snappedImage);
@@ -313,15 +314,17 @@ namespace Fluent
                 else
                 {
                     RemoveVisualChild(snappedImage);
-                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                   /* for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
                     {
                         AddVisualChild(snappedVisuals[childIndex]);
-                    }
+                    }*/
 
                     // Clean up
                     snappedImage = null;
                     snappedVisuals = null;
                 }
+                isSnapped = value;
+                InvalidateVisual();
             }
         }
 
@@ -332,7 +335,7 @@ namespace Fluent
         {
             get 
             {
-                if (IsSnapped) return 1; 
+                if (isSnapped) return 1; 
                 return base.VisualChildrenCount; 
             }
         }
@@ -344,7 +347,7 @@ namespace Fluent
         /// <returns>The requested child element</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (IsSnapped) return snappedImage; 
+            if (isSnapped) return snappedImage; 
             return base.GetVisualChild(index);
         }
 
@@ -385,6 +388,8 @@ namespace Fluent
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 popup.SetBinding(Popup.IsOpenProperty, binding);
+
+
             }
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
@@ -415,11 +420,12 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if ((upPanel == null) || (downGrid == null)) return base.MeasureOverride(constraint);
+            if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
             upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
             double width = upPanel.DesiredSize.Width +upPanel.Margin.Left + upPanel.Margin.Right;
             Size size = new Size(width,constraint.Height);
-            (upPanel.Parent as Grid).Measure(size);
+            //(upPanel.Parent as Grid).Measure(size);
+            (GetVisualChild(0) as UIElement).Measure(size);
             return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);
         }
 
@@ -466,6 +472,77 @@ namespace Fluent
             {
                 ribbon.OnRibbonGroupBoxPopupClosing();
             }
+        }
+
+        #endregion
+
+        #region Quick Access Item Creating
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public UIElement CreateQuickAccessItem()
+        {
+            Button button = new Button();
+
+            button.Size = RibbonControlSize.Small;
+
+            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+
+            return button;
+        }
+
+        private UIElement popupPlacementTarget;
+
+        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((!IsOpen)&&(!IsSnapped))
+            {
+                popup.Closed += OnMenuClosed;
+                IsSnapped = true;
+                savedState = this.State;
+                this.State = RibbonGroupBoxState.Collapsed;
+                popupPlacementTarget = popup.PlacementTarget;
+                popup.PlacementTarget = sender as Button;
+                e.Handled = true;
+                Mouse.Capture(popup, CaptureMode.Element);
+                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
+                popup.UpdateLayout();
+            }
+        }
+
+        Grid grid = new Grid();
+
+        private RibbonGroupBoxState savedState;
+
+        // On context menu opend
+        private void OnMenuOpened(object sender, EventArgs e)
+        {
+            if (IsSnapped) return;
+            if (State==RibbonGroupBoxState.Collapsed) IsSnapped = true;
+            if (snappedVisuals == null) return;
+            savedState = this.State;
+            this.State = RibbonGroupBoxState.Large;
+            grid.Background = Brushes.White;
+            grid.Height = (snappedImage.Source as RenderTargetBitmap).PixelHeight;
+            (sender as DropDownButton).Items.Add(grid);
+            for (int i = 0; i < snappedVisuals.Length; i++)
+            {
+                grid.Children.Add(snappedVisuals[i] as UIElement);
+                (snappedVisuals[i] as UIElement).UpdateLayout();
+            }
+        }
+
+        private void OnMenuClosed(object sender, EventArgs e)
+        {            
+            this.State = savedState;
+            popup.PlacementTarget = popupPlacementTarget;
+            UpdateLayout();
+            popup.Closed -= OnMenuClosed;
+            IsSnapped = false;
         }
 
         #endregion
