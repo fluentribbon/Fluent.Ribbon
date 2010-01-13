@@ -103,6 +103,11 @@ namespace Fluent
             }
         }
 
+        public ContextMenuBar MenuBar
+        {
+            get { return menuBar; }
+        }
+
         /// <summary>
         /// handles colection of menu items changes
         /// </summary>
@@ -115,7 +120,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (menuBar != null) menuBar.Items.Add(obj2 as UIElement);
+                        if (MenuBar != null) MenuBar.Items.Add(obj2 as UIElement);
                         else AddLogicalChild(obj2);
                     }
                     break;
@@ -123,7 +128,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (menuBar != null) menuBar.Items.Remove(obj3 as UIElement);
+                        if (MenuBar != null) MenuBar.Items.Remove(obj3 as UIElement);
                         else RemoveLogicalChild(obj3);
                     }
                     break;
@@ -131,12 +136,12 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (menuBar != null) menuBar.Items.Remove(obj4 as UIElement);
+                        if (MenuBar != null) MenuBar.Items.Remove(obj4 as UIElement);
                         else RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (menuBar != null) menuBar.Items.Add(obj5 as UIElement);
+                        if (MenuBar != null) MenuBar.Items.Add(obj5 as UIElement);
                         else AddLogicalChild(obj5);
                     }
                     break;
@@ -265,14 +270,14 @@ namespace Fluent
             }
             if(e.Key==Key.Left)
             {
-                if(popup.ParentPopup!=null)
+                /*if(popup.ParentPopup!=null)
                 {
                     IsOpen = false;
                     popup.ParentPopup.Activate();
                     Keyboard.Focus(popup.ParentPopup.Child);
                     e.Handled = true;
                     return;
-                }
+                }*/
             }
         }
 
@@ -300,46 +305,17 @@ namespace Fluent
                     menu.HookupParentPopup();
                     menu.isInInitializing = false;
                     Mouse.Capture(null);
-                    menu.popup.IgnoreNextDeactivate = false;
                     menu.popup.Activate();
                 }
-                Keyboard.Focus(menu.menuBar);
-                if (Keyboard.FocusedElement != null)
-                {
-                    Keyboard.FocusedElement.PreviewKeyDown += menu.OnFocusedElementKeyDown;
-                    Keyboard.FocusedElement.LostKeyboardFocus += menu.OnFocusedElementLostFocus;
-                }
+                Keyboard.Focus(menu.MenuBar);
             }
             else FocusManager.SetFocusedElement(menu,null);
             //TODO: Strange behavior of command when our context menu is opened
         }
 
-        private void OnFocusedElementLostFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            (sender as IInputElement).PreviewKeyDown -= OnFocusedElementKeyDown;
-            (sender as IInputElement).LostKeyboardFocus -= OnFocusedElementLostFocus;
-            if((!Items.Contains(e.NewFocus as UIElement))&&(e.NewFocus is IInputElement))
-            {
-                (e.NewFocus as IInputElement).PreviewKeyDown += OnFocusedElementKeyDown;
-                (e.NewFocus as IInputElement).LostKeyboardFocus += OnFocusedElementLostFocus;
-            }
-        }
-
-        private void OnFocusedElementKeyDown(object sender, KeyEventArgs e)
-        {
-            OnPreviewKeyDown(e);
-        }
-
         // Creates ribbon popup and removes original System.Windows.Controls.ContextMenu popup
         private void HookupParentPopup()
-        {
-            // Find original popup
-            Popup originalPopup = (typeof(System.Windows.Controls.ContextMenu).
-                GetField("_parentPopup", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this) as Popup);
-            // Closing original popup
-            originalPopup.IsOpen = false;
-
-
+        {                      
             popup = new RibbonPopup();
             this.popup.AllowsTransparency = true;
                 
@@ -347,20 +323,31 @@ namespace Fluent
             for (int i = 0; i < Items.Count;i++ )
             {
                 RemoveLogicalChild(items[i]);
-                menuBar.Items.Add(items[i]);
+                MenuBar.Items.Add(items[i]);
             }
 
             Binding binding = new Binding("ResizeMode");
             binding.Mode = BindingMode.TwoWay;
             binding.Source = this;
-            menuBar.SetBinding(ContextMenuBar.ResizeModeProperty, binding);
+            MenuBar.SetBinding(ContextMenuBar.ResizeModeProperty, binding);
 
             // Preventing ribbon popup closing
-            popup.IgnoreNextDeactivate = true;
-            popup.Child = menuBar;
+            popup.Child = MenuBar;
+            popup.Closed += OnPopupFirstClose;
+                                
             // Set ribbon popup bindings
             CreatePopupRoot(this.popup, this);
         }
+
+        private void OnPopupFirstClose(object sender, EventArgs e)
+        {
+            popup.Closed -= OnPopupFirstClose;
+            // Find original popup
+            Popup originalPopup = (typeof(System.Windows.Controls.ContextMenu).
+                GetField("_parentPopup", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this) as Popup);
+            originalPopup.IsOpen = false;
+        }
+
         // Set popup bindings
         static void CreatePopupRoot(RibbonPopup popup, UIElement child)
         {

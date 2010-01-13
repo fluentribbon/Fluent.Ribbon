@@ -408,7 +408,7 @@ namespace Fluent
             if ((State == RibbonGroupBoxState.Collapsed)&&(popup!=null)&&(!IsOpen))
             {
                 e.Handled = true;
-                Mouse.Capture(popup, CaptureMode.Element);
+                //Mouse.Capture(popup, CaptureMode.Element);
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent,this));                
             }
         }
@@ -508,7 +508,7 @@ namespace Fluent
                 popupPlacementTarget = popup.PlacementTarget;
                 popup.PlacementTarget = sender as Button;
                 e.Handled = true;
-                Mouse.Capture(popup, CaptureMode.Element);
+                //Mouse.Capture(popup, CaptureMode.Element);
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
             }

@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -24,6 +25,7 @@ using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -302,7 +304,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            base.OnSelectionChanged(e);
+            //base.OnSelectionChanged(e);
             if (e.AddedItems.Count > 0)
             {
                 if (IsMinimized)
@@ -311,7 +313,8 @@ namespace Fluent
                         IsOpen = !IsOpen;
                     else
                     {
-                        IsOpen = true;                        
+                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsOpen = true;}));
+//                            IsOpen = true;                        
                     }
                     if (e.AddedItems[0] is RibbonTabItem) (e.AddedItems[0] as RibbonTabItem).IsHitTestVisible = false;
                 }

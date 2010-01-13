@@ -109,7 +109,7 @@ namespace Fluent
                 if (contextMenu != null)
                 {
                     ArrayList list = new ArrayList();
-                    if (contextMenu.RibbonPopup != null) list.Add(contextMenu.RibbonPopup);
+                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
                     else list.Add(contextMenu);
                     return list.GetEnumerator();
                 }
@@ -309,7 +309,7 @@ namespace Fluent
         {
             isInitializing = true;
             RibbonPopup parentPopup = FindParentPopup();
-            if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
+            //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
@@ -336,11 +336,11 @@ namespace Fluent
             AddLogicalChild(contextMenu.RibbonPopup);
             isInitializing = false;
             IsOpen = true;
-            Mouse.Capture(contextMenu.RibbonPopup);
+            //Mouse.Capture(contextMenu.RibbonPopup);
             if (parentPopup != null)
             {
-                parentPopup.IgnoreNextDeactivate = false;
-                if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
+                //parentPopup.IgnoreNextDeactivate = false;
+               // if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
             }
             contextMenu.IsOpen = true;
         }

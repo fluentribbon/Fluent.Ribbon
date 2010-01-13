@@ -28,38 +28,20 @@ namespace Fluent
     [SuppressMessage("Microsoft.Design", "CA1049")]
     public class RibbonPopup:Popup
     {
+        #region Static Methods
+
+        private static List<RibbonPopup> openedPopups = new List<RibbonPopup>();
+
+        #endregion
+
         #region Fields
 
-        // Designates that next deactivate should be skipped
-        private bool ignoreNextDeactivate;
-        // Backup current active window to setup 
-        // it when this popup will be closed
-        [SuppressMessage("Microsoft.Reliability", "CA2006")]
-        IntPtr previousActiveWindowHwnd = IntPtr.Zero;
         // Current HwndSource of this Popup
         HwndSource hwndSource;
-        // Previous focused element
-        IInputElement previousFocusedElement;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets whether next deactivate should be skipped
-        /// </summary>
-        internal bool IgnoreNextDeactivate
-        {
-            get { return ignoreNextDeactivate; }
-            set
-            {
-                ignoreNextDeactivate = value;  
-            }
-        }
-        /// <summary>
-        /// Gets or sets parent popup
-        /// </summary>
-        internal RibbonPopup ParentPopup { get; set; }
 
         #endregion
 
@@ -70,7 +52,6 @@ namespace Fluent
         /// </summary>
         public RibbonPopup()
         {
-            //IgnoreNextDeactivate = false;  
             Focusable = false;
             FocusManager.SetIsFocusScope(this,true);
         }
@@ -92,28 +73,9 @@ namespace Fluent
             hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
             if (hwndSource != null) hwndSource.AddHook(WindowProc);
 
-            ParentPopup = FindParentPopup();
-            if((ParentPopup!=null) &&(ParentPopup.IsOpen))
-                ParentPopup.IgnoreNextDeactivate = true;
+            openedPopups.Add(this);
 
-            // Backup previous active window and set popup's window as active
-            previousActiveWindowHwnd = NativeMethods.GetActiveWindow();
-            previousFocusedElement = Keyboard.FocusedElement;
             Activate();                                    
-        }
-        
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseDown attached event reaches
-        /// an element in its route that is derived from this class. 
-        /// Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
-        /// This event data reports details about the mouse button that was pressed and the handled state.</param>
-        protected override void OnMouseDown(MouseButtonEventArgs e)
-        {
-            IntPtr hwnd = ((HwndSource)PresentationSource.FromVisual(this.Child)).Handle;
-            NativeMethods.SetActiveWindow(hwnd);
-            base.OnMouseDown(e);
         }
 
         /// <summary>
@@ -135,12 +97,8 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnClosed(EventArgs e)
         {
-            base.OnClosed(e);
+            if (openedPopups.Contains(this)) openedPopups.Remove(this);
             PopupAnimation = PopupAnimation.None;
-
-            // Restore active window and focus
-            //NativeMethods.SetActiveWindow(previousActiveWindowHwnd);
-            //Keyboard.Focus(previousFocusedElement);
 
             // Remove hook
             if ((hwndSource != null) && (!hwndSource.IsDisposed))
@@ -148,6 +106,7 @@ namespace Fluent
                 hwndSource.RemoveHook(WindowProc);
                 hwndSource = null;
             }
+            base.OnClosed(e);
         }
 
         /// <summary>
@@ -160,8 +119,7 @@ namespace Fluent
         {
             if (e.Key == Key.Escape)
             {
-                e.Handled = true;                
-                if (ParentPopup != null) ParentPopup.IgnoreNextDeactivate = true;
+                e.Handled = true;                                
                 IsOpen = false;
                 return;
             }
@@ -169,7 +127,7 @@ namespace Fluent
             {
                 if (e.SystemKey != Key.F10)
                 {
-                    ClosePopup(IntPtr.Zero, IntPtr.Zero);
+                    ClosePopups(0);
                 }
                 else e.Handled = true;
                 return;
@@ -181,49 +139,25 @@ namespace Fluent
 
         #region Private methods
 
+        private static void ClosePopups(int index)
+        {
+            for (int i = openedPopups.Count - 1; i >= index; i--)
+            {
+                openedPopups[i].PopupAnimation = PopupAnimation.Fade;
+                
+                openedPopups[i].IsOpen = false;
+                if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
+            }
+        }
+
+
         internal void Activate()
         {
-            if(hwndSource!=null)NativeMethods.SetActiveWindow(hwndSource.Handle);
-        }
-
-        /// <summary>
-        /// Find parent popup
-        /// </summary>
-        /// <returns>Parent popup or null if not finded</returns>
-        private RibbonPopup FindParentPopup()
-        {
-            UIElement element = this.Parent as UIElement;
-            while (element != null)
+            if (hwndSource != null)
             {
-                RibbonPopup ribbonPopup = element as RibbonPopup;
-                if (ribbonPopup != null) return ribbonPopup;
-                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
-                if(parent!=null) element = parent;
-                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+                //NativeMethods.SetActiveWindow(hwndSource.Handle);
+                NativeMethods.SetForegroundWindow(hwndSource.Handle);
             }
-            return null;
-        }
-
-        /// <summary>
-        /// Closes popup
-        /// </summary>
-        /// <param name="wParam">wParam of windows message</param>
-        /// <param name="lParam">lParam of windows message</param>
-        private void ClosePopup(IntPtr wParam, IntPtr lParam)
-        {
-            if (hwndSource == null) return;
-            IntPtr hwnd = hwndSource.Handle;
-            if ((lParam != hwnd) && (!IgnoreNextDeactivate))
-            {                                    
-                PopupAnimation = PopupAnimation.Fade;
-                IsOpen = false;
-                if ((ParentPopup != null) && (ParentPopup.IsOpen))
-                {
-                    ParentPopup.ClosePopup(wParam, lParam);
-                }
-            }
-            else IgnoreNextDeactivate = false;                
-                        
         }
 
         /// <summary>
@@ -248,27 +182,26 @@ namespace Fluent
                     {
                         if (((short)wParam.ToInt32()) == 0)
                         {
-                            ClosePopup(wParam, lParam);                     
+                            if(openedPopups.Count(x => x.hwndSource.Handle == lParam) == 0)
+                            {
+                                ClosePopups(0);
+                            }
                         }
                         else
                         {
-                            if (ParentPopup == null)
-                            {
-                                IntPtr parentHwnd = previousActiveWindowHwnd;// (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                                NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);                                
-                            }
+                            int index = openedPopups.IndexOf(this);
+                            ClosePopups(index + 1);
+                            IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                            NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
                         }
-                        handled = true;
                         break;
                     }
                 case 0x0021/*WM_MOUSEACTIVATE*/:
                     {
-                        if (ParentPopup == null)
-                        {
-                            IntPtr parentHwnd = previousActiveWindowHwnd;// (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                            NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
-                            handled = true;
-                        }
+                        int index = openedPopups.IndexOf(this);
+                        ClosePopups(index + 1);
+                        IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
+                        NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
                         break;
                     }
             }

@@ -100,7 +100,7 @@ namespace Fluent
                 if (contextMenu != null)
                 {
                     ArrayList list = new ArrayList();
-                    if (contextMenu.RibbonPopup != null) list.Add(contextMenu.RibbonPopup);
+                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
                     else list.Add(contextMenu);
                     return list.GetEnumerator();
                 }
@@ -274,7 +274,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
-            if (Mouse.Captured == this) Mouse.Capture(null);
+            //if (Mouse.Captured == this) Mouse.Capture(null);
             Point position = Mouse.PrimaryDevice.GetPosition(this);
             if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
             {
@@ -359,7 +359,7 @@ namespace Fluent
                 {
                     parentPopup = (Parent as ContextMenu).RibbonPopup;
                 }
-                if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
+                //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
                 IsOpen = true;
                 e.Handled = true;
             }
@@ -386,7 +386,7 @@ namespace Fluent
                     {
                         parentPopup = (Parent as ContextMenu).RibbonPopup;
                     }
-                    if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
+                    //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
                     IsOpen = true;
                 }                
             }
@@ -414,7 +414,7 @@ namespace Fluent
         private void CreateMenu()
         {
             RibbonPopup parentPopup= FindParentPopup();
-            if(parentPopup!=null) parentPopup.IgnoreNextDeactivate = true;
+            //if(parentPopup!=null) parentPopup.IgnoreNextDeactivate = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
@@ -438,8 +438,8 @@ namespace Fluent
             AddLogicalChild(contextMenu.RibbonPopup);
             if (parentPopup != null)
             {
-                parentPopup.IgnoreNextDeactivate = false;
-                if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
+                //parentPopup.IgnoreNextDeactivate = false;
+                //if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
             }
         }
 

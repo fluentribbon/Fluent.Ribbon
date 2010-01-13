@@ -454,6 +454,18 @@ namespace Fluent
         public static extern IntPtr SetActiveWindow(IntPtr hWnd);
 
         /// <summary>
+        /// The SetForegroundWindow function puts the thread that created the specified window into 
+        /// the foreground and activates the window. Keyboard input is directed to the window, 
+        /// and various visual cues are changed for the user. The system assigns a slightly higher priority to the thread that created the foreground window than it does to other threads. 
+        /// </summary>
+        /// <param name="hWnd">Handle to the window that should be activated and brought to the foreground. </param>
+        /// <returns>TIf the window was brought to the foreground, the return value is nonzero. 
+        /// If the window was not brought to the foreground, the return value is zero.
+        /// </returns>
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);       
+
+        /// <summary>
         /// The GetActiveWindow function retrieves the window handle to the active 
         /// window attached to the calling thread's message queue
         /// </summary>
