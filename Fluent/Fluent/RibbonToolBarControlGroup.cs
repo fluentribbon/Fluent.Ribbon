@@ -1,278 +1,70 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
     /// <summary>
-    /// Represent panel for group box panel
+    /// Represent logical container for toolbar items
     /// </summary>
     [ContentProperty("Children")]
-    public class RibbonToolBarControlGroup : RibbonControl
+    public class RibbonToolBarControlGroup : ItemsControl
     {
-        #region Fields
-
-        // User defined children
-        readonly ObservableCollection<FrameworkElement> children = new ObservableCollection<FrameworkElement>();
-        // User defined layout definitions
-        readonly ObservableCollection<RibbonToolBarLayoutDefinition> layoutDefinitions =
-            new ObservableCollection<RibbonToolBarLayoutDefinition>();
-
-        // Actual children
-        readonly List<FrameworkElement> actualChildren = new List<FrameworkElement>();
-        // Designates that rebuilding of visual & logical children is required
-        bool rebuildVisualAndLogicalChildren = true;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        /// Gets children
+        /// Gets whether the group is the fisrt control in the row
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<FrameworkElement> Children
+        public bool IsFirstInRow
         {
-            get { return children; }
+            get { return (bool)GetValue(IsFirstInRowProperty); }
+            set { SetValue(IsFirstInRowProperty, value); }
         }
 
         /// <summary>
-        /// Gets particular rules  for layout in this group box panel
+        /// Using a DependencyProperty as the backing store for IsFirstInRow.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions
-        {
-            get { return layoutDefinitions; }
-        }
-
-        #endregion
-
-        #region Logical & Visual Tree
+        public static readonly DependencyProperty IsFirstInRowProperty =
+            DependencyProperty.Register("IsFirstInRow", typeof(bool), typeof(RibbonToolBarControlGroup), new UIPropertyMetadata(true));
 
         /// <summary>
-        /// Gets the number of visual child elements within this element.
+        /// Gets whether the group is the last control in the row
         /// </summary>
-        protected override int VisualChildrenCount
+        public bool IsLastInRow
         {
-            get
-            {
-                if (layoutDefinitions.Count == 0) return children.Count;
-                if (rebuildVisualAndLogicalChildren) UpdateLayout();
-                return actualChildren.Count;
-            }
+            get { return (bool)GetValue(IsLastInRowProperty); }
+            set { SetValue(IsLastInRowProperty, value); }
         }
 
         /// <summary>
-        /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
-        /// and returns a child at the specified index from a collection of child elements.
+        /// Using a DependencyProperty as the backing store for IsFirstInRow.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        /// <param name="index">The zero-based index of the requested 
-        /// child element in the collection</param>
-        /// <returns>The requested child element. This should not return null; 
-        /// if the provided index is out of range, an exception is thrown</returns>
-        protected override Visual GetVisualChild(int index)
-        {
-            if (layoutDefinitions.Count == 0) return children[index];
-            if (rebuildVisualAndLogicalChildren) UpdateLayout();
-            return actualChildren[index];
-        }
-
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element
-        /// </summary>
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                if (layoutDefinitions.Count == 0) return children.GetEnumerator();
-                if (rebuildVisualAndLogicalChildren) UpdateLayout();
-                return actualChildren.GetEnumerator();
-            }
-        }
+        public static readonly DependencyProperty IsLastInRowProperty =
+            DependencyProperty.Register("IsLastInRow", typeof(bool), typeof(RibbonToolBarControlGroup), new UIPropertyMetadata(true));
 
         #endregion
 
         #region Initialization
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RibbonToolBarControlGroup()
+        static RibbonToolBarControlGroup()
         {
-            children.CollectionChanged += OnChildrenCollectionChanged;
-            layoutDefinitions.CollectionChanged += OnLayoutDefinitionsChanged;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(typeof(RibbonToolBarControlGroup)));
+            StyleProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
-        void OnLayoutDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            rebuildVisualAndLogicalChildren = true;
-            InvalidateMeasure();
-        }
 
-        void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            // Children have changed, reset layouts
-            foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
-            {
-                definition.Invalidate();
-            }
-            rebuildVisualAndLogicalChildren = true;
-            InvalidateMeasure();
+            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonToolBarControlGroupStyle;
+            return basevalue;
         }
 
         #endregion
-
-        #region Methods
-
-        RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
-        {
-            if (layoutDefinitions.Count == 0) return null;
-            if (layoutDefinitions.Count == 1) return layoutDefinitions[0];
-
-            foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
-            {
-                if (definition.Size == Size) return definition;
-            }
-
-            // TODO: try to find a better definition
-            return layoutDefinitions[0];
-        }
-
-        #endregion
-
-        #region Layout Overriding
-
-        /// <summary>
-        /// Measures all of the RibbonGroupBox, and resize them appropriately
-        /// to fit within the available room
-        /// </summary>
-        /// <param name="availableSize">The available size that 
-        /// this element can give to child elements.</param>
-        /// <returns>The size that the panel determines it needs during 
-        /// layout, based on its calculations of child element sizes.
-        /// </returns>
-        protected override Size MeasureOverride(Size availableSize)
-        {
-            RibbonToolBarLayoutDefinition layoutDefinition = GetCurrentLayoutDefinition();
-            
-            // Rebuilding actual children (visual & logical)
-            if (rebuildVisualAndLogicalChildren)
-            {
-                // Clear previous children
-                foreach (FrameworkElement child in actualChildren)
-                {
-                    RemoveVisualChild(child);
-                    RemoveLogicalChild(child);
-                }
-                actualChildren.Clear();
-
-                if (layoutDefinition == null)
-                {
-                    foreach (FrameworkElement child in Children)
-                    {
-                        actualChildren.Add(child);
-                        AddVisualChild(child);
-                        AddLogicalChild(child);
-                    }
-                }
-                rebuildVisualAndLogicalChildren = false;
-            }
-
-            if (layoutDefinition == null)
-            {
-                return WrapPanelLayuot(availableSize, true);
-            }
-
-
-            return availableSize;
-        }
-
-        
-
-        /// <summary>
-        /// When overridden in a derived class, positions child elements and determines 
-        /// a size for a System.Windows.FrameworkElement derived class.
-        /// </summary>
-        /// <param name="finalSize">The final area within the parent that this 
-        /// element should use to arrange itself and its children.</param>
-        /// <returns>The actual size used.</returns>
-        protected override Size ArrangeOverride(Size finalSize)
-        {
-            RibbonToolBarLayoutDefinition layoutDefinition = GetCurrentLayoutDefinition();
-            if (layoutDefinition == null)
-            {
-                return WrapPanelLayuot(finalSize, false);
-            }
-
-            return finalSize;
-        }
-
-
-        #region Wrap Panel Layout
-
-        /// <summary>
-        /// Unified method for wrap panel logic
-        /// </summary>
-        /// <param name="availableSize">Available or final size</param>
-        /// <param name="measure">Pass true if measure required; pass false if arrange required</param>
-        /// <returns>Final size</returns>
-        Size WrapPanelLayuot(Size availableSize, bool measure)
-        {
-            bool arrange = !measure;
-            double availableHeight = Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
-
-            double currentheight = 0;
-            double columnWidth = 0;
-
-            double resultWidth = 0;
-            double resultHeight = 0;
-
-            Size infinity = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
-            foreach (FrameworkElement child in children)
-            {
-                // Measuring
-                if (measure) child.Measure(infinity);
-
-                if (currentheight + child.DesiredSize.Height > availableHeight)
-                {
-                    // Move to the next column
-                    resultHeight = Math.Max(resultHeight, currentheight);
-                    resultWidth += columnWidth;
-                    currentheight = 0;
-                    columnWidth = 0;
-                }
-
-                // Arranging
-                if (arrange) child.Arrange(new Rect(
-                    resultWidth,
-                    currentheight,
-                    child.DesiredSize.Width,
-                    child.DesiredSize.Height));
-
-                columnWidth = Math.Max(columnWidth, child.DesiredSize.Width);
-                currentheight += child.DesiredSize.Height;
-            }
-
-            return new Size(resultWidth + columnWidth, resultHeight);
-        }
-
-        #endregion
-
-        #endregion
-
-        public override UIElement CreateQuickAccessItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void BindQuickAccessItem(FrameworkElement element)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

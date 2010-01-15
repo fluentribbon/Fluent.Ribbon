@@ -164,6 +164,11 @@ namespace Fluent
             get { return DefaultResourceDictionary["ControlLabelStyle"] as Style; }
         }
 
+        internal static Style DefaultRibbonToolBarControlGroupStyle
+        {
+            get { return DefaultResourceDictionary["RibbonToolBarControlGroupStyle"] as Style; }
+        }
+
         #endregion
 
         #endregion
@@ -221,6 +226,7 @@ namespace Fluent
                 return office2010BlackResourceDictionary;
             }
         }
+
 
         #endregion
 

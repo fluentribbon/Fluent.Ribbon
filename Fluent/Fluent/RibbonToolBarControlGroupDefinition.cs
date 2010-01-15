@@ -7,19 +7,17 @@ using System.Windows.Markup;
 namespace Fluent
 {
     /// <summary>
-    /// Represents size definition for group box
+    /// Represent logical container for toolbar items
     /// </summary>
     [ContentProperty("Children")]
-    public class RibbonToolBarRow : DependencyObject
+    public class RibbonToolBarControlGroupDefinition : DependencyObject
     {
         #region Fields
 
         // User defined rows
-        readonly ObservableCollection<DependencyObject> children = new ObservableCollection<DependencyObject>();
+        readonly ObservableCollection<RibbonToolBarControlDefinition> children = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
-
-        #region Properties
 
         #region Children Property
 
@@ -27,21 +25,10 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<DependencyObject> Children
+        public ObservableCollection<RibbonToolBarControlDefinition> Children
         {
             get { return children; }
         }
-
-        #endregion
-
-        #endregion
-
-        #region Initialization
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RibbonToolBarRow(){}
 
         #endregion
 

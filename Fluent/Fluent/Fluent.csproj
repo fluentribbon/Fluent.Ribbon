@@ -83,6 +83,8 @@
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
     <Compile Include="RibbonToolBarControlGroup.cs" />
+    <Compile Include="RibbonToolBarControlDefinition.cs" />
+    <Compile Include="RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="RibbonToolBarRow.cs" />
     <Compile Include="MenuPanel.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -158,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

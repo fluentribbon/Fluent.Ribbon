@@ -13,7 +13,7 @@ namespace Fluent
     /// <summary>
     /// Represents size definition for group box
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty("Rows")]
     public class RibbonToolBarLayoutDefinition : DependencyObject
     {
         #region Fields
@@ -62,7 +62,7 @@ namespace Fluent
 
         internal void Invalidate()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

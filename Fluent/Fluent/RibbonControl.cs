@@ -71,22 +71,10 @@ namespace Fluent
         // usually changes from RibbonGroupsContainer.MeasureOverride.
         private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            /*Visual visual = d as Visual;
-            while (visual != null)
-            {
-                UIElement uiElement = visual as UIElement;
-                if (uiElement != null)
-                {
-                    if (uiElement is RibbonGroupsContainer)
-                    {
-                        break;
-                    }
-
-                    uiElement.InvalidateMeasure();
-                }
-
-                visual = VisualTreeHelper.GetParent(visual) as Visual;
-            }*/
+            RibbonControl ribbonControl = (RibbonControl) d;
+            ribbonControl.OnSizePropertyChanged(
+                (RibbonControlSize)e.OldValue, 
+                (RibbonControlSize)e.NewValue);
         }
 
         /// <summary>
@@ -588,6 +576,19 @@ namespace Fluent
             binding.Source = source;
             binding.Mode = mode;
             target.SetBinding(property, binding);
+        }
+
+        #endregion
+
+        #region Proptected
+
+        /// <summary>
+        /// Handles size property changing
+        /// </summary>
+        /// <param name="previous">Previous value</param>
+        /// <param name="current">Current value</param>
+        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        {
         }
 
         #endregion

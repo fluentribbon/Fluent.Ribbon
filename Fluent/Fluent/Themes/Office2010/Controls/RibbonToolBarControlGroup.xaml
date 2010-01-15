@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+  <Style x:Key="RibbonToolBarControlGroupStyle" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
+    <Setter Property="Template" Value="{DynamicResource RibbonToolBarControlGroupTemplate}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+  </Style>
+  <ControlTemplate x:Key="RibbonToolBarControlGroupTemplate" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
+    <StackPanel Orientation="Horizontal" >
+	  <Separator x:Name="separatorLeft" Template="{DynamicResource RibbonSeparatorTemplate}"/>
+      <StackPanel Orientation="Horizontal" IsItemsHost="true"/>  
+	  <Separator  x:Name="separatorRight" Template="{DynamicResource RibbonSeparatorTemplate}"/>
+    </StackPanel>
+  	<ControlTemplate.Triggers>
+  		<Trigger Property="IsFirstInRow" Value="True">
+  			<Setter Property="Visibility" TargetName="separatorLeft" Value="Collapsed"/>
+  		</Trigger>
+  		<Trigger Property="IsLastInRow" Value="True">
+  			<Setter Property="Visibility" TargetName="separatorRight" Value="Collapsed"/>
+  		</Trigger>
+  	</ControlTemplate.Triggers>    
+  </ControlTemplate>
+  
+  <ControlTemplate x:Key="RibbonSeparatorTemplate">
+			<Border BorderThickness="1,0" Width="3">
+				<Border.Background>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#A5000000" Offset="0.522"/>
+						<GradientStop Color="#000C0C0C"/>
+						<GradientStop Color="#00020202" Offset="1"/>
+						<GradientStop Color="#66020202" Offset="0.168"/>
+						<GradientStop Color="#66000000" Offset="0.828"/>
+					</LinearGradientBrush>
+				</Border.Background>
+				<Border.BorderBrush>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#7FFFFFFF" Offset="1"/>
+						<GradientStop Color="#7FEFEFEF"/>
+					</LinearGradientBrush>
+				</Border.BorderBrush>
+			</Border>
+		</ControlTemplate>
+</ResourceDictionary>

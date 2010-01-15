@@ -48,6 +48,7 @@ namespace Fluent
         // found on this element
         List<KeyTip> keyTips = new List<KeyTip>();        
         List<UIElement> associatedElements = new List<UIElement>();
+        FrameworkElement oneOfAssociatedElements;
         Point[] keyTipPositions;
 
         // Parent adorner
@@ -101,6 +102,7 @@ namespace Fluent
 
             // Try to find supported elements
             FindKeyTips(keyTipElementContainer, false);
+            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count == 0 ? null : associatedElements[0]);
 
             keyTipPositions = new Point[keyTips.Count];
         }
@@ -175,20 +177,12 @@ namespace Fluent
             if (attached) return;
             Log("Attach begin");
 
-            FrameworkElement adornedElement = (FrameworkElement)AdornedElement;
-            if (!adornedElement.IsLoaded)
+            if (!oneOfAssociatedElements.IsLoaded)
             {
                 // Delay attaching
-                adornedElement.Loaded += OnDelayAttach;
+                oneOfAssociatedElements.Loaded += OnDelayAttach;
                 return;
             }
-/*
-            if (!(associatedElements[0] as FrameworkElement).IsLoaded)
-            {
-                // Delay attaching
-                (associatedElements[0] as FrameworkElement).Loaded += OnDelayAttach;
-                return;
-            }*/
             
             // Focus current adorned element
            // Keyboard.Focus(adornedElement);
@@ -201,18 +195,20 @@ namespace Fluent
                 focusedElement.PreviewKeyUp += OnPreviewKeyUp;
             }
             else Log("[!] Focus Setup Failed");
-            GetTopLevelElement(AdornedElement).PreviewMouseDown += OnInputActionOccured;
+            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown += OnInputActionOccured;
 
             // Show this adorner
-            adornerLayer = GetAdornerLayer(associatedElements[0]);
+            adornerLayer = GetAdornerLayer(oneOfAssociatedElements);
             adornerLayer.Add(this);
+            if (!adornerLayer.IsLoaded) throw new Exception();
+
             // Clears previous user input
             enteredKeys = "";
             FilterKeyTips();
             
 
             // Hookup window activation
-            attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(adornedElement));
+            attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(oneOfAssociatedElements));
             if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
 
             // Start timer to track focus changing
@@ -263,8 +259,7 @@ namespace Fluent
 
         void OnDelayAttach(object sender, EventArgs args)
         {
-            ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
-            ((FrameworkElement)associatedElements[0]).Loaded -= OnDelayAttach;
+            oneOfAssociatedElements.Loaded -= OnDelayAttach;
             Attach();
         }
 
@@ -287,7 +282,7 @@ namespace Fluent
             }
 
             // Maybe adorner awaiting attaching, cancel it
-            ((FrameworkElement)AdornedElement).Loaded -= OnDelayAttach;
+            oneOfAssociatedElements.Loaded -= OnDelayAttach;
                         
             if (focusedElement != null)
             {                
@@ -297,7 +292,7 @@ namespace Fluent
                 focusedElement = null;
             }
 
-            GetTopLevelElement(AdornedElement).PreviewMouseDown -= OnInputActionOccured;
+            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown -= OnInputActionOccured;
 
             // Show this adorner
             adornerLayer.Remove(this);
@@ -479,10 +474,9 @@ namespace Fluent
                 .Cast<UIElement>().ToArray();
             if (children.Length == 0) { Terminate(); return; }
                     
-            if (GetTopLevelElement(children[0]) != GetTopLevelElement(element))
-                childAdorner = new KeyTipAdorner(children[0], element, this);
-            else
-                childAdorner = new KeyTipAdorner(element, element, this);
+            childAdorner = GetTopLevelElement(children[0]) != GetTopLevelElement(element) ? 
+                new KeyTipAdorner(children[0], element, this) :
+                new KeyTipAdorner(element, element, this);
 
             if (childAdorner.keyTips.Count != 0)
             {
@@ -505,7 +499,7 @@ namespace Fluent
             {
                 if (!keyTips[i].IsEnabled) continue;
                 string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
-                string contentUpper = (keyTips[i].Content as string).ToUpper(CultureInfo.CurrentUICulture);
+                string contentUpper = ((string) keyTips[i].Content).ToUpper(CultureInfo.CurrentUICulture);
                 if (keysUpper == contentUpper) return associatedElements[i];
             }
             return null;
@@ -522,7 +516,7 @@ namespace Fluent
             {
                 if (!keyTips[i].IsEnabled) continue;
                 string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
-                string contentUpper = (keyTips[i].Content as string).ToUpper(CultureInfo.CurrentUICulture);
+                string contentUpper = ((string) keyTips[i].Content).ToUpper(CultureInfo.CurrentUICulture);
                 if (contentUpper.StartsWith(keysUpper, StringComparison.CurrentCulture)) return true;
             }
             return false;
@@ -618,7 +612,7 @@ namespace Fluent
             if (keyTips.Count == 0) return;
 
             double[] rows = null;
-            RibbonGroupBox groupBox = GetGroupBox(associatedElements[0]);
+            RibbonGroupBox groupBox = GetGroupBox(oneOfAssociatedElements);
             if (groupBox != null)
             {
                 Panel panel = groupBox.GetPanel();
