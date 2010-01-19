@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -51,18 +53,10 @@ namespace Fluent
 
         #region Initialization
 
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonToolBarControlGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(typeof(RibbonToolBarControlGroup)));
-            StyleProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonToolBarControlGroupStyle;
-            return basevalue;
         }
 
         #endregion

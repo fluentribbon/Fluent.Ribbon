@@ -129,7 +129,6 @@ namespace Fluent
                 RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
                 return;
             }
-            if (root is RibbonToolBarTray) ((RibbonToolBarTray)root).IsCondensed = !(ribbonGroupBoxState == RibbonGroupBoxState.Collapsed || ribbonGroupBoxState == RibbonGroupBoxState.Large);
 
             int childrenCount = VisualTreeHelper.GetChildrenCount(root);
             for (int i = 0; i < childrenCount; i++)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
@@ -12,6 +13,15 @@ namespace Fluent
     [ContentProperty("Children")]
     public class RibbonToolBarControlGroupDefinition : DependencyObject
     {
+        #region Events
+
+        /// <summary>
+        /// Occures when children has been changed
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler ChildrenChanged;
+
+        #endregion
+
         #region Fields
 
         // User defined rows
@@ -32,9 +42,21 @@ namespace Fluent
 
         #endregion
 
-        internal void Invalidate()
+        #region Initialization
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public RibbonToolBarControlGroupDefinition()
         {
-            throw new NotImplementedException();
+            children.CollectionChanged += OnChildrenCollectionChanged;
         }
+
+        void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (ChildrenChanged != null) ChildrenChanged(sender, e);
+        }
+
+        #endregion
     }
 }

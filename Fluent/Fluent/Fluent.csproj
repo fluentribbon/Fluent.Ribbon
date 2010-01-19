@@ -90,7 +90,6 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="RibbonToolBar.cs" />
     <Compile Include="RibbonToolBarLayoutDefinition.cs" />
-    <Compile Include="RibbonToolBarTray.cs" />
     <Compile Include="RibbonWindow.cs" />
     <Compile Include="SplitButton.cs" />
     <Compile Include="ThemesManager.cs" />
@@ -162,6 +161,14 @@
     <Page Include="Themes\Office2010\Controls\Button.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml">
       <SubType>Designer</SubType>

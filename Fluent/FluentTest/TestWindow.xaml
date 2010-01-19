@@ -108,95 +108,95 @@
       </Fluent:RibbonGroupBox>
 
 		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="F" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-			<!--<Fluent:RibbonToolBarTray CondensedOrder="0,1;8,9,10,11,12,13,4,7;15,16,17,5,14,2,3">
-				<ComboBox MinWidth="40" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
-					<ComboBoxItem Content="Arial"/>
-				</ComboBox>
-				<ComboBox Width="49" HorizontalAlignment="Left" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
-					<ComboBoxItem Content="11"/>
-				</ComboBox>
-				<Fluent:Button Icon="Images\GrowFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-				<Fluent:Button Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
-        <Fluent:DropDownButton Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
-        <Fluent:Button Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-				<Fluent:Button Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Superscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
-		    <Fluent:DropDownButton Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\TextHighlightColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\FontColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-			</Fluent:RibbonToolBarTray>-->
-
       <Fluent:RibbonToolBar>
+        
+        <!--ToolBar Layout Definitions-->
         <Fluent:RibbonToolBar.LayoutDefinitions>
           <Fluent:RibbonToolBarLayoutDefinition Size="Large">
             <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"/>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont"/>
+              <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName" Width="75"/>
+              <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize" Width="45"/>              
               <Fluent:RibbonToolBarControlGroupDefinition>
-                <Fluent:RibbonToolBarControlDefinition Target="buttonItalic"/>
-                <Fluent:RibbonToolBarControlDefinition Target="buttonBold"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont"/>                
               </Fluent:RibbonToolBarControlGroupDefinition>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting"/>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
             </Fluent:RibbonToolBarRow>
             <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont"/>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase"/>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonBold"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonItalic"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
             </Fluent:RibbonToolBarRow>
           </Fluent:RibbonToolBarLayoutDefinition>
+
           <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
+              <Fluent:RibbonToolBarRow>
+                <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName" Width="125"/>
+                <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize" Width="50"/>
+              </Fluent:RibbonToolBarRow>
             <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"/>
-            </Fluent:RibbonToolBarRow>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonBold"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonItalic"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript"/>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
+              <Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting"/>
+              </Fluent:RibbonToolBarControlGroupDefinition>
+              </Fluent:RibbonToolBarRow>
             <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont"/>
-            </Fluent:RibbonToolBarRow>
-            <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont"/>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase"/>
-            </Fluent:RibbonToolBarRow>
-          </Fluent:RibbonToolBarLayoutDefinition>
-          <Fluent:RibbonToolBarLayoutDefinition Size="Small">
-            <Fluent:RibbonToolBarRow>              
-              <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont"/>
-            </Fluent:RibbonToolBarRow>
-            <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase"/>
-            </Fluent:RibbonToolBarRow>
-            <Fluent:RibbonToolBarRow>
-              <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont"/>
-            </Fluent:RibbonToolBarRow>
-          </Fluent:RibbonToolBarLayoutDefinition>  
+                <Fluent:RibbonToolBarControlGroupDefinition>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects"/>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor"/>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor"/>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase"/>
+                </Fluent:RibbonToolBarControlGroupDefinition>
+                <Fluent:RibbonToolBarControlGroupDefinition>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont"/>
+                  <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont"/>                 
+                </Fluent:RibbonToolBarControlGroupDefinition>
+              </Fluent:RibbonToolBarRow>              
+            </Fluent:RibbonToolBarLayoutDefinition>
         </Fluent:RibbonToolBar.LayoutDefinitions>
-        
+
+        <!--ToolBar Controls-->
         <ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
           <ComboBoxItem Content="Arial"/>
         </ComboBox>
-        <ComboBox Width="49" HorizontalAlignment="Left" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
+        <ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
           <ComboBoxItem Content="11"/>
         </ComboBox>
         <Fluent:Button x:Name="buttonGrowFont" Icon="Images\GrowFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonShrinkFont" Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
         <Fluent:Button x:Name="buttonClearFormatting" Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button Icon="Images\Superscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Line X1="0" Y1="0" X2="0" Y2="22" Width="1" HorizontalAlignment="Left" Stroke="{DynamicResource SeparatorBrush}" Margin="2,0" SnapsToDevicePixels="True"/>
-        <Fluent:DropDownButton Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\TextHighlightColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton Icon="Images\FontColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton x:Name="buttonUnderline" Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:Button x:Name="buttonSubscript" Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:Button x:Name="buttonSuperscript" Icon="Images\Superscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton x:Name="buttonTextEffects" Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton x:Name="buttonTextHighlightColor" Icon="Images\TextHighlightColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton x:Name="buttonFontColor" Icon="Images\FontColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
       </Fluent:RibbonToolBar>
 		</Fluent:RibbonGroupBox>
 

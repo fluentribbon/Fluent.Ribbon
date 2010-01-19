@@ -7,37 +7,15 @@
   </Style>
   <ControlTemplate x:Key="RibbonToolBarControlGroupTemplate" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
     <StackPanel Orientation="Horizontal" >
-	  <Separator x:Name="separatorLeft" Template="{DynamicResource RibbonSeparatorTemplate}"/>
+	    <Separator x:Name="separatorLeft" Visibility="Collapsed" Style="{DynamicResource RibbonSeparatorStyle}"/>
       <StackPanel Orientation="Horizontal" IsItemsHost="true"/>  
-	  <Separator  x:Name="separatorRight" Template="{DynamicResource RibbonSeparatorTemplate}"/>
+	    <Separator  x:Name="separatorRight" Visibility="Collapsed" Style="{DynamicResource RibbonSeparatorStyle}"/>
     </StackPanel>
   	<ControlTemplate.Triggers>
-  		<Trigger Property="IsFirstInRow" Value="True">
-  			<Setter Property="Visibility" TargetName="separatorLeft" Value="Collapsed"/>
-  		</Trigger>
-  		<Trigger Property="IsLastInRow" Value="True">
-  			<Setter Property="Visibility" TargetName="separatorRight" Value="Collapsed"/>
+  		<Trigger Property="IsLastInRow" Value="False">
+  			<Setter Property="Visibility" TargetName="separatorRight" Value="Visible"/>
   		</Trigger>
   	</ControlTemplate.Triggers>    
   </ControlTemplate>
-  
-  <ControlTemplate x:Key="RibbonSeparatorTemplate">
-			<Border BorderThickness="1,0" Width="3">
-				<Border.Background>
-					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-						<GradientStop Color="#A5000000" Offset="0.522"/>
-						<GradientStop Color="#000C0C0C"/>
-						<GradientStop Color="#00020202" Offset="1"/>
-						<GradientStop Color="#66020202" Offset="0.168"/>
-						<GradientStop Color="#66000000" Offset="0.828"/>
-					</LinearGradientBrush>
-				</Border.Background>
-				<Border.BorderBrush>
-					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-						<GradientStop Color="#7FFFFFFF" Offset="1"/>
-						<GradientStop Color="#7FEFEFEF"/>
-					</LinearGradientBrush>
-				</Border.BorderBrush>
-			</Border>
-		</ControlTemplate>
+ 
 </ResourceDictionary>

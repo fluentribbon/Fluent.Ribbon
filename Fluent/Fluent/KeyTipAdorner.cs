@@ -200,7 +200,6 @@ namespace Fluent
             // Show this adorner
             adornerLayer = GetAdornerLayer(oneOfAssociatedElements);
             adornerLayer.Add(this);
-            if (!adornerLayer.IsLoaded) throw new Exception();
 
             // Clears previous user input
             enteredKeys = "";

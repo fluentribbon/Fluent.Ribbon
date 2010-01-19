@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -33,6 +35,34 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        #region Separator Style
+
+        /// <summary>
+        /// Gets or sets style for the separator
+        /// </summary>
+        public Style SeparatorStyle
+        {
+            get { return (Style)GetValue(SeparatorStyleProperty); }
+            set { SetValue(SeparatorStyleProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SeparatorStyle.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SeparatorStyleProperty =
+            DependencyProperty.Register("SeparatorStyle", typeof(Style), 
+            typeof(RibbonToolBar), new UIPropertyMetadata(null, OnSeparatorStyleChanged));
+
+        static void OnSeparatorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonToolBar toolBar = (RibbonToolBar)d;
+            toolBar.rebuildVisualAndLogicalChildren = true;
+            toolBar.InvalidateMeasure();
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets children
@@ -101,6 +131,15 @@ namespace Fluent
         #region Initialization
 
         /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        static RibbonToolBar()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToolBar), new FrameworkPropertyMetadata(typeof(RibbonToolBar)));
+        }
+
+        /// <summary>
         /// Default constructor
         /// </summary>
         public RibbonToolBar()
@@ -118,10 +157,6 @@ namespace Fluent
         void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             // Children have changed, reset layouts
-            foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
-            {
-                definition.Invalidate();
-            }
             rebuildVisualAndLogicalChildren = true;
             InvalidateMeasure();
         }
@@ -182,97 +217,38 @@ namespace Fluent
                 // Clear previous children
                 foreach (FrameworkElement child in actualChildren)
                 {
-                    if (child is RibbonToolBarControlGroup)
-                    {
-                        RibbonToolBarControlGroup controlGroup = (RibbonToolBarControlGroup)child;
-                        controlGroup.Items.Clear();
-                    }
+                    RibbonToolBarControlGroup controlGroup = child as RibbonToolBarControlGroup;
+                    if (controlGroup != null) controlGroup.Items.Clear();
                     RemoveVisualChild(child);
                     RemoveLogicalChild(child);
                 }
                 actualChildren.Clear();
                 cachedControlGroups.Clear();
+            }
 
-                if (layoutDefinition == null)
+            if (layoutDefinition == null)
+            {
+                if (rebuildVisualAndLogicalChildren)
                 {
+                    // If default layout is used add all children
                     foreach (FrameworkElement child in Children)
                     {
                         actualChildren.Add(child);
                         AddVisualChild(child);
                         AddLogicalChild(child);
                     }
+                    rebuildVisualAndLogicalChildren = false;
                 }
-                else
-                {
-                    // Add controls defined in layout definition in visual & logical children
-                   /* foreach (RibbonToolBarRow row in layoutDefinition.Rows)
-                    {
-                        foreach (DependencyObject obj in row.Children)
-                        {
-                            if (obj is RibbonToolBarControlDefinition)
-                            {
-                                string name = ((RibbonToolBarControlDefinition) obj).Target;
-                                FrameworkElement control = Children.FirstOrDefault(x => x.Name == name);
-                                if (control != null)
-                                {
-                                    actualChildren.Add(control);
-                                    AddVisualChild(control);
-                                    AddLogicalChild(control);
-                                }
-                            }
-                            if (obj is RibbonToolBarControlGroupDefinition)
-                            {
-                                foreach (RibbonToolBarControlDefinition child in ((RibbonToolBarControlGroupDefinition)obj).Children)
-                                {
-                                    string name = child.Target;
-                                    FrameworkElement control = Children.FirstOrDefault(x => x.Name == name);
-                                    if (control != null)
-                                    {
-                                        actualChildren.Add(control);
-                                        AddVisualChild(control);
-                                        AddLogicalChild(control);
-                                    }  
-                                }
-                            }
-                        }
-                    }*/
-                }
-                
-            }
-
-            if (layoutDefinition == null)
-            {
-                return WrapPanelLayuot(availableSize, rebuildVisualAndLogicalChildren);
+                return WrapPanelLayuot(availableSize, true);
             }
             else
             {
-                return CustomLayout(layoutDefinition, availableSize, true, rebuildVisualAndLogicalChildren);
+                Size result = CustomLayout(layoutDefinition, availableSize, true, rebuildVisualAndLogicalChildren);
+                rebuildVisualAndLogicalChildren = false;
+                return result;
             }
-            
-            rebuildVisualAndLogicalChildren = false;
-        }
 
-        FrameworkElement GetControl(RibbonToolBarControlDefinition controlDefinition)
-        {
-            string name = controlDefinition.Target;
-            return Children.FirstOrDefault(x => x.Name == name);
-        }
 
-        Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new Dictionary<object, RibbonToolBarControlGroup>();
-        RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
-        {
-            RibbonToolBarControlGroup controlGroup = null;
-            if (!cachedControlGroups.TryGetValue(controlGroupDefinition, out controlGroup))
-            {
-                controlGroup = new RibbonToolBarControlGroup();
-                // Add items to the group
-                foreach (RibbonToolBarControlDefinition child in controlGroupDefinition.Children)
-                {
-                    controlGroup.Items.Add(GetControl(child));
-                }
-                cachedControlGroups.Add(controlGroupDefinition, controlGroup);
-            }
-            return controlGroup;
         }
 
         /// <summary>
@@ -285,14 +261,8 @@ namespace Fluent
         protected override Size ArrangeOverride(Size finalSize)
         {
             RibbonToolBarLayoutDefinition layoutDefinition = GetCurrentLayoutDefinition();
-            if (layoutDefinition == null)
-            {
-                return WrapPanelLayuot(finalSize, false);
-            }
-            else
-            {
-                return CustomLayout(layoutDefinition, finalSize, false, false);
-            }
+            if (layoutDefinition == null) return WrapPanelLayuot(finalSize, false);
+            return CustomLayout(layoutDefinition, finalSize, false, false);
         }
 
 
@@ -345,48 +315,114 @@ namespace Fluent
         }
 
         #endregion
-        
+     
+        #region Control and Group Creation from a Definition
+
+        FrameworkElement GetControl(RibbonToolBarControlDefinition controlDefinition)
+        {
+            string name = controlDefinition.Target;
+            return Children.FirstOrDefault(x => x.Name == name);
+        }
+
+        Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new Dictionary<object, RibbonToolBarControlGroup>();
+        RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
+        {
+            RibbonToolBarControlGroup controlGroup = null;
+            if (!cachedControlGroups.TryGetValue(controlGroupDefinition, out controlGroup))
+            {
+                controlGroup = new RibbonToolBarControlGroup();
+                // Add items to the group
+                foreach (RibbonToolBarControlDefinition child in controlGroupDefinition.Children)
+                {
+                    controlGroup.Items.Add(GetControl(child));
+                }
+                cachedControlGroups.Add(controlGroupDefinition, controlGroup);
+            }
+            return controlGroup;
+        }
+
+        #endregion
+   
         #region Custom Layout
+
+        // Cached separators (clear & set in Measure pass)
+        Dictionary<int, Separator> separatorCache = new Dictionary<int, Separator>();
 
         /// <summary>
         /// Layout logic for the given layout definition
         /// </summary>
+        /// <param name="layoutDefinition">Current layout definition</param>
         /// <param name="availableSize">Available or final size</param>
         /// <param name="measure">Pass true if measure required; pass false if arrange required</param>
+        /// <param name="addchildren">Determines whether we have to add children to the logical and visual tree</param>
         /// <returns>Final size</returns>
         Size CustomLayout(RibbonToolBarLayoutDefinition layoutDefinition, Size availableSize, bool measure, bool addchildren)
         {
             bool arrange = !measure;
             double availableHeight = Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
 
-            int maxRowCountInColumn = 3;
+            // Clear separator cahce
+            if (addchildren) separatorCache.Clear();
 
-            // TODO: how to calc row height??
-            ////////////////
-            //actualChildren[0].Measure(availableSize);
-            double rowHeight = 22;// actualChildren[0].DesiredSize.Height;
-            ////////////////
+            // Get the first control and measure, its height accepts as row height
+            double rowHeight = GetRowHeight(layoutDefinition);
+            
 
             // Calculate whitespace
-            int rowCountInColumn = Math.Min(maxRowCountInColumn, layoutDefinition.Rows.Count);
+            int rowCountInColumn = Math.Min(layoutDefinition.RowCount, layoutDefinition.Rows.Count);
             double whitespace = (availableHeight - ((double)rowCountInColumn * rowHeight)) / (double)(rowCountInColumn + 1);
 
             double y = 0;
             double x = 0;
             double currentRowBegin = 0;
             double currentMaxX = 0;
+            double maxy = 0;
             for(int rowIndex = 0; rowIndex < layoutDefinition.Rows.Count; rowIndex++)
             {
                 RibbonToolBarRow row = layoutDefinition.Rows[rowIndex];
 
+                x = currentRowBegin;
+
                 if (rowIndex % rowCountInColumn == 0)
                 {
                     // Reset vars at new column
-                    currentRowBegin = currentMaxX;
+                    x = currentRowBegin = currentMaxX;
                     y = 0;
+
+                    if (rowIndex != 0)
+                    {
+                        #region Add separator
+
+                        Separator separator = null;
+                        if (!separatorCache.TryGetValue(rowIndex, out separator))
+                        {
+                            separator = new Separator();
+                            separator.Style = SeparatorStyle;
+                            separatorCache.Add(rowIndex, separator);
+                        }
+                        if (measure)
+                        {
+                            separator.Height = availableHeight - separator.Margin.Bottom - separator.Margin.Top;
+                            separator.Measure(availableSize);
+                        }
+                        if (arrange) separator.Arrange(new Rect(x, y,
+                                separator.DesiredSize.Width,
+                                separator.DesiredSize.Height));
+                        x += separator.DesiredSize.Width;
+
+                        if (addchildren)
+                        {
+                            // Add control in the children
+                            AddVisualChild(separator);
+                            AddLogicalChild(separator);
+                            actualChildren.Add(separator);
+                        }
+
+                        #endregion
+                    }
                 }
                 y += whitespace;
-                x = currentRowBegin;
+                
 
                 // Measure & arrange new row
                 for(int i = 0; i < row.Children.Count; i++)
@@ -410,7 +446,8 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            if (control is RibbonControl) ((RibbonControl) control).Size = controlDefinition.Size;
+                            RibbonControl ribbonControl = control as RibbonControl;
+                            if (ribbonControl != null) ribbonControl.Size = controlDefinition.Size;
                             control.Width = controlDefinition.Width;
                             control.Measure(availableSize);
                         }
@@ -459,10 +496,32 @@ namespace Fluent
 
                 y += rowHeight;
                 if (currentMaxX < x) currentMaxX = x;
+                if (maxy < y) maxy = y;
             }
 
-            // FIXIT:
-            return new Size(currentMaxX, y + whitespace);
+            return new Size(currentMaxX, maxy + whitespace);
+        }
+
+        // Get the first control and measure, its height accepts as row height
+        double GetRowHeight(RibbonToolBarLayoutDefinition layoutDefinition)
+        {
+            const double defaultRowHeight = 0;
+            foreach (RibbonToolBarRow row in layoutDefinition.Rows)
+            {
+                foreach (DependencyObject item in row.Children)
+                {
+                    FrameworkElement control = null;
+                    if (item is RibbonToolBarControlDefinition)
+                        control = GetControl((RibbonToolBarControlDefinition) item);
+                    else if (item is RibbonToolBarControlGroupDefinition)
+                        control = GetControlGroup((RibbonToolBarControlGroupDefinition)item);
+
+                    if (control == null) return defaultRowHeight;
+                    control.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    return control.DesiredSize.Height;
+                }
+            }
+            return defaultRowHeight;
         }
 
         #endregion
@@ -470,14 +529,16 @@ namespace Fluent
 
         #endregion
 
+        // TODO: RibbonToolBar must not to be in QAT
+
         public override UIElement CreateQuickAccessItem()
         {
-            throw new NotImplementedException();
+            return new Control();
         }
 
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

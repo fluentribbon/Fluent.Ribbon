@@ -38,15 +38,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ScreenTip()
         {
-            //StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = ThemesManager.DefaultScreenTipStyle;
-            return basevalue;
         }
 
         /// <summary>

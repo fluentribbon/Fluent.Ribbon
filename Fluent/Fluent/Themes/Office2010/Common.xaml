@@ -28,6 +28,8 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Backstage.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Ribbon.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonSeparator.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml"/>
     
   </ResourceDictionary.MergedDictionaries>
@@ -48,5 +50,7 @@
   <Style x:Key="{x:Type Fluent:RibbonTabItem}" TargetType="{x:Type Fluent:RibbonTabItem}" BasedOn="{StaticResource RibbonTabItemStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonGroupBox}" TargetType="{x:Type Fluent:RibbonGroupBox}" BasedOn="{StaticResource RibbonGroupBoxStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>
+  <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}"/>
+  <Style x:Key="{x:Type Fluent:RibbonToolBar}" TargetType="{x:Type Fluent:RibbonToolBar}" BasedOn="{StaticResource RibbonToolBarStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonToolBarControlGroup}" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}"/>
 </ResourceDictionary>
