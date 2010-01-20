@@ -89,6 +89,15 @@
 		<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </Trigger>
+	  			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+				<Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+				<Setter Property="Effect" TargetName="iconImage">
+					<Setter.Value>
+						<Fluent:GrayscaleEffect/>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsMouseOver" Value="True"/>

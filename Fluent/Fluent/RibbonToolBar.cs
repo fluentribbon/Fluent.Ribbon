@@ -93,7 +93,12 @@ namespace Fluent
             get
             {
                 if (layoutDefinitions.Count == 0) return children.Count;
-                if (rebuildVisualAndLogicalChildren) UpdateLayout();
+                if (rebuildVisualAndLogicalChildren)
+                {
+                    //TODO: Exception during theme changing
+                    // UpdateLayout();
+                    InvalidateMeasure();
+                }
                 return actualChildren.Count;
             }
         }
@@ -109,7 +114,11 @@ namespace Fluent
         protected override Visual GetVisualChild(int index)
         {
             if (layoutDefinitions.Count == 0) return children[index];
-            if (rebuildVisualAndLogicalChildren) UpdateLayout();
+            if (rebuildVisualAndLogicalChildren)
+            {
+                // UpdateLayout();
+                InvalidateMeasure();
+            }
             return actualChildren[index];
         }
 
@@ -121,7 +130,11 @@ namespace Fluent
             get
             {
                 if (layoutDefinitions.Count == 0) return children.GetEnumerator();
-                if (rebuildVisualAndLogicalChildren) UpdateLayout();
+                if (rebuildVisualAndLogicalChildren)
+                {
+                    // UpdateLayout();
+                    InvalidateMeasure();
+                }
                 return actualChildren.GetEnumerator();
             }
         }

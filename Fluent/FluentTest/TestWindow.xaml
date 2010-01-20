@@ -8,16 +8,7 @@
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
-  		<ResourceDictionary.MergedDictionaries>
-        
-  		</ResourceDictionary.MergedDictionaries>
-
-  		<LinearGradientBrush x:Key="SeparatorBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-  			<GradientStop Color="#FFBFC3C7" Offset="0.659"/>
-  			<GradientStop Color="#FFBFC3C7" Offset="0.311"/>
-  			<GradientStop Color="#00BFC3C7" Offset="1"/>
-  			<GradientStop Color="#00BFC3C7" Offset="0"/>
-  		</LinearGradientBrush>      
+     
   	</ResourceDictionary>      
 	</Fluent:RibbonWindow.Resources>
 
@@ -74,7 +65,7 @@
                   
       <Fluent:Ribbon.QuickAccessItems>
         <Fluent:QuickAccessMenuItem Text="Test1" x:Name="ssd" Height="22">
-            <Fluent:Button>LL</Fluent:Button>
+            <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">LL</Fluent:Button>
         </Fluent:QuickAccessMenuItem>
         <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test2" Height="22"/>
         <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test3" Height="22"/>
@@ -359,7 +350,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-    <Button HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
+    <Button Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -384,7 +375,7 @@
       </Button.ContextMenu>
     </Button>
     
-    <TreeView x:Name="logicalTreeView" Margin="0,200,0,0"/>
+    <TreeView Visibility="Collapsed" x:Name="logicalTreeView" Margin="0,200,0,0"/>
   </Grid>
 
 </Fluent:RibbonWindow>

@@ -167,9 +167,9 @@ namespace FluentTest
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
             //ThemesManager.SetTheme(this, Themes.Office2010Black);
-            Application.Current.Resources.BeginInit();
+            //Application.Current.Resources.BeginInit();
             Application.Current.Resources.Source=new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
-            Application.Current.Resources.EndInit();
+            //Application.Current.Resources.EndInit();
         }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)

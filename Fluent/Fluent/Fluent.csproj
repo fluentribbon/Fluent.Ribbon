@@ -97,7 +97,6 @@
     <Compile Include="RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="RibbonWindow.cs" />
     <Compile Include="SplitButton.cs" />
-    <Compile Include="ThemesManager.cs" />
     <Compile Include="TwoLineLabel.cs" />
     <Compile Include="RibbonPopup.cs">
       <SubType>Code</SubType>
