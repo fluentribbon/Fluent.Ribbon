@@ -95,8 +95,8 @@
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
                     <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
-                    <Fluent:MenuItem x:Name="PART_ShowBelow" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Below the Ribbon"/>
-                    <Fluent:MenuItem x:Name="PART_ShowAbove" Style="{DynamicResource ContentMenuItemStyle}" Text="Show Above the Ribbon" Visibility="Collapsed"/>
+                    <Fluent:MenuItem x:Name="PART_ShowBelow" Text="Show Below the Ribbon"/>
+                    <Fluent:MenuItem x:Name="PART_ShowAbove" Text="Show Above the Ribbon" Visibility="Collapsed"/>
               
               
 							

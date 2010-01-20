@@ -119,14 +119,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTitleBar()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTitleBarStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTitleBarStyle;
             return basevalue;
         }
         /// <summary>

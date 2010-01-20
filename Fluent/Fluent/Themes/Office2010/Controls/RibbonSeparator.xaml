@@ -9,17 +9,19 @@
                 <Border BorderThickness="1,0" Width="3" Height="Auto" VerticalAlignment="Stretch">
                   <Border.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                      <GradientStop Color="#A5000000" Offset="0.522"/>
-                      <GradientStop Color="#000C0C0C"/>
-                      <GradientStop Color="#00020202" Offset="1"/>
-                      <GradientStop Color="#66020202" Offset="0.168"/>
-                      <GradientStop Color="#66000000" Offset="0.828"/>
+                      <GradientStop Color="#FFAFB2B9" Offset="0.522"/>
+                      <GradientStop Color="#00C0C3C8"/>
+                      <GradientStop Color="#00C0C3C8" Offset="1"/>
+                      <GradientStop Color="#66AFB2B9" Offset="0.168"/>
+                      <GradientStop Color="#66A7ADB5" Offset="0.828"/>
                     </LinearGradientBrush>
                   </Border.Background>
                   <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                      <GradientStop Color="#7FFFFFFF" Offset="1"/>
-                      <GradientStop Color="#7FEFEFEF"/>
+                      <GradientStop Offset="1" Color="#19FFFFFF"/>
+                      <GradientStop Color="#19EFEFEF"/>
+                      <GradientStop Color="#99F6F6F6" Offset="0.237"/>
+                      <GradientStop Color="#99FBFBFB" Offset="0.741"/>
                     </LinearGradientBrush>
                   </Border.BorderBrush>
                 </Border>

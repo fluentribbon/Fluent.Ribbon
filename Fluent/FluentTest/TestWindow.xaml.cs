@@ -158,12 +158,18 @@ namespace FluentTest
 
         private void OnSilverClick(object sender, RoutedEventArgs e)
         {
-            ThemesManager.SetTheme(this,Themes.Office2010Silver);            
+            //ThemesManager.SetTheme(this,Themes.Office2010Silver);            
+            Application.Current.Resources.BeginInit();
+            Application.Current.Resources.Source=new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
+            Application.Current.Resources.EndInit();
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
-            ThemesManager.SetTheme(this, Themes.Office2010Black);
+            //ThemesManager.SetTheme(this, Themes.Office2010Black);
+            Application.Current.Resources.BeginInit();
+            Application.Current.Resources.Source=new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
+            Application.Current.Resources.EndInit();
         }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)

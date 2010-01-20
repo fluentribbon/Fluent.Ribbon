@@ -154,8 +154,12 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                ThemesManager.SetTheme(d as Window, Themes.Default, Themes.Default);
-                basevalue = ThemesManager.DefaultRibbonWindowStyle;
+                //                ThemesManager.SetTheme(d as Window, Themes.Default, Themes.Default);
+                basevalue = (d as FrameworkElement).Resources["RibbonWindowStyle"] as Style;
+                if (basevalue == null) basevalue = Application.Current.Resources["RibbonWindowStyle"] as Style;
+                /*Uri uri = new Uri("/Fluent;component/Themes/Office2010/RibbonWindow.xaml", UriKind.Relative);
+                Application.LoadComponent(d,uri);
+                return (d as RibbonWindow).Resources["RibbonWindowStyle"];*/
             }
             
             return basevalue;

@@ -85,14 +85,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ToggleButton()
         {
-            StyleProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
+            //StyleProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(typeof(ToggleButton)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultToggleButtonStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultToggleButtonStyle;
             return basevalue;
         }
         /// <summary>

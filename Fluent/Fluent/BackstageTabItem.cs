@@ -91,7 +91,7 @@ namespace Fluent
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultBackstageTabItemStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["BackstageTabItemStyle"] as Style;
             return basevalue;
         }
 

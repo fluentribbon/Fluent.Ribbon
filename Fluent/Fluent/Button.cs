@@ -85,13 +85,13 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
-            StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));            
         }
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultButtonStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["RibbonButtonStyle"] as Style;
             return basevalue;
         }
 
@@ -137,7 +137,7 @@ namespace Fluent
                 RaiseEvent(ee);
                 e.Handled = true;
             }            
-            base.OnMouseLeftButtonDown(e);
+            base.OnMouseLeftButtonUp(e);
         }
 
         /// <summary>

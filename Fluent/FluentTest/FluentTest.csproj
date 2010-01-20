@@ -137,6 +137,13 @@
     <Resource Include="Images\TextHighlightColor.png" />
     <Resource Include="Images\Underline.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PasteImage.png" />
+    <Resource Include="Images\PasteTextOnly.png" />
+    <Resource Include="Images\PasteText.png" />
+    <Resource Include="Images\PasteFormating.png" />
+    <Resource Include="Images\PasteSourceFormating.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

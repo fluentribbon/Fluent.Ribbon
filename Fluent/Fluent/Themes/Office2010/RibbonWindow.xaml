@@ -8,24 +8,7 @@
 	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageResizeGrip" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/ResizeGrip.png" PresentationOptions:Freeze="True"/>
-  <Style x:Key="RibbonWindowStyle" TargetType="{x:Type Fluent:RibbonWindow}">
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontWeight" Value="Normal"/>
-    <Setter Property="Foreground" Value="#FF000000"/>
-    <Setter Property="Template" Value="{DynamicResource DwmRibbonWindowControlTemplate}"/>
-    <Setter Property="Background" Value="#FFFFFFFF"/>
-    <Setter Property="TitleBarHeight" Value="55"/>
-    <Setter Property="GlassBorders" Value="0,42,0,0"/>
-    <Style.Triggers>
-  		<Trigger Property="WindowState" Value="Maximized">
-  			<Setter Property="GlassBorders" Value="0,49,0,0"/>
-  		</Trigger>
-  		<Trigger Property="IsDwmEnabled" Value="False">
-  			<Setter Property="Template" Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
-  		</Trigger>
-  	</Style.Triggers>
-  </Style>
+  
       	<ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     		<Grid>
     			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
@@ -186,5 +169,23 @@
       				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
       			</Trigger>
       		</ControlTemplate.Triggers>
-      	</ControlTemplate>		
+      	</ControlTemplate>
+  <Style x:Key="RibbonWindowStyle" TargetType="{x:Type Fluent:RibbonWindow}">
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="FontWeight" Value="Normal"/>
+    <Setter Property="Foreground" Value="#FF000000"/>
+    <Setter Property="Template" Value="{DynamicResource DwmRibbonWindowControlTemplate}"/>
+    <Setter Property="Background" Value="#FFFFFFFF"/>
+    <Setter Property="TitleBarHeight" Value="55"/>
+    <Setter Property="GlassBorders" Value="0,42,0,0"/>
+    <Style.Triggers>
+      <Trigger Property="WindowState" Value="Maximized">
+        <Setter Property="GlassBorders" Value="0,49,0,0"/>
+      </Trigger>
+      <Trigger Property="IsDwmEnabled" Value="False">
+        <Setter Property="Template" Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
 </ResourceDictionary>

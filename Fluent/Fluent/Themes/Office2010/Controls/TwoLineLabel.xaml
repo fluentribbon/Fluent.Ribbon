@@ -1,22 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent">
-  <Style x:Key="ControlLabelStyle" TargetType="{x:Type Fluent:TwoLineLabel}" >
-  	<Setter Property="Template" Value="{DynamicResource ControlLabelControlTemplate}"/>
+  <Style x:Key="TwoLineLabelStyle" TargetType="{x:Type Fluent:TwoLineLabel}" >
+  	<Setter Property="Template" Value="{DynamicResource TwoLineLabelControlTemplate}"/>
   </Style>
-  <ControlTemplate x:Key="ControlLabelControlTemplate" TargetType="{x:Type Fluent:TwoLineLabel}">
+  <ControlTemplate x:Key="TwoLineLabelControlTemplate" TargetType="{x:Type Fluent:TwoLineLabel}">
   	<TextBlock TextWrapping="Wrap" x:Name="PART_TextBlock" MinWidth="40" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
 		<Run x:Name="PART_TextRun"/>
 		<InlineUIContainer x:Name="PART_Glyph">
 			<Border Height="16" Width="5" MinHeight="16" MaxHeight="16">
-			<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,2"  RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True">
-				<Path.Fill>
-					<LinearGradientBrush EndPoint="0.007,0.01" StartPoint="0.582,0.373">
-						<GradientStop Color="#FF818386" Offset="1"/>
-						<GradientStop Color="#FF616366"/>
-					</LinearGradientBrush>
-				</Path.Fill>
-			</Path>
+			<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,2"  RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
 			</Border>
 		</InlineUIContainer>		
 	</TextBlock>

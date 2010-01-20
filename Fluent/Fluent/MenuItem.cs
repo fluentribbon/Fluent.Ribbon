@@ -41,6 +41,7 @@ namespace Fluent
         private ObservableCollection<UIElement> items;
 
         private DispatcherTimer focusTimer;
+        private DispatcherTimer unfocusTimer;
 
         #endregion
 
@@ -233,6 +234,19 @@ namespace Fluent
             DependencyProperty.Register("MenuResizeMode", typeof(ContextMenuResizeMode), typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
 
+
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsSelected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
+
+
+
         #endregion
 
         #region Events
@@ -250,8 +264,16 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static MenuItem()
         {
+            //StyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(typeof(MenuItem)));
             FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null));            
+        }
+
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["ContextMenuItemStyle"] as Style;
+            return basevalue;
         }
 
         /// <summary>
@@ -274,7 +296,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
         {
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
-            //if (Mouse.Captured == this) Mouse.Capture(null);
+            
             Point position = Mouse.PrimaryDevice.GetPosition(this);
             if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
             {
@@ -288,37 +310,64 @@ namespace Fluent
 
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            Keyboard.Focus(this.Parent as IInputElement);
+            /*Keyboard.Focus(this.Parent as IInputElement);
+            FocusManager.SetFocusedElement(this.Parent, this);*/
             FocusManager.SetFocusedElement(this.Parent, this);
+            if (unfocusTimer != null) unfocusTimer.Stop();
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            base.OnMouseEnter(e);
-            FocusManager.SetFocusedElement(this.Parent, this);
-            if(focusTimer==null)
+            //base.OnMouseEnter(e);
+            Point position = Mouse.PrimaryDevice.GetPosition(this);
+            if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)))
             {
-                focusTimer = new DispatcherTimer();
-                focusTimer.Interval = TimeSpan.FromSeconds(0.5);
-                focusTimer.Tick += OnFocusTimerTick;
+                if (unfocusTimer != null) unfocusTimer.Stop();
+                FocusManager.SetFocusedElement(this.Parent, this);
+                if (focusTimer == null)
+                {
+                    focusTimer = new DispatcherTimer();
+                    focusTimer.Interval = TimeSpan.FromSeconds(0.2);
+                    focusTimer.Tick += OnFocusTimerTick;
+                }
+                focusTimer.Start();
             }
-            focusTimer.Start();
+        }
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            if (unfocusTimer != null) unfocusTimer.Stop();
+            IsSelected = true;
+            base.OnGotFocus(e);
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            if(focusTimer!=null)focusTimer.Stop();
-            if (IsOpen) IsOpen = false;
+            if (focusTimer != null) focusTimer.Stop();
+            if (IsOpen && HasItems)
+            {
+                if (unfocusTimer == null)
+                {
+                    unfocusTimer = new DispatcherTimer();
+                    unfocusTimer.Interval = TimeSpan.FromSeconds(0.3);
+                    unfocusTimer.Tick += OnUnFocusTimerTick;
+                }
+                unfocusTimer.Start();
+            }
+            IsSelected = false;            
         }
 
         protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
-            
+
         }
 
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            base.OnMouseLeave(e);
+            //base.OnMouseLeave(e);
+            Point position = Mouse.PrimaryDevice.GetPosition(this);
+            if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)))
+                return;
             if (focusTimer != null) focusTimer.Stop();
             if(!IsOpen) FocusManager.SetFocusedElement(this.Parent, null);
         }
@@ -354,12 +403,6 @@ namespace Fluent
             }
             if (HasItems)
             {
-                RibbonPopup parentPopup = null;
-                if (Parent is ContextMenu)
-                {
-                    parentPopup = (Parent as ContextMenu).RibbonPopup;
-                }
-                //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
                 IsOpen = true;
                 e.Handled = true;
             }
@@ -377,7 +420,8 @@ namespace Fluent
 
         private void OnFocusTimerTick(object sender, EventArgs e)
         {
-            if (IsFocused)
+            focusTimer.Stop();            
+            //if (IsFocused)
             {
                 if ((!IsOpen) && (HasItems))
                 {
@@ -388,8 +432,17 @@ namespace Fluent
                     }
                     //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
                     IsOpen = true;
-                }                
+                }
+                IsSelected = true;
+                Keyboard.Focus(this);
             }
+        }
+
+        private void OnUnFocusTimerTick(object sender, EventArgs e)
+        {
+            unfocusTimer.Stop();
+            if(IsOpen) IsOpen = false;
+            IsSelected = false;
         }
 
         #endregion

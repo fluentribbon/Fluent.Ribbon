@@ -85,7 +85,7 @@ namespace Fluent
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultBackstageButtonStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultBackstageButtonStyle;
             return basevalue;
         }
 

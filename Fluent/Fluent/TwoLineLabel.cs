@@ -113,14 +113,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static TwoLineLabel()
         {
-            StyleProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultTwoLineLabelStyle;
+           // if (basevalue == null) basevalue = ThemesManager.DefaultTwoLineLabelStyle;
             return basevalue;
         }  
         /// <summary>

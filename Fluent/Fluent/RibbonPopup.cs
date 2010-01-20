@@ -156,7 +156,7 @@ namespace Fluent
             if (hwndSource != null)
             {
                 //NativeMethods.SetActiveWindow(hwndSource.Handle);
-                NativeMethods.SetForegroundWindow(hwndSource.Handle);
+                if (hwndSource.Handle!=IntPtr.Zero) NativeMethods.SetForegroundWindow(hwndSource.Handle);
             }
         }
 
@@ -191,8 +191,12 @@ namespace Fluent
                         {
                             int index = openedPopups.IndexOf(this);
                             ClosePopups(index + 1);
-                            IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                            NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
+                            Window wnd = Window.GetWindow(this);
+                            if (wnd != null)
+                            {
+                                IntPtr parentHwnd = (new WindowInteropHelper(wnd)).Handle;
+                                NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
+                            }
                         }
                         break;
                     }
@@ -200,8 +204,12 @@ namespace Fluent
                     {
                         int index = openedPopups.IndexOf(this);
                         ClosePopups(index + 1);
-                        IntPtr parentHwnd = (new WindowInteropHelper(Window.GetWindow(this))).Handle;
-                        NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
+                        Window wnd = Window.GetWindow(this);
+                        if (wnd != null)
+                        {
+                            IntPtr parentHwnd = (new WindowInteropHelper(wnd)).Handle;
+                            NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
+                        }
                         break;
                     }
             }

@@ -93,11 +93,13 @@ namespace Fluent
         protected override void OnClick(RoutedEventArgs e)
         {
             base.OnClick(e);
-            QuickAccessToolBar toolBar = FindQuickAccessToolbar();
-            if (toolBar != null)
+            //QuickAccessToolBar toolBar = FindQuickAccessToolbar();
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null)
             {
-                toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
-                toolBar.InvalidateMeasure();
+                ribbon.AddToQuickAccessToolbar(Shortcut);
+                /*toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
+                toolBar.InvalidateMeasure();*/
             }
         }
 
@@ -106,16 +108,17 @@ namespace Fluent
         #region Private Methods
 
         /// <summary>
-        /// Finds quickaccess toolbar
+        /// Finds ribbon
         /// </summary>
-        /// <returns>QuickAccessToolBar or null if not finded</returns>
-        QuickAccessToolBar FindQuickAccessToolbar()
+        /// <returns>Ribbon or null if not finded</returns>
+        //QuickAccessToolBar FindQuickAccessToolbar()
+        Ribbon FindRibbon()
         {
             UIElement element = this.Parent as UIElement;
             while (element != null)
             {
-                QuickAccessToolBar quickAccessToolbar = element as QuickAccessToolBar;
-                if (quickAccessToolbar != null) return quickAccessToolbar;
+                Ribbon ribbon = element as Ribbon;
+                if (ribbon != null) return ribbon;
                 UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
                 if (parent != null) element = parent;
                 else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);

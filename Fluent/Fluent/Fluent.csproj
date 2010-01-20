@@ -82,6 +82,11 @@
     <Compile Include="Button.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
+    <Compile Include="Gallery.cs" />
+    <Compile Include="GalleryGroup.cs" />
+    <Compile Include="GalleryGroupFilter.cs" />
+    <Compile Include="GalleryItem.cs" />
+    <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="RibbonToolBarControlGroup.cs" />
     <Compile Include="RibbonToolBarControlDefinition.cs" />
     <Compile Include="RibbonToolBarControlGroupDefinition.cs" />
@@ -124,6 +129,8 @@
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
     <None Include="Properties\FluentStrongName.snk" />
+    <Resource Include="Themes\Office2010\Effects\Grayscale.ps" />
+    <None Include="Themes\Office2010\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -171,6 +178,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\Gallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\GalleryGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\GalleryItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

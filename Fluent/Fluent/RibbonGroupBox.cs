@@ -76,6 +76,9 @@ namespace Fluent
         // Is visual currently snapped
         private bool isSnapped;
 
+        // Saved group state for QAT
+        private RibbonGroupBoxState savedState;
+
         #endregion
 
         #region Properties
@@ -184,21 +187,6 @@ namespace Fluent
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged));
 
         /// <summary>
-        /// Gets or sets image for group box
-        /// </summary>
-        public ImageSource Image
-        {
-            get { return (ImageSource)GetValue(ImageProperty); }
-            set { SetValue(ImageProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Image.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
-
-        /// <summary>
         /// Gets an enumerator for the logical child objects of the System.Windows.Controls.ItemsControl object.
         /// </summary>
         protected override System.Collections.IEnumerator LogicalChildren
@@ -210,6 +198,24 @@ namespace Fluent
                 return array.GetEnumerator();
             }
         }
+
+
+        /// <summary>
+        /// Gets or sets icon
+        /// </summary>
+        public ImageSource Icon
+        {
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+
+
 
         #endregion
 
@@ -230,14 +236,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonGroupBox()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
             return basevalue;
         }
 
@@ -485,11 +491,21 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public UIElement CreateQuickAccessItem()
         {
-            Button button = new Button();
+            ToggleButton button = new ToggleButton();
 
             button.Size = RibbonControlSize.Small;
 
             button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+
+            Binding binding = new Binding("IsOpen");
+            binding.Source = this;
+            binding.Mode = BindingMode.OneWay;
+            button.SetBinding(ToggleButton.IsCheckedProperty, binding);
+
+            binding = new Binding("Icon");
+            binding.Source = this;
+            binding.Mode = BindingMode.OneWay;
+            button.SetBinding(ToggleButton.IconProperty, binding);
 
             return button;
         }
@@ -506,34 +522,13 @@ namespace Fluent
                 this.State = RibbonGroupBoxState.Collapsed;
                 popupPlacementTarget = popup.PlacementTarget;
                 popup.PlacementTarget = sender as Button;
-                e.Handled = true;
-                //Mouse.Capture(popup, CaptureMode.Element);
+                e.Handled = true;                
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
             }
         }
 
-        Grid grid = new Grid();
-
-        private RibbonGroupBoxState savedState;
-
-        // On context menu opend
-        private void OnMenuOpened(object sender, EventArgs e)
-        {
-            if (IsSnapped) return;
-            if (State==RibbonGroupBoxState.Collapsed) IsSnapped = true;
-            if (snappedVisuals == null) return;
-            savedState = this.State;
-            this.State = RibbonGroupBoxState.Large;
-            grid.Background = Brushes.White;
-            grid.Height = (snappedImage.Source as RenderTargetBitmap).PixelHeight;
-            (sender as DropDownButton).Items.Add(grid);
-            for (int i = 0; i < snappedVisuals.Length; i++)
-            {
-                grid.Children.Add(snappedVisuals[i] as UIElement);
-                (snappedVisuals[i] as UIElement).UpdateLayout();
-            }
-        }
+        
 
         private void OnMenuClosed(object sender, EventArgs e)
         {            

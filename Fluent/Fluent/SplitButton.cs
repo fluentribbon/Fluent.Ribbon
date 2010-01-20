@@ -28,7 +28,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static SplitButton()
         {
-            StyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(typeof(SplitButton)));
             FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null));            
         }
@@ -36,7 +36,7 @@ namespace Fluent
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultSplitButtonStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultSplitButtonStyle;
             return basevalue;
         }
 

@@ -57,9 +57,9 @@
 			</Grid>
 			</ContentControl>
 			<Grid x:Name="grid1" Margin="0" Width="Auto" Height="Auto" Background="#00000000" Visibility="Collapsed" Grid.RowSpan="2">			
-				<Fluent:TwoLineLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource ControlLabelStyle}"/>
+				<Fluent:TwoLineLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource TwoLineLabelStyle}"/>
 				<Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
-					<Image Source="{TemplateBinding Image}"/>
+					<Image Source="{TemplateBinding Icon}" Stretch="None"/>
 				</Border>
 				<Fluent:RibbonPopup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True">
 					<Grid Width="Auto" Height="Auto" Margin="0,20">

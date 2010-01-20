@@ -39,7 +39,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static GroupSeparatorMenuItem()
         {
-            StyleProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem),
                                                      new FrameworkPropertyMetadata(typeof(GroupSeparatorMenuItem)));
         }
@@ -47,7 +47,7 @@ namespace Fluent
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultGroupSeparatorMenuItemStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["MenuGroupSeparatorStyle"] as Style;
             return basevalue;
         }
     }

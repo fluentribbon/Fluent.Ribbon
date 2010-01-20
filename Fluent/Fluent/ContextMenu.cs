@@ -159,7 +159,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ContextMenu()
         {
-            StyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(typeof(ContextMenu)));
             IsOpenProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsOpenChanged, CoerceIsOpen));
             FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));            
@@ -167,7 +167,7 @@ namespace Fluent
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultContextMenuStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["EmptyContextMenuStyle"] as Style;
             return basevalue;
         }
 
@@ -176,6 +176,7 @@ namespace Fluent
         /// </summary>
         public ContextMenu()
         {
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
         }
 
         #endregion
@@ -238,7 +239,7 @@ namespace Fluent
             }
             if (e.Key == Key.Up)
             {
-                if (Keyboard.FocusedElement == this)
+                /*if (Keyboard.FocusedElement == this)
                 {
                     if (Items.Count > 0)
                     {
@@ -246,7 +247,7 @@ namespace Fluent
                         //Keyboard.Focus(Items[Items.Count - 1] as IInputElement);
                     }
                 }
-                else
+                else*/
                     (Keyboard.FocusedElement as FrameworkElement).MoveFocus(
                         new TraversalRequest(FocusNavigationDirection.Previous));
                 e.Handled = true;
@@ -254,7 +255,7 @@ namespace Fluent
             }
             if (e.Key == Key.Down)
             {
-                if (Keyboard.FocusedElement == this)
+                /*if (Keyboard.FocusedElement == this)
                 {
                     if (Items.Count > 0)
                     {
@@ -262,7 +263,7 @@ namespace Fluent
                         //Keyboard.Focus(Items[0] as IInputElement);
                     }
                 }
-                else
+                else*/
                     (Keyboard.FocusedElement as FrameworkElement).MoveFocus(
                         new TraversalRequest(FocusNavigationDirection.Next));
                 e.Handled = true;
@@ -307,9 +308,9 @@ namespace Fluent
                     Mouse.Capture(null);
                     menu.popup.Activate();
                 }
-                Keyboard.Focus(menu.MenuBar);
+                //Keyboard.Focus(menu.MenuBar);
             }
-            else FocusManager.SetFocusedElement(menu,null);
+            //else FocusManager.SetFocusedElement(menu,null);
             //TODO: Strange behavior of command when our context menu is opened
         }
 

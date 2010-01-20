@@ -55,7 +55,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ContextMenuBar()
         {
-            StyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(typeof(ContextMenuBar)));
             FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null));            
         }
@@ -63,14 +63,15 @@ namespace Fluent
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultContextMenuBarStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["ContextMenuBarStyle"] as Style;
             return basevalue;
         }
 
         public ContextMenuBar()
         {
-            //Focusable = false;
+            Focusable = false;
             FocusManager.SetIsFocusScope(this,true);
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
         }
 
         #endregion

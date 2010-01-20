@@ -60,14 +60,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Backstage()
         {
-            StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultBackstageStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["BackstageStyle"] as Style;
             return basevalue;
         }
 

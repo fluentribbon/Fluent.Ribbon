@@ -76,14 +76,14 @@ namespace Fluent
         static KeyTip()
         {
             // Override metadata to allow slyling
-            StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaulKeyTipStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["KeyTipStyle"] as Style;
             return basevalue;
         }
         

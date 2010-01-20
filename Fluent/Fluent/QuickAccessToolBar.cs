@@ -148,14 +148,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
-            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));            
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaulQuickAccessToolBarStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaulQuickAccessToolBarStyle;
             return basevalue;
         }
 

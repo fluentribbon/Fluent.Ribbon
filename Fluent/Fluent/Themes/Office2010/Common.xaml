@@ -24,6 +24,9 @@
 	  <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTitleBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\QuickAccessToolBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Menu.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Gallery.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryGroup.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Backstage.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Ribbon.xaml"/>
@@ -31,26 +34,32 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonSeparator.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>    
     
   </ResourceDictionary.MergedDictionaries>
   <!-- Set default controls -->
+  <Style x:Key="{x:Type Fluent:TwoLineLabel}" TargetType="Fluent:TwoLineLabel" BasedOn="{StaticResource TwoLineLabelStyle}"/>
   <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip" BasedOn="{StaticResource KeyTipStyle}"/>
   <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>
   <Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>
   <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
-  <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>
-  <Style x:Key="{x:Type Fluent:Ribbon}" TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}"/>
+  <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
+  <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>  
   <Style x:Key="{x:Type Fluent:Backstage}" TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource BackstageStyle}"/>
   <Style x:Key="{x:Type Fluent:BackstageTabItem}" TargetType="{x:Type Fluent:BackstageTabItem}" BasedOn="{StaticResource BackstageTabItemStyle}"/>
   <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}"/>
   <Style x:Key="{x:Type Fluent:DropDownButton}" TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource RibbonDropDownButtonStyle}"/>
   <Style x:Key="{x:Type Fluent:SplitButton}" TargetType="{x:Type Fluent:SplitButton}" BasedOn="{StaticResource RibbonSplitButtonStyle}"/>
   <Style x:Key="{x:Type Fluent:ToggleButton}" TargetType="{x:Type Fluent:ToggleButton}" BasedOn="{StaticResource RibbonToggleButtonStyle}"/>
+  <Style x:Key="{x:Type Fluent:Gallery}" TargetType="{x:Type Fluent:Gallery}" BasedOn="{StaticResource GalleryStyle}"/>
+  <Style x:Key="{x:Type Fluent:GalleryGroup}" TargetType="{x:Type Fluent:GalleryGroup}" BasedOn="{StaticResource GalleryGroupStyle}"/>
+  <Style x:Key="{x:Type Fluent:GalleryItem}" TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonContextualTabGroup}" TargetType="{x:Type Fluent:RibbonContextualTabGroup}" BasedOn="{StaticResource RibbonContextualTabGroupStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonTabItem}" TargetType="{x:Type Fluent:RibbonTabItem}" BasedOn="{StaticResource RibbonTabItemStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonGroupBox}" TargetType="{x:Type Fluent:RibbonGroupBox}" BasedOn="{StaticResource RibbonGroupBoxStyle}"/>
-  <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>
   <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonToolBar}" TargetType="{x:Type Fluent:RibbonToolBar}" BasedOn="{StaticResource RibbonToolBarStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonToolBarControlGroup}" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}"/>
+  <Style x:Key="{x:Type Fluent:Ribbon}" TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}"/>
+  <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>  
 </ResourceDictionary>

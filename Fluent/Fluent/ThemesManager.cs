@@ -11,33 +11,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-
+/*
 namespace Fluent
 {
-    public enum Themes
-    {
-        Default=0,
-        Office2010Silver,
-        Office2010Black,
-        Office2010Blue,
-        Office2007Silver,
-        Office2007Black,
-        Office2007Blue,
-        Scenic
-    }
     /// <summary>
     /// Represets functionality for theme  managment
     /// </summary>
-    public static class ThemesManager
+    internal static class ThemesManager
     {
         #region Default style
-
-        #region Fields
-        
-        // Default style dictionary
-        private static ResourceDictionary defaultResourceDictionary;
-
-        #endregion
 
         #region Properties
 
@@ -48,50 +30,48 @@ namespace Fluent
         {
             get
             {
-                if(defaultResourceDictionary==null)
-                {
-                    defaultResourceDictionary = new ResourceDictionary();
-                    defaultResourceDictionary.BeginInit();
-                    defaultResourceDictionary.Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml");
-                    defaultResourceDictionary.EndInit();
-                }
-                return defaultResourceDictionary;
+                return Application.Current.Resources;
             }
         }
 
         internal static Style DefaultBackstageStyle
         {
-            get{ return DefaultResourceDictionary["BackstageStyle"] as Style;}
+            get { return DefaultResourceDictionary["BackstageStyle"] as Style; }
         }
 
         internal static Style DefaultBackstageButtonStyle
         {
-            get{ return DefaultResourceDictionary["BackstageButtonStyle"] as Style;}
+            get { return DefaultResourceDictionary["BackstageButtonStyle"] as Style; }
         }
 
         internal static Style DefaultBackstageTabItemStyle
         {
-            get{ return DefaultResourceDictionary["BackstageTabItemStyle"] as Style;}
+            get { return DefaultResourceDictionary["BackstageTabItemStyle"] as Style; }
         }
 
         internal static Style DefaultButtonStyle
         {
-            get{ return DefaultResourceDictionary["RibbonButtonStyle"] as Style;}
+            get { return DefaultResourceDictionary["RibbonButtonStyle"] as Style; }
         }
 
         internal static Style DefaultContextMenuStyle
         {
-            get{ return DefaultResourceDictionary["EmptyContextMenuStyle"] as Style;}
+            get { return DefaultResourceDictionary["EmptyContextMenuStyle"] as Style; }
+        }
+
+        internal static Style DefaultMenuItemStyle
+        {
+            get { return DefaultResourceDictionary["ContextMenuItemStyle"] as Style; }
         }
 
         internal static Style DefaultContextMenuBarStyle
         {
-            get{ return DefaultResourceDictionary["ContextMenuBarStyle"] as Style;}
+            get { return DefaultResourceDictionary["ContextMenuBarStyle"] as Style; }
         }
 
         internal static Style DefaultDropDownButtonStyle
         {
-            get{ return DefaultResourceDictionary["RibbonDropDownButtonStyle"] as Style;}
+            get { return DefaultResourceDictionary["RibbonDropDownButtonStyle"] as Style; }
         }
 
         internal static Style DefaultSplitButtonStyle
@@ -106,7 +86,7 @@ namespace Fluent
 
         internal static Style DefaulKeyTipStyle
         {
-            get{ return DefaultResourceDictionary["KeyTipStyle"] as Style;}
+            get { return DefaultResourceDictionary["KeyTipStyle"] as Style; }
         }
 
         internal static Style DefaulQuickAccessToolBarStyle
@@ -161,7 +141,7 @@ namespace Fluent
 
         internal static Style DefaultTwoLineLabelStyle
         {
-            get { return DefaultResourceDictionary["ControlLabelStyle"] as Style; }
+            get { return DefaultResourceDictionary["TwoLineLabelStyle"] as Style; }
         }
 
         internal static Style DefaultRibbonToolBarControlGroupStyle
@@ -172,119 +152,6 @@ namespace Fluent
         #endregion
 
         #endregion
-
-        #region Office 2010 Silver style
-
-        #region Fields
-
-        private static ResourceDictionary office2010SilverResourceDictionary;
-
-        #endregion
-
-        #region Properties
-
-        internal static ResourceDictionary Office2010SilverResourceDictionary
-        {
-            get
-            {
-                if (office2010SilverResourceDictionary == null)
-                {
-                    office2010SilverResourceDictionary = new ResourceDictionary();
-                    office2010SilverResourceDictionary.BeginInit();
-                    office2010SilverResourceDictionary.Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
-                    office2010SilverResourceDictionary.EndInit();
-                }
-                return office2010SilverResourceDictionary;
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Office 2010 Black style
-
-        #region Fields
-
-        private static ResourceDictionary office2010BlackResourceDictionary;
-
-        #endregion
-        
-        #region Properties
-
-        internal static ResourceDictionary Office2010BlackResourceDictionary
-        {
-            get
-            {
-                if (office2010BlackResourceDictionary == null)
-                {
-                    office2010BlackResourceDictionary = new ResourceDictionary();
-                    office2010BlackResourceDictionary.BeginInit();
-                    office2010BlackResourceDictionary.Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
-                    office2010BlackResourceDictionary.EndInit();
-                }
-                return office2010BlackResourceDictionary;
-            }
-        }
-
-
-        #endregion
-
-        #endregion
-
-        #region Properties
-
-        public static Themes GetTheme(DependencyObject obj)
-        {
-            return (Themes)obj.GetValue(ThemeProperty);
-        }
-
-        public static void SetTheme(DependencyObject obj, Themes value)
-        {
-            obj.SetValue(ThemeProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Theme.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ThemeProperty =
-            DependencyProperty.RegisterAttached("Theme", typeof(Themes), typeof(ThemesManager), new UIPropertyMetadata(Themes.Default, OnThemeChanged));
-
-        private static void OnThemeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if(e.OldValue!=e.NewValue)
-            {
-                SetTheme(d as Window, (Themes)e.NewValue, (Themes)e.OldValue);
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        private static void SetTheme(Window window, ResourceDictionary newDictionary, ResourceDictionary oldDictionary)
-        {
-            if ((newDictionary==oldDictionary)&&(window.Resources.MergedDictionaries.Contains(oldDictionary))) return;
-            window.BeginInit();
-            window.Resources.MergedDictionaries.Add(newDictionary);
-            if ((window.Resources.MergedDictionaries.Contains(oldDictionary)) && ((newDictionary != oldDictionary))) window.Resources.MergedDictionaries.Remove(oldDictionary);
-            window.EndInit();
-        }
-
-        internal static void SetTheme(Window window, Themes newTheme, Themes oldTheme)
-        {
-            SetTheme(window, GetDictionary(newTheme), GetDictionary(oldTheme));
-        }           
-
-        private static ResourceDictionary GetDictionary(Themes theme)
-        {
-            switch (theme)
-            {
-                case Themes.Default: return DefaultResourceDictionary;
-                case Themes.Office2010Silver: return Office2010SilverResourceDictionary;
-                case Themes.Office2010Black: return Office2010BlackResourceDictionary; 
-                default: throw new NotImplementedException(); break;
-            }
-        }
-
-	    #endregion
     }
 }
+*/

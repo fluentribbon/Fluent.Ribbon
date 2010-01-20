@@ -212,7 +212,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
-            StyleProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownButton),
                                                      new FrameworkPropertyMetadata(typeof(DropDownButton)));                       
 
@@ -222,7 +222,7 @@ namespace Fluent
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultDropDownButtonStyle;
+            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["RibbonDropDownButtonStyle"] as Style;
             return basevalue;
         }
 

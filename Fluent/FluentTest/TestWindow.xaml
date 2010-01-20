@@ -3,15 +3,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Window1" Height="345" Width="700" mc:Ignorable="d">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
+    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="700" mc:Ignorable="d">
   <Fluent:RibbonWindow.Resources>
-		<LinearGradientBrush x:Key="SeparatorBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-			<GradientStop Color="#FFBFC3C7" Offset="0.659"/>
-			<GradientStop Color="#FFBFC3C7" Offset="0.311"/>
-			<GradientStop Color="#00BFC3C7" Offset="1"/>
-			<GradientStop Color="#00BFC3C7" Offset="0"/>
-		</LinearGradientBrush>
+
+  	<ResourceDictionary>
+  		<ResourceDictionary.MergedDictionaries>
+        
+  		</ResourceDictionary.MergedDictionaries>
+
+  		<LinearGradientBrush x:Key="SeparatorBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  			<GradientStop Color="#FFBFC3C7" Offset="0.659"/>
+  			<GradientStop Color="#FFBFC3C7" Offset="0.311"/>
+  			<GradientStop Color="#00BFC3C7" Offset="1"/>
+  			<GradientStop Color="#00BFC3C7" Offset="0"/>
+  		</LinearGradientBrush>      
+  	</ResourceDictionary>      
 	</Fluent:RibbonWindow.Resources>
 
   <Fluent:RibbonWindow.CommandBindings>
@@ -70,7 +77,7 @@
             <Fluent:Button>LL</Fluent:Button>
         </Fluent:QuickAccessMenuItem>
         <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test2" Height="22"/>
-        <Fluent:QuickAccessMenuItem Text="Test3" Height="22"/>
+        <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test3" Height="22"/>
       </Fluent:Ribbon.QuickAccessItems>
 
       
@@ -84,14 +91,15 @@
                   Text="Paste the contents of the Clipboard."
                   Width="190"/>
             </Fluent:SplitButton.ToolTip>
-            <Fluent:GroupSeparatorMenuItem Text="Paste Options:"></Fluent:GroupSeparatorMenuItem>
-            <Border Background="White" BorderThickness="0,0,0,1" BorderBrush="Silver">
-              <StackPanel Orientation="Horizontal">
-                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="K"/>
-                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="M"/>
-                <Fluent:Button Size="Small" Icon="Images\Paste.png" Fluent:KeyTip.Keys="T"/>
-              </StackPanel>
-            </Border>
+            <Fluent:Gallery VerticalScrollBarVisibility="Hidden">
+              <Fluent:GalleryGroup Header="Paste Options:">
+                <Image Source="Images\PasteImage.png" Width="24" Height="24" Fluent:KeyTip.Keys="K"/>
+                <Image Source="Images\PasteText.png" Width="24" Height="24" Fluent:KeyTip.Keys="M"/>
+                <Image Source="Images\PasteTextOnly.png" Width="24" Height="24" Fluent:KeyTip.Keys="T"/>
+                <Image Source="Images\PasteFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="L"/>
+                <Image Source="Images\PasteSourceFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="E"/>
+              </Fluent:GalleryGroup>
+            </Fluent:Gallery>
             <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S"/>
             <Fluent:MenuItem Text="Set Default Paste..." Fluent:KeyTip.Keys="A"/>
           </Fluent:SplitButton>
@@ -102,12 +110,12 @@
                Text="Cut the contents to the Clipboard."
                Width="190"/>
           </Fluent:Button.ToolTip>
-          </Fluent:Button>
+        </Fluent:Button>
         <Fluent:Button IsEnabled="False" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small"/>
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
 
-		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="F" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="F" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png">
       <Fluent:RibbonToolBar>
         
         <!--ToolBar Layout Definitions-->
@@ -203,7 +211,25 @@
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
             <Fluent:RibbonToolBar>
-              <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick">
+              <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
+                <Fluent:Gallery>
+                  <Fluent:GalleryGroup Header="1">
+                    <Fluent:GalleryGroup.Icon>
+                      <Image Source="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
+                    </Fluent:GalleryGroup.Icon>
+                    <TextBlock Margin="15">1</TextBlock>
+                    <TextBlock Margin="15">2</TextBlock>
+                    <TextBlock Margin="15">3</TextBlock>
+                    <TextBlock Margin="15">4</TextBlock>
+                    <TextBlock Margin="15">5</TextBlock>
+                    <TextBlock Margin="15">6</TextBlock>
+                  </Fluent:GalleryGroup>
+                  <Fluent:GalleryGroup Header="2">
+                    <TextBlock Margin="15">1</TextBlock>
+                    <TextBlock Margin="15">2</TextBlock>
+                    <TextBlock Margin="15">3</TextBlock>
+                  </Fluent:GalleryGroup>
+                </Fluent:Gallery>
                 <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
                 <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
                   <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
@@ -215,8 +241,29 @@
               <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
               <Fluent:DropDownButton Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
                 <Fluent:DropDownButton.Items>
-                  <Button Height="Auto" Fluent:KeyTip.Keys="W" x:Name="testButton" Click="OnTestClick" VerticalAlignment="Stretch">Lala</Button>
-                  <TextBox Height="Auto" VerticalAlignment="Stretch"></TextBox>
+                  <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll}">
+                    <Fluent:Gallery.Filters>
+                      <Fluent:GalleryGroupFilter Title="All" Groups="galleryGroup1,galleryGroup2" x:Name="galleryFilterAll"/>
+                      <Fluent:GalleryGroupFilter Title="1" Groups="galleryGroup1"/>
+                      <Fluent:GalleryGroupFilter Title="2" Groups="galleryGroup2"/>
+                    </Fluent:Gallery.Filters>
+                    <Fluent:GalleryGroup Header="1" x:Name="galleryGroup1">
+                      <Fluent:GalleryGroup.Icon>
+                        <Image Source="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2"/>
+                      </Fluent:GalleryGroup.Icon>
+                      <TextBlock Margin="15">1</TextBlock>
+                      <TextBlock Margin="15">2</TextBlock>
+                      <TextBlock Margin="15">3</TextBlock>
+                      <TextBlock Margin="15">4</TextBlock>
+                      <TextBlock Margin="15">5</TextBlock>
+                      <TextBlock Margin="15">6</TextBlock>
+                    </Fluent:GalleryGroup>
+                    <Fluent:GalleryGroup Header="2" x:Name="galleryGroup2">
+                      <TextBlock Margin="15">1</TextBlock>
+                      <TextBlock Margin="15">2</TextBlock>
+                      <TextBlock Margin="15">3</TextBlock>
+                    </Fluent:GalleryGroup>
+                  </Fluent:Gallery>
                   <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
                   <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
                     <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
@@ -253,7 +300,7 @@
           <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="C" Header="LongLongGroupC" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="L" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="L" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" IsEnabled="false"/>
           <Fluent:Button Text="Button" Fluent:KeyTip.Keys="E" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Fluent:Button Text="Button" Fluent:KeyTip.Keys="R" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
           <Fluent:Button Text="Button" Fluent:KeyTip.Keys="T" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>

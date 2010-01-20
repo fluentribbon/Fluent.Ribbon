@@ -54,12 +54,15 @@
 			<Trigger Property="HasItems" Value="False">
 				<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
 			</Trigger>
-			<!--<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
-			</Trigger>-->
-			<Trigger Property="IsFocused" Value="True">
+			<Trigger Property="IsSelected" Value="True">
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
 			</Trigger>
+			<!--<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
+			</Trigger>
+			<Trigger Property="IsFocused" Value="True">
+				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
+			</Trigger>-->
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
     

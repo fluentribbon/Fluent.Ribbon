@@ -1,15 +1,102 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-    <Style x:Key="RibbonStyle" TargetType="{x:Type Fluent:Ribbon}">
-    	<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    	<Setter Property="Template" Value="{DynamicResource RibbonControlTemplate}"/>
-    	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-		<Setter Property="FocusManager.IsFocusScope" Value="True"/>
-    </Style>
-    <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
+  <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
+    <Border Width="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
+      <Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
+        <Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
+          <Border.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <GradientStop Color="#66FFFFFF" Offset="0"/>
+              <GradientStop Offset="1"/>
+              <GradientStop Offset="0.5"/>
+            </LinearGradientBrush>
+          </Border.Background>
+          <Grid>
+            <Rectangle x:Name="rectangle" StrokeThickness="0">
+              <Rectangle.Fill>
+                <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+                  <GradientStop Color="#66FFFFFF" Offset="0.015"/>
+                  <GradientStop Offset="1"/>
+                </RadialGradientBrush>
+              </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock Margin="2,0,2,2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Grid>
+        </Border>
+      </Border>
+    </Border>
+    <ControlTemplate.Triggers>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsMouseOver" Value="True"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Fill" TargetName="rectangle">
+          <Setter.Value>
+            <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+              <GradientStop Color="#B2FFFFFF" Offset="0.015"/>
+              <GradientStop Offset="1"/>
+            </RadialGradientBrush>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Background" TargetName="border">
+          <Setter.Value>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <GradientStop Color="#B2FFFFFF" Offset="0.011"/>
+              <GradientStop Offset="1"/>
+              <GradientStop Offset="0.5"/>
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" TargetName="border" Value="#B2FFFFFF"/>
+      </MultiTrigger>
+      <Trigger Property="IsOpen" Value="True">
+        <Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="#59FFFFFF"/>
+        <Setter Property="Background" TargetName="border">
+          <Setter.Value>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <GradientStop Color="Transparent" Offset="0"/>
+              <GradientStop Offset="1" Color="#59FFFFFF"/>
+              <GradientStop Offset="0"/>
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsMouseOver" Value="True"/>
+          <Condition Property="IsOpen" Value="True"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="#99FFFFFF"/>
+        <Setter Property="Background" TargetName="border">
+          <Setter.Value>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              <GradientStop Color="Transparent" Offset="0"/>
+              <GradientStop Offset="1" Color="#99FFFFFF"/>
+              <GradientStop Offset="0"/>
+            </LinearGradientBrush>
+          </Setter.Value>
+        </Setter>
+      </MultiTrigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+
+  <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:BackstageButton}">
+    <Setter Property="Template" Value="{StaticResource BackstageToggleButtonControlTemplate}"/>
+    <Setter Property="Width" Value="56"/>
+    <Setter Property="Height" Value="22"/>
+    <Setter Property="Background" Value="Blue"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="Foreground" Value="White"/>
+  </Style>
+  
+
+  <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
       <ControlTemplate.Resources>
       </ControlTemplate.Resources>
     	<Grid x:Name="PART_LayoutRoot" Width="Auto" Height="Auto">
@@ -31,7 +118,7 @@
     			
     		</Fluent:RibbonTitleBar>
     		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False"/>
-    		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{DynamicResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}" Fluent:KeyTip.Keys="{TemplateBinding BackstageKeyTipKeys}"/>
+    		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{StaticResource BackstageToggleButtonStyle}" Text="File" Size="Small" Background="{TemplateBinding BackstageBrush}" Fluent:KeyTip.Keys="{TemplateBinding BackstageKeyTipKeys}"/>
     		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
     			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">
@@ -50,96 +137,13 @@
     		</Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
-    <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:BackstageButton}">
-    	<Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}"/>
-    	<Setter Property="Width" Value="56"/>
-    	<Setter Property="Height" Value="22"/>
-    	<Setter Property="Background" Value="Blue"/>
-    	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    	<Setter Property="Foreground" Value="White"/>
-    </Style>
-    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
-    	<Border Width="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
-    		<Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
-    			<Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
-    				<Border.Background>
-    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    						<GradientStop Color="#66FFFFFF" Offset="0"/>
-    						<GradientStop Offset="1"/>
-    						<GradientStop Offset="0.5"/>
-    					</LinearGradientBrush>
-    				</Border.Background>
-    				<Grid>
-    					<Rectangle x:Name="rectangle" StrokeThickness="0">
-    						<Rectangle.Fill>
-    							<RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
-    								<GradientStop Color="#66FFFFFF" Offset="0.015"/>
-    								<GradientStop Offset="1"/>
-    							</RadialGradientBrush>
-    						</Rectangle.Fill>
-    					</Rectangle>
-    					<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    				</Grid>
-    			</Border>
-    		</Border>
-    	</Border>
-    	<ControlTemplate.Triggers>
-    		<MultiTrigger>
-    			<MultiTrigger.Conditions>
-    				<Condition Property="IsMouseOver" Value="True"/>
-    			</MultiTrigger.Conditions>
-    			<Setter Property="Fill" TargetName="rectangle">
-    				<Setter.Value>
-    					<RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
-    						<GradientStop Color="#B2FFFFFF" Offset="0.015"/>
-    						<GradientStop Offset="1"/>
-    					</RadialGradientBrush>
-    				</Setter.Value>
-    			</Setter>
-    			<Setter Property="Background" TargetName="border">
-    				<Setter.Value>
-    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    						<GradientStop Color="#B2FFFFFF" Offset="0.011"/>
-    						<GradientStop Offset="1"/>
-    						<GradientStop Offset="0.5"/>
-    					</LinearGradientBrush>
-    				</Setter.Value>
-    			</Setter>
-    			<Setter Property="BorderBrush" TargetName="border" Value="#B2FFFFFF"/>
-    		</MultiTrigger>
-    		<Trigger Property="IsOpen" Value="True">
-    			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
-    			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
-    			<Setter Property="BorderBrush" TargetName="border" Value="#59FFFFFF"/>
-    			<Setter Property="Background" TargetName="border">
-    				<Setter.Value>
-    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    						<GradientStop Color="Transparent" Offset="0"/>
-    						<GradientStop Offset="1" Color="#59FFFFFF"/>
-    						<GradientStop Offset="0"/>
-    					</LinearGradientBrush>
-    				</Setter.Value>
-    			</Setter>
-    		</Trigger>
-			<MultiTrigger>
-    			<MultiTrigger.Conditions>
-    				<Condition Property="IsMouseOver" Value="True"/>
-					<Condition Property="IsOpen" Value="True"/>
-    			</MultiTrigger.Conditions>
-    			<Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
-    			<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
-    			<Setter Property="BorderBrush" TargetName="border" Value="#99FFFFFF"/>
-    			<Setter Property="Background" TargetName="border">
-    				<Setter.Value>
-    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    						<GradientStop Color="Transparent" Offset="0"/>
-    						<GradientStop Offset="1" Color="#99FFFFFF"/>
-    						<GradientStop Offset="0"/>
-    					</LinearGradientBrush>
-    				</Setter.Value>
-    			</Setter>
-    		</MultiTrigger>
-    	</ControlTemplate.Triggers>
-    </ControlTemplate>
+    
+  <Style x:Key="RibbonStyle" TargetType="{x:Type Fluent:Ribbon}">
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="Template" Value="{StaticResource RibbonControlTemplate}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+    <Setter Property="FocusManager.IsFocusScope" Value="True"/>
+  </Style>
 </ResourceDictionary>

@@ -1,9 +1,14 @@
 ﻿<Application
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" x:Class="FluentTest.App"
+    x:Class="FluentTest.App"
     StartupUri="TestWindow.xaml" Startup="OnApplicationStartup">
 	<Application.Resources>
-		
+    <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml">
+    	<ResourceDictionary.MergedDictionaries>
+    		<ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Controls/GalleryItem.xaml"/>
+    	</ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
 	</Application.Resources>
+
 </Application>

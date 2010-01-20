@@ -64,6 +64,8 @@ namespace Fluent
         // Saved when backstage opened tab item
         private RibbonTabItem savedTabItem;
 
+        Dictionary<UIElement,UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
+
         #endregion
 
         #region Properties
@@ -462,14 +464,14 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Ribbon()
         {
-            StyleProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            //StyleProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
         }
 
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = ThemesManager.DefaultRibbonStyle;
+            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonStyle;
             return basevalue;
         }
 
@@ -611,6 +613,32 @@ namespace Fluent
 
         #endregion
 
+        #region Quick Access Items Managment
+               
+        public bool IsInQuickAccessToolbar(UIElement element)
+        {
+            return quickAccessElements.ContainsKey(element);
+        }
+
+        public void AddToQuickAccessToolbar(UIElement element)
+        {
+            if(IsInQuickAccessToolbar(element))
+            {                 
+                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
+                quickAccessElements.Remove(element);
+                quickAccessToolBar.InvalidateMeasure();
+            }
+            else
+            {
+                UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
+                quickAccessElements.Add(element,control);
+                quickAccessToolBar.Items.Add(control);
+                quickAccessToolBar.InvalidateMeasure();
+            }
+        }
+
+        #endregion
+
         #region Event handling
 
         // Handles tab control selection chaged
@@ -632,13 +660,11 @@ namespace Fluent
             if (quickAccessToolBar != null)
             {
                 RibbonTabControl ribbonTabControl = sender as RibbonTabControl;
-                UIElement control = QuickAccessItemsProvider.PickQuickAccessItem(ribbonTabControl,
+                UIElement control = QuickAccessItemsProvider.FindSupportedControl(ribbonTabControl,
                                                                                  e.GetPosition(ribbonTabControl));
                 if (control != null)
-                {                    
-                    if (quickAccessToolBar.Items.Contains(control)) quickAccessToolBar.Items.Remove(control);
-                    else quickAccessToolBar.Items.Add(control);
-                    quickAccessToolBar.InvalidateMeasure();
+                {
+                    AddToQuickAccessToolbar(control);
                 }
             }
         }
