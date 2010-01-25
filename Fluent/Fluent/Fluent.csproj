@@ -80,6 +80,9 @@
     <Compile Include="BackstageButton.cs" />
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
+    <Compile Include="CheckBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
     <Compile Include="Gallery.cs" />
@@ -168,6 +171,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Office2010\Controls\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Office2010\Controls\RibbonSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,9 +199,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Office2010\Controls\ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Office2010\Controls\SplitButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\TwoLineLabel.xaml">
       <SubType>Designer</SubType>

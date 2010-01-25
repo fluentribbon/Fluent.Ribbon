@@ -37,4 +37,74 @@
 	</LinearGradientBrush>
 	
 	<SolidColorBrush x:Key="TransparentBrush" Color="#00000000"/>
+
+  <SolidColorBrush x:Key="ScrollOutterBorderBrush" Color="#FF8A9199"/>
+  <SolidColorBrush x:Key="ScrollOutterBackgroundBrush" Color="#FFD9DEE3"/>
+  <LinearGradientBrush x:Key="ScrollInnerBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFF0F4F8" Offset="0"/>
+    <GradientStop Color="#FFD7DBE1" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFEFF3F7" Offset="0"/>
+    <GradientStop Color="#FFDADEE4" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ScrollOverOutterBorderBrush" Color="#FF969EA8"/>
+  <SolidColorBrush x:Key="ScrollOverOutterBackgroundBrush" Color="#FFE5E9EB"/>
+  <LinearGradientBrush x:Key="ScrollOverInnerBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFFCFDFE" Offset="0"/>
+    <GradientStop Color="#FFF1F3F5" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollOverInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFF7FAFC" Offset="0"/>
+    <GradientStop Color="#FFE4E8EC" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ScrollPressedOutterBorderBrush" Color="#FF8A9199"/>
+  <SolidColorBrush x:Key="ScrollPressedOutterBackgroundBrush" Color="#FFD5D9DE"/>
+  <LinearGradientBrush x:Key="ScrollPressedInnerBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFEAEEF2" Offset="0"/>
+    <GradientStop Color="#FFCFD4D9" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollPressedInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFE9ECF0" Offset="0"/>
+    <GradientStop Color="#FFD2D7DC" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFD4DAE0" Offset="0"/>
+    <GradientStop Color="#FFDFE4EB" Offset="1"/>
+  </LinearGradientBrush>
+
+  <SolidColorBrush x:Key="ScrollVerticalOutterBorderBrush" Color="#FF8A9199"/>
+  <SolidColorBrush x:Key="ScrollVerticalOutterBackgroundBrush" Color="#FFD9DEE3"/>
+  <LinearGradientBrush x:Key="ScrollVerticalInnerBorderBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFF0F4F8" Offset="0"/>
+    <GradientStop Color="#FFD7DBE1" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollVerticalInnerBackgroundBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFEFF3F7" Offset="0"/>
+    <GradientStop Color="#FFDADEE4" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ScrollVerticalOverOutterBorderBrush" Color="#FF969EA8"/>
+  <SolidColorBrush x:Key="ScrollVerticalOverOutterBackgroundBrush" Color="#FFE5E9EB"/>
+  <LinearGradientBrush x:Key="ScrollVerticalOverInnerBorderBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFFCFDFE" Offset="0"/>
+    <GradientStop Color="#FFF1F3F5" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollVerticalOverInnerBackgroundBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFF7FAFC" Offset="0"/>
+    <GradientStop Color="#FFE4E8EC" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ScrollVerticalPressedOutterBorderBrush" Color="#FF8A9199"/>
+  <SolidColorBrush x:Key="ScrollVerticalPressedOutterBackgroundBrush" Color="#FFD5D9DE"/>
+  <LinearGradientBrush x:Key="ScrollVerticalPressedInnerBorderBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFEAEEF2" Offset="0"/>
+    <GradientStop Color="#FFCFD4D9" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollVerticalPressedInnerBackgroundBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFE9ECF0" Offset="0"/>
+    <GradientStop Color="#FFD2D7DC" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="ScrollVerticalBackgroundBrush" EndPoint="1,0.5" StartPoint="0,0.5">
+    <GradientStop Color="#FFD4DAE0" Offset="0"/>
+    <GradientStop Color="#FFDFE4EB" Offset="1"/>
+  </LinearGradientBrush>
 </ResourceDictionary>

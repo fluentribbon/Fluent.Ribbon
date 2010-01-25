@@ -376,6 +376,8 @@
     </Button>
     
     <TreeView Visibility="Collapsed" x:Name="logicalTreeView" Margin="0,200,0,0"/>
+    <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,120,0,20" Maximum="10" Minimum="0"/>
+    <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20"/>
   </Grid>
 
 </Fluent:RibbonWindow>
