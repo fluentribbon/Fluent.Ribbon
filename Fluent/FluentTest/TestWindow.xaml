@@ -24,7 +24,7 @@
     </LinearGradientBrush>
   </Fluent:RibbonWindow.Background>
   <Grid>
-    <Fluent:Ribbon VerticalAlignment="Top" BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
+    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
 
       <Fluent:Ribbon.Groups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple"/>

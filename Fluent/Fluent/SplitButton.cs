@@ -92,5 +92,34 @@ namespace Fluent
         }
 
         #endregion
+
+        #region Quick Access Item Creating
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public override UIElement CreateQuickAccessItem()
+        {
+            SplitButton button = new SplitButton();
+            BindQuickAccessItem(button);
+            return button;
+        }
+
+        /// <summary>
+        /// This method must be overriden to bind properties to use in quick access creating
+        /// </summary>
+        /// <param name="element">Toolbar item</param>
+        protected override void BindQuickAccessItem(FrameworkElement element)
+        {
+            SplitButton button = element as SplitButton;
+            if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
+            button.Click += (s, e) => RaiseEvent(e);
+            base.BindQuickAccessItem(element);
+        }
+
+        #endregion
     }
 }

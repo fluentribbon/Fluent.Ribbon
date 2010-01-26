@@ -480,6 +480,7 @@ namespace Fluent
         /// </summary>
         public Ribbon()
         {
+            VerticalAlignment = VerticalAlignment.Top;
             keyTipService = new KeyTipService(this);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
             Focusable = false;
