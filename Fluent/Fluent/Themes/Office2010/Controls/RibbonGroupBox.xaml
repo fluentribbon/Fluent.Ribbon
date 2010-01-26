@@ -51,7 +51,7 @@
 						<ColumnDefinition Width="Auto" MinWidth="15"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
-					<Fluent:Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}" VerticalAlignment="Bottom"/>
+					<Fluent:Button x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}" VerticalAlignment="Bottom" Icon="{TemplateBinding Icon}"/>
 				</Grid>
 				<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,0,2,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
 			</Grid>

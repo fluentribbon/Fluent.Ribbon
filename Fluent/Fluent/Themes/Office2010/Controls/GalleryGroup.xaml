@@ -6,7 +6,7 @@
 			<ControlTemplate TargetType="{x:Type Fluent:GalleryGroup}">
 				<StackPanel VerticalAlignment="Top">
 					<Border Height="20" BorderBrush="{x:Null}" BorderThickness="1" Background="#FFF0F2F5">
-						<TextBlock Text="{TemplateBinding Header}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,2"/>
+						<TextBlock Text="{TemplateBinding Header}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,2" FontWeight="Bold"/>
 					</Border>
 					<Grid Margin="0" Height="Auto">
 						<Grid.ColumnDefinitions>
