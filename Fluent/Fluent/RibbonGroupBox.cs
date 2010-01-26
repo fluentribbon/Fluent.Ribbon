@@ -495,14 +495,9 @@ namespace Fluent
 
             button.Size = RibbonControlSize.Small;
 
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            button.MouseLeftButtonDown += OnQuickAccessClick;
 
-            Binding binding = new Binding("IsOpen");
-            binding.Source = this;
-            binding.Mode = BindingMode.OneWay;
-            button.SetBinding(ToggleButton.IsCheckedProperty, binding);
-
-            binding = new Binding("Icon");
+            Binding binding = new Binding("Icon");
             binding.Source = this;
             binding.Mode = BindingMode.OneWay;
             button.SetBinding(ToggleButton.IconProperty, binding);
@@ -521,10 +516,13 @@ namespace Fluent
                 savedState = this.State;
                 this.State = RibbonGroupBoxState.Collapsed;
                 popupPlacementTarget = popup.PlacementTarget;
-                popup.PlacementTarget = sender as Button;
-                e.Handled = true;                
+                popup.PlacementTarget = sender as ToggleButton;
+                popup.Tag = sender;
+                //(sender as ToggleButton).IsChecked = true;
+                Mouse.Capture(popup);
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
+                e.Handled = true;
             }
         }
 
@@ -535,6 +533,7 @@ namespace Fluent
             this.State = savedState;
             popup.PlacementTarget = popupPlacementTarget;
             UpdateLayout();
+            ((sender as Popup).Tag as ToggleButton).IsChecked = false;
             popup.Closed -= OnMenuClosed;
             IsSnapped = false;
         }

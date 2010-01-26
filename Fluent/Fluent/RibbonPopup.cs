@@ -32,6 +32,16 @@ namespace Fluent
 
         private static List<RibbonPopup> openedPopups = new List<RibbonPopup>();
 
+        /// <summary>
+        /// Returns active popup
+        /// </summary>
+        /// <returns>Active popup or null if no popup is opened</returns>
+        internal static RibbonPopup GetActivePopup()
+        {
+            if(openedPopups.Count==0) return null;
+            return openedPopups[openedPopups.Count - 1];
+        }
+
         #endregion
 
         #region Fields

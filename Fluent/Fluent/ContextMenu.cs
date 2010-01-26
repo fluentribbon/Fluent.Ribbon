@@ -335,7 +335,10 @@ namespace Fluent
             // Preventing ribbon popup closing
             popup.Child = MenuBar;
             popup.Closed += OnPopupFirstClose;
-                                
+
+            popup.Opened += delegate { RaiseEvent(new RoutedEventArgs(OpenedEvent,this)); };
+            popup.Closed += delegate { RaiseEvent(new RoutedEventArgs(ClosedEvent, this)); };
+        
             // Set ribbon popup bindings
             CreatePopupRoot(this.popup, this);
         }

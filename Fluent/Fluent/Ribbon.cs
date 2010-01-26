@@ -54,6 +54,19 @@ namespace Fluent
         // Ribbon backstage button
         private BackstageButton backstageButton;
 
+        // Context Menu
+        ContextMenu ribbonContextMenu;
+        MenuItem addToQuickAccessMenuItem;
+        MenuItem addGroupToQuickAccessMenuItem;
+        MenuItem addMenuToQuickAccessMenuItem;
+        MenuItem addGalleryToQuickAccessMenuItem;
+        MenuItem removeFromQuickAccessMenuItem;
+        MenuItem customizeQuickAccessToolbarMenuItem;
+        MenuItem showQuickAccessToolbarBelowTheRibbonMenuItem;
+        MenuItem showQuickAccessToolbarAboveTheRibbonMenuItem;
+        MenuItem customizeTheRibbonMenuItem;
+        MenuItem minimizeTheRibbonMenuItem;
+
         // Handles F10, Alt and so on
         KeyTipService keyTipService;
         
@@ -454,6 +467,57 @@ namespace Fluent
         public static readonly DependencyProperty BackstageBrushProperty =
             DependencyProperty.Register("BackstageBrush", typeof(Brush), typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
 
+
+
+        /// <summary>
+        /// Gets or set whether Customize Quick Access Toolbar menu item is shown
+        /// </summary>
+        public bool CanCustomizeQuickAccessToolbar
+        {
+            get { return (bool)GetValue(CanCustomizeQuickAccessToolbarProperty); }
+            set { SetValue(CanCustomizeQuickAccessToolbarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolbar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanCustomizeQuickAccessToolbarProperty =
+            DependencyProperty.Register("CanCustomizeQuickAccessToolbar", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+
+
+        /// <summary>
+        /// Gets or set whether Customize Ribbon menu item is shown
+        /// </summary>
+        public bool CanCustomizeRibbon
+        {
+            get { return (bool)GetValue(CanCustomizeRibbonProperty); }
+            set { SetValue(CanCustomizeRibbonProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanCustomizeRibbonProperty =
+            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+
+
+        /// <summary>
+        /// Gets or sets whether ribbon is minimized
+        /// </summary>
+        public bool IsMinimized
+        {
+            get { return (bool)GetValue(IsMinimizedProperty); }
+            set { SetValue(IsMinimizedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsMinimized.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsMinimizedProperty =
+            DependencyProperty.Register("IsMinimized", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+
+
+
         #endregion
 
         #region Constructors
@@ -528,8 +592,7 @@ namespace Fluent
             }
 
             if (tabControl != null)
-            {
-                tabControl.PreviewMouseRightButtonUp -= OnTabControlRightButtonUp;
+            {                
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
             }
             if ((tabControl != null) && (tabs != null))
@@ -550,8 +613,11 @@ namespace Fluent
             tabControl = GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
             if (tabControl != null)
             {
-                tabControl.PreviewMouseRightButtonUp += OnTabControlRightButtonUp;
                 tabControl.SelectionChanged += OnTabControlSelectionChanged;
+                Binding minimizeBinding = new Binding("IsMinimized");
+                minimizeBinding.Source = tabControl;
+                minimizeBinding.Mode = BindingMode.TwoWay;
+                SetBinding(IsMinimizedProperty, minimizeBinding);
             }
             if ((tabControl != null)&&(tabs!=null))
             {
@@ -609,7 +675,127 @@ namespace Fluent
                     }
                 }
             }
+            if (ribbonContextMenu != null) ribbonContextMenu.Opened -= OnContextMenuOpened;
+            ribbonContextMenu = GetTemplateChild("PART_RibbonContextMenu") as ContextMenu;
+            if (ribbonContextMenu != null) ribbonContextMenu.Opened += OnContextMenuOpened;
+            if (addToQuickAccessMenuItem!=null) addToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
+            addToQuickAccessMenuItem = GetTemplateChild("PART_AddToQuickAccessMenuItem") as MenuItem;
+            if (addToQuickAccessMenuItem != null) addToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
+            if (addGroupToQuickAccessMenuItem != null) addGroupToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
+            addGroupToQuickAccessMenuItem = GetTemplateChild("PART_AddGroupToQuickAccessMenuItem") as MenuItem;
+            if (addGroupToQuickAccessMenuItem != null) addGroupToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
+            if (addMenuToQuickAccessMenuItem != null) addMenuToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
+            addMenuToQuickAccessMenuItem = GetTemplateChild("PART_AddMenuToQuickAccessMenuItem") as MenuItem;
+            if (addMenuToQuickAccessMenuItem != null) addMenuToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
+            if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
+            addGalleryToQuickAccessMenuItem = GetTemplateChild("PART_AddGalleryToQuickAccessMenuItem") as MenuItem;
+            if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
+            removeFromQuickAccessMenuItem = GetTemplateChild("PART_RemoveFromQuickAccessMenuItem") as MenuItem;
+            customizeQuickAccessToolbarMenuItem = GetTemplateChild("PART_CustomizeQuickAccessToolbarMenuItem") as MenuItem;
+            if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click -= OnShowBelowTheRibbonClick;
+            showQuickAccessToolbarBelowTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem") as MenuItem;
+            if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click += OnShowBelowTheRibbonClick;
+            if (showQuickAccessToolbarAboveTheRibbonMenuItem != null) showQuickAccessToolbarAboveTheRibbonMenuItem.Click -= OnShowAboveTheRibbonClick;
+            showQuickAccessToolbarAboveTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem") as MenuItem;
+            if (showQuickAccessToolbarAboveTheRibbonMenuItem != null) showQuickAccessToolbarAboveTheRibbonMenuItem.Click += OnShowAboveTheRibbonClick;
+            customizeTheRibbonMenuItem = GetTemplateChild("PART_CustomizeTheRibbonMenuItem") as MenuItem;
+            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
+            minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
+            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
+        }
 
+        private void OnMinimizeRibbonClick(object sender, RoutedEventArgs e)
+        {
+            if (tabControl!=null) tabControl.IsMinimized = !tabControl.IsMinimized;
+        }
+
+        private void OnShowAboveTheRibbonClick(object sender, RoutedEventArgs e)
+        {
+            ShowQuickAccessToolBarAboveRibbon = true;
+        }
+
+        private void OnShowBelowTheRibbonClick(object sender, RoutedEventArgs e)
+        {
+            ShowQuickAccessToolBarAboveRibbon = false;
+        }
+
+        private void OnAddToQuickLaunchClick(object sender, RoutedEventArgs e)
+        {
+            if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
+            {
+                AddToQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
+            }
+        }
+
+        private void OnContextMenuOpened(object sender, RoutedEventArgs e)
+        {
+            /*if (quickAccessToolBar != null)
+            {
+                RibbonTabControl ribbonTabControl = sender as RibbonTabControl;
+                UIElement control = QuickAccessItemsProvider.FindSupportedControl(ribbonTabControl,
+                                                                                 e.GetPosition(ribbonTabControl));
+                if (control != null)
+                {
+                    AddToQuickAccessToolbar(control);
+                }
+            }*/
+            if(ribbonContextMenu!=null)
+            {
+                FrameworkElement parentElement = RibbonPopup.GetActivePopup();
+                if (parentElement == null) parentElement = this;
+                else parentElement = (parentElement as RibbonPopup).Child as FrameworkElement;
+                
+                if (parentElement == null) parentElement = this;
+                UIElement control = QuickAccessItemsProvider.FindSupportedControl(parentElement , Mouse.GetPosition(parentElement));
+                if (control != null)
+                {
+                    ribbonContextMenu.Tag = control;
+                    if(control is ContextMenu)
+                    {
+                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                    }
+                    else if(control is Gallery)
+                    {
+                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                    }
+                    else if (control is RibbonGroupBox)
+                    {
+                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                    }
+                    else 
+                    {
+                        addToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                    }
+                }
+                else
+                {
+                    addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                    addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                    addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                    addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                    removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         #endregion
@@ -651,21 +837,6 @@ namespace Fluent
                 {
                     savedTabItem = e.AddedItems[0] as RibbonTabItem;
                     IsBackstageOpen = false;
-                }
-            }
-        }
-
-        // handles tab control right button click
-        private void OnTabControlRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (quickAccessToolBar != null)
-            {
-                RibbonTabControl ribbonTabControl = sender as RibbonTabControl;
-                UIElement control = QuickAccessItemsProvider.FindSupportedControl(ribbonTabControl,
-                                                                                 e.GetPosition(ribbonTabControl));
-                if (control != null)
-                {
-                    AddToQuickAccessToolbar(control);
                 }
             }
         }

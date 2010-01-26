@@ -350,7 +350,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-    <Button Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
+    <Button HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -375,7 +375,7 @@
       </Button.ContextMenu>
     </Button>
     
-    <TreeView Visibility="Collapsed" x:Name="logicalTreeView" Margin="0,200,0,0"/>
+    <TreeView x:Name="logicalTreeView" Margin="0,200,0,0"/>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,120,0,20" Maximum="10" Minimum="0"/>
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20"/>
   </Grid>
