@@ -655,9 +655,39 @@ namespace Fluent
                             associatedElements[i].DesiredSize.Height - keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                     keyTipPositions[i] = translatedPoint;
                 }
+                else if (associatedElements[i] is MenuItem)
+                {
+                    // MenuItem Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].DesiredSize;
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(
+                            elementSize.Height / 2.0 + 2,
+                            elementSize.Height / 2.0 + 2), AdornedElement);
+                }
+                else if (associatedElements[i] is BackstageTabItem)
+                {
+                    // BackstageButton Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].DesiredSize;
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(
+                            5,
+                            elementSize.Height / 2.0 - keyTipSize.Height), AdornedElement);
+                }
+                else if (((FrameworkElement)associatedElements[i]).Parent is Backstage)
+                {
+                    // Backstage Items Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].DesiredSize;
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(
+                            20,
+                            elementSize.Height / 2.0 - keyTipSize.Height), AdornedElement);
+                }
                 else
                 {
-                    if ((associatedElements[i] is RibbonControl)&&((associatedElements[i] as RibbonControl).Size != RibbonControlSize.Large))
+                    if ((associatedElements[i] is RibbonControl) && ((associatedElements[i] as RibbonControl).Size != RibbonControlSize.Large))
                     {
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present

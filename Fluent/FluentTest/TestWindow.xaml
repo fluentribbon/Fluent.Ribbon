@@ -75,7 +75,7 @@
       <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font, A,A,Clipboard,Font,B,A,B,C,B,C,C">
 
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:SplitButton Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
+          <Fluent:SplitButton  Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
                   Title="Paste (Ctrl+V)"
@@ -187,13 +187,13 @@
         <Fluent:Button x:Name="buttonShrinkFont" Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonClearFormatting" Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:Button x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:ToggleButton x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:ToggleButton IsEnabled="False" x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonUnderline" Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonSubscript" Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonSuperscript" Icon="Images\Superscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton x:Name="buttonTextEffects" Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton IsEnabled="False" x:Name="buttonTextEffects" Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonTextHighlightColor" Icon="Images\TextHighlightColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonFontColor" Icon="Images\FontColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
       </Fluent:RibbonToolBar>

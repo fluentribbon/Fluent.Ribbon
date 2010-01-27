@@ -114,7 +114,7 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            SplitButton button = element as SplitButton;
+            SplitButton button =  (SplitButton)element;
             if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
             button.Click += (s, e) => RaiseEvent(e);
             base.BindQuickAccessItem(element);
