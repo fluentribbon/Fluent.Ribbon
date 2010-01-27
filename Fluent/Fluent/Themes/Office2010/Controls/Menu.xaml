@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Fluent="clr-namespace:Fluent" mc:Ignorable="d">
-	<Style x:Key="EmptyContextMenuStyle" TargetType="{x:Type Fluent:ContextMenu}">
+	
+  <!--Empty Style - Why?-->
+  <Style x:Key="EmptyContextMenuStyle" TargetType="{x:Type Fluent:ContextMenu}">
     <Setter Property="ToolTip" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
@@ -11,12 +13,16 @@
 		<Setter Property="MinWidth" Value="0"/>
 		<Setter Property="MaxWidth" Value="0"/>
 	</Style>
+  
+  <!--Menu Item Style-->
 	<Style x:Key="ContextMenuItemStyle" TargetType="{x:Type Fluent:MenuItem}">
 		<Setter Property="Template" Value="{DynamicResource ContextMenuItemControlTemplate}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
 	</Style>
+
+  <!--Menu Item Template-->
 	<ControlTemplate x:Key="ContextMenuItemControlTemplate" TargetType="{x:Type Fluent:MenuItem}">
 		<Grid Width="Auto" Height="22" Background="#00000000">
 			<Grid.ColumnDefinitions>
@@ -30,7 +36,7 @@
 			<TextBlock x:Name="textBlock" Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,3,40,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width"/>
 			<Rectangle x:Name="rectangle" Fill="#FFFCF1C2" Stroke="#FFF29536" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 			<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-			<Image HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True"/>
+			<Image x:Name="iconImage" HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True"/>
 			<Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="5,0,4,0" Width="4" Data="M0,0L1,1 0,2z" Height="6" Grid.Column="3">
 				<Path.Fill>
 					<LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">
@@ -57,15 +63,25 @@
 			<Trigger Property="IsSelected" Value="True">
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
 			</Trigger>
-			<!--<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
-			</Trigger>
-			<Trigger Property="IsFocused" Value="True">
-				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
-			</Trigger>-->
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+        <Setter Property="Opacity" TargetName="image" Value="0.5"/>
+        <Setter Property="Opacity" TargetName="textBlock" Value="0.5"/>
+        <Setter Property="Effect" TargetName="iconImage">
+          <Setter.Value>
+            <Fluent:GrayscaleEffect/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Effect" TargetName="image">
+          <Setter.Value>
+            <Fluent:GrayscaleEffect/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
-    
+
+  <!--Menu Bar Style-->
 	<Style x:Key="ContextMenuBarStyle" TargetType="{x:Type Fluent:ContextMenuBar}">
 		<Setter Property="Template" Value="{DynamicResource ContextPopupMenuControlTemplate}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
