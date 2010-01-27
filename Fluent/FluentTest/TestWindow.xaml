@@ -183,11 +183,11 @@
         <ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
           <ComboBoxItem Content="11"/>
         </ComboBox>
-        <Fluent:Button x:Name="buttonGrowFont" Icon="Images\GrowFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:Button Fluent:KeyTip.Keys="GF" x:Name="buttonGrowFont" Icon="Images\GrowFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonShrinkFont" Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonClearFormatting" Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:ToggleButton x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:ToggleButton  Fluent:KeyTip.Keys="B" x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:ToggleButton IsEnabled="False" x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonUnderline" Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>

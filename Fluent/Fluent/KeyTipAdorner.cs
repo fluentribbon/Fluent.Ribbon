@@ -630,7 +630,46 @@ namespace Fluent
 
             for (int i = 0; i < keyTips.Count; i++)
             {
-                if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is BackstageButton))
+                if (!KeyTip.GetAutoPlacement(associatedElements[i]))
+                {
+                    #region Custom Placement
+
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].RenderSize;
+                    
+                    double x = 0, y = 0;
+                    Thickness margin = KeyTip.GetMargin(associatedElements[i]);
+                    switch (KeyTip.GetHorizontalAlignment(associatedElements[i]))
+                    {
+                        case HorizontalAlignment.Left:
+                            x = margin.Left;
+                            break;
+                        case HorizontalAlignment.Right:
+                            x = elementSize.Width - keyTipSize.Width - margin.Right;
+                            break;
+                        case HorizontalAlignment.Center:
+                        case HorizontalAlignment.Stretch:
+                            x = elementSize.Width / 2.0 - keyTipSize.Width / 2.0 + margin.Left;
+                            break;
+                    }
+                    switch (KeyTip.GetVerticalAlignment(associatedElements[i]))
+                    {
+                        case VerticalAlignment.Top:
+                            y = margin.Top;
+                            break;
+                        case VerticalAlignment.Bottom:
+                            y = elementSize.Height - keyTipSize.Height - margin.Bottom;
+                            break;
+                        case VerticalAlignment.Center:
+                        case VerticalAlignment.Stretch:
+                            y = elementSize.Height / 2.0 - keyTipSize.Height / 2.0 + margin.Top;
+                            break;
+                    }
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(x, y), AdornedElement);
+
+                    #endregion
+                }
+                else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is BackstageButton))
                 {
                     // Ribbon Tab Item Exclusive Placement
                     Size keyTipSize = keyTips[i].DesiredSize;
@@ -687,7 +726,7 @@ namespace Fluent
                 }
                 else
                 {
-                    if ((associatedElements[i] is RibbonControl) && ((associatedElements[i] as RibbonControl).Size != RibbonControlSize.Large))
+                    if ((associatedElements[i] is RibbonControl) && (((RibbonControl)associatedElements[i]).Size != RibbonControlSize.Large))
                     {
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present
