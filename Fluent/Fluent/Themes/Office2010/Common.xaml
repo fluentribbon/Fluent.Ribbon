@@ -3,11 +3,8 @@
     xmlns:Fluent="clr-namespace:Fluent">
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Fonts.xaml"/>
-
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Colors\Colors.xaml"/>
-
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\EmptyFocusStyle.xaml"/>    
-    
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\EmptyFocusStyle.xaml"/>        
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabControl.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonGroupBox.xaml"/>
@@ -36,10 +33,12 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\StatusBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBar.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>    
-    
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Spinner.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>        
   </ResourceDictionary.MergedDictionaries>
+  
   <!-- Set default controls -->
+  <Style x:Key="{x:Type Fluent:Spinner}" TargetType="Fluent:Spinner" BasedOn="{StaticResource SpinnerStyle}"/>
   <Style x:Key="{x:Type Fluent:TwoLineLabel}" TargetType="Fluent:TwoLineLabel" BasedOn="{StaticResource TwoLineLabelStyle}"/>
   <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip" BasedOn="{StaticResource KeyTipStyle}"/>
   <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>

@@ -6,6 +6,7 @@
   </ResourceDictionary.MergedDictionaries>
   
   <Style x:Key="RibbonToolBarStyle" TargetType="{x:Type Fluent:RibbonToolBar}">
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="SeparatorStyle">
       <Setter.Value>
         <Style TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}">

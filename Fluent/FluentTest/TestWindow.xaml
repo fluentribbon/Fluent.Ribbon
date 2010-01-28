@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="700" mc:Ignorable="d">
+    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="1700" mc:Ignorable="d">
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
@@ -202,6 +202,7 @@
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
             <Fluent:RibbonToolBar>
+              <Fluent:Spinner Width="75" Format="0 px" />
               <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
                 <Fluent:Gallery>
                   <Fluent:GalleryGroup Header="1">

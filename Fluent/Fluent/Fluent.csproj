@@ -99,6 +99,7 @@
     <Compile Include="RibbonToolBar.cs" />
     <Compile Include="RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="RibbonWindow.cs" />
+    <Compile Include="Spinner.cs" />
     <Compile Include="SplitButton.cs" />
     <Compile Include="TwoLineLabel.cs" />
     <Compile Include="RibbonPopup.cs">
@@ -174,6 +175,10 @@
     <Page Include="Themes\Office2010\Controls\CheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\Spinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\RibbonSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
