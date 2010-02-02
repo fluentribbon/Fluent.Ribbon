@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Fluent
 {
@@ -14,6 +15,8 @@ namespace Fluent
         #region Fields
 
         private Button button;
+
+        private SplitButton quickAccessButton;
 
         #endregion
 
@@ -105,7 +108,34 @@ namespace Fluent
         {
             SplitButton button = new SplitButton();
             BindQuickAccessItem(button);
+            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             return button;
+        }
+
+        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        {
+            SplitButton button = sender as SplitButton;
+            for (int i = 0; i < Items.Count; i++)
+            {
+                UIElement item = Items[0];
+                Items.Remove(item);
+                button.Items.Add(item);
+                i--;
+            }
+            button.MenuClosed += OnQuickAccessMenuClosed;
+            quickAccessButton = button;
+        }
+
+        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            for (int i = 0; i < quickAccessButton.Items.Count; i++)
+            {
+                UIElement item = quickAccessButton.Items[0];
+                quickAccessButton.Items.Remove(item);
+                Items.Add(item);
+                i--;
+            }
         }
 
         /// <summary>
@@ -114,9 +144,9 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            SplitButton button =  (SplitButton)element;
-            if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
-            button.Click += (s, e) => RaiseEvent(e);
+            SplitButton button = element as SplitButton;
+            Bind(this, button, "MenuResizeMode", MenuResizeModeProperty, BindingMode.Default);
+            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
             base.BindQuickAccessItem(element);
         }
 

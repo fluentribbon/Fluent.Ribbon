@@ -5,9 +5,6 @@
     StartupUri="TestWindow.xaml" Startup="OnApplicationStartup">
 	<Application.Resources>
     <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml">
-    	<ResourceDictionary.MergedDictionaries>
-    		<ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Controls/GalleryItem.xaml"/>
-    	</ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
 	</Application.Resources>
 

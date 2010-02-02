@@ -64,6 +64,8 @@ namespace Fluent
         {
             Focusable = false;
             FocusManager.SetIsFocusScope(this,true);
+            ToolTip = new ToolTip();
+            (ToolTip as ToolTip).Template = null;
         }
 
         #endregion

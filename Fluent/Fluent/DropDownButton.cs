@@ -41,6 +41,8 @@ namespace Fluent
 
         private bool isInitializing;
 
+        private DropDownButton quickAccessButton;
+
         #endregion
 
         #region Properties
@@ -369,7 +371,34 @@ namespace Fluent
         {
             DropDownButton button = new DropDownButton();
             BindQuickAccessItem(button);
+            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             return button;
+        }
+
+        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        {
+            DropDownButton button = sender as DropDownButton;
+            for(int i=0;i<Items.Count;i++)
+            {
+                UIElement item = Items[0];
+                Items.Remove(item);
+                button.Items.Add(item);
+                i--;
+            }            
+            button.MenuClosed += OnQuickAccessMenuClosed;
+            quickAccessButton = button;
+        }
+
+        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            for (int i = 0; i < quickAccessButton.Items.Count; i++)
+            {
+                UIElement item = quickAccessButton.Items[0];
+                quickAccessButton.Items.Remove(item);
+                Items.Add(item);
+                i--;
+            }
         }
 
         /// <summary>
@@ -379,8 +408,7 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             DropDownButton button = element as DropDownButton;
-            if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
-            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
+            Bind(this, button, "MenuResizeMode", MenuResizeModeProperty, BindingMode.Default);
             base.BindQuickAccessItem(element);
         }
 

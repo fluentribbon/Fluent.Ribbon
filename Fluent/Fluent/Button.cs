@@ -244,7 +244,6 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             Button button = element as Button;
-            if (LargeIcon != null) Bind(button, button, "LargeIcon", Button.LargeIconProperty, BindingMode.OneWay);
             button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
             base.BindQuickAccessItem(element);
         }

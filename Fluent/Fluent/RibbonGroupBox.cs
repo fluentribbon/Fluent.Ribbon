@@ -253,6 +253,8 @@ namespace Fluent
         public RibbonGroupBox()
         {
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+            ToolTip = new ToolTip();
+            (ToolTip as ToolTip).Template = null;
         }
 
         /// <summary>
