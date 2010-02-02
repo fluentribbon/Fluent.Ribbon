@@ -5,10 +5,10 @@
     xmlns:Fluent="clr-namespace:Fluent"  mc:Ignorable="d">
 
   <!--Button in Spinner Control Style-->
-  <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type Button}">
+  <Style x:Key="SpinnerButtonStyle" TargetType="{x:Type RepeatButton}">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Button}">
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
           <Border BorderThickness="1,1,0,0" BorderBrush="#FFBBBFC4" Background="#00FFFFFF">
             <Polyline HorizontalAlignment="Center" VerticalAlignment="Center" Fill="#FF3B3B3B" RenderOptions.EdgeMode="Aliased">
               <Polyline.Points>
@@ -44,12 +44,12 @@
               </Grid.RowDefinitions>
 
               <TextBox x:Name="PART_TextBox" BorderThickness="0" Grid.RowSpan="2" Grid.Column="0" />
-              <Button x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonStyle}" RenderTransformOrigin="0,0.5" >
-                <Button.RenderTransform>
+              <RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonStyle}" RenderTransformOrigin="0,0.5" >
+                <RepeatButton.RenderTransform>
                   <ScaleTransform ScaleX="1" ScaleY="-1"/>
-                </Button.RenderTransform>
-              </Button>
-              <Button x:Name="PART_ButtonDown" Grid.Column="1" Grid.Row="1" Style="{StaticResource SpinnerButtonStyle}" />
+                </RepeatButton.RenderTransform>
+              </RepeatButton>
+              <RepeatButton x:Name="PART_ButtonDown" Grid.Column="1" Grid.Row="1" Style="{StaticResource SpinnerButtonStyle}" />
             </Grid>
           </Border>
         </ControlTemplate>

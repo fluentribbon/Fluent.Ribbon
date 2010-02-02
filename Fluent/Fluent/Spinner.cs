@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 
@@ -14,14 +15,17 @@ namespace Fluent
     /// Represents spinner control
     /// </summary>
     [ContentProperty("Value")]
+    [TemplatePart(Name="PART_TextBox", Type=typeof(System.Windows.Controls.TextBox))]
+    [TemplatePart(Name = "PART_ButtonUp", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
+    [TemplatePart(Name = "PART_ButtonDown", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
     public class Spinner : RibbonControl
     {
         #region Fields
 
         // Parts of the control (must be in control template)
         TextBox textBox;
-        System.Windows.Controls.Button buttonUp;
-        System.Windows.Controls.Button buttonDown;
+        System.Windows.Controls.Primitives.RepeatButton buttonUp;
+        System.Windows.Controls.Primitives.RepeatButton buttonDown;
 
         #endregion
 
@@ -186,6 +190,51 @@ namespace Fluent
 
         #endregion
 
+        #region Delay
+
+        /// <summary>
+        /// Gets or sets the amount of time, in milliseconds, 
+        /// the Spinner waits while it is pressed before it starts repeating. 
+        /// The value must be non-negative. This is a dependency property.
+        /// </summary>
+        public int Delay
+        {
+            get { return (int)GetValue(DelayProperty); }
+            set { SetValue(DelayProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Delay.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DelayProperty =
+            DependencyProperty.Register("Delay", typeof(int), typeof(Spinner), 
+            new UIPropertyMetadata(400));
+
+        #endregion
+
+        #region Interval
+
+        /// <summary>
+        /// Gets or sets the amount of time, in milliseconds, 
+        /// between repeats once repeating starts. The value must be non-negative. 
+        /// This is a dependency property.
+        /// </summary>
+        public int Interval
+        {
+            get { return (int)GetValue(IntervalProperty); }
+            set { SetValue(IntervalProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Interval.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IntervalProperty =
+            DependencyProperty.Register("Interval", typeof(int), typeof(Spinner), new UIPropertyMetadata(80));
+
+        #endregion
+
         #endregion
 
         #region Constructors
@@ -219,12 +268,14 @@ namespace Fluent
             {
                 buttonUp.Click -= OnButtonUpClick;
                 buttonDown.Click -= OnButtonDownClick;
+                BindingOperations.ClearAllBindings(buttonDown);
+                BindingOperations.ClearAllBindings(buttonUp);
             }
 
             // Get template childs
             textBox = GetTemplateChild("PART_TextBox") as TextBox;
-            buttonUp = GetTemplateChild("PART_ButtonUp") as System.Windows.Controls.Button;
-            buttonDown = GetTemplateChild("PART_ButtonDown") as System.Windows.Controls.Button;
+            buttonUp = GetTemplateChild("PART_ButtonUp") as System.Windows.Controls.Primitives.RepeatButton;
+            buttonDown = GetTemplateChild("PART_ButtonDown") as System.Windows.Controls.Primitives.RepeatButton;
 
             // Check template
             if (!IsTemplateValid())
@@ -232,6 +283,13 @@ namespace Fluent
                 Debug.WriteLine("Template for Spinner control is invalid");
                 return;
             }
+
+            // Bindings
+            Bind(this, buttonUp, "Delay", System.Windows.Controls.Primitives.RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, buttonDown, "Delay", System.Windows.Controls.Primitives.RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, buttonUp, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, buttonDown, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
+            
 
             // Events subscribing
             buttonUp.Click += OnButtonUpClick;
