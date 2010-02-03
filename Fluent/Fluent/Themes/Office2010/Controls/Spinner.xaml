@@ -59,6 +59,8 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>    
+  
+  
   <!--Spinner Style-->
   <Style x:Key="SpinnerStyle" TargetType="{x:Type Fluent:Spinner}">
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
@@ -78,7 +80,8 @@
             		<Image Width="16" Height="16" VerticalAlignment="Center" Margin="5,0,2,0" Source="{TemplateBinding Icon}"/>
             		<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" x:Name="textBlock"/>
             	</StackPanel>
-				<Border Height="22" BorderThickness="1" BorderBrush="#FFBBBFC4" Background="#FFFFFFFF" Grid.ColumnSpan="1" Grid.Column="1" Width="{TemplateBinding InputWidth}">
+				
+              <Border Height="22" BorderThickness="1" BorderBrush="#FFBBBFC4" Background="#FFFFFFFF" Grid.ColumnSpan="1" Grid.Column="1" Width="{TemplateBinding InputWidth}">
             	<Grid Grid.ColumnSpan="1" Grid.Column="1">
             		<Grid.ColumnDefinitions>
             			<ColumnDefinition Width="*"/>
@@ -93,10 +96,10 @@
             		<Path Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,-1,0,-1" x:Name="path" Width="1" Fill="#FF000000" Stretch="Fill" Stroke="#FFBBBFC4" StrokeThickness="1" Grid.Column="1" Grid.RowSpan="2" Data="M0,0L0,1"/>
             		<Path HorizontalAlignment="Left" Margin="0,0,-1,0" Width="Auto" Fill="#FF000000" Stretch="Fill" Stroke="#FFBBBFC4" StrokeThickness="1" Data="M0,0L1,0" Visibility="Collapsed" x:Name="path1" VerticalAlignment="Bottom" Height="1" Grid.Column="1" Grid.RowSpan="1"/>
             		<RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonStyle}" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch" >
-            			<Path Width="5" Height="3" Fill="#FF000000" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,-1 2,0" HorizontalAlignment="Center" StrokeThickness="0" VerticalAlignment="Center" Margin="1,0,0,1"/>
+            			<Path Width="5" Height="3" Fill="#FF000000" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,-1 2,0" HorizontalAlignment="Center" StrokeThickness="0" VerticalAlignment="Center" Margin="1,2,0,1"  RenderOptions.EdgeMode="Aliased"/>
             		</RepeatButton>
             		<RepeatButton x:Name="PART_ButtonDown" Grid.Column="1" Grid.Row="1" Style="{StaticResource SpinnerButtonStyle}" >
-            			<Path Width="5" Height="3" Fill="#FF000000" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,1 2,0" StrokeThickness="0" HorizontalAlignment="Center" Margin="1,1,0,0" VerticalAlignment="Center"/>
+            			<Path Width="5" Height="3" Fill="#FF000000" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,1 2,0" StrokeThickness="0" HorizontalAlignment="Center" Margin="1,-1,0,0" VerticalAlignment="Center" RenderOptions.EdgeMode="Aliased"/>
             		</RepeatButton>
             	</Grid>
 				</Border>

@@ -357,6 +357,17 @@ namespace Fluent
                 Focus();
                 textBox.Focusable = true;
             }
+
+            if (e.Key == Key.Up)
+            {
+                buttonUp.RaiseEvent(new RoutedEventArgs(
+                    System.Windows.Controls.Primitives.RepeatButton.ClickEvent));
+            }
+            if (e.Key == Key.Down)
+            {
+                buttonDown.RaiseEvent(new RoutedEventArgs(
+                    System.Windows.Controls.Primitives.RepeatButton.ClickEvent));
+            }
         }
 
         void TextBoxTextToValue()
@@ -381,7 +392,7 @@ namespace Fluent
             {
                 Value = value;
             }
-            else ValueToTextBoxText();
+            ValueToTextBoxText();
         }
 
         #endregion
@@ -408,7 +419,14 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             Spinner spinner = (Spinner)element;
-            // TODO: bind Spinner for QAT
+            Bind(this, spinner, "Value", ValueProperty, BindingMode.TwoWay);
+            Bind(this, spinner, "Increment", IncrementProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Minimum", MinimumProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Maximum", MaximumProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Format", FormatProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
+            Bind(this, spinner, "InputWidth", InputWidthProperty, BindingMode.OneWay);
             base.BindQuickAccessItem(element);
         }
 
