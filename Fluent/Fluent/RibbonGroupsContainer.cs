@@ -1,7 +1,7 @@
-#region Copyright and License Information
+ï»¿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -30,7 +30,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets reduce order of group in the ribbon panel.
         /// It must be enumerated with comma from the first to reduce to 
-        /// the last to reduce (use Control.Name as group name in the enum)
+        /// the last to reduce (use Control.Name as group name in the enum). 
+        /// Enclose in parentheses as (Control.Name) to reduce/enlarge 
+        /// scalable elements in the given group
         /// </summary>
         public string ReduceOrder
         {
@@ -179,12 +181,12 @@ namespace Fluent
         void IncreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
+            bool scale = name.StartsWith("(");
             if (groupBox == null) return;
-            if (groupBox.State != RibbonGroupBoxState.Large)
-            {
-                groupBox.State = groupBox.State - 1;
-                InvalidateMeasureRecursive(groupBox);
-            }
+
+            if (scale) IncreaseScalableElement(groupBox);
+            else groupBox.State = (groupBox.State != RibbonGroupBoxState.Large) ? groupBox.State - 1 : RibbonGroupBoxState.Large;
+            InvalidateMeasureRecursive(groupBox);
         }
 
         void InvalidateMeasureRecursive(UIElement element)
@@ -201,16 +203,37 @@ namespace Fluent
         void DecreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
+            bool scale = name.StartsWith("(");
             if (groupBox == null) return;
-            if (groupBox.State != RibbonGroupBoxState.Collapsed)
+
+            if (scale) DecreaseScalableElement(groupBox);
+            else groupBox.State = (groupBox.State != RibbonGroupBoxState.Collapsed) ? groupBox.State + 1 : groupBox.State;
+            InvalidateMeasureRecursive(groupBox);
+        }
+
+        // Finds and increase size of all scalable elements in the given group box
+        void IncreaseScalableElement(RibbonGroupBox groupBox)
+        {
+            foreach(object item in groupBox.Items)
             {
-                groupBox.State = groupBox.State + 1;
-                InvalidateMeasureRecursive(groupBox);
+                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl != null) scalableRibbonControl.Enlarge();
+            }
+        }
+
+        // Finds and decrease size of all scalable elements in the given group box
+        void DecreaseScalableElement(RibbonGroupBox groupBox)
+        {
+            foreach(object item in groupBox.Items)
+            {
+                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl != null) scalableRibbonControl.Reduce();
             }
         }
 
         private RibbonGroupBox FindGroup(string name)
         {
+            if (name.StartsWith("(")) name = name.Substring(1, name.Length - 2);
             foreach (FrameworkElement child in InternalChildren)
             {
                 if (child.Name == name) return child as RibbonGroupBox;

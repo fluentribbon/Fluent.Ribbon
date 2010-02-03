@@ -303,6 +303,7 @@ namespace Fluent
                 {
                     // Render the freezed image
                     snappedImage = new Image();
+                    RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
                     renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                     snappedImage.Source = renderTargetBitmap;
