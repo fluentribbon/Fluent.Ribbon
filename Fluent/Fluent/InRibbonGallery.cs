@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,11 +13,13 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
     [ContentProperty("Items")]
-    public class InRibbonGallery:RibbonItemsControl
+    public class InRibbonGallery:RibbonItemsControl,IScalableRibbonControl
     {
         #region Fields
 
@@ -35,6 +39,19 @@ namespace Fluent
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> menuItems;
+
+        private double currentSize;
+
+        private Panel layoutRoot;
+
+        private double cachedWidthDelta;
+
+        // Freezed image (created during snapping)
+        Image snappedImage;
+        // Visuals which were removed diring snapping
+        Visual[] snappedVisuals;
+        // Is visual currently snapped
+        private bool isSnapped;
 
         #endregion
 
@@ -467,6 +484,187 @@ namespace Fluent
 
         #endregion
 
+        #region CanCollapseToButton
+
+        /// <summary>
+        /// Gets or sets whether InRibbonGallery
+        /// </summary>
+        public bool CanCollapseToButton
+        {
+            get { return (bool)GetValue(CanCollapseToButtonProperty); }
+            set { SetValue(CanCollapseToButtonProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanCollapseToButton.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanCollapseToButtonProperty =
+            DependencyProperty.Register("CanCollapseToButton", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(true));
+
+        #endregion
+
+        #region IsCollapsed
+
+        /// <summary>
+        /// Gets whether InRibbonGallery is collapsed to button
+        /// </summary>
+        public bool IsCollapsed
+        {
+            get { return (bool)GetValue(IsCollapsedProperty); }
+            internal set { SetValue(IsCollapsedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+
+        #endregion
+
+        #region LargeIcon
+
+        /// <summary>
+        /// Button large icon
+        /// </summary>
+        public ImageSource LargeIcon
+        {
+            get { return (ImageSource)GetValue(LargeIconProperty); }
+            set { SetValue(LargeIconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LargeIconProperty =
+            DependencyProperty.Register("LargeIcon", typeof(ImageSource), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region Snapping
+
+        /// <summary>
+        /// Snaps / Unsnaps the Visual 
+        /// (remove visuals and substitute with freezed image)
+        /// </summary>
+        private bool IsSnapped
+        {
+            get
+            {
+                return isSnapped;
+            }
+            set
+            {
+                if (value == isSnapped) return;
+
+                if (value)
+                {
+                    // Render the freezed image
+                    snappedImage = new Image();
+                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                    renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
+                    snappedImage.Source = renderTargetBitmap;
+                    snappedImage.Width = renderTargetBitmap.Width;
+                    snappedImage.Height = renderTargetBitmap.Height;
+                    // Detach current visual children
+                    snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
+                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                    {
+                        snappedVisuals[childIndex] = (Visual)VisualTreeHelper.GetChild(this, childIndex);
+                        RemoveVisualChild(snappedVisuals[childIndex]);
+                    }
+
+                    // Attach freezed image
+                    AddVisualChild(snappedImage);
+/*
+                    PngBitmapEncoder enc = new PngBitmapEncoder();
+                    enc.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+
+                    string path = Path.GetTempFileName() + ".png";
+                    using (FileStream f = new FileStream(path, FileMode.Create))
+                    {
+                        enc.Save(f);
+                        
+                    }
+                    Process.Start(path);*/
+                }
+                else
+                {
+                    RemoveVisualChild(snappedImage);
+                     for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                     {
+                         AddVisualChild(snappedVisuals[childIndex]);
+                     }
+
+                    // Clean up
+                    snappedImage = null;
+                    snappedVisuals = null;
+                }
+                isSnapped = value;
+                InvalidateVisual();
+                //UpdateLayout();
+            }
+        }
+
+        /// <summary>
+        /// Gets visual children count
+        /// </summary>
+        protected override int VisualChildrenCount
+        {
+            get
+            {
+                if (isSnapped) return 1;
+                return base.VisualChildrenCount;
+            }
+        }
+
+        /// <summary>
+        /// Returns a child at the specified index from a collection of child elements
+        /// </summary>
+        /// <param name="index">The zero-based index of the requested child element in the collection</param>
+        /// <returns>The requested child element</returns>
+        protected override Visual GetVisualChild(int index)
+        {
+            if (isSnapped) return snappedImage;
+            return base.GetVisualChild(index);
+        }
+
+        #endregion
+
+        #region Min/Max Sizes
+
+        /// <summary>
+        /// Gets or sets max size of gallery in pixels
+        /// </summary>
+        public double MaxSize
+        {
+            get { return (double)GetValue(MaxSizeProperty); }
+            set { SetValue(MaxSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxSize.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxSizeProperty =
+                DependencyProperty.Register("MaxSize", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(100.0));
+
+        /// <summary>
+        /// Gets or sets min size of gallery in pixels
+        /// </summary>
+        public double MinSize
+        {
+            get { return (double)GetValue(MinSizeProperty); }
+            set { SetValue(MinSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxSize.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MinSizeProperty =
+                DependencyProperty.Register("MinSize", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1.0));
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -559,6 +757,7 @@ namespace Fluent
 
         public override void OnApplyTemplate()
         {
+            if (listBox != null) listBox.ItemsSource = null;
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
@@ -584,16 +783,55 @@ namespace Fluent
                 binding.Source = this;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                gallery.SetBinding(SelectedItemProperty, binding);                
+                gallery.SetBinding(SelectedItemProperty, binding);
+
+                if (ItemsSource != null) listBox.ItemsSource = ItemsSource;
+                else listBox.ItemsSource = Items;
             }
             if (expandButton != null) expandButton.Click -= OnExpandClick;
             expandButton = GetTemplateChild("PART_ExpandButton") as Button;
             if (expandButton != null) expandButton.Click += OnExpandClick;
+
+            layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
+
+            // Clear cache then style changed
+            cachedWidthDelta = 0;
         }
 
         private void OnExpandClick(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+        }
+        
+        protected override Size MeasureOverride(Size constraint)
+        {
+            if (isSnapped) return new Size(snappedImage.Width, snappedImage.Height);
+            if (listBox == null) return base.MeasureOverride(constraint);
+            if (Items.Count == 0) return base.MeasureOverride(constraint);
+            GalleryItem item = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem);
+            bool useHack = false;
+            if (item == null)
+            {
+                useHack = true;
+                RemoveLogicalChild(Items[0]);
+                item = new GalleryItem();
+                item.Content = Items[0];                
+            }
+            item.Measure(constraint);
+            double itemWidth = item.DesiredSize.Width;
+            if(useHack)
+            {
+                item.Content = null;
+                AddLogicalChild(Items[0]);
+            }
+            if(cachedWidthDelta==0)
+            {
+                base.MeasureOverride(constraint);
+                cachedWidthDelta = layoutRoot.DesiredSize.Width - listBox.InnerPanelWidth;
+            }
+            if (currentSize == 0) currentSize = MaxSize*itemWidth;
+            base.MeasureOverride(new Size(Math.Max(Math.Min(MaxSize * itemWidth, currentSize), MinSize * itemWidth) + cachedWidthDelta, constraint.Height));
+            return layoutRoot.DesiredSize;
         }
 
         #endregion
@@ -609,8 +847,16 @@ namespace Fluent
         {
             contextMenu = new ContextMenu();
             contextMenu.IsOpen = true;
+
+            IsSnapped = true;            
+            object selectedItem = listBox.SelectedItem;
+            listBox.ItemsSource = null;
+            gallery.MinWidth = ActualWidth;
+            gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
+            gallery.SelectedItem = selectedItem;
+
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;            
             Binding binding = new Binding("IsOpen");
@@ -635,18 +881,25 @@ namespace Fluent
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
             listBox.SelectedItem = selectedItem;
+            if (ItemsSource == null) listBox.ItemsSource = Items;
+            else listBox.ItemsSource = ItemsSource;
             if (MenuClosed != null) MenuClosed(this, e);
+            IsSnapped = false; 
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
-            object selectedItem = SelectedItem;
+            IsSnapped = true;            
+            object selectedItem = listBox.SelectedItem;
+            listBox.ItemsSource = null;
             gallery.MinWidth = ActualWidth;
             gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
             if (MenuOpened != null) MenuOpened(this, e);
+            //InvalidateVisual();
+            UpdateLayout();
         }
 
         #endregion
@@ -675,6 +928,38 @@ namespace Fluent
             DropDownButton button = element as DropDownButton;
             button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
             base.BindQuickAccessItem(element);
+        }
+
+        #endregion
+
+        #region Implementation of IScalableRibbonControl
+
+        /// <summary>
+        /// Enlarge control size
+        /// </summary>
+        public void Enlarge()
+        {
+            if(listBox==null) return;
+            if (Items.Count == 0) return;
+            double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
+            double newSize = DesiredSize.Width + itemWidth;
+            newSize = Math.Max(Math.Min(MaxSize * itemWidth, newSize), MinSize * itemWidth);
+            currentSize = newSize;
+            InvalidateMeasure();
+        }
+
+        /// <summary>
+        /// Reduce control size
+        /// </summary>
+        public void Reduce()
+        {
+            if (listBox == null) return;
+            if (Items.Count == 0) return;
+            double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
+            double newSize = DesiredSize.Width - itemWidth;
+            newSize = Math.Max(Math.Min(MaxSize * itemWidth, newSize), MinSize * itemWidth);
+            currentSize = newSize;
+            InvalidateMeasure();
         }
 
         #endregion

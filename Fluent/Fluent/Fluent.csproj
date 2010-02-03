@@ -92,6 +92,7 @@
     <Compile Include="GalleryItem.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="InRibbonGallery.cs" />
+    <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="RibbonItemsControl.cs" />
     <Compile Include="RibbonListBox.cs" />
     <Compile Include="RibbonToolBarControlGroup.cs" />
@@ -181,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\InRibbonGallery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

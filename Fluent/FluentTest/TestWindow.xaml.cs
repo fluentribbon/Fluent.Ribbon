@@ -186,6 +186,16 @@ namespace FluentTest
         {
             Clipboard.IsSnapped = true;
         }
+
+        private void OnEnlargeClick(object sender, RoutedEventArgs e)
+        {
+            inRibbonGallery.Enlarge();
+        }
+
+        private void OnReduceClick(object sender, RoutedEventArgs e)
+        {
+            inRibbonGallery.Reduce();
+        }
     }
 
 }

@@ -110,7 +110,7 @@ namespace Fluent
 
             // If the availableSize and desired size are equal to those in the cache, skip
             // this layout measure pass.
-            if ((availableSize != cachedConstraint) || (desiredSize != cachedDesiredSize))
+            if (((availableSize != cachedConstraint) || (desiredSize != cachedDesiredSize)) && (reduceOrder.Length>0))
             {
                 cachedConstraint = availableSize;
                 cachedDesiredSize = desiredSize;

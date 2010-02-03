@@ -1,5 +1,99 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
+	<Style x:Key="InRibbonGalleryToggleButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+    <Setter Property="Template" Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}"/>
+    <Setter Property="Height" Value="66"/>
+    <Setter Property="Width" Value="Auto"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+    <Style.Triggers>
+      <Trigger Property="Size" Value="Large">
+        <Setter Property="Height" Value="66"/>
+      </Trigger>
+      <Trigger Property="Size" Value="Middle">
+        <Setter Property="Height" Value="22"/>
+      </Trigger>
+      <Trigger Property="Size" Value="Small">
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="31"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <ControlTemplate x:Key="InRibbonGalleryToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+    <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+      	<Grid Height="Auto">
+      		<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
+      			<Rectangle.Fill>
+      				<RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
+      					<GradientStop Color="#7FFFFFFF" Offset="0"/>
+      					<GradientStop Offset="1"/>
+      				</RadialGradientBrush>
+      			</Rectangle.Fill>
+      		</Rectangle>
+      		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" >
+      			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="True"/>
+      		</StackPanel>
+      	</Grid>
+      </Border>
+    </Border>
+    <ControlTemplate.Triggers>
+      <Trigger Property="Size" Value="Small">
+        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+        <Setter Property="Source" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+		<Setter Property="Text" TargetName="controlLabel" Value=""/>
+        <Setter Property="Width" TargetName="iconImage" Value="16"/>
+        <Setter Property="Height" TargetName="iconImage" Value="16"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="1,2,0,2"/>
+        <Setter Property="Margin" TargetName="controlLabel" Value="-2,-2,2,2"/>
+        <Setter Property="Width" TargetName="controlLabel" Value="10"/>
+      </Trigger>
+      <Trigger Property="Size" Value="Middle">
+        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+        <Setter Property="Source" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+        <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+        <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
+        <Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>
+        <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
+        <Setter Property="Width" TargetName="iconImage" Value="16"/>
+        <Setter Property="Height" TargetName="iconImage" Value="16"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="1,2,2,2"/>
+        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Top"/>
+      </Trigger>
+      <Trigger Property="IsChecked" Value="True">
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+      </Trigger>
+	  			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+				<Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+				<!--<Setter Property="Effect" TargetName="iconImage">
+					<Setter.Value>
+						<Fluent:GrayscaleEffect/>
+					</Setter.Value>
+				</Setter>-->
+			</Trigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsMouseOver" Value="True"/>
+          <Condition Property="IsChecked" Value="False"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+      </MultiTrigger>	  
+    </ControlTemplate.Triggers>
+  </ControlTemplate> 
   <Style x:Key="InRibbonGalleryButton" TargetType="{x:Type Fluent:Button}">
   	<Setter Property="Template">
 		<Setter.Value>
@@ -81,56 +175,72 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:InRibbonGallery}">
-        	<Border Width="Auto" Height="60" BorderThickness="1,1,1,1" CornerRadius="0,1,1,0" BorderBrush="#FFC6CACD" ClipToBounds="True" Margin="0,4,0,0">
-        		<Grid Width="Auto" Height="Auto">
-              <Fluent:RibbonListBox
-                x:Name="PART_ListBox"
-                      DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
-                      ItemBindingGroup="{TemplateBinding ItemBindingGroup}"
-                      ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
-                      ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
-                      ItemStringFormat="{TemplateBinding ItemStringFormat}"
-                      ItemTemplate="{TemplateBinding ItemTemplate}"
-                      ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                      IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
-                      ItemsSource="{TemplateBinding ItemsSource}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0,0,0,0"                      
+        	<Grid Width="Auto" Height="Auto" x:Name="PART_LayoutRoot" HorizontalAlignment="Left" VerticalAlignment="Top">
+        		<Border Width="Auto" BorderThickness="1,1,1,1" CornerRadius="0,1,1,0" BorderBrush="#FFC6CACD" ClipToBounds="True" Margin="0,0,0,0" x:Name="border" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top">
+        			<Grid Width="Auto" Height="Auto">
+        				<Fluent:RibbonListBox
+        					x:Name="PART_ListBox"
+        					DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
+        					ItemBindingGroup="{TemplateBinding ItemBindingGroup}"
+        					ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+        					ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
+        					ItemStringFormat="{TemplateBinding ItemStringFormat}"
+        					ItemTemplate="{TemplateBinding ItemTemplate}"
+        					ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+        					IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
+        					ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  BorderThickness="0,0,0,0"                                        
                   >
-				<Fluent:RibbonListBox.Resources>
-					<Style TargetType="{x:Type ScrollBar}">
-						<Setter Property="Template">
-							<Setter.Value>
-								<ControlTemplate TargetType="{x:Type ScrollBar}">
-									<StackPanel HorizontalAlignment="Right" Margin="0,-1,-1,0">
-										<RepeatButton Width="15" Height="21" Command="ScrollBar.PageUpCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
-                      <Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,-1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
-										</RepeatButton>
-										<RepeatButton Width="15" Height="21" Command="ScrollBar.PageDownCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
-                      <Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
-                    </RepeatButton>
-									</StackPanel>
-								</ControlTemplate>
-							</Setter.Value>
-						</Setter>
-					</Style>
-				</Fluent:RibbonListBox.Resources>
-                <Fluent:RibbonListBox.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <WrapPanel />
-                  </ItemsPanelTemplate>
-                </Fluent:RibbonListBox.ItemsPanel>
-              </Fluent:RibbonListBox>
-        			<Fluent:Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1"/>
-        		</Grid>
-        	</Border>
+        					<Fluent:RibbonListBox.Resources>
+        						<Style TargetType="{x:Type ScrollBar}">
+        							<Setter Property="Template">
+        								<Setter.Value>
+        									<ControlTemplate TargetType="{x:Type ScrollBar}">
+        										<StackPanel HorizontalAlignment="Right" Margin="0,-1,-1,0">
+        											<RepeatButton Width="15" Height="21" Command="ScrollBar.PageUpCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
+        												<Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,-1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
+        											</RepeatButton>
+        											<RepeatButton Width="15" Height="21" Command="ScrollBar.PageDownCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
+        												<Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
+        											</RepeatButton>
+        										</StackPanel>
+        									</ControlTemplate>
+        								</Setter.Value>
+        							</Setter>
+        						</Style>
+        					</Fluent:RibbonListBox.Resources>
+        					<Fluent:RibbonListBox.ItemsPanel>
+        						<ItemsPanelTemplate>
+        							<WrapPanel />
+        						</ItemsPanelTemplate>
+        					</Fluent:RibbonListBox.ItemsPanel>
+        				</Fluent:RibbonListBox>
+        				<Fluent:Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1"/>
+        			</Grid>
+        		</Border>
+        		<Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="toggleButton" 
+				Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
+				LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+				Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
+				Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
+				SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
+				IsChecked="{Binding Path=IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top"
+				/>
+        	</Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="ItemsSource" Value="{x:Null}">
-              <Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}"/>
-            </Trigger>
-            <Trigger Property="IsOpen" Value="True">
-              <Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{x:Null}"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
+        		<Trigger Property="IsCollapsed" Value="True">
+        			<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+        			<Setter Property="Visibility" TargetName="toggleButton" Value="Visible"/>
+        			<Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
+        			<Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
+        		</Trigger>
+            <!--<Trigger Property="ItemsSource" Value="{x:Null}">
+        			<Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{Binding Path=Items, RelativeSource={RelativeSource TemplatedParent}}"/>
+        		</Trigger>
+        		<Trigger Property="IsOpen" Value="True">
+        			<Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{x:Null}"/>              
+        		</Trigger>-->
+        	</ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

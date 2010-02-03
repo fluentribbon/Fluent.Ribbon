@@ -9,6 +9,35 @@ namespace Fluent
 {
     public class RibbonListBox:ListBox
     {
+        #region Field
+
+        private ItemsPresenter presenter;
+
+        #endregion
+
+        #region Properties
+
+        public double InnerPanelWidth
+        {
+            get { if (presenter == null) return 0; else return presenter.DesiredSize.Width; }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        static RibbonListBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonListBox), new FrameworkPropertyMetadata(typeof(RibbonListBox)));
+        }
+
+        #endregion
+
+        #region Overrides               
+
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.
         /// </summary>
@@ -27,5 +56,12 @@ namespace Fluent
         {
             return (item is GalleryItem);
         }
+
+        public override void OnApplyTemplate()
+        {
+            presenter = GetTemplateChild("PART_ItemsPresenter") as ItemsPresenter;
+        }
+
+        #endregion
     }
 }
