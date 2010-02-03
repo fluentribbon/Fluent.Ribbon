@@ -63,7 +63,7 @@ namespace Fluent
         public RibbonPopup()
         {
             Focusable = false;
-            FocusManager.SetIsFocusScope(this,true);
+            FocusManager.SetIsFocusScope(this,false);
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
         }
