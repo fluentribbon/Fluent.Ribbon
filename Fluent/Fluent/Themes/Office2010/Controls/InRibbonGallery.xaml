@@ -75,11 +75,11 @@
 	  			<Trigger Property="IsEnabled" Value="False">
 				<Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
 				<Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
-				<!--<Setter Property="Effect" TargetName="iconImage">
+				<Setter Property="Effect" TargetName="iconImage">
 					<Setter.Value>
 						<Fluent:GrayscaleEffect/>
 					</Setter.Value>
-				</Setter>-->
+				</Setter>
 			</Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
@@ -228,21 +228,15 @@
 				/>
         	</Grid>
           <ControlTemplate.Triggers>
-        		<Trigger Property="IsCollapsed" Value="True">
-        			<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
-        			<Setter Property="Visibility" TargetName="toggleButton" Value="Visible"/>
-        			<Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
-        			<Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
-        		</Trigger>
-            <!--<Trigger Property="ItemsSource" Value="{x:Null}">
-        			<Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{Binding Path=Items, RelativeSource={RelativeSource TemplatedParent}}"/>
-        		</Trigger>
-        		<Trigger Property="IsOpen" Value="True">
-        			<Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{x:Null}"/>              
-        		</Trigger>-->
+            <Trigger Property="IsCollapsed" Value="True">
+              <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+              <Setter Property="Visibility" TargetName="toggleButton" Value="Visible"/>
+              <Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
+              <Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
+            </Trigger>
         	</ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-  </Style>
+</Style>
 </ResourceDictionary>

@@ -511,7 +511,7 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)GetValue(IsCollapsedProperty); }
-            internal set { SetValue(IsCollapsedProperty, value); }
+            set { SetValue(IsCollapsedProperty, value); }
         }
 
         /// <summary>
@@ -805,6 +805,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             if (isSnapped) return new Size(snappedImage.Width, snappedImage.Height);
+            if (IsCollapsed) return base.MeasureOverride(constraint); 
             if (listBox == null) return base.MeasureOverride(constraint);
             if (Items.Count == 0) return base.MeasureOverride(constraint);
             GalleryItem item = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem);
@@ -831,6 +832,18 @@ namespace Fluent
             if (currentSize == 0) currentSize = MaxSize*itemWidth;
             base.MeasureOverride(new Size(Math.Max(Math.Min(MaxSize * itemWidth, currentSize), MinSize * itemWidth) + cachedWidthDelta, constraint.Height));
             return layoutRoot.DesiredSize;
+        }
+
+        protected override void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        {
+            if (CanCollapseToButton)
+            {
+                double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
+                if ((current == RibbonControlSize.Large) && ((currentSize > MinSize * itemWidth))) IsCollapsed = false;
+                else IsCollapsed = true;
+            }
+            else IsCollapsed = false;
+            base.OnSizePropertyChanged(previous, current);
         }
 
         #endregion
@@ -942,6 +955,7 @@ namespace Fluent
             if (Items.Count == 0) return;
             double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = DesiredSize.Width + itemWidth;
+            if ((CanCollapseToButton) && (newSize > MinSize * itemWidth)&&(Size==RibbonControlSize.Large)) IsCollapsed = false;
             newSize = Math.Max(Math.Min(MaxSize * itemWidth, newSize), MinSize * itemWidth);
             currentSize = newSize;
             InvalidateMeasure();
@@ -956,6 +970,7 @@ namespace Fluent
             if (Items.Count == 0) return;
             double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = DesiredSize.Width - itemWidth;
+            if ((CanCollapseToButton) && (newSize < MinSize * itemWidth)) IsCollapsed = true;
             newSize = Math.Max(Math.Min(MaxSize * itemWidth, newSize), MinSize * itemWidth);
             currentSize = newSize;
             InvalidateMeasure();

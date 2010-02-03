@@ -1,4 +1,4 @@
-﻿#region Copyright and License Information
+#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
 // Copyright � Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
