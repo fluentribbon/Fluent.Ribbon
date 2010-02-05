@@ -83,6 +83,7 @@
     <Compile Include="CheckBox.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
     <Compile Include="Gallery.cs" />
@@ -178,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\CheckBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

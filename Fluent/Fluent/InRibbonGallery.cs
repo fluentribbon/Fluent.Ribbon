@@ -124,7 +124,27 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InRibbonGallery), new UIPropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InRibbonGallery), new UIPropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((d as InRibbonGallery).gallery != null)
+            {
+                //(d as InRibbonGallery).gallery.Orientation = (Orientation) e.NewValue;
+                if ((Orientation)e.NewValue == Orientation.Horizontal)
+                {
+                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
+                    template.Seal();
+                    (d as InRibbonGallery).ItemsPanel = template;
+                }
+                else
+                {
+                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
+                    template.Seal();
+                    (d as InRibbonGallery).ItemsPanel = template;
+                }
+            }
+        }
 
         #endregion
 
@@ -739,10 +759,11 @@ namespace Fluent
             binding.Source = this;
             gallery.SetBinding(Gallery.GroupByProperty, binding);
 
-            binding = new Binding("Orientation");
+            /*binding = new Binding("Orientation");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
-            gallery.SetBinding(Gallery.OrientationProperty, binding);
+            gallery.SetBinding(Gallery.OrientationProperty, binding);*/
+            gallery.Orientation = Orientation;
 
             binding = new Binding("SelectedFilter");
             binding.Mode = BindingMode.TwoWay;
@@ -787,9 +808,9 @@ namespace Fluent
                 if (ItemsSource != null) listBox.ItemsSource = ItemsSource;
                 else listBox.ItemsSource = Items;
             }
-            if (expandButton != null) expandButton.Click -= OnExpandClick;
+            if (expandButton != null) expandButton.MouseLeftButtonDown -= OnExpandClick;
             expandButton = GetTemplateChild("PART_ExpandButton") as Button;
-            if (expandButton != null) expandButton.Click += OnExpandClick;
+            if (expandButton != null) expandButton.MouseLeftButtonDown += OnExpandClick;
 
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
 
@@ -844,6 +865,26 @@ namespace Fluent
             }
             else IsCollapsed = false;
             base.OnSizePropertyChanged(previous, current);
+        }
+
+        protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsCollectionChanged(e);
+            if (listBox != null)
+            {
+                if (ItemsSource == null) listBox.ItemsSource = Items;
+                else listBox.ItemsSource = ItemsSource;
+            }
+        }
+
+        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnItemsSourceChanged(e);
+            if (listBox != null)
+            {
+                if (ItemsSource == null) listBox.ItemsSource = Items;
+                else listBox.ItemsSource = ItemsSource;
+            }
         }
 
         #endregion

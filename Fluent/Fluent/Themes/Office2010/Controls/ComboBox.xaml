@@ -1,0 +1,122 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
+  <Style x:Key="RibbonComboButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+		<Setter Property="Template" Value="{DynamicResource RibbonComboButtonControlTemplate}"/>
+		<Setter Property="Height" Value="66"/>
+    <Setter Property="Width" Value="Auto"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+	</Style>
+	<ControlTemplate x:Key="RibbonComboButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+		<Border x:Name="border" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}">
+				<Grid Height="Auto">
+					<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
+						<Rectangle.Fill>
+							<RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
+								<GradientStop Color="#7FFFFFFF" Offset="0"/>
+								<GradientStop Offset="1"/>
+							</RadialGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<Path HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" Data="M0,0L1,1 2,0z" Fill="#FF000000" Width="5" Height="3" VerticalAlignment="Center"/>
+				</Grid>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>			
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<Trigger Property="IsChecked" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+						
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+				<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+					<Condition Property="IsChecked" Value="True"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+					<Condition Property="IsChecked" Value="True"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+			</MultiTrigger>			
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+  <Style TargetType="{x:Type Fluent:ComboBox}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Fluent:ComboBox}">
+        	<Border Height="22" BorderThickness="1,1,1,1" BorderBrush="#FFD3D6D9" x:Name="border" Background="#FFFFFFFF">
+        		<Grid>
+        			<Grid.ColumnDefinitions>
+        				<ColumnDefinition Width="*"/>
+        				<ColumnDefinition Width="13"/>
+        			</Grid.ColumnDefinitions>
+        			<Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="#FFBBBFC4" Visibility="Collapsed" x:Name="border1">
+        				<Border.Background>
+        					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        						<GradientStop Color="#FFFFFFFF" Offset="0"/>
+        						<GradientStop Color="#FFF1F3F4" Offset="1"/>
+        					</LinearGradientBrush>
+        				</Border.Background>
+        			</Border>
+        			<Fluent:ToggleButton HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Height="Auto" x:Name="PART_DownButton" UseAutoCheck="False"/>
+        			<TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{TemplateBinding SelectedItem}" TextWrapping="Wrap" BorderThickness="0,0,0,0" x:Name="PART_TextBox"/>
+        		</Grid>
+        	</Border>
+        	<ControlTemplate.Triggers>
+        		<!--<Trigger Property="IsOpen" Value="True">
+        			<Setter Property="IsHitTestVisible" TargetName="PART_DownButton" Value="False"/>              
+        		</Trigger>-->
+        		<Trigger Property="IsMouseOver" Value="True">
+        			<Setter Property="BorderBrush" TargetName="border" Value="#FFBBBFC4"/>
+        			<Setter Property="Visibility" TargetName="border1" Value="Visible"/>
+        		</Trigger>
+        	</ControlTemplate.Triggers>
+          
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

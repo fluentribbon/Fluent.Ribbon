@@ -61,7 +61,21 @@ namespace Fluent
         }
 
         #endregion
-        
+
+
+
+        public bool UseAutoCheck
+        {
+            get { return (bool)GetValue(UseAutoCheckProperty); }
+            set { SetValue(UseAutoCheckProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UseAutoCheck.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UseAutoCheckProperty =
+            DependencyProperty.Register("UseAutoCheck", typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
+
+
+
         #endregion
 
         #region Events
@@ -113,7 +127,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected override void OnClick(RoutedEventArgs e)
         {
-            IsChecked = !IsChecked;
+            if(UseAutoCheck)IsChecked = !IsChecked;
             base.OnClick(e);
         }
 

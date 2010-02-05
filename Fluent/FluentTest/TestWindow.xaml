@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="900" mc:Ignorable="d">
+    Title="Fluent Ribbon Control Suite BETA1" Height="345" Width="900" mc:Ignorable="d">
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
@@ -24,6 +24,7 @@
     </LinearGradientBrush>
   </Fluent:RibbonWindow.Background>
   <Grid>
+    <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,136,0,20" Maximum="10" Minimum="0"/>
     <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
 
       <Fluent:Ribbon.Groups>
@@ -175,12 +176,35 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
-          <ComboBoxItem Content="Arial"/>
-        </ComboBox>
-        <ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" IsEditable="True" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222">
-          <ComboBoxItem Content="11"/>
-        </ComboBox>
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" Orientation="Vertical">
+          <TextBlock Text="Arial" Tag="Theme Fonts"/>
+          <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
+          <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
+          <TextBlock Text="Arial" Tag="AllFonts"/>
+          <TextBlock Text="Segoe UI" Tag="AllFonts"/>
+          <TextBlock Text="Tahoma" Tag="AllFonts"/>
+          <TextBlock Text="Webdings" Tag="AllFonts"/>
+          <TextBlock Text="Winding" Tag="AllFonts"/>
+        </Fluent:ComboBox>
+        <Fluent:ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="12" DisplayMemberPath="Text">
+          <TextBlock Text="7"/>
+          <TextBlock Text="8"/>
+          <TextBlock Text="9"/>
+          <TextBlock Text="10"/>
+          <TextBlock Text="11"/>
+          <TextBlock Text="12"/>
+          <TextBlock Text="14"/>
+          <TextBlock Text="16"/>
+          <TextBlock Text="18"/>
+          <TextBlock Text="20"/>
+          <TextBlock Text="22"/>
+          <TextBlock Text="24"/>
+          <TextBlock Text="28"/>
+          <TextBlock Text="32"/>
+          <TextBlock Text="36"/>
+          <TextBlock Text="48"/>
+          <TextBlock Text="72"/>
+        </Fluent:ComboBox>
         <Fluent:Button Fluent:KeyTip.Keys="GF" x:Name="buttonGrowFont" Icon="Images\GrowFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonShrinkFont" Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
@@ -305,15 +329,15 @@
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           
-          <CheckBox Width="100" Height="20">Lalala</CheckBox>
+          <Fluent:CheckBox Width="100" Height="20">Lalala</Fluent:CheckBox>
           <TextBox Width="100" Height="20"/>
-          <ComboBox Width="100" Height="20">
+          <Fluent:ComboBox Width="100" Height="20">
             <ComboBoxItem>1</ComboBoxItem>
             <ComboBoxItem>2</ComboBoxItem>
             <ComboBoxItem>3</ComboBoxItem>
             <ComboBoxItem>4</ComboBoxItem>
             <ComboBoxItem>5</ComboBoxItem>
-          </ComboBox>
+          </Fluent:ComboBox>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
@@ -403,8 +427,7 @@
       </Button.ContextMenu>
     </Button>
     
-    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,200,0,0"/>
-    <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,134,0,20" Maximum="10" Minimum="0"/>
+    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,200,0,0"/>    
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20"/>
   </Grid>
 

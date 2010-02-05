@@ -124,8 +124,6 @@ namespace Fluent
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(Gallery), new UIPropertyMetadata(Orientation.Horizontal));
 
-
-
         #endregion
 
         #region Filters

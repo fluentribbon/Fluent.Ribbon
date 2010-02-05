@@ -297,7 +297,7 @@ namespace Fluent
 
             Bind(comboBox, item, "Width", ComboBox.WidthProperty, BindingMode.OneWay);
             Bind(comboBox, item, "Heigth", ComboBox.HeightProperty, BindingMode.OneWay);
-            Bind(comboBox, item, "MaxDropDownHeight", ComboBox.MaxDropDownHeightProperty, BindingMode.OneWay);
+            /*Bind(comboBox, item, "MaxDropDownHeight", ComboBox.MaxDropDownHeightProperty, BindingMode.OneWay);
             Bind(comboBox, item, "StaysOpenOnEdit", ComboBox.StaysOpenOnEditProperty, BindingMode.OneWay);
             
 
@@ -307,7 +307,7 @@ namespace Fluent
 
             item.ItemsSource = comboBox.Items;            
             Bind(comboBox, item, "Items", ComboBox.ItemsSourceProperty, BindingMode.OneWay);
-
+            */
             return item;
         }
 
