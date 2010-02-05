@@ -726,7 +726,8 @@ namespace Fluent
                 }
                 else
                 {
-                    if ((associatedElements[i] is RibbonControl) && (((RibbonControl)associatedElements[i]).Size != RibbonControlSize.Large))
+                    if (((associatedElements[i] is RibbonControl) && (((RibbonControl)associatedElements[i]).Size != RibbonControlSize.Large)) ||
+                        (associatedElements[i] is Spinner) || (associatedElements[i] is ComboBox) || (associatedElements[i] is TextBox))
                     {
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present

@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="1700" mc:Ignorable="d">
+    Title="Fluent Ribbon Control Suite CTP2" Height="345" Width="900" mc:Ignorable="d">
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
@@ -72,7 +72,7 @@
       </Fluent:Ribbon.QuickAccessItems>
 
       
-      <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font, A,A,Clipboard,Font,B,A,B,C,B,C,C">
+      <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
 
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:SplitButton  Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
@@ -198,9 +198,8 @@
 		</Fluent:RibbonGroupBox>
 
 	    
-        <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="LongLongGroupA" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-            <Fluent:RibbonToolBar>
-			<Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both">
+        <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+			<Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
@@ -240,7 +239,7 @@
               </Fluent:SplitButton>
               <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
               <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
-              <Fluent:DropDownButton Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
+              <Fluent:DropDownButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
                 <Fluent:DropDownButton.Items>
                   <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag">
                     <Fluent:Gallery.Filters>
@@ -278,16 +277,12 @@
                       Width="190"/>
                 </Fluent:DropDownButton.ToolTip>
               </Fluent:DropDownButton>
-          
-              <Fluent:Button Fluent:KeyTip.Keys="SSS" x:Name="ss" Text="Button165465465564564654" SizeDefinition="Large,Large,Large" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
-              <Fluent:Button Fluent:KeyTip.Keys="KT" Click ="OnSomeClick" Text="Button gdf" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-              <Fluent:Button Fluent:KeyTip.Keys="G" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Middle,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-              <Fluent:Button Fluent:KeyTip.Keys="DB" IsEnabled="False" Text="Button" Fluent:RibbonControl.SizeDefinition="Large,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-              <Fluent:Button Text="Buttondf gdfgdf" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-              <Fluent:Button Text="Button" Fluent:RibbonControl.SizeDefinition="Middle,Small,Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-            </Fluent:RibbonToolBar>
+              
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="LongLongGroupB" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          <Fluent:Spinner Fluent:KeyTip.Keys="SP1" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAlla}" ResizeMode="Both">
             <Fluent:InRibbonGallery.Filters>
               <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAlla"/>
@@ -307,25 +302,9 @@
             <TextBlock Margin="15" Tag="Group2">2</TextBlock>
             <TextBlock Margin="15" Tag="Group2">3</TextBlock>
           </Fluent:InRibbonGallery>
-          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
-          <Button Width="25" Height="25" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}">Lala</Button>
-          <Fluent:Button Text="Freeze" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnFreezeClick"/>
-          <Fluent:Button Text="Unfreeze" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnUnfreezeClick"/>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox x:Name="C" Header="LongLongGroupC" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="L" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" IsEnabled="false"/>
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="E" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="R" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="T" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="D" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" LargeIcon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-          <Fluent:Button Text="Button" Fluent:KeyTip.Keys="F" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"
-                  />
+        <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+          
           <CheckBox Width="100" Height="20">Lalala</CheckBox>
           <TextBox Width="100" Height="20"/>
           <ComboBox Width="100" Height="20">
@@ -399,7 +378,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-    <Button HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
+    <Button  Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -424,8 +403,8 @@
       </Button.ContextMenu>
     </Button>
     
-    <TreeView x:Name="logicalTreeView" Margin="0,200,0,0"/>
-    <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,120,0,20" Maximum="10" Minimum="0"/>
+    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,200,0,0"/>
+    <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,134,0,20" Maximum="10" Minimum="0"/>
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20"/>
   </Grid>
 
