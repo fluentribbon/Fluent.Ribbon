@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -27,7 +28,11 @@ namespace Fluent
         public GrayscaleEffect()
         {
             PixelShader pixelShader = new PixelShader();
-            pixelShader.UriSource = new Uri("/Fluent;component/Themes/Office2010/Effects/Grayscale.ps", UriKind.Relative);
+            var prop = DesignerProperties.IsInDesignModeProperty; 
+
+            bool isInDesignMode = (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue; 
+
+            if(!isInDesignMode)pixelShader.UriSource = new Uri("/Fluent;component/Themes/Office2010/Effects/Grayscale.ps", UriKind.Relative);
             this.PixelShader = pixelShader;
 
             this.UpdateShaderValue(InputProperty);

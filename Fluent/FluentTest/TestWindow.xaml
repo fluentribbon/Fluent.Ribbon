@@ -210,7 +210,7 @@
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonClearFormatting" Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:ToggleButton  Fluent:KeyTip.Keys="B" x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:ToggleButton IsEnabled="False" x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:ToggleButton x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonUnderline" Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonSubscript" Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
