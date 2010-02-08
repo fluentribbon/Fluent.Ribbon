@@ -42,6 +42,8 @@ namespace Fluent
         // Whether we attached to window
         bool attached;
 
+        // Attached HWND source
+        HwndSource attachedHwndSource;
 
         #endregion
 
@@ -83,7 +85,8 @@ namespace Fluent
             window.KeyUp += new KeyEventHandler(OnWindowKeyUp);
 
             // Hookup non client area messages
-            ((HwndSource)PresentationSource.FromVisual(window)).AddHook(WindowProc);
+            attachedHwndSource = (HwndSource) PresentationSource.FromVisual(window);
+            if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
         }
 
         /// <summary>
@@ -98,7 +101,8 @@ namespace Fluent
             window.KeyUp -= new KeyEventHandler(OnWindowKeyUp);
 
             // Hookup non client area messages
-            ((HwndSource)PresentationSource.FromVisual(window)).RemoveHook(WindowProc);
+            if ((attachedHwndSource != null) && (!attachedHwndSource.IsDisposed))
+                attachedHwndSource.RemoveHook(WindowProc);
         }
 
         // Window's messages hook up
