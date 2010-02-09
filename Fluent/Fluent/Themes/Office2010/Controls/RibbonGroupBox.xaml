@@ -127,8 +127,8 @@
 				<Setter Property="Visibility" TargetName="grid1" Value="Visible"/>
 				<Setter Property="UIElement.Visibility" TargetName="border1" Value="Collapsed"/>
 				<Setter Property="HorizontalAlignment" TargetName="grid2" Value="Left"/>							
-			<!--	<Setter Property="Content" TargetName="border1" Value="{x:Null}"/>							
-				<Setter Property="Content" TargetName="popupContent" Value="{Binding ElementName=grid}"/>-->
+				<Setter Property="Content" TargetName="border1" Value="{x:Null}"/>							
+				<Setter Property="Content" TargetName="popupContent" Value="{Binding ElementName=grid}"/>
 			</Trigger>
 			<Trigger Property="IsDialogLauncherButtonVisible" Value="False">
 				<Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>			
