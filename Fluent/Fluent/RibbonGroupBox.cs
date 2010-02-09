@@ -195,6 +195,7 @@ namespace Fluent
             {
                 ArrayList array = new ArrayList();
                 array.AddRange(Items);
+                if (dialogLauncherButton!=null) array.Add(dialogLauncherButton);
                 return array.GetEnumerator();
             }
         }

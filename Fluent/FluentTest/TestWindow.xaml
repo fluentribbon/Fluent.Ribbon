@@ -105,7 +105,7 @@
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
 
-		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="F" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png">
+		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png">
       <Fluent:RibbonToolBar>
         
         <!--ToolBar Layout Definitions-->
