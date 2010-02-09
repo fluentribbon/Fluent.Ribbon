@@ -94,7 +94,7 @@
       </MultiTrigger>	  
     </ControlTemplate.Triggers>
   </ControlTemplate> 
-  <Style x:Key="InRibbonGalleryButton" TargetType="{x:Type Fluent:Button}">
+  <Style x:Key="InRibbonGalleryButton" TargetType="{x:Type Fluent:ToggleButton}">
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type Fluent:Button}">
@@ -215,7 +215,7 @@
         						</ItemsPanelTemplate>
         					</Fluent:RibbonListBox.ItemsPanel>
         				</Fluent:RibbonListBox>
-        				<Fluent:Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1"/>
+        				<Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" UseAutoCheck="False"/>
         			</Grid>
         		</Border>
         		<Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="toggleButton" 

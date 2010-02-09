@@ -429,12 +429,18 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
-            upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
+            /*upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
             double width = upPanel.DesiredSize.Width +upPanel.Margin.Left + upPanel.Margin.Right;
             Size size = new Size(width,constraint.Height);
             //(upPanel.Parent as Grid).Measure(size);
             (GetVisualChild(0) as UIElement).Measure(size);
-            return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);
+            return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);*/
+            Size size = base.MeasureOverride(constraint);
+            if(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width)
+            {
+                return base.MeasureOverride(new Size(upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right, constraint.Height));
+            }
+           return size;
         }
 
         #endregion

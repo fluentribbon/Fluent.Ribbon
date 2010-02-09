@@ -17,7 +17,7 @@ namespace Fluent
     /// Represents ribbon items control
     /// </summary>
     [ContentProperty("Items")]
-    public class RibbonItemsControl:RibbonControl
+    public class RibbonItemsControl:RibbonControl, IAddChild
     {
         #region Fields
 
@@ -370,5 +370,21 @@ namespace Fluent
         {
             return null;
         }
+
+        #region Implementation of IAddChild
+
+        public void AddChild(object value)
+        {
+            Items.Add(value as DependencyObject);
+        }
+
+        public void AddText(string text)
+        {
+            GalleryItem item = new GalleryItem();
+            item.Content = text;
+            Items.Add(item);
+        }
+
+        #endregion
     }
 }

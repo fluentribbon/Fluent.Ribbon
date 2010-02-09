@@ -27,6 +27,8 @@ namespace Fluent
 
         private int textBoxSelectionStart;
 
+        private bool isInitializing;
+
         #endregion
 
         #region Properties
@@ -188,14 +190,21 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
+
+        // Coerce IsOpen
+        private static object CoerceIsOpen(DependencyObject d, object basevalue)
+        {
+            if ((d as ComboBox).isInitializing) return true;
+            return basevalue;
+        }
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                if ((d as ComboBox).contextMenu == null) (d as ComboBox).CreateMenu();
-            }
+            if ((d as ComboBox).contextMenu == null) (d as ComboBox).CreateMenu();
+
+            if ((bool)e.NewValue) (d as ComboBox).IsHitTestVisible = false;
+            else (d as ComboBox).IsHitTestVisible = true;                       
         }
 
         #endregion
@@ -324,6 +333,8 @@ namespace Fluent
             gallery.SetBinding(Gallery.OrientationProperty, binding);*/
             gallery.Orientation = Orientation;
 
+            gallery.SelectedIndex = SelectedIndex;
+
             binding = new Binding("SelectedIndex");
             binding.Source = gallery;
             binding.Mode = BindingMode.TwoWay;
@@ -338,6 +349,14 @@ namespace Fluent
 
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
+
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            IsOpen = true;
+            e.Handled = true;
         }
 
         #endregion
@@ -581,6 +600,7 @@ namespace Fluent
 
         private void CreateMenu()
         {
+            isInitializing = true;
             contextMenu = new ContextMenu();
             contextMenu.IsOpen = true;
             downButton.IsChecked = true;
@@ -600,6 +620,9 @@ namespace Fluent
             contextMenu.Placement = PlacementMode.Bottom;
 
             contextMenu.Items.Add(gallery);
+            isInitializing = false;
+            IsOpen = true;
+            contextMenu.IsOpen = true;
         }
 
         private void OnMenuClosed(object sender, EventArgs e)

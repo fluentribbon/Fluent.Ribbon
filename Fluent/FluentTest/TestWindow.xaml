@@ -176,7 +176,7 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" Orientation="Vertical">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" Orientation="Vertical" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
@@ -223,7 +223,7 @@
 
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-			<Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large">
+			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="JS" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
@@ -234,7 +234,7 @@
         </Fluent:InRibbonGallery.GroupIcons>
         <TextBlock Margin="15" Tag="Group1">1</TextBlock>
         <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-        <TextBlock Margin="15" Tag="Group1">3</TextBlock>
+        <TextBlock Margin="15" Tag="Group1" Name="ghh">33</TextBlock>
         <TextBlock Margin="15" Tag="Group1">4</TextBlock>
         <TextBlock Margin="15" Tag="Group1">5</TextBlock>
         <TextBlock Margin="15" Tag="Group1">6</TextBlock>
@@ -243,7 +243,7 @@
         <TextBlock Margin="15" Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
               <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
-                <Fluent:Gallery GroupBy="Tag">
+                <Fluent:Gallery x:Name="gallery" GroupBy="Tag">
                     <TextBlock Margin="15" Tag="Group1">1</TextBlock>
                     <TextBlock Margin="15" Tag="Group1">2</TextBlock>
                     <TextBlock Margin="15" Tag="Group1">3</TextBlock>
@@ -364,6 +364,9 @@
           <Fluent:Button Icon="Images\GrowFont.png" LargeIcon="Images\GrowFont.png" Text="Enlarge" Click="OnEnlargeClick"/>
           <Fluent:Button Icon="Images\ShrinkFont.png" LargeIcon="Images\ShrinkFont.png" Text="Reduce" Click="OnReduceClick"/>
         </Fluent:RibbonGroupBox>
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+          <Fluent:Button SizeDefinition="Large,Large,Large"></Fluent:Button>
+        </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Page Layout" >
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
@@ -402,7 +405,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-    <Button  Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
+    <Button  HorizontalAlignment="Left" Margin="33,180,0,18" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -427,8 +430,21 @@
       </Button.ContextMenu>
     </Button>
     
-    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,200,0,0"/>    
+    <TreeView x:Name="logicalTreeView" Margin="0,200,0,0"/>    
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20"/>
+    <TextBox HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding SelectedIndex, ElementName=inRibbonGallery1, Mode=OneWay}" TextWrapping="Wrap" Margin="18,0,0,131"/>
+    <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" Height ="20" DataContext="{Binding ElementName=inRibbonGallery1, Path=SelectedItem}" Content="{Binding Text}"/>
+    <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
+      <TextBlock Margin="15" Tag="Group1">1</TextBlock>
+      <TextBlock Margin="15" Tag="Group1">2</TextBlock>
+      <TextBlock Margin="15" Tag="Group1" Name="hte">3</TextBlock>
+      <TextBlock Margin="15" Tag="Group1">4</TextBlock>
+      <TextBlock Margin="15" Tag="Group1">5</TextBlock>
+      <TextBlock Margin="15" Tag="Group1">6</TextBlock>
+      <TextBlock Margin="15" Tag="Group2">1</TextBlock>
+      <TextBlock Margin="15" Tag="Group2">2</TextBlock>
+      <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+    </ListBox>-->
   </Grid>
 
 </Fluent:RibbonWindow>

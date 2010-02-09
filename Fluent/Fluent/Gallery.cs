@@ -421,6 +421,8 @@ namespace Fluent
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
+                listBox.SelectedIndex = SelectedIndex;
+
                 Binding binding = new Binding("SelectedIndex");
                 binding.Source = listBox;
                 binding.Mode = BindingMode.TwoWay;

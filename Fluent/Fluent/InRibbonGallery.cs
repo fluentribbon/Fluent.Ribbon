@@ -35,7 +35,7 @@ namespace Fluent
 
         private Gallery gallery = new Gallery();
         private MenuPanel menuBar = new MenuPanel();
-        private Button expandButton;
+        private ToggleButton expandButton;
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> menuItems;
@@ -304,7 +304,15 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(-1, null, CoerceSelectedIndex));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(-1, OnSelectedIndexChanged, CoerceSelectedIndex));
+
+        private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if((d as InRibbonGallery).listBox!=null)
+            {
+                (d as InRibbonGallery).listBox.SelectedIndex = (int) e.NewValue;
+            }
+        }
 
         private static object CoerceSelectedIndex(DependencyObject d, object basevalue)
         {
@@ -320,6 +328,7 @@ namespace Fluent
 
         #region SelectedItem
 
+        [Bindable(true)]
         public object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
@@ -328,7 +337,15 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(InRibbonGallery), new UIPropertyMetadata(null, null, CoerceSelectedItem));
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(InRibbonGallery), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedItemChange, CoerceSelectedItem));
+
+        private static void OnSelectedItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((d as InRibbonGallery).listBox != null)
+            {
+                (d as InRibbonGallery).listBox.SelectedItem = e.NewValue;
+            }
+        }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
@@ -769,6 +786,26 @@ namespace Fluent
             binding.Mode = BindingMode.TwoWay;
             binding.Source = this;
             gallery.SetBinding(Gallery.SelectedFilterProperty, binding);
+
+            binding = new Binding("SelectedIndex");
+            binding.Source = this;
+            binding.Mode = BindingMode.TwoWay;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            gallery.SetBinding(SelectedIndexProperty, binding);
+
+            binding = new Binding("SelectedItem");
+            binding.Source = this;
+            binding.Mode = BindingMode.TwoWay;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            gallery.SetBinding(SelectedItemProperty, binding);   
+
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            IsOpen = true;
+            e.Handled = true;
         }
 
         #endregion  
@@ -777,15 +814,25 @@ namespace Fluent
 
         public override void OnApplyTemplate()
         {
-            if (listBox != null) listBox.ItemsSource = null;
+            if (listBox != null)
+            {
+                listBox.SelectionChanged -= OnListBoxSelectionChanged;
+                listBox.ItemsSource = null;                
+            }
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
-                Binding binding = new Binding("SelectedIndex");
-                binding.Source = this;
+                if (ItemsSource != null) listBox.ItemsSource = ItemsSource;
+                else listBox.ItemsSource = Items;
+                
+                listBox.SelectedItem = SelectedItem;
+                if (SelectedIndex!=-1) listBox.SelectedIndex = SelectedIndex;
+                
+                /*Binding binding = new Binding("SelectedIndex");
+                binding.Source = listBox;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                listBox.SetBinding(SelectedIndexProperty, binding);
+                this.SetBinding(SelectedIndexProperty, binding);
 
                 binding = new Binding("SelectedItem");
                 binding.Source = this;
@@ -793,29 +840,24 @@ namespace Fluent
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 listBox.SetBinding(SelectedItemProperty, binding);
 
-                binding = new Binding("SelectedIndex");
-                binding.Source = this;
-                binding.Mode = BindingMode.TwoWay;
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                gallery.SetBinding(SelectedIndexProperty, binding);
+                gallery.SelectedIndex = SelectedIndex;*/
 
-                binding = new Binding("SelectedItem");
-                binding.Source = this;
-                binding.Mode = BindingMode.TwoWay;
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                gallery.SetBinding(SelectedItemProperty, binding);
-
-                if (ItemsSource != null) listBox.ItemsSource = ItemsSource;
-                else listBox.ItemsSource = Items;
+                listBox.SelectionChanged += OnListBoxSelectionChanged;                           
             }
-            if (expandButton != null) expandButton.MouseLeftButtonDown -= OnExpandClick;
-            expandButton = GetTemplateChild("PART_ExpandButton") as Button;
-            if (expandButton != null) expandButton.MouseLeftButtonDown += OnExpandClick;
+            if (expandButton != null) expandButton.Click -= OnExpandClick;
+            expandButton = GetTemplateChild("PART_ExpandButton") as ToggleButton;
+            if (expandButton != null) expandButton.Click += OnExpandClick;
 
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
 
             // Clear cache then style changed
             cachedWidthDelta = 0;
+        }
+
+        private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedIndex = listBox.SelectedIndex;
+            SelectedItem = listBox.SelectedItem;
         }
 
         private void OnExpandClick(object sender, RoutedEventArgs e)
@@ -903,13 +945,17 @@ namespace Fluent
 
             IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
+            int selectedIndex = listBox.SelectedIndex;
             listBox.ItemsSource = null;
             gallery.MinWidth = ActualWidth;
             gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
-
+            gallery.SelectedIndex = selectedIndex;
+            SelectedItem = selectedItem;
+            SelectedIndex = selectedIndex;
+            expandButton.IsChecked = true;
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;            
             Binding binding = new Binding("IsOpen");
@@ -933,11 +979,15 @@ namespace Fluent
         {
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
-            listBox.SelectedItem = selectedItem;
             if (ItemsSource == null) listBox.ItemsSource = Items;
             else listBox.ItemsSource = ItemsSource;
+            listBox.SelectedItem = selectedItem;
+            SelectedItem = selectedItem;
+            SelectedIndex = listBox.SelectedIndex;
             if (MenuClosed != null) MenuClosed(this, e);
-            IsSnapped = false; 
+            IsSnapped = false;
+            expandButton.IsChecked = false;
+            expandButton.InvalidateVisual();
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
@@ -950,9 +1000,12 @@ namespace Fluent
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
+            SelectedItem = selectedItem;
+            SelectedIndex = gallery.SelectedIndex;
             if (MenuOpened != null) MenuOpened(this, e);
             //InvalidateVisual();
             UpdateLayout();
+            expandButton.IsChecked = true;
         }
 
         #endregion
