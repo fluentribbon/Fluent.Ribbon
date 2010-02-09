@@ -436,7 +436,9 @@ namespace Fluent
             if((bool)e.NewValue)
             {
                 if ((d as InRibbonGallery).contextMenu == null) (d as InRibbonGallery).CreateMenu();
+                else (d as InRibbonGallery).contextMenu.IsOpen = true;
             }
+            else if ((d as InRibbonGallery).contextMenu != null) (d as InRibbonGallery).contextMenu.IsOpen = false;
         }
 
         #endregion
@@ -863,6 +865,7 @@ namespace Fluent
         private void OnExpandClick(object sender, RoutedEventArgs e)
         {
             IsOpen = true;
+            e.Handled = true;
         }
         
         protected override Size MeasureOverride(Size constraint)
@@ -958,12 +961,12 @@ namespace Fluent
             expandButton.IsChecked = true;
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;            
-            Binding binding = new Binding("IsOpen");
+            /*Binding binding = new Binding("IsOpen");
             binding.Mode = BindingMode.TwoWay;
-            binding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
+            binding.Source = contextMenu;
+            this.SetBinding(IsOpenProperty, binding);*/
 
-            binding = new Binding("ResizeMode");
+            Binding binding = new Binding("ResizeMode");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, binding);
@@ -988,6 +991,7 @@ namespace Fluent
             IsSnapped = false;
             expandButton.IsChecked = false;
             expandButton.InvalidateVisual();
+            IsOpen = false;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)

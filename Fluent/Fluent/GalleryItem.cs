@@ -115,6 +115,7 @@ namespace Fluent
         protected virtual void OnClick(RoutedEventArgs e)
         {
             IsSelected = true;
+            e.Handled = true;
         }
 
         /// <summary>
