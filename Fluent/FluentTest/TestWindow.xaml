@@ -232,6 +232,14 @@
         <Fluent:InRibbonGallery.GroupIcons>
           <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
         </Fluent:InRibbonGallery.GroupIcons>
+        <Fluent:InRibbonGallery.MenuItems>
+          <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
+          <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
+            <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
+            <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
+            <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
+          </Fluent:MenuItem>
+        </Fluent:InRibbonGallery.MenuItems>
         <TextBlock Margin="15" Tag="Group1">1</TextBlock>
         <TextBlock Margin="15" Tag="Group1">2</TextBlock>
         <TextBlock Margin="15" Tag="Group1" Name="ghh">33</TextBlock>

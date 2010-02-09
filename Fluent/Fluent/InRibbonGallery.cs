@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -701,6 +702,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinSizeProperty =
                 DependencyProperty.Register("MinSize", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1.0));
+
+        #endregion
+
+        #region LogicalChildren
+
+        protected override System.Collections.IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList list = new ArrayList();
+                if (listBox != null) list.AddRange(listBox.Items);
+                list.AddRange(MenuItems);
+                return list.GetEnumerator();
+            }
+        }
 
         #endregion
 

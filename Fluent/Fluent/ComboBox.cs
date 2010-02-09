@@ -627,12 +627,14 @@ namespace Fluent
 
         private void OnMenuClosed(object sender, EventArgs e)
         {
+            if (textBox != null) textBox.Focusable = true;
             if (MenuClosed != null) MenuClosed(this, e);
             downButton.IsChecked = false;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
+            if (textBox != null) textBox.Focusable = false;
             if (MenuOpened != null) MenuOpened(this, e);
             downButton.IsChecked = true;
         }

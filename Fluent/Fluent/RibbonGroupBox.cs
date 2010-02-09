@@ -69,6 +69,8 @@ namespace Fluent
         // up part
         private Panel upPanel;
 
+        private Panel parentPanel;
+
         // Freezed image (created during snapping)
         Image snappedImage;
         // Visuals which were removed diring snapping
@@ -282,6 +284,12 @@ namespace Fluent
         /// <returns></returns>
         internal Panel GetPanel() { return upPanel; }
 
+        /// <summary>
+        /// Gets cmmon layout root for popup and groupbox
+        /// </summary>
+        /// <returns></returns>
+        internal Panel GetLayoutRoot() { return parentPanel; }
+
         #endregion
 
         #region Snapping
@@ -397,12 +405,11 @@ namespace Fluent
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 popup.SetBinding(Popup.IsOpenProperty, binding);
-
-
             }
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
+            parentPanel = GetTemplateChild("PART_ParentPanel") as Panel;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Fluent
 {
@@ -31,7 +32,16 @@ namespace Fluent
         /// </summary>
         static RibbonListBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonListBox), new FrameworkPropertyMetadata(typeof(RibbonListBox)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonListBox), new FrameworkPropertyMetadata(typeof(RibbonListBox)));            
+        }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public RibbonListBox()
+        {
+            Focusable = false;
+            FocusManager.SetIsFocusScope(this, false);
         }
 
         #endregion
