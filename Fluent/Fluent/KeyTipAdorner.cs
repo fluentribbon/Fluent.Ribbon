@@ -684,7 +684,7 @@ namespace Fluent
                             0), AdornedElement);
                     keyTipPositions[i].Y = rows[3];
                 }
-                else if (associatedElements[i] is InRibbonGallery)
+                else if ((associatedElements[i] is InRibbonGallery && !((InRibbonGallery)associatedElements[i]).IsCollapsed))
                 {
                     // InRibbonGallery Exclusive Placement
                     Size keyTipSize = keyTips[i].DesiredSize;
