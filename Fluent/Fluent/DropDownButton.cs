@@ -310,14 +310,13 @@ namespace Fluent
         private void CreateMenu()
         {
             isInitializing = true;
-            RibbonPopup parentPopup = FindParentPopup();
-            //if (parentPopup != null) parentPopup.IgnoreNextDeactivate = true;
             contextMenu = new ContextMenu();
             foreach (UIElement item in Items)
             {
                 RemoveLogicalChild(item);
                 contextMenu.Items.Add(item);
-            }
+            }          
+            AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;
@@ -334,16 +333,9 @@ namespace Fluent
 
             contextMenu.PlacementTarget = this;
             contextMenu.Placement = PlacementMode.Bottom;            
-
-            AddLogicalChild(contextMenu.RibbonPopup);
+            
             isInitializing = false;
             IsOpen = true;
-            //Mouse.Capture(contextMenu.RibbonPopup);
-            if (parentPopup != null)
-            {
-                //parentPopup.IgnoreNextDeactivate = false;
-               // if (contextMenu.RibbonPopup.ParentPopup == null) contextMenu.RibbonPopup.ParentPopup = parentPopup;
-            }
             contextMenu.IsOpen = true;
         }
 

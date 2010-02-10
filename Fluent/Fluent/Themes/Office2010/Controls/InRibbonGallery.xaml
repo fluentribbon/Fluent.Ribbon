@@ -172,6 +172,11 @@
 	</Setter>
   </Style>
   <Style x:Key="{x:Type Fluent:InRibbonGallery}" TargetType="{x:Type Fluent:InRibbonGallery}">
+  	<Style.Triggers>
+  		<Trigger Property="IsCollapsed" Value="True">
+  			<Setter Property="Margin" Value="0"/>
+  		</Trigger>
+  	</Style.Triggers>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:InRibbonGallery}">
@@ -215,7 +220,7 @@
         						</ItemsPanelTemplate>
         					</Fluent:RibbonListBox.ItemsPanel>
         				</Fluent:RibbonListBox>
-        				<Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" UseAutoCheck="False"/>
+        				<Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" UseAutoCheck="False" ClickMode="Pressed"/>
         			</Grid>
         		</Border>
         		<Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="PART_DropDownButton" 
@@ -224,7 +229,7 @@
 				Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
 				Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
 				SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
-				IsChecked="{Binding Path=IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" UseAutoCheck="False"
+				IsChecked="{Binding Path=IsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" UseAutoCheck="False" ClickMode="Pressed"
 				/>
         	</Grid>
           <ControlTemplate.Triggers>
@@ -238,5 +243,6 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+    <Setter Property="Margin" Value="0,3,0,0"/>
 </Style>
 </ResourceDictionary>

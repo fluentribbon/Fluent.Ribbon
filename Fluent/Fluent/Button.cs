@@ -21,12 +21,42 @@ using System.Windows.Media;
 namespace Fluent
 {
     /// <summary>
+    /// Specifies when the Click event should be raised. 
+    /// </summary>
+    public enum ClickMode
+    {
+        /// <summary>
+        /// Specifies that the Click event should be raised when a button is pressed and released. 
+        /// </summary>
+        Release = 0,
+        /// <summary>
+        /// Specifies that the Click event should be raised as soon as a button is pressed. 
+        /// </summary>
+        Pressed
+    }
+    /// <summary>
     /// Represents button
     /// </summary>
     [ContentProperty("Text")]
     public class Button: RibbonControl
     {
         #region Properties
+
+
+        /// <summary>
+        /// Gets or sets when the Click event occurs. This is a dependency property. 
+        /// </summary>
+        public ClickMode ClickMode
+        {
+            get { return (ClickMode)GetValue(ClickModeProperty); }
+            set { SetValue(ClickModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ClickMode.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ClickModeProperty =
+            DependencyProperty.Register("ClickMode", typeof(ClickMode), typeof(Button), new UIPropertyMetadata(ClickMode.Release));
 
         /// <summary>
         /// Gets a value that indicates whether a Button is currently activated. This is a dependency property.
@@ -114,10 +144,18 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if((!IsEnabled)||(!IsHitTestVisible)) return;
-            IsPressed = true;
             Mouse.Capture(this);
-            base.OnMouseLeftButtonDown(e);
+            IsPressed = true;            
+            e.Handled = true;            
+            if ((ClickMode == ClickMode.Pressed) && (e.ClickCount == 1))
+            {
+                RaiseClick();
+            }            
+        }
+
+        protected override void OnLostMouseCapture(MouseEventArgs e)
+        {
+            IsPressed = false;
         }
 
         /// <summary>
@@ -127,17 +165,25 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsPressed = false;
-            if(Mouse.Captured==this)Mouse.Capture(null);
+            e.Handled = true;
+            if ((ClickMode == ClickMode.Release) && (e.ClickCount == 1))
+            {
+                RaiseClick();
+            }            
+            if (Mouse.Captured == this) Mouse.Capture(null);
+        }
+
+        // Raise click event
+        private void RaiseClick()
+        {
             Point position = Mouse.PrimaryDevice.GetPosition(this);
-            if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
+            if (((position.X >= 0.0) && (position.X <= ActualWidth)) &&
+                ((position.Y >= 0.0) && (position.Y <= ActualHeight)))
             {
                 RoutedEventArgs ee = new RoutedEventArgs(RibbonControl.ClickEvent, this);
                 RaiseEvent(ee);
-                e.Handled = true;
-            }            
-            base.OnMouseLeftButtonUp(e);
+            }
         }
 
         /// <summary>

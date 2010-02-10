@@ -876,7 +876,7 @@ namespace Fluent
             Window.GetWindow(this).PreviewKeyDown += OnBackstageEscapeKeyDown;
         }        
 
-        // hide backstage
+        // Hide backstage
         private void HideBackstage()
         {
             AdornerLayer layer = GetAdornerLayer(this);

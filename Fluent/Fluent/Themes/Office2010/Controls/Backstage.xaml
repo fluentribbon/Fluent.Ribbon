@@ -3,7 +3,7 @@
     xmlns:Fluent="clr-namespace:Fluent">
 
   <ControlTemplate x:Key="BackstageButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
-  	<Grid>
+  	<Grid Background="#00000000">
   		<Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="0" CornerRadius="1" Visibility="Collapsed" Background="{TemplateBinding Background}">
   			<Border Margin="0" CornerRadius="1" BorderThickness="1" BorderBrush="#19000000" Background="#BFFFFFFF">
   				<Border BorderBrush="#7FFFFFFF" BorderThickness="1" CornerRadius="1" Background="#33FFFFFF"/>

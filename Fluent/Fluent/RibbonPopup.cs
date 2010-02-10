@@ -42,12 +42,19 @@ namespace Fluent
             return openedPopups[openedPopups.Count - 1];
         }
 
+        public static void CloseAll()
+        {
+            ClosePopups(0);
+        }
+
         #endregion
 
         #region Fields
 
         // Current HwndSource of this Popup
         HwndSource hwndSource;
+
+        private bool isFirstMouseUp = false;
 
         #endregion
 
@@ -66,6 +73,12 @@ namespace Fluent
             FocusManager.SetIsFocusScope(this,false);
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            IsOpen = false;
         }
 
         #endregion
@@ -80,6 +93,9 @@ namespace Fluent
         protected override void OnOpened(EventArgs e)
         {
             base.OnOpened(e);
+            
+            isFirstMouseUp = true;
+
             PopupAnimation = PopupAnimation.None;
 
             hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
@@ -90,17 +106,20 @@ namespace Fluent
             Activate();                                    
         }
 
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            isFirstMouseUp = false;
+            base.OnPreviewMouseLeftButtonDown(e);
+        }
+
         /// <summary>
         /// Provides class handling for the System.Windows.UIElement.PreviewMouseLeftButtonUp event.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
-        {
-            if (Mouse.Captured == this)
-            {
-                Mouse.Capture(null);
-                e.Handled = true;
-            }
+        {         
+            if (isFirstMouseUp) e.Handled = true;
+            isFirstMouseUp = false;
         }
 
         /// <summary>

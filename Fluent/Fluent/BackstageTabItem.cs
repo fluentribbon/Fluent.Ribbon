@@ -113,6 +113,7 @@ namespace Fluent
             if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
                     (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
             IsSelected = true;
+            e.Handled = true;
         }
 
         #endregion
@@ -149,9 +150,10 @@ namespace Fluent
             {
                 if (TabControlParent != null) if (TabControlParent.SelectedItem is BackstageTabItem)
                         (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
-                e.Handled = true;
+               
                 this.IsSelected = true;
-            }            
+            }
+            e.Handled = true;
         }
 
         #endregion

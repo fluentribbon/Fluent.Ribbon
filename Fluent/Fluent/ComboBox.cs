@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -19,7 +21,6 @@ namespace Fluent
 
         private ContextMenu contextMenu;
         private Gallery gallery = new Gallery();
-        private ToggleButton downButton;
         private TextBox textBox;
 
         private bool updatingText;
@@ -202,9 +203,10 @@ namespace Fluent
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((d as ComboBox).contextMenu == null) (d as ComboBox).CreateMenu();
-
-            if ((bool)e.NewValue) (d as ComboBox).IsHitTestVisible = false;
-            else (d as ComboBox).IsHitTestVisible = true;                       
+            //if ((bool)e.NewValue) Keyboard.Focus((d as ComboBox).textBox);
+                //FocusManager.SetFocusedElement((d as ComboBox).textBox, (d as ComboBox).textBox);//(d as ComboBox).textBox.Focus();
+            if ((d as ComboBox).IsOpen) (d as ComboBox).IsHitTestVisible = false;
+            else (d as ComboBox).IsHitTestVisible = true;                     
         }
 
         #endregion
@@ -276,6 +278,7 @@ namespace Fluent
         /// </summary>
         public ComboBox()
         {
+            FocusManager.SetIsFocusScope(this, false);
             Binding binding = new Binding("DisplayMemberPath");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
@@ -355,7 +358,16 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            IsOpen = true;
+            //IsOpen = true;
+            if (textBox != null)
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+                                (ThreadStart)(() =>
+                                {
+                                    textBox.SelectAll();
+                                    textBox.Focus();
+                                })); 
+            }
             e.Handled = true;
         }
 
@@ -365,10 +377,6 @@ namespace Fluent
 
         public override void OnApplyTemplate()
         {
-            if (downButton != null) downButton.MouseLeftButtonDown -= OnDownClick;            
-            downButton = GetTemplateChild("PART_DownButton") as ToggleButton;
-            if (downButton != null) downButton.MouseLeftButtonDown += OnDownClick;
-
             if (textBox != null)
             {
                 textBox.TextChanged -= OnTextBoxTextChanged;
@@ -562,11 +570,6 @@ namespace Fluent
             else return obj.ToString();
         }
 
-        private void OnDownClick(object sender, MouseButtonEventArgs e)
-        {
-            IsOpen = true;
-        }
-
         protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {            
             base.OnItemsCollectionChanged(e);
@@ -586,6 +589,19 @@ namespace Fluent
 
         #region Private methods
 
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            Mouse.Capture(this);
+            
+            IsOpen = true;
+            e.Handled = true;
+        }
+
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            if(Mouse.Captured==this)Mouse.Capture(null);
+        }
+
         void OnTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if ((e.Key == Key.Enter) || (e.Key == Key.Escape))
@@ -595,6 +611,7 @@ namespace Fluent
                 Focus();
                 textBox.Focusable = true;
             }
+            if(e.Key==Key.Down) IsOpen = true;
             base.OnPreviewKeyDown(e);
         }
 
@@ -602,8 +619,10 @@ namespace Fluent
         {
             isInitializing = true;
             contextMenu = new ContextMenu();
+            contextMenu.Items.Add(gallery);
+            AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
-            downButton.IsChecked = true;
+
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;
             Binding binding = new Binding("IsOpen");
@@ -619,24 +638,19 @@ namespace Fluent
             contextMenu.PlacementTarget = this;
             contextMenu.Placement = PlacementMode.Bottom;
 
-            contextMenu.Items.Add(gallery);
             isInitializing = false;
             IsOpen = true;
             contextMenu.IsOpen = true;
         }
 
         private void OnMenuClosed(object sender, EventArgs e)
-        {
-            if (textBox != null) textBox.Focusable = true;
+        {            
             if (MenuClosed != null) MenuClosed(this, e);
-            downButton.IsChecked = false;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
-        {
-            if (textBox != null) textBox.Focusable = false;
+        {            
             if (MenuOpened != null) MenuOpened(this, e);
-            downButton.IsChecked = true;
         }
 
         #endregion

@@ -281,7 +281,7 @@ namespace Fluent
         /// </summary>
         public MenuItem()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+            //AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
         #endregion
@@ -390,7 +390,7 @@ namespace Fluent
 
         #region Event Handling
 
-        /// <summary>
+        /*/// <summary>
         /// Handles click event
         /// </summary>
         /// <param name="e">The event data</param>
@@ -406,8 +406,10 @@ namespace Fluent
                 IsOpen = true;
                 e.Handled = true;
             }
+            else RibbonPopup.CloseAll();            
         }
 
+        private System.Windows.Controls.Button a;
         /// <summary>
         /// Handles click event
         /// </summary>
@@ -415,7 +417,23 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            OnClick(e);
+            OnClick(e);            
+        }*/
+
+        protected override void OnClick(RoutedEventArgs args)
+        {
+            base.OnClick(args);
+            ExecuteCommand();
+            if (CanAutoCheck)
+            {
+                IsChecked = !IsChecked;
+            }
+            if (HasItems)
+            {
+                IsOpen = true;                
+            }
+            else RibbonPopup.CloseAll();
+            args.Handled = true;
         }
 
         private void OnFocusTimerTick(object sender, EventArgs e)

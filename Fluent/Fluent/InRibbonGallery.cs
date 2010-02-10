@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -878,19 +879,19 @@ namespace Fluent
         }
 
         private void OnDropDownClick(object sender, RoutedEventArgs e)
-        {
+        {            
             dropDownButton.IsChecked = true;
             contextMenu.Placement = PlacementMode.Bottom;
-            contextMenu.ContextMenuClosing += OnDropDownMenuClosing;
+            contextMenu.Closed += OnDropDownMenuClosed;
             IsOpen = true;
-            e.Handled = true;
+            e.Handled = true;            
         }
 
-        private void OnDropDownMenuClosing(object sender, ContextMenuEventArgs e)
+        private void OnDropDownMenuClosed(object sender, RoutedEventArgs e)
         {
             dropDownButton.IsChecked = false;
             contextMenu.Placement = PlacementMode.Relative;
-            contextMenu.ContextMenuClosing -= OnDropDownMenuClosing;
+            contextMenu.Closed -= OnDropDownMenuClosed;
         }
 
         private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -900,8 +901,8 @@ namespace Fluent
         }
 
         private void OnExpandClick(object sender, RoutedEventArgs e)
-        {
-            IsOpen = true;
+        {                        
+            IsOpen = true;            
             e.Handled = true;
         }
         
@@ -981,9 +982,10 @@ namespace Fluent
         private void CreateMenu()
         {
             contextMenu = new ContextMenu();
+            AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
 
-            IsSnapped = true;            
+            if(!IsCollapsed)IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
             int selectedIndex = listBox.SelectedIndex;
             listBox.ItemsSource = null;
@@ -998,10 +1000,6 @@ namespace Fluent
             expandButton.IsChecked = true;
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;            
-            /*Binding binding = new Binding("IsOpen");
-            binding.Mode = BindingMode.TwoWay;
-            binding.Source = contextMenu;
-            this.SetBinding(IsOpenProperty, binding);*/
 
             Binding binding = new Binding("ResizeMode");
             binding.Mode = BindingMode.OneWay;
@@ -1013,6 +1011,9 @@ namespace Fluent
 
             contextMenu.Items.Add(gallery);
             contextMenu.Items.Add(menuBar);
+
+            IsOpen = true;
+            contextMenu.IsOpen = true;
         }
 
         private void OnMenuClosed(object sender, EventArgs e)
@@ -1025,7 +1026,7 @@ namespace Fluent
             SelectedItem = selectedItem;
             SelectedIndex = listBox.SelectedIndex;
             if (MenuClosed != null) MenuClosed(this, e);
-            IsSnapped = false;
+            if (!IsCollapsed) IsSnapped = false;
             expandButton.IsChecked = false;
             expandButton.InvalidateVisual();
             IsOpen = false;
@@ -1033,7 +1034,7 @@ namespace Fluent
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
-            IsSnapped = true;            
+            if (!IsCollapsed) IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
             listBox.ItemsSource = null;
             gallery.MinWidth = ActualWidth;

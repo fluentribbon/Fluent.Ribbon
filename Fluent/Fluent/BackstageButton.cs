@@ -123,7 +123,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         ///  The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
             RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent,this));            
         }

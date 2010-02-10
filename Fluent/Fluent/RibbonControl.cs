@@ -232,11 +232,13 @@ namespace Fluent
         {
             add
             {
+                RemoveHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
                 AddHandler(ClickEvent, value);
+                AddHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
             }
             remove
             {
-                RemoveHandler(ClickEvent, value);
+                RemoveHandler(ClickEvent, value);                
             }
         }
         /// <summary>
@@ -502,7 +504,12 @@ namespace Fluent
         /// </summary>
         protected RibbonControl()
         {
-            AddHandler(ClickEvent, new RoutedEventHandler((s,e) => OnClick(e)));
+            AddHandler(ClickEvent,(RoutedEventHandler)OnClickHandle);
+        }
+
+        private void OnClickHandle(object sender, RoutedEventArgs e)
+        {
+            OnClick(e);
         }
 
         #endregion

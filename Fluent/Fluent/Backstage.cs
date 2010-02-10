@@ -147,6 +147,13 @@ namespace Fluent
             {
                 this.UpdateSelectedContent();
             }
+            e.Handled = true;
+        }
+
+        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            e.Handled = true;
         }
 
         #endregion

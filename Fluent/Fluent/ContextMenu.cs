@@ -69,7 +69,16 @@ namespace Fluent
 
         internal RibbonPopup RibbonPopup
         {
-            get { return popup;}
+            get
+            {
+                if (popup == null)
+                {
+                    isInInitializing = true;
+                    HookupParentPopup();
+                    isInInitializing = false;
+                }
+                return popup;
+            }
         }
 
         /// <summary>
@@ -305,7 +314,6 @@ namespace Fluent
                     menu.isInInitializing = true;
                     menu.HookupParentPopup();
                     menu.isInInitializing = false;
-                    Mouse.Capture(null);
                     menu.popup.Activate();
                 }
                 //Keyboard.Focus(menu.MenuBar);

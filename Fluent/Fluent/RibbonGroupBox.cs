@@ -592,7 +592,7 @@ namespace Fluent
                 popup.PlacementTarget = sender as ToggleButton;
                 popup.Tag = sender;
                 //(sender as ToggleButton).IsChecked = true;
-                Mouse.Capture(popup);
+                //Mouse.Capture(popup);
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
                 e.Handled = true;

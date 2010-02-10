@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -13,6 +15,12 @@ namespace Fluent
     /// </summary>
     public class GalleryItem : ListBoxItem
     {
+        #region Fields
+
+        private Dispatcher dispatcher;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -57,6 +65,16 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
+            IsSelectedProperty.AddOwner(typeof (GalleryItem), new FrameworkPropertyMetadata(false,FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+        }
+
+        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if((bool)e.NewValue)
+            {
+                //(d as GalleryItem).dispatcher.Invoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate{RibbonPopup.CloseAll();}));
+                
+            }
         }
 
         /// <summary>
@@ -64,7 +82,8 @@ namespace Fluent
         /// </summary>
         public GalleryItem()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+            dispatcher = Dispatcher.CurrentDispatcher;
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));            
         }
 
         #endregion
@@ -81,7 +100,7 @@ namespace Fluent
             if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsPressed = true;
             Mouse.Capture(this);
-            base.OnMouseLeftButtonDown(e);
+            e.Handled = true;
         }
 
         /// <summary>
@@ -101,7 +120,7 @@ namespace Fluent
                 RaiseEvent(ee);
                 e.Handled = true;
             }
-            base.OnMouseLeftButtonUp(e);
+            e.Handled = true;
         }
 
         #endregion
@@ -115,6 +134,7 @@ namespace Fluent
         protected virtual void OnClick(RoutedEventArgs e)
         {
             IsSelected = true;
+            RibbonPopup.CloseAll();
             e.Handled = true;
         }
 
