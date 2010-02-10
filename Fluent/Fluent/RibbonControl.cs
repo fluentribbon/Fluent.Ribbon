@@ -497,6 +497,14 @@ namespace Fluent
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));            
         }
 
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        protected RibbonControl()
+        {
+            AddHandler(ClickEvent, new RoutedEventHandler((s,e) => OnClick(e)));
+        }
+
         #endregion
 
         #region Overrides
@@ -589,6 +597,15 @@ namespace Fluent
         /// <param name="current">Current value</param>
         protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+        }
+
+        /// <summary>
+        /// Handles click
+        /// </summary>
+        /// <param name="args"></param>
+        protected virtual void OnClick(RoutedEventArgs args)
+        {
+
         }
 
         #endregion

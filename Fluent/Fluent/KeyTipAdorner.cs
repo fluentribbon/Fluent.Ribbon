@@ -482,7 +482,10 @@ namespace Fluent
                 Detach();
                 childAdorner.Attach();
             }
-            else Terminate();
+            else
+            {
+                Terminate();
+            }
         }
 
         
@@ -602,7 +605,7 @@ namespace Fluent
             if (element == null) return null;
             RibbonGroupBox groupBox = element as RibbonGroupBox;
             if (groupBox != null) return groupBox;
-            DependencyObject parent = VisualTreeHelper.GetParent(element);
+            DependencyObject parent = LogicalTreeHelper.GetParent(element);
             return GetGroupBox(parent);
         }
 
@@ -617,13 +620,13 @@ namespace Fluent
                 Panel panel = groupBox.GetPanel();
                 if (panel != null)
                 {
-                    double height = groupBox.DesiredSize.Height;
+                    double height = groupBox.GetLayoutRoot().DesiredSize.Height;
                     rows = new double[]
                         {
-                            groupBox.TranslatePoint(new Point(0, 0), AdornedElement).Y,
-                            groupBox.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
-                            groupBox.TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
-                            groupBox.TranslatePoint(new Point(0, height), AdornedElement).Y                            
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), AdornedElement).Y                            
                         };
                 }
             }
@@ -668,6 +671,30 @@ namespace Fluent
                     keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(x, y), AdornedElement);
 
                     #endregion
+                }
+                else if (((FrameworkElement)associatedElements[i]).Name == "PART_DialogLauncherButton")
+                {
+                    // Dialog Launcher Button Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].RenderSize;
+                    if (rows == null) continue;
+                    
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                            0), AdornedElement);
+                    keyTipPositions[i].Y = rows[3];
+                }
+                else if (associatedElements[i] is InRibbonGallery)
+                {
+                    // InRibbonGallery Exclusive Placement
+                    Size keyTipSize = keyTips[i].DesiredSize;
+                    Size elementSize = associatedElements[i].RenderSize;
+                    if (rows == null) continue;
+
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                        new Point(elementSize.Width - keyTipSize.Width / 2.0,
+                            0), AdornedElement);
+                    keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
                 else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is BackstageButton))
                 {
@@ -729,6 +756,7 @@ namespace Fluent
                     if (((associatedElements[i] is RibbonControl) && (((RibbonControl)associatedElements[i]).Size != RibbonControlSize.Large)) ||
                         (associatedElements[i] is Spinner) || (associatedElements[i] is ComboBox) || (associatedElements[i] is TextBox))
                     {
+                        bool withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(associatedElements[i]);
                         Point translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                         // Snapping to rows if it present
                         if (rows != null)
@@ -737,6 +765,7 @@ namespace Fluent
                             double mindistance = Math.Abs(rows[0] - translatedPoint.Y);
                             for (int j = 1; j < rows.Length; j++)
                             {
+                                if (withinRibbonToolbar && j == 1) continue; 
                                 double distance = Math.Abs(rows[j] - translatedPoint.Y);
                                 if (distance < mindistance)
                                 {
@@ -758,6 +787,22 @@ namespace Fluent
                     }
                 }
             }
+        }
+
+        // Determines whether the element is children to RibbonToolBar
+        bool IsWithinRibbonToolbarInTwoLine(UIElement element)
+        {
+            UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
+            RibbonToolBar ribbonToolBar = parent as RibbonToolBar;
+            if (ribbonToolBar != null)
+            {
+                RibbonToolBarLayoutDefinition definition = ribbonToolBar.GetCurrentLayoutDefinition();
+                if (definition == null) return false;
+                if (definition.RowCount == 2 || definition.Rows.Count == 2) return true;
+                return false;
+            }
+            if (parent == null) return false;
+            return IsWithinRibbonToolbarInTwoLine(parent);
         }
 
         // Determines whether the element is children to quick access toolbar
@@ -799,7 +844,7 @@ namespace Fluent
         void Log(string message)
         {
             // Uncomment in case of emergency
-            // System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
+            System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
         }
 
         #endregion

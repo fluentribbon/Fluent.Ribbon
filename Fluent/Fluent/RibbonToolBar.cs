@@ -178,7 +178,11 @@ namespace Fluent
 
         #region Methods
 
-        RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
+        /// <summary>
+        /// Gets current used layout definition (or null if no present definitions)
+        /// </summary>
+        /// <returns>Layout definition or null</returns>
+        internal RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
         {
             if (layoutDefinitions.Count == 0) return null;
             if (layoutDefinitions.Count == 1) return layoutDefinitions[0];
@@ -542,16 +546,30 @@ namespace Fluent
 
         #endregion
 
-        // TODO: RibbonToolBar must not to be in QAT
+        #region QAT Support
 
+        // (!) RibbonToolBar must not to be in QAT
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
         public override UIElement CreateQuickAccessItem()
         {
             return new Control();
         }
 
+        /// <summary>
+        /// This method must be overriden to bind properties to use in quick access creating
+        /// </summary>
+        /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            
+
         }
+
+        #endregion
     }
 }

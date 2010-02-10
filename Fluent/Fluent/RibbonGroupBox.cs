@@ -144,6 +144,8 @@ namespace Fluent
 
         #endregion
 
+        #region Header
+
         /// <summary>
         /// Gets or sets group box header
         /// </summary>
@@ -158,6 +160,10 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata("RibbonGroupBox"));
+
+        #endregion
+
+        #region IsDialogLauncherButtonVisible
 
         /// <summary>
         /// Gets or sets dialog launcher button visibility
@@ -174,6 +180,43 @@ namespace Fluent
         public static readonly DependencyProperty IsDialogLauncherButtonVisibleProperty =
             DependencyProperty.Register("IsDialogLauncherButtonVisible", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false));
 
+        #endregion
+
+        #region DialogLauncherButtonKeyTipKeys
+        
+        /// <summary>
+        /// Gets or sets key tip for dialog launcher button
+        /// </summary>
+        [System.ComponentModel.DisplayName("DialogLauncher Keys"),
+        System.ComponentModel.Category("KeyTips"),
+        System.ComponentModel.Description("Key tip keys for dialog launcher button")]
+        public string DialogLauncherButtonKeyTipKeys
+        {
+            get { return (string)GetValue(DialogLauncherButtonKeyTipKeysProperty); }
+            set { SetValue(DialogLauncherButtonKeyTipKeysProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for 
+        /// DialogLauncherButtonKeyTipKeys.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DialogLauncherButtonKeyTipKeysProperty =
+            DependencyProperty.Register("DialogLauncherButtonKeyTipKeys",
+            typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnDialogLauncherButtonKeyTipKeysChanged));
+
+        static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonGroupBox ribbonGroupBox = (RibbonGroupBox) d;
+            if (ribbonGroupBox.dialogLauncherButton != null)
+            {
+                KeyTip.SetKeys(ribbonGroupBox.dialogLauncherButton, (string)e.NewValue);
+            }
+        }
+
+        #endregion
+
+        #region IsOpen
+
         /// <summary>
         /// Gets or sets drop down popup visibility
         /// </summary>
@@ -188,8 +231,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged));
 
+        #endregion
+
+        #region LogicalChildren
+
         /// <summary>
-        /// Gets an enumerator for the logical child objects of the System.Windows.Controls.ItemsControl object.
+        /// Gets an enumerator for the logical child objects of 
+        /// the System.Windows.Controls.ItemsControl object.
         /// </summary>
         protected override System.Collections.IEnumerator LogicalChildren
         {
@@ -202,6 +250,9 @@ namespace Fluent
             }
         }
 
+        #endregion
+
+        #region Icon
 
         /// <summary>
         /// Gets or sets icon
@@ -218,7 +269,7 @@ namespace Fluent
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
-
+        #endregion
 
         #endregion
 
@@ -396,7 +447,12 @@ namespace Fluent
         {
             if (dialogLauncherButton != null) dialogLauncherButton.Click -= OnDialogLauncherButtonClick;
             dialogLauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
-            if (dialogLauncherButton != null) dialogLauncherButton.Click += OnDialogLauncherButtonClick;
+            if (dialogLauncherButton != null)
+            {
+                dialogLauncherButton.Click += OnDialogLauncherButtonClick;
+                if (DialogLauncherButtonKeyTipKeys != null) 
+                    KeyTip.SetKeys(dialogLauncherButton, DialogLauncherButtonKeyTipKeys);
+            }
             
             popup = GetTemplateChild("PART_Popup") as Popup;
             if(popup!=null)

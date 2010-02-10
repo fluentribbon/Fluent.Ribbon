@@ -75,7 +75,7 @@
       
       <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
 
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" DialogLauncherButtonKeyTipKeys="ZB">
           <Fluent:SplitButton  Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
@@ -105,7 +105,7 @@
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
 
-		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png">
+		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png" DialogLauncherButtonKeyTipKeys="NF">
       <Fluent:RibbonToolBar>
         
         <!--ToolBar Layout Definitions-->
@@ -312,9 +312,9 @@
               
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
-          <Fluent:Spinner Fluent:KeyTip.Keys="SP1" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:Spinner InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAlla}" ResizeMode="Both">
             <Fluent:InRibbonGallery.Filters>
               <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAlla"/>

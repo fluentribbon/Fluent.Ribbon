@@ -3,11 +3,13 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -274,6 +276,7 @@ namespace Fluent
         /// </summary>
         public Spinner()
         {
+
         }
 
         #endregion
@@ -330,6 +333,24 @@ namespace Fluent
 
         #region Event Handling
 
+        /// <summary>
+        /// Handles click
+        /// </summary>
+        /// <param name="args"></param>
+        protected override void OnClick(RoutedEventArgs args)
+        {
+            if (!IsTemplateValid()) return;
+
+            // Use dispatcher to avoid focus moving to backup'ed element 
+            // (focused element before keytips processing)
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+                (ThreadStart) (() =>
+                  {
+                      textBox.SelectAll();
+                      textBox.Focus();
+                  })); 
+        }
+
         void OnButtonUpClick(object sender, RoutedEventArgs e)
         {
             Value += Increment;
@@ -361,12 +382,12 @@ namespace Fluent
             if (e.Key == Key.Up)
             {
                 buttonUp.RaiseEvent(new RoutedEventArgs(
-                    System.Windows.Controls.Primitives.RepeatButton.ClickEvent));
+                    System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
             }
             if (e.Key == Key.Down)
             {
                 buttonDown.RaiseEvent(new RoutedEventArgs(
-                    System.Windows.Controls.Primitives.RepeatButton.ClickEvent));
+                    System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
             }
         }
 
