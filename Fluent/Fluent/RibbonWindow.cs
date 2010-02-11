@@ -24,7 +24,7 @@ namespace Fluent
     /// Represents basic window for ribbon
     /// </summary>
     public class RibbonWindow:Window
-    {
+    {        
         #region Fields
 
         // Window handle
@@ -110,6 +110,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TitleBarHeightProperty = DependencyProperty.Register("TitleBarHeight", typeof(double), typeof(RibbonWindow), new UIPropertyMetadata(20.0));
 
+        /// <summary>
+        /// Gets whether window is collapsed
+        /// </summary>              
+        public bool IsCollapsed
+        {
+            get { return (bool)GetValue(IsCollapsedProperty); }
+            set { SetValue(IsCollapsedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+
         #endregion
 
         #region Commands
@@ -174,6 +189,13 @@ namespace Fluent
             IsDwmEnabled = NativeMethods.IsDwmEnabled();
             Loaded += OnLoaded;
             SourceInitialized += OnSourceInitialized;
+            SizeChanged += OnSizeChanged;
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < Ribbon.MinimalVisibleWidth + sizers.Left + sizers.Right) IsCollapsed = true;
+            else IsCollapsed = false;
         }
 
         #endregion

@@ -180,12 +180,15 @@
     <Setter Property="TitleBarHeight" Value="55"/>
     <Setter Property="GlassBorders" Value="0,42,0,0"/>
     <Style.Triggers>
-      <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="GlassBorders" Value="0,49,0,0"/>
-      </Trigger>
-      <Trigger Property="IsDwmEnabled" Value="False">
-        <Setter Property="Template" Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
-      </Trigger>
-    </Style.Triggers>
+  		<Trigger Property="IsCollapsed" Value="True">
+  			<Setter Property="GlassBorders" Value="0,22,0,0"/>
+  		</Trigger>
+  		<Trigger Property="WindowState" Value="Maximized">
+  			<Setter Property="GlassBorders" Value="0,49,0,0"/>
+  		</Trigger>
+  		<Trigger Property="IsDwmEnabled" Value="False">
+  			<Setter Property="Template" Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
+  		</Trigger>
+  	</Style.Triggers>
   </Style>
 </ResourceDictionary>

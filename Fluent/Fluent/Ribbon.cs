@@ -33,6 +33,12 @@ namespace Fluent
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     public class Ribbon: Control
     {
+        #region Consts
+
+        public const double MinimalVisibleWidth = 300;
+
+        #endregion
+
         #region Fields
 
         // Collection of contextual tab groups
@@ -517,6 +523,20 @@ namespace Fluent
             DependencyProperty.Register("IsMinimized", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
 
 
+        /// <summary>
+        /// Gets whether ribbon is collapsed
+        /// </summary>
+        public bool IsCollapsed
+        {
+            get { return (bool)GetValue(IsCollapsedProperty); }
+            private set { SetValue(IsCollapsedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
+               DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));      
 
         #endregion
 
@@ -550,11 +570,18 @@ namespace Fluent
             Focusable = false;
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            SizeChanged += OnSizeChanged;
         }
 
         #endregion        
 
         #region Overrides
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width < MinimalVisibleWidth) IsCollapsed = true;
+            else IsCollapsed = false;
+        }
 
         /// <summary>
         /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus event reaches this element in its route.

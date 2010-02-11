@@ -304,7 +304,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-            //base.OnSelectionChanged(e);
+            base.OnSelectionChanged(e);
             if (e.AddedItems.Count > 0)
             {
                 if (IsMinimized)
