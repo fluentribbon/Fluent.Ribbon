@@ -77,7 +77,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (menuPanel != null) menuPanel.Children.Add(obj2 as QuickAccessMenuItem);
-                        else AddLogicalChild(obj2);
+                        else AddLogicalChild(obj2);     
                     }
                     break;
 
@@ -200,13 +200,19 @@ namespace Fluent
 
             if (menuPanel != null)
             {
-                menuPanel.Children.Clear();
+                for (int i = 0; i < quickAccessItems.Count; i++)
+                {
+                    menuPanel.Children.Remove(quickAccessItems[i]);
+                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                }
             }
             else if(quickAccessItems!=null)
             {
+                Ribbon ribbon = FindRibbon();
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     RemoveLogicalChild(quickAccessItems[i]);
+                    if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
                 }
             }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
@@ -246,6 +252,25 @@ namespace Fluent
         private void OnShowAboveClick(object sender, RoutedEventArgs e)
         {
             ShowAboveRibbon = true;
+        }
+
+        /// <summary>
+        /// Finds ribbon
+        /// </summary>
+        /// <returns>Ribbon or null if not finded</returns>
+        //QuickAccessToolBar FindQuickAccessToolbar()
+        Ribbon FindRibbon()
+        {
+            UIElement element = VisualTreeHelper.GetParent(this) as UIElement;
+            while (element != null)
+            {
+                Ribbon ribbon = element as Ribbon;
+                if (ribbon != null) return ribbon;
+                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
+                if (parent != null) element = parent;
+                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+            }
+            return null;
         }
 
         #endregion

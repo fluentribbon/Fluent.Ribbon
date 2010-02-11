@@ -124,7 +124,8 @@ namespace Fluent
         }
 
         void OnWindowKeyDown(object sender, KeyEventArgs e)        
-        {   
+        {
+            if (ribbon.IsCollapsed) return;
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
                 (e.SystemKey == Key.RightAlt) ||
@@ -141,12 +142,13 @@ namespace Fluent
         }
 
         void OnWindowKeyUp(object sender, KeyEventArgs e)
-        {            
+        {
+            if (ribbon.IsCollapsed) return;
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
                 (e.SystemKey == Key.RightAlt) ||
                 (e.SystemKey == Key.F10)))
-            {
+            {                
                 e.Handled = true;
                 if (timer.IsEnabled)
                 {
@@ -186,7 +188,7 @@ namespace Fluent
         }
 
         void Show()
-        {          
+        {                      
             activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
             activeAdornerChain.Terminated += OnAdornerChainTerminated;
 

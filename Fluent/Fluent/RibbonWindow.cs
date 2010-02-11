@@ -194,7 +194,7 @@ namespace Fluent
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.NewSize.Width < Ribbon.MinimalVisibleWidth + sizers.Left + sizers.Right) IsCollapsed = true;
+            if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth)||(e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
         }
 

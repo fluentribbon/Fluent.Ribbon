@@ -55,6 +55,9 @@ namespace Fluent
         /// </summary>
         public QuickAccessMenuItem()
         {
+            Checked += OnChecked;
+            Unchecked += OnUnchecked;
+            Loaded += OnItemLoaded;
         }
 
         #endregion
@@ -92,20 +95,30 @@ namespace Fluent
 
         #region Event Handlers
 
-        /// <summary>
-        /// Handles click events
-        /// </summary>
-        /// <param name="e">Event args</param>
-        protected override void OnClick(RoutedEventArgs e)
+        private void OnChecked(object sender, RoutedEventArgs e)
         {
-            base.OnClick(e);
-            //QuickAccessToolBar toolBar = FindQuickAccessToolbar();
             Ribbon ribbon = FindRibbon();
             if (ribbon != null)
             {
                 ribbon.AddToQuickAccessToolbar(Target);
-                /*toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Target));
-                toolBar.InvalidateMeasure();*/
+            }
+        }
+
+        private void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null)
+            {
+                ribbon.RemoveFromQuickAccessToolbar(Target);
+            }
+        }
+
+        private void OnItemLoaded(object sender, RoutedEventArgs e)
+        {
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null)
+            {
+                IsChecked = ribbon.IsInQuickAccessToolbar(Target);
             }
         }
 

@@ -35,7 +35,14 @@ namespace Fluent
     {
         #region Consts
 
+        /// <summary>
+        /// Minimal width of ribbon parent wndow
+        /// </summary>
         public const double MinimalVisibleWidth = 300;
+        /// <summary>
+        /// Minimal height of ribbon parent wndow
+        /// </summary>
+        public const double MinimalVisibleHeight = 250;
 
         #endregion
 
@@ -569,8 +576,7 @@ namespace Fluent
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
             Focusable = false;
             Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
-            SizeChanged += OnSizeChanged;
+            Unloaded += OnUnloaded;            
         }
 
         #endregion        
@@ -579,7 +585,7 @@ namespace Fluent
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.NewSize.Width < MinimalVisibleWidth) IsCollapsed = true;
+            if ((e.NewSize.Width < MinimalVisibleWidth)||(e.NewSize.Height < MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
         }
 
@@ -717,7 +723,9 @@ namespace Fluent
             if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
             addGalleryToQuickAccessMenuItem = GetTemplateChild("PART_AddGalleryToQuickAccessMenuItem") as MenuItem;
             if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
+            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click -= OnRemoveToQuickLaunchClick;
             removeFromQuickAccessMenuItem = GetTemplateChild("PART_RemoveFromQuickAccessMenuItem") as MenuItem;
+            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click += OnRemoveToQuickLaunchClick;
             customizeQuickAccessToolbarMenuItem = GetTemplateChild("PART_CustomizeQuickAccessToolbarMenuItem") as MenuItem;
             if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click -= OnShowBelowTheRibbonClick;
             showQuickAccessToolbarBelowTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem") as MenuItem;
@@ -729,6 +737,18 @@ namespace Fluent
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
+        }
+
+        private void OnRemoveToQuickLaunchClick(object sender, RoutedEventArgs e)
+        {
+            if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
+            {
+                UIElement element = quickAccessElements.First(x => x.Value == ribbonContextMenu.Tag).Key;
+                RemoveFromQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
+                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
+                quickAccessElements.Remove(element);
+                quickAccessToolBar.InvalidateMeasure();
+            }
         }
 
         private void OnMinimizeRibbonClick(object sender, RoutedEventArgs e)
@@ -777,7 +797,16 @@ namespace Fluent
                 if (control != null)
                 {
                     ribbonContextMenu.Tag = control;
-                    if(control is ContextMenu)
+                    if (quickAccessElements.ContainsValue(control))
+                    {
+                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                    }
+                    else if(control is ContextMenu)
                     {
                         addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
@@ -836,19 +865,24 @@ namespace Fluent
 
         public void AddToQuickAccessToolbar(UIElement element)
         {
-            if(IsInQuickAccessToolbar(element))
-            {                 
-                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
-                quickAccessElements.Remove(element);
-                quickAccessToolBar.InvalidateMeasure();
-            }
-            else
+            if(!IsInQuickAccessToolbar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
                 quickAccessElements.Add(element,control);
                 quickAccessToolBar.Items.Add(control);
                 quickAccessToolBar.InvalidateMeasure();
             }
+        }
+
+        public void RemoveFromQuickAccessToolbar(UIElement element)
+        {
+            if (IsInQuickAccessToolbar(element))
+            {
+                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
+                quickAccessElements.Remove(element);
+                quickAccessToolBar.InvalidateMeasure();
+            }
+
         }
 
         #endregion
@@ -871,11 +905,15 @@ namespace Fluent
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Attach();
+            Window wnd = Window.GetWindow(this);
+            if (wnd != null) wnd.SizeChanged += OnSizeChanged;
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Detach();
+            Window wnd = Window.GetWindow(this);
+            if (wnd != null) wnd.SizeChanged -= OnSizeChanged;
         }
 
         #endregion
