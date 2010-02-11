@@ -40,7 +40,7 @@ namespace Fluent
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
-    [ContentProperty("Shortcut")]
+    [ContentProperty("Target")]
     public class QuickAccessMenuItem : MenuItem
     {
         #region Initialization
@@ -59,27 +59,33 @@ namespace Fluent
 
         #endregion
 
-        #region Shortcut Property
+        #region Target Property
 
         /// <summary>
         /// Gets or sets shortcut control
         /// </summary>
-        public Control Shortcut
+        public Control Target
         {
-            get { return (Control)GetValue(ShortcutProperty); }
-            set { SetValue(ShortcutProperty, value); }
+            get { return (Control)GetValue(TargetProperty); }
+            set { SetValue(TargetProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for shortcut. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ShortcutProperty =
-            DependencyProperty.Register("Shortcut", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null,OnShortcutChanged));
+        public static readonly DependencyProperty TargetProperty =
+            DependencyProperty.Register("Target", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null,OnTargetChanged));
 
-        private static void OnShortcutChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-//            throw new NotImplementedException();
+            QuickAccessMenuItem quickAccessMenuItem = (QuickAccessMenuItem) d;
+            RibbonControl ribbonControl = quickAccessMenuItem.Target as RibbonControl;
+            if ((quickAccessMenuItem.Text == null) && (ribbonControl != null))
+            {
+                // Set Default Text Value
+                Bind(ribbonControl, quickAccessMenuItem, "Text", TextProperty, BindingMode.OneWay);
+            }
         }
 
         #endregion
@@ -97,8 +103,8 @@ namespace Fluent
             Ribbon ribbon = FindRibbon();
             if (ribbon != null)
             {
-                ribbon.AddToQuickAccessToolbar(Shortcut);
-                /*toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Shortcut));
+                ribbon.AddToQuickAccessToolbar(Target);
+                /*toolBar.Items.Add(QuickAccessItemsProvider.GetQuickAccessItem(Target));
                 toolBar.InvalidateMeasure();*/
             }
         }

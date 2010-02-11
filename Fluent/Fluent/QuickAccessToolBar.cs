@@ -215,7 +215,7 @@ namespace Fluent
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     menuPanel.Children.Add(quickAccessItems[i]);
-                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.ShortcutProperty);
+                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
             

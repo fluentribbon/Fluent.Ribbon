@@ -130,7 +130,7 @@
 				<Setter Property="Content" TargetName="border1" Value="{x:Null}"/>							
 				<Setter Property="Content" TargetName="popupContent" Value="{Binding ElementName=PART_ParentPanel}"/>
 			</Trigger>
-			<Trigger Property="IsDialogLauncherButtonVisible" Value="False">
+			<Trigger Property="IsLauncherVisible" Value="False">
 				<Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>			
 			</Trigger>
 			<EventTrigger RoutedEvent="Mouse.MouseLeave">
@@ -148,7 +148,7 @@
 			<Trigger Property="IsOpen" Value="True">
 				<Setter Property="Opacity" TargetName="hoverGrid" Value="1"/>
 			</Trigger>
-			<Trigger Property="IsDialogLauncherButtonVisible" Value="False">
+			<Trigger Property="IsLauncherVisible" Value="False">
 				<Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>
 			</Trigger>
 			<Trigger Property="IsOpen" Value="True">

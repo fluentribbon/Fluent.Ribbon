@@ -4,8 +4,7 @@
     x:Class="FluentTest.App"
     StartupUri="TestWindow.xaml" Startup="OnApplicationStartup">
 	<Application.Resources>
-    <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml">
-    </ResourceDictionary>
+    <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
 	</Application.Resources>
 
 </Application>

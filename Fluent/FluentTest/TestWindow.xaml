@@ -68,14 +68,14 @@
         <Fluent:QuickAccessMenuItem Text="Test1" x:Name="ssd" Height="22">
             <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">LL</Fluent:Button>
         </Fluent:QuickAccessMenuItem>
-        <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test2" Height="22"/>
-        <Fluent:QuickAccessMenuItem Shortcut="{Binding ElementName=ss}" Text="Test3" Height="22"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test3" Height="22"/>
       </Fluent:Ribbon.QuickAccessItems>
 
       
       <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
 
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" DialogLauncherButtonKeyTipKeys="ZB">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton  Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
@@ -105,7 +105,7 @@
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
 
-		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png" DialogLauncherButtonKeyTipKeys="NF">
+		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>
         
         <!--ToolBar Layout Definitions-->
@@ -222,7 +222,7 @@
 		</Fluent:RibbonGroupBox>
 
 	    
-        <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsLauncherVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
 			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="JS" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
@@ -311,7 +311,7 @@
               </Fluent:DropDownButton>
               
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsLauncherVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
@@ -335,7 +335,7 @@
             <TextBlock Margin="15" Tag="Group2">3</TextBlock>
           </Fluent:InRibbonGallery>
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsDialogLauncherButtonVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsLauncherVisible="True" DialogLauncherButtonClick="OnLauncherButtonClick">
           
           <Fluent:CheckBox Width="100" Height="20">Lalala</Fluent:CheckBox>
           <TextBox Width="100" Height="20"/>
@@ -349,7 +349,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsDialogLauncherButtonVisible="False" x:Name="groupLL">
+        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsLauncherVisible="False" x:Name="groupLL">
           <Fluent:InRibbonGallery x:Name="inRibbonGallery" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll2}" ResizeMode="Both" MaxSize="6" MinSize="2">
             <Fluent:InRibbonGallery.Filters>
               <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll2"/>
@@ -372,43 +372,43 @@
           <Fluent:Button Icon="Images\GrowFont.png" LargeIcon="Images\GrowFont.png" Text="Enlarge" Click="OnEnlargeClick"/>
           <Fluent:Button Icon="Images\ShrinkFont.png" LargeIcon="Images\ShrinkFont.png" Text="Reduce" Click="OnReduceClick"/>
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           <Fluent:Button SizeDefinition="Large,Large,Large"></Fluent:Button>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Page Layout" >
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="References">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Mailings">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Review">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="View">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" IsContextual="True" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Design" IsContextual="True"
                              Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
       <Fluent:RibbonTabItem Header="Layout" IsContextual="True" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsDialogLauncherButtonVisible="False">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
