@@ -81,7 +81,7 @@ namespace Fluent
         {
             QuickAccessMenuItem quickAccessMenuItem = (QuickAccessMenuItem) d;
             RibbonControl ribbonControl = quickAccessMenuItem.Target as RibbonControl;
-            if ((quickAccessMenuItem.Text == null) && (ribbonControl != null))
+            if ((String.IsNullOrEmpty(quickAccessMenuItem.Text)) && (ribbonControl != null))
             {
                 // Set Default Text Value
                 Bind(ribbonControl, quickAccessMenuItem, "Text", TextProperty, BindingMode.OneWay);

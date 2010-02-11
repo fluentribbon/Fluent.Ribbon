@@ -98,7 +98,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BackstageKeyTipKeysProperty =
-            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata(""));
+            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata("F"));
 
 
         /// <summary>

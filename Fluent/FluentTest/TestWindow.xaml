@@ -65,8 +65,8 @@
       </Fluent:Ribbon.ToolBarItems>
                   
       <Fluent:Ribbon.QuickAccessItems>
-        <Fluent:QuickAccessMenuItem Text="Test1" x:Name="ssd" Height="22">
-            <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">LL</Fluent:Button>
+        <Fluent:QuickAccessMenuItem x:Name="ssd" Height="22">
+            <Fluent:Button Text="Test1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" />
         </Fluent:QuickAccessMenuItem>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22"/>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test3" Height="22"/>

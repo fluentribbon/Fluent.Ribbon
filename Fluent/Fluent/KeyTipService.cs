@@ -81,8 +81,8 @@ namespace Fluent
             window = GetElementWindow(ribbon);
             if (window == null) return;
 
-            window.KeyDown += new KeyEventHandler(OnWindowKeyDown);
-            window.KeyUp += new KeyEventHandler(OnWindowKeyUp);
+            window.KeyDown += OnWindowKeyDown;
+            window.KeyUp += OnWindowKeyUp;
 
             // Hookup non client area messages
             attachedHwndSource = (HwndSource) PresentationSource.FromVisual(window);
@@ -97,8 +97,11 @@ namespace Fluent
             if (!attached) return;
             attached = false;
 
-            window.KeyDown -= new KeyEventHandler(OnWindowKeyDown);
-            window.KeyUp -= new KeyEventHandler(OnWindowKeyUp);
+            if (window != null)
+            {
+                window.KeyDown -= OnWindowKeyDown;
+                window.KeyUp -= OnWindowKeyUp;
+            }
 
             // Hookup non client area messages
             if ((attachedHwndSource != null) && (!attachedHwndSource.IsDisposed))
