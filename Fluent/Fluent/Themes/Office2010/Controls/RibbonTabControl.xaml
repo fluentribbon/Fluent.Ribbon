@@ -137,7 +137,7 @@
 								<RowDefinition Height="5"/>
 							</Grid.RowDefinitions>
 								<Border Height="Auto" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}" BorderThickness="0,1">
-									<ContentControl x:Name="contentControl"/>
+									<ContentControl x:Name="contentControl" Margin="0,-1,0,0"/>
 								</Border>
 								<Border Margin="0,-1,0,0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderThickness="0,1,0,0" Height="6" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">									
 								<Border.OpacityMask>

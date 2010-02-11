@@ -335,6 +335,7 @@ namespace Fluent
             contextMenu.Placement = PlacementMode.Bottom;            
             
             isInitializing = false;
+            Mouse.Capture(null);
             IsOpen = true;
             contextMenu.IsOpen = true;
         }

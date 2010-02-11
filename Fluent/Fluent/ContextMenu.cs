@@ -74,8 +74,10 @@ namespace Fluent
                 if (popup == null)
                 {
                     isInInitializing = true;
-                    HookupParentPopup();
+                    HookupParentPopup();                    
                     isInInitializing = false;
+                    Mouse.Capture(null);
+                    popup.Activate();
                 }
                 return popup;
             }
@@ -308,23 +310,27 @@ namespace Fluent
             ContextMenu menu = (ContextMenu)d;
             if ((bool)e.NewValue)
             {
+
                 if (menu.popup == null)
                 {
                     // Creates new ribbon popup and prevents it`s closing
                     menu.isInInitializing = true;
                     menu.HookupParentPopup();
                     menu.isInInitializing = false;
-                    menu.popup.Activate();
+                    /*Mouse.Capture(null);
+                    menu.popup.Activate();*/
                 }
                 //Keyboard.Focus(menu.MenuBar);
             }
+
+
             //else FocusManager.SetFocusedElement(menu,null);
             //TODO: Strange behavior of command when our context menu is opened
         }
 
         // Creates ribbon popup and removes original System.Windows.Controls.ContextMenu popup
         private void HookupParentPopup()
-        {                      
+        {            
             popup = new RibbonPopup();
             this.popup.AllowsTransparency = true;
                 
@@ -342,15 +348,14 @@ namespace Fluent
 
             // Preventing ribbon popup closing
             popup.Child = MenuBar;
-            popup.Closed += OnPopupFirstClose;
+            popup.Opened += OnPopupFirstClose;
 
             popup.Opened += delegate { RaiseEvent(new RoutedEventArgs(OpenedEvent,this)); };
             popup.Closed += delegate { RaiseEvent(new RoutedEventArgs(ClosedEvent, this)); };
         
             // Set ribbon popup bindings
-            CreatePopupRoot(this.popup, this);
+            CreatePopupRoot(this.popup, this);            
         }
-
         private void OnPopupFirstClose(object sender, EventArgs e)
         {
             popup.Closed -= OnPopupFirstClose;

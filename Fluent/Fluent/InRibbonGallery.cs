@@ -56,6 +56,8 @@ namespace Fluent
         // Is visual currently snapped
         private bool isSnapped;
 
+        private bool isInitializing;
+
         #endregion
 
         #region Properties
@@ -432,16 +434,29 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false,OnIsOpenChanged));
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
+
+        // Coerce IsOpen
+        private static object CoerceIsOpen(DependencyObject d, object basevalue)
+        {
+            if ((d as InRibbonGallery).isInitializing) return true;
+            return basevalue;
+        }
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if((bool)e.NewValue)
+            if ((bool)e.NewValue)
             {
                 if ((d as InRibbonGallery).contextMenu == null) (d as InRibbonGallery).CreateMenu();
                 else (d as InRibbonGallery).contextMenu.IsOpen = true;
+                if((d as InRibbonGallery).IsCollapsed)(d as InRibbonGallery).dropDownButton.IsChecked= true;
             }
-            else if ((d as InRibbonGallery).contextMenu != null) (d as InRibbonGallery).contextMenu.IsOpen = false;
+            else
+            {
+                if ((d as InRibbonGallery).contextMenu != null) (d as InRibbonGallery).contextMenu.IsOpen = false;
+                //(d as InRibbonGallery).dropDownButton.IsHitTestVisible = true;
+                if ((d as InRibbonGallery).IsCollapsed) (d as InRibbonGallery).dropDownButton.IsChecked = false;
+            }
         }
 
         #endregion
@@ -881,17 +896,8 @@ namespace Fluent
         private void OnDropDownClick(object sender, RoutedEventArgs e)
         {            
             dropDownButton.IsChecked = true;
-            contextMenu.Placement = PlacementMode.Bottom;
-            contextMenu.Closed += OnDropDownMenuClosed;
             IsOpen = true;
             e.Handled = true;            
-        }
-
-        private void OnDropDownMenuClosed(object sender, RoutedEventArgs e)
-        {
-            dropDownButton.IsChecked = false;
-            contextMenu.Placement = PlacementMode.Relative;
-            contextMenu.Closed -= OnDropDownMenuClosed;
         }
 
         private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -981,6 +987,7 @@ namespace Fluent
 
         private void CreateMenu()
         {
+            isInitializing = true;
             contextMenu = new ContextMenu();
             AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
@@ -1007,11 +1014,14 @@ namespace Fluent
             contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, binding);
 
             contextMenu.PlacementTarget = this;
-            contextMenu.Placement = PlacementMode.Relative;   
+            if(IsCollapsed)contextMenu.Placement = PlacementMode.Bottom;
+            else contextMenu.Placement = PlacementMode.Relative;   
 
             contextMenu.Items.Add(gallery);
             contextMenu.Items.Add(menuBar);
-
+            
+            isInitializing = false;
+            Mouse.Capture(null);
             IsOpen = true;
             contextMenu.IsOpen = true;
         }
@@ -1034,7 +1044,9 @@ namespace Fluent
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
-            if (!IsCollapsed) IsSnapped = true;            
+            if (!IsCollapsed) IsSnapped = true;
+            if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
+            else contextMenu.Placement = PlacementMode.Relative;
             object selectedItem = listBox.SelectedItem;
             listBox.ItemsSource = null;
             gallery.MinWidth = ActualWidth;

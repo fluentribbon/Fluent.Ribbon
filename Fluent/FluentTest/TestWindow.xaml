@@ -340,12 +340,12 @@
           <Fluent:CheckBox Width="100" Height="20">Lalala</Fluent:CheckBox>
           <TextBox Width="100" Height="20"/>
           <Fluent:ComboBox Width="100" Height="20">
-            <ComboBoxItem>1</ComboBoxItem>
-            <ComboBoxItem>2</ComboBoxItem>
-            <ComboBoxItem>3</ComboBoxItem>
-            <ComboBoxItem>4</ComboBoxItem>
-            <ComboBoxItem>5</ComboBoxItem>
-          </Fluent:ComboBox>
+            <System:String>1</System:String>
+            <System:String>2</System:String>
+            <System:String>3</System:String>
+            <System:String>4</System:String>
+            <System:String>5</System:String>                            
+  </Fluent:ComboBox>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">

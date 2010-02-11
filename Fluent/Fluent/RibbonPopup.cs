@@ -47,6 +47,11 @@ namespace Fluent
             ClosePopups(0);
         }
 
+        public static void CollapseCurrent()
+        {
+            if (openedPopups.Count > 0) ClosePopups(openedPopups.Count - 1);
+        }
+
         #endregion
 
         #region Fields
@@ -105,7 +110,7 @@ namespace Fluent
 
             Activate();                                    
         }
-
+        
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             isFirstMouseUp = false;
@@ -117,9 +122,17 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
-        {         
-            if (isFirstMouseUp) e.Handled = true;
-            isFirstMouseUp = false;
+        {
+            if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+                e.Handled = true;
+            }
+            if (isFirstMouseUp)
+            {
+                e.Handled = true;
+                isFirstMouseUp = false;
+            }
         }
 
         /// <summary>
@@ -131,14 +144,9 @@ namespace Fluent
             if (openedPopups.Contains(this)) openedPopups.Remove(this);
             PopupAnimation = PopupAnimation.None;
 
-            // Remove hook
-            if ((hwndSource != null) && (!hwndSource.IsDisposed))
-            {
-                hwndSource.RemoveHook(WindowProc);
-                hwndSource = null;
-            }
             base.OnClosed(e);
         }
+
 
         /// <summary>
         /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyDown attached event 
@@ -213,8 +221,11 @@ namespace Fluent
                     {
                         if (((short)wParam.ToInt32()) == 0)
                         {
+                            // BUG: Fix for MessageBox: without parent messagebox closes
+                            if (NativeMethods.GetWindowLong(lParam, NativeMethods.GWL_HWNDPARENT) == hwndSource.Handle.ToInt32())
+                                break;                                
                             if(openedPopups.Count(x => x.hwndSource.Handle == lParam) == 0)
-                            {
+                            {                                
                                 ClosePopups(0);
                             }
                         }
@@ -240,6 +251,16 @@ namespace Fluent
                         {
                             IntPtr parentHwnd = (new WindowInteropHelper(wnd)).Handle;
                             NativeMethods.SendMessage(parentHwnd, 0x0086, new IntPtr(1), IntPtr.Zero);
+                        }
+                        break;
+                    }
+                case 0x0002/*WM_DESTROY*/:
+                    {
+                        if ((hwndSource != null) && (!hwndSource.IsDisposed))
+                        {
+                            // Remove hook
+                            hwndSource.RemoveHook(WindowProc);
+                            hwndSource = null;
                         }
                         break;
                     }

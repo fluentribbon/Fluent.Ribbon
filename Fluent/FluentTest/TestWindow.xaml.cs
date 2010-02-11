@@ -51,7 +51,7 @@ namespace FluentTest
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Launcher button pressed!!!");
+            MessageBox.Show(/*this,*/"Launcher button pressed!!!");
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)

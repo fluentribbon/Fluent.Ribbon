@@ -459,6 +459,8 @@ namespace Fluent
             item.IsChecked = false;
             (sender as MenuItem).IsChecked = true;
             SelectedFilter = (sender as MenuItem).Tag as GalleryGroupFilter;
+            e.Handled = true;
+            RibbonPopup.CollapseCurrent();
         }
 
         private MenuItem GetFilterMenuItem(GalleryGroupFilter filter)

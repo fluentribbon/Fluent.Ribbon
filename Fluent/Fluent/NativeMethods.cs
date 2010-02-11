@@ -227,6 +227,11 @@ namespace Fluent
         public const int GWL_EXSTYLE = (-20);
 
         /// <summary>
+        /// Retrieves a handle to the parent window, if any
+        /// </summary>
+        public const int GWL_HWNDPARENT = (-8);
+
+        /// <summary>
         /// Places the window above all non-topmost windows (that is, behind all topmost windows). 
         /// This flag has no effect if the window is already a non-topmost window.
         /// </summary>
@@ -649,6 +654,16 @@ namespace Fluent
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DeleteObject(IntPtr hObject);
 
+
+        /// <summary>
+        /// The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory.If you are retrieving a pointer or a handle, this function has been superseded by the GetWindowLongPtr function. (Pointers and handles are 32 bits on 32-bit Microsoft Windows and 64 bits on 64-bit Windows.) To write code that is compatible with both 32-bit and 64-bit versions of Windows, use GetWindowLongPtr.
+        /// </summary>
+        /// <param name="hWnd">Handle to the window and, indirectly, the class to which the window belongs</param>
+        /// <param name="nIndex">Specifies the zero-based offset to the value to be set. Valid values are in the range zero through the number of bytes of extra window memory, minus the size of an integer</param>
+        /// <returns>If the function succeeds, the return value is the requested 32-bit value. If the function fails, the return value is zero.</returns>
+        [DllImport("User32.dll")]
+        public static extern int GetWindowLong(IntPtr hWnd,int nIndex);      
+
         /// <summary>
         /// The SetWindowLong function changes an attribute of the specified window. 
         /// The function also sets the 32-bit (long) value at the specified offset into the extra window memory.
@@ -678,6 +693,34 @@ namespace Fluent
         [DllImport("user32.dll", PreserveSig = false)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
+
+        /// <summary>
+        /// The EnumChildProc function is an application-defined callback function used with the EnumChildWindows function. It receives the child window handles. The WNDENUMPROC type defines a pointer to this callback function. EnumChildProc is a placeholder for the application-defined function name. 
+        /// </summary>
+        /// <param name="hwnd">Handle to a child window of the parent window specified in EnumChildWindows</param>
+        /// <param name="lParam">Specifies the application-defined value given in EnumChildWindows</param>
+        /// <returns>To continue enumeration, the callback function must return TRUE; to stop enumeration, it must return FALSE</returns>
+        public delegate bool EnumChildProc(IntPtr hwnd, IntPtr lParam);
+
+        /// <summary>
+        /// The EnumChildWindows function enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function. EnumChildWindows continues until the last child window is enumerated or the callback function returns FALSE.
+        /// </summary>
+        /// <param name="hWndParent">Handle to the parent window whose child windows are to be enumerated. If this parameter is NULL, this function is equivalent to EnumWindows.</param>
+        /// <param name="lpEnumFunc">Pointer to an application-defined callback function</param>
+        /// <param name="lParam">Specifies an application-defined value to be passed to the callback function</param>
+        /// <returns>Not used</returns>
+        [DllImport("user32.dll", PreserveSig = false)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumChildWindows(IntPtr hWndParent, EnumChildProc lpEnumFunc, IntPtr lParam);
+
+        /// <summary>
+        /// The SetParent function changes the parent window of the specified child window. 
+        /// </summary>
+        /// <param name="hWndChild">Handle to the child window</param>
+        /// <param name="hWndNewParent">Handle to the new parent window. If this parameter is NULL, the desktop window becomes the new parent window. Windows 2000/XP: If this parameter is HWND_MESSAGE, the child window becomes a message-only window. </param>
+        /// <returns> the function succeeds, the return value is a handle to the previous parent window. If the function fails, the return value is NULL. </returns>
+        [DllImport("user32.dll", PreserveSig = false)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         #endregion
     }

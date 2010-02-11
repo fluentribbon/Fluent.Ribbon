@@ -21,7 +21,7 @@ namespace Fluent
     {
         #region Fields
 
-        private ObservableCollection<DependencyObject> items;                      // Cache for Items property
+        private ObservableCollection<object> items;                      // Cache for Items property
 
         #endregion
 
@@ -168,13 +168,13 @@ namespace Fluent
         ///     of this control.
         /// </summary> 
         [Bindable(true)]
-        public ObservableCollection<DependencyObject> Items
+        public ObservableCollection<object> Items
         {
             get
             {
                 if (items == null)
                 {
-                    items = new ObservableCollection<DependencyObject>();
+                    items = new ObservableCollection<object>();
                     items.CollectionChanged += OnItemsCollectionChanged;
                 }
 

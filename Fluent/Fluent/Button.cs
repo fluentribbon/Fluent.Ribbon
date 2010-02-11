@@ -130,7 +130,6 @@ namespace Fluent
         /// </summary>
         public Button()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
         #endregion
@@ -248,22 +247,14 @@ namespace Fluent
         #region Protected methods
 
         /// <summary>
-        /// Handles click event
+        /// Handles click
         /// </summary>
-        /// <param name="e">The event data</param>
-        protected virtual void OnClick(RoutedEventArgs e)
+        /// <param name="args"></param>
+        protected override void OnClick(RoutedEventArgs args)
         {
+            base.OnClick(args);
             ExecuteCommand();
-        }
-
-        /// <summary>
-        /// Handles click event
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnClick(object sender, RoutedEventArgs e)
-        {                                                
-            OnClick(e);
+            args.Handled = true;
         }
 
         #endregion
