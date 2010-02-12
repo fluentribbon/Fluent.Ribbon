@@ -31,10 +31,10 @@
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
     <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
 
-      <Fluent:Ribbon.Groups>
+      <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="TT" Visibility="Visible"/>
-      </Fluent:Ribbon.Groups>
+      </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q"/>
@@ -404,14 +404,14 @@
           
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="Format" IsContextual="True" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
+      <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="Design" IsContextual="True"
+      <Fluent:RibbonTabItem Header="Design" 
                              Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
-      <Fluent:RibbonTabItem Header="Layout" IsContextual="True" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
+      <Fluent:RibbonTabItem Header="Layout" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           
         </Fluent:RibbonGroupBox>

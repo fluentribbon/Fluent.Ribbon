@@ -151,7 +151,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of contextual tab groups
         /// </summary>
-        public ObservableCollection<RibbonContextualTabGroup> Groups
+        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
         {
             get
             {

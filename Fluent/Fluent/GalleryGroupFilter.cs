@@ -35,10 +35,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Groups.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for ContextualGroups.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
-            DependencyProperty.Register("Groups", typeof(string), typeof(GalleryGroupFilter), new UIPropertyMetadata(""));
+            DependencyProperty.Register("ContextualGroups", typeof(string), typeof(GalleryGroupFilter), new UIPropertyMetadata(""));
 
         #endregion
     }

@@ -107,7 +107,7 @@ namespace Fluent
         public bool IsContextual
         {
             get { return (bool)GetValue(IsContextualProperty); }
-            set { SetValue(IsContextualProperty, value); }
+            private set { SetValue(IsContextualProperty, value); }
         }
                        
         /// <summary>
@@ -219,7 +219,12 @@ namespace Fluent
         {
             RibbonTabItem tab = d as RibbonTabItem;
             if (e.OldValue != null) (e.OldValue as RibbonContextualTabGroup).RemoveTabItem(tab);
-            if (e.NewValue != null) (e.NewValue as RibbonContextualTabGroup).AppendTabItem(tab);
+            if (e.NewValue != null)
+            {
+                (e.NewValue as RibbonContextualTabGroup).AppendTabItem(tab);
+                tab.IsContextual = true;
+            }
+            else tab.IsContextual = false;
         }
 
         /// <summary>
