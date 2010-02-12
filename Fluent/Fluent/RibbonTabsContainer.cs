@@ -78,15 +78,17 @@ namespace Fluent
             // of all the tabs until the minimum padding required for displaying 
             // the tab selection and hover states is reached (regular tabs)
             double overflowWidth = desiredSize.Width - availableSize.Width;
-            double whitespace = (Children[0] as RibbonTabItem).Indent;
-            RibbonTabItem[] contextualTabs = Children.Cast<RibbonTabItem>().Where(x => x.IsContextual).ToArray();
-            IEnumerable<RibbonTabItem> reversedChildren = Children.Cast<RibbonTabItem>().Reverse();
+            double whitespace = (InternalChildren[0] as RibbonTabItem).Indent;
+            RibbonTabItem[] contextualTabs = InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed)).ToArray();
             double contextualTabsCount = contextualTabs.Length;
-            double regularTabsCount = Children.Count - contextualTabsCount;
+            var regularTabs =
+                InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
+            double regularTabsCount = regularTabs.Count();//InternalChildren.Count - contextualTabsCount;
+            double childrenCount = contextualTabsCount + regularTabsCount;
             if (overflowWidth < regularTabsCount * whitespace * 2)
             {
                 double decreaseValue = overflowWidth / (double)regularTabsCount;
-                foreach (RibbonTabItem tab in Children) if (!tab.IsContextual) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
+                foreach (RibbonTabItem tab in regularTabs) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
                 desiredSize = GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
@@ -100,22 +102,22 @@ namespace Fluent
             // Step 3. Gradually and uniformly remove the padding from both sides 
             // of all the tabs until the minimum padding required for displaying 
             // the tab selection and hover states is reached (contextual tabs)
-            if (overflowWidth < Children.Count * whitespace * 2)
+            if (overflowWidth < childrenCount * whitespace * 2)
             {
                 double regularTabsWhitespace = (double)regularTabsCount * whitespace * 2.0;
                 double decreaseValue = (overflowWidth - regularTabsWhitespace) / (double)contextualTabsCount;
-                foreach (RibbonTabItem tab in Children)
+                foreach (RibbonTabItem tab in regularTabs)
                 {                    
-                    if (!tab.IsContextual)
+                    //if (!tab.IsContextual)
                     {
                         double widthBeforeMeasure = tab.DesiredSize.Width;
                         tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace*2.0), tab.DesiredSize.Height));
                         overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
                     }
                 }
-                foreach (RibbonTabItem tab in reversedChildren)
+                foreach (RibbonTabItem tab in contextualTabs.Reverse())
                 {                    
-                    if (tab.IsContextual)
+                    //if (tab.IsContextual)
                     {
                         double widthBeforeMeasure = tab.DesiredSize.Width;
                         tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
@@ -140,18 +142,18 @@ namespace Fluent
             // truncating the text label. Continue reducing the width of the largest 
             // tab (or tabs in the case of ties) until all tabs are the same width. 
             // (Regular tabs)
-            foreach (RibbonTabItem tab in Children)
+            foreach (RibbonTabItem tab in regularTabs)
             {
-                if (!tab.IsContextual)
+                //if (!tab.IsContextual)
                 {
                     double widthBeforeMeasure = tab.DesiredSize.Width;
                     tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
                     overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
                 }
             }
-            foreach (RibbonTabItem tab in reversedChildren)
+            foreach (RibbonTabItem tab in contextualTabs.Reverse())
             {
-                if (tab.IsContextual)
+                //if (tab.IsContextual)
                 {
                     double widthBeforeMeasure = tab.DesiredSize.Width;
                     tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
@@ -173,8 +175,7 @@ namespace Fluent
             }
          
             // Sort regular tabs by descending
-            RibbonTabItem[] sortedRegularTabItems = Children.Cast<RibbonTabItem>()
-                .Where(x => !x.IsContextual)
+            RibbonTabItem[] sortedRegularTabItems = regularTabs
                 .OrderByDescending(x => x.DesiredSize.Width)
                 .ToArray();
 
@@ -219,12 +220,12 @@ namespace Fluent
             if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
             {
                 double settedWidth = (regularTabsWidth - overflowWidth) / (double)regularTabsCount;
-                for (int i = 0; i < reduceCount; i++)
+                for (int i = 0; i < regularTabsCount; i++)
                 {
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
                 }
                 desiredSize = GetChildrenDesiredSize();
-                if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
+                //if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
@@ -237,7 +238,7 @@ namespace Fluent
             // truncating the text label. Continue reducing the width of the largest 
             // tab (or tabs in the case of ties) until all tabs are the same width. 
             // (Contextual tabs)
-            for (int i = 0; i < reduceCount; i++)
+            for (int i = 0; i < regularTabsCount; i++)
             {
                 sortedRegularTabItems[i].Measure(new Size(30, availableSize.Height));
             }
