@@ -243,6 +243,6 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="Margin" Value="0,3,0,0"/>
+    <Setter Property="Margin" Value="2,3,3,0"/>
 </Style>
 </ResourceDictionary>

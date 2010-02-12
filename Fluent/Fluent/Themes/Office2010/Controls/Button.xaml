@@ -97,10 +97,12 @@
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Height" Value="22"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
         <Setter Property="Height" Value="22"/>
         <Setter Property="Width" Value="22"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
       </Trigger>
     </Style.Triggers>
   </Style>    

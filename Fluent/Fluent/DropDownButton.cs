@@ -47,6 +47,11 @@ namespace Fluent
 
         #region Properties
 
+        internal ContextMenu DropDownMenu
+        {
+            get { return contextMenu; }
+        }
+
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>

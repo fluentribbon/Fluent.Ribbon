@@ -121,9 +121,8 @@ namespace Fluent
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
-            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
-            // TODO: Fix: crashes if set Visibility = "Visible" in XAML
-            (group.Parent as RibbonTitleBar).InvalidateMeasure();
+            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;            
+            if (group.Parent!=null) (group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
         /// <summary>
