@@ -47,9 +47,12 @@ namespace Fluent
 
         #region Properties
 
-        internal ContextMenu DropDownMenu
+        /// <summary>
+        /// Button drop down menu
+        /// </summary>
+        public ContextMenu DropDownMenu
         {
-            get { return contextMenu; }
+            get { if(contextMenu==null)CreateMenu(); return contextMenu; }
         }
 
         /// <summary>

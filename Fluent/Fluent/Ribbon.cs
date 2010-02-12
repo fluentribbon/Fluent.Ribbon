@@ -860,6 +860,7 @@ namespace Fluent
                
         public bool IsInQuickAccessToolbar(UIElement element)
         {
+            if(element==null) return false;
             return quickAccessElements.ContainsKey(element);
         }
 
