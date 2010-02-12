@@ -52,8 +52,17 @@ namespace Fluent
         /// </summary>
         public ContextMenu DropDownMenu
         {
-            get { if(contextMenu==null)CreateMenu(); return contextMenu; }
+            get 
+            { 
+                if(contextMenu==null)
+                {
+                    CreateMenu();
+                    IsOpen = false;
+                }
+                return contextMenu;
+            } 
         }
+        
 
         /// <summary>
         /// Gets or sets button large icon

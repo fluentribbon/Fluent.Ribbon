@@ -32,8 +32,8 @@
     <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
 
       <Fluent:Ribbon.Groups>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Visibility="Visible"/>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="TT" Visibility="Visible"/>
       </Fluent:Ribbon.Groups>
 
       <Fluent:Ribbon.BackstageItems>
@@ -52,7 +52,7 @@
       </Fluent:Ribbon.BackstageItems>
       
       <Fluent:Ribbon.ToolBarItems>
-        <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
+        <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
         <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
         <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">
           <Fluent:Button.ToolTip>

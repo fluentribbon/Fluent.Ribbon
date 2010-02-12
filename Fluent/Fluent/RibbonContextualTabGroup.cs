@@ -81,14 +81,14 @@ namespace Fluent
         public static readonly DependencyProperty IndentExtenderProperty =
             DependencyProperty.Register("IndentExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
 
-        /// <summary>
+        /*/// <summary>
         /// Gets or sets chached width
         /// </summary>
         internal double CachedWidth
         {
             get { return cachedWidth; }
             set { cachedWidth = value; }
-        }
+        }*/
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace Fluent
         {
             RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
             for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;            
-            if (group.Parent!=null) (group.Parent as RibbonTitleBar).InvalidateMeasure();
+            if (group.Parent is RibbonTitleBar) (group.Parent as RibbonTitleBar).InvalidateMeasure();
         }
 
         /// <summary>

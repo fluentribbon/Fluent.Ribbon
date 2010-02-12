@@ -21,6 +21,12 @@ namespace Fluent
     /// </summary>
     public class RibbonContextualGroupsContainer: Panel
     {
+        #region Fields
+
+        List<Size> sizes = new List<Size>();
+
+        #endregion
+
         #region Overrides
 
         /// <summary>
@@ -33,16 +39,18 @@ namespace Fluent
         protected override Size ArrangeOverride(Size finalSize)
         {
             Rect finalRect = new Rect(finalSize);
+            int index = 0;
             foreach (UIElement item in InternalChildren)
             {
-                finalRect.Width = item.DesiredSize.Width;
-                finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
+                finalRect.Width = sizes[index].Width;//item.DesiredSize.Width;
+                finalRect.Height = Math.Max(finalSize.Height, sizes[index].Height);//Math.Max(finalSize.Height, item.DesiredSize.Height);
                 item.Arrange(finalRect);
-                finalRect.X += item.DesiredSize.Width;
+                finalRect.X += sizes[index].Width;// item.DesiredSize.Width;
+                index++;
             }
             return finalSize;
         }
-
+        
         /// <summary>
         /// When overridden in a derived class, measures the size in layout required for 
         /// child elements and determines a size for the System.Windows.FrameworkElement-derived class.
@@ -53,6 +61,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size availableSize)
         {
             double x = 0;
+            sizes.Clear();
             Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (RibbonContextualTabGroup child in InternalChildren)
             {
@@ -118,12 +127,13 @@ namespace Fluent
                     x = availableSize.Width;
                 }
                 child.Measure(new Size(finalWidth, availableSize.Height));
+                sizes.Add(new Size(finalWidth, availableSize.Height));
             }
             double height = availableSize.Height;
             if (double.IsPositiveInfinity(height)) height = 0;
             return new Size(x, height);
         }
-
+        
         #endregion
     }
 }

@@ -46,6 +46,8 @@ namespace Fluent
         // Ribbon groups container
         private RibbonGroupsContainer groupsContainer = new RibbonGroupsContainer();
 
+
+        private double cachedWidth;
         #endregion
 
         #region Properties
@@ -442,6 +444,14 @@ namespace Fluent
                                                contentContainer.Margin.Right;
                 }
             }
+
+            if ((cachedWidth!=baseConstraint.Width)&&(IsContextual)&&(Group!=null))
+            {
+                cachedWidth = baseConstraint.Width;
+                FrameworkElement parent = (VisualTreeHelper.GetParent(Group) as FrameworkElement);
+                if(parent != null) parent.InvalidateMeasure();
+            }
+
             return baseConstraint;
         }
 
