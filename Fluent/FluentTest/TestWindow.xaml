@@ -94,7 +94,12 @@
                 <Image Source="Images\PasteFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="L" Tag="Paste Options:"/>
                 <Image Source="Images\PasteSourceFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="E" Tag="Paste Options:"/>
             </Fluent:Gallery>
-            <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S"/>
+            <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S">
+              <Fluent:MenuItem.ToolTip>
+                <Fluent:ScreenTip Title="Paste Special"                                  
+                                  Text="This ScreenTip is attached to menu item"/>
+              </Fluent:MenuItem.ToolTip>
+            </Fluent:MenuItem>
             <Fluent:MenuItem Text="Set Default Paste..." Fluent:KeyTip.Keys="A"/>
           </Fluent:SplitButton>
         <Fluent:Button x:Name="ssd" IsEnabled="False" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small">

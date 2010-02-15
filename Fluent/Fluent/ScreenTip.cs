@@ -74,6 +74,7 @@ namespace Fluent
 
             // Exclude QAT items
             bool notQuickAccessItem = !IsQuickAccessItem(PlacementTarget);
+            bool notContextMenuChild = !IsContextMenuChild(PlacementTarget);
 
             if (notQuickAccessItem && IsRibbonAligned && (ribbon != null))
             {
@@ -83,7 +84,7 @@ namespace Fluent
                 CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
-            else if (notQuickAccessItem && IsRibbonAligned && (!(topLevelElement is Window)))
+            else if (notQuickAccessItem && IsRibbonAligned && notContextMenuChild && (!(topLevelElement is Window)))
             {
                 // Placed on Popup?                
                 UIElement decoratorChild = GetDecoratorChild(topLevelElement);
@@ -100,6 +101,19 @@ namespace Fluent
                     new CustomPopupPlacement(new Point(x, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
                     new CustomPopupPlacement(new Point(x, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
             }
+        }
+
+        static bool IsContextMenuChild(UIElement element)
+        {
+            UIElement parent = null;
+            do
+            {
+                parent = VisualTreeHelper.GetParent(element) as UIElement;
+                if (parent is ContextMenuBar) return true;
+                element = parent;
+            }
+            while (element != null);
+            return false;
         }
 
         static bool IsQuickAccessItem(UIElement element)
