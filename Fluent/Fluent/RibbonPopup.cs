@@ -222,7 +222,7 @@ namespace Fluent
                         if (((short)wParam.ToInt32()) == 0)
                         {
                             // BUG: Fix for MessageBox: without parent messagebox closes
-                            if (NativeMethods.GetWindowLong(lParam, NativeMethods.GWL_HWNDPARENT) == hwndSource.Handle.ToInt32())
+                            if (NativeMethods.GetWindowLongPtr(lParam, NativeMethods.GWL_HWNDPARENT) == hwndSource.Handle)
                                 break;                                
                             if(openedPopups.Count(x => x.hwndSource.Handle == lParam) == 0)
                             {                                

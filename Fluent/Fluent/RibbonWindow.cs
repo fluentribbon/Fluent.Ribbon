@@ -242,7 +242,7 @@ namespace Fluent
             uint num = NativeMethods.TrackPopupMenuEx(NativeMethods.GetSystemMenu(handle, false), 0x100, (int)point.X, (int)point.Y, handle, IntPtr.Zero);
             if (num != 0)
             {
-                NativeMethods.PostMessage(handle, NativeMethods.WM_SYSCOMMAND, (int)num, IntPtr.Zero);
+                NativeMethods.PostMessage(handle, NativeMethods.WM_SYSCOMMAND, new IntPtr(num), IntPtr.Zero);
                 flag = true;
             }
             return flag;
@@ -497,6 +497,7 @@ namespace Fluent
                                 (int)rect.Width - borderWidth,
                                 (int)rect.Height - borderHeight);
                             NativeMethods.SetWindowRgn(handle, hRgn, true);
+                            NativeMethods.DeleteObject(hRgn);
                         }
 
                         break;
@@ -682,8 +683,8 @@ namespace Fluent
             style |= NativeMethods.WS_SYSMENU | NativeMethods.WS_MINIMIZEBOX | NativeMethods.WS_MAXIMIZEBOX;            
 
             // Устанавливаем стиль окна
-            NativeMethods.SetWindowLong(handle, NativeMethods.GWL_STYLE, style);
-            NativeMethods.SetWindowLong(handle, NativeMethods.GWL_EXSTYLE, exStyle);
+            NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_STYLE, new IntPtr(style));
+            NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE, new IntPtr(exStyle));
 
             NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_NOTOPMOST), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);
 

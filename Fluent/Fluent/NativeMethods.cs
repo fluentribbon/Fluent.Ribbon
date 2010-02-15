@@ -489,7 +489,7 @@ namespace Fluent
         /// <param name="lParam">Параметр</param>
         /// <param name="plResult">Результат</param>
         /// <returns>Результат</returns>
-        [DllImport("dwmapi.dll", PreserveSig = false)]
+        [DllImport("dwmapi.dll")]
         public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 
         /// <summary>
@@ -583,7 +583,7 @@ namespace Fluent
         /// </returns>
         [DllImport("User32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PostMessage(IntPtr hWnd, int Msg, int wParam, IntPtr lParam);
+        public static extern bool PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// Gets low word of dword
@@ -661,8 +661,19 @@ namespace Fluent
         /// <param name="hWnd">Handle to the window and, indirectly, the class to which the window belongs</param>
         /// <param name="nIndex">Specifies the zero-based offset to the value to be set. Valid values are in the range zero through the number of bytes of extra window memory, minus the size of an integer</param>
         /// <returns>If the function succeeds, the return value is the requested 32-bit value. If the function fails, the return value is zero.</returns>
-        [DllImport("User32.dll")]
-        public static extern int GetWindowLong(IntPtr hWnd,int nIndex);      
+        public static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size == 8)
+                return GetWindowLongPtr64(hWnd, nIndex);
+            else
+                return GetWindowLongPtr32(hWnd, nIndex);
+        }
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
+        private static extern IntPtr GetWindowLongPtr32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
+        private static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, int nIndex);
 
         /// <summary>
         /// The SetWindowLong function changes an attribute of the specified window. 
@@ -673,8 +684,19 @@ namespace Fluent
         /// <param name="dwNewLong">Specifies the replacement value. </param>
         /// <returns>If the function succeeds, the return value is the previous value of the specified 32-bit integer.
         /// If the function fails, the return value is zero.</returns>
-        [DllImport("User32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, long dwNewLong);
+        public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        {
+              if (IntPtr.Size == 8)
+              return SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+              else
+              return new IntPtr(SetWindowLong32(hWnd, nIndex, dwNewLong.ToInt32()));
+        }
+
+        [DllImport("user32.dll", EntryPoint="SetWindowLong")]
+        private static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint="SetWindowLongPtr")]
+        private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
         /// <summary>
         /// Changes the size, position, and Z order of a child, pop-up, or top-level window. 
@@ -690,7 +712,7 @@ namespace Fluent
         /// <param name="uFlags">Specifies the window sizing and positioning flags.</param>
         /// <returns>If the function succeeds, the return value is nonzero.
         /// If the function fails, the return value is zero.</returns>
-        [DllImport("user32.dll", PreserveSig = false)]
+        [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 
@@ -709,7 +731,7 @@ namespace Fluent
         /// <param name="lpEnumFunc">Pointer to an application-defined callback function</param>
         /// <param name="lParam">Specifies an application-defined value to be passed to the callback function</param>
         /// <returns>Not used</returns>
-        [DllImport("user32.dll", PreserveSig = false)]
+        [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool EnumChildWindows(IntPtr hWndParent, EnumChildProc lpEnumFunc, IntPtr lParam);
 
