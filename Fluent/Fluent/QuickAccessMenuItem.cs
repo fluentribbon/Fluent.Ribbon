@@ -35,6 +35,11 @@ namespace Fluent
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         UIElement CreateQuickAccessItem();
+
+        /// <summary>
+        /// Gets or sets whether control can be added to quick access toolbar
+        /// </summary>
+        bool CanAddToQuickAccessToolBar { get; set; }
     }
     
     /// <summary>
@@ -163,13 +168,14 @@ namespace Fluent
         /// a quick access toolbar item, false otherwise</returns>
         public static bool IsSupported(UIElement element)
         {
-            if (element is IQuickAccessItemProvider) return true;
-            if ((element is Button) ||
+            IQuickAccessItemProvider provider = (element as IQuickAccessItemProvider);
+            if ((provider != null) && (provider.CanAddToQuickAccessToolBar)) return true;
+            /*if ((element is Button) ||
                 (element is CheckBox) ||
                 (element is RadioButton) ||
                 (element is ComboBox) ||
                 (element is TextBox)) return true;
-            else return false;
+            else */return false;
         }
 
         /// <summary>
@@ -182,15 +188,16 @@ namespace Fluent
         {
             UIElement result = null;
 
-            // If control supports the interface just return what it provides            
-            if (element is IQuickAccessItemProvider) result = (element as IQuickAccessItemProvider).CreateQuickAccessItem();
+            // If control supports the interface just return what it provides 
+            IQuickAccessItemProvider provider = (element as IQuickAccessItemProvider);
+            if ((provider!=null)&&(provider.CanAddToQuickAccessToolBar)) result = (element as IQuickAccessItemProvider).CreateQuickAccessItem();
 
-            // Predefined controls            
+            /*// Predefined controls            
             else if (element is TextBox) result = GetTextBoxQuickAccessItem(element as TextBox);
             else if (element is ComboBox) result = GetComboBoxQuickAccessItem(element as ComboBox);
             else if (element is ToggleButton) result = GetToggleButtonQuickAccessItem(element as ToggleButton);
             else if (element is Button) result = GetButtonQuickAccessItem((Button)element);            
-
+            */
             // The control isn't supported
             if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
             

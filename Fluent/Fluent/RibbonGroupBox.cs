@@ -774,6 +774,21 @@ namespace Fluent
             IsSnapped = false;
         }
 
+        /// <summary>
+        /// Gets or sets whether control can be added to quick access toolbar
+        /// </summary>
+        public bool CanAddToQuickAccessToolBar
+        {
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
+            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
+
         #endregion
     }
 }
