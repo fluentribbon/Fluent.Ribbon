@@ -619,6 +619,7 @@ namespace Fluent
         {
             isInitializing = true;
             contextMenu = new ContextMenu();
+            contextMenu.Owner = this;
             contextMenu.Items.Add(gallery);
             AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;

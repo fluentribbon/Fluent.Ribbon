@@ -404,6 +404,54 @@ namespace Fluent
             /// </summary>
             public POINT ptMaxTrackSize;
         } ;
+        
+        /// <summary>
+        /// The WINDOWINFO structure contains window information.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWINFO
+        {
+            /// <summary>
+            /// The size of the structure, in bytes. The caller must set this to sizeof(WINDOWINFO). 
+            /// </summary>
+            public uint cbSize;
+            /// <summary>
+            /// Pointer to a RECT structure that specifies the coordinates of the window. 
+            /// </summary>
+            public Rect rcWindow;
+            /// <summary>
+            /// Pointer to a RECT structure that specifies the coordinates of the client area
+            /// </summary>
+            public Rect rcClient;
+            /// <summary>
+            /// The window styles. For a table of window styles, see CreateWindowEx.
+            /// </summary>
+            public uint dwStyle;
+            /// <summary>
+            /// The extended window styles. For a table of extended window styles, see CreateWindowEx
+            /// </summary>
+            public uint dwExStyle;
+            /// <summary>
+            /// The window status. If this member is WS_ACTIVECAPTION, the window is active. Otherwise, this member is zero
+            /// </summary>
+            public uint dwWindowStatus;
+            /// <summary>
+            /// The width of the window border, in pixels.
+            /// </summary>
+            public uint cxWindowBorders;
+            /// <summary>
+            /// The height of the window border, in pixels. 
+            /// </summary>
+            public uint cyWindowBorders;
+            /// <summary>
+            /// The window class atom (see RegisterClass). 
+            /// </summary>
+            public ushort atomWindowType;
+            /// <summary>
+            /// The Microsoft Windows version of the application that created the window. 
+            /// </summary>
+            public ushort wCreatorVersion;
+        }
 
         #endregion
 
@@ -743,6 +791,17 @@ namespace Fluent
         /// <returns> the function succeeds, the return value is a handle to the previous parent window. If the function fails, the return value is NULL. </returns>
         [DllImport("user32.dll", PreserveSig = false)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        /// <summary>
+        /// The GetWindowInfo function retrieves information about the specified window.
+        /// </summary>
+        /// <param name="hwnd">Handle to the window whose information is to be retrieved. </param>
+        /// <param name="pwi">Pointer to a WINDOWINFO structure to receive the information. Note that you must set WINDOWINFO.cbSize to sizeof(WINDOWINFO) before calling this function. </param>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
 
         #endregion
     }

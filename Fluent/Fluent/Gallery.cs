@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -402,6 +403,18 @@ namespace Fluent
 
         #region Overrides
 
+        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            UpdateGroupBy(GroupBy);
+            UpdateFilter();
+        }
+
+        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
+        {
+            UpdateFilter();
+            UpdateGroupBy(GroupBy);
+        }
+
         public override void OnApplyTemplate()
         {            
             groupsMenuButton = GetTemplateChild("PART_DropDownButton") as DropDownButton;
@@ -482,8 +495,57 @@ namespace Fluent
         public override UIElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
-            BindQuickAccessItem(button);
+            parentContextMenu = FindContextMenu();
+            if (parentContextMenu != null)
+            {
+                IQuickAccessItemProvider provider = parentContextMenu.Owner as IQuickAccessItemProvider;
+                if (provider != null) return provider.CreateQuickAccessItem();
+
+                BindQuickAccessItem(button);
+
+                button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            }
             return button;
+        }
+
+        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        {
+            DropDownButton button = sender as DropDownButton;
+            for (int i = 0; i < parentContextMenu.Items.Count; i++)
+            {
+                UIElement item = parentContextMenu.Items[0];
+                parentContextMenu.Items.Remove(item);
+                button.Items.Add(item);
+                i--;
+            }
+            button.MenuClosed += OnQuickAccessMenuClosed;
+            quickAccessButton = button;
+        }
+
+        private ContextMenu parentContextMenu;
+        private DropDownButton quickAccessButton;
+
+        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            for (int i = 0; i < quickAccessButton.Items.Count; i++)
+            {
+                UIElement item = quickAccessButton.Items[0];
+                quickAccessButton.Items.Remove(item);
+                parentContextMenu.Items.Add(item);
+                i--;
+            }
+        }
+
+        private ContextMenu FindContextMenu()
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(this);
+            while(parent!=null)
+            {
+                if (parent is ContextMenuBar) return (parent as ContextMenuBar).ParentContextMenu;
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return null;
         }
 
         /// <summary>
@@ -493,20 +555,8 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             DropDownButton button = element as DropDownButton;
-            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
+            if (parentContextMenu!=null) Bind(parentContextMenu, button, "MenuResizeMode", Fluent.ContextMenu.ResizeModeProperty, BindingMode.Default);
             base.BindQuickAccessItem(element);
-        }
-
-        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            UpdateGroupBy(GroupBy);
-            UpdateFilter();
-        }
-
-        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
-        {
-            UpdateFilter();
-            UpdateGroupBy(GroupBy);
         }
 
         #endregion

@@ -123,12 +123,12 @@
     		<Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="28,0,113,0" VerticalAlignment="Top">
 				<Fluent:RibbonTitleBar.Header>
 					<Grid>
-    			<Rectangle x:Name="rectangle" Fill="#7FFFFFFF" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-4,5,-4,3" Width="{Binding ActualWidth, ElementName=textBlock, Mode=Default}" Height="{Binding ActualHeight, ElementName=textBlock, Mode=Default}" RadiusX="2" RadiusY="2">
+    			<Rectangle x:Name="rectangle" Fill="#7FFFFFFF" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,3" Width="{Binding ActualWidth, ElementName=textBlock, Mode=Default}" Height="{Binding ActualHeight, ElementName=textBlock, Mode=Default}" RadiusX="2" RadiusY="2">
     				<Rectangle.Effect>
     					<BlurEffect Radius="10"/>
     				</Rectangle.Effect>
     			</Rectangle>
-    			<TextBlock x:Name="textBlock" Margin="0,3,0,0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+    			<TextBlock x:Name="textBlock" Margin="4,3,4,0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
     		</Grid>
 				</Fluent:RibbonTitleBar.Header>
     			

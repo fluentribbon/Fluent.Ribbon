@@ -13,10 +13,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -91,6 +93,11 @@ namespace Fluent
         private RibbonTabItem savedTabItem;
 
         Dictionary<UIElement,UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
+
+        private double savedMinWidth;
+        private double savedMinHeight;
+        int savedWidth;
+        private int savedHeight;
 
         #endregion
 
@@ -543,7 +550,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-               DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));      
+               DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -939,8 +946,32 @@ namespace Fluent
             }
             if(quickAccessToolBar!=null) quickAccessToolBar.IsEnabled = false;
             if(titleBar!=null) titleBar.IsEnabled = false;
-            Window.GetWindow(this).PreviewKeyDown += OnBackstageEscapeKeyDown;
-        }        
+            Window wnd = Window.GetWindow(this);
+            wnd.PreviewKeyDown += OnBackstageEscapeKeyDown;
+            savedMinWidth = wnd.MinWidth;
+            savedMinHeight = wnd.MinHeight;
+
+            SaveWindowSize(wnd);
+
+            wnd.MinWidth = 500;
+            wnd.MinHeight = 400;
+            wnd.SizeChanged += OnWindowSizeChanged;
+        }
+
+        private void SaveWindowSize(Window wnd)
+        {
+            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
+            info.cbSize = (uint)Marshal.SizeOf(info);
+            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
+            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
+            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
+        }
+
+        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Window wnd = Window.GetWindow(this);
+            SaveWindowSize(wnd);
+        }
 
         // Hide backstage
         private void HideBackstage()
@@ -950,7 +981,14 @@ namespace Fluent
             if (tabControl != null) tabControl.SelectedItem = savedTabItem;
             if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = true;
             if (titleBar != null) titleBar.IsEnabled = true;
-            Window.GetWindow(this).PreviewKeyDown -= OnBackstageEscapeKeyDown;
+            Window wnd = Window.GetWindow(this);
+            wnd.PreviewKeyDown -= OnBackstageEscapeKeyDown;
+            wnd.SizeChanged -= OnWindowSizeChanged;
+
+            wnd.MinWidth = savedMinWidth;
+            wnd.MinHeight = savedMinHeight;
+            NativeMethods.SetWindowPos((new WindowInteropHelper(wnd)).Handle, new IntPtr(NativeMethods.HWND_NOTOPMOST),
+                                       0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
         }
 
         // Handles backstage Esc key keydown

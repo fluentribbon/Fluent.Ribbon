@@ -7,13 +7,13 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
-<Grid x:Name="Grid" Background="{TemplateBinding Background}">            
-            <ScrollContentPresenter  Margin="{TemplateBinding Padding}" x:Name="PART_ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}" />
+<Grid x:Name="Grid" Background="{TemplateBinding Background}" IsHitTestVisible="True">            
+            <ScrollContentPresenter  Margin="{TemplateBinding Padding}" x:Name="PART_ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}" IsHitTestVisible="True" />
             <RepeatButton
                                       
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Left" Width="8" Height="22" VerticalAlignment="Bottom">
+                                      Focusable="false" HorizontalAlignment="Left" Width="8" Height="Auto" VerticalAlignment="Stretch">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -33,7 +33,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Right" Width="8" Height="22" VerticalAlignment="Bottom">
+                                      Focusable="false" HorizontalAlignment="Right" Width="8" Height="Auto" VerticalAlignment="Stretch">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"

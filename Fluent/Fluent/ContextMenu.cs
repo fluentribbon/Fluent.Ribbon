@@ -160,6 +160,23 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// Gets or sets owner of contextmenu
+        /// </summary>
+        public object Owner
+        {
+            get { return (object)GetValue(OwnerProperty); }
+            set { SetValue(OwnerProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Owner.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty OwnerProperty =
+            DependencyProperty.Register("Owner", typeof(object), typeof(ContextMenu), new UIPropertyMetadata(null));
+
+
+
         #endregion
 
         #region Constructor
@@ -345,7 +362,7 @@ namespace Fluent
             binding.Mode = BindingMode.TwoWay;
             binding.Source = this;
             MenuBar.SetBinding(ContextMenuBar.ResizeModeProperty, binding);
-
+            MenuBar.ParentContextMenu = this;
             // Preventing ribbon popup closing
             popup.Child = MenuBar;
             popup.Opened += OnPopupFirstClose;

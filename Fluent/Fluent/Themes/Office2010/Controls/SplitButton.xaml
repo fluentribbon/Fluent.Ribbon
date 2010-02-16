@@ -42,7 +42,7 @@
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" IsHitTestVisible="false" Visibility="Hidden"/>
       			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
       		</StackPanel>
-          <Fluent:Button x:Name="PART_Button" Margin="-2,-2,-2,27" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}" LargeIcon="{TemplateBinding LargeIcon}" Icon="{TemplateBinding Icon}" IsEnabled="{TemplateBinding IsEnabled}" Text="{TemplateBinding Text}"/>
+          <Fluent:Button x:Name="PART_Button" Margin="-2,-2,-2,27" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}" LargeIcon="{TemplateBinding LargeIcon}" Icon="{TemplateBinding Icon}" IsEnabled="{TemplateBinding IsEnabled}" Text="{TemplateBinding Text}" ToolTip="{TemplateBinding ToolTip}"/>
       	</Grid>
       </Border>
     </Border>

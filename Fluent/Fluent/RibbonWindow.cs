@@ -520,11 +520,22 @@ namespace Fluent
             if ((hitTested != null) && (hitTested != mainGrid))
             {
                 if (hitTested == imageResizeGrip) return new IntPtr(NativeMethods.HTBOTTOMRIGHT);
-                if (hitTested == titleBar) return new IntPtr(NativeMethods.HTCAPTION);
+                if (hitTested == titleBar)
+                {
+                    if (IsDwmEnabled)
+                    {
+                        IntPtr result = IntPtr.Zero;
+                        NativeMethods.DwmDefWindowProc(handle, msg, wParam, lParam, ref result);
+                        if (result != IntPtr.Zero)
+                        {
+                            return result;
+                        }
+                    }
+                    return new IntPtr(NativeMethods.HTCAPTION);
+                }
                 if (hitTested == iconImage) return new IntPtr(NativeMethods.HTCLIENT);
                 return IntPtr.Zero;
             }
-
             if (IsDwmEnabled)
             {
                 IntPtr result = IntPtr.Zero;

@@ -96,6 +96,7 @@
     <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="RibbonItemsControl.cs" />
     <Compile Include="RibbonListBox.cs" />
+    <Compile Include="RibbonScrollViewer.cs" />
     <Compile Include="RibbonToolBarControlGroup.cs" />
     <Compile Include="RibbonToolBarControlDefinition.cs" />
     <Compile Include="RibbonToolBarControlGroupDefinition.cs" />

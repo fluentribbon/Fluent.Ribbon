@@ -8,6 +8,7 @@
 #endregion
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows;
@@ -57,9 +58,6 @@ namespace Fluent
     public class RibbonGroupBox :ItemsControl, IQuickAccessItemProvider
     {
         #region Fields
-
-        // Dialog launcher button
-        private Button dialogLauncherButton;
 
         // Dropdown poup
         private Popup popup;
@@ -207,11 +205,174 @@ namespace Fluent
         static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupBox ribbonGroupBox = (RibbonGroupBox) d;
-            if (ribbonGroupBox.dialogLauncherButton != null)
+            if (ribbonGroupBox.LauncherButton != null)
             {
-                KeyTip.SetKeys(ribbonGroupBox.dialogLauncherButton, (string)e.NewValue);
+                KeyTip.SetKeys(ribbonGroupBox.LauncherButton, (string)e.NewValue);
             }
         }
+
+        #endregion
+
+        #region LauncherIcon
+
+        /// <summary>
+        /// Gets or sets launcher button icon
+        /// </summary>
+        public ImageSource LauncherIcon
+        {
+            get { return (ImageSource)GetValue(LauncherIconProperty); }
+            set { SetValue(LauncherIconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LauncherIconProperty =
+            DependencyProperty.Register("LauncherIcon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region LauncherIcon
+
+        /// <summary>
+        /// Gets or sets launcher button text
+        /// </summary>
+        public string LauncherText
+        {
+            get { return (string)GetValue(LauncherTextProperty); }
+            set { SetValue(LauncherTextProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LauncherTextProperty =
+            DependencyProperty.Register("LauncherText", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region LauncherCommand
+        
+        /// <summary>
+        /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
+        /// </summary>
+        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        public ICommand LauncherCommand
+        {
+            get
+            {
+                return (ICommand)GetValue(LauncherCommandProperty);
+            }
+            set
+            {
+                SetValue(LauncherCommandProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
+        /// </summary>
+        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        public object LauncherCommandParameter
+        {
+            get
+            {
+                return GetValue(LauncherCommandParameterProperty);
+            }
+            set
+            {
+                SetValue(LauncherCommandParameterProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the element on which to raise the specified command. This is a dependency property.
+        /// </summary>
+        [Bindable(true), Category("Action")]
+        public IInputElement LauncherCommandTarget
+        {
+            get
+            {
+                return (IInputElement)GetValue(LauncherCommandTargetProperty);
+            }
+            set
+            {
+                SetValue(LauncherCommandTargetProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register("LauncherCommandParameter", typeof(object), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        /// <summary>
+        /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register("LauncherCommand", typeof(ICommand), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register("LauncherCommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        
+        #endregion
+
+        #region LauncherToolTip
+
+        /// <summary>
+        /// Gets or sets launcher button tooltip
+        /// </summary>
+        public object LauncherToolTip
+        {
+            get { return (object)GetValue(LauncherToolTipProperty); }
+            set { SetValue(LauncherToolTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for LauncherToolTip.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LauncherToolTipProperty =
+            DependencyProperty.Register("LauncherToolTip", typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+
+
+
+        #endregion
+
+        #region IsLauncherEnabled
+
+        /// <summary>
+        /// Gets or sets whether launcher button is enabled
+        /// </summary>
+        public bool IsLauncherEnabled
+        {
+            get { return (bool)GetValue(IsLauncherEnabledProperty); }
+            set { SetValue(IsLauncherEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsLauncherEnabled.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsLauncherEnabledProperty =
+            DependencyProperty.Register("IsLauncherEnabled", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
+
+        #endregion
+
+        #region LauncherButton
+
+        /// <summary>
+        /// Gets launcher button
+        /// </summary>
+        public Button LauncherButton
+        {
+            get { return (Button)GetValue(LauncherButtonProperty); }
+            private set { SetValue(LauncherButtonProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LauncherButtonProperty =
+            DependencyProperty.Register("LauncherButton", typeof(Button), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -245,7 +406,7 @@ namespace Fluent
             {
                 ArrayList array = new ArrayList();
                 array.AddRange(Items);
-                if (dialogLauncherButton!=null) array.Add(dialogLauncherButton);
+                if (LauncherButton != null) array.Add(LauncherButton);
                 return array.GetEnumerator();
             }
         }
@@ -278,7 +439,7 @@ namespace Fluent
         /// <summary>
         /// Dialog launcher btton click event
         /// </summary>
-        public event RoutedEventHandler DialogLauncherButtonClick;
+        public event RoutedEventHandler LauncherClick;
 
         #endregion
 
@@ -445,13 +606,13 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (dialogLauncherButton != null) dialogLauncherButton.Click -= OnDialogLauncherButtonClick;
-            dialogLauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
-            if (dialogLauncherButton != null)
+            if (LauncherButton != null) LauncherButton.Click -= OnDialogLauncherButtonClick;
+            LauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
+            if (LauncherButton != null)
             {
-                dialogLauncherButton.Click += OnDialogLauncherButtonClick;
-                if (LauncherKeys != null) 
-                    KeyTip.SetKeys(dialogLauncherButton, LauncherKeys);
+                LauncherButton.Click += OnDialogLauncherButtonClick;
+                if (LauncherKeys != null)
+                    KeyTip.SetKeys(LauncherButton, LauncherKeys);
             }
             
             popup = GetTemplateChild("PART_Popup") as Popup;
@@ -518,7 +679,7 @@ namespace Fluent
         /// <param name="e">the event data</param>
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            if (DialogLauncherButtonClick != null) DialogLauncherButtonClick(this, e);
+            if (LauncherClick != null) LauncherClick(this, e);
             e.Handled = true;
         }
         
@@ -569,7 +730,9 @@ namespace Fluent
 
             button.Size = RibbonControlSize.Small;
 
-            button.MouseLeftButtonDown += OnQuickAccessClick;
+            button.UseAutoCheck = false;
+
+            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
 
             Binding binding = new Binding("Icon");
             binding.Source = this;
@@ -596,12 +759,11 @@ namespace Fluent
                 //Mouse.Capture(popup);
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
+                (sender as ToggleButton).IsChecked = true;
                 e.Handled = true;
             }
         }
-
-        
-
+       
         private void OnMenuClosed(object sender, EventArgs e)
         {            
             this.State = savedState;

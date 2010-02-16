@@ -14,6 +14,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Fluent
 {
@@ -192,6 +193,16 @@ namespace Fluent
                 items[0].IsSelected = true;
             }
             base.OnMouseLeftButtonUp(e);
+        }
+
+        protected override void OnMouseDoubleClick(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+            if(e.RightButton==MouseButtonState.Pressed)
+            {
+                RibbonWindow wnd = Window.GetWindow(this) as RibbonWindow;
+                if (wnd != null) wnd.ShowSystemMenu(PointToScreen(e.GetPosition(this)));
+            }
         }
 
         #endregion

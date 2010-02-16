@@ -12,16 +12,16 @@
       	<ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     		<Grid>
     			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
+    				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
     				<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
-    				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0">
-
-    					<ContentPresenter/>
-    				</AdornerDecorator>    			
-					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="False"/>
-					<StackPanel x:Name="stackPanel" Margin="0,-4,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+    				<StackPanel x:Name="stackPanel" Margin="0,-4,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
     					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{TemplateBinding Icon}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
     				</StackPanel>
     				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0">
+
+    					<ContentPresenter/>
+    				</AdornerDecorator>
     			</Grid>
     		</Grid>
       		<ControlTemplate.Triggers>

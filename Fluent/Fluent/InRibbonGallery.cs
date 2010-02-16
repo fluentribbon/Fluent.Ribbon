@@ -58,6 +58,8 @@ namespace Fluent
 
         private bool isInitializing;
 
+        private DropDownButton quickAccessButton;
+
         #endregion
 
         #region Properties
@@ -989,6 +991,7 @@ namespace Fluent
         {
             isInitializing = true;
             contextMenu = new ContextMenu();
+            contextMenu.Owner = this;
             AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
 
@@ -1085,9 +1088,76 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            DropDownButton button = element as DropDownButton;
-            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
+            DropDownButton button = element as DropDownButton;            
             base.BindQuickAccessItem(element);
+            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+        }
+
+        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        {
+            DropDownButton button = sender as DropDownButton;
+
+            if (!IsCollapsed) IsSnapped = true;
+            object selectedItem = listBox.SelectedItem;
+            listBox.ItemsSource = null;
+            gallery.MinWidth = ActualWidth;
+            gallery.MinHeight = ActualHeight;
+            if (ItemsSource == null) gallery.ItemsSource = Items;
+            else gallery.ItemsSource = ItemsSource;
+            gallery.SelectedItem = selectedItem;
+            SelectedItem = selectedItem;
+            SelectedIndex = gallery.SelectedIndex;
+
+            if (contextMenu != null)
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    UIElement item = contextMenu.Items[0];
+                    contextMenu.Items.Remove(item);
+                    button.Items.Add(item);
+                    i--;
+                }
+            }
+            else
+            {                
+                RemoveLogicalChild(gallery);
+                RemoveLogicalChild(menuBar);
+                button.Items.Add(gallery);
+                button.Items.Add(menuBar);
+            }
+            button.MenuClosed += OnQuickAccessMenuClosed;
+            quickAccessButton = button;
+        }
+
+        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            if (contextMenu != null)
+            {
+                for (int i = 0; i < quickAccessButton.Items.Count; i++)
+                {
+                    UIElement item = quickAccessButton.Items[0];
+                    quickAccessButton.Items.Remove(item);
+                    contextMenu.Items.Add(item);
+                    i--;
+                }
+            }
+            else
+            {
+                quickAccessButton.Items.Remove(gallery);
+                quickAccessButton.Items.Remove(menuBar);
+                AddLogicalChild(gallery);
+                AddLogicalChild(menuBar);
+            }
+
+            object selectedItem = gallery.SelectedItem;
+            gallery.ItemsSource = null;
+            if (ItemsSource == null) listBox.ItemsSource = Items;
+            else listBox.ItemsSource = ItemsSource;
+            listBox.SelectedItem = selectedItem;
+            SelectedItem = selectedItem;
+            SelectedIndex = listBox.SelectedIndex;
+            if (!IsCollapsed) IsSnapped = false;
         }
 
         #endregion

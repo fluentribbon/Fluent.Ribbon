@@ -48,6 +48,25 @@ namespace Fluent
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ContextMenuBar), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
+        #region ParentContextMenu
+
+        /// <summary>
+        /// Gets or sets owner context menue
+        /// </summary>       
+        public ContextMenu ParentContextMenu
+        {
+            get { return (ContextMenu)GetValue(ParentContextMenuProperty); }
+            set { SetValue(ParentContextMenuProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for OwnerContextMenu.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ParentContextMenuProperty =
+            DependencyProperty.Register("ParentContextMenu", typeof(ContextMenu), typeof(ContextMenuBar), new UIPropertyMetadata(null));
+
+        #endregion
+
         #endregion
 
         #region Constructors
