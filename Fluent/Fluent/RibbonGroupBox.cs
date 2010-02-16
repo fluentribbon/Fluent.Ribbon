@@ -670,7 +670,7 @@ namespace Fluent
 
         #endregion
 
-        #region Event handling
+        #region Event Handling
 
         /// <summary>
         /// Dialog launcher button click handler
@@ -737,7 +737,7 @@ namespace Fluent
             Binding binding = new Binding("Icon");
             binding.Source = this;
             binding.Mode = BindingMode.OneWay;
-            button.SetBinding(ToggleButton.IconProperty, binding);
+            button.SetBinding(RibbonControl.IconProperty, binding);
 
             return button;
         }

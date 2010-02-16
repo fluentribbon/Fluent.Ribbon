@@ -928,7 +928,7 @@ namespace Fluent
             if (isSnapped) return new Size(snappedImage.Width, snappedImage.Height);
             if (IsCollapsed) return base.MeasureOverride(constraint); 
             if (listBox == null) return base.MeasureOverride(constraint);
-            if (Items.Count == 0) return base.MeasureOverride(constraint);
+            if (listBox.Items.Count == 0) return base.MeasureOverride(constraint);
             /*GalleryItem item = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem);
             bool useHack = false;
             if (item == null)
@@ -1121,7 +1121,7 @@ namespace Fluent
 
             if (contextMenu != null)
             {
-                for (int i = 0; i < Items.Count; i++)
+                for (int i = 0; i < contextMenu.Items.Count; i++)
                 {
                     UIElement item = contextMenu.Items[0];
                     contextMenu.Items.Remove(item);
@@ -1181,7 +1181,7 @@ namespace Fluent
         public void Enlarge()
         {
             if(listBox==null) return;
-            if (Items.Count == 0) return;
+            if (listBox.Items.Count == 0) return;
             //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = listBox.InnerPanelWidth + ItemWidth;
             if ((CanCollapseToButton) && (newSize > MinSize * ItemWidth)&&(Size==RibbonControlSize.Large)) IsCollapsed = false;
@@ -1196,7 +1196,7 @@ namespace Fluent
         public void Reduce()
         {
             if (listBox == null) return;
-            if (Items.Count == 0) return;
+            if (listBox.Items.Count == 0) return;
             //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = listBox.InnerPanelWidth - ItemWidth;
             if ((CanCollapseToButton) && (newSize < MinSize * ItemWidth)) IsCollapsed = true;
