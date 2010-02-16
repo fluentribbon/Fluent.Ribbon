@@ -87,7 +87,7 @@
                   Text="Paste the contents of the Clipboard."
                   Width="190"/>
             </Fluent:SplitButton.ToolTip>
-            <Fluent:Gallery VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False">
+            <Fluent:Gallery VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
                 <Image Source="Images\PasteImage.png" Width="24" Height="24" Fluent:KeyTip.Keys="K" Tag="Paste Options:"/>
                 <Image Source="Images\PasteText.png" Width="24" Height="24" Fluent:KeyTip.Keys="M" Tag="Paste Options:"/>
                 <Image Source="Images\PasteTextOnly.png" Width="24" Height="24" Fluent:KeyTip.Keys="T" Tag="Paste Options:"/>
@@ -232,7 +232,7 @@
 
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
-			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="JS" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large">
+			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinSize="2" MaxSize="7" SizeDefinition="Large,Large, Large" Orientation="Vertical">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
@@ -249,27 +249,27 @@
             <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
           </Fluent:MenuItem>
         </Fluent:InRibbonGallery.MenuItems>
-        <TextBlock Margin="15" Tag="Group1">1</TextBlock>
-        <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-        <TextBlock Margin="15" Tag="Group1" Name="ghh">33</TextBlock>
-        <TextBlock Margin="15" Tag="Group1">4</TextBlock>
-        <TextBlock Margin="15" Tag="Group1">5</TextBlock>
-        <TextBlock Margin="15" Tag="Group1">6</TextBlock>
-        <TextBlock Margin="15" Tag="Group2">1</TextBlock>
-        <TextBlock Margin="15" Tag="Group2">2</TextBlock>
-        <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+        <TextBlock Tag="Group1">1</TextBlock>
+        <TextBlock Tag="Group1">2</TextBlock>
+        <TextBlock Tag="Group1" Name="ghh">33</TextBlock>
+        <TextBlock Tag="Group1">4</TextBlock>
+        <TextBlock Tag="Group1">5</TextBlock>
+        <TextBlock Tag="Group1">6</TextBlock>
+        <TextBlock Tag="Group2">1</TextBlock>
+        <TextBlock Tag="Group2">2</TextBlock>
+        <TextBlock Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
               <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
-                <Fluent:Gallery x:Name="gallery" GroupBy="Tag">
-                    <TextBlock Margin="15" Tag="Group1">1</TextBlock>
-                    <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-                    <TextBlock Margin="15" Tag="Group1">3</TextBlock>
-                    <TextBlock Margin="15" Tag="Group1">4</TextBlock>
-                    <TextBlock Margin="15" Tag="Group1">5</TextBlock>
-                    <TextBlock Margin="15" Tag="Group1">6</TextBlock>
-                    <TextBlock Margin="15" Tag="Group2">1</TextBlock>
-                    <TextBlock Margin="15" Tag="Group2">2</TextBlock>
-                    <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+                <Fluent:Gallery x:Name="gallery">
+                    <TextBlock Tag="Group1">1</TextBlock>
+                    <TextBlock Tag="Group1">2</TextBlock>
+                    <TextBlock Tag="Group1">3</TextBlock>
+                    <TextBlock Tag="Group1">4</TextBlock>
+                    <TextBlock Tag="Group1">5</TextBlock>
+                    <TextBlock Tag="Group1">6</TextBlock>
+                    <TextBlock Tag="Group2">1</TextBlock>
+                    <TextBlock Tag="Group2">2</TextBlock>
+                    <TextBlock Tag="Group2">3</TextBlock>
                 </Fluent:Gallery>
                 <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
                 <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
@@ -291,15 +291,15 @@
                     <Fluent:Gallery.GroupIcons>
                       <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
                     </Fluent:Gallery.GroupIcons>
-                      <TextBlock Margin="15" Tag="Group1">1</TextBlock>
-                      <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-                      <TextBlock Margin="15" Tag="Group1">3</TextBlock>
-                      <TextBlock Margin="15" Tag="Group1">4</TextBlock>
-                      <TextBlock Margin="15" Tag="Group1">5</TextBlock>
-                      <TextBlock Margin="15" Tag="Group1">6</TextBlock>
-                      <TextBlock Margin="15" Tag="Group2">1</TextBlock>
-                      <TextBlock Margin="15" Tag="Group2">2</TextBlock>
-                      <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+                      <TextBlock Tag="Group1">1</TextBlock>
+                      <TextBlock Tag="Group1">2</TextBlock>
+                      <TextBlock Tag="Group1">3</TextBlock>
+                      <TextBlock Tag="Group1">4</TextBlock>
+                      <TextBlock Tag="Group1">5</TextBlock>
+                      <TextBlock Tag="Group1">6</TextBlock>
+                      <TextBlock Tag="Group2">1</TextBlock>
+                      <TextBlock Tag="Group2">2</TextBlock>
+                      <TextBlock Tag="Group2">3</TextBlock>
                   </Fluent:Gallery>
                   <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
                   <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
@@ -333,15 +333,15 @@
             <Fluent:InRibbonGallery.GroupIcons>
               <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
             </Fluent:InRibbonGallery.GroupIcons>
-            <TextBlock Margin="15" Tag="Group1">1</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">3</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">4</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">5</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">6</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">1</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">2</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+            <TextBlock Tag="Group1">1</TextBlock>
+            <TextBlock Tag="Group1">2</TextBlock>
+            <TextBlock Tag="Group1">3</TextBlock>
+            <TextBlock Tag="Group1">4</TextBlock>
+            <TextBlock Tag="Group1">5</TextBlock>
+            <TextBlock Tag="Group1">6</TextBlock>
+            <TextBlock Tag="Group2">1</TextBlock>
+            <TextBlock Tag="Group2">2</TextBlock>
+            <TextBlock Tag="Group2">3</TextBlock>
           </Fluent:InRibbonGallery>
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
@@ -368,15 +368,15 @@
             <Fluent:InRibbonGallery.GroupIcons>
               <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
             </Fluent:InRibbonGallery.GroupIcons>
-            <TextBlock Margin="15" Tag="Group1">1</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">2</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">3</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">4</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">5</TextBlock>
-            <TextBlock Margin="15" Tag="Group1">6</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">1</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">2</TextBlock>
-            <TextBlock Margin="15" Tag="Group2">3</TextBlock>
+            <TextBlock Tag="Group1">1</TextBlock>
+            <TextBlock Tag="Group1">2</TextBlock>
+            <TextBlock Tag="Group1">3</TextBlock>
+            <TextBlock Tag="Group1">4</TextBlock>
+            <TextBlock Tag="Group1">5</TextBlock>
+            <TextBlock Tag="Group1">6</TextBlock>
+            <TextBlock Tag="Group2">1</TextBlock>
+            <TextBlock Tag="Group2">2</TextBlock>
+            <TextBlock Tag="Group2">3</TextBlock>
           </Fluent:InRibbonGallery>
           <Fluent:Button Icon="Images\GrowFont.png" LargeIcon="Images\GrowFont.png" Text="Enlarge" Click="OnEnlargeClick"/>
           <Fluent:Button Icon="Images\ShrinkFont.png" LargeIcon="Images\ShrinkFont.png" Text="Reduce" Click="OnReduceClick"/>

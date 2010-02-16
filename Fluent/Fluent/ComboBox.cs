@@ -164,7 +164,7 @@ namespace Fluent
                 if (!updatingText)
                 {
                     string primaryTextFromItem = GetItemText(SelectedItem);
-                    if (this.CurrentText != primaryTextFromItem)
+                    if ((this.CurrentText != primaryTextFromItem) && (primaryTextFromItem!=null))
                     {
                         this.CurrentText = primaryTextFromItem;
                     }
@@ -271,6 +271,8 @@ namespace Fluent
         static ComboBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(typeof(ComboBox)));
+            ItemWidthProperty.OverrideMetadata(typeof(ComboBox), new UIPropertyMetadata(Double.NaN));
+            ItemHeightProperty.OverrideMetadata(typeof(ComboBox), new UIPropertyMetadata(22.0));
         }
 
         /// <summary>
@@ -311,6 +313,14 @@ namespace Fluent
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
             gallery.SetBinding(Gallery.ItemTemplateSelectorProperty, binding);
+            binding = new Binding("ItemWidth");
+            binding.Mode = BindingMode.OneWay;
+            binding.Source = this;
+            gallery.SetBinding(Gallery.ItemWidthProperty, binding);
+            binding = new Binding("ItemHeight");
+            binding.Mode = BindingMode.OneWay;
+            binding.Source = this;
+            gallery.SetBinding(Gallery.ItemHeightProperty, binding);
             binding = new Binding("IsTextSearchEnabled");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
@@ -566,6 +576,7 @@ namespace Fluent
 
         internal string GetItemText(object obj)
         {
+            if(obj==null) return null;
             if (!string.IsNullOrEmpty(DisplayMemberPath)) return obj.GetType().GetProperty(DisplayMemberPath, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
             else return obj.ToString();
         }
@@ -666,36 +677,29 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override UIElement CreateQuickAccessItem()
         {
-            DropDownButton button = new DropDownButton();
-            BindQuickAccessItem(button);
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
-            return button;
+            ComboBox combo = new ComboBox();
+            BindQuickAccessItem(combo);
+            combo.MenuOpened += OnQuickAccesMenuOpened;
+            combo.MenuClosed += OnQuickAccesMenuClosed;
+            return combo;
         }
 
-        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        private void OnQuickAccesMenuOpened(object sender, EventArgs e)
         {
-           /* DropDownButton button = sender as DropDownButton;
-            for (int i = 0; i < Items.Count; i++)
-            {
-                UIElement item = Items[0];
-                Items.Remove(item);
-                button.Items.Add(item);
-                i--;
-            }
-            button.MenuClosed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;*/
+            int selectedIndex = gallery.SelectedIndex;
+            gallery.ItemsSource = null;
+            if (ItemsSource == null) (sender as ComboBox).ItemsSource = Items;
+            else (sender as ComboBox).ItemsSource = ItemsSource;
+            (sender as ComboBox).SelectedIndex = selectedIndex;
         }
 
-        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        private void OnQuickAccesMenuClosed(object sender, EventArgs e)
         {
-           /* quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
-            for (int i = 0; i < quickAccessButton.Items.Count; i++)
-            {
-                UIElement item = quickAccessButton.Items[0];
-                quickAccessButton.Items.Remove(item);
-                Items.Add(item);
-                i--;
-            }*/
+            int selectedIndex = (sender as ComboBox).SelectedIndex;
+            (sender as ComboBox).ItemsSource = null;
+            if (ItemsSource == null) gallery.ItemsSource = Items;
+            else gallery.ItemsSource = ItemsSource;
+            gallery.SelectedIndex = selectedIndex;
         }
 
         /// <summary>
@@ -704,8 +708,20 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            DropDownButton button = element as DropDownButton;
-            //Bind(this, button, "MenuResizeMode", MenuResizeModeProperty, BindingMode.Default);
+            ComboBox nox = element as ComboBox;
+            Bind(this, nox, "Width", WidthProperty, BindingMode.Default);
+            Bind(this, nox, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            Bind(this, nox, "ItemBindingGroup", ItemBindingGroupProperty, BindingMode.Default);
+            Bind(this, nox, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.Default);
+            Bind(this, nox, "ItemContainerStyleSelector", ItemContainerStyleSelectorProperty, BindingMode.Default);
+            Bind(this, nox, "ItemsPanel", ItemsPanelProperty, BindingMode.Default);
+            Bind(this, nox, "ItemTemplate", ItemTemplateProperty, BindingMode.Default);
+            Bind(this, nox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.Default);
+            Bind(this, nox, "VerticalScrollBarVisibility", VerticalScrollBarVisibilityProperty, BindingMode.Default);
+            Bind(this, nox, "HorizontalScrollBarVisibility", HorizontalScrollBarVisibilityProperty, BindingMode.Default);
+            Bind(this, nox, "GroupBy", GroupByProperty, BindingMode.Default);
+            Bind(this, nox, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.Default);
+            Bind(this, nox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
             base.BindQuickAccessItem(element);
         }
 

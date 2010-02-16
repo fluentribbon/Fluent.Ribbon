@@ -52,6 +52,11 @@ namespace Fluent
 
         #region Overrides
 
+        private void OnClick(object sender, RoutedEventArgs e)
+        {            
+            e.Handled = true;
+        }
+
         public override void OnApplyTemplate()
         {
             if (button != null) button.Click -= OnButtonClick;
@@ -108,11 +113,12 @@ namespace Fluent
         {
             SplitButton button = new SplitButton();
             BindQuickAccessItem(button);
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            //button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            button.MenuOpened += OnQuickAccessClick;
             return button;
         }
 
-        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        private void OnQuickAccessClick(object sender, EventArgs e)
         {
             SplitButton button = sender as SplitButton;
             for (int i = 0; i < Items.Count; i++)

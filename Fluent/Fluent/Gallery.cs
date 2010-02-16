@@ -123,7 +123,26 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(Gallery), new UIPropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(Gallery), new UIPropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+           
+                //(d as InRibbonGallery).gallery.Orientation = (Orientation) e.NewValue;
+                if ((Orientation)e.NewValue == Orientation.Horizontal)
+                {
+                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(WrapPanel)));
+                    template.Seal();
+                    (d as Gallery).listBox.ItemsPanel = template;
+                }
+                else
+                {
+                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
+                    template.Seal();
+                    (d as Gallery).listBox.ItemsPanel = template;
+                }
+            
+        }
 
         #endregion
 
@@ -279,6 +298,7 @@ namespace Fluent
 
         private bool OnFiltering(object obj)
         {
+            if (string.IsNullOrEmpty(GroupBy)) return true;
             if (SelectedFilter == null) return true;
             string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
             return filterItems.Contains(GetItemGroupName(obj));
@@ -396,7 +416,9 @@ namespace Fluent
         /// </summary>
         public Gallery()
         {
-            
+            ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
+            template.Seal();
+            ItemsPanel = template;
         }
 
         #endregion
@@ -565,6 +587,7 @@ namespace Fluent
 
         internal string GetItemGroupName(object obj)
         {
+            if(obj==null) return null;
             return obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
         }
 

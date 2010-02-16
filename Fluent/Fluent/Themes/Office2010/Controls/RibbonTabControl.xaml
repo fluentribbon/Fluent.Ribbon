@@ -119,7 +119,7 @@
 									</LinearGradientBrush>
 								</Rectangle.Fill>
 							</Rectangle>
-							<Fluent:RibbonScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
+							<Fluent:RibbonScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
 								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False" Margin="0"/>							
 							</Fluent:RibbonScrollViewer>
 							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">

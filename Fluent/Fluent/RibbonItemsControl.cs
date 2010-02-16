@@ -364,6 +364,40 @@ namespace Fluent
 
         #endregion        
 
+        #region ItemWidth
+
+        /// <summary>
+        /// Gets or sets item width
+        /// </summary>
+        public double ItemWidth
+        {
+            get { return (double)GetValue(ItemWidthProperty); }
+            set { SetValue(ItemWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemWidthProperty =
+            DependencyProperty.Register("ItemWidth", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(18.0));
+
+        /// <summary>
+        /// Gets or sets item height
+        /// </summary>
+        public double ItemHeight
+        {
+            get { return (double)GetValue(ItemHeightProperty); }
+            set { SetValue(ItemHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(18.0));
+
+        #endregion
+
         #endregion
 
         public override UIElement CreateQuickAccessItem()
