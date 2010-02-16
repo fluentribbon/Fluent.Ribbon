@@ -260,7 +260,10 @@
         <TextBlock Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
               <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
-                <Fluent:Gallery x:Name="gallery">
+                <Fluent:Gallery x:Name="gallery" GroupBy="Tag">
+                  <Fluent:Gallery.GroupIcons>
+                    <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+                  </Fluent:Gallery.GroupIcons>
                     <TextBlock Tag="Group1">1</TextBlock>
                     <TextBlock Tag="Group1">2</TextBlock>
                     <TextBlock Tag="Group1">3</TextBlock>
