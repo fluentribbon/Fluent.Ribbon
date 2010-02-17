@@ -43,7 +43,7 @@ namespace Fluent
         // Collection of toolbar items
         private ObservableCollection<UIElement> menuItems;
 
-        private double currentSize;
+        private double currentItemsInRow;
 
         private Panel layoutRoot;
 
@@ -693,40 +693,48 @@ namespace Fluent
         #region Min/Max Sizes
 
         /// <summary>
-        /// Gets or sets max size of gallery in pixels
+        /// Gets or sets max count of items in row
         /// </summary>
-        public double MaxSize
+        public int MaxItemsInRow
         {
-            get { return (double)GetValue(MaxSizeProperty); }
-            set { SetValue(MaxSizeProperty, value); }
+            get { return (int)GetValue(MaxItemsInRowProperty); }
+            set { SetValue(MaxItemsInRowProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxSize.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxSizeProperty =
-                DependencyProperty.Register("MaxSize", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(100.0));
+        public static readonly DependencyProperty MaxItemsInRowProperty =
+                DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8));
 
         /// <summary>
-        /// Gets or sets min size of gallery in pixels
+        /// Gets or sets min count of items in row
         /// </summary>
-        public double MinSize
+        public int MinItemsInRow
         {
-            get { return (double)GetValue(MinSizeProperty); }
+            get { return (int)GetValue(MinSizeProperty); }
             set { SetValue(MinSizeProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxSize.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinSizeProperty =
-                DependencyProperty.Register("MinSize", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1.0));
+                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
 
         #endregion
 
         #region LogicalChildren
 
-        protected override System.Collections.IEnumerator LogicalChildren
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element. 
+        /// </summary>
+        /// <returns>
+        /// An enumerator for logical child elements of this element.
+        /// </returns>
+        protected override IEnumerator LogicalChildren
         {
             get
             {
@@ -952,8 +960,8 @@ namespace Fluent
                 base.MeasureOverride(constraint);
                 cachedWidthDelta = layoutRoot.DesiredSize.Width - listBox.InnerPanelWidth;
             }
-            if (currentSize == 0) currentSize = MaxSize*ItemWidth;
-            base.MeasureOverride(new Size(Math.Max(Math.Min(MaxSize * ItemWidth, currentSize), MinSize * ItemWidth) + cachedWidthDelta, constraint.Height));
+            if (currentItemsInRow == 0) currentItemsInRow = MaxItemsInRow*ItemWidth;
+            base.MeasureOverride(new Size(Math.Max(Math.Min(MaxItemsInRow * ItemWidth, currentItemsInRow), MinItemsInRow * ItemWidth) + cachedWidthDelta, constraint.Height));
             return layoutRoot.DesiredSize;
         }
 
@@ -962,7 +970,7 @@ namespace Fluent
             if (CanCollapseToButton)
             {
                 //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
-                if ((current == RibbonControlSize.Large) && ((currentSize > MinSize * ItemWidth))) IsCollapsed = false;
+                if ((current == RibbonControlSize.Large) && ((currentItemsInRow > MinItemsInRow * ItemWidth))) IsCollapsed = false;
                 else IsCollapsed = true;
             }
             else IsCollapsed = false;
@@ -1184,9 +1192,9 @@ namespace Fluent
             if (listBox.Items.Count == 0) return;
             //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = listBox.InnerPanelWidth + ItemWidth;
-            if ((CanCollapseToButton) && (newSize > MinSize * ItemWidth)&&(Size==RibbonControlSize.Large)) IsCollapsed = false;
-            newSize = Math.Max(Math.Min(MaxSize * ItemWidth, newSize), MinSize * ItemWidth);
-            currentSize = newSize;
+            if ((CanCollapseToButton) && (newSize > MinItemsInRow * ItemWidth)&&(Size==RibbonControlSize.Large)) IsCollapsed = false;
+            newSize = Math.Max(Math.Min(MaxItemsInRow * ItemWidth, newSize), MinItemsInRow * ItemWidth);
+            currentItemsInRow = newSize;
             InvalidateMeasure();
         }
 
@@ -1199,9 +1207,9 @@ namespace Fluent
             if (listBox.Items.Count == 0) return;
             //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
             double newSize = listBox.InnerPanelWidth - ItemWidth;
-            if ((CanCollapseToButton) && (newSize < MinSize * ItemWidth)) IsCollapsed = true;
-            newSize = Math.Max(Math.Min(MaxSize * ItemWidth, newSize), MinSize * ItemWidth);
-            currentSize = newSize;
+            if ((CanCollapseToButton) && (newSize < MinItemsInRow * ItemWidth)) IsCollapsed = true;
+            newSize = Math.Max(Math.Min(MaxItemsInRow * ItemWidth, newSize), MinItemsInRow * ItemWidth);
+            currentItemsInRow = newSize;
             InvalidateMeasure();
         }
 

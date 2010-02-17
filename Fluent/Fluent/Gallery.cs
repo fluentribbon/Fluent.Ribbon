@@ -22,7 +22,7 @@ namespace Fluent
     [ContentProperty("Items")]
     public class Gallery:RibbonItemsControl
     {
-        #region Fields        
+        #region Fields
 
         private RibbonListBox listBox;
 
