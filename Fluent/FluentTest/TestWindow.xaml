@@ -185,7 +185,7 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160" IsEnabled="False">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
@@ -324,7 +324,7 @@
               
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
-          <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
+          <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" IsEnabled="False"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAlla}" ResizeMode="Both">
@@ -349,7 +349,7 @@
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
           
-          <Fluent:CheckBox Width="100" Height="20">Lalala</Fluent:CheckBox>
+          <Fluent:CheckBox Width="100" Height="20" IsEnabled="False">Lalala</Fluent:CheckBox>
           <TextBox Width="100" Height="20"/>
           <Fluent:ComboBox Width="100" Height="20">
             <System:String>1</System:String>

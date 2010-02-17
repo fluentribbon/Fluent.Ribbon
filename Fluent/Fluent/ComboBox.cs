@@ -740,7 +740,9 @@ namespace Fluent
             Bind(this, nox, "HorizontalScrollBarVisibility", HorizontalScrollBarVisibilityProperty, BindingMode.Default);
             Bind(this, nox, "GroupBy", GroupByProperty, BindingMode.Default);
             Bind(this, nox, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.Default);
+            Bind(this, nox, "IsTextSearchEnabled", IsTextSearchEnabledProperty, BindingMode.Default);
             Bind(this, nox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
+            Bind(this, nox, "MenuMinWidth", MenuMinWidthProperty, BindingMode.OneWay);
             base.BindQuickAccessItem(element);
         }
 

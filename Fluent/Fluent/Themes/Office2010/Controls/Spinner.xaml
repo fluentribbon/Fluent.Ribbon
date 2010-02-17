@@ -17,7 +17,7 @@
 							</RadialGradientBrush>
 						</Rectangle.Fill>
 					</Rectangle>
-						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						<ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 				</Grid>
 			</Border>
 		</Border>
@@ -30,6 +30,7 @@
 				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
 			</Trigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
@@ -81,7 +82,7 @@
             		<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="3,0,0,0" x:Name="textBlock"/>
             	</StackPanel>
 				
-              <Border Height="22" BorderThickness="1" BorderBrush="#FFBBBFC4" Background="#FFFFFFFF" Grid.ColumnSpan="1" Grid.Column="1" Width="{TemplateBinding InputWidth}">
+              <Border x:Name="border" Height="22" BorderThickness="1" BorderBrush="#FFBBBFC4" Background="#FFFFFFFF" Grid.ColumnSpan="1" Grid.Column="1" Width="{TemplateBinding InputWidth}">
             	<Grid Grid.ColumnSpan="1" Grid.Column="1">
             		<Grid.ColumnDefinitions>
             			<ColumnDefinition Width="*"/>
@@ -106,6 +107,11 @@
           	</Grid>
           
         	<ControlTemplate.Triggers>
+        		<Trigger Property="IsEnabled" Value="False">
+        			<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
+        			<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
+        			<Setter Property="Visibility" TargetName="PART_TextBox" Value="Hidden"/>
+        		</Trigger>
         		<Trigger Property="Size" Value="Middle">
         			<Setter Property="Visibility" TargetName="textBlock" Value="Collapsed"/>
         		</Trigger>

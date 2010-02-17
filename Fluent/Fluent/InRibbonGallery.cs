@@ -747,6 +747,23 @@ namespace Fluent
 
         #endregion
 
+        #region MenuMinWidth
+
+        /// <summary>
+        /// Gets or sets minimal width of dropdown menu
+        /// </summary>
+        public double MenuMinWidth
+        {
+            get { return (double)GetValue(MenuMinWidthProperty); }
+            set { SetValue(MenuMinWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MenuMinWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MenuMinWidthProperty =
+            DependencyProperty.Register("MenuMinWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(0.0));
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -854,6 +871,9 @@ namespace Fluent
             gallery.SetBinding(SelectedItemProperty, binding);   
 
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+
+            AddLogicalChild(gallery);
+            AddLogicalChild(menuBar);
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
@@ -1013,7 +1033,7 @@ namespace Fluent
             contextMenu.Owner = this;
             AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
-            gallery.MinWidth = ActualWidth;
+            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
             gallery.MinHeight = ActualHeight;
             if(!IsCollapsed)IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
@@ -1036,8 +1056,10 @@ namespace Fluent
 
             contextMenu.PlacementTarget = this;
             if(IsCollapsed)contextMenu.Placement = PlacementMode.Bottom;
-            else contextMenu.Placement = PlacementMode.Relative;   
+            else contextMenu.Placement = PlacementMode.Relative;
 
+            RemoveLogicalChild(gallery);
+            RemoveLogicalChild(menuBar);
             contextMenu.Items.Add(gallery);
             contextMenu.Items.Add(menuBar);
             
@@ -1109,17 +1131,17 @@ namespace Fluent
         {
             DropDownButton button = element as DropDownButton;            
             base.BindQuickAccessItem(element);
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            button.MenuOpened += OnQuickAccessMenuOpened;
         }
 
-        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        private void OnQuickAccessMenuOpened(object sender, EventArgs e)
         {
             DropDownButton button = sender as DropDownButton;
 
             if (!IsCollapsed) IsSnapped = true;
             object selectedItem = listBox.SelectedItem;
             listBox.ItemsSource = null;
-            gallery.MinWidth = ActualWidth;
+            gallery.MinWidth = Math.Max(ActualWidth,MenuMinWidth);
             gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;

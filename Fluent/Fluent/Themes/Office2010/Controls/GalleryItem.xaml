@@ -12,12 +12,15 @@
         		<Border x:Name="selectedBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
         			<Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         		</Border>
-        		<ContentPresenter Margin="1"/>
+        		<ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
         		<Border x:Name="pressedBorder" BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonPressedOuterBackgroundBrush}" Visibility="Collapsed" Opacity="0.5">
         			<Border Height="Auto" BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
         		</Border>
         	</Grid>
         	<ControlTemplate.Triggers>
+        		<Trigger Property="IsEnabled" Value="False">
+        			<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+        		</Trigger>
         		<Trigger Property="IsSelected" Value="True">
         			<Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
         		</Trigger>

@@ -106,13 +106,18 @@
 						</LinearGradientBrush>
 					</Border.Background>
 					<Border BorderThickness="1,1,1,1" x:Name="border1">
-						<Grid>
+						<Grid x:Name="grid">
 							<Path Margin="0,6,0,0" VerticalAlignment="Top" Height="1" Fill="#FFFFFFFF" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,0" HorizontalAlignment="Center" Width="7"/>
 							<Path Margin="0,8,0,0" VerticalAlignment="Top" Height="3" Fill="#FF000000" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,1 2,0z" Width="5" HorizontalAlignment="Center" StrokeThickness="0"/>
 						</Grid>
 					</Border>
 				</Border>
 				<ControlTemplate.Triggers>
+					<Trigger Property="IsEnabled" Value="False">
+						<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
+						<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
+						<Setter Property="Opacity" TargetName="grid" Value="0.5"/>
+					</Trigger>
 					<MultiTrigger>
 						<MultiTrigger.Conditions>
 							<Condition Property="IsMouseOver" Value="True"/>
@@ -146,10 +151,15 @@
 						</LinearGradientBrush>
 					</Border.Background>
 					<Border BorderThickness="1,1,1,1" x:Name="border1">
-						<ContentPresenter/>
+						<ContentPresenter x:Name="contentPresenter"/>
 					</Border>
 				</Border>
 				<ControlTemplate.Triggers>
+					<Trigger Property="IsEnabled" Value="False">
+						<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
+						<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
+						<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+					</Trigger>
 					<MultiTrigger>
 						<MultiTrigger.Conditions>
 							<Condition Property="IsMouseOver" Value="True"/>
@@ -202,10 +212,10 @@
         								<Setter.Value>
         									<ControlTemplate TargetType="{x:Type ScrollBar}">
         										<StackPanel HorizontalAlignment="Right" Margin="0,-1,-1,0">
-        											<RepeatButton Width="15" Height="21" Command="ScrollBar.PageUpCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
+        											<RepeatButton x:Name="upButton" Width="15" Height="21" Command="ScrollBar.PageUpCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
         												<Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,-1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
         											</RepeatButton>
-        											<RepeatButton Width="15" Height="21" Command="ScrollBar.PageDownCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
+        											<RepeatButton x:Name="downButton" Width="15" Height="21" Command="ScrollBar.PageDownCommand" Margin="0,-1,-1,0" Style="{DynamicResource InRibbonGalleryRepeatButton}">
         												<Path RenderOptions.EdgeMode="Aliased" Data="M0,0 L1,1 2,0z" Fill="Black" Width="5" Height="3" Stretch="Fill"/>
         											</RepeatButton>
         										</StackPanel>
@@ -233,12 +243,16 @@
 				/>
         	</Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsCollapsed" Value="True">
-              <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
-              <Setter Property="Visibility" TargetName="PART_DropDownButton" Value="Visible"/>
-              <Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
-              <Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
-            </Trigger>
+        		<Trigger Property="IsEnabled" Value="False">
+        			<Setter Property="IsEnabled" TargetName="PART_DropDownButton" Value="False"/>
+        			<Setter Property="IsEnabled" TargetName="PART_ExpandButton" Value="False"/>
+        		</Trigger>
+        		<Trigger Property="IsCollapsed" Value="True">
+        			<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+        			<Setter Property="Visibility" TargetName="PART_DropDownButton" Value="Visible"/>
+        			<Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
+        			<Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
+        		</Trigger>
         	</ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

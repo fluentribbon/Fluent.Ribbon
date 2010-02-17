@@ -49,16 +49,19 @@ namespace Fluent
             for(int i=0;i<Children.Count;i++)
             {
                 FrameworkElement element = Children[i] as FrameworkElement;
-                if((Children[i] is MenuItem)||(Children[i] is Separator))
-                {                    
-                    element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                    minWidth = Math.Max(minWidth, element.MinWidth);
-                    minHeight += element.DesiredSize.Height;
-                }
-                else
+                if(element!=null)
                 {
-                    minWidth = Math.Max(minWidth, element.MinWidth);
-                    minHeight += element.MinHeight;
+                    if ((Children[i] is MenuItem) || (Children[i] is Separator))
+                    {
+                        element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                        minWidth = Math.Max(minWidth, element.MinWidth);
+                        minHeight += element.DesiredSize.Height;
+                    }
+                    else
+                    {
+                        minWidth = Math.Max(minWidth, element.MinWidth);
+                        minHeight += element.MinHeight;
+                    }
                 }
             }
             MinWidth = Math.Max(0,minWidth);
