@@ -183,7 +183,6 @@ namespace Fluent
             for (int i = openedPopups.Count - 1; i >= index; i--)
             {
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
-                
                 openedPopups[i].IsOpen = false;
                 if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
             }
@@ -256,12 +255,12 @@ namespace Fluent
                     }
                 case 0x0002/*WM_DESTROY*/:
                     {
-                        if ((hwndSource != null) && (!hwndSource.IsDisposed))
+                        /*if ((hwndSource != null) && (!hwndSource.IsDisposed))
                         {
                             // Remove hook
                             hwndSource.RemoveHook(WindowProc);
                             hwndSource = null;
-                        }
+                        }*/
                         break;
                     }
             }
