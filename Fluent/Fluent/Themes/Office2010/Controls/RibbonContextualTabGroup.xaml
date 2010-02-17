@@ -37,13 +37,13 @@
     						</LinearGradientBrush>
     					</Rectangle.OpacityMask>
     				</Rectangle>
-    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0" TextTrimming="None" Foreground="#00000000" FontWeight="Bold"/>
-    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis" FontWeight="Bold">
+    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" TextTrimming="None" Foreground="#00000000" FontWeight="Bold"/>
+    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis" FontWeight="Bold">
     					<TextBlock.Effect>
     						<BlurEffect Radius="2"/>
     					</TextBlock.Effect>
     				</TextBlock>
-    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis" Foreground="White" FontWeight="Bold"/>
+    				<TextBlock Text="{TemplateBinding Header}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0" TextTrimming="CharacterEllipsis" Foreground="White" FontWeight="Bold"/>
     			</Grid>
     		</Border>
     	</Border>
