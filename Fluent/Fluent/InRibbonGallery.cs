@@ -1005,13 +1005,12 @@ namespace Fluent
             contextMenu.Owner = this;
             AddLogicalChild(contextMenu.RibbonPopup);
             contextMenu.IsOpen = true;
-
+            gallery.MinWidth = ActualWidth;
+            gallery.MinHeight = ActualHeight;
             if(!IsCollapsed)IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
             int selectedIndex = listBox.SelectedIndex;
             listBox.ItemsSource = null;
-            gallery.MinWidth = ActualWidth;
-            gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
@@ -1040,6 +1039,7 @@ namespace Fluent
             contextMenu.IsOpen = true;
         }
 
+
         private void OnMenuClosed(object sender, EventArgs e)
         {
             object selectedItem = gallery.SelectedItem;
@@ -1058,13 +1058,13 @@ namespace Fluent
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
+            gallery.MinWidth = ActualWidth;
+            gallery.MinHeight = ActualHeight;
             if (!IsCollapsed) IsSnapped = true;
             if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
             else contextMenu.Placement = PlacementMode.Relative;
             object selectedItem = listBox.SelectedItem;
-            listBox.ItemsSource = null;
-            gallery.MinWidth = ActualWidth;
-            gallery.MinHeight = ActualHeight;
+            listBox.ItemsSource = null;            
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;

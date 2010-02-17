@@ -29,6 +29,8 @@ namespace Fluent
         // Thumb to resize vertical
         private Thumb resizeVerticalThumb;
 
+        private Panel itemsHost;
+
         #endregion
 
         #region Properties
@@ -86,12 +88,16 @@ namespace Fluent
             return basevalue;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ContextMenuBar()
         {
             Focusable = false;
             FocusManager.SetIsFocusScope(this,true);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
         }
+
 
         #endregion
 
@@ -141,6 +147,8 @@ namespace Fluent
             {
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
+
+            itemsHost = GetTemplateChild("PART_ItemsHost") as Panel;
         }
 
         /// <summary>
@@ -157,20 +165,20 @@ namespace Fluent
         #endregion
 
         #region Private methods
-
+       
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(Width)) Width = ActualWidth;
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Width = Math.Max(0, Width + e.HorizontalChange);
-            Height = Math.Max(0, Height + e.VerticalChange);
+            if (double.IsNaN(itemsHost.Width)) itemsHost.Width = itemsHost.ActualWidth;
+            if (double.IsNaN(itemsHost.Height)) itemsHost.Height = itemsHost.ActualHeight;
+            itemsHost.Width = Math.Max(itemsHost.MinWidth, itemsHost.Width + e.HorizontalChange);
+            itemsHost.Height = Math.Max(itemsHost.MinHeight, itemsHost.Height + e.VerticalChange);
         }
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Height = Math.Max(0, Height + e.VerticalChange);
+            if (double.IsNaN(itemsHost.Height)) itemsHost.Height = itemsHost.ActualHeight;
+            itemsHost.Height = Math.Max(itemsHost.MinHeight, itemsHost.Height + e.VerticalChange);
         }
 
         #endregion

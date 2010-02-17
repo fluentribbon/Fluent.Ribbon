@@ -129,19 +129,22 @@ namespace Fluent
         {
            
                 //(d as InRibbonGallery).gallery.Orientation = (Orientation) e.NewValue;
-                if ((Orientation)e.NewValue == Orientation.Horizontal)
+            if ((d as Gallery)!= null)
+            {
+                if ((Orientation) e.NewValue == Orientation.Horizontal)
                 {
-                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(WrapPanel)));
+                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
                     template.Seal();
-                    (d as Gallery).listBox.ItemsPanel = template;
+                    (d as Gallery).ItemsPanel = template;
                 }
                 else
                 {
-                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
+                    ItemsPanelTemplate template =
+                        new ItemsPanelTemplate(new FrameworkElementFactory(typeof (StackPanel)));
                     template.Seal();
-                    (d as Gallery).listBox.ItemsPanel = template;
+                    (d as Gallery).ItemsPanel = template;
                 }
-            
+            }
         }
 
         #endregion

@@ -101,7 +101,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ComboBox), new UIPropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ComboBox), new UIPropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -251,6 +251,23 @@ namespace Fluent
         {
             (d as ComboBox).TextUpdated(e.NewValue as string,false);
         }
+
+        #endregion
+
+        #region MenuMinWidth
+
+        /// <summary>
+        /// Gets or sets minimal width of dropdown menu
+        /// </summary>
+        public double MenuMinWidth
+        {
+            get { return (double)GetValue(MenuMinWidthProperty); }
+            set { SetValue(MenuMinWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MenuMinWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MenuMinWidthProperty =
+            DependencyProperty.Register("MenuMinWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(0.0));
 
         #endregion
 
@@ -661,7 +678,9 @@ namespace Fluent
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
-        {            
+        {
+            gallery.MinWidth = Math.Max(MenuMinWidth,ActualWidth);
+            gallery.MinHeight = 2*ItemHeight;
             if (MenuOpened != null) MenuOpened(this, e);
         }
 

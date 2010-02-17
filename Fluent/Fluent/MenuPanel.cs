@@ -20,7 +20,61 @@ namespace Fluent
     /// </summary>
     public class MenuPanel:Panel
     {
+        #region Fields
+                
+        #endregion
+
+        #region Constructors
+
+        public MenuPanel()
+        {
+            Loaded += OnMenuLoaded;
+        }
+
+        private void OnMenuLoaded(object sender, RoutedEventArgs e)
+        {
+            UpdateMenuSizes();
+        }
+
+        #endregion
+
+        #region Private methods
+
+        internal void UpdateMenuSizes()
+        {
+            Width = double.NaN;
+            Height = double.NaN;
+            double minWidth = 0;
+            double minHeight = 0;
+            for(int i=0;i<Children.Count;i++)
+            {
+                FrameworkElement element = Children[i] as FrameworkElement;
+                if((Children[i] is MenuItem)||(Children[i] is Separator))
+                {                    
+                    element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    minWidth = Math.Max(minWidth, element.MinWidth);
+                    minHeight += element.DesiredSize.Height;
+                }
+                else
+                {
+                    minWidth = Math.Max(minWidth, element.MinWidth);
+                    minHeight += element.MinHeight;
+                }
+            }
+            MinWidth = Math.Max(0,minWidth);
+            MinHeight = Math.Max(0,minHeight);            
+            if(MinWidth!=0) Width = MinWidth;
+        }
+
+        #endregion
+
         #region Overrides
+
+        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
+        {
+            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
+            UpdateMenuSizes();
+        }
 
         /// <summary>
         /// When overridden in a derived class, measures the size in layout 
@@ -53,7 +107,10 @@ namespace Fluent
                         totalHeight += separator.DesiredSize.Height;
                         maxWidth = Math.Max(maxWidth, separator.DesiredSize.Width);
                     }
-                    else if(child is UIElement) nonItemsElements.Add(child as UIElement);
+                    else if (child is UIElement)
+                    {
+                        nonItemsElements.Add(child as UIElement);
+                    }
                 }
             }
 
@@ -67,8 +124,8 @@ namespace Fluent
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(new Size(availableSize.Width, deltaHeight));
-                            maxWidth = Math.Max(maxWidth, item.DesiredSize.Width);
-                            totalHeight += item.DesiredSize.Height;
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width,(item as FrameworkElement).MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
                         }
                     }
                 }
@@ -79,8 +136,8 @@ namespace Fluent
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(availableSize);
-                            maxWidth = Math.Max(maxWidth, item.DesiredSize.Width);
-                            totalHeight += item.DesiredSize.Height;
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, (item as FrameworkElement).MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
                         }
                     }
                 }
@@ -92,11 +149,12 @@ namespace Fluent
                     if (item.Visibility != Visibility.Collapsed)
                     {
                         item.Measure(availableSize);
-                        maxWidth = Math.Max(maxWidth, item.DesiredSize.Width);
-                        totalHeight += item.DesiredSize.Height;
+                        maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, (item as FrameworkElement).MinWidth));
+                        totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
                     }
                 }
             }
+
             return new Size(maxWidth,totalHeight);
         }
 

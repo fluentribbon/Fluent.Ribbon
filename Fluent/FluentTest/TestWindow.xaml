@@ -185,7 +185,7 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" Orientation="Vertical" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
@@ -260,7 +260,7 @@
         <TextBlock Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
               <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
-                <Fluent:Gallery x:Name="gallery" GroupBy="Tag">
+                <Fluent:Gallery x:Name="gallery" GroupBy="Tag" MinWidth="150" MinHeight="60">
                   <Fluent:Gallery.GroupIcons>
                     <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
                   </Fluent:Gallery.GroupIcons>
