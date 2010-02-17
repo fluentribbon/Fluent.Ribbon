@@ -448,17 +448,23 @@ namespace Fluent
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            InRibbonGallery gall = (d as InRibbonGallery);
             if ((bool)e.NewValue)
             {
-                if ((d as InRibbonGallery).contextMenu == null) (d as InRibbonGallery).CreateMenu();
-                else (d as InRibbonGallery).contextMenu.IsOpen = true;
-                if((d as InRibbonGallery).IsCollapsed)(d as InRibbonGallery).dropDownButton.IsChecked= true;
+                if (gall.gallery != null)
+                {
+                    gall.gallery.MinWidth = Math.Max(gall.ActualWidth, gall.MenuMinWidth);
+                    gall.gallery.MinHeight = gall.ActualHeight;
+                }
+                if (gall.contextMenu == null) gall.CreateMenu();
+                else gall.contextMenu.IsOpen = true;
+                if (gall.IsCollapsed) gall.dropDownButton.IsChecked = true;
             }
             else
             {
-                if ((d as InRibbonGallery).contextMenu != null) (d as InRibbonGallery).contextMenu.IsOpen = false;
+                if (gall.contextMenu != null) gall.contextMenu.IsOpen = false;
                 //(d as InRibbonGallery).dropDownButton.IsHitTestVisible = true;
-                if ((d as InRibbonGallery).IsCollapsed) (d as InRibbonGallery).dropDownButton.IsChecked = false;
+                if (gall.IsCollapsed) gall.dropDownButton.IsChecked = false;
             }
         }
 
@@ -1028,14 +1034,14 @@ namespace Fluent
 
         private void CreateMenu()
         {
+            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            gallery.MinHeight = ActualHeight;
             isInitializing = true;
             contextMenu = new ContextMenu();
             contextMenu.Owner = this;
             AddLogicalChild(contextMenu.RibbonPopup);                        
             contextMenu.IsOpen = true;
             if(!IsCollapsed)IsSnapped = true;
-            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
-            gallery.MinHeight = ActualHeight;
             object selectedItem = listBox.SelectedItem;
             int selectedIndex = listBox.SelectedIndex;
             listBox.ItemsSource = null;
@@ -1087,10 +1093,10 @@ namespace Fluent
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
-        {                        
-            if (!IsCollapsed) IsSnapped = true;
+        {
             gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
             gallery.MinHeight = ActualHeight;
+            if (!IsCollapsed) IsSnapped = true;
             if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
             else contextMenu.Placement = PlacementMode.Relative;
             object selectedItem = listBox.SelectedItem;
@@ -1136,14 +1142,13 @@ namespace Fluent
 
         private void OnQuickAccessMenuOpened(object sender, EventArgs e)
         {
+            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            gallery.MinHeight = ActualHeight;
             DropDownButton button = sender as DropDownButton;
 
             if (!IsCollapsed) IsSnapped = true;
             object selectedItem = listBox.SelectedItem;
-            listBox.ItemsSource = null;
-            
-            gallery.MinWidth = Math.Max(ActualWidth,MenuMinWidth);
-            gallery.MinHeight = ActualHeight;
+            listBox.ItemsSource = null;            
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
