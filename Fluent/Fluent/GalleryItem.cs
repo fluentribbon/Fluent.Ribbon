@@ -73,7 +73,7 @@ namespace Fluent
             if((bool)e.NewValue)
             {
                 //(d as GalleryItem).dispatcher.Invoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate{RibbonPopup.CloseAll();}));
-                
+                (d as GalleryItem).BringIntoView();
             }
         }
 

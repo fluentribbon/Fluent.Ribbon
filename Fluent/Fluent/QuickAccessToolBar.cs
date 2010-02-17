@@ -200,10 +200,10 @@ namespace Fluent
 
             if (menuPanel != null)
             {
-                for (int i = 0; i < quickAccessItems.Count; i++)
+                for (int i = 0; i < QuickAccessItems.Count; i++)
                 {
-                    menuPanel.Children.Remove(quickAccessItems[i]);
-                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    menuPanel.Children.Remove(QuickAccessItems[i]);
+                    QuickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
             else if(quickAccessItems!=null)

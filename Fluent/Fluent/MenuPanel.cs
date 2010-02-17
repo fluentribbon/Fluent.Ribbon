@@ -51,7 +51,7 @@ namespace Fluent
                 FrameworkElement element = Children[i] as FrameworkElement;
                 if(element!=null)
                 {
-                    if ((Children[i] is MenuItem) || (Children[i] is Separator))
+                    if ((element is MenuItem) || (element is Separator))
                     {
                         element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                         minWidth = Math.Max(minWidth, element.MinWidth);
@@ -76,7 +76,7 @@ namespace Fluent
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
-            UpdateMenuSizes();
+            if(IsLoaded) UpdateMenuSizes();
         }
 
         /// <summary>

@@ -1031,11 +1031,11 @@ namespace Fluent
             isInitializing = true;
             contextMenu = new ContextMenu();
             contextMenu.Owner = this;
-            AddLogicalChild(contextMenu.RibbonPopup);
+            AddLogicalChild(contextMenu.RibbonPopup);                        
             contextMenu.IsOpen = true;
+            if(!IsCollapsed)IsSnapped = true;
             gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
             gallery.MinHeight = ActualHeight;
-            if(!IsCollapsed)IsSnapped = true;            
             object selectedItem = listBox.SelectedItem;
             int selectedIndex = listBox.SelectedIndex;
             listBox.ItemsSource = null;
@@ -1087,10 +1087,10 @@ namespace Fluent
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
-        {
-            gallery.MinWidth = ActualWidth;
-            gallery.MinHeight = ActualHeight;
+        {                        
             if (!IsCollapsed) IsSnapped = true;
+            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            gallery.MinHeight = ActualHeight;
             if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
             else contextMenu.Placement = PlacementMode.Relative;
             object selectedItem = listBox.SelectedItem;
@@ -1102,7 +1102,7 @@ namespace Fluent
             SelectedIndex = gallery.SelectedIndex;
             if (MenuOpened != null) MenuOpened(this, e);
             //InvalidateVisual();
-            UpdateLayout();
+            //UpdateLayout();
             expandButton.IsChecked = true;
         }
 
@@ -1141,6 +1141,7 @@ namespace Fluent
             if (!IsCollapsed) IsSnapped = true;
             object selectedItem = listBox.SelectedItem;
             listBox.ItemsSource = null;
+            
             gallery.MinWidth = Math.Max(ActualWidth,MenuMinWidth);
             gallery.MinHeight = ActualHeight;
             if (ItemsSource == null) gallery.ItemsSource = Items;
