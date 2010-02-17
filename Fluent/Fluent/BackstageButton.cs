@@ -100,6 +100,9 @@ namespace Fluent
             binding.Source = this;
             Backstage.SetBinding(Backstage.BackgroundProperty, binding);
             AddLogicalChild(Backstage);
+
+            // Disable QAT for this control
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(false));
         }
 
         /// <summary>
@@ -130,14 +133,28 @@ namespace Fluent
 
         #endregion
 
+        #region Quick Access Toolbar
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
         public override UIElement CreateQuickAccessItem()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// This method must be overriden to bind properties to use in quick access creating
+        /// </summary>
+        /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
