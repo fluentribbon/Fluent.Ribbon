@@ -18,7 +18,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
     <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
-    <UICulture>en-US</UICulture>
+    <!--<UICulture>en-US</UICulture>-->
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Properties\FluentStrongName.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
