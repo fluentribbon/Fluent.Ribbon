@@ -150,7 +150,8 @@
 							<RowDefinition Height="*"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>
+            <!--<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>-->
+            <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible"/>
 						<Fluent:MenuPanel Margin="0" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height" Grid.RowSpan="1" x:Name="PART_ItemsHost" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 						<Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="#FFDDE7EE" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1">
 							<Border.Background>

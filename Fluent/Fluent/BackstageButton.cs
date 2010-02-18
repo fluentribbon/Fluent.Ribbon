@@ -80,7 +80,9 @@ namespace Fluent
         {
             //StyleProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageButton),
-                                                     new FrameworkPropertyMetadata(typeof(BackstageButton)));                       
+                                                     new FrameworkPropertyMetadata(typeof(BackstageButton)));
+            // Disable QAT for this control
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(false));
         }
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
@@ -100,9 +102,6 @@ namespace Fluent
             binding.Source = this;
             Backstage.SetBinding(Backstage.BackgroundProperty, binding);
             AddLogicalChild(Backstage);
-
-            // Disable QAT for this control
-            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(false));
         }
 
         /// <summary>
