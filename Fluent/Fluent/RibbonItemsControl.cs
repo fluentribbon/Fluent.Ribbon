@@ -379,7 +379,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(18.0));
+            DependencyProperty.Register("ItemWidth", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(double.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -391,10 +391,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(18.0));
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
