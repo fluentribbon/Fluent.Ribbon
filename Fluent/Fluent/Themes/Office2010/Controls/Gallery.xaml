@@ -6,7 +6,7 @@
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate>
-				<Fluent:TwoLineLabel x:Name="twoLineLabel" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" HasTwoLines="False" HasGlyph="True" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,-2,0,2"/>
+				<Fluent:TwoLineLabel x:Name="twoLineLabel" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" HasTwoLines="False" HasGlyph="True" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,0,0,0"/>
 				<ControlTemplate.Triggers>
 					<Trigger Property="IsMouseOver" Value="True">
 						<Setter Property="Foreground" TargetName="twoLineLabel" Value="#FFFFD232"/>
@@ -57,7 +57,7 @@
                                 <ColumnDefinition Width="*"/>
                               </Grid.ColumnDefinitions>
                               <Grid Height="21" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
-                                <TextBlock Margin="7,0" Text="{Binding Path=Name}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
+                                <TextBlock Margin="7,0" Text="{Binding Path=Name}" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
                               </Grid>
                               <Image Grid.Column="0" Stretch="None" Margin="4,21,4,0" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="iconImage">  
                                 <Image.Source>

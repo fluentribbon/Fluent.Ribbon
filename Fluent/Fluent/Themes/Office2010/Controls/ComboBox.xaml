@@ -55,8 +55,8 @@
         		<Trigger Property="IsEnabled" Value="False">
         			<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
         			<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
-        			<Setter Property="Visibility" TargetName="PART_TextBox" Value="Hidden"/>
         			<Setter Property="Opacity" TargetName="path" Value="0.5"/>
+        			<Setter Property="IsEnabled" TargetName="PART_TextBox" Value="False"/>
         		</Trigger>
         		<!--<Trigger Property="IsOpen" Value="True">
         			<Setter Property="IsHitTestVisible" TargetName="PART_DownButton" Value="False"/>              

@@ -467,7 +467,7 @@ namespace Fluent
         {
             if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {                
-                if (base.HasItems && (base.SelectedIndex == -1))
+                if (base.HasItems && (base.SelectedIndex == -1) &&(!IsMinimized))
                 {
                     base.SelectedIndex = 0;
                 }

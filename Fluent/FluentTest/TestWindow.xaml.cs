@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Fluent;
 
 namespace FluentTest
@@ -28,12 +29,22 @@ namespace FluentTest
         {
             InitializeComponent();
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
-           
+            //Visibility = Visibility.Hidden;
+//            (Content as UIElement).Visibility = Visibility.Hidden;
             Loaded += delegate
             {
                 /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
                 tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
+                /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
+                                                                                               {
+                                                                                                   (Content as UIElement)
+                                                                                                       .Visibility =
+                                                                                                       Visibility.
+                                                                                                           Visible;
+                                                                                               }));*/
             };
+           
+            //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {

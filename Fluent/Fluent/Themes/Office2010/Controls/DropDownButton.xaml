@@ -9,6 +9,7 @@
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+    <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
       <Trigger Property="Size" Value="Large">
         <Setter Property="Height" Value="66"/>
@@ -35,8 +36,8 @@
       			</Rectangle.Fill>
       		</Rectangle>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-      			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
+      			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="3,2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
       		</StackPanel>
       	</Grid>
       </Border>
@@ -49,9 +50,10 @@
 		<Setter Property="Text" TargetName="controlLabel" Value=""/>
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="1,2,0,2"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="-2,-2,2,2"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="1,0,0,0"/>
+        <Setter Property="Margin" TargetName="controlLabel" Value="-2,-1,2,1"/>
         <Setter Property="Width" TargetName="controlLabel" Value="10"/>
+        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
       </Trigger>
       <Trigger Property="Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
@@ -59,12 +61,12 @@
         <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
         <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>
+        <Setter Property="Margin" TargetName="controlLabel" Value="2,-1,2,1"/>
         <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="1,2,2,2"/>
-        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Top"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>
+        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
       </Trigger>
       <Trigger Property="IsOpen" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>

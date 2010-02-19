@@ -21,8 +21,8 @@ namespace Fluent
     /// <summary>
     /// Represents specific label to use in particular ribbon controls
     /// </summary>
-    [TemplatePart(Name = "PART_TextRun", Type = typeof(Run))]
-    [TemplatePart(Name = "PART_TextBlock", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "PART_TextRun", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "PART_TextRun2", Type = typeof(TextBlock))]
     [TemplatePart(Name = "PART_Glyph", Type = typeof(InlineUIContainer))]
     public class TwoLineLabel: Control
     {
@@ -31,7 +31,9 @@ namespace Fluent
         /// <summary>
         /// Run with text
         /// </summary>
-        private Run textRun;
+        private TextBlock textRun;
+
+        private TextBlock textRun2;
 
         #endregion
 
@@ -141,7 +143,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            textRun = GetTemplateChild("PART_TextRun") as Run;
+            textRun = GetTemplateChild("PART_TextRun") as TextBlock;
+            textRun2 = GetTemplateChild("PART_TextRun2") as TextBlock;
             UpdateTextRun();
         }
 
@@ -169,44 +172,46 @@ namespace Fluent
         /// </summary>
         void UpdateTextRun()
         {
-            if (textRun != null)
+            if ((textRun != null)&&(textRun2 != null))
             {
                 textRun.Text = Text;
+                textRun2.Text = "";
+                string text = Text.Trim();
                 if (HasTwoLines)
                 {
                     int centerIndex = Text.Length / 2;
                     // Find spaces nearest to center from left and right
-                    int leftSpaceIndex = Text.LastIndexOf(' ', centerIndex, centerIndex);
-                    int rightSpaceIndex = Text.IndexOf(" ", centerIndex,StringComparison.CurrentCulture);
+                    int leftSpaceIndex = text.LastIndexOf(' ', centerIndex, centerIndex);
+                    int rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
                     if ((leftSpaceIndex == -1) && (rightSpaceIndex == -1))
                     {
                         // The text can`t be separated. Add new line for glyph
-                        textRun.Text += '\u0085';
+                        //textRun.Text += '\u0085';
                     }
                     else if (leftSpaceIndex == -1)
                     {
                         // Finds only space from right. New line adds on it
-                        textRun.Text = textRun.Text.Remove(rightSpaceIndex, 1);
-                        textRun.Text = textRun.Text.Insert(rightSpaceIndex, "\u0085");
+                        textRun.Text = text.Substring(0, rightSpaceIndex);
+                        textRun2.Text = text.Substring(rightSpaceIndex) + " ";
                     }
                     else if (rightSpaceIndex == -1)
                     {
                         // Finds only space from left. New line adds on it
-                        textRun.Text = textRun.Text.Remove(leftSpaceIndex, 1);
-                        textRun.Text = textRun.Text.Insert(leftSpaceIndex, "\u0085");
+                        textRun.Text = text.Substring(0, leftSpaceIndex);
+                        textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                     }
                     else
                     {
                         // Find nearest to center space and add new line on it
                         if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
                         {
-                            textRun.Text = textRun.Text.Remove(leftSpaceIndex, 1);
-                            textRun.Text=textRun.Text.Insert(leftSpaceIndex, "\u0085");
+                            textRun.Text = text.Substring(0, leftSpaceIndex);
+                            textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                         }
                         else
                         {
-                            textRun.Text=textRun.Text.Remove(rightSpaceIndex, 1);
-                            textRun.Text=textRun.Text.Insert(rightSpaceIndex, "\u0085");
+                            textRun.Text = text.Substring(0, rightSpaceIndex);
+                            textRun2.Text = text.Substring(rightSpaceIndex) + " ";
                         }
                     }
                 }

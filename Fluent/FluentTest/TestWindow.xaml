@@ -29,7 +29,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon">
+    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsMinimized="True" IsBackstageOpen="False">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
@@ -185,7 +185,7 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160" IsEnabled="False">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
@@ -259,7 +259,7 @@
         <TextBlock Tag="Group2">2</TextBlock>
         <TextBlock Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
-              <Fluent:SplitButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
+              <Fluent:SplitButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
                 <Fluent:Gallery x:Name="gallery" GroupBy="Tag" MinWidth="150" MinHeight="60">
                   <Fluent:Gallery.GroupIcons>
                     <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
@@ -281,9 +281,9 @@
                   <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
                 </Fluent:MenuItem>
               </Fluent:SplitButton>
-              <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
-              <Fluent:Button Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
-              <Fluent:DropDownButton Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Lala" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
+              <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
+              <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
+              <Fluent:DropDownButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Further Options" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
                 <Fluent:DropDownButton.Items>
                   <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag">
                     <Fluent:Gallery.Filters>
@@ -453,7 +453,7 @@
     <TreeView x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>    
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
     <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=inRibbonGallery1, Mode=OneWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
-    <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=inRibbonGallery1, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
+    <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>

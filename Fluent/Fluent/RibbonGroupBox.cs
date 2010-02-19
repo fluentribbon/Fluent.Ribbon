@@ -304,16 +304,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register("LauncherCommandParameter", typeof(object), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register("LauncherCommandParameter", typeof(object), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
         /// <summary>
         /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register("LauncherCommand", typeof(ICommand), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register("LauncherCommand", typeof(ICommand), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register("LauncherCommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register("LauncherCommandTarget", typeof(IInputElement), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
         
         #endregion
 

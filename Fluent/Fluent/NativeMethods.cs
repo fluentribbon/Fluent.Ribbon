@@ -45,6 +45,11 @@ namespace Fluent
         public const int WM_NCRBUTTONUP = 0x00A5;
 
         /// <summary>
+        /// The WM_CREATE message is sent when an application requests that a window be created by calling the CreateWindowEx or CreateWindow function. (The message is sent before the function returns.) The window procedure of the new window receives this message after the window is created, but before the window becomes visible
+        /// </summary>
+        public const int WM_CREATE = 0x0001;
+
+        /// <summary>
         /// On the screen background or on a dividing line between windows.
         /// </summary>
         public const int HTNOWHERE = 0;

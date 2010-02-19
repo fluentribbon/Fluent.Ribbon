@@ -363,7 +363,11 @@ namespace Fluent
             gallery.SetBinding(Gallery.OrientationProperty, binding);*/
             gallery.Orientation = Orientation;
 
+            if (ItemsSource == null) gallery.ItemsSource = Items;
+            else gallery.ItemsSource = ItemsSource;
+
             gallery.SelectedIndex = SelectedIndex;
+            gallery.SelectedItem= SelectedItem;
 
             binding = new Binding("SelectedIndex");
             binding.Source = gallery;
@@ -375,10 +379,7 @@ namespace Fluent
             binding.Source = gallery;
             binding.Mode = BindingMode.TwoWay;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            this.SetBinding(SelectedItemProperty, binding);
-
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
+            this.SetBinding(SelectedItemProperty, binding);            
 
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }

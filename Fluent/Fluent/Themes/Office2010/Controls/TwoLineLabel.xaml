@@ -5,19 +5,26 @@
   	<Setter Property="Template" Value="{DynamicResource TwoLineLabelControlTemplate}"/>
   </Style>
   <ControlTemplate x:Key="TwoLineLabelControlTemplate" TargetType="{x:Type Fluent:TwoLineLabel}">
-  	<TextBlock TextWrapping="Wrap" x:Name="PART_TextBlock" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
-		<Run x:Name="PART_TextRun"/>
-		<InlineUIContainer x:Name="PART_Glyph">
-			<Border x:Name="border" Height="16" Width="5" MinHeight="16" MaxHeight="16">
-			<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,2"  RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
-			</Border>
-		</InlineUIContainer>		
-	</TextBlock>
+  	<StackPanel x:Name="stackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+  		<TextBlock TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PART_TextRun"></TextBlock>
+  		<StackPanel x:Name="stackPanel1" Margin="0,-4,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+  			<TextBlock TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PART_TextRun2"></TextBlock>
+  			<Border x:Name="border" Height="Auto" Width="5" HorizontalAlignment="Center" Margin="0">
+  				<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,0"  RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
+  			</Border>
+  		</StackPanel>
+  	</StackPanel>
   	<ControlTemplate.Triggers>
   		<Trigger Property="HasTwoLines" Value="False">
-  			<Setter Property="TextWrapping" TargetName="PART_TextBlock" Value="NoWrap"/>
-  			<Setter Property="TextAlignment" TargetName="PART_TextBlock" Value="Left"/>
-  			<Setter Property="HorizontalAlignment" TargetName="PART_TextBlock" Value="Left"/>
+
+  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+  			<Setter Property="HorizontalAlignment" TargetName="stackPanel" Value="Left"/>
+  			<Setter Property="Margin" TargetName="border" Value="0"/>
+  			<Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
+  			<Setter Property="VerticalAlignment" TargetName="border" Value="Center"/>
+  			<Setter Property="Margin" TargetName="stackPanel1" Value="3,0,0,0"/>
+  			<Setter Property="VerticalAlignment" TargetName="stackPanel1" Value="Center"/>
+
   		</Trigger>
   		<Trigger Property="HasGlyph" Value="False">
   			<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
