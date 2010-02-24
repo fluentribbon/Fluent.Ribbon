@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite BETA2" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip">
+    Title="Fluent Ribbon Control Suite BETA2" Height="345" Width="400" mc:Ignorable="d" ResizeMode="CanResizeWithGrip">
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
@@ -70,7 +70,7 @@
                   
       <Fluent:Ribbon.QuickAccessItems>
         <Fluent:QuickAccessMenuItem x:Name="ssa" Height="22" IsChecked="True">
-            <Fluent:Button Text="Test1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" />
+            <Fluent:Button Text="Test1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
         </Fluent:QuickAccessMenuItem>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22"/>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ssd}" Text="Test3" Height="22"/>

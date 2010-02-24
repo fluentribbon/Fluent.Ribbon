@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 using System;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
@@ -88,11 +89,44 @@ namespace Fluent
         static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             QuickAccessMenuItem quickAccessMenuItem = (QuickAccessMenuItem) d;
-            RibbonControl ribbonControl = quickAccessMenuItem.Target as RibbonControl;
+            RibbonControl ribbonControl = e.NewValue as RibbonControl;
             if ((String.IsNullOrEmpty(quickAccessMenuItem.Text)) && (ribbonControl != null))
             {
                 // Set Default Text Value
                 Bind(ribbonControl, quickAccessMenuItem, "Text", TextProperty, BindingMode.OneWay);
+            }
+            if(ribbonControl!=null)
+            {
+                DependencyObject parent = LogicalTreeHelper.GetParent(ribbonControl);
+                if (parent == null) quickAccessMenuItem.AddLogicalChild(ribbonControl);
+            }
+            RibbonControl oldRibbonControl = e.OldValue as RibbonControl;
+            if(oldRibbonControl!=null)
+            {
+                DependencyObject parent = LogicalTreeHelper.GetParent(oldRibbonControl);
+                if (parent == quickAccessMenuItem) quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
+            }
+        }
+
+        #endregion
+
+        #region Overrides
+
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                DependencyObject parent = LogicalTreeHelper.GetParent(Target);
+                if (parent == this)
+                {
+                    ArrayList list = new ArrayList();
+                    list.Add(Target);
+                    return list.GetEnumerator();
+                }
+                return base.LogicalChildren;
             }
         }
 
