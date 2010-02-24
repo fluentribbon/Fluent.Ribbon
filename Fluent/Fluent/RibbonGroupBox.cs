@@ -504,26 +504,6 @@ namespace Fluent
 
         #endregion
 
-        #region IsCached
-
-        /// <summary>
-        /// Gets or sets whether the content is cached
-        /// </summary>
-        public bool IsCached
-        {
-            get { return (bool)GetValue(IsCachedProperty); }
-            set { SetValue(IsCachedProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCached.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsCachedProperty =
-            DependencyProperty.Register("IsCached", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
-
-        #endregion
-
         #endregion
 
         #region Events
@@ -712,8 +692,6 @@ namespace Fluent
         {
             get
             {
-                if (!IsCached) cachedMeasures.Clear();
-
                 Size result;
                 StateScale stateScale = new StateScale { Scale = ScaleIntermediate, State = StateIntermediate};
                 if (!cachedMeasures.TryGetValue(stateScale, out result))

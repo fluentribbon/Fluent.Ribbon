@@ -299,22 +299,22 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter�dependency property.
+        /// Identifies the CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
         /// <summary>
-        /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command�dependency property.
+        /// Identifies the routed Command dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
 
         /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget�dependency property.
+        /// Identifies the CommandTarget dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
 
         // Keep a copy of the handler so it doesn't get garbage collected.
         [SuppressMessage("Microsoft.Performance", "CA1823")]
-        private static EventHandler canExecuteChangedHandler;
+        EventHandler canExecuteChangedHandler;
 
         /// <summary>
         /// Handles Command changed
@@ -332,7 +332,7 @@ namespace Fluent
             if (e.NewValue != null)
             {
                 handler = new EventHandler(control.OnCommandCanExecuteChanged);
-                canExecuteChangedHandler = handler;
+                control.canExecuteChangedHandler = handler;
                 (e.NewValue as ICommand).CanExecuteChanged += handler;                
             }
             control.CoerceValue(IsEnabledProperty);
