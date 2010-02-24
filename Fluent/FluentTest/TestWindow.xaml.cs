@@ -125,6 +125,8 @@ namespace FluentTest
 
         private void OnSomeTestClick(object sender, RoutedEventArgs e)
         {
+            //A.IsCached = false;
+            A.Items.Add(new Fluent.Button() { Text = "fsdfsd" });
             //MessageBox.Show("lala");
             CheckLogicalTree(ribbon);
             logicalTreeView.Items.Clear();
@@ -148,7 +150,8 @@ namespace FluentTest
         }
 
         void BuildLogicalTree(DependencyObject root, TreeViewItem item)
-        {
+        {  
+
             TreeViewItem newItem = new TreeViewItem();
             newItem.Header = String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement)?(root as FrameworkElement).Name:"");
             if(item!=null)

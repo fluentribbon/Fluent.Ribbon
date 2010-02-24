@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -50,7 +51,6 @@ namespace Fluent
         static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupsContainer ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.cachedConstraint = ribbonPanel.cachedDesiredSize = new Size();
             ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] {',',' '}, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
@@ -62,10 +62,6 @@ namespace Fluent
 
         #region Fields
 
-        // A cached copy of the constraint from the previous layout pass.
-        Size cachedConstraint;
-        // A cached copy of the desired size from the previous layout pass.
-        Size cachedDesiredSize;
         string[] reduceOrder = new string[0];
         int reduceOrderIndex;
 
@@ -108,58 +104,65 @@ namespace Fluent
         {
             Size infinitySize = new Size(Double.PositiveInfinity, availableSize.Height);
             Size desiredSize = GetChildrenDesiredSizeIntermediate();
-
-            // If the availableSize and desired size are equal to those in the cache, skip
-            // this layout measure pass.
-            if (((availableSize != cachedConstraint) || (desiredSize != cachedDesiredSize)) && (reduceOrder.Length>0))
+            if (reduceOrder.Length == 0)
             {
-                cachedConstraint = availableSize;
-                cachedDesiredSize = desiredSize;
+                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                return desiredSize;
+            }
 
-                // If we have more available space - try to expand groups
-                while (desiredSize.Width <= availableSize.Width)
+            // If we have more available space - try to expand groups
+            while (desiredSize.Width <= availableSize.Width)
+            {
+                bool hasMoreVariants = reduceOrderIndex < reduceOrder.Length - 1;
+                if (!hasMoreVariants) break;
+
+                // Increase size of another item
+                reduceOrderIndex++;
+                IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
+
+
+                desiredSize = GetChildrenDesiredSizeIntermediate();
+            }
+
+            // If not enough space - go to next variant
+            while (desiredSize.Width > availableSize.Width)
+            {
+                bool hasMoreVariants = reduceOrderIndex >= 0;
+                if (!hasMoreVariants) break;
+
+                // Decrease size of another item
+                DecreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
+                reduceOrderIndex--;
+
+                desiredSize = GetChildrenDesiredSizeIntermediate();
+            }
+
+            // Set find values
+            foreach (object item in InternalChildren)
+            {
+                RibbonGroupBox groupBox = item as RibbonGroupBox;
+                if (groupBox == null) continue;
+
+                if ((groupBox.State != groupBox.StateIntermediate) ||
+                    (groupBox.Scale != groupBox.ScaleIntermediate))
                 {
-                    bool hasMoreVariants = reduceOrderIndex < reduceOrder.Length - 1;
-                    if (!hasMoreVariants) break;
-
-                    // Increase size of another item
-                    reduceOrderIndex++;
-                    IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
-                    
-
-                    desiredSize = GetChildrenDesiredSizeIntermediate();                    
+                    groupBox.SuppressCacheReseting = true;
+                    groupBox.State = groupBox.StateIntermediate;
+                    groupBox.Scale = groupBox.ScaleIntermediate;
+                    groupBox.InvalidateLayout();
+                    groupBox.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    groupBox.SuppressCacheReseting = false;
                 }
 
-                // If not enough space - go to next variant
-                while (desiredSize.Width > availableSize.Width)
+                // Something wrong with cache?
+                if (groupBox.DesiredSizeIntermediate != groupBox.DesiredSize)
                 {
-                    bool hasMoreVariants = reduceOrderIndex >= 0;
-                    if (!hasMoreVariants) break;
-
-                    // Decrease size of another item
-                    DecreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
-                    reduceOrderIndex--;
-
-                    desiredSize = GetChildrenDesiredSizeIntermediate();                     
-                }                
-
-                foreach(object item in InternalChildren)
-                {
-                    RibbonGroupBox groupBox = item as RibbonGroupBox;
-                    if (groupBox == null) continue;
-
-                    if ((groupBox.State != groupBox.StateIntermediate) ||
-                        (groupBox.Scale != groupBox.ScaleIntermediate))
-                    {
-                        groupBox.SuppressCacheReseting = true;
-                        groupBox.State = groupBox.StateIntermediate;
-                        groupBox.Scale = groupBox.ScaleIntermediate;
-                        groupBox.InvalidateLayout();
-                        groupBox.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                        groupBox.SuppressCacheReseting = false;
-                    }
+                    // Reset cache and reinvoke masure
+                    groupBox.ClearCache();
+                    return MeasureOverride(availableSize);
                 }
             }
+
             VerifyScrollData(availableSize.Width, desiredSize.Width);
             return desiredSize;
         }
