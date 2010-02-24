@@ -121,7 +121,7 @@ namespace Fluent
             UIElement parent = null;
             do
             {
-                parent = LogicalTreeHelper.GetParent(element) as UIElement;
+                parent = VisualTreeHelper.GetParent(element) as UIElement;
                 if (parent is QuickAccessToolBar) return true;
                 element = parent;
             }
