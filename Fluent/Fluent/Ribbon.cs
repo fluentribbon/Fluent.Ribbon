@@ -935,10 +935,20 @@ namespace Fluent
         {            
             AdornerLayer layer = GetAdornerLayer(this);
             if (adorner == null)
-            {                
-                UIElement topLevelElement = Window.GetWindow(this).Content as UIElement;
-                double topOffset=backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
+            {
+                if (DesignerProperties.GetIsInDesignMode(this))
+                {
+                    // TODO: in design mode it is required to use design time adorner
+                    UIElement topLevelElement = VisualTreeHelper.GetParent(this) as UIElement;
+                    double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
+                    adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
+                }
+                else
+                {
+                    UIElement topLevelElement = Window.GetWindow(this).Content as UIElement;
+                    double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
+                    adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
+                }
             }            
             layer.Add(adorner);
             if (tabControl != null)
