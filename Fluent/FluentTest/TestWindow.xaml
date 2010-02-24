@@ -29,7 +29,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="False">
+    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsBackstageOpen="False" IsMinimized="{Binding IsChecked, ElementName=checkBox, Mode=TwoWay}">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
@@ -452,10 +452,11 @@
     
     <TreeView x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>    
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
-    <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=inRibbonGallery1, Mode=OneWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
+    <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=inRibbonGallery1, Mode=OneWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>    
     <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
-    <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
-      <TextBlock Margin="15" Tag="Group1">1</TextBlock>
+    <CheckBox x:Name="checkBox" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1">IsMinimized</CheckBox>
+    <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">   IsChecked="{Binding IsMinimized, ElementName=ribbon, Mode=TwoWay}"
+      <TextBlock Margin="15" Tag="Group1">1</TextBlock> 
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>
       <TextBlock Margin="15" Tag="Group1" Name="hte">3</TextBlock>
       <TextBlock Margin="15" Tag="Group1">4</TextBlock>

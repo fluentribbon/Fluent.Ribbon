@@ -657,9 +657,9 @@ namespace Fluent
                 tabControl.SelectionChanged += OnTabControlSelectionChanged;
                 tabControl.IsMinimized = IsMinimized;
                 Binding minimizeBinding = new Binding("IsMinimized");
-                minimizeBinding.Source = tabControl;
+                minimizeBinding.Source = this;
                 minimizeBinding.Mode = BindingMode.TwoWay;
-                SetBinding(IsMinimizedProperty, minimizeBinding);
+                tabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, minimizeBinding);
             }
             if ((tabControl != null)&&(tabs!=null))
             {
