@@ -1,16 +1,15 @@
 #region Copyright and License Information
+
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright � Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
+
 #endregion
+
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -108,7 +107,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size availableSize)
         {
             Size infinitySize = new Size(Double.PositiveInfinity, availableSize.Height);
-            Size desiredSize = GetChildrenDesiredSize(infinitySize);
+            Size desiredSize = GetChildrenDesiredSizeIntermediate();
 
             // If the availableSize and desired size are equal to those in the cache, skip
             // this layout measure pass.
@@ -128,7 +127,7 @@ namespace Fluent
                     IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
                     
 
-                    desiredSize = GetChildrenDesiredSize(infinitySize);                    
+                    desiredSize = GetChildrenDesiredSizeIntermediate();                    
                 }
 
                 // If not enough space - go to next variant
@@ -141,36 +140,42 @@ namespace Fluent
                     DecreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
                     reduceOrderIndex--;
 
-                    desiredSize = GetChildrenDesiredSize(infinitySize);                     
+                    desiredSize = GetChildrenDesiredSizeIntermediate();                     
                 }                
+
+                foreach(object item in InternalChildren)
+                {
+                    RibbonGroupBox groupBox = item as RibbonGroupBox;
+                    if (groupBox == null) continue;
+
+                    if ((groupBox.State != groupBox.StateIntermediate) ||
+                        (groupBox.Scale != groupBox.ScaleIntermediate))
+                    {
+                        groupBox.SuppressCacheReseting = true;
+                        groupBox.State = groupBox.StateIntermediate;
+                        groupBox.Scale = groupBox.ScaleIntermediate;
+                        groupBox.InvalidateLayout();
+                        groupBox.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                        groupBox.SuppressCacheReseting = false;
+                    }
+                }
             }
             VerifyScrollData(availableSize.Width, desiredSize.Width);
             return desiredSize;
         }
 
-        /// <summary>
-        /// Calculates the total width of all children
-        /// </summary>
-        /// <returns>Returns the total width</returns>
-        double GetChildrenWidth()
-        {
-            double result = 0;
-            foreach (UIElement child in this.InternalChildren)
-            {
-                result += child.DesiredSize.Width;
-            }
-            return result;
-        }
-
-        Size GetChildrenDesiredSize(Size availableSize)
+        Size GetChildrenDesiredSizeIntermediate()
         {
             double width = 0;
             double height = 0;
             foreach (UIElement child in this.InternalChildren)
             {
-                child.Measure(availableSize);
-                width += child.DesiredSize.Width;
-                height = Math.Max(height, child.DesiredSize.Height);
+                RibbonGroupBox groupBox = child as RibbonGroupBox;
+                if (groupBox == null) continue;
+
+                Size desiredSize = groupBox.DesiredSizeIntermediate;
+                width += desiredSize.Width;
+                height = Math.Max(height, desiredSize.Height);
             }
             return new Size(width, height);
         }
@@ -184,20 +189,10 @@ namespace Fluent
             bool scale = name.StartsWith("(");
             if (groupBox == null) return;
 
-            if (scale) IncreaseScalableElement(groupBox);
-            else groupBox.State = (groupBox.State != RibbonGroupBoxState.Large) ? groupBox.State - 1 : RibbonGroupBoxState.Large;
-            InvalidateMeasureRecursive(groupBox);
+            if (scale) groupBox.ScaleIntermediate++;
+            else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Large) ? groupBox.StateIntermediate - 1 : RibbonGroupBoxState.Large;
         }
-
-        void InvalidateMeasureRecursive(UIElement element)
-        {
-            if (element == null) return;
-            element.InvalidateMeasure();
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
-            {
-                InvalidateMeasureRecursive(VisualTreeHelper.GetChild(element, i) as UIElement);
-            }
-        }
+       
 
         // Decrease size of the item
         void DecreaseGroupBoxSize(string name)
@@ -206,30 +201,11 @@ namespace Fluent
             bool scale = name.StartsWith("(");
             if (groupBox == null) return;
 
-            if (scale) DecreaseScalableElement(groupBox);
-            else groupBox.State = (groupBox.State != RibbonGroupBoxState.Collapsed) ? groupBox.State + 1 : groupBox.State;
-            InvalidateMeasureRecursive(groupBox);
+            if (scale) groupBox.ScaleIntermediate--;
+            else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed) ? groupBox.StateIntermediate + 1 : groupBox.StateIntermediate;
         }
 
-        // Finds and increase size of all scalable elements in the given group box
-        void IncreaseScalableElement(RibbonGroupBox groupBox)
-        {
-            foreach(object item in groupBox.Items)
-            {
-                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl != null) scalableRibbonControl.Enlarge();
-            }
-        }
-
-        // Finds and decrease size of all scalable elements in the given group box
-        void DecreaseScalableElement(RibbonGroupBox groupBox)
-        {
-            foreach(object item in groupBox.Items)
-            {
-                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl != null) scalableRibbonControl.Reduce();
-            }
-        }
+        
 
         private RibbonGroupBox FindGroup(string name)
         {

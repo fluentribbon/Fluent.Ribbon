@@ -43,7 +43,8 @@ namespace Fluent
         // Collection of toolbar items
         private ObservableCollection<UIElement> menuItems;
 
-        private double currentItemsInRow;
+        //
+        private int currentItemsInRow;
 
         private Panel layoutRoot;
 
@@ -60,9 +61,23 @@ namespace Fluent
 
         private DropDownButton quickAccessButton;
 
+        // Saved width in for scalable support
+        private double savedWidth;
+
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets current items in row
+        /// </summary>
+        private int CurrentItemsInRow
+        {
+            get
+            {
+                return Math.Max(MinItemsInRow, Math.Min(MaxItemsInRow, MaxItemsInRow + currentItemsInRow));
+            }
+        }
 
         #region ScrollBarsVisibility
 
@@ -774,8 +789,19 @@ namespace Fluent
 
         #region Events
 
+        /// <summary>
+        /// Occurs when menu is opened
+        /// </summary>
         public event EventHandler MenuOpened;
+        /// <summary>
+        /// Occurs when menu is closed
+        /// </summary>
         public event EventHandler MenuClosed;
+
+        /// <summary>
+        /// Occurs when contol is scaled
+        /// </summary>
+        public event EventHandler Scaled;
 
         #endregion
 
@@ -897,6 +923,7 @@ namespace Fluent
             if (listBox != null)
             {
                 listBox.SelectionChanged -= OnListBoxSelectionChanged;
+                listBox.ItemContainerGenerator.StatusChanged -= OnItemsContainerGeneratorStatusChanged;           
                 listBox.ItemsSource = null;                
             }
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
@@ -922,7 +949,8 @@ namespace Fluent
 
                 gallery.SelectedIndex = SelectedIndex;*/
 
-                listBox.SelectionChanged += OnListBoxSelectionChanged;                           
+                listBox.SelectionChanged += OnListBoxSelectionChanged;
+                listBox.ItemContainerGenerator.StatusChanged += OnItemsContainerGeneratorStatusChanged;           
             }
             if (expandButton != null) expandButton.Click -= OnExpandClick;
             expandButton = GetTemplateChild("PART_ExpandButton") as ToggleButton;
@@ -936,6 +964,11 @@ namespace Fluent
 
             // Clear cache then style changed
             cachedWidthDelta = 0;
+        }
+
+        private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
+        {
+            if (Scaled != null) Scaled(this, EventArgs.Empty);
         }
 
         private void OnDropDownClick(object sender, RoutedEventArgs e)
@@ -992,7 +1025,16 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             if (isSnapped) return new Size(snappedImage.Width, snappedImage.Height);
-            if (IsCollapsed) return base.MeasureOverride(constraint); 
+            if (IsCollapsed)
+            {
+                Size size = base.MeasureOverride(constraint);
+                if(savedWidth != size.Width)
+                {
+                    savedWidth = size.Width;
+                    if (Scaled != null) Scaled(this, EventArgs.Empty);
+                }
+                return size;
+            }
             if (listBox == null) return base.MeasureOverride(constraint);
             if (listBox.Items.Count == 0) return base.MeasureOverride(constraint);
             double itemWidth = GetItemWidth();
@@ -1001,8 +1043,12 @@ namespace Fluent
                 base.MeasureOverride(constraint);
                 cachedWidthDelta = layoutRoot.DesiredSize.Width - listBox.InnerPanelWidth;
             }
-            if (currentItemsInRow == 0) currentItemsInRow = MaxItemsInRow*itemWidth;
-            base.MeasureOverride(new Size(Math.Max(Math.Min(MaxItemsInRow * itemWidth, currentItemsInRow), MinItemsInRow * itemWidth) + cachedWidthDelta, constraint.Height));
+            base.MeasureOverride(new Size(CurrentItemsInRow * itemWidth + cachedWidthDelta, constraint.Height));
+            if (layoutRoot.DesiredSize.Width != savedWidth)
+            {
+                savedWidth = layoutRoot.DesiredSize.Width;
+                if (Scaled != null) Scaled(this, EventArgs.Empty);
+            }
             return layoutRoot.DesiredSize;
         }
 
@@ -1010,9 +1056,7 @@ namespace Fluent
         {
             if (CanCollapseToButton)
             {
-                //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(Items[0]) as GalleryItem).DesiredSize.Width;
-                double itemWidth = GetItemWidth();
-                if ((current == RibbonControlSize.Large) && ((currentItemsInRow > MinItemsInRow * itemWidth))) IsCollapsed = false;
+                if ((current == RibbonControlSize.Large) && ((CurrentItemsInRow > MinItemsInRow))) IsCollapsed = false;
                 else IsCollapsed = true;
             }
             else IsCollapsed = false;
@@ -1232,14 +1276,10 @@ namespace Fluent
         /// </summary>
         public void Enlarge()
         {
-            if(listBox==null) return;
-            if (listBox.Items.Count == 0) return;
-            //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
-            double itemWidth = GetItemWidth();
-            double newSize = listBox.InnerPanelWidth + itemWidth;
-            if ((CanCollapseToButton) && (newSize > MinItemsInRow * itemWidth)&&(Size==RibbonControlSize.Large)) IsCollapsed = false;
-            newSize = Math.Max(Math.Min(MaxItemsInRow * itemWidth, newSize), MinItemsInRow * itemWidth);
-            currentItemsInRow = newSize;
+            currentItemsInRow++;
+
+            if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
+           
             InvalidateMeasure();
         }
 
@@ -1247,15 +1287,10 @@ namespace Fluent
         /// Reduce control size
         /// </summary>
         public void Reduce()
-        {
-            if (listBox == null) return;
-            if (listBox.Items.Count == 0) return;
-            //double itemWidth = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem).DesiredSize.Width;
-            double itemWidth = GetItemWidth();
-            double newSize = listBox.InnerPanelWidth - itemWidth;
-            if ((CanCollapseToButton) && (newSize < MinItemsInRow * itemWidth)) IsCollapsed = true;
-            newSize = Math.Max(Math.Min(MaxItemsInRow * itemWidth, newSize), MinItemsInRow * itemWidth);
-            currentItemsInRow = newSize;
+        {            
+            currentItemsInRow--;
+            if ((CanCollapseToButton) && (CurrentItemsInRow < MinItemsInRow)) IsCollapsed = true;
+           
             InvalidateMeasure();
         }
 

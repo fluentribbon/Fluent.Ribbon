@@ -142,6 +142,78 @@ namespace Fluent
 
         #endregion
 
+        #region Scale
+
+        // Current scale index
+        int scale;
+
+        /// <summary>
+        /// Gets or sets scale index (for internal IRibbonScalableControl)
+        /// </summary>
+        internal int Scale
+        {
+            get { return scale; }
+            set
+            {
+                int difference = value - scale;
+                scale = value;
+
+                for (int i = 0; i < Math.Abs(difference); i++)
+                {
+                    if (difference > 0) IncreaseScalableElement();
+                    else DecreaseScalableElement();
+                }
+            }
+        }
+
+        // Finds and increase size of all scalable elements in the given group box
+        void IncreaseScalableElement()
+        {
+            foreach (object item in Items)
+            {
+                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl == null) continue;
+                scalableRibbonControl.Enlarge();
+            }
+        }
+
+        void OnScalableControlScaled(object sender, EventArgs e)
+        {
+            if (!SuppressCacheReseting) cachedMeasures.Clear();
+        }
+
+        /// <summary>
+        /// Gets or sets whether to reset cache when scalable control is scaled
+        /// </summary>
+        internal bool SuppressCacheReseting
+        {
+            get; set;
+        }
+
+        // Finds and decrease size of all scalable elements in the given group box
+        void DecreaseScalableElement()
+        {
+            foreach (object item in Items)
+            {
+                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl == null) continue;
+                scalableRibbonControl.Reduce();
+            }
+        }
+
+        void UpdateScalableControlSubscribing()
+        {
+            foreach (object item in Items)
+            {
+                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl == null) continue;
+                scalableRibbonControl.Scaled -= OnScalableControlScaled;
+                scalableRibbonControl.Scaled += OnScalableControlScaled;
+            }
+        }
+
+        #endregion
+
         #region Header
 
         /// <summary>
@@ -582,6 +654,93 @@ namespace Fluent
 
         #endregion
 
+        #region Caching
+
+        // Pair of chached states
+        struct StateScale
+        {
+            public RibbonGroupBoxState State;
+            public int Scale;
+        }
+
+        // Cache
+        readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
+        // Intermediate state of the group box
+        RibbonGroupBoxState stateIntermediate = RibbonGroupBoxState.Large;
+
+        /// <summary>
+        /// Gets or sets intermediate state of the group box
+        /// </summary>
+        internal RibbonGroupBoxState StateIntermediate
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets intermediate scale of the group box
+        /// </summary>
+        internal int ScaleIntermediate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets intermediate desired size
+        /// </summary>
+        internal Size DesiredSizeIntermediate
+        {
+            get
+            {
+                Size result;
+                StateScale stateScale = new StateScale { Scale = ScaleIntermediate, State = StateIntermediate};
+                if (!cachedMeasures.TryGetValue(stateScale, out result))
+                {
+                    SuppressCacheReseting = true;
+                    UpdateScalableControlSubscribing();
+
+                    // Get desired size for these values
+                    RibbonGroupBoxState backupState = State;
+                    int backupScale = Scale;
+                    State = StateIntermediate;
+                    Scale = ScaleIntermediate;
+                    InvalidateLayout();
+                    Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    cachedMeasures.Add(stateScale, DesiredSize);
+                    result = DesiredSize;
+
+                    // Rollback changes
+                    State = backupState;
+                    Scale = backupScale;
+                    InvalidateLayout();
+                    Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+
+                    SuppressCacheReseting = false;
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Invalidates layout (with children)
+        /// </summary>
+        internal void InvalidateLayout()
+        {
+            InvalidateMeasureRecursive(this);
+        }
+
+        static void InvalidateMeasureRecursive(UIElement element)
+        {
+            if (element == null) return;
+            element.InvalidateMeasure();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                InvalidateMeasureRecursive(VisualTreeHelper.GetChild(element, i) as UIElement);
+            }
+        }
+
+        #endregion
+
         #region Overrides
 
         /// <summary>
@@ -606,6 +765,9 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            // Clear cache
+            cachedMeasures.Clear();
+
             if (LauncherButton != null) LauncherButton.Click -= OnDialogLauncherButtonClick;
             LauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
             if (LauncherButton != null)
@@ -653,13 +815,17 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
+            // System.Diagnostics.Debug.WriteLine("Measure " + Header + " (" + State + ")");
             if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
+            
+            // TODO: What the hell? Remove it?
             /*upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
             double width = upPanel.DesiredSize.Width +upPanel.Margin.Left + upPanel.Margin.Right;
             Size size = new Size(width,constraint.Height);
             //(upPanel.Parent as Grid).Measure(size);
             (GetVisualChild(0) as UIElement).Measure(size);
             return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);*/
+
             Size size = base.MeasureOverride(constraint);
             if(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width)
             {

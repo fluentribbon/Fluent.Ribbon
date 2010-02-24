@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite BETA2" Height="345" Width="900" mc:Ignorable="d" ResizeMode="CanResizeWithGrip">
+    Title="Fluent Ribbon Control Suite BETA2" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip">
   <Fluent:RibbonWindow.Resources>
 
   	<ResourceDictionary>
@@ -29,7 +29,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsMinimized="True" IsBackstageOpen="False">
+    <Fluent:Ribbon BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="False">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
@@ -77,7 +77,7 @@
       </Fluent:Ribbon.QuickAccessItems>
 
       
-      <Fluent:RibbonTabItem x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
+      <Fluent:RibbonTabItem  x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
 
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton x:Name="ss" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
@@ -232,7 +232,7 @@
 
 	    
         <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
-			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large,Large, Large" Orientation="Vertical">
+			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="Images\Box.png" Text="Split" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large,Large, Large" Orientation="Vertical" ItemWidth="40" ItemHeight="60">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>

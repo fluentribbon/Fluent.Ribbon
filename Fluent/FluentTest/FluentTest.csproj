@@ -145,6 +145,9 @@
     <Resource Include="Images\PasteSourceFormating.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Box.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\Test16.png" />
     <Resource Include="Images\Test32.png" />
   </ItemGroup>

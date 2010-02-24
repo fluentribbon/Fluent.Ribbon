@@ -18,5 +18,10 @@ namespace Fluent
         /// Reduce control size
         /// </summary>
         void Reduce();
+
+        /// <summary>
+        /// Occurs when contol is scaled
+        /// </summary>
+        event EventHandler Scaled;
     }
 }
