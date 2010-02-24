@@ -536,6 +536,7 @@ namespace Fluent
         private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
             DropDownButton button = sender as DropDownButton;
+            button.MenuResizeMode = parentContextMenu.ResizeMode;
             for (int i = 0; i < parentContextMenu.Items.Count; i++)
             {
                 UIElement item = parentContextMenu.Items[0];
@@ -580,7 +581,7 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             DropDownButton button = element as DropDownButton;
-            if (parentContextMenu!=null) Bind(parentContextMenu, button, "MenuResizeMode", Fluent.ContextMenu.ResizeModeProperty, BindingMode.Default);
+            //if (parentContextMenu != null) Bind(button, parentContextMenu, "ResizeMode", DropDownButton.MenuResizeModeProperty, BindingMode.Default);
             base.BindQuickAccessItem(element);
         }
 

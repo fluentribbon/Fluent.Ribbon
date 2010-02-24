@@ -1205,7 +1205,7 @@ namespace Fluent
             gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
             gallery.MinHeight = ActualHeight;
             DropDownButton button = sender as DropDownButton;
-
+            button.MenuResizeMode = ResizeMode;
             if (!IsCollapsed) IsSnapped = true;
             object selectedItem = listBox.SelectedItem;
             listBox.ItemsSource = null;            
