@@ -27,7 +27,7 @@
     				<Path Fill="{DynamicResource ActiveTabBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z"/>
     			</Grid>
     		</Border>
-    		<TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Text="{TemplateBinding Text}" TextWrapping="Wrap"/>
+    		<TextBlock HorizontalAlignment="Left" Margin="20,0" VerticalAlignment="Center" Text="{TemplateBinding Text}" TextWrapping="NoWrap"/>
     	</Grid>
     	<ControlTemplate.Triggers>
     		<Trigger Property="IsMouseOver" Value="True">

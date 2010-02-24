@@ -42,7 +42,7 @@
         <Fluent:BackstageTabItem Text="Lala" Fluent:KeyTip.Keys="E">
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala2" Fluent:KeyTip.Keys="R">
+        <Fluent:BackstageTabItem Text="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R">
           <Grid Background="Green" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Text="Lala3" Fluent:KeyTip.Keys="T">
