@@ -844,7 +844,7 @@ namespace Fluent
         void Log(string message)
         {
             // Uncomment in case of emergency
-            System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
+            // System.Diagnostics.Debug.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
         }
 
         #endregion

@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Interop;
@@ -78,6 +79,10 @@ namespace Fluent
         {
             if (attached) return;
             attached = true;
+
+            // KeyTip service must not work in design mode
+            if (DesignerProperties.GetIsInDesignMode(ribbon)) return;
+
             window = GetElementWindow(ribbon);
             if (window == null) return;
 

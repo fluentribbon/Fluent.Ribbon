@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -579,11 +580,11 @@ namespace Fluent
         public Ribbon()
         {
             VerticalAlignment = VerticalAlignment.Top;
-            keyTipService = new KeyTipService(this);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
             Focusable = false;
             Loaded += OnLoaded;
-            Unloaded += OnUnloaded;            
+            Unloaded += OnUnloaded;
+            keyTipService = new KeyTipService(this);
         }
 
         #endregion        
