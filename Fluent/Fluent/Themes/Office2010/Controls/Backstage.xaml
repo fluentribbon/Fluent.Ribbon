@@ -11,11 +11,11 @@
   		</Border>
   		<StackPanel Orientation="Horizontal" Margin="16,0,15,0" HorizontalAlignment="Left" VerticalAlignment="Center">
   			<Image Width="16" Height="16" HorizontalAlignment="Left" Source="{TemplateBinding Icon}"/>
-  			<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+  			<TextBlock Text="{TemplateBinding Text}" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="CharacterEllipsis"/>
   		</StackPanel>
   	</Grid>
   	<ControlTemplate.Triggers>
-  		<Trigger Property="IsMouseDirectlyOver" Value="True">
+  		<Trigger Property="IsMouseOver" Value="True">
   			<Setter Property="Visibility" TargetName="border" Value="Visible"/>
   		</Trigger>
   	</ControlTemplate.Triggers>
