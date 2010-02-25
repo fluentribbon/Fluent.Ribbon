@@ -406,15 +406,6 @@ namespace Fluent
         #region IsEnabled
 
         /// <summary>
-        /// Handles IsEnabled changes
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e">The event data.</param>
-        private static void OnIsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        /// <summary>
         /// Coerces IsEnabled 
         /// </summary>
         /// <param name="d"></param>
@@ -422,16 +413,13 @@ namespace Fluent
         /// <returns></returns>
         private static object CoerceIsEnabled(DependencyObject d, object basevalue)
         {
-            RibbonControl control = (d as RibbonControl);
-            if (control!=null)
-            {
-                
-                if (control.Command != null)
-                {
-                    return ((bool) basevalue) && control.CanExecuteCommand();
-                }
-            }
-            return basevalue;
+            RibbonControl control = (RibbonControl)d;
+            UIElement parent = LogicalTreeHelper.GetParent(control) as UIElement;
+            bool parentIsEnabled = parent == null || parent.IsEnabled;
+            bool commandCanExecuted = control.Command == null || control.CanExecuteCommand();
+
+            // We force disable if parent is disabled or command cannot be executed
+            return (bool)basevalue && parentIsEnabled && commandCanExecuted;
         }
 
         #endregion        
@@ -490,7 +478,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            IsEnabledProperty.AddOwner(typeof (RibbonControl), new FrameworkPropertyMetadata(OnIsEnabledChanged, CoerceIsEnabled));
+            IsEnabledProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, CoerceIsEnabled));
             FocusableProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
 
             ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
