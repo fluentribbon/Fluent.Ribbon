@@ -24,7 +24,7 @@
     						</RadialGradientBrush>
     					</Border.Background>
     				</Border>
-    				<Path Fill="{DynamicResource ActiveTabBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z"/>
+    				<Path Fill="{DynamicResource ActiveTabBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z" Margin="0,0,-1,0"/>
     			</Grid>
     		</Border>
     		<TextBlock HorizontalAlignment="Left" Margin="20,0" VerticalAlignment="Center" Text="{TemplateBinding Text}" TextWrapping="NoWrap"/>
