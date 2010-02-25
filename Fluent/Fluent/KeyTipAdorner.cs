@@ -56,7 +56,7 @@ namespace Fluent
         KeyTipAdorner childAdorner;
 
         // Focused element
-        UIElement focusedElement;
+        IInputElement focusedElement;
         
 
         // Is this adorner attached to the adorned element?
@@ -186,11 +186,11 @@ namespace Fluent
             
             // Focus current adorned element
            // Keyboard.Focus(adornedElement);
-            focusedElement = Keyboard.FocusedElement as UIElement;
+            focusedElement = Keyboard.FocusedElement;
             if (focusedElement != null)
             {
                 Log("Focus Attached to " + focusedElement.ToString());
-                focusedElement.LostFocus += OnFocusLost;                
+                focusedElement.LostKeyboardFocus += OnFocusLost;                
                 focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp += OnPreviewKeyUp;
             }
@@ -230,14 +230,14 @@ namespace Fluent
                 Log("Focus is changed, but focus lost is not occured");
                 if (focusedElement != null)
                 {
-                    focusedElement.LostFocus -= OnFocusLost;
+                    focusedElement.LostKeyboardFocus -= OnFocusLost;
                     focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
                     focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
                 }
-                focusedElement = (UIElement)Keyboard.FocusedElement;
+                focusedElement = Keyboard.FocusedElement;
                 if (focusedElement != null)
                 {
-                    focusedElement.LostFocus += OnFocusLost;
+                    focusedElement.LostKeyboardFocus += OnFocusLost;
                     focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                     focusedElement.PreviewKeyUp += OnPreviewKeyUp;
                 }
@@ -284,8 +284,8 @@ namespace Fluent
             oneOfAssociatedElements.Loaded -= OnDelayAttach;
                         
             if (focusedElement != null)
-            {                
-                focusedElement.LostFocus -= OnFocusLost;
+            {
+                focusedElement.LostKeyboardFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
                 focusedElement = null;
@@ -383,15 +383,15 @@ namespace Fluent
             if (attached)
             {
                 Log("Focus Lost");  
-                UIElement previousFocusedElementElement = focusedElement;
-                focusedElement.LostFocus -= OnFocusLost;
+                IInputElement previousFocusedElementElement = focusedElement;
+                focusedElement.LostKeyboardFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
                 focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
-                focusedElement = Keyboard.FocusedElement as UIElement;
+                focusedElement = Keyboard.FocusedElement;
                 if (focusedElement != null)
                 {
                     Log("Focus Changed from " + previousFocusedElementElement.ToString() + " to " + focusedElement.ToString());
-                    focusedElement.LostFocus += OnFocusLost;
+                    focusedElement.LostKeyboardFocus += OnFocusLost;
                     focusedElement.PreviewKeyDown += OnPreviewKeyDown;
                     focusedElement.PreviewKeyUp += OnPreviewKeyUp;
                 }

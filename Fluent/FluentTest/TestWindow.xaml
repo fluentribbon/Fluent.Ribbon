@@ -42,7 +42,11 @@
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Text="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R">
-          <Grid Background="Green" Opacity="0.3" Margin="50"/>
+          <Grid Background="Green" Opacity="0.3" Margin="50">
+            <Label>
+              <Hyperlink Focusable="True">kkljklj</Hyperlink>
+            </Label>
+          </Grid>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Text="Lala3" Fluent:KeyTip.Keys="T">
           <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
