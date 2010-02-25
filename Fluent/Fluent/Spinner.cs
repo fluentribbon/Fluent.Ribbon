@@ -252,7 +252,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(Spinner), new UIPropertyMetadata(50.0));
+            DependencyProperty.Register("InputWidth", typeof (double), typeof (Spinner), new UIPropertyMetadata(double.NaN));
 
 
 

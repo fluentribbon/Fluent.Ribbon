@@ -163,6 +163,7 @@
     <Setter Property="Template" Value="{DynamicResource InnerButtonControlTemplate}"/>
     <Setter Property="VerticalAlignment" Value="Stretch"/>
     <Setter Property="HorizontalAlignment" Value="Stretch"/>
+	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
   
   <ControlTemplate x:Key="InnerButtonControlTemplate" TargetType="{x:Type Fluent:Button}">

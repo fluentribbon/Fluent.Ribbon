@@ -21,6 +21,7 @@
   	</ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="BackstageButtonStyle" TargetType="{x:Type Fluent:Button}">
+  <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="Height" Value="26"/>
     <Setter Property="Margin" Value="5,1"/>
     <Setter Property="Template" Value="{StaticResource BackstageButtonControlTemplate}"/>

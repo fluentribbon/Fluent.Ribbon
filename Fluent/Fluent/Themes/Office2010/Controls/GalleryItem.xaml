@@ -37,5 +37,6 @@
     </Setter>
     <Setter Property="Width" Value="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}}"/>
     <Setter Property="Height" Value="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}}"/>
+	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 </ResourceDictionary>

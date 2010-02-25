@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -30,9 +32,119 @@ namespace Fluent
 
         private bool isInitializing;
 
+        private GalleryItem selectedGalleryItem;
+        private Image fakeImage;
+
+        // Is visual currently snapped
+        private bool isSnapped;
+
+        private ComboBox quickAccessCombo;
+
         #endregion
 
         #region Properties
+
+        #region InputWidth
+
+        /// <summary>
+        /// Gets or sets width of the value input part of combobox
+        /// </summary>               
+        public double InputWidth
+        {
+            get { return (double)GetValue(InputWidthProperty); }
+            set { SetValue(InputWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty InputWidthProperty =
+            DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
+
+
+
+        #endregion
+
+        #region IsReadOnly
+
+        /// <summary>
+        /// Gets or sets a value that enables selection-only mode, in which the contents of the combo box are selectable but not editable. This is a dependency property.
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return (bool)GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsReadonly.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false));
+
+
+
+        #endregion
+
+        #region Snapping
+
+        /// <summary>
+        /// Snaps / Unsnaps the Visual 
+        /// (remove visuals and substitute with freezed image)
+        /// </summary>
+        public bool IsSnapped
+        {
+            get
+            {
+                return isSnapped;
+            }
+            set
+            {
+                if (value == isSnapped) return;
+                if (fakeImage == null) return;
+                if (selectedGalleryItem == null) return;
+                if (value)
+                {
+                    // Render the freezed image
+                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth, (int)selectedGalleryItem.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                    renderTargetBitmap.Render((Visual)selectedGalleryItem);
+                    fakeImage.Source = renderTargetBitmap;
+                    selectedGalleryItem.Visibility = Visibility.Collapsed;
+                    fakeImage.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    fakeImage.Source = null;
+                    selectedGalleryItem.Visibility = Visibility.Visible;
+                    fakeImage.Visibility = Visibility.Collapsed;
+                }
+                isSnapped = value;
+                InvalidateVisual();
+            }
+        }
+
+        #endregion
+
+        #region IsEditable
+
+        /// <summary>
+        /// gets or sets wthether cmbobox is editable
+        /// </summary>
+        public bool IsEditable
+        {
+            get { return (bool)GetValue(IsEditableProperty); }
+            set { SetValue(IsEditableProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsEditable.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsEditableProperty =
+            DependencyProperty.Register("IsEditable", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(true));
+
+
+
+        #endregion
 
         #region ScrollBarsVisibility
 
@@ -135,7 +247,18 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, null));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, OnSelectedIndexChenged));
+
+        private static void OnSelectedIndexChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ComboBox combo = d as ComboBox;
+            if (((int)e.NewValue == -1) && (combo.SelectedItem != null)) combo.SelectedItem = null;
+            else
+            {
+                object selectedItem = combo.GetItem((int) e.NewValue);
+                if (selectedItem != combo.SelectedItem) combo.SelectedItem = selectedItem;
+            }
+        }
 
         #endregion
 
@@ -169,6 +292,21 @@ namespace Fluent
                         this.CurrentText = primaryTextFromItem;
                     }
                 }
+                if (selectedGalleryItem != null)
+                {
+                    selectedGalleryItem.Content = SelectedItem;
+                    if ((quickAccessCombo != null) && (selectedGalleryItem.Visibility == Visibility.Visible))
+                    {
+                        Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
+                               {
+                                   RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth,(int)selectedGalleryItem.ActualHeight,96,96,PixelFormats.Pbgra32);
+                                   renderTargetBitmap.Render((Visual)selectedGalleryItem);
+                                   quickAccessCombo.fakeImage.Source =renderTargetBitmap;
+                               }));
+                    }
+                }
+                int selectedIndex = GetItemIndex(SelectedItem);
+                if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
             }
             finally
             {
@@ -366,9 +504,7 @@ namespace Fluent
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
 
-            gallery.SelectedIndex = SelectedIndex;
-            gallery.SelectedItem= SelectedItem;
-
+            /*
             binding = new Binding("SelectedIndex");
             binding.Source = gallery;
             binding.Mode = BindingMode.TwoWay;
@@ -379,7 +515,7 @@ namespace Fluent
             binding.Source = gallery;
             binding.Mode = BindingMode.TwoWay;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            this.SetBinding(SelectedItemProperty, binding);            
+            this.SetBinding(SelectedItemProperty, binding); */
 
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
@@ -419,6 +555,9 @@ namespace Fluent
                 textBox.SelectionChanged += OnTextBoxSelectionChanged;
                 textBox.Text = CurrentText;
             }
+
+            selectedGalleryItem = GetTemplateChild("PART_GalleryItem") as GalleryItem;
+            fakeImage = GetTemplateChild("PART_FakeImage") as Image;
         }
 
         private void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
@@ -536,7 +675,7 @@ namespace Fluent
                         }
                         if (num != SelectedIndex)
                         {
-                            SelectedIndex = num;
+                            SelectedIndex = num;                            
                         }
                     }
                     if (textBoxUpdated)
@@ -592,6 +731,19 @@ namespace Fluent
             return null;
         }
 
+        int GetItemIndex(object obj)
+        {
+            IEnumerable items = GetItems();
+            if (items == null) return -1;
+            int i = 0;
+            foreach (var item in items)
+            {
+                if (item == obj) return i;
+                i++;
+            }
+            return -1;
+        }
+
         internal string GetItemText(object obj)
         {
             if(obj==null) return null;
@@ -600,17 +752,21 @@ namespace Fluent
         }
 
         protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {            
+        {
             base.OnItemsCollectionChanged(e);
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
+            if ((SelectedItem == null) && (SelectedIndex >= 0))
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedItem = Items[SelectedIndex]; }));
+            }
         }
 
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {            
             base.OnItemsSourceChanged(e);
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
+            if((SelectedItem==null)&&(SelectedIndex>=0))
+            {
+                SelectedItem = GetItem(SelectedIndex);
+            }
         }
 
         
@@ -674,15 +830,43 @@ namespace Fluent
         }
 
         private void OnMenuClosed(object sender, EventArgs e)
-        {            
+        {
+            CloseMenu();
             if (MenuClosed != null) MenuClosed(this, e);
+        }
+
+        private void CloseMenu()
+        {                        
+            if (!IsEditable)
+            {                
+                selectedGalleryItem.Content = SelectedItem;
+                IsSnapped = false;
+            }
+            SelectedIndex = gallery.SelectedIndex;
+            SelectedItem = gallery.SelectedItem;
+            gallery.ItemsSource = null;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
+            OpenMenu();
+            if (MenuOpened != null) MenuOpened(this, e);
+        }
+
+        private void OpenMenu()
+        {
+            if (!IsEditable)
+            {
+                IsSnapped = true;
+                selectedGalleryItem.Content = null;
+            }
+            gallery.SelectedIndex = SelectedIndex;
+            gallery.SelectedItem = SelectedItem;
+            if (ItemsSource == null) gallery.ItemsSource = Items;
+            else gallery.ItemsSource = ItemsSource;
+            //
             gallery.MinWidth = Math.Max(MenuMinWidth,ActualWidth);
             gallery.MinHeight = 2*ItemHeight;
-            if (MenuOpened != null) MenuOpened(this, e);
         }
 
         #endregion
@@ -701,25 +885,82 @@ namespace Fluent
             BindQuickAccessItem(combo);
             combo.MenuOpened += OnQuickAccesMenuOpened;
             combo.MenuClosed += OnQuickAccesMenuClosed;
+            /**/
+            if (!IsEditable)
+            {
+                int selectedIndex = SelectedIndex;
+                object selectedItem = SelectedItem;
+                IsSnapped = true;
+                SelectedItem = null;
+                if (ItemsSource == null) combo.ItemsSource = Items;
+                else combo.ItemsSource = ItemsSource;
+                combo.SelectedIndex = selectedIndex;
+                combo.SelectedItem = selectedItem;            
+                combo.Loaded += OnFirstComboLoaded;
+            }
+            quickAccessCombo = combo;
             return combo;
+        }
+
+        private void OnFirstComboLoaded(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
+                   {
+                       ComboBox combo = (sender as ComboBox);
+                       combo.Loaded -= OnFirstComboLoaded;
+                       int selectedIndex = combo.SelectedIndex;
+                       object selectedItem = combo.SelectedItem;
+                       combo.IsSnapped = true;
+                       combo.ItemsSource = null;
+                       IsSnapped = false;
+                       SelectedIndex = selectedIndex;
+                       SelectedItem = selectedItem;
+                   }));
         }
 
         private void OnQuickAccesMenuOpened(object sender, EventArgs e)
         {
-            int selectedIndex = gallery.SelectedIndex;
-            gallery.ItemsSource = null;
-            if (ItemsSource == null) (sender as ComboBox).ItemsSource = Items;
-            else (sender as ComboBox).ItemsSource = ItemsSource;
-            (sender as ComboBox).SelectedIndex = selectedIndex;
+            ComboBox combo = (sender as ComboBox);
+            if (!IsEditable)
+            {
+                IsSnapped = true;
+            }
+            int selectedIndex = SelectedIndex;
+            object selectedItem = SelectedItem;
+            SelectedItem = null;
+            if (ItemsSource == null) combo.ItemsSource = Items;
+            else combo.ItemsSource = ItemsSource;
+            combo.SelectedIndex = selectedIndex;
+            combo.SelectedItem = selectedItem;
+            combo.OpenMenu();
+            if (!IsEditable)
+            {
+                combo.fakeImage.Source = fakeImage.Source;
+            }
         }
 
         private void OnQuickAccesMenuClosed(object sender, EventArgs e)
         {
-            int selectedIndex = (sender as ComboBox).SelectedIndex;
-            (sender as ComboBox).ItemsSource = null;
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-            gallery.SelectedIndex = selectedIndex;
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
+                   {
+                       ComboBox combo = (sender as ComboBox);
+                       int selectedIndex = combo.SelectedIndex;
+                       object selectedItem = combo.SelectedItem;
+                       if (!IsEditable)
+                       {
+                           combo.IsSnapped = true;
+                       }
+                       combo.ItemsSource = null;
+                       if (!IsEditable)
+                       {
+                           IsSnapped = false;
+                       }
+                       SelectedIndex = selectedIndex;
+                       SelectedItem = selectedItem;
+                   }));
+            /*IsSnapped = true;            
+            combo.fakeImage.Source = fakeImage.Source;
+            IsSnapped = false;*/
         }
 
         /// <summary>
@@ -744,6 +985,10 @@ namespace Fluent
             Bind(this, nox, "IsTextSearchEnabled", IsTextSearchEnabledProperty, BindingMode.Default);
             Bind(this, nox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
             Bind(this, nox, "MenuMinWidth", MenuMinWidthProperty, BindingMode.OneWay);
+            Bind(this, nox, "IsEditable", IsEditableProperty, BindingMode.OneWay);
+            Bind(this, nox, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
+            Bind(this, nox, "InputWidth", InputWidthProperty, BindingMode.OneWay);
+
             base.BindQuickAccessItem(element);
         }
 

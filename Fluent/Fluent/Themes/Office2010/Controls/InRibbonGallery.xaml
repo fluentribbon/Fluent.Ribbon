@@ -6,6 +6,7 @@
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Style.Triggers>
@@ -95,6 +96,7 @@
     </ControlTemplate.Triggers>
   </ControlTemplate> 
   <Style x:Key="InRibbonGalleryButton" TargetType="{x:Type Fluent:ToggleButton}">
+  <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type Fluent:Button}">
@@ -140,6 +142,7 @@
 	</Setter>
   </Style>
   <Style x:Key="InRibbonGalleryRepeatButton" TargetType="{x:Type RepeatButton}">
+  <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -182,11 +185,12 @@
 	</Setter>
   </Style>
   <Style x:Key="{x:Type Fluent:InRibbonGallery}" TargetType="{x:Type Fluent:InRibbonGallery}">
-  	<Style.Triggers>
+    	<Style.Triggers>
   		<Trigger Property="IsCollapsed" Value="True">
   			<Setter Property="Margin" Value="0"/>
-  		</Trigger>
+  		</Trigger>        
   	</Style.Triggers>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:InRibbonGallery}">

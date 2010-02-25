@@ -202,5 +202,6 @@
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="FocusManager.IsFocusScope" Value="True"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
+	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 </ResourceDictionary>

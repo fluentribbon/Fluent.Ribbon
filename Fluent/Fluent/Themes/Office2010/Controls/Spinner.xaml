@@ -72,7 +72,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
           
-            <Grid Width="Auto" Height="Auto">
+            <Grid Width="Auto" Height="Auto" Background="#00000000">
             	<Grid.ColumnDefinitions>
             		<ColumnDefinition Width="*"/>
             		<ColumnDefinition Width="Auto"/>

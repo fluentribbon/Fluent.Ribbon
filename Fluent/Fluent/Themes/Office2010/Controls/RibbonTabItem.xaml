@@ -107,7 +107,7 @@
 							</Border>
 						</Grid>
 						<Border x:Name="PART_ContentContainer" HorizontalAlignment="Stretch" Margin="6,2,4,2" VerticalAlignment="Stretch" Padding="15,0,0,0" Grid.ColumnSpan="1">
-							<ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
+							<ContentPresenter x:Name="contentPresenter" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
 						</Border>
 						<Grid x:Name="separatorGrid" Margin="0" Visibility="Collapsed" HorizontalAlignment="Right" Width="2" Grid.Column="1">
 							<Rectangle x:Name="separatorRectangle1" Fill="{DynamicResource RibbonTopBorderBrush}" Stroke="{DynamicResource RibbonTopBorderBrush}" Margin="0,0,1,0" HorizontalAlignment="Right" Width="1" Opacity="1" Visibility="Visible">
@@ -129,6 +129,9 @@
 						</Grid>
 					</Grid>
 					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+						</Trigger>
 						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Setter Property="Visibility" TargetName="focusedGrid" Value="Visible"/>
 						</Trigger>
