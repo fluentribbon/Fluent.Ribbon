@@ -8,6 +8,7 @@
 #endregion
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Interop;
@@ -178,11 +179,16 @@ namespace Fluent
             }
         }
 
-        void OnAdornerChainTerminated(object sender, EventArgs e)
+        void RestoreFocuses()
         {
             if (backUpFocusedElement != null) backUpFocusedElement.Focus();
             ribbon.Focusable = false;
             FocusManager.SetIsFocusScope(ribbon, false);
+        }
+
+        void OnAdornerChainTerminated(object sender, EventArgs e)
+        {
+            RestoreFocuses();   
             ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;            
         }
 
@@ -193,7 +199,15 @@ namespace Fluent
         }
 
         void Show()
-        {                      
+        {
+            // Check whether the window is still active
+            // (it prevent keytips showing during Alt-Tab'ing)
+            if (!window.IsActive)
+            {
+                RestoreFocuses();
+                return;
+            }
+            
             activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
             activeAdornerChain.Terminated += OnAdornerChainTerminated;
 
