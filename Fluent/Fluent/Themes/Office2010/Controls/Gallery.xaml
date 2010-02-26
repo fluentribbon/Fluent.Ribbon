@@ -39,7 +39,7 @@
                       ItemTemplate="{TemplateBinding ItemTemplate}"
                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                       IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
-                      ItemsSource="{TemplateBinding ItemsSource}"
+                      ItemsSource="{Binding View.View, RelativeSource={RelativeSource TemplatedParent}}"
                       ScrollViewer.VerticalScrollBarVisibility="{Binding VerticalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}"
                       ScrollViewer.HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}" Grid.RowSpan="1" Grid.Row="1" BorderThickness="0"
                                   
@@ -91,9 +91,9 @@
 					<Trigger Property="HasFilter" Value="False">
 						<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
 					</Trigger>
-          <Trigger Property="ItemsSource" Value="{x:Null}">
+          <!--<Trigger Property="ItemsSource" Value="{x:Null}">
             <Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}"/>
-          </Trigger>          
+          </Trigger>          -->
         </ControlTemplate.Triggers>
 			</ControlTemplate>
 		</Setter.Value>
@@ -144,7 +144,7 @@
                             ItemTemplate="{TemplateBinding ItemTemplate}"
                             ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                             IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
-                            ItemsSource="{TemplateBinding ItemsSource}"
+                            ItemsSource="{Binding View.View, RelativeSource={RelativeSource TemplatedParent}}"
                             ScrollViewer.VerticalScrollBarVisibility="{Binding VerticalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}"
                             ScrollViewer.HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}" Grid.RowSpan="1" Grid.Row="1" BorderThickness="0"
                                   
@@ -157,9 +157,9 @@
                 <Trigger Property="HasFilter" Value="False">
                   <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
                 </Trigger>
-                <Trigger Property="ItemsSource" Value="{x:Null}">
+                <!--<Trigger Property="ItemsSource" Value="{x:Null}">
                   <Setter Property="ItemsSource" TargetName="PART_ListBox" Value="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}"/>
-                </Trigger>
+                </Trigger>-->
               </ControlTemplate.Triggers>
             </ControlTemplate>
           </Setter.Value>

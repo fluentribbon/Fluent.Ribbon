@@ -30,13 +30,30 @@ namespace Fluent
 
         private ObservableCollection<GalleryGroupIcon> groupIcons;
 
-        private ICollectionView view;
-
         private DropDownButton groupsMenuButton;
 
         #endregion
 
         #region Properties
+
+        #region View
+
+        /// <summary>
+        /// Gets view of items or itemssource
+        /// </summary>
+        public CollectionViewSource View
+        {
+            get { return (CollectionViewSource)GetValue(ViewProperty); }
+            private set { SetValue(ViewProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for View.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ViewProperty =
+            DependencyProperty.Register("View", typeof(CollectionViewSource), typeof(Gallery), new UIPropertyMetadata(null));
+
+        #endregion
 
         #region ScrollBarsVisibility
 
@@ -95,13 +112,12 @@ namespace Fluent
 
         private void UpdateGroupBy(string groupBy)
         {
-            if ((listBox != null) && (listBox.ItemsSource != null))
+            if (View!=null)
             {
-                ICollectionView view = CollectionViewSource.GetDefaultView(listBox.ItemsSource);
-                view.GroupDescriptions.Clear();
+                View.GroupDescriptions.Clear();
                 if (groupBy != null)
                 {
-                    view.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));
+                    View.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));
                 }
             }
         }
@@ -177,7 +193,7 @@ namespace Fluent
             UpdateGroupBy(GroupBy);
             if (Filters.Count > 0) HasFilter = true;
             else HasFilter = false;
-
+            InvalidateProperty(SelectedFilterProperty);
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -245,14 +261,23 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SelectedFilter.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(Gallery), new UIPropertyMetadata(null, OnFilterChanged));
+            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(Gallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+
+        // Coerce selected filter
+        private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
+        {
+            Gallery gal = d as Gallery;
+            if ((basevalue == null) && (gal.Filters.Count > 0)) return gal.Filters[0];
+            return basevalue;
+        }
 
         // Handles filter property changed
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as Gallery).UpdateFilter();
+            //(d as Gallery).UpdateFilter();
             if (e.NewValue != null) (d as Gallery).SelectedFilterTitle = (e.NewValue as GalleryGroupFilter).Title;
             else (d as Gallery).SelectedFilterTitle = "";
+            if ((d as Gallery).View.View!=null) (d as Gallery).View.View.Refresh();
         }
 
         /// <summary>
@@ -289,7 +314,7 @@ namespace Fluent
 
 
         // Set filter
-        private void UpdateFilter()
+        /*private void UpdateFilter()
         {
             if ((listBox != null) && (listBox.ItemsSource != null))
             {
@@ -297,14 +322,17 @@ namespace Fluent
                 view = CollectionViewSource.GetDefaultView(listBox.ItemsSource);
                 view.Filter += OnFiltering;
             }
-        }
+        }*/
 
-        private bool OnFiltering(object obj)
+        private void  OnFiltering(object obj, FilterEventArgs e)
         {
-            if (string.IsNullOrEmpty(GroupBy)) return true;
-            if (SelectedFilter == null) return true;
-            string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
-            return filterItems.Contains(GetItemGroupName(obj));
+            if (string.IsNullOrEmpty(GroupBy)) e.Accepted=true;
+            else if (SelectedFilter == null) e.Accepted = true;
+            else
+            {
+                string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
+                e.Accepted = filterItems.Contains(GetItemGroupName(e.Item));
+            }            
         }        
 
         #endregion
@@ -418,7 +446,10 @@ namespace Fluent
         /// Default constructor
         /// </summary>
         public Gallery()
-        {
+        {            
+            View = new CollectionViewSource();
+            View.Filter += OnFiltering;
+            
             ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
             template.Seal();
             ItemsPanel = template;
@@ -428,15 +459,15 @@ namespace Fluent
 
         #region Overrides
 
-        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
+        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)        
         {
-            UpdateGroupBy(GroupBy);
-            UpdateFilter();
+            View.Source = Items;
+            UpdateGroupBy(GroupBy);            
         }
 
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {
-            UpdateFilter();
+            View.Source = ItemsSource;
             UpdateGroupBy(GroupBy);
         }
 
@@ -459,6 +490,8 @@ namespace Fluent
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
+                //listBox.Items.Filter += OnFiltering;
+
                 listBox.SelectedIndex = SelectedIndex;
 
                 Binding binding = new Binding("SelectedIndex");
@@ -592,7 +625,9 @@ namespace Fluent
         internal string GetItemGroupName(object obj)
         {
             if(obj==null) return null;
-            return obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
+            object result = obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null);
+            if(result==null) return null;
+            return result.ToString();
         }
 
         #endregion

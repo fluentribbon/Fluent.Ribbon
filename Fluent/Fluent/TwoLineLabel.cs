@@ -172,7 +172,7 @@ namespace Fluent
         /// </summary>
         void UpdateTextRun()
         {
-            if ((textRun != null)&&(textRun2 != null))
+            if ((textRun != null)&&(textRun2 != null)&&(Text != null))
             {
                 textRun.Text = Text;
                 textRun2.Text = "";

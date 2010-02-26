@@ -366,7 +366,7 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsLauncherVisible="False" x:Name="groupLL">
-          <Fluent:InRibbonGallery x:Name="inRibbonGallery" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAll2}" ResizeMode="Both" MaxItemsInRow="6" MinItemsInRow="2" ItemWidth="40" ItemHeight="55">
+          <Fluent:InRibbonGallery x:Name="inRibbonGallery" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" ResizeMode="Both" MaxItemsInRow="6" MinItemsInRow="2" ItemWidth="40" ItemHeight="55">
             <Fluent:InRibbonGallery.Filters>
               <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll2"/>
               <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>

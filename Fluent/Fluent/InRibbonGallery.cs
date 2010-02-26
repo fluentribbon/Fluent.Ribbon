@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -17,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -28,8 +30,6 @@ namespace Fluent
         private ObservableCollection<GalleryGroupFilter> filters;
 
         private ObservableCollection<GalleryGroupIcon> groupIcons;
-
-        private ICollectionView view;
 
         private RibbonListBox listBox;
 
@@ -67,6 +67,25 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        #region View
+
+        /// <summary>
+        /// Gets view of items or itemssource
+        /// </summary>
+        public CollectionViewSource View
+        {
+            get { return (CollectionViewSource)GetValue(ViewProperty); }
+            private set { SetValue(ViewProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for View.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ViewProperty =
+            DependencyProperty.Register("View", typeof(CollectionViewSource), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+
+        #endregion
 
         /// <summary>
         /// Gets current items in row
@@ -197,7 +216,7 @@ namespace Fluent
         {
             if (Filters.Count > 0) HasFilter = true;
             else HasFilter = false;
-
+            InvalidateProperty(SelectedFilterProperty);
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -241,14 +260,22 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SelectedFilter.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged));
+            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+
+        // Coerce selected filter
+        private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
+        {
+            InRibbonGallery gal = d as InRibbonGallery;
+            if ((basevalue == null) && (gal.Filters.Count > 0)) return gal.Filters[0];
+            return basevalue;
+        }
 
         // Handles filter property changed
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as InRibbonGallery).UpdateFilter();
             if (e.NewValue != null) (d as InRibbonGallery).SelectedFilterTitle = (e.NewValue as GalleryGroupFilter).Title;
             else (d as InRibbonGallery).SelectedFilterTitle = "";
+            if ((d as InRibbonGallery).View.View != null) (d as InRibbonGallery).View.View.Refresh();
         }
 
         /// <summary>
@@ -285,21 +312,24 @@ namespace Fluent
         // Set filter
         private void UpdateFilter()
         {
-            if ((listBox != null) && (listBox.ItemsSource != null))
+            /*if ((listBox != null) && (listBox.ItemsSource != null))
             {
                 if (view != null) view.Filter -= OnFiltering;
                 view = CollectionViewSource.GetDefaultView(listBox.ItemsSource);
                 view.Filter += OnFiltering;
-            }
+            }*/
         }
 
-        private bool OnFiltering(object obj)
+        private void OnFiltering(object obj, FilterEventArgs e)
         {
-            if (SelectedFilter == null) return true;
-            if (string.IsNullOrEmpty(GroupBy)) return true;
-            string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
-            return filterItems.Contains(GetItemGroupName(obj));
-        }
+            if (string.IsNullOrEmpty(GroupBy)) e.Accepted = true;
+            else if (SelectedFilter == null) e.Accepted = true;
+            else
+            {
+                string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
+                e.Accepted = filterItems.Contains(GetItemGroupName(e.Item));
+            }
+        }        
 
         #endregion
 
@@ -646,6 +676,8 @@ namespace Fluent
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
                     renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                     snappedImage.Source = renderTargetBitmap;
+                    snappedImage.Width = ActualWidth;
+                    snappedImage.Height = ActualHeight;
                     // Detach current visual children
                     snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
                     for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
@@ -820,6 +852,11 @@ namespace Fluent
         /// </summary>
         public InRibbonGallery()
         {
+            View = new CollectionViewSource();
+            View.Filter += OnFiltering;
+
+            Loaded += delegate { if(View.View!=null)View.View.Refresh();};
+
             Binding binding = new Binding("DisplayMemberPath");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
@@ -929,8 +966,8 @@ namespace Fluent
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
-                if (ItemsSource != null) listBox.ItemsSource = ItemsSource;
-                else listBox.ItemsSource = Items;
+                //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate{listBox.ItemsSource = View.View;}));
+                Bind(this,listBox,"View.View",ListBox.ItemsSourceProperty,BindingMode.OneWay);
                 
                 listBox.SelectedItem = SelectedItem;
                 if (SelectedIndex!=-1) listBox.SelectedIndex = SelectedIndex;
@@ -1024,7 +1061,7 @@ namespace Fluent
 
         protected override Size MeasureOverride(Size constraint)
         {
-            if (isSnapped) return new Size(snappedImage.Width, snappedImage.Height);
+            if (isSnapped) return new Size(snappedImage.ActualWidth, snappedImage.ActualHeight);
             if (IsCollapsed)
             {
                 Size size = base.MeasureOverride(constraint);
@@ -1066,21 +1103,13 @@ namespace Fluent
         protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsCollectionChanged(e);
-            if (listBox != null)
-            {
-                if (ItemsSource == null) listBox.ItemsSource = Items;
-                else listBox.ItemsSource = ItemsSource;
-            }
+            View.Source = Items;
         }
 
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnItemsSourceChanged(e);
-            if (listBox != null)
-            {
-                if (ItemsSource == null) listBox.ItemsSource = Items;
-                else listBox.ItemsSource = ItemsSource;
-            }
+            View.Source = ItemsSource;
         }
 
         #endregion
@@ -1089,7 +1118,9 @@ namespace Fluent
 
         internal string GetItemGroupName(object obj)
         {
-            return obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
+            object result = obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null);
+            if(result==null) return null;
+            return result.ToString();
         }
 
         private void CreateMenu()
@@ -1140,8 +1171,7 @@ namespace Fluent
         {
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
-            if (ItemsSource == null) listBox.ItemsSource = Items;
-            else listBox.ItemsSource = ItemsSource;
+            listBox.ItemsSource = View.View;
             listBox.SelectedItem = selectedItem;
             SelectedItem = selectedItem;
             SelectedIndex = listBox.SelectedIndex;
@@ -1259,8 +1289,7 @@ namespace Fluent
 
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
-            if (ItemsSource == null) listBox.ItemsSource = Items;
-            else listBox.ItemsSource = ItemsSource;
+            listBox.ItemsSource = View.View;
             listBox.SelectedItem = selectedItem;
             SelectedItem = selectedItem;
             SelectedIndex = listBox.SelectedIndex;
