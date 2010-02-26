@@ -113,8 +113,11 @@ namespace FluentTest
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Custom Command Executed");
-            canEx = !canEx;
+            /*MessageBox.Show("Custom Command Executed");
+            canEx = !canEx;*/
+            Window dialog = new Window();
+            dialog.Owner = Application.Current.MainWindow;
+            dialog.ShowDialog();
         }
 
         private bool canEx = true;

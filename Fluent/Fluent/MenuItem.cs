@@ -421,19 +421,24 @@ namespace Fluent
             OnClick(e);            
         }*/
 
-        protected override void OnClick(RoutedEventArgs args)
+        protected override void OnBeforeClick(RoutedEventArgs args)
         {
-            base.OnClick(args);
-            ExecuteCommand();
+            base.OnBeforeClick(args);            
             if (CanAutoCheck)
             {
                 IsChecked = !IsChecked;
             }
             if (HasItems)
             {
-                IsOpen = true;                
+                IsOpen = true;
             }
             else RibbonPopup.CloseAll();
+        }
+
+        protected override void OnClick(RoutedEventArgs args)
+        {
+            base.OnClick(args);
+            ExecuteCommand();
             args.Handled = true;
         }
 

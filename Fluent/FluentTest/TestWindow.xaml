@@ -97,7 +97,7 @@
                 <Image Source="Images\PasteFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="L" Tag="Paste Options:"/>
                 <Image Source="Images\PasteSourceFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="E" Tag="Paste Options:"/>
             </Fluent:Gallery>
-            <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S">
+            <Fluent:MenuItem Text="Paste Special..." Fluent:KeyTip.Keys="S" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}">
               <Fluent:MenuItem.ToolTip>
                 <Fluent:ScreenTip Title="Paste Special"                                  
                                   Text="This ScreenTip is attached to menu item"/>

@@ -492,12 +492,18 @@ namespace Fluent
         /// </summary>
         protected RibbonControl()
         {
+            AddHandler(ClickEvent, (RoutedEventHandler)OnBeforeClickHandle);
             AddHandler(ClickEvent,(RoutedEventHandler)OnClickHandle);
         }
 
         private void OnClickHandle(object sender, RoutedEventArgs e)
         {
             OnClick(e);
+        }
+
+        private void OnBeforeClickHandle(object sender, RoutedEventArgs e)
+        {
+            OnBeforeClick(e);
         }
 
         #endregion
@@ -627,6 +633,15 @@ namespace Fluent
         /// <param name="current">Current value</param>
         protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+        }
+
+        /// <summary>
+        /// Handles before click
+        /// </summary>
+        /// <param name="args"></param>
+        protected virtual void OnBeforeClick(RoutedEventArgs args)
+        {
+        
         }
 
         /// <summary>

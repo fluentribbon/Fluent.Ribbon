@@ -69,6 +69,20 @@ namespace Fluent
 
         #region Constructors
 
+        static RibbonPopup()
+        {
+            IsOpenProperty.AddOwner(typeof (RibbonPopup), new FrameworkPropertyMetadata(OnPopupIsOpenChanged));
+        }
+
+        private static void OnPopupIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if(!(bool)e.NewValue)
+            {
+                RibbonPopup popup = d as RibbonPopup;
+                if (openedPopups.Contains(popup)) openedPopups.Remove(popup);
+            }
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -180,12 +194,14 @@ namespace Fluent
 
         private static void ClosePopups(int index)
         {
+            Window wnd = null;
+            if (openedPopups.Count > 0) wnd = Window.GetWindow(openedPopups[0]);
             for (int i = openedPopups.Count - 1; i >= index; i--)
             {
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
-                openedPopups[i].IsOpen = false;
-                if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
+                openedPopups[i].IsOpen = false;                
             }
+            if ((wnd != null)&&(index==0)) wnd.Activate();
         }
 
 
