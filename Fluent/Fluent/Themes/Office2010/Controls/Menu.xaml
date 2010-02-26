@@ -6,14 +6,14 @@
     <Setter Property="ToolTip" Value="{x:Null}"></Setter>
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Fluent:ContextMenu}">
+				<ControlTemplate TargetType="{x:Type ContextMenu}">
 				</ControlTemplate>
 			</Setter.Value>			
 		</Setter>
 		<Setter Property="MinWidth" Value="0"/>
 		<Setter Property="MaxWidth" Value="0"/>
 	</Style>
-  
+
   <!--Menu Item Style-->
 	<Style x:Key="ContextMenuItemStyle" TargetType="{x:Type Fluent:MenuItem}">
 		<Setter Property="Template" Value="{DynamicResource ContextMenuItemControlTemplate}"/>

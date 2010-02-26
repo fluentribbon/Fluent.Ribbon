@@ -76,7 +76,12 @@ namespace Fluent
         /// </summary>
         public Backstage()
         {
-            
+            // Fixed incoreect menu showing
+            ContextMenu = new System.Windows.Controls.ContextMenu();
+            ContextMenu.Width = 0;
+            ContextMenu.Height = 0;
+            ContextMenu.HasDropShadow = false;
+            ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
         }
 
         #endregion
@@ -155,7 +160,7 @@ namespace Fluent
             base.OnMouseLeftButtonDown(e);
             e.Handled = true;
         }
-
+ 
         #endregion
 
         #region Private methods
