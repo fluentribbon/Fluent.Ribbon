@@ -116,7 +116,8 @@ namespace Fluent
         static Button()
         {
             //StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));
+            IsDefinitiveProperty.OverrideMetadata(typeof(Button), new UIPropertyMetadata(true));
         }
 
         private static object OnCoerceStyle(DependencyObject d, object basevalue)

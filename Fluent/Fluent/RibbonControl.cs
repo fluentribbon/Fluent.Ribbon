@@ -598,6 +598,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsDefinitive
+
+        /// <summary>
+        /// Gets or sets whether ribbonc control click must close backstage
+        /// </summary>
+        public bool IsDefinitive
+        {
+            get { return (bool)GetValue(IsDefinitiveProperty); }
+            set { SetValue(IsDefinitiveProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
+        /// </summary>
+ 
+        public static readonly DependencyProperty IsDefinitiveProperty =
+            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(false));
+
+        #endregion
+
         #region Proptected
 
         /// <summary>
@@ -615,7 +635,28 @@ namespace Fluent
         /// <param name="args"></param>
         protected virtual void OnClick(RoutedEventArgs args)
         {
-
+            // Close Backstage
+            if(IsDefinitive)
+            {
+                Ribbon ribbon = FindOwnerRibbon();
+                if(ribbon!=null) ribbon.IsBackstageOpen = false;
+            }
+        }
+        
+        /// <summary>
+        /// Finds owner ribbon
+        /// </summary>
+        /// <returns>Owner ribbon</returns>
+        protected Ribbon FindOwnerRibbon()
+        {
+            DependencyObject obj = LogicalTreeHelper.GetParent(this);
+            while(obj!=null)
+            {
+                Ribbon ribbon = obj as Ribbon;
+                if(ribbon!=null) return ribbon;
+                obj = LogicalTreeHelper.GetParent(obj);
+            }
+            return null;
         }
 
         #endregion

@@ -266,7 +266,8 @@ namespace Fluent
         {
             //StyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(typeof(MenuItem)));
-            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null));            
+            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(MenuItem), new FrameworkPropertyMetadata(null));
+            IsDefinitiveProperty.OverrideMetadata(typeof(MenuItem), new UIPropertyMetadata(true));
         }
 
         // Coerce control style
