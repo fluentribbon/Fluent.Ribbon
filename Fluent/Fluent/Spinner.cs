@@ -448,6 +448,7 @@ namespace Fluent
             Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
             Bind(this, spinner, "InputWidth", InputWidthProperty, BindingMode.OneWay);
+            Bind(this, spinner, "Width", WidthProperty, BindingMode.OneWay);
             base.BindQuickAccessItem(element);
         }
 

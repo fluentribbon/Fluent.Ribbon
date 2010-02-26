@@ -74,8 +74,8 @@
           
             <Grid Width="Auto" Height="Auto" Background="#00000000">
             	<Grid.ColumnDefinitions>
-            		<ColumnDefinition Width="*"/>
             		<ColumnDefinition Width="Auto"/>
+            		<ColumnDefinition Width="*"/>
             	</Grid.ColumnDefinitions>
             	<StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" x:Name="stackPanel" HorizontalAlignment="Left" Margin="0,0,5,0">
             		<Image Width="16" Height="16" VerticalAlignment="Center" Margin="5,0,2,0" Source="{TemplateBinding Icon}"/>
