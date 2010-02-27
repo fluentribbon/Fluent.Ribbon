@@ -60,9 +60,13 @@
 			<Trigger Property="HasItems" Value="False">
 				<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
 			</Trigger>
-			<Trigger Property="IsSelected" Value="True">
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsSelected" Value="True"/>
+          <Condition Property="IsEnabled" Value="True"/>
+        </MultiTrigger.Conditions>        
 				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
-			</Trigger>
+      </MultiTrigger>
       <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
         <Setter Property="Opacity" TargetName="image" Value="0.5"/>

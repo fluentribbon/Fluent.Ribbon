@@ -113,17 +113,17 @@ namespace FluentTest
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            /*MessageBox.Show("Custom Command Executed");
-            canEx = !canEx;*/
-            Window dialog = new Window();
+            /*MessageBox.Show("Custom Command Executed");*/
+            canEx = !canEx;
+            /*Window dialog = new Window();
             dialog.Owner = Application.Current.MainWindow;
-            dialog.ShowDialog();
+            dialog.ShowDialog();*/
         }
 
         private bool canEx = true;
         private void CanExecuteCustomCommand(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = true;// canEx;
+            e.CanExecute =  canEx;
         }
 
         private void OnSomeTestClick(object sender, RoutedEventArgs e)

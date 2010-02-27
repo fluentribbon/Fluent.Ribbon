@@ -64,6 +64,7 @@
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver" Value="True"/>
 					<Condition Property="IsPressed" Value="False"/>
+          <Condition Property="IsEnabled" Value="True"/>
 				</MultiTrigger.Conditions>
 				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
 				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>

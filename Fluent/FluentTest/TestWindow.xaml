@@ -387,6 +387,7 @@
           </Fluent:InRibbonGallery>
           <Fluent:Button Icon="Images\GrowFont.png" LargeIcon="Images\GrowFont.png" Text="Enlarge" Click="OnEnlargeClick"/>
           <Fluent:Button Icon="Images\ShrinkFont.png" LargeIcon="Images\ShrinkFont.png" Text="Reduce" Click="OnReduceClick"/>
+          <Fluent:Button Icon="Images\Box.png" LargeIcon="Images\Box.png" Text="Cmd" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           <Fluent:Button SizeDefinition="Large,Large,Large"></Fluent:Button>
