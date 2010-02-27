@@ -38,7 +38,7 @@
       			</Rectangle.Fill>
       		</Rectangle>      		
       		<Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="Transparent" BorderThickness="0,1,0,0" Margin="-1,0"/>
-      		<Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="28" Background="Transparent" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
+      		<Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="27" Background="Transparent" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" IsHitTestVisible="False" Margin="0">
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="3,2" SnapsToDevicePixels="True" IsHitTestVisible="false" Visibility="Hidden" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
       			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
@@ -79,7 +79,7 @@
         <Setter Property="Source" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
         <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="4,-1,0,1"/>
+        <Setter Property="Margin" TargetName="controlLabel" Value="3,-1,-2,1"/>
         <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
         <Setter Property="Height" TargetName="iconImage" Value="16"/>
@@ -89,7 +89,6 @@
         <Setter Property="VerticalAlignment" TargetName="downRect" Value="Stretch"/>
         <Setter Property="Height" TargetName="downRect" Value="Auto"/>
         <Setter Property="Style" TargetName="PART_Button" Value="{DynamicResource InnerButtonStyle}"/>
-        <Setter Property="HorizontalAlignment" TargetName="controlLabel" Value="Left"/>
         <Setter Property="Margin" TargetName="downRect" Value="-1,-2,-1,-1"/>
         <Setter Property="HorizontalAlignment" TargetName="downRect_Copy" Value="Right"/>
         <Setter Property="VerticalAlignment" TargetName="downRect_Copy" Value="Stretch"/>
@@ -105,6 +104,7 @@
         <Setter Property="Width" TargetName="controlLabel" Value="12"/>
         <Setter Property="HorizontalAlignment" TargetName="grid" Value="Stretch"/>
         <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
+        <Setter Property="HorizontalAlignment" TargetName="controlLabel" Value="Right"/>
       </Trigger>
       <Trigger Property="IsOpen" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
