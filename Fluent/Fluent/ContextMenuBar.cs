@@ -98,7 +98,6 @@ namespace Fluent
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
         }
 
-
         #endregion
 
         #region Overrides

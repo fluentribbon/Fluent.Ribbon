@@ -8,6 +8,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -77,7 +78,19 @@ namespace Fluent
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
-            if(IsLoaded) UpdateMenuSizes();
+            if (IsLoaded)
+            {
+                UpdateMenuSizes();                
+            }
+            FrameworkElement added = visualAdded as FrameworkElement;
+            FrameworkElement removed = visualRemoved as FrameworkElement;
+            if (added != null) added.IsVisibleChanged += OnItemVisibilityChanged;
+            if (removed != null) removed.IsVisibleChanged -= OnItemVisibilityChanged;
+        }
+
+        private void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            UpdateLayout();
         }
 
         /// <summary>
