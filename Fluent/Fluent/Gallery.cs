@@ -361,7 +361,14 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Gallery), new UIPropertyMetadata(-1, null, CoerceSelectedIndex));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Gallery), new UIPropertyMetadata(-1, OnSelectedIndexChanged, CoerceSelectedIndex));
+
+        private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Gallery gal = d as Gallery;
+            object item = gal.GetItem(gal.SelectedIndex);
+            if (gal.SelectedItem != item) gal.SelectedItem = item;            
+        }
 
         private static object CoerceSelectedIndex(DependencyObject d, object basevalue)
         {
@@ -385,7 +392,14 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Gallery), new UIPropertyMetadata(null, null, CoerceSelectedItem));
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Gallery), new UIPropertyMetadata(null, OnSelectedItemChanged, CoerceSelectedItem));
+
+        private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Gallery gal = d as Gallery;
+            int index = gal.GetItemIndex(gal.SelectedItem);
+            if (gal.SelectedIndex != index) gal.SelectedIndex = index;
+        }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
@@ -492,7 +506,10 @@ namespace Fluent
             {
                 //listBox.Items.Filter += OnFiltering;
 
+                
+
                 listBox.SelectedIndex = SelectedIndex;
+                listBox.SelectedItem = SelectedItem;
 
                 Binding binding = new Binding("SelectedIndex");
                 binding.Source = listBox;
@@ -621,6 +638,39 @@ namespace Fluent
         #endregion
 
         #region Private Methods
+
+        IEnumerable GetItems()
+        {
+            IEnumerable items = ItemsSource;
+            if (items == null) items = Items;
+            return items;
+        }
+
+        object GetItem(int index)
+        {
+            IEnumerable items = GetItems();
+            if (items == null) return null;
+            int i = 0;
+            foreach (var item in items)
+            {
+                if (i == index) return item;
+                i++;
+            }
+            return null;
+        }
+
+        int GetItemIndex(object obj)
+        {
+            IEnumerable items = GetItems();
+            if (items == null) return -1;
+            int i = 0;
+            foreach (var item in items)
+            {
+                if (item == obj) return i;
+                i++;
+            }
+            return -1;
+        }
 
         internal string GetItemGroupName(object obj)
         {

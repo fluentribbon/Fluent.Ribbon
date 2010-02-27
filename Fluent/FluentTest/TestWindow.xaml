@@ -188,12 +188,12 @@
         </Fluent:RibbonToolBar.LayoutDefinitions>
 
         <!--ToolBar Controls-->
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedIndex="0" BorderBrush="Gainsboro" Foreground="#FF222222" CurrentText="Tahoma" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160" SizeDefinition="Small">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedItem="{Binding ElementName=segoeFont}" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  MenuMinWidth="160" SizeDefinition="Small">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
           <TextBlock Text="Arial" Tag="AllFonts"/>
-          <TextBlock Text="Segoe UI" Tag="AllFonts"/>
+          <TextBlock Text="Segoe UI" Tag="AllFonts" x:Name="segoeFont"/>
           <TextBlock Text="Tahoma" Tag="AllFonts"/>
           <TextBlock Text="Webdings" Tag="AllFonts"/>
           <TextBlock Text="Winding" Tag="AllFonts"/>
@@ -288,7 +288,7 @@
               <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
               <Fluent:DropDownButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Further Options" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
                 <Fluent:DropDownButton.Items>
-                  <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag">
+                  <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag" x:Name="sampleGallery" SelectedItem="{Binding ElementName=item3}">
                     <Fluent:Gallery.Filters>
                       <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAlll"/>
                       <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
@@ -299,7 +299,7 @@
                     </Fluent:Gallery.GroupIcons>
                       <TextBlock Tag="Group1">1</TextBlock>
                       <TextBlock Tag="Group1">2</TextBlock>
-                      <TextBlock Tag="Group1">3</TextBlock>
+                      <TextBlock Tag="Group1" x:Name="item3">3</TextBlock>
                       <TextBlock Tag="Group1">4</TextBlock>
                       <TextBlock Tag="Group1">5</TextBlock>
                       <TextBlock Tag="Group1">6</TextBlock>

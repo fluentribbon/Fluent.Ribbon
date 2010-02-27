@@ -256,7 +256,11 @@ namespace Fluent
             else
             {
                 object selectedItem = combo.GetItem((int) e.NewValue);
-                if (selectedItem != combo.SelectedItem) combo.SelectedItem = selectedItem;
+                if (selectedItem != combo.SelectedItem)
+                {
+                    combo.SelectedItem = selectedItem;
+                    combo.CurrentText = combo.GetItemText(combo.SelectedItem);
+                }
             }
         }
 
