@@ -147,6 +147,12 @@ namespace Fluent
                 return this.toolBarItems;
             }
         }
+
+        internal Panel ToolbarPanel
+        {
+            get { return toolbarPanel; }
+        }
+
         // Handle toolbar iitems changes
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -155,25 +161,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (toolbarPanel != null) toolbarPanel.Children.Add(obj2 as UIElement);
+                        if (ToolbarPanel != null) ToolbarPanel.Children.Add(obj2 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (toolbarPanel != null) toolbarPanel.Children.Remove(obj3 as UIElement);
+                        if (ToolbarPanel != null) ToolbarPanel.Children.Remove(obj3 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (toolbarPanel != null) toolbarPanel.Children.Remove(obj4 as UIElement);
+                        if (ToolbarPanel != null) ToolbarPanel.Children.Remove(obj4 as UIElement);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (toolbarPanel != null) toolbarPanel.Children.Add(obj5 as UIElement);
+                        if (ToolbarPanel != null) ToolbarPanel.Children.Add(obj5 as UIElement);
                     }
                     break;
             }
@@ -249,19 +255,19 @@ namespace Fluent
 
                 popup.CustomPopupPlacementCallback = CustomPopupPlacementMethod;
             }
-            if ((toolbarPanel != null) && (toolBarItems != null))
+            if ((ToolbarPanel != null) && (toolBarItems != null))
             {
                 for (int i = 0; i < toolBarItems.Count; i++)
                 {
-                    toolbarPanel.Children.Remove(toolBarItems[i]);
+                    ToolbarPanel.Children.Remove(toolBarItems[i]);
                 }
             }
             toolbarPanel = GetTemplateChild("PART_ToolbarPanel") as Panel;
-            if ((toolbarPanel != null) && (toolBarItems != null))
+            if ((ToolbarPanel != null) && (toolBarItems != null))
             {
                 for (int i = 0; i < toolBarItems.Count; i++)
                 {
-                    toolbarPanel.Children.Add(toolBarItems[i]);
+                    ToolbarPanel.Children.Add(toolBarItems[i]);
                 }
             }
         }

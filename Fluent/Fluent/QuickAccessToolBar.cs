@@ -45,6 +45,8 @@ namespace Fluent
         // Root panel of control
         private Panel rootPanel;
 
+        private DropDownButton menuButton;
+
         #endregion
 
         #region Properties
@@ -134,6 +136,9 @@ namespace Fluent
                     if ((dependencyObject != null) && (!GetIsOverflowItem(dependencyObject))) array.Add(item);
                 }
                 if(HasOverflowItems)array.Add(rootPanel);
+                /*for (int i = 0; i < QuickAccessItems.Count; i++)
+                    array.Add(QuickAccessItems[i]);*/
+                if (menuButton!=null) array.Add(menuButton);
                 return array.GetEnumerator();
             }
         }
@@ -232,6 +237,8 @@ namespace Fluent
             {
                 AddLogicalChild(rootPanel);
             }
+
+            menuButton = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
         }
 
         /// <summary>

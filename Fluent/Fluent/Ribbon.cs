@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -24,6 +25,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -331,6 +333,7 @@ namespace Fluent
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
                 //if(ShowQuickAccessToolBarAboveRibbon)if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
+                if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
             }
         }
@@ -684,12 +687,30 @@ namespace Fluent
                     quickAccessToolBar.QuickAccessItems.Remove(quickAccessItems[i]);
                 }
             }
+            List<object> quickAccessToolbarItems = new List<object>();
+            if(quickAccessToolBar!=null)
+            {
+                for (int i = 0; i < quickAccessToolBar.Items.Count; i++)
+                {
+                    quickAccessToolbarItems.Add(quickAccessToolBar.Items[i]);
+                }
+                quickAccessToolBar.Items.Clear();
+            }
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
+
             if ((quickAccessToolBar != null) && (quickAccessItems != null))
             {
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     quickAccessToolBar.QuickAccessItems.Add(quickAccessItems[i]);
+                }
+            }
+
+            if (quickAccessToolBar != null)
+            {
+                for (int i = 0; i < quickAccessToolbarItems.Count; i++)
+                {
+                    quickAccessToolBar.Items.Add(quickAccessToolbarItems[i]);
                 }
             }
             if (backstageButton != null)
@@ -745,7 +766,7 @@ namespace Fluent
             customizeTheRibbonMenuItem = GetTemplateChild("PART_CustomizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
-            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
+            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;            
         }
 
         private void OnRemoveToQuickLaunchClick(object sender, RoutedEventArgs e)
