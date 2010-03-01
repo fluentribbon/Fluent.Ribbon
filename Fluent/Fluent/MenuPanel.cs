@@ -11,9 +11,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -90,7 +92,7 @@ namespace Fluent
 
         private void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            UpdateLayout();
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { UpdateMenuSizes(); UpdateLayout(); }));
         }
 
         /// <summary>

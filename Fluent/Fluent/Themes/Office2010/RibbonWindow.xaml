@@ -3,7 +3,8 @@
     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:Fluent="clr-namespace:Fluent">
-	<BitmapImage x:Key="ImageCaptionButtonClose" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png" PresentationOptions:Freeze="True"/>	
+  <Fluent:IconConverter x:Key="IconConvert"/>
+  <BitmapImage x:Key="ImageCaptionButtonClose" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png" PresentationOptions:Freeze="True"/>	
 	<BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
@@ -14,8 +15,8 @@
     			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
     				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
     				<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
-    				<StackPanel x:Name="stackPanel" Margin="0,-4,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{TemplateBinding Icon}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
+    				<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconConvert}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
     				</StackPanel>
     				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
     				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0">
@@ -30,7 +31,7 @@
       			</Trigger>
       			<Trigger Property="WindowState" Value="Maximized">
       				<Setter Property="Margin" TargetName="stackPanel" Value="0,0,0,0"/>
-      				<Setter Property="Margin" TargetName="stackPanel" Value="0,0,0,0"/>
+      				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
       				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Collapsed"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
       			</Trigger>
@@ -55,8 +56,8 @@
     			</Border>
     			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
     				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
-    				<StackPanel x:Name="stackPanel" Margin="0,-4,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
-    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{TemplateBinding Icon}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
+    				<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
+    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconConvert}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
     				</StackPanel>
     				<StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Orientation="Horizontal" d:LayoutOverrides="Height">    					
     					<Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
@@ -104,7 +105,7 @@
       				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
       			</MultiTrigger>
       			<Trigger Property="WindowState" Value="Maximized">
-      				<Setter Property="Margin" TargetName="stackPanel" Value="1,0,0,0"/>
+      				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
       				<Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
       				<Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
       				<Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>

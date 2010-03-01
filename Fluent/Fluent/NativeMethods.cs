@@ -808,6 +808,41 @@ namespace Fluent
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
 
+        /// <summary>
+        /// The GetClassLongPtr function retrieves the specified value from the WNDCLASSEX structure associated with the specified window.
+        /// If you are retrieving a pointer or a handle, this function supersedes the GetClassLong function. (Pointers and handles are 32 bits on 32-bit Microsoft Windows and 64 bits on 64-bit Windows.) To write code that is compatible with both 32-bit and 64-bit versions of Windows, use GetClassLongPtr.
+        /// </summary>
+        /// <param name="hWnd">Handle to the window and, indirectly, the class to which the window belongs. </param>
+        /// <param name="nIndex">Specifies the value to retrieve. To retrieve a value from the extra class memory, specify the positive, zero-based byte offset of the value to be retrieved. Valid values are in the range zero through the number of bytes of extra class memory, minus eight; for example, if you specified 24 or more bytes of extra class memory, a value of 16 would be an index to the third integer. To retrieve any other value from the WNDCLASSEX structure, specify one of the following values. </param>
+        /// <returns>If the function succeeds, the return value is the requested value.If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
+        public static IntPtr GetClassLongPtr(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size > 4)
+            {
+                return GetClassLongPtr64(hWnd, nIndex);
+            }
+            return new IntPtr((long)GetClassLongPtr32(hWnd, nIndex));
+        }
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLong")]
+        private static extern uint GetClassLongPtr32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        private static extern IntPtr GetClassLongPtr64(IntPtr hWnd, int nIndex);
+
+        /// <summary>
+        /// Loads an icon, cursor, animated cursor, or bitmap.
+        /// </summary>
+        /// <param name="hinst">Handle to the module of either a DLL or executable (.exe) that contains the image to be loaded</param>
+        /// <param name="lpszName">Specifies the image to load</param>
+        /// <param name="uType">Specifies the type of image to be loaded. </param>
+        /// <param name="cxDesired">Specifies the width, in pixels, of the icon or cursor</param>
+        /// <param name="cyDesired">Specifies the height, in pixels, of the icon or cursor</param>
+        /// <param name="fuLoad">This parameter can be one or more of the following values.</param>
+        /// <returns>If the function succeeds, the return value is the requested value.If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr LoadImage(IntPtr hinst, int lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
+ 
         #endregion
     }
 }

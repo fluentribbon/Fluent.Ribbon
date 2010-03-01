@@ -92,6 +92,7 @@
     <Compile Include="GalleryGroupIconConverter.cs" />
     <Compile Include="GalleryItem.cs" />
     <Compile Include="GrayscaleEffect.cs" />
+    <Compile Include="IconConverter.cs" />
     <Compile Include="InRibbonGallery.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="RibbonItemsControl.cs" />
