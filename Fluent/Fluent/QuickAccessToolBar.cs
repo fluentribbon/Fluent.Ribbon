@@ -183,7 +183,7 @@ namespace Fluent
         /// event.</param>
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (this.Parent is RibbonTitleBar) (this.Parent as RibbonTitleBar).InvalidateMeasure();
+            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
             base.OnItemsChanged(e);
             UpdateKeyTips();
         }

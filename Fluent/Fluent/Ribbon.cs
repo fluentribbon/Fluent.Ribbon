@@ -332,7 +332,7 @@ namespace Fluent
             {
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
-                //if(ShowQuickAccessToolBarAboveRibbon)if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
+                if(ShowQuickAccessToolBarAboveRibbon) if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
             }
@@ -687,14 +687,12 @@ namespace Fluent
                     quickAccessToolBar.QuickAccessItems.Remove(quickAccessItems[i]);
                 }
             }
-            List<object> quickAccessToolbarItems = new List<object>();
+            List<UIElement> quickAccessToolbarItems = new List<UIElement>();
             if(quickAccessToolBar!=null)
             {
-                for (int i = 0; i < quickAccessToolBar.Items.Count; i++)
-                {
-                    quickAccessToolbarItems.Add(quickAccessToolBar.Items[i]);
-                }
-                quickAccessToolBar.Items.Clear();
+                if (quickAccessToolBar.Parent==this) RemoveLogicalChild(quickAccessToolBar);
+                quickAccessToolbarItems.AddRange(quickAccessElements.Select(x=>x.Key));
+                ClearQuickAccessToolbar();
             }
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
 
@@ -708,11 +706,14 @@ namespace Fluent
 
             if (quickAccessToolBar != null)
             {
+                if (quickAccessToolBar.Parent == null) AddLogicalChild(quickAccessToolBar);
                 for (int i = 0; i < quickAccessToolbarItems.Count; i++)
                 {
-                    quickAccessToolBar.Items.Add(quickAccessToolbarItems[i]);
+                    if (i == 0) ClearQuickAccessToolbar();
+                    AddToQuickAccessToolbar(quickAccessToolbarItems[i]);
                 }
             }
+
             if (backstageButton != null)
             {
                 if (backstageItems != null)
@@ -766,7 +767,7 @@ namespace Fluent
             customizeTheRibbonMenuItem = GetTemplateChild("PART_CustomizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
-            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;            
+            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;                        
         }
 
         private void OnRemoveToQuickLaunchClick(object sender, RoutedEventArgs e)
@@ -803,7 +804,7 @@ namespace Fluent
                 AddToQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
             }
         }
-
+        
         private void OnContextMenuOpened(object sender, RoutedEventArgs e)
         {
             /*if (quickAccessToolBar != null)
@@ -914,6 +915,12 @@ namespace Fluent
                 quickAccessToolBar.InvalidateMeasure();
             }
 
+        }
+
+        public void ClearQuickAccessToolbar()
+        {
+            if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
+            quickAccessElements.Clear(); 
         }
 
         #endregion

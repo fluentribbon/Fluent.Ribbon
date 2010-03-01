@@ -69,16 +69,17 @@ namespace Fluent
             UIElement newToolbar = e.NewValue as UIElement;
 
             // Remove Logical tree link
-            if (oldToolbar != null)
+            /*if (oldToolbar != null)
             {
                 if (LogicalTreeHelper.GetParent(oldToolbar) == titleBar) titleBar.RemoveLogicalChild(oldToolbar);
-            }
+            }*/
 
             // Add Logical tree link
-            if (newToolbar != null)
+            /*if (newToolbar != null)
             {
                 if (LogicalTreeHelper.GetParent(newToolbar) == null) titleBar.AddLogicalChild(newToolbar);
-            }        
+            }   */     
+            titleBar.InvalidateMeasure();
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace Fluent
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register("HeaderAlignment", typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
 
-        /// <summary>
+        /*/// <summary>
         /// Gets an enumerator to the logical child elements of the System.Windows.Controls.HeaderedItemsControl.
         /// </summary>
         protected override IEnumerator LogicalChildren
@@ -107,7 +108,7 @@ namespace Fluent
                 if (QuickAccessToolBar != null) list.Add(QuickAccessToolBar);
                 return list.GetEnumerator();
             }
-        }
+        }*/
 
         #endregion
 
