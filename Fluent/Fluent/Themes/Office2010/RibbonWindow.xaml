@@ -16,24 +16,26 @@
     				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
     				<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
     				<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconConvert}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
+    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
     				</StackPanel>
+    				<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
     				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
-    				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0">
-
-    					<ContentPresenter/>
-    				</AdornerDecorator>
+    				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0"/>
     			</Grid>
     		</Grid>
       		<ControlTemplate.Triggers>
-      			<Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+      			<MultiTrigger>
+      				<MultiTrigger.Conditions>
+      					<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+      					<Condition Property="WindowState" Value="Normal"/>
+      				</MultiTrigger.Conditions>
       				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
-      			</Trigger>
+      			</MultiTrigger>
       			<Trigger Property="WindowState" Value="Maximized">
       				<Setter Property="Margin" TargetName="stackPanel" Value="0,0,0,0"/>
       				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
-      				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Collapsed"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
+					<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
       			</Trigger>
       			<Trigger Property="IsIconVisible" Value="False">
       				<Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>      				
@@ -78,10 +80,9 @@
     						<Grid x:Name="grid" Background="{TemplateBinding Background}"/>
     					</Border>
     				</Border>
-    				<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0,-7,0,0">
-    					<ContentPresenter/>
-    				</AdornerDecorator>
+    				<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
     				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    				<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0,-7,0,0"/>
     			</Grid>
     		</Grid>
       		<ControlTemplate.Triggers>
@@ -113,6 +114,7 @@
       				<Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,4,0"/>
       				<Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
+					<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
       			</Trigger>
 				<Trigger Property="WindowState" Value="Normal">
       				<Setter Property="Visibility" TargetName="normalizeButton" Value="Collapsed"/>

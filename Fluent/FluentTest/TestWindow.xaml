@@ -37,12 +37,12 @@
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.BackstageItems>
-        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q"/>
+        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" IsEnabled="False"/>
         <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
         <Fluent:BackstageTabItem Text="Lala" Fluent:KeyTip.Keys="E">
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R">
+        <Fluent:BackstageTabItem Text="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R" IsEnabled="False">
           <Grid Background="Green" Opacity="0.3" Margin="50">
             <Label>
               <Hyperlink Focusable="True">kkljklj</Hyperlink>

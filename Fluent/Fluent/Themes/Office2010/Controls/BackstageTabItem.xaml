@@ -27,12 +27,20 @@
     				<Path Fill="{DynamicResource ActiveTabBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z" Margin="0,0,-1,0"/>
     			</Grid>
     		</Border>
-    		<TextBlock HorizontalAlignment="Left" Margin="20,0" VerticalAlignment="Center" Text="{TemplateBinding Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+    		<TextBlock x:Name="controlLabel" HorizontalAlignment="Left" Margin="20,0" VerticalAlignment="Center" Text="{TemplateBinding Text}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
     	</Grid>
     	<ControlTemplate.Triggers>
-    		<Trigger Property="IsMouseOver" Value="True">
-    			<Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
-    		</Trigger>
+        <MultiTrigger>
+          <MultiTrigger.Conditions>
+            <Condition Property="IsMouseOver" Value="True"/>
+            <Condition Property="IsEnabled" Value="True"/>
+          </MultiTrigger.Conditions>
+          <Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
+        </MultiTrigger>
+        <Trigger Property="IsEnabled" Value="False">
+          <Setter Property="Visibility" TargetName="hoverBorder" Value="Hidden"/>
+          <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+        </Trigger>
     		<Trigger Property="Selector.IsSelected" Value="True">
     			<Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
     		</Trigger>

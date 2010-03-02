@@ -184,6 +184,7 @@ namespace Fluent
             {
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
                 openedPopups[i].IsOpen = false;
+
                 if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
             }
         }

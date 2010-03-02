@@ -675,7 +675,7 @@ namespace Fluent
         // Update window style
         private void UpdateWindowStyle()
         {
-            if ((IsDwmEnabled) && ((!IsLoaded))) return;
+            if ((IsDwmEnabled)/* && ((!IsLoaded))*/) return;
             long style = NativeMethods.WS_POPUP | NativeMethods.WS_VISIBLE | NativeMethods.WS_CLIPSIBLINGS | NativeMethods.WS_CLIPCHILDREN;
             long exStyle = NativeMethods.WS_EX_LEFT | NativeMethods.WS_EX_LTRREADING | NativeMethods.WS_EX_RIGHTSCROLLBAR | NativeMethods.WS_EX_WINDOWEDGE;
             if (IsDwmEnabled)
@@ -698,7 +698,6 @@ namespace Fluent
             NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE, new IntPtr(exStyle));
 
             NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_NOTOPMOST), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);
-
             UpdateLayout();
         }
 

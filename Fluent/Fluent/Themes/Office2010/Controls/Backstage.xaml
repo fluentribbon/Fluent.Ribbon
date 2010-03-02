@@ -10,14 +10,27 @@
   			</Border>
   		</Border>
   		<StackPanel Orientation="Horizontal" Margin="16,0,15,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-  			<Image Width="16" Height="16" HorizontalAlignment="Left" Source="{TemplateBinding Icon}"/>
-  			<TextBlock Text="{TemplateBinding Text}" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="CharacterEllipsis"/>
+  			<Image Width="16" Height="16" HorizontalAlignment="Left" Source="{TemplateBinding Icon}" x:Name="iconImage"/>
+  			<TextBlock Text="{TemplateBinding Text}" TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="CharacterEllipsis" x:Name="controlLabel"/>
   		</StackPanel>
   	</Grid>
   	<ControlTemplate.Triggers>
-  		<Trigger Property="IsMouseOver" Value="True">
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsMouseOver" Value="True"/>
+          <Condition Property="IsEnabled" Value="True"/>
+        </MultiTrigger.Conditions>
   			<Setter Property="Visibility" TargetName="border" Value="Visible"/>
-  		</Trigger>
+      </MultiTrigger>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+        <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
+        <Setter Property="Effect" TargetName="iconImage">
+          <Setter.Value>
+            <Fluent:GrayscaleEffect/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
   	</ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="BackstageButtonStyle" TargetType="{x:Type Fluent:Button}">
