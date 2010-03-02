@@ -129,13 +129,7 @@ namespace Fluent
         {
             get
             {
-                if (layoutDefinitions.Count == 0) return children.GetEnumerator();
-                if (rebuildVisualAndLogicalChildren)
-                {
-                    // UpdateLayout();
-                    InvalidateMeasure();
-                }
-                return actualChildren.GetEnumerator();
+                return children.GetEnumerator();
             }
         }
 

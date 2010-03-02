@@ -600,7 +600,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        RibbonGroupBox GetGroupBox(DependencyObject element)
+        static RibbonGroupBox GetGroupBox(DependencyObject element)
         {
             if (element == null) return null;
             RibbonGroupBox groupBox = element as RibbonGroupBox;
@@ -633,6 +633,14 @@ namespace Fluent
 
             for (int i = 0; i < keyTips.Count; i++)
             {
+                // Skip invisible keytips
+                if (keyTips[i].Visibility != Visibility.Visible) continue;
+                
+                // Update KeyTip Visibility
+                bool associatedElementIsVisible = associatedElements[i].Visibility == Visibility.Visible;
+                bool associatedElementInVisualTree = VisualTreeHelper.GetParent(associatedElements[i]) != null;
+                keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
+
                 if (!KeyTip.GetAutoPlacement(associatedElements[i]))
                 {
                     #region Custom Placement
@@ -790,7 +798,7 @@ namespace Fluent
         }
 
         // Determines whether the element is children to RibbonToolBar
-        bool IsWithinRibbonToolbarInTwoLine(UIElement element)
+        static bool IsWithinRibbonToolbarInTwoLine(DependencyObject element)
         {
             UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
             RibbonToolBar ribbonToolBar = parent as RibbonToolBar;
@@ -806,7 +814,7 @@ namespace Fluent
         }
 
         // Determines whether the element is children to quick access toolbar
-        bool IsWithinQuickAccessToolbar(UIElement element)
+        static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
             UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
             if (parent is QuickAccessToolBar) return true;
