@@ -968,13 +968,7 @@ namespace Fluent
             keyTipService.Attach();
             Window wnd = Window.GetWindow(this);
             if (wnd != null) wnd.SizeChanged += OnSizeChanged;
-
-            // Load QAT state if it is in auto mode
-            // Do it just before (or just after?) rendering to be sure 
-            // that logical tree is builded and correct
-            Dispatcher.BeginInvoke(
-                (ThreadStart) LoadState, 
-                DispatcherPriority.Render);
+            InitialLoadState();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -1089,6 +1083,24 @@ namespace Fluent
         #endregion
 
         #region State Management
+
+        #region Initial State Loading
+
+        // Initial state loading
+        void InitialLoadState()
+        {
+            // Load QAT state if it is in auto mode
+            // Do it just before (or just after?) rendering to be sure 
+            // that logical tree is builded and correct
+            Dispatcher.BeginInvoke(
+                (ThreadStart)delegate
+                {
+                    if (!IsStateLoaded) LoadState();
+                },
+            DispatcherPriority.Render);
+        }
+
+        #endregion
 
         #region Load / Save to Isolated Storage
 
@@ -1288,7 +1300,7 @@ namespace Fluent
         #region AutomaticStateManagement Property
 
         // To temporary suppress automatic management
-        bool suppressAutomaticStateManagement = true;
+        bool suppressAutomaticStateManagement = false;
 
         /// <summary>
         /// Gets or sets whether Quick Access ToolBar can 
@@ -1317,7 +1329,7 @@ namespace Fluent
         static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
-            if ((bool)e.NewValue) ribbon.LoadState();
+            if ((bool)e.NewValue) ribbon.InitialLoadState();
         }
 
         #endregion
