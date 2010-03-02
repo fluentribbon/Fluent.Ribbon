@@ -35,7 +35,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        UIElement CreateQuickAccessItem();
+        FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
         /// Gets or sets whether control can be added to quick access toolbar
@@ -49,6 +49,12 @@ namespace Fluent
     [ContentProperty("Target")]
     public class QuickAccessMenuItem : MenuItem
     {
+        #region Fields
+
+        internal Ribbon Ribbon;
+
+        #endregion
+
         #region Initialization
 
         static QuickAccessMenuItem()
@@ -63,8 +69,10 @@ namespace Fluent
         {
             Checked += OnChecked;
             Unchecked += OnUnchecked;
-            Loaded += OnItemLoaded;
+            Loaded += OnFirstLoaded;
+            Loaded += OnItemLoaded;            
         }
+
 
         #endregion
 
@@ -119,12 +127,15 @@ namespace Fluent
         {
             get
             {
-                DependencyObject parent = LogicalTreeHelper.GetParent(Target);
-                if (parent == this)
+                if (Target != null)
                 {
-                    ArrayList list = new ArrayList();
-                    list.Add(Target);
-                    return list.GetEnumerator();
+                    DependencyObject parent = LogicalTreeHelper.GetParent(Target);
+                    if (parent == this)
+                    {
+                        ArrayList list = new ArrayList();
+                        list.Add(Target);
+                        return list.GetEnumerator();
+                    }
                 }
                 return base.LogicalChildren;
             }
@@ -136,53 +147,43 @@ namespace Fluent
 
         void OnChecked(object sender, RoutedEventArgs e)
         {
-            Ribbon ribbon = FindRibbon();
-            if (ribbon != null)
+            if (Ribbon != null)
             {
-                ribbon.AddToQuickAccessToolbar(Target);
+                Ribbon.AddToQuickAccessToolbar(Target);
             }
         }
 
         void OnUnchecked(object sender, RoutedEventArgs e)
         {
-            Ribbon ribbon = FindRibbon();
-            if (ribbon != null)
+            if(!IsLoaded) return;
+            if (Ribbon != null)
             {
-                ribbon.RemoveFromQuickAccessToolbar(Target);
+                Ribbon.RemoveFromQuickAccessToolbar(Target);
             }
         }
 
         void OnItemLoaded(object sender, RoutedEventArgs e)
         {
-            Ribbon ribbon = FindRibbon();
-            if (ribbon != null)
+            if (!IsLoaded) return;
+            if (Ribbon != null)
             {
-                IsChecked = ribbon.IsInQuickAccessToolbar(Target);
+                IsChecked = Ribbon.IsInQuickAccessToolbar(Target);
+            }
+        }
+
+
+        private void OnFirstLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnFirstLoaded;
+            if ((IsChecked)&&(Ribbon != null))
+            {
+                Ribbon.AddToQuickAccessToolbar(Target);
             }
         }
 
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Finds ribbon
-        /// </summary>
-        /// <returns>Ribbon or null if not finded</returns>
-        //QuickAccessToolBar FindQuickAccessToolbar()
-        Ribbon FindRibbon()
-        {
-            UIElement element = this.Parent as UIElement;
-            while (element != null)
-            {
-                Ribbon ribbon = element as Ribbon;
-                if (ribbon != null) return ribbon;
-                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
-                if (parent != null) element = parent;
-                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
-            }
-            return null;
-        }
 
         #endregion
     }
@@ -213,9 +214,9 @@ namespace Fluent
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
         [SuppressMessage("Microsoft.Performance", "CA1800")]
-        public static UIElement GetQuickAccessItem(UIElement element)
+        public static FrameworkElement GetQuickAccessItem(UIElement element)
         {
-            UIElement result = null;
+            FrameworkElement result = null;
 
             // If control supports the interface just return what it provides 
             IQuickAccessItemProvider provider = (element as IQuickAccessItemProvider);
@@ -224,7 +225,7 @@ namespace Fluent
             
             // The control isn't supported
             if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
-            
+
             return result;
         }
         
@@ -234,9 +235,9 @@ namespace Fluent
         /// <param name="visual">Visual</param>
         /// <param name="point">Point</param>
         /// <returns>Point</returns>
-        public static UIElement PickQuickAccessItem(Visual visual, Point point)
+        public static FrameworkElement PickQuickAccessItem(Visual visual, Point point)
         {
-            UIElement element = FindSupportedControl(visual, point);
+            FrameworkElement element = FindSupportedControl(visual, point);
             if (element != null) return GetQuickAccessItem(element);
             else return null;
         }
@@ -247,18 +248,18 @@ namespace Fluent
         /// <param name="visual">Visual</param>
         /// <param name="point">Point</param>
         /// <returns>Point</returns>
-        public static UIElement FindSupportedControl(Visual visual, Point point)
+        public static FrameworkElement FindSupportedControl(Visual visual, Point point)
         {
             HitTestResult result = VisualTreeHelper.HitTest(visual, point);
             if (result == null) return null;
             
             // Try to find in visual (or logical) tree
-            UIElement element = result.VisualHit as UIElement;
+            FrameworkElement element = result.VisualHit as FrameworkElement;
             while (element != null)
             {
                 if(IsSupported(element)) return element;
-                UIElement visualParent = VisualTreeHelper.GetParent(element) as UIElement;
-                UIElement logicalParent = LogicalTreeHelper.GetParent(element) as UIElement;
+                FrameworkElement visualParent = VisualTreeHelper.GetParent(element) as FrameworkElement;
+                FrameworkElement logicalParent = LogicalTreeHelper.GetParent(element) as FrameworkElement;
                 element = visualParent ?? logicalParent;
             }
 

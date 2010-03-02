@@ -535,7 +535,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public abstract UIElement CreateQuickAccessItem();
+        public abstract FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
         /// This method must be overriden to bind properties to use in quick access creating

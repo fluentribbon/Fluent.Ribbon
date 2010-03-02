@@ -11,8 +11,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -32,6 +35,17 @@ namespace Fluent
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
     public class QuickAccessToolBar:ToolBar
     {
+        #region Events
+
+        /// <summary>
+        /// Occured when items are added or removed from Quick Access toolbar
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler ItemsChanged;
+
+        private DropDownButton menuButton;
+
+        #endregion
+
         #region Fields
 
         // Show above menu item
@@ -44,9 +58,7 @@ namespace Fluent
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
         // Root panel of control
         private Panel rootPanel;
-
-        private DropDownButton menuButton;
-
+        
         #endregion
 
         #region Properties
@@ -130,15 +142,19 @@ namespace Fluent
             get
             {
                 ArrayList array = new ArrayList();                                
+                
+                //if (menuButton!=null) array.Add(menuButton);
+                foreach(var item in QuickAccessItems)
+                {
+                    array.Add(item);
+                }
+                
                 foreach (var item in Items)
                 {
                     DependencyObject dependencyObject = item as DependencyObject;
                     if ((dependencyObject != null) && (!GetIsOverflowItem(dependencyObject))) array.Add(item);
                 }
-                if(HasOverflowItems)array.Add(rootPanel);
-                /*for (int i = 0; i < QuickAccessItems.Count; i++)
-                    array.Add(QuickAccessItems[i]);*/
-                if (menuButton!=null) array.Add(menuButton);
+                if (HasOverflowItems) array.Add(rootPanel);
                 return array.GetEnumerator();
             }
         }
@@ -153,15 +169,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
-            //StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));            
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaulQuickAccessToolBarStyle;
-            return basevalue;
         }
 
         /// <summary>
@@ -169,7 +177,7 @@ namespace Fluent
         /// </summary>
         public QuickAccessToolBar()
         {
-
+         
         }
 
         #endregion
@@ -186,6 +194,9 @@ namespace Fluent
             if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
             base.OnItemsChanged(e);
             UpdateKeyTips();
+
+            // Raise items changed event
+            if (ItemsChanged != null) ItemsChanged(this, e);
         }
 
         /// <summary>
@@ -213,11 +224,11 @@ namespace Fluent
             }
             else if(quickAccessItems!=null)
             {
-                Ribbon ribbon = FindRibbon();
+                //Ribbon ribbon = FindRibbon();
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     RemoveLogicalChild(quickAccessItems[i]);
-                    if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
+                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
                 }
             }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
@@ -306,5 +317,6 @@ namespace Fluent
         }
 
         #endregion
+
     }
 }

@@ -400,7 +400,7 @@ namespace Fluent
 
         #endregion
 
-        public override UIElement CreateQuickAccessItem()
+        public override FrameworkElement CreateQuickAccessItem()
         {
             return null;
         }

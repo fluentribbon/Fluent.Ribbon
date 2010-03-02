@@ -559,7 +559,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public override UIElement CreateQuickAccessItem()
+        public override FrameworkElement CreateQuickAccessItem()
         {
             return new Control();
         }

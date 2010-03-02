@@ -12,7 +12,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -154,8 +158,9 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = d as Ribbon;
+            Ribbon ribbon = (Ribbon)d;
             if (ribbon.titleBar != null) ribbon.titleBar.InvalidateMeasure();
+            ribbon.SaveState();
         }
 
         /// <summary>
@@ -332,7 +337,8 @@ namespace Fluent
             {
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
-                if(ShowQuickAccessToolBarAboveRibbon) if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
+                //if(ShowQuickAccessToolBarAboveRibbon)
+                if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
             }
@@ -366,6 +372,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj2 as QuickAccessMenuItem);
+                        (obj2 as QuickAccessMenuItem).Ribbon = this;                        
                     }
                     break;
 
@@ -373,6 +380,7 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj3 as QuickAccessMenuItem);
+                        (obj3 as QuickAccessMenuItem).Ribbon = null;
                     }
                     break;
 
@@ -380,10 +388,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj4 as QuickAccessMenuItem);
+                        (obj4 as QuickAccessMenuItem).Ribbon = null;
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj5 as QuickAccessMenuItem);
+                        (obj5 as QuickAccessMenuItem).Ribbon = this;
                     }
                     break;
             }
@@ -538,7 +548,13 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMinimized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
-            DependencyProperty.Register("IsMinimized", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsMinimized", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
+
+        private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon)d;
+            ribbon.SaveState();
+        }
 
 
         /// <summary>
@@ -680,11 +696,15 @@ namespace Fluent
                 }
             }
 
-            if ((quickAccessToolBar != null) && (quickAccessItems != null))
+            if (quickAccessToolBar != null)
             {
-                for (int i = 0; i < quickAccessItems.Count; i++)
+                quickAccessToolBar.ItemsChanged -= OnQuickAccessItemsChanged;
+                if (quickAccessItems != null)
                 {
-                    quickAccessToolBar.QuickAccessItems.Remove(quickAccessItems[i]);
+                    for (int i = 0; i < quickAccessItems.Count; i++)
+                    {
+                        quickAccessToolBar.QuickAccessItems.Remove(quickAccessItems[i]);
+                    }
                 }
             }
             List<UIElement> quickAccessToolbarItems = new List<UIElement>();
@@ -695,13 +715,16 @@ namespace Fluent
                 ClearQuickAccessToolbar();
             }
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
-
-            if ((quickAccessToolBar != null) && (quickAccessItems != null))
+            if (quickAccessToolBar != null)
             {
-                for (int i = 0; i < quickAccessItems.Count; i++)
+                if (quickAccessItems != null)
                 {
-                    quickAccessToolBar.QuickAccessItems.Add(quickAccessItems[i]);
+                    for (int i = 0; i < quickAccessItems.Count; i++)
+                    {
+                        quickAccessToolBar.QuickAccessItems.Add(quickAccessItems[i]);
+                    }
                 }
+                quickAccessToolBar.ItemsChanged += OnQuickAccessItemsChanged;
             }
 
             if (quickAccessToolBar != null)
@@ -754,9 +777,9 @@ namespace Fluent
             if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
             addGalleryToQuickAccessMenuItem = GetTemplateChild("PART_AddGalleryToQuickAccessMenuItem") as MenuItem;
             if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
-            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click -= OnRemoveToQuickLaunchClick;
+            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click -= OnRemoveFromQuickAccessToolBarClick;
             removeFromQuickAccessMenuItem = GetTemplateChild("PART_RemoveFromQuickAccessMenuItem") as MenuItem;
-            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click += OnRemoveToQuickLaunchClick;
+            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click += OnRemoveFromQuickAccessToolBarClick;
             customizeQuickAccessToolbarMenuItem = GetTemplateChild("PART_CustomizeQuickAccessToolbarMenuItem") as MenuItem;
             if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click -= OnShowBelowTheRibbonClick;
             showQuickAccessToolbarBelowTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem") as MenuItem;
@@ -767,18 +790,15 @@ namespace Fluent
             customizeTheRibbonMenuItem = GetTemplateChild("PART_CustomizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
-            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;                        
+            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
         }
 
-        private void OnRemoveToQuickLaunchClick(object sender, RoutedEventArgs e)
+        private void OnRemoveFromQuickAccessToolBarClick(object sender, RoutedEventArgs e)
         {
             if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
             {
                 UIElement element = quickAccessElements.First(x => x.Value == ribbonContextMenu.Tag).Key;
-                RemoveFromQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
-                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
-                quickAccessElements.Remove(element);
-                quickAccessToolBar.InvalidateMeasure();
+                RemoveFromQuickAccessToolbar(element);
             }
         }
 
@@ -897,9 +917,11 @@ namespace Fluent
 
         public void AddToQuickAccessToolbar(UIElement element)
         {
-            if(!IsInQuickAccessToolbar(element))
+            if (!QuickAccessItemsProvider.IsSupported(element)) return;
+            if (!IsInQuickAccessToolbar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
+                
                 quickAccessElements.Add(element,control);
                 quickAccessToolBar.Items.Add(control);
                 quickAccessToolBar.InvalidateMeasure();
@@ -910,8 +932,9 @@ namespace Fluent
         {
             if (IsInQuickAccessToolbar(element))
             {
-                quickAccessToolBar.Items.Remove(quickAccessElements[element]);
+                UIElement quickAccessItem = quickAccessElements[element];
                 quickAccessElements.Remove(element);
+                quickAccessToolBar.Items.Remove(quickAccessItem);
                 quickAccessToolBar.InvalidateMeasure();
             }
 
@@ -919,8 +942,8 @@ namespace Fluent
 
         public void ClearQuickAccessToolbar()
         {
+            quickAccessElements.Clear();
             if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
-            quickAccessElements.Clear(); 
         }
 
         #endregion
@@ -945,6 +968,13 @@ namespace Fluent
             keyTipService.Attach();
             Window wnd = Window.GetWindow(this);
             if (wnd != null) wnd.SizeChanged += OnSizeChanged;
+
+            // Load QAT state if it is in auto mode
+            // Do it just before (or just after?) rendering to be sure 
+            // that logical tree is builded and correct
+            Dispatcher.BeginInvoke(
+                (ThreadStart) LoadState, 
+                DispatcherPriority.Render);
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -1055,6 +1085,242 @@ namespace Fluent
                 if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
             }
         }
+
+        #endregion
+
+        #region State Management
+
+        #region Load / Save to Isolated Storage
+
+        // Handles items changing in QAT
+        void OnQuickAccessItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            SaveState();
+        }
+
+        // Saves to Isolated Storage (in user store for domain)
+        void SaveState()
+        {
+            // Check whether automatic save is valid now
+            if (!AutomaticStateManagement || !IsStateLoaded) return;
+
+            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Fluent.Ribbon.State.dat", FileMode.Create, FileAccess.Write, storage))
+            {
+                SaveState(stream);
+            }
+        }
+
+        // Loads from Isolated Storage (in user store for domain)
+        void LoadState()
+        {
+            if (!AutomaticStateManagement) return;
+            
+            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
+            if (!FileExists(storage, "Fluent.Ribbon.State.dat")) return;
+            using(IsolatedStorageFileStream stream = 
+                new IsolatedStorageFileStream("Fluent.Ribbon.State.dat", 
+                    FileMode.Open, FileAccess.Read, storage))
+            {
+                LoadState(stream);
+            }
+        }
+
+        // Determinates whether the given file exists in the given storage
+        static bool FileExists(IsolatedStorageFile storage, string fileName)
+        {
+            string[] files = storage.GetFileNames(fileName);
+            return files.Length != 0;
+        }
+
+        #endregion
+
+        #region Save to Stream
+
+        /// <summary>
+        /// Saves state to the given stream
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        public void SaveState(Stream stream)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            // Save Ribbon State
+            builder.Append(IsMinimized.ToString(CultureInfo.InvariantCulture));
+            builder.Append(',');
+            builder.Append(ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
+            builder.Append('|');
+
+            // Save QAT items
+            Dictionary<FrameworkElement, string> paths = new Dictionary<FrameworkElement, string>();
+            TraverseLogicalTree(this, "", paths);
+            // Foreach items and see whether path is found for the item
+            foreach(var element in quickAccessElements)
+            {
+                if (paths.ContainsKey((FrameworkElement)element.Key))
+                {
+                    builder.Append(paths[(FrameworkElement)element.Key]);
+                    builder.Append(';');
+                }
+                else
+                {
+                    // Item is not found in logical tree, output to debug console
+                    FrameworkElement control = element.Key as FrameworkElement;
+                    string controlName = (control != null && !String.IsNullOrEmpty(control.Name)) ? 
+                        String.Format(" (name of the control is {0})", control.Name) : "";
+                    Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
+                }
+            }
+
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(builder.ToString());
+
+            writer.Flush();
+            writer.Close();
+        }
+
+        // Traverse logical tree and find QAT items, remember paths
+        void TraverseLogicalTree(DependencyObject item, string path, IDictionary<FrameworkElement, string> paths)
+        {
+            // Is this item in QAT
+            FrameworkElement uielement = item as FrameworkElement;
+            if (uielement != null && quickAccessElements.ContainsKey(uielement))
+            {
+                paths.Add(uielement, path);
+            }
+
+            object[] children = LogicalTreeHelper.GetChildren(item).Cast<object>().ToArray();
+            for (int i = 0; i < children.Length; i++)
+            {
+                DependencyObject child = children[i] as DependencyObject;
+                if (child == null) continue;
+                TraverseLogicalTree(child, path + i + ",", paths);
+            }
+        }
+
+        #endregion
+
+        #region Load from Stream
+
+        /// <summary>
+        /// Loads state from the given stream
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        public void LoadState(Stream stream)
+        {
+            suppressAutomaticStateManagement = true;
+
+            StreamReader reader = new StreamReader(stream);
+            string[] splitted = reader.ReadToEnd().Split('|');
+            reader.Close();
+
+            if (splitted.Length != 2) return;
+
+            // Load Ribbon State
+            string[] ribbonProperties = splitted[0].Split(',');
+            IsMinimized = Boolean.Parse(ribbonProperties[0]);
+            ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
+
+            // Load items
+            string[] items = splitted[1].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+
+            quickAccessToolBar.Items.Clear();
+            quickAccessElements.Clear();
+
+            for (int i = 0; i < items.Length; i++) ParseAndAddToQuickAccessToolBar(items[i]);
+
+            // Sync QAT menu items
+            foreach (QuickAccessMenuItem menuItem in QuickAccessItems)
+            {
+                menuItem.IsChecked = IsInQuickAccessToolbar(menuItem.Target);
+            }
+
+            suppressAutomaticStateManagement = false;
+
+            // State is now loaded
+            IsStateLoaded = true;
+        }
+
+        // Loads item and add to QAT
+        void ParseAndAddToQuickAccessToolBar(string data)
+        {
+            int[] indices = data.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x)).ToArray();
+
+            DependencyObject current = this;
+            for (int i = 0; i < indices.Length; i++)
+            {
+                object[] children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToArray();
+                DependencyObject item = children[indices[i]] as DependencyObject;
+                if (item == null || children.Length <= indices[i])
+                {
+                    // Path is incorrect
+                    Debug.WriteLine("Error while QAT items loading: one of the paths is invalid");
+                    return;
+                }
+                current = item;
+            }
+
+            UIElement result = current as UIElement;
+            if ((result == null) || (!QuickAccessItemsProvider.IsSupported(result)))
+            {
+                // Item is invalid
+                Debug.WriteLine("Error while QAT items loading: an item is not be able to be added to QAT");
+                return;
+            }
+            
+            AddToQuickAccessToolbar(result);
+        }
+
+        #endregion
+
+        #region IsStateLoaded
+
+        /// <summary>
+        /// Gets or sets whether state is loaded
+        /// </summary>
+        bool IsStateLoaded
+        {
+            get; set;
+        }
+
+        #endregion
+
+        #region AutomaticStateManagement Property
+
+        // To temporary suppress automatic management
+        bool suppressAutomaticStateManagement = true;
+
+        /// <summary>
+        /// Gets or sets whether Quick Access ToolBar can 
+        /// save and load its state automatically
+        /// </summary>
+        public bool AutomaticStateManagement
+        {
+            get { return (bool)GetValue(AutomaticStateManagementProperty); }
+            set { SetValue(AutomaticStateManagementProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for AutomaticStateManagement. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty AutomaticStateManagementProperty =
+            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+
+        private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
+        {
+            Ribbon ribbon = (Ribbon)d;
+            if (ribbon.suppressAutomaticStateManagement) return false;
+            return basevalue;
+        }
+
+        static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon)d;
+            if ((bool)e.NewValue) ribbon.LoadState();
+        }
+
+        #endregion
 
         #endregion
     }
