@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -17,6 +18,35 @@ namespace Fluent
         private Button button;
 
         private SplitButton quickAccessButton;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                if (contextMenu != null)
+                {
+                    ArrayList list = new ArrayList();
+                    if(button!=null)list.Add(button);
+                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
+                    else list.Add(contextMenu);
+                    return list.GetEnumerator();
+                }
+                else
+                {
+                    ArrayList list = new ArrayList();
+                    if (button != null) list.Add(button);
+                    list.AddRange(Items);
+                    return list.GetEnumerator();
+                }
+            }
+        }
 
         #endregion
 

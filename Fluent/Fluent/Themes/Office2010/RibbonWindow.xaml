@@ -12,16 +12,17 @@
   
       	<ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     		<Grid>
-    			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
-    				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
-    				<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
-    				<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
-    				</StackPanel>
-    				<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
-    				<AdornerDecorator x:Name="adornerDecorator" Margin="0,-7,0,0"/>
-    			</Grid>
+    			<AdornerDecorator x:Name="adornerDecorator" Margin="0">
+    				<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF" VerticalAlignment="Stretch">
+    					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
+    					<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
+    					<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+    						<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
+    					</StackPanel>
+    					<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
+    					<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    				</Grid>
+    			</AdornerDecorator>
     		</Grid>
       		<ControlTemplate.Triggers>
       			<MultiTrigger>
@@ -44,46 +45,49 @@
     	</ControlTemplate>
       	<ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     		<Grid>
-    			<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="#FF656D75" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Opacity="1" Background="#FFEBEDF0">
-    				<Border x:Name="border2" BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
-    					<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6,6,0,0" VerticalAlignment="Top" Height="50">
-    						<Border.Background>
-    							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    								<GradientStop Color="#FFEBEDF0" Offset="0"/>
-    								<GradientStop Color="#FFE3E6E8" Offset="1"/>
-    							</LinearGradientBrush>
-    						</Border.Background>
+    			<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
+    				<Grid>
+    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="#FF656D75" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Opacity="1" Background="#FFEBEDF0">
+    						<Border x:Name="border2" BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
+    							<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6,6,0,0" VerticalAlignment="Top" Height="50">
+    								<Border.Background>
+    									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    										<GradientStop Color="#FFEBEDF0" Offset="0"/>
+    										<GradientStop Color="#FFE3E6E8" Offset="1"/>
+    									</LinearGradientBrush>
+    								</Border.Background>
+    							</Border>
+    						</Border>
     					</Border>
-    				</Border>
-    			</Border>
-    			<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
-    				<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
-    				<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
-    					<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconConvert}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
-    				</StackPanel>
-    				<StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Orientation="Horizontal" d:LayoutOverrides="Height">    					
-    					<Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
-    						<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    					</Button>
-    					<Button x:Name="maximizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.MaximizeCommand}">
-    						<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    					</Button>
-    					<Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
-    						<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    					</Button>
-    					<Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="#FFFF4545" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
-    						<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    					</Button>
-    				</StackPanel>
-    				<Border x:Name="border4" Margin="{TemplateBinding GlassBorders}" >
-    					<Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="#FF878C92" Margin="-1">
-    						<Grid x:Name="grid" Background="{TemplateBinding Background}"/>
-    					</Border>
-    				</Border>
-    				<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    				<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
-    				<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0,-7,0,0"/>
-    			</Grid>
+    					<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
+    						<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
+    						<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
+    							<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
+    						</StackPanel>
+    						<StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Orientation="Horizontal">    					
+    							<Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
+    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+    							</Button>
+    							<Button x:Name="maximizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.MaximizeCommand}">
+    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+    							</Button>
+    							<Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
+    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+    							</Button>
+    							<Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="#FFFF4545" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
+    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+    							</Button>
+    						</StackPanel>
+    						<Border x:Name="border4" Margin="{TemplateBinding GlassBorders}" >
+    							<Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="#FF878C92" Margin="-1">
+    								<Grid x:Name="grid" Background="{TemplateBinding Background}"/>
+    							</Border>
+    						</Border>
+    						<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
+    						<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    					</Grid>
+    				</Grid>
+    			</AdornerDecorator>
     		</Grid>
       		<ControlTemplate.Triggers>
 

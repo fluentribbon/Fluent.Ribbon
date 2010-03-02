@@ -1,7 +1,7 @@
 #region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -34,7 +34,7 @@ namespace Fluent
         #region Fields
 
         // Context menu
-        private ContextMenu contextMenu;
+        protected ContextMenu contextMenu;
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> items;
@@ -264,7 +264,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDownï¿½routed event 
         /// reaches an element in its route that is derived from this class. Implement this method to add 
         /// class handling for this event.
         /// </summary>

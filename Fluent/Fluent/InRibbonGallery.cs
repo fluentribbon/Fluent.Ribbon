@@ -668,49 +668,54 @@ namespace Fluent
             {
                 if (value == isSnapped) return;
 
-                if (value)
+                if (ActualWidth>0)
                 {
-                    // Render the freezed image
-                    snappedImage = new Image();
-                    RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                    renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
-                    snappedImage.Source = renderTargetBitmap;
-                    snappedImage.Width = ActualWidth;
-                    snappedImage.Height = ActualHeight;
-                    // Detach current visual children
-                    snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
-                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                    if (value)
                     {
-                        snappedVisuals[childIndex] = (Visual)VisualTreeHelper.GetChild(this, childIndex);
-                        RemoveVisualChild(snappedVisuals[childIndex]);
-                    }
+                        // Render the freezed image
+                        snappedImage = new Image();
+                        RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
+                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int) ActualWidth,
+                                                                                       (int) ActualHeight, 96, 96,
+                                                                                       PixelFormats.Pbgra32);
+                        renderTargetBitmap.Render((Visual) VisualTreeHelper.GetChild(this, 0));
+                        snappedImage.Source = renderTargetBitmap;
+                        snappedImage.Width = ActualWidth;
+                        snappedImage.Height = ActualHeight;
+                        // Detach current visual children
+                        snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
+                        for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                        {
+                            snappedVisuals[childIndex] = (Visual) VisualTreeHelper.GetChild(this, childIndex);
+                            RemoveVisualChild(snappedVisuals[childIndex]);
+                        }
 
-                    // Attach freezed image
-                    AddVisualChild(snappedImage);
-/*
-                    PngBitmapEncoder enc = new PngBitmapEncoder();
-                    enc.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+                        // Attach freezed image
+                        AddVisualChild(snappedImage);
+                        /*
+                                            PngBitmapEncoder enc = new PngBitmapEncoder();
+                                            enc.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
 
-                    string path = Path.GetTempFileName() + ".png";
-                    using (FileStream f = new FileStream(path, FileMode.Create))
-                    {
-                        enc.Save(f);
+                                            string path = Path.GetTempFileName() + ".png";
+                                            using (FileStream f = new FileStream(path, FileMode.Create))
+                                            {
+                                                enc.Save(f);
                         
+                                            }
+                                            Process.Start(path);*/
                     }
-                    Process.Start(path);*/
-                }
-                else
-                {
-                    RemoveVisualChild(snappedImage);
-                     for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
-                     {
-                         AddVisualChild(snappedVisuals[childIndex]);
-                     }
+                    else
+                    {
+                        RemoveVisualChild(snappedImage);
+                        for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
+                        {
+                            AddVisualChild(snappedVisuals[childIndex]);
+                        }
 
-                    // Clean up
-                    snappedImage = null;
-                    snappedVisuals = null;
+                        // Clean up
+                        snappedImage = null;
+                        snappedVisuals = null;
+                    }
                 }
                 isSnapped = value;
                 InvalidateVisual();
@@ -1061,7 +1066,11 @@ namespace Fluent
 
         protected override Size MeasureOverride(Size constraint)
         {
-            if (isSnapped) return new Size(snappedImage.ActualWidth, snappedImage.ActualHeight);
+            if (isSnapped)
+            {
+                if (snappedImage != null) return new Size(snappedImage.ActualWidth, snappedImage.ActualHeight);
+                else return new Size(ActualWidth, ActualHeight);
+            }
             if (IsCollapsed)
             {
                 Size size = base.MeasureOverride(constraint);

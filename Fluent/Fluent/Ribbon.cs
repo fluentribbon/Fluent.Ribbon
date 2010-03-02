@@ -106,6 +106,9 @@ namespace Fluent
         int savedWidth;
         private int savedHeight;
 
+        // Stream to save quickaccesselements on aplytemplate
+        MemoryStream quickAccessStream = null;
+
         #endregion
 
         #region Properties
@@ -696,6 +699,14 @@ namespace Fluent
                 }
             }
 
+
+            if (quickAccessToolBar != null)
+            {
+                quickAccessStream = new MemoryStream();
+                SaveState(quickAccessStream);
+                ClearQuickAccessToolbar();
+            }
+
             if (quickAccessToolBar != null)
             {
                 quickAccessToolBar.ItemsChanged -= OnQuickAccessItemsChanged;
@@ -707,13 +718,7 @@ namespace Fluent
                     }
                 }
             }
-            List<UIElement> quickAccessToolbarItems = new List<UIElement>();
-            if(quickAccessToolBar!=null)
-            {
-                if (quickAccessToolBar.Parent==this) RemoveLogicalChild(quickAccessToolBar);
-                quickAccessToolbarItems.AddRange(quickAccessElements.Select(x=>x.Key));
-                ClearQuickAccessToolbar();
-            }
+            
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
             if (quickAccessToolBar != null)
             {
@@ -730,11 +735,7 @@ namespace Fluent
             if (quickAccessToolBar != null)
             {
                 if (quickAccessToolBar.Parent == null) AddLogicalChild(quickAccessToolBar);
-                for (int i = 0; i < quickAccessToolbarItems.Count; i++)
-                {
-                    if (i == 0) ClearQuickAccessToolbar();
-                    AddToQuickAccessToolbar(quickAccessToolbarItems[i]);
-                }
+                quickAccessToolBar.Loaded += OnFirstToolbarLoaded;
             }
 
             if (backstageButton != null)
@@ -791,6 +792,17 @@ namespace Fluent
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
+        }
+
+        private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
+        {
+            quickAccessToolBar.Loaded -= OnFirstToolbarLoaded;
+            if (quickAccessStream != null)
+            {                
+                quickAccessStream.Position = 0;
+                LoadState(quickAccessStream);
+                quickAccessStream.Close();
+            }
         }
 
         private void OnRemoveFromQuickAccessToolBarClick(object sender, RoutedEventArgs e)
@@ -1187,8 +1199,7 @@ namespace Fluent
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(builder.ToString());
 
-            writer.Flush();
-            writer.Close();
+            writer.Flush();            
         }
 
         // Traverse logical tree and find QAT items, remember paths
@@ -1223,8 +1234,7 @@ namespace Fluent
             suppressAutomaticStateManagement = true;
 
             StreamReader reader = new StreamReader(stream);
-            string[] splitted = reader.ReadToEnd().Split('|');
-            reader.Close();
+            string[] splitted = reader.ReadToEnd().Split('|');            
 
             if (splitted.Length != 2) return;
 
@@ -1262,8 +1272,9 @@ namespace Fluent
             for (int i = 0; i < indices.Length; i++)
             {
                 object[] children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToArray();
-                DependencyObject item = children[indices[i]] as DependencyObject;
-                if (item == null || children.Length <= indices[i])
+                bool indexIsInvalid = children.Length <= indices[i];
+                DependencyObject item = indexIsInvalid ? null : children[indices[i]] as DependencyObject;
+                if (item == null)
                 {
                     // Path is incorrect
                     Debug.WriteLine("Error while QAT items loading: one of the paths is invalid");
