@@ -1214,7 +1214,7 @@ namespace Fluent
             FrameworkElement uielement = item as FrameworkElement;
             if (uielement != null && quickAccessElements.ContainsKey(uielement))
             {
-                paths.Add(uielement, path);
+                if (!paths.ContainsKey(uielement)) paths.Add(uielement, path);
             }
 
             object[] children = LogicalTreeHelper.GetChildren(item).Cast<object>().ToArray();
