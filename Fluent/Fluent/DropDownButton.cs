@@ -37,7 +37,7 @@ namespace Fluent
         protected ContextMenu contextMenu;
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> items;
+        protected ObservableCollection<UIElement> items;
 
         private bool isInitializing;
 
@@ -125,20 +125,25 @@ namespace Fluent
         {
             get
             {
-                if (contextMenu != null)
+                /*if (contextMenu != null)
                 {
                     ArrayList list = new ArrayList();
                     if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
                     else list.Add(contextMenu);
                     return list.GetEnumerator();
                 }
-                else
+                else*/
                 {
                     if (items != null) return items.GetEnumerator();
                     else return (new ArrayList()).GetEnumerator();
+                    /*ArrayList list = new ArrayList();
+                    if (contextMenu != null) list.Add(contextMenu.RibbonPopup);
+                    return list.GetEnumerator();*/
                 }
             }
         }
+        
+        
 
         /// <summary>
         /// Gets collection of menu items
@@ -323,11 +328,20 @@ namespace Fluent
             return null;
         }
 
+         internal void DoCreateMenu()
+         {
+             if(contextMenu==null)
+             {
+                 CreateMenu();
+                 IsOpen = false;
+             }
+         }
+
         // Creates context menu
         private void CreateMenu()
         {
             isInitializing = true;
-            contextMenu = new ContextMenu();
+            contextMenu = new ContextMenu();            
             foreach (UIElement item in Items)
             {
                 RemoveLogicalChild(item);
@@ -380,6 +394,7 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
+            button.Size = RibbonControlSize.Small;
             BindQuickAccessItem(button);
             button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             return button;

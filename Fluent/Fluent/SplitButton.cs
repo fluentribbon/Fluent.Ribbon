@@ -30,24 +30,41 @@ namespace Fluent
         {
             get
             {
+                /*if (contextMenu != null)
+                {
+                    ArrayList list = new ArrayList();                    
+                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
+                    else list.Add(contextMenu);
+                    if (button != null) list.Add(button);
+                    return list.GetEnumerator();                    
+                }
+                else*/
+                {
+                    ArrayList list = new ArrayList();                    
+                    if(items!=null)  list.AddRange(items);
+                    if (button != null) list.Add(button);
+                    return list.GetEnumerator();
+                }
+            }
+        }
+        /*protected override IEnumerator LogicalChildren
+        {
+            get
+            {
                 if (contextMenu != null)
                 {
                     ArrayList list = new ArrayList();
-                    if(button!=null)list.Add(button);
                     if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
                     else list.Add(contextMenu);
                     return list.GetEnumerator();
                 }
                 else
                 {
-                    ArrayList list = new ArrayList();
-                    if (button != null) list.Add(button);
-                    list.AddRange(Items);
-                    return list.GetEnumerator();
+                    if (items != null) return items.GetEnumerator();
+                    else return (new ArrayList()).GetEnumerator();
                 }
             }
-        }
-
+        }*/
         #endregion
 
         #region Events
@@ -142,10 +159,22 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             SplitButton button = new SplitButton();
+            button.Loaded += OnQuickAccessButtonLoaded;
+            
             BindQuickAccessItem(button);
             //button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             button.MenuOpened += OnQuickAccessClick;
             return button;
+        }
+
+        private void OnQuickAccessButtonLoaded(object sender, RoutedEventArgs e)
+        {
+            SplitButton button = sender as SplitButton;
+            if (button.button != null)
+            {
+                button.Loaded -= OnQuickAccessButtonLoaded;
+                button.button.CanAddToQuickAccessToolBar = false;
+            }
         }
 
         private void OnQuickAccessClick(object sender, EventArgs e)

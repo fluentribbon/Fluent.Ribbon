@@ -1224,6 +1224,11 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
+            if (contextMenu == null)
+            {
+                CreateMenu();
+                IsOpen = false;
+            }
             BindQuickAccessItem(button);
             return button;
         }

@@ -98,14 +98,14 @@ namespace Fluent
         {
             get
             {
-                if (contextMenu != null)
+                /*if (contextMenu != null)
                 {
                     ArrayList list = new ArrayList();
                     if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
                     else list.Add(contextMenu);
                     return list.GetEnumerator();
                 }
-                else
+                else*/
                 {
                     if (items != null) return items.GetEnumerator();
                     else return (new ArrayList()).GetEnumerator();

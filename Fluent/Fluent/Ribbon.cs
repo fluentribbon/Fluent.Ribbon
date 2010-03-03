@@ -634,9 +634,9 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
+            //if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
-            if (layoutRoot != null) AddLogicalChild(layoutRoot);
+            //if (layoutRoot != null) AddLogicalChild(layoutRoot);
 
             if ((titleBar != null) && (groups != null))
             {
@@ -1138,16 +1138,21 @@ namespace Fluent
         // Loads from Isolated Storage (in user store for domain)
         void LoadState()
         {
-            if (!AutomaticStateManagement) return;
-            
+            if (!AutomaticStateManagement) return;                       
+
             IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
-            if (!FileExists(storage, "Fluent.Ribbon.State.dat")) return;
-            using(IsolatedStorageFileStream stream = 
-                new IsolatedStorageFileStream("Fluent.Ribbon.State.dat", 
-                    FileMode.Open, FileAccess.Read, storage))
+            if (FileExists(storage, "Fluent.Ribbon.State.dat"))
             {
-                LoadState(stream);
+                using (IsolatedStorageFileStream stream =
+                    new IsolatedStorageFileStream("Fluent.Ribbon.State.dat",
+                                                  FileMode.Open, FileAccess.Read, storage))
+                {
+                    LoadState(stream);
+                }
             }
+
+            // Now we can save states
+            IsStateLoaded = true;
         }
 
         // Determinates whether the given file exists in the given storage
@@ -1258,9 +1263,6 @@ namespace Fluent
             }
 
             suppressAutomaticStateManagement = false;
-
-            // State is now loaded
-            IsStateLoaded = true;
         }
 
         // Loads item and add to QAT

@@ -73,7 +73,7 @@ namespace Fluent
         public static readonly DependencyProperty IsPressedProperty =
             DependencyProperty.Register("IsPressed", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
 
-
+        /*
         /// <summary>
         /// Gets a value that indicates whether the mouse pointer is located over this element 
         /// (including visual children elements that are inside its bounds).
@@ -89,7 +89,7 @@ namespace Fluent
         /// </summary>
         public static readonly new DependencyProperty IsMouseOverProperty =
             DependencyProperty.Register("IsMouseOver", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
-
+        */
         /// <summary>
         /// Button large icon
         /// </summary>
@@ -198,7 +198,7 @@ namespace Fluent
             if (((position.X >= 0.0) && (position.X <= ActualWidth)) &&
                 ((position.Y >= 0.0) && (position.Y <= ActualHeight)))
             {
-                if(!IsMouseOver) IsMouseOver = true;
+                //if(!IsMouseOver) IsMouseOver = true;
                 if ((Mouse.Captured == this) && (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed))
                 {
                     if (!IsPressed)
@@ -209,7 +209,7 @@ namespace Fluent
             }
             else
             {
-                if(IsMouseOver) IsMouseOver = false;
+                //if(IsMouseOver) IsMouseOver = false;
                 if ((Mouse.Captured == this) && (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed))
                 {
                     if (IsPressed)
@@ -228,8 +228,7 @@ namespace Fluent
         /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;
-            IsMouseOver = false;
+            //IsMouseOver = false;
         }
 
         /// <summary>
@@ -239,8 +238,7 @@ namespace Fluent
         /// <param name="e"> The System.Windows.Input.MouseEventArgs that contains the event data.</param>
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;
-            IsMouseOver = true;
+            //IsMouseOver = true;
         }
 
         #endregion

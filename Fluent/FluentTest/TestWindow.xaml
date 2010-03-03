@@ -37,7 +37,7 @@
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.BackstageItems>
-        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" IsEnabled="False"/>
+        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
         <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
         <Fluent:BackstageTabItem Text="Lala" Fluent:KeyTip.Keys="E">
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
@@ -104,7 +104,10 @@
                                   Text="This ScreenTip is attached to menu item"/>
               </Fluent:MenuItem.ToolTip>
             </Fluent:MenuItem>
-            <Fluent:MenuItem Text="Set Default Paste..." Fluent:KeyTip.Keys="A"/>
+            <Fluent:MenuItem Text="Set Default Paste..." Fluent:KeyTip.Keys="A">
+              <Fluent:MenuItem Text="1"></Fluent:MenuItem>
+              <Fluent:MenuItem Text="2"></Fluent:MenuItem>
+            </Fluent:MenuItem>
           </Fluent:SplitButton>
         <Fluent:Button x:Name="ssd" IsEnabled="False" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small">
           <Fluent:Button.ToolTip>

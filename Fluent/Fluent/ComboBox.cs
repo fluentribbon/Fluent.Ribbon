@@ -760,7 +760,7 @@ namespace Fluent
             base.OnItemsCollectionChanged(e);
             if ((SelectedItem == null) && (SelectedIndex >= 0))
             {
-                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedItem = Items[SelectedIndex]; }));
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedItem = GetItem(SelectedIndex); }));
             }
         }
 
@@ -886,10 +886,17 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             ComboBox combo = new ComboBox();
+
+            if (contextMenu == null)
+            {
+                CreateMenu();
+                IsOpen = false;
+            }
+
             BindQuickAccessItem(combo);
             combo.MenuOpened += OnQuickAccesMenuOpened;
             combo.MenuClosed += OnQuickAccesMenuClosed;
-            /**/
+            
             if (!IsEditable)
             {
                 int selectedIndex = SelectedIndex;

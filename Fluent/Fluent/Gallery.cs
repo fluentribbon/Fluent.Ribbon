@@ -570,17 +570,34 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
+            CreateMenuIfNeeded();
             parentContextMenu = FindContextMenu();
             if (parentContextMenu != null)
             {
                 IQuickAccessItemProvider provider = parentContextMenu.Owner as IQuickAccessItemProvider;
                 if (provider != null) return provider.CreateQuickAccessItem();
-
-                BindQuickAccessItem(button);
-
                 button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             }
+            
+            BindQuickAccessItem(button);
+
             return button;
+        }
+
+        private void CreateMenuIfNeeded()
+        {
+            DependencyObject parent = LogicalTreeHelper.GetParent(this);
+            while (parent != null)
+            {
+                DropDownButton btn = (parent as DropDownButton);
+                if (btn!=null)
+                {
+                    btn.DoCreateMenu();
+                    return;
+                }
+                parent = LogicalTreeHelper.GetParent(parent);
+            }
+            return;            
         }
 
         private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)

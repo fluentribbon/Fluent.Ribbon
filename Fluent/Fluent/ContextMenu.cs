@@ -132,7 +132,7 @@ namespace Fluent
                     foreach (object obj2 in e.NewItems)
                     {
                         if (MenuBar != null) MenuBar.Items.Add(obj2 as UIElement);
-                        else AddLogicalChild(obj2);
+                        //else AddLogicalChild(obj2);
                     }
                     break;
 
@@ -140,7 +140,7 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (MenuBar != null) MenuBar.Items.Remove(obj3 as UIElement);
-                        else RemoveLogicalChild(obj3);
+                        //else RemoveLogicalChild(obj3);
                     }
                     break;
 
@@ -148,12 +148,12 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (MenuBar != null) MenuBar.Items.Remove(obj4 as UIElement);
-                        else RemoveLogicalChild(obj4);
+                        //else RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (MenuBar != null) MenuBar.Items.Add(obj5 as UIElement);
-                        else AddLogicalChild(obj5);
+                        //else AddLogicalChild(obj5);
                     }
                     break;
             }
@@ -355,7 +355,7 @@ namespace Fluent
 
             for (int i = 0; i < Items.Count;i++ )
             {
-                RemoveLogicalChild(items[i]);
+                //RemoveLogicalChild(items[i]);
                 MenuBar.Items.Add(items[i]);
             }
 

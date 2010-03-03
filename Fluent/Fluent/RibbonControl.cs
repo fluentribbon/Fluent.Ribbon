@@ -250,6 +250,8 @@ namespace Fluent
 
         #region Command
 
+        private bool currentCanExecute = true;
+
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
@@ -335,7 +337,7 @@ namespace Fluent
                 control.canExecuteChangedHandler = handler;
                 (e.NewValue as ICommand).CanExecuteChanged += handler;                
             }
-            control.CoerceValue(IsEnabledProperty);
+            control.UpdateCanExecute();
         }
         /// <summary>
         /// Handles Command CanExecute changed
@@ -344,7 +346,21 @@ namespace Fluent
         /// <param name="e"></param>
         private void OnCommandCanExecuteChanged(object sender, EventArgs e)
         {
-            CoerceValue(IsEnabledProperty);
+            UpdateCanExecute();
+        }
+
+        private void UpdateCanExecute()
+        {
+            if (Command != null)
+            {
+                bool canExecute = CanExecuteCommand();
+                if (currentCanExecute != canExecute)
+                {
+                    currentCanExecute = canExecute;
+                    CoerceValue(IsEnabledProperty);
+                }
+            }
+            else currentCanExecute = false;
         }
 
         /// <summary>
@@ -405,6 +421,15 @@ namespace Fluent
 
         #region IsEnabled
 
+        protected override bool IsEnabledCore
+        {
+            get
+            {
+                return (base.IsEnabledCore && currentCanExecute);
+            }
+        }
+
+
         /// <summary>
         /// Coerces IsEnabled 
         /// </summary>
@@ -416,10 +441,9 @@ namespace Fluent
             RibbonControl control = (RibbonControl)d;
             UIElement parent = LogicalTreeHelper.GetParent(control) as UIElement;
             bool parentIsEnabled = parent == null || parent.IsEnabled;
-            bool commandCanExecuted = control.Command == null || control.CanExecuteCommand();
 
             // We force disable if parent is disabled or command cannot be executed
-            return (bool)basevalue && parentIsEnabled && commandCanExecuted;
+            return (bool)basevalue && parentIsEnabled && control.currentCanExecute;
         }
 
         #endregion        
@@ -478,7 +502,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            IsEnabledProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, CoerceIsEnabled));
+            //IsEnabledProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, CoerceIsEnabled));
             FocusableProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
 
             ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
@@ -653,8 +677,8 @@ namespace Fluent
             // Close Backstage
             if(IsDefinitive)
             {
-                Ribbon ribbon = FindOwnerRibbon();
-                if(ribbon!=null) ribbon.IsBackstageOpen = false;
+                BackstageButton ribbon = FindOwnerRibbon();
+                if(ribbon!=null) ribbon.IsOpen = false;
             }
         }
         
@@ -662,12 +686,12 @@ namespace Fluent
         /// Finds owner ribbon
         /// </summary>
         /// <returns>Owner ribbon</returns>
-        protected Ribbon FindOwnerRibbon()
+        protected BackstageButton FindOwnerRibbon()
         {
             DependencyObject obj = LogicalTreeHelper.GetParent(this);
             while(obj!=null)
             {
-                Ribbon ribbon = obj as Ribbon;
+                BackstageButton ribbon = obj as BackstageButton;
                 if(ribbon!=null) return ribbon;
                 obj = LogicalTreeHelper.GetParent(obj);
             }
