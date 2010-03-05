@@ -282,7 +282,7 @@ namespace Fluent
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     RemoveLogicalChild(quickAccessItems[i]);
-                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
+                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolBar(quickAccessItems[i].Target);
                 }
             }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;

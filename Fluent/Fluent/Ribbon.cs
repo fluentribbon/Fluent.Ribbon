@@ -705,7 +705,7 @@ namespace Fluent
             {
                 quickAccessStream = new MemoryStream();
                 SaveState(quickAccessStream);
-                ClearQuickAccessToolbar();
+                ClearQuickAccessToolBar();
             }
 
             if (quickAccessToolBar != null)
@@ -811,7 +811,7 @@ namespace Fluent
             if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
             {
                 UIElement element = quickAccessElements.First(x => x.Value == ribbonContextMenu.Tag).Key;
-                RemoveFromQuickAccessToolbar(element);
+                RemoveFromQuickAccessToolBar(element);
             }
         }
 
@@ -834,7 +834,7 @@ namespace Fluent
         {
             if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
             {
-                AddToQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
+                AddToQuickAccessToolBar(ribbonContextMenu.Tag as UIElement);
             }
         }
         
@@ -847,7 +847,7 @@ namespace Fluent
                                                                                  e.GetPosition(ribbonTabControl));
                 if (control != null)
                 {
-                    AddToQuickAccessToolbar(control);
+                    AddToQuickAccessToolBar(control);
                 }
             }*/
             if(ribbonContextMenu!=null)
@@ -868,7 +868,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if(control is ContextMenu)
                     {
@@ -877,7 +877,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if(control is Gallery)
                     {
@@ -886,7 +886,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if (control is RibbonGroupBox)
                     {
@@ -895,7 +895,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else 
                     {
@@ -904,7 +904,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                 }
                 else
@@ -922,16 +922,16 @@ namespace Fluent
 
         #region Quick Access Items Managment
                
-        public bool IsInQuickAccessToolbar(UIElement element)
+        public bool IsInQuickAccessToolBar(UIElement element)
         {
             if(element==null) return false;
             return quickAccessElements.ContainsKey(element);
         }
 
-        public void AddToQuickAccessToolbar(UIElement element)
+        public void AddToQuickAccessToolBar(UIElement element)
         {
             if (!QuickAccessItemsProvider.IsSupported(element)) return;
-            if (!IsInQuickAccessToolbar(element))
+            if (!IsInQuickAccessToolBar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
                 
@@ -941,9 +941,9 @@ namespace Fluent
             }
         }
 
-        public void RemoveFromQuickAccessToolbar(UIElement element)
+        public void RemoveFromQuickAccessToolBar(UIElement element)
         {
-            if (IsInQuickAccessToolbar(element))
+            if (IsInQuickAccessToolBar(element))
             {
                 UIElement quickAccessItem = quickAccessElements[element];
                 quickAccessElements.Remove(element);
@@ -953,7 +953,7 @@ namespace Fluent
 
         }
 
-        public void ClearQuickAccessToolbar()
+        public void ClearQuickAccessToolBar()
         {
             quickAccessElements.Clear();
             if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
@@ -1260,7 +1260,7 @@ namespace Fluent
             // Sync QAT menu items
             foreach (QuickAccessMenuItem menuItem in QuickAccessItems)
             {
-                menuItem.IsChecked = IsInQuickAccessToolbar(menuItem.Target);
+                menuItem.IsChecked = IsInQuickAccessToolBar(menuItem.Target);
             }
 
             suppressAutomaticStateManagement = false;
@@ -1294,7 +1294,7 @@ namespace Fluent
                 return;
             }
             
-            AddToQuickAccessToolbar(result);
+            AddToQuickAccessToolBar(result);
         }
 
         #endregion

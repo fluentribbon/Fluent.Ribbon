@@ -527,13 +527,6 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
         }
 
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
-            return basevalue;
-        }
-
         /// <summary>
         /// Default constructor
         /// </summary>

@@ -106,14 +106,7 @@ namespace Fluent
 
             VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Collapsed, OnVisibilityChanged));
         }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonContextualTabGroupStyle;
-            return basevalue;
-        }
-
+        
         /// <summary>
         /// Handles visibility prioperty changed
         /// </summary>

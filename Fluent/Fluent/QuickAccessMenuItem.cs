@@ -149,7 +149,7 @@ namespace Fluent
         {
             if (Ribbon != null)
             {
-                Ribbon.AddToQuickAccessToolbar(Target);
+                Ribbon.AddToQuickAccessToolBar(Target);
             }
         }
 
@@ -158,7 +158,7 @@ namespace Fluent
             if(!IsLoaded) return;
             if (Ribbon != null)
             {
-                Ribbon.RemoveFromQuickAccessToolbar(Target);
+                Ribbon.RemoveFromQuickAccessToolBar(Target);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Fluent
             if (!IsLoaded) return;
             if (Ribbon != null)
             {
-                IsChecked = Ribbon.IsInQuickAccessToolbar(Target);
+                IsChecked = Ribbon.IsInQuickAccessToolBar(Target);
             }
         }
 
@@ -177,7 +177,7 @@ namespace Fluent
             Loaded -= OnFirstLoaded;
             if ((IsChecked)&&(Ribbon != null))
             {
-                Ribbon.AddToQuickAccessToolbar(Target);
+                Ribbon.AddToQuickAccessToolBar(Target);
             }
         }
 
