@@ -863,11 +863,13 @@ namespace Fluent
                 IsSnapped = true;
                 selectedGalleryItem.Content = null;
             }
-            gallery.SelectedIndex = SelectedIndex;
-            gallery.SelectedItem = SelectedItem;
+            int selectedIndex = SelectedIndex;
+            object selectedItem = SelectedItem;
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             //
+            gallery.SelectedIndex = selectedIndex;
+            gallery.SelectedItem = selectedItem;
             gallery.MinWidth = Math.Max(MenuMinWidth,ActualWidth);
             gallery.MinHeight = 2*ItemHeight;
         }
