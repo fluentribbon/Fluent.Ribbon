@@ -908,8 +908,24 @@ namespace Fluent
                 combo.SelectedItem = selectedItem;            
                 combo.Loaded += OnFirstComboLoaded;
             }
+            else
+            {
+                combo.GotKeyboardFocus += OnQuickAccesGotKeyboardFocus;
+                combo.LostKeyboardFocus -= OnQuickAccesLostKeyboardFocus;
+            }
             quickAccessCombo = combo;
             return combo;
+        }
+
+        private void OnQuickAccesLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            quickAccessCombo.ItemsSource = null;
+        }
+
+        private void OnQuickAccesGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (ItemsSource == null) quickAccessCombo.ItemsSource = Items;
+            else quickAccessCombo.ItemsSource = ItemsSource;
         }
 
         private void OnFirstComboLoaded(object sender, RoutedEventArgs e)
