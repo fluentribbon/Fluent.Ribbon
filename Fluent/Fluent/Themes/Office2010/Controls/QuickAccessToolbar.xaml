@@ -110,7 +110,7 @@
 			  				
     				
     					<StackPanel Orientation="Horizontal" Background="#FFE9EDF1" Width="Auto" Height="26" Margin="-1">
-    						<ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" IsEnabled="{TemplateBinding IsEnabled}" VerticalAlignment="Center" Margin="1,0,0,0"/>
+                <StackPanel Orientation="Horizontal" x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" VerticalAlignment="Center" Margin="1,0,0,0"/>
     						<Label x:Name="popupContentControl" VerticalAlignment="Center" HorizontalAlignment="Left" Width="13" Background="{x:Null}" Height="22" Focusable="False" Padding="0" Margin="1,0"/>
     					</StackPanel>
     				
@@ -118,7 +118,7 @@
     		</Fluent:DropDownButton>
     		<Rectangle x:Name="rectangle" Fill="Black" Stroke="White" RadiusX="1" RadiusY="1" HorizontalAlignment="Right" Width="3" Height="15" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>
     		<Rectangle x:Name="rectangle1" Fill="Black" Stroke="White" Width="3" Height="15" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Opacity="0.5" VerticalAlignment="Stretch" DockPanel.Dock="Left"/>
-    		<ToolBarPanel x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" IsItemsHost="True" VerticalAlignment="Stretch" FocusManager.IsFocusScope="False" IsEnabled="{TemplateBinding IsEnabled}"/>    		  		
+    		<StackPanel Orientation="Horizontal" x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" VerticalAlignment="Stretch" FocusManager.IsFocusScope="False"/>    		  		
     	</DockPanel>
     	<ControlTemplate.Triggers>
     		<Trigger Property="ShowAboveRibbon" Value="False">

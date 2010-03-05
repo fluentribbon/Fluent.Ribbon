@@ -22,6 +22,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace Fluent
@@ -33,7 +34,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
-    public class QuickAccessToolBar:ToolBar
+    [ContentProperty("QuickAccessItems")]
+    public class QuickAccessToolBar:Control
     {
         #region Events
 
@@ -42,11 +44,11 @@ namespace Fluent
         /// </summary>
         public event NotifyCollectionChangedEventHandler ItemsChanged;
 
-        private DropDownButton menuButton;
-
         #endregion
 
         #region Fields
+
+        private DropDownButton menuButton;
 
         // Show above menu item
         private MenuItem showAbove;
@@ -56,12 +58,81 @@ namespace Fluent
         private Panel menuPanel;
         // Items of quick access menu
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
-        // Root panel of control
+
+
+        // Root panel
         private Panel rootPanel;
-        
+        // ToolBar panel
+        private Panel toolBarPanel;
+        // ToolBar overflow panel
+        private Panel toolBarOverflowPanel;
+        // Items of quick access menu
+        private ObservableCollection<UIElement> items;
+
+        private Size cachedConstraint;
+        private int cachedCount=-1;
+
+        // Itemc collection was changed
+        private bool itemsHadChanged;
+
+        private double cachedDeltaWidth = 0;
+
         #endregion
 
         #region Properties
+
+        #region Items
+
+        /// <summary>
+        /// Gets items collection
+        /// </summary>
+        internal ObservableCollection<UIElement> Items
+        {
+            get
+            {
+                if (this.items == null)
+                {
+                    this.items = new ObservableCollection<UIElement>();
+                    this.items.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnItemsCollectionChanged);
+                }
+                return this.items;
+            }
+        }
+
+        private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {                        
+            cachedCount = GetNonOverflowItemsCount(DesiredSize.Width);
+            HasOverflowItems = cachedCount<Items.Count;
+            itemsHadChanged = true;
+            InvalidateMeasure();
+            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
+
+            UpdateKeyTips();
+
+            // Raise items changed event
+            if (ItemsChanged != null) ItemsChanged(this, e);
+        }
+
+        #endregion
+
+        #region HasOverflowItems
+
+        /// <summary>
+        /// Gets whether QuickAccessToolBar has overflow items
+        /// </summary>
+        public bool HasOverflowItems
+        {
+            get { return (bool)GetValue(HasOverflowItemsProperty); }
+            private set { SetValue(HasOverflowItemsProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HasOverflowItemsProperty =
+            DependencyProperty.Register("HasOverflowItems", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+
+        #endregion
 
         /// <summary>
         /// Gets quick access menu items
@@ -143,18 +214,15 @@ namespace Fluent
             {
                 ArrayList array = new ArrayList();                                
                 
-                //if (menuButton!=null) array.Add(menuButton);
                 foreach(var item in QuickAccessItems)
                 {
                     array.Add(item);
                 }
-                
-                foreach (var item in Items)
+                for (int i = 0; i < cachedCount; i++)
                 {
-                    DependencyObject dependencyObject = item as DependencyObject;
-                    if ((dependencyObject != null) && (!GetIsOverflowItem(dependencyObject))) array.Add(item);
+                    array.Add(Items[i]);
                 }
-                if (HasOverflowItems) array.Add(rootPanel);
+                if (menuButton != null) array.Add(menuButton);
                 return array.GetEnumerator();
             }
         }
@@ -184,20 +252,6 @@ namespace Fluent
 
         #region Override
 
-        /// <summary>
-        /// Called when the System.Windows.Controls.ItemsControl.Items property changes.
-        /// </summary>
-        /// <param name="e">The arguments for the System.Collections.Specialized.INotifyCollectionChanged.CollectionChanged 
-        /// event.</param>
-        protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
-            base.OnItemsChanged(e);
-            UpdateKeyTips();
-
-            // Raise items changed event
-            if (ItemsChanged != null) ItemsChanged(this, e);
-        }
 
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or 
@@ -240,16 +294,42 @@ namespace Fluent
                     quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
-            
 
-            if (rootPanel != null) RemoveLogicalChild(rootPanel);
-            rootPanel = GetTemplateChild("PART_RootPanel") as Panel;
-            if (rootPanel != null)
+            if (menuButton != null)
             {
-                AddLogicalChild(rootPanel);
+                menuButton.MenuOpened -= OnMenuOpened;
+                menuButton.MenuClosed -= OnMenuClosed;
+            }
+            menuButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
+            if (menuButton != null)
+            {
+                menuButton.MenuOpened += OnMenuOpened;
+                menuButton.MenuClosed += OnMenuClosed;
             }
 
-            menuButton = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
+            // ToolBar panels
+            
+            toolBarPanel = GetTemplateChild("PART_ToolBarPanel") as Panel;
+            toolBarOverflowPanel = GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
+            rootPanel = GetTemplateChild("PART_RootPanel") as Panel;
+
+            // Clears cache
+            cachedDeltaWidth = 0;
+            cachedCount = GetNonOverflowItemsCount(ActualWidth);
+            cachedConstraint = new Size();
+        }
+
+        private void OnMenuClosed(object sender, EventArgs e)
+        {
+            toolBarOverflowPanel.Children.Clear();
+        }
+
+        private void OnMenuOpened(object sender, EventArgs e)
+        {            
+            for(int i=cachedCount;i<Items.Count;i++)
+            {
+                toolBarOverflowPanel.Children.Add(Items[i]);
+            }
         }
 
         /// <summary>
@@ -272,23 +352,47 @@ namespace Fluent
             ShowAboveRibbon = true;
         }
 
-        /// <summary>
-        /// Finds ribbon
-        /// </summary>
-        /// <returns>Ribbon or null if not finded</returns>
-        //QuickAccessToolBar FindQuickAccessToolbar()
-        Ribbon FindRibbon()
+        protected override Size MeasureOverride(Size constraint)
         {
-            UIElement element = VisualTreeHelper.GetParent(this) as UIElement;
-            while (element != null)
+            if ((cachedConstraint == constraint)&&!itemsHadChanged) return base.MeasureOverride(constraint);
+            
+            if (cachedConstraint != constraint)
             {
-                Ribbon ribbon = element as Ribbon;
-                if (ribbon != null) return ribbon;
-                UIElement parent = (UIElement)VisualTreeHelper.GetParent(element as DependencyObject);
-                if (parent != null) element = parent;
-                else element = (UIElement)LogicalTreeHelper.GetParent(element as DependencyObject);
+                cachedCount = GetNonOverflowItemsCount(constraint.Width);
+                HasOverflowItems = cachedCount < Items.Count;
+                cachedConstraint = constraint;
             }
-            return null;
+            if (itemsHadChanged)
+            {
+                // Refill toolbar
+                toolBarPanel.Children.Clear();
+                for (int i = 0; i < cachedCount; i++)
+                {
+                    toolBarPanel.Children.Add(Items[i]);
+                }
+                itemsHadChanged = false;
+            }
+            else
+            {
+                if (cachedCount > toolBarPanel.Children.Count)
+                {
+                    // Add needed items
+                    int savedCount = toolBarPanel.Children.Count;
+                    for (int i = savedCount; i < cachedCount; i++)
+                    {
+                        toolBarPanel.Children.Add(Items[i]);
+                    }
+                }
+                else
+                {
+                    // Remove nonneeded items
+                    for (int i = toolBarPanel.Children.Count-1; i >= cachedCount; i--)
+                    {
+                        toolBarPanel.Children.Remove(Items[i]);
+                    }
+                }
+            }
+            return base.MeasureOverride(constraint);
         }
 
         #endregion
@@ -314,6 +418,23 @@ namespace Fluent
                 // 0A, 0B, 0C, ... , 0Z
                 if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + startChar++);
             }
+        }
+
+        int GetNonOverflowItemsCount(double width)
+        {            
+            if(cachedDeltaWidth==0)
+            {
+                rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                cachedDeltaWidth = rootPanel.DesiredSize.Width - toolBarPanel.DesiredSize.Width;
+            }
+            double currentWidth = 0;
+            for (int i = 0; i < Items.Count;i++ )
+            {
+                Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                currentWidth += Items[i].DesiredSize.Width;
+                if (currentWidth + cachedDeltaWidth > width) return i;
+            }
+            return Items.Count;
         }
 
         #endregion
