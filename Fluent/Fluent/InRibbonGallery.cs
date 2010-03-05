@@ -1227,6 +1227,19 @@ namespace Fluent
             if (contextMenu == null)
             {
                 CreateMenu();
+                if (gallery.ItemsSource != null)
+                {
+                    object selectedItem = gallery.SelectedItem;
+                    gallery.ItemsSource = null;
+                    listBox.ItemsSource = View.View;
+                    listBox.SelectedItem = selectedItem;
+                    SelectedItem = selectedItem;
+                    SelectedIndex = listBox.SelectedIndex;
+                    if (MenuClosed != null) MenuClosed(this, EventArgs.Empty);
+                    if (!IsCollapsed) IsSnapped = false;
+                    expandButton.IsChecked = false;
+                    expandButton.InvalidateVisual();                    
+                }
                 IsOpen = false;
             }
             BindQuickAccessItem(button);
