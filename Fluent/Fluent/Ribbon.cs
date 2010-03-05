@@ -607,6 +607,7 @@ namespace Fluent
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
             keyTipService = new KeyTipService(this);
+            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion        

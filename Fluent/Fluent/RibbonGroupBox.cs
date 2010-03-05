@@ -854,7 +854,6 @@ namespace Fluent
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             if (LauncherClick != null) LauncherClick(this, e);
-            e.Handled = true;
         }
         
         // Handles popup closing

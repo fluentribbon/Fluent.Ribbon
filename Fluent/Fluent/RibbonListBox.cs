@@ -46,7 +46,7 @@ namespace Fluent
 
         #endregion
 
-        #region Overrides               
+        #region Overrides
 
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.

@@ -135,7 +135,8 @@ namespace Fluent
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
                 (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10)))
+                (e.SystemKey == Key.F10) ||
+                (e.SystemKey == Key.Space)))
             {
                 if (e.IsRepeat) return;
                 if ((activeAdornerChain == null) || (!activeAdornerChain.IsAdornerChainAlive))
@@ -153,7 +154,8 @@ namespace Fluent
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
                 (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10)))
+                (e.SystemKey == Key.F10) ||
+                (e.SystemKey == Key.Space)))
             {                
                 e.Handled = true;
                 if (timer.IsEnabled)
@@ -162,7 +164,6 @@ namespace Fluent
                     backUpFocusedElement = Keyboard.FocusedElement;
 
                     // Focus ribbon
-                    FocusManager.SetIsFocusScope(ribbon, true);
                     ribbon.Focusable = true;
                     ribbon.Focus();
 
@@ -172,7 +173,6 @@ namespace Fluent
                 {
                     // Focus ribbon
                     backUpFocusedElement = Keyboard.FocusedElement;
-                    FocusManager.SetIsFocusScope(ribbon, true);
                     ribbon.Focusable = true;
                     ribbon.Focus();
                 }
@@ -183,7 +183,6 @@ namespace Fluent
         {
             if (backUpFocusedElement != null) backUpFocusedElement.Focus();
             ribbon.Focusable = false;
-            FocusManager.SetIsFocusScope(ribbon, false);
         }
 
         void OnAdornerChainTerminated(object sender, EventArgs e)

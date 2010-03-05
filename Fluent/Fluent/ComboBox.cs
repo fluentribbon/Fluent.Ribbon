@@ -439,7 +439,6 @@ namespace Fluent
         /// </summary>
         public ComboBox()
         {
-            FocusManager.SetIsFocusScope(this, false);
             Binding binding = new Binding("DisplayMemberPath");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
@@ -750,7 +749,7 @@ namespace Fluent
 
         internal string GetItemText(object obj)
         {
-            if(obj==null) return null;
+            if(obj==null) return "";
             if (!string.IsNullOrEmpty(DisplayMemberPath)) return obj.GetType().GetProperty(DisplayMemberPath, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
             else return obj.ToString();
         }

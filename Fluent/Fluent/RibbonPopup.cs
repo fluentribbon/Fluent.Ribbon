@@ -75,7 +75,6 @@ namespace Fluent
         public RibbonPopup()
         {
             Focusable = false;
-            FocusManager.SetIsFocusScope(this,false);
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));

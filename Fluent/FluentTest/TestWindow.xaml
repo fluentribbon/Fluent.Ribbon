@@ -403,12 +403,12 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="References">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
-          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
-          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
-          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
-          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste">
+          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="Paste"/>
+          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="Paste"/>
+          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="Paste"/>
+          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="Paste"/>
+          <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="Paste"/>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Mailings">

@@ -124,7 +124,11 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1800")]
         static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
         {
-            while (!(o is RibbonGroupBox)) { o = VisualTreeHelper.GetParent(o); if (o == null) break; }
+            while (!(o is RibbonGroupBox))
+            {
+                o = VisualTreeHelper.GetParent(o) ?? LogicalTreeHelper.GetParent(o); 
+                if (o == null) break;
+            }
             return (RibbonGroupBox)o;
         }
 
@@ -351,16 +355,12 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            if (Command != null)
+            bool canExecute = Command != null && CanExecuteCommand();
+            if (currentCanExecute != canExecute)
             {
-                bool canExecute = CanExecuteCommand();
-                if (currentCanExecute != canExecute)
-                {
-                    currentCanExecute = canExecute;
-                    CoerceValue(IsEnabledProperty);
-                }
+                currentCanExecute = canExecute;
+                CoerceValue(IsEnabledProperty);
             }
-            else currentCanExecute = false;
         }
 
         /// <summary>
@@ -372,17 +372,12 @@ namespace Fluent
             if (command != null)
             {
                 object commandParameter = CommandParameter;
-                IInputElement commandTarget = CommandTarget;
                 RoutedCommand routedCommand = command as RoutedCommand;
                 if (routedCommand != null)
                 {
-                    if (commandTarget == null)
+                    if (routedCommand.CanExecute(commandParameter, CommandTarget))
                     {
-                        commandTarget = this as IInputElement;
-                    }
-                    if (routedCommand.CanExecute(commandParameter, commandTarget))
-                    {
-                        routedCommand.Execute(commandParameter, commandTarget);
+                        routedCommand.Execute(commandParameter, CommandTarget);
                     }
                 }
                 else if (command.CanExecute(commandParameter))
@@ -404,17 +399,12 @@ namespace Fluent
                 return false;
             }
             object commandParameter = CommandParameter;
-            IInputElement commandTarget = CommandTarget;
             RoutedCommand routedCommand = command as RoutedCommand;
             if (routedCommand == null)
             {
                 return command.CanExecute(commandParameter);
             }
-            if (commandTarget == null)
-            {
-                commandTarget = this as IInputElement;
-            }
-            return routedCommand.CanExecute(commandParameter, commandTarget);
+            return routedCommand.CanExecute(commandParameter, CommandTarget);
         }
 
         #endregion
@@ -425,7 +415,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && currentCanExecute);
+                return (base.IsEnabledCore && (currentCanExecute || Command == null));
             }
         }
 
@@ -441,9 +431,10 @@ namespace Fluent
             RibbonControl control = (RibbonControl)d;
             UIElement parent = LogicalTreeHelper.GetParent(control) as UIElement;
             bool parentIsEnabled = parent == null || parent.IsEnabled;
+            bool commandIsEnabled = control.Command == null || control.currentCanExecute;
 
             // We force disable if parent is disabled or command cannot be executed
-            return (bool)basevalue && parentIsEnabled && control.currentCanExecute;
+            return (bool)basevalue && parentIsEnabled && commandIsEnabled;
         }
 
         #endregion        
@@ -487,7 +478,8 @@ namespace Fluent
             {
                 Ribbon ribbon = element as Ribbon;
                 if (ribbon != null) return ribbon;
-                element = VisualTreeHelper.GetParent(element);
+                element = VisualTreeHelper.GetParent(element) ??
+                          LogicalTreeHelper.GetParent(element);
             }
             return null;
         }

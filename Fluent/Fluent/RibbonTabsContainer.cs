@@ -38,7 +38,6 @@ namespace Fluent
         public RibbonTabsContainer() : base()
         {
             Focusable = false;
-            FocusManager.SetIsFocusScope(this, false);
         }
 
         #endregion
