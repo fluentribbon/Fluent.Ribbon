@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite BETA2" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+    Title="Fluent Ribbon Control Suite 1.0 RC" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     >
   <Fluent:RibbonWindow.Resources>
 
@@ -73,11 +73,11 @@
       </Fluent:Ribbon.ToolBarItems>
                   
       <Fluent:Ribbon.QuickAccessItems>
-        <Fluent:QuickAccessMenuItem x:Name="ssa" Height="22" IsChecked="True">
+        <Fluent:QuickAccessMenuItem x:Name="ssa" Height="22" >
             <Fluent:Button Text="Test1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" />
         </Fluent:QuickAccessMenuItem>
-        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22"/>
-        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ssd}" Text="Test3" Height="22"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22" IsChecked="True"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ssd}" Text="Test3" Height="22" IsChecked="True"/>
       </Fluent:Ribbon.QuickAccessItems>
 
       
@@ -439,7 +439,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-    <Button  HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
+    <Button Visibility="Collapsed"  HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -463,11 +463,8 @@
         </Fluent:ContextMenu>
       </Button.ContextMenu>
     </Button>
-    
-    <TreeView x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>    
-    <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
-    <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=comboBoxFontName, Mode=TwoWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
-    <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
+
+    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>
@@ -480,6 +477,10 @@
       <TextBlock Margin="15" Tag="Group2">3</TextBlock>
     </ListBox>-->
 
+    <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
+    <TextBox Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=comboBoxFontName, Mode=TwoWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
+    <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
+    
   </Grid>
 
 </Fluent:RibbonWindow>

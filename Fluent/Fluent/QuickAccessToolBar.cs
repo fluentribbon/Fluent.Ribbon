@@ -307,6 +307,9 @@ namespace Fluent
                 menuButton.MenuClosed += OnMenuClosed;
             }
 
+            DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
+            if (btn != null) btn.ContextMenu = btn.DropDownMenu;
+
             // ToolBar panels
             
             toolBarPanel = GetTemplateChild("PART_ToolBarPanel") as Panel;
@@ -422,7 +425,7 @@ namespace Fluent
 
         int GetNonOverflowItemsCount(double width)
         {            
-            if(cachedDeltaWidth==0)
+            if(cachedDeltaWidth==0 && rootPanel != null && toolBarPanel != null)
             {
                 rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 cachedDeltaWidth = rootPanel.DesiredSize.Width - toolBarPanel.DesiredSize.Width;
