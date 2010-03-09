@@ -844,5 +844,52 @@ namespace Fluent
         public static extern IntPtr LoadImage(IntPtr hinst, int lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
  
         #endregion
+
+        #region Keyboard Functions
+
+        /// <summary>
+        /// The ToUnicodeEx function translates the specified virtual-key 
+        /// code and keyboard state to the corresponding 
+        /// Unicode character or characters
+        /// </summary>
+        /// <returns>1, 2 or more if success, otherwise fail</returns>
+        [DllImport("user32.dll")]
+        public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
+
+        /// <summary>
+        /// The GetKeyboardState function copies the status
+        ///  of the 256 virtual keys to the specified buffer. 
+        /// </summary>
+        /// <returns>If the function fails, the return value is zero</returns>
+        [DllImport("user32.dll")]
+        public static extern bool GetKeyboardState(byte[] lpKeyState);
+
+        /// <summary>
+        /// The MapVirtualKeyEx function translates (maps) a virtual-key 
+        /// code into a scan code or character value, or translates a scan 
+        /// code into a virtual-key code. The function translates the codes 
+        /// using the input language and an input locale identifier
+        /// </summary>
+        /// <returns>The return value is either a scan code, 
+        /// a virtual-key code, or a character value, depending 
+        /// on the value of uCode and uMapType. If there is no translation,
+        /// the return value is zero</returns>
+        [DllImport("user32.dll")]
+        public static extern uint MapVirtualKeyEx(uint uCode, uint uMapType, IntPtr dwhkl);
+
+        /// <summary>
+        /// The LoadKeyboardLayout function loads a new input locale identifier 
+        /// (formerly called the keyboard layout) into the system. Several input
+        /// locale identifiers can be loaded at a time, but only one per process 
+        /// is active at a time. Loading multiple input locale identifiers makes 
+        /// it possible to rapidly switch between them
+        /// </summary>
+        /// <returns>If the function succeeds, the return value is the input 
+        /// locale identifier to the locale matched with the requested name. 
+        /// If no matching locale is available, the return value is NULL</returns>
+        [DllImport("user32.dll")]
+        public static extern IntPtr LoadKeyboardLayout(string cultureId, uint flags);
+
+        #endregion
     }
 }

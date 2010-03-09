@@ -348,19 +348,42 @@ namespace Fluent
             else if (e.Key == Key.Escape) Back();
             else 
             {
-                string newKey = (new KeyConverter()).ConvertToString(e.Key);
-                if ((newKey.Length == 1)&&(Char.IsLetterOrDigit(newKey, 0)))
+                char? neutralKey = KeyTranslator.KeyToChar(e.Key, CultureInfo.InvariantCulture);
+                char? specificKey = KeyTranslator.KeyToChar(e.Key, CultureInfo.CurrentUICulture);
+                
+                // Try neutral key first
+                if (neutralKey != null)
                 {
                     e.Handled = true;
-                    if (IsElementsStartWith(enteredKeys + newKey))
+                    neutralKey = Char.ToUpper(neutralKey.Value);
+                    
+                    if (IsElementsStartWith(enteredKeys + neutralKey))
                     {
-                        enteredKeys += newKey;
+                        enteredKeys += neutralKey;
+                        UIElement element = TryGetElement(enteredKeys);
+                        if (element != null) Forward(element);
+                        else FilterKeyTips();
+                        goto end;
+                    }
+                }         
+       
+                // Try culture specific key
+                if (specificKey!= null)
+                {
+                    e.Handled = true;
+                    specificKey = Char.ToUpper(specificKey.Value);
+                    
+                    if (IsElementsStartWith(enteredKeys + specificKey))
+                    {
+                        enteredKeys += specificKey;
                         UIElement element = TryGetElement(enteredKeys);
                         if (element != null) Forward(element);
                         else FilterKeyTips();
                     }
                     else System.Media.SystemSounds.Beep.Play();
-                }                
+                }
+                
+                end:;
             }
         }
 
