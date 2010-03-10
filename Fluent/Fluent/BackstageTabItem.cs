@@ -169,6 +169,12 @@ namespace Fluent
             if (newValue)
             {
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
+                Backstage backstage = container.Parent as Backstage;
+                if((backstage!=null)&&(backstage.SelectedItem != container))
+                {
+                    (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
+                    backstage.SelectedItem = container;
+                }
             }
             else
             {

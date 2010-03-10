@@ -32,9 +32,52 @@ namespace Fluent
 
         private DropDownButton groupsMenuButton;
 
+        private double cachedWidthDelta;
+
         #endregion
 
         #region Properties
+
+        #region ItemsInRow
+
+        /// <summary>
+        /// Width of the Gallery 
+        /// </summary>
+        public int ItemsInRow
+        {
+            get { return (int)GetValue(ItemsInRowProperty); }
+            set { SetValue(ItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemsInRow.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemsInRowProperty =
+            DependencyProperty.Register("ItemsInRow", typeof(int), typeof(Gallery), new UIPropertyMetadata(0, OnItemsInRowChanged));
+
+        private static void OnItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as Gallery).SetMinWidth();            
+        }
+
+        private void SetMinWidth()
+        {
+            if (listBox==null) return;
+            //if (cachedWidthDelta == 0)
+            {
+                Measure(new Size(double.PositiveInfinity,double.PositiveInfinity));
+                cachedWidthDelta = DesiredSize.Width - listBox.InnerPanelWidth;
+                InvalidateMeasure();
+            }
+            if (ItemsInRow == 0) MinWidth = 0;
+            else
+            {
+                double w = GetItemWidth();
+                if (!double.IsNaN(w)) MinWidth = ItemsInRow * w + cachedWidthDelta;
+            }
+        }
+
+        #endregion
 
         #region View
 
@@ -467,6 +510,8 @@ namespace Fluent
             ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
             template.Seal();
             ItemsPanel = template;
+
+            //Loaded += delegate { SetMinWidth(); };
         }
 
         #endregion
@@ -499,6 +544,11 @@ namespace Fluent
                     item.Click += OnFilterMenuItemClick;
                     groupsMenuButton.Items.Add(item);
                 }
+            }
+
+            if(listBox!=null)
+            {
+                listBox.ItemContainerGenerator.StatusChanged -= OnItemsContainerGeneratorStatusChanged;
             }
 
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
@@ -537,8 +587,17 @@ namespace Fluent
                 binding.Source = listBox;
                 binding.Mode = BindingMode.OneWay;
                 SetBinding(ItemContainerGeneratorProperty, binding);
+
+                listBox.ItemContainerGenerator.StatusChanged += OnItemsContainerGeneratorStatusChanged;
+                
             }
             UpdateGroupBy(GroupBy);
+            SetMinWidth();                       
+        }
+
+        private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
+        {
+            //SetMinWidth();
         }
 
         private void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
@@ -695,6 +754,38 @@ namespace Fluent
             object result = obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null);
             if(result==null) return null;
             return result.ToString();
+        }
+
+        private double GetItemWidth()
+        {
+            if (double.IsNaN(ItemWidth) && (listBox != null) && (listBox.Items.Count > 0))
+            {
+                GalleryItem item = (listBox.ItemContainerGenerator.ContainerFromItem(listBox.Items[0]) as GalleryItem);
+                bool useHack = false;
+                if (item == null)
+                {
+                    useHack = true;
+                    RemoveLogicalChild(listBox.Items[0]);
+                    item = new GalleryItem();
+                    item.Width = ItemWidth;
+                    item.Height = ItemHeight;
+                    if (ItemContainerStyle != null) item.Style = ItemContainerStyle;
+                    if (ItemTemplate != null)
+                    {
+                        item.Content = ItemTemplate;
+                        item.DataContext = listBox.Items[0];
+                    }
+                    else item.Content = listBox.Items[0];
+                }
+                item.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                if (useHack)
+                {
+                    item.Content = null;
+                    AddLogicalChild(listBox.Items[0]);
+                }
+                return item.DesiredSize.Width;
+            }
+            return ItemWidth;
         }
 
         #endregion

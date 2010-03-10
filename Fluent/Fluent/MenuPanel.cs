@@ -58,7 +58,7 @@ namespace Fluent
                     if ((element is MenuItem) || (element is Separator))
                     {
                         element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                        minWidth = Math.Max(minWidth, element.MinWidth);
+                        if (element is MenuItem) minWidth = Math.Max(minWidth, element.MinWidth);
                         minHeight += element.DesiredSize.Height;
                     }
                     else

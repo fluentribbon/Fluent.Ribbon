@@ -282,7 +282,7 @@ namespace Fluent
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     RemoveLogicalChild(quickAccessItems[i]);
-                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolBar(quickAccessItems[i].Target);
+                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
                 }
             }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
@@ -365,6 +365,7 @@ namespace Fluent
                 HasOverflowItems = cachedCount < Items.Count;
                 cachedConstraint = constraint;
             }
+            toolBarOverflowPanel.Children.Clear();
             if (itemsHadChanged)
             {
                 // Refill toolbar
@@ -376,7 +377,7 @@ namespace Fluent
                 itemsHadChanged = false;
             }
             else
-            {
+            {                
                 if (cachedCount > toolBarPanel.Children.Count)
                 {
                     // Add needed items

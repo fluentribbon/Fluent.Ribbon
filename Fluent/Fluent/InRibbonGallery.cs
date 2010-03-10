@@ -68,6 +68,25 @@ namespace Fluent
 
         #region Properties
 
+        #region ItemsInRow
+
+        /// <summary>
+        /// Width of the Gallery 
+        /// </summary>
+        public int ItemsInRow
+        {
+            get { return (int)GetValue(ItemsInRowProperty); }
+            set { SetValue(ItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemsInRow.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemsInRowProperty =
+            DependencyProperty.Register("ItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(0));
+
+        #endregion
+
         #region View
 
         /// <summary>
@@ -496,11 +515,11 @@ namespace Fluent
             InRibbonGallery gall = (d as InRibbonGallery);
             if ((bool)e.NewValue)
             {
-                if (gall.gallery != null)
+                /*if (gall.gallery != null)
                 {
                     gall.gallery.MinWidth = Math.Max(gall.ActualWidth, gall.MenuMinWidth);
                     gall.gallery.MinHeight = gall.ActualHeight;
-                }
+                }*/
                 if (gall.contextMenu == null) gall.CreateMenu();
                 else gall.contextMenu.IsOpen = true;
                 if (gall.IsCollapsed) gall.dropDownButton.IsChecked = true;
@@ -668,9 +687,8 @@ namespace Fluent
             {
                 if (value == isSnapped) return;
 
-                if (ActualWidth>0)
-                {
-                    if (value)
+                
+                    if ((value)&&(((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
                     {
                         // Render the freezed image
                         snappedImage = new Image();
@@ -692,6 +710,7 @@ namespace Fluent
 
                         // Attach freezed image
                         AddVisualChild(snappedImage);
+                        isSnapped = value;
                         /*
                                             PngBitmapEncoder enc = new PngBitmapEncoder();
                                             enc.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
@@ -704,8 +723,8 @@ namespace Fluent
                                             }
                                             Process.Start(path);*/
                     }
-                    else
-                    {
+                    else if ((snappedVisuals != null) && (snappedImage != null))
+                    {                        
                         RemoveVisualChild(snappedImage);
                         for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
                         {
@@ -715,9 +734,11 @@ namespace Fluent
                         // Clean up
                         snappedImage = null;
                         snappedVisuals = null;
+                        isSnapped = value;
                     }
-                }
-                isSnapped = value;
+                    
+                
+                
                 InvalidateVisual();
                 //UpdateLayout();
             }
@@ -1134,24 +1155,31 @@ namespace Fluent
 
         private void CreateMenu()
         {
-            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            else
+            {
+                gallery.ItemsInRow = ItemsInRow;
+            }
             gallery.MinHeight = ActualHeight;
             isInitializing = true;
             contextMenu = new ContextMenu();
             contextMenu.Owner = this;
             AddLogicalChild(contextMenu.RibbonPopup);                        
-            contextMenu.IsOpen = true;
-            if(!IsCollapsed)IsSnapped = true;
-            object selectedItem = listBox.SelectedItem;
-            int selectedIndex = listBox.SelectedIndex;
-            listBox.ItemsSource = null;
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-            gallery.SelectedItem = selectedItem;
-            gallery.SelectedIndex = selectedIndex;
-            SelectedItem = selectedItem;
-            SelectedIndex = selectedIndex;
-            expandButton.IsChecked = true;
+            contextMenu.IsOpen = true;            
+            if (listBox != null)
+            {
+                if (!IsCollapsed) IsSnapped = true;
+                object selectedItem = listBox.SelectedItem;
+                int selectedIndex = listBox.SelectedIndex;
+                listBox.ItemsSource = null;
+                if (ItemsSource == null) gallery.ItemsSource = Items;
+                else gallery.ItemsSource = ItemsSource;
+                gallery.SelectedItem = selectedItem;
+                gallery.SelectedIndex = selectedIndex;
+                SelectedItem = selectedItem;
+                SelectedIndex = selectedIndex;
+                expandButton.IsChecked = true;
+            }  
             contextMenu.RibbonPopup.Opened += OnMenuOpened;
             contextMenu.RibbonPopup.Closed += OnMenuClosed;            
 
@@ -1180,20 +1208,27 @@ namespace Fluent
         {
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
-            listBox.ItemsSource = View.View;
-            listBox.SelectedItem = selectedItem;
-            SelectedItem = selectedItem;
-            SelectedIndex = listBox.SelectedIndex;
-            if (MenuClosed != null) MenuClosed(this, e);
-            if (!IsCollapsed) IsSnapped = false;
-            expandButton.IsChecked = false;
-            expandButton.InvalidateVisual();
+            if (listBox != null)
+            {
+                listBox.ItemsSource = View.View;
+                listBox.SelectedItem = selectedItem;
+                SelectedItem = selectedItem;
+                SelectedIndex = listBox.SelectedIndex;
+                if (MenuClosed != null) MenuClosed(this, e);
+                if (!IsCollapsed) IsSnapped = false;
+                expandButton.IsChecked = false;
+                expandButton.InvalidateVisual();
+            }
             IsOpen = false;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
-            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            else
+            {
+                gallery.ItemsInRow = ItemsInRow;
+            }
             gallery.MinHeight = ActualHeight;
             if (!IsCollapsed) IsSnapped = true;
             if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
@@ -1224,25 +1259,12 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
+            BindQuickAccessItem(button);
             if (contextMenu == null)
             {
                 CreateMenu();
-                if (gallery.ItemsSource != null)
-                {
-                    object selectedItem = gallery.SelectedItem;
-                    gallery.ItemsSource = null;
-                    listBox.ItemsSource = View.View;
-                    listBox.SelectedItem = selectedItem;
-                    SelectedItem = selectedItem;
-                    SelectedIndex = listBox.SelectedIndex;
-                    if (MenuClosed != null) MenuClosed(this, EventArgs.Empty);
-                    if (!IsCollapsed) IsSnapped = false;
-                    expandButton.IsChecked = false;
-                    expandButton.InvalidateVisual();                    
-                }
                 IsOpen = false;
-            }
-            BindQuickAccessItem(button);
+            }            
             return button;
         }
 
@@ -1259,13 +1281,22 @@ namespace Fluent
 
         private void OnQuickAccessMenuOpened(object sender, EventArgs e)
         {
-            gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            else
+            {
+                gallery.ItemsInRow = ItemsInRow;
+            }
             gallery.MinHeight = ActualHeight;
             DropDownButton button = sender as DropDownButton;
             button.MenuResizeMode = ResizeMode;
             if (!IsCollapsed) IsSnapped = true;
-            object selectedItem = listBox.SelectedItem;
-            listBox.ItemsSource = null;            
+
+            object selectedItem = SelectedItem;
+            if (listBox!=null)
+            {
+                selectedItem = listBox.SelectedItem;
+                listBox.ItemsSource = null;
+            }
             if (ItemsSource == null) gallery.ItemsSource = Items;
             else gallery.ItemsSource = ItemsSource;
             gallery.SelectedItem = selectedItem;
@@ -1316,10 +1347,14 @@ namespace Fluent
 
             object selectedItem = gallery.SelectedItem;
             gallery.ItemsSource = null;
-            listBox.ItemsSource = View.View;
-            listBox.SelectedItem = selectedItem;
-            SelectedItem = selectedItem;
-            SelectedIndex = listBox.SelectedIndex;
+            if (listBox != null)
+            {
+                if (ItemsSource == null) listBox.ItemsSource = Items;
+                else listBox.ItemsSource = ItemsSource;
+                listBox.SelectedItem = selectedItem;
+                SelectedIndex = listBox.SelectedIndex;
+            }
+            SelectedItem = selectedItem;            
             if (!IsCollapsed) IsSnapped = false;
         }
 
