@@ -27,7 +27,7 @@ namespace Fluent
             }
             if(img!=null)
             {
-                var icons = img.Decoder.Frames.Where(x => ((x.Thumbnail.PixelWidth == 16) && (x.PixelHeight == 16) && ((x.Format == PixelFormats.Bgra32) || (x.Format == PixelFormats.Bgr24))));
+                var icons = img.Decoder.Frames.Where(x => ((x.Thumbnail != null) && (x.Thumbnail.PixelWidth == 16) && (x.PixelHeight == 16) && ((x.Format == PixelFormats.Bgra32) || (x.Format == PixelFormats.Bgr24))));
                 if (icons.Count() > 0) return icons.First().Thumbnail;
             }
             return value;
