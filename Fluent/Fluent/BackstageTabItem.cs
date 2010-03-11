@@ -172,7 +172,7 @@ namespace Fluent
                 Backstage backstage = container.Parent as Backstage;
                 if((backstage!=null)&&(backstage.SelectedItem != container))
                 {
-                    (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
+                    if (backstage.SelectedItem is BackstageTabItem) (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
                     backstage.SelectedItem = container;
                 }
             }
