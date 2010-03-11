@@ -124,6 +124,23 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+              
+        /// <summary>
+        /// Gets whether client window area is activated
+        /// </summary>
+        public bool IsNcActive
+        {
+            get { return (bool)GetValue(IsNcActiveProperty); }
+            private set { SetValue(IsNcActiveProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsNcActivated.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsNcActiveProperty =
+            DependencyProperty.Register("IsNcActive", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+
+
 
         #endregion
 
@@ -461,6 +478,9 @@ namespace Fluent
                 case NativeMethods.WM_GETMINMAXINFO:
                     NonDwmGetMinMaxInfo(hwnd, lParam);
                     handled = true;
+                    break;
+                case NativeMethods.WM_NCACTIVATE:
+                    IsNcActive = (wParam != IntPtr.Zero);
                     break;
                 // Handles window size changed
                 case NativeMethods.WM_SIZE:

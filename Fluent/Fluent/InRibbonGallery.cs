@@ -86,6 +86,18 @@ namespace Fluent
             DependencyProperty.Register("ItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(0));
 
         #endregion
+        
+        #region GalleryView
+
+        /// <summary>
+        /// Gets view of items or itemssource of dropdown gallery
+        /// </summary>
+        public CollectionViewSource GalleryView
+        {
+            get { return gallery.View; }
+        }
+
+        #endregion
 
         #region View
 

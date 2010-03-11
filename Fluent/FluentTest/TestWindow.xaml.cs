@@ -29,6 +29,9 @@ namespace FluentTest
         {
             InitializeComponent();
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+
+            //IView = CollectionViewSource.GetDefaultView();
+
             //Visibility = Visibility.Hidden;
 //            (Content as UIElement).Visibility = Visibility.Hidden;
             Loaded += delegate
