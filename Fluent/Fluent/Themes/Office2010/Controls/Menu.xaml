@@ -175,18 +175,21 @@
 			</Border>
 		</Grid>
 		<ControlTemplate.Triggers>
+			<Trigger Property="FlowDirection" Value="RightToLeft">
+				<Setter Property="Cursor" TargetName="PART_ResizeBothThumb" Value="SizeNESW"/>
+			</Trigger>
 			<Trigger Property="ResizeMode" Value="None">
 				<Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
 			</Trigger>
 			<Trigger Property="ResizeMode" Value="Both">
 				<Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
-        <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+				<Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Visible"/>
+				<Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
 			</Trigger>
 			<Trigger Property="ResizeMode" Value="Vertical">
 				<Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
-        <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+				<Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
+				<Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
 			</Trigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>

@@ -51,7 +51,16 @@
   		</Grid.ColumnDefinitions>
   		<Grid Margin="0" Height="Auto" Grid.Column="1">
   			<Border HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
-  				<Image Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="343" Height="181" SnapsToDevicePixels="True"/>
+  				<Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="343" Height="181" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+  					<Image.RenderTransform>
+  						<TransformGroup>
+  							<ScaleTransform/>
+  							<SkewTransform/>
+  							<RotateTransform/>
+  							<TranslateTransform/>
+  						</TransformGroup>
+  					</Image.RenderTransform>
+  				</Image>
   			</Border>
   			<ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent"/>
   		</Grid>
@@ -89,6 +98,20 @@
   			</Rectangle>
   		</Border>
   	</Grid>
+  	<ControlTemplate.Triggers>
+  		<Trigger Property="FlowDirection" Value="RightToLeft">
+  			<Setter Property="RenderTransform" TargetName="image">
+  				<Setter.Value>
+  					<TransformGroup>
+  						<ScaleTransform ScaleX="-1"/>
+  						<SkewTransform/>
+  						<RotateTransform/>
+  						<TranslateTransform/>
+  					</TransformGroup>
+  				</Setter.Value>
+  			</Setter>
+  		</Trigger>
+  	</ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="BackstageStyle" TargetType="{x:Type Fluent:Backstage}">
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>

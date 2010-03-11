@@ -532,6 +532,7 @@ namespace Fluent
                     NativeMethods.GetMonitorInfo(monitor, ref monitorInfo);
 
                     Point startPoint = PointToScreen(new Point(0, 0));
+                    if (FlowDirection == FlowDirection.RightToLeft) startPoint.X -= ActualWidth;
                     double inWindowRibbonWidth = monitorInfo.Work.Right - Math.Max(monitorInfo.Work.Left, startPoint.X);
 
                     double actualWidth = ActualWidth;

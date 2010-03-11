@@ -318,6 +318,7 @@ namespace Fluent
                         if (e.ClickCount == 1)
                         {
                             System.Windows.Point pos = iconImage.PointToScreen(new System.Windows.Point(0, 0));
+                            if (FlowDirection == FlowDirection.RightToLeft) pos.X += 16;
                             ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + 16));
                         }
                     }
@@ -598,11 +599,19 @@ namespace Fluent
                 fOnResizeBorder = true;
             }
 
-            int[][] hitTests = new int[][]
+            int[][] hitTests;
+            if (FlowDirection == FlowDirection.LeftToRight) hitTests = new int[][]
                 {
                     new int[] {fOnResizeBorder ? NativeMethods.HTTOPLEFT:NativeMethods.HTLEFT, fOnResizeBorder ? NativeMethods.HTTOP : NativeMethods.HTCAPTION, fOnResizeBorder ? NativeMethods.HTTOPRIGHT:NativeMethods.HTRIGHT},
                     new int[] {NativeMethods.HTLEFT, NativeMethods.HTNOWHERE, NativeMethods.HTRIGHT},
                     new int[] {NativeMethods.HTBOTTOMLEFT, NativeMethods.HTBOTTOM, NativeMethods.HTBOTTOMRIGHT},
+                };
+            else
+                hitTests = new int[][]
+                {
+                    new int[] {fOnResizeBorder ? NativeMethods.HTTOPRIGHT:NativeMethods.HTRIGHT, fOnResizeBorder ? NativeMethods.HTTOP : NativeMethods.HTCAPTION, fOnResizeBorder ? NativeMethods.HTTOPLEFT:NativeMethods.HTLEFT},
+                    new int[] {NativeMethods.HTRIGHT, NativeMethods.HTNOWHERE, NativeMethods.HTLEFT},
+                    new int[] {NativeMethods.HTBOTTOMRIGHT, NativeMethods.HTBOTTOM, NativeMethods.HTBOTTOMLEFT},
                 };
 
             return new IntPtr(hitTests[uRow][uCol]);
@@ -627,9 +636,13 @@ namespace Fluent
             int borderWidth = (int)this.GetBorderWidth();
             int borderHeight = (int)this.GetBorderHeight();
 
-            mainGrid.Margin = new Thickness(sizers.Left,
+            if (FlowDirection == FlowDirection.LeftToRight) mainGrid.Margin = new Thickness(sizers.Left,
                                             sizers.Top,
                                             -borderWidth * 2 + sizers.Left,
+                                            -SystemParameters.CaptionHeight - 1 - borderHeight * 2 + sizers.Top);
+            else mainGrid.Margin = new Thickness(-borderWidth * 2 + sizers.Left, 
+                                            sizers.Top,
+                                            sizers.Left,
                                             -SystemParameters.CaptionHeight - 1 - borderHeight * 2 + sizers.Top);
         }
 
