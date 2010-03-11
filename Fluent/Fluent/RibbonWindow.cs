@@ -540,7 +540,11 @@ namespace Fluent
             IInputElement hitTested = mainGrid.InputHitTest(ptMouse);
             if ((hitTested != null) && (hitTested != mainGrid))
             {
-                if (hitTested == imageResizeGrip) return new IntPtr(NativeMethods.HTBOTTOMRIGHT);
+                if (hitTested == imageResizeGrip) 
+                {
+                    if (FlowDirection == FlowDirection.LeftToRight) return new IntPtr(NativeMethods.HTBOTTOMRIGHT);
+                    else return new IntPtr(NativeMethods.HTBOTTOMLEFT);
+                }
                 if (hitTested == titleBar)
                 {
                     if (IsDwmEnabled)

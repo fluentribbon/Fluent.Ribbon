@@ -20,11 +20,32 @@
     						<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
     					</StackPanel>
     					<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    					<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    					<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+    						<Image.RenderTransform>
+    							<TransformGroup>
+    								<ScaleTransform/>
+    								<SkewTransform/>
+    								<RotateTransform/>
+    								<TranslateTransform/>
+    							</TransformGroup>
+    						</Image.RenderTransform>
+    					</Image>
     				</Grid>
     			</AdornerDecorator>
     		</Grid>
       		<ControlTemplate.Triggers>
+      			<Trigger Property="FlowDirection" Value="RightToLeft">
+      				<Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+      					<Setter.Value>
+      						<TransformGroup>
+      							<ScaleTransform ScaleX="-1"/>
+      							<SkewTransform/>
+      							<RotateTransform/>
+      							<TranslateTransform/>
+      						</TransformGroup>
+      					</Setter.Value>
+      				</Setter>
+      			</Trigger>
       			<MultiTrigger>
       				<MultiTrigger.Conditions>
       					<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
@@ -36,7 +57,7 @@
       				<Setter Property="Margin" TargetName="stackPanel" Value="0,0,0,0"/>
       				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-					<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
+      				<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
       			</Trigger>
       			<Trigger Property="IsIconVisible" Value="False">
       				<Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>      				
@@ -84,12 +105,34 @@
     							</Border>
     						</Border>
     						<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    						<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    						<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+    							<Image.RenderTransform>
+    								<TransformGroup>
+    									<ScaleTransform/>
+    									<SkewTransform/>
+    									<RotateTransform/>
+    									<TranslateTransform/>
+    								</TransformGroup>
+    							</Image.RenderTransform>
+    						</Image>
     					</Grid>
     				</Grid>
     			</AdornerDecorator>
     		</Grid>
       		<ControlTemplate.Triggers>
+
+      			<Trigger Property="FlowDirection" Value="RightToLeft">
+      				<Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+      					<Setter.Value>
+      						<TransformGroup>
+      							<ScaleTransform ScaleX="-1"/>
+      							<SkewTransform/>
+      							<RotateTransform/>
+      							<TranslateTransform/>
+      						</TransformGroup>
+      					</Setter.Value>
+      				</Setter>
+      			</Trigger>
 
       			<Trigger Property="IsNcActive" Value="False">
       				<Setter Property="Background" TargetName="border3">
@@ -118,9 +161,9 @@
       				<Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,4,0"/>
       				<Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-					<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
+      				<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
       			</Trigger>
-				<Trigger Property="WindowState" Value="Normal">
+      			<Trigger Property="WindowState" Value="Normal">
       				<Setter Property="Visibility" TargetName="normalizeButton" Value="Collapsed"/>
       			</Trigger>
       			<Trigger Property="IsIconVisible" Value="False">
