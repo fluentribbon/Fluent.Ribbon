@@ -211,7 +211,7 @@ namespace Fluent
         {
             SplitButton button = element as SplitButton;
             Bind(this, button, "MenuResizeMode", MenuResizeModeProperty, BindingMode.Default);
-            button.Click += delegate(object sender, RoutedEventArgs e) { RaiseEvent(e); };
+            button.Click += delegate(object sender, RoutedEventArgs e) { e.Handled = true; if(Click!=null)Click(this,e); };
             base.BindQuickAccessItem(element);
         }
 
