@@ -111,7 +111,7 @@
 								</RadialGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonsBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
+						<Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
 							<ContentControl x:Name="popupContent"/>
 						</Border>
 
