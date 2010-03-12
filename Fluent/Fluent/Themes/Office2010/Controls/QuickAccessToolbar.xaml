@@ -22,62 +22,65 @@
         			</RadialGradientBrush>
         		</Rectangle.Fill>
         	</Rectangle>
-        	<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="-1,4,0,0" Background="#00000000">
-        		<Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-3,0,2,0"/>          
-        	</StackPanel>
+      		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Margin="-1,4,0,0" Background="#00000000">
+      			<Image x:Name="iconImage" HorizontalAlignment="Left" Height="8" Stretch="None" VerticalAlignment="Top" Source="{TemplateBinding LargeIcon}" Width="8" Margin="-3,0,2,0"/>          
+      		</StackPanel>
       	</Grid>
       </Border>
     </Border>
     <ControlTemplate.Triggers>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
-        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
-        <Setter Property="Width" TargetName="iconImage" Value="16"/>
-        <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="2"/>
-        <Setter Property="Margin" TargetName="grid" Value="0"/>
-      </Trigger>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
-        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
-        <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
-        <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
-        <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
-        <Setter Property="Width" TargetName="iconImage" Value="16"/>
-        <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="2"/>
-      </Trigger>
-      <Trigger Property="IsOpen" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-      </Trigger>
-      <MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsOpen" Value="False"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-        <Setter Property="Margin" TargetName="rectangle" Value="0"/>
-        <Setter Property="Margin" TargetName="grid" Value="0"/>
-      </MultiTrigger>
-	  <MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsFocused" Value="True"/>
-          <Condition Property="IsOpen" Value="False"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-      </MultiTrigger>
-    </ControlTemplate.Triggers>
+  		<Trigger Property="IsEnabled" Value="False">
+  			<Setter Property="Opacity" TargetName="iconImage" Value="0.25"/>
+  		</Trigger>
+  		<Trigger Property="Size" Value="Small">
+  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+  			<Setter Property="Source" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+  			<Setter Property="Width" TargetName="iconImage" Value="16"/>
+  			<Setter Property="Height" TargetName="iconImage" Value="16"/>
+  			<Setter Property="Margin" TargetName="iconImage" Value="2"/>
+  			<Setter Property="Margin" TargetName="grid" Value="0"/>
+  		</Trigger>
+  		<Trigger Property="Size" Value="Middle">
+  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+  			<Setter Property="Source" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+  			<Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
+  			<Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
+  			<Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
+  			<Setter Property="Width" TargetName="iconImage" Value="16"/>
+  			<Setter Property="Height" TargetName="iconImage" Value="16"/>
+  			<Setter Property="Margin" TargetName="iconImage" Value="2"/>
+  		</Trigger>
+  		<Trigger Property="IsOpen" Value="True">
+  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+  		</Trigger>
+  		<MultiTrigger>
+  			<MultiTrigger.Conditions>
+  				<Condition Property="IsMouseOver" Value="True"/>
+  				<Condition Property="IsOpen" Value="False"/>
+  			</MultiTrigger.Conditions>
+  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+  			<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+  			<Setter Property="Margin" TargetName="rectangle" Value="0"/>
+  			<Setter Property="Margin" TargetName="grid" Value="0"/>
+  		</MultiTrigger>
+  		<MultiTrigger>
+  			<MultiTrigger.Conditions>
+  				<Condition Property="IsFocused" Value="True"/>
+  				<Condition Property="IsOpen" Value="False"/>
+  			</MultiTrigger.Conditions>
+  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+  			<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+  		</MultiTrigger>
+  	</ControlTemplate.Triggers>
   </ControlTemplate> 
     <Style x:Key="QuickAccessToolbarStyle" TargetType="{x:Type Fluent:QuickAccessToolBar}">
     	<Setter Property="Template" Value="{DynamicResource QuickAccessToolbarControlTemplate}"/>
