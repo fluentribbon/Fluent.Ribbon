@@ -333,13 +333,16 @@ namespace Fluent
             EventHandler handler = control.OnCommandCanExecuteChanged;
             if (e.OldValue != null)
             {
-                (e.OldValue as ICommand).CanExecuteChanged -= handler;
+                (e.OldValue as ICommand).CanExecuteChanged -= handler;                
             }
             if (e.NewValue != null)
             {
                 handler = new EventHandler(control.OnCommandCanExecuteChanged);
                 control.canExecuteChangedHandler = handler;
                 (e.NewValue as ICommand).CanExecuteChanged += handler;                
+
+                RoutedUICommand cmd = e.NewValue as RoutedUICommand;
+                if ((cmd != null) && (string.IsNullOrEmpty(control.Text))) control.Text = cmd.Text;
             }
             control.UpdateCanExecute();
         }
