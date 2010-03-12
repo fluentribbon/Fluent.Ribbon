@@ -226,6 +226,7 @@
         									</ControlTemplate>
         								</Setter.Value>
         							</Setter>
+									<Setter Property="ContextMenu" Value="{x:Null}"/>
         						</Style>
         					</Fluent:RibbonListBox.Resources>
         					<Fluent:RibbonListBox.ItemsPanel>
