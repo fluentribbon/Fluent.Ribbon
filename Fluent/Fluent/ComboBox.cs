@@ -111,6 +111,7 @@ namespace Fluent
                     fakeImage.Source = renderTargetBitmap;
                     selectedGalleryItem.Visibility = Visibility.Collapsed;
                     fakeImage.Visibility = Visibility.Visible;
+                    fakeImage.FlowDirection = FlowDirection;
                 }
                 else
                 {

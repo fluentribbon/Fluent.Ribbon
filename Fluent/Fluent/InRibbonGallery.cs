@@ -712,6 +712,7 @@ namespace Fluent
                         snappedImage.Source = renderTargetBitmap;
                         snappedImage.Width = ActualWidth;
                         snappedImage.Height = ActualHeight;
+                        snappedImage.FlowDirection = FlowDirection;
                         // Detach current visual children
                         snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
                         for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)

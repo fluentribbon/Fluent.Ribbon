@@ -527,6 +527,13 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
         }
 
+        // Coerce control style
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
+            return basevalue;
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -592,6 +599,7 @@ namespace Fluent
                     RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
                     renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
+                    snappedImage.FlowDirection = FlowDirection;
                     snappedImage.Source = renderTargetBitmap;
 
                     // Detach current visual children
@@ -847,6 +855,7 @@ namespace Fluent
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             if (LauncherClick != null) LauncherClick(this, e);
+            e.Handled = true;
         }
         
         // Handles popup closing
