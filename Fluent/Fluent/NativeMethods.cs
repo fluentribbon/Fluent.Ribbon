@@ -6,11 +6,9 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Fluent
 {
@@ -29,6 +27,9 @@ namespace Fluent
         /// </summary>
         public const int WM_SYSCOMMAND = 0x0112;
 
+        /// <summary>
+        /// 'Famous' undocumented WM_GETSYSMENU message to display own context menu
+        /// </summary>
         public const int WM_GETSYSMENU = 0x313;
 
         /// <summary>
@@ -365,17 +366,6 @@ namespace Fluent
             /// Specifies the y-coordinate of the point. 
             /// </summary>
             public int y;
-            /*
-            /// <summary>
-            /// Конструктор
-            /// </summary>
-            /// <param name="x">Specifies the x-coordinate of the point. </param>
-            /// <param name="y">Specifies the y-coordinate of the point.</param>
-            public POINT(int x, int y)
-            {
-                this.x = x;
-                this.y = y;
-            }*/
         }
 
         /// <summary>

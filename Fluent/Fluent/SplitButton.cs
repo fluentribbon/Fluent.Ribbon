@@ -163,7 +163,7 @@ namespace Fluent
             
             BindQuickAccessItem(button);
             //button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
-            button.MenuOpened += OnQuickAccessClick;
+            button.Opened += OnQuickAccessClick;
             return button;
         }
 
@@ -187,13 +187,13 @@ namespace Fluent
                 button.Items.Add(item);
                 i--;
             }
-            button.MenuClosed += OnQuickAccessMenuClosed;
+            button.Closed += OnQuickAccessMenuClosed;
             quickAccessButton = button;
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             for (int i = 0; i < quickAccessButton.Items.Count; i++)
             {
                 UIElement item = quickAccessButton.Items[0];
@@ -210,7 +210,7 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             SplitButton button = element as SplitButton;
-            Bind(this, button, "MenuResizeMode", MenuResizeModeProperty, BindingMode.Default);
+            Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
             button.Click += delegate(object sender, RoutedEventArgs e) { e.Handled = true; if(Click!=null)Click(this,e); };
             base.BindQuickAccessItem(element);
         }

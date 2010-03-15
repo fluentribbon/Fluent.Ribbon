@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents Fluent UI specific CheckBox
+    /// </summary>
     [ContentProperty("Text")]
-    public class CheckBox:ToggleButton
+    public class CheckBox : ToggleButton
     {
         #region Constructors
 
@@ -41,10 +49,10 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            CheckBox button = new CheckBox();
-            button.VerticalAlignment = VerticalAlignment.Center;
-            BindQuickAccessItem(button);
-            return button;
+            CheckBox checkBox = new CheckBox();
+            checkBox.VerticalAlignment = VerticalAlignment.Center;
+            BindQuickAccessItem(checkBox);
+            return checkBox;
         }
 
         /// <summary>
@@ -53,7 +61,6 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            CheckBox button = element as CheckBox;
             Bind(this, element, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             base.BindQuickAccessItem(element);
         }

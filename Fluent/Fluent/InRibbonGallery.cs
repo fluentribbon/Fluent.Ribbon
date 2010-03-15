@@ -1289,7 +1289,7 @@ namespace Fluent
         {
             DropDownButton button = element as DropDownButton;            
             base.BindQuickAccessItem(element);
-            button.MenuOpened += OnQuickAccessMenuOpened;
+            button.Opened += OnQuickAccessMenuOpened;
         }
 
         private void OnQuickAccessMenuOpened(object sender, EventArgs e)
@@ -1301,7 +1301,7 @@ namespace Fluent
             }
             gallery.MinHeight = ActualHeight;
             DropDownButton button = sender as DropDownButton;
-            button.MenuResizeMode = ResizeMode;
+            button.ResizeMode = ResizeMode;
             if (!IsCollapsed) IsSnapped = true;
 
             object selectedItem = SelectedItem;
@@ -1333,13 +1333,13 @@ namespace Fluent
                 button.Items.Add(gallery);
                 button.Items.Add(menuBar);
             }
-            button.MenuClosed += OnQuickAccessMenuClosed;
+            button.Closed += OnQuickAccessMenuClosed;
             quickAccessButton = button;
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.MenuClosed -= OnQuickAccessMenuClosed;
+            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             if (contextMenu != null)
             {
                 for (int i = 0; i < quickAccessButton.Items.Count; i++)

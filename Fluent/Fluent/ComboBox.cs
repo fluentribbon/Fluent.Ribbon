@@ -998,25 +998,28 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            ComboBox nox = element as ComboBox;
-            Bind(this, nox, "Width", WidthProperty, BindingMode.Default);
-            Bind(this, nox, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            Bind(this, nox, "ItemBindingGroup", ItemBindingGroupProperty, BindingMode.Default);
-            Bind(this, nox, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.Default);
-            Bind(this, nox, "ItemContainerStyleSelector", ItemContainerStyleSelectorProperty, BindingMode.Default);
-            Bind(this, nox, "ItemsPanel", ItemsPanelProperty, BindingMode.Default);
-            Bind(this, nox, "ItemTemplate", ItemTemplateProperty, BindingMode.Default);
-            Bind(this, nox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.Default);
-            Bind(this, nox, "VerticalScrollBarVisibility", VerticalScrollBarVisibilityProperty, BindingMode.Default);
-            Bind(this, nox, "HorizontalScrollBarVisibility", HorizontalScrollBarVisibilityProperty, BindingMode.Default);
-            Bind(this, nox, "GroupBy", GroupByProperty, BindingMode.Default);
-            Bind(this, nox, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.Default);
-            Bind(this, nox, "IsTextSearchEnabled", IsTextSearchEnabledProperty, BindingMode.Default);
-            Bind(this, nox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
-            Bind(this, nox, "MenuMinWidth", MenuMinWidthProperty, BindingMode.OneWay);
-            Bind(this, nox, "IsEditable", IsEditableProperty, BindingMode.OneWay);
-            Bind(this, nox, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
-            Bind(this, nox, "InputWidth", InputWidthProperty, BindingMode.OneWay);
+            ComboBox comboBox = (ComboBox)element;
+
+            comboBox.Width = Width;
+            comboBox.InputWidth = InputWidth;
+
+            Bind(this, comboBox, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemBindingGroup", ItemBindingGroupProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemContainerStyleSelector", ItemContainerStyleSelectorProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemsPanel", ItemsPanelProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemTemplate", ItemTemplateProperty, BindingMode.Default);
+            Bind(this, comboBox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.Default);
+            Bind(this, comboBox, "VerticalScrollBarVisibility", VerticalScrollBarVisibilityProperty, BindingMode.Default);
+            Bind(this, comboBox, "HorizontalScrollBarVisibility", HorizontalScrollBarVisibilityProperty, BindingMode.Default);
+            Bind(this, comboBox, "GroupBy", GroupByProperty, BindingMode.Default);
+            Bind(this, comboBox, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.Default);
+            Bind(this, comboBox, "IsTextSearchEnabled", IsTextSearchEnabledProperty, BindingMode.Default);
+            Bind(this, comboBox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
+            Bind(this, comboBox, "MenuMinWidth", MenuMinWidthProperty, BindingMode.OneWay);
+            Bind(this, comboBox, "IsEditable", IsEditableProperty, BindingMode.OneWay);
+            Bind(this, comboBox, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
+            
 
             base.BindQuickAccessItem(element);
         }

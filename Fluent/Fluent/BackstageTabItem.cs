@@ -6,12 +6,9 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,7 +26,13 @@ namespace Fluent
         /// <summary>
         /// Dependency property for isSelected
         /// </summary>
-        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(BackstageTabItem.OnIsSelectedChanged)));
+        public static readonly DependencyProperty IsSelectedProperty = 
+            Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem), 
+            new FrameworkPropertyMetadata(false, 
+                FrameworkPropertyMetadataOptions.Journal | 
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | 
+                FrameworkPropertyMetadataOptions.AffectsParentMeasure, 
+                OnIsSelectedChanged));
         
         /// <summary>
         /// Gets or sets whether the tab is selected
@@ -68,12 +71,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Text.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(BackstageTabItem), new UIPropertyMetadata(""));
-
-
+            DependencyProperty.Register("Text", typeof(string), 
+            typeof(BackstageTabItem), new UIPropertyMetadata(""));
 
         #endregion
 
@@ -85,14 +88,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageTabItem()
         {
-            StyleProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
-        }
-
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["BackstageTabItemStyle"] as Style;
-            return basevalue;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), 
+                new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
         }
 
         /// <summary>
@@ -110,8 +107,9 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                    (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
+            if (TabControlParent != null && TabControlParent.SelectedItem is RibbonTabItem)
+                ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
+
             IsSelected = true;
             e.Handled = true;
         }
@@ -128,13 +126,9 @@ namespace Fluent
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
-            if (this.IsSelected)
+            if (IsSelected && TabControlParent != null)
             {
-                Backstage tabControlParent = this.TabControlParent;
-                if (tabControlParent != null)
-                {
-                    tabControlParent.SelectedContent = newContent;
-                }
+                TabControlParent.SelectedContent = newContent;
             }
         }
 
@@ -146,12 +140,12 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) || !this.IsSelected))
+            if (((e.Source == this) || !IsSelected))
             {
-                if (TabControlParent != null) if (TabControlParent.SelectedItem is BackstageTabItem)
-                        (TabControlParent.SelectedItem as BackstageTabItem).IsSelected = false;
-               
-                this.IsSelected = true;
+                if (TabControlParent != null && TabControlParent.SelectedItem is BackstageTabItem)
+                    ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
+
+                IsSelected = true;
             }
             e.Handled = true;
         }
@@ -163,7 +157,7 @@ namespace Fluent
         // Handles IsSelected changed
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            BackstageTabItem container = d as BackstageTabItem;
+            BackstageTabItem container = (BackstageTabItem)d;
             bool newValue = (bool)e.NewValue;
 
             if (newValue)
@@ -188,7 +182,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected virtual void OnSelected(RoutedEventArgs e)
         {
-            this.HandleIsSelectedChanged(e);
+            HandleIsSelectedChanged(e);
         }
 
         /// <summary>
@@ -197,7 +191,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected virtual void OnUnselected(RoutedEventArgs e)
         {
-            this.HandleIsSelectedChanged(e);
+            HandleIsSelectedChanged(e);
         }
 
         #endregion
@@ -210,7 +204,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private void HandleIsSelectedChanged(RoutedEventArgs e)
         {
-            base.RaiseEvent(e);
+            RaiseEvent(e);
         }
 
         #endregion

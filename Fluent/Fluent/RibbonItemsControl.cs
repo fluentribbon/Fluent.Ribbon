@@ -164,8 +164,8 @@ namespace Fluent
         #region Items
 
         /// <summary> 
-        ///     Items is the collection of data that is used to generate the content 
-        ///     of this control.
+        /// Items is the collection of data that is used to 
+        /// generate the content of this control
         /// </summary> 
         [Bindable(true)]
         public ObservableCollection<object> Items
@@ -182,10 +182,15 @@ namespace Fluent
             }
         }
 
-        private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnItemsCollectionChanged(e);
         }
+
+        /// <summary>
+        /// Items collection changes hadling 
+        /// </summary>
+        /// <param name="e">Event args</param>
         protected virtual void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -268,6 +273,10 @@ namespace Fluent
             (d as RibbonItemsControl).OnItemsSourceChanged(e);
         }
 
+        /// <summary>
+        /// ItemsSource property change handling
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {
             

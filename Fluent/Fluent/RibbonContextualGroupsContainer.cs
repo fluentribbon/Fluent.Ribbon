@@ -6,10 +6,9 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -23,7 +22,7 @@ namespace Fluent
     {
         #region Fields
 
-        List<Size> sizes = new List<Size>();
+        readonly List<Size> sizes = new List<Size>();
 
         #endregion
 
@@ -126,8 +125,8 @@ namespace Fluent
                     finalWidth -= x - availableSize.Width;
                     x = availableSize.Width;
                 }
-                child.Measure(new Size(finalWidth, availableSize.Height));
-                sizes.Add(new Size(finalWidth, availableSize.Height));
+                child.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
+                sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
             }
             double height = availableSize.Height;
             if (double.IsPositiveInfinity(height)) height = 0;

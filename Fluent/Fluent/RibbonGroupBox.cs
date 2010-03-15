@@ -6,16 +6,14 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;

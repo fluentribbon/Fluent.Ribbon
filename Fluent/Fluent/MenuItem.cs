@@ -231,7 +231,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuResizeModeProperty =
-            DependencyProperty.Register("MenuResizeMode", typeof(ContextMenuResizeMode), typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
 
 
@@ -504,7 +504,7 @@ namespace Fluent
             binding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
             
-            Binding resizeModeBinding = new Binding("MenuResizeMode");
+            Binding resizeModeBinding = new Binding("ResizeMode");
             resizeModeBinding.Mode = BindingMode.OneWay;
             resizeModeBinding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);

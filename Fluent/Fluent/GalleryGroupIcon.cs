@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
 using System.Windows;
 using System.Windows.Media;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents gallery group icon definition
+    /// </summary>
     public class GalleryGroupIcon : DependencyObject
     {
-
         /// <summary>
         /// Gets or sets group name
         /// </summary>
@@ -20,10 +27,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupName.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(GalleryGroupIcon), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupName", typeof(string), 
+            typeof(GalleryGroupIcon), new UIPropertyMetadata(null));
 
 
         /// <summary>
@@ -36,7 +45,8 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Icon.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(ImageSource), typeof(GalleryGroupIcon),

@@ -6,24 +6,16 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -75,7 +67,7 @@ namespace Fluent
         // Itemc collection was changed
         private bool itemsHadChanged;
 
-        private double cachedDeltaWidth = 0;
+        private double cachedDeltaWidth;
 
         #endregion
 
@@ -134,6 +126,8 @@ namespace Fluent
 
         #endregion
 
+        #region QuickAccessItems
+
         /// <summary>
         /// Gets quick access menu items
         /// </summary>
@@ -141,12 +135,12 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (quickAccessItems == null)
                 {
-                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
-                    this.quickAccessItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnQuickAccessItemsCollectionChanged);
+                    quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    quickAccessItems.CollectionChanged += OnQuickAccessItemsCollectionChanged;
                 }
-                return this.quickAccessItems;
+                return quickAccessItems;
             }
         }
         /// <summary>
@@ -159,36 +153,40 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Add(obj2 as QuickAccessMenuItem);
-                        else AddLogicalChild(obj2);     
+                        if (menuPanel != null) menuPanel.Children.Add((QuickAccessMenuItem)item);
+                        else AddLogicalChild(item);     
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Remove(obj3 as QuickAccessMenuItem);
-                        else RemoveLogicalChild(obj3);
+                        if (menuPanel != null) menuPanel.Children.Remove((QuickAccessMenuItem)item);
+                        else RemoveLogicalChild(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Remove(obj4 as QuickAccessMenuItem);
-                        else RemoveLogicalChild(obj4);
+                        if (menuPanel != null) menuPanel.Children.Remove((QuickAccessMenuItem)item);
+                        else RemoveLogicalChild(item);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Add(obj5 as QuickAccessMenuItem);
-                        else AddLogicalChild(obj5);
+                        if (menuPanel != null) menuPanel.Children.Add((QuickAccessMenuItem)item);
+                        else AddLogicalChild(item);
                     }
                     break;
             }
 
         }
+
+        #endregion
+
+        #region ShowAboveRibbon
 
         /// <summary>
         /// Gets or sets whether quick access toolbar showes above ribbon
@@ -200,15 +198,21 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
-            DependencyProperty.Register("ShowAboveRibbon", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            DependencyProperty.Register("ShowAboveRibbon", typeof(bool),
+            typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+
+        #endregion
+
+        #region LogicalChildren
 
         /// <summary>
-        /// Gets an enumerator to the logical child elements of the System.Windows.Controls.HeaderedItemsControl.
+        /// Gets an enumerator to the logical child elements
         /// </summary>
-        protected override System.Collections.IEnumerator LogicalChildren
+        protected override IEnumerator LogicalChildren
         {
             get
             {
@@ -229,7 +233,9 @@ namespace Fluent
 
         #endregion
 
-        #region Initialize
+        #endregion
+
+        #region Initialization
 
         /// <summary>
         /// Static constructor
@@ -251,7 +257,6 @@ namespace Fluent
         #endregion
 
         #region Override
-
 
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or 
@@ -278,11 +283,9 @@ namespace Fluent
             }
             else if(quickAccessItems!=null)
             {
-                //Ribbon ribbon = FindRibbon();
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
                     RemoveLogicalChild(quickAccessItems[i]);
-                    //if ((quickAccessItems[i].IsChecked) && (ribbon != null)) ribbon.AddToQuickAccessToolbar(quickAccessItems[i].Target);
                 }
             }
             menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
@@ -297,14 +300,14 @@ namespace Fluent
 
             if (menuButton != null)
             {
-                menuButton.MenuOpened -= OnMenuOpened;
-                menuButton.MenuClosed -= OnMenuClosed;
+                menuButton.Opened -= OnMenuOpened;
+                menuButton.Closed -= OnMenuClosed;
             }
             menuButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
             if (menuButton != null)
             {
-                menuButton.MenuOpened += OnMenuOpened;
-                menuButton.MenuClosed += OnMenuClosed;
+                menuButton.Opened += OnMenuOpened;
+                menuButton.Closed += OnMenuClosed;
             }
 
             DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
@@ -355,6 +358,11 @@ namespace Fluent
             ShowAboveRibbon = true;
         }
 
+        /// <summary>
+        /// Called to remeasure a control. 
+        /// </summary>
+        /// <returns>The size of the control, up to the maximum specified by constraint</returns>
+        /// <param name="constraint">The maximum size that the method can return</param>
         protected override Size MeasureOverride(Size constraint)
         {
             if ((cachedConstraint == constraint)&&!itemsHadChanged) return base.MeasureOverride(constraint);
@@ -409,18 +417,18 @@ namespace Fluent
             for (int i = 0; i < Math.Min(9, Items.Count); i++)
             {
                 // 1, 2, 3, ... , 9
-                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
             }
             for (int i = 9; i < Math.Min(18, Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
-                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
             char startChar = 'A';
             for (int i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
             {
                 // 0A, 0B, 0C, ... , 0Z
-                if (Items[i] is UIElement) KeyTip.SetKeys((UIElement)Items[i], "0" + startChar++);
+                KeyTip.SetKeys(Items[i], "0" + startChar++);
             }
         }
 
@@ -442,6 +450,5 @@ namespace Fluent
         }
 
         #endregion
-
     }
 }

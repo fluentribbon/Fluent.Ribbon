@@ -6,15 +6,12 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -30,12 +27,15 @@ namespace Fluent
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MenuPanel()
         {
             Loaded += OnMenuLoaded;
         }
 
-        private void OnMenuLoaded(object sender, RoutedEventArgs e)
+        void OnMenuLoaded(object sender, RoutedEventArgs e)
         {
             UpdateMenuSizes();
         }
@@ -44,6 +44,9 @@ namespace Fluent
 
         #region Private methods
 
+        /// <summary>
+        /// Updates menu sizes
+        /// </summary>
         internal void UpdateMenuSizes()
         {
             Width = double.NaN;
@@ -77,6 +80,11 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// Invoked when the VisualCollection of a visual object is modified.
+        /// </summary>
+        /// <param name="visualAdded">The Visual that was added to the collection</param>
+        /// <param name="visualRemoved">The Visual that was removed from the collection</param>
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
@@ -90,7 +98,7 @@ namespace Fluent
             if (removed != null) removed.IsVisibleChanged -= OnItemVisibilityChanged;
         }
 
-        private void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
+        void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { UpdateMenuSizes(); UpdateLayout(); }));
         }
@@ -143,8 +151,8 @@ namespace Fluent
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(new Size(availableSize.Width, deltaHeight));
-                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width,(item as FrameworkElement).MinWidth));
-                            totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
                         }
                     }
                 }
@@ -155,8 +163,8 @@ namespace Fluent
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(availableSize);
-                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, (item as FrameworkElement).MinWidth));
-                            totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
                         }
                     }
                 }
@@ -168,8 +176,8 @@ namespace Fluent
                     if (item.Visibility != Visibility.Collapsed)
                     {
                         item.Measure(availableSize);
-                        maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, (item as FrameworkElement).MinWidth));
-                        totalHeight += Math.Max(item.DesiredSize.Height, (item as FrameworkElement).MinHeight);
+                        maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
+                        totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
                     }
                 }
             }
@@ -178,11 +186,13 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, positions child elements and determines a size for a System.Windows.FrameworkElement derived class.
+        /// When overridden in a derived class, positions child elements and 
+        /// determines a size for a System.Windows.FrameworkElement derived class.
         /// </summary>
-        /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+        /// <param name="finalSize">The final area within the parent that this element
+        /// should use to arrange itself and its children.</param>
         /// <returns>The actual size used.</returns>
-        protected override System.Windows.Size ArrangeOverride(System.Windows.Size finalSize)
+        protected override Size ArrangeOverride(Size finalSize)
         {            
             double totalHeight = 0;            
             List<UIElement> nonItemsElements = new List<UIElement>();

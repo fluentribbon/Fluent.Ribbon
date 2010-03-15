@@ -6,17 +6,15 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
+
 
 namespace Fluent
 {
@@ -26,8 +24,9 @@ namespace Fluent
     public class Backstage: Selector
     {
         #region Properties
-        
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(Backstage), new FrameworkPropertyMetadata(null));
+
+        // Dependency property key for SelectedContent
+        static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(Backstage), new FrameworkPropertyMetadata(null));
         
         /// <summary>
         /// Dependency property SelectedContent
@@ -60,15 +59,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Backstage()
         {
-            //StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["BackstageStyle"] as Style;
-            return basevalue;
         }
 
         /// <summary>
@@ -77,10 +68,12 @@ namespace Fluent
         public Backstage()
         {
             // Fixed incoreect menu showing
-            ContextMenu = new System.Windows.Controls.ContextMenu();
-            ContextMenu.Width = 0;
-            ContextMenu.Height = 0;
-            ContextMenu.HasDropShadow = false;
+            ContextMenu = new ContextMenu
+            {
+                Width = 0, 
+                Height = 0, 
+                HasDropShadow = false
+            };
             ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
         }
 
@@ -116,7 +109,7 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return ((item is BackstageTabItem)||(item is Button));
+            return ((item is BackstageTabItem) || (item is Button));
         }
 
         /// <summary>
@@ -133,7 +126,7 @@ namespace Fluent
                 {
                     startIndex = 0;
                 }
-                BackstageTabItem item = this.FindNextTabItem(startIndex, -1);
+                BackstageTabItem item = FindNextTabItem(startIndex, -1);
                 if (item != null)
                 {
                     item.IsSelected = true;

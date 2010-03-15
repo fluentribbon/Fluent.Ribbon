@@ -1,8 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Interop;
@@ -11,11 +18,14 @@ using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
-    public class IconConverter:IValueConverter
+    /// <summary>
+    /// Icon converter provides default icon if user-defined is not present
+    /// </summary>
+    public class IconConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             BitmapFrame img = value as BitmapFrame;
             if (value == null)
@@ -33,7 +43,7 @@ namespace Fluent
             return value;
         }
 
-        private static ImageSource GetDefaultIcon(IntPtr hwnd)
+        static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {
@@ -61,7 +71,7 @@ namespace Fluent
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

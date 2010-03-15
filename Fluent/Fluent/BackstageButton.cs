@@ -6,15 +6,12 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace Fluent
 {
@@ -35,10 +32,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Backstage.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Backstage.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BackstageProperty =
-            DependencyProperty.Register("Backstage", typeof(object), typeof(BackstageButton), new UIPropertyMetadata(null));
+            DependencyProperty.Register("Backstage", typeof(object), 
+            typeof(BackstageButton), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets whether backstage is shown
@@ -50,10 +49,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(BackstageButton), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsOpen", typeof(bool), 
+            typeof(BackstageButton), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
@@ -70,7 +71,7 @@ namespace Fluent
 
         #endregion
        
-        #region Initialize
+        #region Initialization
 
         /// <summary>
         /// Static constructor
@@ -78,17 +79,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageButton()
         {
-            //StyleProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageButton),
-                                                     new FrameworkPropertyMetadata(typeof(BackstageButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(typeof(BackstageButton)));
             // Disable QAT for this control
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(BackstageButton), new FrameworkPropertyMetadata(false));
-        }
-
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultBackstageButtonStyle;
-            return basevalue;
         }
 
         /// <summary>
@@ -105,11 +98,11 @@ namespace Fluent
         }
 
         /// <summary>
-        /// handles click event
+        /// Handles click event
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
-        private void OnClick(object sender, RoutedEventArgs e)
+        void OnClick(object sender, RoutedEventArgs e)
         {
             IsOpen = !IsOpen;
             e.Handled = true;

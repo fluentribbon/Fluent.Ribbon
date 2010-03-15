@@ -185,7 +185,7 @@
   		<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="False">
   			<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
   		</Trigger>
-  		<Trigger Property="CanCustomizeQuickAccessToolbar" Value="False">
+  		<Trigger Property="CanCustomizeQuickAccessToolBar" Value="False">
   			<Setter Property="Visibility" TargetName="PART_CustomizeQuickAccessToolbarMenuItem" Value="Collapsed"/>
   		</Trigger>
   		<Trigger Property="CanCustomizeRibbon" Value="False">

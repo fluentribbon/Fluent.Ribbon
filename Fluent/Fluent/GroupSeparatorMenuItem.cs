@@ -6,11 +6,8 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
-using System;
-using System.Collections.Generic;
+
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -39,16 +36,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static GroupSeparatorMenuItem()
         {
-            //StyleProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem),
-                                                     new FrameworkPropertyMetadata(typeof(GroupSeparatorMenuItem)));
-        }
-        
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["MenuGroupSeparatorStyle"] as Style;
-            return basevalue;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(typeof(GroupSeparatorMenuItem)));
         }
     }
 }

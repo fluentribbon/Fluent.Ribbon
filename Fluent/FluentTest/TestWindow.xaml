@@ -5,7 +5,7 @@
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Fluent Ribbon Control Suite 1.0 RC" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-    FlowDirection="RightToLeft"
+    
     >
   <Fluent:RibbonWindow.Resources>
 
@@ -267,7 +267,7 @@
         <TextBlock Tag="Group2">2</TextBlock>
         <TextBlock Tag="Group2">3</TextBlock>
               </Fluent:InRibbonGallery>
-              <Fluent:SplitButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" MenuResizeMode="Both">
+              <Fluent:SplitButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both">
                 <Fluent:Gallery x:Name="gallery" GroupBy="Tag" MinHeight="60" ItemsInRow="3">
                   <Fluent:Gallery.GroupIcons>
                     <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
@@ -291,7 +291,7 @@
               </Fluent:SplitButton>
               <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
               <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
-              <Fluent:DropDownButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Further Options" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" MenuResizeMode="Vertical">
+              <Fluent:DropDownButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Further Options" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" ResizeMode="Vertical">
                 <Fluent:DropDownButton.Items>
                   <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag" x:Name="sampleGallery" SelectedItem="{Binding ElementName=item3}" ItemsInRow="3">
                     <Fluent:Gallery.Filters>

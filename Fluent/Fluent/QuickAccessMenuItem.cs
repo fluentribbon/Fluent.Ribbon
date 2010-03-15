@@ -6,6 +6,7 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
@@ -13,13 +14,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media.Imaging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Fluent
 {

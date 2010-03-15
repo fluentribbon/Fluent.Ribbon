@@ -6,19 +6,15 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Controls;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Fluent
 {
@@ -249,6 +245,15 @@ namespace Fluent
         /// Identifies the RibbonControl.Click routed event.
         /// </summary>
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(RibbonControl));
+
+        /// <summary>
+        /// Raises click event
+        /// </summary>
+        public void RaiseClick()
+        {
+            RoutedEventArgs eventArgs = new RoutedEventArgs(ClickEvent, this);
+            RaiseEvent(eventArgs);
+        }
 
         #endregion
 

@@ -6,10 +6,7 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -24,11 +21,11 @@ namespace Fluent
         #region Fields
 
         // Backstage
-        private UIElement backstage = null;
+        readonly UIElement backstage;
         // Adorner offset from top of window
-        private double topOffset = 0;
+        readonly double topOffset;
         // Collection of visual children
-        VisualCollection visualChildren;
+        readonly VisualCollection visualChildren;
 
         #endregion
 
@@ -40,8 +37,7 @@ namespace Fluent
         /// <param name="adornedElement">Adorned element</param>
         /// <param name="backstage">Backstage</param>
         /// <param name="topOffset">Adorner offset from top of window</param>
-        public BackstageAdorner(UIElement adornedElement, UIElement backstage, double topOffset)
-            : base(adornedElement)
+        public BackstageAdorner(UIElement adornedElement, UIElement backstage, double topOffset) : base(adornedElement)
         {
             this.backstage = backstage;
             this.topOffset = topOffset;

@@ -6,6 +6,7 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     public class Ribbon: Control
     {
-        #region Consts
+        #region Constants
 
         /// <summary>
         /// Minimal width of ribbon parent wndow
@@ -90,7 +91,7 @@ namespace Fluent
         MenuItem minimizeTheRibbonMenuItem;
 
         // Handles F10, Alt and so on
-        KeyTipService keyTipService;
+        readonly KeyTipService keyTipService;
         
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
@@ -98,8 +99,8 @@ namespace Fluent
         private BackstageAdorner adorner;
         // Saved when backstage opened tab item
         private RibbonTabItem savedTabItem;
-
-        Dictionary<UIElement,UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
+        // Currently added in QAT items
+        readonly Dictionary<UIElement,UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
         private double savedMinWidth;
         private double savedMinHeight;
@@ -107,12 +108,11 @@ namespace Fluent
         private int savedHeight;
 
         // Stream to save quickaccesselements on aplytemplate
-        MemoryStream quickAccessStream = null;
+        MemoryStream quickAccessStream;
 
         #endregion
 
         #region Properties
-
 
         /// <summary>
         /// Gets or sets KeyTip.Keys for Backstage
@@ -134,7 +134,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>
-        internal  RibbonTitleBar TitleBar
+        internal RibbonTitleBar TitleBar
         {
             get { return titleBar; }
         }
@@ -173,10 +173,10 @@ namespace Fluent
         {
             get
             {
-                if (this.groups == null)
+                if (groups == null)
                 {
-                    this.groups = new ObservableCollection<RibbonContextualTabGroup>();
-                    this.groups.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnGroupsCollectionChanged);
+                    groups = new ObservableCollection<RibbonContextualTabGroup>();
+                    groups.CollectionChanged += OnGroupsCollectionChanged;
                 }
                 return this.groups;
             }
@@ -191,27 +191,27 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {                        
-                        if (titleBar != null) titleBar.Items.Add(obj2);
+                        if (titleBar != null) titleBar.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {                        
-                        if (titleBar != null) titleBar.Items.Remove(obj3);
+                        if (titleBar != null) titleBar.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {                        
-                        if (titleBar != null) titleBar.Items.Remove(obj4);
+                        if (titleBar != null) titleBar.Items.Remove(item);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (titleBar != null) titleBar.Items.Add(obj5);
+                        if (titleBar != null) titleBar.Items.Add(item);
                     }
                     break;
             }
@@ -225,12 +225,12 @@ namespace Fluent
         {
             get
             {
-                if (this.tabs == null)
+                if (tabs == null)
                 {
-                    this.tabs = new ObservableCollection<RibbonTabItem>();
-                    this.tabs.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnTabsCollectionChanged);
+                    tabs = new ObservableCollection<RibbonTabItem>();
+                    tabs.CollectionChanged += OnTabsCollectionChanged;
                 }
-                return this.tabs;
+                return tabs;
             }
         }
 
@@ -244,27 +244,27 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.Items.Add(obj2);
+                        if (tabControl != null) tabControl.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.Items.Remove(obj3);
+                        if (tabControl != null) tabControl.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.Items.Remove(obj4);
+                        if (tabControl != null) tabControl.Items.Remove(item);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.Items.Add(obj5);
+                        if (tabControl != null) tabControl.Items.Add(item);
                     }
                     break;
             }
@@ -277,12 +277,12 @@ namespace Fluent
         {
             get
             {
-                if (this.toolBarItems == null)
+                if (toolBarItems == null)
                 {
-                    this.toolBarItems = new ObservableCollection<UIElement>();
-                    this.toolBarItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                    toolBarItems = new ObservableCollection<UIElement>();
+                    toolBarItems.CollectionChanged += OnToolbarItemsCollectionChanged;
                 }
-                return this.toolBarItems;
+                return toolBarItems;
             }
         }
 
@@ -296,27 +296,27 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Add(obj2 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Add(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Remove(obj3 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Remove(obj4 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Remove(item as UIElement);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Add(obj5 as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Add(item as UIElement);
                     }
                     break;
             }
@@ -340,7 +340,6 @@ namespace Fluent
             {
                 ArrayList list = new ArrayList();
                 if(layoutRoot!=null)list.Add(layoutRoot);
-                //if(ShowQuickAccessToolBarAboveRibbon)
                 if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
@@ -354,12 +353,12 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (quickAccessItems == null)
                 {
-                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
-                    this.quickAccessItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnQuickAccessItemsCollectionChanged);
+                    quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    quickAccessItems.CollectionChanged += OnQuickAccessItemsCollectionChanged;
                 }
-                return this.quickAccessItems;
+                return quickAccessItems;
             }
         }
         /// <summary>
@@ -372,31 +371,31 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj2 as QuickAccessMenuItem);
-                        (obj2 as QuickAccessMenuItem).Ribbon = this;                        
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add((QuickAccessMenuItem)item);
+                        ((QuickAccessMenuItem)item).Ribbon = this;                        
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj3 as QuickAccessMenuItem);
-                        (obj3 as QuickAccessMenuItem).Ribbon = null;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove((QuickAccessMenuItem)item);
+                        ((QuickAccessMenuItem)item).Ribbon = null;
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(obj4 as QuickAccessMenuItem);
-                        (obj4 as QuickAccessMenuItem).Ribbon = null;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove((QuickAccessMenuItem)item);
+                        ((QuickAccessMenuItem)item).Ribbon = null;
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(obj5 as QuickAccessMenuItem);
-                        (obj5 as QuickAccessMenuItem).Ribbon = this;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add((QuickAccessMenuItem)item);
+                        ((QuickAccessMenuItem)item).Ribbon = this;
                     }
                     break;
             }
@@ -410,12 +409,12 @@ namespace Fluent
         {
             get
             {
-                if (this.backstageItems == null)
+                if (backstageItems == null)
                 {
-                    this.backstageItems = new ObservableCollection<UIElement>();
-                    this.backstageItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnBackstageItemsCollectionChanged);
+                    backstageItems = new ObservableCollection<UIElement>();
+                    backstageItems.CollectionChanged += OnBackstageItemsCollectionChanged;
                 }
-                return this.backstageItems;
+                return backstageItems;
             }
         }
 
@@ -429,31 +428,30 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (backstageButton != null) backstageButton.Backstage.Items.Add(obj2 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(obj3 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(obj4 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Remove(item);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (backstageButton != null) backstageButton.Backstage.Items.Add(obj5 as UIElement);
+                        if (backstageButton != null) backstageButton.Backstage.Items.Add(item);
                     }
                     break;
             }
-
         }
 
         /// <summary>
@@ -466,10 +464,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsBackstageOpen.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsBackstageOpen. 
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsBackstageOpenProperty =
-            DependencyProperty.Register("IsBackstageOpen", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
+            DependencyProperty.Register("IsBackstageOpen", typeof(bool), 
+            typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
 
         /// <summary>
         /// Handles IsBackstageOpen property changes
@@ -478,7 +478,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnIsBackstageOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = d as Ribbon;
+            Ribbon ribbon = (Ribbon)d;
             if((bool)e.NewValue)
             {
                 ribbon.ShowBackstage();
@@ -499,27 +499,29 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageBrush.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for BackstageBrush. 
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BackstageBrushProperty =
-            DependencyProperty.Register("BackstageBrush", typeof(Brush), typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
-
-
-
+            DependencyProperty.Register("BackstageBrush", typeof(Brush), 
+            typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
+        
         /// <summary>
         /// Gets or set whether Customize Quick Access Toolbar menu item is shown
         /// </summary>
-        public bool CanCustomizeQuickAccessToolbar
+        public bool CanCustomizeQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanCustomizeQuickAccessToolbarProperty); }
-            set { SetValue(CanCustomizeQuickAccessToolbarProperty, value); }
+            get { return (bool)GetValue(CanCustomizeQuickAccessToolBarProperty); }
+            set { SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolbar.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBar.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanCustomizeQuickAccessToolbarProperty =
-            DependencyProperty.Register("CanCustomizeQuickAccessToolbar", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
+            DependencyProperty.Register("CanCustomizeQuickAccessToolBar", typeof(bool), 
+            typeof(Ribbon), new UIPropertyMetadata(false));
 
 
         /// <summary>
@@ -532,10 +534,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon. 
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
-            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool), 
+            typeof(Ribbon), new UIPropertyMetadata(false));
 
 
         /// <summary>
@@ -548,17 +552,18 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMinimized.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsMinimized. 
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
-            DependencyProperty.Register("IsMinimized", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
+            DependencyProperty.Register("IsMinimized", typeof(bool), 
+            typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
             ribbon.SaveState();
         }
-
 
         /// <summary>
         /// Gets whether ribbon is collapsed
@@ -573,7 +578,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-               DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(false));
+               DependencyProperty.Register("IsCollapsed", typeof(bool), 
+               typeof(Ribbon), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -585,15 +591,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Ribbon()
         {
-            //StyleProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonStyle;
-            return basevalue;
         }
 
         /// <summary>
@@ -704,7 +702,7 @@ namespace Fluent
             {
                 quickAccessStream = new MemoryStream();
                 SaveState(quickAccessStream);
-                ClearQuickAccessToolbar();
+                ClearQuickAccessToolBar();
             }
 
             if (quickAccessToolBar != null)
@@ -810,7 +808,7 @@ namespace Fluent
             if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
             {
                 UIElement element = quickAccessElements.First(x => x.Value == ribbonContextMenu.Tag).Key;
-                RemoveFromQuickAccessToolbar(element);
+                RemoveFromQuickAccessToolBar(element);
             }
         }
 
@@ -833,7 +831,7 @@ namespace Fluent
         {
             if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
             {
-                AddToQuickAccessToolbar(ribbonContextMenu.Tag as UIElement);
+                AddToQuickAccessToolBar(ribbonContextMenu.Tag as UIElement);
             }
         }
         
@@ -846,7 +844,7 @@ namespace Fluent
                                                                                  e.GetPosition(ribbonTabControl));
                 if (control != null)
                 {
-                    AddToQuickAccessToolbar(control);
+                    AddToQuickAccessToolBar(control);
                 }
             }*/
             if(ribbonContextMenu!=null)
@@ -867,7 +865,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if(control is ContextMenu)
                     {
@@ -876,7 +874,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if(control is Gallery)
                     {
@@ -885,7 +883,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else if (control is RibbonGroupBox)
                     {
@@ -894,7 +892,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                     else 
                     {
@@ -903,7 +901,7 @@ namespace Fluent
                         addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
                         removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolbar(control);
+                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
                     }
                 }
                 else
@@ -921,16 +919,25 @@ namespace Fluent
 
         #region Quick Access Items Managment
                
-        public bool IsInQuickAccessToolbar(UIElement element)
+        /// <summary>
+        /// Determines whether the given element is in quick access toolbar
+        /// </summary>
+        /// <param name="element">Element</param>
+        /// <returns>True if element in quick access toolbar</returns>
+        public bool IsInQuickAccessToolBar(UIElement element)
         {
             if(element==null) return false;
             return quickAccessElements.ContainsKey(element);
         }
 
-        public void AddToQuickAccessToolbar(UIElement element)
+        /// <summary>
+        /// Adds the given element to quick access toolbar
+        /// </summary>
+        /// <param name="element">Element</param>
+        public void AddToQuickAccessToolBar(UIElement element)
         {
             if (!QuickAccessItemsProvider.IsSupported(element)) return;
-            if (!IsInQuickAccessToolbar(element))
+            if (!IsInQuickAccessToolBar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
                 
@@ -940,9 +947,13 @@ namespace Fluent
             }
         }
 
-        public void RemoveFromQuickAccessToolbar(UIElement element)
+        /// <summary>
+        /// Removes the given elements from quick access toolbar
+        /// </summary>
+        /// <param name="element">Element</param>
+        public void RemoveFromQuickAccessToolBar(UIElement element)
         {
-            if (IsInQuickAccessToolbar(element))
+            if (IsInQuickAccessToolBar(element))
             {
                 UIElement quickAccessItem = quickAccessElements[element];
                 quickAccessElements.Remove(element);
@@ -952,7 +963,10 @@ namespace Fluent
 
         }
 
-        public void ClearQuickAccessToolbar()
+        /// <summary>
+        /// Clears quick access toolbar
+        /// </summary>
+        public void ClearQuickAccessToolBar()
         {
             quickAccessElements.Clear();
             if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
@@ -960,10 +974,10 @@ namespace Fluent
 
         #endregion
 
-        #region Event handling
+        #region Event Handling
 
         // Handles tab control selection chaged
-        private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
@@ -975,19 +989,19 @@ namespace Fluent
             }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        void OnLoaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Attach();
-            Window wnd = Window.GetWindow(this);
-            if (wnd != null) wnd.SizeChanged += OnSizeChanged;
+            Window window = Window.GetWindow(this);
+            if (window != null) window.SizeChanged += OnSizeChanged;
             InitialLoadState();
         }
 
-        private void OnUnloaded(object sender, RoutedEventArgs e)
+        void OnUnloaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Detach();
-            Window wnd = Window.GetWindow(this);
-            if (wnd != null) wnd.SizeChanged -= OnSizeChanged;
+            Window window = Window.GetWindow(this);
+            if (window != null) window.SizeChanged -= OnSizeChanged;
         }
 
         #endregion
@@ -995,7 +1009,7 @@ namespace Fluent
         #region Private methods
 
         // Show backstage
-        private void ShowBackstage()
+        void ShowBackstage()
         {            
             AdornerLayer layer = GetAdornerLayer(this);
             if (adorner == null)
@@ -1022,19 +1036,23 @@ namespace Fluent
             }
             if(quickAccessToolBar!=null) quickAccessToolBar.IsEnabled = false;
             if(titleBar!=null) titleBar.IsEnabled = false;
-            Window wnd = Window.GetWindow(this);
-            wnd.PreviewKeyDown += OnBackstageEscapeKeyDown;
-            savedMinWidth = wnd.MinWidth;
-            savedMinHeight = wnd.MinHeight;
+            
+            Window window = Window.GetWindow(this);
+            if (window != null)
+            {
+                window.PreviewKeyDown += OnBackstageEscapeKeyDown;
+                savedMinWidth = window.MinWidth;
+                savedMinHeight = window.MinHeight;
 
-            SaveWindowSize(wnd);
+                SaveWindowSize(window);
 
-            wnd.MinWidth = 500;
-            wnd.MinHeight = 400;
-            wnd.SizeChanged += OnWindowSizeChanged;
+                window.MinWidth = 500;
+                window.MinHeight = 400;
+                window.SizeChanged += OnWindowSizeChanged;
+            }
         }
 
-        private void SaveWindowSize(Window wnd)
+        void SaveWindowSize(Window wnd)
         {
             NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
             info.cbSize = (uint)Marshal.SizeOf(info);
@@ -1043,34 +1061,39 @@ namespace Fluent
             savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
         }
 
-        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             Window wnd = Window.GetWindow(this);
             SaveWindowSize(wnd);
         }
 
         // Hide backstage
-        private void HideBackstage()
+        void HideBackstage()
         {
             AdornerLayer layer = GetAdornerLayer(this);
             layer.Remove(adorner);
             if (tabControl != null) tabControl.SelectedItem = savedTabItem;
             if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = true;
             if (titleBar != null) titleBar.IsEnabled = true;
-            Window wnd = Window.GetWindow(this);
-            wnd.PreviewKeyDown -= OnBackstageEscapeKeyDown;
-            wnd.SizeChanged -= OnWindowSizeChanged;
 
-            wnd.MinWidth = savedMinWidth;
-            wnd.MinHeight = savedMinHeight;
-            NativeMethods.SetWindowPos((new WindowInteropHelper(wnd)).Handle, new IntPtr(NativeMethods.HWND_NOTOPMOST),
-                                       0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
+            Window window = Window.GetWindow(this);
+            if (window != null)
+            {
+                window.PreviewKeyDown -= OnBackstageEscapeKeyDown;
+                window.SizeChanged -= OnWindowSizeChanged;
+
+                window.MinWidth = savedMinWidth;
+                window.MinHeight = savedMinHeight;
+                NativeMethods.SetWindowPos((new WindowInteropHelper(window)).Handle,
+                                           new IntPtr(NativeMethods.HWND_NOTOPMOST),
+                                           0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
+            }
         }
 
         // Handles backstage Esc key keydown
-        private void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key==Key.Escape)IsBackstageOpen = false;
+            if(e.Key == Key.Escape) IsBackstageOpen = false;
         }
 
         #endregion
@@ -1259,7 +1282,7 @@ namespace Fluent
             // Sync QAT menu items
             foreach (QuickAccessMenuItem menuItem in QuickAccessItems)
             {
-                menuItem.IsChecked = IsInQuickAccessToolbar(menuItem.Target);
+                menuItem.IsChecked = IsInQuickAccessToolBar(menuItem.Target);
             }
 
             suppressAutomaticStateManagement = false;
@@ -1293,7 +1316,7 @@ namespace Fluent
                 return;
             }
             
-            AddToQuickAccessToolbar(result);
+            AddToQuickAccessToolBar(result);
         }
 
         #endregion

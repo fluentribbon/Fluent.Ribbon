@@ -6,11 +6,9 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -18,22 +16,27 @@ using System.Windows.Input;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents host for context menu items
+    /// </summary>
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
-    public class ContextMenuBar:ItemsControl
+    public class ContextMenuBar : ItemsControl
     {
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        Thumb resizeBothThumb;
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
-
-        private Panel itemsHost;
+        Thumb resizeVerticalThumb;
+        // The main panel with Items
+        Panel itemsHost;
 
         #endregion
 
         #region Properties
+
+        #region ResizeMode Property
 
         /// <summary>
         /// Gets or sets context menu resize mode
@@ -45,12 +48,16 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for ResizeMode. 
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ContextMenuBar), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
+            typeof(ContextMenuBar), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
-        #region ParentContextMenu
+        #endregion
+
+        #region ParentContextMenu Property
 
         /// <summary>
         /// Gets or sets owner context menue
@@ -62,7 +69,8 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for OwnerContextMenu.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for OwnerContextMenu.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ParentContextMenuProperty =
             DependencyProperty.Register("ParentContextMenu", typeof(ContextMenu), typeof(ContextMenuBar), new UIPropertyMetadata(null));
@@ -76,16 +84,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ContextMenuBar()
         {
-            //StyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(typeof(ContextMenuBar)));
-            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null));            
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["ContextMenuBarStyle"] as Style;
-            return basevalue;
+            FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenuBar), new FrameworkPropertyMetadata(null));            
         }
 
         /// <summary>
@@ -173,6 +173,7 @@ namespace Fluent
             itemsHost.Width = Math.Max(itemsHost.MinWidth, itemsHost.Width + e.HorizontalChange);
             itemsHost.Height = Math.Max(itemsHost.MinHeight, itemsHost.Height + e.VerticalChange);
         }
+
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {

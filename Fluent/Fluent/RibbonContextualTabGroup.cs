@@ -6,14 +6,11 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
-using System;
+
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Fluent
@@ -23,11 +20,10 @@ namespace Fluent
     /// </summary>
     public class RibbonContextualTabGroup: Control
     {
-        #region
+        #region Fields
 
         // Collection of ribbon tab items
         private List<RibbonTabItem> items = new List<RibbonTabItem>();
-
         // Cached width
         private double cachedWidth;
 
@@ -45,10 +41,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Header.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup), new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
+            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup), 
+            new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
 
         /// <summary>
         /// Handles header chages
@@ -57,7 +55,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as RibbonContextualTabGroup).cachedWidth = 0;
+            ((RibbonContextualTabGroup)d).cachedWidth = 0;
         }
 
         /// <summary>
@@ -82,18 +80,9 @@ namespace Fluent
         public static readonly DependencyProperty IndentExtenderProperty =
             DependencyProperty.Register("IndentExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
 
-        /*/// <summary>
-        /// Gets or sets chached width
-        /// </summary>
-        internal double CachedWidth
-        {
-            get { return cachedWidth; }
-            set { cachedWidth = value; }
-        }*/
-
         #endregion
 
-        #region Initialize
+        #region Initialization
 
         /// <summary>
         /// Static constructor
@@ -101,9 +90,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonContextualTabGroup()
         {
-            //StyleProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
-
             VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Collapsed, OnVisibilityChanged));
         }
         
@@ -114,9 +101,9 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonContextualTabGroup group = d as RibbonContextualTabGroup;
-            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;            
-            if (group.Parent is RibbonTitleBar) (group.Parent as RibbonTitleBar).InvalidateMeasure();
+            RibbonContextualTabGroup group = (RibbonContextualTabGroup)d;
+            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
+            if (group.Parent is RibbonTitleBar) ((RibbonTitleBar)group.Parent).InvalidateMeasure();
         }
 
         /// <summary>
@@ -143,7 +130,7 @@ namespace Fluent
         }
 
         // Update group border
-        private void UpdateGroupBorders()
+        void UpdateGroupBorders()
         {
             for (int i = 0; i < items.Count;i++ )
             {
@@ -188,7 +175,11 @@ namespace Fluent
             base.OnMouseLeftButtonUp(e);
         }
 
-        protected override void OnMouseDoubleClick(System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// Raises the MouseDoubleClick routed event
+        /// </summary>
+        /// <param name="e">The event data</param>
+        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
             if(e.RightButton==MouseButtonState.Pressed)
