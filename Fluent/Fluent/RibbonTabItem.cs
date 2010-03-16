@@ -6,19 +6,16 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -30,7 +27,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty("Groups")]
-    public class RibbonTabItem:Control
+    public class RibbonTabItem : Control
     {
         #region Fields
 

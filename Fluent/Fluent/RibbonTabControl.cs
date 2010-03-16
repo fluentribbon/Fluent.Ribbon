@@ -6,24 +6,19 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -36,21 +31,18 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
-    public class RibbonTabControl: Selector
+    public class RibbonTabControl : Selector
     {
         #region Fields
 
         // Popup
-        private Popup popup;
-
+        Popup popup;
         // Old selected item
-        private object oldSelectedItem;
-
+        object oldSelectedItem;
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
-
+        ObservableCollection<UIElement> toolBarItems;
         // ToolBar panel
-        private Panel toolbarPanel;
+        Panel toolbarPanel;
 
         #endregion
 
@@ -72,7 +64,9 @@ namespace Fluent
             }
         }
 
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
+        // DependencyProperty key for SelectedContent
+        static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
+        
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedContent.  This enables animation, styling, binding, etc...
         /// </summary>
@@ -196,15 +190,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabControl()
         {
-            //StyleProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTabControlStyle;
-            return basevalue;
         }
         
         /// <summary>

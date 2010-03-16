@@ -419,6 +419,13 @@ namespace Fluent
 
         #region IsEnabled
 
+        /// <summary>
+        /// Gets a value that becomes the return 
+        /// value of IsEnabled in derived classes. 
+        /// </summary>
+        /// <returns>
+        /// true if the element is enabled; otherwise, false.
+        /// </returns>
         protected override bool IsEnabledCore
         {
             get

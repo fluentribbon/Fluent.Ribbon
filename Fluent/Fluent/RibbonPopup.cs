@@ -6,19 +6,16 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -26,11 +23,12 @@ namespace Fluent
     /// Represents popup. This popup has Microsoft Office behavior
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1049")]
-    public class RibbonPopup:Popup
+    public class RibbonPopup : Popup
     {
         #region Static Methods
 
-        private static List<RibbonPopup> openedPopups = new List<RibbonPopup>();
+        // Currently opened popups
+        static readonly List<RibbonPopup> openedPopups = new List<RibbonPopup>();
 
         /// <summary>
         /// Returns active popup
@@ -42,11 +40,19 @@ namespace Fluent
             return openedPopups[openedPopups.Count - 1];
         }
 
+        /// <summary>
+        /// Closes all currently opened popups
+        /// </summary>
         public static void CloseAll()
         {
             ClosePopups(0);
         }
 
+        // TODO: maybe rename CollapseCurrent -> CloseCurrent
+
+        /// <summary>
+        /// Closes the current popup
+        /// </summary>
         public static void CollapseCurrent()
         {
             if (openedPopups.Count > 0) ClosePopups(openedPopups.Count - 1);
@@ -109,7 +115,11 @@ namespace Fluent
 
             Activate();                                    
         }
-        
+
+        /// <summary>
+        /// Provides class handling for the PreviewMouseLeftButtonDown event
+        /// </summary>
+        /// <param name="e">The event data</param>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             isFirstMouseUp = false;

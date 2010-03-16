@@ -20,7 +20,7 @@ namespace Fluent
     /// <summary>
     /// Helps associate an icon to a gallery group
     /// </summary>
-    public class GalleryGroupIconConverter : IMultiValueConverter
+    public sealed class GalleryGroupIconConverter : IMultiValueConverter
     {
         /// <summary>
         /// Converts source values to a value for the binding target.

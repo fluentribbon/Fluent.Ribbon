@@ -19,7 +19,7 @@ namespace Fluent
     /// Helps to translate Key to Char 
     /// (with keyboard layouts support)
     /// </summary>
-    internal class KeyTranslator
+    internal static class KeyTranslator
     {
         // Cache with loaded keyboard layouts
         static readonly Dictionary<int, IntPtr> keyboardLayoutHandlers = new Dictionary<int, IntPtr>();
@@ -40,7 +40,7 @@ namespace Fluent
             IntPtr keyboardlayout;
             if (!keyboardLayoutHandlers.TryGetValue(cultureInfo.LCID, out keyboardlayout))
             {
-                keyboardlayout = NativeMethods.LoadKeyboardLayout(cultureInfo.LCID.ToString("x8"), 0x00000080);
+                keyboardlayout = NativeMethods.LoadKeyboardLayout(cultureInfo.LCID.ToString("x8", CultureInfo.InvariantCulture), 0x00000080);
                 keyboardLayoutHandlers.Add(cultureInfo.LCID, keyboardlayout);
             }
 

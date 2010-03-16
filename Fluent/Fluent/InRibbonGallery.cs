@@ -1,15 +1,20 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -18,12 +23,17 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents the In-Ribbon Gallery, a gallery-based control that exposes 
+    /// a default subset of items directly in the Ribbon. Any remaining items 
+    /// are displayed when a drop-down menu button is clicked
+    /// </summary>
     [ContentProperty("Items")]
-    public class InRibbonGallery:RibbonItemsControl,IScalableRibbonControl
+    [SuppressMessage("Microsoft.Maintainability", "CA1506")]
+    public class InRibbonGallery : RibbonItemsControl,IScalableRibbonControl
     {
         #region Fields
 
@@ -121,7 +131,7 @@ namespace Fluent
         /// <summary>
         /// Gets current items in row
         /// </summary>
-        private int CurrentItemsInRow
+        int CurrentItemsInRow
         {
             get
             {
@@ -169,15 +179,23 @@ namespace Fluent
 
         #region GroupBy
 
+        /// <summary>
+        /// Gets or sets name of property which
+        /// will use to group items in the Gallery.
+        /// </summary>
         public string GroupBy
         {
             get { return (string)GetValue(GroupByProperty); }
             set { SetValue(GroupByProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for GroupBy.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupBy.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));        
+            DependencyProperty.Register("GroupBy", typeof(string), 
+            typeof(InRibbonGallery), new UIPropertyMetadata(null));        
 
         #endregion
 
@@ -198,22 +216,22 @@ namespace Fluent
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InRibbonGallery), new UIPropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
 
-        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as InRibbonGallery).gallery != null)
+            InRibbonGallery inRibbonGallery = (InRibbonGallery) d;
+            if (inRibbonGallery.gallery != null)
             {
-                //(d as InRibbonGallery).gallery.Orientation = (Orientation) e.NewValue;
                 if ((Orientation)e.NewValue == Orientation.Horizontal)
                 {
                     ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof (WrapPanel)));
                     template.Seal();
-                    (d as InRibbonGallery).ItemsPanel = template;
+                    inRibbonGallery.ItemsPanel = template;
                 }
                 else
                 {
                     ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
                     template.Seal();
-                    (d as InRibbonGallery).ItemsPanel = template;
+                    inRibbonGallery.ItemsPanel = template;
                 }
             }
         }
@@ -296,17 +314,18 @@ namespace Fluent
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
         {
-            InRibbonGallery gal = d as InRibbonGallery;
-            if ((basevalue == null) && (gal.Filters.Count > 0)) return gal.Filters[0];
+            InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
+            if ((basevalue == null) && (inRibbonGallery.Filters.Count > 0)) return inRibbonGallery.Filters[0];
             return basevalue;
         }
 
         // Handles filter property changed
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != null) (d as InRibbonGallery).SelectedFilterTitle = (e.NewValue as GalleryGroupFilter).Title;
-            else (d as InRibbonGallery).SelectedFilterTitle = "";
-            if ((d as InRibbonGallery).View.View != null) (d as InRibbonGallery).View.View.Refresh();
+            InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
+            if (e.NewValue != null) inRibbonGallery.SelectedFilterTitle = ((GalleryGroupFilter)e.NewValue).Title;
+            else inRibbonGallery.SelectedFilterTitle = "";
+            if (inRibbonGallery.View.View != null) inRibbonGallery.View.View.Refresh();
         }
 
         /// <summary>
@@ -339,19 +358,7 @@ namespace Fluent
         public static readonly DependencyProperty HasFilterProperty =
             DependencyProperty.Register("HasFilter", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
-
-        // Set filter
-        private void UpdateFilter()
-        {
-            /*if ((listBox != null) && (listBox.ItemsSource != null))
-            {
-                if (view != null) view.Filter -= OnFiltering;
-                view = CollectionViewSource.GetDefaultView(listBox.ItemsSource);
-                view.Filter += OnFiltering;
-            }*/
-        }
-
-        private void OnFiltering(object obj, FilterEventArgs e)
+        void OnFiltering(object obj, FilterEventArgs e)
         {
             if (string.IsNullOrEmpty(GroupBy)) e.Accepted = true;
             else if (SelectedFilter == null) e.Accepted = true;
@@ -366,52 +373,71 @@ namespace Fluent
 
         #region Selectable
 
+        /// <summary>
+        /// Gets or sets whether gallery items can be selected
+        /// </summary>
         public bool Selectable
         {
             get { return (bool)GetValue(SelectableProperty); }
             set { SetValue(SelectableProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Selectable.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Selectable.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SelectableProperty =
-            DependencyProperty.Register("Selectable", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register("Selectable", typeof(bool), 
+            typeof(InRibbonGallery), new UIPropertyMetadata(true));
 
         #endregion
 
         #region SelectedIndex
 
+        /// <summary>
+        /// Gets or sets index of currently selected item
+        /// </summary>
         public int SelectedIndex
         {
             get { return (int)GetValue(SelectedIndexProperty); }
             set { SetValue(SelectedIndexProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedIndex. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(-1, OnSelectedIndexChanged, CoerceSelectedIndex));
+            DependencyProperty.Register("SelectedIndex", typeof(int),
+            typeof(InRibbonGallery), new UIPropertyMetadata(-1, OnSelectedIndexChanged, CoerceSelectedIndex));
 
-        private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if((d as InRibbonGallery).listBox!=null)
+            InRibbonGallery inRibbonGallery = (InRibbonGallery) d;
+            if (inRibbonGallery.listBox != null)
             {
-                (d as InRibbonGallery).listBox.SelectedIndex = (int) e.NewValue;
+                inRibbonGallery.listBox.SelectedIndex = (int)e.NewValue;
             }
         }
 
-        private static object CoerceSelectedIndex(DependencyObject d, object basevalue)
+        static object CoerceSelectedIndex(DependencyObject d, object basevalue)
         {
-            if (!(d as InRibbonGallery).Selectable)
+            InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
+            if (!inRibbonGallery.Selectable)
             {
-                (d as InRibbonGallery).listBox.SelectedIndex = -1;
+                inRibbonGallery.listBox.SelectedIndex = -1;
                 return -1;
             }
-            else return basevalue;
+            return basevalue;
         }
 
         #endregion
 
         #region SelectedItem
 
+        /// <summary>
+        /// Gets or sets selected item
+        /// </summary>
         [Bindable(true)]
         public object SelectedItem
         {
@@ -419,30 +445,36 @@ namespace Fluent
             set { SetValue(SelectedItemProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedItem. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(InRibbonGallery), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedItemChange, CoerceSelectedItem));
+            DependencyProperty.Register("SelectedItem", typeof(object), 
+            typeof(InRibbonGallery), new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedItemChange, CoerceSelectedItem));
 
-        private static void OnSelectedItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnSelectedItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as InRibbonGallery).listBox != null)
+            InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
+            if (inRibbonGallery.listBox != null)
             {
-                (d as InRibbonGallery).listBox.SelectedItem = e.NewValue;
+                inRibbonGallery.listBox.SelectedItem = e.NewValue;
             }
         }
 
-        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
+        static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            if (!(d as InRibbonGallery).Selectable)
+            InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
+            if (!inRibbonGallery.Selectable)
             {
                 if (basevalue != null)
                 {
-                    ((d as InRibbonGallery).listBox.ContainerFromElement(basevalue as DependencyObject) as ListBoxItem).IsSelected = false;
-                    (d as InRibbonGallery).listBox.SelectedItem = null;
+                    ((ListBoxItem)inRibbonGallery.listBox.ContainerFromElement((DependencyObject)basevalue)).IsSelected = false;
+                    inRibbonGallery.listBox.SelectedItem = null;
                 }
                 return null;
             }
-            else return basevalue;
+            return basevalue;
         }
 
         #endregion
@@ -503,44 +535,44 @@ namespace Fluent
 
         #region IsOpen
 
-
-
+        /// <summary>
+        /// Gets or sets whether popup is opened
+        /// </summary>
         public bool IsOpen
         {
             get { return (bool)GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
+            DependencyProperty.Register("IsOpen", typeof(bool), 
+            typeof(InRibbonGallery), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
 
         // Coerce IsOpen
         private static object CoerceIsOpen(DependencyObject d, object basevalue)
         {
-            if ((d as InRibbonGallery).isInitializing) return true;
+            if (((InRibbonGallery)d).isInitializing) return true;
             return basevalue;
         }
 
+        // IsOpen Change Handling
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            InRibbonGallery gall = (d as InRibbonGallery);
+            InRibbonGallery inRibbonGallery = ((InRibbonGallery)d);
             if ((bool)e.NewValue)
             {
-                /*if (gall.gallery != null)
-                {
-                    gall.gallery.MinWidth = Math.Max(gall.ActualWidth, gall.MenuMinWidth);
-                    gall.gallery.MinHeight = gall.ActualHeight;
-                }*/
-                if (gall.contextMenu == null) gall.CreateMenu();
-                else gall.contextMenu.IsOpen = true;
-                if (gall.IsCollapsed) gall.dropDownButton.IsChecked = true;
+                if (inRibbonGallery.contextMenu == null) inRibbonGallery.CreateMenu();
+                else inRibbonGallery.contextMenu.IsOpen = true;
+                if (inRibbonGallery.IsCollapsed) inRibbonGallery.dropDownButton.IsChecked = true;
             }
             else
             {
-                if (gall.contextMenu != null) gall.contextMenu.IsOpen = false;
-                //(d as InRibbonGallery).dropDownButton.IsHitTestVisible = true;
-                if (gall.IsCollapsed) gall.dropDownButton.IsChecked = false;
+                if (inRibbonGallery.contextMenu != null) inRibbonGallery.contextMenu.IsOpen = false;
+                if (inRibbonGallery.IsCollapsed) inRibbonGallery.dropDownButton.IsChecked = false;
             }
         }
 
@@ -570,14 +602,14 @@ namespace Fluent
         /// <summary>
         /// Gets collection of menu items
         /// </summary>
-        public new ObservableCollection<UIElement> MenuItems
+        public ObservableCollection<UIElement> MenuItems
         {
             get
             {
-                if (this.menuItems == null)
+                if (menuItems == null)
                 {
-                    this.menuItems = new ObservableCollection<UIElement>();
-                    this.menuItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnMenuItemsCollectionChanged);
+                    menuItems = new ObservableCollection<UIElement>();
+                    menuItems.CollectionChanged += OnMenuItemsCollectionChanged;
                 }
                 return this.menuItems;
             }
@@ -593,31 +625,31 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (menuBar != null) menuBar.Children.Add(obj2 as UIElement);
-                        else AddLogicalChild(obj2);
+                        if (menuBar != null) menuBar.Children.Add((UIElement)item);
+                        else AddLogicalChild(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (menuBar != null) menuBar.Children.Remove(obj3 as UIElement);
-                        else RemoveLogicalChild(obj3);
+                        if (menuBar != null) menuBar.Children.Remove((UIElement)item);
+                        else RemoveLogicalChild(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (menuBar != null) menuBar.Children.Remove(obj4 as UIElement);
-                        else RemoveLogicalChild(obj4);
+                        if (menuBar != null) menuBar.Children.Remove((UIElement)item);
+                        else RemoveLogicalChild(item);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (menuBar != null) menuBar.Children.Add(obj5 as UIElement);
-                        else AddLogicalChild(obj5);
+                        if (menuBar != null) menuBar.Children.Add((UIElement)item);
+                        else AddLogicalChild(item);
                     }
                     break;
             }
@@ -850,9 +882,13 @@ namespace Fluent
             set { SetValue(MenuMinWidthProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MenuMinWidth.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MenuMinWidth. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty MenuMinWidthProperty =
-            DependencyProperty.Register("MenuMinWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(0.0));
+            DependencyProperty.Register("MenuMinWidth", typeof(double),
+            typeof(InRibbonGallery), new UIPropertyMetadata(0.0));
 
         #endregion
 
@@ -881,6 +917,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static InRibbonGallery()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(InRibbonGallery), new FrameworkPropertyMetadata(typeof(InRibbonGallery)));
@@ -994,6 +1031,10 @@ namespace Fluent
       
         #region Overrides
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application 
+        /// code or internal processes call ApplyTemplate
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (listBox != null)
@@ -1005,26 +1046,11 @@ namespace Fluent
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
-                //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate{listBox.ItemsSource = View.View;}));
                 Bind(this,listBox,"View.View",ListBox.ItemsSourceProperty,BindingMode.OneWay);
                 
                 listBox.SelectedItem = SelectedItem;
                 if (SelectedIndex!=-1) listBox.SelectedIndex = SelectedIndex;
                 
-                /*Binding binding = new Binding("SelectedIndex");
-                binding.Source = listBox;
-                binding.Mode = BindingMode.TwoWay;
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                this.SetBinding(SelectedIndexProperty, binding);
-
-                binding = new Binding("SelectedItem");
-                binding.Source = this;
-                binding.Mode = BindingMode.TwoWay;
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                listBox.SetBinding(SelectedItemProperty, binding);
-
-                gallery.SelectedIndex = SelectedIndex;*/
-
                 listBox.SelectionChanged += OnListBoxSelectionChanged;
                 listBox.ItemContainerGenerator.StatusChanged += OnItemsContainerGeneratorStatusChanged;           
             }
@@ -1042,31 +1068,31 @@ namespace Fluent
             cachedWidthDelta = 0;
         }
 
-        private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
+        void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
         {
             if (Scaled != null) Scaled(this, EventArgs.Empty);
         }
 
-        private void OnDropDownClick(object sender, RoutedEventArgs e)
+        void OnDropDownClick(object sender, RoutedEventArgs e)
         {            
             dropDownButton.IsChecked = true;
             IsOpen = true;
             e.Handled = true;            
         }
 
-        private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedIndex = listBox.SelectedIndex;
             SelectedItem = listBox.SelectedItem;
         }
 
-        private void OnExpandClick(object sender, RoutedEventArgs e)
+        void OnExpandClick(object sender, RoutedEventArgs e)
         {                        
             IsOpen = true;            
             e.Handled = true;
         }
         
-        private double GetItemWidth()
+        double GetItemWidth()
         {
             if(double.IsNaN(ItemWidth)&&(listBox!=null)&&(listBox.Items.Count>0))
             {
@@ -1098,6 +1124,11 @@ namespace Fluent
             return ItemWidth;
         }
 
+        /// <summary>
+        /// Called to remeasure a control. 
+        /// </summary>
+        /// <returns>The size of the control, up to the maximum specified by constraint</returns>
+        /// <param name="constraint">The maximum size that the method can return</param>
         protected override Size MeasureOverride(Size constraint)
         {
             if (isSnapped)
@@ -1132,6 +1163,11 @@ namespace Fluent
             return layoutRoot.DesiredSize;
         }
 
+        /// <summary>
+        /// Handles size property changing
+        /// </summary>
+        /// <param name="previous">Previous value</param>
+        /// <param name="current">Current value</param>
         protected override void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
             if (CanCollapseToButton)
@@ -1143,12 +1179,20 @@ namespace Fluent
             base.OnSizePropertyChanged(previous, current);
         }
 
-        protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <summary>
+        /// Items collection changes hadling 
+        /// </summary>
+        /// <param name="e">Event args</param>
+        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsCollectionChanged(e);
             View.Source = Items;
         }
 
+        /// <summary>
+        /// ItemsSource property change handling
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnItemsSourceChanged(e);

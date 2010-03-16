@@ -25,22 +25,19 @@ namespace Fluent
     /// Represents drop down button
     /// </summary>
     [ContentProperty("Items")]
-    public class DropDownButton: RibbonControl
+    public class DropDownButton : RibbonControl
     {
         #region Fields
 
-        /// <summary>
-        /// Internal context menu of the button
-        /// </summary>
-        protected ContextMenu contextMenu;
-        /// <summary>
-        /// Collection of cotext menu items
-        /// </summary>
-        protected ObservableCollection<UIElement> items;
+        // Internal context menu of the button
+        ContextMenu dropDownMenu;
+
+        // Collection of cotext menu items
+        ObservableCollection<UIElement> items;
         
         // QAT clone of this button
         DropDownButton quickAccessButton;
-        // Prevents menu closing while initializing (?)
+        // Prevents menu closing while initializing 
         bool isInitializing;
 
         #endregion
@@ -54,12 +51,12 @@ namespace Fluent
         {
             get 
             { 
-                if(contextMenu==null)
+                if(dropDownMenu==null)
                 {
                     CreateMenu();
                     IsOpen = false;
                 }
-                return contextMenu;
+                return dropDownMenu;
             } 
         }
 
@@ -161,26 +158,26 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object item in e.NewItems)
                     {
-                        if (contextMenu != null) contextMenu.Items.Add(item as UIElement);
+                        if (dropDownMenu != null) dropDownMenu.Items.Add(item as UIElement);
                         else AddLogicalChild(item);
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (contextMenu != null) contextMenu.Items.Remove(item as UIElement);
+                        if (dropDownMenu != null) dropDownMenu.Items.Remove(item as UIElement);
                         else RemoveLogicalChild(item);
                     }
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (contextMenu != null) contextMenu.Items.Remove(item as UIElement);
+                        if (dropDownMenu != null) dropDownMenu.Items.Remove(item as UIElement);
                         else RemoveLogicalChild(item);
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (contextMenu != null) contextMenu.Items.Add(item as UIElement);
+                        if (dropDownMenu != null) dropDownMenu.Items.Add(item as UIElement);
                         else AddLogicalChild(item);
                     }
                     break;
@@ -276,13 +273,13 @@ namespace Fluent
         {
             DropDownButton ribbon = (DropDownButton)d;
 
-            if (ribbon.contextMenu == null) ribbon.CreateMenu();
+            if (ribbon.dropDownMenu == null) ribbon.CreateMenu();
             ribbon.IsHitTestVisible = !ribbon.IsOpen;
         }
 
         internal void DoCreateMenu()
         {
-            if (contextMenu == null)
+            if (dropDownMenu == null)
             {
                 CreateMenu();
                 IsOpen = false;
@@ -293,34 +290,34 @@ namespace Fluent
         void CreateMenu()
         {
             isInitializing = true;
-            contextMenu = new ContextMenu();            
+            dropDownMenu = new ContextMenu();            
             foreach (UIElement item in Items)
             {
                 RemoveLogicalChild(item);
-                contextMenu.Items.Add(item);
+                dropDownMenu.Items.Add(item);
             }          
-            AddLogicalChild(contextMenu.RibbonPopup);
-            contextMenu.IsOpen = true;
-            contextMenu.RibbonPopup.Opened += OnMenuOpened;
-            contextMenu.RibbonPopup.Closed += OnMenuClosed;
+            AddLogicalChild(dropDownMenu.RibbonPopup);
+            dropDownMenu.IsOpen = true;
+            dropDownMenu.RibbonPopup.Opened += OnMenuOpened;
+            dropDownMenu.RibbonPopup.Closed += OnMenuClosed;
 
             Binding binding = new Binding("IsOpen");
             binding.Mode = BindingMode.TwoWay;
             binding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
+            dropDownMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
 
             Binding resizeModeBinding = new Binding("ResizeMode");
             resizeModeBinding.Mode = BindingMode.OneWay;
             resizeModeBinding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
+            dropDownMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
 
-            contextMenu.PlacementTarget = this;
-            contextMenu.Placement = PlacementMode.Bottom;            
+            dropDownMenu.PlacementTarget = this;
+            dropDownMenu.Placement = PlacementMode.Bottom;            
             
             isInitializing = false;
             Mouse.Capture(null);
             IsOpen = true;
-            contextMenu.IsOpen = true;
+            dropDownMenu.IsOpen = true;
         }
 
         void OnMenuClosed(object sender, EventArgs e)

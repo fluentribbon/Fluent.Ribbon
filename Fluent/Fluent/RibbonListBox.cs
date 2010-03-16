@@ -1,26 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Fluent
 {
-    public class RibbonListBox:ListBox
+    /// <summary>
+    /// Represents custom listbox
+    /// </summary>
+    [TemplatePart(Name = "PART_ItemsPresenter", Type = typeof(ItemsPresenter))]
+    public class RibbonListBox : ListBox
     {
         #region Field
 
-        private ItemsPresenter presenter;
+        ItemsPresenter presenter;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// Gets width of the inner panel of the list box
+        /// </summary>
         public double InnerPanelWidth
         {
-            get { if (presenter == null) return 0; else return presenter.DesiredSize.Width; }
+            get { return presenter != null ? presenter.DesiredSize.Width : 0; }
         }
 
         #endregion
@@ -67,6 +79,10 @@ namespace Fluent
             return (item is GalleryItem);
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application 
+        /// code or internal processes call ApplyTemplate
+        /// </summary>
         public override void OnApplyTemplate()
         {
             presenter = GetTemplateChild("PART_ItemsPresenter") as ItemsPresenter;

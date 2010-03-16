@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,7 +22,7 @@ namespace Fluent
     /// Represents ribbon items control
     /// </summary>
     [ContentProperty("Items")]
-    public class RibbonItemsControl:RibbonControl, IAddChild
+    public abstract class RibbonItemsControl : RibbonControl, IAddChild
     {
         #region Fields
 
@@ -270,7 +275,7 @@ namespace Fluent
 
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as RibbonItemsControl).OnItemsSourceChanged(e);
+            ((RibbonItemsControl)d).OnItemsSourceChanged(e);
         }
 
         /// <summary>
@@ -362,6 +367,12 @@ namespace Fluent
 
         #region LogicalChildren
 
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element. 
+        /// </summary>
+        /// <returns>
+        /// An enumerator for logical child elements of this element.
+        /// </returns>
         protected override IEnumerator LogicalChildren
         {
             get
@@ -408,20 +419,23 @@ namespace Fluent
         #endregion
 
         #endregion
-
-        public override FrameworkElement CreateQuickAccessItem()
-        {
-            return null;
-        }
-
+        
         #region Implementation of IAddChild
 
-        public void AddChild(object value)
+        /// <summary>
+        /// Adds a child object
+        /// </summary>
+        /// <param name="value">The child object to add</param>
+        void IAddChild.AddChild(object value)
         {
             Items.Add(value as DependencyObject);
         }
 
-        public void AddText(string text)
+        /// <summary>
+        /// Adds the text content of a node to the object. 
+        /// </summary>
+        /// <param name="text">The text to add to the object</param>
+        void IAddChild.AddText(string text)
         {
             GalleryItem item = new GalleryItem();
             item.Content = text;

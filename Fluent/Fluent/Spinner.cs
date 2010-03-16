@@ -1,4 +1,13 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -440,6 +449,10 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             Spinner spinner = (Spinner)element;
+
+            spinner.Width = Width;
+            spinner.InputWidth = InputWidth;
+
             Bind(this, spinner, "Value", ValueProperty, BindingMode.TwoWay);
             Bind(this, spinner, "Increment", IncrementProperty, BindingMode.OneWay);
             Bind(this, spinner, "Minimum", MinimumProperty, BindingMode.OneWay);
@@ -447,8 +460,7 @@ namespace Fluent
             Bind(this, spinner, "Format", FormatProperty, BindingMode.OneWay);
             Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
-            Bind(this, spinner, "InputWidth", InputWidthProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Width", WidthProperty, BindingMode.OneWay);
+            
             base.BindQuickAccessItem(element);
         }
 

@@ -1,7 +1,7 @@
 ﻿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright � Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -53,7 +53,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
-    public class RibbonGroupBox :ItemsControl, IQuickAccessItemProvider
+    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider
     {
         #region Fields
 
@@ -69,13 +69,11 @@ namespace Fluent
 
         // Freezed image (created during snapping)
         Image snappedImage;
-        // Visuals which were removed diring snapping
-        Visual[] snappedVisuals;
         // Is visual currently snapped
-        private bool isSnapped;
+        bool isSnapped;
 
         // Saved group state for QAT
-        private RibbonGroupBoxState savedState;
+        RibbonGroupBoxState savedState;
 
         #endregion
 
@@ -600,28 +598,14 @@ namespace Fluent
                     snappedImage.FlowDirection = FlowDirection;
                     snappedImage.Source = renderTargetBitmap;
 
-                    // Detach current visual children
-                    /*snappedVisuals = new Visual[VisualTreeHelper.GetChildrenCount(this)];
-                    for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
-                    {
-                        snappedVisuals[childIndex] = (Visual)VisualTreeHelper.GetChild(this, childIndex);
-                        RemoveVisualChild(snappedVisuals[childIndex]);
-                    }*/
-
                     // Attach freezed image
                     AddVisualChild(snappedImage);
                 }
                 else
                 {
-                    RemoveVisualChild(snappedImage);
-                   /* for (int childIndex = 0; childIndex < snappedVisuals.Length; childIndex++)
-                    {
-                        AddVisualChild(snappedVisuals[childIndex]);
-                    }*/
-
                     // Clean up
+                    RemoveVisualChild(snappedImage);
                     snappedImage = null;
-                    snappedVisuals = null;
                 }
                 isSnapped = value;
                 InvalidateVisual();
@@ -664,9 +648,7 @@ namespace Fluent
 
         // Cache
         readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
-        // Intermediate state of the group box
-        RibbonGroupBoxState stateIntermediate = RibbonGroupBoxState.Large;
-
+        
         /// <summary>
         /// Gets or sets intermediate state of the group box
         /// </summary>

@@ -6,11 +6,9 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -21,7 +19,7 @@ namespace Fluent
     /// Represents toggle button
     /// </summary>
     [ContentProperty("Text")]
-    public class ToggleButton:Button
+    public class ToggleButton : Button
     {
         #region Properties
 
@@ -62,20 +60,28 @@ namespace Fluent
         }
 
         #endregion
+        
+        #region UseAutoCheck
 
-
-
+        /// <summary>
+        /// Gets or set a value indicating whether the IsChecked value and the appearance are 
+        /// automatically changed when the button is clicked.
+        /// </summary>
         public bool UseAutoCheck
         {
             get { return (bool)GetValue(UseAutoCheckProperty); }
             set { SetValue(UseAutoCheckProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for UseAutoCheck.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for UseAutoCheck.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty UseAutoCheckProperty =
-            DependencyProperty.Register("UseAutoCheck", typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register("UseAutoCheck", typeof(bool), 
+            typeof(ToggleButton), new UIPropertyMetadata(true));
 
-
+        #endregion
 
         #endregion
 
@@ -128,7 +134,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected override void OnClick(RoutedEventArgs e)
         {
-            if(UseAutoCheck)IsChecked = !IsChecked;
+            if(UseAutoCheck) IsChecked = !IsChecked;
             base.OnClick(e);
         }
 

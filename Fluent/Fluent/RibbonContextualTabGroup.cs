@@ -23,9 +23,7 @@ namespace Fluent
         #region Fields
 
         // Collection of ribbon tab items
-        private List<RibbonTabItem> items = new List<RibbonTabItem>();
-        // Cached width
-        private double cachedWidth;
+        readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
 
         #endregion
 
@@ -55,7 +53,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((RibbonContextualTabGroup)d).cachedWidth = 0;
+            
         }
 
         /// <summary>

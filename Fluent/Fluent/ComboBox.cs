@@ -1,10 +1,19 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +26,9 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents custom Fluent UI ComboBox
+    /// </summary>
     public class ComboBox: RibbonItemsControl
     {
         #region Fields
@@ -26,8 +38,7 @@ namespace Fluent
         private TextBox textBox;
 
         private bool updatingText;
-        private bool updatingSelectedItem;
-
+        
         private int textBoxSelectionStart;
 
         private bool isInitializing;
@@ -60,7 +71,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
             DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
 
 
         #endregion
@@ -187,15 +197,23 @@ namespace Fluent
 
         #region GroupBy
 
+        /// <summary>
+        /// Gets or sets name of property which
+        /// will use to group items in the ComboBox.
+        /// </summary>
         public string GroupBy
         {
             get { return (string)GetValue(GroupByProperty); }
             set { SetValue(GroupByProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for GroupBy.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupBy. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(ComboBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupBy", typeof(string), 
+            typeof(ComboBox), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -218,20 +236,20 @@ namespace Fluent
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as ComboBox).gallery != null)
+            ComboBox comboBox = (ComboBox) d;
+            if (comboBox.gallery != null)
             {
-                //(d as InRibbonGallery).gallery.Orientation = (Orientation) e.NewValue;
                 if ((Orientation)e.NewValue == Orientation.Horizontal)
                 {
                     ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(WrapPanel)));
                     template.Seal();
-                    (d as ComboBox).ItemsPanel = template;
+                    comboBox.ItemsPanel = template;
                 }
                 else
                 {
                     ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
                     template.Seal();
-                    (d as ComboBox).ItemsPanel = template;
+                    comboBox.ItemsPanel = template;
                 }
             }
         }
@@ -240,27 +258,33 @@ namespace Fluent
 
         #region SelectedIndex
 
+        /// <summary>
+        /// Gets or sets index of currently selected item
+        /// </summary>
         public int SelectedIndex
         {
             get { return (int)GetValue(SelectedIndexProperty); }
             set { SetValue(SelectedIndexProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedIndex. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SelectedIndexProperty =
             DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, OnSelectedIndexChenged));
 
-        private static void OnSelectedIndexChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnSelectedIndexChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ComboBox combo = d as ComboBox;
-            if (((int)e.NewValue == -1) && (combo.SelectedItem != null)) combo.SelectedItem = null;
+            ComboBox comboBox = (ComboBox)d;
+            if (((int)e.NewValue == -1) && (comboBox.SelectedItem != null)) comboBox.SelectedItem = null;
             else
             {
-                object selectedItem = combo.GetItem((int) e.NewValue);
-                if (selectedItem != combo.SelectedItem)
+                object selectedItem = comboBox.GetItem((int) e.NewValue);
+                if (selectedItem != comboBox.SelectedItem)
                 {
-                    combo.SelectedItem = selectedItem;
-                    combo.CurrentText = combo.GetItemText(combo.SelectedItem);
+                    comboBox.SelectedItem = selectedItem;
+                    comboBox.CurrentText = comboBox.GetItemText(comboBox.SelectedItem);
                 }
             }
         }
@@ -269,54 +293,52 @@ namespace Fluent
 
         #region SelectedItem
 
+        /// <summary>
+        /// Gets or sets currently selected item
+        /// </summary>
         public object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedItem.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedItem.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register("SelectedItem", typeof(object), typeof(ComboBox), new UIPropertyMetadata(null, OnSelectedItemChanged));
 
-        private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ComboBox).SelectedItemUpdated();
+            ((ComboBox)d).SelectedItemUpdated();
         }
 
         internal void SelectedItemUpdated()
         {
-            try
+            if (!updatingText)
             {
-                updatingSelectedItem = true;
-                if (!updatingText)
+                string primaryTextFromItem = GetItemText(SelectedItem);
+                if ((this.CurrentText != primaryTextFromItem) && (primaryTextFromItem != null))
                 {
-                    string primaryTextFromItem = GetItemText(SelectedItem);
-                    if ((this.CurrentText != primaryTextFromItem) && (primaryTextFromItem!=null))
-                    {
-                        this.CurrentText = primaryTextFromItem;
-                    }
+                    this.CurrentText = primaryTextFromItem;
                 }
-                if (selectedGalleryItem != null)
-                {
-                    selectedGalleryItem.Content = SelectedItem;
-                    if ((quickAccessCombo != null) && (selectedGalleryItem.Visibility == Visibility.Visible))
-                    {
-                        Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
-                               {
-                                   RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth,(int)selectedGalleryItem.ActualHeight,96,96,PixelFormats.Pbgra32);
-                                   renderTargetBitmap.Render((Visual)selectedGalleryItem);
-                                   quickAccessCombo.fakeImage.Source =renderTargetBitmap;
-                               }));
-                    }
-                }
-                int selectedIndex = GetItemIndex(SelectedItem);
-                if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
             }
-            finally
+            if (selectedGalleryItem != null)
             {
-                updatingSelectedItem = false;
+                selectedGalleryItem.Content = SelectedItem;
+                if ((quickAccessCombo != null) && (selectedGalleryItem.Visibility == Visibility.Visible))
+                {
+                    Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
+                           {
+                               RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth, (int)selectedGalleryItem.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                               renderTargetBitmap.Render((Visual)selectedGalleryItem);
+                               quickAccessCombo.fakeImage.Source = renderTargetBitmap;
+                           }));
+                }
             }
+            int selectedIndex = GetItemIndex(SelectedItem);
+            if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
         }
 
 
@@ -324,32 +346,36 @@ namespace Fluent
 
         #region IsOpen
 
-
-
+        /// <summary>
+        /// Gets or sets whether context menu of the ComboBox is open
+        /// </summary>
         public bool IsOpen
         {
             get { return (bool)GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
+            DependencyProperty.Register("IsOpen", typeof(bool), 
+            typeof(ComboBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
 
         // Coerce IsOpen
-        private static object CoerceIsOpen(DependencyObject d, object basevalue)
+        static object CoerceIsOpen(DependencyObject d, object basevalue)
         {
-            if ((d as ComboBox).isInitializing) return true;
+            if (((ComboBox)d).isInitializing) return true;
             return basevalue;
         }
 
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as ComboBox).contextMenu == null) (d as ComboBox).CreateMenu();
-            //if ((bool)e.NewValue) Keyboard.Focus((d as ComboBox).textBox);
-                //FocusManager.SetFocusedElement((d as ComboBox).textBox, (d as ComboBox).textBox);//(d as ComboBox).textBox.Focus();
-            if ((d as ComboBox).IsOpen) (d as ComboBox).IsHitTestVisible = false;
-            else (d as ComboBox).IsHitTestVisible = true;                     
+            ComboBox comboBox = (ComboBox) d;
+            if (comboBox.contextMenu == null) comboBox.CreateMenu();
+            if (comboBox.IsOpen) comboBox.IsHitTestVisible = false;
+            else comboBox.IsHitTestVisible = true;                     
         }
 
         #endregion
@@ -408,7 +434,10 @@ namespace Fluent
             set { SetValue(MenuMinWidthProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MenuMinWidth.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MenuMinWidth. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty MenuMinWidthProperty =
             DependencyProperty.Register("MenuMinWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(0.0));
 
@@ -418,8 +447,15 @@ namespace Fluent
 
         #region Events
 
-        public event EventHandler MenuOpened;
-        public event EventHandler MenuClosed;
+        /// <summary>
+        /// Occures when context menu is opened
+        /// </summary>
+        public event EventHandler Opened;
+
+        /// <summary>
+        /// Occures when context menu is closed
+        /// </summary>
+        public event EventHandler Closed;
 
         #endregion
 
@@ -428,6 +464,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ComboBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(typeof(ComboBox)));
@@ -543,6 +580,10 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever 
+        /// application code or internal processes call ApplyTemplate
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (textBox != null)
@@ -564,94 +605,24 @@ namespace Fluent
             fakeImage = GetTemplateChild("PART_FakeImage") as Image;
         }
 
-        private void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
+        void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
         {
             if(textBox!=null)textBoxSelectionStart = textBox.SelectionStart;
         }
 
-        private void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
+        void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
             TextUpdated(textBox.Text, true);
+        }
 
-            /*if(!updatingText)
-            {
-                updatingText = true;                
-                int index = FindMatchingPrefix(textBox.Text);                
-                if ((index != -1) && (!string.IsNullOrEmpty(textBox.Text)))
-                {
-                    int length = textBox.Text.Length;
-                    SelectedItem = null;
-                    SelectedItem = gallery.GetItems()[index];
-                    textBox.SelectionStart =length;
-                    textBox.SelectionLength = textBox.Text.Length - length;
-                }
-                else SelectedItem = null;
-                updatingText = false;
-            }*/
-
-           /* bool textBoxUpdated = true;
-            string newText = textBox.Text;
+        void TextUpdated(string newText, bool textBoxUpdated)
+        {
             if (!updatingText)
             {
                 try
                 {
                     updatingText = true;
-                    if ((base.IsTextSearchEnabled)&&(!string.IsNullOrEmpty(newText)))
-                    {
-                        int num = FindMatchingPrefix(newText);
-                        if (num >= 0)
-                        {
-                            if (textBoxUpdated)
-                            {
-                                int selectionStart = textBox.SelectionStart;
-                                if ((selectionStart == newText.Length)/* && (selectionStart > this._textBoxSelectionStart)*//*)
-                                {
-                                    string primaryTextFromItem = GetItemText(gallery.GetItems()[num]);
-                                    textBox.Text = primaryTextFromItem;
-                                    textBox.SelectionStart = newText.Length;
-                                    textBox.SelectionLength = primaryTextFromItem.Length -
-                                                                               newText.Length;
-                                    newText = primaryTextFromItem;
-                                }
-                            }
-                            else
-                            {
-                                string b = GetItemText(Items[num]);
-                                if (!string.Equals(newText, b, StringComparison.CurrentCulture))
-                                {
-                                    num = -1;
-                                }
-                            }
-                        }
-                        if (num != SelectedIndex)
-                        {
-                            SelectedIndex = num;
-                        }
-                    }
-                    if (textBoxUpdated)
-                    {
-                        this.Text = newText;
-                    }
-                    else if (textBox != null)
-                    {
-                        textBox.Text = newText;
-                    }
-                }
-                finally
-                {
-                    updatingText = false;
-                }
-            }*/
-        }
-
-        private void TextUpdated(string newText, bool textBoxUpdated)
-        {
-            if (!updatingText/* && !updatingSelectedItem*/)
-            {
-                try
-                {
-                    updatingText = true;
-                    if (base.IsTextSearchEnabled)
+                    if (IsTextSearchEnabled)
                     {
                         int num = FindMatchingPrefix(newText);
                         if (num >= 0)
@@ -699,14 +670,14 @@ namespace Fluent
         }
 
 
-        private int FindMatchingPrefix(string prefix)
+        int FindMatchingPrefix(string prefix)
         {
             IEnumerable items = GetItems();
             if (items == null) return -1;
             int i = 0;
             foreach (var item in items)
             {
-                if (GetItemText(item).ToLower().StartsWith(prefix.ToLower()))
+                if (GetItemText(item).StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
                 {                    
                     return i;
                 }
@@ -748,14 +719,23 @@ namespace Fluent
             return -1;
         }
 
+        /// <summary>
+        /// Gets a text representation of the given item
+        /// </summary>
+        /// <param name="obj">Item</param>
+        /// <returns>Text</returns>
         internal string GetItemText(object obj)
         {
             if(obj==null) return "";
             if (!string.IsNullOrEmpty(DisplayMemberPath)) return obj.GetType().GetProperty(DisplayMemberPath, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
-            else return obj.ToString();
+            return obj.ToString();
         }
 
-        protected override void OnItemsCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <summary>
+        /// Items collection changes hadling 
+        /// </summary>
+        /// <param name="e">Event args</param>
+        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsCollectionChanged(e);
             if ((SelectedItem == null) && (SelectedIndex >= 0))
@@ -764,6 +744,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// ItemsSource property change handling
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
         {            
             base.OnItemsSourceChanged(e);
@@ -778,6 +762,12 @@ namespace Fluent
 
         #region Private methods
 
+        /// <summary>
+        /// Invoked when an unhandled MouseLeftButtonDown routed event is raised on this element. 
+        /// Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             Mouse.Capture(this);
@@ -786,6 +776,13 @@ namespace Fluent
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled MouseLeftButtonUp routed event reaches an element 
+        /// in its route that is derived from this class. Implement this method to add 
+        /// class handling for this event. 
+        /// </summary>
+        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was released</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if(Mouse.Captured==this)Mouse.Capture(null);
@@ -804,7 +801,7 @@ namespace Fluent
             base.OnPreviewKeyDown(e);
         }
 
-        private void CreateMenu()
+        void CreateMenu()
         {
             isInitializing = true;
             contextMenu = new ContextMenu();
@@ -836,7 +833,7 @@ namespace Fluent
         private void OnMenuClosed(object sender, EventArgs e)
         {
             CloseMenu();
-            if (MenuClosed != null) MenuClosed(this, e);
+            if (Closed != null) Closed(this, e);
         }
 
         private void CloseMenu()
@@ -854,7 +851,7 @@ namespace Fluent
         private void OnMenuOpened(object sender, EventArgs e)
         {
             OpenMenu();
-            if (MenuOpened != null) MenuOpened(this, e);
+            if (Opened != null) Opened(this, e);
         }
 
         private void OpenMenu()
@@ -896,8 +893,8 @@ namespace Fluent
             }
 
             BindQuickAccessItem(combo);
-            combo.MenuOpened += OnQuickAccesMenuOpened;
-            combo.MenuClosed += OnQuickAccesMenuClosed;
+            combo.Opened += OnQuickAccesMenuOpened;
+            combo.Closed += OnQuickAccesMenuClosed;
             
             if (!IsEditable)
             {

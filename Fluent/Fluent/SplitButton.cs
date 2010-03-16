@@ -1,23 +1,33 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Input;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Represents button control that allows 
+    /// you to add menu and handle clicks
+    /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(Button))]
     public class SplitButton:DropDownButton
     {
         #region Fields
 
-        private Button button;
-
-        private SplitButton quickAccessButton;
+        // Inner button
+        Button button;
+        // QAT clone
+        SplitButton quickAccessButton;
 
         #endregion
 
@@ -30,46 +40,23 @@ namespace Fluent
         {
             get
             {
-                /*if (contextMenu != null)
-                {
-                    ArrayList list = new ArrayList();                    
-                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
-                    else list.Add(contextMenu);
-                    if (button != null) list.Add(button);
-                    return list.GetEnumerator();                    
-                }
-                else*/
-                {
-                    ArrayList list = new ArrayList();                    
-                    if(items!=null)  list.AddRange(items);
-                    if (button != null) list.Add(button);
-                    return list.GetEnumerator();
-                }
+                ArrayList list = new ArrayList();
+                if (Items != null) list.AddRange(Items);
+                if (button != null) list.Add(button);
+                return list.GetEnumerator();
             }
         }
-        /*protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                if (contextMenu != null)
-                {
-                    ArrayList list = new ArrayList();
-                    if (contextMenu.MenuBar != null) list.Add(contextMenu.MenuBar);
-                    else list.Add(contextMenu);
-                    return list.GetEnumerator();
-                }
-                else
-                {
-                    if (items != null) return items.GetEnumerator();
-                    else return (new ArrayList()).GetEnumerator();
-                }
-            }
-        }*/
+        
         #endregion
 
         #region Events
 
-        public event RoutedEventHandler Click;
+        // TODO: use base Click, RaiseClick and so on
+
+        /// <summary>
+        /// Occurs when user clicks
+        /// </summary>
+        public new event RoutedEventHandler Click;
 
         #endregion
 
@@ -78,18 +65,13 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static SplitButton()
         {
-            //StyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(typeof(SplitButton)));
-            FrameworkElement.FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null));            
+            FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null));            
         }
 
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultSplitButtonStyle;
-            return basevalue;
-        }
-
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public SplitButton()
         {
 
@@ -99,11 +81,15 @@ namespace Fluent
 
         #region Overrides
 
-        private void OnClick(object sender, RoutedEventArgs e)
+        void OnClick(object sender, RoutedEventArgs e)
         {            
             e.Handled = true;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked 
+        /// whenever application code or internal processes call ApplyTemplate
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (button != null) button.Click -= OnButtonClick;
@@ -128,12 +114,19 @@ namespace Fluent
             }
         }
 
-        private void OnButtonClick(object sender, RoutedEventArgs e)
+        void OnButtonClick(object sender, RoutedEventArgs e)
         {
             if (Click != null) Click(this, e);
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
+        /// reaches an element in its route that is derived from this class. Implement this method to add 
+        /// class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {            
             if(button==null) base.OnMouseLeftButtonDown(e);
@@ -158,40 +151,39 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            SplitButton button = new SplitButton();
-            button.Loaded += OnQuickAccessButtonLoaded;
+            SplitButton splitButton = new SplitButton();
+            splitButton.Loaded += OnQuickAccessButtonLoaded;
             
-            BindQuickAccessItem(button);
-            //button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
-            button.Opened += OnQuickAccessClick;
-            return button;
+            BindQuickAccessItem(splitButton);
+            splitButton.Opened += OnQuickAccessClick;
+            return splitButton;
         }
 
-        private void OnQuickAccessButtonLoaded(object sender, RoutedEventArgs e)
+        void OnQuickAccessButtonLoaded(object sender, RoutedEventArgs e)
         {
-            SplitButton button = sender as SplitButton;
-            if (button.button != null)
+            SplitButton splitButton = (SplitButton)sender;
+            if (splitButton.button != null)
             {
-                button.Loaded -= OnQuickAccessButtonLoaded;
-                button.button.CanAddToQuickAccessToolBar = false;
+                splitButton.Loaded -= OnQuickAccessButtonLoaded;
+                splitButton.button.CanAddToQuickAccessToolBar = false;
             }
         }
 
-        private void OnQuickAccessClick(object sender, EventArgs e)
+        void OnQuickAccessClick(object sender, EventArgs e)
         {
-            SplitButton button = sender as SplitButton;
+            SplitButton splitButton = (SplitButton)sender;
             for (int i = 0; i < Items.Count; i++)
             {
                 UIElement item = Items[0];
                 Items.Remove(item);
-                button.Items.Add(item);
+                splitButton.Items.Add(item);
                 i--;
             }
-            button.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;
+            splitButton.Closed += OnQuickAccessMenuClosed;
+            quickAccessButton = splitButton;
         }
 
-        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             for (int i = 0; i < quickAccessButton.Items.Count; i++)
@@ -209,9 +201,9 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            SplitButton button = element as SplitButton;
-            Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            button.Click += delegate(object sender, RoutedEventArgs e) { e.Handled = true; if(Click!=null)Click(this,e); };
+            SplitButton splitButton = (SplitButton)element;
+            Bind(this, splitButton, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            splitButton.Click += delegate(object sender, RoutedEventArgs e) { e.Handled = true; if(Click!=null)Click(this,e); };
             base.BindQuickAccessItem(element);
         }
 

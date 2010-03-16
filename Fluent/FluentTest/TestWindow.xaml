@@ -85,7 +85,7 @@
       <Fluent:RibbonTabItem  x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
 
         <Fluent:RibbonGroupBox  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
-          <Fluent:SplitButton x:Name="ss" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large">
+          <Fluent:SplitButton x:Name="ss" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste" Click="OnSplitButtonClick">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
                   Title="Paste (Ctrl+V)"
@@ -252,7 +252,7 @@
         <Fluent:InRibbonGallery.MenuItems>
           <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
           <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
-            <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
+            <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A" IsChecked="true"/>
             <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
             <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
           </Fluent:MenuItem>

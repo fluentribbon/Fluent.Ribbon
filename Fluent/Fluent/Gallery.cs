@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -442,9 +443,10 @@ namespace Fluent
 
         static object CoerceSelectedIndex(DependencyObject d, object basevalue)
         {
-            if (!((Gallery)d).Selectable)
+            Gallery gallery = (Gallery)d;
+            if (!gallery.Selectable)
             {
-                ((Gallery)d).listBox.SelectedIndex = -1;
+                gallery.listBox.SelectedIndex = -1;
                 return -1;
             }
             return basevalue;
@@ -529,6 +531,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Gallery()
         {            
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Gallery), new FrameworkPropertyMetadata(typeof(Gallery)));
@@ -734,7 +737,8 @@ namespace Fluent
             DependencyObject parent = VisualTreeHelper.GetParent(this);
             while(parent!=null)
             {
-                if (parent is ContextMenuBar) return (parent as ContextMenuBar).ParentContextMenu;
+                ContextMenuBar contextMenuBar = (parent as ContextMenuBar);
+                if (contextMenuBar != null) return contextMenuBar.ParentContextMenu;
                 parent = VisualTreeHelper.GetParent(parent);
             }
             return null;

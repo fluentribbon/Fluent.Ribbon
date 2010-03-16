@@ -330,6 +330,7 @@ namespace Fluent
 
         #region Event Handlers
 
+        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             Log("Key Down " + e.Key.ToString() + " ("+ e.OriginalSource.ToString() + ")");
@@ -355,7 +356,7 @@ namespace Fluent
                 if (neutralKey != null)
                 {
                     e.Handled = true;
-                    neutralKey = Char.ToUpper(neutralKey.Value);
+                    neutralKey = Char.ToUpper(neutralKey.Value, CultureInfo.InvariantCulture);
                     
                     if (IsElementsStartWith(enteredKeys + neutralKey))
                     {
@@ -371,7 +372,7 @@ namespace Fluent
                 if (specificKey!= null)
                 {
                     e.Handled = true;
-                    specificKey = Char.ToUpper(specificKey.Value);
+                    specificKey = Char.ToUpper(specificKey.Value, CultureInfo.CurrentUICulture);
                     
                     if (IsElementsStartWith(enteredKeys + specificKey))
                     {
@@ -632,6 +633,7 @@ namespace Fluent
             return GetGroupBox(parent);
         }
 
+        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         void UpdateKeyTipPositions()
         {
             if (keyTips.Count == 0) return;

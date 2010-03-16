@@ -14,6 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 
 namespace Fluent
@@ -143,12 +144,18 @@ namespace Fluent
             base.OnSelectionChanged(e);
             if (e.AddedItems.Count > 0)
             {
-                this.UpdateSelectedContent();
+                UpdateSelectedContent();
             }
             e.Handled = true;
         }
 
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// Invoked when an unhandled MouseLeftButtonDown routed event 
+        /// is raised on this element. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed</param>
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
             e.Handled = true;
@@ -159,7 +166,7 @@ namespace Fluent
         #region Private methods
 
         // Gets selected ribbon tab item
-        private BackstageTabItem GetSelectedTabItem()
+        BackstageTabItem GetSelectedTabItem()
         {
             object selectedItem = base.SelectedItem;
             if (selectedItem == null)

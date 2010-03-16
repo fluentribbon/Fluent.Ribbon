@@ -218,6 +218,11 @@ namespace FluentTest
         {
             inRibbonGallery.Reduce();
         }
+
+        private void OnSplitButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Split");
+        }
     }
 
 }

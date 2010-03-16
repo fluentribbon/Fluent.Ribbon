@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -21,7 +22,7 @@ namespace Fluent
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
-    public class IconConverter : IValueConverter
+    public sealed class IconConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
@@ -43,14 +44,14 @@ namespace Fluent
             return value;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1031")]
         static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {
-                IntPtr zero = IntPtr.Zero;
                 try
                 {
-                    zero = NativeMethods.SendMessage(hwnd, 0x7f, new IntPtr(2), IntPtr.Zero);
+                    IntPtr zero = NativeMethods.SendMessage(hwnd, 0x7f, new IntPtr(2), IntPtr.Zero);
                     if (zero == IntPtr.Zero)
                     {
                         zero = NativeMethods.GetClassLongPtr(hwnd, -34);
@@ -66,6 +67,7 @@ namespace Fluent
                 }
                 catch
                 {
+                    return null;
                 }
             }
             return null;
