@@ -52,6 +52,7 @@ namespace Fluent
 
         #region Initialization
 
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
             CanAutoCheckProperty.AddOwner(typeof(QuickAccessMenuItem), new UIPropertyMetadata(true));            
@@ -222,19 +223,6 @@ namespace Fluent
             if (result == null) throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
 
             return result;
-        }
-        
-        /// <summary>
-        /// Finds the top supported control and gets quick access item from it
-        /// </summary>
-        /// <param name="visual">Visual</param>
-        /// <param name="point">Point</param>
-        /// <returns>Point</returns>
-        public static FrameworkElement PickQuickAccessItem(Visual visual, Point point)
-        {
-            FrameworkElement element = FindSupportedControl(visual, point);
-            if (element != null) return GetQuickAccessItem(element);
-            else return null;
         }
 
         /// <summary>

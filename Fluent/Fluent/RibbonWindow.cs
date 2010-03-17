@@ -49,6 +49,7 @@ namespace Fluent
         /// <summary>
         /// Is Dwm Enabled
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704")]
         public bool IsDwmEnabled
         {
             get { return (bool)GetValue(IsDwmEnabledProperty); }
@@ -57,6 +58,7 @@ namespace Fluent
         /// <summary>
         /// Is Dwm Enabled Dependency property
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1704")]
         public static readonly DependencyProperty IsDwmEnabledProperty = DependencyProperty.Register("IsDwmEnabled", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
 
         /// <summary>
@@ -92,7 +94,8 @@ namespace Fluent
         // Handles GlassBorder property changes
         private static void OnGlassBordersChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as RibbonWindow).IsDwmEnabled) (d as RibbonWindow).DwmInit();
+            RibbonWindow window = (RibbonWindow)d;
+            if (window.IsDwmEnabled) window.DwmInit();
         }
 
         /// <summary>
@@ -118,46 +121,59 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsCollapsed", typeof(bool), 
+            typeof(RibbonWindow), new UIPropertyMetadata(false));
               
         /// <summary>
         /// Gets whether client window area is activated
         /// </summary>
-        public bool IsNcActive
+        public bool IsNonClientAreaActive
         {
-            get { return (bool)GetValue(IsNcActiveProperty); }
-            private set { SetValue(IsNcActiveProperty, value); }
+            get { return (bool)GetValue(IsNonClientAreaActiveProperty); }
+            private set { SetValue(IsNonClientAreaActiveProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsNcActivated.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsNcActivated.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsNcActiveProperty =
-            DependencyProperty.Register("IsNcActive", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
-
+        public static readonly DependencyProperty IsNonClientAreaActiveProperty =
+            DependencyProperty.Register("IsNonClientAreaActive", typeof(bool), 
+            typeof(RibbonWindow), new UIPropertyMetadata(false));
 
 
         #endregion
 
         #region Commands
+
+        // TODO: why are these ribbon window's commands static?
+
         /// <summary>
-        /// Команда минимизации окна
+        /// Minimize command
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand MinimizeCommand = new RoutedCommand();
+
         /// <summary>
-        /// Команда максимизации окна
+        /// Maximize command
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand MaximizeCommand = new RoutedCommand();
+
         /// <summary>
-        /// Команда нормализации окна
+        /// Normalize command
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand NormalizeCommand = new RoutedCommand();
+
         /// <summary>
-        /// Команда хакрытия окна
+        /// Close command
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand CloseCommand = new RoutedCommand();
 
 
@@ -168,6 +184,7 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonWindow()
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
@@ -184,12 +201,8 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                //                ThemesManager.SetTheme(d as Window, Themes.Default, Themes.Default);
-                basevalue = (d as FrameworkElement).Resources["RibbonWindowStyle"] as Style;
-                if (basevalue == null) basevalue = Application.Current.Resources["RibbonWindowStyle"] as Style;
-                /*Uri uri = new Uri("/Fluent;component/Themes/Office2010/RibbonWindow.xaml", UriKind.Relative);
-                Application.LoadComponent(d,uri);
-                return (d as RibbonWindow).Resources["RibbonWindowStyle"];*/
+                basevalue = ((FrameworkElement)d).Resources["RibbonWindowStyle"] as Style ??
+                              Application.Current.Resources["RibbonWindowStyle"] as Style;
             }
             
             return basevalue;
@@ -207,7 +220,7 @@ namespace Fluent
             SizeChanged += OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth)||(e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
@@ -218,27 +231,32 @@ namespace Fluent
         #region Commands handles
 
         // Handles Close command
-        private static void OnCloseCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        static void OnCloseCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (sender is RibbonWindow) (sender as RibbonWindow).Close();
+            // TODO: why sender must be RibbonWindow?
+            RibbonWindow window = sender as RibbonWindow;
+            if (window != null) window.Close();
         }
 
         // Handles Maximize command
-        private static void OnMaximizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        static void OnMaximizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (sender is RibbonWindow) (sender as RibbonWindow).WindowState = WindowState.Maximized;
+            RibbonWindow window = sender as RibbonWindow;
+            if (window != null) window.WindowState = WindowState.Maximized;
         }
 
         // Handles Normalize command
-        private static void OnNormalizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        static void OnNormalizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (sender is RibbonWindow) (sender as RibbonWindow).WindowState = WindowState.Normal;
+            RibbonWindow window = sender as RibbonWindow;
+            if (window != null) window.WindowState = WindowState.Normal;
         }
 
         // Handles Minimize command
-        private static void OnMinimizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        static void OnMinimizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (sender is RibbonWindow) (sender as RibbonWindow).WindowState = WindowState.Minimized;
+            RibbonWindow window = sender as RibbonWindow;
+            if (window != null) window.WindowState = WindowState.Minimized;
         }
 
         #endregion
@@ -250,10 +268,9 @@ namespace Fluent
         /// </summary>
         /// <param name="point">Point to display</param>
         /// <returns>True if menu displayed, else false</returns>
-        public bool ShowSystemMenu(System.Windows.Point point)
+        public bool ShowSystemMenu(Point point)
         {
             bool flag = false;
-            IntPtr handle = new WindowInteropHelper(this).Handle;
             uint num = NativeMethods.TrackPopupMenuEx(NativeMethods.GetSystemMenu(handle, false), 0x100, (int)point.X, (int)point.Y, handle, IntPtr.Zero);
             if (num != 0)
             {
@@ -267,18 +284,18 @@ namespace Fluent
         /// Gets window border width
         /// </summary>
         /// <returns>Window border width</returns>
-        public double GetBorderWidth()
+        public static double BorderWidth
         {
-            return SystemParameters.ResizeFrameVerticalBorderWidth;
+            get { return SystemParameters.ResizeFrameVerticalBorderWidth; }
         }
 
         /// <summary>
         /// Get window border height
         /// </summary>
         /// <returns>Window border height</returns>
-        public double GetBorderHeight()
+        public static double BorderHeight
         {
-            return SystemParameters.ResizeFrameHorizontalBorderHeight;
+            get { return SystemParameters.ResizeFrameHorizontalBorderHeight; }
         }
 
         #endregion
@@ -425,12 +442,13 @@ namespace Fluent
         }
 
         // Main window function on enabled DWN
-        private IntPtr DwmWindowProc(
-                   IntPtr hwnd,
-                   int msg,
-                   IntPtr wParam,
-                   IntPtr lParam,
-                   ref bool handled)
+        [SuppressMessage("Microsoft.Usage", "CA1801")]
+        IntPtr DwmWindowProc(
+               IntPtr hwnd,
+               int msg,
+               IntPtr wParam,
+               IntPtr lParam,
+               ref bool handled)
         {
             switch (msg)
             {
@@ -464,22 +482,23 @@ namespace Fluent
         }
 
         // Main window function on disabled DWN
-        private IntPtr NonDwmWindowProc(
-                   IntPtr hwnd,
-                   int msg,
-                   IntPtr wParam,
-                   IntPtr lParam,
-                   ref bool handled)
+        [SuppressMessage("Microsoft.Usage", "CA1801")]
+        IntPtr NonDwmWindowProc(
+               IntPtr hwnd,
+               int msg,
+               IntPtr wParam,
+               IntPtr lParam,
+               ref bool handled)
         {
             switch (msg)
             {
                 // Handles window min max size changed
                 case NativeMethods.WM_GETMINMAXINFO:
-                    NonDwmGetMinMaxInfo(hwnd, lParam);
+                    NonDwmGetMinMaxInfo(lParam);
                     handled = true;
                     break;
                 case NativeMethods.WM_NCACTIVATE:
-                    IsNcActive = (wParam != IntPtr.Zero);
+                    IsNonClientAreaActive = (wParam != IntPtr.Zero);
                     break;
                 // Handles window size changed
                 case NativeMethods.WM_SIZE:
@@ -495,11 +514,11 @@ namespace Fluent
                             
                             if ((!Double.IsNaN(Width)) && ((Double.IsNaN(Height))) && ((ResizeMode != ResizeMode.CanResize) && (ResizeMode != ResizeMode.CanResizeWithGrip)))
                             {
-                                SetNonDwmRgn(w + 2 * (int)GetBorderWidth() - 2,
-                                             h + 2 * (int)GetBorderHeight());
+                                SetNonDwmRgn(w + 2 * (int)BorderWidth - 2,
+                                             h + 2 * (int)BorderHeight);
                             }
-                            else SetNonDwmRgn(w + 2 * (int)GetBorderWidth() - 2,
-                                             h + 2 * (int)GetBorderHeight() - 2);
+                            else SetNonDwmRgn(w + 2 * (int)BorderWidth - 2,
+                                             h + 2 * (int)BorderHeight - 2);
                             
                         }
                         else if (lP == NativeMethods.SIZE_MAXIMIZED)
@@ -507,8 +526,8 @@ namespace Fluent
                             mainGrid.Margin = new Thickness(0, 1, 0, 0);
                             
                             //
-                            int borderWidth = (int)GetBorderWidth();
-                            int borderHeight = (int)GetBorderHeight();
+                            int borderWidth = (int)BorderWidth;
+                            int borderHeight = (int)BorderHeight;
                             Rect rect = GetCurrentWorkarea();
                             IntPtr hRgn = NativeMethods.CreateRectRgn(
                                 borderWidth,
@@ -530,10 +549,11 @@ namespace Fluent
         #region Private methods
 
         // Do hittest
-        private IntPtr DoNcHitTest(int msg, IntPtr wParam, IntPtr lParam)
+        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
+        IntPtr DoNcHitTest(int msg, IntPtr wParam, IntPtr lParam)
         {
             int mp = lParam.ToInt32();
-            System.Windows.Point ptMouse = new System.Windows.Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
+            Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
             ptMouse = mainGrid.PointFromScreen(ptMouse);
             IInputElement hitTested = mainGrid.InputHitTest(ptMouse);
             if ((hitTested != null) && (hitTested != mainGrid))
@@ -573,8 +593,8 @@ namespace Fluent
             int uCol = 1;
             bool fOnResizeBorder = false;
 
-            int borderWidth = (int)this.GetBorderWidth();
-            int borderHeight = (int)this.GetBorderHeight();
+            int borderWidth = (int)BorderWidth;
+            int borderHeight = (int)BorderHeight;
                        
             Thickness borderSize = IsDwmEnabled ? sizers : new Thickness(sizers.Left + borderWidth, sizers.Top + borderHeight, sizers.Right + borderWidth, sizers.Bottom + borderHeight);
 
@@ -635,8 +655,8 @@ namespace Fluent
             NativeMethods.DwmExtendFrameIntoClientArea(handle, margins);
             if (mainGrid == null) return;
 
-            int borderWidth = (int)this.GetBorderWidth();
-            int borderHeight = (int)this.GetBorderHeight();
+            int borderWidth = (int)BorderWidth;
+            int borderHeight = (int)BorderHeight;
 
             if (FlowDirection == FlowDirection.LeftToRight) mainGrid.Margin = new Thickness(sizers.Left,
                                             sizers.Top,
@@ -658,14 +678,14 @@ namespace Fluent
         }
 
         // Calc window minmax information
-        private void NonDwmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
+        private void NonDwmGetMinMaxInfo(IntPtr lParam)
         {
             NativeMethods.MINMAXINFO mmi = (NativeMethods.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(NativeMethods.MINMAXINFO));
             mmi.ptMinTrackSize.x = (int)MinWidth;
             mmi.ptMinTrackSize.y = (int)MinHeight;
 
-            int borderWidth = (int)this.GetBorderWidth();
-            int borderHeight = (int)this.GetBorderHeight();
+            int borderWidth = (int)BorderWidth;
+            int borderHeight = (int)BorderHeight;
 
             Rect rect = GetCurrentWorkarea();
             mmi.ptMaxPosition.x = (int)SystemParameters.WorkArea.Left - borderWidth;
@@ -676,10 +696,10 @@ namespace Fluent
             Marshal.StructureToPtr(mmi, lParam, true);
         }
         // Gets current workspace
-        private Rect GetCurrentWorkarea()
+        static Rect GetCurrentWorkarea()
         {
-            int borderWidth = (int)this.GetBorderWidth();
-            int borderHeight = (int)this.GetBorderHeight();
+            int borderWidth = (int)BorderWidth;
+            int borderHeight = (int)BorderHeight;
 
             Rect rect = SystemParameters.WorkArea;
             return new Rect(rect.Left - borderWidth, rect.Top - borderHeight, rect.Width + borderWidth * 2, rect.Height + borderHeight * 2);
@@ -690,8 +710,8 @@ namespace Fluent
         {
             if (sizeBorder == null) return;
             
-            int borderWidth = (int)this.GetBorderWidth();
-            int borderHeight = (int)this.GetBorderHeight();
+            int borderWidth = (int)BorderWidth;
+            int borderHeight = (int)BorderHeight;
 
             int topSide = borderHeight - 1;
             int bottomSide = borderHeight - 1;

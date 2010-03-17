@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Fluent
@@ -516,6 +517,8 @@ namespace Fluent
         /// If the window was not brought to the foreground, the return value is zero.
         /// </returns>
         [DllImport("user32.dll")]
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
+        [SuppressMessage("Microsoft.Portability", "CA1901")]
         public static extern IntPtr SetForegroundWindow(IntPtr hWnd);       
 
         /// <summary>
@@ -524,8 +527,8 @@ namespace Fluent
         /// </summary>
         /// <returns>The return value is the handle to the active window attached to the calling thread's message queue. 
         /// Otherwise, the return value is NULL. </returns>
-        
         [DllImport("user32.dll")]
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static extern IntPtr GetActiveWindow();
         
         /// <summary>
@@ -537,7 +540,7 @@ namespace Fluent
         /// <param name="lParam">Параметр</param>
         /// <param name="plResult">Результат</param>
         /// <returns>Результат</returns>
-        [DllImport("dwmapi.dll")]
+        [DllImport("dwmapi.dll", PreserveSig = false)]
         public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 
         /// <summary>
@@ -663,7 +666,7 @@ namespace Fluent
         /// <param name="hRgn">Handle to region</param>
         /// <param name="bRedraw">Window redraw option</param>
         /// <returns></returns>
-        [DllImport("User32.dll")]
+        [DllImport("User32.dll", PreserveSig = false)]
         public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, [MarshalAs(UnmanagedType.Bool)]bool bRedraw);
 
         /// <summary>
@@ -711,17 +714,15 @@ namespace Fluent
         /// <returns>If the function succeeds, the return value is the requested 32-bit value. If the function fails, the return value is zero.</returns>
         public static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
         {
-            if (IntPtr.Size == 8)
-                return GetWindowLongPtr64(hWnd, nIndex);
-            else
-                return GetWindowLongPtr32(hWnd, nIndex);
+            return new IntPtr(IntPtr.Size == 8 ? GetWindowLongPtr64(hWnd, nIndex) : GetWindowLongPtr32(hWnd, nIndex));
         }
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
-        private static extern IntPtr GetWindowLongPtr32(IntPtr hWnd, int nIndex);
+        static extern Int32 GetWindowLongPtr32(IntPtr hWnd, int nIndex);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
-        private static extern IntPtr GetWindowLongPtr64(IntPtr hWnd, int nIndex);
+        [SuppressMessage("Microsoft.Interoperability", "CA1400")]
+        static extern Int64 GetWindowLongPtr64(IntPtr hWnd, int nIndex);
 
         /// <summary>
         /// The SetWindowLong function changes an attribute of the specified window. 
@@ -741,10 +742,11 @@ namespace Fluent
         }
 
         [DllImport("user32.dll", EntryPoint="SetWindowLong")]
-        private static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
+        static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
 
         [DllImport("user32.dll", EntryPoint="SetWindowLongPtr")]
-        private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+        [SuppressMessage("Microsoft.Interoperability", "CA1400")]
+        static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
         /// <summary>
         /// Changes the size, position, and Z order of a child, pop-up, or top-level window. 
@@ -781,6 +783,7 @@ namespace Fluent
         /// <returns>Not used</returns>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static extern bool EnumChildWindows(IntPtr hWndParent, EnumChildProc lpEnumFunc, IntPtr lParam);
 
         /// <summary>
@@ -790,6 +793,7 @@ namespace Fluent
         /// <param name="hWndNewParent">Handle to the new parent window. If this parameter is NULL, the desktop window becomes the new parent window. Windows 2000/XP: If this parameter is HWND_MESSAGE, the child window becomes a message-only window. </param>
         /// <returns> the function succeeds, the return value is a handle to the previous parent window. If the function fails, the return value is NULL. </returns>
         [DllImport("user32.dll", PreserveSig = false)]
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         /// <summary>
@@ -819,10 +823,12 @@ namespace Fluent
             return new IntPtr((long)GetClassLongPtr32(hWnd, nIndex));
         }
 
+        // GetClassLong (x86 version)
         [DllImport("user32.dll", EntryPoint = "GetClassLong")]
         private static extern uint GetClassLongPtr32(IntPtr hWnd, int nIndex);
-
+        // GetClassLong (x64 version)
         [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        [SuppressMessage("Microsoft.Interoperability", "CA1400")]
         private static extern IntPtr GetClassLongPtr64(IntPtr hWnd, int nIndex);
 
         /// <summary>
@@ -836,7 +842,7 @@ namespace Fluent
         /// <param name="fuLoad">This parameter can be one or more of the following values.</param>
         /// <returns>If the function succeeds, the return value is the requested value.If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr LoadImage(IntPtr hinst, int lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
+        public static extern IntPtr LoadImage(IntPtr hinst, IntPtr lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
  
         #endregion
 
@@ -848,7 +854,7 @@ namespace Fluent
         /// Unicode character or characters
         /// </summary>
         /// <returns>1, 2 or more if success, otherwise fail</returns>
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", PreserveSig = false, SetLastError = false)]
         public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
 
         /// <summary>
@@ -857,7 +863,9 @@ namespace Fluent
         /// </summary>
         /// <returns>If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        public static extern bool GetKeyboardState(byte[] lpKeyState);
+        [return:MarshalAs(UnmanagedType.Bool)]
+        [SuppressMessage("Microsoft.Portability", "CA1901")]
+        public static extern bool GetKeyboardState([MarshalAs(UnmanagedType.U1)] byte[] lpKeyState);
 
         /// <summary>
         /// The MapVirtualKeyEx function translates (maps) a virtual-key 
@@ -883,6 +891,7 @@ namespace Fluent
         /// locale identifier to the locale matched with the requested name. 
         /// If no matching locale is available, the return value is NULL</returns>
         [DllImport("user32.dll")]
+        [SuppressMessage("Microsoft.Globalization", "CA2101")]
         public static extern IntPtr LoadKeyboardLayout(string cultureId, uint flags);
 
         #endregion

@@ -106,16 +106,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ToggleButton()
         {
-            //StyleProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(typeof(ToggleButton)));
         }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultToggleButtonStyle;
-            return basevalue;
-        }
+        
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -131,11 +124,11 @@ namespace Fluent
         /// <summary>
         /// Handles click event
         /// </summary>
-        /// <param name="e">The event data</param>
-        protected override void OnClick(RoutedEventArgs e)
+        /// <param name="args">The event data</param>
+        protected override void OnClick(RoutedEventArgs args)
         {
             if(UseAutoCheck) IsChecked = !IsChecked;
-            base.OnClick(e);
+            base.OnClick(args);
         }
 
         #endregion
@@ -161,7 +154,6 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            ToggleButton button = element as ToggleButton;
             Bind(this, element, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             base.BindQuickAccessItem(element);
         }

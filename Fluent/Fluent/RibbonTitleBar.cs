@@ -62,21 +62,6 @@ namespace Fluent
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTitleBar titleBar = (RibbonTitleBar)d;
-
-            UIElement oldToolbar = e.OldValue as UIElement;
-            UIElement newToolbar = e.NewValue as UIElement;
-
-            // Remove Logical tree link
-            /*if (oldToolbar != null)
-            {
-                if (LogicalTreeHelper.GetParent(oldToolbar) == titleBar) titleBar.RemoveLogicalChild(oldToolbar);
-            }*/
-
-            // Add Logical tree link
-            /*if (newToolbar != null)
-            {
-                if (LogicalTreeHelper.GetParent(newToolbar) == null) titleBar.AddLogicalChild(newToolbar);
-            }   */     
             titleBar.InvalidateMeasure();
         }
 
@@ -118,16 +103,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTitleBar()
         {
-            //StyleProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
         }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonTitleBarStyle;
-            return basevalue;
-        }
+        
         /// <summary>
         /// Default constructor
         /// </summary>

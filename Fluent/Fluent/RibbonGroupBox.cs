@@ -519,15 +519,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonGroupBox()
         {
-            //StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
-        }
-
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultRibbonGroupBoxStyle;
-            return basevalue;
         }
 
         /// <summary>
@@ -897,10 +889,11 @@ namespace Fluent
             return button;
         }
 
-        private UIElement popupPlacementTarget;
+        UIElement popupPlacementTarget;
 
-        private void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
+            ToggleButton button = (ToggleButton) sender;
             if ((!IsOpen)&&(!IsSnapped))
             {
                 popup.Closed += OnMenuClosed;
@@ -908,13 +901,12 @@ namespace Fluent
                 savedState = this.State;
                 this.State = RibbonGroupBoxState.Collapsed;
                 popupPlacementTarget = popup.PlacementTarget;
-                popup.PlacementTarget = sender as ToggleButton;
-                popup.Tag = sender;
-                //(sender as ToggleButton).IsChecked = true;
-                //Mouse.Capture(popup);
+                popup.PlacementTarget = button;
+                popup.Tag = button;
+
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 popup.UpdateLayout();
-                (sender as ToggleButton).IsChecked = true;
+                button.IsChecked = true;
                 e.Handled = true;
             }
         }
@@ -924,7 +916,7 @@ namespace Fluent
             this.State = savedState;
             popup.PlacementTarget = popupPlacementTarget;
             UpdateLayout();
-            ((sender as Popup).Tag as ToggleButton).IsChecked = false;
+            ((ToggleButton)((Popup)sender).Tag).IsChecked = false;
             popup.Closed -= OnMenuClosed;
             IsSnapped = false;
         }

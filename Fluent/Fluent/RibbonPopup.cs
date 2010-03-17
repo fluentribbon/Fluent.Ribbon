@@ -64,8 +64,8 @@ namespace Fluent
 
         // Current HwndSource of this Popup
         HwndSource hwndSource;
-
-        private bool isFirstMouseUp = false;
+        // TODO: comment this field (isFirstMouseUp)
+        bool isFirstMouseUp;
 
         #endregion
 

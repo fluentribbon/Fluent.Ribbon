@@ -524,11 +524,12 @@ namespace Fluent
             {
                 foreach (DependencyObject item in row.Children)
                 {
+                    RibbonToolBarControlDefinition controlDefinition = item as RibbonToolBarControlDefinition;
+                    RibbonToolBarControlGroupDefinition controlGroupDefinition = item as RibbonToolBarControlGroupDefinition;
                     FrameworkElement control = null;
-                    if (item is RibbonToolBarControlDefinition)
-                        control = GetControl((RibbonToolBarControlDefinition) item);
-                    else if (item is RibbonToolBarControlGroupDefinition)
-                        control = GetControlGroup((RibbonToolBarControlGroupDefinition)item);
+                    if (controlDefinition != null) control = GetControl(controlDefinition);
+                    else if (controlGroupDefinition != null)
+                        control = GetControlGroup(controlGroupDefinition);
 
                     if (control == null) return defaultRowHeight;
                     control.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));

@@ -281,8 +281,8 @@ namespace Fluent
         /// <summary>
         /// ItemsSource property change handling
         /// </summary>
-        /// <param name="e"></param>
-        protected virtual void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
+        /// <param name="args"></param>
+        protected virtual void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
         {
             
         }
@@ -426,7 +426,7 @@ namespace Fluent
         /// Adds a child object
         /// </summary>
         /// <param name="value">The child object to add</param>
-        void IAddChild.AddChild(object value)
+        public void AddChild(object value)
         {
             Items.Add(value as DependencyObject);
         }
@@ -435,7 +435,7 @@ namespace Fluent
         /// Adds the text content of a node to the object. 
         /// </summary>
         /// <param name="text">The text to add to the object</param>
-        void IAddChild.AddText(string text)
+        public void AddText(string text)
         {
             GalleryItem item = new GalleryItem();
             item.Content = text;

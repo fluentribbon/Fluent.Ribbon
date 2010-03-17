@@ -41,13 +41,6 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
         }
 
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            //if (basevalue == null) basevalue = ThemesManager.DefaultScreenTipStyle;
-            return basevalue;
-        }
-
         /// <summary>
         /// Default constructor
         /// </summary>

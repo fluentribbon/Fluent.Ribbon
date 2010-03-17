@@ -58,7 +58,7 @@ namespace Fluent
                     }
                     if (zero == IntPtr.Zero)
                     {
-                        zero = NativeMethods.LoadImage(IntPtr.Zero, 0x7f00, 1, (int)SystemParameters.SmallIconWidth, (int)SystemParameters.SmallIconHeight, 0x8000);
+                        zero = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(0x7f00), 1, (int)SystemParameters.SmallIconWidth, (int)SystemParameters.SmallIconHeight, 0x8000);
                     }
                     if (zero != IntPtr.Zero)
                     {

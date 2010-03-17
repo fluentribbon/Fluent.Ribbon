@@ -747,10 +747,10 @@ namespace Fluent
         /// <summary>
         /// ItemsSource property change handling
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
+        /// <param name="args"></param>
+        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
         {            
-            base.OnItemsSourceChanged(e);
+            base.OnItemsSourceChanged(args);
             if((SelectedItem==null)&&(SelectedIndex>=0))
             {
                 SelectedItem = GetItem(SelectedIndex);

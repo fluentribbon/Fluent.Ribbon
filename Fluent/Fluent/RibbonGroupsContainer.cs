@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -188,7 +189,7 @@ namespace Fluent
         void IncreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
-            bool scale = name.StartsWith("(");
+            bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
             if (groupBox == null) return;
 
             if (scale) groupBox.ScaleIntermediate++;
@@ -200,7 +201,7 @@ namespace Fluent
         void DecreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
-            bool scale = name.StartsWith("(");
+            bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
             if (groupBox == null) return;
 
             if (scale) groupBox.ScaleIntermediate--;
@@ -209,9 +210,9 @@ namespace Fluent
 
         
 
-        private RibbonGroupBox FindGroup(string name)
+        RibbonGroupBox FindGroup(string name)
         {
-            if (name.StartsWith("(")) name = name.Substring(1, name.Length - 2);
+            if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase)) name = name.Substring(1, name.Length - 2);
             foreach (FrameworkElement child in InternalChildren)
             {
                 if (child.Name == name) return child as RibbonGroupBox;

@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,6 +48,7 @@ namespace Fluent
         /// <summary>
         /// Updates menu sizes
         /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1800")]
         internal void UpdateMenuSizes()
         {
             Width = double.NaN;
@@ -128,15 +130,20 @@ namespace Fluent
                 else
                 {
                     Separator separator = child as Separator;
+                    
                     if ((separator!=null)&&(separator.Visibility!=Visibility.Collapsed))
                     {
                         separator.Measure(availableSize);
                         totalHeight += separator.DesiredSize.Height;
                         maxWidth = Math.Max(maxWidth, separator.DesiredSize.Width);
                     }
-                    else if (child is UIElement)
+                    else
                     {
-                        nonItemsElements.Add(child as UIElement);
+                        UIElement uiElement = child as UIElement;
+                        if (uiElement != null)
+                        {
+                            nonItemsElements.Add(uiElement);
+                        }
                     }
                 }
             }
@@ -146,38 +153,38 @@ namespace Fluent
                 if (totalHeight < availableSize.Height)
                 {
                     double deltaHeight = (availableSize.Height - totalHeight)/nonItemsElements.Count;
-                    foreach (var item in nonItemsElements)
+                    foreach (FrameworkElement item in nonItemsElements)
                     {
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(new Size(availableSize.Width, deltaHeight));
-                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
-                            totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, (item).MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, (item).MinHeight);
                         }
                     }
                 }
                 else
                 {
-                    foreach (var item in nonItemsElements)
+                    foreach (FrameworkElement item in nonItemsElements)
                     {
                         if (item.Visibility != Visibility.Collapsed)
                         {
                             item.Measure(availableSize);
-                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
-                            totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
+                            maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, item.MinWidth));
+                            totalHeight += Math.Max(item.DesiredSize.Height, item.MinHeight);
                         }
                     }
                 }
             }
             else
             {
-                foreach (var item in nonItemsElements)
+                foreach (FrameworkElement item in nonItemsElements)
                 {
                     if (item.Visibility != Visibility.Collapsed)
                     {
                         item.Measure(availableSize);
-                        maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, ((FrameworkElement)item).MinWidth));
-                        totalHeight += Math.Max(item.DesiredSize.Height, ((FrameworkElement)item).MinHeight);
+                        maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, item.MinWidth));
+                        totalHeight += Math.Max(item.DesiredSize.Height, item.MinHeight);
                     }
                 }
             }

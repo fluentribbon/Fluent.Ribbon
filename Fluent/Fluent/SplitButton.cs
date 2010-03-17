@@ -155,7 +155,7 @@ namespace Fluent
             splitButton.Loaded += OnQuickAccessButtonLoaded;
             
             BindQuickAccessItem(splitButton);
-            splitButton.Opened += OnQuickAccessClick;
+            splitButton.Opened += OnQuickAccessSplitButtonClick;
             return splitButton;
         }
 
@@ -169,7 +169,7 @@ namespace Fluent
             }
         }
 
-        void OnQuickAccessClick(object sender, EventArgs e)
+        void OnQuickAccessSplitButtonClick(object sender, EventArgs e)
         {
             SplitButton splitButton = (SplitButton)sender;
             for (int i = 0; i < Items.Count; i++)

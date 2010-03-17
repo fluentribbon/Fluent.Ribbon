@@ -41,6 +41,8 @@ namespace Fluent
     /// </summary>
     [ContentProperty("Tabs")]
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
+    [SuppressMessage("Microsoft.Maintainability", "CA1506")]
+    [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon: Control
     {
         #region Constants
@@ -84,11 +86,15 @@ namespace Fluent
         MenuItem addMenuToQuickAccessMenuItem;
         MenuItem addGalleryToQuickAccessMenuItem;
         MenuItem removeFromQuickAccessMenuItem;
-        MenuItem customizeQuickAccessToolbarMenuItem;
         MenuItem showQuickAccessToolbarBelowTheRibbonMenuItem;
         MenuItem showQuickAccessToolbarAboveTheRibbonMenuItem;
-        MenuItem customizeTheRibbonMenuItem;
         MenuItem minimizeTheRibbonMenuItem;
+
+        // TODO: implement ribbon customization menu items!
+        [SuppressMessage("Microsoft.Performance", "CA1823")]
+        MenuItem customizeQuickAccessToolbarMenuItem;
+        [SuppressMessage("Microsoft.Performance", "CA1823")]
+        MenuItem customizeTheRibbonMenuItem;
 
         // Handles F10, Alt and so on
         readonly KeyTipService keyTipService;
@@ -366,40 +372,43 @@ namespace Fluent
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
-        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (object item in e.NewItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add((QuickAccessMenuItem)item);
-                        ((QuickAccessMenuItem)item).Ribbon = this;                        
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem) item;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                        menuItem.Ribbon = this;                        
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove((QuickAccessMenuItem)item);
-                        ((QuickAccessMenuItem)item).Ribbon = null;
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        menuItem.Ribbon = null;
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove((QuickAccessMenuItem)item);
-                        ((QuickAccessMenuItem)item).Ribbon = null;
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        menuItem.Ribbon = null;
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add((QuickAccessMenuItem)item);
-                        ((QuickAccessMenuItem)item).Ribbon = this;
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                        menuItem.Ribbon = this;
                     }
                     break;
             }
-
         }
 
         /// <summary>
@@ -618,23 +627,23 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus event reaches this element in its route.
+        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus 
+        /// event reaches this element in its route.
         /// </summary>
         /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (tabControl != null) (tabControl.SelectedItem as RibbonTabItem).Focus();
+            if (tabControl != null) ((RibbonTabItem)tabControl.SelectedItem).Focus();
         }
 
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or 
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
+        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public override void OnApplyTemplate()
         {
-            //if (layoutRoot!=null) RemoveLogicalChild(layoutRoot);
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
-            //if (layoutRoot != null) AddLogicalChild(layoutRoot);
 
             if ((titleBar != null) && (groups != null))
             {
@@ -1219,7 +1228,7 @@ namespace Fluent
                     // Item is not found in logical tree, output to debug console
                     FrameworkElement control = element.Key as FrameworkElement;
                     string controlName = (control != null && !String.IsNullOrEmpty(control.Name)) ? 
-                        String.Format(" (name of the control is {0})", control.Name) : "";
+                        String.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name) : "";
                     Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
                 }
             }
@@ -1291,7 +1300,7 @@ namespace Fluent
         // Loads item and add to QAT
         void ParseAndAddToQuickAccessToolBar(string data)
         {
-            int[] indices = data.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x)).ToArray();
+            int[] indices = data.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x, CultureInfo.InvariantCulture)).ToArray();
 
             DependencyObject current = this;
             for (int i = 0; i < indices.Length; i++)
@@ -1336,7 +1345,7 @@ namespace Fluent
         #region AutomaticStateManagement Property
 
         // To temporary suppress automatic management
-        bool suppressAutomaticStateManagement = false;
+        bool suppressAutomaticStateManagement;
 
         /// <summary>
         /// Gets or sets whether Quick Access ToolBar can 

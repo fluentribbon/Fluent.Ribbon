@@ -47,6 +47,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets current value
         /// </summary>
+        [SuppressMessage("Microsoft.Naming", "CA1721")]
         public double Value
         {
             get { return (double)GetValue(ValueProperty); }

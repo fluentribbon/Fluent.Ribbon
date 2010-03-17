@@ -249,6 +249,7 @@ namespace Fluent
         /// <summary>
         /// Raises click event
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1030")]
         public void RaiseClick()
         {
             RoutedEventArgs eventArgs = new RoutedEventArgs(ClickEvent, this);
@@ -524,7 +525,7 @@ namespace Fluent
         protected RibbonControl()
         {
             AddHandler(ClickEvent, (RoutedEventHandler)OnBeforeClickHandle);
-            AddHandler(ClickEvent,(RoutedEventHandler)OnClickHandle);
+            AddHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
         }
 
         private void OnClickHandle(object sender, RoutedEventArgs e)

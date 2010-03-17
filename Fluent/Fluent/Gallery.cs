@@ -567,8 +567,8 @@ namespace Fluent
         /// <summary>
         /// ItemsSource property change handling
         /// </summary>
-        /// <param name="e">Event args</param>
-        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs e)
+        /// <param name="args">Event args</param>
+        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
         {
             View.Source = ItemsSource;
             UpdateGroupBy(GroupBy);
