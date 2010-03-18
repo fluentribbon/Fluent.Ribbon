@@ -315,6 +315,8 @@ namespace Fluent
 
         }
 
+        #region Header Property
+
         /// <summary>
         /// Gets or sets header of tab item
         /// </summary>
@@ -328,7 +330,16 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null));
+            DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnHeaderChanged));
+
+        // Header changed handler
+        static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem tabItem = (RibbonTabItem)d;
+            tabItem.CoerceValue(ToolTipProperty);
+        }
+
+        #endregion
 
         #region Focusable
 
@@ -388,16 +399,25 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
+            ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
         }
-        
+
+        // Coerce ToolTip to ensure that tooltip displays name of the tabitem
+        static object CoerceToolTip(DependencyObject d, object basevalue)
+        {
+            RibbonTabItem tabItem = (RibbonTabItem)d;
+            if (basevalue == null) basevalue = tabItem.Header;
+            return basevalue;
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public RibbonTabItem()
         {
-            AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
-
+        
         // Hancles Click event
         private void OnClick(object sender, RoutedEventArgs e)
         {

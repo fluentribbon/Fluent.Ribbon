@@ -404,7 +404,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="References">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste">
+        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>

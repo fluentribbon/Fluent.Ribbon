@@ -223,6 +223,11 @@ namespace FluentTest
         {
             MessageBox.Show("Split");
         }
+
+        private void OnLauncherClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Launcher Click");
+        }
     }
 
 }

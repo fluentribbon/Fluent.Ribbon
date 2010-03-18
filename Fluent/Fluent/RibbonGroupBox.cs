@@ -824,30 +824,29 @@ namespace Fluent
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">the event data</param>
-        private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
+        void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             if (LauncherClick != null) LauncherClick(this, e);
-            e.Handled = true;
         }
         
         // Handles popup closing
-        private void OnRibbonGroupBoxPopupClosing()
+        void OnRibbonGroupBoxPopupClosing()
         {
             IsHitTestVisible = true;
         }
 
         // handles popup opening
-        private void OnRibbonGroupBoxPopupOpening()
+        void OnRibbonGroupBoxPopupOpening()
         {
             IsHitTestVisible = false;
         }
         
         /// <summary>
-        /// handles IsOpen propertyu changes
+        /// Handles IsOpen propertyu changes
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupBox ribbon = (RibbonGroupBox)d;
 
