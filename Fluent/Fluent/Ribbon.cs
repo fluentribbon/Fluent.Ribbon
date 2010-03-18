@@ -1033,13 +1033,13 @@ namespace Fluent
                 if (DesignerProperties.GetIsInDesignMode(this))
                 {
                     // TODO: in design mode it is required to use design time adorner
-                    UIElement topLevelElement = VisualTreeHelper.GetParent(this) as UIElement;
+                    FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
                     double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
                     adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
                 }
                 else
                 {
-                    UIElement topLevelElement = Window.GetWindow(this).Content as UIElement;
+                    FrameworkElement topLevelElement = (FrameworkElement)Window.GetWindow(this).Content;
                     double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
                     adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
                 }

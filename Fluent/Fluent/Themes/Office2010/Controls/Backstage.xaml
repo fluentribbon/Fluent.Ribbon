@@ -50,7 +50,7 @@
   			<ColumnDefinition Width="*"/>
   		</Grid.ColumnDefinitions>
   		<Grid Margin="0" Height="Auto" Grid.Column="1">
-  			<Border HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
+  			<Border HorizontalAlignment="Right" Margin="-100,0,0,0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
   				<Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="343" Height="181" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
   					<Image.RenderTransform>
   						<TransformGroup>

@@ -41,7 +41,40 @@
         <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
         <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
         <Fluent:BackstageTabItem Header="Lala" Fluent:KeyTip.Keys="E">
-          <Grid Background="Red" Opacity="0.3" Margin="50"/>
+          <DockPanel LastChildFill="True">
+            <ComboBox Margin="64" DockPanel.Dock="Top" IsEditable="True">
+              <ComboBoxItem>aaa 1</ComboBoxItem>
+              <ComboBoxItem>aaa 2</ComboBoxItem>
+              <ComboBoxItem>aaa 3</ComboBoxItem>
+              <ComboBoxItem>aaa 4</ComboBoxItem>
+            </ComboBox>
+            <DockPanel LastChildFill="True" Margin="16">
+              <DockPanel Margin="8">
+                <TreeView>
+                  <TreeViewItem Header="aaa" IsExpanded="True">
+                    <TreeViewItem Header="111" />
+                    <TreeViewItem Header="222" />
+                    <TreeViewItem Header="333" />
+                  </TreeViewItem>
+                  <TreeViewItem Header="aaa" IsExpanded="True">
+                    <TreeViewItem Header="111" />
+                    <TreeViewItem Header="222" />
+                    <TreeViewItem Header="333" />
+                  </TreeViewItem>
+                  <TreeViewItem Header="aaa" IsExpanded="True">
+                    <TreeViewItem Header="111" />
+                    <TreeViewItem Header="222" />
+                    <TreeViewItem Header="333" />
+                  </TreeViewItem>
+                  <TreeViewItem Header="aaa" IsExpanded="True">
+                    <TreeViewItem Header="111" />
+                    <TreeViewItem Header="222" />
+                    <TreeViewItem Header="333" />
+                  </TreeViewItem>
+                </TreeView>
+              </DockPanel>
+            </DockPanel>
+          </DockPanel>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Header="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R" IsEnabled="False">
           <Grid Background="Green" Opacity="0.3" Margin="50">

@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -37,12 +38,32 @@ namespace Fluent
         /// <param name="adornedElement">Adorned element</param>
         /// <param name="backstage">Backstage</param>
         /// <param name="topOffset">Adorner offset from top of window</param>
-        public BackstageAdorner(UIElement adornedElement, UIElement backstage, double topOffset) : base(adornedElement)
+        public BackstageAdorner(FrameworkElement adornedElement, UIElement backstage, double topOffset) : base(adornedElement)
         {
             this.backstage = backstage;
             this.topOffset = topOffset;
             visualChildren = new VisualCollection(this);
             visualChildren.Add(backstage);
+
+            // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
+            // Syncronize with visual size
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+        }
+
+        void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering += CompositionTargetRendering;
+        }
+
+        void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            CompositionTarget.Rendering -= CompositionTargetRendering;
+        }
+
+        void CompositionTargetRendering(object sender, System.EventArgs e)
+        {
+            if (RenderSize != AdornedElement.RenderSize) InvalidateMeasure();
         }
 
         #endregion
@@ -72,7 +93,8 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            return AdornedElement.RenderSize;            
+            // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
+            return AdornedElement.RenderSize;
         }
 
         /// <summary>
