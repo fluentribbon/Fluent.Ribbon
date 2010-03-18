@@ -25,6 +25,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms.Integration;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -1017,6 +1018,12 @@ namespace Fluent
 
         #region Private methods
 
+        #region Show / Hide Backstage
+
+        // We have to collapse WindowsFormsHost while Backstate is open
+        Dictionary<FrameworkElement, Visibility> collapsedElements = 
+            new Dictionary<FrameworkElement, Visibility>();
+
         // Show backstage
         void ShowBackstage()
         {            
@@ -1058,22 +1065,31 @@ namespace Fluent
                 window.MinWidth = 500;
                 window.MinHeight = 400;
                 window.SizeChanged += OnWindowSizeChanged;
+
+                // We have to collapse WindowsFormsHost while Backstate is open
+                CollapseWindowsFormsHosts(window);
             }
         }
 
-        void SaveWindowSize(Window wnd)
+        // We have to collapse WindowsFormsHost while Backstate is open
+        void CollapseWindowsFormsHosts(DependencyObject parent)
         {
-            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
-            info.cbSize = (uint)Marshal.SizeOf(info);
-            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
-            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
-            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
-        }
-
-        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Window wnd = Window.GetWindow(this);
-            SaveWindowSize(wnd);
+            FrameworkElement frameworkElement = parent as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                if ((parent is WindowsFormsHost || parent is WebBrowser) && 
+                    frameworkElement.Visibility != Visibility.Collapsed)
+                {
+                    collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
+                    frameworkElement.Visibility = Visibility.Collapsed;
+                    return;
+                }
+            }
+            // Traverse visual tree
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
+            }
         }
 
         // Hide backstage
@@ -1097,7 +1113,30 @@ namespace Fluent
                                            new IntPtr(NativeMethods.HWND_NOTOPMOST),
                                            0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
             }
+
+            // Uncollapse elements
+            foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
+            collapsedElements.Clear();
         }
+
+        #endregion
+
+        void SaveWindowSize(Window wnd)
+        {
+            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
+            info.cbSize = (uint)Marshal.SizeOf(info);
+            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
+            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
+            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
+        }
+
+        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Window wnd = Window.GetWindow(this);
+            SaveWindowSize(wnd);
+        }
+
+       
 
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)

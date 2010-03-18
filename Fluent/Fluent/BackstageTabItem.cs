@@ -64,19 +64,19 @@ namespace Fluent
         /// <summary>
         /// Gets or sets tab items text
         /// </summary>
-        public string Text
+        public object Header
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), 
-            typeof(BackstageTabItem), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(object), 
+            typeof(BackstageTabItem), new UIPropertyMetadata(null));
 
         #endregion
 

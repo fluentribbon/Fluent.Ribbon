@@ -40,17 +40,17 @@
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
         <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
-        <Fluent:BackstageTabItem Text="Lala" Fluent:KeyTip.Keys="E">
+        <Fluent:BackstageTabItem Header="Lala" Fluent:KeyTip.Keys="E">
           <Grid Background="Red" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R" IsEnabled="False">
+        <Fluent:BackstageTabItem Header="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R" IsEnabled="False">
           <Grid Background="Green" Opacity="0.3" Margin="50">
             <Label>
               <Hyperlink Focusable="True">kkljklj</Hyperlink>
             </Label>
           </Grid>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Text="Lala3" Fluent:KeyTip.Keys="T" IsSelected="True">
+        <Fluent:BackstageTabItem Header="Lala3" Fluent:KeyTip.Keys="T" IsSelected="True">
           <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
         <Fluent:Button Text="Lala" Fluent:KeyTip.Keys="Y"/>
@@ -481,7 +481,7 @@
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
     <TextBox Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=comboBoxFontName, Mode=TwoWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
     <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
-    
+    <WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>
   </Grid>
 
 </Fluent:RibbonWindow>
