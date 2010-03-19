@@ -257,7 +257,10 @@ namespace Fluent
         /// Retains the current position (ignores X and Y parameters).
         /// </summary>
         public const int SWP_NOMOVE = 0x0002;
-
+        /// <summary>
+        /// Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).
+        /// </summary>
+        public const int SWP_NOACTIVATE = 0x0010;
         #endregion
 
         #region Structs
@@ -801,8 +804,7 @@ namespace Fluent
         /// </summary>
         /// <param name="hwnd">Handle to the window whose information is to be retrieved. </param>
         /// <param name="pwi">Pointer to a WINDOWINFO structure to receive the information. Note that you must set WINDOWINFO.cbSize to sizeof(WINDOWINFO) before calling this function. </param>
-        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
-        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>        
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool GetWindowInfo(IntPtr hwnd, ref WINDOWINFO pwi);
@@ -843,7 +845,17 @@ namespace Fluent
         /// <returns>If the function succeeds, the return value is the requested value.If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr LoadImage(IntPtr hinst, IntPtr lpszName, uint uType, int cxDesired, int cyDesired, uint fuLoad);
- 
+
+        /// <summary>
+        /// The GetWindowRect function retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen. 
+        /// </summary>
+        /// <param name="hWnd">Handle to the window.</param>
+        /// <param name="lpRect">Pointer to a structure that receives the screen coordinates of the upper-left and lower-right corners of the window</param>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
+
         #endregion
 
         #region Keyboard Functions

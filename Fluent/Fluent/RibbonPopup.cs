@@ -109,8 +109,19 @@ namespace Fluent
             PopupAnimation = PopupAnimation.None;
 
             hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
-            if (hwndSource != null) hwndSource.AddHook(WindowProc);
-
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(WindowProc);
+                // Set popup non-topmost to fix bug with tooltips
+                NativeMethods.Rect rect = new NativeMethods.Rect();
+                if (NativeMethods.GetWindowRect(hwndSource.Handle, ref rect))
+                {
+                    NativeMethods.SetWindowPos(hwndSource.Handle, new IntPtr(-2), rect.Left, rect.Top, (int) this.Width,
+                                               (int) this.Height,
+                                               NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOSIZE |
+                                               NativeMethods.SWP_NOACTIVATE);
+                }
+            }
             openedPopups.Add(this);
 
             Activate();                                    
