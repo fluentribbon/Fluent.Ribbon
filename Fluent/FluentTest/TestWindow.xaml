@@ -444,10 +444,27 @@
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
         </Fluent:RibbonGroupBox>
-      </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="Mailings">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
 
+        <Fluent:RibbonGroupBox >
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+        </Fluent:RibbonGroupBox>
+
+        <Fluent:RibbonGroupBox >
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button2" GroupName="Group2"/>
+        </Fluent:RibbonGroupBox>
+        
+      </Fluent:RibbonTabItem>
+      
+      <Fluent:RibbonTabItem Header="Mailings">
+        <Fluent:RibbonGroupBox >
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Review">

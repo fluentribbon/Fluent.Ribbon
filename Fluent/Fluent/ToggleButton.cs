@@ -8,10 +8,12 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using System.Linq;
 
 namespace Fluent
 {
@@ -22,6 +24,81 @@ namespace Fluent
     public class ToggleButton : Button
     {
         #region Properties
+
+        #region GroupName
+
+        /// <summary>
+        /// Gets or sets the name of the group that the toggle button belongs to. 
+        /// Use the GroupName property to specify a grouping of toggle buttons to 
+        /// create a mutually exclusive set of controls. You can use the GroupName 
+        /// property when only one selection is possible from a list of available 
+        /// options. When this property is set, only one ToggleButton in the specified
+        /// group can be selected at a time.
+        /// </summary>
+        public string GroupName
+        {
+            get { return (string)GetValue(GroupNameProperty); }
+            set { SetValue(GroupNameProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupNameProperty =
+            DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton), 
+            new UIPropertyMetadata(null, OnGroupNameChanged));
+        
+        // Group name changed
+        static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ToggleButton toggleButton = (ToggleButton)d;
+            string currentGroupName = (string)e.NewValue;
+            string previousGroupName = (string)e.OldValue;
+
+            if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
+            if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
+        }
+
+        #region Grouped Button Methods
+
+        // Grouped buttons
+        static readonly Dictionary<string, List<WeakReference>> groupedButtons = 
+            new Dictionary<string, List<WeakReference>>();
+
+        // Remove from group
+        static void RemoveFromGroup(string groupName, ToggleButton button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
+
+            buttons.RemoveAt(buttons.FindIndex(x=>(x.IsAlive && ((ToggleButton)x.Target) == button)));
+        }
+
+        // Remove from group
+        static void AddToGroup(string groupName, ToggleButton button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            {
+                buttons = new List<WeakReference>();
+                groupedButtons.Add(groupName, buttons);
+            }
+
+            buttons.Add(new WeakReference(button));
+        }
+
+        // Gets all buttons in the given group
+        static IEnumerable<ToggleButton> GetButtonsInGroup(string groupName)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<ToggleButton>();
+            return buttons.Where(x => x.IsAlive).Select(x => (ToggleButton) x.Target);
+        }
+
+        #endregion
+
+        #endregion
 
         #region IsChecked
 
@@ -38,14 +115,37 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(false,OnIsCheckedChanged));
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(ToggleButton), 
+            new UIPropertyMetadata(false,OnIsCheckedChanged, CoerceIsChecked));
 
-        // handles isChecked changed
+        // Coerce IsChecked
+        static object CoerceIsChecked(DependencyObject d, object basevalue)
+        {
+            ToggleButton toggleButton = (ToggleButton)d;
+            if (toggleButton.GroupName == null) return basevalue;
+
+            bool baseIsChecked = (bool) basevalue;
+            if (!baseIsChecked)
+            {
+                // We can not allow that there are no one button checked
+                foreach (ToggleButton item in GetButtonsInGroup(toggleButton.GroupName))
+                {
+                    // It's Ok, atleast one checked button exists
+                    if (item.IsChecked) return false;
+                }
+
+                // This button can not be unchecked
+                return true;
+            }
+            return basevalue;
+        }
+
+        // Handles isChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             bool newValue = (bool)e.NewValue;
             bool oldValue = (bool)e.OldValue;
-            ToggleButton button = d as ToggleButton;
+            ToggleButton button = (ToggleButton)d;
             if(oldValue!=newValue)
             {
                 if(newValue)
@@ -56,6 +156,13 @@ namespace Fluent
                 {
                     if (button.Unchecked != null) button.Unchecked(button, EventArgs.Empty);
                 }
+            }
+
+            // Uncheck other toggle buttons
+            if (newValue && button.GroupName != null)
+            {
+                foreach (ToggleButton item in GetButtonsInGroup(button.GroupName))
+                    if (item != button) item.IsChecked = false;
             }
         }
 
