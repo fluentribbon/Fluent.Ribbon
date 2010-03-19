@@ -5,7 +5,7 @@
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Fluent Ribbon Control Suite 1.0 RC" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-    
+    FlowDirection="RightToLeft"
     >
   <Fluent:RibbonWindow.Resources>
 
@@ -466,7 +466,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Design" 
-                             Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>
+                             Group="{Binding ElementName=tabGroup2, Mode=OneWay}"/>      
       <Fluent:RibbonTabItem Header="Layout" Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           

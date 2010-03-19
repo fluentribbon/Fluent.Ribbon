@@ -6,6 +6,7 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -13,10 +14,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Controls.Primitives;
-using System.Collections.Generic;
 using System.Windows.Input;
-using System.Linq;
-using System.Text;
 
 namespace Fluent
 {
@@ -68,13 +66,16 @@ namespace Fluent
             // Exclude QAT items
             bool notQuickAccessItem = !IsQuickAccessItem(PlacementTarget);
             bool notContextMenuChild = !IsContextMenuChild(PlacementTarget);
+            double rightToLeftOffset = FlowDirection == FlowDirection.RightToLeft
+                                           ? -popupSize.Width
+                                           : 0;
 
             if (notQuickAccessItem && IsRibbonAligned && (ribbon != null))
             {
                 double belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), PlacementTarget).Y;
                 double aboveY = ribbon.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 1), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
             else if (notQuickAccessItem && IsRibbonAligned && notContextMenuChild && (!(topLevelElement is Window)))
@@ -83,16 +84,15 @@ namespace Fluent
                 UIElement decoratorChild = GetDecoratorChild(topLevelElement);
                 double belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), PlacementTarget).Y;
                 double aboveY = decoratorChild.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(0, belowY + 1), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(0, aboveY - 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
+                CustomPopupPlacement above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
             else
             {
-                double x = Mouse.GetPosition(PlacementTarget).X;
                 return new CustomPopupPlacement[] { 
-                    new CustomPopupPlacement(new Point(x, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
-                    new CustomPopupPlacement(new Point(x, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
+                    new CustomPopupPlacement(new Point(rightToLeftOffset, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
+                    new CustomPopupPlacement(new Point(rightToLeftOffset, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
             }
         }
 

@@ -135,17 +135,35 @@
 						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Setter Property="Visibility" TargetName="focusedGrid" Value="Visible"/>
 						</Trigger>
-						<Trigger Property="HasRightGroupBorder" Value="False">
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="HasRightGroupBorder" Value="False"/>
+								<Condition Property="HasLeftGroupBorder" Value="True"/>
+							</MultiTrigger.Conditions>
 							<Setter Property="BorderThickness" TargetName="border3" Value="1,0,0,0"/>
 							<Setter Property="BorderThickness" TargetName="border4" Value="1,0,0,0"/>
 							<Setter Property="Margin" TargetName="rectangle4" Value="0"/>
-						</Trigger>
-						<Trigger Property="HasLeftGroupBorder" Value="False">
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="HasLeftGroupBorder" Value="False"/>
+								<Condition Property="HasRightGroupBorder" Value="True"/>
+							</MultiTrigger.Conditions>
 							<Setter Property="BorderThickness" TargetName="border4" Value="0,0,1,0"/>
 							<Setter Property="BorderThickness" TargetName="border3" Value="0,0,1,0"/>
 							<Setter Property="Margin" TargetName="rectangle4" Value="0"/>
 							<Setter Property="Margin" TargetName="border3" Value="0"/>
-						</Trigger>
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="HasLeftGroupBorder" Value="False"/>
+								<Condition Property="HasRightGroupBorder" Value="False"/>
+							</MultiTrigger.Conditions>
+							<Setter Property="BorderThickness" TargetName="border4" Value="0,0,0,0"/>
+							<Setter Property="BorderThickness" TargetName="border3" Value="0,0,0,0"/>
+							<Setter Property="Margin" TargetName="rectangle4" Value="0"/>
+							<Setter Property="Margin" TargetName="border3" Value="0"/>
+						</MultiTrigger>
 						<Trigger Property="Group" Value="{x:Null}">
 							<Setter Property="Visibility" TargetName="border3" Value="Collapsed"/>
 							<Setter Property="Margin" TargetName="separatorGrid" Value="-1,0,0,1"/>
