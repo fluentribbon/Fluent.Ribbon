@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -448,8 +449,8 @@ namespace Fluent
         void OnUnFocusTimerTick(object sender, EventArgs e)
         {
             unfocusTimer.Stop();
-            if(IsOpen) IsOpen = false;
             IsSelected = false;
+            if(IsOpen) IsOpen = false;
         }
 
         #endregion

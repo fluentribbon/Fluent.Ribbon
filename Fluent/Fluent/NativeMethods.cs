@@ -865,7 +865,7 @@ namespace Fluent
         [DllImport("user32.dll")]
         [return:MarshalAs(UnmanagedType.Bool)]
         [SuppressMessage("Microsoft.Portability", "CA1901")]
-        public static extern bool GetKeyboardState([MarshalAs(UnmanagedType.U1)] byte[] lpKeyState);
+        public static extern bool GetKeyboardState(byte[] lpKeyState);
 
         /// <summary>
         /// The MapVirtualKeyEx function translates (maps) a virtual-key 

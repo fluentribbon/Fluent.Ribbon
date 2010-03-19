@@ -514,7 +514,7 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
 
             ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
-            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(900));
+            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(1900));
             ToolTipService.BetweenShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(0));
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));            
         }

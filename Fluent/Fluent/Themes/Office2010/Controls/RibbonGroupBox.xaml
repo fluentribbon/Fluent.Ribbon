@@ -157,10 +157,31 @@
 	<ControlTemplate x:Key="DialogLauncherButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
 		<Border x:Name="border" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
 			<Border x:Name="border1" Width="Auto" Height="Auto" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
-				<Image Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png" SnapsToDevicePixels="True" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+				<Image x:Name="image" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png" SnapsToDevicePixels="True" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" RenderTransformOrigin="0.5,0.5">
+					<Image.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Image.RenderTransform>
+				</Image>
 			</Border>
 		</Border>
 		<ControlTemplate.Triggers>
+			<Trigger Property="FlowDirection" Value="RightToLeft">
+				<Setter Property="RenderTransform" TargetName="image">
+					<Setter.Value>
+						<TransformGroup>
+							<ScaleTransform ScaleX="-1"/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
 			<Trigger Property="IsPressed" Value="True">
 				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
 				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>

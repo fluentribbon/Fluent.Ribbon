@@ -186,12 +186,6 @@ namespace Fluent
             FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));            
         }
 
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) basevalue = ((ContextMenu)d).Resources["EmptyContextMenuStyle"] as Style;
-            return basevalue;
-        }
-
         /// <summary>
         /// Default constructor
         /// </summary>

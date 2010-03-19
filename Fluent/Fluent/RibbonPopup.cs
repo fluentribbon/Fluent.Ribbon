@@ -203,8 +203,8 @@ namespace Fluent
         {
             if (hwndSource != null)
             {
-                //NativeMethods.SetActiveWindow(hwndSource.Handle);
                 if (hwndSource.Handle!=IntPtr.Zero) NativeMethods.SetActiveWindow(hwndSource.Handle);
+                
             }
         }
 
