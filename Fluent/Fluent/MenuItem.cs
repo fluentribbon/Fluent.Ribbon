@@ -486,11 +486,6 @@ namespace Fluent
             binding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
             
-            Binding resizeModeBinding = new Binding("ResizeMode");
-            resizeModeBinding.Mode = BindingMode.OneWay;
-            resizeModeBinding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
-
             contextMenu.PlacementTarget = this;
             contextMenu.Placement = PlacementMode.Right;
 

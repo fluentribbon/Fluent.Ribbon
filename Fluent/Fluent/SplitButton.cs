@@ -80,12 +80,7 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
-        void OnClick(object sender, RoutedEventArgs e)
-        {            
-            e.Handled = true;
-        }
-
+        
         /// <summary>
         /// When overridden in a derived class, is invoked 
         /// whenever application code or internal processes call ApplyTemplate
@@ -117,6 +112,7 @@ namespace Fluent
         void OnButtonClick(object sender, RoutedEventArgs e)
         {
             if (Click != null) Click(this, e);
+            ExecuteCommand();
             e.Handled = true;
         }
 
