@@ -2,7 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent">
     <ControlTemplate x:Key="BackstageTabItemControlTemplate" TargetType="{x:Type Fluent:BackstageTabItem}">
-    	<Grid Background="#00000000">
+    	<Grid x:Name="layoutRoot" Background="#00000000">
     		<Border x:Name="hoverBorder" Margin="0,0,1,0" BorderBrush="{x:Null}" BorderThickness="0" Visibility="Collapsed" Background="{TemplateBinding Background}">
     			<Border BorderBrush="#4C000000" BorderThickness="0,1" Background="#BFFFFFFF"/>
     		</Border>
@@ -43,15 +43,13 @@
         </Trigger>
     		<Trigger Property="Selector.IsSelected" Value="True">
     			<Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
+          <Setter Property="Foreground" TargetName="controlLabel" Value="White"/>
     		</Trigger>
     	</ControlTemplate.Triggers>
-    </ControlTemplate          >
-        <Style x:Key="BackstageTabItemStyle" TargetType="{x:Type Fluent:BackstageTabItem}">
-      <Style.Triggers>
-        <Trigger Property="Selector.IsSelected" Value="True">
-          <Setter Property="Foreground" Value="White"/>
-        </Trigger>
-      </Style.Triggers>
+    </ControlTemplate>
+  
+  
+  <Style x:Key="BackstageTabItemStyle" TargetType="{x:Type Fluent:BackstageTabItem}">
       <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
       <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
       <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
@@ -60,5 +58,5 @@
       <Setter Property="Height" Value="37"/>
       <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}}"/>
       <Setter Property="Margin" Value="0,1"/>
-    </Style>
+  </Style>
 </ResourceDictionary>

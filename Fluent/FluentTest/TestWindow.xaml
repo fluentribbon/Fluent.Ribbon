@@ -42,6 +42,8 @@
         <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
         <Fluent:BackstageTabItem Header="Lala" Fluent:KeyTip.Keys="E">
           <DockPanel LastChildFill="True">
+            <TextBlock Text="Some Text 1" />
+            <TextBlock Text="Some Text 2" Foreground="Black" />
             <ComboBox Margin="64" DockPanel.Dock="Top" IsEditable="True">
               <ComboBoxItem>aaa 1</ComboBoxItem>
               <ComboBoxItem>aaa 2</ComboBoxItem>
