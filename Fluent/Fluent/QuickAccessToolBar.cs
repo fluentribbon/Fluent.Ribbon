@@ -367,12 +367,10 @@ namespace Fluent
         {
             if ((cachedConstraint == constraint)&&!itemsHadChanged) return base.MeasureOverride(constraint);
             
-            if (cachedConstraint != constraint)
-            {
-                cachedCount = GetNonOverflowItemsCount(constraint.Width);
-                HasOverflowItems = cachedCount < Items.Count;
-                cachedConstraint = constraint;
-            }
+            cachedCount = GetNonOverflowItemsCount(constraint.Width);
+            HasOverflowItems = cachedCount < Items.Count;
+            cachedConstraint = constraint;
+            
             toolBarOverflowPanel.Children.Clear();
             if (itemsHadChanged)
             {

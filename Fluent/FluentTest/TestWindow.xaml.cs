@@ -227,7 +227,56 @@ namespace FluentTest
         private void OnLauncherClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Launcher Click");
+            xxx.Items.Add(CreateRibbonButton());
         }
+
+        public Fluent.Button CreateRibbonButton()
+        {
+            Fluent.Button button = new Fluent.Button();
+            FooCommand1 fooCommand1 = new FooCommand1();
+            button.Command = fooCommand1.ItemCommand;
+            
+            button.Text = "Foo";
+            
+            this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
+            return button;
+        }
+
+    }
+
+    public class FooCommand1
+    {
+
+        public static RoutedCommand TestPresnterCommand = new RoutedCommand("TestPresnterCommand", typeof(FooCommand1));
+
+        public System.Windows.Input.ICommand ItemCommand
+        {
+            get { return TestPresnterCommand; }
+        }
+
+        public System.Windows.Input.CommandBinding ItemCommandBinding
+        {
+            get { return new CommandBinding(TestPresnterCommand, OnTestCommandExecuted, CanExecuteTestCommand); }
+        }
+
+        public FooCommand1()
+        {
+
+        }
+
+
+        private void CanExecuteTestCommand(object sender,
+       CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void OnTestCommandExecuted(object sender,
+        ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Test Module Command");
+        }
+
     }
 
 }

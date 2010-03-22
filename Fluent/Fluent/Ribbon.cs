@@ -1136,8 +1136,6 @@ namespace Fluent
             SaveWindowSize(wnd);
         }
 
-       
-
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
@@ -1172,15 +1170,13 @@ namespace Fluent
         // Initial state loading
         void InitialLoadState()
         {
-            // Load QAT state if it is in auto mode
-            // Do it just before (or just after?) rendering to be sure 
-            // that logical tree is builded and correct
-            Dispatcher.BeginInvoke(
-                (ThreadStart)delegate
-                {
-                    if (!IsStateLoaded) LoadState();
-                },
-            DispatcherPriority.Render);
+            LayoutUpdated += OnJustLayoutUpdated;
+        }
+
+        void OnJustLayoutUpdated(object sender, EventArgs e)
+        {
+            LayoutUpdated -= OnJustLayoutUpdated;
+            if (!IsStateLoaded) LoadState();
         }
 
         #endregion

@@ -5,7 +5,7 @@
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Fluent Ribbon Control Suite 1.0 RC" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-    FlowDirection="RightToLeft"
+    FlowDirection="LeftToRight"
     >
   <Fluent:RibbonWindow.Resources>
 
@@ -437,7 +437,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="References">
-        <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
+        <Fluent:RibbonGroupBox x:Name="xxx" Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
@@ -531,7 +531,7 @@
     <StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="20" Grid.Row="1"/>
     <TextBox Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=comboBoxFontName, Mode=TwoWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
     <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=comboBoxFontName, Path=SelectedItem}" Content="{Binding Text}" Grid.Row="1" Padding="0" Margin="5,0,0,1"/>
-    <WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>
+    <!--<WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>-->
   </Grid>
 
 </Fluent:RibbonWindow>
