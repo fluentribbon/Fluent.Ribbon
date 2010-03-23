@@ -89,24 +89,26 @@
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate" TargetType="{x:Type Fluent:QuickAccessToolBar}">
     	<DockPanel x:Name="PART_RootPanel">
     		<ContentControl x:Name="menuContentControl" DockPanel.Dock="Right" HorizontalAlignment="Right" Focusable="False">
-			<Fluent:DropDownButton CanAddToQuickAccessToolBar="False" x:Name="PART_MenuDownButton" Width="13" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png" Size="Small">
+			<Fluent:DropDownButton CanAddToQuickAccessToolBar="False" x:Name="PART_MenuDownButton" Width="13" HorizontalAlignment="Right" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png" Size="Small"
+                             ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
 			
 			
     				
 						
               
-                    <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="Customize Quick Access Toolbar"/>
+                    <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}"/>
                     <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
-                    <Fluent:MenuItem x:Name="PART_ShowBelow" Text="Show Below the Ribbon"/>
-                    <Fluent:MenuItem x:Name="PART_ShowAbove" Text="Show Above the Ribbon" Visibility="Collapsed"/>
+                    <Fluent:MenuItem x:Name="PART_ShowBelow" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}"/>
+                    <Fluent:MenuItem x:Name="PART_ShowAbove" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}" Visibility="Collapsed"/>
               
               
 							
 					
     		</Fluent:DropDownButton>
 			</ContentControl>
-    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png">
+    		<Fluent:DropDownButton x:Name="PART_ToolbarDownButton" HorizontalAlignment="Right" Width="13" Visibility="Collapsed" VerticalAlignment="Stretch" Style="{DynamicResource ToolbarDropDownButtonStyle}" Height="22" DockPanel.Dock="Right" Fluent:KeyTip.Keys="00" Size="Small" IsEnabled="{TemplateBinding IsEnabled}" Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png"
+                               ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
           <Fluent:DropDownButton.ContextMenu>
             <ContextMenu Style="{DynamicResource EmptyContextMenuStyle}"/>
           </Fluent:DropDownButton.ContextMenu>

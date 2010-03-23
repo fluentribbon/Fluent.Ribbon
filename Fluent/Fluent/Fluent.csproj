@@ -96,6 +96,7 @@
     <Compile Include="KeyTranslator.cs" />
     <Compile Include="RibbonItemsControl.cs" />
     <Compile Include="RibbonListBox.cs" />
+    <Compile Include="RibbonLocalization.cs" />
     <Compile Include="RibbonScrollViewer.cs" />
     <Compile Include="RibbonToolBarControlGroup.cs" />
     <Compile Include="RibbonToolBarControlDefinition.cs" />

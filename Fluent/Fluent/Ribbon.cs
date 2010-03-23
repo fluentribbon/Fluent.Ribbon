@@ -46,6 +46,21 @@ namespace Fluent
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon: Control
     {
+        #region Localization
+
+        // Localizable properties
+        static readonly RibbonLocalization localization = new RibbonLocalization();
+
+        /// <summary>
+        /// Gets localizable properties
+        /// </summary>
+        public static RibbonLocalization Localization
+        {
+            get { return localization; }
+        }
+
+        #endregion
+
         #region Constants
 
         /// <summary>
