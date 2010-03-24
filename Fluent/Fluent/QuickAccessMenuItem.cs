@@ -55,7 +55,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            CanAutoCheckProperty.AddOwner(typeof(QuickAccessMenuItem), new UIPropertyMetadata(true));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new UIPropertyMetadata(true));            
         }
 
         /// <summary>

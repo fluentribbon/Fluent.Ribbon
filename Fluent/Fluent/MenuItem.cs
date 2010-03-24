@@ -74,23 +74,23 @@ namespace Fluent
             }
         }
 
-        // TODO: add more details what is CanAutoCheck
+        // TODO: add more details what is IsCheckable
 
         /// <summary>
-        /// Gets or sets whether MenuItem can auto check
+        /// Gets a value that indicates whether a MenuItem can be checked. This is a dependency property. 
         /// </summary>
-        public bool CanAutoCheck
+        public bool IsCheckable
         {
-            get { return (bool)GetValue(CanAutoCheckProperty); }
-            set { SetValue(CanAutoCheckProperty, value); }
+            get { return (bool)GetValue(IsCheckableProperty); }
+            set { SetValue(IsCheckableProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanAutoCheck.  
+        /// Using a DependencyProperty as the backing store for IsCheckable.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAutoCheckProperty =
-            DependencyProperty.Register("CanAutoCheck", typeof(bool), 
+        public static readonly DependencyProperty IsCheckableProperty =
+            DependencyProperty.Register("IsCheckable", typeof(bool), 
             typeof(MenuItem), new UIPropertyMetadata(false));
         
         /// <summary>
@@ -410,7 +410,7 @@ namespace Fluent
         protected override void OnBeforeClick(RoutedEventArgs args)
         {
             base.OnBeforeClick(args);            
-            if (CanAutoCheck)
+            if (IsCheckable)
             {
                 IsChecked = !IsChecked;
             }
