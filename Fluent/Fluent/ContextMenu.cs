@@ -321,6 +321,7 @@ namespace Fluent
             binding.Source = this;
             MenuBar.SetBinding(ContextMenuBar.ResizeModeProperty, binding);
             MenuBar.ParentContextMenu = this;
+            MenuBar.FlowDirection = FlowDirection;
 
             // Preventing ribbon popup closing
             popup.Child = MenuBar;
