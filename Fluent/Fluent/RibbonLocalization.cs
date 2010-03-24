@@ -740,6 +740,7 @@ namespace Fluent
             {
                 case "ru": LoadRussian(); break;
                 case "fa": LoadPersian(); break;
+                case "de": LoadGerman(); break;
             }
 
             // Coerce all values
@@ -802,7 +803,7 @@ namespace Fluent
 
         #endregion
 
-        #region Farsi
+        #region Persian
 
         void LoadPersian()
         {
@@ -833,6 +834,42 @@ namespace Fluent
             ribbonContextMenuShowAbove = "نمایش میله ابزار دسترسی سریع در بالای نوار";
             ribbonContextMenuCustomizeRibbon = "دلخواه سازی نوار...";
             ribbonContextMenuMinimizeRibbon = "کوچک کردن نوار";
+        }
+
+        #endregion
+
+        #region German
+
+        void LoadGerman()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Datei";
+            backstageButtonKeyTip = "D";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Menüband minimieren (Strg + F1)";
+            minimizeButtonScreenTipText = "Das Menüband anzeigen oder ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
+            expandButtonScreenTipTitle = "Menüband erweitern (Strg + F1)";
+            expandButtonScreenTipText = "Das Menüband anzeigen oder ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
+
+            // QAT tooltips and menu items
+            quickAccessToolBarDropDownButtonTooltip = "Symbolleiste für den Schnellzugriff anpassen";
+            quickAccessToolBarMoreControlsButtonTooltip = "Weitere Befehle…"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Symbolleiste für den Schnellzugriff anpassen";
+            quickAccessToolBarMenuShowAbove = "Über dem Menüband anzeigen";
+            quickAccessToolBarMenuShowBelow = "Unter dem Menüband anzeigen";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Zu Symbolleiste für den Schnellzugriff hinzufügen"; // Button
+            ribbonContextMenuAddGroup = "Gruppe zur Symbolleiste für den Schnellzugriff hinzufügen"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Katalog zur Symbolleiste für den Schnellzugriff hinzufügen"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Zu Symbolleiste für den Schnellzugriff hinzufügen"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Aus Symbolleiste für den Schnellzugriff entfernen"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Symbolleiste für den Schnellzugriff anpassen...";
+            ribbonContextMenuShowBelow = "Symbolleiste für den Schnellzugriff unter dem Menüband anzeigen";
+            ribbonContextMenuShowAbove = "Symbolleiste für den Schnellzugriff über dem Menüband anzeigen";
+            ribbonContextMenuCustomizeRibbon = "Menüband anpassen...";
+            ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
         }
 
         #endregion

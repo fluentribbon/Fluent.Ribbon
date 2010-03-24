@@ -30,7 +30,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="False">
+    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="True">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
@@ -438,7 +438,7 @@
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="References">
+      <Fluent:RibbonTabItem Header="References" >
         <Fluent:RibbonGroupBox x:Name="xxx" Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>

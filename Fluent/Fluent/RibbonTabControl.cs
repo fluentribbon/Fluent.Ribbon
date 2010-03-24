@@ -461,7 +461,7 @@ namespace Fluent
             {                
                 if (base.HasItems && (base.SelectedIndex == -1) &&(!IsMinimized))
                 {
-                    base.SelectedIndex = 0;
+                   // base.SelectedIndex = 0;
                 }
                 this.UpdateSelectedContent();
             }

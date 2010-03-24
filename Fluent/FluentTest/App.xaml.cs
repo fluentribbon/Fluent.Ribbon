@@ -17,8 +17,9 @@ namespace FluentTest
     {
         static App()
         {
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa-IR");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru-RU");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
         }
 
         public App()

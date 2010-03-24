@@ -636,7 +636,7 @@ namespace Fluent
 
         #region Overrides
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if ((e.NewSize.Width < MinimalVisibleWidth)||(e.NewSize.Height < MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
@@ -649,7 +649,11 @@ namespace Fluent
         /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (tabControl != null) ((RibbonTabItem)tabControl.SelectedItem).Focus();
+            if (tabControl != null)
+            {
+                RibbonTabItem ribbonTabItem = (RibbonTabItem)tabControl.SelectedItem;
+                if (ribbonTabItem != null) ribbonTabItem.Focus();
+            }
         }
 
         /// <summary>
@@ -1020,6 +1024,9 @@ namespace Fluent
             Window window = Window.GetWindow(this);
             if (window != null) window.SizeChanged += OnSizeChanged;
             InitialLoadState();
+
+            if (IsBackstageOpen) ShowBackstage();
+            else if (tabControl.SelectedIndex == -1) tabControl.SelectedIndex = 0;
         }
 
         void OnUnloaded(object sender, RoutedEventArgs e)
@@ -1041,7 +1048,9 @@ namespace Fluent
 
         // Show backstage
         void ShowBackstage()
-        {            
+        {
+            if (!IsLoaded) return;
+
             AdornerLayer layer = GetAdornerLayer(this);
             if (adorner == null)
             {
@@ -1063,6 +1072,8 @@ namespace Fluent
             if (tabControl != null)
             {
                 savedTabItem = tabControl.SelectedItem as RibbonTabItem;
+                if (savedTabItem == null && tabControl.Items.Count > 0) 
+                    savedTabItem = (RibbonTabItem)tabControl.Items[0];
                 tabControl.SelectedItem = null;
             }
             if(quickAccessToolBar!=null) quickAccessToolBar.IsEnabled = false;
@@ -1110,6 +1121,8 @@ namespace Fluent
         // Hide backstage
         void HideBackstage()
         {
+            if (!IsLoaded || adorner == null) return;
+
             AdornerLayer layer = GetAdornerLayer(this);
             layer.Remove(adorner);
             if (tabControl != null) tabControl.SelectedItem = savedTabItem;
