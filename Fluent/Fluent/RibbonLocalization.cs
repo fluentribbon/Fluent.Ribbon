@@ -78,6 +78,38 @@ namespace Fluent
 
         #endregion
 
+        #region KeyTip of backstage button
+
+        // KeyTip of backstage button
+        string backstageButtonKeyTip = "F";
+
+        /// <summary>
+        /// Gets or sets KeyTip of backstage button
+        /// </summary>
+        public string BackstageButtonKeyTip
+        {
+            get { return (string)GetValue(BackstageButtonKeyTipProperty); }
+            set { SetValue(BackstageButtonKeyTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for BackstageButtonKeyTip.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty BackstageButtonKeyTipProperty =
+            DependencyProperty.Register("BackstageButtonKeyTip", typeof(string), typeof(RibbonLocalization),
+                                        new UIPropertyMetadata(null, null, OnCoerceBackstageButtonKeyTip));
+
+        // Coerce value
+        static object OnCoerceBackstageButtonKeyTip(DependencyObject d, object basevalue)
+        {
+            RibbonLocalization localization = (RibbonLocalization)d;
+            if (basevalue == null) return localization.backstageButtonKeyTip;
+            return basevalue;
+        }
+
+        #endregion
+
         #region Minimize Button ScreenTip Title
 
         // Minimize Button ScreenTip Title
@@ -707,10 +739,13 @@ namespace Fluent
             switch (language)
             {
                 case "ru": LoadRussian(); break;
+                case "fa": LoadPersian(); break;
             }
 
             // Coerce all values
             CoerceValue(BackstageButtonTextProperty);
+            CoerceValue(BackstageButtonKeyTipProperty);
+
             CoerceValue(MinimizeButtonScreenTipTitleProperty);
             CoerceValue(MinimizeButtonScreenTipTextProperty);
             CoerceValue(ExpandButtonScreenTipTitleProperty);
@@ -735,11 +770,12 @@ namespace Fluent
 
         #endregion
 
-        #region Load Russian
+        #region Russian
 
         void LoadRussian()
         {
             backstageButtonText = "Файл";
+            backstageButtonKeyTip = "Ф";
 
             minimizeButtonScreenTipTitle = "Свернуть ленту (Ctrl + F1)";
             minimizeButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только\nимена вкладок.";
@@ -762,6 +798,41 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Разместить панель быстрого доступа над лентой";
             ribbonContextMenuCustomizeRibbon = "Настройка ленты...";
             ribbonContextMenuMinimizeRibbon = "Свернуть ленту";
+        }
+
+        #endregion
+
+        #region Farsi
+
+        void LoadPersian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "فایل";
+            backstageButtonKeyTip = "ف";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "کوچک کردن نوار (Ctrl + F1)";
+            minimizeButtonScreenTipText = "نمایش یا مخفی کردن نوار\n\nهنگامی که نوار مخفی است، تنها\nنام زبانه ها نمایش داده می شود.";
+            expandButtonScreenTipTitle = "بزرگ کردن نوار (Ctrl + F1)";
+            expandButtonScreenTipText = "نمایش یا مخفی کردن نوار\n\nهنگامی که نوار مخفی است، تنها\nنام زبانه ها نمایش داده می شود.";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "دلخواه سازی میله ابزار دسترسی سریع";
+            quickAccessToolBarMoreControlsButtonTooltip = "ابزارهای دیگر"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "دلخواه سازی میله ابزار دسترسی سریع"; ;
+            quickAccessToolBarMenuShowAbove = "نمایش در بالای نوار";
+            quickAccessToolBarMenuShowBelow = "نمایش در پایین نوار";
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "اضافه کردن به میله ابزار دسترسی سریع"; // Button
+            ribbonContextMenuAddGroup = "اضافه کردن گروه به میله ابزار دسترسی سریع"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "اضافه کردن گالری به میله ابزار دسترسی سریع"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "اضاقه کردن منو به میله ابزار دسترسی سریع"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "حذف از میله ابزار دسترسی سریع"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "دلخواه سازی میله ابزار دسترسی سریع...";
+            ribbonContextMenuShowBelow = "نمایش میله ابزار دسترسی سریع در پایین نوار";
+            ribbonContextMenuShowAbove = "نمایش میله ابزار دسترسی سریع در بالای نوار";
+            ribbonContextMenuCustomizeRibbon = "دلخواه سازی نوار...";
+            ribbonContextMenuMinimizeRibbon = "کوچک کردن نوار";
         }
 
         #endregion

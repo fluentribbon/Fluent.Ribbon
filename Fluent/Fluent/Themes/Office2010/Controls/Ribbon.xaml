@@ -134,7 +134,8 @@
     			
     		</Fluent:RibbonTitleBar>
     		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False"/>
-    		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{StaticResource BackstageToggleButtonStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText, Mode=OneWay}" Size="Small" Background="{TemplateBinding BackstageBrush}" Fluent:KeyTip.Keys="{TemplateBinding BackstageKeyTipKeys}"/>
+    		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{StaticResource BackstageToggleButtonStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText, Mode=OneWay}" Size="Small" Background="{TemplateBinding BackstageBrush}" 
+                                Fluent:KeyTip.Keys="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip, Mode=OneWay}"/>
     		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
     			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">

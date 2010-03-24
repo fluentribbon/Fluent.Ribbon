@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using Fluent;
 
@@ -13,6 +15,12 @@ namespace FluentTest
     /// </summary>
     public partial class App : Application
     {
+        static App()
+        {
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa-IR");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru-RU");
+        }
+
         public App()
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU"); ;

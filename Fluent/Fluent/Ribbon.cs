@@ -135,7 +135,7 @@ namespace Fluent
         #endregion
 
         #region Properties
-
+/*
         /// <summary>
         /// Gets or sets KeyTip.Keys for Backstage
         /// </summary>
@@ -152,7 +152,7 @@ namespace Fluent
         public static readonly DependencyProperty BackstageKeyTipKeysProperty =
             DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata("F"));
 
-
+        */
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>

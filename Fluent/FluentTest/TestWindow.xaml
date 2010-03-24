@@ -30,7 +30,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" BackstageKeyTipKeys="F" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="False">
+    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" IsMinimized="False" IsBackstageOpen="False">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="TT" Visibility="Visible"/>
