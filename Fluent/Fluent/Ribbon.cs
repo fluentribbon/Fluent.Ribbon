@@ -21,7 +21,6 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -31,7 +30,6 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -71,6 +69,15 @@ namespace Fluent
         /// Minimal height of ribbon parent wndow
         /// </summary>
         public const double MinimalVisibleHeight = 250;
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occures when selected tab has been changed (be aware that SelectedTab can be null)
+        /// </summary>
+        public event EventHandler SelectedTabChanged;
 
         #endregion
 
@@ -135,24 +142,23 @@ namespace Fluent
         #endregion
 
         #region Properties
-/*
+
         /// <summary>
-        /// Gets or sets KeyTip.Keys for Backstage
+        /// Gets or sets selected tab item
         /// </summary>
-        public string BackstageKeyTipKeys
+        public RibbonTabItem SelectedTabItem
         {
-            get { return (string)GetValue(BackstageKeyTipKeysProperty); }
-            set { SetValue(BackstageKeyTipKeysProperty, value); }
+            get { return tabControl == null ? null : tabControl.SelectedTabItem; }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageKeyTipKeys. 
-        /// This enables animation, styling, binding, etc...
+        /// Gets or sets selected tab index
         /// </summary>
-        public static readonly DependencyProperty BackstageKeyTipKeysProperty =
-            DependencyProperty.Register("BackstageKeyTipKeys", typeof(string), typeof(Ribbon), new UIPropertyMetadata("F"));
+        public int SelectedTabIndex
+        {
+            get { return tabControl == null ? -1 : tabControl.SelectedIndex; }
+        }
 
-        */
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>
@@ -1012,10 +1018,11 @@ namespace Fluent
             {
                 if (IsBackstageOpen)
                 {
-                    savedTabItem = e.AddedItems[0] as RibbonTabItem;
+                    savedTabItem = (RibbonTabItem)e.AddedItems[0];
                     IsBackstageOpen = false;
                 }
             }
+            if (SelectedTabChanged != null) SelectedTabChanged(this, EventArgs.Empty);
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)

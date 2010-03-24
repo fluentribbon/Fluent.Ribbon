@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -305,18 +306,17 @@ namespace Fluent
                         IsOpen = !IsOpen;
                     else
                     {
-                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsOpen = true;}));
-//                            IsOpen = true;                        
+                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsOpen = true;}));                    
                     }
-                    if (e.AddedItems[0] is RibbonTabItem) (e.AddedItems[0] as RibbonTabItem).IsHitTestVisible = false;
+                    ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
 
-                this.UpdateSelectedContent();
+                UpdateSelectedContent();
             }
             if (e.RemovedItems.Count > 0)
             {
                 oldSelectedItem = e.RemovedItems[0];
-                if(oldSelectedItem is RibbonTabItem) (oldSelectedItem as RibbonTabItem).IsHitTestVisible = true;
+                ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
             }
         }
                
@@ -430,17 +430,17 @@ namespace Fluent
         }
 
         // Updates selected content
-        private void UpdateSelectedContent()
+        void UpdateSelectedContent()
         {
-            if (base.SelectedIndex < 0)
+            if (SelectedIndex < 0)
             {
 
-                this.SelectedContent = null;
+                SelectedContent = null;
                 SelectedTabItem = null;
             }
             else
             {
-                RibbonTabItem selectedTabItem = this.GetSelectedTabItem();
+                RibbonTabItem selectedTabItem = GetSelectedTabItem();
                 if (selectedTabItem != null)
                 {                    
                     this.SelectedContent = selectedTabItem.GroupsContainer;
@@ -455,22 +455,18 @@ namespace Fluent
         #region Event handling
 
         // Handles GeneratorStatus changed
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
-            if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {                
-                if (base.HasItems && (base.SelectedIndex == -1) &&(!IsMinimized))
-                {
-                   // base.SelectedIndex = 0;
-                }
-                this.UpdateSelectedContent();
+            if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {   
+                UpdateSelectedContent();
             }
         }
 
         // Handles IsMinimized changed
-        private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabControl tab = d as RibbonTabControl;
+            RibbonTabControl tab = (RibbonTabControl)d;
             if (!tab.IsMinimized)
             {
                 tab.IsOpen = false;
@@ -478,13 +474,13 @@ namespace Fluent
         }
 
         // Handles ribbon popup closing
-        private void OnRibbonTabPopupClosing()
+        void OnRibbonTabPopupClosing()
         {
             if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = true;
          }
 
         // handles ribbon popup opening
-        private void OnRibbonTabPopupOpening()
+        void OnRibbonTabPopupOpening()
         {
             if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = false;            
         }
@@ -497,7 +493,7 @@ namespace Fluent
         /// <param name="targetsize"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
+        CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
             if ((popup != null) && (SelectedTabItem != null))
             {
