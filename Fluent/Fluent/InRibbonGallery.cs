@@ -931,8 +931,18 @@ namespace Fluent
             View = new CollectionViewSource();
             View.Filter += OnFiltering;
 
-            Loaded += delegate { if(View.View!=null)View.View.Refresh();};
-
+            //Loaded += delegate { if(View.View!=null)View.View.Refresh();};
+            Loaded +=
+                    delegate
+                    {
+                        object selectedItem = this.SelectedItem;
+                        if (View.View != null)
+                        {
+                            if (View.View.CurrentItem != selectedItem)
+                                View.View.MoveCurrentTo(selectedItem);
+                            View.View.Refresh();
+                        }
+                    }; 
             Binding binding = new Binding("DisplayMemberPath");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
