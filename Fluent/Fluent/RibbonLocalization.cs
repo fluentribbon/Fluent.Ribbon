@@ -566,18 +566,18 @@ namespace Fluent
         /// <summary>
         /// Ribbon Context Menu Customize Quick Access Toolbar
         /// </summary>
-        public string RibbonContextMenuCustomizeQuickAccessToolbar
+        public string RibbonContextMenuCustomizeQuickAccessToolBar
         {
-            get { return (string)GetValue(RibbonContextMenuCustomizeQuickAccessToolbarProperty); }
-            set { SetValue(RibbonContextMenuCustomizeQuickAccessToolbarProperty, value); }
+            get { return (string)GetValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty); }
+            set { SetValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuCustomizeQuickAccessToolbar.  
+        /// Using a DependencyProperty as the backing store for RibbonContextMenuCustomizeQuickAccessToolBar.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuCustomizeQuickAccessToolbarProperty =
-            DependencyProperty.Register("RibbonContextMenuCustomizeQuickAccessToolbar", typeof(string), typeof(RibbonLocalization),
+        public static readonly DependencyProperty RibbonContextMenuCustomizeQuickAccessToolBarProperty =
+            DependencyProperty.Register("RibbonContextMenuCustomizeQuickAccessToolBar", typeof(string), typeof(RibbonLocalization),
                                         new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuCustomizeQuickAccessToolbar));
 
         // Coerce value
@@ -762,7 +762,7 @@ namespace Fluent
             CoerceValue(RibbonContextMenuAddMenuProperty);
             CoerceValue(RibbonContextMenuRemoveItemProperty);
             CoerceValue(RibbonContextMenuCustomizeRibbonProperty);
-            CoerceValue(RibbonContextMenuCustomizeQuickAccessToolbarProperty);
+            CoerceValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty);
             CoerceValue(RibbonContextMenuShowAboveProperty);
             CoerceValue(RibbonContextMenuShowBelowProperty);
             CoerceValue(RibbonContextMenuMinimizeRibbonProperty);
