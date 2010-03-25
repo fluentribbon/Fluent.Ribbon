@@ -741,6 +741,7 @@ namespace Fluent
                 case "ru": LoadRussian(); break;
                 case "fa": LoadPersian(); break;
                 case "de": LoadGerman(); break;
+                case "hu": LoadHungarian(); break;
             }
 
             // Coerce all values
@@ -870,6 +871,43 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Symbolleiste für den Schnellzugriff über dem Menüband anzeigen";
             ribbonContextMenuCustomizeRibbon = "Menüband anpassen...";
             ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
+        }
+
+        #endregion
+
+        #region Hungarian
+
+        // Maybe not correct (?)
+        void LoadHungarian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Fájl";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "A szalag ikonállapotúra kicsinyítése (Ctrl + F1)";
+            minimizeButtonScreenTipText = "A szalag megjelenítése vagy elrejtése\n\nAmikor a szalag rejtett csak\na fülek neveit mutatja"; // guess, cannot find
+            expandButtonScreenTipTitle = "A szalag kibontása (Ctrl + F1)"; // guess
+            expandButtonScreenTipText = "A szalag megjelenítése vagy elrejtése\n\nAmikor a szalag rejtett csak\na fülek neveit mutatja"; // guess, cannot find
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Gyorselérési eszköztár testreszabása";
+            quickAccessToolBarMoreControlsButtonTooltip = "További vezérlők"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Gyorselérési eszköztár testreszabása";
+            quickAccessToolBarMenuShowAbove = "Megjelenítés a menüszalag felett";
+            quickAccessToolBarMenuShowBelow = "Megjelenítés a menüszalag alatt";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Felvétel a gyorselérési eszköztárra"; // Button
+            ribbonContextMenuAddGroup = "Csoport felvétele a gyorselérési eszköztárra"; // guess
+            ribbonContextMenuAddGallery = "Gyűjtemény felvétele a gyorselérési eszköztárra"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Menü felvétele a gyorselérési eszköztárra"; // guess
+            ribbonContextMenuRemoveItem = "Eltávolítás a gyorselérési eszköztárról"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Gyorselérési eszköztár testreszabása...";
+            ribbonContextMenuShowBelow = "Gyorselérési eszköztár megjelenítése a menüszalag alatt"; // guess
+            ribbonContextMenuShowAbove = "Gyorselérési eszköztár megjelenítése a menüszalag felett"; // guess
+            ribbonContextMenuCustomizeRibbon = "A szalag testreszabása..."; // guess
+            ribbonContextMenuMinimizeRibbon = "A szalag kicsinyítése"; // guess
         }
 
         #endregion
