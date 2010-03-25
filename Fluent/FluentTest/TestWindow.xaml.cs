@@ -240,6 +240,10 @@ namespace FluentTest
             return button;
         }
 
+        void OnExitClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 
     public class FooCommand1

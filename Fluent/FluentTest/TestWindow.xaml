@@ -4,20 +4,10 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite 1.0 RC" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+    Title="Fluent Ribbon Control Suite 1.0" Height="345" Width="550" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
-  <Fluent:RibbonWindow.Resources>
-
-    
-     
-	</Fluent:RibbonWindow.Resources>
-
-  <Fluent:RibbonWindow.CommandBindings>
-    <CommandBinding Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"
-                    Executed="ExecutedCustomCommand"
-                    CanExecute="CanExecuteCustomCommand"/>
-  </Fluent:RibbonWindow.CommandBindings>
+  
   <Fluent:RibbonWindow.Background>
     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
       <GradientStop Color="#FFEBEDF0" Offset="0"/>
@@ -38,63 +28,21 @@
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.BackstageItems>
-        <Fluent:Button Text="Lala1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Fluent:KeyTip.Keys="Q" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}"/>
-        <Fluent:Button Text="Lala2" Fluent:KeyTip.Keys="W"/>
-        <Fluent:BackstageTabItem Header="Lala" Fluent:KeyTip.Keys="E">
-          <DockPanel LastChildFill="True">
-            <TextBlock Text="Some Text 1" />
-            <TextBlock Text="Some Text 2" Foreground="Black" />
-            <ComboBox Margin="64" DockPanel.Dock="Top" IsEditable="True">
-              <ComboBoxItem>aaa 1</ComboBoxItem>
-              <ComboBoxItem>aaa 2</ComboBoxItem>
-              <ComboBoxItem>aaa 3</ComboBoxItem>
-              <ComboBoxItem>aaa 4</ComboBoxItem>
-            </ComboBox>
-            <DockPanel LastChildFill="True" Margin="16">
-              <DockPanel Margin="8">
-                <TreeView>
-                  <TreeViewItem Header="aaa" IsExpanded="True">
-                    <TreeViewItem Header="111" />
-                    <TreeViewItem Header="222" />
-                    <TreeViewItem Header="333" />
-                  </TreeViewItem>
-                  <TreeViewItem Header="aaa" IsExpanded="True">
-                    <TreeViewItem Header="111" />
-                    <TreeViewItem Header="222" />
-                    <TreeViewItem Header="333" />
-                  </TreeViewItem>
-                  <TreeViewItem Header="aaa" IsExpanded="True">
-                    <TreeViewItem Header="111" />
-                    <TreeViewItem Header="222" />
-                    <TreeViewItem Header="333" />
-                  </TreeViewItem>
-                  <TreeViewItem Header="aaa" IsExpanded="True">
-                    <TreeViewItem Header="111" />
-                    <TreeViewItem Header="222" />
-                    <TreeViewItem Header="333" />
-                  </TreeViewItem>
-                </TreeView>
-              </DockPanel>
-            </DockPanel>
-          </DockPanel>
+        <Fluent:Button Text="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
+        <Fluent:Button Text="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
+        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E"/>
+        <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R"/>          
+        <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N" IsSelected="True">
+          <Grid Background="Green" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Header="Lala2Lalallalalaaaaaade123456" Fluent:KeyTip.Keys="R" IsEnabled="False">
-          <Grid Background="Green" Opacity="0.3" Margin="50">
-            <Label>
-              <Hyperlink Focusable="True">kkljklj</Hyperlink>
-            </Label>
-          </Grid>
-        </Fluent:BackstageTabItem>
-        <Fluent:BackstageTabItem Header="Lala3" Fluent:KeyTip.Keys="T" IsSelected="True">
+        <Fluent:BackstageTabItem Header="Print" Fluent:KeyTip.Keys="P">
           <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
         </Fluent:BackstageTabItem>
-        <Fluent:Button Text="Lala" Fluent:KeyTip.Keys="Y"/>
+        <Fluent:Button Text="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Click="OnExitClick"/>
       </Fluent:Ribbon.BackstageItems>
       
       <Fluent:Ribbon.ToolBarItems>
-        <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" Click="OnBtnClick"/>
-        <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png"/>
-        <Fluent:Button Size="Small" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png">
+        <Fluent:Button Size="Small" Icon="Images/Help.png">
           <Fluent:Button.ToolTip>
               <Fluent:ScreenTip
                 Title="Insert Chart"
@@ -103,24 +51,23 @@
                 HelpTopic="http:\\fluent.codeplex.com"
                 DisableReason="Disable reason reason."
                 Width="190"
-                IsRibbonAligned ="False"/> 
+                IsRibbonAligned ="True"/> 
           </Fluent:Button.ToolTip>
         </Fluent:Button>        
       </Fluent:Ribbon.ToolBarItems>
                   
       <Fluent:Ribbon.QuickAccessItems>
-        <Fluent:QuickAccessMenuItem x:Name="ssa" Height="22" >
-            <Fluent:Button Text="Test1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/HelpSmall.png" />
-        </Fluent:QuickAccessMenuItem>
-        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ss}" Text="Test2" Height="22" IsChecked="True"/>
-        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=ssd}" Text="Test3" Height="22" IsChecked="True"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"  IsChecked="True"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}" IsChecked="True"/>
+        <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
       </Fluent:Ribbon.QuickAccessItems>
 
       
-      <Fluent:RibbonTabItem  x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" ReduceOrder="Font, Font, Font, Font,C,B,A,A,(A),(A),(A),Clipboard,Font,B,B,C,A,C,(A),(A)">
+      <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
+            ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
 
-        <Fluent:RibbonGroupBox  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
-          <Fluent:SplitButton x:Name="ss" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
+        <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
+          <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
                   Title="Paste (Ctrl+V)"
@@ -145,7 +92,7 @@
               <Fluent:MenuItem Text="2"></Fluent:MenuItem>
             </Fluent:MenuItem>
           </Fluent:SplitButton>
-        <Fluent:Button x:Name="ssd" IsEnabled="False" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small">
+        <Fluent:Button x:Name="cutButton" Fluent:KeyTip.Keys="X" Text="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small" Command="Cut">
           <Fluent:Button.ToolTip>
             <Fluent:ScreenTip
                Title="Cut (Ctrl+X)"
@@ -153,7 +100,7 @@
                Width="190"/>
           </Fluent:Button.ToolTip>
         </Fluent:Button>
-        <Fluent:Button IsEnabled="False" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small"/>
+        <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
       </Fluent:RibbonGroupBox>
 
@@ -274,15 +221,15 @@
 		</Fluent:RibbonGroupBox>
 
 	    
-        <Fluent:RibbonGroupBox x:Name="A"  Fluent:KeyTip.Keys="A" Header="Group A" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
-			<Fluent:InRibbonGallery x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}" Icon="Images\Box.png" Text="Split" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large,Large, Large" Orientation="Vertical" ItemWidth="40" ItemHeight="60" GroupBy="Tag">
+   <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
+			<Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}"  Text="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large, Middle" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
           <Fluent:GalleryGroupFilter Title="Group2" Groups="Group2"/>
         </Fluent:InRibbonGallery.Filters>
         <Fluent:InRibbonGallery.GroupIcons>
-          <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
+          <Fluent:GalleryGroupIcon GroupName="Group1" Icon="Images/Default.png" />
         </Fluent:InRibbonGallery.GroupIcons>
         <Fluent:InRibbonGallery.MenuItems>
           <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
@@ -292,117 +239,44 @@
             <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
           </Fluent:MenuItem>
         </Fluent:InRibbonGallery.MenuItems>
-        <TextBlock Tag="Group1">1</TextBlock>
-        <TextBlock Tag="Group1">2</TextBlock>
-        <TextBlock Tag="Group1" Name="ghh">33</TextBlock>
-        <TextBlock Tag="Group1">4</TextBlock>
-        <TextBlock Tag="Group1">5</TextBlock>
-        <TextBlock Tag="Group1">6</TextBlock>
-        <TextBlock Tag="Group2">1</TextBlock>
-        <TextBlock Tag="Group2">2</TextBlock>
-        <TextBlock Tag="Group2">3</TextBlock>
+        <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
+        <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
+        <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock></Border>
+        <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >4</TextBlock></Border>
+        <Border Tag="Group1" x:Name="ghh" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >33</TextBlock></Border>
+        <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >5</TextBlock></Border>
+        <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >6</TextBlock></Border>
+        <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock></Border>
+        
               </Fluent:InRibbonGallery>
-              <Fluent:SplitButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both">
-                <Fluent:Gallery x:Name="gallery" GroupBy="Tag" MinHeight="60" ItemsInRow="3">
-                  <Fluent:Gallery.GroupIcons>
-                    <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-                  </Fluent:Gallery.GroupIcons>
-                    <TextBlock Tag="Group1">1</TextBlock>
-                    <TextBlock Tag="Group1">2</TextBlock>
-                    <TextBlock Tag="Group1">3</TextBlock>
-                    <TextBlock Tag="Group1">4</TextBlock>
-                    <TextBlock Tag="Group1">5</TextBlock>
-                    <TextBlock Tag="Group1">6</TextBlock>
-                    <TextBlock Tag="Group2">1</TextBlock>
-                    <TextBlock Tag="Group2">2</TextBlock>
-                    <TextBlock Tag="Group2">3</TextBlock>
+             
+     <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large">
+                <Fluent:Gallery x:Name="gallery" GroupBy="Tag" MinHeight="60" ItemsInRow="3" ItemWidth="28" ItemHeight="28">                  
+                  <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
+                  <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
+                  <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock></Border>
+                  <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >4</TextBlock></Border>
+                  <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >5</TextBlock></Border>
+                  <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >6</TextBlock></Border>
+                  <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock></Border>
+                  <Border Tag="Group3" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >8</TextBlock></Border>
                 </Fluent:Gallery>
-                <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
-                <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
-                  <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
-                  <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
-                  <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
+                <Fluent:MenuItem Text="Item5" Fluent:KeyTip.Keys="E"/>
+                <Fluent:MenuItem Text="Item5" Fluent:KeyTip.Keys="R">
+                  <Fluent:MenuItem Text="Itemq" Fluent:KeyTip.Keys="A"/>
+                  <Fluent:MenuItem Text="Itemw" Fluent:KeyTip.Keys="B"/>
+                  <Fluent:MenuItem Text="Iteme" Fluent:KeyTip.Keys="C"/>
                 </Fluent:MenuItem>
               </Fluent:SplitButton>
-              <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="silverButton" Click="OnSilverClick">Silver</Fluent:Button>
-              <Fluent:Button Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" x:Name="blackButton" Click="OnBlackClick">Black</Fluent:Button>
-              <Fluent:DropDownButton Icon="/Images/Test16.png" LargeIcon="/Images/Test32.png" Text="Further Options" Fluent:KeyTip.Keys="Q" x:Name="testDropButton" ResizeMode="Vertical">
-                <Fluent:DropDownButton.Items>
-                  <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAlll}" GroupBy="Tag" x:Name="sampleGallery" SelectedItem="{Binding ElementName=item3}" ItemsInRow="3">
-                    <Fluent:Gallery.Filters>
-                      <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAlll"/>
-                      <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
-                      <Fluent:GalleryGroupFilter Title="Group2" Groups="Group2"/>
-                    </Fluent:Gallery.Filters>
-                    <Fluent:Gallery.GroupIcons>
-                      <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
-                    </Fluent:Gallery.GroupIcons>
-                      <TextBlock Tag="Group1">1</TextBlock>
-                      <TextBlock Tag="Group1">2</TextBlock>
-                      <TextBlock Tag="Group1" x:Name="item3">3</TextBlock>
-                      <TextBlock Tag="Group1">4</TextBlock>
-                      <TextBlock Tag="Group1">5</TextBlock>
-                      <TextBlock Tag="Group1">6</TextBlock>
-                      <TextBlock Tag="Group2">1</TextBlock>
-                      <TextBlock Tag="Group2">2</TextBlock>
-                      <TextBlock Tag="Group2">3</TextBlock>
-                  </Fluent:Gallery>
-                  <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="E"/>
-                  <Fluent:MenuItem Text="Lala5" Fluent:KeyTip.Keys="R">
-                    <Fluent:MenuItem Text="Lalaq" Fluent:KeyTip.Keys="A"/>
-                    <Fluent:MenuItem Text="Lalaw" Fluent:KeyTip.Keys="B"/>
-                    <Fluent:MenuItem Text="Lalae" Fluent:KeyTip.Keys="C"/>
-                  </Fluent:MenuItem>
-                </Fluent:DropDownButton.Items>
-                <Fluent:DropDownButton.ToolTip>
-                  <Fluent:ScreenTip
-                      Title="Insert Chart"
-                      Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
-                      Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
-                      HelpTopic="http:\\fluent.codeplex.com"
-                      DisableReason="Disable reason reason."
-                      Width="190"/>
-                </Fluent:DropDownButton.ToolTip>
-              </Fluent:DropDownButton>
-              
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="B" x:Name="B" Header="Group B" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
+        
+        <Fluent:RibbonGroupBox Icon="Images/Default.png" Fluent:KeyTip.Keys="B" x:Name="B" Header="Spinners" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
           <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" IsEnabled="False"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
-          <Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Text="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" SelectedFilter="{Binding ElementName=galleryFilterAlla}" ResizeMode="Both">
-            <Fluent:InRibbonGallery.Filters>
-              <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAlla"/>
-              <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
-              <Fluent:GalleryGroupFilter Title="Group2" Groups="Group2"/>
-            </Fluent:InRibbonGallery.Filters>
-            <Fluent:InRibbonGallery.GroupIcons>
-              <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
-            </Fluent:InRibbonGallery.GroupIcons>
-            <TextBlock Tag="Group1">1</TextBlock>
-            <TextBlock Tag="Group1">2</TextBlock>
-            <TextBlock Tag="Group1">3</TextBlock>
-            <TextBlock Tag="Group1">4</TextBlock>
-            <TextBlock Tag="Group1">5</TextBlock>
-            <TextBlock Tag="Group1">6</TextBlock>
-            <TextBlock Tag="Group2">1</TextBlock>
-            <TextBlock Tag="Group2">2</TextBlock>
-            <TextBlock Tag="Group2">3</TextBlock>
-          </Fluent:InRibbonGallery>
-        </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox x:Name="C" Header="Group C" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
           
-          <Fluent:CheckBox Height="20" IsEnabled="False">Lalala</Fluent:CheckBox>
-          <TextBox Height="20"/>
-          <Fluent:ComboBox Height="20" IsEditable="False" Text="Lala" Icon="Images/Bold.png" InputWidth="50">
-            <Image Source="Images/Bold.png" Width="16" Height="16"/>
-            <Image Source="Images/Box.png" Width="16" Height="16"/>
-            <Image Source="Images/Cut.png" Width="16" Height="16"/>
-            <Image Source="Images/Copy.png" Width="16" Height="16"/>
-            <Image Source="Images/Italic.png" Width="16" Height="16"/>
-            <Image Source="Images/Paste.png" Width="16" Height="16"/>
-          </Fluent:ComboBox>
         </Fluent:RibbonGroupBox>
+        
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsLauncherVisible="False" x:Name="groupLL">
