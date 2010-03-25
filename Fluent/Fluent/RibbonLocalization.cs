@@ -742,6 +742,7 @@ namespace Fluent
                 case "fa": LoadPersian(); break;
                 case "de": LoadGerman(); break;
                 case "hu": LoadHungarian(); break;
+                case "cs": LoadCzech(); break;
             }
 
             // Coerce all values
@@ -908,6 +909,42 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Gyorselérési eszköztár megjelenítése a menüszalag felett"; // guess
             ribbonContextMenuCustomizeRibbon = "A szalag testreszabása..."; // guess
             ribbonContextMenuMinimizeRibbon = "A szalag kicsinyítése"; // guess
+        }
+
+        #endregion
+
+        #region Czech
+
+        void LoadCzech()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Soubor";
+            backstageButtonKeyTip = "S";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Skrýt pás karet (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou\nzobrazeny pouze názvy karet";
+            expandButtonScreenTipTitle = "Zobrazit pás karet (Ctrl + F1)";
+            expandButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou\nzobrazeny pouze názvy karet";
+
+            // QAT tooltips and menu items 
+            quickAccessToolBarDropDownButtonTooltip = "Přizpůsobit panel nástrojů Rychlý přístup";
+            quickAccessToolBarMoreControlsButtonTooltip = "Další příkazy"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Přizpůsobit panel nástrojů Rychlý přístup";
+            quickAccessToolBarMenuShowAbove = "Zobrazit nad pásem karet";
+            quickAccessToolBarMenuShowBelow = "Zobrazit pod pásem karet";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Přidat na panel nástrojů Rychlý přístup"; // Button
+            ribbonContextMenuAddGroup = "Přidat na panel nástrojů Rychlý přístup"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Přidat galerii na panel nástrojů Rychlý přístup"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Přidat na panel nástrojů Rychlý přístup"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Odebrat z panelu nástrojů Rychlý přístup"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Přizpůsobit panel nástrojů Rychlý přístup...";
+            ribbonContextMenuShowBelow = "Zobrazit panel nástrojů Rychlý přístup pod pásem karet";
+            ribbonContextMenuShowAbove = "Zobrazit panel nástrojů Rychlý přístup nad pásem karet";
+            ribbonContextMenuCustomizeRibbon = "Přizpůsobit pás karet...";
+            ribbonContextMenuMinimizeRibbon = "Skrýt pás karet";
         }
 
         #endregion

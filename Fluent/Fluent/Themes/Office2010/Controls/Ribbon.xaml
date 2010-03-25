@@ -108,7 +108,7 @@
             <Fluent:MenuItem x:Name="PART_AddGalleryToQuickAccessMenuItem" x:Uid="AddGalleryToQuickAccessString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuAddGallery, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_RemoveFromQuickAccessMenuItem" x:Uid="RemoveFromQuickAccessString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuRemoveItem, Mode=OneWay}"/>
             <Separator Style="{DynamicResource MenuSeparatorStyle}" x:Name="topMenuSeparator"/>
-            <Fluent:MenuItem x:Name="PART_CustomizeQuickAccessToolbarMenuItem" x:Uid="CustomizeQuickAccessToolbarString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuCustomizeQuickAccessToolbar, Mode=OneWay}"/>
+            <Fluent:MenuItem x:Name="PART_CustomizeQuickAccessToolbarMenuItem" x:Uid="CustomizeQuickAccessToolbarString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuCustomizeQuickAccessToolBar, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" x:Uid="ShowQuickAccessToolbarBelowTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuShowBelow, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" x:Uid="ShowQuickAccessToolbarAboveTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuShowAbove, Mode=OneWay}"/>
             <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
