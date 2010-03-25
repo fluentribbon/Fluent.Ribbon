@@ -1092,8 +1092,11 @@ namespace Fluent
 
         void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedIndex = listBox.SelectedIndex;
-            SelectedItem = listBox.SelectedItem;
+            if (listBox.ItemsSource != null)
+            {
+                SelectedIndex = listBox.SelectedIndex;
+                SelectedItem = listBox.SelectedItem;
+            }
         }
 
         void OnExpandClick(object sender, RoutedEventArgs e)
@@ -1273,44 +1276,50 @@ namespace Fluent
 
         private void OnMenuClosed(object sender, EventArgs e)
         {
-            object selectedItem = gallery.SelectedItem;
-            gallery.ItemsSource = null;
-            if (listBox != null)
+            if (gallery.ItemsSource != null)
             {
-                listBox.ItemsSource = View.View;
-                listBox.SelectedItem = selectedItem;
-                SelectedItem = selectedItem;
-                SelectedIndex = listBox.SelectedIndex;
-                if (MenuClosed != null) MenuClosed(this, e);
-                if (!IsCollapsed) IsSnapped = false;
-                expandButton.IsChecked = false;
-                expandButton.InvalidateVisual();
+                object selectedItem = gallery.SelectedItem;
+                gallery.ItemsSource = null;
+                if (listBox != null)
+                {
+                    listBox.ItemsSource = View.View;
+                    listBox.SelectedItem = selectedItem;
+                    SelectedItem = selectedItem;
+                    SelectedIndex = listBox.SelectedIndex;
+                    if (MenuClosed != null) MenuClosed(this, e);
+                    if (!IsCollapsed) IsSnapped = false;
+                    expandButton.IsChecked = false;
+                    expandButton.InvalidateVisual();
+                }
             }
             IsOpen = false;
         }
 
         private void OnMenuOpened(object sender, EventArgs e)
         {
-            if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
-            else
+            if (listBox.ItemsSource != null)
             {
-                gallery.ItemsInRow = ItemsInRow;
+                if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+                else
+                {
+                    gallery.ItemsInRow = ItemsInRow;
+                }
+                gallery.MinHeight = ActualHeight;
+                if (!IsCollapsed) IsSnapped = true;
+                if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
+                else contextMenu.Placement = PlacementMode.Relative;
+                object selectedItem = listBox.SelectedItem;
+                listBox.ItemsSource = null;
+                if (ItemsSource == null) gallery.ItemsSource = Items;
+                else gallery.ItemsSource = ItemsSource;
+                gallery.SelectedItem = selectedItem;
+                SelectedItem = selectedItem;
+                SelectedIndex = gallery.SelectedIndex;
+                if (MenuOpened != null) MenuOpened(this, e);
+                //InvalidateVisual();
+                //UpdateLayout();
+                expandButton.IsChecked = true;
             }
-            gallery.MinHeight = ActualHeight;
-            if (!IsCollapsed) IsSnapped = true;
-            if (IsCollapsed) contextMenu.Placement = PlacementMode.Bottom;
-            else contextMenu.Placement = PlacementMode.Relative;
-            object selectedItem = listBox.SelectedItem;
-            listBox.ItemsSource = null;            
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-            gallery.SelectedItem = selectedItem;
-            SelectedItem = selectedItem;
-            SelectedIndex = gallery.SelectedIndex;
-            if (MenuOpened != null) MenuOpened(this, e);
-            //InvalidateVisual();
-            //UpdateLayout();
-            expandButton.IsChecked = true;
         }
 
         #endregion
