@@ -743,6 +743,7 @@ namespace Fluent
                 case "de": LoadGerman(); break;
                 case "hu": LoadHungarian(); break;
                 case "cs": LoadCzech(); break;
+                case "fr": LoadFrench(); break;
             }
 
             // Coerce all values
@@ -945,6 +946,42 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Zobrazit panel nástrojů Rychlý přístup nad pásem karet";
             ribbonContextMenuCustomizeRibbon = "Přizpůsobit pás karet...";
             ribbonContextMenuMinimizeRibbon = "Skrýt pás karet";
+        }
+
+        #endregion
+
+        #region French
+
+        void LoadFrench()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Fichier";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimiser le Ruban (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul\nles noms sont affichés";
+            expandButtonScreenTipTitle = "Agrandir le Ruban (Ctrl + F1)";
+            expandButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul\nles noms sont affichés";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Personnaliser la barre d'outils Accès Rapide";
+            quickAccessToolBarMoreControlsButtonTooltip = "Plus de contrôles"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personnaliser la barre d'outil Accès Rapide";
+            quickAccessToolBarMenuShowAbove = "Afficher en dessous du Ruban";
+            quickAccessToolBarMenuShowBelow = "Afficher au dessus du Ruban";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Ajouter un élément à la barre d'outils Accès Rapide"; // Button
+            ribbonContextMenuAddGroup = "Ajouter un groupe à la barre d'outils Accès Rapide"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Ajouter une galerie à la barre d'outils Accès Rapide"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Ajouter un menu à la barre d'outils Accès Rapide"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Supprimer de la barre d'outils Accès Rapide"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personnaliser la barre d'outils Accès Rapide...";
+            ribbonContextMenuShowBelow = "Afficher la barre d'outils Accès Rapide en dessous du Ruban";
+            ribbonContextMenuShowAbove = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
+            ribbonContextMenuCustomizeRibbon = "Personnaliser le Ruban...";
+            ribbonContextMenuMinimizeRibbon = "Minimiser le Ruban";
         }
 
         #endregion
