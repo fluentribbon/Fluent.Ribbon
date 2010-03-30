@@ -968,8 +968,8 @@ namespace Fluent
             quickAccessToolBarDropDownButtonTooltip = "Personnaliser la barre d'outils Accès Rapide";
             quickAccessToolBarMoreControlsButtonTooltip = "Plus de contrôles"; // When two arrows appear ">>"
             quickAccessToolBarMenuHeader = "Personnaliser la barre d'outil Accès Rapide";
-            quickAccessToolBarMenuShowAbove = "Afficher en dessous du Ruban";
-            quickAccessToolBarMenuShowBelow = "Afficher au dessus du Ruban";
+            quickAccessToolBarMenuShowAbove = "Afficher au dessus du Ruban";
+            quickAccessToolBarMenuShowBelow = "Afficher en dessous du Ruban";
 
             // Click on Ribbon to show context menu
             ribbonContextMenuAddItem = "Ajouter un élément à la barre d'outils Accès Rapide"; // Button
