@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -108,7 +109,7 @@ namespace Fluent
 
             PopupAnimation = PopupAnimation.None;
 
-            hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
+            if(Child!=null)hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
             if (hwndSource != null)
             {
                 hwndSource.AddHook(WindowProc);
@@ -204,7 +205,7 @@ namespace Fluent
             {
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
                 openedPopups[i].IsOpen = false;
-
+                openedPopups[i].hwndSource = null;
                 if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
             }
         }
@@ -287,8 +288,6 @@ namespace Fluent
             }
             return IntPtr.Zero;
         }
-
-        
 
         #endregion
     }

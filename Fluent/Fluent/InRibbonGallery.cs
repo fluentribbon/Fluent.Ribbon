@@ -135,7 +135,7 @@ namespace Fluent
         {
             get
             {
-                return Math.Max(MinItemsInRow, Math.Min(MaxItemsInRow, MaxItemsInRow + currentItemsInRow));
+                return Math.Max(CanCollapseToButton ? MinItemsInRow - 1 : MinItemsInRow, Math.Min(MaxItemsInRow, MaxItemsInRow + currentItemsInRow));
             }
         }
 
@@ -362,7 +362,7 @@ namespace Fluent
         {
             if (string.IsNullOrEmpty(GroupBy)) e.Accepted = true;
             else if (SelectedFilter == null) e.Accepted = true;
-            else
+            else if (e.Item!=null)
             {
                 string[] filterItems = SelectedFilter.Groups.Split(",".ToCharArray());
                 e.Accepted = filterItems.Contains(GetItemGroupName(e.Item));
@@ -796,7 +796,7 @@ namespace Fluent
         {
             get
             {
-                if (isSnapped) return 1;
+                if (isSnapped && IsVisible) return 1;
                 return base.VisualChildrenCount;
             }
         }
@@ -808,7 +808,7 @@ namespace Fluent
         /// <returns>The requested child element</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (isSnapped) return snappedImage;
+            if (isSnapped && IsVisible) return snappedImage;
             return base.GetVisualChild(index);
         }
 

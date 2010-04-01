@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -74,6 +76,11 @@ namespace Fluent
 
         // Saved group state for QAT
         RibbonGroupBoxState savedState;
+
+        private RibbonPopup quickAccessPopup;
+
+        // Saved scale for Collapsing
+        private int savedScale;
 
         #endregion
 
@@ -542,6 +549,7 @@ namespace Fluent
             if (State == RibbonGroupBoxState.Collapsed)
             {
                 IsOpen = true;
+                popup.IsOpen = true;
                 e.Handled = true;
             }
         }
@@ -578,29 +586,37 @@ namespace Fluent
             }
             set
             {
-                if (value == isSnapped) return;
-
+                if (value == isSnapped) return;                
                 if (value)
                 {
-                    // Render the freezed image
-                    snappedImage = new Image();
-                    RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                    renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
-                    snappedImage.FlowDirection = FlowDirection;
-                    snappedImage.Source = renderTargetBitmap;
+                    if (IsVisible)
+                    {
+                        // Render the freezed image
+                        snappedImage = new Image();
+                        RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
+                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int) ActualWidth,
+                                                                                       (int) ActualHeight, 96, 96,
+                                                                                       PixelFormats.Pbgra32);
+                        renderTargetBitmap.Render((Visual) VisualTreeHelper.GetChild(this, 0));
+                        snappedImage.FlowDirection = FlowDirection;
+                        snappedImage.Source = renderTargetBitmap;
 
-                    // Attach freezed image
-                    AddVisualChild(snappedImage);
+                        // Attach freezed image
+                        AddVisualChild(snappedImage);
+                        isSnapped = value;
+                    }
                 }
-                else
+                else if(snappedImage!=null)
                 {
                     // Clean up
                     RemoveVisualChild(snappedImage);
                     snappedImage = null;
+                    isSnapped = value;
                 }
-                isSnapped = value;
+
+
                 InvalidateVisual();
+
             }
         }
 
@@ -611,7 +627,7 @@ namespace Fluent
         {
             get 
             {
-                if (isSnapped) return 1; 
+                if (isSnapped && IsVisible) return 1; 
                 return base.VisualChildrenCount; 
             }
         }
@@ -623,7 +639,7 @@ namespace Fluent
         /// <returns>The requested child element</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (isSnapped) return snappedImage; 
+            if (isSnapped && IsVisible) return snappedImage; 
             return base.GetVisualChild(index);
         }
 
@@ -798,14 +814,6 @@ namespace Fluent
         {
             // System.Diagnostics.Debug.WriteLine("Measure " + Header + " (" + State + ") (" + scale + ")");
             if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
-            
-            // TODO: What the hell? Remove it?
-            /*upPanel.Measure(new Size(double.PositiveInfinity, constraint.Height));
-            double width = upPanel.DesiredSize.Width +upPanel.Margin.Left + upPanel.Margin.Right;
-            Size size = new Size(width,constraint.Height);
-            //(upPanel.Parent as Grid).Measure(size);
-            (GetVisualChild(0) as UIElement).Measure(size);
-            return new Size(width, (upPanel.Parent as Grid).DesiredSize.Height);*/
 
             Size size = base.MeasureOverride(constraint);
             if(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width)
@@ -814,7 +822,7 @@ namespace Fluent
             }
            return size;
         }
-
+        
         #endregion
 
         #region Event Handling
@@ -892,32 +900,92 @@ namespace Fluent
 
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
-            ToggleButton button = (ToggleButton) sender;
+            ToggleButton button = (ToggleButton) sender;            
             if ((!IsOpen)&&(!IsSnapped))
             {
-                popup.Closed += OnMenuClosed;
+                if(popup==null)
+                {
+                    // Trying to load control
+                    RibbonTabItem item = Parent as RibbonTabItem;
+                    if(item!=null)
+                    {
+                        RibbonTabControl tabControl = item.Parent as RibbonTabControl;
+                        if(tabControl!=null)
+                        {
+                            RibbonTabItem selectedItem = tabControl.SelectedItem as RibbonTabItem;
+                            tabControl.SelectedItem = item;
+                            tabControl.UpdateLayout();
+                            tabControl.SelectedItem = selectedItem;
+                        }
+                    }
+                }
                 IsSnapped = true;
                 savedState = this.State;
                 this.State = RibbonGroupBoxState.Collapsed;
+                if(!IsVisible)
+                {
+                    UIElement element = popup.Child;
+                    popup.Child = null;
+                    if (element != null)
+                    {
+                        Decorator parent = VisualTreeHelper.GetParent(element) as Decorator;
+                        if (parent != null) parent.Child = null;
+                    }
+                    quickAccessPopup = new RibbonPopup();
+                    quickAccessPopup.AllowsTransparency = popup.AllowsTransparency;
+                    quickAccessPopup.Child = element;
+                }
+                else quickAccessPopup = popup as RibbonPopup;
+                quickAccessPopup.Closed += OnMenuClosed;                
                 popupPlacementTarget = popup.PlacementTarget;
-                popup.PlacementTarget = button;
-                popup.Tag = button;
-
+                quickAccessPopup.PlacementTarget = button;                
+                quickAccessPopup.Tag = button;
+                if (IsVisible)
+                {
+                    Width = ActualWidth;
+                    Height = ActualHeight;
+                }
+                savedScale = Scale;
+                Scale = -100;
+                quickAccessPopup.IsOpen = true;
                 RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
-                popup.UpdateLayout();
+                /*
+                if (quickAccessPopup.Child != null)
+                {
+                    Decorator parent = VisualTreeHelper.GetParent(quickAccessPopup.Child) as Decorator;
+                    if (parent != null) parent.UpdateLayout();
+                }
+                */
+                if (quickAccessPopup.Child != null)quickAccessPopup.Child.InvalidateMeasure();
                 button.IsChecked = true;
                 e.Handled = true;
             }
         }
        
         private void OnMenuClosed(object sender, EventArgs e)
-        {            
+        {
+            Scale = savedScale;
+            if (quickAccessPopup!=popup)
+            {
+                UIElement element = quickAccessPopup.Child;                
+                quickAccessPopup.Child = null;
+                if (element != null)
+                {
+                    Decorator parent = VisualTreeHelper.GetParent(element) as Decorator;
+                    if (parent != null) parent.Child = null;
+                }
+                popup.Child = element;
+            }
+            Width = double.NaN;
+            Height = double.NaN;
             this.State = savedState;
-            popup.PlacementTarget = popupPlacementTarget;
+            quickAccessPopup.PlacementTarget = popupPlacementTarget;
             UpdateLayout();
             ((ToggleButton)((Popup)sender).Tag).IsChecked = false;
-            popup.Closed -= OnMenuClosed;
+            quickAccessPopup.Closed -= OnMenuClosed;
+            quickAccessPopup = null;
             IsSnapped = false;
+            IsOpen = false;
         }
 
         /// <summary>
