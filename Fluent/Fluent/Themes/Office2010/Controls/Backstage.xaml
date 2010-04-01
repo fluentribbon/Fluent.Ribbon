@@ -39,12 +39,13 @@
     <Setter Property="Margin" Value="5,1"/>
     <Setter Property="Template" Value="{StaticResource BackstageButtonControlTemplate}"/>
     <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}}"/>
+    <Setter Property="Foreground" Value="{DynamicResource BackstageFontBrush}"/>
   </Style>
   <ControlTemplate x:Key="BackstageControlTemplate" TargetType="{x:Type Fluent:Backstage}">
   	<ControlTemplate.Resources>
 		  <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
 	  </ControlTemplate.Resources>	
-  	<Grid Background="{DynamicResource ActiveTabBackgroundBrush}">
+  	<Grid Background="{DynamicResource BackstageBackgroundBrush}">
   		<Grid.ColumnDefinitions>
   			<ColumnDefinition MinWidth="107" Width="Auto"/>
   			<ColumnDefinition Width="*"/>
@@ -64,38 +65,12 @@
   			</Border>
   			<ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent"/>
   		</Grid>
-  		<Grid Margin="0" VerticalAlignment="Stretch">
-  			<Grid.Background>
-  				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-  					<GradientStop Color="#FFFBFCFD" Offset="0"/>
-  					<GradientStop Color="#FFE0E3E7" Offset="1"/>
-  				</LinearGradientBrush>
-  			</Grid.Background>
-  			<Border HorizontalAlignment="Right" Margin="0" Width="6" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="0,0,1,0">
-  				<Border.Background>
-  					<LinearGradientBrush EndPoint="1.012,0">
-  						<GradientStop Color="#00000000" Offset="0"/>
-  						<GradientStop Color="#19000000" Offset="1"/>
-  					</LinearGradientBrush>
-  				</Border.Background>
-  			</Border>
+  		<Grid Margin="0" VerticalAlignment="Stretch" Background="{DynamicResource BackstagePanelBackgroundBrush}">
+  			<Border HorizontalAlignment="Right" Margin="0" Width="6" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="0,0,1,0" Background="{DynamicResource BackstagePanelShadowBackgroundBrush}"/>
   			<StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True"/>
   		</Grid>
   		<Border Margin="0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}">
-  			<Rectangle Stroke="{x:Null}" StrokeThickness="0">
-  				<Rectangle.Fill>
-  					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-  						<GradientStop Color="#3FFFFFFF" Offset="0.49"/>
-  						<GradientStop Color="#3F000000" Offset="0.5"/>
-  					</LinearGradientBrush>
-  				</Rectangle.Fill>
-  				<Rectangle.OpacityMask>
-  					<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-  						<GradientStop Color="Black" Offset="0"/>
-  						<GradientStop Offset="1"/>
-  					</LinearGradientBrush>
-  				</Rectangle.OpacityMask>
-  			</Rectangle>
+  			<Rectangle Stroke="{x:Null}" StrokeThickness="0" Fill="{DynamicResource BackstageTopBackgroundBrush}" OpacityMask="{DynamicResource BackstageTopOpacityBrush}"/>
   		</Border>
   	</Grid>
   	<ControlTemplate.Triggers>

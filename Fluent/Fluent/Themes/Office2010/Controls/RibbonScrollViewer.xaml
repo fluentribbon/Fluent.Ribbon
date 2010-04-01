@@ -2,13 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<!--Button in Scroll Control Style-->
   <ControlTemplate x:Key="ScrollButtonControlTemplate" TargetType="{x:Type RepeatButton}">
-		<Border x:Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="#FF79848C" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-			<Border.Background>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="White" Offset="0"/>
-					<GradientStop Color="#FFE8EBEF" Offset="1"/>
-				</LinearGradientBrush>
-			</Border.Background>
+		<Border x:Name="border" BorderThickness="1" CornerRadius="2" BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
   		<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
   			<Grid Height="Auto">
   				<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">

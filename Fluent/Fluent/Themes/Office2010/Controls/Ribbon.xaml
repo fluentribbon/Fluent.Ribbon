@@ -3,7 +3,7 @@
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
   <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
     <Border x:Name="border2" Width="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
-      <Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
+      <Border x:Name="border1" BorderBrush="#666C6C6C" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0">
         <Border x:Name="border" BorderBrush="#66FFFFFF" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
           <Border.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,15 +13,23 @@
             </LinearGradientBrush>
           </Border.Background>
           <Grid>
-            <Rectangle x:Name="rectangle" StrokeThickness="0">
-              <Rectangle.Fill>
-                <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
-                  <GradientStop Color="#66FFFFFF" Offset="0.015"/>
-                  <GradientStop Offset="1"/>
-                </RadialGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Margin="2,0,2,2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Rectangle x:Name="rectangle_Copy" StrokeThickness="0">
+          		<Rectangle.Fill>
+          			<RadialGradientBrush Center="0.5,0.0" GradientOrigin="0.5,0.0" RadiusX="0.993" RadiusY="1">
+          				<GradientStop Color="#33FFFFFF" Offset="0.015"/>
+          				<GradientStop Offset="1"/>
+          			</RadialGradientBrush>
+          		</Rectangle.Fill>
+          	</Rectangle>
+          	<Rectangle x:Name="rectangle" StrokeThickness="0">
+          		<Rectangle.Fill>
+          			<RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+          				<GradientStop Color="#7FFFFFFF" Offset="0.015"/>
+          				<GradientStop Offset="1"/>
+          			</RadialGradientBrush>
+          		</Rectangle.Fill>
+          	</Rectangle>
+          	<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
           </Grid>
         </Border>
       </Border>
@@ -33,7 +41,15 @@
         </MultiTrigger.Conditions>
         <Setter Property="Fill" TargetName="rectangle">
           <Setter.Value>
-            <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.993" RadiusY="1">
+            <RadialGradientBrush Center="0.5,1" GradientOrigin="0.5,1" RadiusX="0.993" RadiusY="1">
+              <GradientStop Color="#B2FFFFFF" Offset="0.015"/>
+              <GradientStop Offset="1"/>
+            </RadialGradientBrush>
+          </Setter.Value>
+        </Setter>
+		<Setter Property="Fill" TargetName="rectangle_Copy">
+          <Setter.Value>
+            <RadialGradientBrush Center="0.5,1" GradientOrigin="0.5,1" RadiusX="0.993" RadiusY="1">
               <GradientStop Color="#B2FFFFFF" Offset="0.015"/>
               <GradientStop Offset="1"/>
             </RadialGradientBrush>
@@ -53,6 +69,7 @@
       <Trigger Property="IsOpen" Value="True">
         <Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+		<Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed"/>
         <Setter Property="BorderBrush" TargetName="border" Value="#59FFFFFF"/>
         <Setter Property="Background" TargetName="border">
           <Setter.Value>
@@ -71,6 +88,7 @@
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="#66000000"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+		<Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed"/>
         <Setter Property="BorderBrush" TargetName="border" Value="#99FFFFFF"/>
         <Setter Property="Background" TargetName="border">
           <Setter.Value>
@@ -111,7 +129,7 @@
             <Fluent:MenuItem x:Name="PART_CustomizeQuickAccessToolbarMenuItem" x:Uid="CustomizeQuickAccessToolbarString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuCustomizeQuickAccessToolBar, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" x:Uid="ShowQuickAccessToolbarBelowTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuShowBelow, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" x:Uid="ShowQuickAccessToolbarAboveTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuShowAbove, Mode=OneWay}"/>
-            <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
+            <Separator x:Name="separator" Style="{DynamicResource MenuSeparatorStyle}"/>
             <Fluent:MenuItem x:Name="PART_CustomizeTheRibbonMenuItem" x:Uid="CustomizeTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuCustomizeRibbon, Mode=OneWay}"/>
             <Fluent:MenuItem x:Name="PART_MinimizeTheRibbonMenuItem" x:Uid="MinimizeTheRibbonString" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=RibbonContextMenuMinimizeRibbon, Mode=OneWay}" IsChecked="{Binding Path=IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Mode=Default}"/>
           </Fluent:ContextMenu>          
@@ -136,8 +154,8 @@
     		<Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False"/>
     		<Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{StaticResource BackstageToggleButtonStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText, Mode=OneWay}" Size="Small" Background="{TemplateBinding BackstageBrush}" 
                                 Fluent:KeyTip.Keys="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip, Mode=OneWay}"/>
-    		<Border x:Name="border" Margin="0" BorderBrush="#FF98A1AB" BorderThickness="0,1" Grid.Row="1" Height="26">
-    			<Border BorderBrush="#FFDFE3EA" BorderThickness="0,1" Background="#FFD5D9DE">
+    		<Border x:Name="border" Margin="0" BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}" BorderThickness="0,1" Grid.Row="1" Height="26">
+    			<Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}" BorderThickness="0,1" Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
     				<ContentControl x:Name="contentControl" HorizontalAlignment="Left">
     					<Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
     				</ContentControl>
@@ -154,6 +172,24 @@
     		
     	</Grid>
     	<ControlTemplate.Triggers>
+		<Trigger Property="CanQuickAccessLocationChanging" Value="False">
+  			<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
+  		</Trigger>
+  		<Trigger Property="IsQuickAccessToolBarVisible" Value="False">
+  			<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_QuickAccessToolBar" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_RemoveFromQuickAccessMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_AddGalleryToQuickAccessMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_AddMenuToQuickAccessMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_AddGroupToQuickAccessMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="PART_AddToQuickAccessMenuItem" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
+  			<Setter Property="Visibility" TargetName="topMenuSeparator" Value="Collapsed"/>
+  		</Trigger>
   		<Trigger Property="IsCollapsed" Value="True">
   			<Setter Property="Visibility" TargetName="PART_RibbonTitleBar" Value="Collapsed"/>
   			<Setter Property="Visibility" TargetName="PART_RibbonTabControl" Value="Collapsed"/>

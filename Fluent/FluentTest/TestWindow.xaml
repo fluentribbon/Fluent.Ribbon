@@ -7,20 +7,14 @@
     Title="Fluent Ribbon Control Suite 1.0" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
-  
-  <Fluent:RibbonWindow.Background>
-    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-      <GradientStop Color="#FFEBEDF0" Offset="0"/>
-      <GradientStop Color="#FFBABEC2" Offset="1"/>
-    </LinearGradientBrush>
-  </Fluent:RibbonWindow.Background>
+ 
   <Grid>
   	<Grid.RowDefinitions>
   		<RowDefinition Height="Auto"/>
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" IsMinimized="False">
+    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" CanQuickAccessLocationChanging="False">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
@@ -101,7 +95,7 @@
           </Fluent:Button.ToolTip>
         </Fluent:Button>
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
-        <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small"/>
+        <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>
       </Fluent:RibbonGroupBox>
 
 		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
@@ -271,6 +265,9 @@
         </Fluent:RibbonGroupBox>
         
         <Fluent:RibbonGroupBox Icon="Images/Default.png" Fluent:KeyTip.Keys="B" x:Name="B" Header="Spinners" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
+          <Fluent:Button Click="OnSilverClick">Silver</Fluent:Button>
+          <Fluent:Button Click="OnBlackClick">Black</Fluent:Button>
+          <Fluent:Button Click="OnBlueClick">Blue</Fluent:Button>
           <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Text="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" IsEnabled="False"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
@@ -309,10 +306,18 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Page Layout" >
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-
+          <Fluent:CheckBox>Text 1</Fluent:CheckBox>
+          <Fluent:CheckBox>Text 2</Fluent:CheckBox>
+          <Fluent:CheckBox>Text 3</Fluent:CheckBox>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="References" >
+      <Fluent:RibbonTabItem >
+        <Fluent:RibbonTabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <Image Width="20" Source="Images\GrowFont.png" VerticalAlignment="Center" />
+            <TextBlock Text="Inventory" Margin="6,0,0,0" VerticalAlignment="Center" />
+          </StackPanel>
+        </Fluent:RibbonTabItem.Header>
         <Fluent:RibbonGroupBox x:Name="xxx" Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>

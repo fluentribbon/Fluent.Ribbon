@@ -37,8 +37,8 @@
       				</RadialGradientBrush>
       			</Rectangle.Fill>
       		</Rectangle>      		
-      		<Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="Transparent" BorderThickness="0,1,0,0" Margin="-1,0"/>
-      		<Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="27" Background="Transparent" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
+      		<Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="{DynamicResource TransparentBrush}" BorderThickness="0,1,0,0" Margin="-1,0"/>
+      		<Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="27" Background="{DynamicResource TransparentBrush}" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" IsHitTestVisible="False" Margin="0">
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="3,2" SnapsToDevicePixels="True" IsHitTestVisible="false" Visibility="Hidden" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
       			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>

@@ -6,6 +6,9 @@
 			<Trigger Property="Group" Value="{x:Null}">
 				<Setter Property="BorderBrush" Value="{DynamicResource RibbonTopBorderBrush}"/>
 			</Trigger>
+			<Trigger Property="Selector.IsSelected" Value="False">
+				<Setter Property="Foreground" Value="{DynamicResource TabItemFontBrush}"/>
+			</Trigger>
 		</Style.Triggers>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="VerticalAlignment" Value="Top"/>
@@ -79,22 +82,22 @@
 							<Border x:Name="border_Copy" Margin="1,0,1,1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{x:Null}">
 								<Border.OpacityMask>
 									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-										<GradientStop Color="#BF000000" Offset="0"/>
-										<GradientStop Color="#F2FFFFFF" Offset="1"/>
+										<GradientStop Color="#CC000000" Offset="0"/>
+										<GradientStop Color="#F7FFFFFF" Offset="0.985"/>
 									</LinearGradientBrush>
 								</Border.OpacityMask>
 								<Border x:Name="border_Copy1" Margin="0" BorderBrush="{DynamicResource ActiveTabBackgroundBrush}" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{x:Null}">
 									<Border.OpacityMask>
 										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#BF000000" Offset="0"/>
-											<GradientStop Color="#F2FFFFFF" Offset="1"/>
+											<GradientStop Color="#CCFFFFFF" Offset="0"/>
+											<GradientStop Color="#F7FFFFFF" Offset="1"/>
 										</LinearGradientBrush>
 									</Border.OpacityMask>
 									<Border x:Name="border_Copy2" Margin="0" BorderBrush="{x:Null}" BorderThickness="0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{DynamicResource ActiveTabBackgroundBrush}">
 										<Border.OpacityMask>
 											<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-												<GradientStop Color="#66000000" Offset="0"/>
-												<GradientStop Color="#B2FFFFFF" Offset="1"/>
+												<GradientStop Color="#7FFFFFFF" Offset="0.004"/>
+												<GradientStop Offset="0.5"/>
 											</LinearGradientBrush>
 										</Border.OpacityMask>
 									</Border>
@@ -102,6 +105,12 @@
 							</Border>
 						</Grid>
 						<Grid x:Name="focusedGrid" Margin="2,0,0,0" Visibility="Collapsed" Grid.ColumnSpan="1">
+							<Grid.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="White" Offset="0"/>
+									<GradientStop Offset="1" Color="#19FFFFFF"/>
+								</LinearGradientBrush>
+							</Grid.OpacityMask>
 							<Border x:Name="border_Copy5" Margin="1,0,1,1" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}">
 								<Border x:Name="border_Copy6" Margin="0" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1,1,1,0" VerticalAlignment="Stretch" CornerRadius="2,2,0,0" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
 							</Border>
@@ -169,6 +178,7 @@
 							<Setter Property="Margin" TargetName="separatorGrid" Value="-1,0,0,1"/>
 							<Setter Property="Visibility" TargetName="border_Copy3" Value="Collapsed"/>
 							<Setter Property="Visibility" TargetName="rectangle3" Value="Collapsed"/>
+							<Setter Property="BorderBrush" TargetName="border_Copy" Value="{x:Null}"/>
 						</Trigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -214,7 +224,7 @@
 		</Setter>
 		<Setter Property="IsTabStop" Value="False"/>
 		<Setter Property="Indent" Value="12"/>
-		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource TabItemSelectedFontBrush}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 		<Setter Property="Margin" Value="0"/>		

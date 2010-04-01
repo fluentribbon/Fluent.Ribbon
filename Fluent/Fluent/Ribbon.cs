@@ -30,6 +30,8 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Threading;
+using System.Threading;
 
 namespace Fluent
 {
@@ -594,6 +596,18 @@ namespace Fluent
         {
             Ribbon ribbon = (Ribbon)d;
             ribbon.SaveState();
+            if(!(bool)e.NewValue)
+            {
+                if (ribbon.tabControl.SelectedIndex == -1)
+                    ribbon.LayoutUpdated += ribbon.OnIsOpenLayoutUpdated;
+                    //ribbon.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate { ribbon.tabControl.SelectedIndex = 0; }));
+            }
+        }
+
+        private void OnIsOpenLayoutUpdated(object sender, EventArgs e)
+        {
+            LayoutUpdated -= OnIsOpenLayoutUpdated;
+            tabControl.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -611,6 +625,40 @@ namespace Fluent
         public static readonly DependencyProperty IsCollapsedProperty =
                DependencyProperty.Register("IsCollapsed", typeof(bool), 
                typeof(Ribbon), new UIPropertyMetadata(false));
+
+
+        /// <summary>
+        /// Gets or sets whether QAT is visible
+        /// </summary>
+        public bool IsQuickAccessToolBarVisible
+        {
+            get { return (bool)GetValue(IsQuickAccessToolBarVisibleProperty); }
+            set { SetValue(IsQuickAccessToolBarVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsQuickAccessToolBarVisible.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
+            DependencyProperty.Register("IsQuickAccessToolBarVisible", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+
+
+        /// <summary>
+        /// Gets or sets whether user can change location of QAT
+        /// </summary>
+        public bool CanQuickAccessLocationChanging
+        {
+            get { return (bool)GetValue(CanQuickAccessLocationChangingProperty); }
+            set { SetValue(CanQuickAccessLocationChangingProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
+            DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+
+
 
         #endregion
 
@@ -763,6 +811,11 @@ namespace Fluent
                     }
                 }
                 quickAccessToolBar.ItemsChanged += OnQuickAccessItemsChanged;
+
+                Binding binding = new Binding("CanQuickAccessLocationChanging");
+                binding.Source = this;
+                binding.Mode = BindingMode.OneWay;
+                quickAccessToolBar.SetBinding(Fluent.QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
             }
 
             if (quickAccessToolBar != null)
@@ -782,6 +835,7 @@ namespace Fluent
                 }
             }
             backstageButton = GetTemplateChild("PART_BackstageButton") as BackstageButton;
+            adorner = null;
             if (backstageButton != null) 
             {
                 Binding binding = new Binding("IsBackstageOpen");
@@ -882,7 +936,7 @@ namespace Fluent
                     AddToQuickAccessToolBar(control);
                 }
             }*/
-            if(ribbonContextMenu!=null)
+            if((ribbonContextMenu!=null)&&(IsQuickAccessToolBarVisible))
             {
                 FrameworkElement parentElement = RibbonPopup.GetActivePopup();
                 if (parentElement == null) parentElement = this;
@@ -1033,7 +1087,7 @@ namespace Fluent
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
-            else if (tabControl.SelectedIndex == -1) tabControl.SelectedIndex = 0;
+            else if ((tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnUnloaded(object sender, RoutedEventArgs e)

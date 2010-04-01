@@ -25,20 +25,13 @@
         				<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="2,0,4,0" x:Name="textBlock"/>
         			</StackPanel>
 				
-        			<Border Height="Auto" BorderThickness="1,1,1,1" BorderBrush="#FFD3D6D9" x:Name="border" Background="#FFFFFFFF" Grid.Column="1" Grid.ColumnSpan="1" Width="{TemplateBinding InputWidth}" d:LayoutOverrides="GridBox">
+        			<Border Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource TextBoxBorderBrush}" x:Name="border" Background="{DynamicResource TextBoxBackgroundBrush}" Grid.Column="1" Grid.ColumnSpan="1" Width="{TemplateBinding InputWidth}" d:LayoutOverrides="GridBox">
         				<Grid>
         					<Grid.ColumnDefinitions>
         						<ColumnDefinition Width="*"/>
         						<ColumnDefinition Width="13"/>
         					</Grid.ColumnDefinitions>
-        					<Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="#FFBBBFC4" Visibility="Collapsed" x:Name="border1">
-        						<Border.Background>
-        							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        								<GradientStop Color="#FFFFFFFF" Offset="0"/>
-        								<GradientStop Color="#FFF1F3F4" Offset="1"/>
-        							</LinearGradientBrush>
-        						</Border.Background>
-        					</Border>
+        					<Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource TextBoxHoverBorderBrush}" Visibility="Collapsed" x:Name="border1" Background="{DynamicResource TextBoxBackgroundBrush}"/>
         					<Border x:Name="buttonBorder" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1">
         						<Border x:Name="buttonBorder1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}">
         							<Grid Height="Auto">
@@ -54,7 +47,7 @@
         							</Grid>
         						</Border>
         					</Border>
-        					<TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{TemplateBinding SelectedItem}" TextWrapping="NoWrap" BorderThickness="0,0,0,0" x:Name="PART_TextBox" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+        					<TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Text="{TemplateBinding SelectedItem}" TextWrapping="NoWrap" BorderThickness="0,0,0,0" x:Name="PART_TextBox" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}"/>
         					<Fluent:GalleryItem x:Name="PART_GalleryItem" Margin="0" Content="" Grid.ColumnSpan="1" Visibility="Collapsed" IsHitTestVisible="False" Focusable="False"/>
         					<Image x:Name="PART_FakeImage" Grid.ColumnSpan="1" Visibility="Collapsed" IsHitTestVisible="False" Stretch="None"/>
         				</Grid>
@@ -73,22 +66,30 @@
         			<Setter Property="Visibility" TargetName="PART_TextBox" Value="Collapsed"/>
         		</Trigger>
         		<Trigger Property="IsEnabled" Value="False">
-        			<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
-        			<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
         			<Setter Property="Opacity" TargetName="path" Value="0.5"/>
         			<Setter Property="IsEnabled" TargetName="PART_TextBox" Value="False"/>
+        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="PART_TextBox" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
         		</Trigger>
         		<!--<Trigger Property="IsOpen" Value="True">
         			<Setter Property="IsHitTestVisible" TargetName="PART_DownButton" Value="False"/>              
         		</Trigger>-->
         		<Trigger Property="IsMouseOver" Value="True">
-        			<Setter Property="BorderBrush" TargetName="border" Value="#FFBBBFC4"/>
         			<Setter Property="Visibility" TargetName="border1" Value="Visible"/>
+        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
+					<Setter Property="Background" TargetName="PART_TextBox" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="border1" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         		</Trigger>
 				
         		<Trigger Property="IsKeyboardFocusWithin" Value="True">
-        			<Setter Property="BorderBrush" TargetName="border" Value="#FFBBBFC4"/>
         			<Setter Property="Visibility" TargetName="border1" Value="Visible"/>
+        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
+        			<Setter Property="Background" TargetName="PART_TextBox" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="border1" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         		</Trigger>
 				
         		<Trigger Property="IsOpen" Value="True">

@@ -5,7 +5,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:RibbonListBox}">
-          <ScrollViewer Margin="1,1,1,1" Background="White">
+          <ScrollViewer Margin="1,1,1,1" Background="{TemplateBinding Background}">
             <ItemsPresenter x:Name="PART_ItemsPresenter"/>
           </ScrollViewer>
         </ControlTemplate>

@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Fluent;
+using Microsoft.Win32;
 
 namespace FluentTest
 {
@@ -179,21 +180,6 @@ namespace FluentTest
             }
         }
 
-        private void OnSilverClick(object sender, RoutedEventArgs e)
-        {
-            //ThemesManager.SetTheme(this,Themes.Office2010Silver);            
-            Application.Current.Resources.BeginInit();
-            Application.Current.Resources.Source=new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
-            Application.Current.Resources.EndInit();
-        }
-
-        private void OnBlackClick(object sender, RoutedEventArgs e)
-        {
-            //ThemesManager.SetTheme(this, Themes.Office2010Black);
-            //Application.Current.Resources.BeginInit();
-            Application.Current.Resources.Source=new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
-            //Application.Current.Resources.EndInit();
-        }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
@@ -243,6 +229,39 @@ namespace FluentTest
         void OnExitClick(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+
+        private void OnSilverClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Resources.BeginInit();
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") }); 
+            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+            Application.Current.Resources.EndInit();
+        }
+
+        private void OnBlackClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Resources.BeginInit();
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
+            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+            Application.Current.Resources.EndInit();
+        }
+
+        private void OnBlueClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Resources.BeginInit();
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
+            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+            Application.Current.Resources.EndInit();
+        }
+
+        private void OnFormatPainterClick(object sender, RoutedEventArgs e)
+        {
+            /*OpenFileDialog dlg = new OpenFileDialog();
+            dlg.ShowDialog(this);*/
+            if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
+            else Font.Visibility = Visibility.Collapsed;
         }
     }
 

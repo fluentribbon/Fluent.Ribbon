@@ -98,7 +98,7 @@
               
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}"/>
                     <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
-                    <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
+                    <Separator x:Name="menuSeparator" Style="{DynamicResource MenuSeparatorStyle}"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}"/>
                     <Fluent:MenuItem x:Name="PART_ShowAbove" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}" Visibility="Collapsed"/>
               
@@ -126,6 +126,11 @@
     		<StackPanel Orientation="Horizontal" x:Name="PART_ToolBarPanel" Width="Auto" Height="Auto" VerticalAlignment="Stretch" FocusManager.IsFocusScope="False"/>    		  		
     	</DockPanel>
     	<ControlTemplate.Triggers>
+    		<Trigger Property="CanQuickAccessLocationChanging" Value="False">
+			<Setter Property="Visibility" TargetName="PART_ShowBelow" Value="Collapsed"/>
+			<Setter Property="Visibility" TargetName="PART_ShowAbove" Value="Collapsed"/>
+			<Setter Property="Visibility" TargetName="menuSeparator" Value="Collapsed"/>
+			</Trigger>
     		<Trigger Property="ShowAboveRibbon" Value="False">
     			<Setter Property="Visibility" TargetName="PART_ShowBelow" Value="Collapsed"/>
     			<Setter Property="Visibility" TargetName="PART_ShowAbove" Value="Visible"/>
@@ -135,8 +140,8 @@
     		<Trigger Property="HasOverflowItems" Value="True">    			
     			<Setter Property="Visibility" TargetName="PART_ToolbarDownButton" Value="Visible"/>
     			<Setter Property="Content" TargetName="popupContentControl" Value="{Binding ElementName=PART_MenuDownButton, Mode=OneWay}"/>
-          <Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>
-        </Trigger>
+    			<Setter Property="Content" TargetName="menuContentControl" Value="{x:Null}"/>
+    		</Trigger>
     	</ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

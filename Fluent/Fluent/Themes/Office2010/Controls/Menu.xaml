@@ -34,7 +34,7 @@
 				<Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
 			</Border>
 			<TextBlock x:Name="textBlock" Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
-			<Rectangle x:Name="rectangle" Fill="#FFFCF1C2" Stroke="#FFF29536" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+			<Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 			<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 			<Image x:Name="iconImage" HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True"/>
 			<Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="5,0,4,0" Width="4" Data="M0,0L1,1 0,2z" Height="6" Grid.Column="3">
@@ -146,25 +146,18 @@
 					</LinearGradientBrush>
 				</Rectangle.Fill>
 			</Rectangle>
-			<Border SnapsToDevicePixels="True" Background="White" BorderBrush="#FFA7ABB0" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Border SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Left" VerticalAlignment="Top">
 				<Grid Width="Auto" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
-					<Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="White" BorderThickness="1" CornerRadius="1"/>
+					<Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
 					<Grid Margin="1" HorizontalAlignment="Left" VerticalAlignment="Top">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="*"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
             <!--<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>-->
-            <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible"/>
+            <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="{DynamicResource ContextMenuLineBrush}" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible"/>
 						<Fluent:MenuPanel Margin="0" Width="Auto" Height="Auto" IsItemsHost="True" d:LayoutOverrides="Width, Height" Grid.RowSpan="1" x:Name="PART_ItemsHost" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-						<Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="#FFDDE7EE" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1">
-							<Border.Background>
-								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-									<GradientStop Color="White" Offset="0"/>
-									<GradientStop Color="#FFD8DBDF" Offset="1"/>
-									<GradientStop Color="#FFF2F4F5" Offset="0.529"/>
-								</LinearGradientBrush>
-							</Border.Background>
+						<Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
 							<Grid>
 								<Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
 								<Thumb x:Name="PART_ResizeBothThumb" HorizontalAlignment="Right" Margin="0,0,0,-90" Width="10" Height="10" VerticalAlignment="Top" Cursor="SizeNWSE" Template="{DynamicResource ResizeBothThumbControlTemplate}"/>
@@ -198,7 +191,7 @@
 	</Style>
 	<ControlTemplate x:Key="MenuSeparatorControlTemplate" TargetType="{x:Type Separator}">
 		<Grid Height="Auto">
-			<Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFC7C8C9" StrokeDashArray="2 2" Margin="32,1,3,2" VerticalAlignment="Center" Height="1" Data="M0,0L1,0"/>
+			<Path Fill="{x:Null}" Stretch="Fill" Stroke="{DynamicResource ContextMenuSeparatorBrush}" StrokeDashArray="2 2" Margin="32,1,3,2" VerticalAlignment="Center" Height="1" Data="M0,0L1,0"/>
 		</Grid>
 	</ControlTemplate>
 	<Style x:Key="MenuGroupSeparatorStyle" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
@@ -207,7 +200,7 @@
 		<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
 	</Style>
 	<ControlTemplate x:Key="MenuGroupSeparatorControlTemplate" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
-		<Grid Height="21" Background="#FFF0F2F5">
+		<Grid Height="21" Background="{DynamicResource ContextMenuBarBackgroundBrush}">
 			<TextBlock Margin="7,0" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
 		</Grid>
 	</ControlTemplate>

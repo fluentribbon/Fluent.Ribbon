@@ -10,11 +10,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -403,8 +405,9 @@ namespace Fluent
                         IsDwmEnabled = NativeMethods.IsDwmEnabled();
                         UpdateWindowStyle();
                         if (IsDwmEnabled)
-                        {
+                        {                            
                             DwmInit();
+                            NativeMethods.SetWindowRgn(handle, IntPtr.Zero, true);
                         }
                         else
                         {
@@ -553,6 +556,7 @@ namespace Fluent
         IntPtr DoNcHitTest(int msg, IntPtr wParam, IntPtr lParam)
         {
             int mp = lParam.ToInt32();
+            if(!mainGrid.IsVisible) return IntPtr.Zero;
             Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
             ptMouse = mainGrid.PointFromScreen(ptMouse);
             IInputElement hitTested = mainGrid.InputHitTest(ptMouse);
@@ -729,10 +733,9 @@ namespace Fluent
 
         // Update window style
         private void UpdateWindowStyle()
-        {
-            if ((IsDwmEnabled)/* && ((!IsLoaded))*/) return;
+        {            
             long style = NativeMethods.WS_POPUP | NativeMethods.WS_VISIBLE | NativeMethods.WS_CLIPSIBLINGS | NativeMethods.WS_CLIPCHILDREN;
-            long exStyle = NativeMethods.WS_EX_LEFT | NativeMethods.WS_EX_LTRREADING | NativeMethods.WS_EX_RIGHTSCROLLBAR | NativeMethods.WS_EX_WINDOWEDGE;
+            long exStyle = NativeMethods.WS_EX_WINDOWEDGE | NativeMethods.WS_EX_APPWINDOW;
             if (IsDwmEnabled)
             {
                 style |= NativeMethods.WS_CAPTION;
@@ -750,10 +753,10 @@ namespace Fluent
 
             // Устанавливаем стиль окна
             NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_STYLE, new IntPtr(style));
-            NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE, new IntPtr(exStyle));
-
-            NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_NOTOPMOST), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);
+            //NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE, new IntPtr(exStyle));            
+            NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_TOP), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);            
             UpdateLayout();
+            //Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate{NativeMethods.SetForegroundWindow(handle);}));            
         }
 
         #endregion

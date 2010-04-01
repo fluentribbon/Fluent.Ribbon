@@ -17,14 +17,7 @@
         <ControlTemplate TargetType="Fluent:KeyTip">
           <Grid>
             
-            <Border CornerRadius="2" BorderThickness="1" BorderBrush="#FF767676">
-              <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                  <GradientStop Color="White" Offset="0"/>
-                  <GradientStop Color="#FFEAEAF4" Offset="1"/>
-                  <GradientStop Color="#FFF6F6FA" Offset="0.746"/>
-                </LinearGradientBrush>
-              </Border.Background>
+            <Border CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource KeyTipBorderBrush}" Background="{DynamicResource KeyTipBackgroundBrush}">
           	<TextBlock Text="{TemplateBinding Content}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,-1,4,1"/>
           </Border>
 		  </Grid>

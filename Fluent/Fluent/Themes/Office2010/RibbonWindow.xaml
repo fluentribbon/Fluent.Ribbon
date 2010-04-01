@@ -13,8 +13,8 @@
       	<ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     		<Grid>
     			<AdornerDecorator x:Name="adornerDecorator" Margin="0">
-    				<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF" VerticalAlignment="Stretch">
-    					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
+    				<Grid x:Name="PART_MainGrid" Margin="8" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
+    					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
     					<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
     					<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
     						<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
@@ -68,16 +68,9 @@
     		<Grid>
     			<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
     				<Grid>
-    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="#FF656D75" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Opacity="1" Background="#FFEBEDF0">
-    						<Border x:Name="border2" BorderBrush="White" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
-    							<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6,6,0,0" VerticalAlignment="Top" Height="50">
-    								<Border.Background>
-    									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    										<GradientStop Color="#FFEBEDF0" Offset="0"/>
-    										<GradientStop Color="#FFE3E6E8" Offset="1"/>
-    									</LinearGradientBrush>
-    								</Border.Background>
-    							</Border>
+    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
+    						<Border x:Name="border2" BorderBrush="{DynamicResource WindowInnerBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
+    							<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6" VerticalAlignment="Top" Height="50" Background="{DynamicResource WindowInnerBackgroundBrush}"/>
     						</Border>
     					</Border>
     					<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
@@ -100,7 +93,7 @@
     							</Button>
     						</StackPanel>
     						<Border x:Name="border4" Margin="{TemplateBinding GlassBorders}" >
-    							<Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="#FF878C92" Margin="-1">
+    							<Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource WindowContentBorderBrush}" Margin="-1">
     								<Grid x:Name="grid" Background="{TemplateBinding Background}"/>
     							</Border>
     						</Border>
@@ -180,28 +173,11 @@
       	<ControlTemplate x:Key="CaptionButtonControlTemplate" TargetType="{x:Type Button}">
       		<Grid>
       			<Border x:Name="border" Margin="0" BorderBrush="{x:Null}" BorderThickness="0" CornerRadius="2" Background="{TemplateBinding Background}" Visibility="Collapsed"/>
-      			<Border x:Name="hoverBorder" Margin="0" BorderBrush="#66000000" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border BorderBrush="#33FFFFFF" BorderThickness="1" CornerRadius="1">
-      					<Border.Background>
-      						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-      							<GradientStop Color="#3FFFFFFF" Offset="0"/>
-      							<GradientStop Color="#3F040404" Offset="1"/>
-      							<GradientStop Offset="0.594"/>
-      							<GradientStop Offset="0.387"/>
-      						</LinearGradientBrush>
-      					</Border.Background>
-      				</Border>
+      			<Border x:Name="hoverBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
+      				<Border BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}"/>
       			</Border>
-      			<Border x:Name="pressedBorder" Margin="0" BorderBrush="#99000000" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border BorderBrush="#59000000" BorderThickness="1" CornerRadius="1">
-      					<Border.Background>
-      						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-      							<GradientStop Color="#26000000" Offset="0"/>
-      							<GradientStop Color="#26000000" Offset="1"/>
-      							<GradientStop Offset="0.488" Color="#1C000000"/>
-      						</LinearGradientBrush>
-      					</Border.Background>
-      				</Border>
+      			<Border x:Name="pressedBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonPressedOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
+      				<Border BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}"/>
       			</Border>
       			<ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
       		</Grid>
@@ -226,7 +202,7 @@
     <Setter Property="FontWeight" Value="Normal"/>
     <Setter Property="Foreground" Value="#FF000000"/>
     <Setter Property="Template" Value="{DynamicResource DwmRibbonWindowControlTemplate}"/>
-    <Setter Property="Background" Value="#FFFFFFFF"/>
+    <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
     <Setter Property="TitleBarHeight" Value="55"/>
     <Setter Property="GlassBorders" Value="0,42,0,0"/>
     <Style.Triggers>

@@ -104,29 +104,13 @@
 								<ColumnDefinition Width="*"/>
 								<ColumnDefinition Width="Auto"/>
 							</Grid.ColumnDefinitions>
-							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,0,0,1" VerticalAlignment="Bottom" Height="23" IsHitTestVisible="False">
-								<Rectangle.Fill>
-									<RadialGradientBrush RadiusY="1" Center="1,1" GradientOrigin="1,1" RadiusX="1">
-										<GradientStop Offset="1"/>
-										<GradientStop Color="#D8FFFFFF"/>
-									</RadialGradientBrush>
-								</Rectangle.Fill>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,0,0,1" VerticalAlignment="Bottom" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}">
 							</Rectangle>
-							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,0,15,1" Height="23" VerticalAlignment="Bottom" IsHitTestVisible="False">
-								<Rectangle.Fill>
-									<RadialGradientBrush RadiusY="1" Center="0,1" GradientOrigin="0,1" RadiusX="1">
-										<GradientStop Offset="1"/>
-										<GradientStop Color="#D8FFFFFF"/>
-									</RadialGradientBrush>
-								</Rectangle.Fill>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,0,15,1" Height="23" VerticalAlignment="Bottom" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}">
+				
 							</Rectangle>
-							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,0,50,1" VerticalAlignment="Bottom" IsHitTestVisible="False">
-								<Rectangle.Fill>
-									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-										<GradientStop Offset="0"/>
-										<GradientStop Color="#D8FFFFFF" Offset="1"/>
-									</LinearGradientBrush>
-								</Rectangle.Fill>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,0,50,1" VerticalAlignment="Bottom" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}">
+
 							</Rectangle>
 							<Fluent:RibbonScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
 								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False" Margin="0"/>							

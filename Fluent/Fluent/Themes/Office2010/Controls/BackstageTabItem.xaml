@@ -24,7 +24,7 @@
     						</RadialGradientBrush>
     					</Border.Background>
     				</Border>
-    				<Path Fill="{DynamicResource ActiveTabBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z" Margin="0,0,-1,0"/>
+    				<Path Fill="{DynamicResource BackstageBackgroundBrush}" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="8" Height="15" Data="M1,0L0,1 1,2z" Margin="0,0,-1,0"/>
     			</Grid>
     		</Border>
     		<TextBlock x:Name="controlLabel" HorizontalAlignment="Left" Margin="20,0" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
@@ -51,8 +51,7 @@
   
   <Style x:Key="BackstageTabItemStyle" TargetType="{x:Type Fluent:BackstageTabItem}">
       <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-      <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-      <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+      <Setter Property="Foreground" Value="{DynamicResource BackstageFontBrush}"/>
       <Setter Property="Template" Value="{StaticResource BackstageTabItemControlTemplate}"/>
       <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
       <Setter Property="Height" Value="37"/>

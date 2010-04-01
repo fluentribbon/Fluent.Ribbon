@@ -30,14 +30,7 @@
 				<Grid Background="#00000000">
 
 			<Grid x:Name="hoverGrid" Background="{DynamicResource GroupHoverBrush}" HorizontalAlignment="Stretch" Margin="0,0,1,1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" ClipToBounds="True" Opacity="0" Grid.RowSpan="2">
-				<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto">
-					<Rectangle.Fill>
-						<RadialGradientBrush Center="0.505,1" GradientOrigin="0.505,1">
-							<GradientStop Color="#BFFFFFFF"/>
-							<GradientStop Offset="1"/>
-						</RadialGradientBrush>
-					</Rectangle.Fill>
-				</Rectangle>
+				<Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Fill="{DynamicResource GroupHighlightBrush}"/>
 			</Grid>
 			<ContentControl x:Name="border1">
 			<Grid x:Name="PART_ParentPanel" Margin="0,1,2,0" Grid.RowSpan="2" Height="85">
@@ -111,7 +104,7 @@
 								</RadialGradientBrush>
 							</Rectangle.Fill>
 						</Rectangle>
-						<Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
+						<Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
 							<ContentControl x:Name="popupContent"/>
 						</Border>
 

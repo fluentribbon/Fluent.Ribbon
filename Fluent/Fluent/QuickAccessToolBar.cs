@@ -233,6 +233,25 @@ namespace Fluent
 
         #endregion
 
+        #region CanQuickAccessLocationChanging
+
+        /// <summary>
+        /// Gets or sets whether user can change location of QAT
+        /// </summary>
+        public bool CanQuickAccessLocationChanging
+        {
+            get { return (bool)GetValue(CanQuickAccessLocationChangingProperty); }
+            set { SetValue(CanQuickAccessLocationChangingProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
+            DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+
+        #endregion
+
         #endregion
 
         #region Initialization

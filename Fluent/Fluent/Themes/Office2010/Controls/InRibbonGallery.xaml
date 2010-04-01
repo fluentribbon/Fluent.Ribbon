@@ -100,13 +100,7 @@
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type Fluent:Button}">
-				<Border BorderBrush="#FFC6CACD" BorderThickness="1,1,1,1" x:Name="border">
-					<Border.Background>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FFFFFFFF" Offset="0"/>
-							<GradientStop Color="#FFF1F3F4" Offset="1"/>
-						</LinearGradientBrush>
-					</Border.Background>
+				<Border BorderBrush="{DynamicResource ButtonBorderBrush}" BorderThickness="1,1,1,1" x:Name="border" Background="{DynamicResource ButtonBackgroundBrush}">
 					<Border BorderThickness="1,1,1,1" x:Name="border1">
 						<Grid x:Name="grid">
 							<Path Margin="0,6,0,0" VerticalAlignment="Top" Height="1" Fill="#FFFFFFFF" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,0" HorizontalAlignment="Center" Width="7"/>
@@ -116,9 +110,9 @@
 				</Border>
 				<ControlTemplate.Triggers>
 					<Trigger Property="IsEnabled" Value="False">
-						<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
-						<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
 						<Setter Property="Opacity" TargetName="grid" Value="0.5"/>
+						<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+						<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonDisabledBorderBrush}"/>
 					</Trigger>
 					<MultiTrigger>
 						<MultiTrigger.Conditions>
@@ -146,22 +140,16 @@
   	<Setter Property="Template">
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type RepeatButton}">
-				<Border BorderBrush="#FFC6CACD" BorderThickness="1,1,1,1" x:Name="border">
-					<Border.Background>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FFFFFFFF" Offset="0"/>
-							<GradientStop Color="#FFF1F3F4" Offset="1"/>
-						</LinearGradientBrush>
-					</Border.Background>
+				<Border BorderBrush="{DynamicResource ButtonBorderBrush}" BorderThickness="1,1,1,1" x:Name="border" Background="{DynamicResource ButtonBackgroundBrush}">
 					<Border BorderThickness="1,1,1,1" x:Name="border1">
 						<ContentPresenter x:Name="contentPresenter"/>
 					</Border>
 				</Border>
 				<ControlTemplate.Triggers>
 					<Trigger Property="IsEnabled" Value="False">
-						<Setter Property="BorderBrush" TargetName="border" Value="#FFE4E7EB"/>
-						<Setter Property="Background" TargetName="border" Value="#FFFAFAFA"/>
 						<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+						<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonDisabledBackgroundBrush}"/>
+						<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonDisabledBorderBrush}"/>
 					</Trigger>
 					<MultiTrigger>
 						<MultiTrigger.Conditions>
@@ -195,7 +183,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:InRibbonGallery}">
         	<Grid Width="Auto" Height="Auto" x:Name="PART_LayoutRoot" HorizontalAlignment="Left" VerticalAlignment="Top">
-        		<Border Width="Auto" BorderThickness="1,1,1,1" CornerRadius="0,1,1,0" BorderBrush="#FFC6CACD" ClipToBounds="True" Margin="0,0,0,0" x:Name="border" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top">
+        		<Border Width="Auto" BorderThickness="1,1,1,1" CornerRadius="0,1,1,0" BorderBrush="{DynamicResource InRibbonGalleryBorderBrush}" ClipToBounds="True" Margin="0,0,0,0" x:Name="border" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top">
         			<Grid Width="Auto" Height="Auto">
         				<Fluent:RibbonListBox
         					x:Name="PART_ListBox"
@@ -208,7 +196,7 @@
         					ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
         					IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
         					ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                  BorderThickness="0,0,0,0"                                        
+                  BorderThickness="0,0,0,0" Background="{DynamicResource GalleryBackgroundBrush}"                                        
                   >
         					<Fluent:RibbonListBox.Resources>
         						<Style TargetType="{x:Type ScrollBar}">

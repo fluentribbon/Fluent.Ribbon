@@ -5,7 +5,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}">
         
-        	<Grid Background="Transparent">
+        	<Grid Background="{DynamicResource TransparentBrush}">
         		<Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
         			<Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         		</Border>

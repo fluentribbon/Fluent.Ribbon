@@ -406,7 +406,7 @@ namespace Fluent
         static object CoerceToolTip(DependencyObject d, object basevalue)
         {
             RibbonTabItem tabItem = (RibbonTabItem)d;
-            if (basevalue == null) basevalue = tabItem.Header;
+            if ((basevalue == null) && (tabItem.Header is string)) basevalue = tabItem.Header;
             return basevalue;
         }
 

@@ -36,74 +36,21 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:CheckBox}">
-          <ControlTemplate.Resources>
-            <Storyboard x:Key="OnMouseEnter1">
-              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="hoverRect" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
-              </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-            <Storyboard x:Key="OnMouseLeave1">
-              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="pressedRect" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
-              </DoubleAnimationUsingKeyFrames>
-              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="hoverRect" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0"/>
-              </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-            <Storyboard x:Key="OnMouseDown1">
-              <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="pressedRect" Storyboard.TargetProperty="(UIElement.Opacity)">
-                <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1"/>
-              </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-          </ControlTemplate.Resources>
-          <BulletDecorator SnapsToDevicePixels="true" Background="Transparent" x:Name="bulletDecorator">
+          <BulletDecorator SnapsToDevicePixels="true" Background="Transparent" x:Name="bulletDecorator" Height="22">
             <BulletDecorator.Bullet>
-              <Grid Width="13" Height="13" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Rectangle Fill="{x:Null}" Stroke="#7F7E7E7E"/>
-                <Rectangle Margin="1,1,1,1" Fill="{x:Null}" Stroke="#7FFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Rectangle Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="defaultRect" Opacity="1">
-                  <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.851,0.856" StartPoint="0.149,0.144">
-                      <GradientStop Color="#3F000000" Offset="0"/>
-                      <GradientStop Color="#26000000" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Stroke>
-                  <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.859,0.848" StartPoint="0.141,0.152">
-                      <GradientStop Color="#7FCECECE" Offset="0"/>
-                      <GradientStop Color="#BFFFFFFF" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Fill>
+              <Grid Width="13" Height="13" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Rectangle x:Name="rectangle" Fill="{DynamicResource CheckBoxOutterBackgroundBrush}" Stroke="{DynamicResource CheckBoxOutterBorderBrush}"/>
+                <Rectangle x:Name="rectangle1" Margin="1,1,1,1" Fill="{x:Null}" Stroke="{DynamicResource CheckBoxOutterBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Rectangle Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="defaultRect" Opacity="1" Stroke="{DynamicResource CheckBoxInnerBorderBrush}" Fill="{DynamicResource CheckBoxInnerBackgroundBrush}"/>
+                <Rectangle x:Name="rectangle2" StrokeThickness="0" Margin="2" Opacity="0">
+                	<Rectangle.Fill>
+                		<RadialGradientBrush Center="0.496,1.004" GradientOrigin="0.496,1.004">
+                			<GradientStop Color="White"/>
+                			<GradientStop Offset="1"/>
+                		</RadialGradientBrush>
+                	</Rectangle.Fill>
                 </Rectangle>
-                <Rectangle HorizontalAlignment="Stretch" Margin="2,2,2,2" x:Name="hoverRect" VerticalAlignment="Stretch" Opacity="0">
-                  <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.851,0.856" StartPoint="0.149,0.144">
-                      <GradientStop Color="#FFFAD57A" Offset="0"/>
-                      <GradientStop Color="#FFFDF1CF" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Stroke>
-                  <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.859,0.848" StartPoint="0.141,0.152">
-                      <GradientStop Color="#FFFCE7AF" Offset="0"/>
-                      <GradientStop Color="#FFFBF9F1" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Fill>
-                </Rectangle>
-                <Rectangle HorizontalAlignment="Stretch" Margin="2,2,2,2" x:Name="pressedRect" VerticalAlignment="Stretch" Opacity="0">
-                  <Rectangle.Stroke>
-                    <LinearGradientBrush EndPoint="0.851,0.856" StartPoint="0.149,0.144">
-                      <GradientStop Color="#FFF28926" Offset="0"/>
-                      <GradientStop Color="#FFFAD5AF" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Stroke>
-                  <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.859,0.848" StartPoint="0.141,0.152">
-                      <GradientStop Color="#FFFFD067" Offset="0"/>
-                      <GradientStop Color="#FFFFF4D5" Offset="1"/>
-                    </LinearGradientBrush>
-                  </Rectangle.Fill>
-                </Rectangle>
-                <Path Margin="3,3,3,3" VerticalAlignment="Stretch" Stretch="Fill" Data="M2.0594839,6.6033333 L5.8330001,9.4978325 10.00636,1.7586203" Fill="{x:Null}" Stroke="#FF464646" StrokeEndLineCap="Triangle" StrokeDashCap="Square" StrokeThickness="2" StrokeStartLineCap="Triangle" x:Name="path">
+                <Path Margin="3,3,3,3" VerticalAlignment="Stretch" Stretch="Fill" Data="M2.0594839,6.6033333 L5.8330001,9.4978325 10.00636,1.7586203" Fill="{x:Null}" Stroke="#FF6E7071" StrokeEndLineCap="Triangle" StrokeDashCap="Square" StrokeThickness="2" StrokeStartLineCap="Triangle" x:Name="path">
                   <Path.BitmapEffect>
                     <OuterGlowBitmapEffect GlowColor="#BFFFFFFF" GlowSize="1" Opacity="1"/>
                   </Path.BitmapEffect>
@@ -113,25 +60,35 @@
             <TextBlock Text="{TemplateBinding Text}" Margin="4,0,4,0"/>
           </BulletDecorator>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked" Value="False">
-              <Setter Property="Visibility" TargetName="path" Value="Hidden"/>
-            </Trigger>
-            <EventTrigger RoutedEvent="UIElement.PreviewMouseLeftButtonUp">
-              <BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard1" Storyboard="{StaticResource OnMouseLeave1}"/>
-            </EventTrigger>
-            <EventTrigger RoutedEvent="UIElement.PreviewMouseLeftButtonDown">
-              <BeginStoryboard x:Name="OnMouseDown1_BeginStoryboard" Storyboard="{StaticResource OnMouseDown1}"/>
-            </EventTrigger>
-            <EventTrigger RoutedEvent="Mouse.MouseLeave">
-              <BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave1}"/>
-            </EventTrigger>
-            <EventTrigger RoutedEvent="Mouse.MouseEnter">
-              <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
-            </EventTrigger>
-            <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Opacity" TargetName="bulletDecorator" Value="0.3"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
+        		<MultiTrigger>
+        			<MultiTrigger.Conditions>
+        				<Condition Property="IsMouseOver" Value="True"/>
+        				<Condition Property="IsPressed" Value="False"/>
+        			</MultiTrigger.Conditions>
+        			<Setter Property="Stroke" TargetName="rectangle" Value="{DynamicResource CheckBoxHoverOutterBorderBrush}"/>
+        			<Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource CheckBoxHoverOutterBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="rectangle1" Value="{DynamicResource CheckBoxHoverOutterBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="defaultRect" Value="{DynamicResource CheckBoxHoverInnerBorderBrush}"/>
+        			<Setter Property="Fill" TargetName="defaultRect" Value="{DynamicResource CheckBoxHoverInnerBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="path" Value="Black"/>
+        			<Setter Property="Opacity" TargetName="rectangle2" Value="0.25"/>
+        		</MultiTrigger>
+        		<Trigger Property="IsPressed" Value="True">
+				<Setter Property="Stroke" TargetName="rectangle" Value="{DynamicResource CheckBoxPressedOutterBorderBrush}"/>
+        			<Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource CheckBoxPressedOutterBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="rectangle1" Value="{DynamicResource CheckBoxPressedOutterBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="defaultRect" Value="{DynamicResource CheckBoxPressedInnerBorderBrush}"/>
+        			<Setter Property="Fill" TargetName="defaultRect" Value="{DynamicResource CheckBoxPressedInnerBackgroundBrush}"/>
+        			<Setter Property="Stroke" TargetName="path" Value="Black"/>
+        			<Setter Property="Opacity" TargetName="rectangle2" Value="0.5"/>
+				</Trigger>
+        		<Trigger Property="IsChecked" Value="False">
+        			<Setter Property="Visibility" TargetName="path" Value="Hidden"/>
+        		</Trigger>
+        		<Trigger Property="IsEnabled" Value="false">
+        			<Setter Property="Opacity" TargetName="bulletDecorator" Value="0.3"/>
+        		</Trigger>
+        	</ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

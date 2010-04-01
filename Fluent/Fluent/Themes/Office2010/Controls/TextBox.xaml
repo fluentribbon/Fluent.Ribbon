@@ -11,7 +11,34 @@
     <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
     <Fluent:MenuItem Command="ApplicationCommands.SelectAll" CommandTarget="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type TextBox}}}"/>
   </Fluent:ContextMenu>
+  	<ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
+		        <Border 
+          Name="Border"
+          CornerRadius="0" 
+          Padding="{TemplateBinding Padding}"
+          Background="{TemplateBinding Background}"
+          BorderBrush="{TemplateBinding BorderBrush}"
+          BorderThickness="{TemplateBinding BorderThickness}" >
+          <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+        </Border>
+
+	</ControlTemplate>
   <Style TargetType="{x:Type TextBox}">
+  	<Style.Triggers>
+  		<Trigger Property="IsEnabled" Value="False">
+  			<Setter Property="BorderBrush" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
+  			<Setter Property="Background" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
+  			<Setter Property="Foreground" Value="#FFA0A0A0"/>
+  		</Trigger>
+  		<Trigger Property="IsMouseOver" Value="True">
+  			<Setter Property="Background" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
+  		</Trigger>
+  	</Style.Triggers>
     <Setter Property="ContextMenu" Value="{StaticResource OfficeContextMenu}"/>
+    <Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
+    <Setter Property="Template" Value="{DynamicResource TextBoxControlTemplate}"/>
+    <Setter Property="Foreground" Value="#FF52002D"/>
   </Style>
 </ResourceDictionary>

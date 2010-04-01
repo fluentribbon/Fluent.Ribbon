@@ -211,6 +211,10 @@ namespace Fluent
         /// Creates a window that has a maximize button. Cannot be combined with the WS_EX_CONTEXTHELP style. The WS_SYSMENU style must also be specified. 
         /// </summary>
         public const long WS_MAXIMIZEBOX = 0x00010000L;
+        /// <summary>
+        /// Creates an overlapped window. An overlapped window has a title bar and a border. Same as the WS_TILED style.
+        /// </summary>
+        public const long WS_OVERLAPPED = 0x00000000L;
 
         /// <summary>
         /// Gives window generic left-aligned properties. This is the default.
@@ -228,6 +232,10 @@ namespace Fluent
         /// Specifies that a window has a border with a raised edge.
         /// </summary>
         public const int WS_EX_WINDOWEDGE = 0x00000100;
+        /// <summary>
+        /// Forces a top-level window onto the taskbar when the window is visible
+        /// </summary>
+        public const int WS_EX_APPWINDOW = 0x00040000;
 
         /// <summary>
         /// Sets a new window style.
@@ -242,6 +250,11 @@ namespace Fluent
         /// Retrieves a handle to the parent window, if any
         /// </summary>
         public const int GWL_HWNDPARENT = (-8);
+
+        /// <summary>
+        /// Places the window at the top of the Z order.
+        /// </summary>
+        public const int HWND_TOP = 0;
 
         /// <summary>
         /// Places the window above all non-topmost windows (that is, behind all topmost windows). 
