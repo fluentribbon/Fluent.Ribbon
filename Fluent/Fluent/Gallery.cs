@@ -673,18 +673,40 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
+            IQuickAccessItemProvider provider = FindParentProvider();
+            if (provider != null) return provider.CreateQuickAccessItem();             
+            
             DropDownButton button = new DropDownButton();
+
+            button.PreviewMouseLeftButtonDown += OnFirstPreviewClick;
+
+            BindQuickAccessItem(button);
+            return button;
+        }
+
+        private IQuickAccessItemProvider FindParentProvider()
+        {
+            DependencyObject parent = LogicalTreeHelper.GetParent(this);
+            while (parent != null)
+            {
+                IQuickAccessItemProvider provider = (parent as IQuickAccessItemProvider);
+                if (provider != null) return provider;
+                parent = LogicalTreeHelper.GetParent(parent);
+            }
+            return null;
+        }
+
+        private void OnFirstPreviewClick(object sender, MouseButtonEventArgs e)
+        {
+            DropDownButton button = (sender as DropDownButton);
+            button.PreviewMouseLeftButtonDown -= OnFirstPreviewClick;
             CreateMenuIfNeeded();
             parentContextMenu = FindContextMenu();
             if (parentContextMenu != null)
             {
-                IQuickAccessItemProvider provider = parentContextMenu.Owner as IQuickAccessItemProvider;
-                if (provider != null) return provider.CreateQuickAccessItem();
                 button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
             }
-            
-            BindQuickAccessItem(button);
-            return button;
+            OnQuickAccessClick(button, e);
         }
 
         void CreateMenuIfNeeded()

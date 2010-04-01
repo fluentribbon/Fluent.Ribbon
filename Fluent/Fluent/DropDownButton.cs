@@ -40,6 +40,8 @@ namespace Fluent
         // Prevents menu closing while initializing 
         bool isInitializing;
 
+        private bool isMenuCreated = false;
+
         #endregion
 
         #region Properties
@@ -53,11 +55,17 @@ namespace Fluent
             { 
                 if(dropDownMenu==null)
                 {
-                    CreateMenu();
-                    IsOpen = false;
+                    dropDownMenu = new ContextMenu();
+                    dropDownMenu.Opened += OnFirstMenuOpened;
                 }
                 return dropDownMenu;
             } 
+        }
+
+        private void OnFirstMenuOpened(object sender, RoutedEventArgs e)
+        {
+            dropDownMenu.Opened -= OnFirstMenuOpened;
+            if (!isMenuCreated) CreateMenu();
         }
 
         /// <summary>
@@ -273,13 +281,13 @@ namespace Fluent
         {
             DropDownButton ribbon = (DropDownButton)d;
 
-            if (ribbon.dropDownMenu == null) ribbon.CreateMenu();
+            if (!ribbon.isMenuCreated) ribbon.CreateMenu();
             ribbon.IsHitTestVisible = !ribbon.IsOpen;
         }
 
         internal void DoCreateMenu()
         {
-            if (dropDownMenu == null)
+            if (!isMenuCreated)
             {
                 CreateMenu();
                 IsOpen = false;
@@ -290,7 +298,8 @@ namespace Fluent
         void CreateMenu()
         {
             isInitializing = true;
-            dropDownMenu = new ContextMenu();            
+            isMenuCreated = true;
+            if (dropDownMenu==null) dropDownMenu = new ContextMenu();            
             foreach (UIElement item in Items)
             {
                 RemoveLogicalChild(item);

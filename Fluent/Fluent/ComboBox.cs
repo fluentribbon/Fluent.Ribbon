@@ -886,11 +886,11 @@ namespace Fluent
         {
             ComboBox combo = new ComboBox();
 
-            if (contextMenu == null)
+            /*if (contextMenu == null)
             {
                 CreateMenu();
                 IsOpen = false;
-            }
+            }*/
 
             BindQuickAccessItem(combo);
             combo.Opened += OnQuickAccesMenuOpened;

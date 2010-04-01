@@ -1336,11 +1336,11 @@ namespace Fluent
         {
             DropDownButton button = new DropDownButton();
             BindQuickAccessItem(button);
-            if (contextMenu == null)
+            /*if (contextMenu == null)
             {
                 CreateMenu();
                 IsOpen = false;
-            }            
+            }*/            
             return button;
         }
 
