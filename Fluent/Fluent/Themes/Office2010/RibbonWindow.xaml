@@ -15,6 +15,14 @@
     			<AdornerDecorator x:Name="adornerDecorator" Margin="0">
     				<Grid x:Name="PART_MainGrid" Margin="8" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
     					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
+						<Rectangle Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,17,0,1" VerticalAlignment="Top" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}">
+							</Rectangle>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,17,15,1" Height="23" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}">
+				
+							</Rectangle>
+							<Rectangle Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,17,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}">
+
+							</Rectangle>
     					<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
     					<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
     						<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
@@ -68,7 +76,7 @@
     		<Grid>
     			<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
     				<Grid>
-    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
+    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8.5" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
     						<Border x:Name="border2" BorderBrush="{DynamicResource WindowInnerBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
     							<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6" VerticalAlignment="Top" Height="50" Background="{DynamicResource WindowInnerBackgroundBrush}"/>
     						</Border>
@@ -88,7 +96,7 @@
     							<Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
     								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
     							</Button>
-    							<Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="#FFFF4545" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
+    							<Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="Red" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
     								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
     							</Button>
     						</StackPanel>
@@ -128,15 +136,8 @@
       			</Trigger>
 
       			<Trigger Property="IsNonClientAreaActive" Value="False">
-      				<Setter Property="Background" TargetName="border3">
-      					<Setter.Value>
-      						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-      							<GradientStop Color="#FFFCFCFC" Offset="0"/>
-      							<GradientStop Color="#FFFCFCFC" Offset="1"/>
-      						</LinearGradientBrush>
-      					</Setter.Value>
-      				</Setter>
-      				<Setter Property="Background" TargetName="PART_SizeBorder" Value="#FFF8F7F7"/>
+      				<Setter Property="Background" TargetName="PART_SizeBorder" Value="{DynamicResource WindowInactiveOutterBackgroundBrush}"/>
+      				<Setter Property="Background" TargetName="border3" Value="{DynamicResource WindowInactiveInnerBackgroundBrush}"/>
       			</Trigger>
       			<MultiTrigger>
       				<MultiTrigger.Conditions>
@@ -171,13 +172,12 @@
       		<Setter Property="Template" Value="{DynamicResource CaptionButtonControlTemplate}"/>
       	</Style>
       	<ControlTemplate x:Key="CaptionButtonControlTemplate" TargetType="{x:Type Button}">
-      		<Grid>
-      			<Border x:Name="border" Margin="0" BorderBrush="{x:Null}" BorderThickness="0" CornerRadius="2" Background="{TemplateBinding Background}" Visibility="Collapsed"/>
+      		<Grid Background="Transparent">
       			<Border x:Name="hoverBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}"/>
+      				<Border x:Name="hoverBorderInner" BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}"/>
       			</Border>
       			<Border x:Name="pressedBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonPressedOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}"/>
+      				<Border x:Name="pressedBorderInner" BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}"/>
       			</Border>
       			<ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
       		</Grid>
@@ -188,11 +188,18 @@
       					<Condition Property="IsPressed" Value="False"/>
       				</MultiTrigger.Conditions>
       				<Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
-      				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
       			</MultiTrigger>
       			<Trigger Property="IsPressed" Value="True">
       				<Setter Property="Visibility" TargetName="pressedBorder" Value="Visible"/>
-      				<Setter Property="Visibility" TargetName="border" Value="Visible"/>
+      			</Trigger>
+				<Trigger Property="Background" Value="Red">
+      				<Setter Property="BorderBrush" TargetName="hoverBorder" Value="{DynamicResource CaptionButtonCloseHoverOutterBorderBrush}"/>
+					<Setter Property="BorderBrush" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBorderBrush}"/>
+					<Setter Property="Background" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBackgroundBrush}"/>
+										
+      				<Setter Property="BorderBrush" TargetName="pressedBorder" Value="{DynamicResource CaptionButtonClosePressedOutterBorderBrush}"/>
+					<Setter Property="BorderBrush" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBorderBrush}"/>
+					<Setter Property="Background" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBackgroundBrush}"/>
       			</Trigger>
       		</ControlTemplate.Triggers>
       	</ControlTemplate>

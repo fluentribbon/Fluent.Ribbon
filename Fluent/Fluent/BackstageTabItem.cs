@@ -161,14 +161,14 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
 
             if (newValue)
-            {
-                container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
+            {                
                 Backstage backstage = container.Parent as Backstage;
                 if((backstage!=null)&&(backstage.SelectedItem != container))
                 {
                     if (backstage.SelectedItem is BackstageTabItem) (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
                     backstage.SelectedItem = container;
                 }
+                container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else
             {

@@ -43,7 +43,13 @@
   </Style>
   <ControlTemplate x:Key="BackstageControlTemplate" TargetType="{x:Type Fluent:Backstage}">
   	<ControlTemplate.Resources>
-		  <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
+      <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+          <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
+        <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
+      </ResourceDictionary>      
 	  </ControlTemplate.Resources>	
   	<Grid Background="{DynamicResource BackstageBackgroundBrush}">
   		<Grid.ColumnDefinitions>

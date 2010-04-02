@@ -724,11 +724,9 @@ namespace Fluent
             int width = (int)newWidth + 1;
             int height = (int)newHeight + 1;
 
-            IntPtr hRgn = NativeMethods.CreateRoundRectRgn(leftSide, topSide, width - leftSide, height - bottomSide, 11, 11);
+            IntPtr hRgn = NativeMethods.CreateRoundRectRgn(leftSide, topSide, width - leftSide, height - bottomSide, 15, 15);
             NativeMethods.SetWindowRgn(handle, hRgn, true);
-            NativeMethods.DeleteObject(hRgn);    
-            
-            
+            NativeMethods.DeleteObject(hRgn);                            
         }
 
         // Update window style

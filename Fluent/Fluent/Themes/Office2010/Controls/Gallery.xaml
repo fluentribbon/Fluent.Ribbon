@@ -20,6 +20,14 @@
   	<Setter Property="Template">		
 		<Setter.Value>
 			<ControlTemplate TargetType="{x:Type Fluent:Gallery}">
+        <ControlTemplate.Resources>
+          <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+              <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
+          </ResourceDictionary>          
+        </ControlTemplate.Resources>
 				<Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="layoutRoot">
 					<Grid Width="Auto">
 						<Grid.RowDefinitions>

@@ -18,30 +18,36 @@
               </Border>
             </Border>
             <ControlTemplate.Triggers>
-              <MultiTrigger>
-                <MultiTrigger.Conditions>
-                  <Condition Property="IsMouseOver" Value="True"/>
-                  <Condition Property="IsPressed" Value="False"/>
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ScrollOverOutterBorderBrush}"/>
-                <Setter Property="Background" TargetName="Border" Value="{DynamicResource ScrollOverOutterBackgroundBrush}"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ScrollOverInnerBorderBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource ScrollOverInnerBackgroundBrush}"/>
-              </MultiTrigger>
-              <Trigger Property="IsPressed" Value="true">
-                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ScrollPressedOutterBorderBrush}"/>
-                <Setter Property="Background" TargetName="Border" Value="{DynamicResource ScrollPressedOutterBackgroundBrush}"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ScrollPressedInnerBorderBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource ScrollPressedInnerBackgroundBrush}"/>
-              </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Opacity" TargetName="path" Value="0.5"/>
-                <Setter Property="Background" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
-                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
-                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
-                <Setter Property="Background" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
-              </Trigger>
-            </ControlTemplate.Triggers>
+          		<Trigger Property="Panel.Background" Value="White">
+					<Setter Property="Background" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="Background" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          		</Trigger>
+          		<MultiTrigger>
+          			<MultiTrigger.Conditions>
+          				<Condition Property="IsMouseOver" Value="True"/>
+          				<Condition Property="IsPressed" Value="False"/>
+          			</MultiTrigger.Conditions>
+          			<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ScrollOverOutterBorderBrush}"/>
+          			<Setter Property="Background" TargetName="Border" Value="{DynamicResource ScrollOverOutterBackgroundBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ScrollOverInnerBorderBrush}"/>
+          			<Setter Property="Background" TargetName="border" Value="{DynamicResource ScrollOverInnerBackgroundBrush}"/>
+          		</MultiTrigger>
+          		<Trigger Property="IsPressed" Value="true">
+          			<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource ScrollPressedOutterBorderBrush}"/>
+          			<Setter Property="Background" TargetName="Border" Value="{DynamicResource ScrollPressedOutterBackgroundBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ScrollPressedInnerBorderBrush}"/>
+          			<Setter Property="Background" TargetName="border" Value="{DynamicResource ScrollPressedInnerBackgroundBrush}"/>
+          		</Trigger>
+          		<Trigger Property="IsEnabled" Value="false">
+          			<Setter Property="Opacity" TargetName="path" Value="0.5"/>
+          			<Setter Property="Background" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="Background" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          		</Trigger>
+          	</ControlTemplate.Triggers>
           </ControlTemplate>
         </Setter.Value>
       </Setter>
@@ -81,11 +87,15 @@
               CornerRadius="1"
               BorderThickness="1" Background="{DynamicResource ScrollOutterBackgroundBrush}" BorderBrush="{DynamicResource ScrollOutterBorderBrush}" >
               <Border x:Name="border1" Width="Auto" BorderBrush="{DynamicResource ScrollInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ScrollInnerBackgroundBrush}" Padding="2" ClipToBounds="True">
-                <StackPanel Width="Auto" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="7" Visibility="Visible">
-                  <Rectangle Stroke="#FF8F9297" Width="1" Margin="1,0"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,1,0" Width="1"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,1,0" Width="1"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,1,0" Width="1"/>
+                <StackPanel Width="Auto" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="8" Visibility="Visible">
+                	<Rectangle Stroke="#66000000" Width="1" Margin="0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66F8F8F8" Width="1" Margin="0,2,0,0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66000000" Width="1" Margin="0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66F8F8F8" Width="1" Margin="0,2,0,0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66000000" Width="1" Margin="0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66F8F8F8" Width="1" Margin="0,2,0,0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66000000" Width="1" Margin="0" Height="Auto" HorizontalAlignment="Left"/>
+                	<Rectangle Stroke="#66F8F8F8" Width="1" Margin="0,2,0,0" Height="Auto" HorizontalAlignment="Left"/>
                 </StackPanel>
               </Border>
             </Border>
@@ -126,6 +136,12 @@
               </Border>
             </Border>
             <ControlTemplate.Triggers>
+			    <Trigger Property="Panel.Background" Value="White">
+					<Setter Property="Background" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          			<Setter Property="Background" TargetName="border" Value="{DynamicResource TransparentBrush}"/>
+          		</Trigger>
               <MultiTrigger>
                 <MultiTrigger.Conditions>
                   <Condition Property="IsMouseOver" Value="True"/>
@@ -175,11 +191,15 @@
               CornerRadius="1"
               BorderThickness="1" Background="{DynamicResource ScrollVerticalOutterBackgroundBrush}" BorderBrush="{DynamicResource ScrollVerticalOutterBorderBrush}" >
               <Border x:Name="border1" Width="Auto" BorderBrush="{DynamicResource ScrollVerticalInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ScrollVerticalInnerBackgroundBrush}" Padding="2" ClipToBounds="True">
-                <StackPanel Width="7" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Visibility="Visible">
-                  <Rectangle Stroke="#FF8F9297" Width="Auto" Margin="0,1" Height="1"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,0,1" Width="Auto" Height="1"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,0,1" Width="Auto" Height="1"/>
-                  <Rectangle Stroke="#FF8F9297" Margin="0,0,0,1" Width="Auto" Height="1"/>
+                <StackPanel Width="8" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Height="Auto" Visibility="Visible">
+                  <Rectangle Stroke="#66000000" Width="Auto" Margin="0" Height="1"/>
+                  <Rectangle Stroke="#66F8F8F8" Width="Auto" Margin="2,0,0,0" Height="1"/>
+                  <Rectangle Stroke="#66000000" Width="Auto" Margin="0" Height="1"/>
+                  <Rectangle Stroke="#66F8F8F8" Width="Auto" Margin="2,0,0,0" Height="1"/>
+                  <Rectangle Stroke="#66000000" Width="Auto" Margin="0" Height="1"/>
+                  <Rectangle Stroke="#66F8F8F8" Width="Auto" Margin="2,0,0,0" Height="1"/>
+                  <Rectangle Stroke="#66000000" Width="Auto" Margin="0" Height="1"/>
+                  <Rectangle Stroke="#66F8F8F8" Width="Auto" Margin="2,0,0,0" Height="1"/>
                 </StackPanel>
               </Border>
             </Border>
@@ -213,12 +233,12 @@
           Grid.RowSpan="3"
           CornerRadius="0" Background="{DynamicResource ScrollVerticalBackgroundBrush}"
       />
-        <RepeatButton
+        <RepeatButton x:Name="repeatButton"
           Grid.Row="0"
           Style="{StaticResource VerticalScrollBarLineButton}"
-          Height="17" IsEnabled="{TemplateBinding IsMouseOver}"
+          Height="17"
           Command="ScrollBar.LineUpCommand"
-          Content="M 0 4 L 8 4 L 4 0 Z" VerticalAlignment="Top" Margin="1,1,1,0" />
+          Content="M 0 4 L 8 4 L 4 0 Z" VerticalAlignment="Top" Margin="1,1,1,0" Background="White" />
         <Track
           Name="PART_Track"
           Grid.Row="1"
@@ -248,13 +268,19 @@
               Command="ScrollBar.PageDownCommand" />
           </Track.IncreaseRepeatButton>
         </Track>
-        <RepeatButton
+        <RepeatButton x:Name="repeatButton1"
           Grid.Row="3"
           Style="{StaticResource VerticalScrollBarLineButton}"
-          Height="17" IsEnabled="{TemplateBinding IsMouseOver}"
+          Height="17"
           Command="ScrollBar.LineDownCommand"
-          Content="M 0 0 L 4 4 L 8 0 Z" Margin="1,0,1,1"/>
+          Content="M 0 0 L 4 4 L 8 0 Z" Margin="1,0,1,1" Background="White"/>
       </Grid>
+    	<ControlTemplate.Triggers>
+    		<Trigger Property="IsMouseOver" Value="True">
+    			<Setter Property="Background" TargetName="repeatButton" Value="{x:Null}"/>
+    			<Setter Property="Background" TargetName="repeatButton1" Value="{x:Null}"/>
+    		</Trigger>
+    	</ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
@@ -267,12 +293,12 @@
         <Border
           Grid.ColumnSpan="3"
           CornerRadius="0" Margin="0" Background="{DynamicResource ScrollBackgroundBrush}" />
-        <RepeatButton
+        <RepeatButton x:Name="repeatButton"
           Grid.Column="0"
           Style="{StaticResource ScrollBarLineButton}"
-          Width="17" IsEnabled="{TemplateBinding IsMouseOver}"
+          Width="17"
           Command="ScrollBar.LineLeftCommand"
-          Content="M 4 0 L 4 8 L 0 4 Z" Margin="1,1,0,1" />
+          Content="M 4 0 L 4 8 L 0 4 Z" Margin="1,1,0,1" Background="White" />
         <Track
           Name="PART_Track"
           Grid.Column="1"
@@ -303,13 +329,19 @@
               Command="ScrollBar.PageRightCommand" />
           </Track.IncreaseRepeatButton>
         </Track>
-        <RepeatButton
+        <RepeatButton x:Name="repeatButton1"
           Grid.Column="3"
           Style="{StaticResource ScrollBarLineButton}"
-          Width="17" IsEnabled="{TemplateBinding IsMouseOver}"
+          Width="17"
           Command="ScrollBar.LineRightCommand"
-          Content="M 0 0 L 4 4 L 0 8 Z" Margin="0,1,1,1"/>
+          Content="M 0 0 L 4 4 L 0 8 Z" Margin="0,1,1,1" Background="White"/>
       </Grid>
+    	<ControlTemplate.Triggers>
+    		<Trigger Property="IsMouseOver" Value="True">
+    			<Setter Property="Background" TargetName="repeatButton" Value="{x:Null}"/>
+    			<Setter Property="Background" TargetName="repeatButton1" Value="{x:Null}"/>
+    		</Trigger>
+    	</ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">

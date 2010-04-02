@@ -176,4 +176,52 @@
   	<GradientStop Color="#99F6F6F6" Offset="0.237"/>
   	<GradientStop Color="#99FBFBFB" Offset="0.741"/>
   </LinearGradientBrush>
+  
+  <SolidColorBrush x:Key="WindowOutterBackgroundBrush" Color="#FFBBCEE6"/>
+  <SolidColorBrush x:Key="WindowOutterBorderBrush" Color="#FF909AA6"/>
+  <SolidColorBrush x:Key="WindowInnerBorderBrush" Color="#FFD4E6F5"/>
+  <LinearGradientBrush x:Key="WindowInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFC1D4EC" Offset="0"/>
+  	<GradientStop Color="#FFBBCEE6" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="WindowContentBorderBrush" Color="#FF728EAD"/>
+  
+  <SolidColorBrush x:Key="WindowInactiveOutterBackgroundBrush" Color="#FFDFEBF7"/>
+	<LinearGradientBrush x:Key="WindowInactiveInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FFDFEBF7" Offset="0"/>
+		<GradientStop Color="#FFDFEBF7" Offset="1"/>
+	</LinearGradientBrush>  
+  
+  <SolidColorBrush x:Key="CaptionButtonHoverOutterBorderBrush" Color="#FF8FA5BF"/>
+  <LinearGradientBrush x:Key="CaptionButtonHoverInnerBorderBrush">
+  	<GradientStop Color="#FFD4E8FF" Offset="0"/>
+  	<GradientStop Color="#FFBFD2EA" Offset="1"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="CaptionButtonHoverInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFD3E7FE" Offset="0"/>
+  	<GradientStop Color="#FFC1D4EB" Offset="1"/>
+  	<GradientStop Offset="0.49" Color="#FFCBDFF6"/>
+  	<GradientStop Offset="0.51" Color="#FFC9DCF4"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="CaptionButtonPressedOutterBorderBrush" Color="#FF8FA5BF"/>
+  <SolidColorBrush x:Key="CaptionButtonPressedInnerBorderBrush" Color="#FFABC0D9"/>
+  <LinearGradientBrush x:Key="CaptionButtonPressedInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFB2C6DF" Offset="0"/>
+  	<GradientStop Color="#FFB7CAE2" Offset="1"/>
+  </LinearGradientBrush>
+  
+  <SolidColorBrush x:Key="ContextMenuBarResizeBorderBrush" Color="#FFDDE7EE"/>
+  <LinearGradientBrush x:Key="ContextMenuBarResizeBackgoundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFECF5FD" Offset="0"/>
+  	<GradientStop Color="#FFD4E5F6" Offset="1"/>
+  	<GradientStop Color="#FFE3EFFA" Offset="0.529"/>
+  </LinearGradientBrush>  
+  
+    <SolidColorBrush x:Key="ScreenTipBorderBrush" Color="#FF767676"/>
+  <LinearGradientBrush x:Key="ScreenTipBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+                  <GradientStop Color="White" Offset="0"/>
+                  <GradientStop Color="#FFCADAEF" Offset="1"/>
+                  <GradientStop Color="#FFD9E4F4" Offset="0.746"/>
+                </LinearGradientBrush>
+  
 </ResourceDictionary>
