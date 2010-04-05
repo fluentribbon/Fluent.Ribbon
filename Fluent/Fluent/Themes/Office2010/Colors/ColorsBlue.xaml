@@ -223,5 +223,9 @@
                   <GradientStop Color="#FFCADAEF" Offset="1"/>
                   <GradientStop Color="#FFD9E4F4" Offset="0.746"/>
                 </LinearGradientBrush>
+  <SolidColorBrush x:Key="QuickAccessToolbarPopupBackgrondBrush" Color="#FFDEECFC"/>
   
+  <SolidColorBrush x:Key="QuickAccessToolBarOutterBorderBrush" Color="#FF90A6C1"/>
+  <SolidColorBrush x:Key="QuickAccessToolBarInnerBorderBrush" Color="#FFD5E8FE"/>
+  <SolidColorBrush x:Key="QuickAccessToolBarInnerBackgroundBrush" Color="#FFCDDFF5"/>
 </ResourceDictionary>

@@ -101,9 +101,7 @@
   <SolidColorBrush x:Key="ContextMenuLineBrush" Color="#FFE2E4E7"/>
   
   <SolidColorBrush x:Key="ContextMenuSeparatorBrush" Color="#FFC7C8C9"/>
-  <SolidColorBrush x:Key="QuickAccessToolBarOutterBorderBrush" Color="#FF98A1AB"/>
-  <SolidColorBrush x:Key="QuickAccessToolBarInnerBorderBrush" Color="#FFDFE3EA"/>
-  <SolidColorBrush x:Key="QuickAccessToolBarInnerBackgroundBrush" Color="#FFD5D9DE"/>
+  
   <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush" Color="#FF79848C"/>
   <LinearGradientBrush x:Key="ScrollViewerButtonBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
   	<GradientStop Color="White" Offset="0"/>

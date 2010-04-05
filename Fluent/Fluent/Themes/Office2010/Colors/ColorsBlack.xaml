@@ -137,17 +137,17 @@
     <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="#FFBBBBBB"/>
 	
 	<RadialGradientBrush x:Key="RibbonTabControlTopGradientLeftBrush" RadiusY="1" Center="1,1" GradientOrigin="1,1" RadiusX="1">
-										<GradientStop Offset="1" Color="#00000000"/>
-										<GradientStop Color="#D8000000"/>
+										<GradientStop Offset="1" Color="#00484848"/>
+										<GradientStop Color="#D8484848"/>
 									</RadialGradientBrush>
 	<RadialGradientBrush x:Key="RibbonTabControlTopGradientRightBrush" RadiusY="1" Center="0,1" GradientOrigin="0,1" RadiusX="1">
-										<GradientStop Offset="1" Color="#00000000"/>
-										<GradientStop Color="#D8000000"/>
+										<GradientStop Offset="1" Color="#00484848"/>
+										<GradientStop Color="#D8484848"/>
 									</RadialGradientBrush>
 									
 									<LinearGradientBrush x:Key="RibbonTabControlTopGradientCenterBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-										<GradientStop Offset="0" Color="#00000000"/>
-										<GradientStop Color="#D8000000" Offset="1"/>
+										<GradientStop Offset="0" Color="#00484848"/>
+										<GradientStop Color="#D8484848" Offset="1"/>
 									</LinearGradientBrush>
 									<LinearGradientBrush x:Key="BackstagePanelBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
     		<GradientStop Color="#FF717171" Offset="0"/>
@@ -221,5 +221,9 @@
                   <GradientStop Color="#FFE5E5F0" Offset="1"/>
                   <GradientStop Color="#FFECECF4" Offset="0.746"/>
                 </LinearGradientBrush>
+  <SolidColorBrush x:Key="QuickAccessToolbarPopupBackgrondBrush" Color="#FFA1A1A1"/>
   
+  <SolidColorBrush x:Key="QuickAccessToolBarOutterBorderBrush" Color="#FF4E4E4E"/>
+  <SolidColorBrush x:Key="QuickAccessToolBarInnerBorderBrush" Color="#FF848484"/>
+  <SolidColorBrush x:Key="QuickAccessToolBarInnerBackgroundBrush" Color="#FF797979"/>
 </ResourceDictionary>

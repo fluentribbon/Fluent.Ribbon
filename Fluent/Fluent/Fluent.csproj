@@ -352,6 +352,11 @@
   <ItemGroup>
     <Resource Include="Themes\Office2010\Images\Checked.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\Copy.png" />
+    <Resource Include="Themes\Office2010\Images\Cut.png" />
+    <Resource Include="Themes\Office2010\Images\Paste.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

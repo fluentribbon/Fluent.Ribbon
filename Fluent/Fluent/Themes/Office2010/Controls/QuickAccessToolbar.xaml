@@ -114,7 +114,7 @@
           </Fluent:DropDownButton.ContextMenu>
 			  				
     				
-    					<StackPanel Orientation="Horizontal" Background="#FFE9EDF1" Width="Auto" Height="26" Margin="-1">
+    					<StackPanel Orientation="Horizontal" Background="{DynamicResource QuickAccessToolbarPopupBackgrondBrush}" Width="Auto" Height="26" Margin="-1">
                 <StackPanel Orientation="Horizontal" x:Name="PART_ToolBarOverflowPanel" HorizontalAlignment="Left" Width="Auto" Height="Auto" VerticalAlignment="Center" Margin="1,0,0,0"/>
     						<Label x:Name="popupContentControl" VerticalAlignment="Center" HorizontalAlignment="Left" Width="13" Background="{x:Null}" Height="22" Focusable="False" Padding="0" Margin="1,0"/>
     					</StackPanel>

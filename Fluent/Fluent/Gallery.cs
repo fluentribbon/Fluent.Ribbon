@@ -438,7 +438,8 @@ namespace Fluent
         {
             Gallery gallery = (Gallery)d;
             object item = gallery.GetItem(gallery.SelectedIndex);
-            if (gallery.SelectedItem != item) gallery.SelectedItem = item;            
+            if (gallery.SelectedItem != item) gallery.SelectedItem = item;
+            if (gallery.listBox != null) if (gallery.SelectedIndex != gallery.listBox.SelectedIndex) gallery.listBox.SelectedIndex = gallery.SelectedIndex;
         }
 
         static object CoerceSelectedIndex(DependencyObject d, object basevalue)
@@ -478,6 +479,7 @@ namespace Fluent
             Gallery gallery = (Gallery)d;
             int index = gallery.GetItemIndex(gallery.SelectedItem);
             if (gallery.SelectedIndex != index) gallery.SelectedIndex = index;
+            if (gallery.listBox != null) if (gallery.SelectedItem != gallery.listBox.SelectedItem) gallery.listBox.SelectedItem = gallery.SelectedItem;
         }
 
         static object CoerceSelectedItem(DependencyObject d, object basevalue)
@@ -605,7 +607,9 @@ namespace Fluent
                 listBox.SelectedIndex = SelectedIndex;
                 listBox.SelectedItem = SelectedItem;
 
-                Binding binding = new Binding("SelectedIndex");
+                listBox.SelectionChanged += OnListBoxSelectionChanged;
+
+                /*Binding binding = new Binding("SelectedIndex");
                 binding.Source = listBox;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
@@ -615,9 +619,9 @@ namespace Fluent
                 binding.Source = listBox;
                 binding.Mode = BindingMode.TwoWay;
                 binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                SetBinding(SelectedItemProperty, binding);
+                SetBinding(SelectedItemProperty, binding);*/
 
-                binding = new Binding("HasItems");
+                Binding binding = new Binding("HasItems");
                 binding.Source = listBox;
                 binding.Mode = BindingMode.OneWay;
                 SetBinding(HasItemsProperty, binding);
@@ -637,6 +641,12 @@ namespace Fluent
             }
             UpdateGroupBy(GroupBy);
             SetMinWidth();                       
+        }
+
+        private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedIndex != listBox.SelectedIndex) SelectedIndex = listBox.SelectedIndex;
+            if (SelectedItem != listBox.SelectedItem) SelectedItem = listBox.SelectedItem;
         }
 
         void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
@@ -806,7 +816,9 @@ namespace Fluent
         internal string GetItemGroupName(object obj)
         {
             if(obj==null) return null;
-            object result = obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null);
+            PropertyInfo property = obj.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance);
+            if(property==null) return null;
+            object result = property.GetValue(obj, null);
             if(result==null) return null;
             return result.ToString();
         }

@@ -296,8 +296,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-        {
-            base.OnSelectionChanged(e);
+        {            
             if (e.AddedItems.Count > 0)
             {
                 if (IsMinimized)
@@ -318,6 +317,7 @@ namespace Fluent
                 oldSelectedItem = e.RemovedItems[0];
                 ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
             }
+            base.OnSelectionChanged(e);
         }
                
         /// <summary>
