@@ -480,6 +480,11 @@ namespace Fluent
                         }
                         break;
                     }
+                /*case NativeMethods.WM_MOVE:
+                    {
+                        if (!ignoreMoves) isMoved = true;
+                        break;
+                    }*/
             }
             return IntPtr.Zero;
         }
@@ -699,6 +704,7 @@ namespace Fluent
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
+
         // Gets current workspace
         static Rect GetCurrentWorkarea()
         {

@@ -274,9 +274,14 @@
                 </Fluent:MenuItem>
               </Fluent:SplitButton>
      <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Text="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large">
-       <Fluent:Gallery ItemsSource="{Binding Items, ElementName=gallery}" MinHeight="60" ItemsInRow="3" ItemWidth="28" ItemHeight="28" SelectedItem="{Binding SelectedItem, ElementName=gallery, Mode=TwoWay}">
+       <Fluent:Gallery ItemsSource="{Binding Items, ElementName=gallery}" MinHeight="60" ItemsInRow="1" ItemWidth="28" ItemHeight="28" SelectedItem="{Binding SelectedItem, ElementName=gallery, Mode=TwoWay}">
        </Fluent:Gallery>
-
+       <Fluent:MenuItem Text="Item5" Fluent:KeyTip.Keys="E"/>
+       <Fluent:MenuItem Text="Item5" Fluent:KeyTip.Keys="R">
+         <Fluent:MenuItem Text="Itemq" Fluent:KeyTip.Keys="A"/>
+         <Fluent:MenuItem Text="Itemw" Fluent:KeyTip.Keys="B"/>
+         <Fluent:MenuItem Text="Iteme" Fluent:KeyTip.Keys="C"/>
+       </Fluent:MenuItem>
      </Fluent:SplitButton>
         </Fluent:RibbonGroupBox>
         

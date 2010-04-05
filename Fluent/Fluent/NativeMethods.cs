@@ -152,6 +152,11 @@ namespace Fluent
         public const int WM_SIZE = 0x0005;
 
         /// <summary>
+        /// The WM_MOVE message is sent after a window has been moved
+        /// </summary>
+        public const int WM_MOVE = 0x0003;
+
+        /// <summary>
         /// The window has been resized, but neither the SIZE_MINIMIZED nor SIZE_MAXIMIZED value applies.
         /// </summary>
         public const int SIZE_RESTORED = 0;
