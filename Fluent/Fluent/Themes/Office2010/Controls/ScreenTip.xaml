@@ -61,7 +61,7 @@
 
             
             <Border Grid.RowSpan="1" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource ScreenTipBorderBrush}" Background="{DynamicResource ScreenTipBackgroundBrush}">
-				<ContentPresenter Margin="2"/>
+				<ContentPresenter Margin="4,4,4,4"/>
 			</Border>
 			</Grid>
 			</ControlTemplate>
