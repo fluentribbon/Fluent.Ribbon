@@ -6,9 +6,7 @@
 	<Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-    <!--<ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Colors/Colors.xaml" />
-        <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Colors/ColorsSilver.xaml" />-->
-    <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Blue.xaml" />
+        <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
     	

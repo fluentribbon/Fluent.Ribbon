@@ -170,6 +170,11 @@
   <ItemGroup>
     <Resource Include="Images\GalleryLarge.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BlackTheme.png" />
+    <Resource Include="Images\BlueTheme.png" />
+    <Resource Include="Images\SilverTheme.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

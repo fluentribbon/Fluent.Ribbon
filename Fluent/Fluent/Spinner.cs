@@ -358,7 +358,8 @@ namespace Fluent
                   {
                       textBox.SelectAll();
                       textBox.Focus();
-                  })); 
+                  }));
+            args.Handled = true;
         }
 
         void OnButtonUpClick(object sender, RoutedEventArgs e)

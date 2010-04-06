@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Fluent;
 using Microsoft.Win32;
+using Button = Fluent.Button;
 
 namespace FluentTest
 {
@@ -30,6 +31,7 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
+
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();

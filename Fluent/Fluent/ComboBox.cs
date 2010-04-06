@@ -557,13 +557,14 @@ namespace Fluent
             binding.Mode = BindingMode.TwoWay;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             this.SetBinding(SelectedItemProperty, binding); */
-
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handles click
+        /// </summary>
+        /// <param name="args"></param>
+        protected override void OnClick(RoutedEventArgs args)
         {
-            //IsOpen = true;
             if (textBox != null)
             {
                 Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
@@ -571,9 +572,10 @@ namespace Fluent
                                 {
                                     textBox.SelectAll();
                                     textBox.Focus();
-                                })); 
+                                }));
             }
-            e.Handled = true;
+            args.Handled = true;
+            base.OnClick(args);
         }
 
         #endregion

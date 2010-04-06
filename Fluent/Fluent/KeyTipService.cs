@@ -181,7 +181,10 @@ namespace Fluent
 
         void RestoreFocuses()
         {
-            if (backUpFocusedElement != null) backUpFocusedElement.Focus();
+            if (backUpFocusedElement != null)
+            {
+                if (RibbonPopup.GetActivePopup()==null) backUpFocusedElement.Focus();
+            }
             ribbon.Focusable = false;
         }
 

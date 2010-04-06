@@ -165,6 +165,12 @@ namespace Fluent
             if (openedPopups.Contains(this)) openedPopups.Remove(this);
             PopupAnimation = PopupAnimation.None;
 
+            if(openedPopups.Count==0)
+            {
+                Window wnd = Window.GetWindow(this);
+                if (wnd!=null) wnd.Focus();
+            }
+
             base.OnClosed(e);
         }
 

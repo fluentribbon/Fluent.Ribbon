@@ -180,10 +180,16 @@ namespace Fluent
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
-            if(e.RightButton==MouseButtonState.Pressed)
+            /*if(e.RightButton==MouseButtonState.Pressed)
             {
                 RibbonWindow wnd = Window.GetWindow(this) as RibbonWindow;
                 if (wnd != null) wnd.ShowSystemMenu(PointToScreen(e.GetPosition(this)));
+            }*/
+            Window wnd = Window.GetWindow(this);
+            if (wnd != null)
+            {
+                if (wnd.WindowState == WindowState.Maximized) wnd.WindowState = WindowState.Normal;
+                else wnd.WindowState = WindowState.Maximized;
             }
         }
 

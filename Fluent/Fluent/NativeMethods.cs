@@ -222,6 +222,16 @@ namespace Fluent
         public const long WS_OVERLAPPED = 0x00000000L;
 
         /// <summary>
+        /// Creates a window that is initially maximized.
+        /// </summary>
+        public const long WS_MAXIMIZE = 0x01000000L;
+        /// <summary>
+        /// Creates a window that is initially minimized. Same as the WS_ICONIC style.
+        /// </summary>
+        public const long WS_MINIMIZE = 0x20000000L;
+
+
+        /// <summary>
         /// Gives window generic left-aligned properties. This is the default.
         /// </summary>
         public const int WS_EX_LEFT = 0x00000000;

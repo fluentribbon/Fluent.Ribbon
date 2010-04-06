@@ -376,11 +376,11 @@ namespace Fluent
 
         // Handles source initialize
         private void OnSourceInitialized(object sender, EventArgs e)
-        {
+        {            
             handle = (new WindowInteropHelper(this)).Handle;
             // Ставим хук на оконную функцию
             HwndSource.FromHwnd(handle).AddHook(WindowProc);
-            UpdateWindowStyle();
+            UpdateWindowStyle();            
         }
         
         #endregion
@@ -752,8 +752,11 @@ namespace Fluent
                 else
                     style |= NativeMethods.WS_BORDER;
             }
-
-            style |= NativeMethods.WS_SYSMENU | NativeMethods.WS_MINIMIZEBOX | NativeMethods.WS_MAXIMIZEBOX;            
+            
+            style |= NativeMethods.WS_SYSMENU | NativeMethods.WS_MINIMIZEBOX | NativeMethods.WS_MAXIMIZEBOX;
+            
+            if (WindowState == WindowState.Maximized) style |= NativeMethods.WS_MAXIMIZE;
+            else if (WindowState == WindowState.Minimized) style |= NativeMethods.WS_MINIMIZE;
 
             // Устанавливаем стиль окна
             NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_STYLE, new IntPtr(style));

@@ -439,8 +439,8 @@ namespace Fluent
         {
             if (contentContainer == null) return base.MeasureOverride(constraint);
             contentContainer.Padding = new Thickness(Indent, contentContainer.Padding.Top, Indent, contentContainer.Padding.Bottom);
-            Size baseConstraint = base.MeasureOverride(constraint);            
-            double totalWidth = contentContainer.DesiredSize.Width - contentContainer.Margin.Left - contentContainer.Margin.Right;
+            Size baseConstraint = base.MeasureOverride(constraint);
+            double totalWidth = contentContainer.DesiredSize.Width -contentContainer.Margin.Left - contentContainer.Margin.Right;
             (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double headerWidth = contentContainer.Child.DesiredSize.Width;
             if (totalWidth < headerWidth + Indent * 2)
@@ -452,13 +452,14 @@ namespace Fluent
             {
                 if (desiredWidth != 0)
                 {
-                    if (constraint.Width > desiredWidth) baseConstraint.Width = desiredWidth;
+                    // If header width is larger then tab increase tab width
+                    if ((constraint.Width > desiredWidth)&&(desiredWidth>totalWidth)) baseConstraint.Width = desiredWidth;
                     else
                         baseConstraint.Width = headerWidth + Indent*2 + contentContainer.Margin.Left +
                                                contentContainer.Margin.Right;
                 }
             }
-
+            
             if ((cachedWidth!=baseConstraint.Width)&&(IsContextual)&&(Group!=null))
             {
                 cachedWidth = baseConstraint.Width;
