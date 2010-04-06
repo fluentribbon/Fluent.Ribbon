@@ -925,7 +925,7 @@ namespace Fluent
 
         private void OnFirstComboLoaded(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
+            Dispatcher.BeginInvoke(DispatcherPriority.Render, new ThreadStart(delegate
                    {
                        ComboBox combo = (sender as ComboBox);
                        combo.Loaded -= OnFirstComboLoaded;

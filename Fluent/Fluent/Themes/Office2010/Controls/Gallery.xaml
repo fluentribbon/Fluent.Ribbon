@@ -37,7 +37,7 @@
 						<Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="{DynamicResource GalleryHeaderBackgroundBrush}">
 							<Fluent:DropDownButton x:Name="PART_DropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{TemplateBinding SelectedFilterTitle}"/>
 						</Border>
-            <Fluent:RibbonListBox x:Name="PART_ListBox"
+            <Fluent:RibbonListBox Background="White" x:Name="PART_ListBox"
                       DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
                       ItemBindingGroup="{TemplateBinding ItemBindingGroup}"
                       ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
@@ -49,7 +49,7 @@
                       IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
                       ItemsSource="{Binding View.View, RelativeSource={RelativeSource TemplatedParent}}"
                       ScrollViewer.VerticalScrollBarVisibility="{Binding VerticalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}"
-                      ScrollViewer.HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}" Grid.RowSpan="1" Grid.Row="1" BorderThickness="0" Background="White"
+                      ScrollViewer.HorizontalScrollBarVisibility="{Binding HorizontalScrollBarVisibility, RelativeSource={RelativeSource TemplatedParent}}" Grid.RowSpan="1" Grid.Row="1" BorderThickness="0"
                                   
                                   >
               <Fluent:RibbonListBox.GroupStyle>
@@ -142,7 +142,7 @@
                   <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="#FF959595">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{TemplateBinding SelectedFilterTitle}"/>
                   </Border>
-                  <Fluent:RibbonListBox x:Name="PART_ListBox"
+                  <Fluent:RibbonListBox Background="White" x:Name="PART_ListBox"
                             DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
                             ItemBindingGroup="{TemplateBinding ItemBindingGroup}"
                             ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
