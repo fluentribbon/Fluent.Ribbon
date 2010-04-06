@@ -40,7 +40,7 @@ namespace Fluent
         // Prevents menu closing while initializing 
         bool isInitializing;
 
-        private bool isMenuCreated = false;
+        private bool isMenuCreated;
 
         #endregion
 

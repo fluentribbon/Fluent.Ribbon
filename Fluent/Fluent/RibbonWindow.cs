@@ -739,7 +739,7 @@ namespace Fluent
         private void UpdateWindowStyle()
         {            
             long style = NativeMethods.WS_POPUP | NativeMethods.WS_VISIBLE | NativeMethods.WS_CLIPSIBLINGS | NativeMethods.WS_CLIPCHILDREN;
-            long exStyle = NativeMethods.WS_EX_WINDOWEDGE | NativeMethods.WS_EX_APPWINDOW;
+            //long exStyle = NativeMethods.WS_EX_WINDOWEDGE | NativeMethods.WS_EX_APPWINDOW;
             if (IsDwmEnabled)
             {
                 style |= NativeMethods.WS_CAPTION;

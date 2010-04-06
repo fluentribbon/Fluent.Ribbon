@@ -132,11 +132,6 @@ namespace Fluent
             }
         }
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
-
         /// <summary>
         /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised on this element. 
         /// Implement this method to add class handling for this event.

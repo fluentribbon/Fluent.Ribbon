@@ -898,14 +898,7 @@ namespace Fluent
             
             if (!IsEditable)
             {
-                int selectedIndex = SelectedIndex;
-                object selectedItem = SelectedItem;
-                IsSnapped = true;
-                SelectedItem = null;
-                if (ItemsSource == null) combo.ItemsSource = Items;
-                else combo.ItemsSource = ItemsSource;
-                combo.SelectedIndex = selectedIndex;
-                combo.SelectedItem = selectedItem;            
+                       
                 combo.Loaded += OnFirstComboLoaded;
             }
             else
@@ -934,11 +927,20 @@ namespace Fluent
                    {
                        ComboBox combo = (sender as ComboBox);
                        combo.Loaded -= OnFirstComboLoaded;
-                       int selectedIndex = combo.SelectedIndex;
-                       object selectedItem = combo.SelectedItem;
+                       int selectedIndex = SelectedIndex;
+                       object selectedItem = SelectedItem;
+                       IsSnapped = true;
+                       SelectedItem = null;
+                       if (ItemsSource == null) combo.ItemsSource = Items;
+                       else combo.ItemsSource = ItemsSource;
+                       combo.SelectedIndex = selectedIndex;
+                       combo.SelectedItem = selectedItem;     
+                       /*int selectedIndex = combo.SelectedIndex;
+                       object selectedItem = combo.SelectedItem;*/
                        combo.IsSnapped = true;
                        combo.ItemsSource = null;
                        IsSnapped = false;
+                       combo.SelectedItem = null;
                        SelectedIndex = selectedIndex;
                        SelectedItem = selectedItem;
                    }));
