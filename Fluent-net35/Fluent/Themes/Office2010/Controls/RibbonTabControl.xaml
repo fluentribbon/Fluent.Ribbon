@@ -1,0 +1,180 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="clr-namespace:Fluent">
+
+	<ControlTemplate x:Key="RibbonTabControlToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
+		
+    <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="22" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="22">
+      <Border.ToolTip>
+        <Fluent:ScreenTip x:Name="screenTip"
+                          Title="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=MinimizeButtonScreenTipTitle , Mode=OneWay}"
+                          Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=MinimizeButtonScreenTipText , Mode=OneWay}"
+                        />
+      </Border.ToolTip>
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+				<Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="Auto" Margin="2"/>
+			</Border>
+		</Border>
+		<ControlTemplate.Triggers>			
+			<Trigger Property="IsChecked" Value="True">		
+				<Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="Title" TargetName="screenTip" Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipTitle , Mode=OneWay}"/>
+        <Setter Property="Text" TargetName="screenTip" Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipText , Mode=OneWay}"/>
+			</Trigger>	
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsKeyboardFocusWithin" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+			</MultiTrigger>					
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+  <Style x:Key="RibbonTabControlToggleButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
+    <Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
+    <Setter Property="Height" Value="22"/>
+    <Setter Property="Width" Value="22"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+  </Style>
+    <Style x:Key="RibbonTabControlStyle" TargetType="{x:Type Fluent:RibbonTabControl}">
+    	<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="FocusManager.IsFocusScope" Value="False"/>
+    	<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Fluent:RibbonTabControl}">
+					<Grid x:Name="ContentGrid" Height="Auto" VerticalAlignment="Top">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="24"/>
+							<RowDefinition x:Name="rowDefinition" Height="86"/>
+							<RowDefinition x:Name="rowDefinition1" Height="5"/>
+						</Grid.RowDefinitions>
+						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1" Grid.Row="1" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}"/>
+						<Border HorizontalAlignment="Stretch" Margin="1,0,1,1" Grid.Row="1" Grid.RowSpan="1">
+						<ContentControl x:Name="mainContentControl" Focusable="False" Margin="0,1,0,0">
+							<ScrollViewer x:Name="contentPresenter" HorizontalAlignment="Stretch" Margin="0" Style="{DynamicResource RibbonScrollViewer}" Content="{TemplateBinding SelectedContent}" Focusable="False"/>
+						</ContentControl>
+						</Border>
+						<Border x:Name="shadowBorder" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderThickness="0,1,0,0" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">
+							<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
+						<Border x:Name="shadowBorder_Copy" Margin="0,-1,0,0" VerticalAlignment="Stretch" Width="Auto" Grid.Row="2" Grid.RowSpan="1" BorderThickness="0,1,0,0" Background="Black" BorderBrush="Black" Opacity="0.3">
+
+							<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
+						<Grid x:Name="TabsGrid" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Grid.RowSpan="1">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							
+							<Fluent:RibbonScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
+								<Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False" Margin="0"/>							
+							</Fluent:RibbonScrollViewer>
+							<StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
+								<Grid Width="22" Height="22">
+									<Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png" Stretch="None" Visibility="Collapsed"/>
+									<Fluent:ToggleButton x:Name="PART_MinimizeButton" Margin="0" Width="22" Height="22" Size="Small" Style="{DynamicResource RibbonTabControlToggleButtonStyle}" Icon="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png" LargeIcon="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png" IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+								</Grid>
+								<StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal" FocusManager.IsFocusScope="False"/>
+							</StackPanel>
+						</Grid>
+						<Fluent:RibbonPopup x:Name="PART_Popup" PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" StaysOpen="True" AllowsTransparency="True" PopupAnimation="Fade" VerticalOffset="-1" IsOpen="{TemplateBinding IsOpen}" HorizontalOffset="0" Placement="Custom">
+							<Grid Width="Auto" Height="Auto" Margin="0,20">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="86"/>
+								<RowDefinition Height="5"/>
+							</Grid.RowDefinitions>
+								<Border Height="Auto" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}" BorderThickness="0,1">
+									<ContentControl x:Name="contentControl" Margin="0"/>
+								</Border>
+								<Border Margin="0,-1,0,0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderThickness="0,1,0,0" Height="6" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}">									
+								<Border.OpacityMask>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<GradientStop Color="Black" Offset="0.003"/>
+									<GradientStop Color="#00000000" Offset="0.991"/>
+									<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+									<GradientStop Color="#FF040404" Offset="0.15"/>
+								</LinearGradientBrush>
+							</Border.OpacityMask>
+
+						</Border>
+								<Border Margin="0" VerticalAlignment="Bottom" Width="Auto" Grid.Row="1" Grid.RowSpan="1" BorderThickness="0,1,0,0" Height="6" BorderBrush="Black" Background="Black" Opacity="0.3">									
+									<Border.OpacityMask>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="Black" Offset="0.003"/>
+											<GradientStop Color="#00000000" Offset="0.991"/>
+											<GradientStop Color="#7F0A0A0A" Offset="0.16"/>
+											<GradientStop Color="#FF040404" Offset="0.15"/>
+										</LinearGradientBrush>
+									</Border.OpacityMask>
+
+								</Border>
+							</Grid>
+						</Fluent:RibbonPopup>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMinimized" Value="True">
+							<Setter Property="Height" TargetName="rowDefinition" Value="0"/>
+							<Setter Property="Height" TargetName="rowDefinition1" Value="0"/>
+							<Setter Property="Content" TargetName="mainContentControl" Value="{x:Null}"/>
+							<Setter Property="Content" TargetName="contentControl" Value="{Binding ElementName=contentPresenter, Mode=OneWay}"/>
+							<Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="shadowBorder" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="image" Value="Collapsed"/>
+						</Trigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsOpen" Value="True"/>
+								<Condition Property="IsMinimized" Value="True"/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Visibility" TargetName="image" Value="Visible"/>
+							<Setter Property="Opacity" TargetName="PART_MinimizeButton" Value="0"/>
+						</MultiTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+    	<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    	<Setter Property="Focusable" Value="False"/>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
+  <Style x:Key="RibbonWindowStyle" TargetType="{x:Type Fluent:RibbonWindow}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate>
+          <Grid x:Name="PART_MainGrid" Width="Auto" Height="Auto" Background="White">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Please, attach a ResourceDictionary with styles.</TextBlock>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>
+</ResourceDictionary>

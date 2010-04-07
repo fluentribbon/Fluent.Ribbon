@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentTest", "FluentTest\FluentTest.csproj", "{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent", "Fluent\Fluent.csproj", "{4C92FCF4-3561-499F-BC5B-F2F089863047}"

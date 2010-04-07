@@ -571,7 +571,7 @@ namespace Fluent
         /// <param name="lParam">Параметр</param>
         /// <param name="plResult">Результат</param>
         /// <returns>Результат</returns>
-        [DllImport("dwmapi.dll", PreserveSig = false)]
+        [DllImport("dwmapi.dll")]
         public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 
         /// <summary>
@@ -708,7 +708,7 @@ namespace Fluent
         /// <param name="hRgn">Handle to region</param>
         /// <param name="bRedraw">Window redraw option</param>
         /// <returns></returns>
-        [DllImport("User32.dll", PreserveSig = false)]
+        [DllImport("User32.dll")]
         public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, [MarshalAs(UnmanagedType.Bool)]bool bRedraw);
 
         /// <summary>
@@ -1000,7 +1000,7 @@ namespace Fluent
         /// identifiers copied to the buffer or, if nBuff is zero, the return value is the size, 
         /// in array elements, of the buffer needed to receive all current input locale identifiers
         /// If the function fails, the return value is zero</returns>
-        [DllImport("user32.dll", ExactSpelling = true, PreserveSig = false)]
+        [DllImport("user32.dll", ExactSpelling = true)]
         public static extern int GetKeyboardLayoutList(int nBuff, [Out, MarshalAs(UnmanagedType.LPArray)] IntPtr[] lpList);
 
 

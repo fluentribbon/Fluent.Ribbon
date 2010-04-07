@@ -92,6 +92,20 @@ namespace Fluent
             IsOpen = false;
         }
 
+        static RibbonPopup()
+        {
+            IsOpenProperty.AddOwner(typeof(RibbonPopup), new FrameworkPropertyMetadata(OnIsOpenChanged));
+        }
+
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(bool)e.NewValue)
+            {
+                RibbonPopup popup = d as RibbonPopup;
+                if (openedPopups.Contains(popup)) openedPopups.Remove(popup);
+            }
+        }
+
         #endregion
 
         #region Overrides
@@ -211,8 +225,8 @@ namespace Fluent
             {
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
                 openedPopups[i].IsOpen = false;
-                openedPopups[i].hwndSource = null;
-                if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
+                //openedPopups[i].hwndSource = null;
+                //if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
             }
         }
 

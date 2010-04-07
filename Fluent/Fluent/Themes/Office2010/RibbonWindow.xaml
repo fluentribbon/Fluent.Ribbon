@@ -215,7 +215,11 @@
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
     <Setter Property="TitleBarHeight" Value="55"/>
     <Setter Property="GlassBorders" Value="0,42,0,0"/>
-    <Style.Triggers>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
+
+        <Style.Triggers>
   		<Trigger Property="IsCollapsed" Value="True">
   			<Setter Property="GlassBorders" Value="0,22,0,0"/>
   		</Trigger>

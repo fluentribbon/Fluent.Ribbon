@@ -687,12 +687,12 @@ namespace Fluent
 
             if (FlowDirection == FlowDirection.LeftToRight) mainGrid.Margin = new Thickness(sizers.Left,
                                             sizers.Top,
-                                            -borderWidth * 2 + sizers.Left,
-                                            -SystemParameters.CaptionHeight - 1 - borderHeight * 2 + sizers.Top);
-            else mainGrid.Margin = new Thickness(-borderWidth * 2 + sizers.Left, 
+                                            sizers.Left,
+                                            sizers.Top);
+            else mainGrid.Margin = new Thickness(sizers.Left, 
                                             sizers.Top,
                                             sizers.Left,
-                                            -SystemParameters.CaptionHeight - 1 - borderHeight * 2 + sizers.Top);
+                                            sizers.Top);
         }
 
         // Initialize wind when DWM is off        

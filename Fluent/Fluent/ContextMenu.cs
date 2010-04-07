@@ -12,10 +12,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -300,6 +302,7 @@ namespace Fluent
                     menu.HookupParentPopup();
                     menu.isInInitializing = false;
                 }
+                Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { menu.popup.Activate(); }));
             }
         }
 

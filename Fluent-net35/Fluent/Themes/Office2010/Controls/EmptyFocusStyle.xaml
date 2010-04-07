@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style x:Key="ControlStyleEmptyFocus" TargetType="{x:Type Control}">
+    <Setter Property="Template" Value="{DynamicResource ControlFocusEmptyTemplate}"/>
+  </Style>
+  <ControlTemplate x:Key="ControlFocusEmptyTemplate" TargetType="{x:Type Control}">
+    <Rectangle Stroke="#00000000">
+      <Rectangle.Fill>
+        <SolidColorBrush/>
+      </Rectangle.Fill>
+    </Rectangle>
+  </ControlTemplate>
+</ResourceDictionary>
