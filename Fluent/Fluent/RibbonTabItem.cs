@@ -286,8 +286,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (groupsContainer != null) groupsContainer.Children.Add(obj2 as UIElement);
-                        AddLogicalChild(obj2);
+                        if (groupsContainer != null) groupsContainer.Children.Add(obj2 as UIElement);                        
                     }
                     break;
 
@@ -295,7 +294,6 @@ namespace Fluent
                     foreach (object obj3 in e.OldItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Remove(obj3 as UIElement);
-                        RemoveLogicalChild(obj3);
                     }
                     break;
 
@@ -303,12 +301,10 @@ namespace Fluent
                     foreach (object obj4 in e.OldItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Remove(obj4 as UIElement);
-                        RemoveLogicalChild(obj4);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
                         if (groupsContainer != null) groupsContainer.Children.Add(obj5 as UIElement);
-                        AddLogicalChild(obj5);
                     }
                     break;
             }
