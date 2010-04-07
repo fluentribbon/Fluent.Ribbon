@@ -689,6 +689,17 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Created DWORD from two WORDs
+        /// </summary>
+        /// <param name="lo">Low word</param>
+        /// <param name="hi">Hi word</param>
+        /// <returns>Result DWORD</returns>
+        public static int MakeDWord(int lo, int hi)
+        {
+            return (lo & 65535) + (hi & 65535) << 16;
+        }
+
+        /// <summary>
         /// The SetWindowRgn function sets the window region of a window. 
         /// The window region determines the area within the window where the system permits drawing. 
         /// The system does not display any portion of a window that lies outside of the window region 
@@ -881,8 +892,41 @@ namespace Fluent
         /// <param name="lpRect">Pointer to a structure that receives the screen coordinates of the upper-left and lower-right corners of the window</param>
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]        
         public static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
+
+        /// <summary>
+        /// The GetClientRect function retrieves the coordinates of a window's client area. The client coordinates specify the upper-left and lower-right corners of the client area. Because client coordinates are relative to the upper-left corner of a window's client area, the coordinates of the upper-left corner are (0,0). 
+        /// </summary>
+        /// <param name="hWnd"> Handle to the window whose client coordinates are to be retrieved. </param>
+        /// <param name="lpRect">Pointer to a RECT structure that receives the client coordinates. The left and top members are zero. The right and bottom members contain the width and height of the window. </param>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetClientRect(IntPtr hWnd, ref Rect lpRect);
+
+        /// <summary>
+        /// The AdjustWindowRectEx function calculates the required size of the window rectangle, based on the desired size of the client rectangle. The window rectangle can then be passed to the CreateWindowEx function to create a window whose client area is the desired size. 
+        /// </summary>
+        /// <param name="lpRect">Pointer to a RECT structure that contains the coordinates of the top-left and bottom-right corners of the desired client area. When the function returns, the structure contains the coordinates of the top-left and bottom-right corners of the window to accommodate the desired client area. </param>
+        /// <param name="dwStyle">Specifies the window style of the window whose required size is to be calculated. Note that you cannot specify the WS_OVERLAPPED style.</param>
+        /// <param name="bMenu">Specifies whether the window has a menu. </param>
+        /// <param name="dwExStyle">Specifies the extended window style of the window whose required size is to be calculated. For more information, see CreateWindowEx.</param>
+        /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
+        [DllImport("user32.dll")]
+        public static extern bool AdjustWindowRectEx(ref Rect lpRect, int dwStyle,bool bMenu, int dwExStyle);
+
+        /// <summary>
+        /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. 
+        /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
+        /// </summary>
+        /// <param name="hWnd">Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows</param>
+        /// <param name="Msg">Specifies the message to be sent</param>
+        /// <param name="wParam">Specifies additional message-specific information.</param>
+        /// <param name="lParam">Specifies additional message-specific information</param>
+        /// <returns>The return value specifies the result of the message processing; it depends on the message sent</returns>
+        [DllImport("coredll")]
+        public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
 
         #endregion
 

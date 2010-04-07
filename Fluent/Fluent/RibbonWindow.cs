@@ -480,11 +480,29 @@ namespace Fluent
                         }
                         break;
                     }
-                /*case NativeMethods.WM_MOVE:
+                case NativeMethods.WM_MOVE:
                     {
-                        if (!ignoreMoves) isMoved = true;
-                        break;
-                    }*/
+                        int x = NativeMethods.LowWord(lParam.ToInt32());
+                        int y = NativeMethods.HiWord(lParam.ToInt32()); 
+                                               
+                        NativeMethods.Rect rect;
+                        NativeMethods.Rect adjustedRect;
+                        // Get window rects
+                        GetWindowRects(hwnd, out rect, out adjustedRect);
+                        
+                        NativeMethods.WINDOWINFO windowInfo = new NativeMethods.WINDOWINFO();
+                        // Get monitor info
+                        NativeMethods.GetWindowInfo(hwnd, ref windowInfo);
+
+                        // Correct window position
+                        x += (rect.Left - adjustedRect.Left) - (windowInfo.rcClient.Left - windowInfo.rcWindow.Left);
+                        y += (rect.Top - adjustedRect.Top) - (windowInfo.rcClient.Top - windowInfo.rcWindow.Top);
+
+                        IntPtr lPr = new IntPtr(NativeMethods.MakeDWord(x, y));
+                        handled = true;
+                        // Resend WM_MOVE message
+                        return NativeMethods.SendMessage(hwnd, msg, wParam, lPr);
+                    }
             }
             return IntPtr.Zero;
         }
@@ -764,6 +782,22 @@ namespace Fluent
             NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_TOP), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);            
             UpdateLayout();
             //Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate{NativeMethods.SetForegroundWindow(handle);}));            
+        }
+
+        /// <summary>
+        /// Get rects of window
+        /// </summary>
+        /// <param name="hwnd">Handle of window</param>
+        /// <param name="rect">Client window rect</param>
+        /// <param name="adjustedRect">Full window rect</param>
+        private static void GetWindowRects(IntPtr hwnd, out NativeMethods.Rect rect, out NativeMethods.Rect adjustedRect)
+        {
+            rect = new NativeMethods.Rect();
+            NativeMethods.GetClientRect(hwnd, ref rect);
+            adjustedRect = rect;
+            int style = (int)NativeMethods.GetWindowLongPtr(hwnd, NativeMethods.GWL_STYLE).ToInt64();
+            int exStyle = (int)NativeMethods.GetWindowLongPtr(hwnd, NativeMethods.GWL_EXSTYLE).ToInt64();
+            NativeMethods.AdjustWindowRectEx(ref adjustedRect, style, false, exStyle);
         }
 
         #endregion
