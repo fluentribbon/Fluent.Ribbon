@@ -89,7 +89,7 @@ namespace Fluent
         /// <returns>Returns an ordered collection of elements that have the specified logical parent.</returns>
         protected override UIElementCollection CreateUIElementCollection(FrameworkElement logicalParent)
         {
-            return new UIElementCollection(this, Parent as FrameworkElement);
+            return new UIElementCollection(this, /*Parent as FrameworkElement*/this);
         }
 
         /// <summary>
