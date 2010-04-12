@@ -744,6 +744,8 @@ namespace Fluent
                 case "hu": LoadHungarian(); break;
                 case "cs": LoadCzech(); break;
                 case "fr": LoadFrench(); break;
+                case "pl": LoadPolish(); break;
+                case "ja": LoadJapanese(); break;
             }
 
             // Coerce all values
@@ -982,6 +984,78 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
             ribbonContextMenuCustomizeRibbon = "Personnaliser le Ruban...";
             ribbonContextMenuMinimizeRibbon = "Minimiser le Ruban";
+        }
+
+        #endregion
+
+        #region Polish
+
+        void LoadPolish()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Plik";
+            backstageButtonKeyTip = "P";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimalizuj Wstążkę (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko\nnazwy zakładek są widoczne";
+            expandButtonScreenTipTitle = "Rozwiń Wstążkę (Ctrl + F1)";
+            expandButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko\nnazwy zakładek są widoczne";
+
+            // QAT tooltips and menu items
+            quickAccessToolBarDropDownButtonTooltip = "Dostosuj pasek narzędzi Szybki dostęp";
+            quickAccessToolBarMoreControlsButtonTooltip = "Więcej poleceń..."; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Dostosuj pasek narzędzi Szybki dostęp";
+            quickAccessToolBarMenuShowAbove = "Pokaż powyżej Wstążki";
+            quickAccessToolBarMenuShowBelow = "Pokaż poniżej Wstążki";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Dodaj do paska narzędzi Szybki dostęp"; // Button
+            ribbonContextMenuAddGroup = "Dodaj Grupę do paska narzędzi Szybki dostęp"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Dodaj Galerię do paska narzędzi Szybki dostęp"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Dodaj do paska narzędzi Szybki dostęp"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Usuń z paska narzędzi Szybki dostęp"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Dostosuj pasek narzędzi Szybki dostęp...";
+            ribbonContextMenuShowBelow = "Pokaż pasek Szybki dostęp poniżej Wstążki";
+            ribbonContextMenuShowAbove = "Pokaż pasek Szybki dostęp powyżej Wstążki";
+            ribbonContextMenuCustomizeRibbon = "Dostosuj Wstążkę...";
+            ribbonContextMenuMinimizeRibbon = "Minimalizuj Wstążkę";
+        }
+
+        #endregion
+
+        #region Japanese
+
+        void LoadJapanese()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "ファイル";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "リボンの最小化 (Ctrl + F1)";
+            minimizeButtonScreenTipText = "リボンの表示/非表示を切り替えます。\n\nリボンを非表示にすると、タブ名のみが表示されます。";
+            expandButtonScreenTipTitle = "リボンの展開 (Ctrl + F1)";
+            expandButtonScreenTipText = "リボンの表示/非表示を切り替えます。\n\nリボンを非表示にすると、タブ名のみが表示されます。";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "クイック アクセス ツール バーのユーザー設定";
+            quickAccessToolBarMoreControlsButtonTooltip = "その他のボタン"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "クイック アクセス ツール バーのユーザー設定";
+            quickAccessToolBarMenuShowAbove = "リボンの上に表示";
+            quickAccessToolBarMenuShowBelow = "リボンの下に表示";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "クイック アクセス ツール バーに追加"; // Button
+            ribbonContextMenuAddGroup = "グループをクイック アクセス ツール バーに追加"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "ギャラリーをクイック アクセス ツール バーに追加"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "メニューをクイック アクセス ツール バーに追加"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "クイック アクセス ツール バーから削除"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "クイック アクセス ツール バーのユーザー設定...";
+            ribbonContextMenuShowBelow = "クイック アクセス ツール バーをリボンの下に表示";
+            ribbonContextMenuShowAbove = "クイック アクセス ツール バーをリボンの上に表示";
+            ribbonContextMenuCustomizeRibbon = "リボンのユーザー設定...";
+            ribbonContextMenuMinimizeRibbon = "リボンの最小化";
         }
 
         #endregion
