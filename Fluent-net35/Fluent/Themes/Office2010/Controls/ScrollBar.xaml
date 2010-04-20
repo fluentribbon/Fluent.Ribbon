@@ -344,7 +344,7 @@
     	</ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+    <Style TargetType="ScrollBar">
       <Setter Property="SnapsToDevicePixels" Value="True"/>
       <Setter Property="OverridesDefaultStyle" Value="true"/>
       <Setter Property="ViewportSize" Value="25"/>

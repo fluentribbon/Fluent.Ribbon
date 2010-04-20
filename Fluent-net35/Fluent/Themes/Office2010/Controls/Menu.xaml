@@ -86,7 +86,15 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
-  <!--Menu Bar Style-->
+  <Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
+    <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
+  </Style>
+  <ControlTemplate x:Key="MenuSeparatorControlTemplate" TargetType="{x:Type Separator}">
+    <Grid Height="Auto">
+      <Path Fill="{x:Null}" Stretch="Fill" Stroke="{DynamicResource ContextMenuSeparatorBrush}" StrokeDashArray="2 2" Margin="32,1,3,2" VerticalAlignment="Center" Height="1" Data="M0,0L1,0"/>
+    </Grid>
+  </ControlTemplate>
+  <!--Menu Bar Style-->  
 	<Style x:Key="ContextMenuBarStyle" TargetType="{x:Type Fluent:ContextMenuBar}">
 		<Setter Property="Template" Value="{DynamicResource ContextPopupMenuControlTemplate}"/>
 		<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
@@ -98,6 +106,9 @@
     <Setter Property="VerticalAlignment" Value="Top"/>
 	</Style>
 	<ControlTemplate x:Key="ContextPopupMenuControlTemplate" TargetType="{x:Type Fluent:ContextMenuBar}">
+    <ControlTemplate.Resources>
+      <Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}"/>
+    </ControlTemplate.Resources>
 		<Grid Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
@@ -186,15 +197,7 @@
 				<Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
 			</Trigger>
 		</ControlTemplate.Triggers>
-	</ControlTemplate>
-	<Style x:Key="MenuSeparatorStyle" TargetType="{x:Type Separator}">
-		<Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}"/>
-	</Style>
-	<ControlTemplate x:Key="MenuSeparatorControlTemplate" TargetType="{x:Type Separator}">
-		<Grid Height="Auto">
-			<Path Fill="{x:Null}" Stretch="Fill" Stroke="{DynamicResource ContextMenuSeparatorBrush}" StrokeDashArray="2 2" Margin="32,1,3,2" VerticalAlignment="Center" Height="1" Data="M0,0L1,0"/>
-		</Grid>
-	</ControlTemplate>
+	</ControlTemplate>	
 	<Style x:Key="MenuGroupSeparatorStyle" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
 		<Setter Property="Template" Value="{DynamicResource MenuGroupSeparatorControlTemplate}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>

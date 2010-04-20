@@ -44,6 +44,8 @@ namespace Fluent
         // Sizes
         private Thickness sizers;
 
+        private bool isInMoveLoop;
+
         #endregion
 
         #region Properties 
@@ -482,26 +484,40 @@ namespace Fluent
                     }
                 case NativeMethods.WM_MOVE:
                     {
-                        int x = NativeMethods.LowWord(lParam.ToInt32());
-                        int y = NativeMethods.HiWord(lParam.ToInt32()); 
-                                               
-                        NativeMethods.Rect rect;
-                        NativeMethods.Rect adjustedRect;
-                        // Get window rects
-                        GetWindowRects(hwnd, out rect, out adjustedRect);
-                        
-                        NativeMethods.WINDOWINFO windowInfo = new NativeMethods.WINDOWINFO();
-                        // Get monitor info
-                        NativeMethods.GetWindowInfo(hwnd, ref windowInfo);
+                        if (!isInMoveLoop)
+                        {
+                            try
+                            {
+                                isInMoveLoop = true;
+                                int x = NativeMethods.LowWord(lParam);
+                                int y = NativeMethods.HiWord(lParam);
 
-                        // Correct window position
-                        x += (rect.Left - adjustedRect.Left) - (windowInfo.rcClient.Left - windowInfo.rcWindow.Left);
-                        y += (rect.Top - adjustedRect.Top) - (windowInfo.rcClient.Top - windowInfo.rcWindow.Top);
+                                NativeMethods.Rect rect;
+                                NativeMethods.Rect adjustedRect;
+                                // Get window rects
+                                GetWindowRects(hwnd, out rect, out adjustedRect);
 
-                        IntPtr lPr = new IntPtr(NativeMethods.MakeDWord(x, y));
-                        handled = true;
-                        // Resend WM_MOVE message
-                        return NativeMethods.SendMessage(hwnd, msg, wParam, lPr);
+                                NativeMethods.WINDOWINFO windowInfo = new NativeMethods.WINDOWINFO();
+                                // Get monitor info
+                                NativeMethods.GetWindowInfo(hwnd, ref windowInfo);
+
+                                // Correct window position
+                                x += (rect.Left - adjustedRect.Left) -
+                                     (windowInfo.rcClient.Left - windowInfo.rcWindow.Left);
+                                y += (rect.Top - adjustedRect.Top) - (windowInfo.rcClient.Top - windowInfo.rcWindow.Top);
+
+                                IntPtr lPr = NativeMethods.MakeDWord(x, y);
+                                handled = true;
+
+                                // Resend WM_MOVE message
+                                return NativeMethods.SendMessage(hwnd, msg, wParam, lPr);
+                            }
+                            finally
+                            {
+                                isInMoveLoop = false;
+                            }
+                        }
+                        break;
                     }
             }
             return IntPtr.Zero;
@@ -534,8 +550,8 @@ namespace Fluent
                         {
                             mainGrid.Margin = sizers;
                          
-                            int w = NativeMethods.LowWord(lParam.ToInt32());
-                            int h = NativeMethods.HiWord(lParam.ToInt32());
+                            int w = NativeMethods.LowWord(lParam);
+                            int h = NativeMethods.HiWord(lParam);
                             mainGrid.Margin = sizers;
                             
                             if ((!Double.IsNaN(Width)) && ((Double.IsNaN(Height))) && ((ResizeMode != ResizeMode.CanResize) && (ResizeMode != ResizeMode.CanResizeWithGrip)))

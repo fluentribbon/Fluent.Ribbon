@@ -672,10 +672,11 @@ namespace Fluent
         /// </summary>
         /// <param name="value">Dword</param>
         /// <returns>Low word of dword</returns>
-        public static int LowWord(int value)
+        public static int LowWord(IntPtr value)
         {
             //return value << 16 >> 16;
-            return value & 65535;
+            //return value & 65535;
+            return (short) (value.ToInt64() & 0xffffL);
         }
 
         /// <summary>
@@ -683,9 +684,10 @@ namespace Fluent
         /// </summary>
         /// <param name="value">Dword</param>
         /// <returns>Hi word of dword</returns>
-        public static int HiWord(int value)
+        public static int HiWord(IntPtr value)
         {
-            return (value >> 16) & 65535;
+            //return (value >> 16) & 65535;
+            return (short)((value.ToInt64() >> 16) & 0xffffL);
         }
 
         /// <summary>
@@ -694,9 +696,10 @@ namespace Fluent
         /// <param name="lo">Low word</param>
         /// <param name="hi">Hi word</param>
         /// <returns>Result DWORD</returns>
-        public static int MakeDWord(int lo, int hi)
+        public static IntPtr MakeDWord(int lo, int hi)
         {
-            return (lo & 65535) + (hi & 65535) << 16;
+            //return (lo & 65535) + (hi & 65535) << 16;
+            return (IntPtr)((((short)hi) << 16) | (lo & 0xffff));
         }
 
         /// <summary>
@@ -915,18 +918,6 @@ namespace Fluent
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
         public static extern bool AdjustWindowRectEx(ref Rect lpRect, int dwStyle,bool bMenu, int dwExStyle);
-
-        /// <summary>
-        /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. 
-        /// To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function.
-        /// </summary>
-        /// <param name="hWnd">Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows</param>
-        /// <param name="Msg">Specifies the message to be sent</param>
-        /// <param name="wParam">Specifies additional message-specific information.</param>
-        /// <param name="lParam">Specifies additional message-specific information</param>
-        /// <returns>The return value specifies the result of the message processing; it depends on the message sent</returns>
-        [DllImport("coredll")]
-        public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
 
         #endregion
 

@@ -46,9 +46,13 @@
       <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
           <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
+          <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml"/>
         </ResourceDictionary.MergedDictionaries>
-        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
         <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource BackstageButtonStyle}"/>
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
+        <Style x:Key="{x:Type Fluent:DropDownButton}" TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource DropDownButtonBackstageStyle}"/>
+        <Style x:Key="{x:Type Fluent:ComboBox}" TargetType="{x:Type Fluent:ComboBox}" BasedOn="{StaticResource ComboBoxBackstageStyle}"/>
+		<Style x:Key="{x:Type Fluent:Spinner}" TargetType="{x:Type Fluent:Spinner}" BasedOn="{StaticResource SpinnerBackstageStyle}"/>
       </ResourceDictionary>      
 	  </ControlTemplate.Resources>	
   	<Grid Background="{DynamicResource BackstageBackgroundBrush}">
@@ -57,7 +61,12 @@
   			<ColumnDefinition Width="*"/>
   		</Grid.ColumnDefinitions>
   		<Grid Margin="0" Height="Auto" Grid.Column="1">
-  			<Border HorizontalAlignment="Right" Margin="-100,0,0,0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
+        <Grid.Resources>
+          <ResourceDictionary>
+            <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource ButtonBackstageStyle}"/>
+          </ResourceDictionary>
+        </Grid.Resources>
+        <Border HorizontalAlignment="Right" Margin="-100,0,0,0" VerticalAlignment="Bottom" Width="343" Height="181" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True">
   				<Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="343" Height="181" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
   					<Image.RenderTransform>
   						<TransformGroup>
@@ -69,11 +78,14 @@
   					</Image.RenderTransform>
   				</Image>
   			</Border>
-  			<ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent"/>
+        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent">
+      
+      </ContentPresenter>
   		</Grid>
-  		<Grid Margin="0" VerticalAlignment="Stretch" Background="{DynamicResource BackstagePanelBackgroundBrush}">
+  		<Grid Margin="0" VerticalAlignment="Stretch" Background="{DynamicResource BackstagePanelBackgroundBrush}">        
   			<Border HorizontalAlignment="Right" Margin="0" Width="6" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="0,0,1,0" Background="{DynamicResource BackstagePanelShadowBackgroundBrush}"/>
-  			<StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True"/>
+        <StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True">
+        </StackPanel>
   		</Grid>
   		<Border Margin="0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}">
   			<Rectangle Stroke="{x:Null}" StrokeThickness="0" Fill="{DynamicResource BackstageTopBackgroundBrush}" OpacityMask="{DynamicResource BackstageTopOpacityBrush}"/>

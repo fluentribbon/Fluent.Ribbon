@@ -272,16 +272,22 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, OnSelectedIndexChenged));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, OnSelectedIndexChenged, CoerceSelectedIndex));
+
+        private static object CoerceSelectedIndex(DependencyObject d, object basevalue)
+        {
+            if (((int)basevalue != -1) && (((ComboBox)d).GetItem((int)basevalue) == null)) return -1;
+            return basevalue;
+        }
 
         static void OnSelectedIndexChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)d;
+            ComboBox comboBox = (ComboBox)d;            
             if (((int)e.NewValue == -1) && (comboBox.SelectedItem != null)) comboBox.SelectedItem = null;
             else
             {
                 object selectedItem = comboBox.GetItem((int) e.NewValue);
-                if (selectedItem != comboBox.SelectedItem)
+                if ((selectedItem != comboBox.SelectedItem)&&(selectedItem!=null))
                 {
                     comboBox.SelectedItem = selectedItem;
                     comboBox.CurrentText = comboBox.GetItemText(comboBox.SelectedItem);
@@ -307,10 +313,17 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ComboBox), new UIPropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ComboBox), new UIPropertyMetadata(null, OnSelectedItemChanged,CoerceSelectedItem));
+
+        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
+        {
+            if ((basevalue != null) && (((ComboBox)d).GetItemIndex(basevalue) == -1)) return null;
+            return basevalue;
+        }
 
         static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            
             ((ComboBox)d).SelectedItemUpdated();
         }
 
@@ -338,7 +351,7 @@ namespace Fluent
                 }
             }
             int selectedIndex = GetItemIndex(SelectedItem);
-            if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
+            if((selectedIndex!=-1)&&(SelectedItem!=null)) if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
         }
 
 
@@ -557,6 +570,11 @@ namespace Fluent
             binding.Mode = BindingMode.TwoWay;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             this.SetBinding(SelectedItemProperty, binding); */
+
+            Loaded += delegate
+                          {
+                              SelectedItemUpdated();
+                          };
         }
 
         /// <summary>
@@ -715,7 +733,7 @@ namespace Fluent
             int i = 0;
             foreach (var item in items)
             {
-                if (item == obj) return i;
+                if (item.Equals(obj)) return i;
                 i++;
             }
             return -1;
@@ -739,10 +757,16 @@ namespace Fluent
         /// <param name="e">Event args</param>
         protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
+            CoerceValue(ComboBox.SelectedItemProperty);
+            CoerceValue(ComboBox.SelectedIndexProperty);
             base.OnItemsCollectionChanged(e);
             if ((SelectedItem == null) && (SelectedIndex >= 0))
             {
                 Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedItem = GetItem(SelectedIndex); }));
+            }
+            else if ((SelectedItem != null) && (SelectedIndex == 1))
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedIndex = GetItemIndex(SelectedItem); }));
             }
         }
 
@@ -753,9 +777,15 @@ namespace Fluent
         protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
         {            
             base.OnItemsSourceChanged(args);
+            CoerceValue(ComboBox.SelectedItemProperty);
+            CoerceValue(ComboBox.SelectedIndexProperty);
             if((SelectedItem==null)&&(SelectedIndex>=0))
             {
                 SelectedItem = GetItem(SelectedIndex);
+            }
+            else if ((SelectedItem != null) && (SelectedIndex == -1 ))
+            {
+                SelectedIndex = GetItemIndex(SelectedItem);
             }
         }
 

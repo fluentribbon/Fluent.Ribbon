@@ -412,6 +412,7 @@ namespace Fluent
         public RibbonTabItem()
         {
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+            AddLogicalChild(groupsContainer);
         }
         
         // Hancles Click event

@@ -1087,7 +1087,7 @@ namespace Fluent
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
-            else if ((tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
+            else if ((tabControl!=null)&&(tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnUnloaded(object sender, RoutedEventArgs e)
@@ -1407,7 +1407,7 @@ namespace Fluent
             // Load items
             string[] items = splitted[1].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
 
-            quickAccessToolBar.Items.Clear();
+            if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
             quickAccessElements.Clear();
 
             for (int i = 0; i < items.Length; i++) ParseAndAddToQuickAccessToolBar(items[i]);
