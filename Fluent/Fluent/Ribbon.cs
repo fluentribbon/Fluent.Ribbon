@@ -1087,7 +1087,7 @@ namespace Fluent
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
-            else if ((tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
+            else if ((tabControl!=null)&&(tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnUnloaded(object sender, RoutedEventArgs e)
