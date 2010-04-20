@@ -480,7 +480,8 @@ namespace Fluent
                         }
                         break;
                     }
-                case NativeMethods.WM_MOVE:
+                /*Not needed int NET4
+                 * case NativeMethods.WM_MOVE:
                     {
                         int x = NativeMethods.LowWord(lParam.ToInt32());
                         int y = NativeMethods.HiWord(lParam.ToInt32()); 
@@ -502,7 +503,7 @@ namespace Fluent
                         handled = true;
                         // Resend WM_MOVE message
                         return NativeMethods.SendMessage(hwnd, msg, wParam, lPr);
-                    }
+                    */
             }
             return IntPtr.Zero;
         }
@@ -534,8 +535,8 @@ namespace Fluent
                         {
                             mainGrid.Margin = sizers;
                          
-                            int w = NativeMethods.LowWord(lParam.ToInt32());
-                            int h = NativeMethods.HiWord(lParam.ToInt32());
+                            int w = NativeMethods.LowWord(lParam);
+                            int h = NativeMethods.HiWord(lParam);
                             mainGrid.Margin = sizers;
                             
                             if ((!Double.IsNaN(Width)) && ((Double.IsNaN(Height))) && ((ResizeMode != ResizeMode.CanResize) && (ResizeMode != ResizeMode.CanResizeWithGrip)))

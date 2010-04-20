@@ -7,14 +7,13 @@
     Title="Fluent Ribbon Control Suite 1.1" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
- 
   <Grid>
   	<Grid.RowDefinitions>
   		<RowDefinition Height="Auto"/>
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" >
+    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
@@ -25,10 +24,37 @@
         <Fluent:Button Text="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
         <Fluent:Button Text="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
         <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E"/>
-        <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R"/>          
+        <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R">
+          <Fluent:BackstageTabControl Margin="20,5,20,5">
+            <Fluent:GroupSeparatorMenuItem Text="Test1"/>
+            <TabItem Header="1">
+              
+            </TabItem>
+            <TabItem Header="2">
+
+            </TabItem>
+            <TabItem Header="3">
+
+            </TabItem>
+            <Fluent:GroupSeparatorMenuItem Text="Test2"/>
+            <TabItem Header="4">
+
+            </TabItem>
+          </Fluent:BackstageTabControl>
+        </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N" IsSelected="{Binding IsChecked, ElementName=checkBox}">
-          <Grid Background="Green" Opacity="0.8" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
-            <TextBlock HorizontalAlignment="LEft" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
+          <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
+            <TextBlock HorizontalAlignment="Left" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
+            <Fluent:Button Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
+              <Fluent:DropDownButton Text="123" HorizontalAlignment="Right"></Fluent:DropDownButton>
+            <Fluent:ComboBox VerticalAlignment="Bottom">
+              <TextBlock Text="1"/>
+              <TextBlock Text="2"/>
+              <TextBlock Text="3"/>
+              <TextBlock Text="4"/>
+              <TextBlock Text="5"/>
+            </Fluent:ComboBox>
+            <Fluent:Spinner Value="1" Format="0" InputWidth="50" Text="Lala" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Fluent:Spinner>
           </Grid>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Header="Print" Fluent:KeyTip.Keys="P">
@@ -70,7 +96,12 @@
                   Width="190"/>
             </Fluent:SplitButton.ToolTip>
             <Fluent:Gallery VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
-                <Image Source="Images\PasteImage.png" Width="24" Height="24" Fluent:KeyTip.Keys="K" Tag="Paste Options:"/>
+              <Fluent:Gallery.ItemContainerStyle>
+                <Style TargetType="{x:Type Fluent:GalleryItem}"  BasedOn="{StaticResource GalleryItemStyle}">
+                  <Setter Property="Fluent:GalleryItem.Command" Value="Paste"/>
+                </Style>
+              </Fluent:Gallery.ItemContainerStyle>
+              <Image Source="Images\PasteImage.png" Width="24" Height="24" Fluent:KeyTip.Keys="K" Tag="Paste Options:"/>
                 <Image Source="Images\PasteText.png" Width="24" Height="24" Fluent:KeyTip.Keys="M" Tag="Paste Options:"/>
                 <Image Source="Images\PasteTextOnly.png" Width="24" Height="24" Fluent:KeyTip.Keys="T" Tag="Paste Options:"/>
                 <Image Source="Images\PasteFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="L" Tag="Paste Options:"/>
@@ -216,8 +247,8 @@
 		</Fluent:RibbonGroupBox>
 
 	    
-   <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
-			<Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}"  Text="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True">
+   <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
+     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}"  Text="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
@@ -340,6 +371,7 @@
       
       <Fluent:RibbonTabItem Header="Mailings">
         <Fluent:RibbonGroupBox >
+          <Fluent:ComboBox x:Name="someCombo" ItemsSource="{Binding TstArr, ElementName=window}" InputWidth="80" SelectedItem="{Binding TST, Mode=TwoWay, ElementName=window}" IsEditable="False"></Fluent:ComboBox>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
@@ -368,7 +400,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-        <Button Visibility="Collapsed"  HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
+        <Button HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>

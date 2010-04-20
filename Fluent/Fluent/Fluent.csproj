@@ -103,6 +103,7 @@
     <Compile Include="Backstage.cs" />
     <Compile Include="BackstageAdorner.cs" />
     <Compile Include="BackstageButton.cs" />
+    <Compile Include="BackstageTabControl.cs" />
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CheckBox.cs">
@@ -212,6 +213,14 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\BackstageControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\BackstageTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\BackstageTabItem.xaml">
       <SubType>Designer</SubType>

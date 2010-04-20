@@ -23,16 +23,39 @@ using Button = Fluent.Button;
 
 namespace FluentTest
 {
+    public enum TstEnum
+    {
+        Elemen1, Elemen2
+    }
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
     public partial class TestWindow : RibbonWindow
     {
+
+
+        public TstEnum TST
+        {
+            get { return (TstEnum)GetValue(TSTProperty); }
+            set { SetValue(TSTProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TST.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TSTProperty =
+            DependencyProperty.Register("TST", typeof(TstEnum), typeof(TestWindow), new UIPropertyMetadata(TstEnum.Elemen1));
+
+        public Array TstArr
+        {
+            get { return Enum.GetValues(typeof (TstEnum)); }
+        }
+        
         public TestWindow()
         {
             InitializeComponent();
 
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
+
+
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();
 

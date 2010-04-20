@@ -197,5 +197,13 @@
 	<GradientStop Color="#FFEFEFEF" Offset="0.95"/>
     <GradientStop Color="#FFEBEDEF" Offset="1"/>
   </LinearGradientBrush>
-  
+  <LinearGradientBrush x:Key="ButtonBackstageOutterBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFDEDFE0" Offset="0"/>
+  	<GradientStop Color="#FFA1A2A4" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="ButtonBackstageShadowBrush" Color="#7FA1A2A4"/>
+  	<LinearGradientBrush x:Key="ButtonBackstageInnerBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="White" Offset="0.009"/>
+		<GradientStop Color="#FFEDEFF1" Offset="1"/>
+	</LinearGradientBrush>    
 </ResourceDictionary>

@@ -807,7 +807,7 @@ namespace Fluent
             int i = 0;
             foreach (var item in items)
             {
-                if (item == obj) return i;
+                if (item.Equals(obj)) return i;
                 i++;
             }
             return -1;

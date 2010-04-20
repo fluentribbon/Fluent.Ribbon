@@ -1407,7 +1407,7 @@ namespace Fluent
             // Load items
             string[] items = splitted[1].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
 
-            quickAccessToolBar.Items.Clear();
+            if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
             quickAccessElements.Clear();
 
             for (int i = 0; i < items.Length; i++) ParseAndAddToQuickAccessToolBar(items[i]);

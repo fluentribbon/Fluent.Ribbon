@@ -178,7 +178,6 @@
 							<Setter Property="Margin" TargetName="separatorGrid" Value="-1,0,0,1"/>
 							<Setter Property="Visibility" TargetName="border_Copy3" Value="Collapsed"/>
 							<Setter Property="Visibility" TargetName="rectangle3" Value="Collapsed"/>
-							<Setter Property="BorderBrush" TargetName="border_Copy" Value="{x:Null}"/>
 						</Trigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
