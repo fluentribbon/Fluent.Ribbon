@@ -23,7 +23,21 @@
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Text="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
         <Fluent:Button Text="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
-        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E"/>
+        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E">
+          <ScrollViewer>
+            <Grid Height="400" Background="Red">
+              <Fluent:ComboBox SelectedIndex="1">
+                <Fluent:GalleryItem>1</Fluent:GalleryItem>
+                  <Fluent:GalleryItem>2</Fluent:GalleryItem>
+                    <Fluent:GalleryItem>3</Fluent:GalleryItem>
+                <Fluent:GalleryItem>4</Fluent:GalleryItem>
+                <Fluent:GalleryItem>5</Fluent:GalleryItem>
+              
+            
+          </Fluent:ComboBox>
+            </Grid>
+          </ScrollViewer>
+        </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R">
           <Fluent:BackstageTabControl Margin="20,5,20,5">
             <Fluent:GroupSeparatorMenuItem Text="Test1"/>

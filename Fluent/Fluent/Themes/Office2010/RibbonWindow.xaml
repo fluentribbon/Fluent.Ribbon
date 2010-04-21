@@ -155,7 +155,7 @@
       				<Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
       				<Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
       				<Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
-      				<Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,4,0"/>
+      				<Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,2,0"/>
       				<Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
       				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
       				<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
