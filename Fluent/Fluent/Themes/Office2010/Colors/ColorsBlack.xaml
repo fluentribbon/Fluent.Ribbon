@@ -226,4 +226,14 @@
   <SolidColorBrush x:Key="QuickAccessToolBarOutterBorderBrush" Color="#FF4E4E4E"/>
   <SolidColorBrush x:Key="QuickAccessToolBarInnerBorderBrush" Color="#FF848484"/>
   <SolidColorBrush x:Key="QuickAccessToolBarInnerBackgroundBrush" Color="#FF797979"/>
+  <LinearGradientBrush x:Key="GroupBoxSeparatorBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FF919191" Offset="0"/>
+  	<GradientStop Color="#FF787878" Offset="1"/>
+  	<GradientStop Color="#FF545454" Offset="0.5"/>
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="GroupBoxSeparatorBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+  	<GradientStop Color="#FFCACACA" Offset="0"/>
+  	<GradientStop Color="#FFC3C3C3" Offset="1"/>
+  	<GradientStop Color="#FFCCCCCC" Offset="0.5"/>
+  </LinearGradientBrush>
 </ResourceDictionary>

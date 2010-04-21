@@ -16,8 +16,8 @@
     <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon">
 
       <Fluent:Ribbon.ContextualGroups>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Visible"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Collapsed"/>
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.BackstageItems>
@@ -78,7 +78,7 @@
       </Fluent:Ribbon.BackstageItems>
       
       <Fluent:Ribbon.ToolBarItems>
-        <Fluent:Button Size="Small" Icon="Images/Help.png">
+        <Fluent:Button Size="Small" Icon="Images/Help.png" Click="OnHelpClick">
           <Fluent:Button.ToolTip>
               <Fluent:ScreenTip
                 Title="Insert Chart"
@@ -363,16 +363,20 @@
         <Fluent:RibbonGroupBox x:Name="xxx" Header="LongLongGroup" IsLauncherVisible="True" LauncherCommand="Paste" LauncherClick="OnLauncherClick">
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
+          <Separator/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
+          <Separator/>
           <Fluent:Button Text="Button" Icon="Images\GrowFont.png" Command="ApplicationCommands.Paste"/>
         </Fluent:RibbonGroupBox>
 
         <Fluent:RibbonGroupBox >
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Separator/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
+          <Separator/>
           <Fluent:ToggleButton Text="Button1" GroupName="Group1"/>
         </Fluent:RibbonGroupBox>
 

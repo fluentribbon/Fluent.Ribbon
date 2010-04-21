@@ -288,6 +288,20 @@ namespace FluentTest
             if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
             else Font.Visibility = Visibility.Collapsed;
         }
+
+        private void OnHelpClick(object sender, RoutedEventArgs e)
+        {
+            if(tabGroup1.Visibility==Visibility.Visible)
+            {
+                tabGroup1.Visibility = Visibility.Collapsed;
+                tabGroup2.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tabGroup1.Visibility = Visibility.Visible;
+                tabGroup2.Visibility = Visibility.Visible;
+            }
+        }
     }
 
     public class FooCommand1

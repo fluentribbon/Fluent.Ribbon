@@ -1,6 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
- 
+  <Style TargetType="Separator" x:Key="GroupBoxSeparator">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Separator">
+        	<Border Width="3" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,5,2,10" BorderThickness="1,0" BorderBrush="{DynamicResource GroupBoxSeparatorBorderBrush}" Background="{DynamicResource GroupBoxSeparatorBackgroundBrush}"/>
+          
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 	<Style x:Key="RibbonGroupBoxStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
 		<Setter Property="Template" Value="{DynamicResource RibbonGroupBoxControlTemplate}"/>
 		<Setter Property="Width" Value="Auto"/>
@@ -24,6 +33,7 @@
 					<SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
+      <Style TargetType="Separator" BasedOn="{StaticResource GroupBoxSeparator}"/>
 		</ControlTemplate.Resources>
 		<Grid x:Name="grid2" HorizontalAlignment="Stretch">
 		
