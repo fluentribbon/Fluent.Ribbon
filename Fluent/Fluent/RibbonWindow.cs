@@ -400,9 +400,9 @@ namespace Fluent
                 // Handles DWM composition changes
                 case NativeMethods.WM_DWMCOMPOSITIONCHANGED:
                     {
-                        WindowState state = WindowState;
-                        if (WindowState == WindowState.Maximized) WindowState = WindowState.Minimized;
+                        WindowState state = WindowState;                        
                         IsDwmEnabled = NativeMethods.IsDwmEnabled();
+                        if (WindowState == WindowState.Maximized) WindowState = WindowState.Minimized;
                         UpdateWindowStyle();
                         if (IsDwmEnabled)
                         {                            
