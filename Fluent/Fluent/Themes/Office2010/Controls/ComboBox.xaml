@@ -25,7 +25,7 @@
         				<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="2,0,4,0" x:Name="textBlock"/>
         			</StackPanel>
 				
-        			<Border Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource TextBoxBorderBrush}" x:Name="border" Background="{DynamicResource TextBoxBackgroundBrush}" Grid.Column="1" Grid.ColumnSpan="1" Width="{TemplateBinding InputWidth}" d:LayoutOverrides="GridBox" HorizontalAlignment="Right">
+        			<Border Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource TextBoxBorderBrush}" x:Name="PART_ContentBorder" Background="{DynamicResource TextBoxBackgroundBrush}" Grid.Column="1" Grid.ColumnSpan="1" Width="{TemplateBinding InputWidth}" d:LayoutOverrides="GridBox" HorizontalAlignment="Right">
         				<Grid>
         					<Grid.ColumnDefinitions>
         						<ColumnDefinition Width="*"/>
@@ -56,7 +56,7 @@
         	</Border>
         	<ControlTemplate.Triggers>
                 <Trigger Property="InputWidth" Value="NaN">
-                            <Setter Property="HorizontalAlignment" TargetName="border" Value="Stretch"/>                            
+                            <Setter Property="HorizontalAlignment" TargetName="PART_ContentBorder" Value="Stretch"/>                            
                 </Trigger>
                 <Trigger Property="Size" Value="Middle">
                     <Setter Property="Visibility" TargetName="textBlock" Value="Collapsed"/>
@@ -71,8 +71,8 @@
         		<Trigger Property="IsEnabled" Value="False">
         			<Setter Property="Opacity" TargetName="path" Value="0.5"/>
         			<Setter Property="IsEnabled" TargetName="PART_TextBox" Value="False"/>
-        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
-        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
+        			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
         			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
         			<Setter Property="BorderBrush" TargetName="PART_TextBox" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
         		</Trigger>
@@ -81,18 +81,18 @@
         		</Trigger>-->
         		<Trigger Property="IsMouseOver" Value="True">
         			<Setter Property="Visibility" TargetName="border1" Value="Visible"/>
-        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
 					<Setter Property="Background" TargetName="PART_TextBox" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         			<Setter Property="Background" TargetName="border1" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
-        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         		</Trigger>
 				
         		<Trigger Property="IsKeyboardFocusWithin" Value="True">
         			<Setter Property="Visibility" TargetName="border1" Value="Visible"/>
-        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxHoverBorderBrush}"/>
         			<Setter Property="Background" TargetName="PART_TextBox" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         			<Setter Property="Background" TargetName="border1" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
-        			<Setter Property="Background" TargetName="border" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
         		</Trigger>
 				
         		<Trigger Property="IsOpen" Value="True">

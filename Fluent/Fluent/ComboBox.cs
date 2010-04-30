@@ -46,6 +46,8 @@ namespace Fluent
         private GalleryItem selectedGalleryItem;
         private Image fakeImage;
 
+        private Border contentBorder;
+
         // Is visual currently snapped
         private bool isSnapped;
 
@@ -623,6 +625,8 @@ namespace Fluent
 
             selectedGalleryItem = GetTemplateChild("PART_GalleryItem") as GalleryItem;
             fakeImage = GetTemplateChild("PART_FakeImage") as Image;
+            contentBorder = GetTemplateChild("PART_ContentBorder") as Border;
+            if (contextMenu != null) contextMenu.PlacementTarget = contentBorder;
         }
 
         void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
@@ -854,7 +858,7 @@ namespace Fluent
             binding.Source = this;
             contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, binding);
 
-            contextMenu.PlacementTarget = this;
+            contextMenu.PlacementTarget = contentBorder;
             contextMenu.Placement = PlacementMode.Bottom;
 
             isInitializing = false;
@@ -900,8 +904,9 @@ namespace Fluent
             //
             gallery.SelectedIndex = selectedIndex;
             gallery.SelectedItem = selectedItem;
-            gallery.MinWidth = Math.Max(MenuMinWidth,ActualWidth);
+            gallery.MinWidth = Math.Max(MenuMinWidth, contentBorder.ActualWidth);
             gallery.MinHeight = 2*ItemHeight;
+            gallery.BorderThickness = ResizeMode == ContextMenuResizeMode.None ? new Thickness(0) : new Thickness(0, 0, 0, 1);
         }
 
         #endregion
