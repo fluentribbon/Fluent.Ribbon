@@ -141,9 +141,30 @@ namespace Fluent
         // Stream to save quickaccesselements on aplytemplate
         MemoryStream quickAccessStream;
 
+        private Window ownerWindow;
+
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Window title
+        /// </summary>
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(Ribbon), new UIPropertyMetadata("", OnTitleChanged));
+
+        private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((d as Ribbon).titleBar!=null) (d as Ribbon).titleBar.InvalidateMeasure();
+        }
+
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -879,6 +900,15 @@ namespace Fluent
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
             minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
             if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
+
+            if(ownerWindow==null)
+            {
+                ownerWindow = Window.GetWindow(this);
+                Binding binding = new Binding("Title");
+                binding.Mode = BindingMode.OneWay;
+                binding.Source = ownerWindow;
+                SetBinding(TitleProperty, binding);
+            }
         }
 
         private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)

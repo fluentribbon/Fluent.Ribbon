@@ -2,23 +2,40 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
   <Style TargetType="{x:Type Fluent:Button}" x:Key="ButtonBackstageStyle">
   	<Setter Property="Template" Value="{DynamicResource ButtonBackstageControlTemplate}"/>
-  	<Setter Property="Height" Value="81"/>
-  	<Setter Property="Width" Value="85"/>
     
   </Style>
   <ControlTemplate x:Key="ButtonBackstageControlTemplate" TargetType="{x:Type Fluent:Button}">
-  	<Grid>
+  	<Grid x:Name="grid" Width="81" Height="85">
   		<Rectangle x:Name="rectangle" Fill="{x:Null}" Stroke="{DynamicResource ButtonBackstageShadowBrush}" Height="2" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="3,0"/>
   		<Border x:Name="border" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
   			<Border x:Name="border1" BorderBrush="Black" BorderThickness="0" CornerRadius="2" Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
   				<StackPanel Margin="2" x:Name="stackPanel">
-  					<Image Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="9,9,9,0" Source="{TemplateBinding LargeIcon}"/>
-  					<Fluent:TwoLineLabel Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Text}"/>
+  					<Image x:Name="image" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="9,9,9,0" Source="{TemplateBinding LargeIcon}"/>
+  					<Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Text}"/>
   				</StackPanel>
   			</Border>
   		</Border>
   	</Grid>
   	<ControlTemplate.Triggers>
+  		<Trigger Property="Size" Value="Small">
+  			<Setter Property="Visibility" TargetName="image" Value="Collapsed"/>
+  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+  			<Setter Property="HorizontalAlignment" TargetName="stackPanel" Value="Center"/>
+  			<Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
+  			<Setter Property="Margin" TargetName="twoLineLabel" Value="2"/>
+  			<Setter Property="Width" TargetName="grid" Value="Auto"/>
+  			<Setter Property="Height" TargetName="grid" Value="Auto"/>
+  			<Setter Property="HorizontalAlignment" TargetName="twoLineLabel" Value="Center"/>
+  			<Setter Property="HasTwoLines" TargetName="twoLineLabel" Value="False"/>
+  		</Trigger>
+  		<Trigger Property="Size" Value="Middle">
+  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+  			<Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
+  			<Setter Property="Margin" TargetName="twoLineLabel" Value="7,0"/>
+  			<Setter Property="Margin" TargetName="image" Value="9,2,9,0"/>
+  			<Setter Property="Width" TargetName="grid" Value="Auto"/>
+  			<Setter Property="Height" TargetName="grid" Value="Auto"/>
+  		</Trigger>
   		<Trigger Property="IsEnabled" Value="False">
   			<Setter Property="BorderBrush" TargetName="border" Value="#FFC8C8C9"/>
   			<Setter Property="Opacity" TargetName="rectangle" Value="0"/>
@@ -37,7 +54,7 @@
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
   			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
-			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
+  			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
   		</Trigger>
   		<Trigger Property="IsFocused" Value="True">
   			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
@@ -45,7 +62,7 @@
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
   			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
-			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
+  			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
   		</Trigger>
   		<Trigger Property="IsPressed" Value="True">
   			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
