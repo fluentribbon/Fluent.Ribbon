@@ -816,7 +816,7 @@ namespace Fluent
             if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
 
             Size size = base.MeasureOverride(constraint);
-            if(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width)
+            if((upPanel != null)&&(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width))
             {
                 return base.MeasureOverride(new Size(upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right, constraint.Height));
             }
