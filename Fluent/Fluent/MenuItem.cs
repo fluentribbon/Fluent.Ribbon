@@ -262,7 +262,7 @@ namespace Fluent
         /// </summary>
         public MenuItem()
         {
-           
+           Unloaded += (s,e)=>IsSelected=false;
         }
 
         #endregion
