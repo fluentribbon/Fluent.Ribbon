@@ -43,8 +43,9 @@ namespace Fluent
         // Ribbon groups container
         private RibbonGroupsContainer groupsContainer = new RibbonGroupsContainer();
 
-
+        // Cached width
         private double cachedWidth;
+
         #endregion
 
         #region Properties
@@ -396,6 +397,17 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
+            VisibilityProperty.AddOwner(typeof (RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
+        }
+
+        // Handles visibility changes
+        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem item = d as RibbonTabItem;
+            if((item.IsSelected)&&((Visibility)e.NewValue==Visibility.Collapsed))
+            {
+                if (item.TabControlParent != null) item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+            }
         }
 
         // Coerce ToolTip to ensure that tooltip displays name of the tabitem
@@ -415,7 +427,7 @@ namespace Fluent
             AddLogicalChild(groupsContainer);
         }
         
-        // Hancles Click event
+        // Handles Click event
         private void OnClick(object sender, RoutedEventArgs e)
         {
             if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
