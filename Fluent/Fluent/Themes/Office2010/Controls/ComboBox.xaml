@@ -21,7 +21,7 @@
         				<ColumnDefinition/>
         			</Grid.ColumnDefinitions>
         			<StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" x:Name="stackPanel" HorizontalAlignment="Left" Margin="0">
-        				<Image Width="16" Height="16" VerticalAlignment="Center" Margin="4,0,3,0" Source="{TemplateBinding Icon}"/>
+        				<Image x:Name="iconImage" Width="16" Height="16" VerticalAlignment="Center" Margin="4,0,3,0" Source="{TemplateBinding Icon}"/>
         				<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="2,0,4,0" x:Name="textBlock"/>
         			</StackPanel>
 				
@@ -75,7 +75,14 @@
         			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
         			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
         			<Setter Property="BorderBrush" TargetName="PART_TextBox" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
-        		</Trigger>
+                            <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
+                            <Setter Property="Opacity" TargetName="textBlock" Value="0.5"/>
+                            <Setter Property="Effect" TargetName="iconImage">
+                                <Setter.Value>
+                                    <Fluent:GrayscaleEffect/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
         		<!--<Trigger Property="IsOpen" Value="True">
         			<Setter Property="IsHitTestVisible" TargetName="PART_DownButton" Value="False"/>              
         		</Trigger>-->
