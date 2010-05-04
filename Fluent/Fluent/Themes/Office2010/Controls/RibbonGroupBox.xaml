@@ -56,7 +56,7 @@
 					<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
 					<Fluent:Button Margin="0,0,1,1" x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}" VerticalAlignment="Bottom" Icon="{TemplateBinding LauncherIcon}" Text="{TemplateBinding LauncherText}" Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}" ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"  IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"/>
 				</Grid>
-				<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,0,2,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
+				<WrapPanel x:Name="PART_UpPanel" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,0,4,0" Orientation="Vertical" FocusManager.IsFocusScope="False"/>
 			</Grid>
 			</ContentControl>
 			<Grid x:Name="grid1" Margin="0" Width="Auto" Height="Auto" Background="#00000000" Visibility="Collapsed" Grid.RowSpan="2">			
