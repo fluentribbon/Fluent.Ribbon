@@ -487,10 +487,10 @@ namespace Fluent
             Gallery gallery = (Gallery) d;
             if (!gallery.Selectable)
             {
-                if (basevalue != null)
+                if ((basevalue != null) && (gallery.listBox != null))
                 {
-                    // TODO: what if basevalue is string type for example?
-                    ((ListBoxItem)gallery.listBox.ContainerFromElement((DependencyObject)basevalue)).IsSelected = false;
+                    ListBoxItem item = ((ListBoxItem)gallery.listBox.ItemContainerGenerator.ContainerFromItem(basevalue));
+                    if(item!=null) item.IsSelected = false;
                     gallery.listBox.SelectedItem = null;
                 }
                 return null;
