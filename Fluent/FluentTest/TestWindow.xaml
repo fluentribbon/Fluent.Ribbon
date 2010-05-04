@@ -59,7 +59,7 @@
         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N" IsSelected="{Binding IsChecked, ElementName=checkBox}">
           <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
             <TextBlock HorizontalAlignment="Left" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
-            <Fluent:Button Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
+            <Fluent:Button IsEnabled="False" Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
               <Fluent:DropDownButton Text="123" HorizontalAlignment="Right"></Fluent:DropDownButton>
             <Fluent:ComboBox VerticalAlignment="Bottom">
               <TextBlock Text="1"/>

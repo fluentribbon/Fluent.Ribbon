@@ -17,6 +17,15 @@
   		</Border>
   	</Grid>
   	<ControlTemplate.Triggers>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Opacity" TargetName="image" Value="0.5"/>
+        <Setter Property="Opacity" TargetName="twoLineLabel" Value="0.5"/>
+        <Setter Property="Effect" TargetName="image">
+          <Setter.Value>
+            <Fluent:GrayscaleEffect/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
   		<Trigger Property="Size" Value="Small">
   			<Setter Property="Visibility" TargetName="image" Value="Collapsed"/>
   			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
