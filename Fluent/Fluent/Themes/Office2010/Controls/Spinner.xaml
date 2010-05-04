@@ -107,6 +107,9 @@
           	</Grid>
           
         	<ControlTemplate.Triggers>
+            <Trigger Property="Icon" Value="{x:Null}">
+              <Setter Property="Visibility" TargetName="iconImage" Value="Collapsed"/>
+            </Trigger>
                         <Trigger Property="InputWidth" Value="NaN">
                             <Setter Property="HorizontalAlignment" TargetName="border" Value="Stretch"/>
                         </Trigger>

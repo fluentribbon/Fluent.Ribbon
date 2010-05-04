@@ -320,8 +320,7 @@
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Text="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Text="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           
-        </Fluent:RibbonGroupBox>
-        
+        </Fluent:RibbonGroupBox>       
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)" IsSelected="False">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsLauncherVisible="False" x:Name="groupLL">
