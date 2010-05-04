@@ -163,7 +163,7 @@ namespace FluentTest
             //MessageBox.Show("lala");
             CheckLogicalTree(ribbon);
             logicalTreeView.Items.Clear();
-            BuildLogicalTree(ribbon, null);
+            BuildLogicalTree(testBtn, null);
         }
 
         void CheckLogicalTree(DependencyObject root)

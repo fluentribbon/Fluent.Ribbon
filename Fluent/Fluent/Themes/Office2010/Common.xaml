@@ -48,8 +48,8 @@
   <Style x:Key="{x:Type Fluent:TwoLineLabel}" TargetType="Fluent:TwoLineLabel" BasedOn="{StaticResource TwoLineLabelStyle}"/>
   <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip" BasedOn="{StaticResource KeyTipStyle}"/>
   <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>
-  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>  
-  <Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>
+  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>
+  <!--<Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>-->
   <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
   <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
   <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>  

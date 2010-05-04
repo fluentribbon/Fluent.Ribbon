@@ -56,7 +56,7 @@ namespace Fluent
         // Collection of context menu items
         ObservableCollection<UIElement> items;
         // Host for context menu items
-        ContextMenuBar menuBar;
+        ContextMenuBar menuBar = new ContextMenuBar();
 
         #endregion
 
@@ -312,12 +312,12 @@ namespace Fluent
         {            
             popup = new RibbonPopup();
             popup.AllowsTransparency = true;
-            menuBar = new ContextMenuBar();            
-
+            //menuBar;            
+            /*
             for (int i = 0; i < Items.Count;i++ )
             {
-                MenuBar.Items.Add(items[i]);
-            }
+                MenuBar.Items.Add(items[i]);                
+            }*/
 
             Binding binding = new Binding("ResizeMode");
             binding.Mode = BindingMode.TwoWay;

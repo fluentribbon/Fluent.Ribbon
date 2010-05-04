@@ -480,6 +480,13 @@ namespace Fluent
                         }
                         break;
                     }
+                case NativeMethods.WM_NCACTIVATE:
+                    if ((RibbonPopup.GetActivePopup()!=null) && (wParam == IntPtr.Zero))
+                    {
+                        //handled = true;
+                        NativeMethods.SendMessage(hwnd, msg, new IntPtr(1), lParam);
+                    }
+                    break;
                 /*Not needed int NET4
                  * case NativeMethods.WM_MOVE:
                     {
@@ -525,7 +532,12 @@ namespace Fluent
                     handled = true;
                     break;
                 case NativeMethods.WM_NCACTIVATE:
-                    IsNonClientAreaActive = (wParam != IntPtr.Zero);
+                    if ((RibbonPopup.GetActivePopup() != null) && (wParam == IntPtr.Zero))
+                    {                        
+                        IsNonClientAreaActive = true;
+                        NativeMethods.SendMessage(hwnd, msg, new IntPtr(1), lParam);
+                    }
+                    else IsNonClientAreaActive = (wParam != IntPtr.Zero);
                     break;
                 // Handles window size changed
                 case NativeMethods.WM_SIZE:
