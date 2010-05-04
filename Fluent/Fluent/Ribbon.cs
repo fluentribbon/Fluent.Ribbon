@@ -1179,8 +1179,8 @@ namespace Fluent
 
                 SaveWindowSize(window);
 
-                window.MinWidth = 500;
-                window.MinHeight = 400;
+                if (savedMinWidth < 500) window.MinWidth = 500;
+                if (savedMinHeight < 400) window.MinHeight = 400;
                 window.SizeChanged += OnWindowSizeChanged;
 
                 // We have to collapse WindowsFormsHost while Backstate is open
