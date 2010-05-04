@@ -87,7 +87,7 @@ namespace Fluent
             cachedWidthDelta = DesiredSize.Width - listBox.InnerPanelWidth;
             InvalidateMeasure();
 
-            if (ItemsInRow == 0) MinWidth = 0;
+            if (ItemsInRow == 0) /*MinWidth = 0*/;
             else
             {
                 double w = GetItemWidth();

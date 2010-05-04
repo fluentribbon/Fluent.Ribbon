@@ -13,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -71,6 +72,7 @@ namespace Fluent
                         }
                         else
                         {
+                            if (element is MenuPanel) element.Width = double.NaN;
                             minWidth = Math.Max(minWidth, element.MinWidth);
                             minHeight += element.MinHeight;
                         }
@@ -79,6 +81,7 @@ namespace Fluent
                 MinWidth = Math.Max(0, minWidth);
                 MinHeight = Math.Max(0, minHeight);
                 if (MinWidth != 0) Width = MinWidth;
+                if (VisualTreeHelper.GetParent(this) is MenuPanel) Width = double.NaN;
             }
         }
 
