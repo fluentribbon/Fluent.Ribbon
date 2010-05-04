@@ -36,8 +36,8 @@
 			<TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
 			<TextBlock x:Name="textBlock" Text="{TemplateBinding Text}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
 			<Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-			<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-			<Image x:Name="iconImage" HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True"/>
+			<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>
+			<Image x:Name="iconImage" HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="16" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True" Height="16" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>
 			<Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="1,0,4,0" Width="4" Data="M0,0L1,1 0,2z" Height="6" Grid.Column="3">
 				<Path.Fill>
 					<LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">
