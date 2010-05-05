@@ -54,10 +54,11 @@ namespace Fluent
         {
             if (Children.Count > 0)
             {
-                //Width = double.NaN;
+                Width = double.NaN;
                 Height = double.NaN;
                 double minWidth = 0;
                 double minHeight = 0;
+                double maxMenuWidth = 0;
                 for (int i = 0; i < Children.Count; i++)
                 {
                     FrameworkElement element = Children[i] as FrameworkElement;
@@ -67,7 +68,10 @@ namespace Fluent
                         {
                             element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                             if (element is MenuItem)
-                                minWidth = Math.Max(Math.Max(minWidth, element.MinWidth), element.DesiredSize.Width);
+                            {
+                                minWidth = Math.Max(minWidth, element.MinWidth);
+                                maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
+                            }
                             minHeight += element.DesiredSize.Height;
                         }
                         else
@@ -80,7 +84,8 @@ namespace Fluent
                 }
                 MinWidth = Math.Max(0, minWidth);
                 MinHeight = Math.Max(0, minHeight);
-                if (MinWidth != 0) Width = MinWidth;
+                if (MinWidth != 0) Width = Math.Max(maxMenuWidth, MinWidth);
+                if (MinWidth < maxMenuWidth) MinWidth = maxMenuWidth;
                 if (VisualTreeHelper.GetParent(this) is MenuPanel) Width = double.NaN;
             }
         }
