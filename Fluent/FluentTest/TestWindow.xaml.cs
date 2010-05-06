@@ -303,6 +303,11 @@ namespace FluentTest
             }*/
             Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
         }
+
+        void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+           // MessageBox.Show(String.Format("Changed from {0} to {1}", e.OldValue, e.NewValue));
+        }
     }
 
     public class FooCommand1

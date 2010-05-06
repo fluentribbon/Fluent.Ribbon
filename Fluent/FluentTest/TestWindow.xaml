@@ -68,7 +68,7 @@
               <TextBlock Text="4"/>
               <TextBlock Text="5"/>
             </Fluent:ComboBox>
-            <Fluent:Spinner Value="1" Format="0" InputWidth="50" Text="Lala" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Fluent:Spinner>
+            <Fluent:Spinner Value="1" Format="0" InputWidth="50" Text="Lala" HorizontalAlignment="Right" VerticalAlignment="Bottom" ValueChanged="OnSpinnerValueChanged"></Fluent:Spinner>
           </Grid>
         </Fluent:BackstageTabItem>
         <Fluent:BackstageTabItem Header="Print" Fluent:KeyTip.Keys="P">

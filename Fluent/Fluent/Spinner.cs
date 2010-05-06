@@ -31,6 +31,15 @@ namespace Fluent
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
     public class Spinner : RibbonControl
     {
+        #region Events
+
+        /// <summary>
+        /// Occurs when value has been changed
+        /// </summary>
+        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+
+        #endregion
+
         #region Fields
 
         // Parts of the control (must be in control template)
@@ -74,6 +83,8 @@ namespace Fluent
         {
             Spinner spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
+
+            if (spinner.ValueChanged != null) spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
         }
 
         void ValueToTextBoxText()
