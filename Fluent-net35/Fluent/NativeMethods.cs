@@ -929,7 +929,7 @@ namespace Fluent
         /// Unicode character or characters
         /// </summary>
         /// <returns>1, 2 or more if success, otherwise fail</returns>
-        [DllImport("user32.dll", PreserveSig = false, SetLastError = false)]
+        [DllImport("user32.dll", SetLastError = false)]
         public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
 
         /// <summary>
