@@ -62,7 +62,7 @@ namespace Fluent
             uint scanCode = NativeMethods.MapVirtualKeyEx((uint)virtualKey, 2, keyboardlayout);
 
             StringBuilder result = new StringBuilder(10);
-            NativeMethods.ToUnicodeEx((uint) virtualKey, scanCode, keyboardState, result, 10, 0, keyboardlayout);
+            int count = NativeMethods.ToUnicodeEx((uint) virtualKey, scanCode, keyboardState, result, 10, 0, keyboardlayout);
 
             if (!existingLayouts.Contains(keyboardlayout))
             {
@@ -72,7 +72,7 @@ namespace Fluent
                 keyboardLayoutHandlers.Remove(cultureInfo.LCID);
             }
 
-            return (result.Length >= 1) ? new char?(result[0]) : null;
+            return (result.Length >= 1 && count >= 1) ? new char?(result[0]) : null;
         }
     }
 }

@@ -166,7 +166,6 @@
     <Compile Include="ToggleButton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrated rules for Fluent.ruleset" />
     <None Include="Properties\FluentStrongName.snk" />
     <Resource Include="Themes\Office2010\Effects\Grayscale.ps" />
     <None Include="Themes\Office2010\Effects\Grayscale.fx" />
