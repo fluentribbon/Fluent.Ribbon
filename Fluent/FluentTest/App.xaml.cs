@@ -28,6 +28,7 @@ namespace FluentTest
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("nl");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh");
         }
 
         public App()

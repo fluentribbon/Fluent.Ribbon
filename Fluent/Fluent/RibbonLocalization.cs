@@ -749,6 +749,7 @@ namespace Fluent
                 case "nl": LoadDutch(); break;
                 case "pt": LoadPortuguese(); break;
                 case "es": LoadSpanish(); break;
+                case "zh": LoadChinese(); break;
             }
 
             // Coerce all values
@@ -1167,6 +1168,42 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Mostrar barra de herramientas de acceso rápido sobre la cinta";
             ribbonContextMenuCustomizeRibbon = "Personalizar la cinta...";
             ribbonContextMenuMinimizeRibbon = "Minimizar la cinta";
+        }
+
+        #endregion
+
+        #region Chinese
+
+        void LoadChinese()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "文件";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "功能区最小化 (Ctrl + F1)";
+            minimizeButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+            expandButtonScreenTipTitle = "展开功能区 (Ctrl + F1)";
+            expandButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+
+            // QAT tooltips and menu items         
+            quickAccessToolBarDropDownButtonTooltip = "自定义快速访问具栏";
+            quickAccessToolBarMoreControlsButtonTooltip = "其他命令"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "自定义快速访问工具栏";
+            quickAccessToolBarMenuShowAbove = "在功能区上方显示";
+            quickAccessToolBarMenuShowBelow = "在功能区下方显示";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "添加到快速访问工具栏"; // Button
+            ribbonContextMenuAddGroup = "在快速访问工具栏中添加组"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "在快速访问工具栏中添加样式"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "在快速访问工具栏中添加菜单"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "在快速访问工具栏中移除"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "自定义快速访问工具栏...";
+            ribbonContextMenuShowBelow = "在功能区下方显示快速访问工具栏";
+            ribbonContextMenuShowAbove = "在功能区上方显示快速访问工具栏";
+            ribbonContextMenuCustomizeRibbon = "自定义功能区...";
+            ribbonContextMenuMinimizeRibbon = "功能区最小化";
         }
 
         #endregion
