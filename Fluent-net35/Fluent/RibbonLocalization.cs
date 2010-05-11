@@ -746,6 +746,10 @@ namespace Fluent
                 case "fr": LoadFrench(); break;
                 case "pl": LoadPolish(); break;
                 case "ja": LoadJapanese(); break;
+                case "nl": LoadDutch(); break;
+                case "pt": LoadPortuguese(); break;
+                case "es": LoadSpanish(); break;
+                case "zh": LoadChinese(); break;
             }
 
             // Coerce all values
@@ -1056,6 +1060,150 @@ namespace Fluent
             ribbonContextMenuShowAbove = "クイック アクセス ツール バーをリボンの上に表示";
             ribbonContextMenuCustomizeRibbon = "リボンのユーザー設定...";
             ribbonContextMenuMinimizeRibbon = "リボンの最小化";
+        }
+
+        #endregion
+        
+        #region Dutch
+
+        void LoadDutch()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Bestand";
+            backstageButtonKeyTip = "B";
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Het lint minimaliseren (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, \nzijn alleen de tabulatie namen zichtbaar";
+            expandButtonScreenTipTitle = "Het lint Maximaliseren (Ctrl + F1)";
+            expandButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is,\nzijn alleen de tabulatie namen zichtbaar";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Werkbalk snelle toegang aanpassen";
+            quickAccessToolBarMoreControlsButtonTooltip = "meer opdrachten"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = " Werkbalk snelle toegang aanpassen ";
+            quickAccessToolBarMenuShowAbove = "Boven het lint weergeven";
+            quickAccessToolBarMenuShowBelow = "beneden het lint weergeven";
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Menu toevoegen aan werkbalk snelle toegang"; // Button
+            ribbonContextMenuAddGroup = "Groep toevoegen aan werkbalk snelle toegang"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Galerij toevoegen aan werkbalk snelle toegang"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = " Menu toevoegen aan werkbalk snelle toegang "; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = " Verwijder uit werkbalk snelle toegang "; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Customize Quick Access Toolbar...";
+            ribbonContextMenuShowBelow = " Werkbalk snelle toegang onder het lint weergeven";
+            ribbonContextMenuShowAbove = " Werkbalk snelle toegang boven het lint weergeven ";
+            ribbonContextMenuCustomizeRibbon = "Lint aanpassen...";
+            ribbonContextMenuMinimizeRibbon = " Het lint minimaliseren";
+        }
+
+        #endregion
+
+        #region Portuguese
+
+        void LoadPortuguese()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Arquivo";
+            backstageButtonKeyTip = "A";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Ocultar a barra de ferramentas (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Exibir ou ocultar a barra de ferramentas\n\nQuando a barra de ferramentas estiver oculta, apenas\nos nomes das guias serão exibidas";
+            expandButtonScreenTipTitle = "Exibir a barra de ferramentas (Ctrl + F1)";
+            expandButtonScreenTipText = "Exibir ou ocultar a barra de ferramentas\n\nQuando a barra de ferramentas estiver oculta, apenas\nos nomes das guias serão exibidas";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Personalizar barra de ferramentas de acesso rápido";
+            quickAccessToolBarMoreControlsButtonTooltip = "Mais controles"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personalizar barra de ferramentas de acesso rápido";
+            quickAccessToolBarMenuShowAbove = "Exibir abaixo da barra de ferramentas";
+            quickAccessToolBarMenuShowBelow = "Exibir abaixo da barra de ferramentas";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Adicionar à barra de ferramentas de acesso rápido";
+            ribbonContextMenuAddGroup = "Adicionar à um grupo da barra de ferramentas de acesso rápido";
+            ribbonContextMenuAddGallery = "Adicionar grupo à barra de ferramentas de acesso rápido";
+            ribbonContextMenuAddMenu = "Adicionar um menu à barra de ferramentas de acesso rápido";
+            ribbonContextMenuRemoveItem = "Remover da barra de ferramentas de acesso rápido";
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personalizar barra de ferramentas de acesso rápido...";
+            ribbonContextMenuShowBelow = "Exibir a barra de ferramentas de acesso rápido abaixo da barra de ferramentas";
+            ribbonContextMenuShowAbove = "Exibir a barra de ferramentas de acesso rápido acima da barra de ferramentas";
+            ribbonContextMenuCustomizeRibbon = "Personalizar barra de ferramentas...";
+            ribbonContextMenuMinimizeRibbon = "Ocultar barra de ferramentas";
+
+        }
+
+        #endregion
+
+        #region Spanish
+
+        void LoadSpanish()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Archivo";
+            backstageButtonKeyTip = "A";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            // TRANSLATOR'S NOTE: This block is not shown at Windows 7's Apps (WordPad or Paint)
+            minimizeButtonScreenTipTitle = "Minimizar la cinta (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo\nse muestran los nombres de las pestañas";
+            expandButtonScreenTipTitle = "Expandir la cinta (Ctrl + F1)";
+            expandButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo\nse muestran los nombres de las pestañas";
+
+            // QAT tooltips and menu items
+            quickAccessToolBarDropDownButtonTooltip = "Personalizar barra de herramientas de acceso rápido";
+            quickAccessToolBarMoreControlsButtonTooltip = "Más controles"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personalizar barra de herramientas de acceso rápido";
+            quickAccessToolBarMenuShowAbove = "Mostrar sobre la cinta";
+            quickAccessToolBarMenuShowBelow = "Mostrar bajo la cinta";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Agregar a la barra de herramientas de acceso rápido"; // Button
+            ribbonContextMenuAddGroup = "Agregar grupo a la barra de herramientas de acceso rápido"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Agregar galería a la barra de herramientas de acceso rápido"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Agregar menú a la barra de herramientas de acceso rápido"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Quitar de la barra de herramientas de acceso rápido"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personalizar la barra de herramientas de acceso rápido...";
+            ribbonContextMenuShowBelow = "Mostrar barra de herramientas de acceso rápido bajo la cinta";
+            ribbonContextMenuShowAbove = "Mostrar barra de herramientas de acceso rápido sobre la cinta";
+            ribbonContextMenuCustomizeRibbon = "Personalizar la cinta...";
+            ribbonContextMenuMinimizeRibbon = "Minimizar la cinta";
+        }
+
+        #endregion
+
+        #region Chinese
+
+        void LoadChinese()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "文件";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "功能区最小化 (Ctrl + F1)";
+            minimizeButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+            expandButtonScreenTipTitle = "展开功能区 (Ctrl + F1)";
+            expandButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+
+            // QAT tooltips and menu items         
+            quickAccessToolBarDropDownButtonTooltip = "自定义快速访问具栏";
+            quickAccessToolBarMoreControlsButtonTooltip = "其他命令"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "自定义快速访问工具栏";
+            quickAccessToolBarMenuShowAbove = "在功能区上方显示";
+            quickAccessToolBarMenuShowBelow = "在功能区下方显示";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "添加到快速访问工具栏"; // Button
+            ribbonContextMenuAddGroup = "在快速访问工具栏中添加组"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "在快速访问工具栏中添加样式"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "在快速访问工具栏中添加菜单"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "在快速访问工具栏中移除"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "自定义快速访问工具栏...";
+            ribbonContextMenuShowBelow = "在功能区下方显示快速访问工具栏";
+            ribbonContextMenuShowAbove = "在功能区上方显示快速访问工具栏";
+            ribbonContextMenuCustomizeRibbon = "自定义功能区...";
+            ribbonContextMenuMinimizeRibbon = "功能区最小化";
         }
 
         #endregion

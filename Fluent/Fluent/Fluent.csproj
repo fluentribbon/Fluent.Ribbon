@@ -112,6 +112,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
+    <Compile Include="TextBox.cs" />
     <Compile Include="Gallery.cs" />
     <Compile Include="GalleryGroupFilter.cs" />
     <Compile Include="GalleryGroupIcon.cs" />
@@ -242,6 +243,10 @@
     <Page Include="Themes\Office2010\Controls\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

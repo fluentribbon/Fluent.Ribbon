@@ -36,6 +36,7 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonListBox.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTextBox.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TextBox.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Spinner.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBox.xaml"/>    
@@ -66,6 +67,7 @@
   <Style x:Key="{x:Type Fluent:RibbonGroupBox}" TargetType="{x:Type Fluent:RibbonGroupBox}" BasedOn="{StaticResource RibbonGroupBoxStyle}"/>
   <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonToolBar}" TargetType="{x:Type Fluent:RibbonToolBar}" BasedOn="{StaticResource RibbonToolBarStyle}"/>
+  <!--<Style x:Key="{x:Type Fluent:TextBox}" TargetType="{x:Type Fluent:TextBox}" BasedOn="{StaticResource RibbonTextBoxStyle}"/>-->
   <Style x:Key="{x:Type Fluent:RibbonToolBarControlGroup}" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}"/>
   <Style x:Key="{x:Type Fluent:Ribbon}" TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>

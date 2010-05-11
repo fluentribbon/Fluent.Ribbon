@@ -43,7 +43,7 @@ namespace Fluent
         #region Fields
 
         // Parts of the control (must be in control template)
-        TextBox textBox;
+        System.Windows.Controls.TextBox textBox;
         System.Windows.Controls.Primitives.RepeatButton buttonUp;
         System.Windows.Controls.Primitives.RepeatButton buttonDown;
 
@@ -318,7 +318,7 @@ namespace Fluent
             }
 
             // Get template childs
-            textBox = GetTemplateChild("PART_TextBox") as TextBox;
+            textBox = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
             buttonUp = GetTemplateChild("PART_ButtonUp") as System.Windows.Controls.Primitives.RepeatButton;
             buttonDown = GetTemplateChild("PART_ButtonDown") as System.Windows.Controls.Primitives.RepeatButton;
 

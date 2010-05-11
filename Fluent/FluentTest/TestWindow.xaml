@@ -401,8 +401,8 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="View">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-          
-        </Fluent:RibbonGroupBox>
+                    <Fluent:TextBox Icon="Images\GrowFont.png" Text="Text" CurrentText="CurrentText"/>
+                </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">

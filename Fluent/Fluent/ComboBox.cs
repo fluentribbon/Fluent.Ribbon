@@ -24,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
+
 namespace Fluent
 {
     /// <summary>
@@ -35,7 +36,7 @@ namespace Fluent
 
         private ContextMenu contextMenu;
         private Gallery gallery = new Gallery();
-        private TextBox textBox;
+        private System.Windows.Controls.TextBox textBox;
 
         private bool updatingText;
         
@@ -614,7 +615,7 @@ namespace Fluent
                 textBox.PreviewKeyDown -= OnTextBoxPreviewKeyDown;
                 textBox.SelectionChanged -= OnTextBoxSelectionChanged;
             }
-            textBox = GetTemplateChild("PART_TextBox") as TextBox;
+            textBox = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
             if(textBox!=null)
             {
                 textBox.TextChanged += OnTextBoxTextChanged;
