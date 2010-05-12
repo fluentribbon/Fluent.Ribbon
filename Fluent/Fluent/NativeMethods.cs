@@ -1,7 +1,7 @@
-#region Copyright and License Information
+п»ї#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright пїЅ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -50,6 +50,21 @@ namespace Fluent
         /// The WM_NCACTIVATE message is sent to a window when its nonclient area needs to be changed to indicate an active or inactive state
         /// </summary>
         public const int WM_NCACTIVATE = 0x0086;
+
+        /// <summary>
+        /// The WM_PAINT message is sent when the system or another application makes a request to paint a portion of an application's window.
+        /// </summary>
+        public const int WM_PAINT = 0x000F;
+
+        /// <summary>
+        /// The WM_ERASEBKGND message is sent when the window background must be erased (for example, when a window is resized). The message is sent to prepare an invalidated portion of a window for painting. 
+        /// </summary>
+        public const int WM_ERASEBKGND = 0x0014;
+
+        /// <summary>
+        /// An application sends the WM_SETREDRAW message to a window to allow changes in that window to be redrawn or to prevent changes in that window from being redrawn. 
+        /// </summary>
+        public const int WM_SETREDRAW = 0x000B;
 
         /// <summary>
         /// The WM_CREATE message is sent when an application requests that a window be created by calling the CreateWindowEx or CreateWindow function. (The message is sent before the function returns.) The window procedure of the new window receives this message after the window is created, but before the window becomes visible
@@ -293,6 +308,29 @@ namespace Fluent
 
         #region Structs
 
+        /// <summary>
+        /// The NCCALCSIZE_PARAMS structure contains information that an application can use while processing the WM_NCCALCSIZE message to calculate the size, position, and valid contents of the client area of a window. 
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NCCALCSIZE_PARAMS
+        {
+            /// <summary>
+            /// Specifies an array of rectangles. The meaning of the array of rectangles changes during the processing of the WM_NCALCSIZE message
+            /// </summary>
+            public Rect rect0;
+            /// <summary>
+            /// Specifies an array of rectangles. The meaning of the array of rectangles changes during the processing of the WM_NCALCSIZE message
+            /// </summary>
+            public Rect rect1;
+            /// <summary>
+            /// Specifies an array of rectangles. The meaning of the array of rectangles changes during the processing of the WM_NCALCSIZE message
+            /// </summary>
+            public Rect rect2;
+            /// <summary>
+            /// Pointer to a WINDOWPOS structure that contains the size and position values specified in the operation that moved or resized the window. 
+            /// </summary>
+            public IntPtr lppos;
+        }
         /// <summary>
         /// The RECT structure defines a rectangle by the coordinates of its upper-left and lower-right corners.
         /// </summary>
@@ -563,14 +601,14 @@ namespace Fluent
         public static extern IntPtr GetActiveWindow();
         
         /// <summary>
-        /// Стандартная процедура окна
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         /// </summary>
-        /// <param name="hwnd">Хэндл окна</param>
-        /// <param name="msg">Сообщение</param>
-        /// <param name="wParam">Прараметр</param>
-        /// <param name="lParam">Параметр</param>
-        /// <param name="plResult">Результат</param>
-        /// <returns>Результат</returns>
+        /// <param name="hwnd">пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ</param>
+        /// <param name="msg">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</param>
+        /// <param name="wParam">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</param>
+        /// <param name="lParam">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</param>
+        /// <param name="plResult">пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</param>
+        /// <returns>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ</returns>
         [DllImport("dwmapi.dll")]
         public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 

@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -23,8 +24,8 @@ namespace Fluent
     /// <summary>
     /// Represents basic window for ribbon
     /// </summary>
-    public class RibbonWindow:Window
-    {        
+    public class RibbonWindow : Window
+    {
         #region Fields
 
         // Window handle
@@ -46,7 +47,7 @@ namespace Fluent
 
         #endregion
 
-        #region Properties 
+        #region Properties
 
         /// <summary>
         /// Is Dwm Enabled
@@ -127,9 +128,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), 
+            DependencyProperty.Register("IsCollapsed", typeof(bool),
             typeof(RibbonWindow), new UIPropertyMetadata(false));
-              
+
         /// <summary>
         /// Gets whether client window area is activated
         /// </summary>
@@ -144,8 +145,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsNonClientAreaActiveProperty =
-            DependencyProperty.Register("IsNonClientAreaActive", typeof(bool), 
-            typeof(RibbonWindow), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsNonClientAreaActive", typeof(bool),
+            typeof(RibbonWindow), new UIPropertyMetadata(true));
 
 
         #endregion
@@ -206,7 +207,7 @@ namespace Fluent
                 basevalue = ((FrameworkElement)d).Resources["RibbonWindowStyle"] as Style ??
                               Application.Current.Resources["RibbonWindowStyle"] as Style;
             }
-            
+
             return basevalue;
         }
 
@@ -215,16 +216,16 @@ namespace Fluent
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         public RibbonWindow()
-        {            
+        {
             IsDwmEnabled = NativeMethods.IsDwmEnabled();
             Loaded += OnLoaded;
-            SourceInitialized += OnSourceInitialized;
+            //SourceInitialized += OnSourceInitialized;
             SizeChanged += OnSizeChanged;
         }
 
         void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth)||(e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
+            if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth) || (e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
         }
 
@@ -307,13 +308,7 @@ namespace Fluent
         // Handle window loaded
         void OnLoaded(object sender, EventArgs e)
         {
-            IsDwmEnabled = NativeMethods.IsDwmEnabled();
-            if (IsDwmEnabled)
-            {
-                DwmInit();
-                Activate();
-                UpdateWindowStyle();
-            }
+
         }
 
         /// <summary>
@@ -369,20 +364,35 @@ namespace Fluent
             // Set resize margins
             if (mainGrid != null) sizers = mainGrid.Margin;
 
-            if (IsDwmEnabled) DwmInit();
+            if ((IsDwmEnabled)&&(handle!=IntPtr.Zero))
+            {
+                HwndSource mainWindowSrc = HwndSource.FromHwnd(handle);
+                if (mainWindowSrc != null) mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
+                DwmInit();
+            }
             else NonDwmInit();
+
             UpdateLayout();
         }
 
-        // Handles source initialize
-        private void OnSourceInitialized(object sender, EventArgs e)
-        {            
+        protected override void OnSourceInitialized(EventArgs e)
+        {
             handle = (new WindowInteropHelper(this)).Handle;
+
+            UpdateWindowStyle();
+            Activate();
             // Ставим хук на оконную функцию
             HwndSource.FromHwnd(handle).AddHook(WindowProc);
-            UpdateWindowStyle();            
+            if (IsDwmEnabled)
+            {
+                HwndSource mainWindowSrc = HwndSource.FromHwnd(handle);
+                if (mainWindowSrc != null) mainWindowSrc.CompositionTarget.BackgroundColor = Color.FromArgb(0, 0, 0, 0);
+                DwmInit();
+            }
+            base.OnSourceInitialized(e);
+            Activate();
         }
-        
+
         #endregion
 
         #region Window functions
@@ -400,12 +410,12 @@ namespace Fluent
                 // Handles DWM composition changes
                 case NativeMethods.WM_DWMCOMPOSITIONCHANGED:
                     {
-                        WindowState state = WindowState;                        
+                        WindowState state = WindowState;
                         IsDwmEnabled = NativeMethods.IsDwmEnabled();
                         if (WindowState == WindowState.Maximized) WindowState = WindowState.Minimized;
                         UpdateWindowStyle();
                         if (IsDwmEnabled)
-                        {                            
+                        {
                             DwmInit();
                             NativeMethods.SetWindowRgn(handle, IntPtr.Zero, true);
                         }
@@ -436,9 +446,6 @@ namespace Fluent
                         }
                         break;
                     }
-                case NativeMethods.WM_NCCREATE:
-                case NativeMethods.WM_NCDESTROY:
-                case NativeMethods.WM_NCPAINT: return IntPtr.Zero;
             }
             if (IsDwmEnabled) return DwmWindowProc(hwnd, msg, wParam, lParam, ref handled);
             else return NonDwmWindowProc(hwnd, msg, wParam, lParam, ref handled);
@@ -455,11 +462,26 @@ namespace Fluent
         {
             switch (msg)
             {
+                case 0x00AE/*WM_NCUAHDRAWCAPTION*/:
+                case 0x00AF/*WM_NCUAHDRAWFRAME*/:
+                case NativeMethods.WM_NCCREATE:
+                case NativeMethods.WM_NCDESTROY:
+                    handled = true;
+                    return IntPtr.Zero;
                 // Handles nonclient ares size changed
                 case NativeMethods.WM_NCCALCSIZE:
                     {
                         if (wParam.ToInt32() == 1)
                         {
+                            NativeMethods.NCCALCSIZE_PARAMS structure = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
+                            int num = (int)SystemParameters.ResizeFrameVerticalBorderWidth;
+                            int num2 = (int)SystemParameters.ResizeFrameHorizontalBorderHeight;
+
+                            structure.rect0.Left += num;
+                            structure.rect0.Right -= num;
+                            structure.rect0.Bottom -= num2;
+                            Marshal.StructureToPtr(structure, lParam, false);
+
                             handled = true;
                             return IntPtr.Zero;
                         }
@@ -475,18 +497,22 @@ namespace Fluent
                             DwmInit();
                         }
                         else if (lP == NativeMethods.SIZE_MAXIMIZED)
-                        {                            
+                        {
                             DwmInit();
                         }
                         break;
                     }
                 case NativeMethods.WM_NCACTIVATE:
-                    if ((RibbonPopup.GetActivePopup()!=null) && (wParam == IntPtr.Zero))
+                    if ((int)lParam != -1)
                     {
-                        //handled = true;
-                        NativeMethods.SendMessage(hwnd, msg, new IntPtr(1), lParam);
+                        handled = true;
+                        return NativeMethods.SendMessage(hwnd, msg, wParam, new IntPtr(-1));
                     }
                     break;
+                case NativeMethods.WM_ERASEBKGND:
+                    handled = true;
+                    InvalidateVisual();
+                    return IntPtr.Zero;
                 /*Not needed int NET4
                  * case NativeMethods.WM_MOVE:
                     {
@@ -526,18 +552,37 @@ namespace Fluent
         {
             switch (msg)
             {
+                case 0x00AE/*WM_NCUAHDRAWCAPTION*/:
+                case 0x00AF/*WM_NCUAHDRAWFRAME*/:
+                case NativeMethods.WM_NCCREATE:
+                case NativeMethods.WM_NCDESTROY:
+                case NativeMethods.WM_NCPAINT:
+                    handled = true; return IntPtr.Zero;
                 // Handles window min max size changed
                 case NativeMethods.WM_GETMINMAXINFO:
                     NonDwmGetMinMaxInfo(lParam);
                     handled = true;
                     break;
+                case NativeMethods.WM_NCCALCSIZE:
+                    if (wParam.ToInt32() == 1)
+                    {
+                        handled = true;
+                        return IntPtr.Zero;
+                    }
+                    break;
                 case NativeMethods.WM_NCACTIVATE:
                     if ((RibbonPopup.GetActivePopup() != null) && (wParam == IntPtr.Zero))
-                    {                        
+                    {
                         IsNonClientAreaActive = true;
-                        NativeMethods.SendMessage(hwnd, msg, new IntPtr(1), lParam);
                     }
                     else IsNonClientAreaActive = (wParam != IntPtr.Zero);
+
+                    if ((int)lParam != -1)
+                    {
+                        handled = true;
+                        return NativeMethods.SendMessage(hwnd, msg, wParam, new IntPtr(-1));
+                    }
+                    InvalidateVisual();
                     break;
                 // Handles window size changed
                 case NativeMethods.WM_SIZE:
@@ -546,27 +591,27 @@ namespace Fluent
                         if (lP == NativeMethods.SIZE_RESTORED)
                         {
                             mainGrid.Margin = sizers;
-                         
+
                             int w = NativeMethods.LowWord(lParam);
                             int h = NativeMethods.HiWord(lParam);
                             mainGrid.Margin = sizers;
-                            
+
                             if ((!Double.IsNaN(Width)) && ((Double.IsNaN(Height))) && ((ResizeMode != ResizeMode.CanResize) && (ResizeMode != ResizeMode.CanResizeWithGrip)))
                             {
-                                SetNonDwmRgn(w + 2 * (int)BorderWidth - 2,
-                                             h + 2 * (int)BorderHeight);
+                                SetNonDwmRgn(w,// + 2 * (int)BorderWidth - 2,
+                                             h/* + 2 * (int)BorderHeight*/);
                             }
-                            else SetNonDwmRgn(w + 2 * (int)BorderWidth - 2,
-                                             h + 2 * (int)BorderHeight - 2);
-                            
+                            else SetNonDwmRgn(w,// + 2 * (int)BorderWidth - 2,
+                                             h/* + 2 * (int)BorderHeight - 2*/);
+
                         }
                         else if (lP == NativeMethods.SIZE_MAXIMIZED)
                         {
                             mainGrid.Margin = new Thickness(0, 1, 0, 0);
-                            
+
                             //
-                            int borderWidth = (int)BorderWidth;
-                            int borderHeight = (int)BorderHeight;
+                            int borderWidth = 0;// (int)BorderWidth;
+                            int borderHeight = 0;// (int)BorderHeight;
                             Rect rect = GetCurrentWorkarea();
                             IntPtr hRgn = NativeMethods.CreateRectRgn(
                                 borderWidth,
@@ -592,13 +637,13 @@ namespace Fluent
         IntPtr DoNcHitTest(int msg, IntPtr wParam, IntPtr lParam)
         {
             int mp = lParam.ToInt32();
-            if(!mainGrid.IsVisible) return IntPtr.Zero;
+            if (!mainGrid.IsVisible) return IntPtr.Zero;
             Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
             ptMouse = mainGrid.PointFromScreen(ptMouse);
             IInputElement hitTested = mainGrid.InputHitTest(ptMouse);
             if ((hitTested != null) && (hitTested != mainGrid))
             {
-                if (hitTested == imageResizeGrip) 
+                if (hitTested == imageResizeGrip)
                 {
                     if (FlowDirection == FlowDirection.LeftToRight) return new IntPtr(NativeMethods.HTBOTTOMRIGHT);
                     else return new IntPtr(NativeMethods.HTBOTTOMLEFT);
@@ -635,7 +680,7 @@ namespace Fluent
 
             int borderWidth = (int)BorderWidth;
             int borderHeight = (int)BorderHeight;
-                       
+
             Thickness borderSize = IsDwmEnabled ? sizers : new Thickness(sizers.Left + borderWidth, sizers.Top + borderHeight, sizers.Right + borderWidth, sizers.Bottom + borderHeight);
 
 
@@ -683,35 +728,32 @@ namespace Fluent
         private void DwmInit()
         {
             if (handle == IntPtr.Zero) return;
-            
-            HwndSource mainWindowSrc = HwndSource.FromHwnd(handle);
-            if (mainWindowSrc == null) return;
-            if (mainWindowSrc.CompositionTarget.BackgroundColor != Colors.Transparent) mainWindowSrc.CompositionTarget.BackgroundColor = Colors.Transparent;
             NativeMethods.MARGINS margins = new NativeMethods.MARGINS(
-                        (int)sizers.Left + (int)GlassBorders.Left,
+                        (int)GlassBorders.Left,
                         (int)sizers.Top + (int)GlassBorders.Top,
-                        (int)sizers.Right + (int)GlassBorders.Right,
-                        (int)sizers.Bottom + (int)GlassBorders.Bottom);
+                        (int)GlassBorders.Right,
+                        (int)GlassBorders.Bottom);
             NativeMethods.DwmExtendFrameIntoClientArea(handle, margins);
             if (mainGrid == null) return;
 
             int borderWidth = (int)BorderWidth;
             int borderHeight = (int)BorderHeight;
 
-            if (FlowDirection == FlowDirection.LeftToRight) mainGrid.Margin = new Thickness(sizers.Left,
+            /*if (FlowDirection == FlowDirection.LeftToRight) mainGrid.Margin = new Thickness(sizers.Left,
                                             sizers.Top,
                                             sizers.Left,
                                             sizers.Top);
-            else mainGrid.Margin = new Thickness(sizers.Left, 
+            else mainGrid.Margin = new Thickness(sizers.Left,
                                             sizers.Top,
                                             sizers.Left,
-                                            sizers.Top);
+                                            sizers.Top);*/
+            mainGrid.Margin = new Thickness(0, sizers.Top, 0, 0);
         }
 
         // Initialize wind when DWM is off        
         private void NonDwmInit()
         {
-            if(mainGrid==null) return;
+            if (mainGrid == null) return;
             mainGrid.Margin = sizers;
             SetNonDwmRgn(ActualWidth, ActualHeight);
             UpdateLayout();
@@ -728,10 +770,10 @@ namespace Fluent
             int borderHeight = (int)BorderHeight;
 
             Rect rect = GetCurrentWorkarea();
-            mmi.ptMaxPosition.x = (int)SystemParameters.WorkArea.Left - borderWidth;
-            mmi.ptMaxPosition.y = (int)SystemParameters.WorkArea.Top - borderHeight;
-            mmi.ptMaxSize.x = (int)rect.Width;
-            mmi.ptMaxSize.y = (int)rect.Height;
+            mmi.ptMaxPosition.x = (int)SystemParameters.WorkArea.Left;// -borderWidth;
+            mmi.ptMaxPosition.y = (int)SystemParameters.WorkArea.Top;// -borderHeight;
+            mmi.ptMaxSize.x = (int)rect.Width - 2 * borderWidth - 1;
+            mmi.ptMaxSize.y = (int)rect.Height - 2 * borderHeight - 1;
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
@@ -750,25 +792,25 @@ namespace Fluent
         private void SetNonDwmRgn(double newWidth, double newHeight)
         {
             if (sizeBorder == null) return;
-            
-            int borderWidth = (int)BorderWidth;
-            int borderHeight = (int)BorderHeight;
 
-            int topSide = borderHeight - 1;
-            int bottomSide = borderHeight - 1;
-            int leftSide = borderWidth - 1;
+            int borderWidth = 0;// (int)BorderWidth;
+            int borderHeight = 0;// (int)BorderHeight;
+
+            int topSide = borderHeight;// -1;
+            int bottomSide = borderHeight;// -1;
+            int leftSide = borderWidth;// -1;
 
             int width = (int)newWidth + 1;
             int height = (int)newHeight + 1;
 
             IntPtr hRgn = NativeMethods.CreateRoundRectRgn(leftSide, topSide, width - leftSide, height - bottomSide, 15, 15);
             NativeMethods.SetWindowRgn(handle, hRgn, true);
-            NativeMethods.DeleteObject(hRgn);                            
+            NativeMethods.DeleteObject(hRgn);
         }
 
         // Update window style
         private void UpdateWindowStyle()
-        {            
+        {
             long style = NativeMethods.WS_POPUP | NativeMethods.WS_VISIBLE | NativeMethods.WS_CLIPSIBLINGS | NativeMethods.WS_CLIPCHILDREN;
             //long exStyle = NativeMethods.WS_EX_WINDOWEDGE | NativeMethods.WS_EX_APPWINDOW;
             if (IsDwmEnabled)
@@ -783,18 +825,17 @@ namespace Fluent
                 else
                     style |= NativeMethods.WS_BORDER;
             }
-            
+
             style |= NativeMethods.WS_SYSMENU | NativeMethods.WS_MINIMIZEBOX | NativeMethods.WS_MAXIMIZEBOX;
-            
+
             if (WindowState == WindowState.Maximized) style |= NativeMethods.WS_MAXIMIZE;
             else if (WindowState == WindowState.Minimized) style |= NativeMethods.WS_MINIMIZE;
 
             // Устанавливаем стиль окна
             NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_STYLE, new IntPtr(style));
             //NativeMethods.SetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE, new IntPtr(exStyle));            
-            NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_TOP), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);            
+            NativeMethods.SetWindowPos(handle, new IntPtr(NativeMethods.HWND_TOP), 0, 0, 0, 0, NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE);
             UpdateLayout();
-            //Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate{NativeMethods.SetForegroundWindow(handle);}));            
         }
 
         /// <summary>

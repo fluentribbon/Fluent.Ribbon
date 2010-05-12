@@ -265,8 +265,8 @@
      <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}"  Text="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
-          <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
-          <Fluent:GalleryGroupFilter Title="Group2" Groups="Group2"/>
+          <Fluent:GalleryGroupFilter Title="Group1 L" Groups="Group1"/>
+          <Fluent:GalleryGroupFilter Title="Group2 L" Groups="Group2"/>
         </Fluent:InRibbonGallery.Filters>
         <Fluent:InRibbonGallery.GroupIcons>
           <Fluent:GalleryGroupIcon GroupName="Group1" Icon="Images/Default.png" />

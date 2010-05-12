@@ -61,8 +61,8 @@ namespace FluentTest
 
             //Visibility = Visibility.Hidden;
 //            (Content as UIElement).Visibility = Visibility.Hidden;
-            Loaded += delegate
-            {
+            /*Loaded += delegate
+            {*/
                 /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
                 tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
                 /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
@@ -72,7 +72,7 @@ namespace FluentTest
                                                                                                        Visibility.
                                                                                                            Visible;
                                                                                                }));*/
-            };
+           // };
            
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
         }
@@ -92,7 +92,7 @@ namespace FluentTest
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(/*this,*/"Launcher button pressed!!!");
+            MessageBox.Show(this,"Launcher button pressed!!!");
             TestWindow wnd = new TestWindow();
             wnd.Show();
         }
@@ -115,7 +115,7 @@ namespace FluentTest
         }
 
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
+        {/*
             /*UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
             if (control != null)
             {               
@@ -144,7 +144,7 @@ namespace FluentTest
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
             /*MessageBox.Show("Custom Command Executed");*/
-            canEx = !canEx;
+         //   canEx = !canEx;
             /*Window dialog = new Window();
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();*/
@@ -301,7 +301,7 @@ namespace FluentTest
                 tabGroup1.Visibility = Visibility.Visible;
                 tabGroup2.Visibility = Visibility.Visible;
             }*/
-            Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
+           Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
         }
 
         void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
