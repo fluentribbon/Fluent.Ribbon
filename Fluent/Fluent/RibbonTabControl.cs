@@ -510,8 +510,8 @@ namespace Fluent
                 if (monitor != System.IntPtr.Zero)
                 {
                     NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
-                    monitorInfo.Size = (uint)Marshal.SizeOf(monitorInfo);
-                    NativeMethods.GetMonitorInfo(monitor, ref monitorInfo);
+                    monitorInfo.Size = Marshal.SizeOf(monitorInfo);
+                    NativeMethods.GetMonitorInfo(monitor, monitorInfo);
 
                     Point startPoint = PointToScreen(new Point(0, 0));
                     if (FlowDirection == FlowDirection.RightToLeft) startPoint.X -= ActualWidth;

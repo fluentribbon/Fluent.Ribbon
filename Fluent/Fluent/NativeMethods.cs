@@ -71,6 +71,84 @@ namespace Fluent
         /// </summary>
         public const int WM_CREATE = 0x0001;
 
+        public const int WM_SETTEXT = 0x000C;
+        public const int WM_SETICON = 0x0080;
+        public const int WM_WINDOWPOSCHANGED = 0x0047;
+
+        public const int WVR_HREDRAW = 0x0100;
+        public const int WVR_VREDRAW = 0x0200;
+        public const int WVR_REDRAW = WVR_HREDRAW | WVR_VREDRAW;
+        public const int WM_SETTINGCHANGE = 0x001A;
+        public const int WM_ENTERSIZEMOVE = 0x0231;
+        public const int WM_EXITSIZEMOVE = 0x0232;
+
+        public const uint MF_DOES_NOT_EXIST = unchecked((uint)-1);
+        public const uint MF_ENABLED = 0;
+        public const uint MF_BYCOMMAND = 0;
+        public const uint MF_GRAYED = 1;
+        public const uint MF_DISABLED = 2;
+
+        /// <summary>
+        /// Creates the intersection of the two combined regions.
+        /// </summary>
+        public const int RGN_AND = 1;
+
+        /// <summary>
+        /// Creates the union of two combined regions.
+        /// </summary>
+        public const int RGN_OR = 2;
+        /// <summary>
+        /// Creates the union of two combined regions except for any overlapping areas.
+        /// </summary>
+        public const int RGN_XOR = 3;
+        /// <summary>
+        /// Combines the parts of hrgnSrc1 that are not part of hrgnSrc2.
+        /// </summary>
+        public const int RGN_DIFF = 4;
+        /// <summary>
+        /// Creates a copy of the region identified by hrgnSrc1.
+        /// </summary>
+        public const int RGN_COPY = 5;
+
+        public const int SW_HIDE = 0;
+        public const int SW_SHOWNORMAL = 1;
+        public const int SW_NORMAL = 1;
+        public const int SW_SHOWMINIMIZED = 2;
+        public const int SW_SHOWMAXIMIZED = 3;
+        public const int SW_MAXIMIZE = 3;
+        public const int SW_SHOWNOACTIVATE = 4;
+        public const int SW_SHOW = 5;
+        public const int SW_MINIMIZE = 6;
+        public const int SW_SHOWMINNOACTIVE = 7;
+        public const int SW_SHOWNA = 8;
+        public const int SW_RESTORE = 9;
+        public const int SW_SHOWDEFAULT = 10;
+        public const int SW_FORCEMINIMIZE = 11;
+
+        public const int SC_SIZE = 0xF000;
+        public const int SC_MOVE = 0xF010;
+        public const int SC_MINIMIZE = 0xF020;
+        public const int SC_MAXIMIZE = 0xF030;
+        public const int SC_NEXTWINDOW = 0xF040;
+        public const int SC_PREVWINDOW = 0xF050;
+        public const int SC_CLOSE = 0xF060;
+        public const int SC_VSCROLL = 0xF070;
+        public const int SC_HSCROLL = 0xF080;
+        public const int SC_MOUSEMENU = 0xF090;
+        public const int SC_KEYMENU = 0xF100;
+        public const int SC_ARRANGE = 0xF110;
+        public const int SC_RESTORE = 0xF120;
+        public const int SC_TASKLIST = 0xF130;
+        public const int SC_SCREENSAVE = 0xF140;
+        public const int SC_HOTKEY = 0xF150;
+        public const int SC_DEFAULT = 0xF160;
+        public const int SC_MONITORPOWER = 0xF170;
+        public const int SC_CONTEXTHELP = 0xF180;
+        public const int SC_SEPARATOR = 0xF00F;
+        public const int SC_F_ISSECURE = 0x00000001;
+        public const int SC_ICON = SC_MINIMIZE;
+        public const int SC_ZOOM = SC_MAXIMIZE;
+
         /// <summary>
         /// On the screen background or on a dividing line between windows.
         /// </summary>
@@ -118,7 +196,7 @@ namespace Fluent
         /// (the user can click the mouse to resize the window diagonally).
         /// </summary>
         public const int HTBOTTOMRIGHT = 17;
-        
+
 
         /// <summary>
         /// The WM_NCHITTEST message is sent to a window when the cursor 
@@ -304,6 +382,20 @@ namespace Fluent
         /// Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).
         /// </summary>
         public const int SWP_NOACTIVATE = 0x0010;
+
+        public const int SWP_ASYNCWINDOWPOS = 0x4000;
+        public const int SWP_DEFERERASE = 0x2000;
+        public const int SWP_DRAWFRAME = 0x0020;
+        public const int SWP_FRAMECHANGED = 0x0020;
+        public const int SWP_HIDEWINDOW = 0x0080;
+        public const int SWP_NOCOPYBITS = 0x0100;
+        public const int SWP_NOOWNERZORDER = 0x0200;
+        public const int SWP_NOREDRAW = 0x0008;
+        public const int SWP_NOREPOSITION = 0x0200;
+        public const int SWP_NOSENDCHANGING = 0x0400;
+        public const int SWP_NOZORDER = 0x0004;
+        public const int SWP_SHOWWINDOW = 0x0040;
+
         #endregion
 
         #region Structs
@@ -331,6 +423,19 @@ namespace Fluent
             /// </summary>
             public IntPtr lppos;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINDOWPOS
+        {
+            public IntPtr hwnd;
+            public IntPtr hwndInsertAfter;
+            public int x;
+            public int y;
+            public int cx;
+            public int cy;
+            public int flags;
+        }
+
         /// <summary>
         /// The RECT structure defines a rectangle by the coordinates of its upper-left and lower-right corners.
         /// </summary>
@@ -359,12 +464,12 @@ namespace Fluent
         /// The MONITORINFO structure contains information about a display monitor.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct MonitorInfo
+        public class MonitorInfo
         {
             /// <summary>
             /// The size of the structure, in bytes. 
             /// </summary>
-            public uint Size;
+            public int Size = Marshal.SizeOf(typeof(MonitorInfo));
             /// <summary>
             /// A RECT structure that specifies the display monitor rectangle, expressed 
             /// in virtual-screen coordinates. 
@@ -431,7 +536,7 @@ namespace Fluent
             /// Specifies the x-coordinate of the point. 
             /// </summary>
             public int x;
-            
+
             /// <summary>
             /// Specifies the y-coordinate of the point. 
             /// </summary>
@@ -474,7 +579,7 @@ namespace Fluent
             /// </summary>
             public POINT ptMaxTrackSize;
         } ;
-        
+
         /// <summary>
         /// The WINDOWINFO structure contains window information.
         /// </summary>
@@ -523,9 +628,76 @@ namespace Fluent
             public ushort wCreatorVersion;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct UNSIGNED_RATIO
+        {
+            public uint uiNumerator;
+            public uint uiDenominator;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        internal struct DWM_TIMING_INFO
+        {
+            public int cbSize;
+            public UNSIGNED_RATIO rateRefresh;
+            public ulong qpcRefreshPeriod;
+            public UNSIGNED_RATIO rateCompose;
+            public ulong qpcVBlank;
+            public ulong cRefresh;
+            public uint cDXRefresh;
+            public ulong qpcCompose;
+            public ulong cFrame;
+            public uint cDXPresent;
+            public ulong cRefreshFrame;
+            public ulong cFrameSubmitted;
+            public uint cDXPresentSubmitted;
+            public ulong cFrameConfirmed;
+            public uint cDXPresentConfirmed;
+            public ulong cRefreshConfirmed;
+            public uint cDXRefreshConfirmed;
+            public ulong cFramesLate;
+            public uint cFramesOutstanding;
+            public ulong cFrameDisplayed;
+            public ulong qpcFrameDisplayed;
+            public ulong cRefreshFrameDisplayed;
+            public ulong cFrameComplete;
+            public ulong qpcFrameComplete;
+            public ulong cFramePending;
+            public ulong qpcFramePending;
+            public ulong cFramesDisplayed;
+            public ulong cFramesComplete;
+            public ulong cFramesPending;
+            public ulong cFramesAvailable;
+            public ulong cFramesDropped;
+            public ulong cFramesMissed;
+            public ulong cRefreshNextDisplayed;
+            public ulong cRefreshNextPresented;
+            public ulong cRefreshesDisplayed;
+            public ulong cRefreshesPresented;
+            public ulong cRefreshStarted;
+            public ulong cPixelsReceived;
+            public ulong cPixelsDrawn;
+            public ulong cBuffersEmpty;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal class WINDOWPLACEMENT
+        {
+            public int length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
+            public int flags;
+            public int showCmd;
+            public POINT ptMinPosition;
+            public POINT ptMaxPosition;
+            public Rect rcNormalPosition;
+        }
+
         #endregion
 
         #region Functions
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "DefWindowProcW")]
+        public static extern IntPtr DefWindowProc(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
         /// The MonitorFromRect function retrieves a handle to the display monitor that 
@@ -543,6 +715,17 @@ namespace Fluent
         [DllImport("user32.dll")]
         public static extern IntPtr MonitorFromRect([In] ref Rect lprc, uint dwFlags);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("gdi32.dll", EntryPoint = "CreateRectRgnIndirect", SetLastError = true)]
+        public static extern IntPtr CreateRectRgnIndirect([In] ref Rect lprc);
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("gdi32.dll")]
+        public static extern int CombineRgn(IntPtr hrgnDest, IntPtr hrgnSrc1, IntPtr hrgnSrc2, int fnCombineMode);
+
         /// <summary>
         /// The GetMonitorInfo function retrieves information about a display monitor. 
         /// </summary>
@@ -553,7 +736,7 @@ namespace Fluent
         /// If the function fails, the return value is zero.</returns>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfo lpmi);
+        public static extern bool GetMonitorInfo(IntPtr hMonitor, [In, Out] MonitorInfo lpmi);
 
         /// <summary>
         /// Sends a message to the message window and waits until the WndProc method has processed the message. 
@@ -588,7 +771,7 @@ namespace Fluent
         [DllImport("user32.dll")]
         [SuppressMessage("Microsoft.Performance", "CA1811")]
         [SuppressMessage("Microsoft.Portability", "CA1901")]
-        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);       
+        public static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
         /// <summary>
         /// The GetActiveWindow function retrieves the window handle to the active 
@@ -599,18 +782,36 @@ namespace Fluent
         [DllImport("user32.dll")]
         [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static extern IntPtr GetActiveWindow();
-        
+
         /// <summary>
-        /// ����������� ��������� ����
+        /// Стандартная процедура окна
         /// </summary>
-        /// <param name="hwnd">����� ����</param>
-        /// <param name="msg">���������</param>
-        /// <param name="wParam">���������</param>
-        /// <param name="lParam">��������</param>
-        /// <param name="plResult">���������</param>
-        /// <returns>���������</returns>
+        /// <param name="hwnd">Хэндл окна</param>
+        /// <param name="msg">Сообщение</param>
+        /// <param name="wParam">Прараметр</param>
+        /// <param name="lParam">Параметр</param>
+        /// <param name="plResult">Результат</param>
+        /// <returns>Результат</returns>
         [DllImport("dwmapi.dll")]
-        public static extern int DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
+
+        [DllImport("dwmapi.dll", EntryPoint = "DwmGetCompositionTimingInfo")]
+        private static extern IntPtr DwmGetCompositionTimingInfo(IntPtr hwnd, ref DWM_TIMING_INFO pTimingInfo);
+
+        public static DWM_TIMING_INFO? DwmGetCompositionTimingInfo(IntPtr hwnd)
+        {
+            if (Environment.OSVersion.Version < new Version("6.0"))
+            {
+                // API was new to Vista.
+                return null;
+            }
+
+            var dti = new DWM_TIMING_INFO { cbSize = Marshal.SizeOf(typeof(DWM_TIMING_INFO)) };
+            IntPtr hr = DwmGetCompositionTimingInfo(hwnd, ref dti);
+
+            return dti;
+        }
 
         /// <summary>
         /// Extends the window frame behind the client area.
@@ -649,6 +850,16 @@ namespace Fluent
                 return false;
             }
         }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowVisible(IntPtr hwnd);
+
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("user32.dll", EntryPoint = "EnableMenuItem")]
+        public static extern int EnableMenuItem(IntPtr hMenu, int uIDEnableItem, uint uEnable);
 
         /// <summary>
         /// The TrackPopupMenuEx function displays a shortcut menu at the specified location and 
@@ -704,6 +915,11 @@ namespace Fluent
         [DllImport("User32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetWindowPlacement(IntPtr hwnd, WINDOWPLACEMENT lpwndpl);
 
         /// <summary>
         /// Gets low word of dword
@@ -818,16 +1034,16 @@ namespace Fluent
         /// If the function fails, the return value is zero.</returns>
         public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
         {
-              if (IntPtr.Size == 8)
-              return SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
-              else
-              return new IntPtr(SetWindowLong32(hWnd, nIndex, dwNewLong.ToInt32()));
+            if (IntPtr.Size == 8)
+                return SetWindowLongPtr64(hWnd, nIndex, dwNewLong);
+            else
+                return new IntPtr(SetWindowLong32(hWnd, nIndex, dwNewLong.ToInt32()));
         }
 
-        [DllImport("user32.dll", EntryPoint="SetWindowLong")]
+        [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
         static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        [DllImport("user32.dll", EntryPoint="SetWindowLongPtr")]
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
         [SuppressMessage("Microsoft.Interoperability", "CA1400")]
         static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
@@ -933,7 +1149,7 @@ namespace Fluent
         /// <param name="lpRect">Pointer to a structure that receives the screen coordinates of the upper-left and lower-right corners of the window</param>
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]        
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowRect(IntPtr hWnd, ref Rect lpRect);
 
         /// <summary>
@@ -954,7 +1170,7 @@ namespace Fluent
         /// <param name="dwExStyle">Specifies the extended window style of the window whose required size is to be calculated. For more information, see CreateWindowEx.</param>
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        public static extern bool AdjustWindowRectEx(ref Rect lpRect, int dwStyle,bool bMenu, int dwExStyle);
+        public static extern bool AdjustWindowRectEx(ref Rect lpRect, IntPtr dwStyle, bool bMenu, IntPtr dwExStyle);
         /*
         /// <summary>
         /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. 
@@ -978,7 +1194,7 @@ namespace Fluent
         /// Unicode character or characters
         /// </summary>
         /// <returns>1, 2 or more if success, otherwise fail</returns>
-        [DllImport("user32.dll", SetLastError = false, PreserveSig = true)]
+        [DllImport("user32.dll", SetLastError = false)]
         public static extern int ToUnicodeEx(uint wVirtKey, uint wScanCode, byte[] lpKeyState, [Out, MarshalAs(UnmanagedType.LPWStr)] System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags, IntPtr dwhkl);
 
         /// <summary>
@@ -987,7 +1203,7 @@ namespace Fluent
         /// </summary>
         /// <returns>If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        [return:MarshalAs(UnmanagedType.Bool)]
+        [return: MarshalAs(UnmanagedType.Bool)]
         [SuppressMessage("Microsoft.Portability", "CA1901")]
         public static extern bool GetKeyboardState(byte[] lpKeyState);
 

@@ -295,7 +295,7 @@ namespace FluentTest
 
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
-            /*if(tabGroup1.Visibility==Visibility.Visible)
+            if(tabGroup1.Visibility==Visibility.Visible)
             {
                 tabGroup1.Visibility = Visibility.Collapsed;
                 tabGroup2.Visibility = Visibility.Collapsed;
@@ -304,8 +304,8 @@ namespace FluentTest
             {
                 tabGroup1.Visibility = Visibility.Visible;
                 tabGroup2.Visibility = Visibility.Visible;
-            }*/
-           Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
+            }
+           //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
         }
 
         void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

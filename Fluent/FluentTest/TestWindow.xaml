@@ -98,7 +98,7 @@
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
       </Fluent:Ribbon.QuickAccessItems>
 
-
+      <!--<FluentTest:TestRibbonTab/>-->
             <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)" IsSelected="False">
                 <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard Ǻ Ȃ Ȧ y Ǟ" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
@@ -142,8 +142,7 @@
         </Fluent:Button>
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
         <Fluent:Button Fluent:KeyTip.Keys="FP" Text="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>
-      </Fluent:RibbonGroupBox>
-
+      </Fluent:RibbonGroupBox>              
 		<Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>
         
@@ -399,11 +398,9 @@
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="View" Fluent:KeyTip.Keys="T">
+      <Fluent:RibbonTabItem Header="View">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-                    <Fluent:TextBox InputWidth="100" x:Name="textBox" Fluent:KeyTip.Keys="H1"  Icon="Images\Box.png" Text="Text" Content="CurrentText"/>
-                    <Fluent:Button Icon="Images\Box.png" Fluent:KeyTip.Keys="H2" Text="Text" SizeDefinition="Middle"/>
-                    <Fluent:ComboBox Icon="Images\Box.png" Fluent:KeyTip.Keys="H3" Text="Text" SizeDefinition="Large"/>
+                    <Fluent:TextBox Icon="Images\GrowFont.png" Text="Text" Content="CurrentText"/>
                 </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
