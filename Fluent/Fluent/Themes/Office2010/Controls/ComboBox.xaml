@@ -21,7 +21,7 @@
         				<ColumnDefinition/>
         			</Grid.ColumnDefinitions>
         			<StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" x:Name="stackPanel" HorizontalAlignment="Left" Margin="0,0,4,0">
-        				<Image x:Name="iconImage" Width="16" Height="16" VerticalAlignment="Center" Margin="4,0,0,0" Source="{TemplateBinding Icon}"/>
+        				<Image x:Name="iconImage" Width="16" Height="16" VerticalAlignment="Center" Margin="3,0,0,0" Source="{TemplateBinding Icon}"/>
         				<TextBlock Text="{TemplateBinding Text}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,0,0" x:Name="textBlock"/>
         			</StackPanel>
 				

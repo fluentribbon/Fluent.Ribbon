@@ -53,11 +53,15 @@ namespace FluentTest
         {
             InitializeComponent();
 
+            
+
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
 
 
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();
+
+            
 
             //Visibility = Visibility.Hidden;
 //            (Content as UIElement).Visibility = Visibility.Hidden;

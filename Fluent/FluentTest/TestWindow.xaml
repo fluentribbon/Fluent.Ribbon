@@ -399,9 +399,11 @@
 
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Header="View">
+      <Fluent:RibbonTabItem Header="View" Fluent:KeyTip.Keys="T">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-                    <Fluent:TextBox Icon="Images\GrowFont.png" Text="Text" CurrentText="CurrentText"/>
+                    <Fluent:TextBox InputWidth="100" x:Name="textBox" Fluent:KeyTip.Keys="H1"  Icon="Images\Box.png" Text="Text" Content="CurrentText"/>
+                    <Fluent:Button Icon="Images\Box.png" Fluent:KeyTip.Keys="H2" Text="Text" SizeDefinition="Middle"/>
+                    <Fluent:ComboBox Icon="Images\Box.png" Fluent:KeyTip.Keys="H3" Text="Text" SizeDefinition="Large"/>
                 </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">

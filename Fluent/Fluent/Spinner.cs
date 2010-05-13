@@ -373,6 +373,18 @@ namespace Fluent
             args.Handled = true;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
+        /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            // Avoid Click invocation (from RibbonControl)
+            if (e.Key == Key.Enter || e.Key == Key.Space) return;
+            base.OnKeyUp(e);
+        }
+
         void OnButtonUpClick(object sender, RoutedEventArgs e)
         {
             Value += Increment;
@@ -399,6 +411,7 @@ namespace Fluent
                 textBox.Focusable = false;
                 Focus();
                 textBox.Focusable = true;
+                e.Handled = true;
             }
 
             if (e.Key == Key.Up)
