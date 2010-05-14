@@ -400,7 +400,7 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="View">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-                    <Fluent:TextBox Icon="Images\GrowFont.png" Text="Text" Content="CurrentText"/>
+                    <Fluent:TextBox x:Name="textBox" InputWidth="70" MaxLength="5" Icon="Images\GrowFont.png" Text="Text" Content="CurrentText"/>
                 </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">

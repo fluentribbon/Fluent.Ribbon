@@ -63,6 +63,8 @@ namespace Fluent
         System.Windows.Controls.TextBox textBoxTemplated;
         // Local TextBox
         System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
+        // Content when the textbox got focus
+        string textBoxContentWhenGotFocus = null;
 
         #endregion
 
@@ -106,7 +108,8 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register("Content", typeof(string), typeof(TextBox), 
-            new UIPropertyMetadata(null));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
+                null, null, true, UpdateSourceTrigger.LostFocus));
 
         #endregion
         
@@ -418,7 +421,12 @@ namespace Fluent
             textBox.SelectionChanged += (s, e) => RaiseSelectionChanged();
             textBox.TextChanged += (s, e) => RaiseContentChanged(e);
 
-            Bind(textBox, this, "Text", TextBox.ContentProperty, BindingMode.TwoWay);
+            Binding binding = new Binding("Content");
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            binding.Source = this;
+            binding.Mode = BindingMode.TwoWay;
+            textBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
+            
             Bind(textBox, this, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
             Bind(textBox, this, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
             Bind(textBox, this, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
@@ -527,6 +535,8 @@ namespace Fluent
             {
                 textBoxTemplated.PreviewKeyDown -= OnTextBoxTemplatedKeyDown;
                 textBoxTemplated.SelectionChanged -= OnTextBoxTemplatedSelectionChanged;
+                textBoxTemplated.LostFocus -= OnTextBoxTemplatedLostFocus;
+                textBoxTemplated.GotKeyboardFocus -= OnTextBoxTemplatedGotKeyboardFocus;
                 BindingOperations.ClearAllBindings(textBoxTemplated);
             }
             textBoxTemplated = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
@@ -544,7 +554,13 @@ namespace Fluent
 
             // Bindings
             BindingOperations.ClearAllBindings(textBox);
-            Bind(this, textBoxTemplated, "Content", System.Windows.Controls.TextBox.TextProperty, BindingMode.TwoWay);
+
+            Binding binding = new Binding("Content");
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            binding.Source = this;
+            binding.Mode = BindingMode.TwoWay;
+            textBoxTemplated.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
+
             Bind(this, textBoxTemplated, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
@@ -560,7 +576,18 @@ namespace Fluent
 
             textBoxTemplated.PreviewKeyDown += OnTextBoxTemplatedKeyDown;
             textBoxTemplated.SelectionChanged += OnTextBoxTemplatedSelectionChanged;
-            
+            textBoxTemplated.LostFocus += OnTextBoxTemplatedLostFocus;
+            textBoxTemplated.GotKeyboardFocus += OnTextBoxTemplatedGotKeyboardFocus;
+        }
+
+        void OnTextBoxTemplatedGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            textBoxContentWhenGotFocus = textBoxTemplated.Text;
+        }
+
+        void OnTextBoxTemplatedLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxContentWhenGotFocus != textBoxTemplated.Text) ExecuteCommand();
         }
 
         void OnTextBoxTemplatedSelectionChanged(object sender, RoutedEventArgs e)
@@ -653,6 +680,17 @@ namespace Fluent
 
             Bind(this, textBoxQAT, "Content", ContentProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
+            Bind(this, textBoxQAT, "CharacterCasing", CharacterCasingProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "MaxLength", MaxLengthProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "TextAlignment", TextAlignmentProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "TextDecorations", TextDecorationsProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "IsUndoEnabled", IsUndoEnabledProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "UndoLimit", UndoLimitProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "AutoWordSelection", AutoWordSelectionProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "SelectionBrush", SelectionBrushProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "SelectionOpacity", SelectionOpacityProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "CaretBrush", CaretBrushProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.TwoWay);
 
             base.BindQuickAccessItem(element);
         }
