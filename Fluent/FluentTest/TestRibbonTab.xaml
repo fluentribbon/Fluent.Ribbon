@@ -7,7 +7,6 @@
 	x:Name="UserControl"
 	UseLayoutRounding="True"
 	d:DesignWidth="640" d:DesignHeight="480"
-  Style="{DynamicResource RibbonTabItemStyle}"
   Header="TestRibbon">
   <Fluent:RibbonGroupBox Header="Upload">
     <Fluent:Button Text="Upload" />

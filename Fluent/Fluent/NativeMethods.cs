@@ -71,21 +71,60 @@ namespace Fluent
         /// </summary>
         public const int WM_CREATE = 0x0001;
 
+        /// <summary>
+        /// An application sends a WM_SETTEXT message to set the text of a window. 
+        /// </summary>
         public const int WM_SETTEXT = 0x000C;
+        /// <summary>
+        /// An application sends the WM_SETICON message to associate a new large or small icon with a window. The system displays the large icon in the ALT+TAB dialog box, and the small icon in the window caption. 
+        /// </summary>
         public const int WM_SETICON = 0x0080;
+        /// <summary>
+        /// The WM_WINDOWPOSCHANGED message is sent to a window whose size, position, or place in the Z order has changed as a result of a call to the SetWindowPos function or another window-management function. 
+        /// </summary>
         public const int WM_WINDOWPOSCHANGED = 0x0047;
 
-        public const int WVR_HREDRAW = 0x0100;
-        public const int WVR_VREDRAW = 0x0200;
-        public const int WVR_REDRAW = WVR_HREDRAW | WVR_VREDRAW;
+        /// <summary>
+        /// A message that is sent to all top-level windows when the SystemParametersInfo function changes a system-wide setting or when policy settings have changed. 
+        /// </summary>
         public const int WM_SETTINGCHANGE = 0x001A;
+        /// <summary>
+        /// The WM_ENTERSIZEMOVE message is sent one time to a window after it enters the moving or sizing modal loop. The window enters the moving or sizing modal loop when the user clicks the window's title bar or sizing border, or when the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the wParam parameter of the message specifies the err! bad pv reference "SC_MOVE" [type 'winnotify' not supported.] or err! bad pv reference "SC_SIZE" [type 'winnotify' not supported.] value. The operation is complete when DefWindowProc returns. 
+        /// </summary>
         public const int WM_ENTERSIZEMOVE = 0x0231;
+        /// <summary>
+        /// The WM_EXITSIZEMOVE message is sent one time to a window, after it has exited the moving or sizing modal loop. The window enters the moving or sizing modal loop when the user clicks the window's title bar or sizing border, or when the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the wParam parameter of the message specifies the err! bad pv reference "SC_MOV" [type 'winnotify' not supported.]E or err! bad pv reference "SC_SIZE" [type 'winnotify' not supported.] value. The operation is complete when DefWindowProc returns. 
+        /// </summary>
         public const int WM_EXITSIZEMOVE = 0x0232;
 
-        public const uint MF_DOES_NOT_EXIST = unchecked((uint)-1);
+        /// <summary>
+        /// Used in combination with any other values, except WVR_VALIDRECTS, causes the window to be completely redrawn if the client rectangle changes size horizontally. This value is similar to CS_HREDRAW  class style
+        /// </summary>
+        public const int WVR_HREDRAW = 0x0100;
+        /// <summary>
+        /// Used in combination with any other values, except WVR_VALIDRECTS, causes the window to be completely redrawn if the client rectangle changes size vertically. This value is similar to CS_VREDRAW  class style
+        /// </summary>
+        public const int WVR_VREDRAW = 0x0200;
+        /// <summary>
+        /// This value causes the entire window to be redrawn. It is a combination of WVR_HREDRAW and WVR_VREDRAW values.
+        /// </summary>
+        public const int WVR_REDRAW = WVR_HREDRAW | WVR_VREDRAW;
+
+        /// <summary>
+        /// Enables the menu item so that it can be selected and restores it from its grayed state. 
+        /// </summary>
         public const uint MF_ENABLED = 0;
+        /// <summary>
+        /// Indicates that the uPosition parameter specifies the identifier of the menu item (the default). 
+        /// </summary>
         public const uint MF_BYCOMMAND = 0;
+        /// <summary>
+        /// Disables the menu item and grays it so that it cannot be selected. 
+        /// </summary>
         public const uint MF_GRAYED = 1;
+        /// <summary>
+        /// Disables the menu item so that it cannot be selected, but this flag does not gray it. 
+        /// </summary>
         public const uint MF_DISABLED = 2;
 
         /// <summary>
@@ -110,44 +149,143 @@ namespace Fluent
         /// </summary>
         public const int RGN_COPY = 5;
 
+        /// <summary>
+        /// Hides the window and activates another window.
+        /// </summary>
         public const int SW_HIDE = 0;
+        /// <summary>
+        /// Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag when displaying the window for the first time.
+        /// </summary>
         public const int SW_SHOWNORMAL = 1;
+        /// <summary>
+        /// Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag when displaying the window for the first time.
+        /// </summary>
         public const int SW_NORMAL = 1;
+        /// <summary>
+        /// Activates the window and displays it as a minimized window.
+        /// </summary>
         public const int SW_SHOWMINIMIZED = 2;
+        /// <summary>
+        /// Activates the window and displays it as a maximized window.
+        /// </summary>
         public const int SW_SHOWMAXIMIZED = 3;
+        /// <summary>
+        /// Maximizes the specified window.
+        /// </summary>
         public const int SW_MAXIMIZE = 3;
+        /// <summary>
+        /// Displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
+        /// </summary>
         public const int SW_SHOWNOACTIVATE = 4;
+        /// <summary>
+        /// Activates the window and displays it in its current size and position. 
+        /// </summary>
         public const int SW_SHOW = 5;
+        /// <summary>
+        /// Minimizes the specified window and activates the next top-level window in the Z order.
+        /// </summary>
         public const int SW_MINIMIZE = 6;
+        /// <summary>
+        /// Displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
+        /// </summary>
         public const int SW_SHOWMINNOACTIVE = 7;
+        /// <summary>
+        /// Displays the window in its current size and position. This value is similar to SW_SHOW, except the window is not activated.
+        /// </summary>
         public const int SW_SHOWNA = 8;
+        /// <summary>
+        /// Activates and displays the window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this flag when restoring a minimized window.
+        /// </summary>
         public const int SW_RESTORE = 9;
+        /// <summary>
+        /// Sets the show state based on the SW_ value specified in the STARTUPINFO structure passed to the CreateProcess function by the program that started the application. 
+        /// </summary>
         public const int SW_SHOWDEFAULT = 10;
+        /// <summary>
+        /// Minimizes a window, even if the thread that owns the window is not responding. This flag should only be used when minimizing windows from a different thread. 
+        /// </summary>
         public const int SW_FORCEMINIMIZE = 11;
 
+        /// <summary>
+        /// Sizes the window.
+        /// </summary>
         public const int SC_SIZE = 0xF000;
+        /// <summary>
+        /// Moves the window.
+        /// </summary>
         public const int SC_MOVE = 0xF010;
+        /// <summary>
+        /// Minimizes the window.
+        /// </summary>
         public const int SC_MINIMIZE = 0xF020;
+        /// <summary>
+        /// Maximizes the window.
+        /// </summary>
         public const int SC_MAXIMIZE = 0xF030;
+        /// <summary>
+        /// Moves to the next window.
+        /// </summary>
         public const int SC_NEXTWINDOW = 0xF040;
+        /// <summary>
+        /// Moves to the previous window.
+        /// </summary>
         public const int SC_PREVWINDOW = 0xF050;
+        /// <summary>
+        /// Closes the window.
+        /// </summary>
         public const int SC_CLOSE = 0xF060;
+        /// <summary>
+        /// Scrolls vertically.
+        /// </summary>
         public const int SC_VSCROLL = 0xF070;
+        /// <summary>
+        /// Scrolls horizontally.
+        /// </summary>
         public const int SC_HSCROLL = 0xF080;
+        /// <summary>
+        /// Retrieves the window menu as a result of a mouse click.
+        /// </summary>
         public const int SC_MOUSEMENU = 0xF090;
+        /// <summary>
+        /// Retrieves the window menu as a result of a keystroke.
+        /// </summary>
         public const int SC_KEYMENU = 0xF100;
+        /// <summary>
+        /// 
+        /// </summary>
         public const int SC_ARRANGE = 0xF110;
+        /// <summary>
+        /// Restores the window to its normal position and size.
+        /// </summary>
         public const int SC_RESTORE = 0xF120;
+        /// <summary>
+        /// Activates the Start menu. 
+        /// </summary>
         public const int SC_TASKLIST = 0xF130;
+        /// <summary>
+        /// Executes the screen saver application specified in the [boot] section of the System.ini file.
+        /// </summary>
         public const int SC_SCREENSAVE = 0xF140;
+        /// <summary>
+        /// Activates the window associated with the application-specified hot key. The lParam parameter identifies the window to activate. 
+        /// </summary>
         public const int SC_HOTKEY = 0xF150;
+        /// <summary>
+        /// Selects the default item; the user double-clicked the window menu.
+        /// </summary>
         public const int SC_DEFAULT = 0xF160;
+        /// <summary>
+        /// Sets the state of the display. This command supports devices that have power-saving features, such as a battery-powered personal computer. 
+        /// The lParam parameter can have the following values: 
+        /// -1 - the display is powering on
+        /// 1 - the display is going to low power
+        /// 2 - the display is being shut off
+        /// </summary>
         public const int SC_MONITORPOWER = 0xF170;
+        /// <summary>
+        /// Changes the cursor to a question mark with a pointer. If the user then clicks a control in the dialog box, the control receives a WM_HELP message. 
+        /// </summary>
         public const int SC_CONTEXTHELP = 0xF180;
-        public const int SC_SEPARATOR = 0xF00F;
-        public const int SC_F_ISSECURE = 0x00000001;
-        public const int SC_ICON = SC_MINIMIZE;
-        public const int SC_ZOOM = SC_MAXIMIZE;
 
         /// <summary>
         /// On the screen background or on a dividing line between windows.
@@ -382,18 +520,53 @@ namespace Fluent
         /// Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).
         /// </summary>
         public const int SWP_NOACTIVATE = 0x0010;
-
+        /// <summary>
+        /// If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request. 
+        /// </summary>
         public const int SWP_ASYNCWINDOWPOS = 0x4000;
+        /// <summary>
+        /// Prevents generation of the WM_SYNCPAINT message. 
+        /// </summary>
         public const int SWP_DEFERERASE = 0x2000;
+        /// <summary>
+        /// Draws a frame (defined in the window's class description) around the window.
+        /// </summary>
         public const int SWP_DRAWFRAME = 0x0020;
+        /// <summary>
+        /// Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to the window, even if the window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE is sent only when the window's size is being changed. 
+        /// </summary>
         public const int SWP_FRAMECHANGED = 0x0020;
+        /// <summary>
+        /// Hides the window.
+        /// </summary>
         public const int SWP_HIDEWINDOW = 0x0080;
+        /// <summary>
+        /// Discards the entire contents of the client area. If this flag is not specified, the valid contents of the client area are saved and copied back into the client area after the window is sized or repositioned.
+        /// </summary>
         public const int SWP_NOCOPYBITS = 0x0100;
+        /// <summary>
+        /// Does not change the owner window's position in the Z order.
+        /// </summary>
         public const int SWP_NOOWNERZORDER = 0x0200;
+        /// <summary>
+        /// Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of the window being moved. When this flag is set, the application must explicitly invalidate or redraw any parts of the window and parent window that need redrawing.
+        /// </summary>
         public const int SWP_NOREDRAW = 0x0008;
+        /// <summary>
+        /// Same as the SWP_NOOWNERZORDER flag.
+        /// </summary>
         public const int SWP_NOREPOSITION = 0x0200;
+        /// <summary>
+        /// Prevents the window from receiving the WM_WINDOWPOSCHANGING message. 
+        /// </summary>
         public const int SWP_NOSENDCHANGING = 0x0400;
+        /// <summary>
+        /// Retains the current Z order (ignores the hWndInsertAfter parameter). 
+        /// </summary>
         public const int SWP_NOZORDER = 0x0004;
+        /// <summary>
+        /// Displays the window.
+        /// </summary>
         public const int SWP_SHOWWINDOW = 0x0040;
 
         #endregion
@@ -424,15 +597,39 @@ namespace Fluent
             public IntPtr lppos;
         }
 
+        /// <summary>
+        /// The WINDOWPOS structure contains information about the size and position of a window. 
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct WINDOWPOS
         {
+            /// <summary>
+            /// Identifies the window. 
+            /// </summary>
             public IntPtr hwnd;
+            /// <summary>
+            /// Identifies the window behind which this window is placed. 
+            /// </summary>
             public IntPtr hwndInsertAfter;
+            /// <summary>
+            /// Specifies the position of the left edge of the window. 
+            /// </summary>
             public int x;
+            /// <summary>
+            /// Specifies the position of the right edge of the window. 
+            /// </summary>
             public int y;
+            /// <summary>
+            /// Specifies the window width, in pixels. 
+            /// </summary>
             public int cx;
+            /// <summary>
+            /// Specifies the window height, in pixels. 
+            /// </summary>
             public int cy;
+            /// <summary>
+            /// Specifies window-positioning options. 
+            /// </summary>
             public int flags;
         }
 
@@ -628,66 +825,219 @@ namespace Fluent
             public ushort wCreatorVersion;
         }
 
+        /// <summary>
+        /// A ratio used with the Desktop Window Manager (DWM) timing API.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         internal struct UNSIGNED_RATIO
         {
+            /// <summary>
+            /// The ratio numerator.
+            /// </summary>
             public uint uiNumerator;
+            /// <summary>
+            /// The ratio denominator
+            /// </summary>
             public uint uiDenominator;
         }
 
+        /// <summary>
+        /// Contains Desktop Window Manager (DWM) composition timing information.
+        /// </summary>
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         internal struct DWM_TIMING_INFO
         {
+            /// <summary>
+            /// The size of this DWM_TIMING_INFO structure. 
+            /// </summary>
             public int cbSize;
+            /// <summary>
+            /// The monitor refresh rate
+            /// </summary>
             public UNSIGNED_RATIO rateRefresh;
+            /// <summary>
+            /// The monitor refresh rate.
+            /// </summary>
             public ulong qpcRefreshPeriod;
+            /// <summary>
+            /// The composition rate.
+            /// </summary>
             public UNSIGNED_RATIO rateCompose;
+            /// <summary>
+            /// The query performance counter value before the vertical blank.
+            /// </summary>
             public ulong qpcVBlank;
+            /// <summary>
+            /// The DWM refresh counter.
+            /// </summary>
             public ulong cRefresh;
+            /// <summary>
+            /// The Microsoft DirectX refresh counter.
+            /// </summary>
             public uint cDXRefresh;
+            /// <summary>
+            /// The query performance counter value for a frame composition.
+            /// </summary>
             public ulong qpcCompose;
+            /// <summary>
+            /// The frame number that was composed at qpcCompose. 
+            /// </summary>
             public ulong cFrame;
+            /// <summary>
+            /// The DirectX present number used to identify rendering frames.
+            /// </summary>
             public uint cDXPresent;
+            /// <summary>
+            /// The refresh count of the frame that was composed at qpcCompose. 
+            /// </summary>
             public ulong cRefreshFrame;
+            /// <summary>
+            /// The DWM frame number that was last submitted.
+            /// </summary>
             public ulong cFrameSubmitted;
+            /// <summary>
+            /// The DirectX present number that was last submitted.
+            /// </summary>
             public uint cDXPresentSubmitted;
+            /// <summary>
+            /// The DWM frame number that was last confirmed as presented.
+            /// </summary>
             public ulong cFrameConfirmed;
+            /// <summary>
+            /// The DirectX present number that was last confirmed as presented.
+            /// </summary>
             public uint cDXPresentConfirmed;
+            /// <summary>
+            /// The target refresh count of the last frame confirmed completed by the graphics processing unit (GPU).
+            /// </summary>
             public ulong cRefreshConfirmed;
+            /// <summary>
+            /// The DirectX refresh count when the frame was confirmed as presented.
+            /// </summary>
             public uint cDXRefreshConfirmed;
+            /// <summary>
+            /// The number of frames the DWM presented late.
+            /// </summary>
             public ulong cFramesLate;
+            /// <summary>
+            /// The number of composition frames that have been issued but have not been confirmed as completed.
+            /// </summary>
             public uint cFramesOutstanding;
+            /// <summary>
+            /// The last frame displayed.
+            /// </summary>
             public ulong cFrameDisplayed;
+            /// <summary>
+            /// The query performance counter (QPC) time of the composition pass when the frame was displayed.
+            /// </summary>
             public ulong qpcFrameDisplayed;
+            /// <summary>
+            /// The vertical refresh count when the frame should have become visible.
+            /// </summary>
             public ulong cRefreshFrameDisplayed;
+            /// <summary>
+            /// The ID of the last frame marked complete.
+            /// </summary>
             public ulong cFrameComplete;
+            /// <summary>
+            /// /The QPC time when the last frame was marked as completed.
+            /// </summary>
             public ulong qpcFrameComplete;
+            /// <summary>
+            /// The ID of the last frame marked as pending.
+            /// </summary>
             public ulong cFramePending;
+            /// <summary>
+            /// The QPC time when the last frame was marked pending.
+            /// </summary>
             public ulong qpcFramePending;
+            /// <summary>
+            /// The number of unique frames displayed. This value is valid only after a second call to DwmGetCompositionTimingInfo. 
+            /// </summary>
             public ulong cFramesDisplayed;
+            /// <summary>
+            /// The number of new completed frames that have been received.
+            /// </summary>
             public ulong cFramesComplete;
+            /// <summary>
+            /// The number of new frames submitted to DirectX but not yet completed.
+            /// </summary>
             public ulong cFramesPending;
+            /// <summary>
+            /// The number of frames available but not displayed, used, or dropped. This value is valid only after a second call to DwmGetCompositionTimingInfo. 
+            /// </summary>
             public ulong cFramesAvailable;
+            /// <summary>
+            /// The number of rendered frames that were never displayed because composition occurred too late. This value is valid only after a second call to DwmGetCompositionTimingInfo. 
+            /// </summary>
             public ulong cFramesDropped;
+            /// <summary>
+            /// The number of times an old frame was composed when a new frame should have been used but was not available.
+            /// </summary>
             public ulong cFramesMissed;
+            /// <summary>
+            /// The frame count at which the next frame is scheduled to be displayed.
+            /// </summary>
             public ulong cRefreshNextDisplayed;
+            /// <summary>
+            /// The frame count at which the next DirectX present is scheduled to be displayed.
+            /// </summary>
             public ulong cRefreshNextPresented;
+            /// <summary>
+            /// The total number of refreshes that have been displayed for the application since DwmSetPresentParameters was last called. 
+            /// </summary>
             public ulong cRefreshesDisplayed;
+            /// <summary>
+            /// The total number of refreshes that have been presented by the application since DwmSetPresentParameters was last called. 
+            /// </summary>
             public ulong cRefreshesPresented;
+            /// <summary>
+            /// The refresh number when content for this window started to be displayed.
+            /// </summary>
             public ulong cRefreshStarted;
+            /// <summary>
+            /// The total number of pixels DirectX redirected to the DWM.
+            /// </summary>
             public ulong cPixelsReceived;
+            /// <summary>
+            /// The number of pixels drawn.
+            /// </summary>
             public ulong cPixelsDrawn;
+            /// <summary>
+            /// The number of empty buffers in the flip chain.
+            /// </summary>
             public ulong cBuffersEmpty;
         }
 
+        /// <summary>
+        /// The WINDOWPLACEMENT structure contains information about the placement of a window on the screen. 
+        /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        internal class WINDOWPLACEMENT
+        public class WINDOWPLACEMENT
         {
+            /// <summary>
+            /// Specifies the length, in bytes, of the structure. Before calling the GetWindowPlacement or SetWindowPlacement functions, set this member to sizeof( WINDOWPLACEMENT). 
+            /// </summary>
             public int length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
+            /// <summary>
+            /// Specifies flags that control the position of the minimized window and the method by which the window is restored. This member can be one or more of the following values. 
+            /// </summary>
             public int flags;
+            /// <summary>
+            /// Specifies the current show state of the window. This member can be one of the following values. 
+            /// </summary>
             public int showCmd;
+            /// <summary>
+            /// Specifies the coordinates of the window's upper-left corner when the window is minimized. 
+            /// </summary>
             public POINT ptMinPosition;
+            /// <summary>
+            /// Specifies the coordinates of the window's upper-left corner when the window is maximized. 
+            /// </summary>
             public POINT ptMaxPosition;
+            /// <summary>
+            /// Specifies the window's coordinates when the window is in the restored position. 
+            /// </summary>
             public Rect rcNormalPosition;
         }
 
@@ -695,7 +1045,14 @@ namespace Fluent
 
         #region Functions
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The DefWindowProc function calls the default window procedure to provide default processing for any window messages that an application does not process. This function ensures that every message is processed. DefWindowProc is called with the same parameters received by the window procedure. 
+        /// </summary>
+        /// <param name="hWnd">Handle to the window procedure that received the message. </param>
+        /// <param name="Msg">Specifies the message. </param>
+        /// <param name="wParam">Specifies additional message information. The content of this parameter depends on the value of the Msg parameter. </param>
+        /// <param name="lParam">Specifies additional message information. The content of this parameter depends on the value of the Msg parameter. </param>
+        /// <returns>The return value is the result of the message processing and depends on the message.</returns>
         [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "DefWindowProcW")]
         public static extern IntPtr DefWindowProc(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
@@ -715,14 +1072,33 @@ namespace Fluent
         [DllImport("user32.dll")]
         public static extern IntPtr MonitorFromRect([In] ref Rect lprc, uint dwFlags);
 
+        /// <summary>
+        /// The MonitorFromWindow function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window. 
+        /// </summary>
+        /// <param name="hwnd">A handle to the window of interest.</param>
+        /// <param name="dwFlags">Determines the function's return value if the window does not intersect any display monitor.</param>
+        /// <returns>If the window intersects one or more display monitor rectangles, the return value is an HMONITOR handle to the display monitor that has the largest area of intersection with the window. 
+        /// If the window does not intersect a display monitor, the return value depends on the value of dwFlags.
+        /// </returns>
         [DllImport("user32.dll")]
         public static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The CreateRectRgnIndirect function creates a rectangular region. 
+        /// </summary>
+        /// <param name="lprc">Pointer to a RECT structure that contains the coordinates of the upper-left and lower-right corners of the rectangle that defines the region in logical units. </param>
+        /// <returns>If the function succeeds, the return value is the handle to the region.If the function fails, the return value is NULL.</returns>
         [DllImport("gdi32.dll", EntryPoint = "CreateRectRgnIndirect", SetLastError = true)]
         public static extern IntPtr CreateRectRgnIndirect([In] ref Rect lprc);
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The CombineRgn function combines two regions and stores the result in a third region. The two regions are combined according to the specified mode. 
+        /// </summary>
+        /// <param name="hrgnDest">A handle to a new region with dimensions defined by combining two other regions. (This region must exist before CombineRgn is called.) </param>
+        /// <param name="hrgnSrc1">A handle to the first of two regions to be combined.</param>
+        /// <param name="hrgnSrc2">A handle to the second of two regions to be combined.</param>
+        /// <param name="fnCombineMode">A mode indicating how the two regions will be combined. </param>
+        /// <returns>The return value specifies the type of the resulting region. </returns>
         [DllImport("gdi32.dll")]
         public static extern int CombineRgn(IntPtr hrgnDest, IntPtr hrgnSrc1, IntPtr hrgnSrc2, int fnCombineMode);
 
@@ -784,21 +1160,27 @@ namespace Fluent
         public static extern IntPtr GetActiveWindow();
 
         /// <summary>
-        /// Стандартная процедура окна
+        /// Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.
         /// </summary>
-        /// <param name="hwnd">Хэндл окна</param>
-        /// <param name="msg">Сообщение</param>
-        /// <param name="wParam">Прараметр</param>
-        /// <param name="lParam">Параметр</param>
-        /// <param name="plResult">Результат</param>
-        /// <returns>Результат</returns>
+        /// <param name="hwnd">Handle to the window procedure that received the message.</param>
+        /// <param name="msg">Specifies the message.</param>
+        /// <param name="wParam">Specifies additional message information. The content of this parameter depends on the value of the msg parameter. </param>
+        /// <param name="lParam">Specifies additional message information. The content of this parameter depends on the value of the msg parameter. </param>
+        /// <param name="plResult">Pointer to an LRESULT value that, when this method returns, receives the result of the hit test.</param>
+        /// <returns>TRUE if DwmDefWindowProc handled the message; otherwise, FALSE. </returns>
         [DllImport("dwmapi.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DwmDefWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref IntPtr plResult);
 
+        //Retrieves the current composition timing information.
         [DllImport("dwmapi.dll", EntryPoint = "DwmGetCompositionTimingInfo")]
         private static extern IntPtr DwmGetCompositionTimingInfo(IntPtr hwnd, ref DWM_TIMING_INFO pTimingInfo);
 
+        /// <summary>
+        /// Retrieves the current composition timing information.
+        /// </summary>
+        /// <param name="hwnd">The handle to the window for which the composition timing information should be retrieved.</param>
+        /// <returns>A pointer to a DWM_TIMING_INFO structure that, when this function returns successfully, receives the current composition timing information for the window. </returns>
         public static DWM_TIMING_INFO? DwmGetCompositionTimingInfo(IntPtr hwnd)
         {
             if (Environment.OSVersion.Version < new Version("6.0"))
@@ -808,7 +1190,7 @@ namespace Fluent
             }
 
             var dti = new DWM_TIMING_INFO { cbSize = Marshal.SizeOf(typeof(DWM_TIMING_INFO)) };
-            IntPtr hr = DwmGetCompositionTimingInfo(hwnd, ref dti);
+            DwmGetCompositionTimingInfo(hwnd, ref dti);
 
             return dti;
         }
@@ -851,13 +1233,23 @@ namespace Fluent
             }
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The IsWindowVisible function retrieves the visibility state of the specified window. 
+        /// </summary>
+        /// <param name="hwnd">Handle to the window to test. </param>
+        /// <returns>If the specified window, its parent window, its parent's parent window, and so forth, have the WS_VISIBLE style, the return value is nonzero. Otherwise, the return value is zero. </returns>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowVisible(IntPtr hwnd);
 
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The EnableMenuItem function enables, disables, or grays the specified menu item. 
+        /// </summary>
+        /// <param name="hMenu">Handle to the menu.</param>
+        /// <param name="uIDEnableItem">Specifies the menu item to be enabled, disabled, or grayed, as determined by the uEnable parameter. This parameter specifies an item in a menu bar, menu, or submenu. </param>
+        /// <param name="uEnable">Controls the interpretation of the uIDEnableItem parameter and indicate whether the menu item is enabled, disabled, or grayed. </param>
+        /// <returns>The return value specifies the previous state of the menu item (it is either MF_DISABLED, MF_ENABLED, or MF_GRAYED). If the menu item does not exist, the return value is -1.</returns>
         [DllImport("user32.dll", EntryPoint = "EnableMenuItem")]
         public static extern int EnableMenuItem(IntPtr hMenu, int uIDEnableItem, uint uEnable);
 
@@ -916,7 +1308,12 @@ namespace Fluent
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PostMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        /// <summary>
+        /// The GetWindowPlacement function retrieves the show state and the restored, minimized, and maximized positions of the specified window. 
+        /// </summary>
+        /// <param name="hwnd">Handle to the window. </param>
+        /// <param name="lpwndpl">Pointer to the WINDOWPLACEMENT structure that receives the show state and position information. Before calling GetWindowPlacement, set the length member of the WINDOWPLACEMENT structure to sizeof( WINDOWPLACEMENT). GetWindowPlacement fails if lpwndpl-> length is not set correctly. </param>
+        /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero.</returns>
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement(IntPtr hwnd, WINDOWPLACEMENT lpwndpl);
@@ -950,6 +1347,7 @@ namespace Fluent
         /// <param name="lo">Low word</param>
         /// <param name="hi">Hi word</param>
         /// <returns>Result DWORD</returns>
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static IntPtr MakeDWord(int lo, int hi)
         {
             //return (lo & 65535) + (hi & 65535) << 16;
@@ -1015,10 +1413,10 @@ namespace Fluent
         {
             return new IntPtr(IntPtr.Size == 8 ? GetWindowLongPtr64(hWnd, nIndex) : GetWindowLongPtr32(hWnd, nIndex));
         }
-
+        // The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory.If you are retrieving a pointer or a handle, this function has been superseded by the GetWindowLongPtr function. (Pointers and handles are 32 bits on 32-bit Microsoft Windows and 64 bits on 64-bit Windows.) To write code that is compatible with both 32-bit and 64-bit versions of Windows, use GetWindowLongPtr.
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
         static extern Int32 GetWindowLongPtr32(IntPtr hWnd, int nIndex);
-
+        // The GetWindowLong function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory.If you are retrieving a pointer or a handle, this function has been superseded by the GetWindowLongPtr function. (Pointers and handles are 32 bits on 32-bit Microsoft Windows and 64 bits on 64-bit Windows.) To write code that is compatible with both 32-bit and 64-bit versions of Windows, use GetWindowLongPtr.
         [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
         [SuppressMessage("Microsoft.Interoperability", "CA1400")]
         static extern Int64 GetWindowLongPtr64(IntPtr hWnd, int nIndex);
@@ -1039,10 +1437,10 @@ namespace Fluent
             else
                 return new IntPtr(SetWindowLong32(hWnd, nIndex, dwNewLong.ToInt32()));
         }
-
+        // The SetWindowLong function changes an attribute of the specified window. 
         [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
         static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
-
+        // The SetWindowLong function changes an attribute of the specified window. 
         [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
         [SuppressMessage("Microsoft.Interoperability", "CA1400")]
         static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
@@ -1159,6 +1557,8 @@ namespace Fluent
         /// <param name="lpRect">Pointer to a RECT structure that receives the client coordinates. The left and top members are zero. The right and bottom members contain the width and height of the window. </param>
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [SuppressMessage("Microsoft.Performance", "CA1811")]
         public static extern bool GetClientRect(IntPtr hWnd, ref Rect lpRect);
 
         /// <summary>
@@ -1170,7 +1570,8 @@ namespace Fluent
         /// <param name="dwExStyle">Specifies the extended window style of the window whose required size is to be calculated. For more information, see CreateWindowEx.</param>
         /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
         [DllImport("user32.dll")]
-        public static extern bool AdjustWindowRectEx(ref Rect lpRect, IntPtr dwStyle, bool bMenu, IntPtr dwExStyle);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AdjustWindowRectEx(ref Rect lpRect, int dwStyle, [MarshalAs(UnmanagedType.Bool)]bool bMenu, int dwExStyle);
         /*
         /// <summary>
         /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. 

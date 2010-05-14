@@ -156,7 +156,9 @@ namespace Fluent
             set { SetValue(TitleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(Ribbon), new UIPropertyMetadata("", OnTitleChanged));
 
@@ -755,10 +757,11 @@ namespace Fluent
                     titleBar.Items.Add(groups[i]);
                 }
             }
-
+            RibbonTabItem selectedTab = null;
             if (tabControl != null)
             {                
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
+                selectedTab = tabControl.SelectedItem as RibbonTabItem;
             }
             if ((tabControl != null) && (tabs != null))
             {
@@ -791,6 +794,8 @@ namespace Fluent
                 {
                     tabControl.Items.Add(tabs[i]);
                 }
+                tabControl.SelectedItem = selectedTab;
+                if (tabControl.SelectedItem == null) tabControl.SelectedIndex = 0;
             }
 
             if ((tabControl != null) && (toolBarItems != null))

@@ -532,6 +532,8 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
             if (newValue)
             {
+                if ((container.TabControlParent != null) && (container.TabControlParent.SelectedItem is RibbonTabItem) && (container.TabControlParent.SelectedItem != container))
+                    (container.TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else

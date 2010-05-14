@@ -105,7 +105,9 @@ namespace Fluent
             set { SetValue(GlassBorderThicknessProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty GlassBorderThicknessProperty =
             DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(9, 29, 9, 9), OnGlassBorderThicknessChanged));
 
@@ -235,12 +237,7 @@ namespace Fluent
         #endregion
 
         #region Commands
-
-        #endregion
-
-        #region Constructors
-
-
+        
         /// <summary>
         /// Minimize command
         /// </summary>
@@ -265,8 +262,13 @@ namespace Fluent
         [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand CloseCommand = new RoutedCommand();
 
+        #endregion
 
-
+        #region Constructors
+        
+        /// <summary>
+        /// Static constructor
+        /// </summary>
         static RibbonWindow()
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
@@ -297,6 +299,9 @@ namespace Fluent
             return basevalue;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public RibbonWindow()
         {
             SizeChanged += OnSizeChanged;
@@ -578,7 +583,7 @@ namespace Fluent
             var style = NativeMethods.GetWindowLongPtr(handle, NativeMethods.GWL_STYLE);
             var exstyle = NativeMethods.GetWindowLongPtr(handle, NativeMethods.GWL_EXSTYLE);
 
-            NativeMethods.AdjustWindowRectEx(ref rcWindow, style, false, exstyle);
+            NativeMethods.AdjustWindowRectEx(ref rcWindow, (int)style, false, (int)exstyle);
             return rcWindow;
         }
 
@@ -685,8 +690,8 @@ namespace Fluent
             return WindowState.Normal;
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public static bool IsFlagSet(int value, int mask)
+        // Check flag set
+        private static bool IsFlagSet(int value, int mask)
         {
             return 0 != (value & mask);
         }
@@ -1098,7 +1103,7 @@ namespace Fluent
                             {
                                 Point mousePosWindow = mousePosScreen;
                                 mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);
-                                mousePosWindow = /*DpiHelper.DevicePixelsToLogical(*/mousePosWindow/*)*/;
+                                //mousePosWindow = /*DpiHelper.DevicePixelsToLogical(*/mousePosWindow/*)*/;
                                 IInputElement inputElement = mainGrid.InputHitTest(mousePosWindow);
                                 if (inputElement != null)
                                 {
