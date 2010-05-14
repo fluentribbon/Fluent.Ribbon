@@ -70,8 +70,9 @@ namespace Fluent
                             if (element is MenuItem)
                             {
                                 minWidth = Math.Max(minWidth, element.MinWidth);
-                                maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
+                                //maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
                             }
+                            if (!double.IsPositiveInfinity(element.DesiredSize.Width)) maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
                             minHeight += element.DesiredSize.Height;
                         }
                         else
