@@ -174,6 +174,7 @@ namespace Fluent
         public RibbonTabItem SelectedTabItem
         {
             get { return tabControl == null ? null : tabControl.SelectedTabItem; }
+            set { if (tabControl != null) tabControl.SelectedItem = value; }
         }
 
         /// <summary>
@@ -182,6 +183,7 @@ namespace Fluent
         public int SelectedTabIndex
         {
             get { return tabControl == null ? -1 : tabControl.SelectedIndex; }
+            set { if (tabControl != null) tabControl.SelectedIndex = value; }
         }
 
         /// <summary>

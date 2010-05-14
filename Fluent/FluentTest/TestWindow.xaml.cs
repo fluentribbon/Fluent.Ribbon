@@ -59,9 +59,7 @@ namespace FluentTest
             
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();
-
             
-
             //Visibility = Visibility.Hidden;
 //            (Content as UIElement).Visibility = Visibility.Hidden;
             /*Loaded += delegate
@@ -305,6 +303,8 @@ namespace FluentTest
                 tabGroup2.Visibility = Visibility.Visible;
             }
            //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
+            //homeTabItem.Groups.Add(new RibbonGroupBox() { Header = "Lala" });
+//            ribbon.SelectedTabItem = homeTabItem;
         }
 
         void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
