@@ -1113,18 +1113,34 @@ namespace Fluent
         {
             keyTipService.Attach();
             Window window = Window.GetWindow(this);
-            if (window != null) window.SizeChanged += OnSizeChanged;
+            if (window != null)
+            {
+                window.SizeChanged += OnSizeChanged;
+                window.KeyDown += OnKeyDown;
+            }
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
             else if ((tabControl!=null)&&(tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
+        void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1 && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            {
+                IsMinimized = !IsMinimized;
+            }
+        }
+
         void OnUnloaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Detach();
             Window window = Window.GetWindow(this);
-            if (window != null) window.SizeChanged -= OnSizeChanged;
+            if (window != null)
+            {
+                window.SizeChanged -= OnSizeChanged;
+                window.KeyDown -= OnKeyDown;
+            }
         }
 
         #endregion
