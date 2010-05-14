@@ -21,6 +21,7 @@ using System.Windows.Threading;
 using Fluent;
 using Microsoft.Win32;
 using Button = Fluent.Button;
+using MenuItem = Fluent.MenuItem;
 
 namespace FluentTest
 {
@@ -309,6 +310,13 @@ namespace FluentTest
         void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
            // MessageBox.Show(String.Format("Changed from {0} to {1}", e.OldValue, e.NewValue));
+        }
+
+        private void OnMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            TestWindow wnd = new TestWindow();
+            wnd.Owner = this;
+            wnd.Show();
         }
     }
 
