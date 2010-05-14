@@ -398,10 +398,22 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof (RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
+            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = ((FrameworkElement)d).Resources["RibbonTabItemStyle"] as Style ??
+                              Application.Current.Resources["RibbonTabItemStyle"] as Style;
+            }
+
+            return basevalue;
         }
 
         // Handles visibility changes
-        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTabItem item = d as RibbonTabItem;
             if((item.IsSelected)&&((Visibility)e.NewValue==Visibility.Collapsed))
