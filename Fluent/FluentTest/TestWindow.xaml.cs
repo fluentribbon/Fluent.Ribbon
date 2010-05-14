@@ -305,6 +305,7 @@ namespace FluentTest
            //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
             //homeTabItem.Groups.Add(new RibbonGroupBox() { Header = "Lala" });
 //            ribbon.SelectedTabItem = homeTabItem;
+            Clipboard.Visibility = Visibility.Visible;
         }
 
         void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
