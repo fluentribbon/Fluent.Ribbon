@@ -328,6 +328,7 @@ namespace Fluent
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
+            if (RibbonPopup.GetActivePopup() != null) return;
             ProcessMouseWheel(e);
             e.Handled = true;
         }
