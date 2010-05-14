@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -52,8 +53,6 @@ namespace FluentTest
         public TestWindow()
         {
             InitializeComponent();
-
-            
 
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
             
@@ -347,5 +346,5 @@ namespace FluentTest
         }
 
     }
-
+    
 }

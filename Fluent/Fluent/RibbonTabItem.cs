@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -437,6 +438,10 @@ namespace Fluent
         {
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
             AddLogicalChild(groupsContainer);
+            Binding binding = new Binding("DataContext");
+            binding.Source = this;
+            binding.Mode = BindingMode.OneWay;
+            groupsContainer.SetBinding(DataContextProperty, binding);
         }
         
         // Handles Click event
