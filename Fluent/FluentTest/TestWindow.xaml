@@ -420,11 +420,11 @@
     </Fluent:Ribbon>
         <Button x:Name="testBtn" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
-        <!--<Fluent:ContextMenu ResizeMode="Both">
+        <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
           <Fluent:MenuItem Text="Lala">
-            <Fluent:MenuItem Text="Lala5"/>
-            <Fluent:MenuItem Text="Lala6"/>
+            <Fluent:MenuItem Text="Lala5" IsCheckable="True" GroupName="123"/>
+            <Fluent:MenuItem Text="Lala6" IsCheckable="True" GroupName="123"/>
             <Fluent:MenuItem Text="Lala7">
               <Fluent:MenuItem Text="Lala7"/>
               <Fluent:MenuItem Text="Lala8">
@@ -439,8 +439,8 @@
           </Fluent:MenuItem>
           <Fluent:MenuItem Text="Lala1"/>
           <Fluent:MenuItem Text="Lala2"/>
-        </Fluent:ContextMenu>-->
-        <ContextMenu>
+        </Fluent:ContextMenu>
+        <!--<ContextMenu>
           <MenuItem Header="Lala"/>
           <MenuItem Header="Lala"/>
           <MenuItem Header="Lala">
@@ -448,7 +448,7 @@
               <BitmapImage UriSource="Images\GrowFont.png"/>
             </MenuItem.Icon>
           </MenuItem>
-        </ContextMenu>
+        </ContextMenu>-->
       </Button.ContextMenu>
     </Button>
 

@@ -9,9 +9,11 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -59,22 +61,130 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register("IsChecked", typeof(bool), 
-            typeof(MenuItem), new UIPropertyMetadata(false,OnIsCheckedChanged));
+            typeof(MenuItem), new UIPropertyMetadata(false, OnIsCheckedChanged, CoerceIsChecked));
 
-        static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        // Coerce IsChecked
+        static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            MenuItem menuItem = (MenuItem) d;
-            if((bool)e.NewValue)
+            MenuItem toggleButton = (MenuItem)d;
+            if (toggleButton.GroupName == null) return basevalue;
+
+            bool baseIsChecked = (bool)basevalue;
+            if (!baseIsChecked)
             {
-                if (menuItem.Checked != null) menuItem.Checked(d, new RoutedEventArgs());
+                // We can not allow that there are no one button checked
+                foreach (MenuItem item in GetItemsInGroup(toggleButton.GroupName))
+                {
+                    // It's Ok, atleast one checked button exists
+                    if (item.IsChecked) return false;
+                }
+
+                // This button can not be unchecked
+                return true;
             }
-            else
+            return basevalue;
+        }
+
+        // Handles isChecked changed
+        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            bool newValue = (bool)e.NewValue;
+            bool oldValue = (bool)e.OldValue;
+            MenuItem button = (MenuItem)d;
+            if (oldValue != newValue)
             {
-                if (menuItem.Unchecked != null) menuItem.Unchecked(d, new RoutedEventArgs());
+                if (newValue)
+                {
+                    if (button.Checked != null) button.Checked(button, new RoutedEventArgs());
+                }
+                else
+                {
+                    if (button.Unchecked != null) button.Unchecked(button, new RoutedEventArgs());
+                }
+            }
+
+            // Uncheck other toggle buttons
+            if (newValue && button.GroupName != null)
+            {
+                foreach (MenuItem item in GetItemsInGroup(button.GroupName))
+                    if (item != button) item.IsChecked = false;
             }
         }
 
-        // TODO: add more details what is IsCheckable
+        #region GroupName
+
+        /// <summary>
+        /// Gets or sets the name of the group that the toggle button belongs to. 
+        /// Use the GroupName property to specify a grouping of toggle buttons to 
+        /// create a mutually exclusive set of controls. You can use the GroupName 
+        /// property when only one selection is possible from a list of available 
+        /// options. When this property is set, only one ToggleButton in the specified
+        /// group can be selected at a time.
+        /// </summary>
+        public string GroupName
+        {
+            get { return (string)GetValue(GroupNameProperty); }
+            set { SetValue(GroupNameProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupNameProperty =
+            DependencyProperty.Register("GroupName", typeof(string), typeof(MenuItem),
+            new UIPropertyMetadata(null, OnGroupNameChanged));
+
+        // Group name changed
+        static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            MenuItem toggleButton = (MenuItem)d;
+            string currentGroupName = (string)e.NewValue;
+            string previousGroupName = (string)e.OldValue;
+
+            if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
+            if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
+        }
+
+        #region Grouped Items Methods
+
+        // Grouped buttons
+        static readonly Dictionary<string, List<WeakReference>> groupedButtons =
+            new Dictionary<string, List<WeakReference>>();
+
+        // Remove from group
+        static void RemoveFromGroup(string groupName, MenuItem button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
+
+            buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((MenuItem)x.Target) == button)));
+        }
+
+        // Remove from group
+        static void AddToGroup(string groupName, MenuItem button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            {
+                buttons = new List<WeakReference>();
+                groupedButtons.Add(groupName, buttons);
+            }
+
+            buttons.Add(new WeakReference(button));
+        }
+
+        // Gets all buttons in the given group
+        static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<MenuItem>();
+            return buttons.Where(x => x.IsAlive).Select(x => (MenuItem)x.Target);
+        }
+
+        #endregion
+
+        #endregion
 
         /// <summary>
         /// Gets a value that indicates whether a MenuItem can be checked. This is a dependency property. 
@@ -90,9 +200,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckableProperty =
-            DependencyProperty.Register("IsCheckable", typeof(bool), 
+            DependencyProperty.Register("IsCheckable", typeof(bool),
             typeof(MenuItem), new UIPropertyMetadata(false));
-        
+
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
         /// </summary>
