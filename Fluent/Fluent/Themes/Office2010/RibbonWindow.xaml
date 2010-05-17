@@ -103,7 +103,7 @@
               </Border>
             </Border>
             <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
-            <Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
               <Image.RenderTransform>
                 <TransformGroup>
                   <ScaleTransform/>

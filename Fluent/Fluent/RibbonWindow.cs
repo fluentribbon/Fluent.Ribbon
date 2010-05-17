@@ -276,8 +276,8 @@ namespace Fluent
             if (PresentationFrameworkVersion < new Version("4.0"))
             {
                 // On older versions of the framework the client size of the window is incorrectly calculated.
-                /*TemplateProperty.AddOwner(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowPropertyChangedThatRequiresTemplateFixup));
-                FlowDirectionProperty.AddOwner(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowPropertyChangedThatRequiresTemplateFixup));*/
+                TemplateProperty.AddOwner(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowPropertyChangedThatRequiresTemplateFixup));
+                FlowDirectionProperty.AddOwner(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowPropertyChangedThatRequiresTemplateFixup));
             }
 
             // Register commands
@@ -285,6 +285,20 @@ namespace Fluent
             CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(RibbonWindow.MinimizeCommand, OnMinimizeCommandExecuted));
             CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(RibbonWindow.MaximizeCommand, OnMaximizeCommandExecuted));
             CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(RibbonWindow.NormalizeCommand, OnNormalizeCommandExecuted));
+        }
+
+        private static void OnWindowPropertyChangedThatRequiresTemplateFixup(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonWindow window = d as RibbonWindow;
+            if (window.handle != null)
+            {
+                // Assume that when the template changes it's going to be applied.
+                // We don't have a good way to externally hook into the template
+                // actually being applied, so we asynchronously post the fixup operation
+                // at Loaded priority, so it's expected that the visual tree will be
+                // updated before _FixupFrameworkIssues is called.
+                window.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)window.FixFrameworkIssues);
+            }
         }
 
         // Coerce control style
