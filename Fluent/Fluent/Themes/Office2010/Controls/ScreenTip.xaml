@@ -172,9 +172,11 @@
           <ControlTemplate.Triggers>            
             <Trigger Property="IsEnabled" SourceName="separator" Value="False">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Visible"/>
+              <Setter Property="Visibility" TargetName="separator" Value="Visible"/>
             </Trigger>
             <Trigger Property="IsEnabled" SourceName="separator" Value="True">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>
+              <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>

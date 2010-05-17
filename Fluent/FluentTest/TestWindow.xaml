@@ -101,13 +101,14 @@
       <!--<FluentTest:TestRibbonTab/>-->
             <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)" IsSelected="False">
-                <Fluent:RibbonGroupBox Visibility="Collapsed" Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard Ǻ Ȃ Ȧ y Ǟ" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
+                <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard Ǻ Ȃ Ȧ y Ǟ" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Text="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
                   Title="Paste (Ctrl+V)"
                   Text="Paste the contents of the Clipboard."
-                  Width="190"/>
+                  Width="190"
+                  />
             </Fluent:SplitButton.ToolTip>
             <Fluent:Gallery VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
               <Fluent:Gallery.ItemContainerStyle>
