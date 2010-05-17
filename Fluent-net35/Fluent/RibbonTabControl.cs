@@ -328,6 +328,7 @@ namespace Fluent
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
+            if (RibbonPopup.GetActivePopup() != null) return;
             ProcessMouseWheel(e);
             e.Handled = true;
         }
@@ -510,8 +511,8 @@ namespace Fluent
                 if (monitor != System.IntPtr.Zero)
                 {
                     NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
-                    monitorInfo.Size = (uint)Marshal.SizeOf(monitorInfo);
-                    NativeMethods.GetMonitorInfo(monitor, ref monitorInfo);
+                    monitorInfo.Size = Marshal.SizeOf(monitorInfo);
+                    NativeMethods.GetMonitorInfo(monitor, monitorInfo);
 
                     Point startPoint = PointToScreen(new Point(0, 0));
                     if (FlowDirection == FlowDirection.RightToLeft) startPoint.X -= ActualWidth;

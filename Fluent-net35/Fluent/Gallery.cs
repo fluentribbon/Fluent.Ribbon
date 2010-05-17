@@ -87,8 +87,8 @@ namespace Fluent
             cachedWidthDelta = DesiredSize.Width - listBox.InnerPanelWidth;
             InvalidateMeasure();
 
-            if (ItemsInRow == 0) MinWidth = 0;
-            else
+            if (ItemsInRow != 0) /*MinWidth = 0*///;
+            //else
             {
                 double w = GetItemWidth();
                 if (!double.IsNaN(w)) MinWidth = ItemsInRow * w + cachedWidthDelta;
@@ -487,10 +487,10 @@ namespace Fluent
             Gallery gallery = (Gallery) d;
             if (!gallery.Selectable)
             {
-                if (basevalue != null)
+                if ((basevalue != null) && (gallery.listBox != null))
                 {
-                    // TODO: what if basevalue is string type for example?
-                    ((ListBoxItem)gallery.listBox.ContainerFromElement((DependencyObject)basevalue)).IsSelected = false;
+                    ListBoxItem item = ((ListBoxItem)gallery.listBox.ItemContainerGenerator.ContainerFromItem(basevalue));
+                    if(item!=null) item.IsSelected = false;
                     gallery.listBox.SelectedItem = null;
                 }
                 return null;

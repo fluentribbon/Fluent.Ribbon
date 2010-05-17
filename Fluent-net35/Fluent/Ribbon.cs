@@ -156,7 +156,9 @@ namespace Fluent
             set { SetValue(TitleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(Ribbon), new UIPropertyMetadata("", OnTitleChanged));
 
@@ -172,6 +174,7 @@ namespace Fluent
         public RibbonTabItem SelectedTabItem
         {
             get { return tabControl == null ? null : tabControl.SelectedTabItem; }
+            set { if (tabControl != null) tabControl.SelectedItem = value; }
         }
 
         /// <summary>
@@ -180,6 +183,7 @@ namespace Fluent
         public int SelectedTabIndex
         {
             get { return tabControl == null ? -1 : tabControl.SelectedIndex; }
+            set { if (tabControl != null) tabControl.SelectedIndex = value; }
         }
 
         /// <summary>
@@ -755,10 +759,11 @@ namespace Fluent
                     titleBar.Items.Add(groups[i]);
                 }
             }
-
+            RibbonTabItem selectedTab = null;
             if (tabControl != null)
             {                
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
+                selectedTab = tabControl.SelectedItem as RibbonTabItem;
             }
             if ((tabControl != null) && (tabs != null))
             {
@@ -791,6 +796,8 @@ namespace Fluent
                 {
                     tabControl.Items.Add(tabs[i]);
                 }
+                tabControl.SelectedItem = selectedTab;
+                if (tabControl.SelectedItem == null) tabControl.SelectedIndex = 0;
             }
 
             if ((tabControl != null) && (toolBarItems != null))
@@ -1113,18 +1120,34 @@ namespace Fluent
         {
             keyTipService.Attach();
             Window window = Window.GetWindow(this);
-            if (window != null) window.SizeChanged += OnSizeChanged;
+            if (window != null)
+            {
+                window.SizeChanged += OnSizeChanged;
+                window.KeyDown += OnKeyDown;
+            }
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
             else if ((tabControl!=null)&&(tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
+        void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F1 && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            {
+                IsMinimized = !IsMinimized;
+            }
+        }
+
         void OnUnloaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Detach();
             Window window = Window.GetWindow(this);
-            if (window != null) window.SizeChanged -= OnSizeChanged;
+            if (window != null)
+            {
+                window.SizeChanged -= OnSizeChanged;
+                window.KeyDown -= OnKeyDown;
+            }
         }
 
         #endregion
@@ -1179,8 +1202,8 @@ namespace Fluent
 
                 SaveWindowSize(window);
 
-                window.MinWidth = 500;
-                window.MinHeight = 400;
+                if (savedMinWidth < 500) window.MinWidth = 500;
+                if (savedMinHeight < 400) window.MinHeight = 400;
                 window.SizeChanged += OnWindowSizeChanged;
 
                 // We have to collapse WindowsFormsHost while Backstate is open

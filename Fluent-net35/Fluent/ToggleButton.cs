@@ -115,8 +115,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(ToggleButton), 
-            new UIPropertyMetadata(false,OnIsCheckedChanged, CoerceIsChecked));
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(ToggleButton),
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
 
         // Coerce IsChecked
         static object CoerceIsChecked(DependencyObject d, object basevalue)

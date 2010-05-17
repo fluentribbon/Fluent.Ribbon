@@ -68,6 +68,9 @@
 			</Setter.Value>
 			</Setter>
 	</Style>
+    
+    
+    
     <Style x:Key="ScreenTipStyle" TargetType="{x:Type Fluent:ScreenTip}">
 	<!--<Style x:Key="FFF" TargetType="Label">-->
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
@@ -130,7 +133,7 @@
             
             <Border Grid.RowSpan="1" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource ScreenTipBorderBrush}" Background="{DynamicResource ScreenTipBackgroundBrush}">
               <Grid>
-                <StackPanel x:Name="screenTipPanel" Width="{Binding Path=Width}">
+                <StackPanel x:Name="screenTipPanel" Width="{TemplateBinding Width}">
                   <TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" FontWeight="Bold" Text="{TemplateBinding Property=Title}"/>
                   <Grid x:Name="imageAndTextSection">
           			<Grid.ColumnDefinitions>
@@ -169,9 +172,11 @@
           <ControlTemplate.Triggers>            
             <Trigger Property="IsEnabled" SourceName="separator" Value="False">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Visible"/>
+              <Setter Property="Visibility" TargetName="separator" Value="Visible"/>
             </Trigger>
             <Trigger Property="IsEnabled" SourceName="separator" Value="True">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>
+              <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>

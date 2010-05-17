@@ -467,9 +467,10 @@ namespace Fluent
             InRibbonGallery inRibbonGallery = (InRibbonGallery)d;
             if (!inRibbonGallery.Selectable)
             {
-                if (basevalue != null)
+                if ((basevalue != null) && (inRibbonGallery.listBox!=null))
                 {
-                    ((ListBoxItem)inRibbonGallery.listBox.ContainerFromElement((DependencyObject)basevalue)).IsSelected = false;
+                    ListBoxItem item = ((ListBoxItem)inRibbonGallery.listBox.ItemContainerGenerator.ContainerFromItem(basevalue));
+                    if (item != null) item.IsSelected = false;
                     inRibbonGallery.listBox.SelectedItem = null;
                 }
                 return null;

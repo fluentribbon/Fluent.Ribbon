@@ -750,6 +750,8 @@ namespace Fluent
                 case "pt": LoadPortuguese(); break;
                 case "es": LoadSpanish(); break;
                 case "zh": LoadChinese(); break;
+                case "sv": LoadSwedish(); break;
+                case "sk": LoadSlovak(); break;
             }
 
             // Coerce all values
@@ -1204,6 +1206,78 @@ namespace Fluent
             ribbonContextMenuShowAbove = "在功能区上方显示快速访问工具栏";
             ribbonContextMenuCustomizeRibbon = "自定义功能区...";
             ribbonContextMenuMinimizeRibbon = "功能区最小化";
+        }
+
+        #endregion
+
+        #region Swedish
+
+        void LoadSwedish()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Arkiv";
+            backstageButtonKeyTip = "A";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimera menyfliksområdet (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas\nendast flikarna";
+            expandButtonScreenTipTitle = "Expandera menyfliksområdet (Ctrl + F1)";
+            expandButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas\nendast flikarna";
+
+            // QAT tooltips and menu items          
+            quickAccessToolBarDropDownButtonTooltip = "Anpassa verktygsfältet Snabbåtkomst ";
+            quickAccessToolBarMoreControlsButtonTooltip = "Fler kommandon"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = " Anpassa verktygsfältet Snabbåtkomst";
+            quickAccessToolBarMenuShowAbove = "Visa ovanför menyfliksområdet";
+            quickAccessToolBarMenuShowBelow = "Visa under menyfliksområdet";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Lägg till i verktygsfältet Snabbåtkomst"; // Button
+            ribbonContextMenuAddGroup = "Lägg till i verktygsfältet Snabbåtkomst"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Lägg till galleriet i verktygsfältet Snabbåtkomst"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = " Lägg till menyn i verktygsfältet Snabbåtkomst "; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Ta bort från verktygsfältet Snabbåtkomst"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Anpassa verktygsfältet Snabbåtkomst...";
+            ribbonContextMenuShowBelow = " Visa verktygsfältet Snabbåtkomst under menyfliksområdet";
+            ribbonContextMenuShowAbove = " Visa verktygsfältet Snabbåtkomst ovanför menyfliksområdet ";
+            ribbonContextMenuCustomizeRibbon = "Anpassa menyfliksområdet...";
+            ribbonContextMenuMinimizeRibbon = "Minimera menyfliksområdet";
+        }
+
+        #endregion
+
+        #region Swedish
+
+        void LoadSlovak()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Súbor";
+            backstageButtonKeyTip = "S";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Skryť pás s nástrojmi (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Zobraziť alebo skryť pás s nástrojmi\n\nKeď je pás s nástrojmi skrytý, sú zobrazené iba názvy kariet";
+            expandButtonScreenTipTitle = "Zobraziť pás s nástrojmi (Ctrl + F1)";
+            expandButtonScreenTipText = " Zobraziť alebo skryť pás s nástrojmi\n\nKeď je pás s nástrojmi skrytý, sú zobrazené iba názvy kariet ";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Prispôsobenie panela s nástrojmi Rýchly prístup";
+            quickAccessToolBarMoreControlsButtonTooltip = "Ďalšie príkazy"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Prispôsobenie panela s nástrojmi Rýchly prístup";
+            quickAccessToolBarMenuShowAbove = " Zobraziť nad pásom s nástrojmi ";
+            quickAccessToolBarMenuShowBelow = "Zobraziť pod pásom s nástrojmi";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Pridať na panel s nástrojmi Rýchly prístup"; // Button
+            ribbonContextMenuAddGroup = " Pridať na panel s nástrojmi Rýchly prístup "; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = " Pridať galériu do panela s nástrojmi Rýchly prístup "; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Pridať na panel s nástrojmi Rýchly prístup"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Odstrániť z panela s nástrojmi Rýchly prístup "; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = " Prispôsobenie panela s nástrojmi Rýchly prístup...";
+            ribbonContextMenuShowBelow = "Panel s nástrojmi Rýchly prístup zobraziť pod panelom s nástrojmi";
+            ribbonContextMenuShowAbove = "Panel s nástrojmi Rýchly prístup zobraziť nad panelom s nástrojmi ";
+            ribbonContextMenuCustomizeRibbon = "Prispôsobenie panela s nástrojmi Rýchly prístup...";
+            ribbonContextMenuMinimizeRibbon = "Minimalizovať pás s nástrojmi";
         }
 
         #endregion

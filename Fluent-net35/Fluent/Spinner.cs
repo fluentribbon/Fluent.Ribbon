@@ -31,10 +31,19 @@ namespace Fluent
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
     public class Spinner : RibbonControl
     {
+        #region Events
+
+        /// <summary>
+        /// Occurs when value has been changed
+        /// </summary>
+        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+
+        #endregion
+
         #region Fields
 
         // Parts of the control (must be in control template)
-        TextBox textBox;
+        System.Windows.Controls.TextBox textBox;
         System.Windows.Controls.Primitives.RepeatButton buttonUp;
         System.Windows.Controls.Primitives.RepeatButton buttonDown;
 
@@ -74,6 +83,8 @@ namespace Fluent
         {
             Spinner spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
+
+            if (spinner.ValueChanged != null) spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
         }
 
         void ValueToTextBoxText()
@@ -307,7 +318,7 @@ namespace Fluent
             }
 
             // Get template childs
-            textBox = GetTemplateChild("PART_TextBox") as TextBox;
+            textBox = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
             buttonUp = GetTemplateChild("PART_ButtonUp") as System.Windows.Controls.Primitives.RepeatButton;
             buttonDown = GetTemplateChild("PART_ButtonDown") as System.Windows.Controls.Primitives.RepeatButton;
 
@@ -362,6 +373,18 @@ namespace Fluent
             args.Handled = true;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
+        /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            // Avoid Click invocation (from RibbonControl)
+            if (e.Key == Key.Enter || e.Key == Key.Space) return;
+            base.OnKeyUp(e);
+        }
+
         void OnButtonUpClick(object sender, RoutedEventArgs e)
         {
             Value += Increment;
@@ -388,6 +411,7 @@ namespace Fluent
                 textBox.Focusable = false;
                 Focus();
                 textBox.Focusable = true;
+                e.Handled = true;
             }
 
             if (e.Key == Key.Up)

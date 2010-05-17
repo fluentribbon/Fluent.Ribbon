@@ -16,6 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -398,10 +399,22 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof (RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
+            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = ((FrameworkElement)d).Resources["RibbonTabItemStyle"] as Style ??
+                              Application.Current.Resources["RibbonTabItemStyle"] as Style;
+            }
+
+            return basevalue;
         }
 
         // Handles visibility changes
-        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTabItem item = d as RibbonTabItem;
             if((item.IsSelected)&&((Visibility)e.NewValue==Visibility.Collapsed))
@@ -425,6 +438,10 @@ namespace Fluent
         {
             AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
             AddLogicalChild(groupsContainer);
+            Binding binding = new Binding("DataContext");
+            binding.Source = this;
+            binding.Mode = BindingMode.OneWay;
+            groupsContainer.SetBinding(DataContextProperty, binding);
         }
         
         // Handles Click event
@@ -520,6 +537,8 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
             if (newValue)
             {
+                if ((container.TabControlParent != null) && (container.TabControlParent.SelectedItem is RibbonTabItem) && (container.TabControlParent.SelectedItem != container))
+                    (container.TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else

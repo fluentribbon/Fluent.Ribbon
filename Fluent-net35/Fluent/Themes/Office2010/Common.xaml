@@ -2,11 +2,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Fonts.xaml"/>
+            <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Fonts.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Colors\Colors.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\EmptyFocusStyle.xaml"/>        
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabControl.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabItem.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTabItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonGroupBox.xaml"/>
 	  <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScreenTip.xaml"/>
 	  <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TwoLineLabel.xaml"/>
@@ -15,7 +15,7 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\DropDownButton.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\SplitButton.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\CheckBox.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonContextualTabGroup.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTitleBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\KeyTip.xaml"/>
@@ -25,10 +25,10 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Gallery.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\InRibbonGallery.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Backstage.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Backstage.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabItem.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabControl.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonSeparator.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonToolBarControlGroup.xaml"/>
@@ -36,6 +36,7 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBar.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonListBox.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTextBox.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TextBox.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Spinner.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBox.xaml"/>    
@@ -48,8 +49,8 @@
   <Style x:Key="{x:Type Fluent:TwoLineLabel}" TargetType="Fluent:TwoLineLabel" BasedOn="{StaticResource TwoLineLabelStyle}"/>
   <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip" BasedOn="{StaticResource KeyTipStyle}"/>
   <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>
-  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>  
-  <Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>
+  <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>
+  <!--<Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>-->
   <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
   <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
   <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>  
@@ -66,6 +67,7 @@
   <Style x:Key="{x:Type Fluent:RibbonGroupBox}" TargetType="{x:Type Fluent:RibbonGroupBox}" BasedOn="{StaticResource RibbonGroupBoxStyle}"/>
   <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonToolBar}" TargetType="{x:Type Fluent:RibbonToolBar}" BasedOn="{StaticResource RibbonToolBarStyle}"/>
+  <!--<Style x:Key="{x:Type Fluent:TextBox}" TargetType="{x:Type Fluent:TextBox}" BasedOn="{StaticResource RibbonTextBoxStyle}"/>-->
   <Style x:Key="{x:Type Fluent:RibbonToolBarControlGroup}" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}"/>
   <Style x:Key="{x:Type Fluent:Ribbon}" TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}"/>
   <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>

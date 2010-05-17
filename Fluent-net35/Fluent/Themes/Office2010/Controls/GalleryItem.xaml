@@ -36,8 +36,8 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="Width" Value="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
-    <Setter Property="Height" Value="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
+    <Setter Property="Width" Value="{Binding ItemWidth, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
+    <Setter Property="Height" Value="{Binding ItemHeight, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
 	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 </ResourceDictionary>

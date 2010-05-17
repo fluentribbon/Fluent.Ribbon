@@ -114,12 +114,12 @@ namespace Fluent
             RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
             RibbonGroupBoxState ribbonGroupBoxState = (RibbonGroupBoxState)e.NewValue;
 
-            SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);            
+            SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);
         }
-        
+
         // Set child sizes
         private static void SetChildSizes(RibbonGroupBoxState ribbonGroupBoxState, RibbonGroupBox ribbonGroupBox)
-        {                            
+        {
             for (int i = 0; i < ribbonGroupBox.Items.Count; i++)
             {
                 SetAppropriateSizeRecursive((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
@@ -139,8 +139,8 @@ namespace Fluent
             int childrenCount = VisualTreeHelper.GetChildrenCount(root);
             for (int i = 0; i < childrenCount; i++)
             {
-                SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root,i) as UIElement, ribbonGroupBoxState);
-            }            
+                SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root, i) as UIElement, ribbonGroupBoxState);
+            }
         }
 
         #endregion
@@ -190,7 +190,8 @@ namespace Fluent
         /// </summary>
         internal bool SuppressCacheReseting
         {
-            get; set;
+            get;
+            set;
         }
 
         // Finds and decrease size of all scalable elements in the given group box
@@ -256,7 +257,7 @@ namespace Fluent
         #endregion
 
         #region LauncherKeys
-        
+
         /// <summary>
         /// Gets or sets key tip for dialog launcher button
         /// </summary>
@@ -279,7 +280,7 @@ namespace Fluent
 
         static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox ribbonGroupBox = (RibbonGroupBox) d;
+            RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
             if (ribbonGroupBox.LauncherButton != null)
             {
                 KeyTip.SetKeys(ribbonGroupBox.LauncherButton, (string)e.NewValue);
@@ -327,7 +328,7 @@ namespace Fluent
         #endregion
 
         #region LauncherCommand
-        
+
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
@@ -389,7 +390,7 @@ namespace Fluent
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
         /// </summary>
         public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register("LauncherCommandTarget", typeof(IInputElement), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
-        
+
         #endregion
 
         #region LauncherToolTip
@@ -461,7 +462,7 @@ namespace Fluent
             get { return (bool)GetValue(IsOpenProperty); }
             set { SetValue(IsOpenProperty, value); }
         }
-        
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
@@ -527,6 +528,14 @@ namespace Fluent
         static RibbonGroupBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
+            VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnVisibilityChanged));
+        }
+
+        // Handles visibility changed
+        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonGroupBox box = (d as RibbonGroupBox);
+            box.ClearCache();
         }
 
         /// <summary>
@@ -578,15 +587,15 @@ namespace Fluent
         /// Snaps / Unsnaps the Visual 
         /// (remove visuals and substitute with freezed image)
         /// </summary>
-        public bool IsSnapped 
-        { 
+        public bool IsSnapped
+        {
             get
             {
                 return isSnapped;
             }
             set
             {
-                if (value == isSnapped) return;                
+                if (value == isSnapped) return;
                 if (value)
                 {
                     if (IsVisible)
@@ -594,10 +603,10 @@ namespace Fluent
                         // Render the freezed image
                         snappedImage = new Image();
                         RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
-                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int) ActualWidth,
-                                                                                       (int) ActualHeight, 96, 96,
+                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth,
+                                                                                       (int)ActualHeight, 96, 96,
                                                                                        PixelFormats.Pbgra32);
-                        renderTargetBitmap.Render((Visual) VisualTreeHelper.GetChild(this, 0));
+                        renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                         snappedImage.FlowDirection = FlowDirection;
                         snappedImage.Source = renderTargetBitmap;
 
@@ -606,7 +615,7 @@ namespace Fluent
                         isSnapped = value;
                     }
                 }
-                else if(snappedImage!=null)
+                else if (snappedImage != null)
                 {
                     // Clean up
                     RemoveVisualChild(snappedImage);
@@ -625,10 +634,10 @@ namespace Fluent
         /// </summary>
         protected override int VisualChildrenCount
         {
-            get 
+            get
             {
-                if (isSnapped && IsVisible) return 1; 
-                return base.VisualChildrenCount; 
+                if (isSnapped && IsVisible) return 1;
+                return base.VisualChildrenCount;
             }
         }
 
@@ -639,7 +648,7 @@ namespace Fluent
         /// <returns>The requested child element</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (isSnapped && IsVisible) return snappedImage; 
+            if (isSnapped && IsVisible) return snappedImage;
             return base.GetVisualChild(index);
         }
 
@@ -656,13 +665,14 @@ namespace Fluent
 
         // Cache
         readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
-        
+
         /// <summary>
         /// Gets or sets intermediate state of the group box
         /// </summary>
         internal RibbonGroupBoxState StateIntermediate
         {
-            get; set;
+            get;
+            set;
         }
 
         /// <summary>
@@ -682,7 +692,7 @@ namespace Fluent
             get
             {
                 Size result;
-                StateScale stateScale = new StateScale { Scale = ScaleIntermediate, State = StateIntermediate};
+                StateScale stateScale = new StateScale { Scale = ScaleIntermediate, State = StateIntermediate };
                 if (!cachedMeasures.TryGetValue(stateScale, out result))
                 {
                     SuppressCacheReseting = true;
@@ -750,7 +760,7 @@ namespace Fluent
             {
                 foreach (Visual visual in e.NewItems)
                 {
-                    RibbonControl.SetAppropriateSize((UIElement) visual, State);
+                    RibbonControl.SetAppropriateSize((UIElement)visual, State);
                 }
             }
             base.OnItemsChanged(e);
@@ -773,9 +783,9 @@ namespace Fluent
                 if (LauncherKeys != null)
                     KeyTip.SetKeys(LauncherButton, LauncherKeys);
             }
-            
+
             popup = GetTemplateChild("PART_Popup") as Popup;
-            if(popup!=null)
+            if (popup != null)
             {
                 Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
@@ -797,11 +807,11 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((State == RibbonGroupBoxState.Collapsed)&&(popup!=null)&&(!IsOpen))
+            if ((State == RibbonGroupBoxState.Collapsed) && (popup != null) && (!IsOpen))
             {
                 e.Handled = true;
                 //Mouse.Capture(popup, CaptureMode.Element);
-                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent,this));                
+                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
             }
         }
 
@@ -813,16 +823,16 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             // System.Diagnostics.Debug.WriteLine("Measure " + Header + " (" + State + ") (" + scale + ")");
-            if (State==RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
+            if (State == RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
 
             Size size = base.MeasureOverride(constraint);
-            if(upPanel.DesiredSize.Width<downGrid.DesiredSize.Width)
+            if ((upPanel != null) && (upPanel.DesiredSize.Width < downGrid.DesiredSize.Width))
             {
                 return base.MeasureOverride(new Size(upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right, constraint.Height));
             }
-           return size;
+            return size;
         }
-        
+
         #endregion
 
         #region Event Handling
@@ -836,7 +846,7 @@ namespace Fluent
         {
             if (LauncherClick != null) LauncherClick(this, e);
         }
-        
+
         // Handles popup closing
         void OnRibbonGroupBoxPopupClosing()
         {
@@ -848,7 +858,7 @@ namespace Fluent
         {
             IsHitTestVisible = false;
         }
-        
+
         /// <summary>
         /// Handles IsOpen propertyu changes
         /// </summary>
@@ -900,17 +910,17 @@ namespace Fluent
 
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
-            ToggleButton button = (ToggleButton) sender;            
-            if ((!IsOpen)&&(!IsSnapped))
+            ToggleButton button = (ToggleButton)sender;
+            if ((!IsOpen) && (!IsSnapped))
             {
-                if(popup==null)
+                if (popup == null)
                 {
                     // Trying to load control
                     RibbonTabItem item = Parent as RibbonTabItem;
-                    if(item!=null)
+                    if (item != null)
                     {
                         RibbonTabControl tabControl = item.Parent as RibbonTabControl;
-                        if(tabControl!=null)
+                        if (tabControl != null)
                         {
                             RibbonTabItem selectedItem = tabControl.SelectedItem as RibbonTabItem;
                             tabControl.SelectedItem = item;
@@ -922,7 +932,7 @@ namespace Fluent
                 IsSnapped = true;
                 savedState = this.State;
                 this.State = RibbonGroupBoxState.Collapsed;
-                if(!IsVisible)
+                if (!IsVisible)
                 {
                     UIElement element = popup.Child;
                     popup.Child = null;
@@ -936,9 +946,9 @@ namespace Fluent
                     quickAccessPopup.Child = element;
                 }
                 else quickAccessPopup = popup as RibbonPopup;
-                quickAccessPopup.Closed += OnMenuClosed;                
+                quickAccessPopup.Closed += OnMenuClosed;
                 popupPlacementTarget = popup.PlacementTarget;
-                quickAccessPopup.PlacementTarget = button;                
+                quickAccessPopup.PlacementTarget = button;
                 quickAccessPopup.Tag = button;
                 if (IsVisible)
                 {
@@ -956,18 +966,18 @@ namespace Fluent
                     if (parent != null) parent.UpdateLayout();
                 }
                 */
-                if (quickAccessPopup.Child != null)quickAccessPopup.Child.InvalidateMeasure();
+                if (quickAccessPopup.Child != null) quickAccessPopup.Child.InvalidateMeasure();
                 button.IsChecked = true;
                 e.Handled = true;
             }
         }
-       
+
         private void OnMenuClosed(object sender, EventArgs e)
         {
             Scale = savedScale;
-            if (quickAccessPopup!=popup)
+            if (quickAccessPopup != popup)
             {
-                UIElement element = quickAccessPopup.Child;                
+                UIElement element = quickAccessPopup.Child;
                 quickAccessPopup.Child = null;
                 if (element != null)
                 {

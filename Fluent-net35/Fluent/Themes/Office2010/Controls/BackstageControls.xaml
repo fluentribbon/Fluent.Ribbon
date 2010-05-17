@@ -17,6 +17,15 @@
   		</Border>
   	</Grid>
   	<ControlTemplate.Triggers>
+      <Trigger Property="IsEnabled" Value="False">
+        <Setter Property="Opacity" TargetName="image" Value="0.5"/>
+        <Setter Property="Opacity" TargetName="twoLineLabel" Value="0.5"/>
+        <Setter Property="Effect" TargetName="image">
+          <Setter.Value>
+            <Fluent:GrayscaleEffect/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
   		<Trigger Property="Size" Value="Small">
   			<Setter Property="Visibility" TargetName="image" Value="Collapsed"/>
   			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
@@ -178,7 +187,7 @@
 	</ControlTemplate.Resources>
   	<Grid>
   		<Rectangle x:Name="rectangle" Fill="{x:Null}" Stroke="{DynamicResource ButtonBackstageShadowBrush}" Height="2" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="3,0"/>
-  		<Border x:Name="border" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
+  		<Border x:Name="PART_ContentBorder" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
   			<Border x:Name="border1" BorderBrush="Black" BorderThickness="0" CornerRadius="2" Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
   				<Grid x:Name="stackPanel" Margin="2">
   					<Grid.ColumnDefinitions>
@@ -195,7 +204,7 @@
   	</Grid>
   	<ControlTemplate.Triggers>
   		<Trigger Property="IsEnabled" Value="False">
-  			<Setter Property="BorderBrush" TargetName="border" Value="#FFC8C8C9"/>
+  			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="#FFC8C8C9"/>
   			<Setter Property="Opacity" TargetName="rectangle" Value="0"/>
   			<Setter Property="Background" TargetName="border1">
   				<Setter.Value>
@@ -207,24 +216,24 @@
   			</Setter>
   		</Trigger>
   		<Trigger Property="IsMouseOver" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+  			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
   			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
   			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
   		</Trigger>
   		<Trigger Property="IsFocused" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+  			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
   			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
   			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
   		</Trigger>
   		<Trigger Property="IsOpen" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+  			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+  			<Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
   		</Trigger>

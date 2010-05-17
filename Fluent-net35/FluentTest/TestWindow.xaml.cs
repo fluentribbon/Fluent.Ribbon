@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -20,6 +21,7 @@ using System.Windows.Threading;
 using Fluent;
 using Microsoft.Win32;
 using Button = Fluent.Button;
+using MenuItem = Fluent.MenuItem;
 
 namespace FluentTest
 {
@@ -54,15 +56,14 @@ namespace FluentTest
             InitializeComponent();
 
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
-
-
+            
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();
-
+            
             //Visibility = Visibility.Hidden;
 //            (Content as UIElement).Visibility = Visibility.Hidden;
-            Loaded += delegate
-            {
+            /*Loaded += delegate
+            {*/
                 /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
                 tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
                 /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
@@ -72,7 +73,7 @@ namespace FluentTest
                                                                                                        Visibility.
                                                                                                            Visible;
                                                                                                }));*/
-            };
+           // };
            
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
         }
@@ -92,7 +93,7 @@ namespace FluentTest
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(/*this,*/"Launcher button pressed!!!");
+            MessageBox.Show(this,"Launcher button pressed!!!");
             TestWindow wnd = new TestWindow();
             wnd.Show();
         }
@@ -115,7 +116,7 @@ namespace FluentTest
         }
 
         private void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
+        {/*
             /*UIElement control = QuickAccessItemsProvider.PickQuickAccessItem((sender as RibbonTabControl), e.GetPosition(sender as RibbonTabControl));
             if (control != null)
             {               
@@ -144,7 +145,7 @@ namespace FluentTest
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
             /*MessageBox.Show("Custom Command Executed");*/
-            canEx = !canEx;
+         //   canEx = !canEx;
             /*Window dialog = new Window();
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();*/
@@ -163,7 +164,7 @@ namespace FluentTest
             //MessageBox.Show("lala");
             CheckLogicalTree(ribbon);
             logicalTreeView.Items.Clear();
-            BuildLogicalTree(ribbon, null);
+            BuildLogicalTree(testBtn, null);
         }
 
         void CheckLogicalTree(DependencyObject root)
@@ -288,6 +289,36 @@ namespace FluentTest
             if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
             else Font.Visibility = Visibility.Collapsed;
         }
+
+        private void OnHelpClick(object sender, RoutedEventArgs e)
+        {
+            if(tabGroup1.Visibility==Visibility.Visible)
+            {
+                tabGroup1.Visibility = Visibility.Collapsed;
+                tabGroup2.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tabGroup1.Visibility = Visibility.Visible;
+                tabGroup2.Visibility = Visibility.Visible;
+            }
+           //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
+            //homeTabItem.Groups.Add(new RibbonGroupBox() { Header = "Lala" });
+//            ribbon.SelectedTabItem = homeTabItem;
+            Clipboard.Visibility = Visibility.Visible;
+        }
+
+        void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+           // MessageBox.Show(String.Format("Changed from {0} to {1}", e.OldValue, e.NewValue));
+        }
+
+        private void OnMenuItemClick(object sender, RoutedEventArgs e)
+        {
+            TestWindow wnd = new TestWindow();
+            wnd.Owner = this;
+            wnd.Show();
+        }
     }
 
     public class FooCommand1
@@ -324,5 +355,5 @@ namespace FluentTest
         }
 
     }
-
+    
 }

@@ -9,222 +9,221 @@
 	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageResizeGrip" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/ResizeGrip.png" PresentationOptions:Freeze="True"/>
-  
-      	<ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
-    		<Grid>
-    			<AdornerDecorator x:Name="adornerDecorator" Margin="0">
-    				<Grid x:Name="PART_MainGrid" Margin="8" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
-    					<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
-						<Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,17,0,1" VerticalAlignment="Top" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}">
-							</Rectangle>
-							<Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,17,15,1" Height="23" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}">
-				
-							</Rectangle>
-							<Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,17,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}">
+  <ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
+    <Grid>
+      <AdornerDecorator x:Name="adornerDecorator" Margin="0">
+        <Grid x:Name="PART_MainGrid" Margin="0" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
+          <Grid x:Name="PART_TitleBar" Margin="8" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
+          <Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,28,0,1" VerticalAlignment="Top" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}"/>
+          <Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,28,15,1" Height="23" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}"/>
+          <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,28,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}"/>
 
-							</Rectangle>
-    					<Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorders}"/>
-    					<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-    						<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>    					
-    					</StackPanel>
-    					<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    					<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
-    						<Image.RenderTransform>
-    							<TransformGroup>
-    								<ScaleTransform/>
-    								<SkewTransform/>
-    								<RotateTransform/>
-    								<TranslateTransform/>
-    							</TransformGroup>
-    						</Image.RenderTransform>
-    					</Image>
-    				</Grid>
-    			</AdornerDecorator>
-    		</Grid>
-      		<ControlTemplate.Triggers>
-      			<Trigger Property="FlowDirection" Value="RightToLeft">
-      				<Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
-      					<Setter.Value>
-      						<TransformGroup>
-      							<ScaleTransform ScaleX="-1"/>
-      							<SkewTransform/>
-      							<RotateTransform/>
-      							<TranslateTransform/>
-      						</TransformGroup>
-      					</Setter.Value>
-      				</Setter>
-      			</Trigger>
-      			<MultiTrigger>
-      				<MultiTrigger.Conditions>
-      					<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
-      					<Condition Property="WindowState" Value="Normal"/>
-      				</MultiTrigger.Conditions>
-      				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
-      			</MultiTrigger>
-      			<Trigger Property="WindowState" Value="Maximized">
-      				<Setter Property="Margin" TargetName="stackPanel" Value="0,0,0,0"/>
-      				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
-      				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-      				<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
-      				<Setter Property="Margin" TargetName="rectangle" Value="15,24,0,1"/>
-      				<Setter Property="Margin" TargetName="rectangle1" Value="0,24,15,1"/>
-      				<Setter Property="Margin" TargetName="rectangle2" Value="50,24,50,1"/>
-      			</Trigger>
-      			<Trigger Property="IsIconVisible" Value="False">
-      				<Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>      				
-      			</Trigger>
-      		</ControlTemplate.Triggers>
-    	</ControlTemplate>
-      	<ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
-    		<Grid>
-    			<AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
-    				<Grid>
-    					<Border x:Name="PART_SizeBorder" Margin="0,0,0,0" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8.5" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
-    						<Border x:Name="border2" BorderBrush="{DynamicResource WindowInnerBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
-    							<Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6" VerticalAlignment="Top" Height="50" Background="{DynamicResource WindowInnerBackgroundBrush}"/>
-    						</Border>
-    					</Border>
-    					<Grid x:Name="PART_MainGrid" Margin="8" Background="#00FFFFFF">
-    						<Grid x:Name="PART_TitleBar" Margin="0,0,0,0" VerticalAlignment="Top" Height="{TemplateBinding TitleBarHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
-    						<StackPanel x:Name="stackPanel" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
-    							<Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
-    						</StackPanel>
-    						<StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,0,-2,0" VerticalAlignment="Top" Orientation="Horizontal">    					
-    							<Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
-    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    							</Button>
-    							<Button x:Name="maximizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.MaximizeCommand}">
-    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    							</Button>
-    							<Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
-    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    							</Button>
-    							<Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="Red" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
-    								<Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    							</Button>
-    						</StackPanel>
-    						<Border x:Name="border4" Margin="{TemplateBinding GlassBorders}" >
-    							<Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource WindowContentBorderBrush}" Margin="-1">
-    								<Grid x:Name="grid" Background="{TemplateBinding Background}"/>
-    							</Border>
-    						</Border>
-    						<ContentPresenter Margin="0,-7,0,0" x:Name="contentPresenter"/>
-    						<Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
-    							<Image.RenderTransform>
-    								<TransformGroup>
-    									<ScaleTransform/>
-    									<SkewTransform/>
-    									<RotateTransform/>
-    									<TranslateTransform/>
-    								</TransformGroup>
-    							</Image.RenderTransform>
-    						</Image>
-    					</Grid>
-    				</Grid>
-    			</AdornerDecorator>
-    		</Grid>
-      		<ControlTemplate.Triggers>
+          <Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorderThickness}"/>
+          <StackPanel x:Name="stackPanel" Margin="7,7,8,8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+          </StackPanel>
+          <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
+          <Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+              </TransformGroup>
+            </Image.RenderTransform>
+          </Image>
+        </Grid>
+      </AdornerDecorator>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <Trigger Property="FlowDirection" Value="RightToLeft">
+        <Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+          <Setter.Value>
+            <TransformGroup>
+              <ScaleTransform ScaleX="-1"/>
+              <SkewTransform/>
+              <RotateTransform/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+          <Condition Property="WindowState" Value="Normal"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
+      </MultiTrigger>
+      <Trigger Property="WindowState" Value="Maximized">
+        <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>
+        <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
+        <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
+        <Setter Property="Margin" TargetName="rectangle" Value="15,31,0,1"/>
+        <Setter Property="Margin" TargetName="rectangle1" Value="0,31,15,1"/>
+        <Setter Property="Margin" TargetName="rectangle2" Value="50,31,50,1"/>
+      </Trigger>
+      <Trigger Property="IsIconVisible" Value="False">
+        <Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+  <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
+    <Grid>
+      <AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
+        <Grid>
+          <Border x:Name="PART_SizeBorder" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8.5" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
+            <Border x:Name="border2" BorderBrush="{DynamicResource WindowInnerBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
+              <Border x:Name="border3" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Opacity="1" CornerRadius="6" VerticalAlignment="Top" Height="50" Background="{DynamicResource WindowInnerBackgroundBrush}"/>
+            </Border>
+          </Border>
+          <Grid x:Name="PART_MainGrid" Margin="0" Background="#00FFFFFF">
+            <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
+            <StackPanel x:Name="stackPanel" Margin="7,7,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
+              <Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
+            </StackPanel>
+            <StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" Orientation="Horizontal">
+              <Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+              </Button>
+              <Button x:Name="maximizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.MaximizeCommand}">
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+              </Button>
+              <Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+              </Button>
+              <Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="Red" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+              </Button>
+            </StackPanel>
+            <Border x:Name="border4" Margin="{TemplateBinding GlassBorderThickness}" >
+              <Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource WindowContentBorderBrush}" Margin="-1">
+                <Grid x:Name="grid" Background="{TemplateBinding Background}"/>
+              </Border>
+            </Border>
+            <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
+            <Image x:Name="PART_ImageResizeGrip" Margin="0,0,1,1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+              <Image.RenderTransform>
+                <TransformGroup>
+                  <ScaleTransform/>
+                  <SkewTransform/>
+                  <RotateTransform/>
+                  <TranslateTransform/>
+                </TransformGroup>
+              </Image.RenderTransform>
+            </Image>
+          </Grid>
+        </Grid>
+      </AdornerDecorator>
+    </Grid>
+    <ControlTemplate.Triggers>
 
-      			<Trigger Property="FlowDirection" Value="RightToLeft">
-      				<Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
-      					<Setter.Value>
-      						<TransformGroup>
-      							<ScaleTransform ScaleX="-1"/>
-      							<SkewTransform/>
-      							<RotateTransform/>
-      							<TranslateTransform/>
-      						</TransformGroup>
-      					</Setter.Value>
-      				</Setter>
-      			</Trigger>
+      <Trigger Property="FlowDirection" Value="RightToLeft">
+        <Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+          <Setter.Value>
+            <TransformGroup>
+              <ScaleTransform ScaleX="-1"/>
+              <SkewTransform/>
+              <RotateTransform/>
+              <TranslateTransform/>
+            </TransformGroup>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
 
-      			<Trigger Property="IsNonClientAreaActive" Value="False">
-      				<Setter Property="Background" TargetName="PART_SizeBorder" Value="{DynamicResource WindowInactiveOutterBackgroundBrush}"/>
-      				<Setter Property="Background" TargetName="border3" Value="{DynamicResource WindowInactiveInnerBackgroundBrush}"/>
-      			</Trigger>
-      			<MultiTrigger>
-      				<MultiTrigger.Conditions>
-      					<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
-      					<Condition Property="WindowState" Value="Normal"/>
-      				</MultiTrigger.Conditions>
-      				<Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
-      			</MultiTrigger>
-      			<Trigger Property="WindowState" Value="Maximized">
-      				<Setter Property="Margin" TargetName="stackPanel" Value="2,5,0,0"/>
-      				<Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
-      				<Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
-      				<Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
-      				<Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
-      				<Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,4,0"/>
-      				<Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
-      				<Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-      				<Setter Property="Margin" TargetName="contentPresenter" Value="0"/>
-      			</Trigger>
-      			<Trigger Property="WindowState" Value="Normal">
-      				<Setter Property="Visibility" TargetName="normalizeButton" Value="Collapsed"/>
-      			</Trigger>
-      			<Trigger Property="IsIconVisible" Value="False">
-      				<Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>
-      			</Trigger>
+      <Trigger Property="IsNonClientAreaActive" Value="False">
+        <Setter Property="Background" TargetName="PART_SizeBorder" Value="{DynamicResource WindowInactiveOutterBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="border3" Value="{DynamicResource WindowInactiveInnerBackgroundBrush}"/>
+      </Trigger>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
+          <Condition Property="WindowState" Value="Normal"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
+      </MultiTrigger>
+      <Trigger Property="WindowState" Value="Maximized">
+        <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>
+        <Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
+        <Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
+        <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
+        <Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
+        <Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,8,8,0"/>
+        <Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
+        <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
+        <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
+        <Setter Property="Height" TargetName="border2" Value="54"/>
+      </Trigger>
+      <Trigger Property="WindowState" Value="Normal">
+        <Setter Property="Visibility" TargetName="normalizeButton" Value="Collapsed"/>
+      </Trigger>
+      <Trigger Property="IsIconVisible" Value="False">
+        <Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>
+      </Trigger>
 
-      		</ControlTemplate.Triggers>
-    	</ControlTemplate>
-      	<Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
-      		<Setter Property="Width" Value="35"/>
-      		<Setter Property="Height" Value="19"/>
-      		<Setter Property="Template" Value="{DynamicResource CaptionButtonControlTemplate}"/>
-      	</Style>
-      	<ControlTemplate x:Key="CaptionButtonControlTemplate" TargetType="{x:Type Button}">
-      		<Grid Background="Transparent">
-      			<Border x:Name="hoverBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border x:Name="hoverBorderInner" BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}"/>
-      			</Border>
-      			<Border x:Name="pressedBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonPressedOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
-      				<Border x:Name="pressedBorderInner" BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}"/>
-      			</Border>
-      			<ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      		</Grid>
-      		<ControlTemplate.Triggers>
-      			<MultiTrigger>
-      				<MultiTrigger.Conditions>
-      					<Condition Property="IsMouseOver" Value="True"/>
-      					<Condition Property="IsPressed" Value="False"/>
-      				</MultiTrigger.Conditions>
-      				<Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
-      			</MultiTrigger>
-      			<Trigger Property="IsPressed" Value="True">
-      				<Setter Property="Visibility" TargetName="pressedBorder" Value="Visible"/>
-      			</Trigger>
-				<Trigger Property="Background" Value="Red">
-      				<Setter Property="BorderBrush" TargetName="hoverBorder" Value="{DynamicResource CaptionButtonCloseHoverOutterBorderBrush}"/>
-					<Setter Property="BorderBrush" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBorderBrush}"/>
-					<Setter Property="Background" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBackgroundBrush}"/>
-										
-      				<Setter Property="BorderBrush" TargetName="pressedBorder" Value="{DynamicResource CaptionButtonClosePressedOutterBorderBrush}"/>
-					<Setter Property="BorderBrush" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBorderBrush}"/>
-					<Setter Property="Background" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBackgroundBrush}"/>
-      			</Trigger>
-      		</ControlTemplate.Triggers>
-      	</ControlTemplate>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
+  <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="Width" Value="35"/>
+    <Setter Property="Height" Value="19"/>
+    <Setter Property="Template" Value="{DynamicResource CaptionButtonControlTemplate}"/>
+  </Style>
+  <ControlTemplate x:Key="CaptionButtonControlTemplate" TargetType="{x:Type Button}">
+    <Grid Background="Transparent">
+      <Border x:Name="hoverBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
+        <Border x:Name="hoverBorderInner" BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}"/>
+      </Border>
+      <Border x:Name="pressedBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonPressedOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
+        <Border x:Name="pressedBorderInner" BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}"/>
+      </Border>
+      <ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+    <ControlTemplate.Triggers>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="IsMouseOver" Value="True"/>
+          <Condition Property="IsPressed" Value="False"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
+      </MultiTrigger>
+      <Trigger Property="IsPressed" Value="True">
+        <Setter Property="Visibility" TargetName="pressedBorder" Value="Visible"/>
+      </Trigger>
+      <Trigger Property="Background" Value="Red">
+        <Setter Property="BorderBrush" TargetName="hoverBorder" Value="{DynamicResource CaptionButtonCloseHoverOutterBorderBrush}"/>
+        <Setter Property="BorderBrush" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBorderBrush}"/>
+        <Setter Property="Background" TargetName="hoverBorderInner" Value="{DynamicResource CaptionButtonCloseHoverInnerBackgroundBrush}"/>
+
+        <Setter Property="BorderBrush" TargetName="pressedBorder" Value="{DynamicResource CaptionButtonClosePressedOutterBorderBrush}"/>
+        <Setter Property="BorderBrush" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBorderBrush}"/>
+        <Setter Property="Background" TargetName="pressedBorderInner" Value="{DynamicResource CaptionButtonClosePressedInnerBackgroundBrush}"/>
+      </Trigger>
+    </ControlTemplate.Triggers>
+  </ControlTemplate>
   <Style x:Key="RibbonWindowStyle" TargetType="{x:Type Fluent:RibbonWindow}">
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontWeight" Value="Normal"/>
+    <Setter Property="GlassBorderThickness" Value="8,52,8,8"/>
+    <Setter Property="ResizeBorderThickness" Value="8,8,8,8"/>
+    <Setter Property="CornerRadius" Value="15"/>
+    <Setter Property="CaptionHeight" Value="50"/>
     <Setter Property="Foreground" Value="#FF000000"/>
-    <Setter Property="Template" Value="{DynamicResource DwmRibbonWindowControlTemplate}"/>
+    <Setter Property="Template" Value="{StaticResource DwmRibbonWindowControlTemplate}"/>
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
-    <Setter Property="TitleBarHeight" Value="55"/>
-    <Setter Property="GlassBorders" Value="0,42,0,0"/>
+
     <Style.Triggers>
-  		<Trigger Property="IsCollapsed" Value="True">
-  			<Setter Property="GlassBorders" Value="0,22,0,0"/>
-  		</Trigger>
-  		<Trigger Property="WindowState" Value="Maximized">
-  			<Setter Property="GlassBorders" Value="0,49,0,0"/>
-  		</Trigger>
-  		<Trigger Property="IsDwmEnabled" Value="False">
-  			<Setter Property="Template" Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
-  		</Trigger>
-  	</Style.Triggers>
+      <Trigger Property="IsCollapsed" Value="True">
+        <Setter Property="GlassBorderThickness" Value="8,30,8,8"/>
+      </Trigger>
+      <Trigger Property="WindowState" Value="Maximized">
+        <Setter Property="GlassBorderThickness" Value="0,56,0,0"/>
+      </Trigger>
+      <Trigger Property="IsDwmEnabled" Value="False">
+        <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
+      </Trigger>
+    </Style.Triggers>
   </Style>
+  <Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>
 </ResourceDictionary>

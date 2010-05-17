@@ -13,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -51,31 +52,43 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1800")]
         internal void UpdateMenuSizes()
         {
-            Width = double.NaN;
-            Height = double.NaN;
-            double minWidth = 0;
-            double minHeight = 0;
-            for(int i=0;i<Children.Count;i++)
+            if (Children.Count > 0)
             {
-                FrameworkElement element = Children[i] as FrameworkElement;
-                if(element!=null)
+                Width = double.NaN;
+                Height = double.NaN;
+                double minWidth = 0;
+                double minHeight = 0;
+                double maxMenuWidth = 0;
+                for (int i = 0; i < Children.Count; i++)
                 {
-                    if ((element is MenuItem) || (element is Separator))
+                    FrameworkElement element = Children[i] as FrameworkElement;
+                    if (element != null)
                     {
-                        element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                        if (element is MenuItem) minWidth = Math.Max(minWidth, element.MinWidth);
-                        minHeight += element.DesiredSize.Height;
-                    }
-                    else
-                    {
-                        minWidth = Math.Max(minWidth, element.MinWidth);
-                        minHeight += element.MinHeight;
+                        if ((element is MenuItem) || (element is Separator))
+                        {
+                            element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                            if (element is MenuItem)
+                            {
+                                minWidth = Math.Max(minWidth, element.MinWidth);
+                                //maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
+                            }
+                            if (!double.IsPositiveInfinity(element.DesiredSize.Width)) maxMenuWidth = Math.Max(maxMenuWidth, element.DesiredSize.Width);
+                            minHeight += element.DesiredSize.Height;
+                        }
+                        else
+                        {
+                            if (element is MenuPanel) element.Width = double.NaN;
+                            minWidth = Math.Max(minWidth, element.MinWidth);
+                            minHeight += element.MinHeight;
+                        }
                     }
                 }
+                MinWidth = Math.Max(0, minWidth);
+                MinHeight = Math.Max(0, minHeight);
+                if (MinWidth != 0) Width = Math.Max(maxMenuWidth, MinWidth);
+                if (MinWidth < maxMenuWidth) MinWidth = maxMenuWidth;
+                if (VisualTreeHelper.GetParent(this) is MenuPanel) Width = double.NaN;
             }
-            MinWidth = Math.Max(0,minWidth);
-            MinHeight = Math.Max(0,minHeight);            
-            if(MinWidth!=0) Width = MinWidth;
         }
 
         #endregion
