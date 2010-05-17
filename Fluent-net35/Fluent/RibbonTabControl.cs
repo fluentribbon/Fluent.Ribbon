@@ -364,7 +364,7 @@ namespace Fluent
                 if ((Items[i] as RibbonTabItem).Visibility == Visibility.Visible)
                 {
                     visualItems.Add((Items[i] as RibbonTabItem));
-                    if ((Items[i] as RibbonTabItem).IsSelected) selectedIndex = i;
+                    if ((Items[i] as RibbonTabItem).IsSelected) selectedIndex = visualItems.Count - 1;
                 }
             }
             if (e.Delta > 0)
