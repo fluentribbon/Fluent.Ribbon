@@ -418,7 +418,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
-        <Button x:Name="testBtn" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
+        <Button x:Name="testBtn" Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -452,7 +452,7 @@
       </Button.ContextMenu>
     </Button>
 
-        <TreeView Visibility="Visible"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>
+        <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1"/>
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>
