@@ -23,7 +23,7 @@
         				<ContentPresenter Margin="5,5,50,5" ContentSource="Header"/>
         			</Border>
         		</Border>
-        		<Path x:Name="path" Data="M1,0L0,1 1,2" Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="11" Margin="0,0,-0.4,0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="6" Visibility="Collapsed"/>
+        		<Path x:Name="path" Data="M1,0L0,1 1,2" Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="11" Margin="0,0,-1,0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="6" Visibility="Collapsed"/>
         	</Grid>
         	<ControlTemplate.Triggers>
         		<Trigger Property="Selector.IsSelected" Value="True">

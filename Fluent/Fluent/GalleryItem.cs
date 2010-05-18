@@ -246,6 +246,44 @@ namespace Fluent
 
         #endregion
 
+        #region Events
+
+        #region Click
+
+        /// <summary>
+        /// Occurs when a RibbonControl is clicked.
+        /// </summary>
+        [Category("Behavior")]
+        public event RoutedEventHandler Click
+        {
+            add
+            {
+                AddHandler(ClickEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(ClickEvent, value);
+            }
+        }
+        /// <summary>
+        /// Identifies the RibbonControl.Click routed event.
+        /// </summary>
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GalleryItem));
+
+        /// <summary>
+        /// Raises click event
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1030")]
+        public void RaiseClick()
+        {
+            RoutedEventArgs eventArgs = new RoutedEventArgs(ClickEvent, this);
+            RaiseEvent(eventArgs);
+        }
+
+        #endregion
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -335,6 +373,7 @@ namespace Fluent
         void OnClick(object sender, RoutedEventArgs e)
         {
             OnClick(e);
+            RaiseClick();
         }
 
         #endregion

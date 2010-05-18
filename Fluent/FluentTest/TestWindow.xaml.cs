@@ -319,6 +319,7 @@ namespace FluentTest
             wnd.Owner = this;
             wnd.Show();
         }
+
     }
 
     public class FooCommand1

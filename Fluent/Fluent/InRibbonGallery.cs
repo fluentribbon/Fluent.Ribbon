@@ -460,6 +460,7 @@ namespace Fluent
             {
                 inRibbonGallery.listBox.SelectedItem = e.NewValue;
             }
+            if (inRibbonGallery.SelectionChanged != null) inRibbonGallery.SelectionChanged(inRibbonGallery, EventArgs.Empty);
         }
 
         static object CoerceSelectedItem(DependencyObject d, object basevalue)
@@ -907,9 +908,14 @@ namespace Fluent
         public event EventHandler MenuClosed;
 
         /// <summary>
-        /// Occurs when contol is scaled
+        /// Occurs when control is scaled
         /// </summary>
         public event EventHandler Scaled;
+
+        /// <summary>
+        /// Occurs then selection is changed
+        /// </summary>
+        public event EventHandler SelectionChanged;
 
         #endregion
 
