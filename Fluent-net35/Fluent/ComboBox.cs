@@ -326,8 +326,9 @@ namespace Fluent
 
         static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
-            ((ComboBox)d).SelectedItemUpdated();
+            ComboBox combo = ((ComboBox)d);
+            combo.SelectedItemUpdated();
+            if (combo.SelectionChanged != null) combo.SelectionChanged(combo, EventArgs.Empty);
         }
 
         internal void SelectedItemUpdated()
@@ -472,6 +473,11 @@ namespace Fluent
         /// Occures when context menu is closed
         /// </summary>
         public event EventHandler Closed;
+
+        /// <summary>
+        /// Occurs then selection is changed
+        /// </summary>
+        public event EventHandler SelectionChanged;
 
         #endregion
 

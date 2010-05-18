@@ -480,6 +480,7 @@ namespace Fluent
             int index = gallery.GetItemIndex(gallery.SelectedItem);
             if (gallery.SelectedIndex != index) gallery.SelectedIndex = index;
             if (gallery.listBox != null) if (gallery.SelectedItem != gallery.listBox.SelectedItem) gallery.listBox.SelectedItem = gallery.SelectedItem;
+            if (gallery.SelectionChanged != null) gallery.SelectionChanged(gallery, EventArgs.Empty);
         }
 
         static object CoerceSelectedItem(DependencyObject d, object basevalue)
@@ -525,6 +526,15 @@ namespace Fluent
         }
 
         #endregion
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs then selection is changed
+        /// </summary>
+        public event EventHandler SelectionChanged;
 
         #endregion
 
