@@ -133,7 +133,7 @@
             
             <Border Grid.RowSpan="1" CornerRadius="2" BorderThickness="1" BorderBrush="{DynamicResource ScreenTipBorderBrush}" Background="{DynamicResource ScreenTipBackgroundBrush}">
               <Grid>
-                <StackPanel x:Name="screenTipPanel" Width="{TemplateBinding Width}">
+                <StackPanel x:Name="screenTipPanel" >
                   <TextBlock x:Name="title" TextWrapping="Wrap" Margin="7,8,7,10" FontWeight="Bold" Text="{TemplateBinding Property=Title}"/>
                   <Grid x:Name="imageAndTextSection">
           			<Grid.ColumnDefinitions>
@@ -152,7 +152,7 @@
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="Auto"/>
 						</Grid.RowDefinitions>
-						<TextBlock x:Name="disableReasonHeader" x:Uid="disableReasonHeader" Text="This command is currently disabled." TextWrapping="Wrap" Margin="28,0,5,2" Foreground="#FF414141" HorizontalAlignment="Stretch" Grid.Row="0" FontWeight="Bold"/>
+                                            <TextBlock x:Name="disableReasonHeader" x:Uid="disableReasonHeader" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipDisableReasonHeader, Mode=OneWay}" TextWrapping="Wrap" Margin="28,0,5,2" Foreground="#FF414141" HorizontalAlignment="Stretch" Grid.Row="0" FontWeight="Bold"/>
 						<TextBlock x:Name="disableReasonText" Text="{TemplateBinding Property=DisableReason}" TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" HorizontalAlignment="Stretch" Grid.Row="1"/>
 						<TextBlock x:Name="helpText"  TextWrapping="Wrap" Margin="28,0,5,6" Foreground="#FF414141" Grid.RowSpan="1" Grid.Row="2" HorizontalAlignment="Stretch" Text="{Binding Text, ElementName=textBlock, Mode=Default}"/>
 					</Grid>

@@ -718,6 +718,38 @@ namespace Fluent
 
         #endregion
 
+        #region ScreenTipDisableReasonHeader
+
+        // ScreenTip's Disable Reason Header
+        string screenTipDisableReasonHeader = "This command is currently disabled.";
+
+        /// <summary>
+        /// Gets or sets ScreenTip's disable reason header
+        /// </summary>
+        public string ScreenTipDisableReasonHeader
+        {
+            get { return (string)GetValue(ScreenTipDisableReasonHeaderProperty); }
+            set { SetValue(ScreenTipDisableReasonHeaderProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ScreenTipDisableReasonHeader.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ScreenTipDisableReasonHeaderProperty =
+            DependencyProperty.Register("ScreenTipDisableReasonHeader", typeof(string), typeof(RibbonLocalization),
+                                        new UIPropertyMetadata(null, null, OnCoerceScreenTipDisableReasonHeader));
+
+        // Coerce value
+        static object OnCoerceScreenTipDisableReasonHeader(DependencyObject d, object basevalue)
+        {
+            RibbonLocalization localization = (RibbonLocalization)d;
+            if (basevalue == null) return localization.screenTipDisableReasonHeader;
+            return basevalue;
+        }
+
+        #endregion
+
         #region Initialization
 
         /// <summary>
@@ -778,6 +810,8 @@ namespace Fluent
             CoerceValue(RibbonContextMenuShowAboveProperty);
             CoerceValue(RibbonContextMenuShowBelowProperty);
             CoerceValue(RibbonContextMenuMinimizeRibbonProperty);
+
+            CoerceValue(ScreenTipDisableReasonHeaderProperty);
         }
 
         #endregion
@@ -810,6 +844,9 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Разместить панель быстрого доступа над лентой";
             ribbonContextMenuCustomizeRibbon = "Настройка ленты...";
             ribbonContextMenuMinimizeRibbon = "Свернуть ленту";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            screenTipDisableReasonHeader = "В настоящее время эта команда отключена.";
         }
 
         #endregion
@@ -990,6 +1027,9 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
             ribbonContextMenuCustomizeRibbon = "Personnaliser le Ruban...";
             ribbonContextMenuMinimizeRibbon = "Minimiser le Ruban";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            screenTipDisableReasonHeader = "Cette commande est actuellement désactivée.";
         }
 
         #endregion

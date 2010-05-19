@@ -138,7 +138,8 @@
             <Fluent:ScreenTip
                Title="Cut (Ctrl+X)"
                Text="Cut the contents to the Clipboard."
-               Width="190"/>
+               Width="190"
+               DisableReason="Cursor must be in a textbox to cut the text"/>
           </Fluent:Button.ToolTip>
         </Fluent:Button>
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
