@@ -143,6 +143,9 @@ namespace Fluent
 
         private Window ownerWindow;
 
+        private int selectedTabIndex = -1;
+        private RibbonTabItem selectedTabItem;
+        
         #endregion
 
         #region Properties
@@ -173,8 +176,12 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem SelectedTabItem
         {
-            get { return tabControl == null ? null : tabControl.SelectedTabItem; }
-            set { if (tabControl != null) tabControl.SelectedItem = value; }
+            get { return selectedTabItem; }
+            set
+            {
+                if (tabControl != null) tabControl.SelectedItem = value;
+                selectedTabItem = value;
+            }
         }
 
         /// <summary>
@@ -182,8 +189,12 @@ namespace Fluent
         /// </summary>
         public int SelectedTabIndex
         {
-            get { return tabControl == null ? -1 : tabControl.SelectedIndex; }
-            set { if (tabControl != null) tabControl.SelectedIndex = value; }
+            get { return selectedTabIndex; }
+            set
+            {
+                if (tabControl != null) tabControl.SelectedIndex = value;
+                selectedTabIndex = value;
+            }
         }
 
         /// <summary>
@@ -759,7 +770,7 @@ namespace Fluent
                     titleBar.Items.Add(groups[i]);
                 }
             }
-            RibbonTabItem selectedTab = null;
+            RibbonTabItem selectedTab = selectedTabItem;
             if (tabControl != null)
             {                
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
@@ -800,7 +811,7 @@ namespace Fluent
                 if (tabControl.SelectedItem == null)
                 {
                     bool isBacstageOpen = IsBackstageOpen;
-                    tabControl.SelectedIndex = 0;
+                    tabControl.SelectedIndex = selectedTabIndex >= 0 ? selectedTabIndex : 0;
                     IsBackstageOpen = isBacstageOpen;
                 }
             }
@@ -1107,7 +1118,7 @@ namespace Fluent
 
         #region Event Handling
 
-        // Handles tab control selection chaged
+        // Handles tab control selection changed
         void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
@@ -1117,6 +1128,11 @@ namespace Fluent
                     savedTabItem = e.AddedItems[0] as RibbonTabItem;
                     if (savedTabItem != null) IsBackstageOpen = false;
                 }
+            }
+            if (tabControl != null)
+            {
+                selectedTabItem = tabControl.SelectedItem as RibbonTabItem;
+                selectedTabIndex = tabControl.SelectedIndex;
             }
             if (SelectedTabChanged != null) SelectedTabChanged(this, EventArgs.Empty);
         }
