@@ -55,6 +55,8 @@ namespace FluentTest
         {
             InitializeComponent();
 
+            //ribbon.IsBackstageOpen = true;
+
             ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
             
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");

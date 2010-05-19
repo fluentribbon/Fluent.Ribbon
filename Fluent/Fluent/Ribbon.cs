@@ -797,7 +797,12 @@ namespace Fluent
                     tabControl.Items.Add(tabs[i]);
                 }
                 tabControl.SelectedItem = selectedTab;
-                if (tabControl.SelectedItem == null) tabControl.SelectedIndex = 0;
+                if (tabControl.SelectedItem == null)
+                {
+                    bool isBacstageOpen = IsBackstageOpen;
+                    tabControl.SelectedIndex = 0;
+                    IsBackstageOpen = isBacstageOpen;
+                }
             }
 
             if ((tabControl != null) && (toolBarItems != null))
@@ -1109,8 +1114,8 @@ namespace Fluent
             {
                 if (IsBackstageOpen)
                 {
-                    savedTabItem = (RibbonTabItem)e.AddedItems[0];
-                    IsBackstageOpen = false;
+                    savedTabItem = e.AddedItems[0] as RibbonTabItem;
+                    if (savedTabItem != null) IsBackstageOpen = false;
                 }
             }
             if (SelectedTabChanged != null) SelectedTabChanged(this, EventArgs.Empty);
@@ -1259,6 +1264,8 @@ namespace Fluent
             // Uncollapse elements
             foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
             collapsedElements.Clear();
+
+            if (SelectedTabIndex < 0) SelectedTabIndex = 0;            
         }
 
         #endregion
