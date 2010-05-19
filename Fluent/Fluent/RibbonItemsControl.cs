@@ -62,11 +62,11 @@ namespace Fluent
             private set { SetValue(HasItemsProperty, value); }
         }
 
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasItemsProperty =
-            DependencyProperty.Register("HasItems", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty HasItemsProperty = DependencyProperty.Register("HasItems", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -81,12 +81,12 @@ namespace Fluent
             private set { SetValue(IsGroupingProperty, value); }
         }
 
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsGrouping.  This enables animation, styling, binding, etc...
         /// </summary>
+        public static readonly DependencyProperty IsGroupingProperty = DependencyProperty.Register("IsGrouping", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
 
-        public static readonly DependencyProperty IsGroupingProperty =
-            DependencyProperty.Register("IsGrouping", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -119,6 +119,8 @@ namespace Fluent
             get { return (ItemContainerGenerator)GetValue(ItemContainerGeneratorProperty); }
             private set { SetValue(ItemContainerGeneratorProperty, value); }
         }
+
+
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ItemContainerGenerator.  This enables animation, styling, binding, etc...

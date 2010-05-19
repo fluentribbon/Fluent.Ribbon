@@ -115,14 +115,16 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)GetValue(HasOverflowItemsProperty); }
-            private set { SetValue(HasOverflowItemsProperty, value); }
+            private set { SetValue(HasOverflowItemsPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
+            DependencyProperty.RegisterReadOnly("HasOverflowItems", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasOverflowItemsProperty =
-            DependencyProperty.Register("HasOverflowItems", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
 

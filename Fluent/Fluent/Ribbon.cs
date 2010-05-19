@@ -652,16 +652,17 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)GetValue(IsCollapsedProperty); }
-            private set { SetValue(IsCollapsedProperty, value); }
+            private set { SetValue(IsCollapsedPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey IsCollapsedPropertyKey =
+       DependencyProperty.RegisterReadOnly("IsCollapsed", typeof(bool),
+       typeof(Ribbon), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCollapsedProperty =
-               DependencyProperty.Register("IsCollapsed", typeof(bool), 
-               typeof(Ribbon), new UIPropertyMetadata(false));
-
+        public static readonly DependencyProperty IsCollapsedProperty = IsCollapsedPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets or sets whether QAT is visible

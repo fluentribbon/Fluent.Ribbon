@@ -69,7 +69,7 @@
         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N">
           <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
             <TextBlock HorizontalAlignment="Left" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
-            <Fluent:Button IsEnabled="False" Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
+            <Fluent:Button IsDefinitive="False" IsEnabled="True" Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
               <Fluent:DropDownButton Text="123" HorizontalAlignment="Right"></Fluent:DropDownButton>
             <Fluent:ComboBox VerticalAlignment="Bottom">
               <TextBlock Text="1"/>
@@ -148,8 +148,7 @@
             <Fluent:ScreenTip
                Title="Cut (Ctrl+X)"
                Text="Cut the contents to the Clipboard."
-               Width="190"
-               DisableReason="Cursor must be in a textbox to cut the text"/>
+               Width="190"/>
           </Fluent:Button.ToolTip>
         </Fluent:Button>
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Text="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>

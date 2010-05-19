@@ -106,15 +106,17 @@ namespace Fluent
         public bool IsContextual
         {
             get { return (bool)GetValue(IsContextualProperty); }
-            private set { SetValue(IsContextualProperty, value); }
+            private set { SetValue(IsContextualPropertyKey, value); }
         }
-                       
+
+        private static readonly DependencyPropertyKey IsContextualPropertyKey =
+            DependencyProperty.RegisterReadOnly("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsContextual.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsContextualProperty =
-            DependencyProperty.Register("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsContextualProperty = IsContextualPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.

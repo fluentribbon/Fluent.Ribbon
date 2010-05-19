@@ -117,14 +117,16 @@ namespace Fluent
         public CollectionViewSource View
         {
             get { return (CollectionViewSource)GetValue(ViewProperty); }
-            private set { SetValue(ViewProperty, value); }
+            private set { SetValue(ViewPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey ViewPropertyKey =
+            DependencyProperty.RegisterReadOnly("View", typeof(CollectionViewSource), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for View.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ViewProperty =
-            DependencyProperty.Register("View", typeof(CollectionViewSource), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty ViewProperty = ViewPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -334,14 +336,16 @@ namespace Fluent
         public string SelectedFilterTitle
         {
             get { return (string)GetValue(SelectedFilterTitleProperty); }
-            private set { SetValue(SelectedFilterTitleProperty, value); }
+            private set { SetValue(SelectedFilterTitlePropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
+            DependencyProperty.RegisterReadOnly("SelectedFilterTitle", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterTitle.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SelectedFilterTitleProperty =
-            DependencyProperty.Register("SelectedFilterTitle", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty SelectedFilterTitleProperty = SelectedFilterTitlePropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets whether gallery has selected filter
@@ -349,14 +353,16 @@ namespace Fluent
         public bool HasFilter
         {
             get { return (bool)GetValue(HasFilterProperty); }
-            private set { SetValue(HasFilterProperty, value); }
+            private set { SetValue(HasFilterPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey HasFilterPropertyKey =
+            DependencyProperty.RegisterReadOnly("HasFilter", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasFilterProperty =
-            DependencyProperty.Register("HasFilter", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty HasFilterProperty = HasFilterPropertyKey.DependencyProperty;
 
         void OnFiltering(object obj, FilterEventArgs e)
         {

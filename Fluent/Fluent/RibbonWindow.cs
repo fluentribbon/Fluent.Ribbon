@@ -155,13 +155,17 @@ namespace Fluent
         public bool IsDwmEnabled
         {
             get { return (bool)GetValue(IsDwmEnabledProperty); }
-            private set { SetValue(IsDwmEnabledProperty, value); }
+            private set { SetValue(IsDwmEnabledPropertyKey, value); }
         }
+
+        [SuppressMessage("Microsoft.Naming", "CA1704")]
+        private static readonly DependencyPropertyKey IsDwmEnabledPropertyKey = DependencyProperty.RegisterReadOnly("IsDwmEnabled", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+
         /// <summary>
         /// Is DWM Enabled Dependency property
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704")]
-        public static readonly DependencyProperty IsDwmEnabledProperty = DependencyProperty.Register("IsDwmEnabled", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsDwmEnabledProperty = IsDwmEnabledPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -199,16 +203,19 @@ namespace Fluent
         public bool IsNonClientAreaActive
         {
             get { return (bool)GetValue(IsNonClientAreaActiveProperty); }
-            private set { SetValue(IsNonClientAreaActiveProperty, value); }
+            private set { SetValue(IsNonClientAreaActivePropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey IsNonClientAreaActivePropertyKey =
+    DependencyProperty.RegisterReadOnly("IsNonClientAreaActive", typeof(bool),
+    typeof(RibbonWindow), new UIPropertyMetadata(true));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsNcActivated.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsNonClientAreaActiveProperty =
-            DependencyProperty.Register("IsNonClientAreaActive", typeof(bool),
-            typeof(RibbonWindow), new UIPropertyMetadata(true));
+            IsNonClientAreaActivePropertyKey.DependencyProperty;
 
         // Windows tries hard to hide this state from applications.
         // Generally you can tell that the window is in a docked position because the restore bounds from GetWindowPlacement

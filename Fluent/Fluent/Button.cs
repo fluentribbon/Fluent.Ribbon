@@ -63,16 +63,17 @@ namespace Fluent
         public bool IsPressed
         {
             get { return (bool)GetValue(IsPressedProperty); }
-            private set { SetValue(IsPressedProperty, value); }
+            private set { SetValue(IsPressedPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey IsPressedPropertyKey = DependencyProperty.RegisterReadOnly("IsPressed", typeof(bool),
+            typeof(Button), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPressed. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsPressedProperty =
-            DependencyProperty.Register("IsPressed", typeof(bool), 
-            typeof(Button), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsPressedProperty = IsPressedPropertyKey.DependencyProperty;
         
         /// <summary>
         /// Button large icon

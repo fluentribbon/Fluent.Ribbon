@@ -441,14 +441,16 @@ namespace Fluent
         public Button LauncherButton
         {
             get { return (Button)GetValue(LauncherButtonProperty); }
-            private set { SetValue(LauncherButtonProperty, value); }
+            private set { SetValue(LauncherButtonPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
+            DependencyProperty.RegisterReadOnly("LauncherButton", typeof(Button), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LauncherButtonProperty =
-            DependencyProperty.Register("LauncherButton", typeof(Button), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherButtonProperty = LauncherButtonPropertyKey.DependencyProperty;
 
         #endregion
 

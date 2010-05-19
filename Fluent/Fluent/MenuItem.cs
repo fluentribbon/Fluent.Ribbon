@@ -286,16 +286,18 @@ namespace Fluent
         public bool HasItems
         {
             get { return (bool)GetValue(HasItemsProperty); }
-            private set { SetValue(HasItemsProperty, value); }
+            private set { SetValue(HasItemsPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey HasItemsPropertyKey =
+    DependencyProperty.RegisterReadOnly("HasItems", typeof(bool),
+    typeof(MenuItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasItems.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasItemsProperty =
-            DependencyProperty.Register("HasItems", typeof(bool), 
-            typeof(MenuItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty HasItemsProperty = HasItemsPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets or sets whether context menu is opened
