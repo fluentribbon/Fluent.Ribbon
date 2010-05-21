@@ -1282,7 +1282,11 @@ namespace Fluent
             foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
             collapsedElements.Clear();
 
-            if (SelectedTabIndex < 0) SelectedTabIndex = 0;            
+            if (SelectedTabIndex < 0)
+            {
+                if ((tabControl!=null)&&(tabControl.SelectedIndex < 0)) SelectedTabIndex = 0;
+                else SelectedTabIndex = tabControl.SelectedIndex;
+            }
         }
 
         #endregion
