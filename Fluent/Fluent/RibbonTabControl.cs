@@ -287,7 +287,8 @@ namespace Fluent
                 if (item != null)
                 {
                     item.IsSelected = true;
-                }                
+                }
+                else SelectedContent = null;
             }
         }
 
