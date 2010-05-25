@@ -754,6 +754,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public override void OnApplyTemplate()
         {
+            if (IsBackstageOpen) HideBackstage();
+
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
 
             if ((titleBar != null) && (groups != null))

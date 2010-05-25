@@ -13,7 +13,7 @@
   		<RowDefinition Height="*"/>
   	</Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon">
+    <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon" IsBackstageOpen="True">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
@@ -69,7 +69,7 @@
         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N">
           <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
             <TextBlock HorizontalAlignment="Left" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
-            <Fluent:Button IsDefinitive="False" IsEnabled="True" Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left">123</Fluent:Button>
+            <Fluent:Button IsDefinitive="False" IsEnabled="True" Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left" Click="OnBlueClick">123</Fluent:Button>
               <Fluent:DropDownButton Text="123" HorizontalAlignment="Right"></Fluent:DropDownButton>
             <Fluent:ComboBox VerticalAlignment="Bottom">
               <TextBlock Text="1"/>
