@@ -167,8 +167,17 @@ namespace Fluent
             if ((ClickMode == ClickMode.Release) && (e.ClickCount == 1))
             {
                 if (IsMouseStraightOver) RaiseClick();
-            }            
-            if (Mouse.Captured == this) Mouse.Capture(null);
+            }
+            if (Mouse.Captured == this)
+                try
+                {
+                    Mouse.Capture(null);
+                }
+                catch (System.Exception)
+                {
+                    // TODO: On ApplyTemplate grid is removed from ControlTemplate namescope but WPF tries to animate it and throws exception.
+                    // May be need to stop all animations on apply template. 
+                }
         }
 
 
