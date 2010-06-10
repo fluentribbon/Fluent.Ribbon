@@ -13,7 +13,7 @@
 		</Setter.Value> 	
 	</Setter>
   </Style>
-  <Style TargetType="{x:Type TabItem}">
+  <Style x:Key="BackstageTabCotrolItem" TargetType="{x:Type TabItem}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type TabItem}">
@@ -54,8 +54,9 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:BackstageTabControl}">
         	<ControlTemplate.Resources>
-        		   <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource BackstageGroupSeparator}"/>  	
-			</ControlTemplate.Resources>			
+        		   <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource BackstageGroupSeparator}"/>
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource BackstageTabCotrolItem}"/>
+          </ControlTemplate.Resources>			
         	<Grid>
         		<Grid.ColumnDefinitions>
         			<ColumnDefinition Width="Auto"/>
