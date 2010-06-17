@@ -770,7 +770,9 @@ namespace Fluent
             string language = culture.TwoLetterISOLanguageName;
             switch (language)
             {
+                case "en": LoadEnglish(); break;
                 case "ru": LoadRussian(); break;
+                case "uk": LoadUkrainian(); break;
                 case "fa": LoadPersian(); break;
                 case "de": LoadGerman(); break;
                 case "hu": LoadHungarian(); break;
@@ -816,6 +818,46 @@ namespace Fluent
 
         #endregion
 
+        #region English
+
+        void LoadEnglish()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "File";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimize the Ribbon (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Show or hide the Ribbon\n\nWhen the Ribbon is hidden, only\nthe tab names are shown";
+            expandButtonScreenTipTitle = "Expand the Ribbon (Ctrl + F1)";
+            expandButtonScreenTipText = "Show or hide the Ribbon\n\nWhen the Ribbon is hidden, only\nthe tab names are shown";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Customize Quick Access Toolbar";
+            quickAccessToolBarMoreControlsButtonTooltip = "More controls"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Customize Quick Access Toolbar";
+            quickAccessToolBarMenuShowAbove = "Show Above the Ribbon";
+            quickAccessToolBarMenuShowBelow = "Show Below the Ribbon";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Add to Quick Access Toolbar"; // Button
+            ribbonContextMenuAddGroup = "Add Group to Quick Access Toolbar"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Add Gallery to Quick Access Toolbar"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Add Menu to Quick Access Toolbar"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Remove from Quick Access Toolbar"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Customize Quick Access Toolbar...";
+            ribbonContextMenuShowBelow = "Show Quick Access Toolbar Below the Ribbon";
+            ribbonContextMenuShowAbove = "Show Quick Access Toolbar Above the Ribbon";
+            ribbonContextMenuCustomizeRibbon = "Customize the Ribbon...";
+            ribbonContextMenuMinimizeRibbon = "Minimize the Ribbon";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "This command is currently disabled.";
+        }
+
+        #endregion
+
         #region Russian
 
         void LoadRussian()
@@ -847,6 +889,43 @@ namespace Fluent
 
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             screenTipDisableReasonHeader = "В настоящее время эта команда отключена.";
+        }
+
+        #endregion
+        
+        #region Ukrainian
+
+        void LoadUkrainian()
+        {
+            // Backstage button text & key tip 
+            backstageButtonText = "Файл"; 
+            backstageButtonKeyTip = "Ф"; 
+            // See right-top corner... (two different tooltips must be if you press it) 
+            minimizeButtonScreenTipTitle = "Сховати Стрічку (Ctrl + F1)"; 
+            minimizeButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок"; 
+            expandButtonScreenTipTitle = "Показати Стрічку (Ctrl + F1)"; 
+            expandButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок"; 
+            // QAT tooltips and menu items 
+            quickAccessToolBarDropDownButtonTooltip = "Налаштувати Панель Інструментів Швидкого Доступу"; 
+            quickAccessToolBarMoreControlsButtonTooltip = "Більше елементів"; // When two arrows appear ">>" 
+            quickAccessToolBarMenuHeader = "Налаштувати Панель Інструментів Швидкого Доступу";
+            quickAccessToolBarMenuShowAbove = "Показати Поверх Стрічки"; 
+            quickAccessToolBarMenuShowBelow = "Показати Знизу Стрічки"; 
+            // Click on Ribbon to show context menu 
+            ribbonContextMenuAddItem = "Додати до Панелі Інструментів Швидкого Доступу"; // Button 
+            ribbonContextMenuAddGroup = "Додати Групу до Панелі Інструментів Швидкого Доступу"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Додати Галерею до Панелі Інструментів Швидкого Доступу"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Додати Меню до Панелі Інструментів Швидкого Доступу"; // By dashed splitter in context menu 
+            ribbonContextMenuRemoveItem = "Видалати з Панелі Інструментів Швидкого Доступу"; // By item in QAT 
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Налаштувати Панель Інструментів Швидкого Доступу..."; 
+            ribbonContextMenuShowBelow = "Показати Панель Інструментів Швидкого Доступу Знизу Стрічки"; 
+            ribbonContextMenuShowAbove = "Показати Панель Інструментів Швидкого Доступу Поверх Стрічки"; 
+            ribbonContextMenuCustomizeRibbon = "Налаштувати Стрічку..."; 
+            ribbonContextMenuMinimizeRibbon = "Зменшити Стрічку"; 
+            
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot 
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Ця команда на даний момент недоступна."; 
         }
 
         #endregion
@@ -991,6 +1070,8 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Zobrazit panel nástrojů Rychlý přístup nad pásem karet";
             ribbonContextMenuCustomizeRibbon = "Přizpůsobit pás karet...";
             ribbonContextMenuMinimizeRibbon = "Skrýt pás karet";
+
+            screenTipDisableReasonHeader = "Tento příkaz je aktuálně zakázán.";
         }
 
         #endregion
@@ -1286,7 +1367,7 @@ namespace Fluent
 
         #endregion
 
-        #region Swedish
+        #region Slovak
 
         void LoadSlovak()
         {
