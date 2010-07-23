@@ -786,6 +786,9 @@ namespace Fluent
                 case "zh": LoadChinese(); break;
                 case "sv": LoadSwedish(); break;
                 case "sk": LoadSlovak(); break;
+                case "ro": LoadRomanian(); break;
+                case "it": LoadItalian(); break;
+                case "ar": LoadArabic(); break;
             }
 
             // Coerce all values
@@ -1399,6 +1402,127 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Panel s nástrojmi Rýchly prístup zobraziť nad panelom s nástrojmi ";
             ribbonContextMenuCustomizeRibbon = "Prispôsobenie panela s nástrojmi Rýchly prístup...";
             ribbonContextMenuMinimizeRibbon = "Minimalizovať pás s nástrojmi";
+        }
+
+        #endregion
+
+        #region Romanian
+
+        void LoadRomanian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Fișier";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimizează Ribbon-ul (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt\nafișate doar numele taburilor";
+            expandButtonScreenTipTitle = "Expandează Ribbon-ul (Ctrl + F1)";
+            expandButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt\nafișate doar numele taburilor";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Personalizează Bara de Acces Rapid";
+            quickAccessToolBarMoreControlsButtonTooltip = "Mai multe controale"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personalizează Bara de Acces Rapid";
+            quickAccessToolBarMenuShowAbove = "Afișează peste Ribbon";
+            quickAccessToolBarMenuShowBelow = "Afișează sub Ribbon";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Adaugă la Bara de Acess Rapid"; // Button
+            ribbonContextMenuAddGroup = "Adaugă Grupul la Bara de Acess Rapid"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Adaugă Galeria la Bara de Acess Rapid";
+            // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Adaugă Meniul la Bara de Acess Rapid"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Eimină din Bara de Acess Rapid"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personalizează Bara de Acces Rapid...";
+            ribbonContextMenuShowBelow = "Afișează Bara de Acces Rapid sub Ribbon";
+            ribbonContextMenuShowAbove = "Afișează Bara de Acces Rapid peste Ribbon";
+            ribbonContextMenuCustomizeRibbon = "Personalizează Ribbon-ul...";
+            ribbonContextMenuMinimizeRibbon = "Minimizează Ribbon-ul...";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Această comandă nu este disponibilă momentan.";
+        }
+
+        #endregion
+                
+        #region Italian
+
+        void LoadItalian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "File";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Riduci a icona barra multifunzione (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Consente di visualizzare solo i nomi \ndelle schede nella barra multifunzione.";
+            expandButtonScreenTipTitle = "Espandi la barra multifunzione (Ctrl + F1)";
+            expandButtonScreenTipText = "Visualizza la barra multifunzione in modo\n che rimanga sempre espansa, anche se l’utente \nha fatto click su un comando.";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Personalizza barra di accesso rapido";
+            quickAccessToolBarMoreControlsButtonTooltip = "Altri comandi…"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personalizza barra di accesso rapido";
+            quickAccessToolBarMenuShowAbove = "Mostra sopra la barra multifunzione";
+            quickAccessToolBarMenuShowBelow = "Mostra sotto la barra multifunzione";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Aggiungi alla barra di accesso rapido"; // Button
+            ribbonContextMenuAddGroup = "Aggiungi gruppo alla barra di accesso rapido"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Aggiungi raccolta alla barra di accesso rapido"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Aggiungi menu alla barra di accesso rapido"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Rimuovi dalla barra di accesso rapido"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personalizza barra di accesso rapido...";
+            ribbonContextMenuShowBelow = "Mostra la barra di accesso rapido sotto la barra multifunzione";
+            ribbonContextMenuShowAbove = "Mostra la barra di accesso rapido sopra la barra multifunzione";
+            ribbonContextMenuCustomizeRibbon = "Personalizza barra multifunzione...";
+            ribbonContextMenuMinimizeRibbon = "Riduci a icona barra multifunzione";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Questo commando è disattivato.";
+        }
+
+        #endregion
+
+        #region Arabic
+
+        void LoadArabic()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "ملف    ";
+            backstageButtonKeyTip = "م    ";
+            
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "(Ctrl + F1)تصغير الشريط ";
+            minimizeButtonScreenTipText = "إظهار أسماء علامات التبويب فقط على الشريط.";
+            expandButtonScreenTipTitle = "(Ctrl + F1)توسيع الشريط ";
+            expandButtonScreenTipText = "إظهار الشريط بحيث يكون موسعاً دائماً حتى بعد النقر فوق أمر.";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "تخصيص شريط أدوات الوصول السريع";
+            quickAccessToolBarMoreControlsButtonTooltip = "أوامر إضافية"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "تخصيص شريط أدوات الوصول السريع";
+            quickAccessToolBarMenuShowAbove = "إظهار أعلى الشريط";
+            quickAccessToolBarMenuShowBelow = "إظهار أسفل الشريط";
+            
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "إضافة إلى شريط أدوات الوصول السريع"; // Button
+            ribbonContextMenuAddGroup = "إضافة إلى شريط أدوات الوصول السريع"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "إضافة إلى شريط أدوات الوصول السريع"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "إضافة إلى شريط أدوات الوصول السريع"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "إزالة إلى شريط أدوات الوصول السريع"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "تخصيص شريط أدوات الوصول السريع...";
+            ribbonContextMenuShowBelow = "إظهار شريط أدوات الوصول السريع أسفل الشريط";
+            ribbonContextMenuShowAbove = "إظهار شريط أدوات الوصول السريع أعلى الشريط";
+            ribbonContextMenuCustomizeRibbon = "تخصيص الشريط...";
+            ribbonContextMenuMinimizeRibbon = "تصغير الشريط";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "تم حالياً تعطيل هذا الأمر.";
         }
 
         #endregion
