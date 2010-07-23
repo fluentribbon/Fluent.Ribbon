@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
@@ -17,6 +18,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -29,13 +31,16 @@ namespace Fluent
         #region Static Methods
 
         // Currently opened popups
-        static readonly List<RibbonPopup> openedPopups = new List<RibbonPopup>();
+        static readonly List<Popup> openedPopups = new List<Popup>();
+
+        static readonly Dictionary<IntPtr, Popup> openedPopupsByHandle = new Dictionary<IntPtr, Popup>();
+        static readonly Dictionary<Popup, IntPtr> openedHandlesByPopup = new Dictionary<Popup, IntPtr>();
 
         /// <summary>
         /// Returns active popup
         /// </summary>
         /// <returns>Active popup or null if no popup is opened</returns>
-        internal static RibbonPopup GetActivePopup()
+        internal static Popup GetActivePopup()
         {
             if(openedPopups.Count==0) return null;
             return openedPopups[openedPopups.Count - 1];
@@ -63,10 +68,10 @@ namespace Fluent
 
         #region Fields
 
-        // Current HwndSource of this Popup
+        /*// Current HwndSource of this Popup
         HwndSource hwndSource;
         // TODO: comment this field (isFirstMouseUp)
-        bool isFirstMouseUp;
+        bool isFirstMouseUp;*/
 
         #endregion
 
@@ -81,22 +86,15 @@ namespace Fluent
         /// </summary>
         public RibbonPopup()
         {
-            Focusable = false;
-            ToolTip = new ToolTip();
-            (ToolTip as ToolTip).Template = null;
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+            Inititalize(this);
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            IsOpen = false;
-        }
 
         static RibbonPopup()
         {
-            IsOpenProperty.AddOwner(typeof(RibbonPopup), new FrameworkPropertyMetadata(OnIsOpenChanged));
+            //IsOpenProperty.AddOwner(typeof(RibbonPopup), new FrameworkPropertyMetadata(OnIsOpenChanged));
         }
-
+        /*
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(bool)e.NewValue)
@@ -104,7 +102,7 @@ namespace Fluent
                 RibbonPopup popup = d as RibbonPopup;
                 if (openedPopups.Contains(popup)) openedPopups.Remove(popup);
             }
-        }
+        }*/
 
         #endregion
 
@@ -119,30 +117,10 @@ namespace Fluent
         {
             base.OnOpened(e);
             
-            isFirstMouseUp = true;
-
-            PopupAnimation = PopupAnimation.None;
-
-            if(Child!=null)hwndSource = (HwndSource)PresentationSource.FromVisual(this.Child);
-            if (hwndSource != null)
-            {
-                hwndSource.AddHook(WindowProc);
-                // Set popup non-topmost to fix bug with tooltips
-                NativeMethods.Rect rect = new NativeMethods.Rect();
-                if (NativeMethods.GetWindowRect(hwndSource.Handle, ref rect))
-                {
-                    NativeMethods.SetWindowPos(hwndSource.Handle, new IntPtr(-2), rect.Left, rect.Top, (int) this.Width,
-                                               (int) this.Height,
-                                               NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOSIZE |
-                                               NativeMethods.SWP_NOACTIVATE);
-                }
-            }
-            openedPopups.Add(this);
-
-            Activate();                                    
+            OnOpened(this,e);                                    
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Provides class handling for the PreviewMouseLeftButtonDown event
         /// </summary>
         /// <param name="e">The event data</param>
@@ -168,7 +146,7 @@ namespace Fluent
                 e.Handled = true;
                 isFirstMouseUp = false;
             }
-        }
+        }*/
 
         /// <summary>
         /// Responds when the value of the Popup.IsOpen property changes from to true to false.
@@ -176,16 +154,9 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnClosed(EventArgs e)
         {
-            if (openedPopups.Contains(this)) openedPopups.Remove(this);
-            PopupAnimation = PopupAnimation.None;
-
-            if(openedPopups.Count==0)
-            {
-                Window wnd = Window.GetWindow(this);
-                if (wnd!=null) wnd.Focus();
-            }
-
             base.OnClosed(e);
+
+            OnClosed(this, e);
         }
 
 
@@ -197,22 +168,8 @@ namespace Fluent
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                e.Handled = true;                                
-                IsOpen = false;
-                return;
-            }
-            if ((e.Key==Key.System)&&((e.SystemKey == Key.LeftAlt)||(e.SystemKey == Key.RightAlt)||(e.SystemKey == Key.F10)))
-            {
-                if (e.SystemKey != Key.F10)
-                {
-                    ClosePopups(0);
-                }
-                else e.Handled = true;
-                return;
-            }
             base.OnKeyDown(e);
+            OnKeyDown(this, e);
         }
 
         #endregion
@@ -226,18 +183,21 @@ namespace Fluent
                 openedPopups[i].PopupAnimation = PopupAnimation.Fade;
                 openedPopups[i].IsOpen = false;
                 //openedPopups[i].hwndSource = null;
-                //if (openedPopups.Contains(openedPopups[i])) openedPopups.Remove(openedPopups[i]);
+                if (openedPopups.Contains(openedPopups[i]))
+                {
+                    IntPtr handle = openedHandlesByPopup[openedPopups[i]];
+                    openedHandlesByPopup.Remove(openedPopups[i]);
+                    openedPopupsByHandle.Remove(handle);
+
+                    openedPopups.Remove(openedPopups[i]);
+                }
             }
         }
 
 
         internal void Activate()
         {
-            if (hwndSource != null)
-            {
-                if (hwndSource.Handle!=IntPtr.Zero) NativeMethods.SetActiveWindow(hwndSource.Handle);
-                
-            }
+            Activate(this);
         }
 
         /// <summary>
@@ -249,7 +209,7 @@ namespace Fluent
         /// <param name="lParam"></param>
         /// <param name="handled"></param>
         /// <returns></returns>
-        private IntPtr WindowProc(
+        private static IntPtr WindowProc(
                    IntPtr hwnd,
                    int msg,
                    IntPtr wParam,
@@ -263,12 +223,12 @@ namespace Fluent
                         if (((short)wParam.ToInt32()) == 0)
                         {
                             // BUG: Fix for MessageBox: without parent messagebox closes
-                            if (hwndSource != null)
+                            //if (hwndSource != null)
                             {
                                 if (NativeMethods.GetWindowLongPtr(lParam, NativeMethods.GWL_HWNDPARENT) ==
-                                    hwndSource.Handle)
+                                    hwnd)
                                     break;
-                                if (openedPopups.Count(x => x.hwndSource.Handle == lParam) == 0)
+                                if (openedPopups.Count(x => openedHandlesByPopup[x] == lParam) == 0)
                                 {
                                     ClosePopups(0);
                                 }
@@ -276,9 +236,10 @@ namespace Fluent
                         }
                         else
                         {
-                            int index = openedPopups.IndexOf(this);
+                            Popup popup = openedPopupsByHandle[hwnd];
+                            int index = openedPopups.IndexOf(popup);
                             ClosePopups(index + 1);
-                            Window wnd = Window.GetWindow(this);
+                            Window wnd = Window.GetWindow(popup);
                             if (wnd != null)
                             {
                                 IntPtr parentHwnd = (new WindowInteropHelper(wnd)).Handle;
@@ -289,9 +250,10 @@ namespace Fluent
                     }
                 case 0x0021/*WM_MOUSEACTIVATE*/:
                     {
-                        int index = openedPopups.IndexOf(this);
+                        Popup popup = openedPopupsByHandle[hwnd];
+                        int index = openedPopups.IndexOf(popup);
                         ClosePopups(index + 1);
-                        Window wnd = Window.GetWindow(this);
+                        Window wnd = Window.GetWindow(popup);
                         if (wnd != null)
                         {
                             IntPtr parentHwnd = (new WindowInteropHelper(wnd)).Handle;
@@ -311,6 +273,128 @@ namespace Fluent
                     }
             }
             return IntPtr.Zero;
+        }
+
+        #endregion
+
+        #region Static Methods for Popup override
+
+        static DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.Normal);
+
+        public static void AttachToPopup(Popup popup)
+        {
+            // Initialize 
+            Inititalize(popup);
+
+            bool isOpen = popup.IsOpen;
+            popup.IsOpen = false;
+
+            popup.Opened += OnOpened;
+            popup.Closed += OnClosed;
+            popup.KeyDown += OnKeyDown;
+            popup.IsOpen = isOpen;
+        }
+
+        private static void Inititalize(Popup popup)
+        {
+            popup.StaysOpen = true;
+            popup.Focusable = false;
+            popup.ToolTip = new ToolTip();
+            (popup.ToolTip as ToolTip).Template = null;
+            popup.AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+        }
+
+        private static void OnClick(object sender, RoutedEventArgs e)
+        {
+            (sender as Popup).IsOpen = false;
+        }
+
+        private static void OnOpened(object sender, EventArgs e)
+        {
+           /* timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += OnTimerTick;
+            timer.Start();*/
+            Popup popup = sender as Popup;
+            //isFirstMouseUp = true;
+            popup.PopupAnimation = PopupAnimation.None;
+
+            HwndSource hwndSource = null;
+
+            if (popup.Child != null) hwndSource = (HwndSource)PresentationSource.FromVisual(popup.Child);
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(WindowProc);
+                // Set popup non-topmost to fix bug with tooltips
+                /*NativeMethods.Rect rect = new NativeMethods.Rect();
+                if (NativeMethods.GetWindowRect(hwndSource.Handle, ref rect))
+                {
+                    NativeMethods.SetWindowPos(hwndSource.Handle, new IntPtr(-2), rect.Left, rect.Top, (int)popup.Width,
+                                               (int)popup.Height,
+                                               NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOSIZE |
+                                               NativeMethods.SWP_NOACTIVATE);
+                }*/
+                openedPopups.Add(popup);
+                openedPopupsByHandle.Add(hwndSource.Handle, popup);
+                openedHandlesByPopup.Add(popup, hwndSource.Handle);
+            }
+            
+            Mouse.Capture(null);
+
+            Activate(popup);
+        }
+
+        private static void OnTimerTick(object sender, EventArgs e)
+        {
+            Debug.WriteLine(Mouse.Captured);
+            //Mouse.Capture(null);
+        }
+
+        private static void OnClosed(object sender, EventArgs e)
+        {
+            //timer.Stop();
+            Popup popup = sender as Popup;
+            if (openedPopups.Contains(popup))
+            {
+                openedPopups.Remove(popup);
+                IntPtr handle = openedHandlesByPopup[popup];
+                openedHandlesByPopup.Remove(popup);
+                openedPopupsByHandle.Remove(handle);
+            }
+            popup.PopupAnimation = PopupAnimation.None;
+
+            if (openedPopups.Count == 0)
+            {
+                Window wnd = Window.GetWindow(popup);
+                if (wnd != null) wnd.Focus();
+            }
+        }
+
+        private static void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Popup popup = sender as Popup;
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+                popup.IsOpen = false;
+                return;
+            }
+            if ((e.Key == Key.System) && ((e.SystemKey == Key.LeftAlt) || (e.SystemKey == Key.RightAlt) || (e.SystemKey == Key.F10)))
+            {
+                if (e.SystemKey != Key.F10)
+                {
+                    ClosePopups(0);
+                }
+                else e.Handled = true;
+                return;
+            }
+        }
+
+        private static void Activate(Popup popup)
+        {
+            if (!openedHandlesByPopup.ContainsKey(popup)) return;
+            IntPtr handle = openedHandlesByPopup[popup];            
+            NativeMethods.SetActiveWindow(handle);
+            NativeMethods.SetForegroundWindow(handle);
         }
 
         #endregion

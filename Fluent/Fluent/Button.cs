@@ -7,8 +7,12 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -16,67 +20,92 @@ using System.Windows.Media;
 namespace Fluent
 {
     /// <summary>
-    /// Specifies when the Click event should be raised. 
-    /// </summary>
-    public enum ClickMode
-    {
-        /// <summary>
-        /// Specifies that the Click event should be raised when a button is pressed and released. 
-        /// </summary>
-        Release = 0,
-        /// <summary>
-        /// Specifies that the Click event should be raised as soon as a button is pressed. 
-        /// </summary>
-        Pressed
-    }
-
-    /// <summary>
     /// Represents button
     /// </summary>
-    [ContentProperty("Text")]
-    public class Button: RibbonControl
+    [ContentProperty("Header")]
+    public class Button: System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider
     {
         #region Properties
+
+        #region Size Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(Button));
         
         /// <summary>
-        /// Gets or sets when the Click event occurs. 
-        /// This is a dependency property. 
+        /// Gets or sets Size for the element
         /// </summary>
-        public ClickMode ClickMode
+        public RibbonControlSize Size
         {
-            get { return (ClickMode)GetValue(ClickModeProperty); }
-            set { SetValue(ClickModeProperty, value); }
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        #endregion
+
+        #region SizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof (Button));
+        
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        #endregion
+
+        #region Header
+
+        /// <summary>
+        /// Gets or sets element Text
+        /// </summary>
+        public object Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ClickMode.  
+        /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ClickModeProperty =
-            DependencyProperty.Register("ClickMode", typeof(ClickMode), 
-            typeof(Button), new UIPropertyMetadata(ClickMode.Release));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof (Button));
+
+        #endregion
+
+        #region Icon
 
         /// <summary>
-        /// Gets a value that indicates whether a Button is currently 
-        /// activated. This is a dependency property.
+        /// Gets or sets Icon for the element
         /// </summary>
-        public bool IsPressed
+        public object Icon
         {
-            get { return (bool)GetValue(IsPressedProperty); }
-            private set { SetValue(IsPressedPropertyKey, value); }
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
         }
 
-        private static readonly DependencyPropertyKey IsPressedPropertyKey = DependencyProperty.RegisterReadOnly("IsPressed", typeof(bool),
-            typeof(Button), new UIPropertyMetadata(false));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof (Button));
+
+        #endregion
+
+        #region LargeIcon
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsPressed. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsPressedProperty = IsPressedPropertyKey.DependencyProperty;
-        
-        /// <summary>
-        /// Button large icon
+        /// Gets or sets button large icon
         /// </summary>
         public ImageSource LargeIcon
         {
@@ -89,19 +118,29 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource), 
+            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
             typeof(Button), new UIPropertyMetadata(null));
 
-        // Gets whether mouse cursor directly over this control
-        bool IsMouseStraightOver
+        #endregion
+
+        #region IsDefinitive
+
+        /// <summary>
+        /// Gets or sets whether ribbon control click must close backstage
+        /// </summary>
+        public bool IsDefinitive
         {
-            get
-            {
-                Point position = Mouse.GetPosition(this);
-                return (((position.X >= 0.0) && (position.X <= ActualWidth)) &&
-                        ((position.Y >= 0.0) && (position.Y <= ActualHeight)));
-            }
+            get { return (bool)GetValue(IsDefinitiveProperty); }
+            set { SetValue(IsDefinitiveProperty, value); }
         }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsDefinitiveProperty =
+            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
+
+        #endregion
 
         #endregion
 
@@ -113,8 +152,10 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(typeof(Button)));
-            IsDefinitiveProperty.OverrideMetadata(typeof(Button), new UIPropertyMetadata(true));
+            Type type = typeof(Button);
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            ContextMenuService.Attach(type);
+            ToolTipService.Attach(type);            
         }
 
         /// <summary>
@@ -122,102 +163,21 @@ namespace Fluent
         /// </summary>
         public Button()
         {
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
 
-        #region Overrides
+        #region Overrides        
 
         /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs 
-        /// when the left mouse button is pressed while the mouse pointer is over this control.
+        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked. 
         /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnClick()
         {
-            Mouse.Capture(this);
-            IsPressed = true;            
-            e.Handled = true;            
-            if ((ClickMode == ClickMode.Pressed) && (e.ClickCount == 1))
-            {
-                if (IsMouseStraightOver) RaiseClick();
-            }            
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled LostMouseCapture attached 
-        /// event reaches an element in its route that is derived 
-        /// from this class. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The MouseEventArgs that contains event data</param>
-        protected override void OnLostMouseCapture(MouseEventArgs e)
-        {
-            IsPressed = false;
-        }
-
-        /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs 
-        /// when the left mouse button is released while the mouse pointer is over this control.
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
-        {
-            IsPressed = false;
-            e.Handled = true;
-            if ((ClickMode == ClickMode.Release) && (e.ClickCount == 1))
-            {
-                if (IsMouseStraightOver) RaiseClick();
-            }
-            if (Mouse.Captured == this)
-                try
-                {
-                    Mouse.Capture(null);
-                }
-                catch (System.Exception)
-                {
-                    // TODO: On ApplyTemplate grid is removed from ControlTemplate namescope but WPF tries to animate it and throws exception.
-                    // May be need to stop all animations on apply template. 
-                }
-        }
-
-
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.MouseMove 
-        /// attached event reaches an element in its route that is derived 
-        /// from this class. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseEventArgs that contains the event data.</param>
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;    
-            Point position = Mouse.PrimaryDevice.GetPosition(this);
-            if (((position.X >= 0.0) && (position.X <= ActualWidth)) &&
-                ((position.Y >= 0.0) && (position.Y <= ActualHeight)))
-            {
-                if ((Mouse.Captured == this) && (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed))
-                {
-                    if (!IsPressed) IsPressed = true;
-                }
-            }
-            else
-            {
-                if ((Mouse.Captured == this) && (Mouse.PrimaryDevice.LeftButton == MouseButtonState.Pressed))
-                {
-                    if (IsPressed) IsPressed = false;
-                }
-            }
-            base.OnMouseMove(e);
-        }
-        
-        /// <summary>
-        /// Handles click
-        /// </summary>
-        /// <param name="args"></param>
-        protected override void OnClick(RoutedEventArgs args)
-        {
-            base.OnClick(args);
-            ExecuteCommand();
-            args.Handled = true;
+            // Close popup on click
+            if(IsDefinitive) PopupService.RaiseDismissPopupEvent(this,DismissPopupMode.Always);
+            base.OnClick();
         }
 
         #endregion
@@ -226,26 +186,42 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be synchronized with the original 
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public override FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             Button button = new Button();
-            BindQuickAccessItem(button);
+            button.Click += ((sender, e) => RaiseEvent(e));
+            RibbonControl.BindQuickAccessItem(this, button);
             return button;
         }
 
         /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
+        /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        public bool CanAddToQuickAccessToolBar
         {
-            Button button = (Button)element;
-            button.Click += ((sender, e) => RaiseEvent(e));
-            base.BindQuickAccessItem(element);
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(Button));
+
+        #endregion
+
+        #region Implementation of IKeyTipedControl
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public void OnKeyTipPressed()
+        {
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion

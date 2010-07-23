@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -19,7 +20,7 @@ namespace Fluent
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
-    public class BackstageTabItem : ContentControl
+    public class BackstageTabItem : ContentControl, IKeyTipedControl
     {
         #region Properties
 
@@ -97,21 +98,7 @@ namespace Fluent
         /// </summary>
         public BackstageTabItem()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
-        }
-
-        /// <summary>
-        /// Handles click event
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            if (TabControlParent != null && TabControlParent.SelectedItem is RibbonTabItem)
-                ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
-
-            IsSelected = true;
-            e.Handled = true;
+            
         }
 
         #endregion
@@ -208,5 +195,16 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public void OnKeyTipPressed()
+        {
+            if (TabControlParent != null && TabControlParent.SelectedItem is RibbonTabItem)
+                ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
+
+            IsSelected = true;
+        }
     }
 }

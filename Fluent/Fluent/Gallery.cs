@@ -240,6 +240,40 @@ namespace Fluent
 
         #endregion
 
+        #region ItemWidth
+
+        /// <summary>
+        /// Gets or sets item width
+        /// </summary>
+        public double ItemWidth
+        {
+            get { return (double)GetValue(ItemWidthProperty); }
+            set { SetValue(ItemWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemWidthProperty =
+            DependencyProperty.Register("ItemWidth", typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+
+        /// <summary>
+        /// Gets or sets item height
+        /// </summary>
+        public double ItemHeight
+        {
+            get { return (double)GetValue(ItemHeightProperty); }
+            set { SetValue(ItemHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+
+        #endregion
+
         #region Filters
 
         /// <summary>
@@ -274,7 +308,7 @@ namespace Fluent
                         {
                             GalleryGroupFilter filter = (GalleryGroupFilter)item;
                             MenuItem menuItem = new MenuItem();
-                            menuItem.Text = filter.Title;
+                            menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
                             if (filter == SelectedFilter) menuItem.IsChecked = true;
                             menuItem.Click += OnFilterMenuItemClick;
@@ -306,7 +340,7 @@ namespace Fluent
                         {
                             GalleryGroupFilter filter = (GalleryGroupFilter)item;
                             MenuItem menuItem = new MenuItem();
-                            menuItem.Text = filter.Title;
+                            menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
                             if (filter == SelectedFilter) menuItem.IsChecked = true;
                             menuItem.Click += OnFilterMenuItemClick;
@@ -572,7 +606,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
+        /*/// <summary>
         /// Items collection changes hadling 
         /// </summary>
         /// <param name="e">Event args</param>
@@ -590,7 +624,7 @@ namespace Fluent
         {
             View.Source = ItemsSource;
             UpdateGroupBy(GroupBy);
-        }
+        }*/
 
         /// <summary>
         /// When overridden in a derived class, is invoked whenever 
@@ -604,7 +638,7 @@ namespace Fluent
                 for (int i = 0; i < Filters.Count; i++)
                 {
                     MenuItem item = new MenuItem();
-                    item.Text = Filters[i].Title;
+                    item.Header = Filters[i].Title;
                     item.Tag = Filters[i];
                     if (Filters[i] == SelectedFilter) item.IsChecked = true;
                     item.Click += OnFilterMenuItemClick;
@@ -647,10 +681,10 @@ namespace Fluent
                 binding.Mode = BindingMode.OneWay;
                 SetBinding(IsGroupingProperty, binding);
 
-                binding = new Binding("ItemContainerGenerator");
+                /*binding = new Binding("ItemContainerGenerator");
                 binding.Source = listBox;
                 binding.Mode = BindingMode.OneWay;
-                SetBinding(ItemContainerGeneratorProperty, binding);
+                SetBinding(ItemContainerGeneratorProperty, binding);*/
 
                 listBox.ItemContainerGenerator.StatusChanged += OnItemsContainerGeneratorStatusChanged;
 
@@ -678,13 +712,12 @@ namespace Fluent
             senderItem.IsChecked = true;
             SelectedFilter = senderItem.Tag as GalleryGroupFilter;
             e.Handled = true;
-            RibbonPopup.CollapseCurrent();
         }
 
         MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
         {
-            if (filter == null) return null;
-            return groupsMenuButton.Items.First(x => ((MenuItem)x).Text == filter.Title) as MenuItem;
+            /*if (filter == null) */return null;
+           // return groupsMenuButton.Items.First(x => ((MenuItem)x).Header.ToString() == filter.Title) as MenuItem;
         }
 
         #endregion
@@ -706,7 +739,7 @@ namespace Fluent
 
             button.PreviewMouseLeftButtonDown += OnFirstPreviewClick;
 
-            BindQuickAccessItem(button);
+            //BindQuickAccessItem(button);
             return button;
         }
 
@@ -743,7 +776,7 @@ namespace Fluent
                 DropDownButton button = (parent as DropDownButton);
                 if (button != null)
                 {
-                    button.DoCreateMenu();
+                    //button.DoCreateMenu();
                     return;
                 }
                 parent = LogicalTreeHelper.GetParent(parent);
@@ -753,7 +786,7 @@ namespace Fluent
 
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+           /* DropDownButton button = (DropDownButton)sender;
             button.ResizeMode = parentContextMenu.ResizeMode;
             for (int i = 0; i < parentContextMenu.Items.Count; i++)
             {
@@ -763,21 +796,21 @@ namespace Fluent
                 i--;
             }
             button.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;
+            quickAccessButton = button;*/
         }
 
 
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
+            /*quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             for (int i = 0; i < quickAccessButton.Items.Count; i++)
             {
                 UIElement item = quickAccessButton.Items[0];
                 quickAccessButton.Items.Remove(item);
                 parentContextMenu.Items.Add(item);
                 i--;
-            }
+            }*/
         }
 
         ContextMenu FindContextMenu()

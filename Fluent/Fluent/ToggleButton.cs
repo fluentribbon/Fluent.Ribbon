@@ -11,17 +11,19 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Linq;
+using System.Windows.Media;
 
 namespace Fluent
 {
     /// <summary>
     /// Represents toggle button
     /// </summary>
-    [ContentProperty("Text")]
-    public class ToggleButton : Button
+    [ContentProperty("Header")]
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IRibbonControl, IQuickAccessItemProvider
     {
         #region Properties
 
@@ -46,9 +48,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton), 
+            DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton),
             new UIPropertyMetadata(null, OnGroupNameChanged));
-        
+
         // Group name changed
         static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -63,7 +65,7 @@ namespace Fluent
         #region Grouped Button Methods
 
         // Grouped buttons
-        static readonly Dictionary<string, List<WeakReference>> groupedButtons = 
+        static readonly Dictionary<string, List<WeakReference>> groupedButtons =
             new Dictionary<string, List<WeakReference>>();
 
         // Remove from group
@@ -72,7 +74,7 @@ namespace Fluent
             List<WeakReference> buttons = null;
             if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
 
-            buttons.RemoveAt(buttons.FindIndex(x=>(x.IsAlive && ((ToggleButton)x.Target) == button)));
+            buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((ToggleButton)x.Target) == button)));
         }
 
         // Remove from group
@@ -93,30 +95,125 @@ namespace Fluent
         {
             List<WeakReference> buttons = null;
             if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<ToggleButton>();
-            return buttons.Where(x => x.IsAlive).Select(x => (ToggleButton) x.Target);
+            return buttons.Where(x => x.IsAlive).Select(x => (ToggleButton)x.Target);
         }
 
         #endregion
 
         #endregion
 
-        #region IsChecked
+        #region Size Property
 
         /// <summary>
-        /// Get or set ToggleButton checked state
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public bool IsChecked
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(ToggleButton));
+
+        /// <summary>
+        /// Gets or sets Size for the element
+        /// </summary>
+        public RibbonControlSize Size
         {
-            get { return (bool)GetValue(IsCheckedProperty); }
-            set { SetValue(IsCheckedProperty, value); }
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        #endregion
+
+        #region SizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(ToggleButton));
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        #endregion
+
+        #region Header
+
+        /// <summary>
+        /// Gets or sets element Text
+        /// </summary>
+        public object Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Header.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(ToggleButton),
-            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(ToggleButton));
+
+        #endregion
+
+        #region Icon
+
+        /// <summary>
+        /// Gets or sets Icon for the element
+        /// </summary>
+        public object Icon
+        {
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton));
+
+        #endregion
+
+        #region LargeIcon
+
+        /// <summary>
+        /// Gets or sets button large icon
+        /// </summary>
+        public ImageSource LargeIcon
+        {
+            get { return (ImageSource)GetValue(LargeIconProperty); }
+            set { SetValue(LargeIconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SmallIcon. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty LargeIconProperty =
+            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
+            typeof(ToggleButton), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        static ToggleButton()
+        {
+            Type type = typeof(ToggleButton);
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
+            ContextMenuService.Attach(type);
+            ToolTipService.Attach(type);           
+        }
 
         // Coerce IsChecked
         static object CoerceIsChecked(DependencyObject d, object basevalue)
@@ -124,14 +221,14 @@ namespace Fluent
             ToggleButton toggleButton = (ToggleButton)d;
             if (toggleButton.GroupName == null) return basevalue;
 
-            bool baseIsChecked = (bool) basevalue;
+            bool baseIsChecked = (bool)basevalue;
             if (!baseIsChecked)
             {
                 // We can not allow that there are no one button checked
                 foreach (ToggleButton item in GetButtonsInGroup(toggleButton.GroupName))
                 {
                     // It's Ok, atleast one checked button exists
-                    if (item.IsChecked) return false;
+                    if (item.IsChecked == true) return false;
                 }
 
                 // This button can not be unchecked
@@ -146,15 +243,15 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
             bool oldValue = (bool)e.OldValue;
             ToggleButton button = (ToggleButton)d;
-            if(oldValue!=newValue)
+            if (oldValue != newValue)
             {
-                if(newValue)
+                if (newValue)
                 {
-                    if (button.Checked != null) button.Checked(button, EventArgs.Empty);
+                    button.RaiseEvent(new RoutedEventArgs(ToggleButton.CheckedEvent, button));
                 }
                 else
                 {
-                    if (button.Unchecked != null) button.Unchecked(button, EventArgs.Empty);
+                    button.RaiseEvent(new RoutedEventArgs(ToggleButton.UncheckedEvent, button));
                 }
             }
 
@@ -166,76 +263,12 @@ namespace Fluent
             }
         }
 
-        #endregion
-        
-        #region UseAutoCheck
-
-        /// <summary>
-        /// Gets or set a value indicating whether the IsChecked value and the appearance are 
-        /// automatically changed when the button is clicked.
-        /// </summary>
-        public bool UseAutoCheck
-        {
-            get { return (bool)GetValue(UseAutoCheckProperty); }
-            set { SetValue(UseAutoCheckProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for UseAutoCheck.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty UseAutoCheckProperty =
-            DependencyProperty.Register("UseAutoCheck", typeof(bool), 
-            typeof(ToggleButton), new UIPropertyMetadata(true));
-
-        #endregion
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Occured then the toggle button has been checked
-        /// </summary>
-        public event EventHandler Checked;
-        /// <summary>
-        /// Occured then the toggle button has been unchecked
-        /// </summary>
-        public event EventHandler Unchecked;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Static constructor
-        /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
-        static ToggleButton()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ToggleButton), new FrameworkPropertyMetadata(typeof(ToggleButton)));
-        }
-        
         /// <summary>
         /// Default constructor
         /// </summary>
         public ToggleButton()
         {
-            
-        }
-
-        #endregion
-
-        #region Overrides
-
-        /// <summary>
-        /// Handles click event
-        /// </summary>
-        /// <param name="args">The event data</param>
-        protected override void OnClick(RoutedEventArgs args)
-        {
-            if(UseAutoCheck) IsChecked = !IsChecked;
-            base.OnClick(args);
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
@@ -248,21 +281,42 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public override FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             ToggleButton button = new ToggleButton();
-            BindQuickAccessItem(button);
+
+            RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
+            button.Click += ((sender, e) => RaiseEvent(e));
+            RibbonControl.BindQuickAccessItem(this, button);
+            
             return button;
         }
 
         /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
+        /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        public bool CanAddToQuickAccessToolBar
         {
-            Bind(this, element, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
-            base.BindQuickAccessItem(element);
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton));
+
+        #endregion
+
+        #region Implementation of IKeyTipedControl
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public void OnKeyTipPressed()
+        {
+            IsChecked = !IsChecked;
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));            
         }
 
         #endregion

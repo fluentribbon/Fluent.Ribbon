@@ -220,7 +220,7 @@ namespace Fluent
             {
                 ArrayList array = new ArrayList();                                
                 
-                foreach(var item in QuickAccessItems)
+                /*foreach(var item in QuickAccessItems)
                 {
                     array.Add(item);
                 }
@@ -228,7 +228,8 @@ namespace Fluent
                 {
                     array.Add(Items[i]);
                 }
-                if (menuButton != null) array.Add(menuButton);
+                if (menuButton != null) array.Add(menuButton);*/
+                if (rootPanel != null) array.Add(rootPanel);
                 return array.GetEnumerator();
             }
         }
@@ -317,7 +318,7 @@ namespace Fluent
                     menuPanel.Children.Add(quickAccessItems[i]);
                     quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
-            }
+            }/*
 
             if (menuButton != null)
             {
@@ -333,12 +334,15 @@ namespace Fluent
 
             DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
             if (btn != null) btn.ContextMenu = btn.DropDownMenu;
-
+            */
             // ToolBar panels
             
             toolBarPanel = GetTemplateChild("PART_ToolBarPanel") as Panel;
             toolBarOverflowPanel = GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
+
+            if (rootPanel != null) RemoveLogicalChild(rootPanel);
             rootPanel = GetTemplateChild("PART_RootPanel") as Panel;
+            if (rootPanel != null) AddLogicalChild(rootPanel);
 
             // Clears cache
             cachedDeltaWidth = 0;

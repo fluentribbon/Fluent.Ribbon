@@ -17,12 +17,12 @@ using System.Windows.Media;
 namespace Fluent
 {
     /// <summary>
-    /// Represents Fluent UI specific CheckBox
+    /// Represents Fluent UI specific RadioButton
     /// </summary>
     [ContentProperty("Header")]
-    public class CheckBox : System.Windows.Controls.CheckBox, IRibbonControl, IQuickAccessItemProvider
+    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider
     {
-         #region Properties
+        #region Properties
 
         #region Size Property
 
@@ -30,7 +30,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Size.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(RadioButton));
 
         /// <summary>
         /// Gets or sets Size for the element
@@ -49,7 +49,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(RadioButton));
 
         /// <summary>
         /// Gets or sets SizeDefinition for element
@@ -77,7 +77,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(RadioButton));
 
         #endregion
 
@@ -95,7 +95,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RadioButton));
 
         #endregion
 
@@ -116,7 +116,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register("LargeIcon", typeof(ImageSource),
-            typeof(CheckBox), new UIPropertyMetadata(null));
+            typeof(RadioButton), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -128,18 +128,18 @@ namespace Fluent
         /// Static constructor
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810")]
-        static CheckBox()
+        static RadioButton()
         {
-            Type type = typeof(CheckBox);
+            Type type = typeof(RadioButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
-            ToolTipService.Attach(type);           
+            ToolTipService.Attach(type);
         }
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CheckBox()
+        public RadioButton()
         {
             ContextMenuService.Coerce(this);
         }
@@ -156,12 +156,12 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            CheckBox button = new CheckBox();
+            RadioButton button = new RadioButton();
 
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => RaiseEvent(e));
             RibbonControl.BindQuickAccessItem(this, button);
-            
+
             return button;
         }
 
@@ -177,7 +177,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton));
 
         #endregion
 
@@ -188,8 +188,8 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            IsChecked = !IsChecked;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));            
+            IsChecked = true;
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion

@@ -112,6 +112,13 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
+    <Compile Include="ContextMenuService.cs" />
+    <Compile Include="IDropDownControl.cs" />
+    <Compile Include="IKeyTipedControl.cs" />
+    <Compile Include="IRibbonControl.cs" />
+    <Compile Include="PopupService.cs" />
+    <Compile Include="RadioButton.cs" />
+    <Compile Include="RibbonMenu.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Gallery.cs" />
     <Compile Include="GalleryGroupFilter.cs" />
@@ -138,10 +145,8 @@
     <Compile Include="RibbonWindow.cs" />
     <Compile Include="Spinner.cs" />
     <Compile Include="SplitButton.cs" />
+    <Compile Include="ToolTipService.cs" />
     <Compile Include="TwoLineLabel.cs" />
-    <Compile Include="RibbonPopup.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GroupSeparatorMenuItem.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTip.cs" />
@@ -177,6 +182,26 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2007\Blue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2007\Colors\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2007\Colors\ColorsBlue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2007\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2007\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Black.xaml">
       <SubType>Designer</SubType>
@@ -245,6 +270,18 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\ComboBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\RibbonTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -502,6 +539,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Office2007\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

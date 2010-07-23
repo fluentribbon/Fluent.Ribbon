@@ -22,6 +22,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms.Integration;
@@ -44,7 +45,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     [SuppressMessage("Microsoft.Design", "CA1001")]
-    public class Ribbon: Control
+    public class Ribbon : Control
     {
         #region Localization
 
@@ -64,22 +65,212 @@ namespace Fluent
         #region Constants
 
         /// <summary>
-        /// Minimal width of ribbon parent wndow
+        /// Minimal width of ribbon parent window
         /// </summary>
         public const double MinimalVisibleWidth = 300;
         /// <summary>
-        /// Minimal height of ribbon parent wndow
+        /// Minimal height of ribbon parent window
         /// </summary>
         public const double MinimalVisibleHeight = 250;
+
+        #endregion
+
+        #region ContextMenu
+
+        // Context menu for ribbon
+        public static System.Windows.Controls.ContextMenu RibbonContextMenu;
+
+        // Context menu owner ribbon
+        private static Ribbon contextMenuOwner;
+
+        // Context menu items
+        private static System.Windows.Controls.MenuItem addToQuickAccessMenuItem;
+        private static System.Windows.Controls.MenuItem addGroupToQuickAccessMenuItem;
+        private static System.Windows.Controls.MenuItem addMenuToQuickAccessMenuItem;
+        private static System.Windows.Controls.MenuItem addGalleryToQuickAccessMenuItem;
+        private static System.Windows.Controls.MenuItem removeFromQuickAccessMenuItem;
+        private static System.Windows.Controls.MenuItem showQuickAccessToolbarBelowTheRibbonMenuItem;
+        private static System.Windows.Controls.MenuItem showQuickAccessToolbarAboveTheRibbonMenuItem;
+        private static System.Windows.Controls.MenuItem minimizeTheRibbonMenuItem;
+        private static System.Windows.Controls.MenuItem customizeQuickAccessToolbarMenuItem;
+        private static System.Windows.Controls.MenuItem customizeTheRibbonMenuItem;
+        private static Separator firstSeparator;
+        private static Separator secondSeparator;
+
+        // Initialize ribbon context menu
+        private static void InitRibbonContextMenu()
+        {
+            RibbonContextMenu = new System.Windows.Controls.ContextMenu();
+            RibbonContextMenu.Opened += OnContextMenuOpened;
+
+            // Add to quick access toolbar
+            RibbonContextMenu.Items.Add(addToQuickAccessMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand});
+            RibbonControl.Bind(Ribbon.Localization, addToQuickAccessMenuItem, "RibbonContextMenuAddItem", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Add group to quick access toolbar
+            RibbonContextMenu.Items.Add(addGroupToQuickAccessMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand});
+            RibbonControl.Bind(Ribbon.Localization, addGroupToQuickAccessMenuItem, "RibbonContextMenuAddGroup", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGroupToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Add menu item to quick access toolbar
+            RibbonContextMenu.Items.Add(addMenuToQuickAccessMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand});
+            RibbonControl.Bind(Ribbon.Localization, addMenuToQuickAccessMenuItem, "RibbonContextMenuAddMenu", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addMenuToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Add gallery to quick access toolbar
+            RibbonContextMenu.Items.Add(addGalleryToQuickAccessMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand});
+            RibbonControl.Bind(Ribbon.Localization, addGalleryToQuickAccessMenuItem, "RibbonContextMenuAddGallery", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGalleryToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Remove from quick access toolbar
+            RibbonContextMenu.Items.Add(removeFromQuickAccessMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.RemoveFromQuickAccessCommand});
+            RibbonControl.Bind(Ribbon.Localization, removeFromQuickAccessMenuItem, "RibbonContextMenuRemoveItem", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, removeFromQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Separator
+            RibbonContextMenu.Items.Add(firstSeparator = new Separator());
+
+            // Customize quick access toolbar
+            RibbonContextMenu.Items.Add(customizeQuickAccessToolbarMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeQuickAccessToolbarCommand});
+            RibbonControl.Bind(Ribbon.Localization, customizeQuickAccessToolbarMenuItem, "RibbonContextMenuCustomizeQuickAccessToolBar", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeQuickAccessToolbarMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Show quick access below the ribbon
+            RibbonContextMenu.Items.Add(showQuickAccessToolbarBelowTheRibbonMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessBelowCommand});
+            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarBelowTheRibbonMenuItem, "RibbonContextMenuShowBelow", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarBelowTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Show quick access above the ribbon
+            RibbonContextMenu.Items.Add(showQuickAccessToolbarAboveTheRibbonMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessAboveCommand});
+            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarAboveTheRibbonMenuItem, "RibbonContextMenuShowAbove", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarAboveTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Separator
+            RibbonContextMenu.Items.Add(secondSeparator = new Separator());
+
+            // Customize the ribbon
+            RibbonContextMenu.Items.Add(customizeTheRibbonMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeTheRibbonCommand});
+            RibbonControl.Bind(Ribbon.Localization, customizeTheRibbonMenuItem, "RibbonContextMenuCustomizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+
+            // Minimize the ribbon
+            RibbonContextMenu.Items.Add(minimizeTheRibbonMenuItem = new System.Windows.Controls.MenuItem { Command = Ribbon.ToggleMinimizeTheRibbonCommand});
+            RibbonControl.Bind(Ribbon.Localization, minimizeTheRibbonMenuItem, "RibbonContextMenuMinimizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, minimizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+        }
+
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            contextMenuOwner = this;
+            base.OnContextMenuOpening(e);
+        }
+
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">Provides data about the event.</param>
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            contextMenuOwner = null;
+            base.OnContextMenuClosing(e);
+        }
+
+        // Occurs when context menu is opening
+        private static void OnContextMenuOpened(object sender, RoutedEventArgs e)
+        {
+            Ribbon ribbon = contextMenuOwner;
+            if ((RibbonContextMenu != null) && (ribbon != null))
+            {
+                // Hide items for ribbon controls
+                addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+                firstSeparator.Visibility = Visibility.Collapsed;
+                // Hide customize quick access menu item
+                customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Collapsed;
+                secondSeparator.Visibility = Visibility.Visible;
+
+                // Set minimize the ribbon menu item state
+                minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
+
+                // Set customize the ribbon menu item visibility
+                if (ribbon.CanCustomizeRibbon) customizeTheRibbonMenuItem.Visibility = Visibility.Visible;
+                else customizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+
+                // Hide quick access position menu items
+                showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+                showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+
+                // If quick access toolbar is visible show 
+                if (ribbon.IsQuickAccessToolBarVisible)
+                {
+                    // Set quick access position menu items visibility
+                    if (ribbon.ShowQuickAccessToolBarAboveRibbon) showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Visible;
+                    else showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Visible;
+                    if (ribbon.CanCustomizeQuickAccessToolBar) customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Visible;
+                    secondSeparator.Visibility = Visibility.Visible;
+
+                    // Gets control that raise menu opened
+                    UIElement control = RibbonContextMenu.PlacementTarget as UIElement;
+                    if (control != null)
+                    {
+                        if (ribbon.quickAccessElements.ContainsValue(control))
+                        {
+                            // Control is on quick access
+                            removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is System.Windows.Controls.MenuItem)
+                        {
+                            // Control is menu item
+                            addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is Gallery)
+                        {
+                            // Control is gallery
+                            addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is RibbonGroupBox)
+                        {
+                            // Control is group box
+                            addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            // Its other control
+                            addToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        firstSeparator.Visibility = Visibility.Visible;
+                    }
+                }
+
+            }
+        }
 
         #endregion
 
         #region Events
 
         /// <summary>
-        /// Occures when selected tab has been changed (be aware that SelectedTab can be null)
+        /// Occurs when selected tab has been changed (be aware that SelectedTab can be null)
         /// </summary>
         public event EventHandler SelectedTabChanged;
+
+        /// <summary>
+        /// Occurs when customize the ribbon
+        /// </summary>
+        public event EventHandler CustomizeTheRibbon;
+
+        /// <summary>
+        /// Occurs when customize quick access toolbar
+        /// </summary>
+        public event EventHandler CustomizeQuickAccessToolbar;
 
         #endregion
 
@@ -104,26 +295,9 @@ namespace Fluent
         // Ribbon backstage button
         private BackstageButton backstageButton;
 
-        // Context Menu
-        ContextMenu ribbonContextMenu;
-        MenuItem addToQuickAccessMenuItem;
-        MenuItem addGroupToQuickAccessMenuItem;
-        MenuItem addMenuToQuickAccessMenuItem;
-        MenuItem addGalleryToQuickAccessMenuItem;
-        MenuItem removeFromQuickAccessMenuItem;
-        MenuItem showQuickAccessToolbarBelowTheRibbonMenuItem;
-        MenuItem showQuickAccessToolbarAboveTheRibbonMenuItem;
-        MenuItem minimizeTheRibbonMenuItem;
-
-        // TODO: implement ribbon customization menu items!
-        [SuppressMessage("Microsoft.Performance", "CA1823")]
-        MenuItem customizeQuickAccessToolbarMenuItem;
-        [SuppressMessage("Microsoft.Performance", "CA1823")]
-        MenuItem customizeTheRibbonMenuItem;
-
         // Handles F10, Alt and so on
         readonly KeyTipService keyTipService;
-        
+
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
         // Adornet for backstage
@@ -131,7 +305,7 @@ namespace Fluent
         // Saved when backstage opened tab item
         private RibbonTabItem savedTabItem;
         // Currently added in QAT items
-        readonly Dictionary<UIElement,UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
+        readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
         private double savedMinWidth;
         private double savedMinHeight;
@@ -145,7 +319,7 @@ namespace Fluent
 
         private int selectedTabIndex = -1;
         private RibbonTabItem selectedTabItem;
-        
+
         #endregion
 
         #region Properties
@@ -167,7 +341,7 @@ namespace Fluent
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as Ribbon).titleBar!=null) (d as Ribbon).titleBar.InvalidateMeasure();
+            if ((d as Ribbon).titleBar != null) (d as Ribbon).titleBar.InvalidateMeasure();
         }
 
 
@@ -219,7 +393,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
             DependencyProperty.Register("ShowQuickAccessToolBarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
-        
+
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
         /// </summary>
@@ -258,21 +432,21 @@ namespace Fluent
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (object item in e.NewItems)
-                    {                        
+                    {
                         if (titleBar != null) titleBar.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
-                    {                        
+                    {
                         if (titleBar != null) titleBar.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
-                    {                        
+                    {
                         if (titleBar != null) titleBar.Items.Remove(item);
                     }
                     foreach (object item in e.NewItems)
@@ -405,7 +579,7 @@ namespace Fluent
             get
             {
                 ArrayList list = new ArrayList();
-                if(layoutRoot!=null)list.Add(layoutRoot);
+                if (layoutRoot != null) list.Add(layoutRoot);
                 if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
@@ -413,7 +587,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets collectionof quick access menu items
+        /// Gets collection of quick access menu items
         /// </summary>
         public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
         {
@@ -439,9 +613,9 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object item in e.NewItems)
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem) item;
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
-                        menuItem.Ribbon = this;                        
+                        menuItem.Ribbon = this;
                     }
                     break;
 
@@ -537,7 +711,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsBackstageOpenProperty =
-            DependencyProperty.Register("IsBackstageOpen", typeof(bool), 
+            DependencyProperty.Register("IsBackstageOpen", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
 
         /// <summary>
@@ -548,7 +722,7 @@ namespace Fluent
         private static void OnIsBackstageOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
-            if((bool)e.NewValue)
+            if ((bool)e.NewValue)
             {
                 ribbon.ShowBackstage();
             }
@@ -572,9 +746,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BackstageBrushProperty =
-            DependencyProperty.Register("BackstageBrush", typeof(Brush), 
+            DependencyProperty.Register("BackstageBrush", typeof(Brush),
             typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
-        
+
         /// <summary>
         /// Gets or set whether Customize Quick Access Toolbar menu item is shown
         /// </summary>
@@ -589,7 +763,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanCustomizeQuickAccessToolBar", typeof(bool), 
+            DependencyProperty.Register("CanCustomizeQuickAccessToolBar", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
 
@@ -607,7 +781,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
-            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool), 
+            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
 
@@ -625,18 +799,18 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
-            DependencyProperty.Register("IsMinimized", typeof(bool), 
+            DependencyProperty.Register("IsMinimized", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
             ribbon.SaveState();
-            if(!(bool)e.NewValue)
+            if (!(bool)e.NewValue)
             {
                 if (ribbon.tabControl.SelectedIndex == -1)
                     ribbon.LayoutUpdated += ribbon.OnIsOpenLayoutUpdated;
-                    //ribbon.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate { ribbon.tabControl.SelectedIndex = 0; }));
+                //ribbon.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate { ribbon.tabControl.SelectedIndex = 0; }));
             }
         }
 
@@ -699,6 +873,135 @@ namespace Fluent
 
         #endregion
 
+        #region Commands
+
+        /// <summary>
+        /// Gets add to quick access toolbar command
+        /// </summary>
+        public static RoutedCommand AddToQuickAccessCommand = new RoutedCommand("AddToQuickAccessCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets remove from quick access command
+        /// </summary>
+        public static RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand("RemoveFromQuickAccessCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets show quick access above command
+        /// </summary>
+        public static RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand("ShowQuickAccessAboveCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets show quick access below command
+        /// </summary>
+        public static RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand("ShowQuickAccessBelowCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets toggle ribbon minimize command
+        /// </summary>
+        public static RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand("ToggleMinimizeTheRibbonCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets customize quick access toolbar command
+        /// </summary>
+        public static RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand("CustomizeQuickAccessToolbarCommand", typeof(Ribbon));
+
+        /// <summary>
+        /// Gets customize the ribbon command
+        /// </summary>
+        public static RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand("CustomizeTheRibbonCommand", typeof(Ribbon));
+
+        // Occurs whe ntoggle minimize command executed
+        private static void OnToggleMinimizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.tabControl != null) ribbon.tabControl.IsMinimized = !ribbon.tabControl.IsMinimized;
+        }
+
+        // Occurs when show quick access below command executed
+        private static void OnShowQuickAccessBelowCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            ribbon.ShowQuickAccessToolBarAboveRibbon = false;
+        }
+
+        // Occurs when show quick access above command executed
+        private static void OnShowQuickAccessAboveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            ribbon.ShowQuickAccessToolBarAboveRibbon = true;
+        }
+
+        // Occurs when remove from quick access command executed
+        private static void OnRemoveFromQuickAccessCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.quickAccessToolBar != null)
+            {
+                UIElement element = ribbon.quickAccessElements.First(x => x.Value == e.OriginalSource).Key;
+                ribbon.RemoveFromQuickAccessToolBar(element);
+            }
+        }
+
+        // Occurs when add to quick access command executed
+        private static void OnAddToQuickAccessCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.quickAccessToolBar != null)
+            {
+                ribbon.AddToQuickAccessToolBar(e.OriginalSource as UIElement);
+            }
+        }
+
+        // Occurs when customize quick access command executed
+        private static void OnCustomizeQuickAccessToolbarCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.CustomizeQuickAccessToolbar != null) ribbon.CustomizeQuickAccessToolbar(sender, EventArgs.Empty);
+        }
+
+        // Occurs when customize the ribbon command executed
+        private static void OnCustomizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.CustomizeTheRibbon != null) ribbon.CustomizeTheRibbon(sender, EventArgs.Empty);
+        }
+
+        // Occurs when customize quick access command can execute handles
+        private static void OnCustomizeQuickAccessToolbarCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (sender as Ribbon).CanCustomizeQuickAccessToolBar;
+        }
+
+        // Occurs when customize the ribbon command can execute handles
+        private static void OnCustomizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = (sender as Ribbon).CanCustomizeRibbon;
+        }
+
+        // Occurs when remove from quick access command can execute handles
+        private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.IsQuickAccessToolBarVisible)
+            {
+                e.CanExecute = ribbon.quickAccessElements.ContainsValue(e.OriginalSource as UIElement);
+            }
+            else e.CanExecute = false;
+        }
+
+        // Occurs when add to quick access command can execute handles
+        private static void OnAddToQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            Ribbon ribbon = sender as Ribbon;
+            if (ribbon.IsQuickAccessToolBarVisible)
+            {
+                e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.OriginalSource as UIElement);
+            }
+            else e.CanExecute = false;
+        }
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -708,6 +1011,17 @@ namespace Fluent
         static Ribbon()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
+            
+            // Subscribe to menu commands
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.AddToQuickAccessCommand, OnAddToQuickAccessCommandExecuted, OnAddToQuickAccessCommandCanExecute));            
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.RemoveFromQuickAccessCommand, OnRemoveFromQuickAccessCommandExecuted, OnRemoveFromQuickAccessCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessAboveCommand, OnShowQuickAccessAboveCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessBelowCommand, OnShowQuickAccessBelowCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
+
+            InitRibbonContextMenu();
         }
 
         /// <summary>
@@ -717,19 +1031,18 @@ namespace Fluent
         {
             VerticalAlignment = VerticalAlignment.Top;
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
-            Focusable = false;
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
             keyTipService = new KeyTipService(this);
         }
 
-        #endregion        
+        #endregion
 
         #region Overrides
 
         void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((e.NewSize.Width < MinimalVisibleWidth)||(e.NewSize.Height < MinimalVisibleHeight)) IsCollapsed = true;
+            if ((e.NewSize.Width < MinimalVisibleWidth) || (e.NewSize.Height < MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
         }
 
@@ -756,7 +1069,11 @@ namespace Fluent
         {
             if (IsBackstageOpen) HideBackstage();
 
+            if (layoutRoot != null) RemoveLogicalChild(layoutRoot);
+
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
+
+            if (layoutRoot != null) AddLogicalChild(layoutRoot);
 
             if ((titleBar != null) && (groups != null))
             {
@@ -766,16 +1083,16 @@ namespace Fluent
                 }
             }
             titleBar = GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
-            if((titleBar!=null)&&(groups!=null))
+            if ((titleBar != null) && (groups != null))
             {
-                for(int i=0;i<groups.Count;i++)
+                for (int i = 0; i < groups.Count; i++)
                 {
                     titleBar.Items.Add(groups[i]);
                 }
             }
             RibbonTabItem selectedTab = selectedTabItem;
             if (tabControl != null)
-            {                
+            {
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
                 selectedTab = tabControl.SelectedItem as RibbonTabItem;
             }
@@ -804,7 +1121,7 @@ namespace Fluent
                 minimizeBinding.Mode = BindingMode.TwoWay;
                 tabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, minimizeBinding);
             }
-            if ((tabControl != null)&&(tabs!=null))
+            if ((tabControl != null) && (tabs != null))
             {
                 for (int i = 0; i < tabs.Count; i++)
                 {
@@ -846,7 +1163,7 @@ namespace Fluent
                     }
                 }
             }
-            
+
             quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
             if (quickAccessToolBar != null)
             {
@@ -883,7 +1200,7 @@ namespace Fluent
             }
             backstageButton = GetTemplateChild("PART_BackstageButton") as BackstageButton;
             adorner = null;
-            if (backstageButton != null) 
+            if (backstageButton != null)
             {
                 Binding binding = new Binding("IsBackstageOpen");
                 binding.Mode = BindingMode.TwoWay;
@@ -897,37 +1214,8 @@ namespace Fluent
                     }
                 }
             }
-            if (ribbonContextMenu != null) ribbonContextMenu.Opened -= OnContextMenuOpened;
-            ribbonContextMenu = GetTemplateChild("PART_RibbonContextMenu") as ContextMenu;
-            if (ribbonContextMenu != null) ribbonContextMenu.Opened += OnContextMenuOpened;
-            if (addToQuickAccessMenuItem!=null) addToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
-            addToQuickAccessMenuItem = GetTemplateChild("PART_AddToQuickAccessMenuItem") as MenuItem;
-            if (addToQuickAccessMenuItem != null) addToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
-            if (addGroupToQuickAccessMenuItem != null) addGroupToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
-            addGroupToQuickAccessMenuItem = GetTemplateChild("PART_AddGroupToQuickAccessMenuItem") as MenuItem;
-            if (addGroupToQuickAccessMenuItem != null) addGroupToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
-            if (addMenuToQuickAccessMenuItem != null) addMenuToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
-            addMenuToQuickAccessMenuItem = GetTemplateChild("PART_AddMenuToQuickAccessMenuItem") as MenuItem;
-            if (addMenuToQuickAccessMenuItem != null) addMenuToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
-            if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click -= OnAddToQuickLaunchClick;
-            addGalleryToQuickAccessMenuItem = GetTemplateChild("PART_AddGalleryToQuickAccessMenuItem") as MenuItem;
-            if (addGalleryToQuickAccessMenuItem != null) addGalleryToQuickAccessMenuItem.Click += OnAddToQuickLaunchClick;
-            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click -= OnRemoveFromQuickAccessToolBarClick;
-            removeFromQuickAccessMenuItem = GetTemplateChild("PART_RemoveFromQuickAccessMenuItem") as MenuItem;
-            if (removeFromQuickAccessMenuItem != null) removeFromQuickAccessMenuItem.Click += OnRemoveFromQuickAccessToolBarClick;
-            customizeQuickAccessToolbarMenuItem = GetTemplateChild("PART_CustomizeQuickAccessToolbarMenuItem") as MenuItem;
-            if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click -= OnShowBelowTheRibbonClick;
-            showQuickAccessToolbarBelowTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem") as MenuItem;
-            if (showQuickAccessToolbarBelowTheRibbonMenuItem != null) showQuickAccessToolbarBelowTheRibbonMenuItem.Click += OnShowBelowTheRibbonClick;
-            if (showQuickAccessToolbarAboveTheRibbonMenuItem != null) showQuickAccessToolbarAboveTheRibbonMenuItem.Click -= OnShowAboveTheRibbonClick;
-            showQuickAccessToolbarAboveTheRibbonMenuItem = GetTemplateChild("PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem") as MenuItem;
-            if (showQuickAccessToolbarAboveTheRibbonMenuItem != null) showQuickAccessToolbarAboveTheRibbonMenuItem.Click += OnShowAboveTheRibbonClick;
-            customizeTheRibbonMenuItem = GetTemplateChild("PART_CustomizeTheRibbonMenuItem") as MenuItem;
-            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click -= OnMinimizeRibbonClick;
-            minimizeTheRibbonMenuItem = GetTemplateChild("PART_MinimizeTheRibbonMenuItem") as MenuItem;
-            if (minimizeTheRibbonMenuItem != null) minimizeTheRibbonMenuItem.Click += OnMinimizeRibbonClick;
 
-            if(ownerWindow==null)
+            if (ownerWindow == null)
             {
                 ownerWindow = Window.GetWindow(this);
                 Binding binding = new Binding("Title");
@@ -941,129 +1229,18 @@ namespace Fluent
         {
             quickAccessToolBar.Loaded -= OnFirstToolbarLoaded;
             if (quickAccessStream != null)
-            {                
+            {
                 quickAccessStream.Position = 0;
                 LoadState(quickAccessStream);
                 quickAccessStream.Close();
             }
         }
 
-        private void OnRemoveFromQuickAccessToolBarClick(object sender, RoutedEventArgs e)
-        {
-            if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
-            {
-                UIElement element = quickAccessElements.First(x => x.Value == ribbonContextMenu.Tag).Key;
-                RemoveFromQuickAccessToolBar(element);
-            }
-        }
-
-        private void OnMinimizeRibbonClick(object sender, RoutedEventArgs e)
-        {
-            if (tabControl!=null) tabControl.IsMinimized = !tabControl.IsMinimized;
-        }
-
-        private void OnShowAboveTheRibbonClick(object sender, RoutedEventArgs e)
-        {
-            ShowQuickAccessToolBarAboveRibbon = true;
-        }
-
-        private void OnShowBelowTheRibbonClick(object sender, RoutedEventArgs e)
-        {
-            ShowQuickAccessToolBarAboveRibbon = false;
-        }
-
-        private void OnAddToQuickLaunchClick(object sender, RoutedEventArgs e)
-        {
-            if ((quickAccessToolBar != null) && (ribbonContextMenu != null) && (ribbonContextMenu.Tag != null))
-            {
-                AddToQuickAccessToolBar(ribbonContextMenu.Tag as UIElement);
-            }
-        }
-        
-        private void OnContextMenuOpened(object sender, RoutedEventArgs e)
-        {
-            /*if (quickAccessToolBar != null)
-            {
-                RibbonTabControl ribbonTabControl = sender as RibbonTabControl;
-                UIElement control = QuickAccessItemsProvider.FindSupportedControl(ribbonTabControl,
-                                                                                 e.GetPosition(ribbonTabControl));
-                if (control != null)
-                {
-                    AddToQuickAccessToolBar(control);
-                }
-            }*/
-            if((ribbonContextMenu!=null)&&(IsQuickAccessToolBarVisible))
-            {
-                FrameworkElement parentElement = RibbonPopup.GetActivePopup();
-                if (parentElement == null) parentElement = this;
-                else parentElement = (parentElement as RibbonPopup).Child as FrameworkElement;
-                
-                if (parentElement == null) parentElement = this;
-                UIElement control = QuickAccessItemsProvider.FindSupportedControl(parentElement , Mouse.GetPosition(parentElement));
-                if (control != null)
-                {
-                    ribbonContextMenu.Tag = control;
-                    if (quickAccessElements.ContainsValue(control))
-                    {
-                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
-                    }
-                    else if(control is ContextMenu)
-                    {
-                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
-                    }
-                    else if(control is Gallery)
-                    {
-                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
-                    }
-                    else if (control is RibbonGroupBox)
-                    {
-                        addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGroupToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
-                    }
-                    else 
-                    {
-                        addToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                        addToQuickAccessMenuItem.IsEnabled = !IsInQuickAccessToolBar(control);
-                    }
-                }
-                else
-                {
-                    addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                    addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                    addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                    addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                    removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
 
         #endregion
 
         #region Quick Access Items Managment
-               
+
         /// <summary>
         /// Determines whether the given element is in quick access toolbar
         /// </summary>
@@ -1071,7 +1248,7 @@ namespace Fluent
         /// <returns>True if element in quick access toolbar</returns>
         public bool IsInQuickAccessToolBar(UIElement element)
         {
-            if(element==null) return false;
+            if (element == null) return false;
             return quickAccessElements.ContainsKey(element);
         }
 
@@ -1085,8 +1262,8 @@ namespace Fluent
             if (!IsInQuickAccessToolBar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
-                
-                quickAccessElements.Add(element,control);
+
+                quickAccessElements.Add(element, control);
                 quickAccessToolBar.Items.Add(control);
                 quickAccessToolBar.InvalidateMeasure();
             }
@@ -1114,7 +1291,7 @@ namespace Fluent
         public void ClearQuickAccessToolBar()
         {
             quickAccessElements.Clear();
-            if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
+            if (quickAccessToolBar != null) quickAccessToolBar.Items.Clear();
         }
 
         #endregion
@@ -1152,7 +1329,7 @@ namespace Fluent
             InitialLoadState();
 
             if (IsBackstageOpen) ShowBackstage();
-            else if ((tabControl!=null)&&(tabControl.SelectedIndex == -1)&&(!IsMinimized)) tabControl.SelectedIndex = 0;
+            else if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnKeyDown(object sender, KeyEventArgs e)
@@ -1181,7 +1358,7 @@ namespace Fluent
         #region Show / Hide Backstage
 
         // We have to collapse WindowsFormsHost while Backstate is open
-        Dictionary<FrameworkElement, Visibility> collapsedElements = 
+        Dictionary<FrameworkElement, Visibility> collapsedElements =
             new Dictionary<FrameworkElement, Visibility>();
 
         // Show backstage
@@ -1205,18 +1382,18 @@ namespace Fluent
                     double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
                     adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
                 }
-            }            
+            }
             layer.Add(adorner);
             if (tabControl != null)
             {
                 savedTabItem = tabControl.SelectedItem as RibbonTabItem;
-                if (savedTabItem == null && tabControl.Items.Count > 0) 
+                if (savedTabItem == null && tabControl.Items.Count > 0)
                     savedTabItem = (RibbonTabItem)tabControl.Items[0];
                 tabControl.SelectedItem = null;
             }
-            if(quickAccessToolBar!=null) quickAccessToolBar.IsEnabled = false;
-            if(titleBar!=null) titleBar.IsEnabled = false;
-            
+            if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = false;
+            if (titleBar != null) titleBar.IsEnabled = false;
+
             Window window = Window.GetWindow(this);
             if (window != null)
             {
@@ -1241,7 +1418,7 @@ namespace Fluent
             FrameworkElement frameworkElement = parent as FrameworkElement;
             if (frameworkElement != null)
             {
-                if ((parent is WindowsFormsHost || parent is WebBrowser) && 
+                if ((parent is WindowsFormsHost || parent is WebBrowser) &&
                     frameworkElement.Visibility != Visibility.Collapsed)
                 {
                     collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
@@ -1286,7 +1463,7 @@ namespace Fluent
 
             if (SelectedTabIndex < 0)
             {
-                if ((tabControl!=null)&&(tabControl.SelectedIndex < 0)) SelectedTabIndex = 0;
+                if ((tabControl != null) && (tabControl.SelectedIndex < 0)) SelectedTabIndex = 0;
                 else SelectedTabIndex = tabControl.SelectedIndex;
             }
         }
@@ -1311,7 +1488,7 @@ namespace Fluent
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Escape) IsBackstageOpen = false;
+            if (e.Key == Key.Escape) IsBackstageOpen = false;
         }
 
         #endregion
@@ -1377,7 +1554,7 @@ namespace Fluent
         // Loads from Isolated Storage (in user store for domain)
         void LoadState()
         {
-            if (!AutomaticStateManagement) return;                       
+            if (!AutomaticStateManagement) return;
 
             IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
             if (FileExists(storage, "Fluent.Ribbon.State.dat"))
@@ -1423,7 +1600,7 @@ namespace Fluent
             Dictionary<FrameworkElement, string> paths = new Dictionary<FrameworkElement, string>();
             TraverseLogicalTree(this, "", paths);
             // Foreach items and see whether path is found for the item
-            foreach(var element in quickAccessElements)
+            foreach (var element in quickAccessElements)
             {
                 if (paths.ContainsKey((FrameworkElement)element.Key))
                 {
@@ -1434,7 +1611,7 @@ namespace Fluent
                 {
                     // Item is not found in logical tree, output to debug console
                     FrameworkElement control = element.Key as FrameworkElement;
-                    string controlName = (control != null && !String.IsNullOrEmpty(control.Name)) ? 
+                    string controlName = (control != null && !String.IsNullOrEmpty(control.Name)) ?
                         String.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name) : "";
                     Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
                 }
@@ -1443,7 +1620,7 @@ namespace Fluent
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(builder.ToString());
 
-            writer.Flush();            
+            writer.Flush();
         }
 
         // Traverse logical tree and find QAT items, remember paths
@@ -1478,7 +1655,7 @@ namespace Fluent
             suppressAutomaticStateManagement = true;
 
             StreamReader reader = new StreamReader(stream);
-            string[] splitted = reader.ReadToEnd().Split('|');            
+            string[] splitted = reader.ReadToEnd().Split('|');
 
             if (splitted.Length != 2) return;
 
@@ -1488,9 +1665,9 @@ namespace Fluent
             ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
 
             // Load items
-            string[] items = splitted[1].Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] items = splitted[1].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (quickAccessToolBar!=null) quickAccessToolBar.Items.Clear();
+            if (quickAccessToolBar != null) quickAccessToolBar.Items.Clear();
             quickAccessElements.Clear();
 
             for (int i = 0; i < items.Length; i++) ParseAndAddToQuickAccessToolBar(items[i]);
@@ -1507,7 +1684,7 @@ namespace Fluent
         // Loads item and add to QAT
         void ParseAndAddToQuickAccessToolBar(string data)
         {
-            int[] indices = data.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+            int[] indices = data.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => Int32.Parse(x, CultureInfo.InvariantCulture)).ToArray();
 
             DependencyObject current = this;
             for (int i = 0; i < indices.Length; i++)
@@ -1531,7 +1708,7 @@ namespace Fluent
                 Debug.WriteLine("Error while QAT items loading: an item is not be able to be added to QAT");
                 return;
             }
-            
+
             AddToQuickAccessToolBar(result);
         }
 
@@ -1544,7 +1721,8 @@ namespace Fluent
         /// </summary>
         bool IsStateLoaded
         {
-            get; set;
+            get;
+            set;
         }
 
         #endregion

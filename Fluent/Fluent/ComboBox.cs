@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
@@ -30,29 +31,191 @@ namespace Fluent
     /// <summary>
     /// Represents custom Fluent UI ComboBox
     /// </summary>
-    public class ComboBox: RibbonItemsControl
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
-        private ContextMenu contextMenu;
-        private Gallery gallery = new Gallery();
-        private System.Windows.Controls.TextBox textBox;
+        // Thumb to resize in both directions
+        Thumb resizeBothThumb;
+        // Thumb to resize vertical
+        Thumb resizeVerticalThumb;
 
-        private bool updatingText;
+        private Popup popup;
+
+        private IInputElement focusedElement;
+
+        private TextBox editableTextBox;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets drop down popup
+        /// </summary>
+        public Popup DropDownPopup
+        {
+            get { return popup; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether context menu is opened
+        /// </summary>
+        public bool IsContextMenuOpened { get; set; }
+
+        #region Size Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(ComboBox));
+
+        /// <summary>
+        /// Gets or sets Size for the element
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        #endregion
+
+        #region SizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(ComboBox));
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        #endregion
+
+        #region Header
+
+        /// <summary>
+        /// Gets or sets element Text
+        /// </summary>
+        public object Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Header.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(ComboBox));
+
+        #endregion
+
+        #region Icon
+
+        /// <summary>
+        /// Gets or sets Icon for the element
+        /// </summary>
+        public object Icon
+        {
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ComboBox));
+
+        #endregion
+
+        #region Menu
+
+        /// <summary>
+        /// Gets or sets menu to show in combo box bottom
+        /// </summary>
+        public RibbonMenu Menu
+        {
+            get { return (RibbonMenu)GetValue(MenuProperty); }
+            set { SetValue(MenuProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Menu.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MenuProperty =
+            DependencyProperty.Register("Menu", typeof(RibbonMenu), typeof(ComboBox), new UIPropertyMetadata(null));
+
         
-        private int textBoxSelectionStart;
 
-        private bool isInitializing;
+        #endregion
 
-        private GalleryItem selectedGalleryItem;
-        private Image fakeImage;
+        #endregion
 
-        private Border contentBorder;
+        #region Constructors
 
-        // Is visual currently snapped
-        private bool isSnapped;
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        static ComboBox()
+        {
+            Type type = typeof (ComboBox);
+            ToolTipService.Attach(type);
+            PopupService.Attach(type);
+            ContextMenuService.Attach(type);
+        }
 
-        private ComboBox quickAccessCombo;
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public ComboBox()
+        {
+            View = CollectionViewSource.GetDefaultView(Items);
+            ContextMenuService.Coerce(this);
+        }
+
+        #endregion
+
+        #region QuickAccess
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public virtual FrameworkElement CreateQuickAccessItem()
+        {
+            ComboBox combo = new ComboBox();
+            RibbonControl.BindQuickAccessItem(this, combo);
+            return combo;
+        }
+
+        /// <summary>
+        /// Gets or sets whether control can be added to quick access toolbar
+        /// </summary>
+        public bool CanAddToQuickAccessToolBar
+        {
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox));
 
         #endregion
 
@@ -75,126 +238,28 @@ namespace Fluent
         public static readonly DependencyProperty InputWidthProperty =
             DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
 
-
         #endregion
 
-        #region IsReadOnly
+        #region View
 
         /// <summary>
-        /// Gets or sets a value that enables selection-only mode, in which the contents of the combo box are selectable but not editable. This is a dependency property.
+        /// Gets view of items or itemssource
         /// </summary>
-        public bool IsReadOnly
+        public ICollectionView View
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get { return (ICollectionView)GetValue(ViewProperty); }
+            private set { SetValue(ViewPropertyKey, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsReadonly.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false));
-
-
-
-        #endregion
-
-        #region Snapping
+        private static readonly DependencyPropertyKey ViewPropertyKey =
+            DependencyProperty.RegisterReadOnly("View", typeof(ICollectionView),
+            typeof(ComboBox), new UIPropertyMetadata(null));
 
         /// <summary>
-        /// Snaps / Unsnaps the Visual 
-        /// (remove visuals and substitute with freezed image)
+        /// Using a DependencyProperty as the backing store for View.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public bool IsSnapped
-        {
-            get
-            {
-                return isSnapped;
-            }
-            set
-            {
-                if (value == isSnapped) return;
-                if (fakeImage == null) return;
-                if (selectedGalleryItem == null) return;
-                if (value)
-                {
-                    // Render the freezed image
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth, (int)selectedGalleryItem.ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                    renderTargetBitmap.Render((Visual)selectedGalleryItem);
-                    fakeImage.Source = renderTargetBitmap;
-                    selectedGalleryItem.Visibility = Visibility.Collapsed;
-                    fakeImage.Visibility = Visibility.Visible;
-                    fakeImage.FlowDirection = FlowDirection;
-                }
-                else
-                {
-                    fakeImage.Source = null;
-                    selectedGalleryItem.Visibility = Visibility.Visible;
-                    fakeImage.Visibility = Visibility.Collapsed;
-                }
-                isSnapped = value;
-                InvalidateVisual();
-            }
-        }
-
-        #endregion
-
-        #region IsEditable
-
-        /// <summary>
-        /// gets or sets wthether cmbobox is editable
-        /// </summary>
-        public bool IsEditable
-        {
-            get { return (bool)GetValue(IsEditableProperty); }
-            set { SetValue(IsEditableProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsEditable.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsEditableProperty =
-            DependencyProperty.Register("IsEditable", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(true));
-
-
-
-        #endregion
-
-        #region ScrollBarsVisibility
-
-        /// <summary> 
-        /// HorizonalScollbarVisibility is a Windows.Controls.ScrollBarVisibility that
-        /// determines if a horizontal scrollbar is shown. 
-        /// </summary> 
-        [Bindable(true), Category("Appearance")]
-        public ScrollBarVisibility HorizontalScrollBarVisibility
-        {
-            get { return (ScrollBarVisibility)GetValue(HorizontalScrollBarVisibilityProperty); }
-            set { SetValue(HorizontalScrollBarVisibilityProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HorizontalScrollBarVisibility.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty =
-            DependencyProperty.Register("HorizontalScrollBarVisibility", typeof(ScrollBarVisibility), typeof(ComboBox), new UIPropertyMetadata(ScrollBarVisibility.Disabled));
-
-        /// <summary> 
-        /// VerticalScrollBarVisibility is a System.Windows.Controls.ScrollBarVisibility that 
-        /// determines if a vertical scrollbar is shown.
-        /// </summary> 
-        [Bindable(true), Category("Appearance")]
-        public ScrollBarVisibility VerticalScrollBarVisibility
-        {
-            get { return (ScrollBarVisibility)GetValue(VerticalScrollBarVisibilityProperty); }
-            set { SetValue(VerticalScrollBarVisibilityProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for VerticalScrollBarVisibility.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty VerticalScrollBarVisibilityProperty =
-            DependencyProperty.Register("VerticalScrollBarVisibility", typeof(ScrollBarVisibility), typeof(ComboBox), new UIPropertyMetadata(ScrollBarVisibility.Visible));
+        public static readonly DependencyProperty ViewProperty = ViewPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -215,188 +280,30 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), 
-            typeof(ComboBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupBy", typeof(string),
+            typeof(ComboBox), new UIPropertyMetadata(null, OnGroupByChanged));
 
-        #endregion
-
-        #region Orientation
-
-        /// <summary>
-        /// Gets or sets orientation of gallery
-        /// </summary>
-        public Orientation Orientation
+        static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            ((ComboBox)d).UpdateGroupBy(e.NewValue as string);
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ComboBox), new UIPropertyMetadata(Orientation.Vertical, OnOrientationChanged));
-
-        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        void UpdateGroupBy(string groupBy)
         {
-            ComboBox comboBox = (ComboBox) d;
-            if (comboBox.gallery != null)
+            View = CollectionViewSource.GetDefaultView(Items);
+            if (View != null)
             {
-                if ((Orientation)e.NewValue == Orientation.Horizontal)
+                View.GroupDescriptions.Clear();
+                if (groupBy != null)
                 {
-                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(WrapPanel)));
-                    template.Seal();
-                    comboBox.ItemsPanel = template;
+                    View.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));
                 }
-                else
-                {
-                    ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(StackPanel)));
-                    template.Seal();
-                    comboBox.ItemsPanel = template;
-                }
+                View.Refresh();
             }
         }
 
         #endregion
-
-        #region SelectedIndex
-
-        /// <summary>
-        /// Gets or sets index of currently selected item
-        /// </summary>
-        public int SelectedIndex
-        {
-            get { return (int)GetValue(SelectedIndexProperty); }
-            set { SetValue(SelectedIndexProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedIndex. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ComboBox), new UIPropertyMetadata(-1, OnSelectedIndexChenged, CoerceSelectedIndex));
-
-        private static object CoerceSelectedIndex(DependencyObject d, object basevalue)
-        {
-            if (((int)basevalue != -1) && (((ComboBox)d).GetItem((int)basevalue) == null)) return -1;
-            return basevalue;
-        }
-
-        static void OnSelectedIndexChenged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)d;            
-            if (((int)e.NewValue == -1) && (comboBox.SelectedItem != null)) comboBox.SelectedItem = null;
-            else
-            {
-                object selectedItem = comboBox.GetItem((int) e.NewValue);
-                if ((selectedItem != comboBox.SelectedItem)&&(selectedItem!=null))
-                {
-                    comboBox.SelectedItem = selectedItem;
-                    comboBox.CurrentText = comboBox.GetItemText(comboBox.SelectedItem);
-                }
-            }
-        }
-
-        #endregion
-
-        #region SelectedItem
-
-        /// <summary>
-        /// Gets or sets currently selected item
-        /// </summary>
-        public object SelectedItem
-        {
-            get { return (object)GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedItem.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(ComboBox), new UIPropertyMetadata(null, OnSelectedItemChanged,CoerceSelectedItem));
-
-        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
-        {
-            if ((basevalue != null) && (((ComboBox)d).GetItemIndex(basevalue) == -1)) return null;
-            return basevalue;
-        }
-
-        static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ComboBox combo = ((ComboBox)d);
-            combo.SelectedItemUpdated();
-            if (combo.SelectionChanged != null) combo.SelectionChanged(combo, EventArgs.Empty);
-        }
-
-        internal void SelectedItemUpdated()
-        {
-            if (!updatingText)
-            {
-                string primaryTextFromItem = GetItemText(SelectedItem);
-                if ((this.CurrentText != primaryTextFromItem) && (primaryTextFromItem != null))
-                {
-                    this.CurrentText = primaryTextFromItem;
-                }
-            }
-            if (selectedGalleryItem != null)
-            {
-                selectedGalleryItem.Content = SelectedItem;
-                if ((quickAccessCombo != null) && (selectedGalleryItem.Visibility == Visibility.Visible))
-                {
-                    Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
-                           {
-                               RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)selectedGalleryItem.ActualWidth, (int)selectedGalleryItem.ActualHeight, 96, 96, PixelFormats.Pbgra32);
-                               renderTargetBitmap.Render((Visual)selectedGalleryItem);
-                               quickAccessCombo.fakeImage.Source = renderTargetBitmap;
-                           }));
-                }
-            }
-            int selectedIndex = GetItemIndex(SelectedItem);
-            if((selectedIndex!=-1)&&(SelectedItem!=null)) if (selectedIndex != SelectedIndex) SelectedIndex = selectedIndex;
-        }
-
-
-        #endregion
-
-        #region IsOpen
-
-        /// <summary>
-        /// Gets or sets whether context menu of the ComboBox is open
-        /// </summary>
-        public bool IsOpen
-        {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), 
-            typeof(ComboBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsOpen));
-
-        // Coerce IsOpen
-        static object CoerceIsOpen(DependencyObject d, object basevalue)
-        {
-            if (((ComboBox)d).isInitializing) return true;
-            return basevalue;
-        }
-
-        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox) d;
-            if (comboBox.contextMenu == null) comboBox.CreateMenu();
-            if (comboBox.IsOpen) comboBox.IsHitTestVisible = false;
-            else comboBox.IsHitTestVisible = true;                     
-        }
-
-        #endregion
-
+        
         #region ResizeMode
 
         /// <summary>
@@ -416,657 +323,211 @@ namespace Fluent
 
         #endregion
 
-        #region CurrentText
-
-        /// <summary>
-        /// Gets or sets text in ComboBox
-        /// </summary>
-        public string CurrentText
-        {
-            get { return (string)GetValue(CurrentTextProperty); }
-            set { SetValue(CurrentTextProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CurrentText.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CurrentTextProperty =
-            DependencyProperty.Register("CurrentText", typeof(string), typeof(ComboBox), new UIPropertyMetadata("",OnCurrentTextChanged));
-
-        private static void OnCurrentTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as ComboBox).TextUpdated(e.NewValue as string,false);
-        }
-
-        #endregion
-
-        #region MenuMinWidth
-
-        /// <summary>
-        /// Gets or sets minimal width of dropdown menu
-        /// </summary>
-        public double MenuMinWidth
-        {
-            get { return (double)GetValue(MenuMinWidthProperty); }
-            set { SetValue(MenuMinWidthProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MenuMinWidth. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty MenuMinWidthProperty =
-            DependencyProperty.Register("MenuMinWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(0.0));
-
-        #endregion
-
-        #endregion
-
-        #region Events
-
-        /// <summary>
-        /// Occures when context menu is opened
-        /// </summary>
-        public event EventHandler Opened;
-
-        /// <summary>
-        /// Occures when context menu is closed
-        /// </summary>
-        public event EventHandler Closed;
-
-        /// <summary>
-        /// Occurs then selection is changed
-        /// </summary>
-        public event EventHandler SelectionChanged;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Static constructor
-        /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
-        static ComboBox()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(typeof(ComboBox)));
-            ItemWidthProperty.OverrideMetadata(typeof(ComboBox), new UIPropertyMetadata(Double.NaN));
-            ItemHeightProperty.OverrideMetadata(typeof(ComboBox), new UIPropertyMetadata(22.0));
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ComboBox()
-        {
-            Binding binding = new Binding("DisplayMemberPath");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.DisplayMemberPathProperty, binding);
-            binding = new Binding("ItemBindingGroup");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemBindingGroupProperty, binding);
-            binding = new Binding("ItemContainerStyle");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemContainerStyleProperty, binding);
-            binding = new Binding("ItemContainerStyleSelector");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemContainerStyleSelectorProperty, binding);
-            binding = new Binding("ItemsPanel");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemsPanelProperty, binding);
-            binding = new Binding("ItemStringFormat");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemStringFormatProperty, binding);
-            binding = new Binding("ItemTemplate");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemTemplateProperty, binding);
-            binding = new Binding("ItemTemplateSelector");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemTemplateSelectorProperty, binding);
-            binding = new Binding("ItemWidth");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemWidthProperty, binding);
-            binding = new Binding("ItemHeight");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.ItemHeightProperty, binding);
-            binding = new Binding("IsTextSearchEnabled");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.IsTextSearchEnabledProperty, binding);
-
-            binding = new Binding("VerticalScrollBarVisibility");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.VerticalScrollBarVisibilityProperty, binding);
-            binding = new Binding("HorizontalScrollBarVisibility");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.HorizontalScrollBarVisibilityProperty, binding);
-
-            binding = new Binding("GroupBy");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.GroupByProperty, binding);
-
-            /*binding = new Binding("Orientation");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            gallery.SetBinding(Gallery.OrientationProperty, binding);*/
-            gallery.Orientation = Orientation;
-
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-
-            /*
-            binding = new Binding("SelectedIndex");
-            binding.Source = gallery;
-            binding.Mode = BindingMode.TwoWay;
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            this.SetBinding(SelectedIndexProperty, binding);
-
-            binding = new Binding("SelectedItem");
-            binding.Source = gallery;
-            binding.Mode = BindingMode.TwoWay;
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            this.SetBinding(SelectedItemProperty, binding); */
-
-            Loaded += delegate
-                          {
-                              SelectedItemUpdated();
-                          };
-        }
-
-        /// <summary>
-        /// Handles click
-        /// </summary>
-        /// <param name="args"></param>
-        protected override void OnClick(RoutedEventArgs args)
-        {
-            if (textBox != null)
-            {
-                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
-                                (ThreadStart)(() =>
-                                {
-                                    textBox.SelectAll();
-                                    textBox.Focus();
-                                }));
-            }
-            args.Handled = true;
-            base.OnClick(args);
-        }
-
         #endregion
 
         #region Overrides
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever 
-        /// application code or internal processes call ApplyTemplate
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (textBox != null)
+            popup = GetTemplateChild("PART_Popup") as Popup;
+            if (editableTextBox != null) editableTextBox.KeyDown -= OnTextBoxKeyDown;
+            editableTextBox = GetTemplateChild("PART_EditableTextBox") as TextBox;
+            if (editableTextBox!=null) editableTextBox.KeyDown += OnTextBoxKeyDown;
+
+            if (resizeVerticalThumb != null)
             {
-                textBox.TextChanged -= OnTextBoxTextChanged;
-                textBox.PreviewKeyDown -= OnTextBoxPreviewKeyDown;
-                textBox.SelectionChanged -= OnTextBoxSelectionChanged;
+                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
             }
-            textBox = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
-            if(textBox!=null)
+            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (resizeVerticalThumb != null)
             {
-                textBox.TextChanged += OnTextBoxTextChanged;
-                textBox.PreviewKeyDown += OnTextBoxPreviewKeyDown;
-                textBox.SelectionChanged += OnTextBoxSelectionChanged;
-                textBox.Text = CurrentText;
+                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
             }
 
-            selectedGalleryItem = GetTemplateChild("PART_GalleryItem") as GalleryItem;
-            fakeImage = GetTemplateChild("PART_FakeImage") as Image;
-            contentBorder = GetTemplateChild("PART_ContentBorder") as Border;
-            if (contextMenu != null) contextMenu.PlacementTarget = contentBorder;
-        }
-
-        void OnTextBoxSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            if(textBox!=null)textBoxSelectionStart = textBox.SelectionStart;
-        }
-
-        void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextUpdated(textBox.Text, true);
-        }
-
-        void TextUpdated(string newText, bool textBoxUpdated)
-        {
-            if (!updatingText)
+            if (resizeBothThumb != null)
             {
-                try
+                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+            }
+            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta += OnResizeBothDelta;
+            }
+
+            GroupStyle.Clear();
+            GroupStyle groupStyle = Resources["ComboBoxGroupStyle"] as GroupStyle;
+            if (groupStyle == null) groupStyle = Application.Current.Resources["ComboBoxGroupStyle"] as GroupStyle;
+            if (groupStyle!=null) GroupStyle.Add(groupStyle);
+            UpdateGroupBy(GroupBy);
+            base.OnApplyTemplate();
+        }
+
+        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
+            }
+        }
+
+        protected override void OnDropDownOpened(EventArgs e)
+        {
+            base.OnDropDownOpened(e);
+            Mouse.Capture(this, CaptureMode.SubTree);
+            if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
+            focusedElement = Keyboard.FocusedElement;
+            focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+        }
+
+        protected override void OnDropDownClosed(EventArgs e)
+        {
+            base.OnDropDownClosed(e);
+            if (Mouse.Captured == this) Mouse.Capture(null);
+            if (focusedElement != null) focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
+            focusedElement = null;
+        }
+
+        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (focusedElement!=null) focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
+            focusedElement = Keyboard.FocusedElement;
+            if (focusedElement != null)
+            {
+                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+                if ((IsEditable) &&
+                    (Items.Contains(ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject))))
                 {
-                    updatingText = true;
-                    if (IsTextSearchEnabled)
-                    {
-                        int num = FindMatchingPrefix(newText);
-                        if (num >= 0)
-                        {
-                            if (textBoxUpdated)
-                            {
-                                int selectionStart = textBox.SelectionStart;
-                                if ((selectionStart == newText.Length) && (selectionStart > textBoxSelectionStart))
-                                {
-                                    string primaryTextFromItem = GetItemText(GetItem(num));
-                                    textBox.Text = primaryTextFromItem;
-                                    textBox.SelectionStart = newText.Length;
-                                    textBox.SelectionLength = primaryTextFromItem.Length - newText.Length;
-                                    newText = primaryTextFromItem;
-                                }
-                            }
-                            else
-                            {
-                                string b = GetItemText(GetItem(num));
-                                if (!string.Equals(newText, b, StringComparison.CurrentCulture))
-                                {
-                                    num = -1;
-                                }
-                            }
-                        }
-                        if (num != SelectedIndex)
-                        {
-                            SelectedIndex = num;                            
-                        }
-                    }
-                    if (textBoxUpdated)
-                    {
-                        CurrentText = newText;
-                    }
-                    else if (textBox != null)
-                    {
-                        textBox.Text = newText;
-                    }
+                    SelectedItem = ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject);
                 }
-                finally
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
+                if((Menu!=null) && Menu.Items.Contains(Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
-                    updatingText = false;
+                    int indexOfMSelectedItem = Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    if(indexOfMSelectedItem != Menu.Items.Count-1)
+                    {
+                        Keyboard.Focus(Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem + 1) as IInputElement);
+                    }
+                    else
+                    {
+                        if ((Items.Count > 0) && (!IsEditable))
+                        {
+                            Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        }
+                        else Keyboard.Focus(Menu.Items[0] as IInputElement);
+                    }
                 }
-            }
-        }
-
-
-        int FindMatchingPrefix(string prefix)
-        {
-            IEnumerable items = GetItems();
-            if (items == null) return -1;
-            int i = 0;
-            foreach (var item in items)
-            {
-                if (GetItemText(item).StartsWith(prefix, StringComparison.CurrentCultureIgnoreCase))
-                {                    
-                    return i;
+                else if (Items.Contains(ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                {
+                    int indexOfSelectedItem = ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    if(indexOfSelectedItem!=Items.Count-1)
+                    {
+                        Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem+1) as IInputElement);
+                    }
+                    else
+                    {
+                        if ((Menu != null) && (Menu.Items.Count > 0) && (!IsEditable)) Keyboard.Focus(Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        else
+                        {
+                            Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        }
+                    }
                 }
-                i++;
+                else if (SelectedItem!=null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
+                e.Handled = true;
+                Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
+                return;
             }
-            return -1;
-        }
-
-        IEnumerable GetItems()
-        {
-            IEnumerable items = ItemsSource;
-            if (items == null) items = Items;
-            return items;
-        }
-
-        object GetItem(int index)
-        {
-            IEnumerable items = GetItems();
-            if (items == null) return null;
-            int i = 0;
-            foreach (var item in items)
+            else if (e.Key == Key.Up)
             {
-                if(i==index) return item;
-                i++;
+                Debug.WriteLine("Up pressed. FocusedElement - " + Keyboard.FocusedElement);
+                if ((Menu != null) && Menu.Items.Contains(Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                {
+                    int indexOfMSelectedItem = Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    if (indexOfMSelectedItem != 0)
+                    {
+                        Keyboard.Focus(Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem - 1) as IInputElement);
+                    }
+                    else
+                    {
+                        if ((Items.Count > 0) && (!IsEditable))
+                        {
+                            Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(Items.Count-1) as IInputElement);
+                        }
+                        else Keyboard.Focus(Menu.Items[Menu.Items.Count-1] as IInputElement);
+                    }
+                }
+                else if (Items.Contains(ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                {
+                    int indexOfSelectedItem = ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    if (indexOfSelectedItem != 0)
+                    {
+                        Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem-1) as IInputElement);
+                    }
+                    else
+                    {
+                        if ((Menu != null) && (Menu.Items.Count > 0) && (!IsEditable)) Keyboard.Focus(Menu.ItemContainerGenerator.ContainerFromIndex(Menu.Items.Count-1) as IInputElement);
+                        else
+                        {
+                            Keyboard.Focus(ItemContainerGenerator.ContainerFromIndex(Items.Count-1) as IInputElement);
+                        }
+                    }
+                }
+                else if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
+                Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
+                e.Handled = true;
+                return;
             }
-            return null;
+            base.OnKeyDown(e);
         }
 
-        int GetItemIndex(object obj)
-        {
-            IEnumerable items = GetItems();
-            if (items == null) return -1;
-            int i = 0;
-            foreach (var item in items)
-            {
-                if (item.Equals(obj)) return i;
-                i++;
-            }
-            return -1;
-        }
+        #endregion
 
-        /// <summary>
-        /// Gets a text representation of the given item
-        /// </summary>
-        /// <param name="obj">Item</param>
-        /// <returns>Text</returns>
-        internal string GetItemText(object obj)
-        {
-            if(obj==null) return "";
-            if (!string.IsNullOrEmpty(DisplayMemberPath)) return obj.GetType().GetProperty(DisplayMemberPath, BindingFlags.Public | BindingFlags.Instance).GetValue(obj, null).ToString();
-            return obj.ToString();
-        }
-
-        /// <summary>
-        /// Items collection changes hadling 
-        /// </summary>
-        /// <param name="e">Event args</param>
-        protected override void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            CoerceValue(ComboBox.SelectedItemProperty);
-            CoerceValue(ComboBox.SelectedIndexProperty);
-            base.OnItemsCollectionChanged(e);
-            if ((SelectedItem == null) && (SelectedIndex >= 0))
-            {
-                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedItem = GetItem(SelectedIndex); }));
-            }
-            else if ((SelectedItem != null) && (SelectedIndex == 1))
-            {
-                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { SelectedIndex = GetItemIndex(SelectedItem); }));
-            }
-        }
+        #region Methods
 
         /// <summary>
-        /// ItemsSource property change handling
+        /// Handles key tip pressed
         /// </summary>
-        /// <param name="args"></param>
-        protected override void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
-        {            
-            base.OnItemsSourceChanged(args);
-            CoerceValue(ComboBox.SelectedItemProperty);
-            CoerceValue(ComboBox.SelectedIndexProperty);
-            if((SelectedItem==null)&&(SelectedIndex>=0))
-            {
-                SelectedItem = GetItem(SelectedIndex);
-            }
-            else if ((SelectedItem != null) && (SelectedIndex == -1 ))
-            {
-                SelectedIndex = GetItemIndex(SelectedItem);
-            }
+        public virtual void OnKeyTipPressed()
+        {
+            if (IsEditable) Focus();
+            else IsDropDownOpen = true;
         }
+
+        #endregion
+
+        #region Protected
 
         
         #endregion
 
         #region Private methods
 
-        /// <summary>
-        /// Invoked when an unhandled MouseLeftButtonDown routed event is raised on this element. 
-        /// Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was pressed</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        // Handles resize both drag
+        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            Mouse.Capture(this);
-            
-            IsOpen = true;
-            e.Handled = true;
+            if (double.IsNaN(popup.Width)) popup.Width = popup.ActualWidth;
+            if (double.IsNaN(popup.Height)) popup.Height = popup.ActualHeight;
+            popup.Width = Math.Max(popup.MinWidth, popup.Width + e.HorizontalChange);
+            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
         }
 
-        /// <summary>
-        /// Invoked when an unhandled MouseLeftButtonUp routed event reaches an element 
-        /// in its route that is derived from this class. Implement this method to add 
-        /// class handling for this event. 
-        /// </summary>
-        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was released</param>
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        // Handles resize vertical drag
+        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if(Mouse.Captured==this)Mouse.Capture(null);
+            if (double.IsNaN(popup.Height)) popup.Height = ActualHeight;
+            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
         }
 
-        void OnTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.Enter) || (e.Key == Key.Escape))
-            {
-                // Move Focus
-                textBox.Focusable = false;
-                Focus();
-                textBox.Focusable = true;
-            }
-            if(e.Key==Key.Down) IsOpen = true;
-            base.OnPreviewKeyDown(e);
-        }
-
-        void CreateMenu()
-        {
-            isInitializing = true;
-            contextMenu = new ContextMenu();
-            contextMenu.Owner = this;
-            contextMenu.Items.Add(gallery);
-            AddLogicalChild(contextMenu.RibbonPopup);
-            contextMenu.IsOpen = true;
-
-            contextMenu.RibbonPopup.Opened += OnMenuOpened;
-            contextMenu.RibbonPopup.Closed += OnMenuClosed;
-            Binding binding = new Binding("IsOpen");
-            binding.Mode = BindingMode.TwoWay;
-            binding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
-
-            binding = new Binding("ResizeMode");
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = this;
-            contextMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, binding);
-
-            contextMenu.PlacementTarget = contentBorder;
-            contextMenu.Placement = PlacementMode.Bottom;
-
-            isInitializing = false;
-            IsOpen = true;
-            contextMenu.IsOpen = true;
-        }
-
-        private void OnMenuClosed(object sender, EventArgs e)
-        {
-            CloseMenu();
-            if (Closed != null) Closed(this, e);
-        }
-
-        private void CloseMenu()
-        {                        
-            if (!IsEditable)
-            {                
-                selectedGalleryItem.Content = SelectedItem;
-                IsSnapped = false;
-            }
-            SelectedIndex = gallery.SelectedIndex;
-            SelectedItem = gallery.SelectedItem;
-            gallery.ItemsSource = null;
-        }
-
-        private void OnMenuOpened(object sender, EventArgs e)
-        {
-            OpenMenu();
-            if (Opened != null) Opened(this, e);
-        }
-
-        private void OpenMenu()
-        {
-            if (!IsEditable)
-            {
-                IsSnapped = true;
-                selectedGalleryItem.Content = null;
-            }
-            int selectedIndex = SelectedIndex;
-            object selectedItem = SelectedItem;
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-            //
-            gallery.SelectedIndex = selectedIndex;
-            gallery.SelectedItem = selectedItem;
-            gallery.MinWidth = Math.Max(MenuMinWidth, contentBorder.ActualWidth);
-            gallery.MinHeight = 2*ItemHeight;
-            gallery.BorderThickness = ResizeMode == ContextMenuResizeMode.None ? new Thickness(0) : new Thickness(0, 0, 0, 1);
-        }
-
-        #endregion
-
-        #region Quick Access Item Creating
-
-        /// <summary>
-        /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
-        /// and send command to original one control.
-        /// </summary>
-        /// <returns>Control which represents shortcut item</returns>
-        public override FrameworkElement CreateQuickAccessItem()
-        {
-            ComboBox combo = new ComboBox();
-
-            /*if (contextMenu == null)
-            {
-                CreateMenu();
-                IsOpen = false;
-            }*/
-
-            BindQuickAccessItem(combo);
-            combo.Opened += OnQuickAccesMenuOpened;
-            combo.Closed += OnQuickAccesMenuClosed;
-            
-            if (!IsEditable)
-            {
-                       
-                combo.Loaded += OnFirstComboLoaded;
-            }
-            else
-            {
-                combo.GotKeyboardFocus += OnQuickAccesGotKeyboardFocus;
-                combo.LostKeyboardFocus -= OnQuickAccesLostKeyboardFocus;
-            }
-            quickAccessCombo = combo;
-            return combo;
-        }
-
-        private void OnQuickAccesLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            quickAccessCombo.ItemsSource = null;
-        }
-
-        private void OnQuickAccesGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (ItemsSource == null) quickAccessCombo.ItemsSource = Items;
-            else quickAccessCombo.ItemsSource = ItemsSource;
-        }
-
-        private void OnFirstComboLoaded(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.Render, new ThreadStart(delegate
-                   {
-                       ComboBox combo = (sender as ComboBox);
-                       combo.Loaded -= OnFirstComboLoaded;
-                       int selectedIndex = SelectedIndex;
-                       object selectedItem = SelectedItem;
-                       IsSnapped = true;
-                       SelectedItem = null;
-                       if (ItemsSource == null) combo.ItemsSource = Items;
-                       else combo.ItemsSource = ItemsSource;
-                       combo.SelectedIndex = selectedIndex;
-                       combo.SelectedItem = selectedItem;     
-                       /*int selectedIndex = combo.SelectedIndex;
-                       object selectedItem = combo.SelectedItem;*/
-                       combo.IsSnapped = true;
-                       combo.ItemsSource = null;
-                       IsSnapped = false;
-                       combo.SelectedItem = null;
-                       SelectedIndex = selectedIndex;
-                       SelectedItem = selectedItem;
-                   }));
-        }
-
-        private void OnQuickAccesMenuOpened(object sender, EventArgs e)
-        {
-            ComboBox combo = (sender as ComboBox);
-            if (!IsEditable)
-            {
-                IsSnapped = true;
-            }
-            int selectedIndex = SelectedIndex;
-            object selectedItem = SelectedItem;
-            SelectedItem = null;
-            if (ItemsSource == null) combo.ItemsSource = Items;
-            else combo.ItemsSource = ItemsSource;
-            combo.SelectedIndex = selectedIndex;
-            combo.SelectedItem = selectedItem;
-            combo.OpenMenu();
-            if (!IsEditable)
-            {
-                combo.fakeImage.Source = fakeImage.Source;
-            }
-        }
-
-        private void OnQuickAccesMenuClosed(object sender, EventArgs e)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate
-                   {
-                       ComboBox combo = (sender as ComboBox);
-                       int selectedIndex = combo.SelectedIndex;
-                       object selectedItem = combo.SelectedItem;
-                       if (!IsEditable)
-                       {
-                           combo.IsSnapped = true;
-                       }
-                       combo.ItemsSource = null;
-                       if (!IsEditable)
-                       {
-                           IsSnapped = false;
-                       }
-                       SelectedIndex = selectedIndex;
-                       SelectedItem = selectedItem;
-                   }));
-            /*IsSnapped = true;            
-            combo.fakeImage.Source = fakeImage.Source;
-            IsSnapped = false;*/
-        }
-
-        /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
-        /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
-        {
-            ComboBox comboBox = (ComboBox)element;
-
-            comboBox.Width = Width;
-            comboBox.InputWidth = InputWidth;
-
-            Bind(this, comboBox, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemBindingGroup", ItemBindingGroupProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemContainerStyleSelector", ItemContainerStyleSelectorProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemsPanel", ItemsPanelProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemTemplate", ItemTemplateProperty, BindingMode.Default);
-            Bind(this, comboBox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.Default);
-            Bind(this, comboBox, "VerticalScrollBarVisibility", VerticalScrollBarVisibilityProperty, BindingMode.Default);
-            Bind(this, comboBox, "HorizontalScrollBarVisibility", HorizontalScrollBarVisibilityProperty, BindingMode.Default);
-            Bind(this, comboBox, "GroupBy", GroupByProperty, BindingMode.Default);
-            Bind(this, comboBox, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.Default);
-            Bind(this, comboBox, "IsTextSearchEnabled", IsTextSearchEnabledProperty, BindingMode.Default);
-            Bind(this, comboBox, "CurrentText", CurrentTextProperty, BindingMode.TwoWay);
-            Bind(this, comboBox, "MenuMinWidth", MenuMinWidthProperty, BindingMode.OneWay);
-            Bind(this, comboBox, "IsEditable", IsEditableProperty, BindingMode.OneWay);
-            Bind(this, comboBox, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
-            
-
-            base.BindQuickAccessItem(element);
-        }
-
-        #endregion
+        #endregion      
     }
 }

@@ -50,7 +50,7 @@
   			<Setter Property="Height" TargetName="iconImage" Value="16"/>
   			<Setter Property="Margin" TargetName="iconImage" Value="2"/>
   		</Trigger>
-  		<Trigger Property="IsOpen" Value="True">
+  		<Trigger Property="IsDropDownOpen" Value="True">
   			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
@@ -59,7 +59,7 @@
   		<MultiTrigger>
   			<MultiTrigger.Conditions>
   				<Condition Property="IsMouseOver" Value="True"/>
-  				<Condition Property="IsOpen" Value="False"/>
+  				<Condition Property="IsDropDownOpen" Value="False"/>
   			</MultiTrigger.Conditions>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
@@ -72,7 +72,7 @@
   		<MultiTrigger>
   			<MultiTrigger.Conditions>
   				<Condition Property="IsFocused" Value="True"/>
-  				<Condition Property="IsOpen" Value="False"/>
+  				<Condition Property="IsDropDownOpen" Value="False"/>
   			</MultiTrigger.Conditions>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
   			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
@@ -99,8 +99,8 @@
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}"/>
                     <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator x:Name="menuSeparator" Style="{DynamicResource MenuSeparatorStyle}"/>
-                    <Fluent:MenuItem x:Name="PART_ShowBelow" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}"/>
-                    <Fluent:MenuItem x:Name="PART_ShowAbove" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}" Visibility="Collapsed"/>
+                    <Fluent:MenuItem x:Name="PART_ShowBelow" Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}"/>
+                    <Fluent:MenuItem x:Name="PART_ShowAbove" Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}" Visibility="Collapsed"/>
               
               
 							

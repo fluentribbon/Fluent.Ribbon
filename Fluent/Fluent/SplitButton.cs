@@ -56,7 +56,7 @@ namespace Fluent
         /// <summary>
         /// Occurs when user clicks
         /// </summary>
-        public new event RoutedEventHandler Click;
+        public event RoutedEventHandler Click;
 
         #endregion
 
@@ -91,7 +91,7 @@ namespace Fluent
             button = GetTemplateChild("PART_Button") as Button;
             if(button!=null)
             {
-                Binding binding = new Binding("Command");
+               /*Binding binding = new Binding("Command");
                 binding.Source = this;
                 binding.Mode = BindingMode.OneTime;
                 button.SetBinding(CommandProperty, binding);
@@ -105,14 +105,14 @@ namespace Fluent
                 binding.Source = this;
                 binding.Mode = BindingMode.OneTime;
                 button.SetBinding(CommandParameterProperty, binding);
-                button.Click += OnButtonClick;
+                button.Click += OnButtonClick;*/
             }
         }
 
         void OnButtonClick(object sender, RoutedEventArgs e)
         {
             if (Click != null) Click(this, e);
-            ExecuteCommand();
+            //ExecuteCommand();
             e.Handled = true;
         }
 
@@ -148,10 +148,10 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             SplitButton splitButton = new SplitButton();
-            splitButton.Loaded += OnQuickAccessButtonLoaded;
+            /*splitButton.Loaded += OnQuickAccessButtonLoaded;
             
             BindQuickAccessItem(splitButton);
-            splitButton.Opened += OnQuickAccessSplitButtonClick;
+            splitButton.Opened += OnQuickAccessSplitButtonClick;*/
             return splitButton;
         }
 
@@ -161,13 +161,13 @@ namespace Fluent
             if (splitButton.button != null)
             {
                 splitButton.Loaded -= OnQuickAccessButtonLoaded;
-                splitButton.button.CanAddToQuickAccessToolBar = false;
+                //splitButton.button.CanAddToQuickAccessToolBar = false;
             }
         }
 
         void OnQuickAccessSplitButtonClick(object sender, EventArgs e)
         {
-            SplitButton splitButton = (SplitButton)sender;
+            /*SplitButton splitButton = (SplitButton)sender;
             for (int i = 0; i < Items.Count; i++)
             {
                 UIElement item = Items[0];
@@ -176,19 +176,19 @@ namespace Fluent
                 i--;
             }
             splitButton.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = splitButton;
+            quickAccessButton = splitButton;*/
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
+            /*quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             for (int i = 0; i < quickAccessButton.Items.Count; i++)
             {
                 UIElement item = quickAccessButton.Items[0];
                 quickAccessButton.Items.Remove(item);
                 Items.Add(item);
                 i--;
-            }
+            }*/
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Fluent
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
             SplitButton splitButton = (SplitButton)element;
-            Bind(this, splitButton, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            RibbonControl.Bind(this, splitButton, "ResizeMode", ResizeModeProperty, BindingMode.Default);
             splitButton.Click += delegate(object sender, RoutedEventArgs e) { e.Handled = true; if(Click!=null)Click(this,e); };
             base.BindQuickAccessItem(element);
         }

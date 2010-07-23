@@ -241,7 +241,7 @@
                       value of VerticalScrollBarButtonHeightKey. -->
             <sys:Double
               x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
-              100
+              18
             </sys:Double>
           </Track.Resources>
           <Track.DecreaseRepeatButton>
@@ -301,7 +301,7 @@
                       value of VerticalScrollBarButtonHeightKey. -->
             <sys:Double
               x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
-              100
+              18
             </sys:Double>
           </Track.Resources>
           <Track.DecreaseRepeatButton>
@@ -339,7 +339,6 @@
     <Style x:Key="ScrollBarWhite" TargetType="{x:Type ScrollBar}">
       <Setter Property="SnapsToDevicePixels" Value="True"/>
       <Setter Property="OverridesDefaultStyle" Value="true"/>
-      <Setter Property="ViewportSize" Value="25"/>
       <Style.Triggers>
         <Trigger Property="Orientation" Value="Horizontal">
           <Setter Property="Width" Value="Auto"/>

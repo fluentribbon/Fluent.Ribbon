@@ -19,7 +19,7 @@ namespace Fluent
     /// <summary>
     /// Represents gallery item
     /// </summary>
-    public class GalleryItem : ListBoxItem
+    public class GalleryItem : ListBoxItem, IKeyTipedControl
     {
         #region Fields
 
@@ -311,7 +311,7 @@ namespace Fluent
         /// </summary>
         public GalleryItem()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));            
+            
         }
 
         #endregion
@@ -344,8 +344,7 @@ namespace Fluent
             Point position = Mouse.PrimaryDevice.GetPosition(this);
             if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
             {
-                RoutedEventArgs ee = new RoutedEventArgs(RibbonControl.ClickEvent, this);
-                RaiseEvent(ee);
+                RaiseClick();
                 e.Handled = true;
             }
             e.Handled = true;
@@ -363,7 +362,6 @@ namespace Fluent
         {
             ExecuteCommand();
             IsSelected = true;
-            RibbonPopup.CloseAll();
             e.Handled = true;
         }
 
@@ -379,5 +377,13 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public void OnKeyTipPressed()
+        {
+            RaiseClick();
+        }
     }
 }

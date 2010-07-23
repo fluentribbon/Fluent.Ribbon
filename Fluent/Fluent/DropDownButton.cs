@@ -11,8 +11,11 @@ using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -25,49 +28,116 @@ namespace Fluent
     /// Represents drop down button
     /// </summary>
     [ContentProperty("Items")]
-    public class DropDownButton : RibbonControl
+    [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
-        // Internal context menu of the button
-        ContextMenu dropDownMenu;
+        // Thumb to resize in both directions
+        Thumb resizeBothThumb;
+        // Thumb to resize vertical
+        Thumb resizeVerticalThumb;
 
-        // Collection of cotext menu items
-        ObservableCollection<UIElement> items;
-        
-        // QAT clone of this button
-        DropDownButton quickAccessButton;
-        // Prevents menu closing while initializing 
-        bool isInitializing;
+        private Popup popup;
 
-        private bool isMenuCreated;
+        private Border buttonBorder;
+
+        private IInputElement focusedElement;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        /// Button drop down menu
+        /// Gets drop down popup
         /// </summary>
-        public ContextMenu DropDownMenu
+        public Popup DropDownPopup
         {
-            get 
-            { 
-                if(dropDownMenu==null)
-                {
-                    dropDownMenu = new ContextMenu();
-                    dropDownMenu.Opened += OnFirstMenuOpened;
-                }
-                return dropDownMenu;
-            } 
+            get { return popup; }
         }
 
-        private void OnFirstMenuOpened(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Gets a value indicating whether context menu is opened
+        /// </summary>
+        public bool IsContextMenuOpened { get; set; }
+
+        #region Size Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(DropDownButton));
+
+        /// <summary>
+        /// Gets or sets Size for the element
+        /// </summary>
+        public RibbonControlSize Size
         {
-            dropDownMenu.Opened -= OnFirstMenuOpened;
-            if (!isMenuCreated) CreateMenu();
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
         }
 
+        #endregion
+
+        #region SizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(DropDownButton));
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        #endregion
+
+        #region Header
+
+        /// <summary>
+        /// Gets or sets element Text
+        /// </summary>
+        public object Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Header.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(DropDownButton));
+
+        #endregion
+
+        #region Icon
+
+        /// <summary>
+        /// Gets or sets Icon for the element
+        /// </summary>
+        public object Icon
+        {
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton));
+
+        #endregion
+
+        #region LargeIcon
+        
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
@@ -82,15 +152,19 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource), 
+            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
             typeof(DropDownButton), new UIPropertyMetadata(null));
 
+        #endregion
+
+        #region HasTriangle
+        
         /// <summary>
         /// Gets or sets whether button has triangle
         /// </summary>
         public bool HasTriangle
         {
-            get { return (bool) GetValue(HasTriangleProperty); }
+            get { return (bool)GetValue(HasTriangleProperty); }
             set { SetValue(HasTriangleProperty, value); }
         }
 
@@ -102,96 +176,31 @@ namespace Fluent
             DependencyProperty.Register(
                 "HasTriangle", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(true));
 
+        #endregion
+
+        #region IsDropDownOpen
+        
         /// <summary>
         /// Gets or sets whether popup is opened
         /// </summary>
-        public bool IsOpen
+        public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
+            get { return (bool)GetValue(IsDropDownOpenProperty); }
+            set { SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(DropDownButton), 
-            new UIPropertyMetadata(false,OnIsOpenChanged, CoerceIsOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty =
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton),
+            new UIPropertyMetadata(false));
 
-        // Coerce IsOpen
-        static object CoerceIsOpen(DependencyObject d, object basevalue)
-        {
-            if(((DropDownButton)d).isInitializing) return true;
-            return basevalue;
-        }
+        #endregion
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                if (items != null) return items.GetEnumerator();
-                return (new ArrayList()).GetEnumerator();
-            }
-        }
+        #region ResizeMode
         
-        /// <summary>
-        /// Gets collection of menu items
-        /// </summary>
-        public ObservableCollection<UIElement> Items
-        {
-            get
-            {
-                if (items == null)
-                {
-                    items = new ObservableCollection<UIElement>();
-                    items.CollectionChanged += OnToolbarItemsCollectionChanged;
-                }
-                return items;
-            }
-        }
-
-        /// <summary>
-        /// Handles colection of menu items changes
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
-                    {
-                        if (dropDownMenu != null) dropDownMenu.Items.Add(item as UIElement);
-                        else AddLogicalChild(item);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
-                    {
-                        if (dropDownMenu != null) dropDownMenu.Items.Remove(item as UIElement);
-                        else RemoveLogicalChild(item);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
-                    {
-                        if (dropDownMenu != null) dropDownMenu.Items.Remove(item as UIElement);
-                        else RemoveLogicalChild(item);
-                    }
-                    foreach (object item in e.NewItems)
-                    {
-                        if (dropDownMenu != null) dropDownMenu.Items.Add(item as UIElement);
-                        else AddLogicalChild(item);
-                    }
-                    break;
-            }
-        }
-
         /// <summary>
         /// Gets or sets context menu resize mode
         /// </summary>
@@ -206,26 +215,45 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), 
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
             typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
+
+        #endregion
+
+        #region MaxDropDownHeight
+        
+        /// <summary>
+        /// Get or sets max height of drop down popup
+        /// </summary>
+        public double MaxDropDownHeight
+        {
+            get { return (double)GetValue(MaxDropDownHeightProperty); }
+            set { SetValue(MaxDropDownHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxDropDownHeightProperty =
+            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(100.0));
+
+        #endregion
 
         #endregion
 
         #region Events
 
         /// <summary>
-        /// Occures when context menu is opened
+        /// Occurs when context menu is opened
         /// </summary>
-        public event EventHandler Opened;
+        public event EventHandler DropDownOpened;
 
         /// <summary>
-        /// Occures when context menu is closed
+        /// Occurs when context menu is closed
         /// </summary>
-        public event EventHandler Closed;
+        public event EventHandler DropDownClosed;
 
         #endregion
-        
+
         #region Initialize
 
         /// <summary>
@@ -234,26 +262,52 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(typeof(DropDownButton)));                       
-        }
+            Type type = typeof (DropDownButton);
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
 
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+
+            ToolTipService.Attach(type);
+            PopupService.Attach(type);
+            ContextMenuService.Attach(type);
+        }
+        
         /// <summary>
         /// Default constructor
         /// </summary>
         public DropDownButton()
-        {            
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
-        }
-
-        void OnClick(object sender, RoutedEventArgs e)
         {
-            IsOpen = true;
-            e.Handled = true;
+            KeyboardNavigation.SetControlTabNavigation(this,KeyboardNavigationMode.Cycle);
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
+            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
+            
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new MenuItem();
+        }
+
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns></returns>
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return (item is FrameworkElement);
+        }
 
         /// <summary>
         /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
@@ -262,81 +316,136 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(ClickEvent,this));
-            e.Handled = true;
+            if (buttonBorder.IsMouseOver)
+            {
+                if (!IsDropDownOpen)
+                {
+                    IsDropDownOpen = true;
+                }
+                else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                //Keyboard.Focus(popup);
+                //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
+                Debug.WriteLine(Keyboard.FocusedElement);
+                focusedElement = Keyboard.FocusedElement;
+                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+                e.Handled = true;
+            }
+        }
+
+        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down)
+            {
+                if (!Items.Contains(Keyboard.FocusedElement))
+                    Keyboard.Focus(Items[0] as IInputElement);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Up)
+            {
+                if (!Items.Contains(Keyboard.FocusedElement))
+                    Keyboard.Focus(Items[Items.Count - 1] as IInputElement);
+                e.Handled = true;
+            }
+        }
+
+        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
+            focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            if (popup != null)
+            {
+                popup.Opened -= OnDropDownOpened;
+                popup.Closed -= OnDropDownClosed;
+            }
+
+            popup = GetTemplateChild("PART_Popup") as Popup;
+
+            if (popup != null)
+            {
+                popup.Opened += OnDropDownOpened;
+                popup.Closed += OnDropDownClosed;
+
+                KeyboardNavigation.SetControlTabNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetDirectionalNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(popup, KeyboardNavigationMode.Cycle);
+            }
+
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+            }
+            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
+            }
+
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+            }
+            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta += OnResizeBothDelta;
+            }
+
+            buttonBorder = GetTemplateChild("border") as Border;
+
+            base.OnApplyTemplate();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public virtual void OnKeyTipPressed()
+        {            
         }
 
         #endregion
 
         #region Private methods
 
-        /// <summary>
-        /// Handles IsOpen property changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        // Handles resize both drag
+        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            DropDownButton ribbon = (DropDownButton)d;
-
-            if (!ribbon.isMenuCreated) ribbon.CreateMenu();
-            ribbon.IsHitTestVisible = !ribbon.IsOpen;
+            if (double.IsNaN(popup.Width)) popup.Width = popup.ActualWidth;
+            if (double.IsNaN(popup.Height)) popup.Height = popup.ActualHeight;
+            popup.Width = Math.Max(popup.MinWidth, popup.Width + e.HorizontalChange);
+            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
         }
 
-        internal void DoCreateMenu()
+        // Handles resize vertical drag
+        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (!isMenuCreated)
-            {
-                CreateMenu();
-                IsOpen = false;
-            }
+            if (double.IsNaN(popup.Height)) popup.Height = ActualHeight;
+            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
         }
 
-        // Creates context menu
-        void CreateMenu()
+        void OnDropDownClosed(object sender, EventArgs e)
         {
-            isInitializing = true;
-            isMenuCreated = true;
-            if (dropDownMenu==null) dropDownMenu = new ContextMenu();            
-            foreach (UIElement item in Items)
-            {
-                RemoveLogicalChild(item);
-                dropDownMenu.Items.Add(item);
-            }          
-            AddLogicalChild(dropDownMenu.RibbonPopup);
-            dropDownMenu.IsOpen = true;
-            dropDownMenu.RibbonPopup.Opened += OnMenuOpened;
-            dropDownMenu.RibbonPopup.Closed += OnMenuClosed;
-
-            Binding binding = new Binding("IsOpen");
-            binding.Mode = BindingMode.TwoWay;
-            binding.Source = this;
-            dropDownMenu.SetBinding(Fluent.ContextMenu.IsOpenProperty, binding);
-
-            Binding resizeModeBinding = new Binding("ResizeMode");
-            resizeModeBinding.Mode = BindingMode.OneWay;
-            resizeModeBinding.Source = this;
-            dropDownMenu.SetBinding(Fluent.ContextMenu.ResizeModeProperty, resizeModeBinding);
-
-            dropDownMenu.PlacementTarget = this;
-            dropDownMenu.Placement = PlacementMode.Bottom;            
-            
-            isInitializing = false;
-            Mouse.Capture(null);
-            IsOpen = true;
-            dropDownMenu.IsOpen = true;
+            if (DropDownClosed != null) DropDownClosed(this, e);
+            if (Mouse.Captured == this) Mouse.Capture(null);
         }
 
-        void OnMenuClosed(object sender, EventArgs e)
-        {            
-            if (Closed != null) Closed(this, e);
-        }
-
-        void OnMenuOpened(object sender, EventArgs e)
+        void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (Opened != null) Opened(this, e);
+            if (DropDownOpened != null) DropDownOpened(this, e);
+            Mouse.Capture(this, CaptureMode.SubTree);
         }
 
         #endregion
@@ -349,7 +458,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public override FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
             button.Size = RibbonControlSize.Small;
@@ -360,39 +469,53 @@ namespace Fluent
 
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
-            for(int i=0;i<Items.Count;i++)
-            {
-                UIElement item = Items[0];
-                Items.Remove(item);
-                button.Items.Add(item);
-                i--;
-            }            
-            button.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;
+            /* DropDownButton button = (DropDownButton)sender;
+             for(int i=0;i<Items.Count;i++)
+             {
+                 UIElement item = Items[0];
+                 Items.Remove(item);
+                 button.Items.Add(item);
+                 i--;
+             }            
+             button.Closed += OnQuickAccessMenuClosed;
+             quickAccessButton = button;*/
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
-            for (int i = 0; i < quickAccessButton.Items.Count; i++)
-            {
-                UIElement item = quickAccessButton.Items[0];
-                quickAccessButton.Items.Remove(item);
-                Items.Add(item);
-                i--;
-            }
+            /* quickAccessButton.Closed -= OnQuickAccessMenuClosed;
+             for (int i = 0; i < quickAccessButton.Items.Count; i++)
+             {
+                 UIElement item = quickAccessButton.Items[0];
+                 quickAccessButton.Items.Remove(item);
+                 Items.Add(item);
+                 i--;
+             }*/
         }
 
         /// <summary>
         /// This method must be overriden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
-            Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            base.BindQuickAccessItem(element);
+            RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            //base.BindQuickAccessItem(element);
         }
+
+        /// <summary>
+        /// Gets or sets whether control can be added to quick access toolbar
+        /// </summary>
+        public bool CanAddToQuickAccessToolBar
+        {
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton));
 
         #endregion
     }

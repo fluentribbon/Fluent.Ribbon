@@ -559,15 +559,6 @@ namespace Fluent
             return new Control();
         }
 
-        /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
-        /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
-        {
-
-        }
-
         #endregion
     }
 }

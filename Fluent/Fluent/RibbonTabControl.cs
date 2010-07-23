@@ -26,13 +26,13 @@ using System.Windows.Threading;
 namespace Fluent
 {
     /// <summary>
-    /// Reprsents ribbon tab control
+    /// Represents ribbon tab control
     /// </summary>
     [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
-    public class RibbonTabControl : Selector
+    public class RibbonTabControl : Selector, IDropDownControl
     {
         #region Fields
 
@@ -48,6 +48,19 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets drop down popup
+        /// </summary>
+        public Popup DropDownPopup
+        {
+            get { return popup; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether context menu is opened
+        /// </summary>
+        public bool IsContextMenuOpened { get; set; }
 
         /// <summary>
         /// Gets content of selected tab item
@@ -90,16 +103,23 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether ribbon popup is opened
         /// </summary>
-        public bool IsOpen
+        public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
+            get { return (bool)GetValue(IsDropDownOpenProperty); }
+            set { SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
+
+        private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
+        {
+            RibbonTabControl tabControl = d as RibbonTabControl;
+            if (!tabControl.IsMinimized) return false;
+            return basevalue;
+        }
 
         /// <summary>
         /// Gets whether ribbon tabs can scroll
@@ -191,14 +211,18 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabControl), new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
+            Type type = typeof (RibbonTabControl);
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
+            ContextMenuService.Attach(type);
+            PopupService.Attach(type);
         }
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public RibbonTabControl()
         {
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
@@ -235,11 +259,11 @@ namespace Fluent
             popup = GetTemplateChild("PART_Popup") as Popup;
             if (popup != null)
             {
-                Binding binding = new Binding("IsOpen");
+                /*Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 popup.SetBinding(Popup.IsOpenProperty, binding);
-
+                */
                 popup.CustomPopupPlacementCallback = CustomPopupPlacementMethod;
             }
             if ((ToolbarPanel != null) && (toolBarItems != null))
@@ -303,10 +327,10 @@ namespace Fluent
                 if (IsMinimized)
                 {
                     if (oldSelectedItem == e.AddedItems[0])
-                        IsOpen = !IsOpen;
+                        IsDropDownOpen = !IsDropDownOpen;
                     else
                     {
-                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsOpen = true;}));                    
+                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsDropDownOpen = true;}));                    
                     }
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
@@ -329,7 +353,6 @@ namespace Fluent
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
-            if (RibbonPopup.GetActivePopup() != null) return;
             ProcessMouseWheel(e);
             e.Handled = true;
         }
@@ -351,7 +374,7 @@ namespace Fluent
             return null;
         }
 
-        // Proccess mouse wheel event
+        // Process mouse wheel event
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
             if (IsMinimized) return;
@@ -445,7 +468,7 @@ namespace Fluent
                 RibbonTabItem selectedTabItem = GetSelectedTabItem();
                 if (selectedTabItem != null)
                 {                    
-                    this.SelectedContent = selectedTabItem.GroupsContainer;
+                    SelectedContent = selectedTabItem.GroupsContainer;                    
                     UpdateLayout();
                     SelectedTabItem = selectedTabItem;
                 }
@@ -471,22 +494,32 @@ namespace Fluent
             RibbonTabControl tab = (RibbonTabControl)d;
             if (!tab.IsMinimized)
             {
-                tab.IsOpen = false;
+                tab.IsDropDownOpen = false;
             }
-        }
+        }           
 
         // Handles ribbon popup closing
         void OnRibbonTabPopupClosing()
         {
-            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = true;
-         }
+            if (SelectedItem is RibbonTabItem)
+            {
+                (SelectedItem as RibbonTabItem).IsHitTestVisible = true;                
+            }
+            if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+            }
+        }
 
         // handles ribbon popup opening
         void OnRibbonTabPopupOpening()
         {
-            if (SelectedItem is RibbonTabItem) (SelectedItem as RibbonTabItem).IsHitTestVisible = false;            
+            if (SelectedItem is RibbonTabItem)
+            {
+                (SelectedItem as RibbonTabItem).IsHitTestVisible = false;                
+            }
+            Mouse.Capture(this, CaptureMode.SubTree);
         }
-
 
         /// <summary>
         /// Implements custom placement for ribbon popup
@@ -530,7 +563,7 @@ namespace Fluent
                     return new CustomPopupPlacement[]
                                {
                                    new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, SelectedTabItem.ActualHeight-(popup.Child as FrameworkElement).Margin.Top), PopupPrimaryAxis.None),
-                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, -(SelectedContent as RibbonGroupsContainer).ActualHeight-(popup.Child as FrameworkElement).Margin.Bottom), PopupPrimaryAxis.None),
+                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, -(SelectedContent as ScrollViewer).ActualHeight-(popup.Child as FrameworkElement).Margin.Bottom), PopupPrimaryAxis.None),
                                };
                 }
             }
@@ -542,7 +575,7 @@ namespace Fluent
         {
             RibbonTabControl ribbon = (RibbonTabControl)d;
 
-            if (ribbon.IsOpen)
+            if (ribbon.IsDropDownOpen)
             {
                 ribbon.OnRibbonTabPopupOpening();
             }
@@ -551,6 +584,19 @@ namespace Fluent
                 ribbon.OnRibbonTabPopupClosing();
             }
         }
+
+        /*private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
+        {
+            RibbonTabControl ribbon = (RibbonTabControl)sender;
+            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
+            {
+                if (Mouse.Captured == ribbon)
+                {
+                    ribbon.IsOpen = false;
+                    Mouse.Capture(null);
+                }
+            }
+        }*/
 
         #endregion
     }

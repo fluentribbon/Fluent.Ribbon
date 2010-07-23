@@ -10,6 +10,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
@@ -55,7 +56,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
-    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider
+    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl
     {
         #region Fields
 
@@ -77,7 +78,7 @@ namespace Fluent
         // Saved group state for QAT
         RibbonGroupBoxState savedState;
 
-        private RibbonPopup quickAccessPopup;
+        private Popup quickAccessPopup;
 
         // Saved scale for Collapsing
         private int savedScale;
@@ -85,6 +86,19 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets drop down popup
+        /// </summary>
+        public Popup DropDownPopup
+        {
+            get { return popup; }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether context menu is opened
+        /// </summary>
+        public bool IsContextMenuOpened { get; set; }
 
         #region State
 
@@ -130,7 +144,7 @@ namespace Fluent
         static void SetAppropriateSizeRecursive(UIElement root, RibbonGroupBoxState ribbonGroupBoxState)
         {
             if (root == null) return;
-            if (root is RibbonControl)
+            if (root is IRibbonControl)
             {
                 RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
                 return;
@@ -459,16 +473,23 @@ namespace Fluent
         /// <summary>
         /// Gets or sets drop down popup visibility
         /// </summary>
-        public bool IsOpen
+        public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
+            get { return (bool)GetValue(IsDropDownOpenProperty); }
+            set { SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
+
+        private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
+        {
+            RibbonGroupBox box = d as RibbonGroupBox;
+            if (box.State != RibbonGroupBoxState.Collapsed) return false;
+            return basevalue;
+        }
 
         #endregion
 
@@ -483,6 +504,8 @@ namespace Fluent
             get
             {
                 ArrayList array = new ArrayList();
+                //if (parentPanel != null) array.Add(parentPanel);
+
                 array.AddRange(Items);
                 if (LauncherButton != null) array.Add(LauncherButton);
                 return array.GetEnumerator();
@@ -531,6 +554,20 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnVisibilityChanged));
+            ContextMenuProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, OnContextMenuChanged, CoerceContextMenu));
+
+            PopupService.Attach(typeof(RibbonGroupBox));
+        }
+
+        private static void OnContextMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(ContextMenuProperty);
+        }
+
+        private static object CoerceContextMenu(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null) return Ribbon.RibbonContextMenu;
+            return basevalue;
         }
 
         // Handles visibility changed
@@ -548,6 +585,7 @@ namespace Fluent
             AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
+            CoerceValue(ContextMenuProperty);
         }
 
         /// <summary>
@@ -559,8 +597,7 @@ namespace Fluent
         {
             if (State == RibbonGroupBoxState.Collapsed)
             {
-                IsOpen = true;
-                popup.IsOpen = true;
+                IsDropDownOpen = true;
                 e.Handled = true;
             }
         }
@@ -789,10 +826,10 @@ namespace Fluent
             popup = GetTemplateChild("PART_Popup") as Popup;
             if (popup != null)
             {
-                Binding binding = new Binding("IsOpen");
+                /*Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
-                popup.SetBinding(Popup.IsOpenProperty, binding);
+                popup.SetBinding(Popup.IsOpenProperty, binding);*/
             }
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
@@ -807,13 +844,18 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((State == RibbonGroupBoxState.Collapsed) && (popup != null) && (!IsOpen))
+            if ((State == RibbonGroupBoxState.Collapsed) && (popup != null))
             {
                 e.Handled = true;
                 //Mouse.Capture(popup, CaptureMode.Element);
-                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
+                //RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
+                if (!IsDropDownOpen)
+                {
+                    IsDropDownOpen = true;
+                }
+                else PopupService.RaiseDismissPopupEvent(this,DismissPopupMode.MouseNotOver);
             }
         }
 
@@ -852,13 +894,18 @@ namespace Fluent
         // Handles popup closing
         void OnRibbonGroupBoxPopupClosing()
         {
-            IsHitTestVisible = true;
+            //IsHitTestVisible = true;
+            if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+            }
         }
 
         // handles popup opening
         void OnRibbonGroupBoxPopupOpening()
         {
-            IsHitTestVisible = false;
+            //IsHitTestVisible = false;            
+            Mouse.Capture(this, CaptureMode.SubTree);
         }
 
         /// <summary>
@@ -870,7 +917,7 @@ namespace Fluent
         {
             RibbonGroupBox ribbon = (RibbonGroupBox)d;
 
-            if (ribbon.IsOpen)
+            if (ribbon.IsDropDownOpen)
             {
                 ribbon.OnRibbonGroupBoxPopupOpening();
             }
@@ -896,8 +943,6 @@ namespace Fluent
 
             button.Size = RibbonControlSize.Small;
 
-            button.UseAutoCheck = false;
-
             button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
 
             Binding binding = new Binding("Icon");
@@ -913,7 +958,7 @@ namespace Fluent
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
             ToggleButton button = (ToggleButton)sender;
-            if ((!IsOpen) && (!IsSnapped))
+            if ((!IsDropDownOpen) && (!IsSnapped))
             {
                 if (popup == null)
                 {
@@ -943,11 +988,11 @@ namespace Fluent
                         Decorator parent = VisualTreeHelper.GetParent(element) as Decorator;
                         if (parent != null) parent.Child = null;
                     }
-                    quickAccessPopup = new RibbonPopup();
+                    quickAccessPopup = new Popup();
                     quickAccessPopup.AllowsTransparency = popup.AllowsTransparency;
                     quickAccessPopup.Child = element;
                 }
-                else quickAccessPopup = popup as RibbonPopup;
+                else quickAccessPopup = popup as Popup;
                 quickAccessPopup.Closed += OnMenuClosed;
                 popupPlacementTarget = popup.PlacementTarget;
                 quickAccessPopup.PlacementTarget = button;
@@ -960,7 +1005,7 @@ namespace Fluent
                 savedScale = Scale;
                 Scale = -100;
                 quickAccessPopup.IsOpen = true;
-                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
+                //RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 /*
                 if (quickAccessPopup.Child != null)
                 {
@@ -997,7 +1042,7 @@ namespace Fluent
             quickAccessPopup.Closed -= OnMenuClosed;
             quickAccessPopup = null;
             IsSnapped = false;
-            IsOpen = false;
+            IsDropDownOpen = false;
         }
 
         /// <summary>

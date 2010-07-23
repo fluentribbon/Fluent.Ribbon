@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,7 +29,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty("Groups")]
-    public class RibbonTabItem : Control
+    public class RibbonTabItem : Control, IKeyTipedControl
     {
         #region Fields
 
@@ -42,7 +43,8 @@ namespace Fluent
         private ObservableCollection<RibbonGroupBox> groups;
 
         // Ribbon groups container
-        private RibbonGroupsContainer groupsContainer = new RibbonGroupsContainer();
+        private RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
+        private ScrollViewer groupsContainer = new ScrollViewer();
 
         // Cached width
         private double cachedWidth;
@@ -54,7 +56,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon groups container
         /// </summary>
-        public RibbonGroupsContainer GroupsContainer
+        public ScrollViewer GroupsContainer
         {
             get { return groupsContainer; }
         }
@@ -94,8 +96,8 @@ namespace Fluent
         /// </summary>
         public string ReduceOrder
         {
-            get { return groupsContainer.ReduceOrder; }
-            set { groupsContainer.ReduceOrder = value; }
+            get { return groupsInnerContainer.ReduceOrder; }
+            set { groupsInnerContainer.ReduceOrder = value; }
         }
 
         #region IsContextual
@@ -125,11 +127,11 @@ namespace Fluent
         {
             get
             {
-                /*ArrayList array = new ArrayList();
+                ArrayList array = new ArrayList();
                 array.Add(groupsContainer);
-                return array.GetEnumerator();*/
-                if (Groups != null) return Groups.GetEnumerator();
-                else return (new ArrayList()).GetEnumerator();
+                return array.GetEnumerator();
+                /*if (Groups != null) return Groups.GetEnumerator();
+                else return (new ArrayList()).GetEnumerator();*/
             }
         }
 
@@ -290,25 +292,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
                     {
-                        if (groupsContainer != null) groupsContainer.Children.Add(obj2 as UIElement);                        
+                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Add(obj2 as UIElement);                        
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object obj3 in e.OldItems)
                     {
-                        if (groupsContainer != null) groupsContainer.Children.Remove(obj3 as UIElement);
+                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Remove(obj3 as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object obj4 in e.OldItems)
                     {
-                        if (groupsContainer != null) groupsContainer.Children.Remove(obj4 as UIElement);
+                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Remove(obj4 as UIElement);
                     }
                     foreach (object obj5 in e.NewItems)
                     {
-                        if (groupsContainer != null) groupsContainer.Children.Add(obj5 as UIElement);
+                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Add(obj5 as UIElement);
                     }
                     break;
             }
@@ -408,8 +410,7 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = ((FrameworkElement)d).Resources["RibbonTabItemStyle"] as Style ??
-                              Application.Current.Resources["RibbonTabItemStyle"] as Style;
+                basevalue = (d as FrameworkElement).FindResource(typeof(RibbonTabItem));
             }
 
             return basevalue;
@@ -438,22 +439,15 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
             AddLogicalChild(groupsContainer);
+            groupsContainer.Content = groupsInnerContainer;
             Binding binding = new Binding("DataContext");
             binding.Source = this;
             binding.Mode = BindingMode.OneWay;
             groupsContainer.SetBinding(DataContextProperty, binding);
         }
         
-        // Handles Click event
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
-            IsSelected = true;
-        }
-
+        
         #endregion
 
         #region Overrides
@@ -577,5 +571,15 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public void OnKeyTipPressed()
+        {
+            if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
+                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+            IsSelected = true;
+        }
     }
 }

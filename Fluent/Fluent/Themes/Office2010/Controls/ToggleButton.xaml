@@ -36,7 +36,7 @@
 					</Rectangle>
 					<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
 						<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
-						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2"/>
+						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2,-2,2,2"/>
 					</StackPanel>
 				</Grid>
 			</Border>

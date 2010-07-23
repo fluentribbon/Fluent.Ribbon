@@ -7,14 +7,18 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -22,426 +26,350 @@ namespace Fluent
     /// Represents ribbon items control
     /// </summary>
     [ContentProperty("Items")]
-    public abstract class RibbonItemsControl : RibbonControl, IAddChild
+    public abstract class RibbonItemsControl : ItemsControl, ICommandSource, IQuickAccessItemProvider, IRibbonControl
     {
-        #region Fields
+        #region Size Property
 
-        private ObservableCollection<object> items;                      // Cache for Items property
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(RibbonItemsControl));
+
+        /// <summary>
+        /// Gets or sets Size for the element
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
 
         #endregion
 
-        #region Properties
-
-        #region DisplayMemberPath
+        #region SizeDefinition Property
 
         /// <summary>
-        /// Gets or sets a path to a value on the source object to serve as the visual representation of the object. This is a dependency property. 
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public string DisplayMemberPath
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(RibbonItemsControl));
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        public string SizeDefinition
         {
-            get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        #endregion
+
+        #region Header
+
+        /// <summary>
+        /// Gets or sets element Text
+        /// </summary>
+        public object Header
+        {
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for DisplayMemberPath.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Header.  
+        /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(RibbonItemsControl));
 
         #endregion
 
-        #region HasItems
+        #region Icon
 
         /// <summary>
-        /// Gets a value that indicates whether the ItemsControl contains items. This is a dependency property. 
+        /// Gets or sets Icon for the element
         /// </summary>
-        public bool HasItems
+        public object Icon
         {
-            get { return (bool)GetValue(HasItemsProperty); }
-            private set { SetValue(HasItemsProperty, value); }
-        }
-
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HasItems.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty HasItemsProperty = DependencyProperty.Register("HasItems", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
-
-        #endregion
-
-        #region IsGrouping
-
-        /// <summary>
-        /// Gets a value that indicates whether the control is using grouping. This is a dependency property.
-        /// </summary>
-        public bool IsGrouping
-        {
-            get { return (bool)GetValue(IsGroupingProperty); }
-            private set { SetValue(IsGroupingProperty, value); }
-        }
-
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsGrouping.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsGroupingProperty = DependencyProperty.Register("IsGrouping", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
-
-
-        #endregion
-
-        #region ItemBindingGroup
-
-        /// <summary>
-        /// Gets or sets the BindingGroup that is copied to each item in the ItemsControl.
-        /// </summary>
-        public BindingGroup ItemBindingGroup
-        {
-            get { return (BindingGroup)GetValue(ItemBindingGroupProperty); }
-            set { SetValue(ItemBindingGroupProperty, value); }
+            get { return (ImageSource)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemBindingGroup.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ItemBindingGroupProperty =
-            DependencyProperty.Register("ItemBindingGroup", typeof(BindingGroup), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonItemsControl));
 
         #endregion
 
-        #region ItemContainerGenerator
+        #region Command
+
+        private bool currentCanExecute = true;
 
         /// <summary>
-        /// Gets the ItemContainerGenerator that is associated with the control. 
+        /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
-        public ItemContainerGenerator ItemContainerGenerator
-        {
-            get { return (ItemContainerGenerator)GetValue(ItemContainerGeneratorProperty); }
-            private set { SetValue(ItemContainerGeneratorProperty, value); }
-        }
-
-
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemContainerGenerator.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemContainerGeneratorProperty =
-            DependencyProperty.Register("ItemContainerGenerator", typeof(ItemContainerGenerator), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region ItemContainerStyle
-
-        /// <summary>
-        /// Gets or sets the Style that is applied to the container element generated for each item. This is a dependency property. 
-        /// </summary>
-        public Style ItemContainerStyle
-        {
-            get { return (Style)GetValue(ItemContainerStyleProperty); }
-            set { SetValue(ItemContainerStyleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemContainerStyle.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemContainerStyleProperty =
-            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region ItemContainerStyleSelector
-
-        /// <summary>
-        /// Gets or sets custom style-selection logic for a style that can be applied to each generated container element. This is a dependency property. 
-        /// </summary>
-        public StyleSelector ItemContainerStyleSelector
-        {
-            get { return (StyleSelector)GetValue(ItemContainerStyleSelectorProperty); }
-            set { SetValue(ItemContainerStyleSelectorProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemContainerStyleSelector.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemContainerStyleSelectorProperty =
-            DependencyProperty.Register("ItemContainerStyleSelector", typeof(StyleSelector), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region Items
-
-        /// <summary> 
-        /// Items is the collection of data that is used to 
-        /// generate the content of this control
-        /// </summary> 
-        [Bindable(true)]
-        public ObservableCollection<object> Items
+        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        public ICommand Command
         {
             get
             {
-                if (items == null)
-                {
-                    items = new ObservableCollection<object>();
-                    items.CollectionChanged += OnItemsCollectionChanged;
-                }
-
-                return items;
+                return (ICommand)GetValue(CommandProperty);
             }
-        }
-
-        void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnItemsCollectionChanged(e);
-        }
-
-        /// <summary>
-        /// Items collection changes hadling 
-        /// </summary>
-        /// <param name="e">Event args</param>
-        protected virtual void OnItemsCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
+            set
             {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
-                    {
-                        AddLogicalChild(obj2);
-                    }
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
-                    {
-                        RemoveLogicalChild(obj3);
-                    }
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
-                    {
-                        RemoveLogicalChild(obj4);
-                    }
-                    foreach (object obj5 in e.NewItems)
-                    {
-                        AddLogicalChild(obj5);
-                    }
-                    break;
+                SetValue(CommandProperty, value);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
+        /// </summary>
+        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        public object CommandParameter
+        {
+            get
+            {
+                return GetValue(CommandParameterProperty);
+            }
+            set
+            {
+                SetValue(CommandParameterProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the element on which to raise the specified command. This is a dependency property.
+        /// </summary>
+        [Bindable(true), Category("Action")]
+        public IInputElement CommandTarget
+        {
+            get
+            {
+                return (IInputElement)GetValue(CommandTargetProperty);
+            }
+            set
+            {
+                SetValue(CommandTargetProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Identifies the CommandParameter dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(RibbonItemsControl), new FrameworkPropertyMetadata(null));
+        /// <summary>
+        /// Identifies the routed Command dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(RibbonItemsControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
+
+        /// <summary>
+        /// Identifies the CommandTarget dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(RibbonItemsControl), new FrameworkPropertyMetadata(null));
+
+        // Keep a copy of the handler so it doesn't get garbage collected.
+        [SuppressMessage("Microsoft.Performance", "CA1823")]
+        EventHandler canExecuteChangedHandler;
+
+        /// <summary>
+        /// Handles Command changed
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonItemsControl control = d as RibbonItemsControl;
+            EventHandler handler = control.OnCommandCanExecuteChanged;
+            if (e.OldValue != null)
+            {
+                (e.OldValue as ICommand).CanExecuteChanged -= handler;
+            }
+            if (e.NewValue != null)
+            {
+                handler = new EventHandler(control.OnCommandCanExecuteChanged);
+                control.canExecuteChangedHandler = handler;
+                (e.NewValue as ICommand).CanExecuteChanged += handler;
+
+                RoutedUICommand cmd = e.NewValue as RoutedUICommand;
+                if ((cmd != null) && (control.Header!=null)) control.Header = cmd.Text;
+            }
+            control.UpdateCanExecute();
+        }
+        /// <summary>
+        /// Handles Command CanExecute changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            UpdateCanExecute();
+        }
+
+        private void UpdateCanExecute()
+        {
+            bool canExecute = Command != null && CanExecuteCommand();
+            if (currentCanExecute != canExecute)
+            {
+                currentCanExecute = canExecute;
+                CoerceValue(IsEnabledProperty);
+            }
+        }
+
+        /// <summary>
+        /// Execute command
+        /// </summary>
+        protected void ExecuteCommand()
+        {
+            ICommand command = Command;
+            if (command != null)
+            {
+                object commandParameter = CommandParameter;
+                RoutedCommand routedCommand = command as RoutedCommand;
+                if (routedCommand != null)
+                {
+                    if (routedCommand.CanExecute(commandParameter, CommandTarget))
+                    {
+                        routedCommand.Execute(commandParameter, CommandTarget);
+                    }
+                }
+                else if (command.CanExecute(commandParameter))
+                {
+                    command.Execute(commandParameter);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the Command can be executed
+        /// </summary>
+        /// <returns>Returns Command CanExecute</returns>
+        protected bool CanExecuteCommand()
+        {
+            ICommand command = Command;
+            if (command == null)
+            {
+                return false;
+            }
+            object commandParameter = CommandParameter;
+            RoutedCommand routedCommand = command as RoutedCommand;
+            if (routedCommand == null)
+            {
+                return command.CanExecute(commandParameter);
+            }
+            return routedCommand.CanExecute(commandParameter, CommandTarget);
+        }
+
         #endregion
 
-        #region ItemsPanel
+        #region IsEnabled
 
         /// <summary>
-        /// Gets or sets the template that defines the panel that controls the layout of items. This is a dependency property. 
-        /// </summary>
-        public ItemsPanelTemplate ItemsPanel
-        {
-            get { return (ItemsPanelTemplate)GetValue(ItemsPanelProperty); }
-            set { SetValue(ItemsPanelProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsPanel.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemsPanelProperty =
-            DependencyProperty.Register("ItemsPanel", typeof(ItemsPanelTemplate), typeof(RibbonItemsControl), new UIPropertyMetadata(GetDefaultItemsPanelTemplate()));
-
-        private static ItemsPanelTemplate GetDefaultItemsPanelTemplate()
-        {
-            ItemsPanelTemplate template = new ItemsPanelTemplate(new FrameworkElementFactory(typeof(WrapPanel)));
-            template.Seal();
-            return template;
-        }
-
-        #endregion
-
-        #region ItemsSource
-
-        /// <summary>
-        /// Gets or sets a collection used to generate the content of the ItemsControl. This is a dependency property. 
-        /// </summary>
-        [Bindable(true)]
-        public IEnumerable ItemsSource
-        {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsSource .  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(RibbonItemsControl), new UIPropertyMetadata(null, OnItemsSourceChanged));
-
-        private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((RibbonItemsControl)d).OnItemsSourceChanged(e);
-        }
-
-        /// <summary>
-        /// ItemsSource property change handling
-        /// </summary>
-        /// <param name="args"></param>
-        protected virtual void OnItemsSourceChanged(DependencyPropertyChangedEventArgs args)
-        {
-            
-        }
-
-        #endregion
-
-        #region ItemStringFormat
-
-        /// <summary>
-        /// Gets or sets a composite string that specifies how to format the items in the ItemsControl if they are displayed as strings.
-        /// </summary>
-        public string ItemStringFormat
-        {
-            get { return (string)GetValue(ItemStringFormatProperty); }
-            set { SetValue(ItemStringFormatProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemStringFormat.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemStringFormatProperty =
-            DependencyProperty.Register("ItemStringFormat", typeof(string), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region ItemTemplate
-
-        /// <summary>
-        /// Gets or sets the DataTemplate used to display each item. This is a dependency property. 
-        /// </summary>
-        public DataTemplate ItemTemplate
-        {
-            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemTemplate.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region ItemTemplateSelector
-
-        /// <summary>
-        /// Gets or sets the custom logic for choosing a template used to display each item. This is a dependency property. 
-        /// </summary>
-        public DataTemplateSelector ItemTemplateSelector
-        {
-            get { return (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty); }
-            set { SetValue(ItemTemplateSelectorProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemTemplateSelector.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(RibbonItemsControl), new UIPropertyMetadata(null));
-
-        #endregion
-
-        #region IsTextSearchEnabled
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether TextSearch is enabled on the ItemsControl instance. This is a dependency property. 
-        /// </summary>
-        public bool IsTextSearchEnabled
-        {
-            get { return (bool)GetValue(IsTextSearchEnabledProperty); }
-            set { SetValue(IsTextSearchEnabledProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsTextSearchEnabled.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsTextSearchEnabledProperty =
-            DependencyProperty.Register("IsTextSearchEnabled", typeof(bool), typeof(RibbonItemsControl), new UIPropertyMetadata(false));
-
-        #endregion        
-
-        #region LogicalChildren
-
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element. 
+        /// Gets a value that becomes the return 
+        /// value of IsEnabled in derived classes. 
         /// </summary>
         /// <returns>
-        /// An enumerator for logical child elements of this element.
+        /// true if the element is enabled; otherwise, false.
         /// </returns>
-        protected override IEnumerator LogicalChildren
+        protected override bool IsEnabledCore
         {
             get
             {
-                if (ItemsSource == null) return Items.GetEnumerator();
-                return ItemsSource.GetEnumerator();
+                return (base.IsEnabledCore && (currentCanExecute || Command == null));
             }
         }
 
-        #endregion        
-
-        #region ItemWidth
 
         /// <summary>
-        /// Gets or sets item width
+        /// Coerces IsEnabled 
         /// </summary>
-        public double ItemWidth
+        /// <param name="d"></param>
+        /// <param name="basevalue"></param>
+        /// <returns></returns>
+        private static object CoerceIsEnabled(DependencyObject d, object basevalue)
         {
-            get { return (double)GetValue(ItemWidthProperty); }
-            set { SetValue(ItemWidthProperty, value); }
+            RibbonItemsControl control = (RibbonItemsControl)d;
+            UIElement parent = LogicalTreeHelper.GetParent(control) as UIElement;
+            bool parentIsEnabled = parent == null || parent.IsEnabled;
+            bool commandIsEnabled = control.Command == null || control.currentCanExecute;
+
+            // We force disable if parent is disabled or command cannot be executed
+            return (bool)basevalue && parentIsEnabled && commandIsEnabled;
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(double.NaN));
-
-        /// <summary>
-        /// Gets or sets item height
-        /// </summary>
-        public double ItemHeight
-        {
-            get { return (double)GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(RibbonItemsControl), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
-        #endregion
-        
-        #region Implementation of IAddChild
+        #region Constructors
 
         /// <summary>
-        /// Adds a child object
+        /// Static constructor
         /// </summary>
-        /// <param name="value">The child object to add</param>
-        public void AddChild(object value)
+        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        static RibbonItemsControl()
         {
-            Items.Add(value as DependencyObject);
+            Type type = typeof (RibbonItemsControl);
+            ToolTipService.Attach(type);
+            ContextMenuService.Attach(type);
         }
 
         /// <summary>
-        /// Adds the text content of a node to the object. 
+        /// Default Constructor
         /// </summary>
-        /// <param name="text">The text to add to the object</param>
-        public void AddText(string text)
+        protected RibbonItemsControl()
         {
-            GalleryItem item = new GalleryItem();
-            item.Content = text;
-            Items.Add(item);
+            ContextMenuService.Coerce(this);
+        }
+
+        #endregion
+
+        #region QuickAccess
+
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public abstract FrameworkElement CreateQuickAccessItem();
+
+        /// <summary>
+        /// Gets or sets whether control can be added to quick access toolbar
+        /// </summary>
+        public bool CanAddToQuickAccessToolBar
+        {
+            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RibbonItemsControl));
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public virtual void OnKeyTipPressed()
+        {
+
+        }
+
+        #endregion
+
+        #region Protected
+
+        /// <summary>
+        /// Handles size property changing
+        /// </summary>
+        /// <param name="previous">Previous value</param>
+        /// <param name="current">Current value</param>
+        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        {
         }
 
         #endregion

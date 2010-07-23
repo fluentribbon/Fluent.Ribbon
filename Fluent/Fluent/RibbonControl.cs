@@ -19,29 +19,10 @@ using System.Windows.Controls;
 namespace Fluent
 {
     /// <summary>
-    /// Represents logical sizes of a ribbon control 
-    /// </summary>
-    public enum RibbonControlSize
-    {
-        /// <summary>
-        /// Large size of a control
-        /// </summary>
-        Large = 0,
-        /// <summary>
-        /// Middle size of a control
-        /// </summary>
-        Middle,
-        /// <summary>
-        /// Small size of a control
-        /// </summary>
-        Small
-    }
-
-    /// <summary>
     /// Represent base class for Fluent controls
     /// </summary>
-    public abstract class RibbonControl:Control, ICommandSource, IQuickAccessItemProvider
-    {        
+    public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemProvider, IRibbonControl
+    {
         #region Size Property
 
         /// <summary>
@@ -52,7 +33,7 @@ namespace Fluent
           "Size",
           typeof(RibbonControlSize),
           typeof(RibbonControl),
-          new FrameworkPropertyMetadata(RibbonControlSize.Large, 
+          new FrameworkPropertyMetadata(RibbonControlSize.Large,
               FrameworkPropertyMetadataOptions.AffectsArrange |
               FrameworkPropertyMetadataOptions.AffectsMeasure |
               FrameworkPropertyMetadataOptions.AffectsRender |
@@ -67,9 +48,9 @@ namespace Fluent
         // usually changes from RibbonGroupsContainer.MeasureOverride.
         private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonControl ribbonControl = (RibbonControl) d;
+            RibbonControl ribbonControl = (RibbonControl)d;
             ribbonControl.OnSizePropertyChanged(
-                (RibbonControlSize)e.OldValue, 
+                (RibbonControlSize)e.OldValue,
                 (RibbonControlSize)e.NewValue);
         }
 
@@ -79,11 +60,11 @@ namespace Fluent
         public RibbonControlSize Size
         {
             get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty,value);}
+            set { SetValue(SizeProperty, value); }
         }
 
         #endregion
-        
+
         #region SizeDefinition Property
 
         /// <summary>
@@ -104,11 +85,11 @@ namespace Fluent
         );
 
         // Handles SizeDefinitionProperty changes
-        static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {            
+        internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
             // Find parent group box
             RibbonGroupBox groupBox = FindParentRibbonGroupBox(d);
-            UIElement element = (UIElement) d;
+            UIElement element = (UIElement)d;
             if (groupBox != null)
             {
                 SetAppropriateSize(element, groupBox.State);
@@ -118,11 +99,11 @@ namespace Fluent
 
         // Finds parent group box
         [SuppressMessage("Microsoft.Performance", "CA1800")]
-        static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
+        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
         {
             while (!(o is RibbonGroupBox))
             {
-                o = VisualTreeHelper.GetParent(o) ?? LogicalTreeHelper.GetParent(o); 
+                o = VisualTreeHelper.GetParent(o) ?? LogicalTreeHelper.GetParent(o);
                 if (o == null) break;
             }
             return (RibbonGroupBox)o;
@@ -138,8 +119,8 @@ namespace Fluent
         {
             int index = (int)state;
             if (state == RibbonGroupBoxState.Collapsed) index = 0;
-            RibbonControl control = (element as RibbonControl);
-            if (control!=null) control.Size = GetThreeSizeDefinition(element)[index];
+            IRibbonControl control = (element as IRibbonControl);
+            if (control != null) control.Size = GetThreeSizeDefinition(element)[index];
         }
 
 
@@ -158,15 +139,15 @@ namespace Fluent
         /// <param name="element">The given element</param>
         public static RibbonControlSize[] GetThreeSizeDefinition(UIElement element)
         {
-            string[] splitted = ((element as RibbonControl).SizeDefinition).Split(new char[] { ' ', ',', ';', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
-            
+            string[] splitted = ((element as IRibbonControl).SizeDefinition).Split(new char[] { ' ', ',', ';', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
+
             int count = Math.Min(splitted.Length, 3);
             if (count == 0) return new RibbonControlSize[] { RibbonControlSize.Large, RibbonControlSize.Large, RibbonControlSize.Large };
 
             RibbonControlSize[] sizes = new RibbonControlSize[3];
             for (int i = 0; i < count; i++)
             {
-                switch(splitted[i])
+                switch (splitted[i])
                 {
                     case "Large": sizes[i] = RibbonControlSize.Large; break;
                     case "Middle": sizes[i] = RibbonControlSize.Middle; break;
@@ -183,23 +164,23 @@ namespace Fluent
 
         #endregion
 
-        #region Text
+        #region Header
 
         /// <summary>
-        /// Gets or sets element Text
+        /// Gets or sets element header
         /// </summary>
-        public string Text
+        public object Header
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  
+        /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(RibbonControl), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -208,7 +189,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets Icon for the element
         /// </summary>
-        public ImageSource Icon
+        public object Icon
         {
             get { return (ImageSource)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
@@ -218,43 +199,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonControl), new UIPropertyMetadata(null));            
-        
-        #endregion
-
-        #region Click
-
-        /// <summary>
-        /// Occurs when a RibbonControl is clicked.
-        /// </summary>
-        [Category("Behavior")]
-        public event RoutedEventHandler Click
-        {
-            add
-            {
-                RemoveHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
-                AddHandler(ClickEvent, value);
-                AddHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
-            }
-            remove
-            {
-                RemoveHandler(ClickEvent, value);                
-            }
-        }
-        /// <summary>
-        /// Identifies the RibbonControl.Click routed event.
-        /// </summary>
-        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(RibbonControl));
-
-        /// <summary>
-        /// Raises click event
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1030")]
-        public void RaiseClick()
-        {
-            RoutedEventArgs eventArgs = new RoutedEventArgs(ClickEvent, this);
-            RaiseEvent(eventArgs);
-        }
+            DependencyProperty.Register("Icon", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -339,16 +284,16 @@ namespace Fluent
             EventHandler handler = control.OnCommandCanExecuteChanged;
             if (e.OldValue != null)
             {
-                (e.OldValue as ICommand).CanExecuteChanged -= handler;                
+                (e.OldValue as ICommand).CanExecuteChanged -= handler;
             }
             if (e.NewValue != null)
             {
                 handler = new EventHandler(control.OnCommandCanExecuteChanged);
                 control.canExecuteChangedHandler = handler;
-                (e.NewValue as ICommand).CanExecuteChanged += handler;                
+                (e.NewValue as ICommand).CanExecuteChanged += handler;
 
                 RoutedUICommand cmd = e.NewValue as RoutedUICommand;
-                if ((cmd != null) && (string.IsNullOrEmpty(control.Text))) control.Text = cmd.Text;
+                if ((cmd != null) && (control.Header == null)) control.Header = cmd.Text;
             }
             control.UpdateCanExecute();
         }
@@ -453,54 +398,7 @@ namespace Fluent
             return (bool)basevalue && parentIsEnabled && commandIsEnabled;
         }
 
-        #endregion        
-
-        #region Focusable
-
-        /// <summary>
-        /// Handles IsEnabled changes
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e">The event data.</param>
-        private static void OnFocusableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Coerces IsEnabled 
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="basevalue"></param>
-        /// <returns></returns>
-        private static object CoerceFocusable(DependencyObject d, object basevalue)
-        {
-            RibbonControl control = (d as RibbonControl);
-            if (control!=null)
-            {                
-                Ribbon ribbon = control.FindParentRibbon();
-                if (ribbon != null)
-                {
-                    return ((bool)basevalue) && ribbon.Focusable;
-                }
-            }
-            return basevalue;
-        }
-
-        // Find parent ribbon
-        private Ribbon FindParentRibbon()
-        {
-            DependencyObject element = this.Parent;
-            while (element != null)
-            {
-                Ribbon ribbon = element as Ribbon;
-                if (ribbon != null) return ribbon;
-                element = VisualTreeHelper.GetParent(element) ??
-                          LogicalTreeHelper.GetParent(element);
-            }
-            return null;
-        }
-
-        #endregion        
+        #endregion
 
         #region Constructors
 
@@ -510,13 +408,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            //IsEnabledProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, CoerceIsEnabled));
-            FocusableProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
-
-            ToolTipService.ShowOnDisabledProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(true));
-            ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(900));
-            ToolTipService.BetweenShowDelayProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(0));
-            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(RibbonControl), new FrameworkPropertyMetadata(20000));            
+            Type type = typeof (RibbonControl);
+            ContextMenuService.Attach(type);
+            ToolTipService.Attach(type);                      
         }
 
         /// <summary>
@@ -524,37 +418,7 @@ namespace Fluent
         /// </summary>
         protected RibbonControl()
         {
-            AddHandler(ClickEvent, (RoutedEventHandler)OnBeforeClickHandle);
-            AddHandler(ClickEvent, (RoutedEventHandler)OnClickHandle);
-        }
-
-        private void OnClickHandle(object sender, RoutedEventArgs e)
-        {
-            OnClick(e);
-        }
-
-        private void OnBeforeClickHandle(object sender, RoutedEventArgs e)
-        {
-            OnBeforeClick(e);
-        }
-
-        #endregion
-
-        #region Overrides
-        
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
-        /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            if((e.Key==Key.Return)||(e.Key==Key.Space))
-            {
-                RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
-                e.Handled = true;
-            }
-            base.OnKeyUp(e);
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
@@ -570,32 +434,34 @@ namespace Fluent
         public abstract FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
+        /// Binds default properties of control to quick access element
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected virtual void BindQuickAccessItem(FrameworkElement element)
+        /// <param name="source">Source item</param>
+        public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
-            Bind(this, element, "CommandParameter", RibbonControl.CommandParameterProperty, BindingMode.OneWay);
-            Bind(this, element, "CommandTarget", RibbonControl.CommandTargetProperty, BindingMode.OneWay);
-            Bind(this, element, "Command", RibbonControl.CommandProperty, BindingMode.OneWay);
+            Bind(source, element, "CommandParameter", RibbonControl.CommandParameterProperty, BindingMode.OneWay);
+            Bind(source, element, "CommandTarget", RibbonControl.CommandTargetProperty, BindingMode.OneWay);
+            Bind(source, element, "Command", RibbonControl.CommandProperty, BindingMode.OneWay);
 
-            Bind(this, element, "ToolTip", Control.ToolTipProperty, BindingMode.OneWay);
+            Bind(source, element, "ToolTip", Control.ToolTipProperty, BindingMode.OneWay);
 
-            Bind(this, element, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);
-            Bind(this, element, "FontSize", Control.FontSizeProperty, BindingMode.OneWay);
-            Bind(this, element, "FontStretch", Control.FontStretchProperty, BindingMode.OneWay);
-            Bind(this, element, "FontStyle", Control.FontStyleProperty, BindingMode.OneWay);
-            Bind(this, element, "FontWeight", Control.FontWeightProperty, BindingMode.OneWay);
+            Bind(source, element, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);
+            Bind(source, element, "FontSize", Control.FontSizeProperty, BindingMode.OneWay);
+            Bind(source, element, "FontStretch", Control.FontStretchProperty, BindingMode.OneWay);
+            Bind(source, element, "FontStyle", Control.FontStyleProperty, BindingMode.OneWay);
+            Bind(source, element, "FontWeight", Control.FontWeightProperty, BindingMode.OneWay);
 
-            Bind(this, element, "Foreground", Control.ForegroundProperty, BindingMode.OneWay);
-            Bind(this, element, "IsEnabled", Control.IsEnabledProperty, BindingMode.OneWay);
-            Bind(this, element, "Opacity", Control.OpacityProperty, BindingMode.OneWay);
-            Bind(this, element, "SnapsToDevicePixels", Control.SnapsToDevicePixelsProperty, BindingMode.OneWay);
+            Bind(source, element, "Foreground", Control.ForegroundProperty, BindingMode.OneWay);
+            Bind(source, element, "IsEnabled", Control.IsEnabledProperty, BindingMode.OneWay);
+            Bind(source, element, "Opacity", Control.OpacityProperty, BindingMode.OneWay);
+            Bind(source, element, "SnapsToDevicePixels", Control.SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
-            if (Icon != null) Bind(this, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
-            if (Text != null) Bind(this, element, "Text", RibbonControl.TextProperty, BindingMode.OneWay);
+            IRibbonControl sourceControl = source as IRibbonControl;
+            if (sourceControl.Icon != null) Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
-            (element as RibbonControl).Size = RibbonControlSize.Small;
+            (element as IRibbonControl).Size = RibbonControlSize.Small;
         }
 
         /// <summary>
@@ -611,9 +477,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(true));
+            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(true, OnCanAddToQuickAccessToolbarChanged));
 
-        #endregion        
+        private static void OnCanAddToQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(ContextMenuProperty);
+        }
+
+        #endregion
 
         #region Binding
 
@@ -625,7 +496,7 @@ namespace Fluent
         /// <param name="path">Property path</param>
         /// <param name="property">Property to bind</param>
         /// <param name="mode">Binding mode</param>
-        static protected void Bind(FrameworkElement source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
+        static internal void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
         {
             Binding binding = new Binding();
             binding.Path = new PropertyPath(path);
@@ -636,27 +507,19 @@ namespace Fluent
 
         #endregion
 
-        #region IsDefinitive
+        #region Methods
 
         /// <summary>
-        /// Gets or sets whether ribbonc control click must close backstage
+        /// Handles key tip pressed
         /// </summary>
-        public bool IsDefinitive
+        public virtual void OnKeyTipPressed()
         {
-            get { return (bool)GetValue(IsDefinitiveProperty); }
-            set { SetValue(IsDefinitiveProperty, value); }
-        }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
-        /// </summary>
- 
-        public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(false));
+        }
 
         #endregion
 
-        #region Proptected
+        #region Protected
 
         /// <summary>
         /// Handles size property changing
@@ -665,45 +528,6 @@ namespace Fluent
         /// <param name="current">Current value</param>
         protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
-        }
-
-        /// <summary>
-        /// Handles before click
-        /// </summary>
-        /// <param name="args"></param>
-        protected virtual void OnBeforeClick(RoutedEventArgs args)
-        {
-        
-        }
-
-        /// <summary>
-        /// Handles click
-        /// </summary>
-        /// <param name="args"></param>
-        protected virtual void OnClick(RoutedEventArgs args)
-        {
-            // Close Backstage
-            if(IsDefinitive)
-            {
-                BackstageButton ribbon = FindOwnerRibbon();
-                if(ribbon!=null) ribbon.IsOpen = false;
-            }
-        }
-        
-        /// <summary>
-        /// Finds owner ribbon
-        /// </summary>
-        /// <returns>Owner ribbon</returns>
-        protected BackstageButton FindOwnerRibbon()
-        {
-            DependencyObject obj = LogicalTreeHelper.GetParent(this);
-            while(obj!=null)
-            {
-                BackstageButton ribbon = obj as BackstageButton;
-                if(ribbon!=null) return ribbon;
-                obj = LogicalTreeHelper.GetParent(obj);
-            }
-            return null;
         }
 
         #endregion

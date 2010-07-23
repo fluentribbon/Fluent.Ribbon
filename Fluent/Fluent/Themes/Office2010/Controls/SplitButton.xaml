@@ -41,9 +41,9 @@
       		<Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="27" Background="{DynamicResource TransparentBrush}" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" IsHitTestVisible="False" Margin="0">
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="3,2" SnapsToDevicePixels="True" IsHitTestVisible="false" Visibility="Hidden" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
+      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
       		</StackPanel>
-          <Fluent:Button x:Name="PART_Button" Margin="-2,-2,-2,26" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}" LargeIcon="{TemplateBinding LargeIcon}" Icon="{TemplateBinding Icon}" IsEnabled="{TemplateBinding IsEnabled}" Text="{TemplateBinding Text}" ToolTip="{TemplateBinding ToolTip}"/>
+          <Fluent:Button x:Name="PART_Button" Margin="-2,-2,-2,26" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}" LargeIcon="{TemplateBinding LargeIcon}" Icon="{TemplateBinding Icon}" IsEnabled="{TemplateBinding IsEnabled}" Header="{TemplateBinding Header}" ToolTip="{TemplateBinding ToolTip}"/>
       	</Grid>
       </Border>
     </Border>
@@ -106,7 +106,7 @@
         <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
         <Setter Property="HorizontalAlignment" TargetName="controlLabel" Value="Right"/>
       </Trigger>
-      <Trigger Property="IsOpen" Value="True">
+      <Trigger Property="IsDropDownOpen" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
@@ -125,7 +125,7 @@
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsOpen" Value="False"/>
+          <Condition Property="IsDropDownOpen" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>        
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
@@ -135,7 +135,7 @@
       <MultiTrigger>
       	<MultiTrigger.Conditions>
       		<Condition Property="IsMouseOver" SourceName="downRect" Value="True"/>
-      		<Condition Property="IsOpen" Value="False"/>
+      		<Condition Property="IsDropDownOpen" Value="False"/>
       	</MultiTrigger.Conditions>
 		<Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
 		<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
@@ -146,7 +146,7 @@
 	  <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsFocused" Value="True"/>
-          <Condition Property="IsOpen" Value="False"/>
+          <Condition Property="IsDropDownOpen" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
         <Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>        
@@ -180,7 +180,7 @@
 					</Rectangle>
 					<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" SnapsToDevicePixels="True">
 						<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="0,2,0,1" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
-						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2" Visibility="Collapsed"/>
+						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2" Visibility="Collapsed"/>
 					</StackPanel>
 				</Grid>
 			</Border>

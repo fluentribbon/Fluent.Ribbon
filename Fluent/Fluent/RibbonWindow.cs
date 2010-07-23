@@ -22,6 +22,80 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    internal static class DpiHelper
+    {
+        private static Matrix _transformToDevice;
+        private static Matrix _transformToDip;
+
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        static DpiHelper()
+        {
+            IntPtr desktop = NativeMethods.GetDC(IntPtr.Zero);
+
+            // Can get these in the static constructor.  They shouldn't vary window to window,
+            // and changing the system DPI requires a restart.
+            int pixelsPerInchX = NativeMethods.GetDeviceCaps(desktop, 88);
+            int pixelsPerInchY = NativeMethods.GetDeviceCaps(desktop, 90);
+
+            _transformToDip = Matrix.Identity;
+            _transformToDip.Scale(96d / (double)pixelsPerInchX, 96d / (double)pixelsPerInchY);
+            _transformToDevice = Matrix.Identity;
+            _transformToDevice.Scale((double)pixelsPerInchX / 96d, (double)pixelsPerInchY / 96d);
+            NativeMethods.ReleaseDC(IntPtr.Zero, desktop);
+        }
+
+        /// <summary>
+        /// Convert a point in device independent pixels (1/96") to a point in the system coordinates.
+        /// </summary>
+        /// <param name="logicalPoint">A point in the logical coordinate system.</param>
+        /// <returns>Returns the parameter converted to the system's coordinates.</returns>
+        public static Point LogicalPixelsToDevice(Point logicalPoint)
+        {
+            return _transformToDevice.Transform(logicalPoint);
+        }
+
+        /// <summary>
+        /// Convert a point in system coordinates to a point in device independent pixels (1/96").
+        /// </summary>
+        /// <param name="devicePoint">A point in the physical coordinate system.</param>
+        /// <returns>Returns the parameter converted to the device independent coordinate system.</returns>
+        public static Point DevicePixelsToLogical(Point devicePoint)
+        {
+            return _transformToDip.Transform(devicePoint);
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static Rect LogicalRectToDevice(Rect logicalRectangle)
+        {
+            Point topLeft = LogicalPixelsToDevice(new Point(logicalRectangle.Left, logicalRectangle.Top));
+            Point bottomRight = LogicalPixelsToDevice(new Point(logicalRectangle.Right, logicalRectangle.Bottom));
+
+            return new Rect(topLeft, bottomRight);
+        }
+
+        public static Rect DeviceRectToLogical(Rect deviceRectangle)
+        {
+            Point topLeft = DevicePixelsToLogical(new Point(deviceRectangle.Left, deviceRectangle.Top));
+            Point bottomRight = DevicePixelsToLogical(new Point(deviceRectangle.Right, deviceRectangle.Bottom));
+
+            return new Rect(topLeft, bottomRight);
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static Size LogicalSizeToDevice(Size logicalSize)
+        {
+            Point pt = LogicalPixelsToDevice(new Point(logicalSize.Width, logicalSize.Height));
+
+            return new Size { Width = pt.X, Height = pt.Y };
+        }
+
+        public static Size DeviceSizeToLogical(Size deviceSize)
+        {
+            Point pt = DevicePixelsToLogical(new Point(deviceSize.Width, deviceSize.Height));
+
+            return new Size(pt.X, pt.Y);
+        }
+    }
     /// <summary>
     /// Represents basic window for ribbon
     /// </summary>
@@ -60,6 +134,8 @@ namespace Fluent
         private IntPtr handle;
         private HwndSource hwndSource;
         private bool isHooked;
+        private IntPtr mouseHook;
+        private NativeMethods.HookProc mouseProc;
 
         // These fields are for tracking workarounds for WPF 3.5SP1 behaviors.
         private bool isFixedUp = false;
@@ -244,7 +320,7 @@ namespace Fluent
         #endregion
 
         #region Commands
-        
+
         /// <summary>
         /// Minimize command
         /// </summary>
@@ -272,7 +348,7 @@ namespace Fluent
         #endregion
 
         #region Constructors
-        
+
         /// <summary>
         /// Static constructor
         /// </summary>
@@ -330,7 +406,7 @@ namespace Fluent
 
         void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((e.NewSize.Width < /*Ribbon.MinimalVisibleWidth*/300) || (e.NewSize.Height < /*Ribbon.MinimalVisibleHeight*/200)) IsCollapsed = true;
+            if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth) || (e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
             else IsCollapsed = false;
         }
 
@@ -405,8 +481,10 @@ namespace Fluent
                         if (e.ClickCount == 1)
                         {
                             System.Windows.Point pos = iconImage.PointToScreen(new System.Windows.Point(0, 0));
-                            if (FlowDirection == FlowDirection.RightToLeft) pos.X += 16;
-                            ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + 16));
+                            Size size = new Size(16,16);
+                            size = DpiHelper.LogicalSizeToDevice(size);
+                            if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
+                            ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
                         }
                     }
                     else if (e.ChangedButton == MouseButton.Right)
@@ -430,10 +508,6 @@ namespace Fluent
 
         #endregion
 
-        #region Methods
-
-        #endregion
-
         #region Private Methods
 
         private void ApplyCustomChrome()
@@ -441,7 +515,11 @@ namespace Fluent
 
             if (!isHooked)
             {
+
+                //
                 hwndSource.AddHook(WndProc);
+                mouseProc = new NativeMethods.HookProc(MouseWndProc);
+                mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_MOUSE, mouseProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
                 isHooked = true;
             }
 
@@ -483,8 +561,8 @@ namespace Fluent
             NativeMethods.GetWindowRect(handle, ref rcWindow);
             NativeMethods.Rect rcAdjustedClient = GetAdjustedWindowRect(rcWindow);
 
-            Rect rcLogicalWindow = /*DpiHelper.DeviceRectToLogical*/(new Rect(rcWindow.Left, rcWindow.Top, rcWindow.Right - rcWindow.Left, rcWindow.Bottom - rcWindow.Top));
-            Rect rcLogicalClient = /*rcDpiHelper.DeviceRectToLogical*/(new Rect(rcAdjustedClient.Left, rcAdjustedClient.Top, rcAdjustedClient.Right - rcAdjustedClient.Left, rcAdjustedClient.Bottom - rcAdjustedClient.Top));
+            Rect rcLogicalWindow = DpiHelper.DeviceRectToLogical(new Rect(rcWindow.Left, rcWindow.Top, rcWindow.Right - rcWindow.Left, rcWindow.Bottom - rcWindow.Top));
+            Rect rcLogicalClient = DpiHelper.DeviceRectToLogical(new Rect(rcAdjustedClient.Left, rcAdjustedClient.Top, rcAdjustedClient.Right - rcAdjustedClient.Left, rcAdjustedClient.Bottom - rcAdjustedClient.Top));
 
             Thickness nonClientThickness = new Thickness(
                rcLogicalWindow.Left - rcLogicalClient.Left,
@@ -587,11 +665,11 @@ namespace Fluent
                     NativeMethods.WINDOWPLACEMENT wp = new NativeMethods.WINDOWPLACEMENT();
                     NativeMethods.GetWindowPlacement(handle, wp);
 
-                    NativeMethods.Rect adjustedDeviceRc = /*GetAdjustedWindowRect(*/new NativeMethods.Rect { Bottom = 100, Right = 100 }/*)*/;
-                    Point adjustedTopLeft = /*DpiHelper.DevicePixelsToLogical(*/
+                    NativeMethods.Rect adjustedDeviceRc = GetAdjustedWindowRect(new NativeMethods.Rect { Bottom = 100, Right = 100 });
+                    Point adjustedTopLeft = DpiHelper.DevicePixelsToLogical(
                         new Point(
                             wp.rcNormalPosition.Left - adjustedDeviceRc.Left,
-                            wp.rcNormalPosition.Top - adjustedDeviceRc.Top)/*)*/;
+                            wp.rcNormalPosition.Top - adjustedDeviceRc.Top));
 
                     Top = adjustedTopLeft.Y;
                     Left = adjustedTopLeft.X;
@@ -885,7 +963,7 @@ namespace Fluent
                 {
                     double shortestDimension = Math.Min(windowSize.Width, windowSize.Height);
 
-                    double topLeftRadius = /*DpiHelper.LogicalPixelsToDevice*/(new Point(CornerRadius.TopLeft, 0)).X;
+                    double topLeftRadius = DpiHelper.LogicalPixelsToDevice(new Point(CornerRadius.TopLeft, 0)).X;
                     topLeftRadius = Math.Min(topLeftRadius, shortestDimension / 2);
 
                     if (IsUniform(CornerRadius))
@@ -901,7 +979,7 @@ namespace Fluent
                         // of the window.
                         hrgn = CreateRoundRectRgn(new Rect(0, 0, windowSize.Width / 2 + topLeftRadius, windowSize.Height / 2 + topLeftRadius), topLeftRadius);
 
-                        double topRightRadius = /*DpiHelper.LogicalPixelsToDevice*/(new Point(CornerRadius.TopRight, 0)).X;
+                        double topRightRadius = DpiHelper.LogicalPixelsToDevice(new Point(CornerRadius.TopRight, 0)).X;
                         topRightRadius = Math.Min(topRightRadius, shortestDimension / 2);
                         Rect topRightRegionRect = new Rect(0, 0, windowSize.Width / 2 + topRightRadius, windowSize.Height / 2 + topRightRadius);
                         topRightRegionRect.Offset(windowSize.Width / 2 - topRightRadius, 0);
@@ -915,7 +993,7 @@ namespace Fluent
 
                         CreateAndCombineRoundRectRgn(hrgn, bottomLeftRegionRect, bottomLeftRadius);
 
-                        double bottomRightRadius = /*DpiHelper.LogicalPixelsToDevice*/(new Point(CornerRadius.BottomRight, 0)).X;
+                        double bottomRightRadius = DpiHelper.LogicalPixelsToDevice(new Point(CornerRadius.BottomRight, 0)).X;
                         bottomRightRadius = Math.Min(bottomRightRadius, shortestDimension / 2);
                         Rect bottomRightRegionRect = new Rect(0, 0, windowSize.Width / 2 + bottomRightRadius, windowSize.Height / 2 + bottomRightRadius);
                         bottomRightRegionRect.Offset(windowSize.Width / 2 - bottomRightRadius, windowSize.Height / 2 - bottomRightRadius);
@@ -1042,8 +1120,8 @@ namespace Fluent
                 hwndSource.CompositionTarget.BackgroundColor = Colors.Transparent;
 
                 // Thickness is going to be DIPs, need to convert to system coordinates.
-                Point deviceTopLeft = /*DpiHelper.LogicalPixelsToDevice*/(new Point(GlassBorderThickness.Left, GlassBorderThickness.Top));
-                Point deviceBottomRight = /*DpiHelper.LogicalPixelsToDevice*/(new Point(GlassBorderThickness.Right, GlassBorderThickness.Bottom));
+                Point deviceTopLeft = DpiHelper.LogicalPixelsToDevice(new Point(GlassBorderThickness.Left, GlassBorderThickness.Top));
+                Point deviceBottomRight = DpiHelper.LogicalPixelsToDevice(new Point(GlassBorderThickness.Right, GlassBorderThickness.Bottom));
 
                 var dwmMargin = new NativeMethods.MARGINS((int)Math.Ceiling(deviceTopLeft.X), (int)Math.Ceiling(deviceTopLeft.Y), (int)Math.Ceiling(deviceBottomRight.X), (int)Math.Ceiling(deviceBottomRight.Y));
                 NativeMethods.DwmExtendFrameIntoClientArea(handle, dwmMargin);
@@ -1095,47 +1173,7 @@ namespace Fluent
                     }
                 case NativeMethods.WM_NCHITTEST:
                     {
-                        IntPtr lRet = IntPtr.Zero;
-                        handled = false;
-
-                        // Give DWM a chance at this first.
-                        if (IsDwmEnabled)
-                        {
-                            // If we're on Vista, give the DWM a chance to handle the message first.
-                            handled = NativeMethods.DwmDefWindowProc(handle, msg, wParam, lParam, ref lRet);
-                        }
-
-                        // Handle letting the system know if we consider the mouse to be in our effective non-client area.
-                        // If DWM already handled this by way of DwmDefWindowProc, then respect their call.
-                        if (IntPtr.Zero == lRet)
-                        {
-                            var mousePosScreen = new Point(NativeMethods.LowWord(lParam), NativeMethods.HiWord(lParam));
-                            NativeMethods.Rect wndPosition = new NativeMethods.Rect();
-                            NativeMethods.GetWindowRect(handle, ref wndPosition);
-                            Rect windowPosition = new Rect(wndPosition.Left, wndPosition.Top, wndPosition.Right - wndPosition.Left, wndPosition.Bottom - wndPosition.Top);
-
-                            int ht = HitTestNonClientArea(
-                                /*DpiHelper.DeviceRectToLogical(*/windowPosition/*)*/,
-                                /*DpiHelper.DevicePixelsToLogical(*/mousePosScreen)/*)*/;
-
-                            // Don't blindly respect HTCAPTION.
-                            // We want UIElements in the caption area to be actionable so run through a hittest first.
-                            if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null))
-                            {
-                                Point mousePosWindow = mousePosScreen;
-                                mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);
-                                //mousePosWindow = /*DpiHelper.DevicePixelsToLogical(*/mousePosWindow/*)*/;
-                                IInputElement inputElement = mainGrid.InputHitTest(mousePosWindow);
-                                if (inputElement != null)
-                                {
-                                    if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;
-                                    else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
-                                }
-                            }
-                            handled = true;
-                            lRet = new IntPtr((int)ht);
-                        }
-                        return lRet;
+                        return DoHitTest(msg, wParam, lParam, out handled);
                     }
                 case NativeMethods.WM_NCRBUTTONUP:
                     {
@@ -1251,6 +1289,105 @@ namespace Fluent
             }
 
             return IntPtr.Zero;
+        }
+
+        private IntPtr DoHitTest(int msg, IntPtr wParam, IntPtr lParam, out bool handled)
+        {
+            IntPtr lRet = IntPtr.Zero;
+            handled = false;
+
+            // Give DWM a chance at this first.
+            if (IsDwmEnabled && (Mouse.Captured == null))
+            {
+                // If we're on Vista, give the DWM a chance to handle the message first.
+                handled = NativeMethods.DwmDefWindowProc(handle, msg, wParam, lParam, ref lRet);
+            }
+
+            // Handle letting the system know if we consider the mouse to be in our effective non-client area.
+            // If DWM already handled this by way of DwmDefWindowProc, then respect their call.
+            if (IntPtr.Zero == lRet)
+            {
+                var mousePosScreen = new Point(NativeMethods.LowWord(lParam), NativeMethods.HiWord(lParam));
+                NativeMethods.Rect wndPosition = new NativeMethods.Rect();
+                NativeMethods.GetWindowRect(handle, ref wndPosition);
+                Rect windowPosition = new Rect(wndPosition.Left, wndPosition.Top, wndPosition.Right - wndPosition.Left, wndPosition.Bottom - wndPosition.Top);
+
+                int ht = HitTestNonClientArea(
+                    DpiHelper.DeviceRectToLogical(windowPosition),
+                    DpiHelper.DevicePixelsToLogical(mousePosScreen));
+
+                // Don't blindly respect HTCAPTION.
+                // We want UIElements in the caption area to be actionable so run through a hittest first.
+                if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null))
+                {
+                    Point mousePosWindow = mousePosScreen;
+                    mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);
+                    mousePosWindow = DpiHelper.DevicePixelsToLogical(mousePosWindow);
+                    IInputElement inputElement = mainGrid.InputHitTest(mousePosWindow);
+                    if (inputElement != null)
+                    {
+                        if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;
+                        else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
+                    }
+                }
+                handled = true;
+                lRet = new IntPtr((int)ht);
+            }
+            return lRet;
+        }
+
+        private IntPtr MouseWndProc(int code, IntPtr wParam, IntPtr lParam)
+        {
+            if ((code >= 0) && (Mouse.Captured != null))
+            {
+                int msg = wParam.ToInt32();
+                NativeMethods.MOUSEHOOKSTRUCT cc = (NativeMethods.MOUSEHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(NativeMethods.MOUSEHOOKSTRUCT));
+                switch (msg)
+                {
+                    case 0x0203:
+                    case 0x0201:
+                    case 0x0204:
+                    case 0x0206:
+                        //NativeMethods.ReleaseCapture();
+                        IntPtr pp = Marshal.AllocHGlobal(Marshal.SizeOf(cc.pt));
+                        Marshal.StructureToPtr(cc.pt, pp, false);
+                        bool handled;
+                        IntPtr htResult = DoHitTest(NativeMethods.WM_NCHITTEST, IntPtr.Zero, NativeMethods.MakeDWord(cc.pt.x, cc.pt.y), out handled);
+                        if (!handled) htResult = NativeMethods.DefWindowProc(handle, NativeMethods.WM_NCHITTEST, IntPtr.Zero, NativeMethods.MakeDWord(cc.pt.x, cc.pt.y));
+                        int htR = htResult.ToInt32();
+                        int ncMessage = 0x00A1;
+                        if (msg == 0x0203) ncMessage = 0x00A3;
+                        else if((msg == 0x0204)&&((htR == NativeMethods.HTCAPTION)||(htR == NativeMethods.HTTOP)))
+                        {
+                            NativeMethods.ReleaseCapture();
+                            if (htR == NativeMethods.HTCAPTION) ShowSystemMenu(new Point(cc.pt.x, cc.pt.y));
+                            ncMessage = 0x00A4;
+                        }
+
+                        if ((htR == NativeMethods.HTCAPTION)||(htR == NativeMethods.HTTOP))
+                        {
+                            NativeMethods.ReleaseCapture();
+                            htResult = DoHitTest(NativeMethods.WM_NCHITTEST, IntPtr.Zero, NativeMethods.MakeDWord(cc.pt.x, cc.pt.y), out handled);
+                            if (!handled) htResult = NativeMethods.DefWindowProc(handle, NativeMethods.WM_NCHITTEST, IntPtr.Zero, NativeMethods.MakeDWord(cc.pt.x, cc.pt.y));
+                            htR = htResult.ToInt32();
+                        }
+
+                        if ((htR == 3) || (htR == 8) || (htR == 9) || (htR == 20) || (htR == 21))
+                        {
+                            NativeMethods.ReleaseCapture();
+                            NativeMethods.SendMessage(handle, ncMessage, htResult, pp);
+                        }
+                        else if (htR != NativeMethods.HTCLIENT)
+                        {
+                            NativeMethods.ReleaseCapture();
+                            Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+                                                   (ThreadStart)
+                                                   (() => NativeMethods.SendMessage(handle, ncMessage, htResult, pp)));
+                        }
+                        return IntPtr.Zero;
+                }
+            }
+            return NativeMethods.CallNextHookEx(mouseHook, code, wParam, lParam);
         }
 
         #endregion

@@ -162,11 +162,11 @@ namespace FluentTest
         private void OnSomeTestClick(object sender, RoutedEventArgs e)
         {
             //A.IsCached = false;
-            A.Items.Add(new Fluent.Button() { Text = "fsdfsd" });
+            //A.Items.Add(new Fluent.Button() { Header = "fsdfsd" });
             //MessageBox.Show("lala");
             CheckLogicalTree(ribbon);
             logicalTreeView.Items.Clear();
-            BuildLogicalTree(testBtn, null);
+            BuildLogicalTree(ribbon, null);
         }
 
         void CheckLogicalTree(DependencyObject root)
@@ -190,6 +190,7 @@ namespace FluentTest
 
             TreeViewItem newItem = new TreeViewItem();
             newItem.Header = String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement)?(root as FrameworkElement).Name:"");
+            newItem.Tag = root;
             if(item!=null)
             {
                 item.Items.Add(newItem);
@@ -208,7 +209,7 @@ namespace FluentTest
             }
         }
 
-
+        /*
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Split Clicked!!!");
@@ -241,14 +242,14 @@ namespace FluentTest
             MessageBox.Show("Launcher Click");
             xxx.Items.Add(CreateRibbonButton());
         }
-
+        
         public Fluent.Button CreateRibbonButton()
         {
             Fluent.Button button = new Fluent.Button();
             FooCommand1 fooCommand1 = new FooCommand1();
             button.Command = fooCommand1.ItemCommand;
             
-            button.Text = "Foo";
+            button.Header = "Foo";
             
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
             return button;
@@ -283,15 +284,15 @@ namespace FluentTest
             Application.Current.Resources.MergedDictionaries.RemoveAt(0);
             Application.Current.Resources.EndInit();
         }
-
+        */
         private void OnFormatPainterClick(object sender, RoutedEventArgs e)
         {
             /*OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowDialog(this);*/
-            if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
-            else Font.Visibility = Visibility.Collapsed;
+            /*if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
+            else Font.Visibility = Visibility.Collapsed;*/
         }
-
+        /*
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
             if(tabGroup1.Visibility==Visibility.Visible)
@@ -322,7 +323,28 @@ namespace FluentTest
             wnd.Owner = this;
             wnd.Show();
         }
+        */
 
+        private void OnTreeDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem item = ((sender as TreeView).SelectedItem as TreeViewItem);
+            if(item==null) return;
+            Debug.Write("//");            
+            BuildBackLogicalTree(item.Tag as DependencyObject);
+            Debug.WriteLine("//");
+        }
+        void BuildBackLogicalTree(DependencyObject root)
+        {
+
+            if (root == null) return;
+            Debug.Write(" - " + String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement) ? (root as FrameworkElement).Name : ""));
+
+            var parent = LogicalTreeHelper.GetParent(root);
+
+            BuildBackLogicalTree(parent as DependencyObject);
+                
+            
+        }
     }
 
     public class FooCommand1

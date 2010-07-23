@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
-  <Style x:Key="EmptyCheckBoxFocusVisual">
+  <Style x:Key="EmptyRadioButtonFocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate>
@@ -18,7 +18,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="{x:Type Fluent:CheckBox}" TargetType="{x:Type Fluent:CheckBox}">
+  <Style x:Key="{x:Type Fluent:RadioButton}" TargetType="{x:Type Fluent:RadioButton}">
     <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
     <Setter Property="FocusVisualStyle">
       <Setter.Value>
@@ -35,26 +35,32 @@
     </Setter>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Fluent:CheckBox}">
+        <ControlTemplate TargetType="{x:Type Fluent:RadioButton}">
           <BulletDecorator SnapsToDevicePixels="true" Background="Transparent" x:Name="bulletDecorator" Height="22">
             <BulletDecorator.Bullet>
-              <Grid Width="13" Height="13" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,4,0,0">
-                <Rectangle x:Name="rectangle" Fill="{DynamicResource CheckBoxOutterBackgroundBrush}" Stroke="{DynamicResource CheckBoxOutterBorderBrush}"/>
-                <Rectangle x:Name="rectangle1" Margin="1,1,1,1" Fill="{x:Null}" Stroke="{DynamicResource CheckBoxOutterBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                <Rectangle Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="defaultRect" Opacity="1" Stroke="{DynamicResource CheckBoxInnerBorderBrush}" Fill="{DynamicResource CheckBoxInnerBackgroundBrush}"/>
-                <Rectangle x:Name="rectangle2" StrokeThickness="0" Margin="2" Opacity="0">
-                	<Rectangle.Fill>
+              <Grid Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,4,0,0">
+                <Ellipse x:Name="rectangle" Fill="{DynamicResource CheckBoxOutterBackgroundBrush}" Stroke="{DynamicResource CheckBoxOutterBorderBrush}"/>
+                <Ellipse x:Name="rectangle1" Margin="1,1,1,1" Fill="{x:Null}" Stroke="{DynamicResource CheckBoxOutterBackgroundBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Ellipse Margin="2,2,2,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="defaultRect" Opacity="1" Stroke="{DynamicResource CheckBoxInnerBorderBrush}" Fill="{DynamicResource CheckBoxInnerBackgroundBrush}"/>
+                <Ellipse x:Name="rectangle2" StrokeThickness="0" Margin="2" Opacity="0">
+                	<Ellipse.Fill>
                 		<RadialGradientBrush Center="0.496,1.004" GradientOrigin="0.496,1.004">
                 			<GradientStop Color="White"/>
                 			<GradientStop Offset="1"/>
                 		</RadialGradientBrush>
-                	</Rectangle.Fill>
-                </Rectangle>
-                <Path Margin="3,3,3,3" VerticalAlignment="Stretch" Stretch="Fill" Data="M2.0594839,6.6033333 L5.8330001,9.4978325 10.00636,1.7586203" Fill="{x:Null}" Stroke="#FF6E7071" StrokeEndLineCap="Triangle" StrokeDashCap="Square" StrokeThickness="2" StrokeStartLineCap="Triangle" x:Name="path">
-                  <Path.BitmapEffect>
+                	</Ellipse.Fill>
+                </Ellipse>
+                <Ellipse Margin="3" VerticalAlignment="Stretch" Stretch="Fill" Stroke="#FF6E7071" StrokeEndLineCap="Triangle" StrokeDashCap="Square" StrokeThickness="1" StrokeStartLineCap="Triangle" x:Name="path">
+                	<Ellipse.Fill>
+                		<RadialGradientBrush Center="0.367,0.339" GradientOrigin="0.367,0.339">
+                			<GradientStop Color="White" Offset="0"/>
+                			<GradientStop Color="#FF7E8183" Offset="1"/>
+                		</RadialGradientBrush>
+                	</Ellipse.Fill>
+                  <Ellipse.BitmapEffect>
                     <OuterGlowBitmapEffect GlowColor="#BFFFFFFF" GlowSize="1" Opacity="1"/>
-                  </Path.BitmapEffect>
-                </Path>
+                  </Ellipse.BitmapEffect>
+                </Ellipse>
               </Grid>
             </BulletDecorator.Bullet>
             <TextBlock Text="{TemplateBinding Header}" Margin="8,3,4,0"/>
@@ -66,11 +72,9 @@
         				<Condition Property="IsPressed" Value="False"/>
         			</MultiTrigger.Conditions>
         			<Setter Property="Stroke" TargetName="rectangle" Value="{DynamicResource CheckBoxHoverOutterBorderBrush}"/>
-        			<Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource CheckBoxHoverOutterBackgroundBrush}"/>
         			<Setter Property="Stroke" TargetName="rectangle1" Value="{DynamicResource CheckBoxHoverOutterBackgroundBrush}"/>
         			<Setter Property="Stroke" TargetName="defaultRect" Value="{DynamicResource CheckBoxHoverInnerBorderBrush}"/>
         			<Setter Property="Fill" TargetName="defaultRect" Value="{DynamicResource CheckBoxHoverInnerBackgroundBrush}"/>
-        			<Setter Property="Stroke" TargetName="path" Value="Black"/>
         			<Setter Property="Opacity" TargetName="rectangle2" Value="0.25"/>
         		</MultiTrigger>
         		<Trigger Property="IsPressed" Value="True">

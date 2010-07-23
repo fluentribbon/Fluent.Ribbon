@@ -355,22 +355,21 @@ namespace Fluent
         #region Event Handling
 
         /// <summary>
-        /// Handles click
+        /// Handles key tip pressed
         /// </summary>
-        /// <param name="args"></param>
-        protected override void OnClick(RoutedEventArgs args)
+        public override void OnKeyTipPressed()
         {
             if (!IsTemplateValid()) return;
 
             // Use dispatcher to avoid focus moving to backup'ed element 
             // (focused element before keytips processing)
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
-                (ThreadStart) (() =>
-                  {
-                      textBox.SelectAll();
-                      textBox.Focus();
-                  }));
-            args.Handled = true;
+                (ThreadStart)(() =>
+                {
+                    textBox.SelectAll();
+                    textBox.Focus();
+                }));
+            base.OnKeyTipPressed();
         }
 
         /// <summary>
@@ -472,9 +471,11 @@ namespace Fluent
         /// This method must be overriden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        protected void BindQuickAccessItem(FrameworkElement element)
         {
             Spinner spinner = (Spinner)element;
+
+            RibbonControl.BindQuickAccessItem(this, element);
 
             spinner.Width = Width;
             spinner.InputWidth = InputWidth;
@@ -487,7 +488,7 @@ namespace Fluent
             Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
             
-            base.BindQuickAccessItem(element);
+            RibbonControl.BindQuickAccessItem(this, element);
         }
 
         #endregion

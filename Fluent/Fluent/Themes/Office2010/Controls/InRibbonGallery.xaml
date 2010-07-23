@@ -36,7 +36,7 @@
       		</Rectangle>
       		<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" >
       			<Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="True"/>
+      			<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2,-2,2,2" HasGlyph="True"/>
       		</StackPanel>
       	</Grid>
       </Border>
@@ -223,16 +223,16 @@
         						</ItemsPanelTemplate>
         					</Fluent:RibbonListBox.ItemsPanel>
         				</Fluent:RibbonListBox>
-        				<Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" UseAutoCheck="False" ClickMode="Pressed" CanAddToQuickAccessToolBar="False"/>
+        				<Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" ClickMode="Press" CanAddToQuickAccessToolBar="False"/>
         			</Grid>
         		</Border>
         		<Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="PART_DropDownButton" 
 				Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
 				LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
-				Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
+				Header="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
 				Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
 				SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
-				Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" UseAutoCheck="False" ClickMode="Pressed" CanAddToQuickAccessToolBar="False"
+				Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" ClickMode="Press" CanAddToQuickAccessToolBar="False"
 				/>
         	</Grid>
           <ControlTemplate.Triggers>

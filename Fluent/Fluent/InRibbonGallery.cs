@@ -96,7 +96,41 @@ namespace Fluent
             DependencyProperty.Register("ItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(0));
 
         #endregion
-        
+
+        #region ItemWidth
+
+        /// <summary>
+        /// Gets or sets item width
+        /// </summary>
+        public double ItemWidth
+        {
+            get { return (double)GetValue(ItemWidthProperty); }
+            set { SetValue(ItemWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemWidthProperty =
+            DependencyProperty.Register("ItemWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+
+        /// <summary>
+        /// Gets or sets item height
+        /// </summary>
+        public double ItemHeight
+        {
+            get { return (double)GetValue(ItemHeightProperty); }
+            set { SetValue(ItemHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+
+        #endregion
+
         #region GalleryView
 
         /// <summary>
@@ -1038,21 +1072,24 @@ namespace Fluent
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             gallery.SetBinding(SelectedItemProperty, binding);   
 
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+            
 
             AddLogicalChild(gallery);
             AddLogicalChild(menuBar);
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            IsOpen = true;
-            e.Handled = true;
-        }
-
         #endregion  
       
         #region Overrides
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public override void OnKeyTipPressed()
+        {
+            IsOpen = true;
+            base.OnKeyTipPressed();
+        }
 
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application 
@@ -1069,7 +1106,7 @@ namespace Fluent
             listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
             if (listBox != null)
             {
-                Bind(this,listBox,"View.View",ListBox.ItemsSourceProperty,BindingMode.OneWay);
+                RibbonControl.Bind(this,listBox,"View.View",ListBox.ItemsSourceProperty,BindingMode.OneWay);
                 
                 listBox.SelectedItem = SelectedItem;
                 if (SelectedIndex!=-1) listBox.SelectedIndex = SelectedIndex;
@@ -1205,7 +1242,7 @@ namespace Fluent
             base.OnSizePropertyChanged(previous, current);
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Items collection changes hadling 
         /// </summary>
         /// <param name="e">Event args</param>
@@ -1223,7 +1260,7 @@ namespace Fluent
         {
             base.OnItemsSourceChanged(args);
             View.Source = ItemsSource;
-        }
+        }*/
 
         #endregion
 
@@ -1238,7 +1275,7 @@ namespace Fluent
 
         private void CreateMenu()
         {
-            if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+            /*if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
             else
             {
                 gallery.ItemsInRow = ItemsInRow;
@@ -1283,7 +1320,7 @@ namespace Fluent
             isInitializing = false;
             Mouse.Capture(null);
             IsOpen = true;
-            contextMenu.IsOpen = true;
+            contextMenu.IsOpen = true;*/
         }
 
 
@@ -1361,11 +1398,11 @@ namespace Fluent
         /// This method must be overriden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        protected void BindQuickAccessItem(FrameworkElement element)
         {
             DropDownButton button = element as DropDownButton;            
-            base.BindQuickAccessItem(element);
-            button.Opened += OnQuickAccessMenuOpened;
+            //base.BindQuickAccessItem(element);
+           // button.Opened += OnQuickAccessMenuOpened;
         }
 
         private void OnQuickAccessMenuOpened(object sender, EventArgs e)
@@ -1392,7 +1429,7 @@ namespace Fluent
             SelectedItem = selectedItem;
             SelectedIndex = gallery.SelectedIndex;
 
-            if (contextMenu != null)
+           /* if (contextMenu != null)
             {
                 for (int i = 0; i < contextMenu.Items.Count; i++)
                 {
@@ -1408,14 +1445,14 @@ namespace Fluent
                 RemoveLogicalChild(menuBar);
                 button.Items.Add(gallery);
                 button.Items.Add(menuBar);
-            }
-            button.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;
+            }*/
+            /*button.Closed += OnQuickAccessMenuClosed;
+            quickAccessButton = button;*/
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessButton.Closed -= OnQuickAccessMenuClosed;
+            /*quickAccessButton.Closed -= OnQuickAccessMenuClosed;
             if (contextMenu != null)
             {
                 for (int i = 0; i < quickAccessButton.Items.Count; i++)
@@ -1444,7 +1481,7 @@ namespace Fluent
                 SelectedIndex = listBox.SelectedIndex;
             }
             SelectedItem = selectedItem;            
-            if (!IsCollapsed) IsSnapped = false;
+            if (!IsCollapsed) IsSnapped = false;*/
         }
 
         #endregion

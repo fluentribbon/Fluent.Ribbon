@@ -21,6 +21,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -31,18 +32,19 @@ namespace Fluent
     /// Represents custom Fluent UI TextBox
     /// </summary>
     [TemplatePart(Name="PART_TextBox")]
+    [ContentProperty("Text")]
     public class TextBox: RibbonControl
     {
         #region Events
 
         /// <summary>
-        /// Occurs when text content is changed
+        /// Occurs when text is changed
         /// </summary>
-        public event TextChangedEventHandler ContentChanged;
+        public event TextChangedEventHandler TextChanged;
 
-        void RaiseContentChanged(TextChangedEventArgs args)
+        void RaiseTextChanged(TextChangedEventArgs args)
         {
-            if (ContentChanged != null) ContentChanged(this, args);
+            if (TextChanged != null) TextChanged(this, args);
         }
 
         /// <summary>
@@ -91,23 +93,23 @@ namespace Fluent
 
         #endregion
         
-        #region Content
+        #region Text
 
         /// <summary>
         /// Gets or sets text content of the textbox
         /// </summary>
-        public string Content
+        public string Text
         {
-            get { return (string)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Content.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(string), typeof(TextBox), 
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(TextBox), 
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
                 null, null, true, UpdateSourceTrigger.LostFocus));
 
@@ -419,9 +421,9 @@ namespace Fluent
         {
             Focusable = true;
             textBox.SelectionChanged += (s, e) => RaiseSelectionChanged();
-            textBox.TextChanged += (s, e) => RaiseContentChanged(e);
+            textBox.TextChanged += (s, e) => RaiseTextChanged(e);
 
-            Binding binding = new Binding("Content");
+            Binding binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
@@ -549,13 +551,13 @@ namespace Fluent
                 return;
             }
 
-            textBoxTemplated.Text = Content;
+            textBoxTemplated.Text = Text;
             textBoxTemplated.Select(textBox.SelectionStart, textBox.SelectionLength);
 
             // Bindings
             BindingOperations.ClearAllBindings(textBox);
 
-            Binding binding = new Binding("Content");
+            Binding binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
@@ -596,10 +598,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles click
+        /// Handles key tip pressed
         /// </summary>
-        /// <param name="args"></param>
-        protected override void OnClick(RoutedEventArgs args)
+        public override void OnKeyTipPressed()
         {
             if (!IsTemplateValid()) return;
 
@@ -611,7 +612,6 @@ namespace Fluent
                     textBoxTemplated.SelectAll();
                     textBoxTemplated.Focus();
                 }));
-            args.Handled = true;
         }
 
         /// <summary>
@@ -671,14 +671,16 @@ namespace Fluent
         /// This method must be overridden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
+        protected void BindQuickAccessItem(FrameworkElement element)
         {
-            TextBox textBoxQAT = (TextBox)element;
+            RibbonControl.BindQuickAccessItem(this, element);
+
+            TextBox textBoxQAT = (TextBox)element;            
 
             textBoxQAT.Width = Width;
             textBoxQAT.InputWidth = InputWidth;
 
-            Bind(this, textBoxQAT, "Content", ContentProperty, BindingMode.TwoWay);
+            Bind(this, textBoxQAT, "Text", TextProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
             Bind(this, textBoxQAT, "CharacterCasing", CharacterCasingProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "MaxLength", MaxLengthProperty, BindingMode.TwoWay);
@@ -692,7 +694,7 @@ namespace Fluent
             Bind(this, textBoxQAT, "CaretBrush", CaretBrushProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.TwoWay);
 
-            base.BindQuickAccessItem(element);
+            RibbonControl.BindQuickAccessItem(this,element);
         }
 
         #endregion

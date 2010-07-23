@@ -88,8 +88,7 @@ namespace Fluent
         /// Default constructor
         /// </summary>
         public BackstageButton()
-        {
-            AddHandler(RibbonControl.ClickEvent, new RoutedEventHandler(OnClick));
+        {            
             Backstage = new Backstage();
             Binding binding = new Binding("Background");
             binding.Source = this;
@@ -100,12 +99,9 @@ namespace Fluent
         /// <summary>
         /// Handles click event
         /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        void OnClick(object sender, RoutedEventArgs e)
+        void Click()
         {
-            IsOpen = !IsOpen;
-            e.Handled = true;
+            IsOpen = !IsOpen;            
         }
 
         #endregion
@@ -120,7 +116,16 @@ namespace Fluent
         ///  The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent,this));            
+            Click();
+        }
+
+        /// <summary>
+        /// Handles key tip pressed
+        /// </summary>
+        public override void OnKeyTipPressed()
+        {
+            Click();
+            base.OnKeyTipPressed();
         }
 
         #endregion
@@ -134,15 +139,6 @@ namespace Fluent
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
-        /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected override void BindQuickAccessItem(FrameworkElement element)
         {
             throw new NotImplementedException();
         }

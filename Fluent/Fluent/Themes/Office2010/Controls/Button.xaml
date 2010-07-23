@@ -16,7 +16,7 @@
 					<StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
             <Image x:Name="iconImage" HorizontalAlignment="Center" Height="32" Stretch="Uniform" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="32" Margin="3,2,3,1" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True">
             </Image>
-						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Text}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2"/>
+						<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2"/>
 					</StackPanel>
 				</Grid>
 			</Border>
@@ -86,6 +86,7 @@
 	</ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

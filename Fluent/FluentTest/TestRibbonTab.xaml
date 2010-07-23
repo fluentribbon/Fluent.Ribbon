@@ -9,13 +9,13 @@
 	d:DesignWidth="640" d:DesignHeight="480"
   Header="TestRibbon">
   <Fluent:RibbonGroupBox Header="Upload">
-    <Fluent:Button Text="Upload" />
-    <Fluent:Button Text="UploadHoldings" />
-    <Fluent:Button Text="UploadTopline" />
+    <Fluent:Button Header="Upload" />
+    <Fluent:Button Header="UploadHoldings" />
+    <Fluent:Button Header="UploadTopline" />
   </Fluent:RibbonGroupBox>
 
   <Fluent:RibbonGroupBox Header="PortfolioManagement">
-    <Fluent:Button ToolTip="Delete" Text="Delete" />
+    <Fluent:Button ToolTip="Delete" Header="Delete" />
   </Fluent:RibbonGroupBox>
 
 </Fluent:RibbonTabItem>

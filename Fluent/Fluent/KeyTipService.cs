@@ -183,7 +183,7 @@ namespace Fluent
         {
             if (backUpFocusedElement != null)
             {
-                if (RibbonPopup.GetActivePopup()==null) backUpFocusedElement.Focus();
+                backUpFocusedElement.Focus();
             }
             ribbon.Focusable = false;
         }
