@@ -113,6 +113,8 @@
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="GroupHeader.cs" />
+    <Compile Include="GroupingPanel.cs" />
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="IRibbonControl.cs" />

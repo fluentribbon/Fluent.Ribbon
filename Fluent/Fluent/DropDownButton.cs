@@ -137,7 +137,7 @@ namespace Fluent
         #endregion
 
         #region LargeIcon
-        
+
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
@@ -158,7 +158,7 @@ namespace Fluent
         #endregion
 
         #region HasTriangle
-        
+
         /// <summary>
         /// Gets or sets whether button has triangle
         /// </summary>
@@ -179,7 +179,7 @@ namespace Fluent
         #endregion
 
         #region IsDropDownOpen
-        
+
         /// <summary>
         /// Gets or sets whether popup is opened
         /// </summary>
@@ -200,7 +200,7 @@ namespace Fluent
         #endregion
 
         #region ResizeMode
-        
+
         /// <summary>
         /// Gets or sets context menu resize mode
         /// </summary>
@@ -222,7 +222,7 @@ namespace Fluent
         #endregion
 
         #region MaxDropDownHeight
-        
+
         /// <summary>
         /// Get or sets max height of drop down popup
         /// </summary>
@@ -262,7 +262,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
-            Type type = typeof (DropDownButton);
+            Type type = typeof(DropDownButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
@@ -273,16 +273,16 @@ namespace Fluent
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
         }
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public DropDownButton()
         {
-            KeyboardNavigation.SetControlTabNavigation(this,KeyboardNavigationMode.Cycle);
+            KeyboardNavigation.SetControlTabNavigation(this, KeyboardNavigationMode.Cycle);
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
             KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
-            
+
             ContextMenuService.Coerce(this);
         }
 
@@ -413,7 +413,7 @@ namespace Fluent
         /// Handles key tip pressed
         /// </summary>
         public virtual void OnKeyTipPressed()
-        {            
+        {
         }
 
         #endregion
@@ -463,34 +463,50 @@ namespace Fluent
             DropDownButton button = new DropDownButton();
             button.Size = RibbonControlSize.Small;
             BindQuickAccessItem(button);
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
+            button.DropDownOpened += OnQuickAccessOpened;
             return button;
         }
 
-        void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
+        void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            /* DropDownButton button = (DropDownButton)sender;
-             for(int i=0;i<Items.Count;i++)
-             {
-                 UIElement item = Items[0];
-                 Items.Remove(item);
-                 button.Items.Add(item);
-                 i--;
-             }            
-             button.Closed += OnQuickAccessMenuClosed;
-             quickAccessButton = button;*/
+            DropDownButton button = (DropDownButton)sender;
+            if (ItemsSource != null)
+            {
+                button.ItemsSource = ItemsSource;
+                ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    object item = Items[0];
+                    Items.Remove(item);
+                    button.Items.Add(item);
+                    i--;
+                }
+            }
+            button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            /* quickAccessButton.Closed -= OnQuickAccessMenuClosed;
-             for (int i = 0; i < quickAccessButton.Items.Count; i++)
-             {
-                 UIElement item = quickAccessButton.Items[0];
-                 quickAccessButton.Items.Remove(item);
-                 Items.Add(item);
-                 i--;
-             }*/
+            DropDownButton button = (DropDownButton)sender;
+            button.DropDownClosed -= OnQuickAccessMenuClosed;
+            if (button.ItemsSource != null)
+            {
+                ItemsSource = button.ItemsSource;
+                button.ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < button.Items.Count; i++)
+                {
+                    object item = button.Items[0];
+                    button.Items.Remove(item);
+                    Items.Add(item);
+                    i--;
+                }
+            }
         }
 
         /// <summary>
