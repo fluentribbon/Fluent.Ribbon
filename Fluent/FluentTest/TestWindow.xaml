@@ -543,7 +543,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    -->
     </Fluent:Ribbon>
-    <Button x:Name="testBtn" Visibility="Visible" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
+    <Button x:Name="testBtn" Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <!--Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -584,8 +584,24 @@
         </ContextMenu>
       </Button.ContextMenu>
     </Button>
-
-    <TreeView Visibility="Visible"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1" MouseDoubleClick="OnTreeDoubleClick"/>
+ 
+    <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1" MouseDoubleClick="OnTreeDoubleClick"/>
+    <Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
+    	<Fluent:GalleryPanel Margin="0,0,0,0" Orientation="Horizontal"
+                             GroupBy="Tag"
+                             ItemWidth="32" ItemHeight="32" >
+                <Button Content="A" Tag="Letters"/>
+                <Button Content="B" Tag="Letters"/>
+                <Button Content="C" Tag="Letters"/>
+                <Button Content="D" Tag="Letters"/>
+                <Button Content="E" Tag="Letters"/>
+                <Button Content="F" Tag="Letters"/>
+                <Button Content="1" Tag="Numbers"/>
+                <Button Content="2" Tag="Numbers"/>
+                <Button Content="3" Tag="Numbers"/>
+                <Button Content="#" />
+            </Fluent:GalleryPanel>
+    </Border>
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>

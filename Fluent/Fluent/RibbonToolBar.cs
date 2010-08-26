@@ -540,8 +540,7 @@ namespace Fluent
         }
 
         #endregion
-
-
+        
         #endregion
 
         #region QAT Support

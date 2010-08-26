@@ -113,8 +113,9 @@
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuBar.cs" />
     <Compile Include="ContextMenuService.cs" />
-    <Compile Include="GroupHeader.cs" />
-    <Compile Include="GroupingPanel.cs" />
+    <Compile Include="GalleryGroupContainer.cs" />
+    <Compile Include="GalleryItemPlaceholder.cs" />
+    <Compile Include="GalleryPanel.cs" />
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="IRibbonControl.cs" />
@@ -276,6 +277,10 @@
     <Page Include="Themes\Office2010\Controls\ComboBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\GalleryGroupContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\RadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>

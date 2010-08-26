@@ -15,7 +15,8 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\DropDownButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\SplitButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\CheckBox.xaml"/>
-      <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RadioButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RadioButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryGroupContainer.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonContextualTabGroup.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTitleBar.xaml"/>
@@ -53,6 +54,7 @@
     <Style x:Key="{x:Type Fluent:KeyTip}" TargetType="Fluent:KeyTip" BasedOn="{StaticResource KeyTipStyle}"/>
     <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>
+    <Style x:Key="{x:Type Fluent:GalleryGroupContainer}" TargetType="{x:Type Fluent:GalleryGroupContainer}" BasedOn="{StaticResource GalleryGroupContainerStyle}"/>
     <!--<Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>-->
     <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
     <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>

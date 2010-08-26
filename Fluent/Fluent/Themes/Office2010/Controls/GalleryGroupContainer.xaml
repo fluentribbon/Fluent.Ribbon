@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
+    
+    <ControlTemplate x:Key="GalleryGroupContainerTemplate" TargetType="{x:Type Fluent:GalleryGroupContainer}">
+        <Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
+            <StackPanel>
+                <Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
+                    <TextBlock Text="{TemplateBinding Header}" />
+                </Border>
+                <WrapPanel IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
+                           ItemWidth ="{TemplateBinding ItemWidth}"
+                           ItemHeight="{TemplateBinding ItemHeight}"/>
+            </StackPanel>
+        </Border>
+    </ControlTemplate>
+
+    <Style x:Key="GalleryGroupContainerStyle" TargetType="{x:Type Fluent:GalleryGroupContainer}">
+        <Setter Property="Template" Value="{StaticResource GalleryGroupContainerTemplate}"/>
+    </Style>
+    
+</ResourceDictionary>
