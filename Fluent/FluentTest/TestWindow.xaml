@@ -587,7 +587,7 @@
  
     <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1" MouseDoubleClick="OnTreeDoubleClick"/>
     <Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
-    	<Fluent:GalleryPanel Margin="0,0,0,0" Orientation="Horizontal"
+    	<Fluent:GalleryPanel Name="galleryPanel" Margin="0,0,0,0" Orientation="Horizontal"
                              GroupBy="Tag"
                              ItemWidth="32" ItemHeight="32" >
                 <Button Content="A" Tag="Letters"/>

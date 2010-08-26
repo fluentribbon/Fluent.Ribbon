@@ -23,6 +23,8 @@ namespace Fluent
         readonly List<GalleryGroupContainer> galleryGroupContainers = new List<GalleryGroupContainer>();
         // Designate that gallery panel must be refreshed its groups
         bool haveToBeRefreshed;
+        // Group name resolver
+        Func<object, string> groupByAdvanced;
 
         #endregion
 
@@ -50,7 +52,27 @@ namespace Fluent
         static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel)d;
-            galleryPanel.Refresh();
+            galleryPanel.haveToBeRefreshed = true;
+            galleryPanel.InvalidateMeasure();
+        }
+
+        #endregion
+
+        #region GroupByAdvanced
+
+        /// <summary>
+        /// Gets or sets custom user method to group items. 
+        /// If this property is not null, GroupBy property is ignored
+        /// </summary>
+        public Func<object, string> GroupByAdvanced
+        {
+            get { return groupByAdvanced; }
+            set 
+            { 
+                groupByAdvanced = value;
+                haveToBeRefreshed = true;
+                InvalidateMeasure();
+            }
         }
 
         #endregion
@@ -99,7 +121,8 @@ namespace Fluent
         static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel) d;
-            galleryPanel.Refresh();
+            galleryPanel.haveToBeRefreshed = true;
+            galleryPanel.InvalidateMeasure();
         }
 
         #endregion
@@ -191,7 +214,8 @@ namespace Fluent
         static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel)d;
-            galleryPanel.Refresh();
+            galleryPanel.haveToBeRefreshed = true;
+            galleryPanel.InvalidateMeasure();
         }
 
         #endregion
@@ -258,9 +282,22 @@ namespace Fluent
             Dictionary<string, GalleryGroupContainer> dictionary = new Dictionary<string, GalleryGroupContainer>();
             foreach(UIElement item in InternalChildren)
             {
-                string propertyValue = (ItemContainerGenerator == null)
-                  ? GetPropertyValueAsString(item)
-                  : GetPropertyValueAsString(ItemContainerGenerator.ItemFromContainer(item));
+                // Resolve group name
+                string propertyValue;
+                if (GroupByAdvanced == null)
+                {
+                    propertyValue = (ItemContainerGenerator == null)
+                                        ? GetPropertyValueAsString(item)
+                                        : GetPropertyValueAsString(ItemContainerGenerator.ItemFromContainer(item));
+                }
+                else
+                {
+                    propertyValue = (ItemContainerGenerator == null)
+                                        ? GroupByAdvanced(item)
+                                        : GroupByAdvanced(ItemContainerGenerator.ItemFromContainer(item));
+                }
+                if (propertyValue == null) propertyValue = "Undefined";
+
                 // Skip if it is not in filter
                 if (filter != null && !filter.Contains(propertyValue)) continue;
 
