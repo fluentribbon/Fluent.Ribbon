@@ -138,7 +138,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(Button), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(Button), new UIPropertyMetadata(true));
 
         #endregion
 

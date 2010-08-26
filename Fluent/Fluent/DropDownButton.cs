@@ -44,6 +44,8 @@ namespace Fluent
 
         private IInputElement focusedElement;
 
+        private MenuPanel menuPanel;
+
         #endregion
 
         #region Properties
@@ -400,7 +402,9 @@ namespace Fluent
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
 
-            buttonBorder = GetTemplateChild("border") as Border;
+            buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
+
+            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
 
             base.OnApplyTemplate();
         }
@@ -414,6 +418,7 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
+            IsDropDownOpen = true;
         }
 
         #endregion
@@ -423,27 +428,31 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(popup.Width)) popup.Width = popup.ActualWidth;
-            if (double.IsNaN(popup.Height)) popup.Height = popup.ActualHeight;
-            popup.Width = Math.Max(popup.MinWidth, popup.Width + e.HorizontalChange);
-            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
+            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(popup.Height)) popup.Height = ActualHeight;
-            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
+        // Handles drop down opened
         void OnDropDownClosed(object sender, EventArgs e)
         {
             if (DropDownClosed != null) DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
         }
 
+        // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
+            menuPanel.Width = double.NaN;
+            menuPanel.Height = double.NaN;
             if (DropDownOpened != null) DropDownOpened(this, e);
             Mouse.Capture(this, CaptureMode.SubTree);
         }
@@ -454,7 +463,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be synchronized with the original 
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -467,7 +476,8 @@ namespace Fluent
             return button;
         }
 
-        void OnQuickAccessOpened(object sender, EventArgs e)
+        // Handles quick access button drop down menu opened
+        protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
             if (ItemsSource != null)
@@ -488,7 +498,8 @@ namespace Fluent
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
-        void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        // Handles quick access button drop down menu closed
+        protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
             button.DropDownClosed -= OnQuickAccessMenuClosed;
@@ -510,13 +521,15 @@ namespace Fluent
         }
 
         /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
+        /// This method must be overridden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
         protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
+            RibbonControl.BindQuickAccessItem(this, element);
             RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            //base.BindQuickAccessItem(element);
+            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, "HasTriangle", HasTriangleProperty, BindingMode.Default);
         }
 
         /// <summary>

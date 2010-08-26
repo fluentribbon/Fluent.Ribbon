@@ -36,7 +36,14 @@ namespace Fluent
 
         private Popup popup;
 
-        private bool ignoreNextMouseLeave;
+        // Thumb to resize in both directions
+        Thumb resizeBothThumb;
+        // Thumb to resize vertical
+        Thumb resizeVerticalThumb;
+
+        private MenuPanel menuPanel;
+
+        private IInputElement focusedElement;
 
         #endregion
 
@@ -106,6 +113,78 @@ namespace Fluent
 
         #endregion
 
+        #region IsDefinitive
+
+        /// <summary>
+        /// Gets or sets whether ribbon control click must close backstage
+        /// </summary>
+        public bool IsDefinitive
+        {
+            get { return (bool)GetValue(IsDefinitiveProperty); }
+            set { SetValue(IsDefinitiveProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsDefinitiveProperty =
+            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(true));
+
+        #endregion
+
+        #region ResizeMode
+
+        /// <summary>
+        /// Gets or sets context menu resize mode
+        /// </summary>
+        public ContextMenuResizeMode ResizeMode
+        {
+            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
+            set { SetValue(ResizeModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ResizeMode.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ResizeModeProperty =
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
+            typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
+
+
+        #endregion
+
+        #region MaxDropDownHeight
+
+        /// <summary>
+        /// Get or sets max height of drop down popup
+        /// </summary>
+        public double MaxDropDownHeight
+        {
+            get { return (double)GetValue(MaxDropDownHeightProperty); }
+            set { SetValue(MaxDropDownHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxDropDownHeightProperty =
+            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(MenuItem), new UIPropertyMetadata(100.0));
+
+        #endregion
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when context menu is opened
+        /// </summary>
+        public event EventHandler DropDownOpened;
+
+        /// <summary>
+        /// Occurs when context menu is closed
+        /// </summary>
+        public event EventHandler DropDownClosed;
+
         #endregion
 
         #region Constructors
@@ -163,7 +242,7 @@ namespace Fluent
 
         #endregion
 
-        #region Methods
+        #region Public
 
         /// <summary>
         /// Handles key tip pressed
@@ -175,7 +254,86 @@ namespace Fluent
 
         #endregion
 
-        #region Protected
+        #region Overrides
+
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new MenuItem();
+        }
+
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns></returns>
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return (item is FrameworkElement);
+        }
+
+        /// <summary>
+        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked. 
+        /// </summary>
+        protected override void OnClick()
+        {
+            // Close popup on click
+            if ((IsDefinitive)&&(!HasItems)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+            base.OnClick();
+        }
+
+        /// <summary>
+        /// Called when the template's tree is generated.
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            if (popup != null)
+            {
+                popup.Opened -= OnDropDownOpened;
+                popup.Closed -= OnDropDownClosed;
+            }
+
+            popup = GetTemplateChild("PART_Popup") as Popup;
+
+            if (popup != null)
+            {
+                popup.Opened += OnDropDownOpened;
+                popup.Closed += OnDropDownClosed;
+
+                KeyboardNavigation.SetControlTabNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetDirectionalNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(popup, KeyboardNavigationMode.Cycle);
+            }
+
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+            }
+            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
+            }
+
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+            }
+            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta += OnResizeBothDelta;
+            }
+
+            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
+        }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Handles size property changing
@@ -186,134 +344,37 @@ namespace Fluent
         {
         }
 
-        /// <summary>
-        /// Called when the template's tree is generated.
-        /// </summary>
-        public override void OnApplyTemplate()
+        // Handles resize both drag
+        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            popup = GetTemplateChild("PART_Popup") as Popup;
+            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
-        /// <summary>
-        /// Called when the submenu of a <see cref="T:System.Windows.Controls.MenuItem"/> is opened. 
-        /// </summary>
-        /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.MenuItem.SubmenuOpened"/> event.</param>
-       /* protected override void OnSubmenuOpened(RoutedEventArgs e)
+        // Handles resize vertical drag
+        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            ignoreNextMouseLeave = true;
-            //base.OnSubmenuOpened(e);
-            // Mouse.Capture(GetRootDropDownControl() as IInputElement, CaptureMode.SubTree);
-        }
-        */
-        /// <summary>
-        /// Called when the submenu of a <see cref="T:System.Windows.Controls.MenuItem"/> is closed. 
-        /// </summary>
-        /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.MenuItem.SubmenuClosed"/> event.</param>
-        /*protected override void OnSubmenuClosed(RoutedEventArgs e)
-        {            
-            //base.OnSubmenuClosed(e);
-            //if (Mouse.Captured == GetRootDropDownControl()) Mouse.Capture(null);
-        }*/
-/*
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            e.Handled = true;
-        }*/
-
-       /* protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
-        {
-            if (IsKeyboardFocusWithin && !IsHighlighted)
-            {
-                IsHighlighted = true;
-            }
-        }*/
-        /*
-        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        {
-            e.Handled = true;
-        }*/
-        /*
-        protected override void OnMouseEnter(MouseEventArgs e)
-        {
-            FocusOrSelect();
-            if (HasItems && !IsCheckable) IsSubmenuOpen = true;
-            UpdateIsPressed();
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
-        protected override void OnMouseLeave(MouseEventArgs e)
+        // Handles drop down opened
+        void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (ignoreNextMouseLeave)
-            {
-                ignoreNextMouseLeave = false;
-            }
-            else if (!IsSubmenuOpen)
-            {
-                base.IsHighlighted = false;
-                if (IsKeyboardFocusWithin)
-                {
-                    ItemsControl control = ItemsControlFromItemContainer(this);
-                    if (control != null)
-                    {
-                        control.Focus();
-                    }
-                }
-            }
-            UpdateIsPressed();
+            if (DropDownClosed != null) DropDownClosed(this, e);
+            //if (Mouse.Captured == this) Mouse.Capture(null);
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        // Handles drop down closed
+        void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (IsSubmenuOpen)
-            {
-                UpdateIsPressed();
-                e.Handled = true;
-            }
-            base.OnMouseLeftButtonDown(e);
-
-        }
-
-        private void FocusOrSelect()
-        {
-            if (!IsKeyboardFocusWithin)
-            {
-                Focus();
-            }
-            if (!IsHighlighted)
-            {
-                IsHighlighted = true;
-            }
-        }
-
-        private void UpdateIsPressed()
-        {
-            Rect rect = new Rect(new Point(), base.RenderSize);
-            if (((Mouse.LeftButton == MouseButtonState.Pressed) && base.IsMouseOver) && rect.Contains(Mouse.GetPosition(this)))
-            {
-                base.IsPressed = true;
-            }
-            else
-            {
-                base.IsPressed = false;
-            }
-        }*/
-
-        #endregion
-
-        #region Private Methods
-
-        private IDropDownControl GetRootDropDownControl()
-        {
-            DependencyObject element = this;
-            while (element != null)
-            {
-                IDropDownControl popup = element as IDropDownControl;
-                if (popup != null) return popup;
-                DependencyObject elementParent = VisualTreeHelper.GetParent(element);
-                if (elementParent == null) element = LogicalTreeHelper.GetParent(element);
-                else element = elementParent;
-            }
-            return null;
-        }
+            menuPanel.Width = double.NaN;
+            menuPanel.Height = double.NaN;
+            if (DropDownOpened != null) DropDownOpened(this, e);
+            //Mouse.Capture(this, CaptureMode.SubTree);
+        }     
 
         #endregion
     }

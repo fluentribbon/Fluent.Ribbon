@@ -11,6 +11,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -258,16 +259,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null));
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null));
 
         // Keep a copy of the handler so it doesn't get garbage collected.
         [SuppressMessage("Microsoft.Performance", "CA1823")]
@@ -440,22 +441,22 @@ namespace Fluent
         /// <param name="source">Source item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
-            Bind(source, element, "CommandParameter", RibbonControl.CommandParameterProperty, BindingMode.OneWay);
-            Bind(source, element, "CommandTarget", RibbonControl.CommandTargetProperty, BindingMode.OneWay);
-            Bind(source, element, "Command", RibbonControl.CommandProperty, BindingMode.OneWay);
+            Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+            Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+            Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
 
-            Bind(source, element, "ToolTip", Control.ToolTipProperty, BindingMode.OneWay);
+            Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
 
-            Bind(source, element, "FontFamily", Control.FontFamilyProperty, BindingMode.OneWay);
-            Bind(source, element, "FontSize", Control.FontSizeProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStretch", Control.FontStretchProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStyle", Control.FontStyleProperty, BindingMode.OneWay);
-            Bind(source, element, "FontWeight", Control.FontWeightProperty, BindingMode.OneWay);
+            Bind(source, element, "FontFamily", FontFamilyProperty, BindingMode.OneWay);
+            Bind(source, element, "FontSize", FontSizeProperty, BindingMode.OneWay);
+            Bind(source, element, "FontStretch", FontStretchProperty, BindingMode.OneWay);
+            Bind(source, element, "FontStyle", FontStyleProperty, BindingMode.OneWay);
+            Bind(source, element, "FontWeight", FontWeightProperty, BindingMode.OneWay);
 
-            Bind(source, element, "Foreground", Control.ForegroundProperty, BindingMode.OneWay);
-            Bind(source, element, "IsEnabled", Control.IsEnabledProperty, BindingMode.OneWay);
-            Bind(source, element, "Opacity", Control.OpacityProperty, BindingMode.OneWay);
-            Bind(source, element, "SnapsToDevicePixels", Control.SnapsToDevicePixelsProperty, BindingMode.OneWay);
+            Bind(source, element, "Foreground", ForegroundProperty, BindingMode.OneWay);
+            Bind(source, element, "IsEnabled", IsEnabledProperty, BindingMode.OneWay);
+            Bind(source, element, "Opacity", OpacityProperty, BindingMode.OneWay);
+            Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
             IRibbonControl sourceControl = source as IRibbonControl;
             if (sourceControl.Icon != null) Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);

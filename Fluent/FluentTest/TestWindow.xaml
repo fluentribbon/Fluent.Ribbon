@@ -120,7 +120,7 @@
           <Fluent:RadioButton Fluent:KeyTip.Keys="O" GroupName="1">Test1</Fluent:RadioButton>
           <Fluent:RadioButton Fluent:KeyTip.Keys="J" GroupName="1">Test2</Fluent:RadioButton>
           <Fluent:TextBox Fluent:KeyTip.Keys="P" Header="Test" InputWidth="150">Some Text</Fluent:TextBox>
-          <Button>
+          <Fluent:Button Fluent:KeyTip.Keys="Z" Click="OnLauncherButtonClick">
             <Button.ContextMenu>
             <ContextMenu>
               <Fluent:MenuItem Header="Lala"/>
@@ -140,7 +140,7 @@
               </Fluent:MenuItem>
             </ContextMenu>
             </Button.ContextMenu>
-            Lala</Button>
+            Lala</Fluent:Button>
           <Fluent:Spinner Fluent:KeyTip.Keys="R" Header="Test" InputWidth="150">
             <System:Double>8</System:Double>
           </Fluent:Spinner>
@@ -193,14 +193,34 @@
             <TextBlock Text="48"/>
             <TextBlock Text="72"/>
           </Fluent:ComboBox>
-          <Fluent:DropDownButton Header="Tst" ResizeMode="Vertical">
-            <Fluent:MenuItem Header="1">
+          <Fluent:DropDownButton Header="Tst" ResizeMode="Both" MaxDropDownHeight="250" Fluent:KeyTip.Keys="E">
+            <Button MinHeight="5">LL</Button>
+            <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="D" >
               <Fluent:MenuItem Header="11"/>
               <Fluent:MenuItem Header="12"/>
             </Fluent:MenuItem>
             <Fluent:MenuItem Header="2"/>
             <Fluent:MenuItem Header="3"/>
           </Fluent:DropDownButton>
+          <Fluent:SplitButton Header="Tst" ResizeMode="Both" MaxDropDownHeight="250" Fluent:KeyTip.Keys="H" Click="OnLauncherButtonClick" ToolTip="MainToolTip" DropDownToolTip="DropDownToolTip">
+            <Button MinHeight="5">LL</Button>
+            <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="D" >
+              <Fluent:MenuItem Header="11"/>
+              <Fluent:MenuItem Header="12"/>
+            </Fluent:MenuItem>
+            <Fluent:MenuItem Header="2"/>
+            <Fluent:MenuItem Header="3"/>
+          </Fluent:SplitButton>
+          <Fluent:SplitButton Header="Tst" ResizeMode="Both" MaxDropDownHeight="250" Fluent:KeyTip.Keys="P" IsCheckable="True">
+            <Button MinHeight="5">LL</Button>
+            <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="D" >
+              <Fluent:MenuItem Header="11"/>
+              <Fluent:MenuItem Header="12"/>
+            </Fluent:MenuItem>
+            <Fluent:MenuItem Header="2"/>
+            <Fluent:MenuItem Header="3"/>
+          </Fluent:SplitButton>
+          <Fluent:DropDownButton Header="TstBdn" ResizeMode="Vertical" MaxDropDownHeight="250" ItemsSource="{Binding TstArr, ElementName=window}"/>
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="C" >
           <Button Width="100"/>
@@ -210,7 +230,7 @@
         </Fluent:RibbonGroupBox>
         <Fluent:RibbonGroupBox x:Name="A" >
           <Button Width="100"/>
-          <Fluent:DropDownButton Header="Tst" ResizeMode="Vertical">
+          <Fluent:DropDownButton Header="Tst" ResizeMode="Vertical" MaxDropDownHeight="250">
             <Fluent:MenuItem Header="1">
               <Fluent:MenuItem Header="11"/>
               <Fluent:MenuItem Header="12"/>

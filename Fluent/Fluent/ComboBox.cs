@@ -48,6 +48,8 @@ namespace Fluent
 
         private TextBox editableTextBox;
 
+        private MenuPanel menuPanel;
+
         #endregion
 
         #region Properties
@@ -200,7 +202,50 @@ namespace Fluent
         {
             ComboBox combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
+            combo.DropDownOpened -= OnQuickAccessOpened;
             return combo;
+        }
+
+        void OnQuickAccessOpened(object sender, EventArgs e)
+        {
+            ComboBox button = (ComboBox)sender;
+            if (ItemsSource != null)
+            {
+                button.ItemsSource = ItemsSource;
+                ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    object item = Items[0];
+                    Items.Remove(item);
+                    button.Items.Add(item);
+                    i--;
+                }
+            }
+            button.DropDownClosed += OnQuickAccessMenuClosed;
+        }
+
+        void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            ComboBox button = (ComboBox)sender;
+            button.DropDownClosed -= OnQuickAccessMenuClosed;
+            if (button.ItemsSource != null)
+            {
+                ItemsSource = button.ItemsSource;
+                button.ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < button.Items.Count; i++)
+                {
+                    object item = button.Items[0];
+                    button.Items.Remove(item);
+                    Items.Add(item);
+                    i--;
+                }
+            }
         }
 
         /// <summary>
