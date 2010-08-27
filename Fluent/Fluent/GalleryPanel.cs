@@ -220,6 +220,27 @@ namespace Fluent
 
         #endregion
 
+        #region ItemsInRow
+
+        /// <summary>
+        /// Gets or sets maximum items quantity in row
+        /// </summary>
+        public int ItemsInRow
+        {
+            get { return (int)GetValue(ItemsInRowProperty); }
+            set { SetValue(ItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemsInRow. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemsInRowProperty =
+            DependencyProperty.Register("ItemsInRow", typeof(int),
+            typeof(GalleryPanel), new UIPropertyMetadata(0));
+        
+        #endregion
+
         #endregion
 
         #region Initialization
@@ -309,6 +330,7 @@ namespace Fluent
                     RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemHeight", GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, "ItemsInRow", GalleryGroupContainer.ItemsInRowProperty, BindingMode.OneWay);
                     dictionary.Add(propertyValue,galleryGroupContainer);
                     galleryGroupContainers.Add(galleryGroupContainer);
                     AddVisualChild(galleryGroupContainer);

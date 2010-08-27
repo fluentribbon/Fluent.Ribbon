@@ -7,7 +7,8 @@
                 <Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
                     <TextBlock Text="{TemplateBinding Header}" />
                 </Border>
-                <WrapPanel IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
+                <WrapPanel HorizontalAlignment="Left"
+                           IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
                            ItemWidth ="{TemplateBinding ItemWidth}"
                            ItemHeight="{TemplateBinding ItemHeight}"/>
             </StackPanel>

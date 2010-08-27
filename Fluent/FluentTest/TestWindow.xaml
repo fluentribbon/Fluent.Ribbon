@@ -609,7 +609,7 @@
     <Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
     	<Fluent:GalleryPanel Name="galleryPanel" Margin="0,0,0,0" Orientation="Horizontal"
                              GroupBy="Tag"
-                             ItemWidth="32" ItemHeight="32" >
+                             ItemWidth="32" ItemHeight="32" ItemsInRow="3" >
                 <Button Content="A" Tag="Letters"/>
                 <Button Content="B" Tag="Letters"/>
                 <Button Content="C" Tag="Letters"/>
