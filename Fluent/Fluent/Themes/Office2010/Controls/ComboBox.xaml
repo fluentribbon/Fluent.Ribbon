@@ -2,6 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
   <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
     </ResourceDictionary.MergedDictionaries>
   <Fluent:GalleryGroupIconConverter x:Key="GroupIconConverter"/>
   <Style x:Key="RibbonComboButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
@@ -97,10 +98,10 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:ComboBox}">
-                  <ControlTemplate.Resources>
+        <ControlTemplate.Resources>
           <ResourceDictionary>
-
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
+            <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerStyle}"/>            
           </ResourceDictionary>          
         </ControlTemplate.Resources>
           <Border Width="Auto" Background="#00000000" Height="22">
@@ -121,7 +122,7 @@
                     <ColumnDefinition Width="13"/>
                   </Grid.ColumnDefinitions>
                   <Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource TextBoxHoverBorderBrush}" Visibility="Collapsed" x:Name="border1" Background="{DynamicResource TextBoxBackgroundBrush}"/>        					
-              <Fluent:ToggleButton Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0"/>
+              <Fluent:ToggleButton Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0" CanAddToQuickAccessToolBar="False"/>
               <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,3,3" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
                   <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Hidden"/>
                   <Path x:Name="path" Grid.Column="1" Data="M0,0L2,0 1,1z" Fill="{DynamicResource DefaultFontBrush}" Margin="0" StrokeStartLineCap="Round" Stretch="Fill" StrokeEndLineCap="Round" Stroke="{DynamicResource DefaultFontBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Round" Width="5" Height="4" StrokeDashCap="Round" IsHitTestVisible="False"/>
@@ -133,10 +134,15 @@
             IsOpen="{TemplateBinding IsDropDownOpen}"
             AllowsTransparency="True" 
             Focusable="False"
-            PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" MinHeight="95" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}">
+            PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Popup.Resources>
+              <ResourceDictionary>
+                <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
+              </ResourceDictionary>
+            </Popup.Resources>
             <Grid 
               Name="DropDown"
-              SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Stretch">
+              SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">              
               <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
         <RowDefinition Height="10"/>
@@ -185,20 +191,24 @@
           </LinearGradientBrush>
         </Rectangle.Fill>
       </Rectangle>
-    <Border x:Name="DropDownBorder" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyboardNavigation.DirectionalNavigation="Cycle">
+      <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" KeyboardNavigation.DirectionalNavigation="Cycle">
           <Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
-          <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+          <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
-            <ScrollViewer Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None">
-                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None"/>
-              </ScrollViewer>
-            <ContentPresenter ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None"/>
+            <Fluent:MenuPanel x:Name="PART_MenuPanel" MaxHeight="{TemplateBinding MaxDropDownHeight}" VerticalAlignment="Top">
+              <ScrollViewer BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="scrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
+                  <Fluent:GalleryPanel ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
+                </ScrollViewer>
+              <Fluent:MenuPanel>
+                <ContentPresenter x:Name="menuPresenter" ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Top"/>
+              </Fluent:MenuPanel>
+            </Fluent:MenuPanel>
             <Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="2" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
               <Grid>
                 <Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
@@ -213,6 +223,9 @@
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
+            <Trigger Property="Menu" Value="{x:Null}">
+              <Setter Property="BorderThickness" TargetName="scrollViewer" Value="0"/>
+            </Trigger>
                   <Trigger Property="ResizeMode" Value="None">
         <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
       </Trigger>
@@ -271,7 +284,7 @@
               <Setter Property="Background" TargetName="PART_ContentBorder" Value="{DynamicResource TextBoxHoverBackgroundBrush}"/>
             </Trigger>
                     <Trigger Property="HasItems" Value="false">
-            <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+            <Setter TargetName="PART_DropDownBorder" Property="MinHeight" Value="95"/>
           </Trigger>
       <Trigger Property="IsGrouping" Value="true">
             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>

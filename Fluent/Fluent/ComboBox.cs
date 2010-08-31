@@ -158,10 +158,88 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register("Menu", typeof(RibbonMenu), typeof(ComboBox), new UIPropertyMetadata(null));
+       
+        #endregion
 
-        
+        #region InputWidth
+
+        /// <summary>
+        /// Gets or sets width of the value input part of combobox
+        /// </summary>               
+        public double InputWidth
+        {
+            get { return (double)GetValue(InputWidthProperty); }
+            set { SetValue(InputWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty InputWidthProperty =
+            DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
 
         #endregion
+
+        #region ItemHeight
+        
+        /// <summary>
+        /// Gets or sets items height
+        /// </summary>
+        public double ItemHeight
+        {
+            get { return (double)GetValue(ItemHeightProperty); }
+            set { SetValue(ItemHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemHeightProperty =
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
+       
+        #endregion
+
+        #region GroupBy
+
+        /// <summary>
+        /// Gets or sets name of property which
+        /// will use to group items in the ComboBox.
+        /// </summary>
+        public string GroupBy
+        {
+            get { return (string)GetValue(GroupByProperty); }
+            set { SetValue(GroupByProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupBy. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupByProperty =
+            DependencyProperty.Register("GroupBy", typeof(string),
+            typeof(ComboBox), new UIPropertyMetadata(null));
+        
+        #endregion
+
+        #region ResizeMode
+
+        /// <summary>
+        /// Gets or sets context menu resize mode
+        /// </summary>
+        public ContextMenuResizeMode ResizeMode
+        {
+            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
+            set { SetValue(ResizeModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ResizeModeProperty =
+            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ComboBox), new UIPropertyMetadata(ContextMenuResizeMode.None));
+
+        #endregion
+
 
         #endregion
 
@@ -184,7 +262,6 @@ namespace Fluent
         /// </summary>
         public ComboBox()
         {
-            View = CollectionViewSource.GetDefaultView(Items);
             ContextMenuService.Coerce(this);
         }
 
@@ -264,112 +341,6 @@ namespace Fluent
 
         #endregion
 
-        #region Properties
-
-        #region InputWidth
-
-        /// <summary>
-        /// Gets or sets width of the value input part of combobox
-        /// </summary>               
-        public double InputWidth
-        {
-            get { return (double)GetValue(InputWidthProperty); }
-            set { SetValue(InputWidthProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
-        #endregion
-
-        #region View
-
-        /// <summary>
-        /// Gets view of items or itemssource
-        /// </summary>
-        public ICollectionView View
-        {
-            get { return (ICollectionView)GetValue(ViewProperty); }
-            private set { SetValue(ViewPropertyKey, value); }
-        }
-
-        private static readonly DependencyPropertyKey ViewPropertyKey =
-            DependencyProperty.RegisterReadOnly("View", typeof(ICollectionView),
-            typeof(ComboBox), new UIPropertyMetadata(null));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for View.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ViewProperty = ViewPropertyKey.DependencyProperty;
-
-        #endregion
-
-        #region GroupBy
-
-        /// <summary>
-        /// Gets or sets name of property which
-        /// will use to group items in the ComboBox.
-        /// </summary>
-        public string GroupBy
-        {
-            get { return (string)GetValue(GroupByProperty); }
-            set { SetValue(GroupByProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string),
-            typeof(ComboBox), new UIPropertyMetadata(null, OnGroupByChanged));
-
-        static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((ComboBox)d).UpdateGroupBy(e.NewValue as string);
-        }
-
-        void UpdateGroupBy(string groupBy)
-        {
-            View = CollectionViewSource.GetDefaultView(Items);
-            if (View != null)
-            {
-                View.GroupDescriptions.Clear();
-                if (groupBy != null)
-                {
-                    View.GroupDescriptions.Add(new PropertyGroupDescription(groupBy));
-                }
-                View.Refresh();
-            }
-        }
-
-        #endregion
-        
-        #region ResizeMode
-
-        /// <summary>
-        /// Gets or sets context menu resize mode
-        /// </summary>
-        public ContextMenuResizeMode ResizeMode
-        {
-            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
-            set { SetValue(ResizeModeProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ComboBox), new UIPropertyMetadata(ContextMenuResizeMode.None));
-
-        #endregion
-
-        #endregion
-
         #region Overrides
 
         /// <summary>
@@ -402,11 +373,8 @@ namespace Fluent
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
 
-            GroupStyle.Clear();
-            GroupStyle groupStyle = Resources["ComboBoxGroupStyle"] as GroupStyle;
-            if (groupStyle == null) groupStyle = Application.Current.Resources["ComboBoxGroupStyle"] as GroupStyle;
-            if (groupStyle!=null) GroupStyle.Add(groupStyle);
-            UpdateGroupBy(GroupBy);
+            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
+            
             base.OnApplyTemplate();
         }
 
@@ -560,17 +528,17 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(popup.Width)) popup.Width = popup.ActualWidth;
-            if (double.IsNaN(popup.Height)) popup.Height = popup.ActualHeight;
-            popup.Width = Math.Max(popup.MinWidth, popup.Width + e.HorizontalChange);
-            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
+            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(popup.Height)) popup.Height = ActualHeight;
-            popup.Height = Math.Max(popup.MinHeight, popup.Height + e.VerticalChange);
+            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         #endregion      

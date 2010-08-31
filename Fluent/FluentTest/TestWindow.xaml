@@ -622,6 +622,7 @@
                 <Button Content="#" />
             </Fluent:GalleryPanel>
     </Border>
+    
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>
       <TextBlock Margin="15" Tag="Group1">2</TextBlock>
