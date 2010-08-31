@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -52,8 +53,7 @@ namespace Fluent
         static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel)d;
-            galleryPanel.haveToBeRefreshed = true;
-            galleryPanel.InvalidateMeasure();
+            galleryPanel.Invalidate();
         }
 
         #endregion
@@ -70,8 +70,7 @@ namespace Fluent
             set 
             { 
                 groupByAdvanced = value;
-                haveToBeRefreshed = true;
-                InvalidateMeasure();
+                Invalidate();
             }
         }
 
@@ -121,8 +120,7 @@ namespace Fluent
         static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel) d;
-            galleryPanel.haveToBeRefreshed = true;
-            galleryPanel.InvalidateMeasure();
+            galleryPanel.Invalidate();
         }
 
         #endregion
@@ -214,8 +212,7 @@ namespace Fluent
         static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryPanel galleryPanel = (GalleryPanel)d;
-            galleryPanel.haveToBeRefreshed = true;
-            galleryPanel.InvalidateMeasure();
+            galleryPanel.Invalidate();
         }
 
         #endregion
@@ -286,6 +283,19 @@ namespace Fluent
 
         #region Refresh
 
+        void Invalidate()
+        {
+            if (haveToBeRefreshed) return;
+            haveToBeRefreshed = true;
+            Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Loaded);
+        }
+
+        void RefreshDispatchered()
+        {
+            Refresh();
+            haveToBeRefreshed = false;
+        }
+
         void Refresh()
         {
             // Clear currently used group containers 
@@ -350,7 +360,7 @@ namespace Fluent
         {
             if (visualRemoved is GalleryGroupContainer) return;
             if (visualAdded is GalleryGroupContainer) return;
-            haveToBeRefreshed = true;
+            Invalidate();
         }
 
         #endregion
@@ -424,7 +434,7 @@ namespace Fluent
 
         string GetPropertyValueAsString(object item)
         {
-            if (item == null) return "Undefined";
+            if (item == null || GroupBy == null) return "Undefined";
             PropertyInfo property = item.GetType().GetProperty(GroupBy, BindingFlags.Public | BindingFlags.Instance);
             if (property == null) return "Undefined";
             object result = property.GetValue(item, null);
