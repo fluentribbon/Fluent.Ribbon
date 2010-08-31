@@ -332,11 +332,10 @@ namespace Fluent
                 // Skip if it is not in filter
                 if (filter != null && !filter.Contains(propertyValue))
                 {
-                    item.Visibility = Visibility.Collapsed;
+                    item.Measure(new Size(0,0));
                     continue;
                 }
-                item.Visibility = Visibility.Visible;
-
+                
                 if (!dictionary.ContainsKey(propertyValue))
                 {
                     GalleryGroupContainer galleryGroupContainer = new GalleryGroupContainer();
