@@ -18,10 +18,14 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-      <Grid Height="21" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+      <Grid Grid.Row="0" Height="21" x:Name="headerGrid" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
         <TextBlock Margin="7,0" Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
       </Grid>
-      <Image Grid.Column="0" Stretch="None" Margin="4,21,4,0" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="iconImage">
+      <Image Grid.Row="1" Grid.Column="0" Stretch="None" Margin="4,0,4,0" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="iconImage">
         <!--        <Image.Source>
           <MultiBinding Converter="{StaticResource GroupIconConverter}">
             <Binding Path="Items"/>
@@ -29,8 +33,8 @@
           </MultiBinding>
         </Image.Source>-->
       </Image>
-      <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Right" Width="1" Height="Auto" Visibility="Visible" x:Name="menuLine" Margin="0,21,0,0"/>
-      <ItemsPresenter Grid.Column="1" Margin="0,21,0,0" />
+      <Rectangle  Grid.Row="1" Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Right" Width="1" Height="Auto" Visibility="Visible" x:Name="menuLine" Margin="0,0,0,0"/>
+      <ItemsPresenter Grid.Row="1"  Grid.Column="1" Margin="0,0,0,0"/>
       <!--<WrapPanel Grid.Column="1" Margin="0,21,0,0"
                    IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
                    ItemWidth ="{TemplateBinding ItemWidth}"
@@ -41,6 +45,9 @@
         <Setter TargetName="menuLine" Property="Visibility" Value="Collapsed"/>
         <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed"/>
       </Trigger>
+      <Trigger Property="IsHeadered" Value="False">
+        <Setter TargetName="headerGrid" Property="Visibility" Value="Collapsed"/>
+      </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
 
@@ -50,7 +57,7 @@
     <Setter Property="ItemsPanel">
       <Setter.Value>
         <ItemsPanelTemplate>
-          <WrapPanel
+          <WrapPanel HorizontalAlignment="Left"
                      IsItemsHost="True" Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}"
                      ItemWidth ="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
                      ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />

@@ -348,7 +348,7 @@ namespace Fluent
                 dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
             }
 
-            if (GroupBy == null && GroupByAdvanced == null)
+            if (GroupBy == null && GroupByAdvanced == null && galleryGroupContainers.Count != 0)
             {
                 // Make it without headers
                 galleryGroupContainers[0].IsHeadered = false;
