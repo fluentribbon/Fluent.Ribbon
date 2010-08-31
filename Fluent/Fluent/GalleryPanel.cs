@@ -330,7 +330,12 @@ namespace Fluent
                 if (propertyValue == null) propertyValue = "Undefined";
 
                 // Skip if it is not in filter
-                if (filter != null && !filter.Contains(propertyValue)) continue;
+                if (filter != null && !filter.Contains(propertyValue))
+                {
+                    item.Visibility = Visibility.Collapsed;
+                    continue;
+                }
+                item.Visibility = Visibility.Visible;
 
                 if (!dictionary.ContainsKey(propertyValue))
                 {
