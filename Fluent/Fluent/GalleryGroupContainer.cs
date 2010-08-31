@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -19,6 +20,28 @@ namespace Fluent
         #endregion
 
         #region Properites
+
+        #region IsHeadered
+
+        /// <summary>
+        /// Gets or sets whether the header must be shown. 
+        /// When the property is false this control uses to show all items without grouping
+        /// </summary>
+        public bool IsHeadered
+        {
+            get { return (bool)GetValue(IsHeaderedProperty); }
+            set { SetValue(IsHeaderedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsHeadered.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsHeaderedProperty =
+            DependencyProperty.Register("IsHeadered", typeof(bool), 
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(true));
+        
+        #endregion
 
         #region Orientation
 
@@ -108,7 +131,6 @@ namespace Fluent
         {
             GalleryGroupContainer galleryGroupContainer = (GalleryGroupContainer) d;
             galleryGroupContainer.maxWidthNeedsToBeUpdated = true;
-            galleryGroupContainer.InvalidateMeasure();
         }
 
         #endregion
@@ -124,34 +146,40 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
         }
-
+        
         #endregion
 
-        #region Layout Overrides
-
+        #region MaxWidth Updating
+        
         // Sets MaxWidth of the items panel based of ItemsInRow property
         void UpdateMaxWidth()
         {
+            maxWidthNeedsToBeUpdated = false;
+
             Panel itemsPanel = FindItemsPanel(this);
             if (itemsPanel == null)
             {
+                // Item's panel is not ready now
                 if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct)");
                 return;
             }
 
             if (ItemsInRow == 0)
             {
-                itemsPanel.MaxWidth = Double.NaN;
-                maxWidthNeedsToBeUpdated = false;
+                itemsPanel.MaxWidth = Double.PositiveInfinity;
+                return;
             }
-            double itemWidth = GetItemWidth();
-            if (!double.IsNaN(itemWidth))
-            {
-                itemsPanel.MaxWidth = ItemsInRow * itemWidth + 0.1;
-                maxWidthNeedsToBeUpdated = false;
-            }
-        }
 
+            double itemWidth = GetItemWidth();
+            if (double.IsNaN(itemWidth))
+            {
+                // We can't calc item's width now
+                return;
+            }
+
+            itemsPanel.MaxWidth = ItemsInRow * itemWidth + 0.1;
+        }
+        
         // Determinates item's width (return Double.NaN in case of it is not possible)
         double GetItemWidth()
         {
@@ -180,17 +208,25 @@ namespace Fluent
             return null;
         }
 
+        #endregion
+
+        Panel previousItemsPanel = null;
+
         /// <summary>
         /// Called to remeasure a control. 
         /// </summary>
-        /// <returns>The size of the control, up to the maximum specified by constraint</returns>
+        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         /// <param name="constraint">The maximum size that the method can return.</param>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (maxWidthNeedsToBeUpdated) UpdateMaxWidth();
+            var panel = FindItemsPanel(this);
+            if (panel != previousItemsPanel || maxWidthNeedsToBeUpdated)
+            {
+                // Track ItemsPanel changing
+                previousItemsPanel = panel;
+                UpdateMaxWidth();
+            }
             return base.MeasureOverride(constraint);
         }
-        
-        #endregion
     }
 }
