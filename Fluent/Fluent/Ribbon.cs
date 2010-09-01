@@ -1571,6 +1571,16 @@ namespace Fluent
             IsStateLoaded = true;
         }
 
+        /// <summary>
+        /// Resets automatically saved state
+        /// </summary>
+        public static void ResetState()
+        {
+            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
+            string fileName = "Fluent.Ribbon.State.dat";
+            if (FileExists(storage, fileName)) storage.DeleteFile(fileName);
+        }
+
         // Determinates whether the given file exists in the given storage
         static bool FileExists(IsolatedStorageFile storage, string fileName)
         {
