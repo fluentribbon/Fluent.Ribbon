@@ -6,38 +6,38 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}">
         
-        	<Grid Background="{DynamicResource TransparentBrush}">
-        		<Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
-        			<Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        		</Border>
-        		<Border x:Name="selectedBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
-        			<Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        		</Border>
-        		<ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
-        		<Border x:Name="pressedBorder" BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonPressedOuterBackgroundBrush}" Visibility="Collapsed" Opacity="0.5">
-        			<Border Height="Auto" BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        		</Border>
-        	</Grid>
-        	<ControlTemplate.Triggers>
-        		<Trigger Property="IsEnabled" Value="False">
-        			<Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
-        		</Trigger>
-        		<Trigger Property="IsSelected" Value="True">
-        			<Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
-        		</Trigger>
-        		<Trigger Property="IsMouseOver" Value="True">
-        			<Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
-        		</Trigger>
-        		<Trigger Property="IsPressed" Value="True">
-        			<Setter Property="Visibility" TargetName="pressedBorder" Value="Visible"/>
-        		</Trigger>
-        	</ControlTemplate.Triggers>
+          <Grid Background="{DynamicResource TransparentBrush}">
+            <Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
+              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+            </Border>
+            <Border x:Name="selectedBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" Visibility="Collapsed">
+              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+            </Border>
+            <ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
+            <Border x:Name="pressedBorder" BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}" BorderThickness="1" CornerRadius="2" d:LayoutOverrides="Width, Height" Background="{DynamicResource ButtonPressedOuterBackgroundBrush}" Visibility="Collapsed" Opacity="0.5">
+              <Border Height="Auto" BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" BorderThickness="1" CornerRadius="1" Background="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+            </Border>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Visibility" TargetName="pressedBorder" Value="Visible"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
         
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="Width" Value="{Binding ItemWidth, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
-    <Setter Property="Height" Value="{Binding ItemHeight, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
-	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+    <!--<Setter Property="Width" Value="{Binding ItemWidth, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
+    <Setter Property="Height" Value="{Binding ItemHeight, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>-->
+  <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 </ResourceDictionary>

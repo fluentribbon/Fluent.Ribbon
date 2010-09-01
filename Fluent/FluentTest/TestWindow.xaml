@@ -113,7 +113,7 @@
       <!--<FluentTest:TestRibbonTab/>-->
       <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip"
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-        <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
+        <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clippboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:Button Fluent:KeyTip.Keys="L" Click="OnLauncherButtonClick">Test</Fluent:Button>
           <Fluent:ToggleButton Fluent:KeyTip.Keys="K" Click="OnLauncherButtonClick" >Test</Fluent:ToggleButton>
           <Fluent:CheckBox Fluent:KeyTip.Keys="I">Test</Fluent:CheckBox>
@@ -239,10 +239,121 @@
             <Fluent:MenuItem Header="3"/>
           </Fluent:DropDownButton>
         </Fluent:RibbonGroupBox>
+        <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
+          <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Header="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
+            <Fluent:SplitButton.ToolTip>
+              <Fluent:ScreenTip
+                 Title="Paste (Ctrl+V)"
+                 Text="Paste the contents of the Clipboard."
+                 Width="190"
+                  />
+            </Fluent:SplitButton.ToolTip>
+            <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
+              <Image Source="Images\PasteImage.png" Width="24" Height="24" Fluent:KeyTip.Keys="K" Tag="Paste Options:"/>
+              <Image Source="Images\PasteText.png" Width="24" Height="24" Fluent:KeyTip.Keys="M" Tag="Paste Options:"/>
+              <Image Source="Images\PasteTextOnly.png" Width="24" Height="24" Fluent:KeyTip.Keys="T" Tag="Paste Options:"/>
+              <Image Source="Images\PasteFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="L" Tag="Paste Options:"/>
+              <Image Source="Images\PasteSourceFormating.png" Width="24" Height="24" Fluent:KeyTip.Keys="E" Tag="Paste Options:"/>
+            </Fluent:Gallery>
+            <Fluent:MenuItem Header="Paste Special..." Fluent:KeyTip.Keys="S" Command="{x:Static FluentTest:TestWindow.CustomRoutedCommand}">
+              <Fluent:MenuItem.ToolTip>
+                <Fluent:ScreenTip Title="Paste Special"
+                                  Text="This ScreenTip is attached to menu item"/>
+              </Fluent:MenuItem.ToolTip>
+            </Fluent:MenuItem>
+            <Fluent:MenuItem Header="Set Default Paste..." Fluent:KeyTip.Keys="A">
+              <Fluent:MenuItem Header="1"></Fluent:MenuItem>
+              <Fluent:MenuItem Header="2"></Fluent:MenuItem>
+            </Fluent:MenuItem>
+          </Fluent:SplitButton>
+          <Fluent:Button x:Name="cutButton" Fluent:KeyTip.Keys="X" Header="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small" Command="Cut">
+            <Fluent:Button.ToolTip>
+              <Fluent:ScreenTip
+                 Title="Cut (Ctrl+X)"
+                 Text="Cut the contents to the Clipboard."
+                 Width="190"/>
+            </Fluent:Button.ToolTip>
+          </Fluent:Button>
+          <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Header="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
+          <Fluent:Button Fluent:KeyTip.Keys="FP" Header="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>
+          <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" ResizeMode="Both" SizeDefinition="Large">
+            <Fluent:Gallery x:Name="gallery" MinHeight="60" ItemsInRow="4" ItemWidth="28" ItemHeight="28" GroupBy="Tag">
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock>
+              </Border>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock>
+              </Border>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >4</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >5</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >6</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock>
+              </Border>
+              <Border Tag="Group3" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >8</TextBlock>
+              </Border>
+            </Fluent:Gallery>
+            <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="E"/>
+            <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R">
+              <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A"/>
+              <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B"/>
+              <Fluent:MenuItem Header="Iteme" Fluent:KeyTip.Keys="C"/>
+            </Fluent:MenuItem>
+          </Fluent:SplitButton>
+          <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="250">
+            <Fluent:Gallery x:Name="galleryss" MinHeight="60" ItemWidth="28" ItemHeight="28" GroupBy="Tag">
+              <Fluent:Gallery.Filters>
+                <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
+                <Fluent:GalleryGroupFilter Title="Group1 L" Groups="Group1"/>
+                <Fluent:GalleryGroupFilter Title="Group2 L" Groups="Group2"/>
+              </Fluent:Gallery.Filters>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock>
+              </Border>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock>
+              </Border>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock>
+              </Border>
+              <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >4</TextBlock>
+              </Border>
+              <Border Tag="Group1" x:Name="ghh" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >33</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >5</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >6</TextBlock>
+              </Border>
+              <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock>
+              </Border>
+            </Fluent:Gallery>
+            <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="E"/>
+            <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R">
+              <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A"/>
+              <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B"/>
+              <Fluent:MenuItem Header="Iteme" Fluent:KeyTip.Keys="C"/>
+            </Fluent:MenuItem>
+          </Fluent:SplitButton>
+        </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
-      <!--		
-      
-      <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
+
+
+      <!-- <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
                 <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Header="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
@@ -287,7 +398,7 @@
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Header="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
         <Fluent:Button Fluent:KeyTip.Keys="FP" Header="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>        
       </Fluent:RibbonGroupBox>
-
+        
     <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>
         -->
@@ -609,7 +720,7 @@
     <Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
     	<Fluent:GalleryPanel Name="galleryPanel" Margin="0,0,0,0" Orientation="Horizontal"
                              GroupBy="Tag"
-                             ItemWidth="32" ItemHeight="32" ItemsInRow="3" >
+                             ItemWidth="32" ItemHeight="32" ItemsInRow="3">
                 <Button Content="A" Tag="Letters"/>
                 <Button Content="B" Tag="Letters"/>
                 <Button Content="C" Tag="Letters"/>

@@ -3,8 +3,7 @@
   <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
-  <Fluent:GalleryGroupIconConverter x:Key="GroupIconConverter"/>
+    </ResourceDictionary.MergedDictionaries> 
   <Style x:Key="RibbonComboButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
     <Setter Property="Template" Value="{DynamicResource RibbonComboButtonControlTemplate}"/>
     <Setter Property="Height" Value="66"/>
@@ -203,7 +202,7 @@
             <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
             <Fluent:MenuPanel x:Name="PART_MenuPanel" MaxHeight="{TemplateBinding MaxDropDownHeight}" VerticalAlignment="Top">
               <ScrollViewer BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="scrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
-                  <Fluent:GalleryPanel ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
+                  <Fluent:GalleryPanel Background="White" ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
                 </ScrollViewer>
               <Fluent:MenuPanel>
                 <ContentPresenter x:Name="menuPresenter" ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Top"/>

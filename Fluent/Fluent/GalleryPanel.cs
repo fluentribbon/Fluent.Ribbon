@@ -333,6 +333,7 @@ namespace Fluent
                 if (filter != null && !filter.Contains(propertyValue))
                 {
                     item.Measure(new Size(0,0));
+                    item.Arrange(new Rect(0,0,0,0));
                     continue;
                 }
                 

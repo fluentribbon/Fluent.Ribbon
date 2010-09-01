@@ -41,7 +41,7 @@ namespace Fluent
 
         private ObservableCollection<GalleryGroupIcon> groupIcons;
 
-        private RibbonListBox listBox;
+        private ListBox listBox;
 
         private ContextMenu contextMenu;
 
@@ -133,13 +133,13 @@ namespace Fluent
 
         #region GalleryView
 
-        /// <summary>
+        /*/// <summary>
         /// Gets view of items or itemssource of dropdown gallery
         /// </summary>
         public CollectionViewSource GalleryView
         {
             get { return gallery.View; }
-        }
+        }*/
 
         #endregion
 
@@ -543,7 +543,7 @@ namespace Fluent
         // Handle toolbar iitems changes
         private void OnGroupIconCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+           /* switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (object obj2 in e.NewItems)
@@ -570,7 +570,7 @@ namespace Fluent
                         gallery.GroupIcons.Add(obj5 as GalleryGroupIcon);
                     }
                     break;
-            }
+            }*/
         }
 
         #endregion
@@ -1035,14 +1035,14 @@ namespace Fluent
             binding.Source = this;
             gallery.SetBinding(Gallery.IsTextSearchEnabledProperty, binding);
 
-            binding = new Binding("VerticalScrollBarVisibility");
+           /* binding = new Binding("VerticalScrollBarVisibility");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
             gallery.SetBinding(Gallery.VerticalScrollBarVisibilityProperty, binding);
             binding = new Binding("HorizontalScrollBarVisibility");
             binding.Mode = BindingMode.OneWay;
             binding.Source = this;
-            gallery.SetBinding(Gallery.HorizontalScrollBarVisibilityProperty, binding);
+            gallery.SetBinding(Gallery.HorizontalScrollBarVisibilityProperty, binding);*/
 
             binding = new Binding("GroupBy");
             binding.Mode = BindingMode.OneWay;
@@ -1103,7 +1103,7 @@ namespace Fluent
                 listBox.ItemContainerGenerator.StatusChanged -= OnItemsContainerGeneratorStatusChanged;           
                 listBox.ItemsSource = null;                
             }
-            listBox = GetTemplateChild("PART_ListBox") as RibbonListBox;
+            listBox = GetTemplateChild("PART_ListBox") as ListBox;
             if (listBox != null)
             {
                 RibbonControl.Bind(this,listBox,"View.View",ListBox.ItemsSourceProperty,BindingMode.OneWay);
@@ -1215,7 +1215,7 @@ namespace Fluent
             if(cachedWidthDelta==0)
             {
                 base.MeasureOverride(constraint);
-                cachedWidthDelta = layoutRoot.DesiredSize.Width - listBox.InnerPanelWidth;
+                //cachedWidthDelta = layoutRoot.DesiredSize.Width - listBox.InnerPanelWidth;
             }
             base.MeasureOverride(new Size(CurrentItemsInRow * itemWidth + cachedWidthDelta, constraint.Height));
             if (layoutRoot.DesiredSize.Width != savedWidth)
