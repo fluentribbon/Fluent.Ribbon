@@ -191,10 +191,10 @@
         </Fluent:RibbonTitleBar.Header>
           
         </Fluent:RibbonTitleBar>
-        <Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False" ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"/>
-        <ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                          ContentSource="Menu"/>
-        <Border x:Name="border" Margin="0" BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}" BorderThickness="0,1" Grid.Row="1" Height="26">
+        <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}" Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False" ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"/>
+            <!--<ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                          ContentSource="Menu"/>-->
+            <Border x:Name="border" Margin="0" BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}" BorderThickness="0,1" Grid.Row="1" Height="26">
           <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}" BorderThickness="0,1" Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
             <ContentControl x:Name="contentControl" HorizontalAlignment="Left">
               <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
@@ -233,8 +233,8 @@
       <Trigger Property="IsCollapsed" Value="True">
         <Setter Property="Visibility" TargetName="PART_RibbonTitleBar" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_RibbonTabControl" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="button" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+                <!--<Setter Property="Visibility" TargetName="button" Value="Collapsed"/>-->
+                <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="grid" Value="Visible"/>
         <Setter Property="Margin" TargetName="rectangle5" Value="0,5,0,3"/>
         <Setter Property="Margin" TargetName="textBlock5" Value="4,3,4,0"/>

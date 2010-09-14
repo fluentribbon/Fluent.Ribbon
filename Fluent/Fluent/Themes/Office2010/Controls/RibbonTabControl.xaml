@@ -223,7 +223,7 @@
 
             <DockPanel LastChildFill="True">
                                 <ContentPresenter ContentSource="Menu" DockPanel.Dock="Left"/>
-                                <Fluent:RibbonScrollViewer x:Name="scrollViewer" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
+                                <Fluent:RibbonScrollViewer x:Name="scrollViewer" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="0,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
                 <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False" Margin="0"/>							
               </Fluent:RibbonScrollViewer>
             </DockPanel>
