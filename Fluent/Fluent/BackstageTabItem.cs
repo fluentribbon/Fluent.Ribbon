@@ -54,11 +54,11 @@ namespace Fluent
         /// <summary>
         /// Gets parent tab control
         /// </summary>
-        internal Backstage TabControlParent
+        internal BackstageTabControl TabControlParent
         {
             get
             {
-                return (ItemsControl.ItemsControlFromItemContainer(this) as Backstage);
+                return (ItemsControl.ItemsControlFromItemContainer(this) as BackstageTabControl);
             }
         }
 
@@ -149,7 +149,7 @@ namespace Fluent
 
             if (newValue)
             {                
-                Backstage backstage = container.Parent as Backstage;
+                BackstageTabControl backstage = container.Parent as BackstageTabControl;
                 if((backstage!=null)&&(backstage.SelectedItem != container))
                 {
                     if (backstage.SelectedItem is BackstageTabItem) (backstage.SelectedItem as BackstageTabItem).IsSelected = false;

@@ -28,8 +28,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Gallery.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryItem.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBoxItem.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\InRibbonGallery.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Backstage.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\InRibbonGallery.xaml"/>        
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabItem.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageTabControl.xaml"/>
@@ -44,7 +43,8 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Spinner.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Ribbon.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\SeparatorTabItem.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>        
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Set default controls -->
@@ -54,11 +54,11 @@
     <Style x:Key="{x:Type Fluent:ScreenTip}" TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}"/>
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>
     <Style x:Key="{x:Type Fluent:GalleryGroupContainer}" TargetType="{x:Type Fluent:GalleryGroupContainer}" BasedOn="{StaticResource GalleryGroupContainerStyle}"/>
-    <!--<Style x:Key="{x:Type Fluent:ContextMenu}" TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource EmptyContextMenuStyle}"/>-->
+    <Style x:Key="{x:Type Fluent:SeparatorTabItem}" TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource SeparatorTabItemStyle}"/>
     <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
     <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
     <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>
-    <Style x:Key="{x:Type Fluent:Backstage}" TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource BackstageStyle}"/>
+    <Style x:Key="{x:Type Fluent:BackstageTabControl}" TargetType="{x:Type Fluent:BackstageTabControl}" BasedOn="{StaticResource BackstageStyle}"/>
     <Style x:Key="{x:Type Fluent:BackstageTabItem}" TargetType="{x:Type Fluent:BackstageTabItem}" BasedOn="{StaticResource BackstageTabItemStyle}"/>
     <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}"/>
     <Style x:Key="{x:Type Fluent:DropDownButton}" TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource RibbonDropDownButtonStyle}"/>

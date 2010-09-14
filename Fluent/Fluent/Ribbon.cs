@@ -36,13 +36,14 @@ using System.Threading;
 
 namespace Fluent
 {
+    // TODO: improve style parts naming & using
+
     /// <summary>
     /// Represents the main Ribbon control which consists of multiple tabs, each of which
     /// containing groups of controls.  The Ribbon also provides improved context
     /// menus, enhanced screen tips, and keyboard shortcuts.
     /// </summary>
     [ContentProperty("Tabs")]
-    [TemplatePart(Name = "PART_BackstageButton", Type = typeof(BackstageButton))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control
@@ -293,14 +294,14 @@ namespace Fluent
         // Ribbon layout root
         private Panel layoutRoot;
         // Ribbon backstage button
-        private BackstageButton backstageButton;
+        private Backstage backstageButton;
 
         // Handles F10, Alt and so on
         readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
-        // Adornet for backstage
+        // Adorner for backstage
         private BackstageAdorner adorner;
         // Saved when backstage opened tab item
         private RibbonTabItem savedTabItem;
@@ -323,6 +324,33 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        #region Menu
+        
+        /// <summary>
+        /// Gets or sets file menu control (can be application menu button, backstage button and so on)
+        /// </summary>
+        public UIElement Menu
+        {
+            get { return (UIElement)GetValue(MenuProperty); }
+            set { SetValue(MenuProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Button. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MenuProperty =
+            DependencyProperty.Register("Menu", typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, OnApplicationMenuChanged));
+
+        static void OnApplicationMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon) d;
+            if (e.OldValue != null) ribbon.RemoveLogicalChild(e.OldValue);
+            if (e.NewValue != null) ribbon.AddLogicalChild(e.NewValue);
+        }
+
+        #endregion
 
         /// <summary>
         /// Window title
@@ -580,6 +608,7 @@ namespace Fluent
             {
                 ArrayList list = new ArrayList();
                 if (layoutRoot != null) list.Add(layoutRoot);
+                if (Menu != null) list.Add(Menu);
                 if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
                 if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
                 return list.GetEnumerator();
@@ -655,13 +684,13 @@ namespace Fluent
                 if (backstageItems == null)
                 {
                     backstageItems = new ObservableCollection<UIElement>();
-                    backstageItems.CollectionChanged += OnBackstageItemsCollectionChanged;
+                    //backstageItems.CollectionChanged += OnBackstageItemsCollectionChanged;
                 }
                 return backstageItems;
             }
         }
 
-        /// <summary>
+       /* /// <summary>
         /// Handles collection of backstage items changes
         /// </summary>
         /// <param name="sender">Sender</param>
@@ -695,7 +724,7 @@ namespace Fluent
                     }
                     break;
             }
-        }
+        }*/
 
         /// <summary>
         /// Gets or sets whether backstage is opened
@@ -1067,8 +1096,6 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public override void OnApplyTemplate()
         {
-            if (IsBackstageOpen) HideBackstage();
-
             if (layoutRoot != null) RemoveLogicalChild(layoutRoot);
 
             layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
@@ -1194,23 +1221,23 @@ namespace Fluent
                 {
                     for (int i = 0; i < backstageItems.Count; i++)
                     {
-                        backstageButton.Backstage.Items.Remove(backstageItems[i]);
+                        //backstageButton.Backstage.Items.Remove(backstageItems[i]);
                     }
                 }
             }
-            backstageButton = GetTemplateChild("PART_BackstageButton") as BackstageButton;
+            backstageButton = GetTemplateChild("PART_BackstageButton") as Backstage;
             adorner = null;
             if (backstageButton != null)
             {
                 Binding binding = new Binding("IsBackstageOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
-                backstageButton.SetBinding(BackstageButton.IsOpenProperty, binding);
+                backstageButton.SetBinding(Backstage.IsOpenProperty, binding);
                 if (backstageItems != null)
                 {
                     for (int i = 0; i < backstageItems.Count; i++)
                     {
-                        backstageButton.Backstage.Items.Add(backstageItems[i]);
+                        //backstageButton.Backstage.Items.Add(backstageItems[i]);
                     }
                 }
             }
@@ -1355,6 +1382,35 @@ namespace Fluent
 
         #region Private methods
 
+       
+
+        // Handles backstage Esc key keydown
+        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsBackstageOpen = false;
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Get adorner layer for element
+        /// </summary>
+        /// <param name="element">Element</param>
+        /// <returns>Adorner layer</returns>
+        static AdornerLayer GetAdornerLayer(UIElement element)
+        {
+            UIElement current = element;
+            while (true)
+            {
+                current = (UIElement)VisualTreeHelper.GetParent(current);
+                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+            }
+        }
+
+        #endregion
+
         #region Show / Hide Backstage
 
         // We have to collapse WindowsFormsHost while Backstate is open
@@ -1374,13 +1430,13 @@ namespace Fluent
                     // TODO: in design mode it is required to use design time adorner
                     FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
                     double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                    adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
+                    //adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
                 }
                 else
                 {
                     FrameworkElement topLevelElement = (FrameworkElement)Window.GetWindow(this).Content;
                     double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                    adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
+                    //adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
                 }
             }
             layer.Add(adorner);
@@ -1484,33 +1540,6 @@ namespace Fluent
             Window wnd = Window.GetWindow(this);
             SaveWindowSize(wnd);
         }
-
-        // Handles backstage Esc key keydown
-        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape) IsBackstageOpen = false;
-        }
-
-        #endregion
-
-        #region Static Methods
-
-        /// <summary>
-        /// Get adorner layer for element
-        /// </summary>
-        /// <param name="element">Element</param>
-        /// <returns>Adorner layer</returns>
-        static AdornerLayer GetAdornerLayer(UIElement element)
-        {
-            UIElement current = element;
-            while (true)
-            {
-                current = (UIElement)VisualTreeHelper.GetParent(current);
-                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
-            }
-        }
-
-        #endregion
 
         #region State Management
 

@@ -220,11 +220,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
               </Grid.ColumnDefinitions>
-              
-              <Fluent:RibbonScrollViewer x:Name="scrollViewer" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
+
+            <DockPanel LastChildFill="True">
+                                <ContentPresenter ContentSource="Menu" DockPanel.Dock="Left"/>
+                                <Fluent:RibbonScrollViewer x:Name="scrollViewer" DockPanel.Dock="Right" HorizontalAlignment="Left" Margin="60,-7,0,0" Width="Auto" Style="{DynamicResource RibbonTabScrollViewer}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" IsHitTestVisible="True">
                 <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer" IsItemsHost="True" Height="Auto" HorizontalAlignment="Stretch" FocusManager.IsFocusScope="False" Margin="0"/>							
               </Fluent:RibbonScrollViewer>
-              <StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
+            </DockPanel>
+             <StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
                 <Grid Width="22" Height="22">
                   <Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png" Stretch="None" Visibility="Collapsed"/>
                   <Fluent:ToggleButton x:Name="PART_MinimizeButton" Margin="0" Width="22" Height="22" Size="Small" Style="{DynamicResource RibbonTabControlToggleButtonStyle}" Icon="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png" LargeIcon="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png" IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>

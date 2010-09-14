@@ -49,6 +49,27 @@ namespace Fluent
 
         #region Properties
 
+        #region Menu
+
+        /// <summary>
+        /// Gets or sets file menu control (can be application menu button, backstage button and so on)
+        /// </summary>
+        public UIElement Menu
+        {
+            get { return (UIElement)GetValue(MenuProperty); }
+            set { SetValue(MenuProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Button. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MenuProperty =
+            DependencyProperty.Register("Menu", typeof(UIElement), 
+            typeof(RibbonTabControl), new UIPropertyMetadata(null));
+
+        #endregion
+
         /// <summary>
         /// Gets drop down popup
         /// </summary>

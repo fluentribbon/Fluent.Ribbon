@@ -100,10 +100,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backstage.cs" />
-    <Compile Include="BackstageAdorner.cs" />
-    <Compile Include="BackstageButton.cs" />
     <Compile Include="BackstageTabControl.cs" />
+    <Compile Include="BackstageAdorner.cs" />
+    <Compile Include="Backstage.cs" />
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CheckBox.cs">
@@ -122,6 +121,7 @@
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="RibbonMenu.cs" />
+    <Compile Include="SeparatorTabItem.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Gallery.cs" />
     <Compile Include="GalleryGroupFilter.cs" />
@@ -234,17 +234,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Office2010\Controls\Backstage.xaml">
+    <Page Include="Themes\Office2010\Controls\BackstageTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\BackstageControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\BackstageTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,6 +271,10 @@
     <Page Include="Themes\Office2010\Controls\ComboBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\SeparatorTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Controls\GalleryGroupContainer.xaml">
       <Generator>MSBuild:Compile</Generator>

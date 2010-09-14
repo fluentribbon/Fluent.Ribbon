@@ -731,7 +731,7 @@ namespace Fluent
                             0), AdornedElement);
                     keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
-                else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is BackstageButton))
+                else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is Backstage))
                 {
                     // Ribbon Tab Item Exclusive Placement
                     Size keyTipSize = keyTips[i].DesiredSize;
@@ -776,7 +776,7 @@ namespace Fluent
                             5,
                             elementSize.Height / 2.0 - keyTipSize.Height), AdornedElement);
                 }
-                else if (((FrameworkElement)associatedElements[i]).Parent is Backstage)
+                else if (((FrameworkElement)associatedElements[i]).Parent is BackstageTabControl)
                 {
                     // Backstage Items Exclusive Placement
                     Size keyTipSize = keyTips[i].DesiredSize;

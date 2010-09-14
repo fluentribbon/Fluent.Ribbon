@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:BackstageButton}">
+  <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:Backstage}">
     <Border x:Name="border2" Width="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
       <Border x:Name="border1" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0">
         <Border.BorderBrush>
@@ -41,7 +41,8 @@
                 </RadialGradientBrush>
               </Rectangle.Fill>
             </Rectangle>
-            <TextBlock Margin="2,0,2,2" Text="{TemplateBinding Header}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!--<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Header}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+            <ContentPresenter ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center"/>
           </Grid>
         </Border>
       </Border>
@@ -158,7 +159,7 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
 
-  <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type Fluent:BackstageButton}">
+  <Style TargetType="{x:Type Fluent:Backstage}">
     <Setter Property="Template" Value="{StaticResource BackstageToggleButtonControlTemplate}"/>
     <Setter Property="Width" Value="56"/>
     <Setter Property="Height" Value="22"/>
@@ -191,8 +192,8 @@
           
         </Fluent:RibbonTitleBar>
         <Fluent:RibbonTabControl Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False" ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"/>
-        <Fluent:BackstageButton x:Name="PART_BackstageButton" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="22" Style="{StaticResource BackstageToggleButtonStyle}" Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText, Mode=OneWay}" Size="Small" Background="{TemplateBinding BackstageBrush}" 
-                                Fluent:KeyTip.Keys="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip, Mode=OneWay}"/>
+        <ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                          ContentSource="Menu"/>
         <Border x:Name="border" Margin="0" BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}" BorderThickness="0,1" Grid.Row="1" Height="26">
           <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}" BorderThickness="0,1" Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
             <ContentControl x:Name="contentControl" HorizontalAlignment="Left">
@@ -232,7 +233,7 @@
       <Trigger Property="IsCollapsed" Value="True">
         <Setter Property="Visibility" TargetName="PART_RibbonTitleBar" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_RibbonTabControl" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_BackstageButton" Value="Collapsed"/>
+        <Setter Property="Visibility" TargetName="button" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="grid" Value="Visible"/>
         <Setter Property="Margin" TargetName="rectangle5" Value="0,5,0,3"/>

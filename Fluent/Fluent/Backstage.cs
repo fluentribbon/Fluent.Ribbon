@@ -1,58 +1,121 @@
-ï»¿#region Copyright and License Information
+#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright Â© Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
 using System;
-using System.Collections.Specialized;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Forms.Integration;
 using System.Windows.Input;
-
+using System.Windows.Interop;
+using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Fluent
 {
     /// <summary>
-    /// Represents Backstage tab control.
+    /// Represents backstage button
     /// </summary>
-    public class Backstage: Selector
+    [ContentProperty("Content")]
+    public class Backstage : RibbonControl
     {
+        #region Fields
+
+        // Adorner for backstage
+        BackstageAdorner adorner;
+
+        #endregion
+
         #region Properties
 
-        // Dependency property key for SelectedContent
-        static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(Backstage), new FrameworkPropertyMetadata(null));
-        
-        /// <summary>
-        /// Dependency property SelectedContent
-        /// </summary>
-        public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
+        #region IsOpen
 
         /// <summary>
-        /// Gets content for selected tab
+        /// Gets or sets whether backstage is shown
         /// </summary>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public bool IsOpen
         {
-            get
-            {
-                return base.GetValue(SelectedContentProperty);
-            }
-            internal set
-            {
-                base.SetValue(SelectedContentPropertyKey, value);
-            }
+            get { return (bool)GetValue(IsOpenProperty); }
+            set { SetValue(IsOpenProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register("IsOpen", typeof(bool), 
+            typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
+
+        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Backstage backstage = (Backstage) d;
+            if ((bool)e.NewValue) backstage.Show();
+            else backstage.Hide();
         }
 
         #endregion
 
-        #region Constructors
+        #region Content
+
+        /// <summary>
+        /// Gets or sets content of the backstage
+        /// </summary>
+        public UIElement Content
+        {
+            get { return (UIElement)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Content.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ContentProperty =
+            DependencyProperty.Register("Content", typeof(UIElement), typeof(Backstage), 
+            new UIPropertyMetadata(null, OnContentChanged));
+
+        static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Backstage backstage = (Backstage) d;
+            if (e.OldValue != null) backstage.RemoveLogicalChild(e.OldValue);
+            if (e.NewValue != null) backstage.AddLogicalChild(e.NewValue);
+        }
+
+        #endregion
+
+        #region LogicalChildren
+
+        /// <summary>
+        /// Gets an enumerator for logical child elements of this element.
+        /// </summary>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                ArrayList list = new ArrayList();
+                if (Content != null) list.Add(Content);
+                return list.GetEnumerator();
+            }
+        }
+
+        #endregion
+        
+        #endregion
+
+        #region Initialization
 
         /// <summary>
         /// Static constructor
@@ -61,6 +124,21 @@ namespace Fluent
         static Backstage()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
+            // Disable QAT for this control
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(false));
+            // Make default header
+            HeaderProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceHeader));
+            KeyTip.KeysProperty.AddOwner(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
+        }
+
+        static object CoerceHeader(DependencyObject d, object basevalue)
+        {
+            return basevalue ?? Ribbon.Localization.BackstageButtonText;
+        }
+
+        static object CoerceKeyTipKeys(DependencyObject d, object basevalue)
+        {
+            return basevalue ?? Ribbon.Localization.BackstageButtonKeyTip;
         }
 
         /// <summary>
@@ -68,181 +146,255 @@ namespace Fluent
         /// </summary>
         public Backstage()
         {
-            // Fixed incoreect menu showing
-            ContextMenu = new ContextMenu
-            {
-                Width = 0, 
-                Height = 0, 
-                HasDropShadow = false
-            };
-            ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
+            CoerceValue(HeaderProperty);
+            CoerceValue(KeyTip.KeysProperty);
         }
+        
+        #endregion
+
+        #region Methods
+
+        // Handles click event
+        void Click()
+        {
+            IsOpen = !IsOpen;
+        }
+
+        #region Show / Hide
+
+        // We have to collapse WindowsFormsHost while Backstate is open
+        Dictionary<FrameworkElement, Visibility> collapsedElements =
+            new Dictionary<FrameworkElement, Visibility>();
+        // Saved when backstage opened tab item
+        RibbonTabItem savedTabItem;
+
+        // Saved window sizes
+        double savedMinWidth;
+        double savedMinHeight;
+        int savedWidth;
+        int savedHeight;
+
+        // Opens backstage on an Adorner layer
+        void Show()
+        {   
+            if (!IsLoaded)
+            {
+                Loaded += OnDelayedShow;
+                return;
+            }
+
+            if (Content == null) return;
+
+            AdornerLayer layer = GetAdornerLayer(this);
+            if (adorner == null)
+            {
+                if (DesignerProperties.GetIsInDesignMode(this))
+                {
+                    // TODO: in design mode it is required to use design time adorner
+                    FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                    double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                    adorner = new BackstageAdorner(topLevelElement, Content, topOffset);
+                }
+                else
+                {
+                    Window mainWindow = Window.GetWindow(this);
+                    if (mainWindow == null) return;
+                    FrameworkElement topLevelElement = (FrameworkElement)mainWindow.Content;
+                    if (topLevelElement == null) return;
+                    double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                    adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
+                }
+            }
+            layer.Add(adorner);
+
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null)
+            {
+                savedTabItem = ribbon.SelectedTabItem;
+                if (savedTabItem == null && ribbon.Tabs.Count > 0)
+                    savedTabItem = (RibbonTabItem) ribbon.Tabs[0];
+                ribbon.SelectedTabItem = null;
+                ribbon.SelectedTabChanged += OnSelectedRibbonTabChanged;
+
+                // Disable QAT & title bar
+                if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = false;
+                if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = false;
+            }
+
+            Window window = Window.GetWindow(this);
+            if (window != null)
+            {
+                window.PreviewKeyDown += OnBackstageEscapeKeyDown;
+                savedMinWidth = window.MinWidth;
+                savedMinHeight = window.MinHeight;
+
+                SaveWindowSize(window);
+
+                if (savedMinWidth < 500) window.MinWidth = 500;
+                if (savedMinHeight < 400) window.MinHeight = 400;
+                window.SizeChanged += OnWindowSizeChanged;
+
+                // We have to collapse WindowsFormsHost while Backstage is open
+                CollapseWindowsFormsHosts(window);
+            }
+        }
+
+        void OnDelayedShow(object sender, EventArgs args)
+        {
+            Loaded -= OnDelayedShow;
+            Show();
+        }
+        
+        // Hide backstage
+        void Hide()
+        {
+            Loaded -= OnDelayedShow;
+            if (Content == null) return;
+            if (!IsLoaded || adorner == null) return;
+
+            AdornerLayer layer = GetAdornerLayer(this);
+            layer.Remove(adorner);
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null)
+            {
+                ribbon.SelectedTabChanged -= OnSelectedRibbonTabChanged;
+                ribbon.SelectedTabItem = savedTabItem;
+                // Restore enable under QAT & title bar
+                if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = true;
+                if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = true;
+            }
+            
+            Window window = Window.GetWindow(this);
+            if (window != null)
+            {
+                window.PreviewKeyDown -= OnBackstageEscapeKeyDown;
+                window.SizeChanged -= OnWindowSizeChanged;
+
+                window.MinWidth = savedMinWidth;
+                window.MinHeight = savedMinHeight;
+                NativeMethods.SetWindowPos((new WindowInteropHelper(window)).Handle,
+                                           new IntPtr(NativeMethods.HWND_NOTOPMOST),
+                                           0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
+            }
+
+            // Uncollapse elements
+            foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
+            collapsedElements.Clear();
+
+            if (ribbon != null) ribbon.SelectedTabItem = savedTabItem;
+        }
+
+        // Finds underlying ribbon control
+        Ribbon FindRibbon()
+        {
+            DependencyObject item = this;
+            while(item != null && !(item is Ribbon))
+                item = VisualTreeHelper.GetParent(item);
+            return (Ribbon)item;
+        }
+
+        void SaveWindowSize(Window wnd)
+        {
+            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
+            info.cbSize = (uint)Marshal.SizeOf(info);
+            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
+            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
+            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
+        }
+
+        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Window wnd = Window.GetWindow(this);
+            SaveWindowSize(wnd);
+        }
+
+
+        void OnSelectedRibbonTabChanged(object sender, EventArgs e)
+        {
+            IsOpen = false;
+        }
+
+        // We have to collapse WindowsFormsHost while Backstage is open
+        void CollapseWindowsFormsHosts(DependencyObject parent)
+        {
+            FrameworkElement frameworkElement = parent as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                if ((parent is WindowsFormsHost || parent is WebBrowser) &&
+                    frameworkElement.Visibility != Visibility.Collapsed)
+                {
+                    collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
+                    frameworkElement.Visibility = Visibility.Collapsed;
+                    return;
+                }
+            }
+            // Traverse visual tree
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
+            }
+        }
+
+        // Handles backstage Esc key keydown
+        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsOpen = false;
+        }
+
+        /// <summary>
+        /// Get adorner layer for element
+        /// </summary>
+        /// <param name="element">Element</param>
+        /// <returns>Adorner layer</returns>
+        static AdornerLayer GetAdornerLayer(UIElement element)
+        {
+            UIElement current = element;
+            while (true)
+            {
+                current = (UIElement)VisualTreeHelper.GetParent(current);
+                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+            }
+        }
+
+        #endregion
 
         #endregion
 
         #region Overrides
 
         /// <summary>
-        /// Raises the System.Windows.FrameworkElement.Initialized event. 
-        /// This method is invoked whenever System.Windows.FrameworkElement.
-        /// IsInitialized is set to true internally.
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event reaches an element 
+        /// in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
-        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
-        protected override void OnInitialized(EventArgs e)
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
+        ///  The event data reports that the left mouse button was pressed.</param>
+        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            base.OnInitialized(e);
-            base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
+            Click();
         }
 
         /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
+        /// Handles key tip pressed
         /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
-        protected override DependencyObject GetContainerForItemOverride()
+        public override void OnKeyTipPressed()
         {
-            return new BackstageTabItem();
-        }
-
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns></returns>
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return ((item is BackstageTabItem) || (item is Button));
-        }
-
-        /// <summary>
-        /// Updates the current selection when an item in the System.Windows.Controls.Primitives.Selector has changed
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
-        {
-            base.OnItemsChanged(e);
-            if ((e.Action == NotifyCollectionChangedAction.Remove) && (base.SelectedIndex == -1))
-            {
-                int startIndex = e.OldStartingIndex + 1;
-                if (startIndex > base.Items.Count)
-                {
-                    startIndex = 0;
-                }
-                BackstageTabItem item = FindNextTabItem(startIndex, -1);
-                if (item != null)
-                {
-                    item.IsSelected = true;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when the selection changes.
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-        {
-            base.OnSelectionChanged(e);
-            if (e.AddedItems.Count > 0)
-            {
-                UpdateSelectedContent();
-            }
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled MouseLeftButtonDownÂ routed event 
-        /// is raised on this element. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was pressed</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            e.Handled = true;
-        }
- 
-        #endregion
-
-        #region Private methods
-
-        // Gets selected ribbon tab item
-        BackstageTabItem GetSelectedTabItem()
-        {
-            object selectedItem = base.SelectedItem;
-            if (selectedItem == null)
-            {
-                return null;
-            }
-            BackstageTabItem item = selectedItem as BackstageTabItem;
-            if (item == null)
-            {
-                item = FindNextTabItem(base.SelectedIndex,1);
-                base.SelectedItem = item;
-            }
-            return item;
-        }
-
-        // Finds next tab item
-        private BackstageTabItem FindNextTabItem(int startIndex, int direction)
-        {
-            if (direction != 0)
-            {
-                int index = startIndex;
-                for (int i = 0; i < base.Items.Count; i++)
-                {
-                    index += direction;
-                    if (index >= base.Items.Count)
-                    {
-                        index = 0;
-                    }
-                    else if (index < 0)
-                    {
-                        index = base.Items.Count - 1;
-                    }
-                    BackstageTabItem item2 = base.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
-                    if (((item2 != null) && item2.IsEnabled) && (item2.Visibility == Visibility.Visible))
-                    {
-                        return item2;
-                    }
-                }
-            }
-            return null;
-        }
-
-        // Updates selected content
-        private void UpdateSelectedContent()
-        {
-            if (base.SelectedIndex < 0)
-            {
-
-                this.SelectedContent = null;
-            }
-            else
-            {
-                BackstageTabItem selectedTabItem = this.GetSelectedTabItem();
-                if (selectedTabItem != null)
-                {
-                    this.SelectedContent = selectedTabItem.Content;
-                    UpdateLayout();
-                }
-            }
+            Click();
+            base.OnKeyTipPressed();
         }
 
         #endregion
 
-        #region Event handling
+        #region Quick Access Toolbar
 
-        // Handles GeneratorStatusChange
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Gets control which represents shortcut item.
+        /// This item MUST be syncronized with the original 
+        /// and send command to original one control.
+        /// </summary>
+        /// <returns>Control which represents shortcut item</returns>
+        public override FrameworkElement CreateQuickAccessItem()
         {
-            if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {
-                if (base.HasItems && (base.SelectedIndex == -1))
-                {
-                    base.SelectedIndex = 0;
-                }
-                this.UpdateSelectedContent();
-            }
+            throw new NotImplementedException();
         }
 
         #endregion
