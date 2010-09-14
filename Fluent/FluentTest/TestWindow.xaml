@@ -17,13 +17,7 @@
 
  
 
-      <Fluent:Ribbon.Menu>
-          <Fluent:Backstage IsOpen="True">
-                <Fluent:BackstageTabControl>
-                        
-                </Fluent:BackstageTabControl>
-          </Fluent:Backstage>
-      </Fluent:Ribbon.Menu>
+
 
             <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>

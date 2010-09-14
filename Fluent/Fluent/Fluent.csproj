@@ -102,9 +102,6 @@
   <ItemGroup>
     <Compile Include="BackstageAdorner.cs" />
     <Compile Include="Backstage.cs" />
-    <Compile Include="BackstageTabControl.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="BackstageTabControll.cs" />
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
