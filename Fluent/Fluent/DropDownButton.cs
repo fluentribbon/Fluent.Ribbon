@@ -88,7 +88,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(DropDownButton));
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(DropDownButton));
 
         /// <summary>
         /// Gets or sets SizeDefinition for element
@@ -127,7 +127,7 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -143,9 +143,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)GetValue(LargeIconProperty); }
+            get { return GetValue(LargeIconProperty); }
             set { SetValue(LargeIconProperty, value); }
         }
 
@@ -154,7 +154,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
+            DependencyProperty.Register("LargeIcon", typeof(object),
             typeof(DropDownButton), new UIPropertyMetadata(null));
 
         #endregion
@@ -236,7 +236,7 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(100.0));
+            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(350.0));
 
         #endregion
 

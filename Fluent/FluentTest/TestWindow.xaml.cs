@@ -209,7 +209,7 @@ namespace FluentTest
             }
         }
 
-        /*
+        
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Split Clicked!!!");
@@ -284,7 +284,7 @@ namespace FluentTest
             Application.Current.Resources.MergedDictionaries.RemoveAt(0);
             Application.Current.Resources.EndInit();
         }
-        */
+        
         private void OnFormatPainterClick(object sender, RoutedEventArgs e)
         {
             /*OpenFileDialog dlg = new OpenFileDialog();
@@ -292,7 +292,7 @@ namespace FluentTest
             /*if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
             else Font.Visibility = Visibility.Collapsed;*/
         }
-        /*
+        
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
             if(tabGroup1.Visibility==Visibility.Visible)
@@ -323,7 +323,7 @@ namespace FluentTest
             wnd.Owner = this;
             wnd.Show();
         }
-        */
+        
 
         private void OnTreeDoubleClick(object sender, MouseButtonEventArgs e)
         {

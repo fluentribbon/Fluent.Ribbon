@@ -127,7 +127,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(ToggleButton));
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(ToggleButton));
 
         /// <summary>
         /// Gets or sets SizeDefinition for element
@@ -166,7 +166,7 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -182,9 +182,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)GetValue(LargeIconProperty); }
+            get { return GetValue(LargeIconProperty); }
             set { SetValue(LargeIconProperty, value); }
         }
 
@@ -193,7 +193,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
+            DependencyProperty.Register("LargeIcon", typeof(object),
             typeof(ToggleButton), new UIPropertyMetadata(null));
 
         #endregion

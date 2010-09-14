@@ -10,15 +10,53 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
+    public class StringToImageConverter:IValueConverter
+    {
+        #region Implementation of IValueConverter
+
+        /// <summary>
+        /// Converts a value. 
+        /// </summary>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        /// <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string)
+            {
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute));
+                return img;
+            }
+            return value;
+        }
+
+        /// <summary>
+        /// Converts a value. 
+        /// </summary>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        /// <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
     /// <summary>
     /// Represent base class for Fluent controls
     /// </summary>
@@ -75,15 +113,30 @@ namespace Fluent
         public static readonly DependencyProperty SizeDefinitionProperty = DependencyProperty.Register(
           "SizeDefinition",
           typeof(string),
-          typeof(RibbonControl),
-          new FrameworkPropertyMetadata("Large, Middle, Small",
-              FrameworkPropertyMetadataOptions.AffectsArrange |
-              FrameworkPropertyMetadataOptions.AffectsMeasure |
-              FrameworkPropertyMetadataOptions.AffectsRender |
-              FrameworkPropertyMetadataOptions.AffectsParentArrange |
-              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-              OnSizeDefinitionPropertyChanged)
-        );
+          typeof(RibbonControl), new FrameworkPropertyMetadata("Large, Middle, Small",
+                                          FrameworkPropertyMetadataOptions.AffectsArrange |
+                                          FrameworkPropertyMetadataOptions.AffectsMeasure |
+                                          FrameworkPropertyMetadataOptions.AffectsRender |
+                                          FrameworkPropertyMetadataOptions.AffectsParentArrange |
+                                          FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+                                          OnSizeDefinitionPropertyChanged));
+
+        internal static DependencyProperty AttachSizeDefinition(Type type)
+        {
+            return RibbonControl.SizeDefinitionProperty.AddOwner(type,
+                                                                 new FrameworkPropertyMetadata("Large, Middle, Small",
+                                                                                               FrameworkPropertyMetadataOptions
+                                                                                                   .AffectsArrange |
+                                                                                               FrameworkPropertyMetadataOptions
+                                                                                                   .AffectsMeasure |
+                                                                                               FrameworkPropertyMetadataOptions
+                                                                                                   .AffectsRender |
+                                                                                               FrameworkPropertyMetadataOptions
+                                                                                                   .AffectsParentArrange |
+                                                                                               FrameworkPropertyMetadataOptions
+                                                                                                   .AffectsParentMeasure,
+                                                                                               OnSizeDefinitionPropertyChanged));
+        }
 
         // Handles SizeDefinitionProperty changes
         internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -409,9 +462,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            Type type = typeof (RibbonControl);
+            Type type = typeof(RibbonControl);
             ContextMenuService.Attach(type);
-            ToolTipService.Attach(type);                      
+            ToolTipService.Attach(type);
         }
 
         /// <summary>

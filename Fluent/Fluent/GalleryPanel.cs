@@ -254,14 +254,16 @@ namespace Fluent
 
         #region Visual Tree
 
+        int visualChildrenCount = 0;
+
         /// <summary>
         /// Gets the number of visual child elements within this element.
         /// </summary>
         protected override int VisualChildrenCount
         {
             get
-            { 
-                return InternalChildren.Count + galleryGroupContainers.Count;
+            {
+                return visualChildrenCount;
             }
         }
 
@@ -359,6 +361,7 @@ namespace Fluent
                 galleryGroupContainers[0].IsHeadered = false;
             }
 
+            visualChildrenCount = InternalChildren.Count + galleryGroupContainers.Count;
             InvalidateMeasure();
         }
 

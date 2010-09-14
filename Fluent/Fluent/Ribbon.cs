@@ -1024,7 +1024,8 @@ namespace Fluent
             Ribbon ribbon = sender as Ribbon;
             if (ribbon.IsQuickAccessToolBarVisible)
             {
-                e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.OriginalSource as UIElement);
+                if (e.OriginalSource is Gallery) e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.OriginalSource as DependencyObject) as UIElement);
+                else e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.OriginalSource as UIElement);
             }
             else e.CanExecute = false;
         }
@@ -1285,6 +1286,7 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
+            if (element is Gallery) element = FindParentRibbonControl(element) as UIElement;
             if (!QuickAccessItemsProvider.IsSupported(element)) return;
             if (!IsInQuickAccessToolBar(element))
             {
@@ -1296,12 +1298,25 @@ namespace Fluent
             }
         }
 
+        private static IRibbonControl FindParentRibbonControl(DependencyObject element)
+        {
+            DependencyObject parent = LogicalTreeHelper.GetParent(element);
+            while (parent != null)
+            {
+                IRibbonControl control = parent as IRibbonControl;
+                if (control != null) return control;
+                parent = LogicalTreeHelper.GetParent(parent);
+            }
+            return null;
+        }
+
         /// <summary>
         /// Removes the given elements from quick access toolbar
         /// </summary>
         /// <param name="element">Element</param>
         public void RemoveFromQuickAccessToolBar(UIElement element)
         {
+            Debug.WriteLine(element);
             if (IsInQuickAccessToolBar(element))
             {
                 UIElement quickAccessItem = quickAccessElements[element];

@@ -31,7 +31,7 @@ namespace Fluent
     /// Usually a gallery is hosted in context menu
     /// </summary>
     [ContentProperty("Items")]
-    public class Gallery : ListBox, IQuickAccessItemProvider
+    public class Gallery : ListBox//, IQuickAccessItemProvider
     {
         #region Fields
 
@@ -322,6 +322,7 @@ namespace Fluent
             item.IsChecked = false;
             senderItem.IsChecked = true;
             SelectedFilter = senderItem.Tag as GalleryGroupFilter;
+            groupsMenuButton.IsDropDownOpen = false;
             e.Handled = true;
         }
 
@@ -372,6 +373,7 @@ namespace Fluent
             Type type = typeof (Gallery);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(Gallery)));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
+            ContextMenuService.Attach(type);
         }
 
         // Coerce selected item
@@ -386,6 +388,7 @@ namespace Fluent
         /// </summary>
         public Gallery()
         {
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
@@ -439,7 +442,7 @@ namespace Fluent
 
         #endregion
 
-        #region QuickAccess
+        /*#region QuickAccess
 
         /// <summary>
         /// Gets control which represents shortcut item.
@@ -448,7 +451,14 @@ namespace Fluent
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
-        {
+        {            
+            DependencyObject parent = LogicalTreeHelper.GetParent(this);
+            while (parent != null)
+            {
+                IRibbonControl control = parent as IRibbonControl;
+                if (control != null) return control as FrameworkElement;
+                parent = LogicalTreeHelper.GetParent(parent);
+            }
             return null;
         }
 
@@ -466,7 +476,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(Gallery));
 
-        #endregion
+        #endregion*/
 
         //    #region Fields
 

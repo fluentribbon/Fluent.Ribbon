@@ -329,7 +329,7 @@ namespace Fluent
         /// </summary>
         public SplitButton()
         {
-
+            ContextMenuService.Coerce(this);
         }
 
         #endregion
@@ -382,6 +382,7 @@ namespace Fluent
             SplitButton button = new SplitButton();
             button.Click += ((sender, e) => RaiseEvent(e));
             button.Size = RibbonControlSize.Small;
+            button.CanAddButtonToQuickAccessToolBar = false;
             BindQuickAccessItem(button);
             button.DropDownOpened += OnQuickAccessOpened;
             return button;
@@ -397,8 +398,24 @@ namespace Fluent
             RibbonControl.Bind(this, element, "DropDownToolTip", DropDownToolTipProperty, BindingMode.TwoWay);
             RibbonControl.Bind(this, element, "IsCheckable", IsCheckableProperty, BindingMode.Default);
             RibbonControl.Bind(this, element, "IsButtonEnabled", IsButtonEnabledProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, "ContextMenu", ContextMenuProperty, BindingMode.Default);
             base.BindQuickAccessItem(element);
         }
+
+        /// <summary>
+        /// Gets or sets whether button can be added to quick access toolbar
+        /// </summary>
+        public bool CanAddButtonToQuickAccessToolBar
+        {
+            get { return (bool)GetValue(CanAddButtonToQuickAccessToolBarProperty); }
+            set { SetValue(CanAddButtonToQuickAccessToolBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register("CanAddButtonToQuickAccessToolBar", typeof(bool), typeof(SplitButton), new PropertyMetadata(true));
+
 
         #endregion
     }

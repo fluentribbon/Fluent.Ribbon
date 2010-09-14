@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:Fluent="clr-namespace:Fluent">
-
+  <Fluent:StringToImageConverter x:Key="StringToImageConvert"/>
     <Style TargetType="{x:Type Fluent:TextBox}">
         <Setter Property="Template">
             <Setter.Value>
@@ -13,7 +13,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Orientation="Horizontal" Grid.ColumnSpan="1" x:Name="stackPanel" HorizontalAlignment="Left" Margin="0,0,4,0">
-                                <Image x:Name="iconImage" Width="16" Height="16" VerticalAlignment="Center" Margin="3,0,0,0" Source="{TemplateBinding Icon}"/>
+                                <ContentPresenter x:Name="iconImage" Width="16" Height="16" VerticalAlignment="Center" Margin="3,0,0,0" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"/>
                                 <TextBlock Text="{TemplateBinding Header}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,0,0" x:Name="textBlock"/>
                             </StackPanel>
 

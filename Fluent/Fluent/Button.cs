@@ -16,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
@@ -52,7 +53,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof (Button));
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(Button));
         
         /// <summary>
         /// Gets or sets SizeDefinition for element
@@ -91,14 +92,14 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof (Button));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof (Button), new FrameworkPropertyMetadata(null,null));
 
         #endregion
 
@@ -107,9 +108,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)GetValue(LargeIconProperty); }
+            get { return GetValue(LargeIconProperty); }
             set { SetValue(LargeIconProperty, value); }
         }
 
@@ -118,8 +119,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
-            typeof(Button), new UIPropertyMetadata(null));
+            DependencyProperty.Register("LargeIcon", typeof(object),
+            typeof(Button), new FrameworkPropertyMetadata(null,null));
 
         #endregion
 

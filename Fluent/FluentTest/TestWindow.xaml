@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite 2.0 TP" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+    Title="Fluent Ribbon Control Suite 2.0" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
   <Grid>
@@ -15,11 +15,7 @@
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
     <Fluent:Ribbon AutomaticStateManagement="True" BackstageBrush="Red" x:Name="ribbon">
 
- 
-
-
-
-            <Fluent:Ribbon.ContextualGroups>
+      <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Collapsed"/>
       </Fluent:Ribbon.ContextualGroups>
@@ -115,7 +111,7 @@
       </Fluent:Ribbon.QuickAccessItems>
 -->
       <!--<FluentTest:TestRibbonTab/>-->
-      <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip"
+     <!-- <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip"
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
         <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clippboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:Button Fluent:KeyTip.Keys="L" Click="OnLauncherButtonClick">Test</Fluent:Button>
@@ -148,7 +144,7 @@
           <Fluent:Spinner Fluent:KeyTip.Keys="R" Header="Test" InputWidth="150">
             <System:Double>8</System:Double>
           </Fluent:Spinner>
-          <Fluent:ComboBox Header="Test" InputWidth="50" x:Name="comboBoxFontName" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small">
+          <Fluent:ComboBox Header="Test" SelectedIndex="1" InputWidth="50" x:Name="comboBoxFontName" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small">
             <Fluent:ComboBox.Menu>
               <Fluent:RibbonMenu>
                 <Fluent:MenuItem Header="1">
@@ -355,9 +351,9 @@
           </Fluent:SplitButton>
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
+-->
 
-
-      <!-- <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
+      <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
                 <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Header="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
@@ -368,7 +364,7 @@
                   Width="190"
                   />
             </Fluent:SplitButton.ToolTip>
-            <Fluent:Gallery VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
+            <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
               <Fluent:Gallery.ItemContainerStyle>
                 <Style TargetType="{x:Type Fluent:GalleryItem}"  BasedOn="{StaticResource GalleryItemStyle}">
                   <Setter Property="Fluent:GalleryItem.Command" Value="Paste"/>
@@ -405,9 +401,9 @@
         
     <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>
-        -->
+        
       <!--ToolBar Layout Definitions-->
-      <!--
+      
         <Fluent:RibbonToolBar.LayoutDefinitions>
           <Fluent:RibbonToolBarLayoutDefinition Size="Large">
             <Fluent:RibbonToolBarRow>
@@ -473,10 +469,10 @@
               </Fluent:RibbonToolBarRow>              
             </Fluent:RibbonToolBarLayoutDefinition>
         </Fluent:RibbonToolBar.LayoutDefinitions>
--->
+
       <!--ToolBar Controls-->
-      <!--
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" SelectedItem="{Binding ElementName=segoeFont}" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small">
+      
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
@@ -523,13 +519,13 @@
 
       
    <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
-     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" SelectedItem="{Binding ElementName=ghh, Mode=OneWay}"  Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True">
+     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" ItemsInRow="7" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True">
         <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1 L" Groups="Group1"/>
           <Fluent:GalleryGroupFilter Title="Group2 L" Groups="Group2"/>
         </Fluent:InRibbonGallery.Filters>
-        <Fluent:InRibbonGallery.GroupIcons>
+        <!--<Fluent:InRibbonGallery.GroupIcons>
           <Fluent:GalleryGroupIcon GroupName="Group1" Icon="Images/Default.png" />
         </Fluent:InRibbonGallery.GroupIcons>
         <Fluent:InRibbonGallery.MenuItems>
@@ -539,15 +535,15 @@
             <Fluent:MenuItem Header="Lalaw" Fluent:KeyTip.Keys="B"/>
             <Fluent:MenuItem Header="Lalae" Fluent:KeyTip.Keys="C"/>
           </Fluent:MenuItem>
-        </Fluent:InRibbonGallery.MenuItems>
+        </Fluent:InRibbonGallery.MenuItems>-->
         <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
-        <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
+        <!--<Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
         <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock></Border>
         <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >4</TextBlock></Border>
         <Border Tag="Group1" x:Name="ghh" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >33</TextBlock></Border>
         <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >5</TextBlock></Border>
         <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >6</TextBlock></Border>
-        <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock></Border>
+        <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock></Border>-->
         
               </Fluent:InRibbonGallery>
              
@@ -591,9 +587,9 @@
               <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>
               <Fluent:GalleryGroupFilter Title="Group2" Groups="Group2"/>
             </Fluent:InRibbonGallery.Filters>
-            <Fluent:InRibbonGallery.GroupIcons>
+            <!--<Fluent:InRibbonGallery.GroupIcons>
               <Fluent:GalleryGroupIcon GroupName="Group1" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
-            </Fluent:InRibbonGallery.GroupIcons>
+            </Fluent:InRibbonGallery.GroupIcons>-->
             <TextBlock Tag="Group1">1</TextBlock>
             <TextBlock Tag="Group1">2</TextBlock>
             <TextBlock Tag="Group1">3</TextBlock>
@@ -662,7 +658,7 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="View">
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
-                    <Fluent:TextBox x:Name="textBox" InputWidth="70" MaxLength="5" Icon="Images\GrowFont.png" Header="Text" Content="CurrentText"/>
+                    <Fluent:TextBox x:Name="textBox" InputWidth="70" MaxLength="5" Icon="Images\GrowFont.png" Header="Text" Text="CurrentText"/>
                 </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Header="Format" Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
@@ -676,7 +672,7 @@
         <Fluent:RibbonGroupBox Header="LongLongGroup" IsLauncherVisible="False">
           
         </Fluent:RibbonGroupBox>
-      </Fluent:RibbonTabItem>    -->
+      </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
     <Button x:Name="testBtn" Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
