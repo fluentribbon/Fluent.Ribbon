@@ -19,7 +19,13 @@
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Collapsed"/>
       </Fluent:Ribbon.ContextualGroups>
-      <!--
+
+      <Fluent:Ribbon.Menu>
+          <Fluent:ApplicationMenu>
+                
+          </Fluent:ApplicationMenu>
+      </Fluent:Ribbon.Menu>
+            <!--
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
@@ -472,7 +478,7 @@
 
       <!--ToolBar Controls-->
       
-        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small">
+        <Fluent:ComboBox x:Name="comboBoxFontName" MinWidth="40" Height="22" BorderBrush="Gainsboro" Foreground="#FF222222" GroupBy="Tag" DisplayMemberPath="Text" IsTextSearchEnabled="True" ResizeMode="Vertical" Fluent:KeyTip.Keys="FF"  SizeDefinition="Small" SelectedIndex="0">
           <TextBlock Text="Arial" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Theme Fonts"/>
           <TextBlock Text="Tahoma" Tag="Recent Used Fonts"/>
