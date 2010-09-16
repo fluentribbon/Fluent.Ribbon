@@ -4,7 +4,8 @@
 
 
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate" TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Border x:Name="border2" MinWidth="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
+        <Grid>
+            <Border x:Name="PART_ButtonBorder" MinWidth="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
             <Border x:Name="border1" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -49,7 +50,90 @@
                 </Border>
             </Border>
         </Border>
-        <ControlTemplate.Triggers>
+            <Popup 
+            x:Name="PART_Popup"
+            Placement="Bottom"
+            IsOpen="{TemplateBinding IsDropDownOpen}"
+            AllowsTransparency="True" 
+            Focusable="False"
+            PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                <Grid 
+              Name="DropDown"
+              SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="4" Height="4" Grid.Row="1" Grid.Column="1" StrokeThickness="0" Margin="-1,-1,0,0">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush RadiusX="0.984" Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusY="1">
+                                <GradientStop Color="#3F000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,3,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="1" Grid.Row="0">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
+                                <GradientStop Color="#3F000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="3,-1,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="0" Grid.Row="1">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
+                                <GradientStop Color="#3F000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0" HorizontalAlignment="Stretch" Margin="7,-1,1,0" VerticalAlignment="Top" Width="Auto" Height="4" Grid.Column="0" Grid.Row="1">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#3F000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,7,0,1" VerticalAlignment="Stretch" Width="4" Height="Auto" Grid.Column="1" Grid.Row="0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#3F000000" Offset="0"/>
+                                <GradientStop Color="#00000000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <Border VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
+                            <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
+                                <ScrollViewer Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                    <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                                </ScrollViewer>
+                                <Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
+                                    <Grid>
+                                        <Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
+                                        <Thumb x:Name="PART_ResizeBothThumb" HorizontalAlignment="Right" Margin="0,0,0,-90" Width="10" Height="10" VerticalAlignment="Top" Cursor="SizeNWSE" Template="{DynamicResource ResizeBothThumbControlTemplate}"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Popup>
+        </Grid>
+
+            <ControlTemplate.Triggers>
             <Trigger Property="Header" Value="{x:Null}">
                 <Setter Property="Content" TargetName="contentPresenter">
                     <Setter.Value>
@@ -103,7 +187,7 @@
                     </Setter.Value>
                 </Setter>
             </MultiTrigger>
-            <Trigger Property="IsOpen" Value="True">
+            <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
                 <Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed"/>
                 <Setter Property="BorderBrush" TargetName="border1">
@@ -134,8 +218,8 @@
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" SourceName="border2"/>
-                    <Condition Property="IsOpen" Value="True"/>
+                    <Condition Property="IsMouseOver" Value="True" SourceName="PART_ButtonBorder"/>
+                    <Condition Property="IsDropDownOpen" Value="True"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
                 <Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed"/>
