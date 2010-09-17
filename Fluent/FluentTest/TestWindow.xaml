@@ -698,7 +698,7 @@
         </Fluent:RibbonGroupBox>
 
         <Fluent:RibbonGroupBox >
-          <Fluent:ToggleButton Header="Button1" GroupName="Group1"/>
+          <Fluent:ToggleButton Header="Pause"  Icon="Images\GrowFont.png" SizeDefinition="Middle" GroupName="Group1"/>
           <Fluent:ToggleButton Header="Button1" GroupName="Group1"/>
           <Separator/>
           <Fluent:ToggleButton Header="Button1" GroupName="Group1"/>
