@@ -317,7 +317,9 @@ namespace Fluent
         // We have to collapse WindowsFormsHost while Backstage is open
         void CollapseWindowsFormsHosts(DependencyObject parent)
         {
+            if (parent == null) return;
             FrameworkElement frameworkElement = parent as FrameworkElement;
+
             if (frameworkElement != null)
             {
                 if ((parent is WindowsFormsHost || parent is WebBrowser) &&
@@ -327,7 +329,7 @@ namespace Fluent
                     frameworkElement.Visibility = Visibility.Collapsed;
                     return;
                 }
-            }
+            
             // Traverse visual tree
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
