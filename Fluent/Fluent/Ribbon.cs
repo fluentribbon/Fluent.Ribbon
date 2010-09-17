@@ -459,9 +459,9 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (titleBar != null) titleBar.Items.Add(item);
+                        if (titleBar != null) titleBar.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
@@ -512,9 +512,9 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (tabControl != null) tabControl.Items.Add(item);
+                        if (tabControl != null) tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
@@ -555,7 +555,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// handles colection of toolbar i8tenms changes
+        /// Handles collection of toolbar items changes
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
@@ -564,9 +564,9 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Add(item as UIElement);
+                        if (tabControl != null) tabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
@@ -631,7 +631,7 @@ namespace Fluent
             }
         }
         /// <summary>
-        /// Handles collectionof quick access menu items changes
+        /// Handles collection of quick access menu items changes
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
@@ -640,10 +640,10 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)e.NewItems[i];
+                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         menuItem.Ribbon = this;
                     }
                     break;

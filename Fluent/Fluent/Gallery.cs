@@ -168,17 +168,17 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = (GalleryGroupFilter)e.NewItems[i];
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
                             if (filter == SelectedFilter) menuItem.IsChecked = true;
                             menuItem.Click += OnFilterMenuItemClick;
-                            groupsMenuButton.Items.Add(menuItem);
+                            groupsMenuButton.Items.Insert(e.NewStartingIndex + i, menuItem);
                         }
                     }
                     break;

@@ -155,10 +155,10 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (menuPanel != null) menuPanel.Children.Add((QuickAccessMenuItem)item);
-                        else AddLogicalChild(item);     
+                        if (menuPanel != null) menuPanel.Children.Insert(e.NewStartingIndex + i, (QuickAccessMenuItem)e.NewItems[i]);
+                        else AddLogicalChild(e.NewItems[i]);
                     }
                     break;
 

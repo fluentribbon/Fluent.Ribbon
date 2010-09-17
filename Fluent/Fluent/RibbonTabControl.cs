@@ -195,9 +195,9 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object obj2 in e.NewItems)
+                    for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (ToolbarPanel != null) ToolbarPanel.Children.Add(obj2 as UIElement);
+                        if (ToolbarPanel != null) ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
