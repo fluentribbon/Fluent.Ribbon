@@ -674,21 +674,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets collection of backstage items
-        /// </summary>
-        public ObservableCollection<UIElement> BackstageItems
-        {
-            get
-            {
-                if (backstageItems == null)
-                {
-                    backstageItems = new ObservableCollection<UIElement>();
-                    //backstageItems.CollectionChanged += OnBackstageItemsCollectionChanged;
-                }
-                return backstageItems;
-            }
-        }
+       
 
        /* /// <summary>
         /// Handles collection of backstage items changes
@@ -726,58 +712,7 @@ namespace Fluent
             }
         }*/
 
-        /// <summary>
-        /// Gets or sets whether backstage is opened
-        /// </summary>
-        public bool IsBackstageOpen
-        {
-            get { return (bool)GetValue(IsBackstageOpenProperty); }
-            set { SetValue(IsBackstageOpenProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsBackstageOpen. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsBackstageOpenProperty =
-            DependencyProperty.Register("IsBackstageOpen", typeof(bool),
-            typeof(Ribbon), new UIPropertyMetadata(false, OnIsBackstageOpenChanged));
-
-        /// <summary>
-        /// Handles IsBackstageOpen property changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnIsBackstageOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Ribbon ribbon = (Ribbon)d;
-            if ((bool)e.NewValue)
-            {
-                ribbon.ShowBackstage();
-            }
-            else
-            {
-                ribbon.HideBackstage();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets backstage brush
-        /// </summary>
-        public Brush BackstageBrush
-        {
-            get { return (Brush)GetValue(BackstageBrushProperty); }
-            set { SetValue(BackstageBrushProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageBrush. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty BackstageBrushProperty =
-            DependencyProperty.Register("BackstageBrush", typeof(Brush),
-            typeof(Ribbon), new UIPropertyMetadata(Brushes.Blue));
-
+       
         /// <summary>
         /// Gets or set whether Customize Quick Access Toolbar menu item is shown
         /// </summary>
@@ -1158,9 +1093,9 @@ namespace Fluent
                 tabControl.SelectedItem = selectedTab;
                 if (tabControl.SelectedItem == null)
                 {
-                    bool isBacstageOpen = IsBackstageOpen;
-                    tabControl.SelectedIndex = selectedTabIndex >= 0 ? selectedTabIndex : 0;
-                    IsBackstageOpen = isBacstageOpen;
+                    //bool isBacstageOpen = IsBackstageOpen;
+                    //tabControl.SelectedIndex = selectedTabIndex >= 0 ? selectedTabIndex : 0;
+                    //IsBackstageOpen = isBacstageOpen;
                 }
             }
 
@@ -1345,11 +1280,11 @@ namespace Fluent
         {
             if (e.AddedItems.Count > 0)
             {
-                if (IsBackstageOpen)
-                {
-                    savedTabItem = e.AddedItems[0] as RibbonTabItem;
-                    if (savedTabItem != null) IsBackstageOpen = false;
-                }
+                //if (IsBackstageOpen)
+                //{
+                //    savedTabItem = e.AddedItems[0] as RibbonTabItem;
+                //    if (savedTabItem != null) IsBackstageOpen = false;
+                //}
             }
             if (tabControl != null)
             {
@@ -1370,8 +1305,8 @@ namespace Fluent
             }
             InitialLoadState();
 
-            if (IsBackstageOpen) ShowBackstage();
-            else if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
+            /*if (IsBackstageOpen) ShowBackstage();
+            else*/ if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnKeyDown(object sender, KeyEventArgs e)
@@ -1402,7 +1337,7 @@ namespace Fluent
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) IsBackstageOpen = false;
+           // if (e.Key == Key.Escape) IsBackstageOpen = false;
         }
 
         #endregion

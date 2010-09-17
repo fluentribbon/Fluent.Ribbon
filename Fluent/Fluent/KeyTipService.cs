@@ -212,8 +212,15 @@ namespace Fluent
             
             activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
             activeAdornerChain.Terminated += OnAdornerChainTerminated;
-
-            if (ribbon.IsBackstageOpen) activeAdornerChain.Forward(Ribbon.Localization.BackstageButtonKeyTip, false);
+            
+            // Special behavior for backstage
+            Backstage backstage = ribbon.Menu as Backstage;
+            if (backstage != null && backstage.IsOpen)
+            {
+                string keys = KeyTip.GetKeys(backstage);
+                if (!String.IsNullOrEmpty(keys)) activeAdornerChain.Forward(KeyTip.GetKeys(backstage), false);
+                else activeAdornerChain.Attach();
+            }
             else activeAdornerChain.Attach();
         }
 
