@@ -330,6 +330,7 @@ namespace Fluent
                     return;
                 }
             }
+
             // Traverse visual tree
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {

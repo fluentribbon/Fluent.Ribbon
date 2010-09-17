@@ -171,7 +171,7 @@ namespace Fluent
                 {
                     int centerIndex = Text.Length / 2;
                     // Find spaces nearest to center from left and right
-                    int leftSpaceIndex = text.LastIndexOf(' ', centerIndex, centerIndex);
+                    int leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex); 
                     int rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
                     if ((leftSpaceIndex == -1) && (rightSpaceIndex == -1))
                     {

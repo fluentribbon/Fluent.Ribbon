@@ -261,7 +261,7 @@ namespace Fluent
         /// <summary>
         /// Occurs when selected tab has been changed (be aware that SelectedTab can be null)
         /// </summary>
-        public event EventHandler SelectedTabChanged;
+        public event SelectionChangedEventHandler SelectedTabChanged;
 
         /// <summary>
         /// Occurs when customize the ribbon
@@ -1278,6 +1278,13 @@ namespace Fluent
         // Handles tab control selection changed
         void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (tabControl != null)
+            {
+                selectedTabItem = tabControl.SelectedItem as RibbonTabItem;
+                selectedTabIndex = tabControl.SelectedIndex;
+            }
+
+            if (SelectedTabChanged != null) SelectedTabChanged(this, e);
             if (e.AddedItems.Count > 0)
             {
                 //if (IsBackstageOpen)
@@ -1286,12 +1293,6 @@ namespace Fluent
                 //    if (savedTabItem != null) IsBackstageOpen = false;
                 //}
             }
-            if (tabControl != null)
-            {
-                selectedTabItem = tabControl.SelectedItem as RibbonTabItem;
-                selectedTabIndex = tabControl.SelectedIndex;
-            }
-            if (SelectedTabChanged != null) SelectedTabChanged(this, EventArgs.Empty);
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)
