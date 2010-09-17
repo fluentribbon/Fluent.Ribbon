@@ -56,12 +56,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), 
+            DependencyProperty.Register("IsOpen", typeof(bool),
             typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
 
         static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Backstage backstage = (Backstage) d;
+            Backstage backstage = (Backstage)d;
             if ((bool)e.NewValue) backstage.Show();
             else backstage.Hide();
         }
@@ -84,12 +84,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(UIElement), typeof(Backstage), 
+            DependencyProperty.Register("Content", typeof(UIElement), typeof(Backstage),
             new UIPropertyMetadata(null, OnContentChanged));
 
         static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Backstage backstage = (Backstage) d;
+            Backstage backstage = (Backstage)d;
             if (e.OldValue != null) backstage.RemoveLogicalChild(e.OldValue);
             if (e.NewValue != null) backstage.AddLogicalChild(e.NewValue);
         }
@@ -112,7 +112,7 @@ namespace Fluent
         }
 
         #endregion
-        
+
         #endregion
 
         #region Initialization
@@ -149,7 +149,7 @@ namespace Fluent
             CoerceValue(HeaderProperty);
             CoerceValue(KeyTip.KeysProperty);
         }
-        
+
         #endregion
 
         #region Methods
@@ -176,7 +176,7 @@ namespace Fluent
 
         // Opens backstage on an Adorner layer
         void Show()
-        {   
+        {
             if (!IsLoaded)
             {
                 Loaded += OnDelayedShow;
@@ -212,7 +212,7 @@ namespace Fluent
             {
                 savedTabItem = ribbon.SelectedTabItem;
                 if (savedTabItem == null && ribbon.Tabs.Count > 0)
-                    savedTabItem = (RibbonTabItem) ribbon.Tabs[0];
+                    savedTabItem = (RibbonTabItem)ribbon.Tabs[0];
                 ribbon.SelectedTabItem = null;
                 ribbon.SelectedTabChanged += OnSelectedRibbonTabChanged;
 
@@ -244,7 +244,7 @@ namespace Fluent
             Loaded -= OnDelayedShow;
             Show();
         }
-        
+
         // Hide backstage
         void Hide()
         {
@@ -263,7 +263,7 @@ namespace Fluent
                 if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = true;
                 if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = true;
             }
-            
+
             Window window = Window.GetWindow(this);
             if (window != null)
             {
@@ -288,7 +288,7 @@ namespace Fluent
         Ribbon FindRibbon()
         {
             DependencyObject item = this;
-            while(item != null && !(item is Ribbon))
+            while (item != null && !(item is Ribbon))
                 item = VisualTreeHelper.GetParent(item);
             return (Ribbon)item;
         }
@@ -329,12 +329,13 @@ namespace Fluent
                     frameworkElement.Visibility = Visibility.Collapsed;
                     return;
                 }
-            
+            }
             // Traverse visual tree
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
             }
+
         }
 
         // Handles backstage Esc key keydown
