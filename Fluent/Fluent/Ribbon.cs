@@ -1523,8 +1523,8 @@ namespace Fluent
             // Check whether automatic save is valid now
             if (!AutomaticStateManagement || !IsStateLoaded) return;
 
-            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
-            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Fluent.Ribbon.State.dat", FileMode.Create, FileAccess.Write, storage))
+            IsolatedStorageFile storage = GetIsolatedStorageFile();
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Fluent.Ribbon.State.2.0.dat", FileMode.Create, FileAccess.Write, storage))
             {
                 SaveState(stream);
             }
@@ -1535,11 +1535,11 @@ namespace Fluent
         {
             if (!AutomaticStateManagement) return;
 
-            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
-            if (FileExists(storage, "Fluent.Ribbon.State.dat"))
+            IsolatedStorageFile storage = GetIsolatedStorageFile();
+            if (FileExists(storage, "Fluent.Ribbon.State.2.0.dat"))
             {
                 using (IsolatedStorageFileStream stream =
-                    new IsolatedStorageFileStream("Fluent.Ribbon.State.dat",
+                    new IsolatedStorageFileStream("Fluent.Ribbon.State.2.0.dat",
                                                   FileMode.Open, FileAccess.Read, storage))
                 {
                     LoadState(stream);
@@ -1550,13 +1550,21 @@ namespace Fluent
             IsStateLoaded = true;
         }
 
+        // Gets a proper isolated storage file
+        static IsolatedStorageFile GetIsolatedStorageFile()
+        {
+            return AppDomain.CurrentDomain.ActivationContext != null ? 
+                IsolatedStorageFile.GetUserStoreForDomain() : 
+                IsolatedStorageFile.GetUserStoreForAssembly();
+        }
+
         /// <summary>
         /// Resets automatically saved state
         /// </summary>
         public static void ResetState()
         {
-            IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForDomain();
-            string fileName = "Fluent.Ribbon.State.dat";
+            IsolatedStorageFile storage = GetIsolatedStorageFile();
+            string fileName = "Fluent.Ribbon.State.2.0.dat";
             if (FileExists(storage, fileName)) storage.DeleteFile(fileName);
         }
 
