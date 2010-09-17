@@ -425,4 +425,88 @@
       </Setter.Value>
     </Setter>
   </Style>
+    
+    <!--Inner Backstage TabControl Style-->
+    <Style TargetType="{x:Type Fluent:SeparatorTabItem}" x:Key="InnerBackstageSeparatorTabItemStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
+                    <Grid Margin="0,0,10,0">
+                        <TextBlock Margin="0,5" TextWrapping="Wrap" Text="{TemplateBinding Header}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="#FF5E5E5E"/>
+                        <Path Data="M0,0L1,0" Fill="{x:Null}" Height="1" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Bottom" StrokeDashArray="2 2"/>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="InnerBackstageTabCotrolItem" TargetType="{x:Type TabItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid Background="#00000000" Margin="0,3">
+                        <Border x:Name="border" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" Margin="0" CornerRadius="3" Background="{DynamicResource TransparentBrush}">
+                            <Border x:Name="border1" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+                                <ContentPresenter Margin="5,5,50,5" ContentSource="Header"/>
+                            </Border>
+                        </Border>
+                        <Path x:Name="path" Data="M1,0L0,1 1,2" Fill="#FFF4F4F5" HorizontalAlignment="Right" Height="11" Margin="0,0,-1,0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="6" Visibility="Collapsed"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Selector.IsSelected" Value="True">
+                            <Setter Property="Visibility" TargetName="path" Value="Visible"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+                            <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="Selector.IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+                            <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="InnerBackstageTabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <ControlTemplate.Resources>
+                        <Style TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}"/>
+                        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource InnerBackstageTabCotrolItem}"/>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border BorderThickness="0,0,1,0" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Offset="1" Color="#00D2D3D4"/>
+                                    <GradientStop Color="#7FD2D3D4"/>
+                                    <GradientStop Color="#FFD2D3D4" Offset="0.246"/>
+                                    <GradientStop Color="#FFD2D3D4" Offset="0.797"/>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                        </Border>
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" IsItemsHost="True"/>
+                        <ContentPresenter x:Name="PART_SelectedContentHost" Grid.Column="1" Margin="0" VerticalAlignment="Stretch" ContentSource="SelectedContent"/>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

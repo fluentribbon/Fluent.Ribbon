@@ -51,8 +51,8 @@
                             </ScrollViewer>
                         </Fluent:BackstageTabItem>
                         <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R">
-                            <Fluent:BackstageTabControl Margin="20,5,20,5">
-                                <Fluent:GroupSeparatorMenuItem Text="Test1"/>
+                            <TabControl Margin="20,5,20,5" Style="{DynamicResource InnerBackstageTabControlStyle}">
+                                <Fluent:SeparatorTabItem Header="Test1"/>
                                 <TabItem Header="1">
 
                                 </TabItem>
@@ -62,11 +62,11 @@
                                 <TabItem Header="3">
 
                                 </TabItem>
-                                <Fluent:GroupSeparatorMenuItem Text="Test2"/>
+                                <Fluent:SeparatorTabItem Header="Test2"/>
                                 <TabItem Header="4">
 
                                 </TabItem>
-                            </Fluent:BackstageTabControl>
+                            </TabControl>
                         </Fluent:BackstageTabItem>
                         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N">
                             <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
