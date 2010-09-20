@@ -28,7 +28,6 @@ namespace Fluent
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            BitmapFrame img = value as BitmapFrame;
             if (value == null)
             {
                 if (Application.Current.MainWindow != null)
@@ -36,12 +35,40 @@ namespace Fluent
                     return GetDefaultIcon((new WindowInteropHelper(Application.Current.MainWindow)).Handle) as BitmapFrame;
                 }
             }
-            if(img!=null)
+            
+            BitmapFrame bitmapFrame = value as BitmapFrame;
+            if (bitmapFrame == null || bitmapFrame.Decoder == null) return null;
+
+            foreach (BitmapFrame frame in bitmapFrame.Decoder.Frames)
             {
-                var icons = img.Decoder.Frames.Where(x => ((x.Thumbnail != null) && (x.Thumbnail.PixelWidth == 16) && (x.PixelHeight == 16) && ((x.Format == PixelFormats.Bgra32) || (x.Format == PixelFormats.Bgr24))));
-                if (icons.Count() > 0) return icons.First().Thumbnail;
+                BitmapSource source = GetThumbnail(frame);
+                if (source != null)
+                    return source;
             }
+            
             return value;
+        }
+
+        /// <summary>
+        /// ThumbnailExceptionWorkArround when image cause a format exception by accessing the Thumbnail
+        /// </summary>
+        /// <param name="frame"></param>
+        /// <returns></returns>
+        static BitmapSource GetThumbnail(BitmapFrame frame)
+        {
+            try
+            {
+                if (frame != null &&
+                    frame.PixelWidth == 16 && frame.PixelHeight == 16 &&
+                    ((frame.Format == PixelFormats.Bgra32) || (frame.Format == PixelFormats.Bgr24)))
+                    return frame;
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031")]
