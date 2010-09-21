@@ -359,13 +359,14 @@ namespace Fluent
                 }
                 if (propertyValue == null) propertyValue = "Undefined";
 
-                // Skip if it is not in filter (or is not grouped)
+                // Make invisible if it is not in filter (or is not grouped)
                 if ((!IsGrouped) || (filter != null && !filter.Contains(propertyValue)))
                 {
                     item.Measure(new Size(0,0));
                     item.Arrange(new Rect(0,0,0,0));
-                    continue;
                 }
+                // Skip if it is not in filter
+                if (filter != null && !filter.Contains(propertyValue)) continue;
 
                 // To put all items in one group in case of IsGrouped = False
                 if (!IsGrouped) propertyValue = "Undefined";
@@ -386,7 +387,7 @@ namespace Fluent
                 dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
             }
 
-            if ((!IsGrouped) || (GroupBy == null && GroupByAdvanced == null && galleryGroupContainers.Count != 0))
+            if (((!IsGrouped) || (GroupBy == null && GroupByAdvanced == null)) && galleryGroupContainers.Count != 0)
             {
                 // Make it without headers
                 galleryGroupContainers[0].IsHeadered = false;

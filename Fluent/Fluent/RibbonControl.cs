@@ -245,7 +245,7 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 

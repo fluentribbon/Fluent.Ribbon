@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Fluent
@@ -277,8 +278,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Design", "CA1030")]
         public void RaiseClick()
         {
-            RoutedEventArgs eventArgs = new RoutedEventArgs(ClickEvent, this);
-            RaiseEvent(eventArgs);
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion
@@ -302,6 +302,8 @@ namespace Fluent
             if((bool)e.NewValue)
             {
                 ((GalleryItem)d).BringIntoView();
+                Selector parentSelector = ItemsControl.ItemsControlFromItemContainer(((GalleryItem) d)) as Selector;
+                parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem) d));
             }
         }
 
@@ -310,7 +312,7 @@ namespace Fluent
         /// </summary>
         public GalleryItem()
         {
-            
+            Click += OnClick;
         }
 
         #endregion
@@ -357,24 +359,14 @@ namespace Fluent
         /// Handles click event
         /// </summary>
         /// <param name="e">The event data</param>
-        protected virtual void OnClick(RoutedEventArgs e)
+        protected virtual void OnClick(object sender, RoutedEventArgs e)
         {
             ExecuteCommand();
             IsSelected = true;
+            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
             e.Handled = true;
         }
-
-        /// <summary>
-        /// Handles click event
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        void OnClick(object sender, RoutedEventArgs e)
-        {
-            OnClick(e);
-            RaiseClick();
-        }
-
+        
         #endregion
 
         /// <summary>

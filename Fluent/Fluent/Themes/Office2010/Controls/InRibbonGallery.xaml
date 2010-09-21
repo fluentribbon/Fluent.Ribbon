@@ -214,7 +214,9 @@
                   <Grid>
                     <ContentControl x:Name="contentPresenter">
                       <Fluent:GalleryPanel x:Name="PART_GalleryPanel" Background="White"
-  ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" IsItemsHost="True" ItemHeight="{TemplateBinding ItemHeight}" ItemWidth="{TemplateBinding ItemWidth}" Orientation="{TemplateBinding Orientation}"/>
+  ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" IsItemsHost="True" ItemHeight="{TemplateBinding ItemHeight}" ItemWidth="{TemplateBinding ItemWidth}" Orientation="{TemplateBinding Orientation}"
+                                           Filter="{TemplateBinding SelectedFilterGroups}" GroupBy="{TemplateBinding GroupBy}" IsGrouped="False"
+                                           />
                     </ContentControl>
                     <Image x:Name="PART_FakeImage" Visibility="Collapsed"/>
                   </Grid>
@@ -223,7 +225,7 @@
                 <Popup
                 x:Name="PART_Popup"
                 Placement="Relative"
-                PlacementTarget="{Binding ElementName=PART_ContentBorder}"
+                PlacementTarget="{Binding ElementName=PART_LayoutRoot}"
                 IsOpen="{TemplateBinding IsDropDownOpen}"
                 AllowsTransparency="True"
                 Focusable="False"
@@ -284,7 +286,7 @@
                         </LinearGradientBrush>
                       </Rectangle.Fill>
                     </Rectangle>
-                    <Border x:Name="PART_DropDownBorder" MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <Border x:Name="PART_DropDownBorder" MinWidth="{Binding ActualWidth, ElementName=PART_LayoutRoot}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                       <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" KeyboardNavigation.DirectionalNavigation="Cycle">
                         <Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
                         <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
@@ -294,25 +296,27 @@
                             <RowDefinition Height="Auto"/>
                           </Grid.RowDefinitions>
                           <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
-                          <Fluent:MenuPanel x:Name="PART_MenuPanel" MaxHeight="{TemplateBinding MaxDropDownHeight}" VerticalAlignment="Top">
+                          <Grid x:Name="PART_MenuPanel" MinWidth="{Binding MinWidth, ElementName=PART_DropDownBorder}" MaxHeight="{TemplateBinding MaxDropDownHeight}" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="*"/>
+                              <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
                             <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="layoutRoot">
                               <Grid Width="Auto">
                                 <Grid.RowDefinitions>
                                   <RowDefinition Height="Auto"/>
                                   <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Border x:Name="border_" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                                <Border Grid.Row="0" x:Name="border_" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="{DynamicResource GalleryHeaderBackgroundBrush}">
                                   <Fluent:DropDownButton x:Name="PART_FilterDropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Header="{TemplateBinding SelectedFilterTitle}"/>
                                 </Border>
-                                <ScrollViewer>
+                                <ScrollViewer Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}">
                                   <ContentControl x:Name="popupContentPresenter" Content="{x:Null}"/>
                                 </ScrollViewer>
                               </Grid>
                             </Border>
-                            <Fluent:MenuPanel>
-                              <ContentPresenter x:Name="menuPresenter" ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Top"/>
-                            </Fluent:MenuPanel>
-                          </Fluent:MenuPanel>
+                            <ContentPresenter x:Name="menuPresenter" ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Top"/>
+                          </Grid>
                           <Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="2" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                             <Grid>
                               <Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
@@ -329,7 +333,7 @@
             <Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="PART_DropDownButton"
         Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
         LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
-        Header="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}"
+        Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
         Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
         SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
         Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" ClickMode="Press" CanAddToQuickAccessToolBar="False"
@@ -353,9 +357,9 @@
             </Trigger>
             <Trigger Property="IsDropDownOpen" Value="True">
               <Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
-              <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>
-              <Setter Property="Filter" TargetName="PART_GalleryPanel" Value="{Binding SelectedFilterGroups, RelativeSource={RelativeSource TemplatedParent}}"/>
-              <Setter Property="GroupBy" TargetName="PART_GalleryPanel" Value="{Binding GroupBy, RelativeSource={RelativeSource TemplatedParent}}"/>
+              <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
+              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>
+              <Setter Property="ItemsInRow" TargetName="PART_GalleryPanel" Value="0"/>
             </Trigger>
             <Trigger Property="ResizeMode" Value="None">
               <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>

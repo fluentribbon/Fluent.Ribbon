@@ -14,7 +14,7 @@
     <Setter Property="VerticalAlignment" Value="Top"/>
     <Setter Property="Height" Value="31"/>
     <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay}"/>
-    <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsOpen, Mode=OneWay}"/>
+    <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">

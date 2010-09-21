@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -23,6 +24,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -33,7 +35,7 @@ namespace Fluent
     /// </summary>
     [ContentProperty("Items")]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
-    public class InRibbonGallery : ListBox, IScalableRibbonControl, IDropDownControl
+    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -42,7 +44,7 @@ namespace Fluent
         private ToggleButton expandButton;
         private ToggleButton dropDownButton;
 
-        private MenuPanel menuPanel;
+        private Panel menuPanel;
 
         //
         private int currentItemsInRow;
@@ -727,7 +729,7 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(350.0));
+            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1000.0));
 
         #endregion
 
@@ -787,15 +789,30 @@ namespace Fluent
             IsDropDownOpen = true;            
         }
 
+        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        {
+            foreach (var item in e.RemovedItems)
+            {
+                (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem).IsSelected = false;
+            }
+
+            foreach (var item in e.AddedItems)
+            {
+                (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem).IsSelected = true;
+            }
+            if (IsDropDownOpen) IsDropDownOpen = false;
+            base.OnSelectionChanged(e);
+        }
+
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application 
         /// code or internal processes call ApplyTemplate
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (expandButton != null) expandButton.Click -= OnExpandClick;
+            //if (expandButton != null) expandButton.Click -= OnExpandClick;
             expandButton = GetTemplateChild("PART_ExpandButton") as ToggleButton;
-            if (expandButton != null) expandButton.Click += OnExpandClick;
+            //if (expandButton != null) expandButton.Click += OnExpandClick;
 
             //if (dropDownButton != null) dropDownButton.Click -= OnDropDownClick;
             dropDownButton = GetTemplateChild("PART_DropDownButton") as ToggleButton;
@@ -841,9 +858,22 @@ namespace Fluent
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
 
-            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
+            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
 
+            if (groupsMenuButton != null) groupsMenuButton.Items.Clear();
             groupsMenuButton = GetTemplateChild("PART_FilterDropDownButton") as DropDownButton;
+            if (groupsMenuButton != null)
+            {
+                for (int i = 0; i < Filters.Count; i++)
+                {
+                    MenuItem item = new MenuItem();
+                    item.Header = Filters[i].Title;
+                    item.Tag = Filters[i];
+                    if (Filters[i] == SelectedFilter) item.IsChecked = true;
+                    item.Click += OnFilterMenuItemClick;
+                    groupsMenuButton.Items.Add(item);
+                }
+            }
 
             galleryPanel = GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
             if(galleryPanel!=null) galleryPanel.ItemsInRow = MaxItemsInRow;
@@ -860,6 +890,8 @@ namespace Fluent
             IsSnapped = false;
             if (DropDownClosed != null) DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
+            GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+            if (selectedContainer != null) selectedContainer.BringIntoView();
         }
 
         // Handles drop down closed
@@ -872,19 +904,6 @@ namespace Fluent
             Mouse.Capture(this, CaptureMode.SubTree);
         }
 
-        void OnDropDownClick(object sender, RoutedEventArgs e)
-        {
-            IsSnapped = false;
-            dropDownButton.IsChecked = true;
-            IsDropDownOpen = true;
-            e.Handled = true;
-        }
-
-        void OnExpandClick(object sender, RoutedEventArgs e)
-        {
-            IsDropDownOpen = true;
-            e.Handled = true;
-        }
         
         /// <summary>
         /// Handles size property changing
@@ -942,7 +961,7 @@ namespace Fluent
 
         #endregion
 
-        #region Quick Access Item Creating
+        #region QuickAccess
 
         /// <summary>
         /// Gets control which represents shortcut item.
@@ -950,106 +969,117 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
-            DropDownButton button = new DropDownButton();
-            BindQuickAccessItem(button);
-            /*if (contextMenu == null)
+            InRibbonGallery combo = new InRibbonGallery();
+            RibbonControl.BindQuickAccessItem(this, combo);
+            RibbonControl.Bind(this, combo, "GroupBy", InRibbonGallery.GroupByProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ItemHeight", InRibbonGallery.ItemHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ResizeMode", InRibbonGallery.ResizeModeProperty, BindingMode.OneWay);
+            combo.DropDownOpened += OnQuickAccessOpened;
+            combo.GotFocus += OnQuickAccessTextBoxGetFocus;
+            quickAccessGallery = combo;
+            UpdateQuickAccessCombo();
+            return combo;
+        }
+
+        private void OnQuickAccessTextBoxGetFocus(object sender, RoutedEventArgs e)
+        {
+            isQuickAccessFocused = true;
+            if (!isQuickAccessOpened) Freeze();
+            quickAccessGallery.LostFocus += OnQuickAccessTextBoxLostFocus;
+        }
+
+        private void OnQuickAccessTextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            quickAccessGallery.LostFocus -= OnQuickAccessTextBoxLostFocus;
+            if (!isQuickAccessOpened) Unfreeze();
+            isQuickAccessFocused = false;
+        }
+
+        private bool isQuickAccessFocused;
+        private bool isQuickAccessOpened;
+        private object selectedItem;
+        private InRibbonGallery quickAccessGallery;
+        void OnQuickAccessOpened(object sender, EventArgs e)
+        {
+            isQuickAccessOpened = true;
+            if (!isQuickAccessFocused) Freeze();
+            quickAccessGallery.DropDownClosed += OnQuickAccessMenuClosed;
+        }
+
+        void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            quickAccessGallery.DropDownClosed -= OnQuickAccessMenuClosed;
+            if (!isQuickAccessFocused) Unfreeze();
+            isQuickAccessOpened = false;
+        }
+
+        private void Freeze()
+        {
+            IsSnapped = true;
+            selectedItem = SelectedItem;
+            if (ItemsSource != null)
             {
-                CreateMenu();
-                IsOpen = false;
-            }*/
-            return button;
-        }
-
-        /// <summary>
-        /// This method must be overriden to bind properties to use in quick access creating
-        /// </summary>
-        /// <param name="element">Toolbar item</param>
-        protected void BindQuickAccessItem(FrameworkElement element)
-        {
-            DropDownButton button = element as DropDownButton;
-            //base.BindQuickAccessItem(element);
-            // button.Opened += OnQuickAccessMenuOpened;
-        }
-
-        private void OnQuickAccessMenuOpened(object sender, EventArgs e)
-        {
-            /*if (ItemsInRow == 0) gallery.MinWidth = Math.Max(ActualWidth, MenuMinWidth);
+                quickAccessGallery.ItemsSource = ItemsSource;
+                ItemsSource = null;
+            }
             else
             {
-                gallery.ItemsInRow = ItemsInRow;
-            }
-            gallery.MinHeight = ActualHeight;
-            DropDownButton button = sender as DropDownButton;
-            button.ResizeMode = ResizeMode;
-            if (!IsCollapsed) IsSnapped = true;
-
-            object selectedItem = SelectedItem;
-            if (listBox != null)
-            {
-                selectedItem = listBox.SelectedItem;
-                listBox.ItemsSource = null;
-            }
-            if (ItemsSource == null) gallery.ItemsSource = Items;
-            else gallery.ItemsSource = ItemsSource;
-            gallery.SelectedItem = selectedItem;
-            SelectedItem = selectedItem;
-            SelectedIndex = gallery.SelectedIndex;
-
-            /* if (contextMenu != null)
-             {
-                 for (int i = 0; i < contextMenu.Items.Count; i++)
-                 {
-                     UIElement item = contextMenu.Items[0];
-                     contextMenu.Items.Remove(item);
-                     button.Items.Add(item);
-                     i--;
-                 }
-             }
-             else
-             {                
-                 RemoveLogicalChild(gallery);
-                 RemoveLogicalChild(menuBar);
-                 button.Items.Add(gallery);
-                 button.Items.Add(menuBar);
-             }*/
-            /*button.Closed += OnQuickAccessMenuClosed;
-            quickAccessButton = button;*/
-        }
-
-        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
-        {
-            /*quickAccessButton.Closed -= OnQuickAccessMenuClosed;
-            if (contextMenu != null)
-            {
-                for (int i = 0; i < quickAccessButton.Items.Count; i++)
+                for (int i = 0; i < Items.Count; i++)
                 {
-                    UIElement item = quickAccessButton.Items[0];
-                    quickAccessButton.Items.Remove(item);
-                    contextMenu.Items.Add(item);
+                    object item = Items[0];
+                    Items.Remove(item);
+                    quickAccessGallery.Items.Add(item);
                     i--;
                 }
             }
+            SelectedItem = null;
+            quickAccessGallery.SelectedItem = selectedItem;
+            quickAccessGallery.Menu = Menu;
+            Menu = null;
+            quickAccessGallery.IsSnapped = false;
+        }
+
+        private void Unfreeze()
+        {
+            selectedItem = quickAccessGallery.SelectedItem;
+            quickAccessGallery.IsSnapped = true;
+            if (quickAccessGallery.ItemsSource != null)
+            {
+                ItemsSource = quickAccessGallery.ItemsSource;
+                quickAccessGallery.ItemsSource = null;
+            }
             else
             {
-                quickAccessButton.Items.Remove(gallery);
-                quickAccessButton.Items.Remove(menuBar);
-                AddLogicalChild(gallery);
-                AddLogicalChild(menuBar);
+                for (int i = 0; i < quickAccessGallery.Items.Count; i++)
+                {
+                    object item = quickAccessGallery.Items[0];
+                    quickAccessGallery.Items.Remove(item);
+                    Items.Add(item);
+                    i--;
+                }
             }
+            quickAccessGallery.SelectedItem = null;
+            SelectedItem = selectedItem;
+            Menu = quickAccessGallery.Menu;
+            quickAccessGallery.Menu = null;
+            IsSnapped = false;            
+            UpdateLayout();
+        }
 
-            object selectedItem = gallery.SelectedItem;
-            gallery.ItemsSource = null;
-            if (listBox != null)
+        private void UpdateQuickAccessCombo()
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
-                if (ItemsSource == null) listBox.ItemsSource = Items;
-                else listBox.ItemsSource = ItemsSource;
-                listBox.SelectedItem = selectedItem;
-                SelectedIndex = listBox.SelectedIndex;
-            }
-            SelectedItem = selectedItem;            
-            if (!IsCollapsed) IsSnapped = false;*/
+                quickAccessGallery.IsSnapped = true;
+                IsSnapped = true;
+                quickAccessGallery.snappedImage.
+                    Source
+                    = snappedImage.Source;
+                IsSnapped = false;
+            }));
+
         }
 
         #endregion
