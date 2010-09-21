@@ -31,6 +31,34 @@ namespace Fluent
 
         #region Properties
 
+        #region IsGrouped
+
+        /// <summary>
+        /// Gets or sets whether gallery panel shows groups 
+        /// (Filter property still works as usual)
+        /// </summary>
+        public bool IsGrouped
+        {
+            get { return (bool)GetValue(IsGroupedProperty); }
+            set { SetValue(IsGroupedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsGrouped. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsGroupedProperty =
+            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel),
+            new UIPropertyMetadata(true, OnIsGroupedChanged));
+
+        static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            GalleryPanel galleryPanel = (GalleryPanel)d;
+            galleryPanel.Invalidate();
+        }
+
+        #endregion
+
         #region GroupBy
 
         /// <summary>
@@ -331,13 +359,16 @@ namespace Fluent
                 }
                 if (propertyValue == null) propertyValue = "Undefined";
 
-                // Skip if it is not in filter
-                if (filter != null && !filter.Contains(propertyValue))
+                // Skip if it is not in filter (or is not grouped)
+                if ((!IsGrouped) || (filter != null && !filter.Contains(propertyValue)))
                 {
                     item.Measure(new Size(0,0));
                     item.Arrange(new Rect(0,0,0,0));
                     continue;
                 }
+
+                // To put all items in one group in case of IsGrouped = False
+                if (!IsGrouped) propertyValue = "Undefined";
                 
                 if (!dictionary.ContainsKey(propertyValue))
                 {
@@ -355,7 +386,7 @@ namespace Fluent
                 dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
             }
 
-            if (GroupBy == null && GroupByAdvanced == null && galleryGroupContainers.Count != 0)
+            if ((!IsGrouped) || (GroupBy == null && GroupByAdvanced == null && galleryGroupContainers.Count != 0))
             {
                 // Make it without headers
                 galleryGroupContainers[0].IsHeadered = false;
