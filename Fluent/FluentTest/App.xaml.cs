@@ -26,7 +26,8 @@ namespace FluentTest
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("nl");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-PT");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-br");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("sv");
@@ -35,6 +36,8 @@ namespace FluentTest
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("it");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ar");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("az");
         }
 
         public App()
