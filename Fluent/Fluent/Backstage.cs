@@ -311,6 +311,8 @@ namespace Fluent
 
         void OnSelectedRibbonTabChanged(object sender, EventArgs e)
         {
+            Ribbon ribbon = FindRibbon();
+            if (ribbon != null) savedTabItem = ribbon.SelectedTabItem;
             IsOpen = false;
         }
 
