@@ -272,6 +272,16 @@ namespace Fluent
         /// Occurs when customize quick access toolbar
         /// </summary>
         public event EventHandler CustomizeQuickAccessToolbar;
+        
+        /// <summary>
+        /// Occurs when IsMinimized property is changing
+        /// </summary>
+        public event DependencyPropertyChangedEventHandler IsMinimizedChanged;
+        
+        /// <summary>
+        /// Occurs when IsCollapsed property is changing
+        /// </summary>
+        public event DependencyPropertyChangedEventHandler IsCollapsedChanged;
 
         #endregion
 
@@ -766,7 +776,7 @@ namespace Fluent
             DependencyProperty.Register("IsMinimized", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
 
-        private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
             ribbon.SaveState();
@@ -776,6 +786,7 @@ namespace Fluent
                     ribbon.LayoutUpdated += ribbon.OnIsOpenLayoutUpdated;
                 //ribbon.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ThreadStart(delegate { ribbon.tabControl.SelectedIndex = 0; }));
             }
+            if (ribbon.IsMinimizedChanged != null) ribbon.IsMinimizedChanged(ribbon, e);
         }
 
         private void OnIsOpenLayoutUpdated(object sender, EventArgs e)
@@ -794,8 +805,15 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsCollapsedPropertyKey =
-       DependencyProperty.RegisterReadOnly("IsCollapsed", typeof(bool),
-       typeof(Ribbon), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly("IsCollapsed", typeof(bool),
+            typeof(Ribbon), new UIPropertyMetadata(false, OnIsCollapsedChanged));
+
+
+        static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon) d;
+            if (ribbon.IsCollapsedChanged != null) ribbon.IsCollapsedChanged(ribbon, e);
+        }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
