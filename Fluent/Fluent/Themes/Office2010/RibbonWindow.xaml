@@ -8,7 +8,6 @@
 	<BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
-	<BitmapImage x:Key="ImageResizeGrip" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/ResizeGrip.png" PresentationOptions:Freeze="True"/>
   <ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     <Grid>
       <AdornerDecorator x:Name="adornerDecorator" Margin="0">
@@ -23,7 +22,7 @@
             <Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
           </StackPanel>
           <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
-          <Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+          <!--<Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
               <TransformGroup>
                 <ScaleTransform/>
@@ -32,13 +31,16 @@
                 <TranslateTransform/>
               </TransformGroup>
             </Image.RenderTransform>
-          </Image>
+          </Image>-->
+          <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
+                VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
+                Cursor="SizeNWSE" Visibility="Collapsed"/>
         </Grid>
       </AdornerDecorator>
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="FlowDirection" Value="RightToLeft">
-        <Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+        <Setter Property="RenderTransform" TargetName="PART_ResizeGrip">
           <Setter.Value>
             <TransformGroup>
               <ScaleTransform ScaleX="-1"/>
@@ -54,7 +56,7 @@
           <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
           <Condition Property="WindowState" Value="Normal"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
+        <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
         <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>
@@ -103,7 +105,7 @@
               </Border>
             </Border>
             <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
-            <Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+            <!--<Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
               <Image.RenderTransform>
                 <TransformGroup>
                   <ScaleTransform/>
@@ -112,7 +114,10 @@
                   <TranslateTransform/>
                 </TransformGroup>
               </Image.RenderTransform>
-            </Image>
+            </Image>-->
+            <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
+        VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
+        Cursor="SizeNWSE" Visibility="Collapsed"/>
           </Grid>
         </Grid>
       </AdornerDecorator>
@@ -120,7 +125,7 @@
     <ControlTemplate.Triggers>
 
       <Trigger Property="FlowDirection" Value="RightToLeft">
-        <Setter Property="RenderTransform" TargetName="PART_ImageResizeGrip">
+        <Setter Property="RenderTransform" TargetName="PART_ResizeGrip">
           <Setter.Value>
             <TransformGroup>
               <ScaleTransform ScaleX="-1"/>
@@ -141,7 +146,7 @@
           <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
           <Condition Property="WindowState" Value="Normal"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Visibility" TargetName="PART_ImageResizeGrip" Value="Visible"/>
+        <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
         <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>

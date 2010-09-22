@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -15,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -152,6 +154,8 @@ namespace Fluent
         private WindowState lastMenuState;
 
         private Grid mainGrid;
+
+        private bool IsGripperResizing;
 
         #endregion
 
@@ -469,6 +473,22 @@ namespace Fluent
         {
             base.OnApplyTemplate();
             mainGrid = GetTemplateChild("PART_MainGrid") as Grid;
+            // Add gripper handlers
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                FrameworkElement resizeBottomRight = (FrameworkElement)GetTemplateChild("PART_ResizeGrip");
+
+                if (this.ResizeMode == System.Windows.ResizeMode.CanResizeWithGrip)
+                {
+                    resizeBottomRight.MouseDown += OnGripperMouseDown;
+                    resizeBottomRight.MouseMove += OnGripperMouseMove;
+                    resizeBottomRight.MouseUp += OnGripperMouseUp;
+                }
+                else
+                {
+                    resizeBottomRight.Visibility = System.Windows.Visibility.Hidden;
+                }
+            }
 
             // Icon
             Image iconImage = GetTemplateChild("PART_IconImage") as Image;
@@ -507,6 +527,88 @@ namespace Fluent
         }
 
         #endregion
+
+        #region Resize logic
+
+        /// <summary>
+        /// Handles the mouse down event of a resize helper region
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGripperMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                IsGripperResizing = true;
+
+                ResizeGrip grip = sender as ResizeGrip;
+                grip.CaptureMouse();
+            }
+        }
+
+        /// <summary>
+        /// Handles the mouse up event for a resize helper region
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGripperMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ResizeGrip grip = (ResizeGrip)sender;
+            grip.ReleaseMouseCapture();
+
+            IsGripperResizing = false;
+        }
+
+        /// <summary>
+        /// Handles the mouse move event for a resize helper region
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnGripperMouseMove(object sender, MouseEventArgs e)
+        {
+            if (!IsGripperResizing) return;
+
+            ResizeGrip grip = (ResizeGrip)sender;
+
+            if (grip == null) return;
+
+            if (grip.Name == "PART_ResizeGrip")
+                ResizeFromBottomRight(e);
+        }
+
+        /// <summary>
+        /// Resize the window from the bottom-right corner of the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResizeFromBottomRight(MouseEventArgs e)
+        {
+            Point mousePosition = e.GetPosition(this);
+
+            double newHeight = Height + (mousePosition.Y - Height);
+            double newWidth = Width + (mousePosition.X - Width);
+
+            if (newHeight <= MaxHeight)
+            {
+                Height = newHeight;
+            }
+            else
+            {
+                Height = MaxHeight;
+            }
+
+            if (newWidth <= MaxWidth && newWidth > MinWidth)
+            {
+                Width = newWidth;
+            }
+            else if (newWidth > MaxWidth)
+            {
+                Width = MaxWidth;
+            }
+        }
+
+        #endregion
+
 
         #region Private Methods
 
