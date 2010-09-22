@@ -245,25 +245,46 @@ namespace Fluent
 
         #endregion
 
-        #region ItemsInRow
+        #region MinItemsInRow
 
         /// <summary>
         /// Gets or sets maximum items quantity in row
         /// </summary>
-        public int ItemsInRow
+        public int MinItemsInRow
         {
-            get { return (int)GetValue(ItemsInRowProperty); }
-            set { SetValue(ItemsInRowProperty, value); }
+            get { return (int)GetValue(MinItemsInRowProperty); }
+            set { SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ItemsInRow. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ItemsInRowProperty =
-            DependencyProperty.Register("ItemsInRow", typeof(int),
-            typeof(GalleryPanel), new UIPropertyMetadata(0));
+        public static readonly DependencyProperty MinItemsInRowProperty =
+            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            typeof(GalleryPanel), new UIPropertyMetadata((int)1));
         
+        #endregion
+
+        #region MaxItemsInRow
+
+        /// <summary>
+        /// Gets or sets maximum items quantity in row
+        /// </summary>
+        public int MaxItemsInRow
+        {
+            get { return (int)GetValue(MaxItemsInRowProperty); }
+            set { SetValue(MaxItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemsInRow. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxItemsInRowProperty =
+            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            typeof(GalleryPanel), new UIPropertyMetadata(Int32.MaxValue));
+
         #endregion
 
         #endregion
@@ -379,7 +400,8 @@ namespace Fluent
                     RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemHeight", GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "ItemsInRow", GalleryGroupContainer.ItemsInRowProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, "MaxItemsInRow", GalleryGroupContainer.MaxItemsInRowProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, "MinItemsInRow", GalleryGroupContainer.MinItemsInRowProperty, BindingMode.OneWay);
                     dictionary.Add(propertyValue,galleryGroupContainer);
                     galleryGroupContainers.Add(galleryGroupContainer);
                     AddVisualChild(galleryGroupContainer);

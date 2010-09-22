@@ -73,6 +73,9 @@ namespace Fluent
 
         private GalleryPanel galleryPanel;
 
+        private ContentControl controlPresenter;
+        private ContentControl popupControlPresenter;
+
         #endregion
 
         #region Properties
@@ -157,22 +160,41 @@ namespace Fluent
 
         #endregion
 
-        #region ItemsInRow
+        #region MinItemsInDropDownRow
 
         /// <summary>
-        /// Width of the Gallery 
+        /// Min width of the Gallery 
         /// </summary>
-        public int ItemsInRow
+        public int MinItemsInDropDownRow
         {
-            get { return (int)GetValue(ItemsInRowProperty); }
-            set { SetValue(ItemsInRowProperty, value); }
+            get { return (int)GetValue(MinItemsInDropDownRowProperty); }
+            set { SetValue(MinItemsInDropDownRowProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for MinItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ItemsInRowProperty =
-            DependencyProperty.Register("ItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(0));
+        public static readonly DependencyProperty MinItemsInDropDownRowProperty =
+            DependencyProperty.Register("MinItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
+
+        #endregion
+
+        #region MaxItemsInDropDownRow
+
+        /// <summary>
+        /// Max width of the Gallery 
+        /// </summary>
+        public int MaxItemsInDropDownRow
+        {
+            get { return (int)GetValue(MaxItemsInDropDownRowProperty); }
+            set { SetValue(MaxItemsInDropDownRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxItemsInDropDownRow.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxItemsInDropDownRowProperty =
+            DependencyProperty.Register("MaxItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(Int32.MaxValue));
 
         #endregion
 
@@ -496,31 +518,7 @@ namespace Fluent
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register("IsDropDownOpen", typeof(bool),
             typeof(InRibbonGallery), new UIPropertyMetadata(false));
-        /*
-        // Coerce IsOpen
-        private static object CoerceIsOpen(DependencyObject d, object basevalue)
-        {
-            if (((InRibbonGallery)d).isInitializing) return true;
-            return basevalue;
-        }
 
-        // IsOpen Change Handling
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            InRibbonGallery inRibbonGallery = ((InRibbonGallery)d);
-            if ((bool)e.NewValue)
-            {
-                if (inRibbonGallery.contextMenu == null) inRibbonGallery.CreateMenu();
-                else inRibbonGallery.contextMenu.IsOpen = true;
-                if (inRibbonGallery.IsCollapsed) inRibbonGallery.dropDownButton.IsChecked = true;
-            }
-            else
-            {
-                if (inRibbonGallery.contextMenu != null) inRibbonGallery.contextMenu.IsOpen = false;
-                if (inRibbonGallery.IsCollapsed) inRibbonGallery.dropDownButton.IsChecked = false;
-            }
-        }
-        */
         #endregion
 
         #region ResizeMode
@@ -630,17 +628,6 @@ namespace Fluent
                     snappedImage.Height = galleryPanel.ActualHeight;
                     snappedImage.Visibility = Visibility.Visible;
                     isSnapped = value;
-                    /*
-                                        PngBitmapEncoder enc = new PngBitmapEncoder();
-                                        enc.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-
-                                        string path = Path.GetTempFileName() + ".png";
-                                        using (FileStream f = new FileStream(path, FileMode.Create))
-                                        {
-                                            enc.Save(f);
-                        
-                                        }
-                                        Process.Start(path);*/
                 }
                 else
                 {
@@ -689,7 +676,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-                DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8));
+                DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8, OnMaxItemsInRowChanged));
 
         /// <summary>
         /// Gets or sets min count of items in row
@@ -705,13 +692,17 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinSizeProperty =
-                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1, OnMinItemsInRowChanged));
+                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
 
-        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             InRibbonGallery gal = d as InRibbonGallery;
             int minItemsInRow = (int) e.NewValue;
-            if (!gal.IsStylusDirectlyOver&&(gal.galleryPanel!=null)&&(gal.galleryPanel.ItemsInRow < minItemsInRow)) gal.galleryPanel.ItemsInRow = minItemsInRow;
+            if (!gal.IsDropDownOpen && (gal.galleryPanel != null) && (gal.galleryPanel.MinItemsInRow < minItemsInRow))
+            {
+                gal.galleryPanel.MinItemsInRow = minItemsInRow;
+                gal.galleryPanel.MaxItemsInRow = minItemsInRow;
+            }
         }
 
         #endregion
@@ -876,9 +867,16 @@ namespace Fluent
             }
 
             galleryPanel = GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
-            if(galleryPanel!=null) galleryPanel.ItemsInRow = MaxItemsInRow;
+            if (galleryPanel != null)
+            {
+                galleryPanel.MinItemsInRow = MaxItemsInRow;
+                galleryPanel.MaxItemsInRow = MaxItemsInRow;
+            }
 
             snappedImage = GetTemplateChild("PART_FakeImage") as Image;
+
+            controlPresenter = GetTemplateChild("PART_ContentPresenter") as ContentControl;
+            popupControlPresenter = GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
             // Clear cache then style changed
             cachedWidthDelta = 0;
@@ -887,6 +885,12 @@ namespace Fluent
         // Handles drop down opened
         void OnDropDownClosed(object sender, EventArgs e)
         {
+            galleryPanel.MinItemsInRow = currentItemsInRow;
+            galleryPanel.MaxItemsInRow = currentItemsInRow;
+            galleryPanel.IsGrouped = false;
+            galleryPanel.InvalidateMeasure();
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal,(ThreadStart)(()=>{controlPresenter.Content = galleryPanel;}));
+            popupControlPresenter.Content = null;
             IsSnapped = false;
             if (DropDownClosed != null) DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
@@ -897,10 +901,16 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
+            currentItemsInRow = galleryPanel.MinItemsInRow;
+            controlPresenter.Content = null;
+            popupControlPresenter.Content = galleryPanel;
             IsSnapped = true;
             menuPanel.Width = double.NaN;
             menuPanel.Height = double.NaN;
             if (DropDownOpened != null) DropDownOpened(this, e);
+            galleryPanel.MinItemsInRow = Math.Max(currentItemsInRow, MinItemsInDropDownRow);
+            galleryPanel.MaxItemsInRow = MaxItemsInDropDownRow;
+            galleryPanel.IsGrouped = true;
             Mouse.Capture(this, CaptureMode.SubTree);
         }
 
@@ -914,7 +924,7 @@ namespace Fluent
         {
             if (CanCollapseToButton)
             {
-                if ((current == RibbonControlSize.Large) && ((galleryPanel.ItemsInRow > MinItemsInRow))) IsCollapsed = false;
+                if ((current == RibbonControlSize.Large) && ((galleryPanel.MinItemsInRow > MinItemsInRow))) IsCollapsed = false;
                 else IsCollapsed = true;
             }
             else IsCollapsed = false;
@@ -1043,7 +1053,7 @@ namespace Fluent
 
         private void Unfreeze()
         {
-            selectedItem = quickAccessGallery.SelectedItem;
+            selectedItem = quickAccessGallery.SelectedItem;            
             quickAccessGallery.IsSnapped = true;
             if (quickAccessGallery.ItemsSource != null)
             {
@@ -1096,8 +1106,12 @@ namespace Fluent
             if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
 
             InvalidateMeasure();*/
-            if (IsCollapsed) IsCollapsed = false;
-            else if (galleryPanel.ItemsInRow < MaxItemsInRow) galleryPanel.ItemsInRow++;
+            if (IsCollapsed && (Size == RibbonControlSize.Large)) IsCollapsed = false;
+            else if (galleryPanel.MinItemsInRow < MaxItemsInRow)
+            {
+                galleryPanel.MinItemsInRow++;
+                galleryPanel.MaxItemsInRow++;
+            }
             else return;
             InvalidateMeasure();            
             UpdateLayout();
@@ -1109,7 +1123,11 @@ namespace Fluent
         /// </summary>
         public void Reduce()
         {
-            if (galleryPanel.ItemsInRow > MinItemsInRow) galleryPanel.ItemsInRow--;
+            if (galleryPanel.MinItemsInRow > MinItemsInRow)
+            {
+                galleryPanel.MinItemsInRow--;
+                galleryPanel.MaxItemsInRow--;
+            }
             else if (CanCollapseToButton) IsCollapsed = true;
             else return;
             InvalidateMeasure();

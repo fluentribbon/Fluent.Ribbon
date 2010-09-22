@@ -15,7 +15,7 @@ namespace Fluent
         #region Fields
 
         // Whether MaxWidth of the ItemsPanel needs to be updated
-        bool maxWidthNeedsToBeUpdated;
+        bool maxMinWidthNeedsToBeUpdated;
 
         #endregion
 
@@ -108,30 +108,52 @@ namespace Fluent
 
         #endregion
         
-        #region ItemsInRow
+        #region MinItemsInRow
         
         /// <summary>
-        /// Gets or sets maximum items quantity in row
+        /// Gets or sets minimum items quantity in row
         /// </summary>
-        public int ItemsInRow
+        public int MinItemsInRow
         {
-            get { return (int)GetValue(ItemsInRowProperty); }
-            set { SetValue(ItemsInRowProperty, value); }
+            get { return (int)GetValue(MinItemsInRowProperty); }
+            set { SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ItemsInRow. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ItemsInRowProperty =
-            DependencyProperty.Register("ItemsInRow", typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(0, OnItemsInRowChanged));
+        public static readonly DependencyProperty MinItemsInRowProperty =
+            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(0, OnMaxMinItemsInRowChanged));
 
-        static void OnItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnMaxMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             GalleryGroupContainer galleryGroupContainer = (GalleryGroupContainer) d;
-            galleryGroupContainer.maxWidthNeedsToBeUpdated = true;
+            galleryGroupContainer.maxMinWidthNeedsToBeUpdated = true;
         }
+
+        #endregion
+
+        #region MaxItemsInRow
+
+        /// <summary>
+        /// Gets or sets maximum items quantity in row
+        /// </summary>
+        public int MaxItemsInRow
+        {
+            get { return (int)GetValue(MaxItemsInRowProperty); }
+            set { SetValue(MaxItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemsInRow. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxItemsInRowProperty =
+            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(Int32.MaxValue, OnMaxMinItemsInRowChanged));
+
 
         #endregion
 
@@ -154,7 +176,7 @@ namespace Fluent
         // Sets MaxWidth of the items panel based of ItemsInRow property
         void UpdateMaxWidth()
         {
-            maxWidthNeedsToBeUpdated = false;
+            maxMinWidthNeedsToBeUpdated = false;
 
             Panel itemsPanel = FindItemsPanel(this);
             if (itemsPanel == null)
@@ -163,13 +185,7 @@ namespace Fluent
                 if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct)");
                 return;
             }
-
-            if (ItemsInRow == 0)
-            {
-                itemsPanel.MaxWidth = Double.PositiveInfinity;
-                return;
-            }
-
+            
             double itemWidth = GetItemWidth();
             if (double.IsNaN(itemWidth))
             {
@@ -177,7 +193,8 @@ namespace Fluent
                 return;
             }
 
-            itemsPanel.MaxWidth = ItemsInRow * itemWidth + 0.1;
+            itemsPanel.MinWidth = MinItemsInRow * itemWidth + 0.1;
+            itemsPanel.MaxWidth = MaxItemsInRow * itemWidth + 0.1;
         }
         
         // Determinates item's width (return Double.NaN in case of it is not possible)
@@ -220,7 +237,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             var panel = FindItemsPanel(this);
-            if (panel != previousItemsPanel || maxWidthNeedsToBeUpdated)
+            if (panel != previousItemsPanel || maxMinWidthNeedsToBeUpdated)
             {
                 // Track ItemsPanel changing
                 previousItemsPanel = panel;

@@ -43,24 +43,45 @@ namespace Fluent
 
         #region Properties
 
-        #region ItemsInRow
+        #region MinItemsInRow
 
         /// <summary>
-        /// Width of the Gallery 
+        /// Min width of the Gallery 
         /// </summary>
-        public int ItemsInRow
+        public int MinItemsInRow
         {
-            get { return (int)GetValue(ItemsInRowProperty); }
-            set { SetValue(ItemsInRowProperty, value); }
+            get { return (int)GetValue(MinItemsInRowProperty); }
+            set { SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.  
+        /// Using a DependencyProperty as the backing store for MinItemsInRow.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ItemsInRowProperty =
-            DependencyProperty.Register("ItemsInRow", typeof(int),
-            typeof(Gallery), new UIPropertyMetadata(0));
+        public static readonly DependencyProperty MinItemsInRowProperty =
+            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            typeof(Gallery), new UIPropertyMetadata(1));
+
+        #endregion
+
+        #region MaxItemsInRow
+
+        /// <summary>
+        /// Max width of the Gallery 
+        /// </summary>
+        public int MaxItemsInRow
+        {
+            get { return (int)GetValue(MaxItemsInRowProperty); }
+            set { SetValue(MaxItemsInRowProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxItemsInRowProperty =
+            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            typeof(Gallery), new UIPropertyMetadata(Int32.MaxValue));
 
         #endregion
 

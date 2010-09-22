@@ -212,7 +212,7 @@
                     </Style>
                   </ScrollViewer.Resources>
                   <Grid>
-                    <ContentControl x:Name="contentPresenter">
+                    <ContentControl x:Name="PART_ContentPresenter">
                       <Fluent:GalleryPanel x:Name="PART_GalleryPanel" Background="White"
   ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" IsItemsHost="True" ItemHeight="{TemplateBinding ItemHeight}" ItemWidth="{TemplateBinding ItemWidth}" Orientation="{TemplateBinding Orientation}"
                                            Filter="{TemplateBinding SelectedFilterGroups}" GroupBy="{TemplateBinding GroupBy}" IsGrouped="False"
@@ -311,7 +311,7 @@
                                   <Fluent:DropDownButton x:Name="PART_FilterDropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Header="{TemplateBinding SelectedFilterTitle}"/>
                                 </Border>
                                 <ScrollViewer Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}">
-                                  <ContentControl x:Name="popupContentPresenter" Content="{x:Null}"/>
+                                  <ContentControl x:Name="PART_PopupContentPresenter" Content="{x:Null}"/>
                                 </ScrollViewer>
                               </Grid>
                             </Border>
@@ -355,12 +355,11 @@
               <Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
               <Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
             </Trigger>
-            <Trigger Property="IsDropDownOpen" Value="True">
+            <!--<Trigger Property="IsDropDownOpen" Value="True">
               <Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
               <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
-              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>
-              <Setter Property="ItemsInRow" TargetName="PART_GalleryPanel" Value="0"/>
-            </Trigger>
+              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              
+            </Trigger>-->
             <Trigger Property="ResizeMode" Value="None">
               <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
             </Trigger>
