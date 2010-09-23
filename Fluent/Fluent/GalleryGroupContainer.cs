@@ -193,7 +193,7 @@ namespace Fluent
                 return;
             }
 
-            itemsPanel.MinWidth = MinItemsInRow * itemWidth + 0.1;
+            itemsPanel.MinWidth = Math.Min(Items.Count, MinItemsInRow) * itemWidth + 0.1;
             itemsPanel.MaxWidth = MaxItemsInRow * itemWidth + 0.1;
         }
         

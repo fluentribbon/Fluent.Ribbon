@@ -338,10 +338,6 @@ namespace Fluent
 
             if ((!(AdornedElement is ContextMenu)) &&
                 ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) ||
-                (e.Key == Key.NumPad0) || (e.Key == Key.NumPad1) || (e.Key == Key.NumPad2) ||
-                (e.Key == Key.NumPad3) || (e.Key == Key.NumPad4) || (e.Key == Key.NumPad5) ||
-                (e.Key == Key.NumPad6) || (e.Key == Key.NumPad7) || (e.Key == Key.NumPad7) ||
-                (e.Key == Key.NumPad8) || (e.Key == Key.NumPad9) ||
                 (e.Key == Key.Enter) || (e.Key == Key.Tab)))
             {
                 Visibility = Visibility.Hidden;
