@@ -13,7 +13,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" x:Name="ribbon">
+    <Fluent:Ribbon AutomaticStateManagement="True" x:Name="ribbon" >
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
@@ -21,7 +21,7 @@
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.Menu>
-          <Fluent:Backstage Background="Green">
+                <Fluent:Backstage Background="Green">
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
                         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
@@ -89,7 +89,7 @@
                         <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Click="OnExitClick"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
-      </Fluent:Ribbon.Menu>
+            </Fluent:Ribbon.Menu>
             <!--
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />

@@ -134,6 +134,14 @@
         </Grid>
 
             <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" TargetName="PART_ButtonBorder" Value="0.5"/>
+                <Setter Property="Effect" TargetName="contentPresenter">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
             <Trigger Property="Header" Value="{x:Null}">
                 <Setter Property="Content" TargetName="contentPresenter">
                     <Setter.Value>
