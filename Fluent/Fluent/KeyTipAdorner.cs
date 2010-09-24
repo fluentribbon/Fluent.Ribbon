@@ -334,6 +334,8 @@ namespace Fluent
         void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             Log("Key Down " + e.Key.ToString() + " (" + e.OriginalSource.ToString() + ")");
+
+            if (e.IsRepeat) return;
             if (Visibility == Visibility.Hidden) return;
 
             if ((!(AdornedElement is ContextMenu)) &&
@@ -345,8 +347,10 @@ namespace Fluent
             else if (e.Key == Key.Escape) Back();
             else
             {
-                char? neutralKey = KeyTranslator.KeyToChar(e.Key, CultureInfo.InvariantCulture);
-                char? specificKey = KeyTranslator.KeyToChar(e.Key, CultureInfo.CurrentUICulture);
+                Key key = (e.Key == Key.System) ? e.SystemKey : e.Key;
+
+                char? neutralKey = KeyTranslator.KeyToChar(key, CultureInfo.InvariantCulture);
+                char? specificKey = KeyTranslator.KeyToChar(key, CultureInfo.CurrentUICulture);
 
                 // Try neutral key first
                 if (neutralKey != null)

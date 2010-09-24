@@ -57,8 +57,9 @@ namespace Fluent
             }
 
             // Get keyboard status
-            bool bKeyStateStatus = NativeMethods.GetKeyboardState(keyboardState);
-            if (!bKeyStateStatus) return null;
+            // REMARK: commented due to the bug: Alt + H produce nothing
+            // bool bKeyStateStatus = NativeMethods.GetKeyboardState(keyboardState);
+            // if (!bKeyStateStatus) return null;
             uint scanCode = NativeMethods.MapVirtualKeyEx((uint)virtualKey, 2, keyboardlayout);
 
             StringBuilder result = new StringBuilder(10);
