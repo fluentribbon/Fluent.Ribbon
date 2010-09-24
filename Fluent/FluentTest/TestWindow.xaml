@@ -652,7 +652,12 @@
       </Fluent:RibbonTabItem>
       <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="LongLongGroup" IsLauncherVisible="False" x:Name="groupLL">
-          <Fluent:InRibbonGallery x:Name="inRibbonGallery" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Header="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" ResizeMode="Both" MaxItemsInRow="6" MinItemsInRow="2" ItemWidth="40" ItemHeight="55" MinItemsInDropDownRow="5">
+                    <Fluent:ComboBox Name="FilterComboBox" IsReadOnly="True" Fluent:KeyTip.Keys="H" SelectedIndex="0">
+                        <System:String>Show All</System:String>
+                        <System:String>Read-only</System:String>
+                        <System:String>Writeable</System:String>
+                    </Fluent:ComboBox>
+                    <Fluent:InRibbonGallery x:Name="inRibbonGallery" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" Header="Split" Fluent:KeyTip.Keys="S" GroupBy="Tag" ResizeMode="Both" MaxItemsInRow="6" MinItemsInRow="2" ItemWidth="40" ItemHeight="55" MinItemsInDropDownRow="5">
             <Fluent:InRibbonGallery.Filters>
               <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll2"/>
               <Fluent:GalleryGroupFilter Title="Group1" Groups="Group1"/>

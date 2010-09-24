@@ -70,6 +70,8 @@ namespace Fluent
                                            ? -popupSize.Width
                                            : 0;
 
+            UIElement decoratorChild = GetDecoratorChild(topLevelElement);
+
             if (notQuickAccessItem && IsRibbonAligned && (ribbon != null))
             {
                 double belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), PlacementTarget).Y;
@@ -78,10 +80,9 @@ namespace Fluent
                 CustomPopupPlacement above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
                 return new CustomPopupPlacement[] { below, above };
             }
-            else if (notQuickAccessItem && IsRibbonAligned && notContextMenuChild && (!(topLevelElement is Window)))
+            else if (notQuickAccessItem && IsRibbonAligned && notContextMenuChild && (!(topLevelElement is Window)) && (decoratorChild != null))
             {
                 // Placed on Popup?                
-                UIElement decoratorChild = GetDecoratorChild(topLevelElement);
                 double belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), PlacementTarget).Y;
                 double aboveY = decoratorChild.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
                 CustomPopupPlacement below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
