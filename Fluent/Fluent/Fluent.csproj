@@ -111,7 +111,6 @@
     </Compile>
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
-    <Compile Include="ContextMenuBar.cs" />
     <Compile Include="ContextMenuService.cs" />
     <Compile Include="GalleryGroupContainer.cs" />
     <Compile Include="GalleryItemPlaceholder.cs" />
@@ -280,6 +279,14 @@
     <Page Include="Themes\Office2010\Controls\Backstagee.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\MenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\MenuSeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Office2010\Controls\SeparatorTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>

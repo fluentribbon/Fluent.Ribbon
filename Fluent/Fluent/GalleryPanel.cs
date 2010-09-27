@@ -304,6 +304,7 @@ namespace Fluent
         #region Visual Tree
 
         int visualChildrenCount = 0;
+        Visual[] visualChildren = new Visual[0];
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
@@ -326,8 +327,10 @@ namespace Fluent
         /// if the provided index is out of range, an exception is thrown</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (index < InternalChildren.Count) return InternalChildren[index];
-            else return galleryGroupContainers[index - InternalChildren.Count];
+            if (index < 0 || index >= visualChildrenCount) throw new Exception("Index of visual is out of range");
+            return visualChildren[index];
+            //if (index < InternalChildren.Count) return InternalChildren[index];
+            //else return galleryGroupContainers[index - InternalChildren.Count];
         }
 
         #endregion
@@ -416,7 +419,13 @@ namespace Fluent
             }
 
             visualChildrenCount = InternalChildren.Count + galleryGroupContainers.Count;
-            InvalidateMeasure();
+            visualChildren = new Visual[visualChildrenCount];
+            for (int i = 0; i < galleryGroupContainers.Count; i++)
+                visualChildren[i] = galleryGroupContainers[i];
+            for (int i = galleryGroupContainers.Count; i < galleryGroupContainers.Count + InternalChildren.Count; i++)
+                visualChildren[i] = InternalChildren[i - galleryGroupContainers.Count];
+
+                InvalidateMeasure();
         }
 
         /// <summary>

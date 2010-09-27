@@ -533,9 +533,10 @@ namespace Fluent
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
             DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(true, OnCanAddToQuickAccessToolbarChanged));
 
-        private static void OnCanAddToQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        public static void OnCanAddToQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            d.CoerceValue(ContextMenuProperty);
+            d.CoerceValue(FrameworkElement.ContextMenuProperty);
         }
 
         #endregion

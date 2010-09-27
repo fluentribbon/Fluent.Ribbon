@@ -931,6 +931,7 @@ namespace Fluent
             if (ribbon.quickAccessToolBar != null)
             {
                 ribbon.AddToQuickAccessToolBar(e.OriginalSource as UIElement);
+                Debug.WriteLine("Add to Quick Access element - "+e.OriginalSource);
             }
         }
 

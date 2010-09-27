@@ -1,7 +1,7 @@
-#region Copyright and License Information
+ï»¿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -103,7 +103,7 @@ namespace Fluent
             do
             {
                 parent = VisualTreeHelper.GetParent(element) as UIElement;
-                if (parent is ContextMenuBar) return true;
+                //if (parent is ContextMenuBar) return true;
                 element = parent;
             }
             while (element != null);

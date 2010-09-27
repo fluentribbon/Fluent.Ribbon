@@ -26,6 +26,8 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonTitleBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\QuickAccessToolBar.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Menu.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuItem.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonMenu.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Gallery.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\GalleryItem.xaml"/>
@@ -57,9 +59,8 @@
     <Style x:Key="{x:Type ToolTip}" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}"/>
     <Style x:Key="{x:Type Fluent:GalleryGroupContainer}" TargetType="{x:Type Fluent:GalleryGroupContainer}" BasedOn="{StaticResource GalleryGroupContainerStyle}"/>
     <Style x:Key="{x:Type Fluent:SeparatorTabItem}" TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource SeparatorTabItemStyle}"/>
-    <Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
-    <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
-    <Style x:Key="{x:Type Fluent:ContextMenuBar}" TargetType="{x:Type Fluent:ContextMenuBar}" BasedOn="{StaticResource ContextMenuBarStyle}"/>
+    <!--<Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
+    <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>-->
     <Style x:Key="{x:Type Fluent:BackstageTabControl}" TargetType="{x:Type Fluent:BackstageTabControl}" BasedOn="{StaticResource BackstageStyle}"/>
     <Style x:Key="{x:Type Fluent:BackstageTabItem}" TargetType="{x:Type Fluent:BackstageTabItem}" BasedOn="{StaticResource BackstageTabItemStyle}"/>
     <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}"/>
