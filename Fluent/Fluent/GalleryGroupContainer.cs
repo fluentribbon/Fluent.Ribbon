@@ -168,7 +168,7 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
         }
-        
+         
         #endregion
 
         #region MaxWidth Updating
@@ -194,7 +194,7 @@ namespace Fluent
             }
 
             itemsPanel.MinWidth = Math.Min(Items.Count, MinItemsInRow) * itemWidth + 0.1;
-            itemsPanel.MaxWidth = MaxItemsInRow * itemWidth + 0.1;
+            itemsPanel.MaxWidth = Math.Min(Items.Count, MaxItemsInRow) * itemWidth + 0.1;
         }
         
         // Determinates item's width (return Double.NaN in case of it is not possible)
@@ -228,6 +228,7 @@ namespace Fluent
         #endregion
 
         Panel previousItemsPanel = null;
+        int previousItemsCount = 0;
 
         /// <summary>
         /// Called to remeasure a control. 
@@ -237,10 +238,11 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             var panel = FindItemsPanel(this);
-            if (panel != previousItemsPanel || maxMinWidthNeedsToBeUpdated)
+            if (panel != previousItemsPanel || previousItemsCount != Items.Count || maxMinWidthNeedsToBeUpdated)
             {
                 // Track ItemsPanel changing
                 previousItemsPanel = panel;
+                previousItemsCount = Items.Count;
                 UpdateMaxWidth();
             }
             return base.MeasureOverride(constraint);
