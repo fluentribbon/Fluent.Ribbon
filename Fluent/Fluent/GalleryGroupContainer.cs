@@ -134,7 +134,7 @@ namespace Fluent
         }
 
         #endregion
-
+        
         #region MaxItemsInRow
 
         /// <summary>
@@ -197,18 +197,27 @@ namespace Fluent
             itemsPanel.MaxWidth = Math.Min(Items.Count, MaxItemsInRow) * itemWidth + 0.1;
         }
         
+        /// <summary>
+        /// Determinates item's size (return Size.Empty in case of it is not possible)
+        /// </summary>
+        /// <returns></returns>
+        public Size GetItemSize()
+        {
+            if (!Double.IsNaN(ItemWidth) && !Double.IsNaN(ItemHeight)) return new Size(ItemWidth, ItemHeight);
+            if (Items.Count == 0) return Size.Empty;
+
+            UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(Items[0]) as UIElement;
+            if (anItem == null) return Size.Empty;
+            anItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            Size result = anItem.DesiredSize;
+            anItem.InvalidateMeasure();
+            return result;
+        }
+
         // Determinates item's width (return Double.NaN in case of it is not possible)
         double GetItemWidth()
         {
-            if (!Double.IsNaN(ItemWidth)) return ItemWidth;
-            if (Items.Count == 0) return Double.NaN;
-
-            UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(Items[0]) as UIElement;
-            if (anItem == null) return Double.NaN;
-            anItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-            double result = anItem.DesiredSize.Width;
-            anItem.InvalidateMeasure();
-            return result;
+            return GetItemSize().Width;
         }
 
         // Finds panel with IsItemsHost, or null if such panel is not found

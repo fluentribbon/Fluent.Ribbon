@@ -76,6 +76,8 @@ namespace Fluent
         private ContentControl controlPresenter;
         private ContentControl popupControlPresenter;
 
+        private ScrollViewer scrollViewer;
+
         #endregion
 
         #region Properties
@@ -895,6 +897,8 @@ namespace Fluent
             controlPresenter = GetTemplateChild("PART_ContentPresenter") as ContentControl;
             popupControlPresenter = GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
+            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+
             // Clear cache then style changed
             cachedWidthDelta = 0;
         }
@@ -902,6 +906,7 @@ namespace Fluent
         // Handles drop down opened
         void OnDropDownClosed(object sender, EventArgs e)
         {
+            galleryPanel.Width = Double.NaN;
             galleryPanel.IsGrouped = false;
             galleryPanel.MinItemsInRow = currentItemsInRow;
             galleryPanel.MaxItemsInRow = currentItemsInRow;            
@@ -922,6 +927,7 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
+            minimalGallerylWidth = Math.Max(galleryPanel.ActualWidth, galleryPanel.GetActualMinWidth(MinItemsInDropDownRow));
             currentItemsInRow = galleryPanel.MinItemsInRow;
             controlPresenter.Content = null;
             popupControlPresenter.Content = galleryPanel;
@@ -929,8 +935,8 @@ namespace Fluent
             /*snappedImage.Width = controlPresenter.ActualWidth;
             snappedImage.Height = controlPresenter.ActualHeight;
             snappedImage.Visibility = Visibility.Hidden;*/
-            menuPanel.Width = double.NaN;
-            menuPanel.Height = double.NaN;
+            galleryPanel.Width = double.NaN;
+            scrollViewer.Height = double.NaN;
             if (DropDownOpened != null) DropDownOpened(this, e);
             galleryPanel.MinItemsInRow = Math.Max(currentItemsInRow, MinItemsInDropDownRow);
             galleryPanel.MaxItemsInRow = MaxItemsInDropDownRow;
@@ -977,13 +983,18 @@ namespace Fluent
 
         #region Private Methods
 
+        double minimalGallerylWidth;
+
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
+            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
+
+            menuPanel.Width = Double.NaN;
+            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = 500;
+            galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, minimalGallerylWidth);
+
         }
 
         // Handles resize vertical drag

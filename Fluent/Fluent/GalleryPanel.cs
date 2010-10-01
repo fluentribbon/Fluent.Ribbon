@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
@@ -329,8 +330,66 @@ namespace Fluent
         {
             if (index < 0 || index >= visualChildrenCount) throw new Exception("Index of visual is out of range");
             return visualChildren[index];
-            //if (index < InternalChildren.Count) return InternalChildren[index];
-            //else return galleryGroupContainers[index - InternalChildren.Count];
+        }
+
+        #endregion
+
+        #region GetActualMinWidth
+
+        /// <summary>
+        /// Gets actual min width of the gallery panel (based on MinItemsInRow)
+        /// </summary>
+        public double GetActualMinWidth(int minItemsInRow)
+        {
+            // Calculate actual min width
+            double actualMinWidth = 0;
+
+            foreach (GalleryGroupContainer galleryGroupContainer in galleryGroupContainers)
+            {
+                int backupMinItemsInRow = galleryGroupContainer.MinItemsInRow;
+                int backupMaxItemsInRow = galleryGroupContainer.MaxItemsInRow;
+                galleryGroupContainer.MaxItemsInRow = galleryGroupContainer.MinItemsInRow = minItemsInRow;
+
+                InvalidateMeasureRecursive(galleryGroupContainer);
+                galleryGroupContainer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.DesiredSize.Width);
+
+                galleryGroupContainer.MinItemsInRow = backupMinItemsInRow;
+                galleryGroupContainer.MaxItemsInRow = backupMaxItemsInRow;
+                galleryGroupContainer.InvalidateMeasure();
+            }
+
+            return actualMinWidth;
+        }
+
+        static void InvalidateMeasureRecursive(UIElement visual)
+        {
+            visual.InvalidateMeasure();
+            visual.InvalidateVisual();
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
+            {
+                UIElement element = VisualTreeHelper.GetChild(visual, i) as UIElement;
+                if (element != null) InvalidateMeasureRecursive(element);
+            }
+        }
+
+        #endregion
+
+        #region GetItemSize
+
+        /// <summary>
+        /// Determinates item's size (return Size.Empty in case of it is not possible)
+        /// </summary>
+        /// <returns></returns>
+        public Size GetItemSize()
+        {
+            foreach (GalleryGroupContainer galleryGroupContainer in galleryGroupContainers)
+            {
+                Size size = galleryGroupContainer.GetItemSize();
+                if (!size.IsEmpty) return size;
+            }
+            return Size.Empty;
         }
 
         #endregion
@@ -340,12 +399,14 @@ namespace Fluent
         void Invalidate()
         {
             if (haveToBeRefreshed) return;
+
             haveToBeRefreshed = true;
             Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Loaded);
         }
 
         void RefreshDispatchered()
         {
+            if (!haveToBeRefreshed) return;
             Refresh();
             haveToBeRefreshed = false;
         }
@@ -367,6 +428,8 @@ namespace Fluent
             Dictionary<string, GalleryGroupContainer> dictionary = new Dictionary<string, GalleryGroupContainer>();
             foreach(UIElement item in InternalChildren)
             {
+                if (item == null) continue;
+
                 // Resolve group name
                 string propertyValue;
                 if (GroupByAdvanced == null)
@@ -425,7 +488,7 @@ namespace Fluent
             for (int i = galleryGroupContainers.Count; i < galleryGroupContainers.Count + InternalChildren.Count; i++)
                 visualChildren[i] = InternalChildren[i - galleryGroupContainers.Count];
 
-                InvalidateMeasure();
+            InvalidateMeasure();
         }
 
         /// <summary>
@@ -435,6 +498,7 @@ namespace Fluent
         /// <param name="visualRemoved">The Visual that was removed from the collection.</param>
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
+            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
             if (visualRemoved is GalleryGroupContainer) return;
             if (visualAdded is GalleryGroupContainer) return;
             Invalidate();
@@ -458,12 +522,6 @@ namespace Fluent
         /// the element will size to whatever content is available.</param>
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
         {
-            if (haveToBeRefreshed)
-            {
-                Refresh();
-                haveToBeRefreshed = false;
-            }
-
             double width = 0;
             double height = 0;
             foreach (GalleryGroupContainer child in galleryGroupContainers)

@@ -310,7 +310,7 @@
                                 <Border Grid.Row="0" x:Name="border_" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="{DynamicResource GalleryHeaderBackgroundBrush}">
                                   <Fluent:DropDownButton x:Name="PART_FilterDropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Header="{TemplateBinding SelectedFilterTitle}"/>
                                 </Border>
-                                <ScrollViewer Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}">
+                                <ScrollViewer x:Name="PART_ScrollViewer"  Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}">
                                   <ContentControl x:Name="PART_PopupContentPresenter" Content="{x:Null}"/>
                                 </ScrollViewer>
                               </Grid>

@@ -16,7 +16,9 @@ namespace FluentTest
     public partial class App : Application
     {
         static App()
-        {
+        { 
+   
+
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
