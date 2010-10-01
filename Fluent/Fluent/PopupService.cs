@@ -57,7 +57,28 @@ namespace Fluent
 
         public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
         {
-            (sender as UIElement).RaiseEvent(new DismissPopupEventArgs(DismissPopupMode.MouseNotOver));
+            object element = sender;
+            /*while (!(element is IDropDownControl))
+            {
+                object parent = VisualTreeHelper.GetParent(element as DependencyObject);
+                if (parent is IDropDownControl)
+                {
+                    element = parent;
+                    break;
+                }
+                else if (parent != null) element = parent;
+                else
+                {
+                    parent = LogicalTreeHelper.GetParent(element as DependencyObject);
+                    if (parent != null)
+                    {
+                        element = parent;
+                        if (parent is IDropDownControl) break;
+                    }
+                    else break;                    
+                }
+            }
+            if (element != null) */(element as UIElement).RaiseEvent(new DismissPopupEventArgs(mode));
         }
 
         #endregion
@@ -70,7 +91,6 @@ namespace Fluent
             EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(PopupService.OnContextMenuClosed), true);
             EventManager.RegisterClassHandler(classType, FrameworkElement.LostMouseCaptureEvent, new MouseEventHandler(PopupService.OnLostMouseCapture));
         }
-
 
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {

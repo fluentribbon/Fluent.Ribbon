@@ -326,7 +326,6 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsPressed = true;
             Mouse.Capture(this);
             e.Handled = true;
@@ -339,7 +338,6 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            if ((!IsEnabled) || (!IsHitTestVisible)) return;
             IsPressed = false;
             if (Mouse.Captured == this) Mouse.Capture(null);
             Point position = Mouse.PrimaryDevice.GetPosition(this);
@@ -363,7 +361,7 @@ namespace Fluent
         {
             ExecuteCommand();
             IsSelected = true;
-            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
             e.Handled = true;
         }
         

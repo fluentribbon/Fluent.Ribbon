@@ -15,6 +15,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace Fluent
@@ -273,7 +275,7 @@ namespace Fluent
         /// </summary>
         public QuickAccessToolBar()
         {
-         
+
         }
 
         #endregion

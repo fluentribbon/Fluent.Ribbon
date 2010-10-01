@@ -629,11 +629,11 @@
                   <Border Tag="Group2" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >7</TextBlock></Border>
                   <Border Tag="Group3" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >8</TextBlock></Border>                  
                 </Fluent:Gallery>
-                <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="E"/>
+                <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="E"  Icon="Images\ChangeCase.png"/>
                 <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R">
                   <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A"/>
                   <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B"/>
-                  <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R">
+                  <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R" Icon="Images\ChangeCase.png">
                     <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A" MaxDropDownHeight="350">
                       <Fluent:Gallery x:Name="galleryl" MinHeight="60" MinItemsInRow="3" MaxItemsInRow="6" ItemWidth="28" ItemHeight="28">
                         <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua">

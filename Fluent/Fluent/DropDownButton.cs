@@ -451,8 +451,11 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
-            menuPanel.Width = double.NaN;
-            menuPanel.Height = double.NaN;
+            if (menuPanel != null)
+            {
+                menuPanel.Width = double.NaN;
+                menuPanel.Height = double.NaN;
+            }
             if (DropDownOpened != null) DropDownOpened(this, e);
             Mouse.Capture(this, CaptureMode.SubTree);
         }
@@ -545,6 +548,20 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+
+        /// <summary>
+        /// Gets or sets style of element on quick access toolbar
+        /// </summary>
+        public Style QuickAccessElementStyle
+        {
+            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
+            set { SetValue(QuickAccessElementStyleProperty, value); }
+        }
+
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(DropDownButton));
 
         #endregion
     }

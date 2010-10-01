@@ -221,7 +221,7 @@
                     <Image x:Name="PART_FakeImage" Visibility="Collapsed"/>
                   </Grid>
                 </ScrollViewer>
-                <Fluent:ToggleButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" ClickMode="Press" CanAddToQuickAccessToolBar="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}"/>
+                <Fluent:ToggleButton IsDefinitive="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="15" Height="20" x:Name="PART_ExpandButton" Style="{DynamicResource InRibbonGalleryButton}" Margin="0,0,-1,-1" ClickMode="Press" CanAddToQuickAccessToolBar="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}"/>
                 <Popup
                 x:Name="PART_Popup"
                 Placement="Relative"
@@ -330,14 +330,14 @@
                 </Popup>
               </Grid>
             </Border>
-            <Fluent:ToggleButton Margin="0,0,0,0" Visibility="Collapsed" x:Name="PART_DropDownButton"
+            <Fluent:ToggleButton IsDefinitive="False" Margin="0,0,0,0" Visibility="Collapsed" x:Name="PART_DropDownButton"
         Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
         LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
         Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
         Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
         SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
         Style="{DynamicResource InRibbonGalleryToggleButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" ClickMode="Press" CanAddToQuickAccessToolBar="False"
-        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}"
+        
         />
           </Grid>
           <ControlTemplate.Triggers>
@@ -355,11 +355,12 @@
               <Setter Property="VerticalAlignment" TargetName="PART_LayoutRoot" Value="Top"/>
               <Setter Property="HorizontalAlignment" TargetName="PART_LayoutRoot" Value="Left"/>
             </Trigger>
-            <!--<Trigger Property="IsDropDownOpen" Value="True">
-              <Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
+            <Trigger Property="IsDropDownOpen" Value="True">
+              <!--<Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
               <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
-              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              
-            </Trigger>-->
+              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              -->
+              <!--<Setter Property="IsHitTestVisible" TargetName="PART_DropDownButton" Value="False"/>-->
+            </Trigger>
             <Trigger Property="ResizeMode" Value="None">
               <Setter Property="Visibility" TargetName="resizeBorder" Value="Collapsed"/>
             </Trigger>

@@ -36,6 +36,11 @@ namespace Fluent
         /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>
         bool CanAddToQuickAccessToolBar { get; set; }
+
+        /// <summary>
+        /// Gets or sets style of element on quick access toolbar
+        /// </summary>
+        Style QuickAccessElementStyle { get; set; }
     }
     
     /// <summary>

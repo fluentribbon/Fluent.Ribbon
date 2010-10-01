@@ -122,7 +122,7 @@
                     <ColumnDefinition Width="13"/>
                   </Grid.ColumnDefinitions>
                   <Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource TextBoxHoverBorderBrush}" Visibility="Collapsed" x:Name="border1" Background="{DynamicResource TextBoxBackgroundBrush}"/>
-                  <Fluent:ToggleButton x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0" CanAddToQuickAccessToolBar="False"/>
+                  <Fluent:ToggleButton IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0" CanAddToQuickAccessToolBar="False"/>
                   <ContentPresenter x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,3,3" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
                   <Image Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Stretch" Visibility="Collapsed" Width="Auto" Height="Auto"/>
                   <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Hidden"/>
@@ -204,8 +204,9 @@
                         </Grid.RowDefinitions>
                         <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
                         <Fluent:MenuPanel x:Name="PART_MenuPanel" MaxHeight="{TemplateBinding MaxDropDownHeight}" VerticalAlignment="Top">
-                          <ScrollViewer BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="scrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
+                          <ScrollViewer Focusable="False" BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="scrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
                             <Fluent:GalleryPanel Background="White" ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
+                            <!--<StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" Orientation="Vertical"/>-->
                           </ScrollViewer>
                           <Fluent:MenuPanel>
                             <ContentPresenter x:Name="menuPresenter" ContentSource="Menu" Grid.Row="1"  KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Top"/>

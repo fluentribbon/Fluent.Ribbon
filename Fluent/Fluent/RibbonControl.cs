@@ -494,10 +494,12 @@ namespace Fluent
         /// <param name="source">Source item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
-            Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-            Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
-            Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
-
+            if (source is ICommandSource)
+            {
+                Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+            }
             Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
 
             Bind(source, element, "FontFamily", FontFamilyProperty, BindingMode.OneWay);
@@ -514,6 +516,10 @@ namespace Fluent
             IRibbonControl sourceControl = source as IRibbonControl;
             if (sourceControl.Icon != null) Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
             if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
+
+
+            IQuickAccessItemProvider quickAccessElement = source as IQuickAccessItemProvider;
+            if (quickAccessElement!=null && quickAccessElement.QuickAccessElementStyle!=null) Bind(quickAccessElement, element, "QuickAccessElementStyle", RibbonControl.StyleProperty, BindingMode.OneWay);
 
             (element as IRibbonControl).Size = RibbonControlSize.Small;
         }
@@ -538,6 +544,22 @@ namespace Fluent
         {
             d.CoerceValue(FrameworkElement.ContextMenuProperty);
         }
+
+        /// <summary>
+        /// Gets or sets style of element on quick access toolbar
+        /// </summary>
+        public Style QuickAccessElementStyle
+        {
+            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
+            set { SetValue(QuickAccessElementStyleProperty, value); }
+        }
+
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessElementStyleProperty =
+            DependencyProperty.Register("QuickAccessElementStyle", typeof(Style), typeof(RibbonControl), new UIPropertyMetadata(null));
+
 
         #endregion
 

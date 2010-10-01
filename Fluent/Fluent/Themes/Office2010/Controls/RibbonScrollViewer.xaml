@@ -176,6 +176,66 @@
     
   </Style>
 
+  <Style x:Key="MenuScrollViewer" TargetType="{x:Type ScrollViewer}">
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
+    <Setter Property="FocusManager.IsFocusScope" Value="False"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+          <Grid x:Name="Grid" Background="{TemplateBinding Background}" IsHitTestVisible="True">
+            <ScrollContentPresenter  Margin="{TemplateBinding Padding}" x:Name="PART_ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}" IsHitTestVisible="True" />
+            <RepeatButton
+                                      
+                                      Command="{x:Static ScrollBar.LineUpCommand}"
+                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="13" VerticalAlignment="Top" Style="{StaticResource ScrollButtonStyle}">
+              <RepeatButton.Visibility>
+                <MultiBinding FallbackValue="Visibility.Collapsed"
+                                          Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                          ConverterParameter="0">
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ComputedVerticalScrollBarVisibility"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="VerticalOffset"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ExtentHeight"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ViewportHeight"/>
+                </MultiBinding>
+              </RepeatButton.Visibility>
+              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="3" Height="5" Data="M0,0L1,1 1,-1z"/>
+            </RepeatButton>
+            <RepeatButton
+                                      
+                                      Command="{x:Static ScrollBar.LineDownCommand}"
+                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="13" VerticalAlignment="Bottom" Style="{StaticResource ScrollButtonStyle}">
+              <RepeatButton.Visibility>
+                <MultiBinding FallbackValue="Visibility.Collapsed"
+                                          Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                          ConverterParameter="100">
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ComputedHorizontalScrollBarVisibility"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="HorizontalOffset"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ExtentWidth"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                       Path="ViewportWidth"/>
+                </MultiBinding>
+              </RepeatButton.Visibility>
+              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="3" Height="5" Data="M1,0L0,1 0,-1z"/>
+            </RepeatButton>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="CanContentScroll" Value="True"/>
+    <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+    <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="Focusable" Value="False"/>
+  </Style>
+
   <Style x:Key="ScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
     <Style.Triggers>
       <Trigger Property="IsEnabled" Value="false">

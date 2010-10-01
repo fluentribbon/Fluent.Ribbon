@@ -75,14 +75,6 @@ namespace Fluent
         // Is visual currently snapped
         bool isSnapped;
 
-        // Saved group state for QAT
-        RibbonGroupBoxState savedState;
-
-        private Popup quickAccessPopup;
-
-        // Saved scale for Collapsing
-        private int savedScale;
-
         #endregion
 
         #region Properties
@@ -542,6 +534,16 @@ namespace Fluent
         /// </summary>
         public event RoutedEventHandler LauncherClick;
 
+        /// <summary>
+        /// Occurs when context menu is opened
+        /// </summary>
+        public event EventHandler DropDownOpened;
+
+        /// <summary>
+        /// Occurs when context menu is closed
+        /// </summary>
+        public event EventHandler DropDownClosed;
+
         #endregion
 
         #region Initialize
@@ -582,10 +584,12 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBox()
         {
-            AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
+            //AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
             CoerceValue(ContextMenuProperty);
+            Focusable = false;
+            FocusManager.SetIsFocusScope(this,false);
         }
 
         /// <summary>
@@ -639,56 +643,27 @@ namespace Fluent
                 {
                     if (IsVisible)
                     {
-                        // Render the freezed image
-                        snappedImage = new Image();
-                        RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
+                        // Render the freezed image                        
                         RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth,
                                                                                        (int)ActualHeight, 96, 96,
                                                                                        PixelFormats.Pbgra32);
                         renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                         snappedImage.FlowDirection = FlowDirection;
                         snappedImage.Source = renderTargetBitmap;
-
-                        // Attach freezed image
-                        AddVisualChild(snappedImage);
+                        snappedImage.Width = ActualWidth;
+                        snappedImage.Height = ActualHeight;
+                        snappedImage.Visibility = Visibility.Visible;
                         isSnapped = value;
                     }
                 }
                 else if (snappedImage != null)
                 {
                     // Clean up
-                    RemoveVisualChild(snappedImage);
-                    snappedImage = null;
+                    snappedImage.Visibility = Visibility.Collapsed;
                     isSnapped = value;
                 }
-
-
                 InvalidateVisual();
-
             }
-        }
-
-        /// <summary>
-        /// Gets visual children count
-        /// </summary>
-        protected override int VisualChildrenCount
-        {
-            get
-            {
-                if (isSnapped && IsVisible) return 1;
-                return base.VisualChildrenCount;
-            }
-        }
-
-        /// <summary>
-        /// Returns a child at the specified index from a collection of child elements
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested child element in the collection</param>
-        /// <returns>The requested child element</returns>
-        protected override Visual GetVisualChild(int index)
-        {
-            if (isSnapped && IsVisible) return snappedImage;
-            return base.GetVisualChild(index);
         }
 
         #endregion
@@ -823,18 +798,33 @@ namespace Fluent
                     KeyTip.SetKeys(LauncherButton, LauncherKeys);
             }
 
+            if (popup != null)
+            {
+                popup.Opened -= OnPopupOpened;
+                popup.Closed -= OnPopupClosed;
+            }
             popup = GetTemplateChild("PART_Popup") as Popup;
             if (popup != null)
             {
-                /*Binding binding = new Binding("IsOpen");
-                binding.Mode = BindingMode.TwoWay;
-                binding.Source = this;
-                popup.SetBinding(Popup.IsOpenProperty, binding);*/
+                popup.Opened += OnPopupOpened;
+                popup.Closed += OnPopupClosed;
             }
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
             parentPanel = GetTemplateChild("PART_ParentPanel") as Panel;
+
+            snappedImage = GetTemplateChild("PART_SnappedImage") as Image;
+        }
+
+        private void OnPopupOpened(object sender, EventArgs e)
+        {
+            if (DropDownOpened != null) DropDownOpened(this, e);
+        }
+
+        private void OnPopupClosed(object sender, EventArgs e)
+        {
+            if (DropDownClosed != null) DropDownClosed(this, e);
         }
 
         /// <summary>
@@ -849,8 +839,6 @@ namespace Fluent
             if ((State == RibbonGroupBoxState.Collapsed) && (popup != null))
             {
                 e.Handled = true;
-                //Mouse.Capture(popup, CaptureMode.Element);
-                //RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
                 if (!IsDropDownOpen)
                 {
                     IsDropDownOpen = true;
@@ -939,22 +927,50 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public FrameworkElement CreateQuickAccessItem()
         {
-            ToggleButton button = new ToggleButton();
+            RibbonGroupBox groupBox = new RibbonGroupBox();
 
-            button.Size = RibbonControlSize.Small;
+            groupBox.DropDownOpened += OnQuickAccessOpened;
+            groupBox.DropDownClosed += OnQuickAccessClosed;
+            groupBox.State = RibbonGroupBoxState.Collapsed;
 
-            button.PreviewMouseLeftButtonDown += OnQuickAccessClick;
-
-            Binding binding = new Binding("Icon");
-            binding.Source = this;
-            binding.Mode = BindingMode.OneWay;
-            button.SetBinding(RibbonControl.IconProperty, binding);
-
-            return button;
+            RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
+            return groupBox;
         }
 
-        UIElement popupPlacementTarget;
+        private void OnQuickAccessOpened(object sender, EventArgs e)
+        {
+            if ((!IsDropDownOpen) && (!IsSnapped))
+            {
+                RibbonGroupBox groupBox = sender as RibbonGroupBox;
+                // Save state
+                IsSnapped = true;
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    object item = Items[0];
+                    Items.Remove(item);
+                    groupBox.Items.Add(item);
+                    i--;
+                }
+            }
+        }
 
+        private void OnQuickAccessClosed(object sender, EventArgs e)
+        {
+            RibbonGroupBox groupBox = sender as RibbonGroupBox;
+
+            for (int i = 0; i < groupBox.Items.Count; i++)
+            {
+                object item = groupBox.Items[0];
+                groupBox.Items.Remove(item);
+                Items.Add(item);
+                i--;
+            }
+            IsSnapped = false;
+        }
+
+        /*UIElement popupPlacementTarget;
+        
         void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
         {
             ToggleButton button = (ToggleButton)sender;
@@ -1004,15 +1020,9 @@ namespace Fluent
                 }
                 savedScale = Scale;
                 Scale = -100;
-                quickAccessPopup.IsOpen = true;
-                //RaiseEvent(new RoutedEventArgs(RibbonControl.ClickEvent, this));
-                /*
-                if (quickAccessPopup.Child != null)
-                {
-                    Decorator parent = VisualTreeHelper.GetParent(quickAccessPopup.Child) as Decorator;
-                    if (parent != null) parent.UpdateLayout();
-                }
-                */
+                quickAccessPopup.IsOpen = true;                
+                //IsDropDownOpen = true;
+                Mouse.Capture(this, CaptureMode.SubTree);
                 if (quickAccessPopup.Child != null) quickAccessPopup.Child.InvalidateMeasure();
                 button.IsChecked = true;
                 e.Handled = true;
@@ -1033,6 +1043,7 @@ namespace Fluent
                 }
                 popup.Child = element;
             }
+            if (Mouse.Captured == this) Mouse.Capture(null);
             Width = double.NaN;
             Height = double.NaN;
             this.State = savedState;
@@ -1042,8 +1053,8 @@ namespace Fluent
             quickAccessPopup.Closed -= OnMenuClosed;
             quickAccessPopup = null;
             IsSnapped = false;
-            IsDropDownOpen = false;
-        }
+            IsDropDownOpen = false;            
+        }*/
 
         /// <summary>
         /// Gets or sets whether control can be added to quick access toolbar
@@ -1059,6 +1070,20 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
             DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
+
+        /// <summary>
+        /// Gets or sets style of element on quick access toolbar
+        /// </summary>
+        public Style QuickAccessElementStyle
+        {
+            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
+            set { SetValue(QuickAccessElementStyleProperty, value); }
+        }
+
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(RibbonGroupBox));
 
         #endregion
     }

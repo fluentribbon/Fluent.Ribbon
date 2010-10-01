@@ -264,7 +264,7 @@ namespace Fluent
             set
             {
                 if (value == isSnapped) return;
-
+                if (snappedImage == null) return;
                 if ((value) && (((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
                 {
                     // Render the freezed image
@@ -346,6 +346,7 @@ namespace Fluent
             ComboBox combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
             RibbonControl.Bind(this, combo, "GroupBy", ComboBox.GroupByProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ActualWidth", ComboBox.WidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "InputWidth", ComboBox.InputWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "ItemHeight", ComboBox.ItemHeightProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "IsEditable", ComboBox.IsEditableProperty, BindingMode.OneWay);
@@ -380,8 +381,11 @@ namespace Fluent
         void OnQuickAccessOpened(object sender, EventArgs e)
         {
             isQuickAccessOpened = true;
-            if (!isQuickAccessFocused) Freeze();
             quickAccessCombo.DropDownClosed += OnQuickAccessMenuClosed;
+            quickAccessCombo.UpdateLayout();
+            if (!isQuickAccessFocused) Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
+            { Freeze(); }
+               )));       
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -452,7 +456,7 @@ namespace Fluent
                                                                                  {
                                                                                      quickAccessCombo.IsSnapped = true;
                                                                                      IsSnapped = true;
-                                                                                     quickAccessCombo.snappedImage.
+                                                                                     if (snappedImage != null && quickAccessCombo.snappedImage!=null) quickAccessCombo.snappedImage.
                                                                                          Source
                                                                                          = snappedImage.Source;
                                                                                      IsSnapped = false;
@@ -473,6 +477,20 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+
+        /// <summary>
+        /// Gets or sets style of element on quick access toolbar
+        /// </summary>
+        public Style QuickAccessElementStyle
+        {
+            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
+            set { SetValue(QuickAccessElementStyleProperty, value); }
+        }
+
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(ComboBox));
 
         #endregion
 
