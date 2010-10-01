@@ -131,6 +131,9 @@ namespace Fluent
 
         void OnWindowKeyDown(object sender, KeyEventArgs e)        
         {
+            if (e.IsRepeat) return;
+            timer.Stop();
+
             if (ribbon.IsCollapsed) return;
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
@@ -138,7 +141,6 @@ namespace Fluent
                 (e.SystemKey == Key.F10) ||
                 (e.SystemKey == Key.Space)))
             {
-                if (e.IsRepeat) return;
                 if ((activeAdornerChain == null) || (!activeAdornerChain.IsAdornerChainAlive))
                 {
                     activeAdornerChain = null;
@@ -150,6 +152,8 @@ namespace Fluent
 
         void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
+            timer.Stop();
+
             if (ribbon.IsCollapsed) return;
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
