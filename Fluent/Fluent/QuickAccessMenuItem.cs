@@ -60,7 +60,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new UIPropertyMetadata(true));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(true));            
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Fluent
         static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             QuickAccessMenuItem quickAccessMenuItem = (QuickAccessMenuItem) d;
-            RibbonControl ribbonControl = e.NewValue as RibbonControl;
+            IRibbonControl ribbonControl = e.NewValue as IRibbonControl;
             if ((quickAccessMenuItem.Header==null) && (ribbonControl != null))
             {
                 // Set Default Text Value
@@ -106,13 +106,13 @@ namespace Fluent
             }
             if(ribbonControl!=null)
             {
-                DependencyObject parent = LogicalTreeHelper.GetParent(ribbonControl);
+                DependencyObject parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
                 if (parent == null) quickAccessMenuItem.AddLogicalChild(ribbonControl);
             }
-            RibbonControl oldRibbonControl = e.OldValue as RibbonControl;
+            IRibbonControl oldRibbonControl = e.OldValue as IRibbonControl;
             if(oldRibbonControl!=null)
             {
-                DependencyObject parent = LogicalTreeHelper.GetParent(oldRibbonControl);
+                DependencyObject parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
                 if (parent == quickAccessMenuItem) quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
             }
         }

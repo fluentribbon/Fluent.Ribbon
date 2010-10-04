@@ -174,13 +174,13 @@
         </Fluent:Button>        
       </Fluent:Ribbon.ToolBarItems>
                   -->
-      <!--
+      
       <Fluent:Ribbon.QuickAccessItems>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"  IsChecked="True"/>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}" IsChecked="True"/>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
       </Fluent:Ribbon.QuickAccessItems>
--->
+      
       <!--<FluentTest:TestRibbonTab/>-->
      <!-- <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip"
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
