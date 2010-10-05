@@ -17,7 +17,7 @@ namespace FluentTest
     {
         static App()
         { 
-   
+   //Ribbon.ResetState();
 
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");

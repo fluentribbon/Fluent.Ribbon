@@ -1529,6 +1529,35 @@ namespace Fluent
 
         #region State Management
 
+        #region IsolatedStorageFileName
+
+        // Name of the isolated storage file
+        string isolatedStorageFileName = null;
+
+        /// <summary>
+        /// Gets name of the isolated storage file
+        /// </summary>
+        string IsolatedStorageFileName
+        {
+            get
+            {
+                if (isolatedStorageFileName == null)
+                {
+                    isolatedStorageFileName = "Fluent.Ribbon.State.2.0";
+                    Window window = Window.GetWindow(this);
+                    if (window != null)
+                    {
+                        isolatedStorageFileName += "." + window.GetType().FullName;
+                        if (window.Name != null) isolatedStorageFileName += "." + window.Name;                        
+                    }
+                    if (this.Name != null) isolatedStorageFileName += "." + this.Name;
+                }
+                return isolatedStorageFileName;
+            }   
+        }
+
+        #endregion
+
         #region Initial State Loading
 
         // Initial state loading
@@ -1560,7 +1589,7 @@ namespace Fluent
             if (!AutomaticStateManagement || !IsStateLoaded) return;
 
             IsolatedStorageFile storage = GetIsolatedStorageFile();
-            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream("Fluent.Ribbon.State.2.0.dat", FileMode.Create, FileAccess.Write, storage))
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
             {
                 SaveState(stream);
             }
@@ -1572,10 +1601,10 @@ namespace Fluent
             if (!AutomaticStateManagement) return;
 
             IsolatedStorageFile storage = GetIsolatedStorageFile();
-            if (FileExists(storage, "Fluent.Ribbon.State.2.0.dat"))
+            if (FileExists(storage, IsolatedStorageFileName))
             {
                 using (IsolatedStorageFileStream stream =
-                    new IsolatedStorageFileStream("Fluent.Ribbon.State.2.0.dat",
+                    new IsolatedStorageFileStream(IsolatedStorageFileName,
                                                   FileMode.Open, FileAccess.Read, storage))
                 {
                     LoadState(stream);
@@ -1589,9 +1618,14 @@ namespace Fluent
         // Gets a proper isolated storage file
         static IsolatedStorageFile GetIsolatedStorageFile()
         {
-            return AppDomain.CurrentDomain.ActivationContext != null ? 
-                IsolatedStorageFile.GetUserStoreForDomain() : 
-                IsolatedStorageFile.GetUserStoreForAssembly();
+            try
+            {
+                return IsolatedStorageFile.GetUserStoreForDomain();   
+            }
+            catch
+            {
+                return IsolatedStorageFile.GetUserStoreForAssembly();       
+            }
         }
 
         /// <summary>
@@ -1600,8 +1634,10 @@ namespace Fluent
         public static void ResetState()
         {
             IsolatedStorageFile storage = GetIsolatedStorageFile();
-            string fileName = "Fluent.Ribbon.State.2.0.dat";
-            if (FileExists(storage, fileName)) storage.DeleteFile(fileName);
+            foreach (string filename in storage.GetFileNames("*Fluent.Ribbon.State*"))
+            {
+                storage.DeleteFile(filename);
+            }
         }
 
         // Determinates whether the given file exists in the given storage
