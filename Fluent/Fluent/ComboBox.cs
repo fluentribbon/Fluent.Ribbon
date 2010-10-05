@@ -265,7 +265,7 @@ namespace Fluent
             {
                 if (value == isSnapped) return;
                 if (snappedImage == null) return;
-                if ((value) && (((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
+                if ((value) && (((int)contentSite.ActualWidth > 0) && ((int)contentSite.ActualHeight > 0)))
                 {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
@@ -275,6 +275,8 @@ namespace Fluent
                     renderTargetBitmap.Render(contentSite);
                     snappedImage.Source = renderTargetBitmap;                    
                     snappedImage.FlowDirection = FlowDirection;
+                    /*snappedImage.Width = contentSite.ActualWidth;
+                    snappedImage.Height = contentSite.ActualHeight;*/
                     snappedImage.Visibility = Visibility.Visible;
                     contentSite.Visibility = Visibility.Hidden;
                     isSnapped = value;
@@ -308,6 +310,18 @@ namespace Fluent
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnSelectionItemChanged, CoerceSelectedItem));
+            StyleProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(ComboBox));
+            }
+
+            return basevalue;
         }
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -384,8 +398,15 @@ namespace Fluent
             quickAccessCombo.DropDownClosed += OnQuickAccessMenuClosed;
             quickAccessCombo.UpdateLayout();
             if (!isQuickAccessFocused) Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
-            { Freeze(); }
-               )));       
+            { Freeze();
+                Dispatcher.BeginInvoke(DispatcherPriority.Input, ((ThreadStart)(() =>
+            {
+                if (quickAccessCombo.SelectedItem != null) (quickAccessCombo.ItemContainerGenerator.ContainerFromItem(quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView();
+            }
+               )));
+            }
+               )));    
+            
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -452,18 +473,36 @@ namespace Fluent
 
         private void UpdateQuickAccessCombo()
         {
+            if (!IsLoaded) Loaded += OnFirstLoaded;
             if(!IsEditable) Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
                                                                                  {
                                                                                      quickAccessCombo.IsSnapped = true;
                                                                                      IsSnapped = true;
-                                                                                     if (snappedImage != null && quickAccessCombo.snappedImage!=null) quickAccessCombo.snappedImage.
-                                                                                         Source
-                                                                                         = snappedImage.Source;
+                                                                                     if (snappedImage != null && quickAccessCombo.snappedImage != null)
+                                                                                     {
+                                                                                         quickAccessCombo.snappedImage.
+                                                                                             Source
+                                                                                             = snappedImage.Source;
+                                                                                         quickAccessCombo.
+                                                                                                 snappedImage.
+                                                                                                 Visibility =
+                                                                                                 Visibility.Visible;
+                                                                                         if (!quickAccessCombo.IsSnapped)
+                                                                                         {
+                                                                                             quickAccessCombo.isSnapped = true;
+                                                                                         }
+                                                                                     }
                                                                                      IsSnapped = false;
                                                                                  }));
 
         }
-        
+
+        private void OnFirstLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnFirstLoaded;
+            UpdateQuickAccessCombo();
+        }
+
         /// <summary>
         /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>

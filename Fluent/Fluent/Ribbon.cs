@@ -220,8 +220,10 @@ namespace Fluent
 
                     // Gets control that raise menu opened
                     UIElement control = RibbonContextMenu.PlacementTarget as UIElement;
+                    Debug.WriteLine("Menu opened on "+control);
                     if (control != null)
                     {
+                        firstSeparator.Visibility = Visibility.Visible;
                         if (ribbon.quickAccessElements.ContainsValue(control))
                         {
                             // Control is on quick access
@@ -242,12 +244,12 @@ namespace Fluent
                             // Control is group box
                             addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         }
-                        else
+                        else if (control is IQuickAccessItemProvider)
                         {
                             // Its other control
                             addToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         }
-                        firstSeparator.Visibility = Visibility.Visible;
+                        else firstSeparator.Visibility = Visibility.Collapsed;
                     }
                 }
 
@@ -968,6 +970,7 @@ namespace Fluent
             if (ribbon.IsQuickAccessToolBarVisible)
             {
                 e.CanExecute = ribbon.quickAccessElements.ContainsValue(e.OriginalSource as UIElement);
+                Debug.WriteLine("Remove from QAT - "+e.OriginalSource);
             }
             else e.CanExecute = false;
         }
@@ -980,6 +983,7 @@ namespace Fluent
             {
                 if (e.OriginalSource is Gallery) e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.OriginalSource as DependencyObject) as UIElement);
                 else e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.OriginalSource as UIElement);
+                Debug.WriteLine("Add to QAT - " + e.OriginalSource);
             }
             else e.CanExecute = false;
         }
@@ -1006,6 +1010,18 @@ namespace Fluent
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
 
             InitRibbonContextMenu();
+            StyleProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(Ribbon));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

@@ -23,6 +23,18 @@ namespace Fluent
         static RibbonMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonMenu), new FrameworkPropertyMetadata(typeof(RibbonMenu)));
+            StyleProperty.OverrideMetadata(typeof(RibbonMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonMenu));
+            }
+
+            return basevalue;
         }
 
         public RibbonMenu()

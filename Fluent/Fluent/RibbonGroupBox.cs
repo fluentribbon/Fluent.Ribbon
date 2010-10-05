@@ -559,6 +559,18 @@ namespace Fluent
             ContextMenuProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, OnContextMenuChanged, CoerceContextMenu));
 
             PopupService.Attach(typeof(RibbonGroupBox));
+            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonGroupBox));
+            }
+
+            return basevalue;
         }
 
         private static void OnContextMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

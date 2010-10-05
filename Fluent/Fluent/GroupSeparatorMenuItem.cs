@@ -37,6 +37,18 @@ namespace Fluent
         static GroupSeparatorMenuItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(typeof(GroupSeparatorMenuItem)));
+            StyleProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(GroupSeparatorMenuItem));
+            }
+
+            return basevalue;
         }
     }
 }

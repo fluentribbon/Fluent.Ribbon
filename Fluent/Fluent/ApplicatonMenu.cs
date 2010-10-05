@@ -55,6 +55,18 @@ namespace Fluent
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
             // Make default KeyTip
             KeyTip.KeysProperty.AddOwner(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
+            StyleProperty.OverrideMetadata(typeof(ApplicationMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(ApplicationMenu));
+            }
+
+            return basevalue;
         }
         
         static object CoerceKeyTipKeys(DependencyObject d, object basevalue)

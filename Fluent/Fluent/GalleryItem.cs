@@ -295,6 +295,18 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
             IsSelectedProperty.AddOwner(typeof (GalleryItem), new FrameworkPropertyMetadata(false,FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+            StyleProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(GalleryItem));
+            }
+
+            return basevalue;
         }
 
         static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

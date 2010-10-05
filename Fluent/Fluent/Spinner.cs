@@ -289,7 +289,19 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Spinner()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
+            StyleProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(Spinner));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

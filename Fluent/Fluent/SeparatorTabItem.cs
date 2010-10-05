@@ -26,6 +26,18 @@ namespace Fluent
             IsEnabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
             IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
             IsSelectedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, OnIsSelectedChanged));
+            StyleProperty.OverrideMetadata(typeof(SeparatorTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(SeparatorTabItem));
+            }
+
+            return basevalue;
         }
 
         static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

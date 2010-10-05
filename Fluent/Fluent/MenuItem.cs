@@ -198,7 +198,7 @@ namespace Fluent
             Type type = typeof (MenuItem);
             ToolTipService.Attach(type);
             //PopupService.Attach(type);            
-            ContextMenuService.Attach(type);
+            ContextMenuService.Attach(type);            
         }
         
         /// <summary>
@@ -207,6 +207,8 @@ namespace Fluent
         public MenuItem()
         {
             ContextMenuService.Coerce(this);
+            ToolTip = new ToolTip();
+            (ToolTip as ToolTip).Template = null;
         }
 
         #endregion
@@ -263,7 +265,8 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            RaiseEvent(new RoutedEventArgs(ClickEvent));
+            if (!HasItems) RaiseEvent(new RoutedEventArgs(ClickEvent));
+            else IsDropDownOpen = true;
         }
 
         #endregion

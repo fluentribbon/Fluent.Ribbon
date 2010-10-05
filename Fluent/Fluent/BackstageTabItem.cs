@@ -91,6 +91,18 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), 
                 new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
+            StyleProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(BackstageTabItem));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

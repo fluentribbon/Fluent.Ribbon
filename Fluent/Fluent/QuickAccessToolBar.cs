@@ -267,7 +267,19 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));            
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
+            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

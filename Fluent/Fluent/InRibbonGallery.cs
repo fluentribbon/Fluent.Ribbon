@@ -308,6 +308,7 @@ namespace Fluent
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
+                            menuItem.IsDefinitive = false;
                             if (filter == SelectedFilter) menuItem.IsChecked = true;
                             menuItem.Click += OnFilterMenuItemClick;
                             groupsMenuButton.Items.Add(menuItem);
@@ -340,6 +341,7 @@ namespace Fluent
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
+                            menuItem.IsDefinitive = false;
                             if (filter == SelectedFilter) menuItem.IsChecked = true;
                             menuItem.Click += OnFilterMenuItemClick;
                             groupsMenuButton.Items.Add(menuItem);
@@ -631,8 +633,11 @@ namespace Fluent
                 if (value == isSnapped) return;
                 if (IsCollapsed) return;
 
+                if (!IsVisible) return;
+
                 if ((value) && (((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
                 {
+                
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)galleryPanel.ActualWidth,
@@ -775,6 +780,18 @@ namespace Fluent
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(InRibbonGallery));
+            }
+
+            return basevalue;
         }
 
         /// <summary>
@@ -801,12 +818,14 @@ namespace Fluent
         {
             foreach (var item in e.RemovedItems)
             {
-                (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem).IsSelected = false;
+                GalleryItem itemContainer = (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
+                if (itemContainer!=null) itemContainer.IsSelected = false;
             }
 
             foreach (var item in e.AddedItems)
             {
-                (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem).IsSelected = true;
+                GalleryItem itemContainer = (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
+                if (itemContainer != null) itemContainer.IsSelected = true;
             }
             //if (IsDropDownOpen) IsDropDownOpen = false;
             base.OnSelectionChanged(e);
@@ -877,6 +896,7 @@ namespace Fluent
                     MenuItem item = new MenuItem();
                     item.Header = Filters[i].Title;
                     item.Tag = Filters[i];
+                    item.IsDefinitive = false;
                     if (Filters[i] == SelectedFilter) item.IsChecked = true;
                     item.Click += OnFilterMenuItemClick;
                     groupsMenuButton.Items.Add(item);
@@ -920,8 +940,11 @@ namespace Fluent
             //snappedImage.Visibility = Visibility.Collapsed;            
             if (DropDownClosed != null) DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
+            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+                                                                               {
             GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
             if (selectedContainer != null) selectedContainer.BringIntoView();
+                                                                               }));
             dropDownButton.IsChecked = false;
             canOpenDropDown = true;
         }
@@ -1040,7 +1063,7 @@ namespace Fluent
             quickAccessGallery.SelectedFilter = SelectedFilter;
             quickAccessGallery.DropDownClosed += OnQuickAccessMenuClosed;
             UpdateLayout();
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
+            Dispatcher.BeginInvoke(DispatcherPriority.Render, ((ThreadStart)(() =>
                {
                    Freeze();
                }
@@ -1107,8 +1130,13 @@ namespace Fluent
             SelectedItem = selectedItem;
             Menu = quickAccessGallery.Menu;
             quickAccessGallery.Menu = null;
-            if (!IsDropDownOpen) IsSnapped = false;
-            UpdateLayout();
+            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart) (() =>
+                                                                                  {
+                                                                                      if (!IsDropDownOpen)
+                                                                                          IsSnapped = false;
+                                                                                  GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+                if (selectedContainer != null) selectedContainer.BringIntoView();
+            })));
         }
 
         private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)

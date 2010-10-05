@@ -156,7 +156,19 @@ namespace Fluent
             Type type = typeof(Button);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
-            ToolTipService.Attach(type);            
+            ToolTipService.Attach(type);
+            StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(Button));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

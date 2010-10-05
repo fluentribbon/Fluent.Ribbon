@@ -406,11 +406,12 @@ namespace Fluent
             StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
+        // Coerce object style
         static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).FindResource(typeof(RibbonTabItem));
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonTabItem));
             }
 
             return basevalue;
@@ -445,6 +446,7 @@ namespace Fluent
             binding.Source = this;
             binding.Mode = BindingMode.OneWay;
             groupsContainer.SetBinding(DataContextProperty, binding);
+            ContextMenuService.Coerce(this);
         }
         
         

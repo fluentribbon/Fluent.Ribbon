@@ -37,6 +37,18 @@ namespace Fluent
         static ScreenTip()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
+            StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(ScreenTip));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

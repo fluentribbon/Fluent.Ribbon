@@ -374,6 +374,16 @@ namespace Fluent
             CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(RibbonWindow.NormalizeCommand, OnNormalizeCommandExecuted));
         }
 
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonWindow));
+            }
+
+            return basevalue;
+        }
         private static void OnWindowPropertyChangedThatRequiresTemplateFixup(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonWindow window = d as RibbonWindow;
@@ -387,7 +397,7 @@ namespace Fluent
                 window.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)window.FixFrameworkIssues);
             }
         }
-
+        /*
         // Coerce control style
         private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
@@ -398,7 +408,7 @@ namespace Fluent
             }
 
             return basevalue;
-        }
+        }*/
 
         /// <summary>
         /// Default constructor

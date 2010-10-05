@@ -167,6 +167,18 @@ namespace Fluent
         static GalleryGroupContainer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
+            StyleProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(GalleryGroupContainer));
+            }
+
+            return basevalue;
         }
          
         #endregion

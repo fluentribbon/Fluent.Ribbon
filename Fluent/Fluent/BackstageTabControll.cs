@@ -61,6 +61,18 @@ namespace Fluent
         static BackstageTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(typeof(BackstageTabControl)));
+            StyleProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(BackstageTabControl));
+            }
+
+            return basevalue;
         }
 
         /// <summary>

@@ -221,12 +221,17 @@ namespace Fluent
             // Override metadata to allow slyling
             //StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
+            StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null) basevalue = (d as FrameworkElement).Resources["KeyTipStyle"] as Style;
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(KeyTip));
+            }
+
             return basevalue;
         }
         

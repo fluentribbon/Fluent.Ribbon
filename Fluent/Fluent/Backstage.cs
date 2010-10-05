@@ -129,6 +129,18 @@ namespace Fluent
             // Make default header
             HeaderProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceHeader));
             KeyTip.KeysProperty.AddOwner(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
+            StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(Backstage));
+            }
+
+            return basevalue;
         }
 
         static object CoerceHeader(DependencyObject d, object basevalue)

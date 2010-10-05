@@ -104,6 +104,18 @@ namespace Fluent
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
+            StyleProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+        }
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonTitleBar));
+            }
+
+            return basevalue;
         }
         
         /// <summary>
