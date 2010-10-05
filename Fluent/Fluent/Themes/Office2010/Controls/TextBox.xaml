@@ -8,19 +8,13 @@
           Background="{TemplateBinding Background}"
           BorderBrush="{TemplateBinding BorderBrush}"
           BorderThickness="{TemplateBinding BorderThickness}" >
-              <Border.ContextMenu>
+              <!--<Border.ContextMenu>
                 <Fluent:ContextMenu>
-                  <!--<Fluent:MenuItem Command="ApplicationCommands.Undo" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
-                  <Fluent:MenuItem Command="ApplicationCommands.Redo" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
-                  <Separator Style="{DynamicResource MenuSeparatorStyle}"/>-->
                   <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Cut.png" Command="ApplicationCommands.Cut" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                   <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Copy.png" Command="ApplicationCommands.Copy" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
                   <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Paste.png" Command="ApplicationCommands.Paste" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
-                  <!--<Fluent:MenuItem Command="ApplicationCommands.Delete" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
-                  <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
-                  <Fluent:MenuItem Command="ApplicationCommands.SelectAll" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>-->
                 </Fluent:ContextMenu>
-              </Border.ContextMenu>
+              </Border.ContextMenu>-->
           <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
         </Border>
 
@@ -41,5 +35,20 @@
     <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
     <Setter Property="Template" Value="{DynamicResource TextBoxControlTemplate}"/>
     <Setter Property="Foreground" Value="#FF52002D"/>
+    <Setter Property="ContextMenu">
+      <Setter.Value>
+        <Fluent:ContextMenu>
+          <!--<Fluent:MenuItem Command="ApplicationCommands.Undo" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                  <Fluent:MenuItem Command="ApplicationCommands.Redo" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                  <Separator Style="{DynamicResource MenuSeparatorStyle}"/>-->
+          <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Cut.png" Command="ApplicationCommands.Cut" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+          <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Copy.png" Command="ApplicationCommands.Copy" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+          <Fluent:MenuItem Icon="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Paste.png" Command="ApplicationCommands.Paste" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+          <!--<Fluent:MenuItem Command="ApplicationCommands.Delete" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>
+                  <Separator Style="{DynamicResource MenuSeparatorStyle}"/>
+                  <Fluent:MenuItem Command="ApplicationCommands.SelectAll" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"/>-->
+        </Fluent:ContextMenu>
+      </Setter.Value>
+    </Setter>
   </Style>
 </ResourceDictionary>
