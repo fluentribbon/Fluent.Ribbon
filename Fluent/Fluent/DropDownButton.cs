@@ -274,6 +274,9 @@ namespace Fluent
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
+
+            FocusManager.IsFocusScopeProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(false));
+
             StyleProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 

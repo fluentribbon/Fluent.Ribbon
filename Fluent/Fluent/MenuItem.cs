@@ -223,9 +223,65 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public FrameworkElement CreateQuickAccessItem()
         {
-            Button button = new Button();
-            RibbonControl.BindQuickAccessItem(this, button);            
-            return button;
+            if (HasItems)
+            {
+                DropDownButton button = new DropDownButton();
+                RibbonControl.BindQuickAccessItem(this, button);
+                RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+                RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
+                button.DropDownOpened += OnQuickAccessOpened;
+                return button;
+            }
+            else 
+            {
+                Button button = new Button();
+                RibbonControl.BindQuickAccessItem(this, button);
+                return button;
+            }
+        }
+
+        // Handles quick access button drop down menu opened
+        protected void OnQuickAccessOpened(object sender, EventArgs e)
+        {
+            DropDownButton button = (DropDownButton)sender;
+            if (ItemsSource != null)
+            {
+                button.ItemsSource = ItemsSource;
+                ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    object item = Items[0];
+                    Items.Remove(item);
+                    button.Items.Add(item);
+                    i--;
+                }
+            }
+            button.DropDownClosed += OnQuickAccessMenuClosed;
+        }
+
+        // Handles quick access button drop down menu closed
+        protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        {
+            DropDownButton button = (DropDownButton)sender;
+            button.DropDownClosed -= OnQuickAccessMenuClosed;
+            if (button.ItemsSource != null)
+            {
+                ItemsSource = button.ItemsSource;
+                button.ItemsSource = null;
+            }
+            else
+            {
+                for (int i = 0; i < button.Items.Count; i++)
+                {
+                    object item = button.Items[0];
+                    button.Items.Remove(item);
+                    Items.Add(item);
+                    i--;
+                }
+            }
         }
 
         /// <summary>
