@@ -381,6 +381,28 @@ namespace Fluent
 
         #endregion
 
+        #region IsLastItem
+
+        /// <summary>
+        /// Gets whether gallery is last item in ItemsControl
+        /// </summary>
+        public bool IsLastItem
+        {
+            get { return (bool)GetValue(IsLastItemProperty); }
+            private set { SetValue(IsLastItemPropertyKey, value); }
+        }
+
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly("IsLastItem", typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
+        /// <summary>
+        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsLastItemProperty = IsLastItemPropertyKey.DependencyProperty;
+        
+        #endregion
+
         #endregion
 
         #region Constructors
@@ -422,6 +444,17 @@ namespace Fluent
         public Gallery()
         {
             ContextMenuService.Coerce(this);
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ItemsControl parent = Parent as ItemsControl;
+            if (parent != null)
+            {
+                if (parent.Items.IndexOf(this) == parent.Items.Count - 1) IsLastItem = true;
+                else IsLastItem = false;
+            }
         }
 
         #endregion
@@ -470,6 +503,7 @@ namespace Fluent
                     groupsMenuButton.Items.Add(item);
                 }
             }
+
             base.OnApplyTemplate();
         }
 

@@ -310,7 +310,7 @@
                                 <Border Grid.Row="0" x:Name="border_" BorderBrush="{x:Null}" BorderThickness="0" Height="13" Background="{DynamicResource GalleryHeaderBackgroundBrush}">
                                   <Fluent:DropDownButton x:Name="PART_FilterDropDownButton" Style="{StaticResource GalleryDropDownButtonStyle}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" Header="{TemplateBinding SelectedFilterTitle}"/>
                                 </Border>
-                                <ScrollViewer x:Name="PART_ScrollViewer"  Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}">
+                                <ScrollViewer x:Name="PART_ScrollViewer"  Grid.Row="1" MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}" BorderBrush="{DynamicResource GalleryBorderBrush}" BorderThickness="0,0,0,1" Margin="1">
                                   <ContentControl x:Name="PART_PopupContentPresenter" Content="{x:Null}"/>
                                 </ScrollViewer>
                               </Grid>
@@ -373,6 +373,9 @@
               <Setter Property="Visibility" TargetName="PART_ResizeBothThumb" Value="Collapsed"/>
               <Setter Property="Visibility" TargetName="PART_ResizeVerticalThumb" Value="Visible"/>
               <Setter Property="Visibility" TargetName="resizeBorder" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="Menu" Value="{x:Null}">
+              <Setter Property="BorderThickness" TargetName="PART_ScrollViewer" Value="0"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
