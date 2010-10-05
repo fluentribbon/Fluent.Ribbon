@@ -472,7 +472,7 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            RibbonControl ribbonControl = control as RibbonControl;
+                            IRibbonControl ribbonControl = control as IRibbonControl;
                             if (ribbonControl != null) ribbonControl.Size = controlDefinition.Size;
                             control.Width = controlDefinition.Width;
                             control.Measure(availableSize);
