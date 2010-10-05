@@ -1548,9 +1548,9 @@ namespace Fluent
                     if (window != null)
                     {
                         isolatedStorageFileName += "." + window.GetType().FullName;
-                        if (window.Name != null) isolatedStorageFileName += "." + window.Name;                        
+                        if (!String.IsNullOrWhiteSpace(window.Name)) isolatedStorageFileName += "." + window.Name;                        
                     }
-                    if (this.Name != null) isolatedStorageFileName += "." + this.Name;
+                    if (!String.IsNullOrWhiteSpace(this.Name)) isolatedStorageFileName += "." + this.Name;
                 }
                 return isolatedStorageFileName;
             }   
