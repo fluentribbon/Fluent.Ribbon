@@ -367,6 +367,15 @@ namespace Fluent
             RibbonControl.Bind(this, combo, "IsReadOnly", ComboBox.IsReadOnlyProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "ResizeMode", ComboBox.ResizeModeProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "Text", ComboBox.TextProperty, BindingMode.TwoWay);
+
+            RibbonControl.Bind(this, combo, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += OnQuickAccessOpened;
             if(IsEditable) combo.GotFocus += OnQuickAccessTextBoxGetFocus;            
             quickAccessCombo = combo;

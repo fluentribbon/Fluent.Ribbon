@@ -12,12 +12,16 @@
                         />
       </Border.ToolTip>
       <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
-        <Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="{TemplateBinding LargeIcon}" Width="Auto" Margin="2"/>
+      	<Grid>
+        	<Image x:Name="iconImage" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png" Width="Auto" Margin="2"/>
+			<Image x:Name="iconImageChecked" Visibility="Collapsed" HorizontalAlignment="Center" Height="Auto" Stretch="None" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png" Width="Auto" Margin="2"/>
+		</Grid>
       </Border>
     </Border>
     <ControlTemplate.Triggers>			
       <Trigger Property="IsChecked" Value="True">		
-        <Setter Property="Source" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"/>
+        <Setter Property="Visibility" TargetName="iconImage" Value="Collapsed"/>
+		<Setter Property="Visibility" TargetName="iconImageChecked" Value="Visible"/>
         <Setter Property="Title" TargetName="screenTip" Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipTitle , Mode=OneWay}"/>
         <Setter Property="Text" TargetName="screenTip" Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipText , Mode=OneWay}"/>
       </Trigger>	
@@ -53,6 +57,19 @@
     <Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
     <Setter Property="Height" Value="22"/>
     <Setter Property="Width" Value="22"/>
+	<Setter Property="QuickAccessElementStyle">
+		<Setter.Value>
+			<Style TargetType="{x:Type Fluent:ToggleButton}">
+				<Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
+    			<Setter Property="Height" Value="22"/>
+    			<Setter Property="Width" Value="22"/>			
+				<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    			<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+			    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    			<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+			</Style>
+		</Setter.Value>
+	</Setter>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
@@ -230,7 +247,7 @@
              <StackPanel x:Name="toolbarPlaceholder" HorizontalAlignment="Left" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,1">
                 <Grid Width="22" Height="22">
                   <Image x:Name="image" Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png" Stretch="None" Visibility="Collapsed"/>
-                  <Fluent:ToggleButton x:Name="PART_MinimizeButton" Margin="0" Width="22" Height="22" Size="Small" Style="{DynamicResource RibbonTabControlToggleButtonStyle}" Icon="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png" LargeIcon="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png" IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                  <Fluent:ToggleButton x:Name="PART_MinimizeButton" Margin="0" Width="22" Height="22" Size="Small" Style="{DynamicResource RibbonTabControlToggleButtonStyle}" IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                 </Grid>
                 <StackPanel x:Name="PART_ToolbarPanel" Orientation="Horizontal" FocusManager.IsFocusScope="False"/>
               </StackPanel>

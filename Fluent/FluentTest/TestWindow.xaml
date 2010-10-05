@@ -828,7 +828,7 @@
     </Button>
  
     <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1" MouseDoubleClick="OnTreeDoubleClick"/>
-    <Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
+    <!--<Border BorderBrush="Black" BorderThickness="3" Margin="8,150,0,0" Grid.ColumnSpan="2" Width="Auto" Height="Auto" >
     	<Fluent:GalleryPanel Name="galleryPanel" Margin="0,0,0,0" Orientation="Horizontal"
                              GroupBy="Tag"
                              ItemWidth="32" ItemHeight="32" MinItemsInRow="3">
@@ -843,7 +843,7 @@
                 <Button Content="3" Tag="Numbers"/>
                 <Button Content="#" />
             </Fluent:GalleryPanel>
-    </Border>
+    </Border>-->
     
     <!--<ListBox SelectedItem="{Binding ElementName=hte, Mode=OneWay}">
       <TextBlock Margin="15" Tag="Group1">1</TextBlock>

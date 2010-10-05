@@ -342,7 +342,7 @@
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="HasFilter" Value="False">
-              <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
+              <Setter Property="Visibility" TargetName="border_" Value="Collapsed"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="IsEnabled" TargetName="PART_DropDownButton" Value="False"/>

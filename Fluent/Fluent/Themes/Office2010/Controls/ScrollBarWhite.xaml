@@ -241,7 +241,7 @@
                       value of VerticalScrollBarButtonHeightKey. -->
             <sys:Double
               x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
-              18
+              36
             </sys:Double>
           </Track.Resources>
           <Track.DecreaseRepeatButton>
@@ -301,7 +301,7 @@
                       value of VerticalScrollBarButtonHeightKey. -->
             <sys:Double
               x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
-              18
+              36
             </sys:Double>
           </Track.Resources>
           <Track.DecreaseRepeatButton>

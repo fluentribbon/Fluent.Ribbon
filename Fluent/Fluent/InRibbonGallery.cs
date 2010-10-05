@@ -655,6 +655,7 @@ namespace Fluent
                 {
                     snappedImage.Visibility = Visibility.Collapsed;
                     isSnapped = value;
+                    InvalidateVisual();
                 }
 
                 InvalidateVisual();
@@ -705,15 +706,15 @@ namespace Fluent
         /// </summary>
         public int MinItemsInRow
         {
-            get { return (int)GetValue(MinSizeProperty); }
-            set { SetValue(MinSizeProperty, value); }
+            get { return (int)GetValue(MinItemsInRowProperty); }
+            set { SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MinSizeProperty =
+        public static readonly DependencyProperty MinItemsInRowProperty =
                 DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1047,6 +1048,17 @@ namespace Fluent
             RibbonControl.Bind(this, gallery, "ResizeMode", InRibbonGallery.ResizeModeProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MinItemsInDropDownRow", InRibbonGallery.MinItemsInDropDownRowProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MaxItemsInDropDownRow", InRibbonGallery.MaxItemsInDropDownRowProperty, BindingMode.OneWay);
+
+            RibbonControl.Bind(this, gallery, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
+            
+
             gallery.DropDownOpened += OnQuickAccessOpened;
             gallery.Size = RibbonControlSize.Small;
             quickAccessGallery = gallery;
