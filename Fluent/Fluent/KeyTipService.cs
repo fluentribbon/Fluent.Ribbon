@@ -152,8 +152,6 @@ namespace Fluent
 
         void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
-            timer.Stop();
-
             if (ribbon.IsCollapsed) return;
             if ((e.Key == Key.System) &&
                 ((e.SystemKey == Key.LeftAlt) ||
@@ -181,6 +179,7 @@ namespace Fluent
                     ribbon.Focus();
                 }
             }
+            else timer.Stop();
         }
 
         void RestoreFocuses()
