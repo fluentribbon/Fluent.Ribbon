@@ -195,6 +195,7 @@ namespace Fluent
             {
                 // Item's panel is not ready now
                 if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct)");
+                else Loaded += InvalidatedByLoaded;
                 return;
             }
             
@@ -208,7 +209,13 @@ namespace Fluent
             itemsPanel.MinWidth = Math.Min(Items.Count, MinItemsInRow) * itemWidth + 0.1;
             itemsPanel.MaxWidth = Math.Min(Items.Count, MaxItemsInRow) * itemWidth + 0.1;
         }
-        
+
+        void InvalidatedByLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= InvalidatedByLoaded;
+            InvalidateMeasure();
+        }
+
         /// <summary>
         /// Determinates item's size (return Size.Empty in case of it is not possible)
         /// </summary>

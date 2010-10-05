@@ -365,7 +365,7 @@ namespace Fluent
         static void InvalidateMeasureRecursive(UIElement visual)
         {
             visual.InvalidateMeasure();
-            visual.InvalidateVisual();
+            visual.InvalidateArrange();
 
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
             {
@@ -526,6 +526,7 @@ namespace Fluent
             double height = 0;
             foreach (GalleryGroupContainer child in galleryGroupContainers)
             {
+                InvalidateMeasureRecursive(child);
                 child.Measure(availableSize);
                 height += child.DesiredSize.Height;
                 width = Math.Max(width, child.DesiredSize.Width);
