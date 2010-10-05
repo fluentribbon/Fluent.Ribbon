@@ -60,9 +60,9 @@ namespace Fluent
         protected override Size MeasureOverride(Size availableSize)
         {
             target.Measure(availableSize);
-            return target.DesiredSize;
+            return base.MeasureOverride(availableSize);
         }
-
+        
         #endregion
 
         #region Debug

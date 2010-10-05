@@ -216,7 +216,7 @@ namespace Fluent
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register("ItemHeight", typeof(double),
             typeof(GalleryPanel), new UIPropertyMetadata(Double.NaN));
-
+        
         #endregion
 
         #region Filter
@@ -554,7 +554,9 @@ namespace Fluent
                 foreach (GalleryItemPlaceholder placeholder in item.Items)
                 {
                     Point leftTop = placeholder.TranslatePoint(new Point(), this);
-                    placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.RenderSize.Width, placeholder.RenderSize.Height));
+                    placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
+                        Double.IsNaN(ItemWidth) ? placeholder.Target.DesiredSize.Width : ItemWidth,
+                        Double.IsNaN(ItemHeight) ? placeholder.Target.DesiredSize.Height : ItemHeight));
                 }
             }
 
