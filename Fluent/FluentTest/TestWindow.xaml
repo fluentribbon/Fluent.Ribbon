@@ -16,8 +16,8 @@
     <Fluent:Ribbon AutomaticStateManagement="True" x:Name="ribbon" >
 
       <Fluent:Ribbon.ContextualGroups>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Collapsed"/>
-        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Collapsed"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
+        <Fluent:RibbonContextualTabGroup x:Name="tabGroup2" BorderBrush="Green" Background="Lime" Header="Second" Visibility="Visible"/>
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.Menu>
@@ -158,7 +158,7 @@
         <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Click="OnExitClick"/>
       </Fluent:Ribbon.BackstageItems>
 -->
-      <!--
+      
       <Fluent:Ribbon.ToolBarItems>
         <Fluent:Button Size="Small" Icon="Images/Help.png" Click="OnHelpClick">
           <Fluent:Button.ToolTip>
@@ -173,7 +173,7 @@
           </Fluent:Button.ToolTip>
         </Fluent:Button>        
       </Fluent:Ribbon.ToolBarItems>
-                  -->
+                  
       
       <Fluent:Ribbon.QuickAccessItems>
         <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"  IsChecked="True"/>

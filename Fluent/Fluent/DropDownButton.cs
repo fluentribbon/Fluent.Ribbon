@@ -508,8 +508,8 @@ namespace Fluent
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {            
             DropDownButton button = (DropDownButton)sender;
-         Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
-                                                                               {
+        /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+                                                                               {*/
             if (ItemsSource != null)
             {
                 button.ItemsSource = ItemsSource;
@@ -525,7 +525,7 @@ namespace Fluent
                     i--;
                 }
             }                                                                                   
-                                                                               }));
+                                                                             //  }));
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
