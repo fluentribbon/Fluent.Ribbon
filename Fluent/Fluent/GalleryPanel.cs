@@ -310,13 +310,13 @@ namespace Fluent
         /// <summary>
         /// Gets the number of visual child elements within this element.
         /// </summary>
-        protected override int VisualChildrenCount
+        /*protected override int VisualChildrenCount
         {
             get
             {
                 return visualChildrenCount;
             }
-        }
+        }*/
 
         /// <summary>
         /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
@@ -326,10 +326,26 @@ namespace Fluent
         /// child element in the collection</param>
         /// <returns>The requested child element. This should not return null; 
         /// if the provided index is out of range, an exception is thrown</returns>
-        protected override Visual GetVisualChild(int index)
+        /*protected override Visual GetVisualChild(int index)
         {
             if (index < 0 || index >= visualChildrenCount) throw new Exception("Index of visual is out of range");
             return visualChildren[index];
+        }*/
+
+
+        protected override void OnRender(DrawingContext dc)
+        {
+            base.OnRender(dc);
+            double deltaY = 0;
+            for(int i=0;i<galleryGroupContainers.Count;i++)
+            {
+                Rect r = VisualTreeHelper.GetDescendantBounds(galleryGroupContainers[i]);// new Rect(0, 0, galleryGroupContainers[i].ActualWidth, galleryGroupContainers[i].ActualHeight);
+                if (r == Rect.Empty) return;
+                r = new Rect(r.X, deltaY, r.Width, r.Height);
+                VisualBrush b = new VisualBrush(galleryGroupContainers[i]);
+                dc.DrawRectangle(b,null,r);
+                deltaY += galleryGroupContainers[i].ActualHeight;
+            }            
         }
 
         #endregion
@@ -401,7 +417,7 @@ namespace Fluent
             if (haveToBeRefreshed) return;
 
             haveToBeRefreshed = true;
-            Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Background);
+            Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Loaded);
         }
 
         void RefreshDispatchered()

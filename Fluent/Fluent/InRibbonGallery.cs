@@ -637,7 +637,7 @@ namespace Fluent
 
                 if ((value) && (((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
                 {
-                
+
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
                     RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)galleryPanel.ActualWidth,
@@ -820,7 +820,7 @@ namespace Fluent
             foreach (var item in e.RemovedItems)
             {
                 GalleryItem itemContainer = (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
-                if (itemContainer!=null) itemContainer.IsSelected = false;
+                if (itemContainer != null) itemContainer.IsSelected = false;
             }
 
             foreach (var item in e.AddedItems)
@@ -915,13 +915,13 @@ namespace Fluent
 
             controlPresenter = GetTemplateChild("PART_ContentPresenter") as ContentControl;
             popupControlPresenter = GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
-            
+
             scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
         }
 
         private void OnDropDownClick(object sender, RoutedEventArgs e)
         {
-            if (canOpenDropDown) IsDropDownOpen = true;            
+            if (canOpenDropDown) IsDropDownOpen = true;
         }
 
         // Handles drop down opened
@@ -931,20 +931,30 @@ namespace Fluent
             galleryPanel.IsGrouped = false;
             galleryPanel.MinItemsInRow = currentItemsInRow;
             galleryPanel.MaxItemsInRow = currentItemsInRow;
-            galleryPanel.InvalidateMeasure();
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)(() =>
-                                                                               {
-                                                                                   controlPresenter.Content = galleryPanel;
-                                                                                   if ((quickAccessGallery == null) || ((quickAccessGallery != null) && (!quickAccessGallery.IsDropDownOpen))) IsSnapped = false;
-                                                                               }));
-            popupControlPresenter.Content = null;            
+            //galleryPanel.InvalidateMeasure();
+            popupControlPresenter.Content = null;
+            //galleryPanel.Opacity = 0;
+            /*Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)(() =>
+                                                                               {*/
+            controlPresenter.Content = galleryPanel;
+            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+         {
+             if ((quickAccessGallery == null) || ((quickAccessGallery != null) && (!quickAccessGallery.IsDropDownOpen)))
+             {
+                 IsSnapped = false;
+                 //galleryPanel.Opacity = 1;
+             }
+         }));
+            //}));
+
             //snappedImage.Visibility = Visibility.Collapsed;            
             if (DropDownClosed != null) DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
             Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
                                                                                {
-            GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
-            if (selectedContainer != null) selectedContainer.BringIntoView();
+                                                                                   GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+                                                                                   if (selectedContainer != null) selectedContainer.BringIntoView();
+
                                                                                }));
             dropDownButton.IsChecked = false;
             canOpenDropDown = true;
@@ -1057,7 +1067,7 @@ namespace Fluent
             RibbonControl.Bind(this, gallery, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
-            
+
 
             gallery.DropDownOpened += OnQuickAccessOpened;
             gallery.Size = RibbonControlSize.Small;
@@ -1079,7 +1089,7 @@ namespace Fluent
                {
                    Freeze();
                }
-               )));             
+               )));
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -1142,13 +1152,25 @@ namespace Fluent
             SelectedItem = selectedItem;
             Menu = quickAccessGallery.Menu;
             quickAccessGallery.Menu = null;
-            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart) (() =>
+            if (!IsDropDownOpen)
+            {
+                controlPresenter.Content = null;
+                popupControlPresenter.Content = galleryPanel;
+                galleryPanel.IsGrouped = true;
+                galleryPanel.IsGrouped = false;
+                popupControlPresenter.Content = null;
+                controlPresenter.Content = galleryPanel;
+            }
+            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart)(() =>
                                                                                   {
                                                                                       if (!IsDropDownOpen)
+                                                                                      {
+
                                                                                           IsSnapped = false;
-                                                                                  GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
-                if (selectedContainer != null) selectedContainer.BringIntoView();
-            })));
+                                                                                      }
+                                                                                      GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+                                                                                      if (selectedContainer != null) selectedContainer.BringIntoView();
+                                                                                  })));
         }
 
         private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)

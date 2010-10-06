@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -21,6 +22,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -504,8 +506,10 @@ namespace Fluent
 
         // Handles quick access button drop down menu opened
         protected void OnQuickAccessOpened(object sender, EventArgs e)
-        {
+        {            
             DropDownButton button = (DropDownButton)sender;
+         Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+                                                                               {
             if (ItemsSource != null)
             {
                 button.ItemsSource = ItemsSource;
@@ -520,7 +524,8 @@ namespace Fluent
                     button.Items.Add(item);
                     i--;
                 }
-            }
+            }                                                                                   
+                                                                               }));
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
@@ -529,6 +534,8 @@ namespace Fluent
         {
             DropDownButton button = (DropDownButton)sender;
             button.DropDownClosed -= OnQuickAccessMenuClosed;
+            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+                                                                               {
             if (button.ItemsSource != null)
             {
                 ItemsSource = button.ItemsSource;
@@ -544,6 +551,7 @@ namespace Fluent
                     i--;
                 }
             }
+                                                                               }));
         }
 
         /// <summary>
