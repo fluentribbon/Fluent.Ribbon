@@ -245,9 +245,9 @@ namespace Fluent
 
             double y = 0;
             double deltaHeight = Math.Max(0,(finalSize.Height - totalHeight)/nonItemsElements.Count);
-            Debug.WriteLine("deltaHeight = " + deltaHeight);
+           /* Debug.WriteLine("deltaHeight = " + deltaHeight);
             Debug.WriteLine("finalSize.Height = " + finalSize.Height);
-            Debug.WriteLine("totalHeight = " + totalHeight);
+            Debug.WriteLine("totalHeight = " + totalHeight);*/
             foreach (var child in InternalChildren)
             {
                 UIElement element=(child as UIElement);

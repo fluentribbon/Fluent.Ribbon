@@ -105,7 +105,7 @@ namespace Fluent
 
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine("Lost Capture - " + Mouse.Captured);
+            //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
             IDropDownControl control = sender as IDropDownControl;
             if (control == null) return;
             if ((Mouse.Captured != sender) && (control.IsDropDownOpen) && (!control.IsContextMenuOpened))
@@ -163,7 +163,7 @@ namespace Fluent
             if (e.DismissMode == DismissPopupMode.Always)
             {
                 if (Mouse.Captured == control) Mouse.Capture(null);
-                Debug.WriteLine("DropDown Closed");
+               // Debug.WriteLine("DropDown Closed");
                 control.IsDropDownOpen = false;
             }
             else
@@ -171,7 +171,7 @@ namespace Fluent
                 if ((control.IsDropDownOpen)&&(!PopupService.IsMousePhysicallyOver(control.DropDownPopup.Child)))
                 {
                     if (Mouse.Captured == control) Mouse.Capture(null);
-                    Debug.WriteLine("DropDown Closed");
+                   // Debug.WriteLine("DropDown Closed");
                     control.IsDropDownOpen = false;
                 }
                 else
@@ -198,7 +198,7 @@ namespace Fluent
             if (control != null)
             {
                 control.IsContextMenuOpened = true;
-                Debug.WriteLine("Context menu opened");
+               // Debug.WriteLine("Context menu opened");
             }
         }
 
@@ -207,7 +207,7 @@ namespace Fluent
             IDropDownControl control = sender as IDropDownControl;
             if (control != null)
             {
-                Debug.WriteLine("Context menu closed");
+                //Debug.WriteLine("Context menu closed");
                 control.IsContextMenuOpened = false;
                 RaiseDismissPopupEvent(control, DismissPopupMode.MouseNotOver);
             }
