@@ -401,7 +401,7 @@ namespace Fluent
             if (haveToBeRefreshed) return;
 
             haveToBeRefreshed = true;
-            Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Loaded);
+            Dispatcher.BeginInvoke((Action) RefreshDispatchered, DispatcherPriority.Background);
         }
 
         void RefreshDispatchered()
