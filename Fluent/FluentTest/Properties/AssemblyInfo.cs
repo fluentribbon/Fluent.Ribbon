@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FluentTest")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Fluent Showcase")]
+[assembly: AssemblyDescription("Showcase of Fluent Ribbon Control Suite")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("FluentTest")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Fluent Ribbon Control Suite")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

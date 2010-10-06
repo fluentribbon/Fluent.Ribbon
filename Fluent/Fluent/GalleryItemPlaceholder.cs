@@ -11,7 +11,7 @@ namespace Fluent
     /// Represents internal class to use it in 
     /// GalleryPanel as placeholder for GalleryItems
     /// </summary>
-    class GalleryItemPlaceholder : FrameworkElement
+    class GalleryItemPlaceholder : UIElement
     {
         #region Fields
 
@@ -28,6 +28,8 @@ namespace Fluent
         {
             get { return target; }
         }
+
+        public Size ArrangedSize { get; private set; }
 
         #endregion
 
@@ -57,10 +59,16 @@ namespace Fluent
         /// <param name="availableSize">The available size that this element can 
         /// give to child elements. Infinity can be specified as a value to 
         /// indicate that the element will size to whatever content is available.</param>
-        protected override Size MeasureOverride(Size availableSize)
+        protected override Size MeasureCore(Size availableSize)
         {
             target.Measure(availableSize);
             return target.DesiredSize;
+        }
+
+        protected override void ArrangeCore(Rect finalRect)
+        {
+            base.ArrangeCore(finalRect);
+            ArrangedSize = finalRect.Size;
         }
         
         #endregion

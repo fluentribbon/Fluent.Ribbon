@@ -571,9 +571,12 @@ namespace Fluent
                 foreach (GalleryItemPlaceholder placeholder in item.Items)
                 {
                     Point leftTop = placeholder.TranslatePoint(new Point(), this);
-                    placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
+                    /*placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
                         Double.IsNaN(ItemWidth) ? placeholder.Target.DesiredSize.Width : ItemWidth,
-                        Double.IsNaN(ItemHeight) ? placeholder.Target.DesiredSize.Height : ItemHeight));
+                        Double.IsNaN(ItemHeight) ? placeholder.Target.DesiredSize.Height : ItemHeight));*/
+                    placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
+                        placeholder.ArrangedSize.Width,
+                        placeholder.ArrangedSize.Height));
                 }
             }
 
