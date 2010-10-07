@@ -94,7 +94,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            backstage.Measure(new Size(AdornedElement.RenderSize.Width,AdornedElement.RenderSize.Height - this.topOffset));
+            backstage.Measure(new Size(AdornedElement.RenderSize.Width,Math.Max(0, AdornedElement.RenderSize.Height - this.topOffset)));
             return AdornedElement.RenderSize;
         }
 
