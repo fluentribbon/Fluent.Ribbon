@@ -442,10 +442,6 @@ namespace Fluent
         {
             AddLogicalChild(groupsContainer);
             groupsContainer.Content = groupsInnerContainer;
-            Binding binding = new Binding("DataContext");
-            binding.Source = this;
-            binding.Mode = BindingMode.OneWay;
-            groupsContainer.SetBinding(DataContextProperty, binding);
             ContextMenuService.Coerce(this);
         }
         
