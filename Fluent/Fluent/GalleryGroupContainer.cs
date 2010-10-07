@@ -194,8 +194,8 @@ namespace Fluent
             if (itemsPanel == null)
             {
                 // Item's panel is not ready now
-                if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct)");
-                else Loaded += InvalidatedByLoaded;
+                if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct or haven't attached yet)");
+                Dispatcher.BeginInvoke((Action) InvalidateMeasure, DispatcherPriority.ContextIdle);
                 return;
             }
             
