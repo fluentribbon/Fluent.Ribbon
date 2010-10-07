@@ -501,7 +501,7 @@ namespace Fluent
             }
 
             // Icon
-            Image iconImage = GetTemplateChild("PART_IconImage") as Image;
+            FrameworkElement iconImage = GetTemplateChild("PART_IconImage") as FrameworkElement;
             if (iconImage != null)
             {
                 iconImage.MouseUp += (o, e) =>
@@ -511,7 +511,7 @@ namespace Fluent
                         if (e.ClickCount == 1)
                         {
                             System.Windows.Point pos = iconImage.PointToScreen(new System.Windows.Point(0, 0));
-                            Size size = new Size(16,16);
+                            Size size = new Size(iconImage.ActualWidth, iconImage.ActualHeight);
                             size = DpiHelper.LogicalSizeToDevice(size);
                             if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
                             ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));

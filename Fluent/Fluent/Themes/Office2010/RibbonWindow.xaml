@@ -18,8 +18,8 @@
           <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,28,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}"/>
 
           <Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorderThickness}"/>
-          <StackPanel x:Name="stackPanel" Margin="7,7,8,8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+          <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,8,8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
           </StackPanel>
           <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
           <!--<Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
@@ -59,7 +59,7 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="0,3,0,0"/>
         <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
         <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
         <Setter Property="Margin" TargetName="rectangle" Value="15,31,0,1"/>
@@ -82,8 +82,8 @@
           </Border>
           <Grid x:Name="PART_MainGrid" Margin="0" Background="#00FFFFFF">
             <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
-            <StackPanel x:Name="stackPanel" Margin="7,7,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16">
-              <Image x:Name="PART_IconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
+            <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+              <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
             </StackPanel>
             <StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" Orientation="Horizontal">
               <Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
@@ -149,7 +149,7 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="stackPanel" Value="8,10,0,0"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="0,3,0,0"/>
         <Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>

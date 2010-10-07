@@ -373,6 +373,10 @@ namespace Fluent
         /// </summary>
         public const int HTCAPTION = 2;
         /// <summary>
+        /// In a system menu
+        /// </summary>
+        public const int HTSYSMENU = 3;
+        /// <summary>
         /// In the left border of a resizable window (the user can click the mouse to resize the window horizontally).
         /// </summary>
         public const int HTLEFT = 10;
