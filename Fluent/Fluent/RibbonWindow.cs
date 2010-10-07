@@ -483,22 +483,6 @@ namespace Fluent
         {
             base.OnApplyTemplate();
             mainGrid = GetTemplateChild("PART_MainGrid") as Grid;
-            // Add gripper handlers
-            if (!DesignerProperties.GetIsInDesignMode(this))
-            {
-                FrameworkElement resizeBottomRight = (FrameworkElement)GetTemplateChild("PART_ResizeGrip");
-
-                if (this.ResizeMode == System.Windows.ResizeMode.CanResizeWithGrip)
-                {
-                    resizeBottomRight.MouseDown += OnGripperMouseDown;
-                    resizeBottomRight.MouseMove += OnGripperMouseMove;
-                    resizeBottomRight.MouseUp += OnGripperMouseUp;
-                }
-                else
-                {
-                    resizeBottomRight.Visibility = System.Windows.Visibility.Hidden;
-                }
-            }
 
             // Icon
             FrameworkElement iconImage = GetTemplateChild("PART_IconImage") as FrameworkElement;
@@ -537,88 +521,6 @@ namespace Fluent
         }
 
         #endregion
-
-        #region Resize logic
-
-        /// <summary>
-        /// Handles the mouse down event of a resize helper region
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnGripperMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                IsGripperResizing = true;
-
-                ResizeGrip grip = sender as ResizeGrip;
-                grip.CaptureMouse();
-            }
-        }
-
-        /// <summary>
-        /// Handles the mouse up event for a resize helper region
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnGripperMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            ResizeGrip grip = (ResizeGrip)sender;
-            grip.ReleaseMouseCapture();
-
-            IsGripperResizing = false;
-        }
-
-        /// <summary>
-        /// Handles the mouse move event for a resize helper region
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnGripperMouseMove(object sender, MouseEventArgs e)
-        {
-            if (!IsGripperResizing) return;
-
-            ResizeGrip grip = (ResizeGrip)sender;
-
-            if (grip == null) return;
-
-            if (grip.Name == "PART_ResizeGrip")
-                ResizeFromBottomRight(e);
-        }
-
-        /// <summary>
-        /// Resize the window from the bottom-right corner of the window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ResizeFromBottomRight(MouseEventArgs e)
-        {
-            Point mousePosition = e.GetPosition(this);
-
-            double newHeight = Height + (mousePosition.Y - Height);
-            double newWidth = Width + (mousePosition.X - Width);
-
-            if (newHeight <= MaxHeight)
-            {
-                Height = newHeight;
-            }
-            else
-            {
-                Height = MaxHeight;
-            }
-
-            if (newWidth <= MaxWidth && newWidth > MinWidth)
-            {
-                Width = newWidth;
-            }
-            else if (newWidth > MaxWidth)
-            {
-                Width = MaxWidth;
-            }
-        }
-
-        #endregion
-
 
         #region Private Methods
 
@@ -1432,16 +1334,31 @@ namespace Fluent
                 // We want UIElements in the caption area to be actionable so run through a hittest first.
                 if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null))
                 {
+                    int mp = lParam.ToInt32();
+                    if (!mainGrid.IsVisible) return IntPtr.Zero;
+                    Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
+                    ptMouse = mainGrid.PointFromScreen(ptMouse);
+                    /*
                     Point mousePosWindow = mousePosScreen;
-                    mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);
-                    mousePosWindow = DpiHelper.DevicePixelsToLogical(mousePosWindow);
-                    IInputElement inputElement = mainGrid.InputHitTest(mousePosWindow);
+                    mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);*/
+                    ptMouse = DpiHelper.DevicePixelsToLogical(ptMouse);
+                    IInputElement inputElement = mainGrid.InputHitTest(ptMouse);
                     if (inputElement != null)
                     {
-                        if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;
+                        Debug.WriteLine((inputElement as FrameworkElement).Name);
+                        if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;                        
                         else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
-                    }
+                    }                    
                 }
+
+                // Check resize grip
+                ResizeGrip grip = (GetTemplateChild("PART_ResizeGrip") as ResizeGrip);
+                if ((grip != null) && (grip.InputHitTest((GetTemplateChild("PART_ResizeGrip") as ResizeGrip).PointFromScreen(mousePosScreen)) != null))
+                {
+                    if(FlowDirection==FlowDirection.LeftToRight) ht = NativeMethods.HTBOTTOMRIGHT;
+                    else ht = NativeMethods.HTBOTTOMLEFT;
+                }
+
                 handled = true;
                 lRet = new IntPtr((int)ht);
             }

@@ -22,35 +22,13 @@
             <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
           </StackPanel>
           <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
-          <!--<Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-              <TransformGroup>
-                <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform/>
-                <TranslateTransform/>
-              </TransformGroup>
-            </Image.RenderTransform>
-          </Image>-->
           <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
-                Cursor="SizeNWSE" Visibility="Collapsed"/>
+                VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6" Background="Transparent"
+                Visibility="Collapsed"/>
         </Grid>
       </AdornerDecorator>
     </Grid>
     <ControlTemplate.Triggers>
-      <Trigger Property="FlowDirection" Value="RightToLeft">
-        <Setter Property="RenderTransform" TargetName="PART_ResizeGrip">
-          <Setter.Value>
-            <TransformGroup>
-              <ScaleTransform ScaleX="-1"/>
-              <SkewTransform/>
-              <RotateTransform/>
-              <TranslateTransform/>
-            </TransformGroup>
-          </Setter.Value>
-        </Setter>
-      </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
@@ -105,16 +83,6 @@
               </Border>
             </Border>
             <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
-            <!--<Image x:Name="PART_ImageResizeGrip" Margin="0,0,8,8" VerticalAlignment="Bottom" HorizontalAlignment="Right" Source="{StaticResource ImageResizeGrip}" Visibility="Collapsed" Stretch="None" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
-              <Image.RenderTransform>
-                <TransformGroup>
-                  <ScaleTransform/>
-                  <SkewTransform/>
-                  <RotateTransform/>
-                  <TranslateTransform/>
-                </TransformGroup>
-              </Image.RenderTransform>
-            </Image>-->
             <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
         VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
         Cursor="SizeNWSE" Visibility="Collapsed"/>
@@ -123,20 +91,6 @@
       </AdornerDecorator>
     </Grid>
     <ControlTemplate.Triggers>
-
-      <Trigger Property="FlowDirection" Value="RightToLeft">
-        <Setter Property="RenderTransform" TargetName="PART_ResizeGrip">
-          <Setter.Value>
-            <TransformGroup>
-              <ScaleTransform ScaleX="-1"/>
-              <SkewTransform/>
-              <RotateTransform/>
-              <TranslateTransform/>
-            </TransformGroup>
-          </Setter.Value>
-        </Setter>
-      </Trigger>
-
       <Trigger Property="IsNonClientAreaActive" Value="False">
         <Setter Property="Background" TargetName="PART_SizeBorder" Value="{DynamicResource WindowInactiveOutterBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border3" Value="{DynamicResource WindowInactiveInnerBackgroundBrush}"/>
