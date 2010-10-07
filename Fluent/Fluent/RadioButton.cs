@@ -11,6 +11,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -154,6 +155,7 @@ namespace Fluent
         public RadioButton()
         {
             ContextMenuService.Coerce(this);
+            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion

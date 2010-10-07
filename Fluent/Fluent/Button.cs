@@ -177,6 +177,7 @@ namespace Fluent
         public Button()
         {
             ContextMenuService.Coerce(this);
+            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion

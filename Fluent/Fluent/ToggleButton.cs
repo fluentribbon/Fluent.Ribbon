@@ -13,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Linq;
 using System.Windows.Media;
@@ -232,7 +233,7 @@ namespace Fluent
             IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
         }
 
         // Coerce object style
@@ -300,6 +301,7 @@ namespace Fluent
         public ToggleButton()
         {
             ContextMenuService.Coerce(this);
+            FocusManager.SetIsFocusScope(this,true);
         }
 
         #endregion

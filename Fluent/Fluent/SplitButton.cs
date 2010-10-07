@@ -24,7 +24,7 @@ namespace Fluent
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
-    public class SplitButton:DropDownButton
+    public class SplitButton : DropDownButton, ICommandSource
     {
         #region Fields
 
@@ -102,16 +102,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(object), typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
 
         #endregion        
 
@@ -342,6 +342,7 @@ namespace Fluent
         public SplitButton()
         {
             ContextMenuService.Coerce(this);
+            //FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion
@@ -395,14 +396,7 @@ namespace Fluent
             button.Click += ((sender, e) => RaiseEvent(e));
             button.Size = RibbonControlSize.Small;
             button.CanAddButtonToQuickAccessToolBar = false;
-            BindQuickAccessItem(button);
-            RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
+            BindQuickAccessItem(button);            
             button.DropDownOpened += OnQuickAccessOpened;
             return button;
         }
@@ -412,13 +406,23 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
-        {            
+        {
+            RibbonControl.Bind(this, element, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, element, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             RibbonControl.Bind(this, element, "DropDownToolTip", DropDownToolTipProperty, BindingMode.TwoWay);
             RibbonControl.Bind(this, element, "IsCheckable", IsCheckableProperty, BindingMode.Default);
             RibbonControl.Bind(this, element, "IsButtonEnabled", IsButtonEnabledProperty, BindingMode.Default);
             RibbonControl.Bind(this, element, "ContextMenu", ContextMenuProperty, BindingMode.Default);
-            base.BindQuickAccessItem(element);
+            RibbonControl.BindQuickAccessItem(this, element);
+            RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, "HasTriangle", HasTriangleProperty, BindingMode.Default);
         }
 
         /// <summary>

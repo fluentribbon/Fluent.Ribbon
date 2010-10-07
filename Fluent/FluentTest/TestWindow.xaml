@@ -437,7 +437,7 @@
             </Fluent:SplitButton.ToolTip>
             <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden" Orientation="Horizontal" GroupBy="Tag" Selectable="False" ItemWidth="32" ItemHeight="32">
               <Fluent:Gallery.ItemContainerStyle>
-                <Style TargetType="{x:Type Fluent:GalleryItem}"  BasedOn="{StaticResource GalleryItemStyle}">
+                <Style TargetType="{x:Type Fluent:GalleryItem}"  BasedOn="{StaticResource {x:Type Fluent:GalleryItem}}">
                   <Setter Property="Fluent:GalleryItem.Command" Value="Paste"/>
                 </Style>
               </Fluent:Gallery.ItemContainerStyle>
@@ -576,7 +576,7 @@
         <Fluent:Button x:Name="buttonShrinkFont" Icon="Images\ShrinkFont.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonChangeCase" Icon="Images\ChangeCase.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonClearFormatting" Icon="Images\ClearFormatting.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:ToggleButton  Fluent:KeyTip.Keys="B" x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:ToggleButton Fluent:KeyTip.Keys="B" x:Name="buttonBold" Icon="Images\Bold.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:ToggleButton x:Name="buttonItalic" Icon="Images\Italic.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:DropDownButton x:Name="buttonUnderline" Icon="Images\Underline.png"  HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
@@ -785,6 +785,7 @@
         </Fluent:RibbonGroupBox>
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
+    <TextBox x:Name="textBoxTest" Margin="20,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="25"/>
     <Button x:Name="testBtn" Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <!--Fluent:ContextMenu ResizeMode="Both">

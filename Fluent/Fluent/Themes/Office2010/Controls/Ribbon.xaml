@@ -109,7 +109,7 @@
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Template" Value="{StaticResource RibbonControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-    <Setter Property="FocusManager.IsFocusScope" Value="True"/>
+    <Setter Property="FocusManager.IsFocusScope" Value="False"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
   <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
