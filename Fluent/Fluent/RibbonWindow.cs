@@ -498,7 +498,23 @@ namespace Fluent
                             Size size = new Size(iconImage.ActualWidth, iconImage.ActualHeight);
                             size = DpiHelper.LogicalSizeToDevice(size);
                             if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
-                            ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
+                            //Dispatcher.BeginInvoke(DispatcherPriority.Inactive, ((ThreadStart)(() => { ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height)); })));                            
+                            //ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
+
+                            if (FlowDirection == FlowDirection.LeftToRight) ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
+                            else
+                            {
+                                // WPF has bug with incorrect coordinate detection when system menu is opened on RightToLeft FlowDirection 
+                                // so for correct double click we need to pause system menu opening
+                                DispatcherTimer timer = new DispatcherTimer(DispatcherPriority.SystemIdle);
+                                timer.Interval = TimeSpan.FromSeconds(0.1);
+                                timer.Tick += (s, ee) =>
+                                                  {
+                                                      ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
+                                                      (s as DispatcherTimer).Stop();
+                                                  };
+                                timer.Start();
+                            }
                         }
                     }
                     else if (e.ChangedButton == MouseButton.Right)
