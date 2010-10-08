@@ -80,7 +80,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            backstage.Arrange(new Rect(0, topOffset, finalSize.Width, finalSize.Height - topOffset));            
+            backstage.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0,finalSize.Height - topOffset)));            
             return finalSize;
         }
 

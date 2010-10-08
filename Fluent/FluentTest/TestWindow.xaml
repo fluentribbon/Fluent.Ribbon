@@ -5,7 +5,7 @@
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
     Title="Fluent Ribbon Control Suite 2.0 Preview" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
-    FlowDirection="RightToLeft"
+    FlowDirection="LeftToRight"
     >
   <Grid>
     <Grid.RowDefinitions>
