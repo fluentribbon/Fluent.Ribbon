@@ -249,6 +249,9 @@ namespace Fluent
                 // We have to collapse WindowsFormsHost while Backstage is open
                 CollapseWindowsFormsHosts(window);
             }
+
+            IInputElement content = Content as IInputElement;
+            if (content != null) content.Focus();
         }
 
         void OnDelayedShow(object sender, EventArgs args)
