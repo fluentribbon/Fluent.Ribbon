@@ -155,8 +155,6 @@ namespace Fluent
 
         private Grid mainGrid;
 
-        private bool IsGripperResizing;
-
         #endregion
 
         #region Properties
@@ -313,10 +311,8 @@ namespace Fluent
 
                 NativeMethods.Rect adjustedOffset = GetAdjustedWindowRect(new NativeMethods.Rect() { Bottom = 100, Right = 100 });
                 Point windowTopLeft = new Point(Left, Top);
-                //windowTopLeft -= /*(Vector)DpiHelper.DevicePixelsToLogical(*/new Point(adjustedOffset.Left, adjustedOffset.Top)/*)*/;
-                windowTopLeft.X -= adjustedOffset.Left;
-                windowTopLeft.Y -= adjustedOffset.Top;
-
+                windowTopLeft -= (Vector)DpiHelper.DevicePixelsToLogical(new Point(adjustedOffset.Left, adjustedOffset.Top));
+                
                 return RestoreBounds.Location != windowTopLeft;
             }
         }
@@ -397,18 +393,6 @@ namespace Fluent
                 window.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)window.FixFrameworkIssues);
             }
         }
-        /*
-        // Coerce control style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement)d).Resources["RibbonWindowStyle"] as Style ??
-                              Application.Current.Resources["RibbonWindowStyle"] as Style;
-            }
-
-            return basevalue;
-        }*/
 
         /// <summary>
         /// Default constructor
@@ -418,6 +402,7 @@ namespace Fluent
             SizeChanged += OnSizeChanged;
         }
 
+        // Size change to collapse ribbon
         void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth) || (e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
@@ -498,9 +483,7 @@ namespace Fluent
                             Size size = new Size(iconImage.ActualWidth, iconImage.ActualHeight);
                             size = DpiHelper.LogicalSizeToDevice(size);
                             if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
-                            //Dispatcher.BeginInvoke(DispatcherPriority.Inactive, ((ThreadStart)(() => { ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height)); })));                            
-                            //ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
-
+                            
                             if (FlowDirection == FlowDirection.LeftToRight) ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
                             else
                             {
@@ -546,7 +529,6 @@ namespace Fluent
             if (!isHooked)
             {
 
-                //
                 hwndSource.AddHook(WndProc);
                 mouseProc = new NativeMethods.HookProc(MouseWndProc);
                 mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_MOUSE, mouseProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
@@ -901,14 +883,14 @@ namespace Fluent
             }
             else
             {
-                ClearRoundingRegion();
+                //ClearRoundingRegion();
                 ExtendGlassFrame();
 
-                FixWindows7Issues();
+                //FixWindows7Issues();
             }
 
             NativeMethods.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, SwpFlags);
-
+            UpdateLayout();
         }
 
         private void ClearRoundingRegion()
@@ -1237,11 +1219,12 @@ namespace Fluent
                     }
                 case NativeMethods.WM_WINDOWPOSCHANGED:
                     {
-
                         if (!IsDwmEnabled)
                         {
                             var wp = (NativeMethods.WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.WINDOWPOS));
+                            ModifyStyle(NativeMethods.WS_VISIBLE, 0);
                             SetRoundingRegion(wp);
+                            ModifyStyle(0, NativeMethods.WS_VISIBLE);
                         }
 
                         // Still want to pass this to DefWndProc
@@ -1253,6 +1236,12 @@ namespace Fluent
                         IsDwmEnabled = NativeMethods.IsDwmEnabled();
 
                         UpdateFrameState(false);
+
+                        if (IsDwmEnabled)
+                        {
+                            NativeMethods.SetWindowRgn(handle, IntPtr.Zero, true);
+                            FixWindows7Issues();
+                        }
 
                         handled = false;
                         return IntPtr.Zero;
@@ -1361,7 +1350,6 @@ namespace Fluent
                     IInputElement inputElement = mainGrid.InputHitTest(ptMouse);
                     if (inputElement != null)
                     {
-                        Debug.WriteLine((inputElement as FrameworkElement).Name);
                         if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;                        
                         else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
                     }                    

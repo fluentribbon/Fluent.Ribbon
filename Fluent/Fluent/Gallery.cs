@@ -377,7 +377,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register("Selectable", typeof(bool),
-            typeof(Gallery), new UIPropertyMetadata(true));
+            typeof(Gallery), new UIPropertyMetadata(true, OnSelectableChanged));
+
+        private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(SelectedItemProperty);
+        }
 
         #endregion
 
@@ -434,7 +439,12 @@ namespace Fluent
         // Coerce selected item
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            if (!(d as Gallery).Selectable) return null;
+            Gallery gallery = d as Gallery;
+            if (!gallery.Selectable)
+            {
+                if (basevalue != null) (gallery.ItemContainerGenerator.ContainerFromItem(basevalue) as GalleryItem).IsSelected = false;
+                return null;
+            }
             return basevalue;
         }
 

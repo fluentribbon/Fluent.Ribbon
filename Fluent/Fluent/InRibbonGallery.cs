@@ -502,7 +502,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register("Selectable", typeof(bool),
-            typeof(InRibbonGallery), new UIPropertyMetadata(true));
+            typeof(InRibbonGallery), new UIPropertyMetadata(true, OnSelectableChanged));
+
+        private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            d.CoerceValue(SelectedItemProperty);
+        }
 
         #endregion
 
@@ -782,6 +787,7 @@ namespace Fluent
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
         }
 
         // Coerce object style
@@ -792,6 +798,18 @@ namespace Fluent
                 basevalue = (d as FrameworkElement).TryFindResource(typeof(InRibbonGallery));
             }
 
+            return basevalue;
+        }
+
+        // Coerce selected item
+        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
+        {
+            InRibbonGallery gallery = d as InRibbonGallery;
+            if (!gallery.Selectable)
+            {
+                if (basevalue != null) (gallery.ItemContainerGenerator.ContainerFromItem(basevalue) as GalleryItem).IsSelected = false;
+                return null;
+            }
             return basevalue;
         }
 

@@ -590,7 +590,7 @@
 
       
    <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
-     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True" MinItemsInDropDownRow="4">     
+     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True" MinItemsInDropDownRow="4" Selectable="False">     
        <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1 L" Groups="Group1"/>
