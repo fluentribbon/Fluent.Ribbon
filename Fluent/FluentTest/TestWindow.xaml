@@ -86,7 +86,7 @@
                         <Fluent:BackstageTabItem Header="Print" Fluent:KeyTip.Keys="P">
                             <Grid Background="Yellow" Opacity="0.3" Margin="50"/>
                         </Fluent:BackstageTabItem>
-                        <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Click="OnExitClick"/>
+                        <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Command="ApplicationCommands.Close"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
             </Fluent:Ribbon.Menu>
@@ -864,6 +864,7 @@
         <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=gallery, Path=SelectedItem, Mode=OneWay}" Content="{Binding Text}"  Grid.Row="1" Padding="0" Margin="5,0,0,1"/>-->
     <!--Content="{Binding Text}"-->
     <!--<WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>-->
+    
   </Grid>
 
 </Fluent:RibbonWindow>

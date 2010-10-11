@@ -3,7 +3,7 @@
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
   </ResourceDictionary.MergedDictionaries>
-  <Fluent:StringToImageConverter x:Key="StringToImageConvert"/>
+  <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
   <ControlTemplate x:Key="ResizeBothThumbControlTemplate" TargetType="{x:Type Thumb}">
     <Grid Background="#00000000">
       <Rectangle Fill="White" StrokeThickness="0" Width="2" Height="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,2,1"/>

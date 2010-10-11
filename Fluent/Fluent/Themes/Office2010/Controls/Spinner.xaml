@@ -3,7 +3,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Fluent="clr-namespace:Fluent"  mc:Ignorable="d">
-  <Fluent:StringToImageConverter x:Key="StringToImageConvert"/>
+  <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
   <!--Button in Spinner Control Style-->
   <ControlTemplate x:Key="SpinnerButtonControlTemplate" TargetType="{x:Type RepeatButton}">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

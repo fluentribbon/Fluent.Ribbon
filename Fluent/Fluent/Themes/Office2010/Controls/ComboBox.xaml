@@ -5,7 +5,7 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TextBox.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
   </ResourceDictionary.MergedDictionaries>
-  <Fluent:StringToImageConverter x:Key="StringToImageConvert"/>
+  <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
   <Style x:Key="RibbonComboButtonStyle" TargetType="{x:Type Fluent:ToggleButton}">
     <Setter Property="Template" Value="{DynamicResource RibbonComboButtonControlTemplate}"/>
     <Setter Property="Height" Value="66"/>

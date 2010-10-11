@@ -21,7 +21,10 @@ using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
-    public class StringToImageConverter:IValueConverter
+    /// <summary>
+    /// Converts string or ImageSource to Image control
+    /// </summary>
+    public class ObjectToImageConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
@@ -36,9 +39,15 @@ namespace Fluent
         {
             if (value is string)
             {
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute));
-                return img;
+                Image image = new Image();
+                image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute));
+                return image;
+            }
+            if (value is ImageSource)
+            {
+                Image image = new Image();
+                image.Source = (ImageSource)value;
+                return image;
             }
             return value;
         }
