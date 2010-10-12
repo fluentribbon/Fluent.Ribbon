@@ -273,19 +273,7 @@ namespace Fluent
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             bool newValue = (bool)e.NewValue;
-            bool oldValue = (bool)e.OldValue;
             ToggleButton button = (ToggleButton)d;
-            if (oldValue != newValue)
-            {
-                if (newValue)
-                {
-                    button.RaiseEvent(new RoutedEventArgs(ToggleButton.CheckedEvent, button));
-                }
-                else
-                {
-                    button.RaiseEvent(new RoutedEventArgs(ToggleButton.UncheckedEvent, button));
-                }
-            }
 
             // Uncheck other toggle buttons
             if (newValue && button.GroupName != null)
