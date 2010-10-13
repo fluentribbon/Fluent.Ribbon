@@ -859,7 +859,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Called to remeasure a control.
         /// </summary>
         /// <param name="constraint">The maximum size that the method can return.</param>
@@ -875,7 +875,7 @@ namespace Fluent
                 return base.MeasureOverride(new Size(upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right, constraint.Height));
             }
             return size;
-        }
+        }*/
 
         #endregion
 

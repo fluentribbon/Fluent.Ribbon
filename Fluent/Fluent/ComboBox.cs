@@ -48,7 +48,7 @@ namespace Fluent
 
         private TextBox editableTextBox;
 
-        private MenuPanel menuPanel;
+        private Panel menuPanel;
 
         private ContentPresenter contentSite;
 
@@ -574,7 +574,7 @@ namespace Fluent
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
 
-            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
+            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
 
             snappedImage = GetTemplateChild("PART_SelectedImage") as Image;
             contentSite = GetTemplateChild("PART_ContentSite") as ContentPresenter;
