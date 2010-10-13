@@ -346,10 +346,14 @@ namespace Fluent
                 else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
                 //Keyboard.Focus(popup);
                 //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
-                Debug.WriteLine(Keyboard.FocusedElement);
+                //Debug.WriteLine(Keyboard.FocusedElement);
+
                 focusedElement = Keyboard.FocusedElement;
-                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
-                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+                if (focusedElement != null)
+                {
+                    focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+                    focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+                }
                 e.Handled = true;
             }
         }

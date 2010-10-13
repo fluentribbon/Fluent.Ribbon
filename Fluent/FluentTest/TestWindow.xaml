@@ -13,7 +13,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="True" x:Name="ribbon" >
+    <Fluent:Ribbon AutomaticStateManagement="False" x:Name="ribbon" >
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
@@ -23,9 +23,9 @@
       <Fluent:Ribbon.Menu>
                 <Fluent:Backstage Background="Green">
                     <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
+                        <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" Command="Cut" Click="OnBtnClick"/>
                         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
-                        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E">
+                        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E" IsEnabled="False">
                             <ScrollViewer>
                                 <Grid Height="400" Background="Red">
                                     <ListBox Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -863,7 +863,7 @@
     <TextBox Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding SelectedIndex, ElementName=comboBoxFontName, Mode=TwoWay}" TextWrapping="Wrap" Margin="155,3.04,0,0" Grid.Row="1" d:LayoutOverrides="VerticalAlignment"/>
         <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=gallery, Path=SelectedItem, Mode=OneWay}" Content="{Binding Text}"  Grid.Row="1" Padding="0" Margin="5,0,0,1"/>-->
     <!--Content="{Binding Text}"-->
-    <!--<WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>-->
+    <WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>
     
   </Grid>
 

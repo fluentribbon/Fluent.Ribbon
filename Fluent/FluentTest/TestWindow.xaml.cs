@@ -78,6 +78,9 @@ namespace FluentTest
            // };
            
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
+            buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
+            buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
+            ribbon.DataContext = this;
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {
