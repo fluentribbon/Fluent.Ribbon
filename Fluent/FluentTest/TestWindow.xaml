@@ -13,7 +13,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <ScrollBar HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,0,0,20" Maximum="10" Minimum="0" Grid.Row="1"/>
-    <Fluent:Ribbon AutomaticStateManagement="False" x:Name="ribbon" >
+    <Fluent:Ribbon AutomaticStateManagement="False" x:Name="ribbon">
 
       <Fluent:Ribbon.ContextualGroups>
         <Fluent:RibbonContextualTabGroup x:Name="tabGroup1" BorderBrush="Magenta" Background="Purple" Header="First" Visibility="Visible"/>
@@ -686,9 +686,26 @@
           
         </Fluent:RibbonGroupBox>       
       </Fluent:RibbonTabItem>
-      <Fluent:RibbonTabItem Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
+      <Fluent:RibbonTabItem x:Name="secondTab" Fluent:KeyTip.Keys="Y" Header="Insert" IsSeparatorVisible="true" ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
         <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG" Header="" IsLauncherVisible="False" x:Name="groupLL">
-                    <Fluent:ComboBox Name="FilterComboBox" IsReadOnly="True" Fluent:KeyTip.Keys="H" SelectedIndex="0">
+
+          <Fluent:ComboBox IsEditable="False" InputWidth="150" Header="Test" ItemsSource="{Binding FontsData}">
+            <Fluent:ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+              </DataTemplate>
+            </Fluent:ComboBox.ItemTemplate>
+          </Fluent:ComboBox>
+          <Fluent:ComboBox IsEditable="False" InputWidth="150" Header="Test" ItemsSource="{Binding FontsData}">
+            <Fluent:ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+              </DataTemplate>
+            </Fluent:ComboBox.ItemTemplate>
+          </Fluent:ComboBox>
+
+
+          <Fluent:ComboBox Name="FilterComboBox" IsReadOnly="True" Fluent:KeyTip.Keys="H" SelectedIndex="0">
                         <System:String>Show All</System:String>
                         <System:String>Read-only</System:String>
                         <System:String>Writeable</System:String>

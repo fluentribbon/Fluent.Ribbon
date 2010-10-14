@@ -330,9 +330,6 @@ namespace Fluent
 
         private Window ownerWindow;
 
-        private int selectedTabIndex = -1;
-        private RibbonTabItem selectedTabItem;
-
         #endregion
 
         #region Properties
@@ -385,7 +382,7 @@ namespace Fluent
         }
 
 
-        /// <summary>
+        /*/// <summary>
         /// Gets or sets selected tab item
         /// </summary>
         public RibbonTabItem SelectedTabItem
@@ -409,7 +406,56 @@ namespace Fluent
                 if (tabControl != null) tabControl.SelectedIndex = value;
                 selectedTabIndex = value;
             }
+        }*/
+
+        /// <summary>
+        /// Gets or sets selected tab item
+        /// </summary>
+        public RibbonTabItem SelectedTabItem
+        {
+            get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
+            set { SetValue(SelectedTabItemProperty, value); }
         }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SelectedTabItemProperty =
+            DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(Ribbon), new UIPropertyMetadata(null, OnSelectedTabItemChanged));
+
+        private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = d as Ribbon;
+            if (ribbon.tabControl != null) ribbon.tabControl.SelectedItem = e.NewValue;
+            RibbonTabItem selectedItem = e.NewValue as RibbonTabItem;
+            if ((selectedItem != null) && (ribbon.Tabs.Contains(selectedItem))) ribbon.SelectedTabIndex = ribbon.Tabs.IndexOf(selectedItem);
+            else ribbon.SelectedTabIndex = -1;
+        }
+
+        /// <summary>
+        /// Gets or sets selected tab index
+        /// </summary>
+        public int SelectedTabIndex
+        {
+            get { return (int)GetValue(SelectedTabIndexProperty); }
+            set { SetValue(SelectedTabIndexProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SelectedTabindex.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SelectedTabIndexProperty =
+            DependencyProperty.Register("SelectedTabIndex", typeof(int), typeof(Ribbon), new UIPropertyMetadata(-1, OnSelectedTabIndexChanged));
+
+        private static void OnSelectedTabIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = d as Ribbon;
+            int selectedIndex = (int) e.NewValue;
+            if (ribbon.tabControl!=null) ribbon.tabControl.SelectedIndex = selectedIndex;
+            if ((selectedIndex >= 0)&&(selectedIndex<ribbon.Tabs.Count)) ribbon.SelectedTabItem = ribbon.Tabs[selectedIndex];
+            else ribbon.SelectedTabItem = null;
+        }
+
 
         /// <summary>
         /// Gets ribbon titlebar
@@ -1088,7 +1134,7 @@ namespace Fluent
                     titleBar.Items.Add(groups[i]);
                 }
             }
-            RibbonTabItem selectedTab = selectedTabItem;
+            RibbonTabItem selectedTab = SelectedTabItem;
             if (tabControl != null)
             {
                 tabControl.SelectionChanged -= OnTabControlSelectionChanged;
@@ -1315,8 +1361,8 @@ namespace Fluent
         {
             if (tabControl != null)
             {
-                selectedTabItem = tabControl.SelectedItem as RibbonTabItem;
-                selectedTabIndex = tabControl.SelectedIndex;
+                SelectedTabItem = tabControl.SelectedItem as RibbonTabItem;
+                SelectedTabIndex = tabControl.SelectedIndex;
             }
 
             if (SelectedTabChanged != null) SelectedTabChanged(this, e);

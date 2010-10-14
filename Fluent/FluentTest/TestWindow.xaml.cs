@@ -34,7 +34,11 @@ namespace FluentTest
     /// </summary>
     public partial class TestWindow : RibbonWindow
     {
-
+        private string[] data = new string[] {"Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol"};
+        public string[] FontsData
+        {
+            get { return data; }
+        }
 
         public TstEnum TST
         {
