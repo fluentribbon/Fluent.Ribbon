@@ -804,7 +804,7 @@
       </Fluent:RibbonTabItem>    
     </Fluent:Ribbon>
     <TextBox x:Name="textBoxTest" Margin="20,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="25"/>
-    <Button x:Name="testBtn" Visibility="Collapsed" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
+    <Button x:Name="testBtn" Visibility="Visible" HorizontalAlignment="Left" Margin="33,5,0,0" VerticalAlignment="Top" Width="118" Height="20" Content="Button" Click="OnSomeTestClick" Grid.Row="1">
       <Button.ContextMenu>
         <!--Fluent:ContextMenu ResizeMode="Both">
           <Button VerticalAlignment="Stretch" Height="Auto">Lala</Button>
@@ -827,7 +827,7 @@
           <Fluent:MenuItem Text="Lala2"/>
         </Fluent:ContextMenu>-->
         <ContextMenu>
-          <Fluent:MenuItem Header="Lala"/>
+          <Fluent:MenuItem Header="Lala" InputGestureText="(Ctrl+F)"/>
           <Fluent:MenuItem Header="Lala">
             <Fluent:MenuItem Header="Lala"/>
             <Fluent:MenuItem Header="Lala">
