@@ -453,6 +453,7 @@
                                   Text="This ScreenTip is attached to menu item"/>
               </Fluent:MenuItem.ToolTip>
             </Fluent:MenuItem>
+            <Separator/>
             <Fluent:MenuItem Header="Set Default Paste..." Fluent:KeyTip.Keys="A" Click="OnMenuItemClick">
               <Fluent:MenuItem Header="1"></Fluent:MenuItem>
               <Fluent:MenuItem Header="2"></Fluent:MenuItem>
