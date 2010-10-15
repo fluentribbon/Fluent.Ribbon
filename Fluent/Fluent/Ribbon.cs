@@ -1589,14 +1589,16 @@ namespace Fluent
             {
                 if (isolatedStorageFileName == null)
                 {
-                    isolatedStorageFileName = "Fluent.Ribbon.State.2.0";
+                    string stringForHash = "";
                     Window window = Window.GetWindow(this);
                     if (window != null)
                     {
-                        isolatedStorageFileName += "." + window.GetType().FullName;
-                        if (!String.IsNullOrWhiteSpace(window.Name)) isolatedStorageFileName += "." + window.Name;                        
+                        stringForHash += "." + window.GetType().FullName;
+                        if (!String.IsNullOrWhiteSpace(window.Name)) stringForHash += "." + window.Name;                        
                     }
-                    if (!String.IsNullOrWhiteSpace(this.Name)) isolatedStorageFileName += "." + this.Name;
+                    if (!String.IsNullOrWhiteSpace(this.Name)) stringForHash += "." + this.Name;
+
+                    isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
                 }
                 return isolatedStorageFileName;
             }   
