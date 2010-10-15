@@ -297,26 +297,25 @@ namespace Fluent
         /// </summary>
         public GalleryPanel()
         {
-            
+            visualCollection = new VisualCollection(this);
         }
 
         #endregion
 
         #region Visual Tree
 
-        int visualChildrenCount = 0;
-        Visual[] visualChildren = new Visual[0];
+        readonly VisualCollection visualCollection = null;
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
         /// </summary>
-        /*protected override int VisualChildrenCount
+        protected override int VisualChildrenCount
         {
             get
             {
-                return visualChildrenCount;
+                return base.VisualChildrenCount + visualCollection.Count;
             }
-        }*/
+        }
 
         /// <summary>
         /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
@@ -326,26 +325,10 @@ namespace Fluent
         /// child element in the collection</param>
         /// <returns>The requested child element. This should not return null; 
         /// if the provided index is out of range, an exception is thrown</returns>
-        /*protected override Visual GetVisualChild(int index)
+        protected override Visual GetVisualChild(int index)
         {
-            if (index < 0 || index >= visualChildrenCount) throw new Exception("Index of visual is out of range");
-            return visualChildren[index];
-        }*/
-
-
-        protected override void OnRender(DrawingContext dc)
-        {
-            base.OnRender(dc);
-            double deltaY = 0;
-            for(int i=0;i<galleryGroupContainers.Count;i++)
-            {
-                Rect r = VisualTreeHelper.GetDescendantBounds(galleryGroupContainers[i]);// new Rect(0, 0, galleryGroupContainers[i].ActualWidth, galleryGroupContainers[i].ActualHeight);
-                if (r == Rect.Empty) return;
-                r = new Rect(r.X, deltaY, r.Width, r.Height);
-                VisualBrush b = new VisualBrush(galleryGroupContainers[i]);
-                dc.DrawRectangle(b,null,r);
-                deltaY += galleryGroupContainers[i].ActualHeight;
-            }            
+            if (index < base.VisualChildrenCount) return base.GetVisualChild(index);
+            return visualCollection[index - base.VisualChildrenCount];
         }
 
         #endregion
@@ -381,6 +364,16 @@ namespace Fluent
         static void InvalidateMeasureRecursive(UIElement visual)
         {
             visual.InvalidateMeasure();
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
+            {
+                UIElement element = VisualTreeHelper.GetChild(visual, i) as UIElement;
+                if (element != null) InvalidateMeasureRecursive(element);
+            }
+        }
+
+        static void InvalidateArrangeRecursive(UIElement visual)
+        {
             visual.InvalidateArrange();
 
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
@@ -434,7 +427,8 @@ namespace Fluent
             foreach (GalleryGroupContainer galleryGroupContainer in galleryGroupContainers)
             {
                 BindingOperations.ClearAllBindings(galleryGroupContainer);
-                RemoveVisualChild(galleryGroupContainer);
+                //RemoveVisualChild(galleryGroupContainer);
+                visualCollection.Remove(galleryGroupContainer);
             }
             galleryGroupContainers.Clear();
             
@@ -486,7 +480,8 @@ namespace Fluent
                     RibbonControl.Bind(this, galleryGroupContainer, "MinItemsInRow", GalleryGroupContainer.MinItemsInRowProperty, BindingMode.OneWay);
                     dictionary.Add(propertyValue,galleryGroupContainer);
                     galleryGroupContainers.Add(galleryGroupContainer);
-                    AddVisualChild(galleryGroupContainer);
+                   
+                    visualCollection.Add(galleryGroupContainer);
                 }
                 dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
             }
@@ -496,14 +491,7 @@ namespace Fluent
                 // Make it without headers
                 galleryGroupContainers[0].IsHeadered = false;
             }
-
-            visualChildrenCount = InternalChildren.Count + galleryGroupContainers.Count;
-            visualChildren = new Visual[visualChildrenCount];
-            for (int i = 0; i < galleryGroupContainers.Count; i++)
-                visualChildren[i] = galleryGroupContainers[i];
-            for (int i = galleryGroupContainers.Count; i < galleryGroupContainers.Count + InternalChildren.Count; i++)
-                visualChildren[i] = InternalChildren[i - galleryGroupContainers.Count];
-
+            
             InvalidateMeasure();
         }
 
@@ -542,11 +530,12 @@ namespace Fluent
             double height = 0;
             foreach (GalleryGroupContainer child in galleryGroupContainers)
             {
-                InvalidateMeasureRecursive(child);
+                //InvalidateMeasureRecursive(child);
                 child.Measure(availableSize);
                 height += child.DesiredSize.Height;
                 width = Math.Max(width, child.DesiredSize.Width);
             }
+            
             return new Size(width, height);
         }
 
@@ -563,6 +552,8 @@ namespace Fluent
 
             foreach (GalleryGroupContainer item in galleryGroupContainers)
             {
+                //InvalidateArrangeRecursive(item);
+
                 finalRect.Height = item.DesiredSize.Height;
                 finalRect.Width = Math.Max(finalSize.Width, item.DesiredSize.Width);
                 item.Arrange(finalRect);
