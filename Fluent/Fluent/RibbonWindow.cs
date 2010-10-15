@@ -1337,7 +1337,7 @@ namespace Fluent
 
                 // Don't blindly respect HTCAPTION.
                 // We want UIElements in the caption area to be actionable so run through a hittest first.
-                if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null))
+                if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null) && mainGrid.IsLoaded)
                 {
                     int mp = lParam.ToInt32();
                     if (!mainGrid.IsVisible) return IntPtr.Zero;
@@ -1357,7 +1357,7 @@ namespace Fluent
 
                 // Check resize grip
                 ResizeGrip grip = (GetTemplateChild("PART_ResizeGrip") as ResizeGrip);
-                if ((grip != null) && (grip.InputHitTest((GetTemplateChild("PART_ResizeGrip") as ResizeGrip).PointFromScreen(mousePosScreen)) != null))
+                if ((grip != null) && (grip.IsLoaded) && (grip.InputHitTest(grip.PointFromScreen(mousePosScreen)) != null))
                 {
                     if(FlowDirection==FlowDirection.LeftToRight) ht = NativeMethods.HTBOTTOMRIGHT;
                     else ht = NativeMethods.HTBOTTOMLEFT;

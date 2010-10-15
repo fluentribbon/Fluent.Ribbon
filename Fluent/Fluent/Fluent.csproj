@@ -118,6 +118,9 @@
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="RibbonMenu.cs" />
+    <Compile Include="StatusBar.cs" />
+    <Compile Include="StatusBarItem.cs" />
+    <Compile Include="StatusBarMenuItem.cs" />
     <Compile Include="SeparatorTabItem.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Gallery.cs" />
@@ -285,6 +288,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Office2010\Controls\RibbonStatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Office2010\Controls\SeparatorTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -320,6 +327,10 @@
     <Page Include="Themes\Office2010\Controls\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -19,6 +19,7 @@
   <ControlTemplate x:Key="FluentPopupMenuControlTemplate" TargetType="{x:Type Fluent:ContextMenu}">
     <ControlTemplate.Resources>
       <Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}"/>
+      <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}"/>
     </ControlTemplate.Resources>
     <Grid Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
       <Grid.RowDefinitions>

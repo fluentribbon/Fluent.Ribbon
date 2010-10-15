@@ -48,6 +48,8 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Ribbon.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\SeparatorTabItem.xaml"/>
+      <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonStatusBar.xaml"/>
+      <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Slider.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\RibbonWindow.xaml"/>        
     </ResourceDictionary.MergedDictionaries>
 

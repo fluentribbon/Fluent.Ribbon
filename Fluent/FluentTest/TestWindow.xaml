@@ -882,7 +882,25 @@
         <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=gallery, Path=SelectedItem, Mode=OneWay}" Content="{Binding Text}"  Grid.Row="1" Padding="0" Margin="5,0,0,1"/>-->
     <!--Content="{Binding Text}"-->
     <!--<WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>-->
+    <Fluent:StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
+      <Fluent:StatusBarItem Title="Words Width"
+                                    Value="150">
+        <TextBlock Text="150 px"/>
+      </Fluent:StatusBarItem>
+      <Separator/>
+      <Fluent:StatusBarItem Title="Selected Words"
+                                    Value="15"
+                                    ToolTip="This is Selected Words"
+                                    Content="15"/>
+      <Separator/>
+      <Fluent:StatusBarItem Title="Zoom" HorizontalAlignment="Right" Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:0}\%}"/>
+      <Fluent:StatusBarItem Title="Zoom Slider" HorizontalAlignment="Right">
+        <Slider x:Name="zoomSlider" Minimum="20" Maximum="500" IsDirectionReversed="False" Style="{DynamicResource ZoomSliderStyle}" Value="100"/>
+      </Fluent:StatusBarItem>
+      </Fluent:StatusBar>
+
+
     
-  </Grid>
+</Grid>
 
 </Fluent:RibbonWindow>
