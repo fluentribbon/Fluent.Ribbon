@@ -591,7 +591,7 @@
 
       
    <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
-     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True" MinItemsInDropDownRow="4" Selectable="False">     
+     <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True" MinItemsInDropDownRow="4">     
        <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
           <Fluent:GalleryGroupFilter Title="Group1 L" Groups="Group1"/>
@@ -882,6 +882,8 @@
         <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" Width ="600" DataContext="{Binding ElementName=gallery, Path=SelectedItem, Mode=OneWay}" Content="{Binding Text}"  Grid.Row="1" Padding="0" Margin="5,0,0,1"/>-->
     <!--Content="{Binding Text}"-->
     <!--<WebBrowser Source="http://fluent.codeplex.com" VerticalAlignment="Bottom" Height="100" Grid.Row="1"/>-->
+      <!-- <Button Grid.Row="1" Command="{x:Static Fluent:Ribbon.AddToQuickAccessCommand}" CommandTarget="{Binding ElementName=ribbon}" CommandParameter="{Binding ElementName=buttonBold}">Add</Button>-->
+      
     <Fluent:StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
       <Fluent:StatusBarItem Title="Words Width"
                                     Value="150">
