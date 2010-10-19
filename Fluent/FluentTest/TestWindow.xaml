@@ -454,10 +454,11 @@
               </Fluent:MenuItem.ToolTip>
             </Fluent:MenuItem>
             <Separator/>
-            <Fluent:MenuItem Header="Set Default Paste..." Fluent:KeyTip.Keys="A" Click="OnMenuItemClick">
-              <Fluent:MenuItem Header="1"></Fluent:MenuItem>
-              <Fluent:MenuItem Header="2"></Fluent:MenuItem>
+            <Fluent:MenuItem Header="Set Default Paste..." Fluent:KeyTip.Keys="A" IsSplited="True" Command="Paste">
+              <Fluent:MenuItem Header="1" Click="OnMenuItemClick"></Fluent:MenuItem>
+              <Fluent:MenuItem Header="2" Command="Paste"></Fluent:MenuItem>
             </Fluent:MenuItem>
+            <Fluent:MenuItem Header="Paste now" Command="Paste"></Fluent:MenuItem>
           </Fluent:SplitButton>
         <Fluent:Button x:Name="cutButton" Fluent:KeyTip.Keys="X" Header="Cut" Icon="Images\Cut.png" SizeDefinition="Middle,Small" Command="Cut">
           <Fluent:Button.ToolTip>

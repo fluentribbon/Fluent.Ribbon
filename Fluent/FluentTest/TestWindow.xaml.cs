@@ -85,6 +85,10 @@ namespace FluentTest
             buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
             ribbon.DataContext = this;
+            /*DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };
+            timer.Start();*/
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {

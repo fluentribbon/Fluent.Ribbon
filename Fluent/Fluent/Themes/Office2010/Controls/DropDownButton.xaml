@@ -58,7 +58,7 @@
             AllowsTransparency="True" 
             Focusable="False"
             PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            <Grid 
+            <Grid  Focusable="False"
               Name="DropDown"
               SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">
               <Grid.RowDefinitions>
@@ -109,19 +109,19 @@
           </LinearGradientBrush>
         </Rectangle.Fill>
       </Rectangle>
-    <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-        <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-          <Border VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
-          <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+    <Border  Focusable="False" x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <Grid  Focusable="False" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+          <Border Focusable="False" VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
+          <Grid Focusable="False" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid.RowDefinitions>
               <RowDefinition Height="*"/>
               <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>            
-            <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
-            <ScrollViewer Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+            </Grid.RowDefinitions>
+            <Rectangle Focusable="False" Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
+            <ScrollViewer Focusable="False" Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+              <Fluent:MenuPanel Focusable="False" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Local"/>
               </ScrollViewer>
-            <Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
+            <Border Focusable="False" x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
               <Grid>
                 <Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
                 <Thumb x:Name="PART_ResizeBothThumb" HorizontalAlignment="Right" Margin="0,0,0,-90" Width="10" Height="10" VerticalAlignment="Top" Cursor="SizeNWSE" Template="{DynamicResource ResizeBothThumbControlTemplate}"/>

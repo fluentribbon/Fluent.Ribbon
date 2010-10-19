@@ -21,6 +21,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace Fluent
 {
@@ -455,6 +456,8 @@ namespace Fluent
         {
             ContextMenuService.Coerce(this);
             Loaded += OnLoaded;
+            Focusable = false;
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Continue);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

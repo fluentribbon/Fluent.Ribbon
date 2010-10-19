@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -171,6 +172,25 @@ namespace Fluent
 
         #endregion
 
+        #region IsSplited
+
+        /// <summary>
+        /// Gets or sets a value indicating whether menu item is splited
+        /// </summary>
+        public bool IsSplited
+        {
+            get { return (bool)GetValue(IsSplitedProperty); }
+            set { SetValue(IsSplitedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsSplited.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsSplitedProperty =
+            DependencyProperty.Register("IsSplited", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -195,12 +215,24 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static MenuItem()
         {
-            Type type = typeof (MenuItem);
+            Type type = typeof(MenuItem);
             ToolTipService.Attach(type);
             //PopupService.Attach(type);            
-            ContextMenuService.Attach(type);            
+            ContextMenuService.Attach(type);
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
-        
+
+        // Coerce object style
+        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        {
+            if (basevalue == null)
+            {
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(System.Windows.Controls.MenuItem));
+            }
+
+            return basevalue;
+        }
+
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -209,6 +241,7 @@ namespace Fluent
             ContextMenuService.Coerce(this);
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
+            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion
@@ -238,7 +271,7 @@ namespace Fluent
                 button.DropDownOpened += OnQuickAccessOpened;
                 return button;
             }
-            else 
+            else
             {
                 Button button = new Button();
                 RibbonControl.BindQuickAccessItem(this, button);
@@ -354,13 +387,45 @@ namespace Fluent
             return (item is FrameworkElement);
         }
 
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1)
+            {
+                if (IsSplited)
+                {
+                    Border buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
+                    if ((buttonBorder != null) && (PopupService.IsMousePhysicallyOver(buttonBorder)))
+                    {
+                        /*if (Command != null)
+                        {
+                            RoutedCommand command = Command as RoutedCommand;
+                            if (command != null) command.Execute(CommandParameter, CommandTarget);
+                            else Command.Execute(CommandParameter);
+                        }*/
+                        OnClick();
+                    }
+                }
+            }
+            base.OnMouseLeftButtonUp(e);
+        }
+
         /// <summary>
         /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked. 
         /// </summary>
         protected override void OnClick()
         {
             // Close popup on click
-            if ((IsDefinitive)&&(!HasItems)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+            //if ((IsDefinitive)&&(!HasItems)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+            /*if (HasItems && IsSplited)
+            {
+                Border buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
+                if ((buttonBorder != null) && (buttonBorder.IsMouseOver))
+                {
+                    if (IsDefinitive) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+                }
+            }
+            else */
+            if ((IsDefinitive) && (!HasItems || IsSplited)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             base.OnClick();
         }
 
@@ -410,6 +475,13 @@ namespace Fluent
             menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
         }
 
+        protected override void  OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+ 	        Debug.WriteLine("MenuItem focus lost - "+this); 
+            //base.OnPreviewLostKeyboardFocus(e);
+            //e.Handled = true;
+        }        
+
         #endregion
 
         #region Methods
@@ -453,7 +525,7 @@ namespace Fluent
             menuPanel.Height = double.NaN;
             if (DropDownOpened != null) DropDownOpened(this, e);
             //Mouse.Capture(this, CaptureMode.SubTree);
-        }     
+        }
 
         #endregion
     }
