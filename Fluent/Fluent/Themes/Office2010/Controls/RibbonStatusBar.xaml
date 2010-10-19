@@ -9,7 +9,7 @@
         <ControlTemplate TargetType="{x:Type Controls:StatusBar}">
           <Border BorderThickness="0,1" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}">
             <Border Height="Auto" BorderThickness="0,1" BorderBrush="{DynamicResource StatusBarInnerBorderBrush}" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
-              <ItemsPresenter x:Name="itemsPresenter" Height="Auto" Margin="0"/>
+              <Controls:StatusBarPanel IsItemsHost="True" x:Name="itemsPresenter" Height="Auto" Margin="0"/>
             </Border>
           </Border>
         	<ControlTemplate.Triggers>

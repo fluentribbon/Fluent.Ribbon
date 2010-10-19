@@ -883,10 +883,10 @@ namespace Fluent
             }
             else
             {
-                //ClearRoundingRegion();
+                ClearRoundingRegion();
                 ExtendGlassFrame();
 
-                //FixWindows7Issues();
+                FixWindows7Issues();
             }
 
             NativeMethods.SetWindowPos(handle, IntPtr.Zero, 0, 0, 0, 0, SwpFlags);
@@ -1236,12 +1236,6 @@ namespace Fluent
                         IsDwmEnabled = NativeMethods.IsDwmEnabled();
 
                         UpdateFrameState(false);
-
-                        if (IsDwmEnabled)
-                        {
-                            NativeMethods.SetWindowRgn(handle, IntPtr.Zero, true);
-                            FixWindows7Issues();
-                        }
 
                         handled = false;
                         return IntPtr.Zero;

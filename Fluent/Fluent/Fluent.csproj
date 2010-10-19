@@ -122,6 +122,7 @@
     <Compile Include="StatusBarItem.cs" />
     <Compile Include="StatusBarMenuItem.cs" />
     <Compile Include="SeparatorTabItem.cs" />
+    <Compile Include="StatusBarPanel.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Gallery.cs" />
     <Compile Include="GalleryGroupFilter.cs" />

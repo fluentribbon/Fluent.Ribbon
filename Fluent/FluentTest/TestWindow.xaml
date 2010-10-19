@@ -885,24 +885,17 @@
       <!-- <Button Grid.Row="1" Command="{x:Static Fluent:Ribbon.AddToQuickAccessCommand}" CommandTarget="{Binding ElementName=ribbon}" CommandParameter="{Binding ElementName=buttonBold}">Add</Button>-->
       
     <Fluent:StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
-      <Fluent:StatusBarItem Title="Words Width"
-                                    Value="150">
+      <Fluent:StatusBarItem Title="Words Width" Value="150" HorizontalAlignment="Left">
         <TextBlock Text="150 px"/>
       </Fluent:StatusBarItem>
-      <Separator/>
-      <Fluent:StatusBarItem Title="Selected Words"
-                                    Value="15"
-                                    ToolTip="This is Selected Words"
-                                    Content="15"/>
-      <Separator/>
+      <Separator HorizontalAlignment="Left"/>
+      <Fluent:StatusBarItem Title="Selected Words" Value="15" ToolTip="This is Selected Words" Content="15" HorizontalAlignment="Left"/>
+      <Separator HorizontalAlignment="Left"/>
       <Fluent:StatusBarItem Title="Zoom" HorizontalAlignment="Right" Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:0}\%}"/>
       <Fluent:StatusBarItem Title="Zoom Slider" HorizontalAlignment="Right">
         <Slider x:Name="zoomSlider" Minimum="20" Maximum="500" IsDirectionReversed="False" Style="{DynamicResource ZoomSliderStyle}" Value="100"/>
       </Fluent:StatusBarItem>
-      </Fluent:StatusBar>
-
-
-    
+    </Fluent:StatusBar>    
 </Grid>
 
 </Fluent:RibbonWindow>
