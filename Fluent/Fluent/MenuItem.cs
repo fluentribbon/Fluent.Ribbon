@@ -227,7 +227,7 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(System.Windows.Controls.MenuItem));
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(MenuItem));
             }
 
             return basevalue;

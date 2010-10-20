@@ -465,4 +465,5 @@
       </MultiTrigger>
     </Style.Triggers>
   </Style>
+  <Style TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}"/>   
 </ResourceDictionary>
