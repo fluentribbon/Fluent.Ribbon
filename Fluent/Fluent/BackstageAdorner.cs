@@ -66,6 +66,11 @@ namespace Fluent
             if (RenderSize != AdornedElement.RenderSize) InvalidateMeasure();
         }
 
+        public void Clear()
+        {
+            visualChildren.Clear();
+        }
+
         #endregion
 
         #region Layout & Visual Children

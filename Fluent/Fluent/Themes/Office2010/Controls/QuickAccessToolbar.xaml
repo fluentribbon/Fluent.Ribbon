@@ -192,7 +192,7 @@
             
             
               
-                    <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}"/>
+                    <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}" Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}"/>
                     <Fluent:MenuPanel x:Name="PART_MenuPanel" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
                     <Separator x:Name="menuSeparator" Style="{DynamicResource MenuSeparatorStyle}"/>
                     <Fluent:MenuItem x:Name="PART_ShowBelow" Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}"/>

@@ -19,7 +19,7 @@
   </Style>
   <ControlTemplate x:Key="MenuGroupSeparatorControlTemplate" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
     <Grid Height="21" Background="#FFF0F2F5">
-      <TextBlock Margin="7,0" Text="{TemplateBinding Text}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
+      <TextBlock Margin="7,0" Text="{TemplateBinding Header}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold"/>
     </Grid>
   </ControlTemplate>
   <Style x:Key="{x:Type Fluent:GroupSeparatorMenuItem}" TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}"/>

@@ -274,26 +274,35 @@ namespace FluentTest
 
         private void OnSilverClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources.BeginInit();
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") }); 
-            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-            Application.Current.Resources.EndInit();
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+            {
+                Application.Current.Resources.BeginInit();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") });
+                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+                Application.Current.Resources.EndInit();
+            }));
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources.BeginInit();
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
-            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-            Application.Current.Resources.EndInit();
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+            {
+                Application.Current.Resources.BeginInit();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
+                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+                Application.Current.Resources.EndInit();
+            }));
         }
 
         private void OnBlueClick(object sender, RoutedEventArgs e)
         {
-            Application.Current.Resources.BeginInit();
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
-            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-            Application.Current.Resources.EndInit();
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+            {
+                Application.Current.Resources.BeginInit();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
+                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+                Application.Current.Resources.EndInit();
+            }));
         }
         
         private void OnFormatPainterClick(object sender, RoutedEventArgs e)

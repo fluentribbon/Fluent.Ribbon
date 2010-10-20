@@ -1245,7 +1245,7 @@ namespace Fluent
                 quickAccessToolBar.Loaded += OnFirstToolbarLoaded;
             }
 
-            if (backstageButton != null)
+            /*if (backstageButton != null)
             {
                 if (backstageItems != null)
                 {
@@ -1270,7 +1270,7 @@ namespace Fluent
                         //backstageButton.Backstage.Items.Add(backstageItems[i]);
                     }
                 }
-            }
+            }*/
 
             if (ownerWindow == null)
             {

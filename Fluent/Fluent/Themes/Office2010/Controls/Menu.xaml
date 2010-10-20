@@ -15,6 +15,7 @@
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
   </Style>
   <ControlTemplate x:Key="FluentPopupMenuControlTemplate" TargetType="{x:Type Fluent:ContextMenu}">
     <ControlTemplate.Resources>
@@ -118,13 +119,15 @@
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="MinWidth" Value="0"/>
+    <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
-    <Setter Property="VerticalAlignment" Value="Top"/>
+    <Setter Property="VerticalAlignment" Value="Top"/>    
   </Style>
   <ControlTemplate x:Key="PopupMenuControlTemplate" TargetType="{x:Type ContextMenu}">
     <ControlTemplate.Resources>
       <Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}"/>
+      <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}"/>
     </ControlTemplate.Resources>
     <Grid Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Top">
       <Grid.RowDefinitions>

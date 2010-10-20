@@ -42,7 +42,7 @@
     <Setter Property="Height" Value="26"/>
     <Setter Property="Margin" Value="5,1"/>
     <Setter Property="Template" Value="{StaticResource BackstageButtonControlTemplate}"/>
-    <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}"/>
+    <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, FallbackValue=Red}"/>
     <Setter Property="Foreground" Value="{DynamicResource BackstageFontBrush}"/>
   </Style>
   <ControlTemplate x:Key="BackstageControlTemplate" TargetType="{x:Type Fluent:BackstageTabControl}">
@@ -112,6 +112,6 @@
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Template" Value="{StaticResource BackstageControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}}"/>
+        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}"/>
     </Style>
 </ResourceDictionary>

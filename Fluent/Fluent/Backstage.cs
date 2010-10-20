@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,6 +23,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -403,6 +405,74 @@ namespace Fluent
             base.OnKeyTipPressed();
         }
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            
+            // OnAplyTemplate is executed then theme is changed            
+            if (adorner != null)
+            {
+                /*bool isOpened = IsOpen;
+                if (isOpened)
+                {
+                    Hide();
+                    IsOpen = false;
+                }
+                Dispatcher.BeginInvoke(DispatcherPriority.Render, (ThreadStart)(() => {                
+                adorner.Clear();
+                adorner = null;
+                if (isOpened)
+                {
+                    Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() => { IsOpen = true; }));    
+                }
+                }));    */
+                if (IsOpen)
+                {
+                    Hide();
+                    IsOpen = false;
+                    // Clear adorner
+                    adorner.Clear();
+                    adorner = null;
+                    /*// Remove adorner
+                    AdornerLayer layer = GetAdornerLayer(this);
+                    layer.Remove(adorner);
+                    // Clear adorner
+                    adorner.Clear();
+                    adorner = null;
+                    // Create new adorner
+                    Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+                    {
+                        if (adorner == null)
+                        {
+                            if (DesignerProperties.GetIsInDesignMode(this))
+                            {
+                                // TODO: in design mode it is required to use design time adorner
+                                FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                                double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                                adorner = new BackstageAdorner(topLevelElement, Content, topOffset);
+                            }
+                            else
+                            {
+                                Window mainWindow = Window.GetWindow(this);
+                                if (mainWindow == null) return;
+                                FrameworkElement topLevelElement = (FrameworkElement)mainWindow.Content;
+                                if (topLevelElement == null) return;
+                                double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                                adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
+                            }
+                        }
+                        layer.Add(adorner);
+                    }));*/
+                }
+                else
+                {
+                    // Clear adorner
+                    adorner.Clear();
+                    adorner = null;
+                }
+            }
+        }
+        
         #endregion
 
         #region Quick Access Toolbar

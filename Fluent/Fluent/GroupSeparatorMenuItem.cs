@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,28 +17,21 @@ namespace Fluent
     /// <summary>
     /// Represents group separator menu item
     /// </summary>
-    public class GroupSeparatorMenuItem:Separator
+    public class GroupSeparatorMenuItem: MenuItem
     {
-        /// <summary>
-        /// Gets or sets test
-        /// </summary>
-        public string Text
-        {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty TextProperty = 
-            DependencyProperty.Register("Text", typeof(string), typeof(GroupSeparatorMenuItem), new UIPropertyMetadata(""));
-
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static GroupSeparatorMenuItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(typeof(GroupSeparatorMenuItem)));
-            StyleProperty.OverrideMetadata(typeof(GroupSeparatorMenuItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            Type type = typeof (GroupSeparatorMenuItem);
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            IsEnabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
+            IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
+        }
+
+        static object CoerceIsEnabledAndTabStop(DependencyObject d, object basevalue)
+        {
+            return false;
         }
 
         // Coerce object style

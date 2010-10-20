@@ -750,6 +750,38 @@ namespace Fluent
 
         #endregion
 
+        #region Customize Status Bar
+
+        // Text of backstage button
+        string customizeStatusBar = "Customize Status Bar";
+
+        /// <summary>
+        /// Gets or sets customize Status Bar
+        /// </summary>
+        public string CustomizeStatusBar
+        {
+            get { return (string)GetValue(CustomizeStatusBarProperty); }
+            set { SetValue(CustomizeStatusBarProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for BackstageButtonText.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CustomizeStatusBarProperty =
+            DependencyProperty.Register("CustomizeStatusBar", typeof(string), typeof(RibbonLocalization),
+                                        new UIPropertyMetadata(null, null, OnCoerceCustomizeStatusBar));
+
+        // Coerce value
+        static object OnCoerceCustomizeStatusBar(DependencyObject d, object basevalue)
+        {
+            RibbonLocalization localization = (RibbonLocalization)d;
+            if (basevalue == null) return localization.customizeStatusBar;
+            return basevalue;
+        }
+
+        #endregion
+
         #region Initialization
 
         /// <summary>
@@ -820,6 +852,7 @@ namespace Fluent
             CoerceValue(RibbonContextMenuMinimizeRibbonProperty);
 
             CoerceValue(ScreenTipDisableReasonHeaderProperty);
+            CoerceValue(CustomizeStatusBarProperty);
         }
 
         #endregion
@@ -895,6 +928,8 @@ namespace Fluent
 
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             screenTipDisableReasonHeader = "В настоящее время эта команда отключена.";
+
+            customizeStatusBar = "Настройка строки состояния";
         }
 
         #endregion

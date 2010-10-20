@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using Fluent;
 
 namespace Fluent
@@ -214,7 +215,8 @@ namespace Fluent
         {
             contextMenu.Items.Clear();
             // Adding header separator
-            contextMenu.Items.Add(new GroupSeparatorMenuItem(){Text="Customize Status Bar"});
+            contextMenu.Items.Add(new GroupSeparatorMenuItem());
+            RibbonControl.Bind(Ribbon.Localization, contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", MenuItem.HeaderProperty, BindingMode.OneWay);            
             for(int i=0;i<Items.Count;i++)
             {
                 StatusBarItem item = Items[i] as StatusBarItem;
