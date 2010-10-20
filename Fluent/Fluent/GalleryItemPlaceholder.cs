@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -61,13 +62,22 @@ namespace Fluent
         /// indicate that the element will size to whatever content is available.</param>
         protected override Size MeasureCore(Size availableSize)
         {
-            target.Measure(availableSize);
+            target.Measure(availableSize);           
             return target.DesiredSize;
         }
 
+        /// <summary>
+        /// Defines the template for WPF core-level arrange layout definition. 
+        /// </summary>
+        /// <param name="finalRect">
+        /// The final area within the parent that element should use to 
+        /// arrange itself and its child elements.</param>
         protected override void ArrangeCore(Rect finalRect)
         {
             base.ArrangeCore(finalRect);
+
+            // Remember arranged size to arrange 
+            // targets in GalleryPanel lately
             ArrangedSize = finalRect.Size;
         }
         

@@ -189,7 +189,7 @@ namespace Fluent
         void UpdateMaxWidth()
         {
             maxMinWidthNeedsToBeUpdated = false;
-
+            
             Panel itemsPanel = FindItemsPanel(this);
             if (itemsPanel == null)
             {
@@ -198,7 +198,15 @@ namespace Fluent
                 Dispatcher.BeginInvoke((Action) InvalidateMeasure, DispatcherPriority.ContextIdle);
                 return;
             }
-            
+
+            if (Orientation == Orientation.Vertical)
+            {
+                // Min/Max is used for Horizontal layout only
+                itemsPanel.MinWidth = 0;
+                itemsPanel.MaxWidth = Double.PositiveInfinity;
+                return;
+            }
+
             double itemWidth = GetItemWidth();
             if (double.IsNaN(itemWidth))
             {
@@ -209,13 +217,7 @@ namespace Fluent
             itemsPanel.MinWidth = Math.Min(Items.Count, MinItemsInRow) * itemWidth + 0.1;
             itemsPanel.MaxWidth = Math.Min(Items.Count, MaxItemsInRow) * itemWidth + 0.1;
         }
-
-        void InvalidatedByLoaded(object sender, RoutedEventArgs e)
-        {
-            Loaded -= InvalidatedByLoaded;
-            InvalidateMeasure();
-        }
-
+        
         /// <summary>
         /// Determinates item's size (return Size.Empty in case of it is not possible)
         /// </summary>

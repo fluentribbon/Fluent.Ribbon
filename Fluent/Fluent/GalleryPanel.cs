@@ -511,7 +511,7 @@ namespace Fluent
         #endregion
 
         #region Layout Overrides
-        
+
         /// <summary>
         /// When overridden in a derived class, measures the size in 
         /// layout required for child elements and determines a size 
@@ -530,12 +530,11 @@ namespace Fluent
             double height = 0;
             foreach (GalleryGroupContainer child in galleryGroupContainers)
             {
-                //InvalidateMeasureRecursive(child);
                 child.Measure(availableSize);
                 height += child.DesiredSize.Height;
                 width = Math.Max(width, child.DesiredSize.Width);
             }
-            
+
             return new Size(width, height);
         }
 
@@ -547,24 +546,24 @@ namespace Fluent
         /// <param name="finalSize">The final area within the parent that this 
         /// element should use to arrange itself and its children.</param>
         protected override System.Windows.Size ArrangeOverride(System.Windows.Size finalSize)
-        {
+        {           
             Rect finalRect = new Rect(finalSize);
 
             foreach (GalleryGroupContainer item in galleryGroupContainers)
             {
-                //InvalidateArrangeRecursive(item);
-
                 finalRect.Height = item.DesiredSize.Height;
                 finalRect.Width = Math.Max(finalSize.Width, item.DesiredSize.Width);
+
+                // Arrange a container to arrange placeholders
                 item.Arrange(finalRect);
+                
                 finalRect.Y += item.DesiredSize.Height;
 
+                // Now arrange our actual items using arranged size of placeholders
                 foreach (GalleryItemPlaceholder placeholder in item.Items)
                 {
                     Point leftTop = placeholder.TranslatePoint(new Point(), this);
-                    /*placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
-                        Double.IsNaN(ItemWidth) ? placeholder.Target.DesiredSize.Width : ItemWidth,
-                        Double.IsNaN(ItemHeight) ? placeholder.Target.DesiredSize.Height : ItemHeight));*/
+
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y,
                         placeholder.ArrangedSize.Width,
                         placeholder.ArrangedSize.Height));
