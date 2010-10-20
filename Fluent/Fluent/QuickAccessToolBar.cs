@@ -103,8 +103,33 @@ namespace Fluent
 
             UpdateKeyTips();
 
+            if(e.OldItems !=null)
+            for (int i = 0; i < e.OldItems.Count; i++)
+            {
+                (e.OldItems[i] as FrameworkElement).SizeChanged -= OnChildSizeChanged;
+            }
+            
+            if (e.NewItems != null)
+            for (int i = 0; i < e.NewItems.Count; i++)
+            {
+                (e.NewItems[i] as FrameworkElement).SizeChanged += OnChildSizeChanged;
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    (Items[i] as FrameworkElement).SizeChanged -= OnChildSizeChanged;
+                }
+            }
+
             // Raise items changed event
             if (ItemsChanged != null) ItemsChanged(this, e);
+        }
+
+        private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
         }
 
         #endregion
@@ -332,23 +357,23 @@ namespace Fluent
                     menuPanel.Children.Add(quickAccessItems[i]);
                     quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
-            }/*
+            }
 
             if (menuButton != null)
             {
-                menuButton.Opened -= OnMenuOpened;
-                menuButton.Closed -= OnMenuClosed;
+                menuButton.DropDownOpened -= OnMenuOpened;
+                menuButton.DropDownClosed -= OnMenuClosed;
             }
             menuButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
             if (menuButton != null)
             {
-                menuButton.Opened += OnMenuOpened;
-                menuButton.Closed += OnMenuClosed;
+                menuButton.DropDownOpened += OnMenuOpened;
+                menuButton.DropDownClosed += OnMenuClosed;
             }
 
-            DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
-            if (btn != null) btn.ContextMenu = btn.DropDownMenu;
-            */
+            //DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
+            //if (btn != null) btn.ContextMenu = btn.DropDownMenu;
+            
             // ToolBar panels
             
             toolBarPanel = GetTemplateChild("PART_ToolBarPanel") as Panel;

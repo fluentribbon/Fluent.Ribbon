@@ -217,6 +217,13 @@ namespace Fluent
                 itemsRect = new Rect(0, 0, 0, 0);
                 // Set quick launch toolbar and header position and size
                 quickAccessToolbarHolder.Measure(infinity);
+
+                if (constraint.Width <= quickAccessToolbarHolder.DesiredSize.Width + 50)
+                {
+                    quickAccessToolbarRect = new Rect(0, 0, Math.Max(0, constraint.Width-50), quickAccessToolbarHolder.DesiredSize.Height);
+                    quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
+                }
+
                 if (constraint.Width > quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
                     quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarHolder.DesiredSize.Width, quickAccessToolbarHolder.DesiredSize.Height);
@@ -240,8 +247,7 @@ namespace Fluent
                     }                    
                 }
                 else
-                {
-                    quickAccessToolbarRect = new Rect(0, 0, Math.Max(0, constraint.Width-50), quickAccessToolbarHolder.DesiredSize.Height);
+                {                    
                     headerRect = new Rect(Math.Max(0, constraint.Width - 50), 0, 50, constraint.Height);
                 }
             }
@@ -259,6 +265,13 @@ namespace Fluent
                 quickAccessToolbarHolder.Measure(infinity);
                 double quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
                 quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), quickAccessToolbarHolder.DesiredSize.Height);
+                if (quickAccessToolbarWidth > startX)
+                {
+                    quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
+                    quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarHolder.DesiredSize.Width,
+                                                      quickAccessToolbarHolder.DesiredSize.Height);
+                    quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
+                }
                 // Set header
                 headerHolder.Measure(infinity);
                 if(HeaderAlignment==HorizontalAlignment.Left)

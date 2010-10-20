@@ -1237,6 +1237,8 @@ namespace Fluent
                 binding.Source = this;
                 binding.Mode = BindingMode.OneWay;
                 quickAccessToolBar.SetBinding(Fluent.QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
+
+                //quickAccessToolBar.SizeChanged += OnQATSizeChanged;
             }
 
             if (quickAccessToolBar != null)
@@ -1280,6 +1282,11 @@ namespace Fluent
                 binding.Source = ownerWindow;
                 SetBinding(TitleProperty, binding);
             }
+        }
+
+        private void OnQATSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            titleBar.InvalidateMeasure();
         }
 
         private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
