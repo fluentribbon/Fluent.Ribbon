@@ -411,8 +411,7 @@ namespace Fluent
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
             if (IsMinimized) return;
-            Ribbon parentRibbon = FindParentRibbon();
-            if((parentRibbon!=null)&&(parentRibbon.Focusable)) return;
+            
             if(SelectedItem==null) return;
             List<RibbonTabItem> visualItems = new List<RibbonTabItem>();
             int selectedIndex = -1;

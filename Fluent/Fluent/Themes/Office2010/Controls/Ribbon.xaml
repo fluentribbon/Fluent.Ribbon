@@ -6,10 +6,6 @@
       <ControlTemplate.Resources>
       </ControlTemplate.Resources>
       <Grid x:Name="PART_LayoutRoot" Width="Auto" Height="Auto">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="0.748*"/>
-          <RowDefinition Height="0.252*"/>
-        </Grid.RowDefinitions>
         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="20,0,113,0" VerticalAlignment="Top">
         <Fluent:RibbonTitleBar.Header>
           <Grid>

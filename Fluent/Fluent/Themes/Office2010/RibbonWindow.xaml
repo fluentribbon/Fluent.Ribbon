@@ -13,15 +13,15 @@
       <AdornerDecorator x:Name="adornerDecorator" Margin="0">
         <Grid x:Name="PART_MainGrid" Margin="0" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
           <Grid x:Name="PART_TitleBar" Margin="8" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
-          <Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,28,0,1" VerticalAlignment="Top" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}"/>
-          <Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,28,15,1" Height="23" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}"/>
-          <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,28,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}"/>
+          <Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,27,0,1" VerticalAlignment="Top" Height="23" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}"/>
+          <Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,27,15,1" Height="23" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}"/>
+          <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="23" Margin="50,27,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}"/>
 
           <Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorderThickness}"/>
           <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,8,8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
           </StackPanel>
-          <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
+          <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
           <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6" Background="Transparent"
                 Visibility="Collapsed"/>
@@ -82,7 +82,7 @@
                 <Grid x:Name="grid" Background="{TemplateBinding Background}"/>
               </Border>
             </Border>
-            <ContentPresenter Margin="8,2,8,8" x:Name="contentPresenter"/>
+            <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
             <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
         VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
         Cursor="SizeNWSE" Visibility="Collapsed"/>
@@ -164,7 +164,7 @@
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontWeight" Value="Normal"/>
-    <Setter Property="GlassBorderThickness" Value="8,52,8,8"/>
+    <Setter Property="GlassBorderThickness" Value="8,51,8,8"/>
     <Setter Property="ResizeBorderThickness" Value="8,8,8,8"/>
     <Setter Property="CornerRadius" Value="15"/>
     <Setter Property="CaptionHeight" Value="50"/>
