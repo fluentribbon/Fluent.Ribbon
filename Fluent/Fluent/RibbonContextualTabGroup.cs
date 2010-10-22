@@ -7,6 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -24,6 +25,8 @@ namespace Fluent
 
         // Collection of ribbon tab items
         readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
+
+        private Window parentWidow;
 
         #endregion
 
@@ -77,6 +80,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IndentExtenderProperty =
             DependencyProperty.Register("IndentExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
+
+        /// <summary>
+        /// Gets or sets a value indicating whether parent window is maximized
+        /// </summary>
+        public bool IsWindowMaximized
+        {
+            get { return (bool)GetValue(IsWindowMaximizedProperty); }
+            set { SetValue(IsWindowMaximizedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsWindowMaximizedProperty =
+            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));        
 
         #endregion
 
@@ -203,6 +221,23 @@ namespace Fluent
                 if (wnd.WindowState == WindowState.Maximized) wnd.WindowState = WindowState.Normal;
                 else wnd.WindowState = WindowState.Maximized;
             }
+        }
+
+        public override void OnApplyTemplate()
+        {            
+            base.OnApplyTemplate();
+            if (parentWidow != null) parentWidow.StateChanged -= OnParentWindowStateChanged;
+            parentWidow = Window.GetWindow(this);
+            if (parentWidow != null)
+            {
+                parentWidow.StateChanged += OnParentWindowStateChanged;
+                IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
+            }
+        }
+
+        private void OnParentWindowStateChanged(object sender, EventArgs e)
+        {
+            IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
         }
 
         #endregion

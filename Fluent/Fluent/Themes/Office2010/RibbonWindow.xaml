@@ -37,7 +37,7 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="iconImage" Value="0,3,0,0"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="0,4,0,0"/>
         <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
         <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
         <Setter Property="Margin" TargetName="rectangle" Value="15,31,0,1"/>
@@ -103,7 +103,7 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="iconImage" Value="0,3,0,0"/>
+        <Setter Property="Margin" TargetName="iconImage" Value="0,4,0,0"/>
         <Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
