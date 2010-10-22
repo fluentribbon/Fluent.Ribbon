@@ -1205,7 +1205,7 @@ namespace Fluent
             if (quickAccessToolBar != null)
             {
                 quickAccessStream = new MemoryStream();
-                SaveState(quickAccessStream);
+                if (!AutomaticStateManagement || IsStateLoaded) SaveState(quickAccessStream);
                 ClearQuickAccessToolBar();
             }
 
@@ -1284,12 +1284,7 @@ namespace Fluent
             }
         }
 
-        private void OnQATSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            titleBar.InvalidateMeasure();
-        }
-
-        private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
+        void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
         {
             quickAccessToolBar.Loaded -= OnFirstToolbarLoaded;
             if (quickAccessStream != null)
@@ -1297,6 +1292,7 @@ namespace Fluent
                 quickAccessStream.Position = 0;
                 LoadState(quickAccessStream);
                 quickAccessStream.Close();
+                quickAccessStream = null;
             }
         }
 
@@ -1637,6 +1633,7 @@ namespace Fluent
         void OnJustLayoutUpdated(object sender, EventArgs e)
         {
             LayoutUpdated -= OnJustLayoutUpdated;
+            if (!QuickAccessToolBar.IsLoaded) { InitialLoadState(); return; }
             if (!IsStateLoaded) LoadState();
         }
 
@@ -1667,7 +1664,7 @@ namespace Fluent
         void LoadState()
         {
             if (!AutomaticStateManagement) return;
-
+            
             IsolatedStorageFile storage = GetIsolatedStorageFile();
             if (FileExists(storage, IsolatedStorageFileName))
             {
