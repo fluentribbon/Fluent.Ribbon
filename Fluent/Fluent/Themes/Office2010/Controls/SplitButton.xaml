@@ -222,7 +222,6 @@
       </Trigger>
       <Trigger Property="IsButtonEnabled" Value="False">
         <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
-        <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
         <Setter Property="Effect" TargetName="iconImage">
           <Setter.Value>
             <Fluent:GrayscaleEffect/>
