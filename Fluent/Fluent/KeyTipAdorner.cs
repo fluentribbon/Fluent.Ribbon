@@ -8,6 +8,7 @@
 #endregion
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
@@ -631,7 +632,7 @@ namespace Fluent
             if (element == null) return null;
             RibbonGroupBox groupBox = element as RibbonGroupBox;
             if (groupBox != null) return groupBox;
-            DependencyObject parent = LogicalTreeHelper.GetParent(element);
+            DependencyObject parent = VisualTreeHelper.GetParent(element);
             return GetGroupBox(parent);
         }
 
@@ -660,6 +661,10 @@ namespace Fluent
 
             for (int i = 0; i < keyTips.Count; i++)
             {
+                // TOREMOVE:
+                string keys = (string)keyTips[i].Content;
+                Debug.WriteLine("Keys = " + keys);
+                
                 // Skip invisible keytips
                 if (keyTips[i].Visibility != Visibility.Visible) continue;
 
