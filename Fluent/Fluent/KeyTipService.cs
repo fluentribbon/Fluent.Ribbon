@@ -117,8 +117,10 @@ namespace Fluent
         // Window's messages hook up
         IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // Mouse clicks in non client area
-            if ((msg >= 161) && (msg <= 173))
+            // We must terminate the keytip's adorner chain if:
+            // - mouse clicks in non client area
+            // - the window is deactivated
+            if (((msg >= 161) && (msg <= 173)) || msg == NativeMethods.WM_NCACTIVATE)
             {
                 if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
                 {
@@ -126,6 +128,7 @@ namespace Fluent
                     activeAdornerChain = null;
                 }
             }
+
             return IntPtr.Zero;
         }
 
