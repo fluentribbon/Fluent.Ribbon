@@ -661,10 +661,6 @@ namespace Fluent
 
             for (int i = 0; i < keyTips.Count; i++)
             {
-                // TOREMOVE:
-                string keys = (string)keyTips[i].Content;
-                Debug.WriteLine("Keys = " + keys);
-                
                 // Skip invisible keytips
                 if (keyTips[i].Visibility != Visibility.Visible) continue;
 

@@ -824,6 +824,7 @@ namespace Fluent
                 case "ar": LoadArabic(); break;
                 case "da": LoadDanish(); break;
                 case "az": LoadAzerbaijani(); break;
+                case "fi": LoadFinnish(); break;
             }
 
             // Coerce all values
@@ -1685,6 +1686,36 @@ namespace Fluent
             ribbonContextMenuShowAbove = " Sürətli Keçidin Alətlərini Menyu lentinin üstündə göstər ";
             ribbonContextMenuCustomizeRibbon = "Menyu lentini fərdiləşdir...";
             ribbonContextMenuMinimizeRibbon = " Menyu lentini kiçilt";
+        }
+
+        #endregion
+
+        #region Finnish
+
+        void LoadFinnish()
+        {
+            backstageButtonText = "Tiedosto";
+            backstageButtonKeyTip = "T";
+            minimizeButtonScreenTipTitle = "Pienennä valintanauha (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Näytä valintanauhassa vain\nvälilehtien nimet";
+            expandButtonScreenTipTitle = "Laajenna valintanauha (Ctrl + F1)";
+            expandButtonScreenTipText = "Näytä valintanauha aina\nlaajennettuna silloinkin, kun\nvalitset komennon";
+            quickAccessToolBarDropDownButtonTooltip = "Mukauta pikatyökaluriviä";
+            quickAccessToolBarMoreControlsButtonTooltip = "Lisää valintoja";
+            quickAccessToolBarMenuHeader = "Mukauta pikatyökaluriviä";
+            quickAccessToolBarMenuShowAbove = "Näytä valintanauhan yläpuolella";
+            quickAccessToolBarMenuShowBelow = "Näytä valintanauhan alapuolella";
+            ribbonContextMenuAddItem = "Lisää pikatyökaluriville";
+            ribbonContextMenuAddGroup = "Lisää ryhmä pikatyökaluriviin";
+            ribbonContextMenuAddGallery = "Lisää valikoima pikatyökaluriviin";
+            ribbonContextMenuAddMenu = "Lisää valikko pikatyökaluriviin";
+            ribbonContextMenuRemoveItem = "Poista pikatyökaluriviltä";
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Mukauta pikatyökaluriviä...";
+            ribbonContextMenuShowBelow = "Näytä pikatyökalurivi valintanauhan alapuolella";
+            ribbonContextMenuShowAbove = "Näytä pikatyökalurivi valintanauhan yläpuolella";
+            ribbonContextMenuCustomizeRibbon = "Mukauta valintanauhaa...";
+            ribbonContextMenuMinimizeRibbon = "Pienennä valintanauha";
+            screenTipDisableReasonHeader = "Tämä komento on tällä hetkellä poissa käytöstä";
         }
 
         #endregion
