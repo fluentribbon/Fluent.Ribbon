@@ -236,4 +236,17 @@
   	<GradientStop Color="#FFC3C3C3" Offset="1"/>
   	<GradientStop Color="#FFCCCCCC" Offset="0.5"/>
   </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="RoundButtonBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FFBBBBBB" Offset="0"/>
+    <GradientStop Color="#FF6B6B6B" Offset="1"/>
+  </LinearGradientBrush>
+  <SolidColorBrush x:Key="RoundButtonBorderBrush" Color="#1C1C1C"/>
+  <SolidColorBrush x:Key="SliderShadowBrush" Color="#262626"/>
+  <SolidColorBrush x:Key="SliderLightenBrush" Color="#575757"/>
+  <LinearGradientBrush x:Key="RoundButtonForegroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#FF333333" Offset="0"/>
+    <GradientStop Color="#FF333333" Offset="1"/>
+  </LinearGradientBrush>
+
 </ResourceDictionary>

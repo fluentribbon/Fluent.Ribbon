@@ -241,8 +241,8 @@
   <SolidColorBrush x:Key="SliderShadowBrush" Color="#9DA6B0"/>
   <SolidColorBrush x:Key="SliderLightenBrush" Color="#E6E9ED"/>
   <LinearGradientBrush x:Key="RoundButtonForegroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop Color="#FF77797C" Offset="0"/>
-    <GradientStop Color="#FF5B5D5F" Offset="1"/>
+    <GradientStop Color="#FF828588" Offset="0"/>
+    <GradientStop Color="#FF6A6D70" Offset="1"/>
   </LinearGradientBrush>
   
 </ResourceDictionary>
