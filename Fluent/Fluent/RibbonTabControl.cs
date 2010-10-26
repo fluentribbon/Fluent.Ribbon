@@ -385,9 +385,10 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
-        {
+        {            
+            //base.OnPreviewMouseWheel(e);
             ProcessMouseWheel(e);
-            e.Handled = true;
+            e.Handled = true;            
         }
 
         #endregion
@@ -410,9 +411,13 @@ namespace Fluent
         // Process mouse wheel event
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
-            if (IsMinimized) return;
-            
+            if (IsMinimized) return;            
             if(SelectedItem==null) return;
+            DependencyObject focusedElement = Keyboard.FocusedElement as DependencyObject;
+            if (focusedElement != null)
+            {
+                if (FindParentRibbon().IsAncestorOf(focusedElement)) return;
+            }
             List<RibbonTabItem> visualItems = new List<RibbonTabItem>();
             int selectedIndex = -1;
             for (int i = 0; i < Items.Count; i++)

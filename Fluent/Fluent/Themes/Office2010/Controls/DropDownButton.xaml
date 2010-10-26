@@ -9,7 +9,6 @@
     <Setter Property="Template" Value="{DynamicResource RibbonDropDownButtonControlTemplate}"/>
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
-  <Setter Property="Focusable" Value="False"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>

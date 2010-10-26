@@ -347,7 +347,7 @@ namespace Fluent
                 //Keyboard.Focus(popup);
                 //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
                 //Debug.WriteLine(Keyboard.FocusedElement);
-
+                
                 focusedElement = Keyboard.FocusedElement;
                 if (focusedElement != null)
                 {
@@ -372,12 +372,19 @@ namespace Fluent
                     Keyboard.Focus(Items[Items.Count - 1] as IInputElement);
                 e.Handled = true;
             }
+            else if (e.Key == Key.Escape) IsDropDownOpen = false;
         }
 
         private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
             focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsDropDownOpen = false;
+            base.OnKeyDown(e);
         }
 
         /// <summary>
@@ -430,6 +437,8 @@ namespace Fluent
             base.OnApplyTemplate();
         }
 
+
+
         #endregion
 
         #region Methods
@@ -440,6 +449,13 @@ namespace Fluent
         public virtual void OnKeyTipPressed()
         {
             IsDropDownOpen = true;
+
+            focusedElement = Keyboard.FocusedElement;
+            if (focusedElement != null)
+            {
+                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+            }
         }
 
         #endregion
@@ -510,10 +526,10 @@ namespace Fluent
 
         // Handles quick access button drop down menu opened
         protected void OnQuickAccessOpened(object sender, EventArgs e)
-        {            
+        {
             DropDownButton button = (DropDownButton)sender;
-        /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
-                                                                               {*/
+            /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+                                                                                   {*/
             if (ItemsSource != null)
             {
                 button.ItemsSource = ItemsSource;
@@ -528,8 +544,8 @@ namespace Fluent
                     button.Items.Add(item);
                     i--;
                 }
-            }                                                                                   
-                                                                             //  }));
+            }
+            //  }));
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
@@ -540,21 +556,21 @@ namespace Fluent
             button.DropDownClosed -= OnQuickAccessMenuClosed;
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                {
-            if (button.ItemsSource != null)
-            {
-                ItemsSource = button.ItemsSource;
-                button.ItemsSource = null;
-            }
-            else
-            {
-                for (int i = 0; i < button.Items.Count; i++)
-                {
-                    object item = button.Items[0];
-                    button.Items.Remove(item);
-                    Items.Add(item);
-                    i--;
-                }
-            }
+                                                                                   if (button.ItemsSource != null)
+                                                                                   {
+                                                                                       ItemsSource = button.ItemsSource;
+                                                                                       button.ItemsSource = null;
+                                                                                   }
+                                                                                   else
+                                                                                   {
+                                                                                       for (int i = 0; i < button.Items.Count; i++)
+                                                                                       {
+                                                                                           object item = button.Items[0];
+                                                                                           button.Items.Remove(item);
+                                                                                           Items.Add(item);
+                                                                                           i--;
+                                                                                       }
+                                                                                   }
                                                                                }));
         }
 

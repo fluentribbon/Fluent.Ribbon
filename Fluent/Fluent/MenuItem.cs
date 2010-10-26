@@ -361,7 +361,11 @@ namespace Fluent
         public virtual void OnKeyTipPressed()
         {
             if (!HasItems) RaiseEvent(new RoutedEventArgs(ClickEvent));
-            else IsDropDownOpen = true;
+            else
+            {
+                Keyboard.Focus(this);
+                IsDropDownOpen = true;
+            }
         }
 
         #endregion
@@ -480,7 +484,41 @@ namespace Fluent
  	        Debug.WriteLine("MenuItem focus lost - "+this); 
             //base.OnPreviewLostKeyboardFocus(e);
             //e.Handled = true;
-        }        
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                if (IsSubmenuOpen) IsSubmenuOpen = false;
+                else
+                {
+                    DependencyObject parent = FindParentDropDownOrMenuItem();
+                    if (parent != null)
+                    {
+                        IDropDownControl dropDown = parent as IDropDownControl;
+                        if (dropDown != null) dropDown.IsDropDownOpen = false;
+                        else (parent as System.Windows.Controls.MenuItem).IsSubmenuOpen = false;
+                    }
+                }
+                e.Handled = true;
+            }
+            else base.OnKeyDown(e);
+        }
+
+        private DependencyObject FindParentDropDownOrMenuItem()
+        {
+            DependencyObject parent = Parent;
+            while (parent != null)
+            {                
+                IDropDownControl dropDown = parent as IDropDownControl;
+                if (dropDown != null) return parent;
+                System.Windows.Controls.MenuItem menuItem = parent as System.Windows.Controls.MenuItem;
+                if (menuItem != null) return parent;
+                parent = LogicalTreeHelper.GetParent(parent);
+            }
+            return null;
+        }
 
         #endregion
 

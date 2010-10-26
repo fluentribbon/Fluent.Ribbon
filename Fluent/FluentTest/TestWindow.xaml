@@ -555,7 +555,7 @@
           <TextBlock Text="Webdings" Tag="AllFonts"/>
           <TextBlock Text="Winding" Tag="AllFonts"/>
         </Fluent:ComboBox>
-        <Fluent:ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" SelectedIndex="1" BorderBrush="Gainsboro" Foreground="#FF222222" Text="12" DisplayMemberPath="Text" IsEditable="False" SizeDefinition="Small">
+        <Fluent:ComboBox x:Name="comboBoxFontSize" Width="49" HorizontalAlignment="Left" Height="22" SelectedIndex="1" BorderBrush="Gainsboro" Foreground="#FF222222" Text="12" DisplayMemberPath="Text" IsEditable="False" SizeDefinition="Small" ResizeMode="Vertical" Fluent:KeyTip.Keys="FS">
           <TextBlock Text="7"/>
           <TextBlock Text="8"/>
           <TextBlock Text="9"/>

@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -75,6 +76,8 @@ namespace Fluent
 
         // Needed to prevent drop down reopen 
         private bool canOpenDropDown = true;
+
+        private IInputElement focusedElement;
 
         #endregion
 
@@ -994,7 +997,16 @@ namespace Fluent
             galleryPanel.IsGrouped = true;
             dropDownButton.IsChecked = true;
             canOpenDropDown = false;
+
             Mouse.Capture(this, CaptureMode.SubTree);
+
+            focusedElement = Keyboard.FocusedElement;
+            Debug.WriteLine("Focused element - " + focusedElement);
+            if (focusedElement != null)
+            {
+                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+            }
         }
 
         /// <summary>
@@ -1031,6 +1043,23 @@ namespace Fluent
             return (item is GalleryItem);
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsDropDownOpen = false;
+            base.OnKeyDown(e);
+        }
+
+        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape) IsDropDownOpen = false;
+        }
+
+        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
+            focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
+        }
+
         #endregion
 
         #region Private Methods
@@ -1052,8 +1081,8 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
+            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         #endregion

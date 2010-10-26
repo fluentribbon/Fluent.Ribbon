@@ -46,7 +46,7 @@ namespace Fluent
 
         private IInputElement focusedElement;
 
-        private TextBox editableTextBox;
+        private System.Windows.Controls.TextBox editableTextBox;
 
         private Panel menuPanel;
 
@@ -58,6 +58,10 @@ namespace Fluent
         Visual[] snappedVisuals;
         // Is visual currently snapped
         private bool isSnapped;
+
+        private GalleryPanel galleryPanel;
+
+        private ScrollViewer scrollViewer;
 
         #endregion
 
@@ -550,9 +554,7 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             popup = GetTemplateChild("PART_Popup") as Popup;
-            if (editableTextBox != null) editableTextBox.KeyDown -= OnTextBoxKeyDown;
-            editableTextBox = GetTemplateChild("PART_EditableTextBox") as TextBox;
-            if (editableTextBox != null) editableTextBox.KeyDown += OnTextBoxKeyDown;
+            editableTextBox = GetTemplateChild("PART_EditableTextBox") as System.Windows.Controls.TextBox;
 
             if (resizeVerticalThumb != null)
             {
@@ -579,20 +581,15 @@ namespace Fluent
             snappedImage = GetTemplateChild("PART_SelectedImage") as Image;
             contentSite = GetTemplateChild("PART_ContentSite") as ContentPresenter;
 
-            base.OnApplyTemplate();
-        }
+            galleryPanel = GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
+            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
-        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Down)
-            {
-                Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if (!IsDropDownOpen) IsDropDownOpen = true;
-            }
+            base.OnApplyTemplate();
         }
 
         protected override void OnDropDownOpened(EventArgs e)
         {
+            Focus();
             base.OnDropDownOpened(e);
             Mouse.Capture(this, CaptureMode.SubTree);
             if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
@@ -623,8 +620,30 @@ namespace Fluent
             }
         }
 
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if ((IsEditable) && ((e.Key == Key.Down)||(e.Key == Key.Up)) && (!IsDropDownOpen))
+            {
+                IsDropDownOpen = true;
+                e.Handled = true;
+                return;
+            }
+            if ((IsEditable) && ((e.Key == Key.Enter) || (e.Key == Key.Escape))&& (!IsDropDownOpen))
+            {
+                // Move Focus
+                editableTextBox.Focusable = false;
+                Focus();
+                editableTextBox.Focusable = true;
+                e.Handled = true;
+                return;
+            }
+            base.OnPreviewKeyDown(e);
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            /**/
+
             if (e.Key == Key.Down)
             {
                 Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
@@ -712,6 +731,12 @@ namespace Fluent
             base.OnKeyDown(e);
         }
 
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            e.Handled = true;
+            base.OnPreviewMouseWheel(e);
+        }
+        
         #endregion
 
         #region Methods
@@ -734,20 +759,25 @@ namespace Fluent
 
         #region Private methods
 
+        double minimalGallerylWidth;
+
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
+            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
+
+            menuPanel.Width = Double.NaN;
+            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = 500;
+            galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, minimalGallerylWidth);
+
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
+            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         #endregion
