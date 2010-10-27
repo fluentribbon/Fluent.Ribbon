@@ -79,6 +79,8 @@ namespace Fluent
 
         private IInputElement focusedElement;
 
+        private bool isButtonClicked;
+
         #endregion
 
         #region Properties
@@ -859,9 +861,9 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            //if (expandButton != null) expandButton.Click -= OnExpandClick;
+            if (expandButton != null) expandButton.Click -= OnExpandClick;
             expandButton = GetTemplateChild("PART_ExpandButton") as ToggleButton;
-            //if (expandButton != null) expandButton.Click += OnExpandClick;
+            if (expandButton != null) expandButton.Click += OnExpandClick;
 
             if (dropDownButton != null) dropDownButton.Click -= OnDropDownClick;
             dropDownButton = GetTemplateChild("PART_DropDownButton") as ToggleButton;
@@ -873,6 +875,9 @@ namespace Fluent
             {
                 popup.Opened -= OnDropDownOpened;
                 popup.Closed -= OnDropDownClosed;
+
+                popup.PreviewMouseLeftButtonUp -= OnPopupPreviewMouseUp;
+                popup.PreviewMouseLeftButtonDown -= OnPopupPreviewMouseDown;
             }
 
             popup = GetTemplateChild("PART_Popup") as Popup;
@@ -881,6 +886,9 @@ namespace Fluent
             {
                 popup.Opened += OnDropDownOpened;
                 popup.Closed += OnDropDownClosed;
+
+                popup.PreviewMouseLeftButtonUp += OnPopupPreviewMouseUp;
+                popup.PreviewMouseLeftButtonDown += OnPopupPreviewMouseDown;
 
                 KeyboardNavigation.SetControlTabNavigation(popup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetDirectionalNavigation(popup, KeyboardNavigationMode.Cycle);
@@ -938,6 +946,26 @@ namespace Fluent
             popupControlPresenter = GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
             scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+        }
+
+        private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // Ignore mouse up when mouse donw is on expand button
+            if(isButtonClicked)
+            {
+                isButtonClicked = false;
+                e.Handled = true;
+            }
+        }
+
+        private void OnPopupPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isButtonClicked = false;
+        }
+
+        private void OnExpandClick(object sender, RoutedEventArgs e)
+        {
+            isButtonClicked = true;
         }
 
         private void OnDropDownClick(object sender, RoutedEventArgs e)
