@@ -141,9 +141,9 @@
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
             </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
+            <!--<Trigger Property="IsKeyboardFocused" Value="True">
               <Setter Property="Visibility" TargetName="focusedGrid" Value="Visible"/>
-            </Trigger>
+            </Trigger>-->
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="HasRightGroupBorder" Value="False"/>
