@@ -343,6 +343,13 @@ namespace Fluent
         {
             ContextMenuService.Coerce(this);
             //FocusManager.SetIsFocusScope(this, true);
+            Click += OnClick;
+//            AddHandler(ClickEvent, OnClick);
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            if(e.OriginalSource != this) e.Handled = true;
         }
 
         #endregion

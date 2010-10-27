@@ -21,6 +21,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -387,8 +388,7 @@ namespace Fluent
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {            
             //base.OnPreviewMouseWheel(e);
-            ProcessMouseWheel(e);
-            e.Handled = true;            
+            ProcessMouseWheel(e);            
         }
 
         #endregion
@@ -408,6 +408,18 @@ namespace Fluent
             return null;
         }
 
+        private bool IsRibbonAncestorOf(DependencyObject element)
+        {
+            while (element != null)
+            {
+                if (element is Ribbon) return true;
+                DependencyObject  parent = LogicalTreeHelper.GetParent(element);
+                if (parent == null) parent = VisualTreeHelper.GetParent(element);
+                element = parent;
+            }
+            return false;
+        }
+
         // Process mouse wheel event
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
@@ -416,7 +428,7 @@ namespace Fluent
             DependencyObject focusedElement = Keyboard.FocusedElement as DependencyObject;
             if (focusedElement != null)
             {
-                if (FindParentRibbon().IsAncestorOf(focusedElement)) return;
+                if (IsRibbonAncestorOf(focusedElement)) return;
             }
             List<RibbonTabItem> visualItems = new List<RibbonTabItem>();
             int selectedIndex = -1;
@@ -446,6 +458,7 @@ namespace Fluent
                     visualItems[selectedIndex].IsSelected = true;
                 }
             }
+            e.Handled = true;            
         }
 
         // Get selected ribbon tab item

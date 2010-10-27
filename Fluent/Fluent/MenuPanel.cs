@@ -56,7 +56,7 @@ namespace Fluent
             if (Children.Count > 0)
             {
                 Width = double.NaN;
-                Height = double.NaN;
+                //Height = double.NaN;
                 double minWidth = 0;
                 double minHeight = 0;
                 double maxMenuWidth = 0;
@@ -108,14 +108,15 @@ namespace Fluent
             {
                 UpdateMenuSizes();                
             }
-            FrameworkElement added = visualAdded as FrameworkElement;
+            /*FrameworkElement added = visualAdded as FrameworkElement;
             FrameworkElement removed = visualRemoved as FrameworkElement;
             if (added != null) added.IsVisibleChanged += OnItemVisibilityChanged;
-            if (removed != null) removed.IsVisibleChanged -= OnItemVisibilityChanged;
+            if (removed != null) removed.IsVisibleChanged -= OnItemVisibilityChanged;*/
         }
 
         void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            InvalidateMeasure();
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { UpdateMenuSizes(); UpdateLayout(); }));
         }
 
@@ -183,7 +184,7 @@ namespace Fluent
                     {
                         if (item.Visibility != Visibility.Collapsed)
                         {
-                            item.Measure(availableSize);
+                            item.Measure(new Size());
                             maxWidth = Math.Max(maxWidth, Math.Max(item.DesiredSize.Width, item.MinWidth));
                             totalHeight += Math.Max(item.DesiredSize.Height, item.MinHeight);
                         }

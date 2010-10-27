@@ -203,7 +203,7 @@
                                        Path="ViewportHeight"/>
                 </MultiBinding>
               </RepeatButton.Visibility>
-              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="3" Height="5" Data="M0,0L1,1 1,-1z"/>
+              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,-1 2,0z"/>
             </RepeatButton>
             <RepeatButton
                                       
@@ -215,16 +215,16 @@
                                           Converter="{StaticResource MenuScrollingVisibilityConverter}"
                                           ConverterParameter="100">
                   <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                       Path="ComputedHorizontalScrollBarVisibility"/>
+                                       Path="ComputedVerticalScrollBarVisibility"/>
                   <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                       Path="HorizontalOffset"/>
+                                       Path="VerticalOffset"/>
                   <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                       Path="ExtentWidth"/>
+                                       Path="ExtentHeight"/>
                   <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                       Path="ViewportWidth"/>
+                                       Path="ViewportHeight"/>
                 </MultiBinding>
               </RepeatButton.Visibility>
-              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="3" Height="5" Data="M1,0L0,1 0,-1z"/>
+              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,1 2,0z"/>
             </RepeatButton>
           </Grid>
         </ControlTemplate>

@@ -48,6 +48,10 @@ namespace Fluent
 
         private MenuPanel menuPanel;
 
+        private ScrollViewer scrollViewer;
+
+        private bool isFirstTime;
+
         #endregion
 
         #region Properties
@@ -341,6 +345,14 @@ namespace Fluent
             {
                 if (!IsDropDownOpen)
                 {
+                    if (isFirstTime) popup.Opacity = 0;
+                    if (menuPanel != null)
+                    {
+                        scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                        menuPanel.Width = double.NaN;
+                        menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
+                        menuPanel.Loaded += OnMenuPanelLoaded;
+                    }
                     IsDropDownOpen = true;
                 }
                 else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
@@ -355,7 +367,37 @@ namespace Fluent
                     focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
                 }
                 e.Handled = true;
+
+                if (isFirstTime)
+                {
+                    isFirstTime = false;
+                    IsDropDownOpen = false;                    
+                    Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{                        
+                        if (menuPanel != null)
+                        {
+                            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                            menuPanel.Width = double.NaN;
+                            menuPanel.Height = double.NaN;
+                            menuPanel.Loaded += OnMenuPanelLoaded;
+                        }
+                        IsDropDownOpen = true;                        
+                        OnMenuPanelLoaded(null, null);
+                        popup.Opacity = 1;
+                    }));
+                }
             }
+        }
+
+        private void OnMenuPanelLoaded(object sender, RoutedEventArgs e)
+        {
+            menuPanel.Loaded -= OnMenuPanelLoaded;
+            Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{
+                    if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
+                    if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+                    menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width);
+                    menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height), MaxDropDownHeight);    
+                    scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                }));
         }
 
         private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
@@ -392,6 +434,7 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            isFirstTime = true;
             if (popup != null)
             {
                 popup.Opened -= OnDropDownOpened;
@@ -434,10 +477,10 @@ namespace Fluent
 
             menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
 
+            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+
             base.OnApplyTemplate();
         }
-
-
 
         #endregion
 
@@ -465,6 +508,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
@@ -474,6 +518,7 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
+            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
@@ -488,11 +533,12 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (menuPanel != null)
+            /*if (menuPanel != null)
             {
                 menuPanel.Width = double.NaN;
-                menuPanel.Height = double.NaN;
-            }
+                menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);
+                menuPanel.Loaded += OnMenuPanelLoaded;
+            }*/
             if (DropDownOpened != null) DropDownOpened(this, e);
             Mouse.Capture(this, CaptureMode.SubTree);
         }

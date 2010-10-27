@@ -731,12 +731,6 @@ namespace Fluent
             base.OnKeyDown(e);
         }
 
-        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
-        {
-            e.Handled = true;
-            base.OnPreviewMouseWheel(e);
-        }
-        
         #endregion
 
         #region Methods

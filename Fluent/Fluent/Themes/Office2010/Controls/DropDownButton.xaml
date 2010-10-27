@@ -117,7 +117,7 @@
               <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Rectangle Focusable="False" Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
-            <ScrollViewer Focusable="False" Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ScrollViewer x:Name="PART_ScrollViewer" Style="{DynamicResource MenuScrollViewer}" Focusable="False" Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
               <Fluent:MenuPanel Focusable="False" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Local"/>
               </ScrollViewer>
             <Border Focusable="False" x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
