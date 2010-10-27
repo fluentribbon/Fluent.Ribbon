@@ -672,6 +672,20 @@
                     </Fluent:MenuItem>
                   </Fluent:MenuItem>
                 </Fluent:MenuItem>
+                <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
+               <Fluent:MenuItem Header="Item"/>
               </Fluent:SplitButton>
 
         </Fluent:RibbonGroupBox>

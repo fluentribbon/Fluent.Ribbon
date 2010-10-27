@@ -19,18 +19,17 @@
     </Border>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="False"/>			
-      <Trigger Property="IsPressed" Value="True">
+      <!--<Trigger Property="IsPressed" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-      </Trigger>
+      </Trigger>-->
       <Trigger Property="IsEnabled" Value="False">
       </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsPressed" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
@@ -41,7 +40,6 @@
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="IsKeyboardFocusWithin" Value="True"/>
-          <Condition Property="IsPressed" Value="False"/>
         </MultiTrigger.Conditions>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
         <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
@@ -184,11 +182,11 @@
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
           <Grid x:Name="Grid" Background="{TemplateBinding Background}" IsHitTestVisible="True">
             <ScrollContentPresenter  Margin="{TemplateBinding Padding}" x:Name="PART_ScrollContentPresenter" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}" IsHitTestVisible="True" />
-            <RepeatButton
+            <RepeatButton ClickMode="Hover"
                                       
                                       Command="{x:Static ScrollBar.LineUpCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="13" VerticalAlignment="Top" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Top" Style="{StaticResource ScrollButtonStyle}">
               <RepeatButton.Visibility>
                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                           Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -203,13 +201,22 @@
                                        Path="ViewportHeight"/>
                 </MultiBinding>
               </RepeatButton.Visibility>
-              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,-1 2,0z"/>
+              <Path Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,-1 2,0z">
+                <Path.Fill>
+                  <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.GradientStops>
+                      <GradientStop Color="#FF1A52AD" Offset="0"/>
+                      <GradientStop Color="#FF0F3168" Offset="1"/>
+                    </LinearGradientBrush.GradientStops>
+                  </LinearGradientBrush>
+                </Path.Fill>
+              </Path>
             </RepeatButton>
-            <RepeatButton
+            <RepeatButton ClickMode="Hover"
                                       
                                       Command="{x:Static ScrollBar.LineDownCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="13" VerticalAlignment="Bottom" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Bottom" Style="{StaticResource ScrollButtonStyle}">
               <RepeatButton.Visibility>
                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                           Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -224,7 +231,16 @@
                                        Path="ViewportHeight"/>
                 </MultiBinding>
               </RepeatButton.Visibility>
-              <Path Fill="Black" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,1 2,0z"/>
+              <Path Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="5" Height="3" Data="M0,0L1,1 2,0z">
+                <Path.Fill>
+                  <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.GradientStops>
+                      <GradientStop Color="#FF1A52AD" Offset="0"/>
+                      <GradientStop Color="#FF0F3168" Offset="1"/>
+                    </LinearGradientBrush.GradientStops>
+                  </LinearGradientBrush>
+                </Path.Fill>
+              </Path>
             </RepeatButton>
           </Grid>
         </ControlTemplate>
