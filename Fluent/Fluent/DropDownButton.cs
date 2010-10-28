@@ -348,7 +348,7 @@ namespace Fluent
                     if (isFirstTime) popup.Opacity = 0;
                     if (menuPanel != null)
                     {
-                        scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                        if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                         menuPanel.Width = double.NaN;
                         menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
                         menuPanel.Loaded += OnMenuPanelLoaded;
@@ -375,7 +375,7 @@ namespace Fluent
                     Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{                        
                         if (menuPanel != null)
                         {
-                            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                            if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                             menuPanel.Width = double.NaN;
                             menuPanel.Height = double.NaN;
                             menuPanel.Loaded += OnMenuPanelLoaded;
@@ -395,8 +395,8 @@ namespace Fluent
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
                     if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
                     menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width);
-                    menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height), MaxDropDownHeight);    
-                    scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                    menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height), MaxDropDownHeight);
+                    if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }));
         }
 
@@ -508,7 +508,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
@@ -518,7 +518,7 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }

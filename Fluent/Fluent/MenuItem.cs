@@ -46,6 +46,10 @@ namespace Fluent
 
         private IInputElement focusedElement;
 
+        private ScrollViewer scrollViewer;
+
+        private bool isFirstTime;
+
         #endregion
 
         #region Properties
@@ -475,7 +479,7 @@ namespace Fluent
             {
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
-
+            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
             menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
         }
 
@@ -536,6 +540,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
+            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
@@ -545,6 +550,7 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
+            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
@@ -559,6 +565,7 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
+            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             menuPanel.Width = double.NaN;
             menuPanel.Height = double.NaN;
             if (DropDownOpened != null) DropDownOpened(this, e);

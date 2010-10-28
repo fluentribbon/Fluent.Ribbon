@@ -7,6 +7,9 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
+// Based on WindowChrome code from WPF Shell Integration Library 
+// http://code.msdn.microsoft.com/WPFShell/
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -26,8 +29,8 @@ namespace Fluent
 {
     internal static class DpiHelper
     {
-        private static Matrix _transformToDevice;
-        private static Matrix _transformToDip;
+        private static Matrix transformToDevice;
+        private static Matrix transformToDip;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static DpiHelper()
@@ -39,10 +42,10 @@ namespace Fluent
             int pixelsPerInchX = NativeMethods.GetDeviceCaps(desktop, 88);
             int pixelsPerInchY = NativeMethods.GetDeviceCaps(desktop, 90);
 
-            _transformToDip = Matrix.Identity;
-            _transformToDip.Scale(96d / (double)pixelsPerInchX, 96d / (double)pixelsPerInchY);
-            _transformToDevice = Matrix.Identity;
-            _transformToDevice.Scale((double)pixelsPerInchX / 96d, (double)pixelsPerInchY / 96d);
+            transformToDip = Matrix.Identity;
+            transformToDip.Scale(96d / (double)pixelsPerInchX, 96d / (double)pixelsPerInchY);
+            transformToDevice = Matrix.Identity;
+            transformToDevice.Scale((double)pixelsPerInchX / 96d, (double)pixelsPerInchY / 96d);
             NativeMethods.ReleaseDC(IntPtr.Zero, desktop);
         }
 
@@ -53,7 +56,7 @@ namespace Fluent
         /// <returns>Returns the parameter converted to the system's coordinates.</returns>
         public static Point LogicalPixelsToDevice(Point logicalPoint)
         {
-            return _transformToDevice.Transform(logicalPoint);
+            return transformToDevice.Transform(logicalPoint);
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace Fluent
         /// <returns>Returns the parameter converted to the device independent coordinate system.</returns>
         public static Point DevicePixelsToLogical(Point devicePoint)
         {
-            return _transformToDip.Transform(devicePoint);
+            return transformToDip.Transform(devicePoint);
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
@@ -1375,7 +1378,11 @@ namespace Fluent
                     case 0x0201:
                     case 0x0204:
                     case 0x0206:
-                        //NativeMethods.ReleaseCapture();
+                        // Check popups
+                        if (IsInRootPopup(Mouse.Captured as DependencyObject)) 
+                            return IntPtr.Zero;
+
+                        //
                         IntPtr pp = Marshal.AllocHGlobal(Marshal.SizeOf(cc.pt));
                         Marshal.StructureToPtr(cc.pt, pp, false);
                         bool handled;
@@ -1415,6 +1422,37 @@ namespace Fluent
                 }
             }
             return NativeMethods.CallNextHookEx(mouseHook, code, wParam, lParam);
+        }
+
+        private bool IsInRootPopup(DependencyObject element)
+        {
+            if (PopupService.IsMousePhysicallyOver(element as UIElement)) return true;
+            // Check if is drop down control
+            IDropDownControl dropDown = element as IDropDownControl;
+            if ((dropDown != null) && (dropDown.IsDropDownOpen) && (dropDown.DropDownPopup != null) &&
+                (dropDown.DropDownPopup.Child != null) &&
+                (PopupService.IsMousePhysicallyOver(dropDown.DropDownPopup.Child)))
+                return true;
+            // Check if is context menu
+            ContextMenu menu = element as ContextMenu;
+            if ((menu != null) && (menu.IsOpen) && (PopupService.IsMousePhysicallyOver(menu))) return true;
+            // Check if is menu item
+            MenuItem menuItem = element as MenuItem;
+            if ((menuItem != null) && (menuItem.IsDropDownOpen) && (PopupService.IsMousePhysicallyOver(menuItem.DropDownPopup.Child))) return true;
+            // Check if is Popup
+            Popup popup = element as Popup;
+            if ((popup != null) && (popup.IsOpen) && (PopupService.IsMousePhysicallyOver(popup.Child))) return true;
+            
+            // Check childs
+            var children = LogicalTreeHelper.GetChildren(element);
+            foreach (var child in children)
+            {
+                DependencyObject childObject = child as DependencyObject;
+                if((childObject!=null)&&((childObject as FrameworkElement).IsVisible) &&(IsInRootPopup(childObject)))
+                    return true;
+            }
+            
+            return false;
         }
 
         #endregion
