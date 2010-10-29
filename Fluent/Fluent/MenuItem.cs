@@ -262,18 +262,36 @@ namespace Fluent
         {
             if (HasItems)
             {
-                DropDownButton button = new DropDownButton();
-                RibbonControl.BindQuickAccessItem(this, button);
-                RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-                RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-                RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-                RibbonControl.Bind(this, button, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-                RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-                RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-                button.DropDownOpened += OnQuickAccessOpened;
-                return button;
+                if (IsSplited)
+                {
+                    SplitButton button = new SplitButton();
+                    RibbonControl.BindQuickAccessItem(this, button);
+                    RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+                    RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
+                    RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+                    button.DropDownOpened += OnQuickAccessOpened;
+                    return button;
+                }
+                else
+                {
+                    DropDownButton button = new DropDownButton();
+                    RibbonControl.BindQuickAccessItem(this, button);
+                    RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
+                    RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
+                    RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+                    button.DropDownOpened += OnQuickAccessOpened;
+                    return button;   
+                }                
             }
             else
             {

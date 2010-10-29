@@ -506,9 +506,18 @@ namespace Fluent
         {
             if (source is ICommandSource)
             {
-                Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
-                Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+                if (source is MenuItem)
+                {
+                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, "CommandTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, "Command", MenuItem.CommandProperty, BindingMode.OneWay);
+                }
+                else
+                {
+                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+                }
             }
             Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
 
