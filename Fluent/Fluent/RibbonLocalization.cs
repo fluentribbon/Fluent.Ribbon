@@ -7,7 +7,7 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 
@@ -18,30 +18,39 @@ namespace Fluent
     /// Set Culture property to change current Ribbon localization or 
     /// set properties independently to use your localization
     /// </summary>
-    public class RibbonLocalization : DependencyObject
+    public class RibbonLocalization : INotifyPropertyChanged
     {
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Raises PropertYChanegd event
+        private void RaisePropertyChanged(string propertyName)
+        {
+            if(PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
         #region Culture
+
+        private CultureInfo culture;
 
         /// <summary>
         /// Gets or sets current culture used for localization
         /// </summary>
         public CultureInfo Culture
         {
-            get { return (CultureInfo)GetValue(CultureProperty); }
-            set { SetValue(CultureProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Culture. 
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CultureProperty =
-            DependencyProperty.Register("Culture", typeof(CultureInfo), typeof(RibbonLocalization), new UIPropertyMetadata(null, OnCultureChanged));
-
-        static void OnCultureChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            localization.LoadCulture((CultureInfo)e.NewValue);
+            get { return culture; }
+            set
+            {
+                if (value != culture)
+                {
+                    culture = value;
+                    LoadCulture(culture);
+                    RaisePropertyChanged("Culture");
+                }
+            }
         }
 
         #endregion
@@ -51,31 +60,24 @@ namespace Fluent
         // Text of backstage button
         string backstageButtonText = "File";
 
+        private string backstageButtonTextProperty;
+        
         /// <summary>
         /// Gets or sets text of backstage button
         /// </summary>
         public string BackstageButtonText
         {
-            get { return (string)GetValue(BackstageButtonTextProperty); }
-            set { SetValue(BackstageButtonTextProperty, value); }
+            get { return backstageButtonTextProperty ?? backstageButtonText; }
+            set
+            {
+                if (backstageButtonTextProperty != value)
+                {
+                    backstageButtonTextProperty = value;
+                    RaisePropertyChanged("BackstageButtonText");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageButtonText.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty BackstageButtonTextProperty =
-            DependencyProperty.Register("BackstageButtonText", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceBackstageButtonText));
-
-        // Coerce value
-        static object OnCoerceBackstageButtonText(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.backstageButtonText;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region KeyTip of backstage button
@@ -83,31 +85,23 @@ namespace Fluent
         // KeyTip of backstage button
         string backstageButtonKeyTip = "F";
 
+        private string backstageButtonKeyTipProperty;
         /// <summary>
         /// Gets or sets KeyTip of backstage button
         /// </summary>
         public string BackstageButtonKeyTip
         {
-            get { return (string)GetValue(BackstageButtonKeyTipProperty); }
-            set { SetValue(BackstageButtonKeyTipProperty, value); }
+            get { return backstageButtonKeyTipProperty ?? backstageButtonKeyTip; }
+            set
+            {
+                if (backstageButtonKeyTipProperty != value)
+                {
+                    backstageButtonKeyTipProperty = value;
+                    RaisePropertyChanged("BackstageButtonKeyTip");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageButtonKeyTip.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty BackstageButtonKeyTipProperty =
-            DependencyProperty.Register("BackstageButtonKeyTip", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceBackstageButtonKeyTip));
-
-        // Coerce value
-        static object OnCoerceBackstageButtonKeyTip(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.backstageButtonKeyTip;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Minimize Button ScreenTip Title
@@ -115,61 +109,46 @@ namespace Fluent
         // Minimize Button ScreenTip Title
         string minimizeButtonScreenTipTitle = "Minimize the Ribbon (Ctrl + F1)";
 
+        private string minimizeButtonScreenTipTitleProperty;
+
         /// <summary>
         /// Minimize Button ScreenTip Title
         /// </summary>
         public string MinimizeButtonScreenTipTitle
         {
-            get { return (string)GetValue(MinimizeButtonScreenTipTitleProperty); }
-            set { SetValue(MinimizeButtonScreenTipTitleProperty, value); }
+            get { return minimizeButtonScreenTipTitleProperty ?? minimizeButtonScreenTipTitle; }
+            set
+            {
+                if (minimizeButtonScreenTipTitleProperty != value)
+                {
+                    minimizeButtonScreenTipTitleProperty = value;
+                    RaisePropertyChanged("MinimizeButtonScreenTipTitle");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MinimizeButtonScreenTipTitle.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty MinimizeButtonScreenTipTitleProperty =
-            DependencyProperty.Register("MinimizeButtonScreenTipTitle", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceMinimizeButtonScreenTipTitle));
-
-        // Coerce value
-        static object OnCoerceMinimizeButtonScreenTipTitle(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.minimizeButtonScreenTipTitle;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Minimize Button ScreenTip Text
 
         // Minimize Button ScreenTip Text
         string minimizeButtonScreenTipText = "Show or hide the Ribbon\n\nWhen the Ribbon is hidden, only\nthe tab names are shown";
+        private string minimizeButtonScreenTipTextProperty;
 
         /// <summary>
         /// Minimize Button ScreenTip Text
         /// </summary>
         public string MinimizeButtonScreenTipText
         {
-            get { return (string)GetValue(MinimizeButtonScreenTipTextProperty); }
-            set { SetValue(MinimizeButtonScreenTipTextProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MinimizeButtonScreenTipText.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty MinimizeButtonScreenTipTextProperty =
-            DependencyProperty.Register("MinimizeButtonScreenTipText", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceMinimizeButtonScreenTipText));
-
-        // Coerce value
-        static object OnCoerceMinimizeButtonScreenTipText(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.minimizeButtonScreenTipText;
-            return basevalue;
+            get { return minimizeButtonScreenTipTextProperty ?? minimizeButtonScreenTipText; }
+            set
+            {
+                if (minimizeButtonScreenTipTextProperty != value)
+                {
+                    minimizeButtonScreenTipTextProperty = value;
+                    RaisePropertyChanged("MinimizeButtonScreenTipText");
+                }
+            }
         }
 
         #endregion
@@ -178,32 +157,24 @@ namespace Fluent
 
         // Expand Button ScreenTip Title
         string expandButtonScreenTipTitle = "Expand the Ribbon (Ctrl + F1)";
+        private string expandButtonScreenTipTitleProperty;
 
         /// <summary>
         /// Expand Button ScreenTip Title
         /// </summary>
         public string ExpandButtonScreenTipTitle
         {
-            get { return (string)GetValue(ExpandButtonScreenTipTitleProperty); }
-            set { SetValue(ExpandButtonScreenTipTitleProperty, value); }
+            get { return expandButtonScreenTipTitleProperty ?? expandButtonScreenTipTitle; }
+            set
+            {
+                if (expandButtonScreenTipTitleProperty != value)
+                {
+                    expandButtonScreenTipTitleProperty = value;
+                    RaisePropertyChanged("ExpandButtonScreenTipTitle");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ExpandButtonScreenTipTitle.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ExpandButtonScreenTipTitleProperty =
-            DependencyProperty.Register("ExpandButtonScreenTipTitle", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceExpandButtonScreenTipTitle));
-
-        // Coerce value
-        static object OnCoerceExpandButtonScreenTipTitle(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.expandButtonScreenTipTitle;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Expand Button ScreenTip Text
@@ -211,31 +182,24 @@ namespace Fluent
         // Expand Button ScreenTip Text
         string expandButtonScreenTipText = "Show or hide the Ribbon\n\nWhen the Ribbon is hidden, only\nthe tab names are shown";
 
+        string expandButtonScreenTipTextProperty;
+
         /// <summary>
         /// Expand Button ScreenTip Text
         /// </summary>
         public string ExpandButtonScreenTipText
         {
-            get { return (string)GetValue(ExpandButtonScreenTipTextProperty); }
-            set { SetValue(ExpandButtonScreenTipTextProperty, value); }
+            get { return expandButtonScreenTipTextProperty ?? expandButtonScreenTipText; }
+            set
+            {
+                if (expandButtonScreenTipTextProperty != value)
+                {
+                    expandButtonScreenTipTextProperty = value;
+                    RaisePropertyChanged("ExpandButtonScreenTipText");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ExpandButtonScreenTipText.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ExpandButtonScreenTipTextProperty =
-            DependencyProperty.Register("ExpandButtonScreenTipText", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceExpandButtonScreenTipText));
-
-        // Coerce value
-        static object OnCoerceExpandButtonScreenTipText(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.expandButtonScreenTipText;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Quick Access ToolBar DropDown Button ToolTip
@@ -243,125 +207,94 @@ namespace Fluent
         // Quick Access ToolBar DropDown Button ToolTip
         private string quickAccessToolBarDropDownButtonTooltip = "Customize Quick Access Toolbar";
 
+        private string quickAccessToolBarDropDownButtonTooltipProperty;
+
         /// <summary>
         /// Quick Access ToolBar DropDown Button ToolTip
         /// </summary>
         public string QuickAccessToolBarDropDownButtonTooltip
         {
-            get { return (string)GetValue(QuickAccessToolBarDropDownButtonTooltipProperty); }
-            set { SetValue(QuickAccessToolBarDropDownButtonTooltipProperty, value); }
+            get { return quickAccessToolBarDropDownButtonTooltipProperty ?? quickAccessToolBarDropDownButtonTooltip; }
+            set
+            {
+                if (quickAccessToolBarDropDownButtonTooltipProperty != value)
+                {
+                    quickAccessToolBarDropDownButtonTooltipProperty = value;
+                    RaisePropertyChanged("QuickAccessToolBarDropDownButtonTooltip");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBarDropDownButtonTooltip.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarDropDownButtonTooltipProperty =
-            DependencyProperty.Register("QuickAccessToolBarDropDownButtonTooltip", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarDropDownButtonTooltip));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarDropDownButtonTooltip(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.quickAccessToolBarDropDownButtonTooltip;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Quick Access ToolBar MoreControls Button ToolTip
 
         // Quick Access ToolBar MoreControls Button ToolTip
         private string quickAccessToolBarMoreControlsButtonTooltip = "More controls";
+        private string quickAccessToolBarMoreControlsButtonTooltipProperty;
 
         /// <summary>
         /// Quick Access ToolBar MoreControls Button ToolTip
         /// </summary>
         public string QuickAccessToolBarMoreControlsButtonTooltip
         {
-            get { return (string)GetValue(QuickAccessToolBarMoreControlsButtonTooltipProperty); }
-            set { SetValue(QuickAccessToolBarMoreControlsButtonTooltipProperty, value); }
+            get { return quickAccessToolBarMoreControlsButtonTooltipProperty ?? quickAccessToolBarMoreControlsButtonTooltip; }
+            set
+            {
+                if (quickAccessToolBarMoreControlsButtonTooltipProperty != value)
+                {
+                    quickAccessToolBarMoreControlsButtonTooltipProperty = value;
+                    RaisePropertyChanged("QuickAccessToolBarMoreControlsButtonTooltip");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBarMoreControlsButtonTooltip.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarMoreControlsButtonTooltipProperty =
-            DependencyProperty.Register("QuickAccessToolBarMoreControlsButtonTooltip", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarMoreControlsButtonTooltip));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarMoreControlsButtonTooltip(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.quickAccessToolBarMoreControlsButtonTooltip;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Quick Access ToolBar Menu Header
 
         // Quick Access ToolBar  Menu Header
         private string quickAccessToolBarMenuHeader = "Customize Quick Access Toolbar";
+        private string quickAccessToolBarMenuHeaderProperty;
 
         /// <summary>
         /// Quick Access ToolBar  Menu Header
         /// </summary>
         public string QuickAccessToolBarMenuHeader
         {
-            get { return (string)GetValue(QuickAccessToolBarMenuHeaderProperty); }
-            set { SetValue(QuickAccessToolBarMenuHeaderProperty, value); }
+            get { return quickAccessToolBarMenuHeaderProperty ?? quickAccessToolBarMenuHeader; }
+            set
+            {
+                if (quickAccessToolBarMenuHeaderProperty != value)
+                {
+                    quickAccessToolBarMenuHeaderProperty = value;
+                    RaisePropertyChanged("QuickAccessToolBarMenuHeader");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBarButtonTooltip.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarMenuHeaderProperty =
-            DependencyProperty.Register("QuickAccessToolBarMenuHeader", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarMenuHeader));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarMenuHeader(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.quickAccessToolBarMenuHeader;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Quick Access ToolBar Context Menu Show Below
 
         // Quick Access ToolBar Minimize Quick Access Toolbar
         private string quickAccessToolBarMenuShowBelow = "Show Below the Ribbon";
+        private string quickAccessToolBarMenuShowBelowProperty;
 
         /// <summary>
         /// Quick Access ToolBar Minimize Quick Access Toolbar
         /// </summary>
         public string QuickAccessToolBarMenuShowBelow
         {
-            get { return (string)GetValue(QuickAccessToolBarMenuShowBelowProperty); }
-            set { SetValue(QuickAccessToolBarMenuShowBelowProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBarMenuShowBelow.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarMenuShowBelowProperty =
-            DependencyProperty.Register("QuickAccessToolBarMenuShowBelow", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarMenuShowBelow));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarMenuShowBelow(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.quickAccessToolBarMenuShowBelow;
-            return basevalue;
+            get { return quickAccessToolBarMenuShowBelowProperty ?? quickAccessToolBarMenuShowBelow; }
+            set
+            {
+                if (quickAccessToolBarMenuShowBelowProperty != value)
+                {
+                    quickAccessToolBarMenuShowBelowProperty = value;
+                    RaisePropertyChanged("QuickAccessToolBarMenuShowBelow");
+                }
+            }
         }
 
         #endregion
@@ -370,30 +303,22 @@ namespace Fluent
 
         // Quick Access ToolBar Menu Minimize Quick Access Toolbar
         private string quickAccessToolBarMenuShowAbove = "Show Above the Ribbon";
+        private string quickAccessToolBarMenuShowAboveProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Minimize Quick Access Toolbar
         /// </summary>
         public string QuickAccessToolBarMenuShowAbove
         {
-            get { return (string)GetValue(QuickAccessToolBarMenuShowAboveProperty); }
-            set { SetValue(QuickAccessToolBarMenuShowAboveProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBarMenuShowAbove.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarMenuShowAboveProperty =
-            DependencyProperty.Register("QuickAccessToolBarMenuShowAbove", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarMenuShowAbove));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarMenuShowAbove(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.quickAccessToolBarMenuShowAbove;
-            return basevalue;
+            get { return quickAccessToolBarMenuShowAboveProperty ?? quickAccessToolBarMenuShowAbove; }
+            set
+            {
+                if (quickAccessToolBarMenuShowAboveProperty != value)
+                {
+                    quickAccessToolBarMenuShowAboveProperty = value;
+                    RaisePropertyChanged("QuickAccessToolBarMenuShowAbove");
+                }
+            }
         }
 
         #endregion
@@ -402,30 +327,22 @@ namespace Fluent
 
         // Quick Access ToolBar Menu Add Item
         private string ribbonContextMenuAddItem = "Add to Quick Access Toolbar";
+        private string ribbonContextMenuAddItemProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Add Item
         /// </summary>
         public string RibbonContextMenuAddItem
         {
-            get { return (string)GetValue(RibbonContextMenuAddItemProperty); }
-            set { SetValue(RibbonContextMenuAddItemProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuAddItem.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuAddItemProperty =
-            DependencyProperty.Register("RibbonContextMenuAddItem", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceQuickAccessToolBarMenuAddItem));
-
-        // Coerce value
-        static object OnCoerceQuickAccessToolBarMenuAddItem(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuAddItem;
-            return basevalue;
+            get { return ribbonContextMenuAddItemProperty ?? ribbonContextMenuAddItem; }
+            set
+            {
+                if (ribbonContextMenuAddItemProperty != value)
+                {
+                    ribbonContextMenuAddItemProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuAddItem");
+                }
+            }
         }
 
         #endregion
@@ -434,30 +351,22 @@ namespace Fluent
 
         // Quick Access ToolBar Menu Add Group
         private string ribbonContextMenuAddGroup = "Add Group to Quick Access Toolbar";
+        private string ribbonContextMenuAddGroupProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Add Group
         /// </summary>
         public string RibbonContextMenuAddGroup
         {
-            get { return (string)GetValue(RibbonContextMenuAddGroupProperty); }
-            set { SetValue(RibbonContextMenuAddGroupProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuAddGroup.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuAddGroupProperty =
-            DependencyProperty.Register("RibbonContextMenuAddGroup", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuAddGroup));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuAddGroup(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuAddGroup;
-            return basevalue;
+            get { return ribbonContextMenuAddGroupProperty ?? ribbonContextMenuAddGroup; }
+            set
+            {
+                if (ribbonContextMenuAddGroupProperty != value)
+                {
+                    ribbonContextMenuAddGroupProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuAddGroup");
+                }
+            }
         }
 
         #endregion
@@ -466,30 +375,22 @@ namespace Fluent
 
         // Quick Access ToolBar Menu Add Gallery
         private string ribbonContextMenuAddGallery = "Add Gallery to Quick Access Toolbar";
+        private string ribbonContextMenuAddGalleryProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Add Gallery
         /// </summary>
         public string RibbonContextMenuAddGallery
         {
-            get { return (string)GetValue(RibbonContextMenuAddGalleryProperty); }
-            set { SetValue(RibbonContextMenuAddGalleryProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuAddGallery.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuAddGalleryProperty =
-            DependencyProperty.Register("RibbonContextMenuAddGallery", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuAddGallery));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuAddGallery(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuAddGallery;
-            return basevalue;
+            get { return ribbonContextMenuAddGalleryProperty ?? ribbonContextMenuAddGallery; }
+            set
+            {
+                if (ribbonContextMenuAddGalleryProperty != value)
+                {
+                    ribbonContextMenuAddGalleryProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuAddGallery");
+                }
+            }
         }
 
         #endregion
@@ -498,62 +399,46 @@ namespace Fluent
 
         // Quick Access ToolBar Menu Add Menu
         private string ribbonContextMenuAddMenu = "Add Menu to Quick Access Toolbar";
+        private string ribbonContextMenuAddMenuProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Add Menu
         /// </summary>
         public string RibbonContextMenuAddMenu
         {
-            get { return (string)GetValue(RibbonContextMenuAddMenuProperty); }
-            set { SetValue(RibbonContextMenuAddMenuProperty, value); }
+            get { return ribbonContextMenuAddMenuProperty ?? ribbonContextMenuAddMenu; }
+            set
+            {
+                if (ribbonContextMenuAddMenuProperty != value)
+                {
+                    ribbonContextMenuAddMenuProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuAddMenu");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuAddMenu.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuAddMenuProperty =
-            DependencyProperty.Register("RibbonContextMenuAddMenu", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuAddMenu));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuAddMenu(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuAddMenu;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Quick Access ToolBar Menu Remove Item
 
         // Quick Access ToolBar Menu Remove Item
         private string ribbonContextMenuRemoveItem = "Remove from Quick Access Toolbar";
+        private string ribbonContextMenuRemoveItemProperty;
 
         /// <summary>
         /// Quick Access ToolBar Menu Remove Item
         /// </summary>
         public string RibbonContextMenuRemoveItem
         {
-            get { return (string)GetValue(RibbonContextMenuRemoveItemProperty); }
-            set { SetValue(RibbonContextMenuRemoveItemProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuRemoveItem.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuRemoveItemProperty =
-            DependencyProperty.Register("RibbonContextMenuRemoveItem", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuRemoveItem));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuRemoveItem(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuRemoveItem;
-            return basevalue;
+            get { return ribbonContextMenuRemoveItemProperty ?? ribbonContextMenuRemoveItem; }
+            set
+            {
+                if (ribbonContextMenuRemoveItemProperty != value)
+                {
+                    ribbonContextMenuRemoveItemProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuRemoveItem");
+                }
+            }
         }
 
         #endregion
@@ -562,94 +447,70 @@ namespace Fluent
 
         // Ribbon Context Menu Customize Quick Access Toolbar
         private string ribbonContextMenuCustomizeQuickAccessToolbar = "Customize Quick Access Toolbar...";
+        private string ribbonContextMenuCustomizeQuickAccessToolbarProperty;
 
         /// <summary>
         /// Ribbon Context Menu Customize Quick Access Toolbar
         /// </summary>
         public string RibbonContextMenuCustomizeQuickAccessToolBar
         {
-            get { return (string)GetValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty); }
-            set { SetValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty, value); }
+            get { return ribbonContextMenuCustomizeQuickAccessToolbarProperty ?? ribbonContextMenuCustomizeQuickAccessToolbar; }
+            set
+            {
+                if (ribbonContextMenuCustomizeQuickAccessToolbarProperty != value)
+                {
+                    ribbonContextMenuCustomizeQuickAccessToolbarProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuCustomizeQuickAccessToolBar");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuCustomizeQuickAccessToolBar.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuCustomizeQuickAccessToolBarProperty =
-            DependencyProperty.Register("RibbonContextMenuCustomizeQuickAccessToolBar", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuCustomizeQuickAccessToolbar));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuCustomizeQuickAccessToolbar(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuCustomizeQuickAccessToolbar;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Ribbon Context Menu Customize Ribbon
 
         // Ribbon Context Menu Customize Quick Access Toolbar
         private string ribbonContextMenuCustomizeRibbon = "Customize the Ribbon...";
+        private string ribbonContextMenuCustomizeRibbonProperty;
 
         /// <summary>
         /// Ribbon Context Menu Customize Quick Access Toolbar
         /// </summary>
         public string RibbonContextMenuCustomizeRibbon
         {
-            get { return (string)GetValue(RibbonContextMenuCustomizeRibbonProperty); }
-            set { SetValue(RibbonContextMenuCustomizeRibbonProperty, value); }
+            get { return ribbonContextMenuCustomizeRibbonProperty ?? ribbonContextMenuCustomizeRibbon; }
+            set
+            {
+                if (ribbonContextMenuCustomizeRibbonProperty != value)
+                {
+                    ribbonContextMenuCustomizeRibbonProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuCustomizeRibbon");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuCustomizeRibbon.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuCustomizeRibbonProperty =
-            DependencyProperty.Register("RibbonContextMenuCustomizeRibbon", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuCustomizeRibbon));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuCustomizeRibbon(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuCustomizeRibbon;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Ribbon Context Menu Minimize Ribbon
 
         // Ribbon Context Menu Minimize Quick Access Toolbar
         private string ribbonContextMenuMinimizeRibbon = "Minimize the Ribbon";
+        private string ribbonContextMenuMinimizeRibbonProperty;
 
         /// <summary>
         /// Ribbon Context Menu Minimize Quick Access Toolbar
         /// </summary>
         public string RibbonContextMenuMinimizeRibbon
         {
-            get { return (string)GetValue(RibbonContextMenuMinimizeRibbonProperty); }
-            set { SetValue(RibbonContextMenuMinimizeRibbonProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuMinimizeRibbon.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuMinimizeRibbonProperty =
-            DependencyProperty.Register("RibbonContextMenuMinimizeRibbon", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuMinimizeRibbon));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuMinimizeRibbon(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuMinimizeRibbon;
-            return basevalue;
+            get { return ribbonContextMenuMinimizeRibbonProperty ?? ribbonContextMenuMinimizeRibbon; }
+            set
+            {
+                if (ribbonContextMenuMinimizeRibbonProperty != value)
+                {
+                    ribbonContextMenuMinimizeRibbonProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuMinimizeRibbon");
+                }
+            }
         }
 
         #endregion
@@ -658,30 +519,22 @@ namespace Fluent
 
         // Ribbon Context Menu Minimize Quick Access Toolbar
         private string ribbonContextMenuShowBelow = "Show Quick Access Toolbar Below the Ribbon";
+        private string ribbonContextMenuShowBelowProperty;
 
         /// <summary>
         /// Ribbon Context Menu Minimize Quick Access Toolbar
         /// </summary>
         public string RibbonContextMenuShowBelow
         {
-            get { return (string)GetValue(RibbonContextMenuShowBelowProperty); }
-            set { SetValue(RibbonContextMenuShowBelowProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuShowBelow.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuShowBelowProperty =
-            DependencyProperty.Register("RibbonContextMenuShowBelow", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuShowBelow));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuShowBelow(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuShowBelow;
-            return basevalue;
+            get { return ribbonContextMenuShowBelowProperty ?? ribbonContextMenuShowBelow; }
+            set
+            {
+                if (ribbonContextMenuShowBelowProperty != value)
+                {
+                    ribbonContextMenuShowBelowProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuShowBelow");
+                }
+            }
         }
 
         #endregion
@@ -690,30 +543,22 @@ namespace Fluent
 
         // Ribbon Context Menu Minimize Quick Access Toolbar
         private string ribbonContextMenuShowAbove = "Show Quick Access Toolbar Above the Ribbon";
+        private string ribbonContextMenuShowAboveProperty;
 
         /// <summary>
         /// Ribbon Context Menu Minimize Quick Access Toolbar
         /// </summary>
         public string RibbonContextMenuShowAbove
         {
-            get { return (string)GetValue(RibbonContextMenuShowAboveProperty); }
-            set { SetValue(RibbonContextMenuShowAboveProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RibbonContextMenuShowAbove.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty RibbonContextMenuShowAboveProperty =
-            DependencyProperty.Register("RibbonContextMenuShowAbove", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceRibbonContextMenuShowAbove));
-
-        // Coerce value
-        static object OnCoerceRibbonContextMenuShowAbove(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.ribbonContextMenuShowAbove;
-            return basevalue;
+            get { return ribbonContextMenuShowAboveProperty ?? ribbonContextMenuShowAbove; }
+            set
+            {
+                if (ribbonContextMenuShowAboveProperty != value)
+                {
+                    ribbonContextMenuShowAboveProperty = value;
+                    RaisePropertyChanged("RibbonContextMenuShowAbove");
+                }
+            }
         }
 
         #endregion
@@ -722,64 +567,48 @@ namespace Fluent
 
         // ScreenTip's Disable Reason Header
         string screenTipDisableReasonHeader = "This command is currently disabled.";
+        private string screenTipDisableReasonHeaderProperty;
 
         /// <summary>
         /// Gets or sets ScreenTip's disable reason header
         /// </summary>
         public string ScreenTipDisableReasonHeader
         {
-            get { return (string)GetValue(ScreenTipDisableReasonHeaderProperty); }
-            set { SetValue(ScreenTipDisableReasonHeaderProperty, value); }
+            get { return screenTipDisableReasonHeaderProperty ?? screenTipDisableReasonHeader; }
+            set
+            {
+                if (screenTipDisableReasonHeaderProperty != value)
+                {
+                    screenTipDisableReasonHeaderProperty = value;
+                    RaisePropertyChanged("ScreenTipDisableReasonHeader");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ScreenTipDisableReasonHeader.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ScreenTipDisableReasonHeaderProperty =
-            DependencyProperty.Register("ScreenTipDisableReasonHeader", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceScreenTipDisableReasonHeader));
-
-        // Coerce value
-        static object OnCoerceScreenTipDisableReasonHeader(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.screenTipDisableReasonHeader;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Customize Status Bar
 
         // Text of backstage button
         string customizeStatusBar = "Customize Status Bar";
+        private string customizeStatusBarProperty;
 
         /// <summary>
         /// Gets or sets customize Status Bar
         /// </summary>
         public string CustomizeStatusBar
         {
-            get { return (string)GetValue(CustomizeStatusBarProperty); }
-            set { SetValue(CustomizeStatusBarProperty, value); }
+            get { return customizeStatusBarProperty ?? customizeStatusBar; }
+            set
+            {
+                if (customizeStatusBarProperty != value)
+                {
+                    customizeStatusBarProperty = value;
+                    RaisePropertyChanged("CustomizeStatusBar");
+                }
+            }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BackstageButtonText.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CustomizeStatusBarProperty =
-            DependencyProperty.Register("CustomizeStatusBar", typeof(string), typeof(RibbonLocalization),
-                                        new UIPropertyMetadata(null, null, OnCoerceCustomizeStatusBar));
-
-        // Coerce value
-        static object OnCoerceCustomizeStatusBar(DependencyObject d, object basevalue)
-        {
-            RibbonLocalization localization = (RibbonLocalization)d;
-            if (basevalue == null) return localization.customizeStatusBar;
-            return basevalue;
-        }
-
+        
         #endregion
 
         #region Initialization
@@ -828,32 +657,33 @@ namespace Fluent
             }
 
             // Coerce all values
-            CoerceValue(BackstageButtonTextProperty);
-            CoerceValue(BackstageButtonKeyTipProperty);
+            
+            RaisePropertyChanged("BackstageButtonText");
+            RaisePropertyChanged("BackstageButtonKeyTip");
 
-            CoerceValue(MinimizeButtonScreenTipTitleProperty);
-            CoerceValue(MinimizeButtonScreenTipTextProperty);
-            CoerceValue(ExpandButtonScreenTipTitleProperty);
-            CoerceValue(ExpandButtonScreenTipTextProperty);
-            CoerceValue(QuickAccessToolBarDropDownButtonTooltipProperty);
-            CoerceValue(QuickAccessToolBarMoreControlsButtonTooltipProperty);
-            CoerceValue(QuickAccessToolBarMenuHeaderProperty);
-            CoerceValue(QuickAccessToolBarMenuShowAboveProperty);
-            CoerceValue(QuickAccessToolBarMenuShowBelowProperty);
+            RaisePropertyChanged("MinimizeButtonScreenTipTitle");
+            RaisePropertyChanged("MinimizeButtonScreenTipText");
+            RaisePropertyChanged("ExpandButtonScreenTipTitle");
+            RaisePropertyChanged("ExpandButtonScreenTipText");
+            RaisePropertyChanged("QuickAccessToolBarDropDownButtonTooltip");
+            RaisePropertyChanged("QuickAccessToolBarMoreControlsButtonTooltip");
+            RaisePropertyChanged("QuickAccessToolBarMenuHeader");
+            RaisePropertyChanged("QuickAccessToolBarMenuShowAbove");
+            RaisePropertyChanged("QuickAccessToolBarMenuShowBelow");
 
-            CoerceValue(RibbonContextMenuAddItemProperty);
-            CoerceValue(RibbonContextMenuAddGroupProperty);
-            CoerceValue(RibbonContextMenuAddGalleryProperty);
-            CoerceValue(RibbonContextMenuAddMenuProperty);
-            CoerceValue(RibbonContextMenuRemoveItemProperty);
-            CoerceValue(RibbonContextMenuCustomizeRibbonProperty);
-            CoerceValue(RibbonContextMenuCustomizeQuickAccessToolBarProperty);
-            CoerceValue(RibbonContextMenuShowAboveProperty);
-            CoerceValue(RibbonContextMenuShowBelowProperty);
-            CoerceValue(RibbonContextMenuMinimizeRibbonProperty);
+            RaisePropertyChanged("RibbonContextMenuAddItem");
+            RaisePropertyChanged("RibbonContextMenuAddGroup");
+            RaisePropertyChanged("RibbonContextMenuAddGallery");
+            RaisePropertyChanged("RibbonContextMenuAddMenu");
+            RaisePropertyChanged("RibbonContextMenuRemoveItem");
+            RaisePropertyChanged("RibbonContextMenuCustomizeRibbon");
+            RaisePropertyChanged("RibbonContextMenuCustomizeQuickAccessToolBar");
+            RaisePropertyChanged("RibbonContextMenuShowAbove");
+            RaisePropertyChanged("RibbonContextMenuShowBelow");
+            RaisePropertyChanged("RibbonContextMenuMinimizeRibbon");
 
-            CoerceValue(ScreenTipDisableReasonHeaderProperty);
-            CoerceValue(CustomizeStatusBarProperty);
+            RaisePropertyChanged("ScreenTipDisableReasonHeader");
+            RaisePropertyChanged("CustomizeStatusBar");
         }
 
         #endregion

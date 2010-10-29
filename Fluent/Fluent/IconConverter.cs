@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -30,9 +31,21 @@ namespace Fluent
         {
             if (value == null)
             {
-                if (Application.Current.MainWindow != null)
+                Process p = Process.GetCurrentProcess();                
+                if (p.MainWindowHandle != IntPtr.Zero)
                 {
-                    return GetDefaultIcon((new WindowInteropHelper(Application.Current.MainWindow)).Handle) as BitmapFrame;
+                    return GetDefaultIcon(p.MainWindowHandle/*(new WindowInteropHelper(Application.Current.MainWindow)).Handle*/) as BitmapFrame;
+                }
+                else
+                {
+                    try
+                    {
+                        return GetDefaultIcon((new WindowInteropHelper(Application.Current.MainWindow)).Handle) as BitmapFrame;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        return null;
+                    }
                 }
             }
             

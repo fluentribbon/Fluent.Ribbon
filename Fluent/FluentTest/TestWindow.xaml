@@ -7,6 +7,9 @@
     Title="Fluent Ribbon Control Suite 2.0 Preview" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
+  <Fluent:RibbonWindow.Resources>
+
+  </Fluent:RibbonWindow.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -23,7 +26,7 @@
       <Fluent:Ribbon.Menu>
                 <Fluent:Backstage Background="Green">
                     <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" Command="Cut" Click="OnBtnClick"/>
+                        <Fluent:Button Header="Save" Icon="Images\Save.png" Fluent:KeyTip.Keys="S" Command="Cut" Click="OnBtnClick"/>
                         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
                         <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E" IsEnabled="False">
                             <ScrollViewer>

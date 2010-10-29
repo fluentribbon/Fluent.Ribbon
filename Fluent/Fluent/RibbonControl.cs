@@ -11,6 +11,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net.Cache;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -40,7 +41,7 @@ namespace Fluent
             if (value is string)
             {
                 Image image = new Image();
-                image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute));
+                image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
                 return image;
             }
             if (value is ImageSource)

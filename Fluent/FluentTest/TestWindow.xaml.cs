@@ -107,8 +107,15 @@ namespace FluentTest
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(this,"Launcher button pressed!!!");
-            TestWindow wnd = new TestWindow();
-            wnd.Show();
+            
+            Thread thread = new Thread(()=>
+                                           {
+                                            TestWindow wnd = new TestWindow();
+                                            wnd.ShowDialog();
+                                           });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)

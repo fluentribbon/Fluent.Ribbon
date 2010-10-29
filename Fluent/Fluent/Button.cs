@@ -53,7 +53,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(Button));
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(Button));            
         
         /// <summary>
         /// Gets or sets SizeDefinition for element
@@ -81,7 +81,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof (Button));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof (Button));            
 
         #endregion
 
