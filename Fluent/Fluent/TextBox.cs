@@ -551,6 +551,7 @@ namespace Fluent
                 textBoxTemplated.SelectionChanged -= OnTextBoxTemplatedSelectionChanged;
                 textBoxTemplated.LostFocus -= OnTextBoxTemplatedLostFocus;
                 textBoxTemplated.GotKeyboardFocus -= OnTextBoxTemplatedGotKeyboardFocus;
+                textBoxTemplated.TextChanged -= OnTextBoxTemplatedTextChanged;
                 BindingOperations.ClearAllBindings(textBoxTemplated);
             }
             textBoxTemplated = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
@@ -592,6 +593,12 @@ namespace Fluent
             textBoxTemplated.SelectionChanged += OnTextBoxTemplatedSelectionChanged;
             textBoxTemplated.LostFocus += OnTextBoxTemplatedLostFocus;
             textBoxTemplated.GotKeyboardFocus += OnTextBoxTemplatedGotKeyboardFocus;
+            textBoxTemplated.TextChanged += OnTextBoxTemplatedTextChanged;
+        }
+
+        void OnTextBoxTemplatedTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RaiseTextChanged(e);
         }
 
         void OnTextBoxTemplatedGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
