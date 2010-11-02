@@ -587,9 +587,51 @@
         <Fluent:Button x:Name="buttonStrikethrough" Icon="Images\Strikethrough.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonSubscript" Icon="Images\Subscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
         <Fluent:Button x:Name="buttonSuperscript" Icon="Images\Superscript.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton IsEnabled="False" x:Name="buttonTextEffects" Icon="Images\TextEffects.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton x:Name="buttonTextHighlightColor" Icon="Images\TextHighlightColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
-        <Fluent:DropDownButton x:Name="buttonFontColor" Icon="Images\FontColor.png" HorizontalAlignment="Left" SizeDefinition="Small"/>
+        <Fluent:DropDownButton x:Name="buttonTextEffects" HorizontalAlignment="Left" SizeDefinition="Small">
+          <Fluent:DropDownButton.Icon>
+            <Grid>
+              <Image Source="Images\TextEffects.png" Width="16" Height="16"/>
+              <Rectangle VerticalAlignment ="Bottom" Height="2" Width="16" HorizontalAlignment="Center">
+                <Rectangle.Fill>
+                  <SolidColorBrush Color="{Binding SelectedColor, ElementName=standardColorGallery}"/>
+                </Rectangle.Fill>
+              </Rectangle>
+            </Grid>
+          </Fluent:DropDownButton.Icon>
+          <Fluent:ColorGallery Mode="StandardColors" x:Name="standardColorGallery" SelectedColor="Pink"/>
+        </Fluent:DropDownButton>
+        <Fluent:DropDownButton x:Name="buttonTextHighlightColor" HorizontalAlignment="Left" SizeDefinition="Small">
+          <Fluent:DropDownButton.Icon>
+            <Grid>
+              <Image Source="Images\TextHighlightColor.png" Width="16" Height="16"/>
+              <Rectangle VerticalAlignment ="Bottom" Height="4" Width="16" HorizontalAlignment="Center">
+                <Rectangle.Fill>
+                  <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery}"/>
+                </Rectangle.Fill>
+              </Rectangle>
+            </Grid>
+          </Fluent:DropDownButton.Icon>
+          <Fluent:ColorGallery Mode="HighlightColors" x:Name="highlightColorGallery" SelectedColor="Yellow" IsAutomaticColorButtonVisible="False"/>
+        </Fluent:DropDownButton>
+        <Fluent:DropDownButton x:Name="buttonFontColor" HorizontalAlignment="Left" SizeDefinition="Small" MaxDropDownHeight="500">
+          <Fluent:DropDownButton.Icon>
+            <Grid>
+              <Image Source="Images\FontColor.png" Width="16" Height="16"/>
+              <Rectangle VerticalAlignment ="Bottom" Height="4" Width="16" HorizontalAlignment="Center">
+                <Rectangle.Fill>
+                  <SolidColorBrush Color="{Binding SelectedColor, ElementName=themeColorGallery}"/>
+                </Rectangle.Fill>
+              </Rectangle>
+            </Grid>
+          </Fluent:DropDownButton.Icon>
+          <Fluent:ColorGallery SelectedColor="Blue" Mode="ThemeColors" StandardColorGridRows="10" Columns="17" ThemeColorGridRows="5" x:Name="themeColorGallery">
+            <Color R="255" G="0" B="0" A="255"/>
+            <Color R="255" G="0" B="255" A="255"/>
+            <Color R="0" G="0" B="255" A="255"/>
+            <Color R="0" G="0" B="0" A="255"/>
+            <Color R="255" G="255" B="255" A="255"/>
+          </Fluent:ColorGallery>
+        </Fluent:DropDownButton>
       </Fluent:RibbonToolBar>
     </Fluent:RibbonGroupBox>
 
@@ -624,7 +666,7 @@
               </Fluent:InRibbonGallery>
              
      <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="300">
-                <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="28" ItemHeight="28">                  
+                <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="128" ItemHeight="128">                  
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock></Border>

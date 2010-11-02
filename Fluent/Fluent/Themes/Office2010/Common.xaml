@@ -47,6 +47,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Spinner.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ComboBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Ribbon.xaml"/>
+      <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ColorGallery.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\SeparatorTabItem.xaml"/>
       <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonStatusBar.xaml"/>
       <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Slider.xaml"/>

@@ -53,7 +53,7 @@
       <Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="3">
         <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
       </Border>
-      <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
+      <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
       <TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
       <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
       <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>
@@ -61,6 +61,12 @@
       <TextBlock x:Name="gestureTextBlock" Text="{TemplateBinding InputGestureText}" Width="Auto" Height="Auto" Margin="3,3,15,3" VerticalAlignment="Center" Grid.Column="2"/>
     </Grid>
     <ControlTemplate.Triggers>
+      <Trigger Property="InputGestureText" Value="{x:Null}">
+        <Setter Property="Visibility" TargetName="gestureTextBlock" Value="Collapsed"/>
+      </Trigger>
+      <Trigger Property="InputGestureText" Value="">
+        <Setter Property="Visibility" TargetName="gestureTextBlock" Value="Collapsed"/>
+      </Trigger>
       <Trigger Property="IsChecked" Value="True">
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </Trigger>
@@ -112,7 +118,7 @@
       <Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="3">
         <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
       </Border>
-      <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
+      <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
       <TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
       <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
       <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>
@@ -284,7 +290,7 @@
     		</Border>
     	</Grid>
       
-    	<TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
+    	<TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
     	<TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
     	<Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
     	<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>

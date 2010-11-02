@@ -84,7 +84,7 @@ namespace FluentTest
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
             buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
-            ribbon.DataContext = this;
+            ribbon.DataContext = this;            
             /*DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };

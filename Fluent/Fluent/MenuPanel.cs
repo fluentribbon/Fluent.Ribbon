@@ -106,18 +106,46 @@ namespace Fluent
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
             if (IsLoaded)
             {
-                UpdateMenuSizes();                
+                //UpdateMenuSizes();                
+                InvalidateUpdateMenuSizes();
             }
-            /*FrameworkElement added = visualAdded as FrameworkElement;
+           /* FrameworkElement added = visualAdded as FrameworkElement;
             FrameworkElement removed = visualRemoved as FrameworkElement;
-            if (added != null) added.IsVisibleChanged += OnItemVisibilityChanged;
-            if (removed != null) removed.IsVisibleChanged -= OnItemVisibilityChanged;*/
+            if (added != null)
+            {
+                added.SizeChanged += OnItemSizeChanged;
+                added.IsVisibleChanged += OnItemVisibilityChanged;
+            }
+            if (removed != null)
+            {
+                added.SizeChanged -= OnItemSizeChanged;
+                removed.IsVisibleChanged -= OnItemVisibilityChanged;
+            }*/
+        }
+
+        private void OnItemSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            InvalidateUpdateMenuSizes();
         }
 
         void OnItemVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            InvalidateMeasure();
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { UpdateMenuSizes(); UpdateLayout(); }));
+            InvalidateUpdateMenuSizes();
+            /*InvalidateMeasure();
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(delegate { UpdateMenuSizes(); UpdateLayout(); }));*/
+        }
+
+        private bool isInvalidated = false;
+        private void InvalidateUpdateMenuSizes()
+        {
+            if (isInvalidated) return;
+            isInvalidated = true;
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>
+            {
+                isInvalidated = false;
+                UpdateMenuSizes();
+                UpdateLayout();
+            }));
         }
 
         /// <summary>
@@ -234,12 +262,12 @@ namespace Fluent
                     }
                     else
                     {
-                        MenuPanel panel = child as MenuPanel;
+                        /*MenuPanel panel = child as MenuPanel;
                         if(panel!=null)
                         {
                             totalHeight += panel.DesiredSize.Height;
                         }
-                        else nonItemsElements.Add(child as UIElement);
+                        else */nonItemsElements.Add(child as UIElement);
                     }
                 }
             }
