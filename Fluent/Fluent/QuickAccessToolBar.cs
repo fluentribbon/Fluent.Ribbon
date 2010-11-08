@@ -42,14 +42,14 @@ namespace Fluent
 
         #region Fields
 
-        private DropDownButton menuButton;
+        private DropDownButton toolBarDownButton;
+
+        private DropDownButton menuDownButton;
 
         // Show above menu item
         private MenuItem showAbove;
         // Show below menu item
         private MenuItem showBelow;
-        // Menu panel
-        private Panel menuPanel;
         // Items of quick access menu
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
 
@@ -184,7 +184,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (menuPanel != null) menuPanel.Children.Insert(e.NewStartingIndex + i, (QuickAccessMenuItem)e.NewItems[i]);
+                        if (menuDownButton != null) menuDownButton.Items.Insert(e.NewStartingIndex + i + 1, (QuickAccessMenuItem)e.NewItems[i]);
                         else AddLogicalChild(e.NewItems[i]);
                     }
                     break;
@@ -192,7 +192,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Remove((QuickAccessMenuItem)item);
+                        if (menuDownButton != null) menuDownButton.Items.Remove((QuickAccessMenuItem)item);
                         else RemoveLogicalChild(item);
                     }
                     break;
@@ -200,13 +200,15 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Remove((QuickAccessMenuItem)item);
+                        if (menuDownButton != null) menuDownButton.Items.Remove((QuickAccessMenuItem)item);
                         else RemoveLogicalChild(item);
                     }
+                    int ii = 0;
                     foreach (object item in e.NewItems)
                     {
-                        if (menuPanel != null) menuPanel.Children.Add((QuickAccessMenuItem)item);
+                        if (menuDownButton != null) menuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, (QuickAccessMenuItem)item);
                         else AddLogicalChild(item);
+                        ii++;
                     }
                     break;
             }
@@ -334,11 +336,11 @@ namespace Fluent
             if (showAbove != null) showAbove.Click += OnShowAboveClick;
             if (showBelow != null) showBelow.Click += OnShowBelowClick;
 
-            if (menuPanel != null)
+            if (menuDownButton != null)
             {
                 for (int i = 0; i < QuickAccessItems.Count; i++)
                 {
-                    menuPanel.Children.Remove(QuickAccessItems[i]);
+                    menuDownButton.Items.Remove(QuickAccessItems[i]);
                     QuickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
@@ -349,27 +351,29 @@ namespace Fluent
                     RemoveLogicalChild(quickAccessItems[i]);
                 }
             }
-            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
-            if ((menuPanel != null) && (quickAccessItems != null))
+            menuDownButton = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
+            if ((menuDownButton != null) && (quickAccessItems != null))
             {
                 for (int i = 0; i < quickAccessItems.Count; i++)
                 {
-                    menuPanel.Children.Add(quickAccessItems[i]);
+                    menuDownButton.Items.Insert(i + 1, quickAccessItems[i]);
                     quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
 
-            if (menuButton != null)
+
+            if (toolBarDownButton != null)
             {
-                menuButton.DropDownOpened -= OnMenuOpened;
-                menuButton.DropDownClosed -= OnMenuClosed;
+                toolBarDownButton.DropDownOpened -= OnToolBarDownOpened;
+                toolBarDownButton.DropDownClosed -= OnToolBarDownClosed;
             }
-            menuButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
-            if (menuButton != null)
+            toolBarDownButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
+            if (toolBarDownButton != null)
             {
-                menuButton.DropDownOpened += OnMenuOpened;
-                menuButton.DropDownClosed += OnMenuClosed;
+                toolBarDownButton.DropDownOpened += OnToolBarDownOpened;
+                toolBarDownButton.DropDownClosed += OnToolBarDownClosed;
             }
+
 
             //DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
             //if (btn != null) btn.ContextMenu = btn.DropDownMenu;
@@ -389,12 +393,12 @@ namespace Fluent
             cachedConstraint = new Size();
         }
 
-        private void OnMenuClosed(object sender, EventArgs e)
+        private void OnToolBarDownClosed(object sender, EventArgs e)
         {
             toolBarOverflowPanel.Children.Clear();
         }
 
-        private void OnMenuOpened(object sender, EventArgs e)
+        private void OnToolBarDownOpened(object sender, EventArgs e)
         {            
             for(int i=cachedCount;i<Items.Count;i++)
             {

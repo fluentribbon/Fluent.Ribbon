@@ -624,7 +624,7 @@
               </Rectangle>
             </Grid>
           </Fluent:DropDownButton.Icon>
-          <Fluent:ColorGallery SelectedColor="Blue" Mode="ThemeColors" StandardColorGridRows="10" Columns="17" ThemeColorGridRows="5" x:Name="themeColorGallery">
+          <Fluent:ColorGallery SelectedColor="Blue" Mode="ThemeColors" StandardColorGridRows="3" Columns="10" ThemeColorGridRows="5" x:Name="themeColorGallery">
             <Color R="255" G="0" B="0" A="255"/>
             <Color R="255" G="0" B="255" A="255"/>
             <Color R="0" G="0" B="255" A="255"/>
@@ -666,7 +666,7 @@
               </Fluent:InRibbonGallery>
              
      <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="300">
-                <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="128" ItemHeight="128">                  
+                <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="28" ItemHeight="28">                  
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >3</TextBlock></Border>
