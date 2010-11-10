@@ -88,7 +88,7 @@ namespace FluentTest
             /*DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };
-            timer.Start();*/
+            timer.Start();*/            
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {

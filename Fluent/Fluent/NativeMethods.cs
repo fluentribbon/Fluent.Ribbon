@@ -94,6 +94,44 @@ namespace Fluent
         #region Consts
 
         /// <summary>
+        /// Causes the dialog box to display all available colors in the set of basic colors. 
+        /// </summary>
+        public const int CC_ANYCOLOR = 0x00000100;
+        /// <summary>
+        /// Enables the hook procedure specified in the lpfnHook member of this structure. This flag is used only to initialize the dialog box.
+        /// </summary>
+        public const int CC_ENABLEHOOK = 0x00000010;
+        /// <summary>
+        /// The hInstance and lpTemplateName members specify a dialog box template to use in place of the default template. This flag is used only to initialize the dialog box.
+        /// </summary>
+        public const int CC_ENABLETEMPLATE = 0x00000020;
+        /// <summary>
+        /// The hInstance member identifies a data block that contains a preloaded dialog box template. The system ignores the lpTemplateName member if this flag is specified. This flag is used only to initialize the dialog box.
+        /// </summary>
+        public const int CC_ENABLETEMPLATEHANDLE = 0x00000040;
+        /// <summary>
+        /// Causes the dialog box to display the additional controls that allow the user to create custom colors. If this flag is not set, the user must click the Define Custom Color button to display the custom color controls.
+        /// </summary>
+        public const int CC_FULLOPEN = 0x00000002;
+        /// <summary>
+        /// Disables the Define Custom Color button.
+        /// </summary>
+        public const int CC_PREVENTFULLOPEN = 0x00000004;
+        /// <summary>
+        /// Causes the dialog box to use the color specified in the rgbResult member as the initial color selection.
+        /// </summary>
+        public const int CC_RGBINIT = 0x00000001;
+        /// <summary>
+        /// Causes the dialog box to display the Help button. The hwndOwner member must specify the window to receive the HELPMSGSTRING registered messages that the dialog box sends when the user clicks the Help button.
+        /// </summary>
+        public const int CC_SHOWHELP = 0x00000008;
+        /// <summary>
+        /// Causes the dialog box to display only solid colors in the set of basic colors. 
+        /// </summary>
+        public const int CC_SOLIDCOLOR = 0x00000008;
+
+
+        /// <summary>
         /// A window receives this message when the user chooses a 
         /// command from the Window menu (formerly known as the system 
         /// or control menu) or when the user chooses the maximize button, 
@@ -649,6 +687,50 @@ namespace Fluent
         #endregion
 
         #region Structs
+
+        /// <summary>
+        /// Contains information the ChooseColor function uses to initialize the Color dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. 
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public class CHOOSECOLOR        
+        {
+            /// <summary>
+            /// The length, in bytes, of the structure. 
+            /// </summary>
+            public int lStructSize = Marshal.SizeOf(typeof(NativeMethods.CHOOSECOLOR));
+            /// <summary>
+            /// A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be NULL if the dialog box has no owner. 
+            /// </summary>
+            public IntPtr hwndOwner;
+            /// <summary>
+            /// If the CC_ENABLETEMPLATEHANDLE flag is set in the Flags member, hInstance is a handle to a memory object containing a dialog box template. If the CC_ENABLETEMPLATE flag is set, hInstance is a handle to a module that contains a dialog box template named by the lpTemplateName member. If neither CC_ENABLETEMPLATEHANDLE nor CC_ENABLETEMPLATE is set, this member is ignored. 
+            /// </summary>
+            public IntPtr hInstance = IntPtr.Zero;
+            /// <summary>
+            /// If the CC_RGBINIT flag is set, rgbResult specifies the color initially selected when the dialog box is created. If the specified color value is not among the available colors, the system selects the nearest solid color available. If rgbResult is zero or CC_RGBINIT is not set, the initially selected color is black. If the user clicks the OK button, rgbResult specifies the user's color selection. To create a COLORREF color value, use the RGB macro. 
+            /// </summary>
+            public int rgbResult;
+            /// <summary>
+            /// A pointer to an array of 16 values that contain red, green, blue (RGB) values for the custom color boxes in the dialog box. If the user modifies these colors, the system updates the array with the new RGB values. To preserve new custom colors between calls to the ChooseColor function, you should allocate static memory for the array. To create a COLORREF color value, use the RGB macro. 
+            /// </summary>
+            public IntPtr lpCustColors = IntPtr.Zero;
+            /// <summary>
+            /// A set of bit flags that you can use to initialize the Color dialog box. When the dialog box returns, it sets these flags to indicate the user's input. 
+            /// </summary>
+            public int Flags;
+            /// <summary>
+            /// Application-defined data that the system passes to the hook procedure identified by the lpfnHook member. When the system sends the WM_INITDIALOG message to the hook procedure, the message's lParam parameter is a pointer to the CHOOSECOLOR structure specified when the dialog was created. The hook procedure can use this pointer to get the lCustData value. 
+            /// </summary>
+            public IntPtr lCustData = IntPtr.Zero;
+            /// <summary>
+            /// A pointer to a CCHookProc hook procedure that can process messages intended for the dialog box. This member is ignored unless the CC_ENABLEHOOK flag is set in the Flags member. 
+            /// </summary>
+            public IntPtr lpfnHook = IntPtr.Zero;
+            /// <summary>
+            /// The name of the dialog box template resource in the module identified by the hInstance member. This template is substituted for the standard dialog box template. For numbered dialog box resources, lpTemplateName can be a value returned by the MAKEINTRESOURCE macro. This member is ignored unless the CC_ENABLETEMPLATE flag is set in the Flags member. 
+            /// </summary>
+            public IntPtr lpTemplateName = IntPtr.Zero;
+        } ;
 
         /// <summary>
         /// The NCCALCSIZE_PARAMS structure contains information that an application can use while processing the WM_NCCALCSIZE message to calculate the size, position, and valid contents of the client area of a window. 
@@ -1662,6 +1744,16 @@ namespace Fluent
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
         */
+
+        /// <summary>
+        /// Creates a Color dialog box that enables the user to select a color.
+        /// </summary>
+        /// <param name="lpcc">A pointer to a CHOOSECOLOR structure that contains information used to initialize the dialog box. When ChooseColor returns, this structure contains information about the user's color selection.</param>
+        /// <returns>If the user clicks the OK button of the dialog box, the return value is nonzero. The rgbResult member of the CHOOSECOLOR structure contains the RGB color value of the color selected by the user.If the user cancels or closes the Color dialog box or an error occurs, the return value is zero. </returns>
+        [DllImport("comdlg32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ChooseColor(CHOOSECOLOR lpcc);
+
         #endregion
 
         #region Keyboard Functions

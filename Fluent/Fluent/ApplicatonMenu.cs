@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,42 @@ using System.Windows.Media;
 namespace Fluent
 {
     /// <summary>
+    /// Extracts right content presenter of application menu converter
+    /// </summary>
+    public class ApplicationMenuRightContentExtractorConverter:IValueConverter
+    {
+        #region Implementation of IValueConverter
+
+        /// <summary>
+        /// Converts a value. 
+        /// </summary>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        /// <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ApplicationMenu menu = value as ApplicationMenu;
+            if(menu!=null) return menu.Template.FindName("PART_RightContentPresenter", menu) as ContentPresenter;
+            return value;
+        }
+
+        /// <summary>
+        /// Converts a value. 
+        /// </summary>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        /// <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value;
+        }
+
+        #endregion
+    }
+
+    /// <summary>
     /// Represents backstage button
     /// </summary>
     public class ApplicationMenu : DropDownButton
@@ -38,7 +75,56 @@ namespace Fluent
         
 
         #endregion
-       
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets width of right content
+        /// </summary>
+        public double RightContentWidth
+        {
+            get { return (double)GetValue(RightContentWidthProperty); }
+            set { SetValue(RightContentWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty RightContentWidthProperty =
+            DependencyProperty.Register("RightContentWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
+
+        
+
+        /// <summary>
+        /// Gets or sets application menu right content
+        /// </summary>
+        public object RightContent
+        {
+            get { return (object)GetValue(RightContentProperty); }
+            set { SetValue(RightContentProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty RightContentProperty =
+            DependencyProperty.Register("RightContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets application menu bottom content
+        /// </summary>
+        public object BottomContent
+        {
+            get { return (object)GetValue(BottomContentProperty); }
+            set { SetValue(BottomContentProperty, value); }
+        }
+
+        //Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BottomContentProperty =
+            DependencyProperty.Register("BottomContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+        
+        #endregion
+
         #region Initialization
 
         /// <summary>
@@ -95,8 +181,20 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
-       
+        /*/// <summary>
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
+        /// reaches an element in its route that is derived from this class. Implement this method to add 
+        /// class handling for this event.
+        /// </summary>
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// The event data reports that the left mouse button was pressed.</param>
+        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Border buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
+            if (buttonBorder.IsMouseOver && IsDropDownOpen) IsDropDownOpen = false;
+            else base.OnPreviewMouseLeftButtonDown(e);
+        }
+        */
         #endregion
 
         #region Quick Access Toolbar

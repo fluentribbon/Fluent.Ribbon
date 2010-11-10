@@ -67,6 +67,26 @@ namespace Fluent
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
 
+        #region Description
+
+        /// <summary>
+        /// Useless property only used in secon level application menu items
+        /// </summary>
+        public string Description
+        {
+            get { return (string)GetValue(DescriptionProperty); }
+            set { SetValue(DescriptionProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DescriptionProperty =
+            DependencyProperty.Register("Description", typeof(string), typeof(MenuItem), new UIPropertyMetadata(""));
+        
+    
+        #endregion
+
         #region Size Property
 
         /// <summary>
@@ -561,8 +581,8 @@ namespace Fluent
             if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
@@ -570,7 +590,7 @@ namespace Fluent
         {
             if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles drop down opened
@@ -583,9 +603,11 @@ namespace Fluent
         // Handles drop down closed
         void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-            menuPanel.Width = double.NaN;
-            menuPanel.Height = double.NaN;
+            if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            
+                menuPanel.Width = double.NaN;
+                menuPanel.Height = double.NaN;
+            
             if (DropDownOpened != null) DropDownOpened(this, e);
             //Mouse.Capture(this, CaptureMode.SubTree);
         }

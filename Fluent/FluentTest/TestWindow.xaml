@@ -24,7 +24,7 @@
       </Fluent:Ribbon.ContextualGroups>
 
       <Fluent:Ribbon.Menu>
-                <Fluent:Backstage Background="Green">
+        <!--<Fluent:Backstage Background="Green">
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save" Icon="Images\Save.png" Fluent:KeyTip.Keys="S" Command="Cut" Click="OnBtnClick"/>
                         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
@@ -91,8 +91,33 @@
                         </Fluent:BackstageTabItem>
                         <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Command="ApplicationCommands.Close"/>
                     </Fluent:BackstageTabControl>
-                </Fluent:Backstage>
+                </Fluent:Backstage>-->
+              <Fluent:ApplicationMenu RightContent="Place some content here.">
+                <Fluent:ApplicationMenu.BottomContent>
+                  <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" HorizontalAlignment="Right" Size="Middle"/>
+                </Fluent:ApplicationMenu.BottomContent>
+                <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="1" Icon="Images\Test32.png"/>
+                <Fluent:MenuItem Header="2" Fluent:KeyTip.Keys="2" Icon="Images\Test32.png">
+                  <Fluent:GroupSeparatorMenuItem>Test</Fluent:GroupSeparatorMenuItem>
+                  <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="X1" Description="Manymany many many mnay many many words" Icon="Images\Test32.png"/>
+                  <Fluent:MenuItem Header="2" Fluent:KeyTip.Keys="X2" Icon="Images\Test32.png">
+                    <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="X0"/>
+                    <Fluent:MenuItem Header="2" Fluent:KeyTip.Keys="X1"/>
+                    <Fluent:MenuItem Header="3" Fluent:KeyTip.Keys="X2">
+                      <Fluent:MenuItem Header="1"/>
+                      <Fluent:MenuItem Header="2"/>
+                      <Fluent:MenuItem Header="3"/>
+                      <Fluent:MenuItem Header="4"/>
+                    </Fluent:MenuItem>
+                    <Fluent:MenuItem Header="4"/>
+                  </Fluent:MenuItem>
+                  <Fluent:MenuItem Header="3"/>
+                  <Fluent:MenuItem Header="4"/>
+                </Fluent:MenuItem>
+                <Fluent:MenuItem Header="3"/>
+              </Fluent:ApplicationMenu>
             </Fluent:Ribbon.Menu>
+        
             <!--
       <Fluent:Ribbon.BackstageItems>
         <Fluent:Button Header="Save"  Icon="Images\Save.png" Fluent:KeyTip.Keys="S" />
@@ -665,7 +690,7 @@
         
               </Fluent:InRibbonGallery>
              
-     <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="300">
+     <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="100">
                 <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="28" ItemHeight="28">                  
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>

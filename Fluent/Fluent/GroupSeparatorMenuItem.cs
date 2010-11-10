@@ -11,12 +11,14 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace Fluent
 {
     /// <summary>
     /// Represents group separator menu item
     /// </summary>
+    [ContentProperty("Header")]
     public class GroupSeparatorMenuItem: MenuItem
     {
         [SuppressMessage("Microsoft.Performance", "CA1810")]

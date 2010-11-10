@@ -348,14 +348,19 @@ namespace Fluent
                     if (isFirstTime) popup.Opacity = 0;
                     if (menuPanel != null)
                     {
-                        if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                        if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) 
+                            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                         menuPanel.Width = double.NaN;
                         menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
                         menuPanel.Loaded += OnMenuPanelLoaded;
                     }
                     IsDropDownOpen = true;
                 }
-                else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                else
+                {
+                    PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                    IsDropDownOpen = false;
+                }
                 //Keyboard.Focus(popup);
                 //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
                 //Debug.WriteLine(Keyboard.FocusedElement);
@@ -375,7 +380,8 @@ namespace Fluent
                     Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{                        
                         if (menuPanel != null)
                         {
-                            if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                            if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) 
+                                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                             menuPanel.Width = double.NaN;
                             menuPanel.Height = double.NaN;
                             menuPanel.Loaded += OnMenuPanelLoaded;
@@ -394,8 +400,8 @@ namespace Fluent
             Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
                     if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-                    menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width);
-                    menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height), MaxDropDownHeight);
+                    menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width);
+                    menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), MaxDropDownHeight);
                     if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }));
         }
@@ -511,8 +517,8 @@ namespace Fluent
             if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
@@ -520,7 +526,7 @@ namespace Fluent
         {
             if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles drop down opened

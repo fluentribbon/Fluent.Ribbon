@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
+using Microsoft.Win32;
 
 namespace Fluent
 {
@@ -68,6 +71,21 @@ namespace Fluent
             return null;
         }
 
+    }
+
+    /// <summary>
+    /// More colors event args
+    /// </summary>
+    public class MoreColorsExecutingEventArgs: EventArgs
+    {
+        /// <summary>
+        /// Gets or sets choosed color
+        /// </summary>
+        public Color Color { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether more colors is canceled
+        /// </summary>
+        public bool Canceled { get; set; }
     }
 
     /// <summary>
@@ -593,6 +611,11 @@ namespace Fluent
             RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent, this));
         }
 
+        /// <summary>
+        /// Occurs whether more colors menu item is clicked
+        /// </summary>
+        public event EventHandler<MoreColorsExecutingEventArgs> MoreColorsExecuting;
+
         #endregion
 
         #region Initializing
@@ -682,12 +705,52 @@ namespace Fluent
 
         #region Private Methods
 
+        private static IntPtr customColors = IntPtr.Zero;
+        int[] colorsArray = new int[16];
+
         private void OnMoreColorsClick(object sender, RoutedEventArgs e)
         {
-            Color color = Colors.Purple;
-            if (RecentColors.Contains(color)) RecentColors.Remove(color);
-            RecentColors.Insert(0,color);
-            recentColorsListBox.SelectedIndex = 0;
+            if (MoreColorsExecuting != null)
+            {
+                MoreColorsExecutingEventArgs args = new MoreColorsExecutingEventArgs();
+                MoreColorsExecuting(this, args);
+                if (!args.Canceled)
+                {
+                    Color color = args.Color;
+                    if (RecentColors.Contains(color)) RecentColors.Remove(color);
+                    RecentColors.Insert(0, color);
+                    recentColorsListBox.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                NativeMethods.CHOOSECOLOR chooseColor = new NativeMethods.CHOOSECOLOR();
+                Window wnd = Window.GetWindow(this);
+                if (wnd != null) chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
+                chooseColor.Flags = NativeMethods.CC_ANYCOLOR;
+                if (customColors == IntPtr.Zero)
+                {
+                    // Set custom colors)
+                    for (int i = 0; i < colorsArray.Length; i++) colorsArray[i] = 0x00FFFFFF;
+                    customColors = GCHandle.Alloc(colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
+                }
+                chooseColor.lpCustColors = customColors;
+                if (NativeMethods.ChooseColor(chooseColor))
+                {
+                    Color color = ConvertFromWin32Color(chooseColor.rgbResult);
+                    if (RecentColors.Contains(color)) RecentColors.Remove(color);
+                    RecentColors.Insert(0, color);
+                    recentColorsListBox.SelectedIndex = 0;
+                }
+            }
+        }
+        
+        private static Color ConvertFromWin32Color( int color )
+        {
+            int r = color & 0x000000FF;
+            int g = (color & 0x0000FF00) >> 8;
+            int b = (color & 0x00FF0000) >> 16;
+            return Color.FromArgb(255, (byte)r, (byte)g, (byte)b);
         }
 
         private void OnAutomaticClick(object sender, RoutedEventArgs e)

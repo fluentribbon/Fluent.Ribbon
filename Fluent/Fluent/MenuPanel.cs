@@ -28,6 +28,13 @@ namespace Fluent
                 
         #endregion
 
+        #region Properties
+
+        public double ResizeMinWidth { get; set; }
+        public double ResizeMinHeight { get; set; }
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -84,10 +91,11 @@ namespace Fluent
                         }
                     }
                 }
-                MinWidth = Math.Max(0, minWidth);
-                MinHeight = Math.Max(0, minHeight);
-                if (MinWidth != 0) Width = Math.Max(maxMenuWidth, MinWidth);
-                if (MinWidth < maxMenuWidth) MinWidth = maxMenuWidth;
+                ResizeMinWidth = Math.Max(0, minWidth);
+                ResizeMinHeight = Math.Max(0, minHeight);
+                MinHeight = ResizeMinHeight;
+                if (ResizeMinWidth != 0) Width = Math.Max(maxMenuWidth, ResizeMinWidth);
+                if (ResizeMinWidth < maxMenuWidth) ResizeMinWidth = maxMenuWidth;
                 if (VisualTreeHelper.GetParent(this) is MenuPanel) Width = double.NaN;
             }
         }
@@ -231,7 +239,9 @@ namespace Fluent
                     }
                 }
             }
-
+            if (maxWidth < ResizeMinWidth) maxWidth = ResizeMinWidth;
+            if (maxWidth > availableSize.Width) maxWidth = availableSize.Width;
+            if (totalHeight < ResizeMinHeight) totalHeight = ResizeMinHeight;
             return new Size(maxWidth,totalHeight);
         }
 

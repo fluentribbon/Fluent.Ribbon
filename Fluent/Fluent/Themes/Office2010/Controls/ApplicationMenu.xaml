@@ -2,10 +2,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ApplicationMenuItem.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate" TargetType="{x:Type Fluent:ApplicationMenu}">
+  <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate" TargetType="{x:Type Fluent:ApplicationMenu}">
+    <ControlTemplate.Resources>
+      <Style BasedOn="{StaticResource ApplicationMenuStyle}" TargetType="{x:Type Fluent:MenuItem}"/>
+    </ControlTemplate.Resources>
         <Grid>
-            <Border x:Name="PART_ButtonBorder" MinWidth="56" Height="22" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
+          <ContentControl x:Name="buttonContent" Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}" Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}" Margin="0,0,0,1">
+          <Border x:Name="PART_ButtonBorder" MinWidth="56" Height="23" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
             <Border x:Name="border1" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0">
                 <Border.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -50,9 +57,11 @@
                 </Border>
             </Border>
         </Border>
-            <Popup 
+          </ContentControl>
+          <Popup 
             x:Name="PART_Popup"
-            Placement="Bottom"
+            Placement="Relative"
+            PlacementTarget="{Binding ElementName=buttonContent}"
             IsOpen="{TemplateBinding IsDropDownOpen}"
             AllowsTransparency="True" 
             Focusable="False"
@@ -110,22 +119,27 @@
                     </Rectangle>
                     <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                         <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                            <Border VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
-                            <Grid Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Rectangle Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Stretch"/>
-                                <ScrollViewer Margin="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                                    <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
-                                </ScrollViewer>
-                                <Border x:Name="resizeBorder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="11" BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}" BorderThickness="0,1,0,0" Grid.Row="1" CornerRadius="0,0,1,1" Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
-                                    <Grid>
-                                        <Thumb x:Name="PART_ResizeVerticalThumb" HorizontalAlignment="Stretch" Margin="0,0,0,-90" Width="Auto" Height="10" VerticalAlignment="Top" Cursor="SizeNS" Template="{DynamicResource ResizeVerticalThumbControlTemplate}"/>
-                                        <Thumb x:Name="PART_ResizeBothThumb" HorizontalAlignment="Right" Margin="0,0,0,-90" Width="10" Height="10" VerticalAlignment="Top" Cursor="SizeNWSE" Template="{DynamicResource ResizeBothThumbControlTemplate}"/>
-                                    </Grid>
-                                </Border>
+                          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                              <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto" MinHeight="17"/>
+                              </Grid.RowDefinitions>
+                              <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="100"/>
+                                <ColumnDefinition Width="*"/>
+                              </Grid.ColumnDefinitions>
+                              <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Margin="0" Background="{DynamicResource RibbonBackgoundBrush}">
+                                <ContentControl x:Name="buttonOnPopupContent" HorizontalAlignment="Left" Margin="-1,-1,0,0"/>
+                              </Border>
+                                
+                              <Fluent:MenuPanel ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                              <Border Grid.Row="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Width="{TemplateBinding RightContentWidth}" Background="{DynamicResource GalleryBackgroundBrush}">
+                                <ContentPresenter ContentSource="RightContent" x:Name="PART_RightContentPresenter"/>
+                              </Border>
+                              <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Background="{DynamicResource RibbonBackgoundBrush}" Margin="0">                                
+                                <ContentPresenter ContentSource="BottomContent"/>
+                              </Border>  
                             </Grid>
                         </Grid>
                     </Border>
@@ -196,7 +210,14 @@
                 </Setter>
             </MultiTrigger>
             <Trigger Property="IsDropDownOpen" Value="True">
-                <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
+                <Setter Property="Content" TargetName="buttonContent" Value="{x:Null}"/>              
+                <Setter Property="Content" TargetName="buttonOnPopupContent" Value="{Binding ElementName=PART_ButtonBorder}"/>
+
+               <Setter Property="CornerRadius" TargetName="PART_ButtonBorder" Value="0"/>
+              <Setter Property="CornerRadius" TargetName="border1" Value="0"/>
+              <Setter Property="CornerRadius" TargetName="border" Value="0"/>
+              
+               <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>
                 <Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed"/>
                 <Setter Property="BorderBrush" TargetName="border1">
                     <Setter.Value>

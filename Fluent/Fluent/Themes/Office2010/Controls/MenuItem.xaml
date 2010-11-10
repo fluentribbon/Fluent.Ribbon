@@ -442,7 +442,7 @@
   </ControlTemplate>
 
   <!--Menu Item Style-->
-  <Style TargetType="{x:Type MenuItem}">    
+  <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">    
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -471,5 +471,6 @@
       </MultiTrigger>
     </Style.Triggers>
   </Style>
+  <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MenuItemStyle}"/>
   <Style TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}"/>   
 </ResourceDictionary>
