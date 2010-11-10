@@ -103,7 +103,10 @@ namespace Fluent
 
             // Try to find supported elements
             FindKeyTips(keyTipElementContainer, false);
-            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count == 0 ? null : associatedElements[0]);
+            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count != 0 ? 
+                associatedElements[0] :
+                adornedElement // Maybe here is bug, coz we need keytipped item here...
+                );
 
             keyTipPositions = new Point[keyTips.Count];
         }
@@ -504,15 +507,8 @@ namespace Fluent
                 new KeyTipAdorner(children[0], element, this) :
                 new KeyTipAdorner(element, element, this);
 
-            if (childAdorner.keyTips.Count != 0)
-            {
-                Detach();
-                childAdorner.Attach();
-            }
-            else
-            {
-                Terminate();
-            }
+            Detach();
+            childAdorner.Attach();
         }
 
 
