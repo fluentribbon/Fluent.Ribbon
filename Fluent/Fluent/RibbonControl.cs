@@ -42,12 +42,14 @@ namespace Fluent
             if (value is string)
             {
                 Image image = new Image();
+                image.Stretch = Stretch.None;
                 image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
                 return image;
             }
             if (value is ImageSource)
             {
                 Image image = new Image();
+                image.Stretch = Stretch.None;
                 image.Source = (ImageSource)value;
                 return image;
             }
