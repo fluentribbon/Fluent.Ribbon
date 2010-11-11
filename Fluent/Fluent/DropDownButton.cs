@@ -140,7 +140,16 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null, OnIconChanged));
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DropDownButton element = d as DropDownButton;
+            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            if (newElement != null) element.AddLogicalChild(newElement);
+        }
 
         #endregion
 

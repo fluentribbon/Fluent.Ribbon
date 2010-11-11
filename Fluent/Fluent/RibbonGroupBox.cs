@@ -521,7 +521,16 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonGroupBox element = d as RibbonGroupBox;
+            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            if (newElement != null) element.AddLogicalChild(newElement);
+        }
 
         #endregion
 

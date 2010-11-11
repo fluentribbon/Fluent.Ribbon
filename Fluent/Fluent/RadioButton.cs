@@ -96,7 +96,16 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RadioButton));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RadioButton), new UIPropertyMetadata(null, OnIconChanged));
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadioButton element = d as RadioButton;
+            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            if (newElement != null) element.AddLogicalChild(newElement);
+        }
 
         #endregion
 

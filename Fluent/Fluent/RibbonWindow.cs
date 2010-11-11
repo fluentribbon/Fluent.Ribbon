@@ -398,6 +398,12 @@ namespace Fluent
         public RibbonWindow()
         {
             SizeChanged += OnSizeChanged;
+            Closed += OnWindowClosed;
+        }
+
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            NativeMethods.UnhookWindowsHookEx(mouseHook);
         }
 
         // Size change to collapse ribbon

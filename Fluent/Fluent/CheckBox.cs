@@ -96,7 +96,16 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(CheckBox));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(CheckBox), new UIPropertyMetadata(null, OnIconChanged));
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CheckBox element = d as CheckBox;
+            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            if (newElement != null) element.AddLogicalChild(newElement);
+        }
 
         #endregion
 

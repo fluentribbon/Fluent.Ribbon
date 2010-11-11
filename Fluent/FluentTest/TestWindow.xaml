@@ -639,13 +639,14 @@
           <Fluent:ColorGallery Mode="HighlightColors" x:Name="highlightColorGallery" SelectedColor="Yellow" IsAutomaticColorButtonVisible="False"/>
         </Fluent:DropDownButton>
         <Fluent:DropDownButton x:Name="buttonFontColor" HorizontalAlignment="Left" SizeDefinition="Small" MaxDropDownHeight="500">
-          <Fluent:DropDownButton.Background>
-            <SolidColorBrush Color="{Binding SelectedColor, ElementName=themeColorGallery}"/>
-          </Fluent:DropDownButton.Background>
           <Fluent:DropDownButton.Icon>
             <Grid>
               <Image Source="Images\FontColor.png" Width="16" Height="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-              <Rectangle VerticalAlignment ="Bottom" Height="4" Width="16" HorizontalAlignment="Center" Fill="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:DropDownButton}}, Mode=OneWay}"/>              
+              <Rectangle VerticalAlignment ="Bottom" Height="4" Width="16" HorizontalAlignment="Center">
+                <Rectangle.Fill>
+                  <SolidColorBrush Color="{Binding SelectedColor, ElementName=themeColorGallery}"/>
+                </Rectangle.Fill>
+              </Rectangle>
             </Grid>
           </Fluent:DropDownButton.Icon>
           <Fluent:ColorGallery ThemeColorsSource="{Binding ThemeColors}" SelectedColor="Blue" Mode="ThemeColors" StandardColorGridRows="3" Columns="10" ThemeColorGridRows="5" x:Name="themeColorGallery" IsNoColorButtonVisible="True">

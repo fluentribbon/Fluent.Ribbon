@@ -56,6 +56,10 @@ namespace Fluent
         public static extern IntPtr SetWindowsHookEx(HookType hookType, HookProc lpfn,
         IntPtr hMod, int dwThreadId);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
