@@ -368,7 +368,7 @@ namespace Fluent
         #region Columns
 
         /// <summary>
-        /// Gets or sets number of color gallery columns. Work only when Mode is ThemeColors
+        /// Gets or sets number of color gallery columns. It works only when Mode is ThemeColors
         /// </summary>
         public int Columns
         {
