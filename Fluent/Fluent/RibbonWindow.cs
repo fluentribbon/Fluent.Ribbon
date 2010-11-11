@@ -104,6 +104,7 @@ namespace Fluent
     /// <summary>
     /// Represents basic window for ribbon
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1049")]
     public class RibbonWindow : Window
     {
         #region Constants

@@ -379,8 +379,7 @@ namespace Fluent
         private ObservableCollection<RibbonTabItem> tabs;
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
-        // Collection of backstagetems
-        private ObservableCollection<UIElement> backstageItems;
+        
         // Ribbon title bar
         private RibbonTitleBar titleBar;
         // Ribbon tab control
@@ -389,25 +388,19 @@ namespace Fluent
         private QuickAccessToolBar quickAccessToolBar;
         // Ribbon layout root
         private Panel layoutRoot;
-        // Ribbon backstage button
-        private Backstage backstageButton;
+        
 
         // Handles F10, Alt and so on
         readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
-        // Adorner for backstage
-        private BackstageAdorner adorner;
-        // Saved when backstage opened tab item
-        private RibbonTabItem savedTabItem;
+        
+        
         // Currently added in QAT items
         readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
-        private double savedMinWidth;
-        private double savedMinHeight;
-        int savedWidth;
-        private int savedHeight;
+        
 
         // Stream to save quickaccesselements on aplytemplate
         MemoryStream quickAccessStream;
@@ -1532,7 +1525,7 @@ namespace Fluent
 
         #region Show / Hide Backstage
 
-        // We have to collapse WindowsFormsHost while Backstate is open
+       /* // We have to collapse WindowsFormsHost while Backstate is open
         Dictionary<FrameworkElement, Visibility> collapsedElements =
             new Dictionary<FrameworkElement, Visibility>();
 
@@ -1641,7 +1634,7 @@ namespace Fluent
                 if ((tabControl != null) && (tabControl.SelectedIndex < 0)) SelectedTabIndex = 0;
                 else SelectedTabIndex = tabControl.SelectedIndex;
             }
-        }
+        }*/
 
         #endregion
 
@@ -1650,8 +1643,8 @@ namespace Fluent
             NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
             info.cbSize = (uint)Marshal.SizeOf(info);
             NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
-            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
-            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
+            /*savedWidth = info.rcWindow.Right - info.rcWindow.Left;
+            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;*/
         }
 
         void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)

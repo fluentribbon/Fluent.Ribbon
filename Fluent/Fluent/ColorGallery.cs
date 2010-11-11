@@ -41,6 +41,13 @@ namespace Fluent
     /// </summary>
     public class ColorGradientItemTemplateSelector : DataTemplateSelector
     {
+        /// <summary>
+        /// When overridden in a derived class, returns a <see cref="T:System.Windows.DataTemplate"/> based on custom logic.
+        /// </summary>
+        /// <returns>
+        /// Returns a <see cref="T:System.Windows.DataTemplate"/> or null. The default value is null.
+        /// </returns>
+        /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             ListBox listBox = null;
@@ -376,7 +383,9 @@ namespace Fluent
             set { SetValue(ColumnsProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty ColumnsProperty =
             DependencyProperty.Register("Columns", typeof(int), typeof(ColorGallery), new UIPropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
@@ -578,32 +587,44 @@ namespace Fluent
 
         #region ThemeGradients
 
+        /// <summary>
+        /// Gets theme gradients collection
+        /// </summary>
         public Color[] ThemeGradients
         {
             get { return (Color[])GetValue(ThemeGradientsProperty); }
             private set { SetValue(ThemeGradientsPropertyKey, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
+        // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly("ThemeGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
         
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty ThemeGradientsProperty = ThemeGradientsPropertyKey.DependencyProperty;
 
         #endregion
 
         #region StandardGradients
 
+        /// <summary>
+        /// Gets standart gradients collection
+        /// </summary>
         public Color[] StandardGradients
         {
             get { return (Color[])GetValue(StandardGradientsProperty); }
             private set { SetValue(StandardGradientsPropertyKey, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
+        
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly("StandardGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
         
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty StandardGradientsProperty = StandardGradientsPropertyKey.DependencyProperty;
 
         #endregion
@@ -682,6 +703,9 @@ namespace Fluent
 
         #region Overrides
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             if (moreColorsButton != null) moreColorsButton.Click += OnMoreColorsClick;

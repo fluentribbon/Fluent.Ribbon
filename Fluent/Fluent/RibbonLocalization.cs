@@ -22,6 +22,9 @@ namespace Fluent
     {
         #region Implementation of INotifyPropertyChanged
 
+        /// <summary>
+        /// Occurs then property is changed
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Raises PropertYChanegd event

@@ -13,35 +13,63 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    /// <summary>
+    /// Dismiss popup mode
+    /// </summary>
     public enum DismissPopupMode
     {
+        /// <summary>
+        /// Always dismiss popup
+        /// </summary>
         Always,
+        /// <summary>
+        /// Dismiss only if mouse is not over popup
+        /// </summary>
         MouseNotOver
     }
 
+    /// <summary>
+    /// Dismiss popup handler
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     public delegate void DismissPopupEventHandler(object sender, DismissPopupEventArgs e);
 
+    /// <summary>
+    /// Dismiss popup arguments
+    /// </summary>
     public class DismissPopupEventArgs : RoutedEventArgs
     {
         #region Properties
-
+        /// <summary>
+        /// Popup dismiss mode
+        /// </summary>
         public DismissPopupMode DismissMode { get; set; }
 
         #endregion
 
-
-        // Methods
+        /// <summary>
+        /// Standard constructor
+        /// </summary>
         public DismissPopupEventArgs()
             : this(DismissPopupMode.Always)
         {
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="dismissMode">Dismiss mode</param>
         public DismissPopupEventArgs(DismissPopupMode dismissMode)
         {
             base.RoutedEvent = PopupService.DismissPopupEvent;
             this.DismissMode = dismissMode;
         }
 
+        /// <summary>
+        /// When overridden in a derived class, provides a way to invoke event handlers in a type-specific way, which can increase efficiency over the base implementation.
+        /// </summary>
+        /// <param name="genericHandler">The generic handler / delegate implementation to be invoked.</param><param name="genericTarget">The target on which the provided handler should be invoked.</param>
         protected override void InvokeEventHandler(Delegate genericHandler, object genericTarget)
         {
             DismissPopupEventHandler handler = (DismissPopupEventHandler)genericHandler;
@@ -49,12 +77,23 @@ namespace Fluent
         }
     }
 
+    /// <summary>
+    /// Represent additional popup functionality
+    /// </summary>
     public static class PopupService
     {
         #region DismissPopup
 
+        /// <summary>
+        /// Occurs then popup is dismissed
+        /// </summary>
         public static readonly RoutedEvent DismissPopupEvent = EventManager.RegisterRoutedEvent("DismissPopup", RoutingStrategy.Bubble, typeof(DismissPopupEventHandler), typeof(PopupService));
 
+        /// <summary>
+        /// Raises DismissPopup event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="mode"></param>
         public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
         {
             object element = sender;
@@ -83,6 +122,10 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>
+        /// Set needed parameters to control
+        /// </summary>
+        /// <param name="classType">Control type</param>
         public static void Attach(Type classType)
         {
             EventManager.RegisterClassHandler(classType, Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(PopupService.OnClickThroughThunk));
@@ -91,7 +134,11 @@ namespace Fluent
             EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(PopupService.OnContextMenuClosed), true);
             EventManager.RegisterClassHandler(classType, FrameworkElement.LostMouseCaptureEvent, new MouseEventHandler(PopupService.OnLostMouseCapture));
         }
-
+        /// <summary>
+        /// Handles PreviewMouseDownOutsideCapturedElementEvent event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
@@ -103,6 +150,11 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles lost mouse capture event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
             //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
@@ -144,6 +196,12 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Returns true whether parent is ancestor of element
+        /// </summary>
+        /// <param name="parent">Parent</param>
+        /// <param name="element">Element</param>
+        /// <returns>Returns true whether parent is ancestor of element</returns>
         public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
         {
             while (element != null)
@@ -156,6 +214,11 @@ namespace Fluent
             return false;
         }
 
+        /// <summary>
+        /// Handles dismiss popup event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
             IDropDownControl control = sender as IDropDownControl;
@@ -182,6 +245,11 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Returns true whether mouse is physically over the element 
+        /// </summary>
+        /// <param name="element">Element</param>
+        /// <returns>Returns true whether mouse is physically over the element</returns>
         public static bool IsMousePhysicallyOver(UIElement element)
         {
             if (element == null)
@@ -192,6 +260,11 @@ namespace Fluent
             return ((position.X >= 0.0) && (position.Y >= 0.0)) && ((position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height));
         }
 
+        /// <summary>
+        /// Handles context menu opened event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void OnContextMenuOpened(object sender, ContextMenuEventArgs e)
         {
             IDropDownControl control = sender as IDropDownControl;
@@ -202,6 +275,11 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Handles context menu closed event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void OnContextMenuClosed(object sender, ContextMenuEventArgs e)
         {
             IDropDownControl control = sender as IDropDownControl;

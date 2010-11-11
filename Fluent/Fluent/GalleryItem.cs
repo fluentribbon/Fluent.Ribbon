@@ -368,6 +368,7 @@ namespace Fluent
         /// <summary>
         /// Handles click event
         /// </summary>
+        /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
         protected virtual void OnClick(object sender, RoutedEventArgs e)
         {

@@ -152,7 +152,9 @@ namespace Fluent
             set { SetValue(IsCheckedProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register("IsChecked", typeof(bool), typeof(SplitButton), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
 
@@ -187,7 +189,9 @@ namespace Fluent
             set { SetValue(IsCheckableProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsCheckableProperty =
             DependencyProperty.Register("IsCheckable", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(false));
 
@@ -204,7 +208,9 @@ namespace Fluent
             set { SetValue(DropDownToolTipProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for DropDownToolTip.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for DropDownToolTip.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty DropDownToolTipProperty =
             DependencyProperty.Register("DropDownToolTip", typeof(object), typeof(SplitButton), new UIPropertyMetadata(null));
 
@@ -221,7 +227,9 @@ namespace Fluent
             set { SetValue(IsButtonEnabledProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
             DependencyProperty.Register("IsButtonEnabled", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
         

@@ -30,7 +30,14 @@ namespace Fluent
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets minimal width for resizing menu panel
+        /// </summary>
         public double ResizeMinWidth { get; set; }
+
+        /// <summary>
+        /// Gets or sets minimal height for resizing menu panel
+        /// </summary>
         public double ResizeMinHeight { get; set; }
 
         #endregion

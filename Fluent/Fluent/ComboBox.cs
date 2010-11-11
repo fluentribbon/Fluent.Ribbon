@@ -54,8 +54,7 @@ namespace Fluent
 
         // Freezed image (created during snapping)
         Image snappedImage;
-        // Visuals which were removed diring snapping
-        Visual[] snappedVisuals;
+        
         // Is visual currently snapped
         private bool isSnapped;
 
@@ -596,6 +595,10 @@ namespace Fluent
             base.OnApplyTemplate();
         }
 
+        /// <summary>
+        /// Reports when a combo box's popup opens. 
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.ComboBox.DropDownOpened"/> event.</param>
         protected override void OnDropDownOpened(EventArgs e)
         {
             Focus();
@@ -606,6 +609,10 @@ namespace Fluent
             focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
         }
 
+        /// <summary>
+        /// Reports when a combo box's popup closes. 
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.ComboBox.DropDownClosed"/> event.</param>
         protected override void OnDropDownClosed(EventArgs e)
         {
             base.OnDropDownClosed(e);
@@ -629,6 +636,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Invoked when a <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> attached routed event occurs.
+        /// </summary>
+        /// <param name="e">Event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
             if ((IsEditable) && ((e.Key == Key.Down)||(e.Key == Key.Up)) && (!IsDropDownOpen))
@@ -649,10 +660,12 @@ namespace Fluent
             base.OnPreviewKeyDown(e);
         }
 
+        /// <summary>
+        /// Invoked when a <see cref="E:System.Windows.Input.Keyboard.KeyDown"/> attached routed event occurs.
+        /// </summary>
+        /// <param name="e">Event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            /**/
-
             if (e.Key == Key.Down)
             {
                 Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
@@ -762,8 +775,6 @@ namespace Fluent
 
         #region Private methods
 
-        double minimalGallerylWidth;
-
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
@@ -772,7 +783,7 @@ namespace Fluent
 
             menuPanel.Width = Double.NaN;
             if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = 500;
-            galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, minimalGallerylWidth);
+            galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, 0);
 
         }
 

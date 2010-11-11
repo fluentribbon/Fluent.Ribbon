@@ -223,6 +223,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
         public override void OnApplyTemplate()
         {            
             base.OnApplyTemplate();

@@ -119,7 +119,9 @@ namespace Fluent
             set { SetValue(FooterPaneContentProperty, value); }
         }
 
-        //Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty FooterPaneContentProperty =
             DependencyProperty.Register("FooterPaneContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
         

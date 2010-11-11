@@ -44,11 +44,7 @@ namespace Fluent
 
         private MenuPanel menuPanel;
 
-        private IInputElement focusedElement;
-
         private ScrollViewer scrollViewer;
-
-        private bool isFirstTime;
 
         #endregion
 
@@ -190,7 +186,9 @@ namespace Fluent
             set { SetValue(MaxDropDownHeightProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
             DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(MenuItem), new UIPropertyMetadata(100.0));
 
@@ -321,7 +319,11 @@ namespace Fluent
             }
         }
 
-        // Handles quick access button drop down menu opened
+        /// <summary>
+        /// Handles quick access button drop down menu opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
@@ -343,7 +345,11 @@ namespace Fluent
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
-        // Handles quick access button drop down menu closed
+        /// <summary>
+        /// Handles quick access button drop down menu closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
@@ -433,6 +439,10 @@ namespace Fluent
             return (item is FrameworkElement);
         }
 
+        /// <summary>
+        /// Called when the left mouse button is released. 
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.MouseLeftButtonUp"/> event.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (e.ClickCount == 1)
@@ -521,6 +531,10 @@ namespace Fluent
             menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
         protected override void  OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
  	        Debug.WriteLine("MenuItem focus lost - "+this); 
@@ -528,6 +542,10 @@ namespace Fluent
             //e.Handled = true;
         }
 
+        /// <summary>
+        /// Responds to the <see cref="E:System.Windows.UIElement.KeyDown"/> event. 
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)

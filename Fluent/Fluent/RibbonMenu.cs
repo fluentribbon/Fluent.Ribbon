@@ -37,6 +37,9 @@ namespace Fluent
             return basevalue;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public RibbonMenu()
         {
             FocusManager.SetIsFocusScope(this, false);
@@ -65,6 +68,10 @@ namespace Fluent
             return (item is System.Windows.Controls.MenuItem);
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.GotKeyboardFocus"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             //base.OnGotKeyboardFocus(e);

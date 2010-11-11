@@ -751,7 +751,9 @@ namespace Fluent
             set { SetValue(MaxDropDownHeightProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
             DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1000.0));
 
@@ -838,6 +840,10 @@ namespace Fluent
             IsDropDownOpen = true;
         }
 
+        /// <summary>
+        /// Called when the selection changes.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             foreach (var item in e.RemovedItems)
@@ -1071,6 +1077,10 @@ namespace Fluent
             return (item is GalleryItem);
         }
 
+        /// <summary>
+        /// Invoked when the <see cref="E:System.Windows.UIElement.KeyDown"/> event is received.
+        /// </summary>
+        /// <param name="e">Information about the event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape) IsDropDownOpen = false;
@@ -1150,12 +1160,12 @@ namespace Fluent
             return gallery;
         }
 
-        private bool isQuickAccessOpened;
+
         private object selectedItem;
         private InRibbonGallery quickAccessGallery;
         void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            isQuickAccessOpened = true;
+            
             for (int i = 0; i < Filters.Count; i++) quickAccessGallery.Filters.Add(Filters[i]);
             quickAccessGallery.SelectedFilter = SelectedFilter;
             quickAccessGallery.DropDownClosed += OnQuickAccessMenuClosed;
@@ -1173,7 +1183,7 @@ namespace Fluent
             SelectedFilter = quickAccessGallery.SelectedFilter;
             quickAccessGallery.Filters.Clear();
             Unfreeze();
-            isQuickAccessOpened = false;
+            
         }
 
         private void Freeze()

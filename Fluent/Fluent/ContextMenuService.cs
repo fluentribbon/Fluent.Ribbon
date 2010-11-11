@@ -6,8 +6,15 @@ using System.Windows;
 
 namespace Fluent
 {
-    public class ContextMenuService
+    /// <summary>
+    /// Represents additional context menu service
+    /// </summary>
+    public static class ContextMenuService
     {
+        /// <summary>
+        /// Attach needed parameters to control
+        /// </summary>
+        /// <param name="type"></param>
         public static void Attach(Type type)
         {
             System.Windows.Controls.ContextMenuService.ShowOnDisabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(true));
@@ -26,6 +33,10 @@ namespace Fluent
             return basevalue;
         }
 
+        /// <summary>
+        /// Coerce control context menu
+        /// </summary>
+        /// <param name="o">Control</param>
         public static void Coerce(DependencyObject o)
         {
             o.CoerceValue(FrameworkElement.ContextMenuProperty);

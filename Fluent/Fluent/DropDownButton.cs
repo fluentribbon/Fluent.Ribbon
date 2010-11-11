@@ -249,7 +249,9 @@ namespace Fluent
             set { SetValue(MaxDropDownHeightProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
             DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(350.0));
 
@@ -439,6 +441,10 @@ namespace Fluent
             focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
         }
 
+        /// <summary>
+        /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape) IsDropDownOpen = false;
@@ -588,7 +594,11 @@ namespace Fluent
             return button;
         }
 
-        // Handles quick access button drop down menu opened
+        /// <summary>
+        /// Handles quick access button drop down menu opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
@@ -613,7 +623,11 @@ namespace Fluent
             button.DropDownClosed += OnQuickAccessMenuClosed;
         }
 
-        // Handles quick access button drop down menu closed
+        /// <summary>
+        /// Handles quick access button drop down menu closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             DropDownButton button = (DropDownButton)sender;
