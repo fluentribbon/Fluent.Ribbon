@@ -536,6 +536,7 @@ namespace Fluent
 
                 hwndSource.AddHook(WndProc);
                 mouseProc = new NativeMethods.HookProc(MouseWndProc);
+#pragma warning disable 618
                 mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_MOUSE, mouseProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
                 isHooked = true;
             }
