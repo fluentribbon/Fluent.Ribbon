@@ -448,9 +448,12 @@ namespace Fluent
             Bind(textBox, this, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
             Bind(textBox, this, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
             Bind(textBox, this, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
+#if NET35
+#else
             Bind(textBox, this, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
             Bind(textBox, this, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
             Bind(textBox, this, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
+#endif
             Bind(textBox, this, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
         }
         
@@ -583,9 +586,12 @@ namespace Fluent
             Bind(this, textBoxTemplated, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
+#if NET35
+#else
             Bind(this, textBoxTemplated, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
+#endif
             Bind(this, textBoxTemplated, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
 
 

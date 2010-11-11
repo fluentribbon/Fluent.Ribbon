@@ -171,10 +171,7 @@
     <Setter Property="Foreground" Value="#FF000000"/>
     <Setter Property="Template" Value="{StaticResource DwmRibbonWindowControlTemplate}"/>
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
-    <Setter Property="UseLayoutRounding" Value="True"/>
-    <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
-    <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled"/>
-
+    <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     <Style.Triggers>
       <Trigger Property="IsCollapsed" Value="True">
         <Setter Property="GlassBorderThickness" Value="8,30,8,8"/>

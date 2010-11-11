@@ -175,7 +175,7 @@
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     </Style>
 
 </ResourceDictionary>

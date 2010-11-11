@@ -52,7 +52,7 @@
                             </Rectangle.Fill>
                         </Rectangle>
                         <!--<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Header}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                        <ContentPresenter x:Name="contentPresenter" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ContentPresenter x:Name="contentPresenter" Content="{Binding Header}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </Border>
             </Border>
@@ -157,11 +157,13 @@
                 </Setter>
             </Trigger>
             <Trigger Property="Header" Value="{x:Null}">
-                <Setter Property="Content" TargetName="contentPresenter">
+              <Setter Property="Tag" TargetName="contentPresenter" Value="pack://application:,,,/Fluent;component\Themes\Office2010\Images\ApplicationMenu.png"/>
+              <Setter Property="Content" TargetName="contentPresenter" Value="{Binding Tag, ElementName=contentPresenter, Converter={StaticResource StringToImageConvert}}"/>
+                <!--<Setter Property="Content" TargetName="contentPresenter">
                     <Setter.Value>
                         <Image Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\ApplicationMenu.png" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None"/>
                     </Setter.Value>
-                </Setter>
+                </Setter>-->
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

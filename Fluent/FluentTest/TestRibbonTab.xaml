@@ -5,8 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" mc:Ignorable="d"
 	x:Class="FluentTest.TestRibbonTab"
 	x:Name="UserControl"
-	UseLayoutRounding="True"
-	d:DesignWidth="640" d:DesignHeight="480"
+		d:DesignWidth="640" d:DesignHeight="480"
   Header="TestRibbon">
   <Fluent:RibbonGroupBox Header="Upload">
     <Fluent:Button Header="Upload" />

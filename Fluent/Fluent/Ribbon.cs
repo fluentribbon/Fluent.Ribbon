@@ -1681,9 +1681,9 @@ namespace Fluent
                     if (window != null)
                     {
                         stringForHash += "." + window.GetType().FullName;
-                        if (!String.IsNullOrWhiteSpace(window.Name)) stringForHash += "." + window.Name;                        
+                        if (!String.IsNullOrEmpty(window.Name)&&(window.Name.Trim().Length>0)) stringForHash += "." + window.Name;                        
                     }
-                    if (!String.IsNullOrWhiteSpace(this.Name)) stringForHash += "." + this.Name;
+                    if (!String.IsNullOrEmpty(this.Name) && (this.Name.Trim().Length > 0)) stringForHash += "." + this.Name;
 
                     isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
                 }
