@@ -502,7 +502,7 @@
               AllowsTransparency="True"
               Focusable="False"
               PopupAnimation="Fade" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
-              Width="{Binding RightContentWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+              Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
               Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MenuPanel}}}"
               >
         <Grid
@@ -660,7 +660,7 @@
               AllowsTransparency="True"
               Focusable="False"
               PopupAnimation="Fade" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
-              Width="{Binding RightContentWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+              Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
               Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MenuPanel}}}"
         >
         <Grid

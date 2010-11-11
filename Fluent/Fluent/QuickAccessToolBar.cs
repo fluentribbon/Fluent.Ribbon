@@ -400,6 +400,7 @@ namespace Fluent
 
         private void OnToolBarDownOpened(object sender, EventArgs e)
         {            
+            if(toolBarOverflowPanel.Children.Count>0) toolBarOverflowPanel.Children.Clear();
             for(int i=cachedCount;i<Items.Count;i++)
             {
                 toolBarOverflowPanel.Children.Add(Items[i]);
