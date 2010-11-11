@@ -113,11 +113,6 @@ namespace Fluent
         /// </summary>
         private const double Epsilon = 0.00000153;
 
-        /// <summary>
-        /// Version of WPF
-        /// </summary>
-        private static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window)).GetName().Version;
-
         private const int SwpFlags = NativeMethods.SWP_FRAMECHANGED | NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_NOOWNERZORDER | NativeMethods.SWP_NOACTIVATE;
 
         /// <summary>
@@ -359,7 +354,7 @@ namespace Fluent
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-            if (PresentationFrameworkVersion < new Version("4.0"))
+            if (FrameworkHelper.PresentationFrameworkVersion < new Version("4.0"))
             {
                 // On older versions of the framework the client size of the window is incorrectly calculated.
                 TemplateProperty.AddOwner(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowPropertyChangedThatRequiresTemplateFixup));
@@ -550,7 +545,7 @@ namespace Fluent
         private void FixFrameworkIssues()
         {
             // This margin is only necessary if the client rectangle is going to be calculated incorrectly by WPF version less then 4.0
-            if (PresentationFrameworkVersion >= new Version("4.0"))
+            if (FrameworkHelper.PresentationFrameworkVersion >= new Version("4.0"))
             {
                 return;
             }
@@ -1245,7 +1240,7 @@ namespace Fluent
                     }
             }
 
-            if (PresentationFrameworkVersion < new Version("4.0"))
+            if (FrameworkHelper.PresentationFrameworkVersion < new Version("4.0"))
             {
                 switch (msg)
                 {

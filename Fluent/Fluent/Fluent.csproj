@@ -110,6 +110,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="FrameworkHelper.cs" />
     <Compile Include="GalleryGroupContainer.cs" />
     <Compile Include="GalleryItemPlaceholder.cs" />
     <Compile Include="GalleryPanel.cs" />
