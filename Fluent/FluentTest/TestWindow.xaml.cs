@@ -50,6 +50,12 @@ namespace FluentTest
         public static readonly DependencyProperty TSTProperty =
             DependencyProperty.Register("TST", typeof(TstEnum), typeof(TestWindow), new UIPropertyMetadata(TstEnum.Elemen1));
 
+        private Color[] themeColors = new Color[]{Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple};
+        public Color[] ThemeColors
+        {
+            get { return themeColors; }
+        }
+
         public Array TstArr
         {
             get { return Enum.GetValues(typeof (TstEnum)); }

@@ -546,6 +546,34 @@ namespace Fluent
             UpdateGradients();
         }
 
+        /// <summary>
+        /// Gets or sets theme colors source
+        /// </summary>
+        public IEnumerable<Color> ThemeColorsSource
+        {
+            get { return (IEnumerable<Color>)GetValue(ThemeColorsSourceProperty); }
+            set { SetValue(ThemeColorsSourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ThemeColorsSourceProperty =
+            DependencyProperty.Register("ThemeColorsSource", typeof(IEnumerable<Color>), typeof(ColorGallery), new UIPropertyMetadata(null, OnThemeColorsSourceChanged));
+
+        private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ColorGallery gal = d as ColorGallery;
+            gal.ThemeColors.Clear();
+            if (e.NewValue != null)
+            {
+                foreach (Color color in (e.NewValue as IEnumerable<Color>))
+                {
+                    gal.ThemeColors.Add(color);
+                }
+            }
+        }
+
         #endregion
 
         #region ThemeGradients
