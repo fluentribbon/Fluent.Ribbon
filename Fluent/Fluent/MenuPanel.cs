@@ -93,7 +93,7 @@ namespace Fluent
                 }
                 ResizeMinWidth = Math.Max(0, minWidth);
                 ResizeMinHeight = Math.Max(0, minHeight);
-                MinHeight = ResizeMinHeight;
+                if (ResizeMinHeight!=0) MinHeight = ResizeMinHeight;
                 if (ResizeMinWidth != 0) Width = Math.Max(maxMenuWidth, ResizeMinWidth);
                 if (ResizeMinWidth < maxMenuWidth) ResizeMinWidth = maxMenuWidth;
                 if (VisualTreeHelper.GetParent(this) is MenuPanel) Width = double.NaN;
@@ -114,8 +114,8 @@ namespace Fluent
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
             if (IsLoaded)
             {
-                //UpdateMenuSizes();                
-                InvalidateUpdateMenuSizes();
+                UpdateMenuSizes();                
+                //InvalidateUpdateMenuSizes();
             }
            /* FrameworkElement added = visualAdded as FrameworkElement;
             FrameworkElement removed = visualRemoved as FrameworkElement;

@@ -397,6 +397,7 @@ namespace Fluent
         private void OnMenuPanelLoaded(object sender, RoutedEventArgs e)
         {
             menuPanel.Loaded -= OnMenuPanelLoaded;
+            if (ResizeMode!=ContextMenuResizeMode.None)
             Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
                     if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
@@ -547,6 +548,8 @@ namespace Fluent
             }*/
             if (DropDownOpened != null) DropDownOpened(this, e);
             Mouse.Capture(this, CaptureMode.SubTree);
+            /*menuPanel.UpdateMenuSizes();
+            menuPanel.UpdateLayout();*/
         }
 
         #endregion

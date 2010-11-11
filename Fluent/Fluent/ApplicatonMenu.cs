@@ -81,47 +81,47 @@ namespace Fluent
         /// <summary>
         /// Gets or sets width of right content
         /// </summary>
-        public double RightContentWidth
+        public double RightPaneWidth
         {
-            get { return (double)GetValue(RightContentWidthProperty); }
-            set { SetValue(RightContentWidthProperty, value); }
+            get { return (double)GetValue(RightPaneWidthProperty); }
+            set { SetValue(RightPaneWidthProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RightContentWidthProperty =
-            DependencyProperty.Register("RightContentWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
+        public static readonly DependencyProperty RightPaneWidthProperty =
+            DependencyProperty.Register("RightPaneWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
 
         
 
         /// <summary>
-        /// Gets or sets application menu right content
+        /// Gets or sets application menu right pane content
         /// </summary>
-        public object RightContent
+        public object RightPaneContent
         {
-            get { return (object)GetValue(RightContentProperty); }
-            set { SetValue(RightContentProperty, value); }
+            get { return (object)GetValue(RightPaneContentProperty); }
+            set { SetValue(RightPaneContentProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RightContentProperty =
-            DependencyProperty.Register("RightContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty RightPaneContentProperty =
+            DependencyProperty.Register("RightPaneContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
 
         /// <summary>
-        /// Gets or sets application menu bottom content
+        /// Gets or sets application menu bottom pane content
         /// </summary>
-        public object BottomContent
+        public object FooterPaneContent
         {
-            get { return (object)GetValue(BottomContentProperty); }
-            set { SetValue(BottomContentProperty, value); }
+            get { return (object)GetValue(FooterPaneContentProperty); }
+            set { SetValue(FooterPaneContentProperty, value); }
         }
 
         //Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BottomContentProperty =
-            DependencyProperty.Register("BottomContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty FooterPaneContentProperty =
+            DependencyProperty.Register("FooterPaneContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
         
         #endregion
 

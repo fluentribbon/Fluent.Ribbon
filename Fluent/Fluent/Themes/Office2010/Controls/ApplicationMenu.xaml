@@ -134,11 +134,11 @@
                               </Border>
                                 
                               <Fluent:MenuPanel ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
-                              <Border Grid.Row="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Width="{TemplateBinding RightContentWidth}" Background="{DynamicResource GalleryBackgroundBrush}">
-                                <ContentPresenter ContentSource="RightContent" x:Name="PART_RightContentPresenter"/>
+                              <Border Grid.Row="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Width="{TemplateBinding RightPaneWidth}" Background="{DynamicResource GalleryBackgroundBrush}">
+                                <ContentPresenter ContentSource="RightPaneContent" x:Name="PART_RightContentPresenter"/>
                               </Border>
                               <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Background="{DynamicResource RibbonBackgoundBrush}" Margin="0">                                
-                                <ContentPresenter ContentSource="BottomContent"/>
+                                <ContentPresenter ContentSource="FooterPaneContent"/>
                               </Border>  
                             </Grid>
                         </Grid>

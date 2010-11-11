@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Fluent
 {
@@ -533,7 +534,19 @@ namespace Fluent
             Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
             IRibbonControl sourceControl = source as IRibbonControl;
-            if (sourceControl.Icon != null) Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            if (sourceControl.Icon != null)
+            {
+                Visual iconVisual = sourceControl.Icon as Visual;
+                if (iconVisual != null)
+                {
+                    Rectangle rect = new Rectangle();
+                    rect.Width = 16;
+                    rect.Height = 16;
+                    rect.Fill = new VisualBrush(iconVisual);
+                    (element as IRibbonControl).Icon = rect;
+                }
+                else Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            }
             if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
 

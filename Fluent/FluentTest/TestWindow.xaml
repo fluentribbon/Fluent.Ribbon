@@ -92,10 +92,10 @@
                         <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" Command="ApplicationCommands.Close"/>
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>-->
-              <Fluent:ApplicationMenu RightContent="Place some content here.">
-                <Fluent:ApplicationMenu.BottomContent>
+              <Fluent:ApplicationMenu RightPaneContent="Place some content here.">
+                <Fluent:ApplicationMenu.FooterPaneContent>
                   <Fluent:Button Header="Exit" Icon="Images\Exit.png" Fluent:KeyTip.Keys="X" HorizontalAlignment="Right" Size="Middle"/>
-                </Fluent:ApplicationMenu.BottomContent>
+                </Fluent:ApplicationMenu.FooterPaneContent>
                 <Fluent:MenuItem Header="1" Fluent:KeyTip.Keys="1" Icon="Images\Test32.png"/>
                 <Fluent:MenuItem Header="2" Fluent:KeyTip.Keys="2" Icon="Images\Test32.png">
                   <Fluent:GroupSeparatorMenuItem>Test</Fluent:GroupSeparatorMenuItem>
