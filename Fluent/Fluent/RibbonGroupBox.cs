@@ -21,6 +21,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -229,9 +230,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets group box header
         /// </summary>
-        public string Header
+        public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
+            get { return GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
@@ -239,7 +240,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata("RibbonGroupBox"));
+            RibbonControl.HeaderProperty.AddOwner(typeof (RibbonGroupBox));
 
         #endregion
 
@@ -300,7 +301,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets launcher button icon
         /// </summary>
-        public ImageSource LauncherIcon
+        public object LauncherIcon
         {
             get { return (ImageSource)GetValue(LauncherIconProperty); }
             set { SetValue(LauncherIconProperty, value); }
@@ -310,7 +311,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LauncherIconProperty =
-            DependencyProperty.Register("LauncherIcon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register("LauncherIcon", typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
 
         #endregion
 
@@ -511,9 +512,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets icon
         /// </summary>
-        public ImageSource Icon
+        public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -521,7 +522,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(ImageSource), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
+            RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
+
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -955,7 +957,24 @@ namespace Fluent
             groupBox.State = RibbonGroupBoxState.Collapsed;
 
             RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+
+            if (Icon != null)
+            {
+                Visual iconVisual = Icon as Visual;
+                if (iconVisual != null)
+                {
+                    Rectangle rect = new Rectangle();
+                    rect.Width = 16;
+                    rect.Height = 16;
+                    rect.Fill = new VisualBrush(iconVisual);
+                    groupBox.Icon = rect;
+                }
+                else RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            }
+            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
+
             if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
+
             return groupBox;
         }
 

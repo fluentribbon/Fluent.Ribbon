@@ -1228,9 +1228,9 @@ namespace Fluent
                         if (!IsDwmEnabled)
                         {
                             var wp = (NativeMethods.WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.WINDOWPOS));
-                            ModifyStyle(NativeMethods.WS_VISIBLE, 0);
+                            //ModifyStyle(NativeMethods.WS_VISIBLE, 0);
                             SetRoundingRegion(wp);
-                            ModifyStyle(0, NativeMethods.WS_VISIBLE);
+                            //ModifyStyle(0, NativeMethods.WS_VISIBLE);
                         }
 
                         // Still want to pass this to DefWndProc

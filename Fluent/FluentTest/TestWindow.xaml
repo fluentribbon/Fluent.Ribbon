@@ -117,7 +117,7 @@
       
       <Fluent:RibbonTabItem   x:Name="homeTabItem" Header="Home" Fluent:KeyTip.Keys="H" ToolTip="Regular Tool Tip" 
             ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-                <Fluent:RibbonGroupBox Icon="Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"  Fluent:KeyTip.Keys="C" x:Name="Clipboard" Header="Clipboard" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" LauncherKeys="ZB">
           <Fluent:SplitButton x:Name="pasteButton" Fluent:KeyTip.Keys="V" Header="Paste" Icon="Images\Paste.png" LargeIcon="Images\PasteLarge.png" SizeDefinition="Large" Command="Paste">
             <Fluent:SplitButton.ToolTip>
                <Fluent:ScreenTip
@@ -163,7 +163,7 @@
         <Fluent:Button Fluent:KeyTip.Keys="FP" Header="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>        
       </Fluent:RibbonGroupBox>
         
-    <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="Images\FontColor.png" LauncherKeys="NF">
+    <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="pack://application:,,,/FluentTest;component/Images/FontColor.png" LauncherIcon="/Images/FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>
         
       <!--ToolBar Layout Definitions-->
@@ -321,7 +321,7 @@
     </Fluent:RibbonGroupBox>
 
       
-   <Fluent:RibbonGroupBox Icon="Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
+   <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"  x:Name="A"  Fluent:KeyTip.Keys="A" Header="Galleries" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">     
      <Fluent:InRibbonGallery Icon="Images/Default.png" LargeIcon="Images/GalleryLarge.png" x:Name="inRibbonGallery1" Header="In-Ribbon Gallery" Fluent:KeyTip.Keys="JS" SelectedFilter="{Binding ElementName=galleryFilterAll}" ResizeMode="Both" MinItemsInRow="2" MaxItemsInRow="7" SizeDefinition="Large" Orientation="Horizontal" ItemWidth="40" ItemHeight="56" GroupBy="Tag" CanCollapseToButton="True" MinItemsInDropDownRow="4">     
        <Fluent:InRibbonGallery.Filters>
           <Fluent:GalleryGroupFilter Title="All" Groups="Group1,Group2" x:Name="galleryFilterAll"/>
@@ -408,12 +408,12 @@
               </Fluent:SplitButton>
 
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Icon="Images/Default.png" Fluent:KeyTip.Keys="ZXK" x:Name="C" Header="Themes" IsLauncherVisible="False" LauncherClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png" Fluent:KeyTip.Keys="ZXK" x:Name="C" Header="Themes" IsLauncherVisible="False" LauncherClick="OnLauncherButtonClick">
           <Fluent:Button Click="OnSilverClick" Icon="Images/SilverTheme.png" SizeDefinition="Middle">Silver</Fluent:Button>
           <Fluent:Button Click="OnBlackClick" Icon="Images/BlackTheme.png" SizeDefinition="Middle">Black</Fluent:Button>
           <Fluent:Button Click="OnBlueClick" Icon="Images/BlueTheme.png" SizeDefinition="Middle">Blue</Fluent:Button>
         </Fluent:RibbonGroupBox>
-        <Fluent:RibbonGroupBox Icon="Images/Default.png" Fluent:KeyTip.Keys="ZXB" x:Name="B" Header="Spinners" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
+        <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png" Fluent:KeyTip.Keys="ZXB" x:Name="B" Header="Spinners" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick">
           <Fluent:Spinner Fluent:KeyTip.Keys="KA" InputWidth="75" Format="0 px" Header="Left:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" IsEnabled="False"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KB" InputWidth="75" Format="0 px" Header="Right:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>
           <Fluent:Spinner Fluent:KeyTip.Keys="KC" InputWidth="75" Format="0 px" Header="Top:" Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"/>

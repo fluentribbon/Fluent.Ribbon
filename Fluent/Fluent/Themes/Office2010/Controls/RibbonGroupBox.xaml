@@ -24,21 +24,18 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="FocusManager.IsFocusScope" Value="False"/>
-    <Setter Property="QuickAccessElementStyle">
-      <Setter.Value>
-        <Style TargetType="{x:Type Fluent:RibbonGroupBox}">
-          <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
-          <Setter Property="Height" Value="22"/>
-          <Setter Property="Width" Value="22"/>
-          <Setter Property="Focusable" Value="False"/>
-          <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-          <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-          <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-          <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-          <Setter Property="SnapsToDevicePixels" Value="False"/>
-        </Style>
-      </Setter.Value>
-    </Setter>
+    <Setter Property="QuickAccessElementStyle" Value="{DynamicResource RibbonGroupBoxQuickAccessStyle}"/>
+  </Style>
+  <Style x:Key="RibbonGroupBoxQuickAccessStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
+    <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
+    <Setter Property="Height" Value="22"/>
+    <Setter Property="Width" Value="22"/>
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+    <Setter Property="SnapsToDevicePixels" Value="False"/>
   </Style>
   <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">
     <Grid Width="22">
@@ -236,7 +233,7 @@
       <Grid x:Name="grid1" Margin="0" Width="Auto" Height="Auto" Background="#00000000" Visibility="Collapsed" Grid.RowSpan="2">			
         <Fluent:TwoLineLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource TwoLineLabelStyle}"/>
         <Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
-          <Image Source="{TemplateBinding Icon}" Stretch="None"/>
+          <ContentPresenter x:Name="iconImage" Height="16" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </Border>
         <Popup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsDropDownOpen}">
           <Grid Width="Auto" Height="Auto" Margin="0,20">

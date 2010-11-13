@@ -1153,8 +1153,9 @@ namespace Fluent
             RibbonControl.Bind(this, gallery, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
-
             gallery.DropDownOpened += OnQuickAccessOpened;
+            if (DropDownClosed != null) gallery.DropDownClosed += DropDownClosed;
+            if (DropDownOpened != null) gallery.DropDownOpened += DropDownOpened;
             gallery.Size = RibbonControlSize.Small;
             quickAccessGallery = gallery;
             return gallery;
