@@ -213,6 +213,122 @@ namespace Fluent
 
         #endregion
 
+        #region GroupName
+
+        /// <summary>
+        /// Gets or sets the name of the group that the toggle button belongs to. 
+        /// Use the GroupName property to specify a grouping of toggle buttons to 
+        /// create a mutually exclusive set of controls. You can use the GroupName 
+        /// property when only one selection is possible from a list of available 
+        /// options. When this property is set, only one ToggleButton in the specified
+        /// group can be selected at a time.
+        /// </summary>
+        public string GroupName
+        {
+            get { return (string)GetValue(GroupNameProperty); }
+            set { SetValue(GroupNameProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupNameProperty =
+            DependencyProperty.Register("GroupName", typeof(string), typeof(MenuItem),
+            new UIPropertyMetadata(null, OnGroupNameChanged));
+
+        // Group name changed
+        static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            MenuItem toggleButton = (MenuItem)d;
+            string currentGroupName = (string)e.NewValue;
+            string previousGroupName = (string)e.OldValue;
+
+            if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
+            if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
+        }
+
+        #region Grouped Items Methods
+
+        // Grouped buttons
+        static readonly Dictionary<string, List<WeakReference>> groupedButtons =
+            new Dictionary<string, List<WeakReference>>();
+
+        // Remove from group
+        static void RemoveFromGroup(string groupName, MenuItem button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
+
+            buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((MenuItem)x.Target) == button)));
+        }
+
+        // Remove from group
+        static void AddToGroup(string groupName, MenuItem button)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            {
+                buttons = new List<WeakReference>();
+                groupedButtons.Add(groupName, buttons);
+            }
+
+            buttons.Add(new WeakReference(button));
+        }
+
+        // Gets all buttons in the given group
+        static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
+        {
+            List<WeakReference> buttons = null;
+            if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<MenuItem>();
+            return buttons.Where(x => x.IsAlive).Select(x => (MenuItem)x.Target);
+        }
+
+        #endregion
+
+        #region IsChecked
+
+        // Coerce IsChecked
+        static object CoerceIsChecked(DependencyObject d, object basevalue)
+        {
+            MenuItem toggleButton = (MenuItem)d;
+            if (toggleButton.GroupName == null) return basevalue;
+
+            bool baseIsChecked = (bool)basevalue;
+            if (!baseIsChecked)
+            {
+                // We can not allow that there are no one button checked
+                foreach (MenuItem item in GetItemsInGroup(toggleButton.GroupName))
+                {
+                    // It's Ok, atleast one checked button exists
+                    if (item.IsChecked) return false;
+                }
+
+                // This button can not be unchecked
+                return true;
+            }
+            return basevalue;
+        }
+
+        // Handles isChecked changed
+        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            bool newValue = (bool)e.NewValue;
+            bool oldValue = (bool)e.OldValue;
+            MenuItem button = (MenuItem)d;
+           
+            // Uncheck other toggle buttons
+            if (newValue && button.GroupName != null)
+            {
+                foreach (MenuItem item in GetItemsInGroup(button.GroupName))
+                    if (item != button) item.IsChecked = false;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -242,6 +358,7 @@ namespace Fluent
             //PopupService.Attach(type);            
             ContextMenuService.Attach(type);
             StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, OnIsCheckedChanged, CoerceIsChecked));
         }
 
         // Coerce object style
@@ -532,7 +649,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/>Â attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
         protected override void  OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)

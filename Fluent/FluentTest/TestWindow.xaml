@@ -4,7 +4,7 @@
     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
     xmlns:FluentTest="clr-namespace:FluentTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="window" x:Class="FluentTest.TestWindow"
-    Title="Fluent Ribbon Control Suite 2.0 Preview" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+    Title="Fluent Ribbon Control Suite 2.1" Height="345" Width="770" mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     >
   <Fluent:RibbonWindow.Resources>
@@ -385,9 +385,9 @@
                     </Fluent:MenuItem>                    
                     <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B"/>
                     <Fluent:MenuItem Header="Item5" Fluent:KeyTip.Keys="R">
-                      <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A"/>
-                      <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B"/>
-                      <Fluent:MenuItem Header="Iteme" Fluent:KeyTip.Keys="C"/>
+                      <Fluent:MenuItem Header="Itemq" Fluent:KeyTip.Keys="A" IsCheckable="True" GroupName="ABC"/>
+                      <Fluent:MenuItem Header="Itemw" Fluent:KeyTip.Keys="B" IsCheckable="True" GroupName="ABC"/>
+                      <Fluent:MenuItem Header="Iteme" Fluent:KeyTip.Keys="C" IsCheckable="True" GroupName="ABC" IsChecked="True"/>
                     </Fluent:MenuItem>
                   </Fluent:MenuItem>
                 </Fluent:MenuItem>
