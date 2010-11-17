@@ -55,12 +55,12 @@
 		<Style x:Key="{x:Type Fluent:Spinner}" TargetType="{x:Type Fluent:Spinner}" BasedOn="{StaticResource SpinnerBackstageStyle}"/>
       </ResourceDictionary>      
 	  </ControlTemplate.Resources>	
-  	<Grid Background="{DynamicResource BackstageBackgroundBrush}">
+  	<Grid Margin="0" Background="{DynamicResource BackstageBackgroundBrush}">
   		<Grid.ColumnDefinitions>
   			<ColumnDefinition MinWidth="107" Width="Auto"/>
   			<ColumnDefinition Width="*"/>
   		</Grid.ColumnDefinitions>
-  		<Grid Margin="0" Height="Auto" Grid.Column="1">
+  		<Grid Height="Auto" Grid.Column="1">
         <Grid.Resources>
           <ResourceDictionary>
             <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource ButtonBackstageStyle}"/>
@@ -87,8 +87,8 @@
         <StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True">
         </StackPanel>
   		</Grid>
-  		<Border Margin="0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}">
-  			<Rectangle Stroke="{x:Null}" StrokeThickness="0" Fill="{DynamicResource BackstageTopBackgroundBrush}" OpacityMask="{DynamicResource BackstageTopOpacityBrush}"/>
+  		<Border Margin="0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" OpacityMask="{DynamicResource BackstageTopOpacityBrush}">
+        <Rectangle Stroke="{x:Null}" StrokeThickness="0" Fill="{DynamicResource BackstageTopBackgroundBrush}"/>
   		</Border>
   	</Grid>
   	<ControlTemplate.Triggers>
