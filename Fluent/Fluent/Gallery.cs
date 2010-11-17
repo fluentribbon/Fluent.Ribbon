@@ -440,10 +440,11 @@ namespace Fluent
         // Coerce selected item
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            Gallery gallery = d as Gallery;
+            Gallery gallery = (Gallery)d;
             if (!gallery.Selectable)
             {
-                if (basevalue != null) (gallery.ItemContainerGenerator.ContainerFromItem(basevalue) as GalleryItem).IsSelected = false;
+                GalleryItem galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
+                if (basevalue != null && galleryItem != null) galleryItem.IsSelected = false;
                 return null;
             }
             return basevalue;
