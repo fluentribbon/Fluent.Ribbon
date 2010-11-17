@@ -164,7 +164,7 @@
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontWeight" Value="Normal"/>
-    <Setter Property="GlassBorderThickness" Value="8,51,8,8"/>
+    <Setter Property="GlassBorderThickness" Value="8,50,8,8"/>
     <Setter Property="ResizeBorderThickness" Value="8,8,8,8"/>
     <Setter Property="CornerRadius" Value="15"/>
     <Setter Property="CaptionHeight" Value="50"/>
