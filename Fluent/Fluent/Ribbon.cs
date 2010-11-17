@@ -670,6 +670,9 @@ namespace Fluent
                         if (tabControl != null) tabControl.Items.Add(item);
                     }
                     break;
+                case NotifyCollectionChangedAction.Reset:
+                    tabControl.Items.Clear();
+                    break;
             }
 
         }
