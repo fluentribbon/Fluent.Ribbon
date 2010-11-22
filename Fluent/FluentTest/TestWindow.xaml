@@ -560,6 +560,21 @@
     </Button>
  
     <TreeView Visibility="Collapsed"  x:Name="logicalTreeView" Margin="0,30,20,0" Grid.Row="1" MouseDoubleClick="OnTreeDoubleClick"/>
+
+    <ComboBox SelectedIndex="1" Grid.Row="1" Height="20">
+      <ComboBoxItem>1</ComboBoxItem>
+      <ComboBoxItem>2</ComboBoxItem>
+      <ComboBoxItem>3</ComboBoxItem>
+      <ComboBoxItem>4</ComboBoxItem>
+      <ComboBoxItem>5</ComboBoxItem>
+      <ComboBoxItem>6</ComboBoxItem>
+      <ComboBoxItem>7</ComboBoxItem>
+      <ComboBoxItem>8</ComboBoxItem>
+      <ComboBoxItem>9</ComboBoxItem>
+      <ComboBoxItem>10</ComboBoxItem>
+      <ComboBoxItem>11</ComboBoxItem>
+      <ComboBoxItem>12</ComboBoxItem>
+    </ComboBox>
     
     <Fluent:StatusBar HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="1">
       <Fluent:StatusBarItem Title="Words Width" Value="150" HorizontalAlignment="Left">

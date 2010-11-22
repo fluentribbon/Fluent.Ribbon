@@ -21,6 +21,7 @@ using System.Windows.Threading;
 using Fluent;
 using Microsoft.Win32;
 using Button = Fluent.Button;
+using ComboBox = Fluent.ComboBox;
 using MenuItem = Fluent.MenuItem;
 
 namespace FluentTest
@@ -112,7 +113,7 @@ namespace FluentTest
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(this,"Launcher button pressed!!!");
+           /* MessageBox.Show(this,"Launcher button pressed!!!");
             
             Thread thread = new Thread(()=>
                                            {
@@ -121,7 +122,13 @@ namespace FluentTest
                                            });
             thread.SetApartmentState(ApartmentState.STA);
             thread.IsBackground = true;
-            thread.Start();
+            thread.Start();*/
+            Window wnd = new Window();
+            System.Windows.Controls.ComboBox box = new System.Windows.Controls.ComboBox();
+            box.ItemsSource = new string[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+            wnd.Content = box;
+            wnd.Owner = this;
+            wnd.ShowDialog();
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)

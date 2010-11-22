@@ -1371,7 +1371,7 @@ namespace Fluent
 
         private IntPtr MouseWndProc(int code, IntPtr wParam, IntPtr lParam)
         {
-            if ((code >= 0) && (Mouse.Captured != null))
+            if ((code >= 0) && (Mouse.Captured != null) && (IsActive))
             {
                 int msg = wParam.ToInt32();
                 NativeMethods.MOUSEHOOKSTRUCT cc = (NativeMethods.MOUSEHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(NativeMethods.MOUSEHOOKSTRUCT));
