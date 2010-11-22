@@ -250,15 +250,17 @@ namespace Fluent
 
         #region Grouped Items Methods
 
-        // Grouped buttons
-        static readonly Dictionary<string, List<WeakReference>> groupedButtons =
-            new Dictionary<string, List<WeakReference>>();
+        // Grouped buttons (thread id / group name / weak ref to a control)
+        static readonly Dictionary<int, Dictionary<string, List<WeakReference>>> groupedButtons =
+            new Dictionary<int, Dictionary<string, List<WeakReference>>>();
 
         // Remove from group
         static void RemoveFromGroup(string groupName, MenuItem button)
         {
             List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            if (!groupedButtons.ContainsKey(threadId)) return;
+            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return;
 
             buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((MenuItem)x.Target) == button)));
         }
@@ -266,11 +268,14 @@ namespace Fluent
         // Remove from group
         static void AddToGroup(string groupName, MenuItem button)
         {
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            if (!groupedButtons.ContainsKey(threadId)) groupedButtons.Add(threadId, new Dictionary<string, List<WeakReference>>());
+
             List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons))
             {
                 buttons = new List<WeakReference>();
-                groupedButtons.Add(groupName, buttons);
+                groupedButtons[threadId].Add(groupName, buttons);
             }
 
             buttons.Add(new WeakReference(button));
@@ -279,8 +284,11 @@ namespace Fluent
         // Gets all buttons in the given group
         static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
         {
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            if (!groupedButtons.ContainsKey(threadId)) return new List<MenuItem>();
+
             List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<MenuItem>();
+            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return new List<MenuItem>();
             return buttons.Where(x => x.IsAlive).Select(x => (MenuItem)x.Target);
         }
 

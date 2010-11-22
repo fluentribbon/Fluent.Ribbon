@@ -388,7 +388,7 @@ namespace Fluent
                 {
                     isFirstTime = false;
                     IsDropDownOpen = false;                    
-                    Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{                        
+                    Dispatcher.Invoke(DispatcherPriority.Send,(ThreadStart)(()=>{                        
                         if (menuPanel != null)
                         {
                             if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) 
