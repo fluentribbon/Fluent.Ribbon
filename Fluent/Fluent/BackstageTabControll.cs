@@ -50,6 +50,98 @@ namespace Fluent
             }
         }
 
+        public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register("ContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register("ContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        
+        private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty SelectedContentStringFormatProperty = SelectedContentStringFormatPropertyKey.DependencyProperty;
+        
+        private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty SelectedContentTemplateProperty = SelectedContentTemplatePropertyKey.DependencyProperty;
+        
+        private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty SelectedContentTemplateSelectorProperty = SelectedContentTemplateSelectorPropertyKey.DependencyProperty;
+
+        public string ContentStringFormat
+        {
+            get
+            {
+                return (string)base.GetValue(ContentStringFormatProperty);
+            }
+            set
+            {
+                base.SetValue(ContentStringFormatProperty, value);
+            }
+        }
+
+        public DataTemplate ContentTemplate
+        {
+            get
+            {
+                return (DataTemplate)base.GetValue(ContentTemplateProperty);
+            }
+            set
+            {
+                base.SetValue(ContentTemplateProperty, value);
+            }
+        }
+
+        public DataTemplateSelector ContentTemplateSelector
+        {
+            get
+            {
+                return (DataTemplateSelector)base.GetValue(ContentTemplateSelectorProperty);
+            }
+            set
+            {
+                base.SetValue(ContentTemplateSelectorProperty, value);
+            }
+        }
+
+
+
+        public string SelectedContentStringFormat
+        {
+            get
+            {
+                return (string)base.GetValue(SelectedContentStringFormatProperty);
+            }
+            internal set
+            {
+                base.SetValue(SelectedContentStringFormatPropertyKey, value);
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public DataTemplate SelectedContentTemplate
+        {
+            get
+            {
+                return (DataTemplate)base.GetValue(SelectedContentTemplateProperty);
+            }
+            internal set
+            {
+                base.SetValue(SelectedContentTemplatePropertyKey, value);
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public DataTemplateSelector SelectedContentTemplateSelector
+        {
+            get
+            {
+                return (DataTemplateSelector)base.GetValue(SelectedContentTemplateSelectorProperty);
+            }
+            internal set
+            {
+                base.SetValue(SelectedContentTemplateSelectorPropertyKey, value);
+            }
+        }
+
+
+
         #endregion
 
         #region Constructors
@@ -235,6 +327,19 @@ namespace Fluent
                 if (selectedTabItem != null)
                 {
                     this.SelectedContent = selectedTabItem.Content;
+                    if (((selectedTabItem.ContentTemplate != null) || (selectedTabItem.ContentTemplateSelector != null)) || (selectedTabItem.ContentStringFormat != null))
+                    {
+                        this.SelectedContentTemplate = selectedTabItem.ContentTemplate;
+                        this.SelectedContentTemplateSelector = selectedTabItem.ContentTemplateSelector;
+                        this.SelectedContentStringFormat = selectedTabItem.ContentStringFormat;
+                    }
+                    else
+                    {
+                        this.SelectedContentTemplate = this.ContentTemplate;
+                        this.SelectedContentTemplateSelector = this.ContentTemplateSelector;
+                        this.SelectedContentStringFormat = this.ContentStringFormat;
+                    }
+
                     UpdateLayout();
                 }
             }

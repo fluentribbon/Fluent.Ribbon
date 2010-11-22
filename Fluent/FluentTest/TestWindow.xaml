@@ -25,10 +25,27 @@
 
       <Fluent:Ribbon.Menu>
         <Fluent:Backstage Background="Green">
+          
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save" Icon="Images\Save.png" Fluent:KeyTip.Keys="S" Command="Cut" Click="OnBtnClick"/>
                         <Fluent:Button Header="Save As"  Icon="Images\Save.png" Fluent:KeyTip.Keys="A"/>
-                        <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E" IsEnabled="False">
+                      <Fluent:BackstageTabItem Header="TEST" Content="HEllo">
+
+                       <Fluent:BackstageTabItem.ContentTemplate>
+
+                          <DataTemplate>
+
+                            <Grid>
+                            <TextBox Text="{Binding Mode=OneWay}" />
+                            </Grid>
+                          </DataTemplate>
+
+                        </Fluent:BackstageTabItem.ContentTemplate>
+
+                      </Fluent:BackstageTabItem>
+
+
+                      <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E" IsEnabled="False">
                             <ScrollViewer>
                                 <Grid Height="400" Background="Red">
                                     <ListBox Width="100" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left">
