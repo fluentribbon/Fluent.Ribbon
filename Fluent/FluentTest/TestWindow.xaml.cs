@@ -128,7 +128,7 @@ namespace FluentTest
             box.ItemsSource = new string[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
             wnd.Content = box;
             wnd.Owner = this;
-            wnd.ShowDialog();
+            wnd.Show();
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
