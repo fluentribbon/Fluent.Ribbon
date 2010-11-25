@@ -37,10 +37,6 @@ namespace Fluent
         /// </summary>
         bool CanAddToQuickAccessToolBar { get; set; }
 
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        Style QuickAccessElementStyle { get; set; }
     }
     
     /// <summary>

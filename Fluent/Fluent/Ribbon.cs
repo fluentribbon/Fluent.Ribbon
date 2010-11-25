@@ -671,7 +671,7 @@ namespace Fluent
                     }
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    tabControl.Items.Clear();
+                    if (tabControl != null) tabControl.Items.Clear();
                     break;
             }
 

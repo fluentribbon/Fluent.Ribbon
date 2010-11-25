@@ -57,7 +57,7 @@
     <Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
     <Setter Property="Height" Value="22"/>
     <Setter Property="Width" Value="22"/>
-	<Setter Property="QuickAccessElementStyle">
+	<!--<Setter Property="QuickAccessElementStyle">
 		<Setter.Value>
 			<Style TargetType="{x:Type Fluent:ToggleButton}">
 				<Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
@@ -69,7 +69,7 @@
     			<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
 			</Style>
 		</Setter.Value>
-	</Setter>
+	</Setter>-->
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>

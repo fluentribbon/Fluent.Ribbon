@@ -1,7 +1,7 @@
-#region Copyright and License Information
+ï»¿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// Copyright ï¿½ Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
 // 
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
@@ -233,20 +233,6 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(Button), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
-
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        public Style QuickAccessElementStyle
-        {
-            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
-            set { SetValue(QuickAccessElementStyleProperty, value); }
-        }
-
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof (Button));
 
         #endregion
 

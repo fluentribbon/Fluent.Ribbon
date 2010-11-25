@@ -1451,8 +1451,9 @@ namespace Fluent
             foreach (var child in children)
             {
                 DependencyObject childObject = child as DependencyObject;
-                if((childObject!=null)&&((childObject as FrameworkElement).IsVisible) &&(IsInRootPopup(childObject)))
+                if ((childObject as FrameworkElement != null) && ((childObject as FrameworkElement).IsVisible) && (IsInRootPopup(childObject)))
                     return true;
+
             }
             
             return false;

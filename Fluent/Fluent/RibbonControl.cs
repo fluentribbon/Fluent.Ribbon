@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net.Cache;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -42,14 +43,14 @@ namespace Fluent
             if (value is string)
             {
                 Image image = new Image();
-                image.Stretch = Stretch.None;
+                image.Stretch = Stretch.Fill;
                 image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
                 return image;
             }
             if (value is ImageSource)
             {
                 Image image = new Image();
-                image.Stretch = Stretch.None;
+                image.Stretch = Stretch.Fill;
                 image.Source = (ImageSource)value;
                 return image;
             }
@@ -560,10 +561,6 @@ namespace Fluent
             }
             if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
-
-            IQuickAccessItemProvider quickAccessElement = source as IQuickAccessItemProvider;
-            if (quickAccessElement!=null && quickAccessElement.QuickAccessElementStyle!=null) Bind(quickAccessElement, element, "QuickAccessElementStyle", RibbonControl.StyleProperty, BindingMode.OneWay);
-
             (element as IRibbonControl).Size = RibbonControlSize.Small;
         }
 
@@ -591,22 +588,6 @@ namespace Fluent
         {
             d.CoerceValue(FrameworkElement.ContextMenuProperty);
         }
-
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        public Style QuickAccessElementStyle
-        {
-            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
-            set { SetValue(QuickAccessElementStyleProperty, value); }
-        }
-
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessElementStyleProperty =
-            DependencyProperty.Register("QuickAccessElementStyle", typeof(Style), typeof(RibbonControl), new UIPropertyMetadata(null));
-
 
         #endregion
 
@@ -652,6 +633,60 @@ namespace Fluent
         /// <param name="current">Current value</param>
         protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+        }
+
+        #endregion
+
+        #region StaticMethods
+
+        /// <summary>
+        /// Returns screen workarea in witch control is placed
+        /// </summary>
+        /// <param name="control">Control</param>
+        /// <returns>Workarea in witch control is placed</returns>
+        public static Rect GetControlWorkArea(FrameworkElement control)
+        {
+            Point tabItemPos = control.PointToScreen(new Point(0, 0));
+            NativeMethods.Rect tabItemRect = new NativeMethods.Rect();
+            tabItemRect.Left = (int)tabItemPos.X;
+            tabItemRect.Top = (int)tabItemPos.Y;
+            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+            System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            if (monitor != System.IntPtr.Zero)
+            {
+                NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
+                monitorInfo.Size = Marshal.SizeOf(monitorInfo);
+                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                return new Rect(monitorInfo.Work.Left, monitorInfo.Work.Top, monitorInfo.Work.Right - monitorInfo.Work.Left, monitorInfo.Work.Bottom - monitorInfo.Work.Top);
+            }
+            return new Rect();
+        }
+
+        /// <summary>
+        /// Returns monitor in witch control is placed
+        /// </summary>
+        /// <param name="control">Control</param>
+        /// <returns>Workarea in witch control is placed</returns>
+        public static Rect GetControlMonitor(FrameworkElement control)
+        {
+            Point tabItemPos = control.PointToScreen(new Point(0, 0));
+            NativeMethods.Rect tabItemRect = new NativeMethods.Rect();
+            tabItemRect.Left = (int)tabItemPos.X;
+            tabItemRect.Top = (int)tabItemPos.Y;
+            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+            System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            if (monitor != System.IntPtr.Zero)
+            {
+                NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
+                monitorInfo.Size = Marshal.SizeOf(monitorInfo);
+                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                return new Rect(monitorInfo.Monitor.Left, monitorInfo.Monitor.Top, monitorInfo.Monitor.Right - monitorInfo.Monitor.Left, monitorInfo.Monitor.Bottom - monitorInfo.Monitor.Top);
+            }
+            return new Rect();
         }
 
         #endregion

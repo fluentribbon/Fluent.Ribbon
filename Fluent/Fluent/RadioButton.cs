@@ -202,20 +202,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        public Style QuickAccessElementStyle
-        {
-            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
-            set { SetValue(QuickAccessElementStyleProperty, value); }
-        }
-
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(RadioButton));
-
         #endregion
 
         #region Implementation of IKeyTipedControl

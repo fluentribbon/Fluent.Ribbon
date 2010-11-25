@@ -46,7 +46,11 @@ namespace Fluent
         /// <summary>
         /// Collapsed. Group will collapse its content in a single button
         /// </summary>
-        Collapsed
+        Collapsed,
+        /// <summary>
+        /// QuickAccess. Group will collapse its content in a single button in quick access toolbar
+        /// </summary>
+        QuickAccess
     }
 
     /// <summary>
@@ -57,7 +61,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
-    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl
+    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl
     {
         #region Fields
 
@@ -480,7 +484,7 @@ namespace Fluent
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
             RibbonGroupBox box = d as RibbonGroupBox;
-            if (box.State != RibbonGroupBoxState.Collapsed) return false;
+            if ((box.State != RibbonGroupBoxState.Collapsed)&&(box.State != RibbonGroupBoxState.QuickAccess)) return false;
             return basevalue;
         }
 
@@ -513,6 +517,7 @@ namespace Fluent
         /// Gets or sets icon
         /// </summary>
         public object Icon
+        //public ImageSource Icon
         {
             get { return GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
@@ -622,7 +627,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (State == RibbonGroupBoxState.Collapsed)
+            if ((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess))
             {
                 IsDropDownOpen = true;
                 e.Handled = true;
@@ -797,7 +802,7 @@ namespace Fluent
             {
                 foreach (Visual visual in e.NewItems)
                 {
-                    RibbonControl.SetAppropriateSize((UIElement)visual, State);
+                    RibbonControl.SetAppropriateSize((UIElement)visual, State==RibbonGroupBoxState.QuickAccess?RibbonGroupBoxState.Collapsed:State);
                 }
             }
             base.OnItemsChanged(e);
@@ -859,7 +864,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((State == RibbonGroupBoxState.Collapsed) && (popup != null))
+            if (((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess)) && (popup != null))
             {
                 e.Handled = true;
                 if (!IsDropDownOpen)
@@ -954,10 +959,13 @@ namespace Fluent
 
             groupBox.DropDownOpened += OnQuickAccessOpened;
             groupBox.DropDownClosed += OnQuickAccessClosed;
-            groupBox.State = RibbonGroupBoxState.Collapsed;
+            groupBox.State = RibbonGroupBoxState.QuickAccess;
 
-            RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
-
+            
+            //RibbonControl.BindQuickAccessItem(this, groupBox);
+            //if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
+            //RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            
             if (Icon != null)
             {
                 Visual iconVisual = Icon as Visual;
@@ -971,9 +979,7 @@ namespace Fluent
                 }
                 else RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
             }
-            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
-
-            if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
+            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);            
 
             return groupBox;
         }
@@ -1111,19 +1117,18 @@ namespace Fluent
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
             DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
 
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        public Style QuickAccessElementStyle
-        {
-            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
-            set { SetValue(QuickAccessElementStyleProperty, value); }
-        }
+        #endregion
+
+        #region Implementation of IKeyTipedControl
 
         /// <summary>
-        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
+        /// Handles key tip pressed
         /// </summary>
-        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(RibbonGroupBox));
+        public void OnKeyTipPressed()
+        {
+            if((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess))
+                IsDropDownOpen = true;
+        }
 
         #endregion
     }

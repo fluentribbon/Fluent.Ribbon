@@ -24,7 +24,20 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="FocusManager.IsFocusScope" Value="False"/>
-    <Setter Property="QuickAccessElementStyle" Value="{DynamicResource RibbonGroupBoxQuickAccessStyle}"/>
+    <!--<Setter Property="QuickAccessElementStyle" Value="{DynamicResource RibbonGroupBoxQuickAccessStyle}"/>-->
+    <Style.Triggers>
+      <Trigger Property="State" Value="QuickAccess">
+        <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
+        <Setter Property="SnapsToDevicePixels" Value="False"/>
+      </Trigger>
+    </Style.Triggers>
   </Style>
   <Style x:Key="RibbonGroupBoxQuickAccessStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
     <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
@@ -51,8 +64,8 @@
               </Rectangle.Fill>
             </Rectangle>
             <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-              <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="3,2" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-              <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2"/>
+              <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="1,1,0,0" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+              <Fluent:TwoLineLabel Visibility="Collapsed" x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2"/>
             </StackPanel>
           </Grid>
         </Border>

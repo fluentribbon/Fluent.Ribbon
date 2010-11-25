@@ -755,7 +755,26 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(1000.0));
+            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.PositiveInfinity));
+
+        #endregion
+
+        #region DropDownHeight
+
+        /// <summary>
+        /// Gets or sets initial dropdown height
+        /// </summary>
+        public double DropDownHeight
+        {
+            get { return (double)GetValue(DropDownHeightProperty); }
+            set { SetValue(DropDownHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// /Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DropDownHeightProperty =
+            DependencyProperty.Register("DropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -1042,6 +1061,17 @@ namespace Fluent
                 focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
                 focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
             }
+
+            //if (ResizeMode != ContextMenuResizeMode.None)
+            {
+                scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, MaxDropDownHeight);
+                if (!double.IsNaN(DropDownHeight)) initialHeight = Math.Min(DropDownHeight, MaxDropDownHeight);
+                if (scrollViewer.DesiredSize.Height > initialHeight)
+                {
+                    scrollViewer.Height = initialHeight;
+                }
+            }
         }
 
         /// <summary>
@@ -1282,20 +1312,6 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
-
-        /// <summary>
-        /// Gets or sets style of element on quick access toolbar
-        /// </summary>
-        public Style QuickAccessElementStyle
-        {
-            get { return (Style)GetValue(QuickAccessElementStyleProperty); }
-            set { SetValue(QuickAccessElementStyleProperty, value); }
-        }
-
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for QuickAccessElementStyle.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessElementStyleProperty = RibbonControl.QuickAccessElementStyleProperty.AddOwner(typeof(InRibbonGallery));
 
         #endregion
 
