@@ -23,7 +23,7 @@ namespace Fluent
     [ContentProperty("Header")]
     public class CheckBox : System.Windows.Controls.CheckBox, IRibbonControl, IQuickAccessItemProvider
     {
-         #region Properties
+        #region Properties
 
         #region Size Property
 
@@ -225,8 +225,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            IsChecked = !IsChecked;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));            
+            OnClick();
         }
 
         #endregion

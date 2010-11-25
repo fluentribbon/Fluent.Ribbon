@@ -257,7 +257,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            OnClick();
         }
 
         #endregion

@@ -35,6 +35,8 @@ namespace FluentTest
     /// </summary>
     public partial class TestWindow : RibbonWindow
     {
+        
+
         private string[] data = new string[] {"Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol"};
         public string[] FontsData
         {
@@ -91,11 +93,12 @@ namespace FluentTest
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
             buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
-            ribbon.DataContext = this;            
+            ribbon.DataContext = this;
+            DataContext = this;
             /*DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };
-            timer.Start();*/            
+            timer.Start();*/
         }
         static AdornerLayer GetAdornerLayer(UIElement element)
         {
@@ -327,6 +330,7 @@ namespace FluentTest
         
         private void OnFormatPainterClick(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("FP");
             /*OpenFileDialog dlg = new OpenFileDialog();
             dlg.ShowDialog(this);*/
             /*if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
@@ -384,6 +388,24 @@ namespace FluentTest
             BuildBackLogicalTree(parent as DependencyObject);
                 
             
+        }
+
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show("Executed");
+        }
+
+        private void New_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+     
+        }
+
+        static RoutedCommand new1 = new RoutedCommand("New1", typeof(TestWindow));
+
+        static public RoutedCommand New1
+        {
+            get { return new1; }
         }
     }
 

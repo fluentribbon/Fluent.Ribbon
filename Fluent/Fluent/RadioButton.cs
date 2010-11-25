@@ -225,8 +225,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            IsChecked = true;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            OnClick();
         }
 
         #endregion

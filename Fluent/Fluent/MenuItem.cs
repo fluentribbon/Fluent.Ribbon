@@ -533,7 +533,7 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            if (!HasItems) RaiseEvent(new RoutedEventArgs(ClickEvent));
+            if (!HasItems) OnClick();
             else
             {
                 Keyboard.Focus(this);

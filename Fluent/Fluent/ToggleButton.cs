@@ -373,8 +373,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            IsChecked = !IsChecked;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));            
+            OnClick();
         }
 
         #endregion
