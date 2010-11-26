@@ -33,6 +33,15 @@ namespace Fluent
     [ContentProperty("Content")]
     public class Backstage : RibbonControl
     {
+        #region Events
+
+        /// <summary>
+        /// Occurs when IsOpen has been changed
+        /// </summary>
+        public event DependencyPropertyChangedEventHandler IsOpenChanged;
+
+        #endregion
+
         #region Fields
 
         // Adorner for backstage
@@ -66,6 +75,9 @@ namespace Fluent
             Backstage backstage = (Backstage)d;
             if ((bool)e.NewValue) backstage.Show();
             else backstage.Hide();
+
+            // Invoke the event
+            if (backstage.IsOpenChanged != null) backstage.IsOpenChanged(backstage, e);
         }
 
         #endregion
