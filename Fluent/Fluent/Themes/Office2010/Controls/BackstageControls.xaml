@@ -14,7 +14,7 @@
   		<Border x:Name="border" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
   			<Border x:Name="border1" BorderBrush="Black" BorderThickness="0" CornerRadius="2" Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
   				<StackPanel Margin="2" x:Name="stackPanel">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="9,9,9,0" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="9,9,9,0" SnapsToDevicePixels="True"/>
   					<Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Header}"/>
   				</StackPanel>
   			</Border>
@@ -94,7 +94,7 @@
       <Border x:Name="border" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
         <Border x:Name="border1" BorderBrush="Black" BorderThickness="0" CornerRadius="2" Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
           <StackPanel Margin="2" x:Name="stackPanel">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="9,9,9,0" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="9,9,9,0" SnapsToDevicePixels="True"/>
             <Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Header}"/>
           </StackPanel>
         </Border>
@@ -183,7 +183,7 @@
   		<Border x:Name="PART_ButtonBorder" BorderThickness="1" CornerRadius="3" Margin="0,0,0,1" BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
   			<Border x:Name="border1" BorderBrush="Black" BorderThickness="0" CornerRadius="2" Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
   				<StackPanel x:Name="stackPanel" Margin="2">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="7,7,7,0" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="7,7,7,0" SnapsToDevicePixels="True"/>
   					<Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="5,5,5,3" VerticalAlignment="Center" HasGlyph="True" Text="{TemplateBinding Header}"/>
   				</StackPanel>
   			</Border>

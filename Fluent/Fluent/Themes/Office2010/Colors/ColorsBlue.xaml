@@ -251,5 +251,6 @@
     <GradientStop Color="#FF666A6F" Offset="1"/>
   </LinearGradientBrush>
 
-
+  <SolidColorBrush x:Key="ResizeGripFront" Color="#FF849DBD"/>
+  <SolidColorBrush x:Key="ResizeGripBack" Color="#FFD4E1F1"/>
 </ResourceDictionary>

@@ -8,6 +8,40 @@
 	<BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
 	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
+  <Style TargetType="{x:Type ResizeGrip}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ResizeGrip}">
+          <Grid Width="11" Height="11" Background="Transparent">
+            <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>              
+            </Grid>
+            <Grid Width="3" Height="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Width="3" Height="3" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Width="3" Height="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Top">
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            </Grid>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <ControlTemplate x:Key="DwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     <Grid>
       <AdornerDecorator x:Name="adornerDecorator" Margin="0">
@@ -19,11 +53,11 @@
 
           <Grid x:Name="grid" Background="{TemplateBinding Background}" Margin="{TemplateBinding GlassBorderThickness}"/>
           <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,8,8" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+            <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True"/>
           </StackPanel>
           <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
           <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6" Background="Transparent"
+                VerticalAlignment="Bottom" Focusable="False" Margin="0,0,5.5,5.5" Background="Transparent"
                 Visibility="Collapsed"/>
         </Grid>
       </AdornerDecorator>
@@ -61,20 +95,20 @@
           <Grid x:Name="PART_MainGrid" Margin="0" Background="#00FFFFFF">
             <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
             <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-              <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" Stretch="Uniform"/>
+              <Image x:Name="iconImage" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" Stretch="Uniform"/>
             </StackPanel>
             <StackPanel x:Name="PART_ButtonsPanel" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" Orientation="Horizontal">
               <Button x:Name="minimizeButton" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="1,0,0,1" Command="{x:Static Fluent:RibbonWindow.MinimizeCommand}">
-                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMinimize}" SnapsToDevicePixels="True"/>
               </Button>
               <Button x:Name="maximizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.MaximizeCommand}">
-                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonMaximize}" SnapsToDevicePixels="True"/>
               </Button>
               <Button x:Name="normalizeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,0,1" Command="{x:Static Fluent:RibbonWindow.NormalizeCommand}">
-                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonNormalize}" SnapsToDevicePixels="True"/>
               </Button>
               <Button x:Name="closeButton" Margin="-1,0,0,0" Style="{DynamicResource CaptionButtonStyle}" Width="35" Height="19" BorderThickness="0,0,1,1" Background="Red" Command="{x:Static Fluent:RibbonWindow.CloseCommand}">
-                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                <Image Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{DynamicResource ImageCaptionButtonClose}" SnapsToDevicePixels="True"/>
               </Button>
             </StackPanel>
             <Border x:Name="border4" Margin="{TemplateBinding GlassBorderThickness}" >
@@ -84,7 +118,7 @@
             </Border>
             <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
             <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
-        VerticalAlignment="Bottom" Width="17" Height="17" Focusable="False" Margin="0,0,6,6"
+        VerticalAlignment="Bottom" Focusable="False" Margin="0,0,5.5,5.5"
         Cursor="SizeNWSE" Visibility="Collapsed"/>
           </Grid>
         </Grid>

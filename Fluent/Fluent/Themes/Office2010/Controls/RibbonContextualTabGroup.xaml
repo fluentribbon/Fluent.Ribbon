@@ -49,7 +49,7 @@
     	</Border>
       <ControlTemplate.Triggers>
         <Trigger Property="IsWindowMaximized" Value="True">
-          <Setter Property="Margin" TargetName="rootBorder" Value="2,2,0,0"/>          
+          <Setter Property="Margin" TargetName="rootBorder" Value="2,2,0,-0.1"/>          
         </Trigger>
       </ControlTemplate.Triggers>
     </ControlTemplate>

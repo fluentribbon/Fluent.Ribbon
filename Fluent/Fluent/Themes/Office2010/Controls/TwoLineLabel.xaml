@@ -10,7 +10,7 @@
   		<StackPanel x:Name="stackPanel1" Margin="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
   			<TextBlock TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PART_TextRun2"></TextBlock>
   			<Border x:Name="border" Height="Auto" Width="5" HorizontalAlignment="Center" Margin="0">
-  				<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,0"  RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
+  				<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,0" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
   			</Border>
   		</StackPanel>
   	</StackPanel>

@@ -55,9 +55,9 @@
       </Border>
       <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
       <TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
-      <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-      <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-      <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="3,2,2,2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+      <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed"/>
+      <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True"/>
+      <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="3,2,2,2" SnapsToDevicePixels="True"/>
       <TextBlock x:Name="gestureTextBlock" Text="{TemplateBinding InputGestureText}" Width="Auto" Height="Auto" Margin="3,3,15,3" VerticalAlignment="Center" Grid.Column="2"/>
     </Grid>
     <ControlTemplate.Triggers>
@@ -120,9 +120,9 @@
       </Border>
       <TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
       <TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
-      <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-      <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-      <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="3,2,2,2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+      <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed"/>
+      <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True"/>
+      <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="3,2,2,2" SnapsToDevicePixels="True"/>
       <Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="1,0,9,0" Width="4" Data="M0,0L1,1 0,2z" Height="7" Grid.Column="3">
         <Path.Fill>
           <LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">
@@ -292,9 +292,9 @@
       
     	<TextBlock x:Name="textBlock_Copy" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,13,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" d:LayoutOverrides="Width" Visibility="Hidden" HorizontalAlignment="Left"/>
     	<TextBlock x:Name="textBlock" Text="{TemplateBinding Header}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" d:LayoutOverrides="Width" TextTrimming="CharacterEllipsis"/>
-    	<Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-    	<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True" RenderOptions.BitmapScalingMode="NearestNeighbor" />
-    	<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, Converter={StaticResource StringToImageConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" Margin="3,2,2,2" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+    	<Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed"/>
+    	<Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="/Fluent;Component/Themes/Office2010/Images/Checked.png" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True"/>
+    	<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, Converter={StaticResource StringToImageConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" Margin="3,2,2,2" SnapsToDevicePixels="True"/>
     	<Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="1,0,9,0" Width="4" Data="M0,0L1,1 0,2z" Height="7" Grid.Column="3">
     		<Path.Fill>
     			<LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">

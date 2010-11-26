@@ -1342,11 +1342,12 @@ namespace Fluent
                     int mp = lParam.ToInt32();
                     if (!mainGrid.IsVisible) return IntPtr.Zero;
                     Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
+                    //ptMouse = DpiHelper.DevicePixelsToLogical(ptMouse);
                     ptMouse = mainGrid.PointFromScreen(ptMouse);
                     /*
                     Point mousePosWindow = mousePosScreen;
                     mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);*/
-                    ptMouse = DpiHelper.DevicePixelsToLogical(ptMouse);
+                    
                     IInputElement inputElement = mainGrid.InputHitTest(ptMouse);
                     if (inputElement != null)
                     {

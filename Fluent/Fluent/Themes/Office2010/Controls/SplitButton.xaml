@@ -47,7 +47,7 @@
           <Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="{DynamicResource TransparentBrush}" BorderThickness="0,1,0,0" Margin="-1,0"/>
           <Border x:Name="downRect_Copy" VerticalAlignment="Bottom" Height="27" Background="{DynamicResource TransparentBrush}" BorderThickness="1" Margin="-1,1,-1,0" IsHitTestVisible="False"/>
           <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" IsHitTestVisible="False" Margin="0">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{x:Null}" Width="32" Margin="3,2" SnapsToDevicePixels="True" IsHitTestVisible="false" Visibility="Hidden" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{x:Null}" Width="32" Margin="3,2" SnapsToDevicePixels="True" IsHitTestVisible="false" Visibility="Hidden"/>
             <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2" HasGlyph="{TemplateBinding HasTriangle}"/>
           </StackPanel>
           <Fluent:ToggleButton x:Name="PART_Button" Command="{TemplateBinding Command}" CommandParameter="{TemplateBinding CommandParameter}" CommandTarget="{TemplateBinding CommandTarget}" Margin="-2,-2,-2,26" Height="Auto" Width="Auto" Style="{DynamicResource InnerButtonStyle}" LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" IsEnabled="{TemplateBinding IsButtonEnabled}" Header="{TemplateBinding Header}" ToolTip="{TemplateBinding ToolTip}" IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" IsDefinitive="{TemplateBinding IsDefinitive}" CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}"/>
@@ -285,7 +285,7 @@
             </Rectangle.Fill>
           </Rectangle>
           <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" SnapsToDevicePixels="True">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{TemplateBinding LargeIcon}" Width="32" Margin="0,2,0,1" RenderOptions.BitmapScalingMode="NearestNeighbor" SnapsToDevicePixels="True"/>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{TemplateBinding LargeIcon}" Width="32" Margin="0,2,0,1" SnapsToDevicePixels="True"/>
             <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2" Visibility="Collapsed"/>
           </StackPanel>
         </Grid>
