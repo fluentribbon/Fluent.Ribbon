@@ -174,6 +174,13 @@ namespace Fluent
         {
             CoerceValue(HeaderProperty);
             CoerceValue(KeyTip.KeysProperty);
+
+            AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
+        }
+
+        private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
+        {
+            IsOpen = false;
         }
 
         #endregion
