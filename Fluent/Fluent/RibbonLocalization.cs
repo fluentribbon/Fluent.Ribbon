@@ -1210,6 +1210,13 @@ namespace Fluent
             ribbonContextMenuShowAbove = "在功能区上方显示快速访问工具栏";
             ribbonContextMenuCustomizeRibbon = "自定义功能区...";
             ribbonContextMenuMinimizeRibbon = "功能区最小化";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "此命令当前已被禁用。";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "自定义状态栏";
         }
 
         #endregion
