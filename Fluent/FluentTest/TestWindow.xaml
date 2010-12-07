@@ -453,7 +453,7 @@
         
               </Fluent:InRibbonGallery>
              
-     <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="1000">
+     <Fluent:SplitButton Icon="Images/Default.png" LargeIcon="/Images/GalleryLarge.png" Header="Split" Fluent:KeyTip.Keys="S" Click="OnSplitClick" ResizeMode="Both" SizeDefinition="Large" MaxDropDownHeight="1000" DropDownHeight="300">
                 <Fluent:Gallery x:Name="gallery" MinHeight="60" MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="128" ItemHeight="128">                  
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >1</TextBlock></Border>
                   <Border Tag="Group1" BorderThickness="1" BorderBrush="Aqua"><TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" >2</TextBlock></Border>

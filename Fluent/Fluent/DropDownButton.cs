@@ -257,6 +257,25 @@ namespace Fluent
 
         #endregion
 
+        #region DropDownHeight
+
+        /// <summary>
+        /// Gets or sets initial dropdown height
+        /// </summary>
+        public double DropDownHeight
+        {
+            get { return (double)GetValue(DropDownHeightProperty); }
+            set { SetValue(DropDownHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// /Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DropDownHeightProperty =
+            DependencyProperty.Register("DropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -413,7 +432,7 @@ namespace Fluent
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
                     if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
                     menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width);
-                    menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), MaxDropDownHeight);
+                    menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), Math.Min(DropDownHeight, MaxDropDownHeight));
                     if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }));
         }
