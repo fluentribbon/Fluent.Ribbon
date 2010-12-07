@@ -777,6 +777,27 @@ namespace Fluent
             DependencyProperty.Register("DropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
+        
+        #region ShowPopupOnTop
+
+        /// <summary>
+        /// Gets a value indicating whether popup is shown on top;
+        /// </summary>
+        public bool ShowPopupOnTop
+        {
+            get { return (bool)GetValue(ShowPopupOnTopProperty); }
+            private set { SetValue(ShowPopupOnTopPropertyKey, value); }
+        }
+
+        // 
+        private static readonly DependencyPropertyKey ShowPopupOnTopPropertyKey = DependencyProperty.RegisterReadOnly("ShowPopupOnTop", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ShowPopupOnTop.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ShowPopupOnTopProperty = ShowPopupOnTopPropertyKey.DependencyProperty;
+
+        #endregion
 
         #endregion
 

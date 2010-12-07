@@ -28,9 +28,9 @@ namespace Fluent
         /// <summary>
         /// Run with text
         /// </summary>
-        private TextBlock textRun;
+        private AccessText textRun;
 
-        private TextBlock textRun2;
+        private AccessText textRun2;
 
         #endregion
 
@@ -145,8 +145,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            textRun = GetTemplateChild("PART_TextRun") as TextBlock;
-            textRun2 = GetTemplateChild("PART_TextRun2") as TextBlock;
+            textRun = GetTemplateChild("PART_TextRun") as AccessText;
+            textRun2 = GetTemplateChild("PART_TextRun2") as AccessText;
             UpdateTextRun();
         }
 
