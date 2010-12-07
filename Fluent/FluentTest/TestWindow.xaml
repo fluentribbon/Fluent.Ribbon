@@ -181,8 +181,101 @@
           </Fluent:Button.ToolTip>
         </Fluent:Button>
         <Fluent:Button x:Name="copyButton" Fluent:KeyTip.Keys="C" Header="Copy" Icon="Images\Copy.png" SizeDefinition="Middle,Small" Command="Copy"/>
-        <Fluent:Button Fluent:KeyTip.Keys="FP" Header="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>        
-      </Fluent:RibbonGroupBox>
+        <Fluent:Button Fluent:KeyTip.Keys="FP" Header="Format Painter" Icon="Images\FormatPainter.png" SizeDefinition="Middle,Small" Click="OnFormatPainterClick"/>
+                  <Fluent:DropDownButton Name="buttonWatermark" Header="Watermark" Icon="Images\watermark32.png" LargeIcon="Images\watermark32.png" IsEnabled="True" VerticalAlignment="Top">
+                    <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}" GroupBy="Tag" x:Name="WatermarkGallery" MinItemsInRow="1" MaxItemsInRow="3" Orientation="Horizontal" ItemWidth="100" ItemHeight="100">
+                    
+                      <Fluent:Gallery.Filters>
+                        <Fluent:GalleryGroupFilter Title="All" Groups="Confidential,Disclaimers,Urgent" x:Name="galleryFilterAll3"/>
+                        <Fluent:GalleryGroupFilter Title="Confidential" Groups="Confidential"/>
+                        <Fluent:GalleryGroupFilter Title="Disclaimers" Groups="Disclaimers"/>
+                        <Fluent:GalleryGroupFilter Title="Urgent" Groups="Urgent"/>
+                      </Fluent:Gallery.Filters>
+
+                      <!-- Confidential group items -->
+                      <Border Tag="Confidential" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\confidential.png" Stretch="None" />
+                          <TextBlock Text="CONFIDENTIAL 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Confidential" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\confidential2.png" Stretch="None" />
+                          <TextBlock Text="CONFIDENTIAL 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Confidential" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\donotcopy1.png" Stretch="None" />
+                          <TextBlock Text="DO NOT COPY 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Confidential" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\donotcopy2.png" Stretch="None" />
+                          <TextBlock Text="DO NOT COPY 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+
+                      <!-- Disclaimers group items -->
+                      <Border Tag="Disclaimers" x:Name="Disclaimers" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\draft1.png" Stretch="None" />
+                          <TextBlock Text="DRAFT 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Disclaimers" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\draft2.png" Stretch="None" />
+                          <TextBlock Text="DRAFT 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Disclaimers" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\sample1.png" Stretch="None" />
+                          <TextBlock Text="SAMPLE 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Disclaimers" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\sample2.png" Stretch="None" />
+                          <TextBlock Text="SAMPLE 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+
+                      <!-- Disclaimers group items -->
+                      <Border Tag="Urgent" x:Name="Urgent" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\asap1.png" Stretch="None" />
+                          <TextBlock Text="ASAP 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Urgent" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\asap2.png" Stretch="None" />
+                          <TextBlock Text="ASAP 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Urgent" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\urgent1.png" Stretch="None" />
+                          <TextBlock Text="URGENT 1" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                      <Border Tag="Urgent" BorderThickness="4" BorderBrush="Transparent">
+                        <StackPanel>
+                          <Image VerticalAlignment="Top" Source="Images\urgent2.png" Stretch="None" />
+                          <TextBlock Text="URGENT 2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                        </StackPanel>
+                      </Border>
+                    </Fluent:Gallery>
+
+                    <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
+                    <Fluent:MenuItem Name="buttonRemoveWatermark" Header="Remove Watermark" Icon="Images\removeWatermark16.png" Size="Middle" IsEnabled="True" />
+                  </Fluent:DropDownButton>
+
+                </Fluent:RibbonGroupBox>
         
     <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF" x:Name="Font" Header="Font" IsLauncherVisible="True" LauncherClick="OnLauncherButtonClick" Icon="pack://application:,,,/FluentTest;component/Images/FontColor.png" LauncherIcon="/Images/FontColor.png" LauncherKeys="NF">
       <Fluent:RibbonToolBar>

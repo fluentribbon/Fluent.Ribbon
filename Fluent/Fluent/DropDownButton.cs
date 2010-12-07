@@ -359,7 +359,7 @@ namespace Fluent
                     if (isFirstTime) popup.Opacity = 0;
                     if (menuPanel != null)
                     {
-                        if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) 
+                        if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/) 
                             scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                         menuPanel.Width = double.NaN;
                         menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
@@ -391,7 +391,7 @@ namespace Fluent
                     Dispatcher.Invoke(DispatcherPriority.Send,(ThreadStart)(()=>{                        
                         if (menuPanel != null)
                         {
-                            if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) 
+                            if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/) 
                                 scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                             menuPanel.Width = double.NaN;
                             menuPanel.Height = double.NaN;

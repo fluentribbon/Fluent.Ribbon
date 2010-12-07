@@ -1088,10 +1088,19 @@ namespace Fluent
                 scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, MaxDropDownHeight);
                 if (!double.IsNaN(DropDownHeight)) initialHeight = Math.Min(DropDownHeight, MaxDropDownHeight);
+                double menuHeight = 0;
+                if (Menu != null)
+                {
+                    Menu.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    menuHeight = Menu.DesiredSize.Height;
+                }
                 if (scrollViewer.DesiredSize.Height > initialHeight)
                 {
-                    scrollViewer.Height = initialHeight;
+                    scrollViewer.Height = initialHeight - menuHeight;
+                    if (scrollViewer.Height < galleryPanel.GetItemSize().Height)
+                        scrollViewer.Height = galleryPanel.GetItemSize().Height;
                 }
+                galleryPanel.Width = minimalGallerylWidth;
             }
         }
 
@@ -1163,7 +1172,7 @@ namespace Fluent
             scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
 
             menuPanel.Width = Double.NaN;
-            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = 500;
+            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = galleryPanel.ActualWidth;
             galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, minimalGallerylWidth);
 
         }
