@@ -225,6 +225,9 @@ namespace Fluent
 
         private bool isSelectionChanged;
 
+        bool templateApplyed;
+
+
         #endregion
 
         #region Properties
@@ -488,7 +491,7 @@ namespace Fluent
 
         private void UpdateSelectedColor(Color? color)
         {
-            if (!isSelectionChanged && IsLoaded)
+            if (!isSelectionChanged && IsLoaded && templateApplyed)
             {
                 isSelectionChanged = true;
                 bool isSetted = false;
@@ -749,6 +752,7 @@ namespace Fluent
             if (recentColorsListBox != null) recentColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
 
             base.OnApplyTemplate();
+            templateApplyed = true;
 
             UpdateSelectedColor(SelectedColor);
         }

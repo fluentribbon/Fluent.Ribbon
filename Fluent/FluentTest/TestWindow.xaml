@@ -400,7 +400,7 @@
               </Rectangle>
             </Grid>
           </Fluent:DropDownButton.Icon>
-          <Fluent:ColorGallery Mode="StandardColors" x:Name="standardColorGallery" SelectedColor="Pink"/>
+          <Fluent:ColorGallery Mode="StandardColors" x:Name="standardColorGallery" SelectedColor="{Binding SelectedColor, ElementName=highlightColorGallery, Mode=TwoWay}"/>
         </Fluent:DropDownButton>
         <Fluent:DropDownButton x:Name="buttonTextHighlightColor" HorizontalAlignment="Left" SizeDefinition="Small">
           <Fluent:DropDownButton.Icon>
