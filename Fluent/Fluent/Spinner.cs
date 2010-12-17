@@ -92,13 +92,37 @@ namespace Fluent
             if (IsTemplateValid())
             {
                 textBox.Text = Value.ToString(Format, CultureInfo.CurrentCulture);
+                Text = textBox.Text;
             }
         }
 
         #endregion
 
+        #region Text
+
+        /// <summary>
+        /// Gets current text from the spinner
+        /// </summary>
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            private set { SetValue(TextPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey TextPropertyKey =
+            DependencyProperty.RegisterReadOnly("Text", typeof(string),
+            typeof(Spinner), new UIPropertyMetadata(null));
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Text.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
+
+        #endregion
+
         #region Increment
-        
+
         /// <summary>
         /// Gets or sets a value added or subtracted from the value property
         /// </summary>
