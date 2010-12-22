@@ -143,7 +143,7 @@
 					<Image Margin="7,5,3,7" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{TemplateBinding Property=Image}"/>
           			<TextBlock Text="{TemplateBinding Property=Text}" TextWrapping="Wrap" Margin="8,0,8,6" Foreground="#FF414141" Grid.Column="1"/>
           		</Grid>
-                  <Border x:Name="separator" Height="2" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1" IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
+                  <Border x:Name="separator" Height="2" Width="Auto" HorizontalAlignment="Stretch" Visibility="Visible" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1" IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>                  
                   <Grid x:Name="disableReasonSection">
                     <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png" />                    
 					<Grid>
@@ -172,11 +172,11 @@
           <ControlTemplate.Triggers>            
             <Trigger Property="IsEnabled" SourceName="separator" Value="False">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Visible"/>
-              <Setter Property="Visibility" TargetName="separator" Value="Visible"/>
+              <!--<Setter Property="Visibility" TargetName="separator" Value="Visible"/>-->
             </Trigger>
             <Trigger Property="IsEnabled" SourceName="separator" Value="True">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>
-              <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
+              <!-- <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>-->
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
