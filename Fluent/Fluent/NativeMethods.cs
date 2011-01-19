@@ -1385,6 +1385,13 @@ namespace Fluent
         public static bool IsDwmEnabled()
         {
             if (idDwmDllNotFound) return false;
+
+            if (Environment.OSVersion.Version.Major < 6)
+            {
+                idDwmDllNotFound = true;
+                return false;
+            }
+
             try
             {
                 return DwmIsCompositionEnabled();
