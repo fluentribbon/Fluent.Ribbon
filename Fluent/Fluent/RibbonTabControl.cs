@@ -358,7 +358,8 @@ namespace Fluent
         {            
             if (e.AddedItems.Count > 0)
             {
-                if (IsMinimized)
+                Backstage backstage = Menu as Backstage;
+                if (IsMinimized && (backstage == null || !backstage.IsOpen))
                 {
                     if (oldSelectedItem == e.AddedItems[0])
                         IsDropDownOpen = !IsDropDownOpen;
@@ -371,6 +372,8 @@ namespace Fluent
 
                 UpdateSelectedContent();
             }
+            else IsDropDownOpen = false;
+
             if (e.RemovedItems.Count > 0)
             {
                 oldSelectedItem = e.RemovedItems[0];

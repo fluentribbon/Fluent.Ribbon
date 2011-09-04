@@ -294,7 +294,7 @@ namespace Fluent
             if (ribbon != null)
             {
                 ribbon.SelectedTabChanged -= OnSelectedRibbonTabChanged;
-                ribbon.SelectedTabItem = savedTabItem;
+                if (!ribbon.IsMinimized) ribbon.SelectedTabItem = savedTabItem;
                 // Restore enable under QAT & title bar
                 if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = true;
                 if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = true;
@@ -317,7 +317,8 @@ namespace Fluent
             foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
             collapsedElements.Clear();
 
-            if (ribbon != null) ribbon.SelectedTabItem = savedTabItem;
+            if (ribbon != null && !ribbon.IsMinimized) ribbon.SelectedTabItem = savedTabItem;
+
         }
 
         // Finds underlying ribbon control
