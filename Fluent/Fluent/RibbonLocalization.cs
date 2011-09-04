@@ -986,6 +986,7 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
             ribbonContextMenuCustomizeRibbon = "Personnaliser le Ruban...";
             ribbonContextMenuMinimizeRibbon = "Minimiser le Ruban";
+            customizeStatusBar = "Personnaliser la barre de statut";
 
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             screenTipDisableReasonHeader = "Cette commande est actuellement désactivée.";

@@ -79,8 +79,8 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty DescriptionProperty =
             DependencyProperty.Register("Description", typeof(string), typeof(MenuItem), new UIPropertyMetadata(""));
-        
-    
+
+
         #endregion
 
         #region Size Property
@@ -324,7 +324,7 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
             bool oldValue = (bool)e.OldValue;
             MenuItem button = (MenuItem)d;
-           
+
             // Uncheck other toggle buttons
             if (newValue && button.GroupName != null)
             {
@@ -389,6 +389,16 @@ namespace Fluent
             ToolTip = new ToolTip();
             (ToolTip as ToolTip).Template = null;
             FocusManager.SetIsFocusScope(this, true);
+            this.MouseWheel += OnMenuItemMouseWheel;
+        }
+
+        // Fix to raise MouseWhele event
+        private void OnMenuItemMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (((MenuItem)sender).Parent as ListBox != null)
+            {
+                ((ListBox)((MenuItem)sender).Parent).RaiseEvent(e);
+            }
         }
 
         #endregion
@@ -397,7 +407,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be synchronized with the original 
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -433,8 +443,8 @@ namespace Fluent
                     RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
                     button.DropDownOpened += OnQuickAccessOpened;
-                    return button;   
-                }                
+                    return button;
+                }
             }
             else
             {
@@ -646,9 +656,9 @@ namespace Fluent
         /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
-        protected override void  OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
- 	        Debug.WriteLine("MenuItem focus lost - "+this); 
+            Debug.WriteLine("MenuItem focus lost - " + this);
             //base.OnPreviewLostKeyboardFocus(e);
             //e.Handled = true;
         }
@@ -681,7 +691,7 @@ namespace Fluent
         {
             DependencyObject parent = Parent;
             while (parent != null)
-            {                
+            {
                 IDropDownControl dropDown = parent as IDropDownControl;
                 if (dropDown != null) return parent;
                 System.Windows.Controls.MenuItem menuItem = parent as System.Windows.Controls.MenuItem;
@@ -733,10 +743,10 @@ namespace Fluent
         void OnDropDownOpened(object sender, EventArgs e)
         {
             if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-            
-                menuPanel.Width = double.NaN;
-                menuPanel.Height = double.NaN;
-            
+
+            menuPanel.Width = double.NaN;
+            menuPanel.Height = double.NaN;
+
             if (DropDownOpened != null) DropDownOpened(this, e);
             //Mouse.Capture(this, CaptureMode.SubTree);
         }
