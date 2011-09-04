@@ -315,7 +315,7 @@ namespace Fluent
             {
                 ((GalleryItem)d).BringIntoView();
                 Selector parentSelector = ItemsControl.ItemsControlFromItemContainer(((GalleryItem) d)) as Selector;
-                parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem) d));
+                if (parentSelector != null) parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem) d));
             }
         }
 
