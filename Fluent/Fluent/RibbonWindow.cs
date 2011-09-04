@@ -1351,7 +1351,8 @@ namespace Fluent
                     IInputElement inputElement = mainGrid.InputHitTest(ptMouse);
                     if (inputElement != null)
                     {
-                        if ((inputElement as FrameworkElement).Name == "PART_TitleBar") ht = NativeMethods.HTCAPTION;                        
+                        FrameworkElement frameworkElement = inputElement as FrameworkElement;
+                        if ((frameworkElement!= null) && (frameworkElement.Name == "PART_TitleBar")) ht = NativeMethods.HTCAPTION;                        
                         else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
                     }                    
                 }
