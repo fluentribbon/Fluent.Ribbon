@@ -472,9 +472,8 @@ namespace Fluent
                 char symbol = text[i];
                 if (Char.IsDigit(symbol) || 
                     symbol == ',' ||
-                    symbol == '+' ||
-                    symbol == '-' || 
-                    symbol == '.') stringBuilder.Append(symbol);
+                    symbol == '.'||
+                    (symbol == '-' && stringBuilder.Length == 0)) stringBuilder.Append(symbol);
             }
             text = stringBuilder.ToString();
 
