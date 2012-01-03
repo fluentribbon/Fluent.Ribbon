@@ -1339,11 +1339,13 @@ namespace Fluent
                 // We want UIElements in the caption area to be actionable so run through a hittest first.
                 if ((ht != NativeMethods.HTCLIENT) && (mainGrid != null) && mainGrid.IsLoaded)
                 {
-                    int mp = lParam.ToInt32();
+                    /*int mp = lParam.ToInt32();
                     if (!mainGrid.IsVisible) return IntPtr.Zero;
                     Point ptMouse = new Point((short)(mp & 0x0000FFFF), (short)((mp >> 16) & 0x0000FFFF));
                     //ptMouse = DpiHelper.DevicePixelsToLogical(ptMouse);
-                    ptMouse = mainGrid.PointFromScreen(ptMouse);
+                    ptMouse = mainGrid.PointFromScreen(ptMouse);*/
+                    var ptMouse = mainGrid.PointFromScreen(mousePosScreen);
+
                     /*
                     Point mousePosWindow = mousePosScreen;
                     mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);*/
