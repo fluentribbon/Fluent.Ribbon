@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentTest dotNET 4.0", "FluentTest\FluentTest dotNET 4.0.csproj", "{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 4.0", "Fluent\Fluent dotNET 4.0.csproj", "{4C92FCF4-3561-499F-BC5B-F2F089863047}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Fluent\\Fluent\u0020dotNET\u00204.0.csproj
+		SccProjectName1 = Fluent
+		SccLocalPath1 = Fluent
+		SccProjectUniqueName2 = FluentTest\\FluentTest\u0020dotNET\u00204.0.csproj
+		SccProjectName2 = FluentTest
+		SccLocalPath2 = FluentTest
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C92FCF4-3561-499F-BC5B-F2F089863047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C92FCF4-3561-499F-BC5B-F2F089863047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C92FCF4-3561-499F-BC5B-F2F089863047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C92FCF4-3561-499F-BC5B-F2F089863047}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

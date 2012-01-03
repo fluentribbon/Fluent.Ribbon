@@ -26,7 +26,7 @@ using System.Windows;
 #endif
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fluent Ribbon Control Suite")]
-[assembly: AssemblyCopyright("Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010")]
+[assembly: AssemblyCopyright("Copyright © Degtyarev Daniel, Rikker Serg. 2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

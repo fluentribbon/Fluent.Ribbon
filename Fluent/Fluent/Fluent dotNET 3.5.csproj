@@ -23,20 +23,20 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\NET3.5\Debug\</OutputPath>
+    <OutputPath>bin\NET 3.5\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\NET3.5\Debug\Fluent.XML</DocumentationFile>
+    <DocumentationFile>bin\NET 3.5\Debug\Fluent.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\NET3.5\Release\</OutputPath>
+    <OutputPath>bin\NET 3.5\Release\</OutputPath>
     <DefineConstants>TRACE;NET35</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\NET3.5\Release\Fluent.XML</DocumentationFile>
+    <DocumentationFile>bin\NET 3.5\Release\Fluent.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

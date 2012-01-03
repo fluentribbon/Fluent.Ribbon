@@ -9,10 +9,14 @@ using System.Windows;
 // associated with an assembly.
 [assembly: AssemblyTitle("Fluent Showcase")]
 [assembly: AssemblyDescription("Showcase of Fluent Ribbon Control Suite")]
-[assembly: AssemblyConfiguration("")]
+#if DEBUG
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fluent Ribbon Control Suite")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Copyright © Degtyarev Daniel, Rikker Serg. 2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +55,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
