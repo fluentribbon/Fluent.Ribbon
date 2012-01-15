@@ -378,7 +378,7 @@ namespace Fluent
                     if (isFirstTime) popup.Opacity = 0;
                     if (menuPanel != null)
                     {
-                        if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/) 
+                        if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
                             scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                         menuPanel.Width = double.NaN;
                         menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
@@ -394,7 +394,7 @@ namespace Fluent
                 //Keyboard.Focus(popup);
                 //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
                 //Debug.WriteLine(Keyboard.FocusedElement);
-                
+
                 focusedElement = Keyboard.FocusedElement;
                 if (focusedElement != null)
                 {
@@ -406,17 +406,18 @@ namespace Fluent
                 if (isFirstTime)
                 {
                     isFirstTime = false;
-                    IsDropDownOpen = false;                    
-                    Dispatcher.Invoke(DispatcherPriority.Send,(ThreadStart)(()=>{                        
+                    IsDropDownOpen = false;
+                    Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
+                    {
                         if (menuPanel != null)
                         {
-                            if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/) 
+                            if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
                                 scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
                             menuPanel.Width = double.NaN;
                             menuPanel.Height = double.NaN;
                             menuPanel.Loaded += OnMenuPanelLoaded;
                         }
-                        IsDropDownOpen = true;                        
+                        IsDropDownOpen = true;
                         OnMenuPanelLoaded(null, null);
                         popup.Opacity = 1;
                     }));
@@ -427,13 +428,14 @@ namespace Fluent
         private void OnMenuPanelLoaded(object sender, RoutedEventArgs e)
         {
             menuPanel.Loaded -= OnMenuPanelLoaded;
-            if (ResizeMode!=ContextMenuResizeMode.None)
-            Dispatcher.Invoke(DispatcherPriority.ApplicationIdle,(ThreadStart)(()=>{
+            if (ResizeMode != ContextMenuResizeMode.None)
+                Dispatcher.Invoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+                {
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
                     if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
                     menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width);
                     menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), Math.Min(DropDownHeight, MaxDropDownHeight));
-                    if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                    if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }));
         }
 
@@ -549,7 +551,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer!=null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
             menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
@@ -610,8 +612,7 @@ namespace Fluent
 
             RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
-            if (DropDownClosed != null) button.DropDownClosed += DropDownClosed;
-            if (DropDownOpened != null) button.DropDownOpened += DropDownOpened;
+            BindQuickAccessItemDropDownEvents(button);
 
             button.DropDownOpened += OnQuickAccessOpened;
             return button;
@@ -685,6 +686,16 @@ namespace Fluent
             RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
             RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
             RibbonControl.Bind(this, element, "HasTriangle", HasTriangleProperty, BindingMode.Default);
+        }
+
+        /// <summary>
+        /// Binds the DropDownClosed and DropDownOpened events to the created quick access item
+        /// </summary>
+        /// <param name="button">Toolbar item</param>
+        protected void BindQuickAccessItemDropDownEvents(DropDownButton button)
+        {
+            if (this.DropDownClosed != null) button.DropDownClosed += this.DropDownClosed;
+            if (this.DropDownOpened != null) button.DropDownOpened += this.DropDownOpened;
         }
 
         /// <summary>

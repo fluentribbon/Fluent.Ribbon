@@ -411,7 +411,8 @@ namespace Fluent
             button.Click += ((sender, e) => RaiseEvent(e));
             button.Size = RibbonControlSize.Small;
             button.CanAddButtonToQuickAccessToolBar = false;
-            BindQuickAccessItem(button);            
+            BindQuickAccessItem(button);
+            BindQuickAccessItemDropDownEvents(button);
             button.DropDownOpened += OnQuickAccessOpened;
             return button;
         }
