@@ -384,7 +384,7 @@ namespace Fluent
                         menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
                         menuPanel.Loaded += OnMenuPanelLoaded;
                     }
-                    IsDropDownOpen = true;
+                    if (!isFirstTime) IsDropDownOpen = true;
                 }
                 else
                 {
@@ -406,7 +406,7 @@ namespace Fluent
                 if (isFirstTime)
                 {
                     isFirstTime = false;
-                    IsDropDownOpen = false;
+                    //IsDropDownOpen = false;
                     Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
                     {
                         if (menuPanel != null)
