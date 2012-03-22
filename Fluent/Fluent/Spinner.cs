@@ -19,6 +19,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -301,6 +302,39 @@ namespace Fluent
 
 
 
+        #endregion
+
+        #region Foreground
+        /// <summary>
+        /// Gets or sets current foreground from the spinner
+        /// </summary>
+        public Brush Foreground
+        {
+            get { return (Brush)GetValue(ForegroundProperty); }
+            set { SetValue(ForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Foreground.
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ForegroundProperty =
+            DependencyProperty.Register("Foreground", typeof(Brush), typeof(Spinner), new UIPropertyMetadata(Brushes.Black, OnForegroundChanged));
+
+
+        static void OnForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Spinner spinner = (Spinner)d;
+            spinner.ForegroundtoTextBox();
+        }
+
+        void ForegroundtoTextBox()
+        {
+            if (textBox != null)
+            {
+                textBox.Foreground = Foreground;
+            }
+        }
         #endregion
 
         #endregion
