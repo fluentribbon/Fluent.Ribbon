@@ -590,6 +590,30 @@ namespace Fluent
         
         #endregion
 
+        #region ScreenTipF1Label
+
+        // ScreenTip's Disable Reason Header
+        string screenTipF1LabelHeader = "Press F1 to more help.";
+        private string screenTipF1LabelHeaderProperty;
+
+        /// <summary>
+        /// Gets or sets ScreenTip's disable reason header
+        /// </summary>
+        public string ScreenTipF1LabelHeader
+        {
+            get { return screenTipF1LabelHeaderProperty ?? screenTipF1LabelHeader; }
+            set
+            {
+                if (screenTipF1LabelHeaderProperty != value)
+                {
+                    screenTipF1LabelHeaderProperty = value;
+                    RaisePropertyChanged("screenTipF1LabelHeader");
+                }
+            }
+        }
+
+        #endregion
+
         #region Customize Status Bar
 
         // Text of backstage button
@@ -872,6 +896,10 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Symbolleiste für den Schnellzugriff über dem Menüband anzeigen";
             ribbonContextMenuCustomizeRibbon = "Menüband anpassen...";
             ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
+
+            //Others
+            ScreenTipDisableReasonHeader = "Diese Funktion is momentan nicht verfügbar!";
+            ScreenTipF1LabelHeader = "Drücken sie F1 für die Hilfe";
         }
 
         #endregion
