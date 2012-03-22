@@ -1765,6 +1765,19 @@ namespace Fluent
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ChooseColor(CHOOSECOLOR lpcc);
 
+        [DllImport("SHELL32", CallingConvention = CallingConvention.StdCall)]
+        public static extern int SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct APPBARDATA
+        {
+            public int cbSize;
+            public IntPtr hWnd;
+            public int uCallbackMessage;
+            public int uEdge;
+            public Rect rc;
+            public bool lParam;
+        }
         #endregion
 
         #region Keyboard Functions
