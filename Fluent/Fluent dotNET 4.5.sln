@@ -6,18 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 4.5", "Fluent\Fluent dotNET 4.5.csproj", "{4C92FCF4-3561-499F-BC5B-F2F089863047}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccLocalPath0 = .
-		SccLocalPath1 = Fluent
-		SccLocalPath2 = FluentTest
-		SccNumberOfProjects = 3
-		SccProjectName1 = Fluent
-		SccProjectName2 = FluentTest
-		SccProjectUniqueName1 = Fluent\\Fluent\u0020dotNET\u00204.5.csproj
-		SccProjectUniqueName2 = FluentTest\\FluentTest\u0020dotNET\u00204.5.csproj
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
