@@ -913,7 +913,7 @@ namespace Fluent
             NativeMethods.WINDOWPLACEMENT wpl = new NativeMethods.WINDOWPLACEMENT();
             NativeMethods.GetWindowPlacement(handle, wpl);
 
-            if (wpl.showCmd == NativeMethods.SW_SHOWMAXIMIZED)
+            if (wpl.showCmd == NativeMethods.SW_SHOWMAXIMIZED && IsDwmEnabled==true)
             {
                 int left;
                 int top;
@@ -1186,6 +1186,18 @@ namespace Fluent
                     }
                 case NativeMethods.WM_NCCALCSIZE:
                     {
+                        if (WindowState == WindowState.Maximized)
+                        {
+                            NativeMethods.APPBARDATA abd = new NativeMethods.APPBARDATA();
+                            int temp = (int)NativeMethods.SHAppBarMessage(4, ref abd);
+                            if (temp == 1)
+                            {
+                                NativeMethods.NCCALCSIZE_PARAMS ncParams = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
+                                ncParams.rect0.Bottom -= 9;
+                                Marshal.StructureToPtr(ncParams, lParam, false);
+                            }
+                        }
+
                         handled = true;
                         return new IntPtr((int)NativeMethods.WVR_REDRAW);
                     }

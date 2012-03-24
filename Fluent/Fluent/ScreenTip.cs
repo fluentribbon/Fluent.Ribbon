@@ -38,7 +38,7 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
             StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
+         }
 
         // Coerce object style
         static object OnCoerceStyle(DependencyObject d, object basevalue)
@@ -60,6 +60,7 @@ namespace Fluent
             Closed += OnToolTipClosed;
             CustomPopupPlacementCallback = CustomPopupPlacementMethod;
             Placement = PlacementMode.Custom;
+            HelpLabelVisibility = Visibility.Visible;
         }
 
         #endregion
@@ -276,7 +277,28 @@ namespace Fluent
             DependencyProperty.Register("Image", typeof(ImageSource), typeof(ScreenTip), new UIPropertyMetadata(null));
 
         #endregion
- 
+
+        #region ShowHelp Property
+        /// <summary>
+        /// Shows or hides the Help Label
+        /// </summary>
+        [System.ComponentModel.DisplayName("HelpLabelVisibility"),
+        System.ComponentModel.Category("Screen Tip"),
+        System.ComponentModel.Description("Sets the visibility of the F1 Help Label")]
+        public Visibility HelpLabelVisibility
+        {
+            get { return (Visibility)GetValue(HelpLabelVisibilityProperty); }
+            set { SetValue(HelpLabelVisibilityProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store the boolean.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HelpLabelVisibilityProperty =
+            DependencyProperty.Register("HelpLabelVisibility", typeof(Visibility), typeof(ScreenTip), new UIPropertyMetadata(Visibility.Visible));
+        #endregion
+
         #region Help Invocation
 
         /// <summary>
@@ -346,6 +368,8 @@ namespace Fluent
         }
 
         #endregion
+
+
     }
 
     /// <summary>

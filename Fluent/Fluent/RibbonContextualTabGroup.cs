@@ -13,6 +13,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace Fluent
 {
@@ -70,7 +71,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of tab items
         /// </summary>
-        internal List<RibbonTabItem> Items
+        public List<RibbonTabItem> Items
         {
             get { return items; }
         }
@@ -94,8 +95,17 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));        
+            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
 
+        public RibbonTabItem FirstVisibleItem
+        {
+            get { return items[GetFirstVisibleItem()] ; }
+        }
+
+        public RibbonTabItem LastVisibleItem
+        {
+            get { return items[GetFirstVisibleItem()]; }
+        }
         #endregion
 
         #region Initialization
@@ -132,6 +142,7 @@ namespace Fluent
             RibbonContextualTabGroup group = (RibbonContextualTabGroup)d;
             for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
             if (group.Parent is RibbonTitleBar) ((RibbonTitleBar)group.Parent).InvalidateMeasure();
+            group.UpdateGroupBorders();
         }
 
         /// <summary>
@@ -157,15 +168,34 @@ namespace Fluent
             UpdateGroupBorders();
         }
 
-        // Update group border
-        void UpdateGroupBorders()
+        /// <summary>
+        /// Updates the group border
+        /// </summary>
+        public void UpdateGroupBorders()
         {
+            bool leftset = false, rightset = false;
             for (int i = 0; i < items.Count;i++ )
             {
-                if (i == 0) items[i].HasLeftGroupBorder = true;
-                else items[i].HasLeftGroupBorder = false;
-                if (i == items.Count - 1) items[i].HasRightGroupBorder = true;
-                else items[i].HasRightGroupBorder = false;
+                //if (i == 0) items[i].HasLeftGroupBorder = true;
+                //else items[i].HasLeftGroupBorder = false;
+                //if (i == items.Count - 1) items[i].HasRightGroupBorder = true;
+                //else items[i].HasRightGroupBorder = false;
+
+                //Workaround so you can have inivisible Tabs on a Group
+                if (items[i].Visibility == Visibility.Visible && leftset == false)
+                {
+                    items[i].HasLeftGroupBorder = true;
+                    leftset = true;
+                }else
+                    items[i].HasLeftGroupBorder = false;
+
+
+                if (items[items.Count-1-i].Visibility == Visibility.Visible && rightset == false)
+                {
+                    items[items.Count - 1 - i].HasRightGroupBorder = true;
+                    rightset = true;
+                }else
+                    items[items.Count - 1 - i].HasRightGroupBorder = false;
             }
         }
 
@@ -179,6 +209,25 @@ namespace Fluent
             UpdateGroupBorders();
         }
 
+        private int GetFirstVisibleItem()
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Visibility == Visibility.Visible)
+                    return i;
+            }
+            return -1;
+        }
+
+        private int GetLastVisibleItem()
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[items.Count - 1 - i].Visibility == Visibility.Visible)
+                    return items.Count - 1 - i;
+            }
+            return -1;
+        }
         #endregion
 
         #region Override
@@ -209,6 +258,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
+            
             base.OnMouseDoubleClick(e);
             /*if(e.RightButton==MouseButtonState.Pressed)
             {

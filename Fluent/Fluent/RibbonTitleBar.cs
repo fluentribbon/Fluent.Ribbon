@@ -205,13 +205,16 @@ namespace Fluent
                 if (Items[i] is RibbonContextualTabGroup)
                 {
                     RibbonContextualTabGroup group = Items[i] as RibbonContextualTabGroup;
-                    if ((group.Visibility == Visibility.Visible) && (group.Items.Count > 0)) visibleGroups.Add(group);
+                    if ((group.Visibility == Visibility.Visible) && (group.Items.Count > 0))
+                    {
+                        visibleGroups.Add(group);
+                    }
                 }
             }
 
             Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
-            if ((visibleGroups.Count == 0)||((visibleGroups[0].Items[0].Parent as RibbonTabControl).CanScroll))
+            
+            if ((visibleGroups.Count == 0) || (visibleGroups[0].Items[0].Parent as RibbonTabControl).CanScroll)
             {
                 // Collapse itemRect
                 itemsRect = new Rect(0, 0, 0, 0);
@@ -256,11 +259,29 @@ namespace Fluent
                 // Set items container size and position
                 RibbonTabItem firstItem = visibleGroups[0].Items[0];
                 RibbonTabItem lastItem = visibleGroups[visibleGroups.Count - 1].Items[visibleGroups[visibleGroups.Count - 1].Items.Count - 1];
-
                 double startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
                 double endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                //Get minimum x point (workaround)
+                foreach (RibbonContextualTabGroup group in visibleGroups)
+                {
+                    firstItem = group.Items[0];
+                    if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
+                    {
+                        startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                    }
+                    lastItem = group.Items[group.Items.Count - 1];
+                    if (lastItem.IsVisible && lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
+                    {
+                        endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                    }
+                }
+                //double startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                //double endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                
+                //Looks like thr titlebar things are ordered in an other way
 
-                itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
+                if (startX != endX)
+                    itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
                 // Set quick launch toolbar position and size
                 quickAccessToolbarHolder.Measure(infinity);
                 double quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
@@ -274,29 +295,29 @@ namespace Fluent
                 }
                 // Set header
                 headerHolder.Measure(infinity);
-                if(HeaderAlignment==HorizontalAlignment.Left)
+                if (HeaderAlignment == HorizontalAlignment.Left)
                 {
-                    if(startX-quickAccessToolbarWidth>150)
+                    if (startX - quickAccessToolbarWidth > 150)
                     {
                         double allTextWidth = startX - quickAccessToolbarWidth;
                         headerRect = new Rect(quickAccessToolbarRect.Width, 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0,constraint.Width-endX);
-                        headerRect = new Rect(Math.Min(endX,constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
+                        double allTextWidth = Math.Max(0, constraint.Width - endX);
+                        headerRect = new Rect(Math.Min(endX, constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
-                else if(HeaderAlignment==HorizontalAlignment.Center)
+                else if (HeaderAlignment == HorizontalAlignment.Center)
                 {
                     if (((startX - quickAccessToolbarWidth < 150) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                     {
                         double allTextWidth = Math.Max(0, constraint.Width - endX);
-                        headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);                        
+                        headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0,startX - quickAccessToolbarWidth);
+                        double allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
@@ -304,7 +325,7 @@ namespace Fluent
                 {
                     if (startX - quickAccessToolbarWidth > 150)
                     {
-                        double allTextWidth = Math.Max(0,startX - quickAccessToolbarWidth);
+                        double allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth - headerHolder.DesiredSize.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
@@ -313,16 +334,16 @@ namespace Fluent
                         headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width - headerHolder.DesiredSize.Width), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
-                else if(HeaderAlignment==HorizontalAlignment.Stretch)
+                else if (HeaderAlignment == HorizontalAlignment.Stretch)
                 {
-                    if(startX-quickAccessToolbarWidth>150)
+                    if (startX - quickAccessToolbarWidth > 150)
                     {
                         double allTextWidth = startX - quickAccessToolbarWidth;
                         headerRect = new Rect(quickAccessToolbarRect.Width, 0, allTextWidth, constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0,constraint.Width-endX);
+                        double allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                     }
                 }

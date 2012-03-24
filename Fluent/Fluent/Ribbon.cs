@@ -649,17 +649,23 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (tabControl != null) tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        if (tabControl != null)
+                        {
+                            tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        }
                     }
                     break;
-
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.Items.Remove(item);
+                        if (tabControl != null)
+                        {
+                            tabControl.Items.Remove(item);
+                            RibbonTabItem tab = (RibbonTabItem)item;
+                            tab.Group = null;
+                        }
                     }
                     break;
-
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
@@ -676,6 +682,7 @@ namespace Fluent
             }
 
         }
+        
         /// <summary>
         /// Gets collection of toolbar items
         /// </summary>
