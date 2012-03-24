@@ -218,5 +218,5 @@
       </Trigger>
     </Style.Triggers>
   </Style>
-  <Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>
+  <!--<Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>-->
 </ResourceDictionary>

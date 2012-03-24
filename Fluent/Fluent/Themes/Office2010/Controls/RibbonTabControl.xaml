@@ -138,8 +138,7 @@
               <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
             </Style>
             <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter"/>
-            <Style TargetType="{x:Type ScrollViewer}">
-              <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Style TargetType="{x:Type ScrollViewer}">              
               <Setter Property="FocusManager.IsFocusScope" Value="False"/>
               <Setter Property="Template">
                 <Setter.Value>

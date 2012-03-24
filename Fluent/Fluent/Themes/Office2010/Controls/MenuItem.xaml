@@ -450,7 +450,6 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="Template" Value="{StaticResource MenuItemTemplate}"/>
     <Style.Triggers>
       <MultiTrigger>

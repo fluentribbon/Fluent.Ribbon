@@ -87,7 +87,6 @@
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

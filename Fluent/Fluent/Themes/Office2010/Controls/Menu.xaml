@@ -15,7 +15,6 @@
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
     <Setter Property="VerticalAlignment" Value="Top"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
   </Style>
   <ControlTemplate x:Key="FluentPopupMenuControlTemplate" TargetType="{x:Type Fluent:ContextMenu}">
     <ControlTemplate.Resources>
@@ -121,7 +120,6 @@
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="MinWidth" Value="0"/>
-    <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
     <Setter Property="VerticalAlignment" Value="Top"/>    

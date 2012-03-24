@@ -346,7 +346,6 @@
 
     <Style TargetType="ScrollBar">
       <Setter Property="SnapsToDevicePixels" Value="True"/>
-      <Setter Property="OverridesDefaultStyle" Value="true"/>
       <Style.Triggers>
         <Trigger Property="Orientation" Value="Horizontal">
           <Setter Property="Width" Value="Auto"/>
