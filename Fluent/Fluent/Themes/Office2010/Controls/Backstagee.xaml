@@ -169,7 +169,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Fluent:Backstage}">
+    <Style x:Key="RibbonBackstageStyle" 
+           TargetType="{x:Type Fluent:Backstage}">
         <Setter Property="Template" Value="{StaticResource BackstageToggleButtonControlTemplate}"/>
         <Setter Property="Background" Value="Blue"/>
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -179,4 +180,6 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     </Style>
 
+    <Style TargetType="{x:Type Fluent:Backstage}"
+           BasedOn="{StaticResource RibbonBackstageStyle}" />
 </ResourceDictionary>

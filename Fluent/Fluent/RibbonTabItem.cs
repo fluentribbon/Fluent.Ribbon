@@ -279,7 +279,7 @@ namespace Fluent
                 if (this.groups == null)
                 {
                     this.groups = new ObservableCollection<RibbonGroupBox>();
-                    this.groups.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnGroupsCollectionChanged);
+                    this.groups.CollectionChanged += this.OnGroupsCollectionChanged;
                 }
                 return this.groups;
             }
@@ -287,30 +287,44 @@ namespace Fluent
         // handles ribbon groups collection changes
         private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (groupsInnerContainer == null)
+            {
+                return;
+            }
+
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Remove(obj3 as UIElement);
+                        groupsInnerContainer.Children.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (object item in e.OldItems)
                     {
-                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Remove(obj4 as UIElement);
+                        groupsInnerContainer.Children.Remove(item as UIElement);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (object item in e.NewItems)
                     {
-                        if (groupsInnerContainer != null) groupsInnerContainer.Children.Add(obj5 as UIElement);
+                        groupsInnerContainer.Children.Add(item as UIElement);
+                    }
+                    break;
+
+                case NotifyCollectionChangedAction.Reset:
+                    groupsInnerContainer.Children.Clear();
+
+                    foreach (var group in this.groups)
+                    {
+                        groupsInnerContainer.Children.Add(group);
                     }
                     break;
             }
@@ -440,12 +454,13 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
+            this.Unloaded += this.OnUnloaded;
+
             AddLogicalChild(groupsContainer);
             groupsContainer.Content = groupsInnerContainer;
             ContextMenuService.Coerce(this);
         }
-        
-        
+
         #endregion
 
         #region Overrides
@@ -566,6 +581,20 @@ namespace Fluent
         private void HandleIsSelectedChanged(RoutedEventArgs e)
         {
             base.RaiseEvent(e);
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.Group = null;
+
+            this.groupsInnerContainer = null;
+
+            if (this.groups != null)
+            {
+                this.groups.CollectionChanged -= this.OnGroupsCollectionChanged;
+            }
+
+            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion

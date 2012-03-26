@@ -109,4 +109,6 @@
       </Trigger>
     </Style.Triggers>
   </Style>    
+  
+  <Style TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}"/>
 </ResourceDictionary>

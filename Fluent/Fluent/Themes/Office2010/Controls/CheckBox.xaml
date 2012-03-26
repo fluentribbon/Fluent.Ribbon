@@ -18,7 +18,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="{x:Type Fluent:CheckBox}" TargetType="{x:Type Fluent:CheckBox}">
+    <Style x:Key="RibbonCheckBoxStyle" TargetType="{x:Type Fluent:CheckBox}">
     <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
     <Setter Property="FocusVisualStyle">
       <Setter.Value>
@@ -94,4 +94,7 @@
     </Setter>
     <Setter Property="Foreground" Value="#FF464646"/>
   </Style>
+
+    <Style TargetType="{x:Type Fluent:CheckBox}"
+           BasedOn="{StaticResource RibbonCheckBoxStyle}" />
 </ResourceDictionary>

@@ -40,7 +40,8 @@ namespace Fluent
         // Popup
         Popup popup;
         // Old selected item
-        object oldSelectedItem;
+        WeakReference oldSelectedItem;
+
         // Collection of toolbar items
         ObservableCollection<UIElement> toolBarItems;
         // ToolBar panel
@@ -355,30 +356,38 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-        {            
+        {
             if (e.AddedItems.Count > 0)
             {
                 Backstage backstage = Menu as Backstage;
                 if (IsMinimized && (backstage == null || !backstage.IsOpen))
                 {
-                    if (oldSelectedItem == e.AddedItems[0])
+                    if (oldSelectedItem != null
+                        && oldSelectedItem.IsAlive
+                        && oldSelectedItem.Target == e.AddedItems[0])
+                    {
                         IsDropDownOpen = !IsDropDownOpen;
+                    }
                     else
                     {
-                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle,new ThreadStart(delegate{IsDropDownOpen = true;}));                    
+                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate { IsDropDownOpen = true; }));
                     }
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
 
                 UpdateSelectedContent();
             }
-            else IsDropDownOpen = false;
+            else
+            {
+                IsDropDownOpen = false;
+            }
 
             if (e.RemovedItems.Count > 0)
             {
-                oldSelectedItem = e.RemovedItems[0];
+                oldSelectedItem = new WeakReference(e.RemovedItems[0]);
                 ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
             }
+
             base.OnSelectionChanged(e);
         }
                

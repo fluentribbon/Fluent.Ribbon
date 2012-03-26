@@ -5,5 +5,5 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Common.xaml"/>
   </ResourceDictionary.MergedDictionaries>
   <!--WORKAROUND: This line is required that default styles to be loaded-->
-  <Style TargetType="{x:Type Button}"/>
+  <Style TargetType="{x:Type Rectangle}" />
 </ResourceDictionary>

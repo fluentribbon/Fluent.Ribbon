@@ -206,7 +206,7 @@ namespace Fluent
         }
 
         // Finds and decrease size of all scalable elements in the given group box
-        void DecreaseScalableElement()
+        private void DecreaseScalableElement()
         {
             foreach (object item in Items)
             {
@@ -216,14 +216,18 @@ namespace Fluent
             }
         }
 
-        void UpdateScalableControlSubscribing()
+        private void UpdateScalableControlSubscribing(bool subscribe = true)
         {
             foreach (object item in Items)
             {
                 IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
                 if (scalableRibbonControl == null) continue;
                 scalableRibbonControl.Scaled -= OnScalableControlScaled;
-                scalableRibbonControl.Scaled += OnScalableControlScaled;
+
+                if (subscribe)
+                {
+                    scalableRibbonControl.Scaled += OnScalableControlScaled;
+                }
             }
         }
 
@@ -617,7 +621,27 @@ namespace Fluent
             (ToolTip as ToolTip).Template = null;
             CoerceValue(ContextMenuProperty);
             Focusable = false;
-            FocusManager.SetIsFocusScope(this,false);
+            FocusManager.SetIsFocusScope(this, false);
+
+            this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (LauncherButton != null)
+            {
+                LauncherButton.Click -= OnDialogLauncherButtonClick;
+            }
+
+            if (popup != null)
+            {
+                popup.Opened -= OnPopupOpened;
+                popup.Closed -= OnPopupClosed;
+            }
+
+            UpdateScalableControlSubscribing(subscribe: false);
+
+            BindingOperations.ClearAllBindings(this);
         }
 
         /// <summary>

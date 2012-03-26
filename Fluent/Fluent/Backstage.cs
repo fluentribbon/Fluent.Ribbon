@@ -172,6 +172,8 @@ namespace Fluent
         /// </summary>
         public Backstage()
         {
+            this.Unloaded += this.Backstage_Unloaded;
+
             CoerceValue(HeaderProperty);
             CoerceValue(KeyTip.KeysProperty);
 
@@ -384,6 +386,11 @@ namespace Fluent
             if (e.Key == Key.Escape) IsOpen = false;
         }
 
+        private void Backstage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
+        }
+
         /// <summary>
         /// Get adorner layer for element
         /// </summary>
@@ -431,7 +438,7 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            
+
             // OnAplyTemplate is executed then theme is changed            
             if (adorner != null)
             {
@@ -495,7 +502,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access Toolbar

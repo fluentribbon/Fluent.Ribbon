@@ -20,7 +20,8 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="{x:Type Controls:StatusBarItem}" TargetType="{x:Type Controls:StatusBarItem}">
+    
+  <Style x:Key="RibbonStatusBarItemStyle" TargetType="{x:Type Controls:StatusBarItem}">
 	<Style.Triggers>
 		<Trigger Property="IsEnabled" Value="False">
 			<Setter Property="Foreground" Value="#FF888888"/>
@@ -34,6 +35,7 @@
     </Setter.Value>
   </Setter>
 </Style>
+    
 <!--Menu Item Style-->
 	<Style TargetType="{x:Type Controls:StatusBarMenuItem}">
 		<Setter Property="Template" Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}"/>
@@ -108,4 +110,7 @@
       </Trigger>-->
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
+    
+    <Style BasedOn="{StaticResource RibbonStatusBarItemStyle}"
+           TargetType="{x:Type Controls:StatusBarItem}" />
 </ResourceDictionary>

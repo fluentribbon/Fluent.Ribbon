@@ -24,7 +24,7 @@ namespace Fluent
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
-    public class SplitButton : DropDownButton, ICommandSource
+    public class SplitButton : DropDownButton, IToggleButton, ICommandSource
     {
         #region Fields
 
@@ -113,7 +113,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
 
-        #endregion        
+        #endregion
 
         #region GroupName
 
@@ -137,7 +137,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register("GroupName", typeof(string), typeof(SplitButton),
-            new UIPropertyMetadata(null));
+            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -146,7 +146,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets a value indicating whether SplitButton is checked
         /// </summary>
-        public bool IsChecked
+        public bool? IsChecked
         {
             get { return (bool)GetValue(IsCheckedProperty); }
             set { SetValue(IsCheckedProperty, value); }
@@ -163,17 +163,22 @@ namespace Fluent
             SplitButton button = d as SplitButton;
             if (button.IsCheckable)
             {
-                if ((bool) e.NewValue) button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
+                if ((bool)e.NewValue) button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
                 else button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
 
                 if (Mouse.Captured == button) Mouse.Capture(null);
+
+                ToggleButtonHelper.OnIsCheckedChanged(d, e);
             }
         }
 
         private static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            if (!(d as SplitButton).IsCheckable) return false;
-            return basevalue;
+            SplitButton button = d as SplitButton;
+
+            if (!button.IsCheckable) return false;
+
+            return ToggleButtonHelper.CoerceIsChecked(d, basevalue);
         }
 
         #endregion
@@ -232,7 +237,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
             DependencyProperty.Register("IsButtonEnabled", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
-        
+
         #endregion
 
         #region IsDefinitive
@@ -352,18 +357,25 @@ namespace Fluent
             ContextMenuService.Coerce(this);
             //FocusManager.SetIsFocusScope(this, true);
             Click += OnClick;
-//            AddHandler(ClickEvent, OnClick);
+            //            AddHandler(ClickEvent, OnClick);
+
+            this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            BindingOperations.ClearAllBindings(this);
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if(e.OriginalSource != this) e.Handled = true;
+            if (e.OriginalSource != this) e.Handled = true;
         }
 
         #endregion
 
         #region Overrides
-        
+
         /// <summary>
         /// When overridden in a derived class, is invoked 
         /// whenever application code or internal processes call ApplyTemplate
@@ -392,7 +404,7 @@ namespace Fluent
         void OnButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));            
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion
@@ -416,7 +428,7 @@ namespace Fluent
             button.DropDownOpened += OnQuickAccessOpened;
             return button;
         }
-        
+
         /// <summary>
         /// This method must be overridden to bind properties to use in quick access creating
         /// </summary>

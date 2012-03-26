@@ -50,7 +50,7 @@ namespace Fluent
         #endregion
 
         #region Initialization
-                
+
         /// <summary>
         /// Default constrctor
         /// </summary>
@@ -91,7 +91,7 @@ namespace Fluent
             window.KeyUp += OnWindowKeyUp;
 
             // Hookup non client area messages
-            attachedHwndSource = (HwndSource) PresentationSource.FromVisual(window);
+            attachedHwndSource = (HwndSource)PresentationSource.FromVisual(window);
             if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
         }
 
@@ -107,6 +107,8 @@ namespace Fluent
             {
                 window.KeyDown -= OnWindowKeyDown;
                 window.KeyUp -= OnWindowKeyUp;
+
+                this.window = null;
             }
 
             // Hookup non client area messages
@@ -132,7 +134,7 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
-        void OnWindowKeyDown(object sender, KeyEventArgs e)        
+        void OnWindowKeyDown(object sender, KeyEventArgs e)
         {
             if (e.IsRepeat) return;
             timer.Stop();
@@ -161,7 +163,7 @@ namespace Fluent
                 (e.SystemKey == Key.RightAlt) ||
                 (e.SystemKey == Key.F10) ||
                 (e.SystemKey == Key.Space)))
-            {                
+            {
                 e.Handled = true;
                 if (timer.IsEnabled)
                 {
@@ -196,8 +198,8 @@ namespace Fluent
 
         void OnAdornerChainTerminated(object sender, EventArgs e)
         {
-            RestoreFocuses();   
-            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;            
+            RestoreFocuses();
+            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;
         }
 
         void OnDelayedShow(object sender, EventArgs e)
@@ -215,10 +217,10 @@ namespace Fluent
                 RestoreFocuses();
                 return;
             }
-            
+
             activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
             activeAdornerChain.Terminated += OnAdornerChainTerminated;
-            
+
             // Special behavior for backstage
             Backstage backstage = ribbon.Menu as Backstage;
             if (backstage != null && backstage.IsOpen)

@@ -817,7 +817,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type Fluent:TextBox}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Border Name="Border" CornerRadius="0" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
       <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
     </Border>
@@ -832,7 +832,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="{x:Type Fluent:StatusBarItem}" TargetType="{x:Type Fluent:StatusBarItem}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Style x:Key="RibbonStatusBarItemStyle" TargetType="{x:Type Fluent:StatusBarItem}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Style.Triggers>
       <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Foreground" Value="#FF888888" />
@@ -1139,7 +1139,7 @@
     <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
     <Setter Property="Foreground" Value="White" />
   </Style>
-  <Style TargetType="{x:Type Fluent:Backstage}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Style x:Key="RibbonBackstageStyle" TargetType="{x:Type Fluent:Backstage}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="Template" Value="{StaticResource BackstageToggleButtonControlTemplate}" />
     <Setter Property="Background" Value="Blue" />
     <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
@@ -1148,6 +1148,7 @@
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
   </Style>
+  <Style TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource RibbonBackstageStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <ControlTemplate x:Key="RibbonTabControlToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{StaticResource TransparentBrush}" BorderBrush="{StaticResource TransparentBrush}" Height="22" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="22">
       <Border.ToolTip>
@@ -1802,6 +1803,7 @@
       </Trigger>
     </Style.Triggers>
   </Style>
+  <Style TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{StaticResource TransparentBrush}" BorderBrush="{StaticResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
       <Border x:Name="border1" Height="Auto" BorderBrush="{StaticResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{StaticResource TransparentBrush}">
@@ -1998,7 +2000,7 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
-  <Style x:Key="{x:Type Fluent:CheckBox}" TargetType="{x:Type Fluent:CheckBox}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <Style x:Key="RibbonCheckBoxStyle" TargetType="{x:Type Fluent:CheckBox}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ToolTipService.ShowDuration" Value="30000" />
     <Setter Property="FocusVisualStyle">
       <Setter.Value>
@@ -2074,6 +2076,7 @@
     </Setter>
     <Setter Property="Foreground" Value="#FF464646" />
   </Style>
+  <Style TargetType="{x:Type Fluent:CheckBox}" BasedOn="{StaticResource RibbonCheckBoxStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Fluent:RadioButton}" TargetType="{x:Type Fluent:RadioButton}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="ToolTipService.ShowDuration" Value="30000" />
     <Setter Property="FocusVisualStyle">
@@ -4714,24 +4717,6 @@
     <Fluent:MenuItem Icon="{StaticResource MenuCopyIcon}" Command="ApplicationCommands.Copy" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
     <Fluent:MenuItem Icon="{StaticResource MenuPasteIcon}" Command="ApplicationCommands.Paste" CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
   </ContextMenu>
-  <Style TargetType="{x:Type TextBox}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    <Style.Triggers>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="BorderBrush" Value="{StaticResource TextBoxDisabledBorderBrush}" />
-        <Setter Property="Background" Value="{StaticResource TextBoxDisabledBackgroundBrush}" />
-        <Setter Property="Foreground" Value="#FFA0A0A0" />
-      </Trigger>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="{StaticResource TextBoxHoverBackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource TextBoxHoverBorderBrush}" />
-      </Trigger>
-    </Style.Triggers>
-    <Setter Property="Background" Value="{StaticResource TextBoxBackgroundBrush}" />
-    <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}" />
-    <Setter Property="Template" Value="{StaticResource TextBoxControlTemplate}" />
-    <Setter Property="Foreground" Value="#FF52002D" />
-    <Setter Property="ContextMenu" Value="{StaticResource TextBoxContextMenu}" />
-  </Style>
   <ControlTemplate x:Key="SpinnerButtonControlTemplate" TargetType="{x:Type RepeatButton}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{StaticResource TransparentBrush}" BorderBrush="{StaticResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
       <Border x:Name="border1" Height="Auto" BorderBrush="{StaticResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{StaticResource TransparentBrush}">
@@ -5289,6 +5274,7 @@
       </Trigger>-->
     </ControlTemplate.Triggers>
   </ControlTemplate>
+  <Style BasedOn="{StaticResource RibbonStatusBarItemStyle}" TargetType="{x:Type Fluent:StatusBarItem}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Setter Property="SnapsToDevicePixels" Value="true" />
     <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -5455,7 +5441,6 @@
   <Style x:Key="{x:Type Fluent:GalleryGroupContainer}" TargetType="{x:Type Fluent:GalleryGroupContainer}" BasedOn="{StaticResource GalleryGroupContainerStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Fluent:SeparatorTabItem}" TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource SeparatorTabItemStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Fluent:BackstageTabItem}" TargetType="{x:Type Fluent:BackstageTabItem}" BasedOn="{StaticResource BackstageTabItemStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-  <Style x:Key="{x:Type Fluent:Button}" TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Fluent:GalleryItem}" TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Fluent:RibbonTabItem}" TargetType="{x:Type Fluent:RibbonTabItem}" BasedOn="{StaticResource RibbonTabItemStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
   <Style x:Key="{x:Type Separator}" TargetType="{x:Type Separator}" BasedOn="{StaticResource RibbonSeparatorStyle}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />

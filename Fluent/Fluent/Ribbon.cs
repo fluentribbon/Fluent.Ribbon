@@ -617,6 +617,9 @@ namespace Fluent
                         if (titleBar != null) titleBar.Items.Add(item);
                     }
                     break;
+                case NotifyCollectionChangedAction.Reset:
+                    if (titleBar != null) titleBar.Items.Clear();
+                    break;
             }
 
         }
@@ -1348,14 +1351,40 @@ namespace Fluent
                 }
             }*/
 
-            if (ownerWindow == null)
+            if (this.ownerWindow == null)
             {
-                ownerWindow = Window.GetWindow(this);
-                Binding binding = new Binding("Title");
-                binding.Mode = BindingMode.OneWay;
-                binding.Source = ownerWindow;
-                SetBinding(TitleProperty, binding);
+                this.ownerWindow = Window.GetWindow(this);
+
+                if (this.ownerWindow != null)
+                {
+                    this.ownerWindow.Closed += this.OnOwnerWindowClosed;
+
+                    Binding binding = new Binding("Title");
+                    binding.Mode = BindingMode.OneWay;
+                    binding.Source = ownerWindow;
+                    SetBinding(TitleProperty, binding);
+                }
             }
+        }
+
+        /// <summary>
+        /// Called when the <see cref="ownerWindow"/> is closed, so that we set it to null and clear the <see cref="TitleProperty"/>
+        /// </summary>
+        private void OnOwnerWindowClosed(object sender, EventArgs e)
+        {
+            this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
+
+            if (this.ownerWindow != null)
+            {
+                this.ownerWindow.SizeChanged -= OnSizeChanged;
+                this.ownerWindow.KeyDown -= OnKeyDown;
+            }
+
+            this.ownerWindow = null;
+
+            this.LayoutUpdated -= this.OnJustLayoutUpdated;
+
+            BindingOperations.ClearBinding(this, TitleProperty);
         }
 
         void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
@@ -1469,16 +1498,18 @@ namespace Fluent
         void OnLoaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Attach();
-            Window window = Window.GetWindow(this);
-            if (window != null)
+
+            if (this.ownerWindow != null)
             {
-                window.SizeChanged += OnSizeChanged;
-                window.KeyDown += OnKeyDown;
+                this.ownerWindow.SizeChanged += OnSizeChanged;
+                this.ownerWindow.KeyDown += OnKeyDown;
             }
+
             InitialLoadState();
 
             /*if (IsBackstageOpen) ShowBackstage();
-            else*/ if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
+            else*/
+            if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
         }
 
         void OnKeyDown(object sender, KeyEventArgs e)
@@ -1492,19 +1523,21 @@ namespace Fluent
         void OnUnloaded(object sender, RoutedEventArgs e)
         {
             keyTipService.Detach();
-            Window window = Window.GetWindow(this);
-            if (window != null)
+
+            if (this.ownerWindow != null)
             {
-                window.SizeChanged -= OnSizeChanged;
-                window.KeyDown -= OnKeyDown;
+                this.ownerWindow.SizeChanged -= OnSizeChanged;
+                this.ownerWindow.KeyDown -= OnKeyDown;
             }
+
+            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion
 
         #region Private methods
 
-       
+
 
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
@@ -1699,16 +1732,25 @@ namespace Fluent
         #region Initial State Loading
 
         // Initial state loading
-        void InitialLoadState()
+        private void InitialLoadState()
         {
-            LayoutUpdated += OnJustLayoutUpdated;
+            this.LayoutUpdated += this.OnJustLayoutUpdated;
         }
 
-        void OnJustLayoutUpdated(object sender, EventArgs e)
+        private void OnJustLayoutUpdated(object sender, EventArgs e)
         {
-            LayoutUpdated -= OnJustLayoutUpdated;
-            if (!QuickAccessToolBar.IsLoaded) { InitialLoadState(); return; }
-            if (!IsStateLoaded) LoadState();
+            this.LayoutUpdated -= this.OnJustLayoutUpdated;
+
+            if (this.QuickAccessToolBar != null && !this.QuickAccessToolBar.IsLoaded)
+            {
+                this.InitialLoadState();
+                return;
+            }
+
+            if (!this.IsStateLoaded)
+            {
+                this.LoadState();
+            }
         }
 
         #endregion

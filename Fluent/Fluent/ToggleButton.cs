@@ -24,7 +24,7 @@ namespace Fluent
     /// Represents toggle button
     /// </summary>
     [ContentProperty("Header")]
-    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IRibbonControl, IQuickAccessItemProvider
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider
     {
         #region Properties
 
@@ -50,56 +50,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton),
-            new UIPropertyMetadata(null, OnGroupNameChanged));
-
-        // Group name changed
-        static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ToggleButton toggleButton = (ToggleButton)d;
-            string currentGroupName = (string)e.NewValue;
-            string previousGroupName = (string)e.OldValue;
-
-            if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
-            if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
-        }
-
-        #region Grouped Button Methods
-
-        // Grouped buttons
-        static readonly Dictionary<string, List<WeakReference>> groupedButtons =
-            new Dictionary<string, List<WeakReference>>();
-
-        // Remove from group
-        static void RemoveFromGroup(string groupName, ToggleButton button)
-        {
-            List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons)) return;
-
-            buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((ToggleButton)x.Target) == button)));
-        }
-
-        // Remove from group
-        static void AddToGroup(string groupName, ToggleButton button)
-        {
-            List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons))
-            {
-                buttons = new List<WeakReference>();
-                groupedButtons.Add(groupName, buttons);
-            }
-
-            buttons.Add(new WeakReference(button));
-        }
-
-        // Gets all buttons in the given group
-        static IEnumerable<ToggleButton> GetButtonsInGroup(string groupName)
-        {
-            List<WeakReference> buttons = null;
-            if (!groupedButtons.TryGetValue(groupName, out buttons)) return new List<ToggleButton>();
-            return buttons.Where(x => x.IsAlive).Select(x => (ToggleButton)x.Target);
-        }
-
-        #endregion
+            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -239,10 +190,10 @@ namespace Fluent
         {
             Type type = typeof(ToggleButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
+            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));            
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
         // Coerce object style
@@ -256,49 +207,20 @@ namespace Fluent
             return basevalue;
         }
 
-        // Coerce IsChecked
-        static object CoerceIsChecked(DependencyObject d, object basevalue)
-        {
-            ToggleButton toggleButton = (ToggleButton)d;
-            if (toggleButton.GroupName == null) return basevalue;
-
-            bool baseIsChecked = (bool)basevalue;
-            if (!baseIsChecked)
-            {
-                // We can not allow that there are no one button checked
-                foreach (ToggleButton item in GetButtonsInGroup(toggleButton.GroupName))
-                {
-                    // It's Ok, atleast one checked button exists
-                    if (item.IsChecked == true) return false;
-                }
-
-                // This button can not be unchecked
-                return true;
-            }
-            return basevalue;
-        }
-
-        // Handles isChecked changed
-        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            bool newValue = (bool)e.NewValue;
-            ToggleButton button = (ToggleButton)d;
-
-            // Uncheck other toggle buttons
-            if (newValue && button.GroupName != null)
-            {
-                foreach (ToggleButton item in GetButtonsInGroup(button.GroupName))
-                    if (item != button) item.IsChecked = false;
-            }
-        }
-
         /// <summary>
         /// Default constructor
         /// </summary>
         public ToggleButton()
         {
             ContextMenuService.Coerce(this);
-            FocusManager.SetIsFocusScope(this,true);
+            FocusManager.SetIsFocusScope(this, true);
+
+            this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion
@@ -332,7 +254,7 @@ namespace Fluent
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => RaiseEvent(e));
             RibbonControl.BindQuickAccessItem(this, button);
-            
+
             return button;
         }
 

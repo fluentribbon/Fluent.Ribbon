@@ -78,6 +78,7 @@
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="InRibbonGallery.cs" />
     <Compile Include="IRibbonControl.cs" />
+	<Compile Include="IToggleButton.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="KeyTip.cs" />
     <Compile Include="KeyTipAdorner.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="SeparatorTabItem.cs" />
     <Compile Include="Spinner.cs" />
     <Compile Include="SplitButton.cs" />
+	<Compile Include="ToggleButtonHelper.cs" />
     <Compile Include="StatusBar.cs" />
     <Compile Include="StatusBarItem.cs" />
     <Compile Include="StatusBarMenuItem.cs" />
