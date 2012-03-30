@@ -16,5 +16,10 @@
         /// Gets or sets a value indicating whether SplitButton is checked
         /// </summary>
         bool? IsChecked { get; set; }
+
+        /// <summary>
+        /// Gets a value that indicates whether the ToggleButton is fully loaded
+        /// </summary>
+        bool IsLoaded { get; }
     }
 }

@@ -5,29 +5,31 @@
     using System.Linq;
     using System.Windows;
 
+    /// <summary>
+    /// Helper-Class for switching states in ToggleButton-Groups
+    /// </summary>
     public class ToggleButtonHelper
     {
         // Grouped buttons
-        private static readonly Dictionary<string, List<WeakReference>> groupedButtons =
-            new Dictionary<string, List<WeakReference>>();
+        private static readonly Dictionary<string, List<WeakReference>> groupedButtons = new Dictionary<string, List<WeakReference>>();
 
         /// <summary>
         /// Handles changes to <see cref="IToggleButton.GroupName"/>
         /// </summary>
         public static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            IToggleButton toggleButton = (IToggleButton)d;
-            string currentGroupName = (string)e.NewValue;
-            string previousGroupName = (string)e.OldValue;
+            var toggleButton = (IToggleButton)d;
+            var currentGroupName = (string)e.NewValue;
+            var previousGroupName = (string)e.OldValue;
 
             if (previousGroupName != null)
             {
-                ToggleButtonHelper.RemoveFromGroup(previousGroupName, toggleButton);
+                RemoveFromGroup(previousGroupName, toggleButton);
             }
 
             if (currentGroupName != null)
             {
-                ToggleButtonHelper.AddToGroup(currentGroupName, toggleButton);
+                AddToGroup(currentGroupName, toggleButton);
             }
         }
 
@@ -36,17 +38,25 @@
         /// </summary>
         public static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            IToggleButton toggleButton = (IToggleButton)d;
-            if (toggleButton.GroupName == null) return basevalue;
+            var toggleButton = (IToggleButton)d;
 
-            bool baseIsChecked = (bool)basevalue;
+            // If the button does not belong to any group
+            // or the button/control is not loaded
+            // we don't have to do any checks and can directly return the requested basevalue
+            if (toggleButton.GroupName == null
+                || toggleButton.IsLoaded == false)
+            {
+                return basevalue;
+            }
+
+            var baseIsChecked = (bool)basevalue;
 
             if (!baseIsChecked)
             {
-                var buttons = ToggleButtonHelper.GetButtonsInGroup(toggleButton.GroupName);
+                var buttons = GetButtonsInGroup(toggleButton.GroupName);
 
                 // We can not allow that there are no one button checked
-                foreach (IToggleButton item in buttons)
+                foreach (var item in buttons)
                 {
                     // It's Ok, atleast one checked button exists
                     // and it's not the current button
@@ -60,6 +70,7 @@
                 // This button can not be unchecked
                 return true;
             }
+
             return basevalue;
         }
 
@@ -68,22 +79,20 @@
         /// </summary>
         public static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            bool newValue = (bool)e.NewValue;
-            IToggleButton button = (IToggleButton)d;
+            var newValue = (bool)e.NewValue;
+            var button = (IToggleButton)d;
 
             // Uncheck other toggle buttons
-            if (newValue
-                && button.GroupName != null)
+            if (!newValue || button.GroupName == null)
             {
-                var buttons = ToggleButtonHelper.GetButtonsInGroup(button.GroupName);
+                return;
+            }
 
-                foreach (IToggleButton item in buttons)
-                {
-                    if (item != button)
-                    {
-                        item.IsChecked = false;
-                    }
-                }
+            var buttons = GetButtonsInGroup(button.GroupName);
+
+            foreach (var item in buttons.Where(item => item != button))
+            {
+                item.IsChecked = false;
             }
         }
 
@@ -92,7 +101,7 @@
         /// </summary>
         private static void RemoveFromGroup(string groupName, IToggleButton toggleButton)
         {
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
 
             if (!groupedButtons.TryGetValue(groupName, out buttons))
             {
@@ -107,7 +116,7 @@
         /// </summary>
         private static void AddToGroup(string groupName, IToggleButton toggleButton)
         {
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
 
             if (!groupedButtons.TryGetValue(groupName, out buttons))
             {
@@ -123,7 +132,7 @@
         /// </summary>
         private static IEnumerable<IToggleButton> GetButtonsInGroup(string groupName)
         {
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
 
             if (!groupedButtons.TryGetValue(groupName, out buttons))
             {
