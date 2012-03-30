@@ -5556,7 +5556,7 @@
             <Grid.RowDefinitions>
               <RowDefinition Height="24" />
               <RowDefinition x:Name="rowDefinition" Height="86" />
-              <RowDefinition x:Name="rowDefinition1" Height="5" />
+              <RowDefinition x:Name="rowDefinition1" Height="{TemplateBinding ContentGapHeight}" />
             </Grid.RowDefinitions>
             <Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1" Grid.Row="1" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{StaticResource RibbonBackgoundBrush}" />
             <Rectangle Margin="0,-1,0,0" Grid.Row="1" Width="50" Stroke="Black" Height="1" HorizontalAlignment="Left" VerticalAlignment="Top" StrokeThickness="1">
@@ -7471,6 +7471,7 @@
     <Setter Property="Template" Value="{StaticResource BackstageControlTemplate}" />
     <Setter Property="FocusVisualStyle" Value="{StaticResource ControlStyleEmptyFocus}" />
     <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
+    <Setter Property="ItemsPanelBackground" Value="{StaticResource BackstagePanelBackgroundBrush}" />
   </Style>
   <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Grid>

@@ -27,7 +27,7 @@ namespace Fluent
     {
 
         #region Fields
-            Grid leftpanel;
+        Grid leftpanel;
         #endregion
 
         #region Properties
@@ -60,13 +60,13 @@ namespace Fluent
         public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register("ContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
-        
+
         private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty SelectedContentStringFormatProperty = SelectedContentStringFormatPropertyKey.DependencyProperty;
-        
+
         private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty SelectedContentTemplateProperty = SelectedContentTemplatePropertyKey.DependencyProperty;
-        
+
         private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty SelectedContentTemplateSelectorProperty = SelectedContentTemplateSelectorPropertyKey.DependencyProperty;
 
@@ -159,7 +159,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static DependencyProperty ItemsPanelBackgroundProperty =
-            DependencyProperty.Register("ItemsPanelBackground", typeof(Brush), typeof(BackstageTabControl), new UIPropertyMetadata((Brush)Application.Current.TryFindResource("BackstagePanelBackgroundBrush"), OnItemsPanelBackgroundChanged));
+            DependencyProperty.Register("ItemsPanelBackground", typeof(Brush), typeof(BackstageTabControl), new UIPropertyMetadata(OnItemsPanelBackgroundChanged));
 
 
         static void OnItemsPanelBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

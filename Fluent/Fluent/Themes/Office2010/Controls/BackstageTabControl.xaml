@@ -111,5 +111,7 @@
     <Setter Property="Template" Value="{StaticResource BackstageControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}"/>
+        <Setter Property="ItemsPanelBackground"
+                Value="{DynamicResource BackstagePanelBackgroundBrush}" />
     </Style>
 </ResourceDictionary>

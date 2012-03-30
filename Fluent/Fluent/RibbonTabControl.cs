@@ -67,7 +67,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(UIElement), 
+            DependencyProperty.Register("Menu", typeof(UIElement),
             typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
         #endregion
@@ -103,7 +103,7 @@ namespace Fluent
 
         // DependencyProperty key for SelectedContent
         static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
-        
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedContent.  This enables animation, styling, binding, etc...
         /// </summary>
@@ -149,10 +149,10 @@ namespace Fluent
         /// </summary>
         internal bool CanScroll
         {
-            get 
+            get
             {
                 IScrollInfo scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
-                if(scrollInfo!=null)return (scrollInfo.ExtentWidth >scrollInfo.ViewportWidth); 
+                if (scrollInfo != null) return (scrollInfo.ExtentWidth > scrollInfo.ViewportWidth);
                 else return false;
             }
         }
@@ -224,6 +224,19 @@ namespace Fluent
 
         }
 
+        /// <summary>
+        /// Gets or sets the height of the gap between the ribbon and the content
+        /// </summary>
+        public double ContentGapHeight
+        {
+            get { return (double)GetValue(ContentGapHeightProperty); }
+            set { SetValue(ContentGapHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ContentGapHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentGapHeightProperty =
+            DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(RibbonTabControl), new UIPropertyMetadata(5D));
+
         #endregion
 
         #region Initializion
@@ -234,7 +247,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabControl()
         {
-            Type type = typeof (RibbonTabControl);
+            Type type = typeof(RibbonTabControl);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
             ContextMenuService.Attach(type);
             PopupService.Attach(type);
@@ -390,7 +403,7 @@ namespace Fluent
 
             base.OnSelectionChanged(e);
         }
-               
+
         /// <summary>
         /// Invoked when an unhandled System.Windows.Input.Mouse.PreviewMouseWheel 
         /// attached event reaches an element in its route that is derived from this class. 
@@ -398,9 +411,9 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
-        {            
+        {
             //base.OnPreviewMouseWheel(e);
-            ProcessMouseWheel(e);            
+            ProcessMouseWheel(e);
         }
 
         #endregion
@@ -411,11 +424,11 @@ namespace Fluent
         private Ribbon FindParentRibbon()
         {
             DependencyObject element = this;
-            while(LogicalTreeHelper.GetParent(element)!=null)
+            while (LogicalTreeHelper.GetParent(element) != null)
             {
                 element = LogicalTreeHelper.GetParent(element);
                 Ribbon ribbon = element as Ribbon;
-                if (ribbon!=null) return ribbon;
+                if (ribbon != null) return ribbon;
             }
             return null;
         }
@@ -425,7 +438,7 @@ namespace Fluent
             while (element != null)
             {
                 if (element is Ribbon) return true;
-                DependencyObject  parent = LogicalTreeHelper.GetParent(element);
+                DependencyObject parent = LogicalTreeHelper.GetParent(element);
                 if (parent == null) parent = VisualTreeHelper.GetParent(element);
                 element = parent;
             }
@@ -435,8 +448,8 @@ namespace Fluent
         // Process mouse wheel event
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
-            if (IsMinimized) return;            
-            if(SelectedItem==null) return;
+            if (IsMinimized) return;
+            if (SelectedItem == null) return;
             DependencyObject focusedElement = Keyboard.FocusedElement as DependencyObject;
             if (focusedElement != null)
             {
@@ -470,7 +483,7 @@ namespace Fluent
                     visualItems[selectedIndex].IsSelected = true;
                 }
             }
-            e.Handled = true;            
+            e.Handled = true;
         }
 
         // Get selected ribbon tab item
@@ -529,13 +542,13 @@ namespace Fluent
             {
                 RibbonTabItem selectedTabItem = GetSelectedTabItem();
                 if (selectedTabItem != null)
-                {                    
-                    SelectedContent = selectedTabItem.GroupsContainer;                    
+                {
+                    SelectedContent = selectedTabItem.GroupsContainer;
                     UpdateLayout();
                     SelectedTabItem = selectedTabItem;
                 }
             }
-        }        
+        }
 
         #endregion
 
@@ -545,7 +558,7 @@ namespace Fluent
         void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
             if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {   
+            {
                 UpdateSelectedContent();
             }
         }
@@ -558,14 +571,14 @@ namespace Fluent
             {
                 tab.IsDropDownOpen = false;
             }
-        }           
+        }
 
         // Handles ribbon popup closing
         void OnRibbonTabPopupClosing()
         {
             if (SelectedItem is RibbonTabItem)
             {
-                (SelectedItem as RibbonTabItem).IsHitTestVisible = true;                
+                (SelectedItem as RibbonTabItem).IsHitTestVisible = true;
             }
             if (Mouse.Captured == this)
             {
@@ -578,7 +591,7 @@ namespace Fluent
         {
             if (SelectedItem is RibbonTabItem)
             {
-                (SelectedItem as RibbonTabItem).IsHitTestVisible = false;                
+                (SelectedItem as RibbonTabItem).IsHitTestVisible = false;
             }
             Mouse.Capture(this, CaptureMode.SubTree);
         }
@@ -617,7 +630,7 @@ namespace Fluent
                     double actualWidth = ActualWidth;
                     if (startPoint.X < monitorInfo.Work.Left)
                     {
-                        actualWidth -= monitorInfo.Work.Left - startPoint.X;                        
+                        actualWidth -= monitorInfo.Work.Left - startPoint.X;
                         startPoint.X = monitorInfo.Work.Left;
                     }
                     // Set width

@@ -200,7 +200,8 @@
             <Grid.RowDefinitions>
               <RowDefinition Height="24"/>
               <RowDefinition x:Name="rowDefinition" Height="86"/>
-              <RowDefinition x:Name="rowDefinition1" Height="5"/>
+                            <RowDefinition x:Name="rowDefinition1"
+                                           Height="{TemplateBinding ContentGapHeight}"/>
             </Grid.RowDefinitions>
             <Border x:Name="border" HorizontalAlignment="Stretch" Margin="0,-1,0,0" Width="Auto" BorderThickness="0,1" Grid.Row="1" BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" Background="{DynamicResource RibbonBackgoundBrush}"/>
             <Rectangle Margin="0,-1,0,0" Grid.Row="1" Width="50" Stroke="Black" Height="1" HorizontalAlignment="Left" VerticalAlignment="Top" StrokeThickness="1">
