@@ -22,14 +22,8 @@ namespace Fluent
     /// <summary>
     /// Represents Backstage tab control.
     /// </summary>
-    [TemplatePart(Name = "PART_LeftPanel", Type = typeof(System.Windows.Controls.Grid))]
     public class BackstageTabControl : Selector
     {
-
-        #region Fields
-        Grid leftpanel;
-        #endregion
-
         #region Properties
 
         // Dependency property key for SelectedContent
@@ -145,6 +139,7 @@ namespace Fluent
         }
 
         #region ItemsPanelBackground
+
         /// <summary>
         /// Gets or sets current Backround of the ItemsPanel
         /// </summary>
@@ -159,22 +154,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static DependencyProperty ItemsPanelBackgroundProperty =
-            DependencyProperty.Register("ItemsPanelBackground", typeof(Brush), typeof(BackstageTabControl), new UIPropertyMetadata(OnItemsPanelBackgroundChanged));
+            DependencyProperty.Register("ItemsPanelBackground", typeof(Brush), typeof(BackstageTabControl));
 
-
-        static void OnItemsPanelBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            BackstageTabControl control = (BackstageTabControl)d;
-            control.SetBackground();
-        }
-
-        void SetBackground()
-        {
-            if (leftpanel != null)
-            {
-                leftpanel.Background = ItemsPanelBackground;
-            }
-        }
         #endregion
 
         #endregion
@@ -234,7 +215,6 @@ namespace Fluent
         {
             base.OnInitialized(e);
             base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
-            leftpanel = GetTemplateChild("PART_LeftPanel") as System.Windows.Controls.Grid;
         }
 
         /// <summary>

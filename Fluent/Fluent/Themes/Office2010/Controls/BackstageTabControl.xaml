@@ -80,7 +80,7 @@
   			</Border>
         <ContentPresenter x:Name="PART_SelectedContentHost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" ContentSource="SelectedContent"/>
   		</Grid>
-            <Grid Margin="0" VerticalAlignment="Stretch" Background="{TemplateBinding ItemsPanelBackground}" x:Name="PART_LeftPanel">        
+            <Grid Margin="0" VerticalAlignment="Stretch" Background="{TemplateBinding ItemsPanelBackground}">        
   			<Border HorizontalAlignment="Right" Margin="0" Width="6" Height="Auto" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="0,0,1,0" Background="{DynamicResource BackstagePanelShadowBackgroundBrush}"/>
         <StackPanel Margin="0,5,0,0" Height="Auto" IsItemsHost="True">
         </StackPanel>
