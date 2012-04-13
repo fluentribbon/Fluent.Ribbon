@@ -487,7 +487,9 @@ namespace Fluent
                             System.Windows.Point pos = iconImage.PointToScreen(new System.Windows.Point(0, 0));
                             Size size = new Size(iconImage.ActualWidth, iconImage.ActualHeight);
                             size = DpiHelper.LogicalSizeToDevice(size);
-                            if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
+
+                            // There is no neet to shift System Menu in RightToLeft mode
+                            //if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
                             
                             if (FlowDirection == FlowDirection.LeftToRight) ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
                             else
