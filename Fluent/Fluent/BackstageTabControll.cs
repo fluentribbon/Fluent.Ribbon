@@ -233,7 +233,7 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return ((item is BackstageTabItem) || (item is Button));
+            return ((item is BackstageTabItem) || (item is Button) || (item is SeparatorTabItem));
         }
 
         /// <summary>

@@ -48,6 +48,7 @@
 
                       </Fluent:BackstageTabItem>
 
+                      <Fluent:SeparatorTabItem Header="Separator" />
 
                       <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E" IsEnabled="False">
                             <ScrollViewer>
@@ -74,6 +75,7 @@
                                 </Grid>
                             </ScrollViewer>
                         </Fluent:BackstageTabItem>
+                        
                         <Fluent:BackstageTabItem Header="Recent" Fluent:KeyTip.Keys="R">
                             <TabControl Margin="20,5,20,5" Style="{DynamicResource InnerBackstageTabControlStyle}">
                                 <Fluent:SeparatorTabItem Header="Test1"/>
@@ -92,6 +94,8 @@
                                 </TabItem>
                             </TabControl>
                         </Fluent:BackstageTabItem>
+
+                        <Fluent:SeparatorTabItem />
                         <Fluent:BackstageTabItem Header="New" Fluent:KeyTip.Keys="N">
                             <Grid Background="#550000FF" Opacity="1" Margin="50" MinWidth="0" Width="Auto" HorizontalAlignment="Stretch">
                                 <TextBlock HorizontalAlignment="Left" MinWidth="0" TextWrapping="Wrap" Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>

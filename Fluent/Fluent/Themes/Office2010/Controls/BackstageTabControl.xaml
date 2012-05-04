@@ -45,6 +45,24 @@
     <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, FallbackValue=Red}"/>
     <Setter Property="Foreground" Value="{DynamicResource BackstageFontBrush}"/>
   </Style>
+  <Style TargetType="{x:Type Fluent:SeparatorTabItem}" x:Key="BackstageSeparatorTabItemStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
+                    <Grid Margin="0,0,10,0">
+                        <TextBlock x:Name="header" Margin="5,5" TextWrapping="Wrap" Text="{TemplateBinding Header}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="#FF5E5E5E" Visibility="Visible"/>
+                        <Path Data="M0,0L1,0" Fill="{x:Null}" Height="1" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RibbonTopBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Bottom" StrokeDashArray="2 2"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasHeader" Value="False">
+                            <Setter TargetName="header" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+  </Style>
+
   <ControlTemplate x:Key="BackstageControlTemplate" TargetType="{x:Type Fluent:BackstageTabControl}">
   	<ControlTemplate.Resources>
       <ResourceDictionary>
@@ -53,6 +71,7 @@
         <Style x:Key="{x:Type Fluent:DropDownButton}" TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource DropDownButtonBackstageStyle}"/>
         <Style x:Key="{x:Type Fluent:ComboBox}" TargetType="{x:Type Fluent:ComboBox}" BasedOn="{StaticResource ComboBoxBackstageStyle}"/>
 		<Style x:Key="{x:Type Fluent:Spinner}" TargetType="{x:Type Fluent:Spinner}" BasedOn="{StaticResource SpinnerBackstageStyle}"/>
+        <Style TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource BackstageSeparatorTabItemStyle}"/>
        </ResourceDictionary>      
 	  </ControlTemplate.Resources>	
   	<Grid Margin="0" Background="{DynamicResource BackstageBackgroundBrush}">
