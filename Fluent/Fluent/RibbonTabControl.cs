@@ -233,7 +233,9 @@ namespace Fluent
             set { SetValue(ContentGapHeightProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ContentGapHeight.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// DependencyProperty for <see cref="ContentGapHeight"/>
+        /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(RibbonTabControl), new UIPropertyMetadata(5D));
 

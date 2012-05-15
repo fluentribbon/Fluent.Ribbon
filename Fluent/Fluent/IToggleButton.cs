@@ -1,5 +1,8 @@
 ﻿namespace Fluent
 {
+    /// <summary>
+    /// Interface for controls that support <see cref="ToggleButton"/>-Behavior
+    /// </summary>
     public interface IToggleButton
     {
         /// <summary>

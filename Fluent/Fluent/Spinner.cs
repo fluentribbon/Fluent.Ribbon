@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -27,7 +28,7 @@ namespace Fluent
     /// Represents spinner control
     /// </summary>
     [ContentProperty("Value")]
-    [TemplatePart(Name="PART_TextBox", Type=typeof(System.Windows.Controls.TextBox))]
+    [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
     public class Spinner : RibbonControl
@@ -68,19 +69,24 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Value.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnValueChanged, CoerseValue));
+        public static readonly DependencyProperty ValueProperty;
 
-        static object CoerseValue(DependencyObject d, object basevalue)
+        private static object CoerceValue(DependencyObject d, object basevalue)
         {
             Spinner spinner = (Spinner)d;
-            double value = (double) basevalue;
+            double value = (double)basevalue;
+            value = GetLimitedValue(spinner, value);
+            return value;
+        }
+
+        private static double GetLimitedValue(Spinner spinner, double value)
+        {
             value = Math.Max(spinner.Minimum, value);
             value = Math.Min(spinner.Maximum, value);
             return value;
         }
 
-        static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Spinner spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
@@ -88,7 +94,7 @@ namespace Fluent
             if (spinner.ValueChanged != null) spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
         }
 
-        void ValueToTextBoxText()
+        private void ValueToTextBoxText()
         {
             if (IsTemplateValid())
             {
@@ -143,7 +149,7 @@ namespace Fluent
         #endregion
 
         #region Minimum
-        
+
         /// <summary>
         /// Gets or sets minimun value
         /// </summary>
@@ -157,12 +163,11 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Minimum.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerseMinimum));
+        public static readonly DependencyProperty MinimumProperty;
 
-        static object CoerseMinimum(DependencyObject d, object basevalue)
+        static object CoerceMinimum(DependencyObject d, object basevalue)
         {
-            Spinner spinner = (Spinner) d;
+            Spinner spinner = (Spinner)d;
             double value = (double)basevalue;
             if (spinner.Maximum < value) return spinner.Maximum;
             return value;
@@ -170,15 +175,15 @@ namespace Fluent
 
         static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Spinner spinner = (Spinner) d;
-            double value = (double) CoerseValue(d, spinner.Value);
+            Spinner spinner = (Spinner)d;
+            double value = (double)CoerceValue(d, spinner.Value);
             if (value != spinner.Value) spinner.Value = value;
         }
 
         #endregion
 
         #region Maximum
-        
+
         /// <summary>
         /// Gets or sets maximum value
         /// </summary>
@@ -192,10 +197,9 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Maximum.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(double), typeof(Spinner), new UIPropertyMetadata(10.0d, OnMaximumChanged, CoerseMaximum));
+        public static readonly DependencyProperty MaximumProperty;
 
-        static object CoerseMaximum(DependencyObject d, object basevalue)
+        static object CoerceMaximum(DependencyObject d, object basevalue)
         {
             Spinner spinner = (Spinner)d;
             double value = (double)basevalue;
@@ -206,7 +210,7 @@ namespace Fluent
         static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Spinner spinner = (Spinner)d;
-            double value = (double)CoerseValue(d, spinner.Value);
+            double value = (double)CoerceValue(d, spinner.Value);
             if (value != spinner.Value) spinner.Value = value;
         }
 
@@ -256,7 +260,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
-            DependencyProperty.Register("Delay", typeof(int), typeof(Spinner), 
+            DependencyProperty.Register("Delay", typeof(int), typeof(Spinner),
             new UIPropertyMetadata(400));
 
         #endregion
@@ -298,43 +302,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof (double), typeof (Spinner), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register("InputWidth", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.NaN));
 
-
-
-        #endregion
-
-        #region Foreground
-        /// <summary>
-        /// Gets or sets current foreground from the spinner
-        /// </summary>
-        public Brush Foreground
-        {
-            get { return (Brush)GetValue(ForegroundProperty); }
-            set { SetValue(ForegroundProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Foreground.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ForegroundProperty =
-            DependencyProperty.Register("Foreground", typeof(Brush), typeof(Spinner), new UIPropertyMetadata(Brushes.Black, OnForegroundChanged));
-
-
-        static void OnForegroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Spinner spinner = (Spinner)d;
-            spinner.ForegroundtoTextBox();
-        }
-
-        void ForegroundtoTextBox()
-        {
-            if (textBox != null)
-            {
-                textBox.Foreground = Foreground;
-            }
-        }
         #endregion
 
         #endregion
@@ -348,26 +317,10 @@ namespace Fluent
         static Spinner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
-            StyleProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(Spinner));
-            }
-
-            return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Spinner()
-        {
-
+            MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
+            MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
+            ValueProperty = DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnValueChanged, CoerceValue));
         }
 
         #endregion
@@ -404,7 +357,7 @@ namespace Fluent
             Bind(this, buttonDown, "Delay", System.Windows.Controls.Primitives.RepeatButton.DelayProperty, BindingMode.OneWay);
             Bind(this, buttonUp, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
             Bind(this, buttonDown, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
-            
+
 
             // Events subscribing
             buttonUp.Click += OnButtonUpClick;
@@ -454,27 +407,35 @@ namespace Fluent
             base.OnKeyUp(e);
         }
 
-        void OnButtonUpClick(object sender, RoutedEventArgs e)
+        private void OnButtonUpClick(object sender, RoutedEventArgs e)
         {
             Value += Increment;
         }
 
-        void OnButtonDownClick(object sender, RoutedEventArgs e)
+        private void OnButtonDownClick(object sender, RoutedEventArgs e)
         {
             Value -= Increment;
         }
 
-
-        void OnTextBoxLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void OnTextBoxLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             TextBoxTextToValue();
         }
-        
-        void OnTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
+
+        private void OnTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) TextBoxTextToValue();
-            if (e.Key == Key.Escape) ValueToTextBoxText();
-            if ((e.Key == Key.Enter) || (e.Key == Key.Escape))
+            if (e.Key == Key.Enter)
+            {
+                TextBoxTextToValue();
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                ValueToTextBoxText();
+            }
+
+            if (e.Key == Key.Enter
+                || e.Key == Key.Escape)
             {
                 // Move Focus
                 textBox.Focusable = false;
@@ -485,37 +446,42 @@ namespace Fluent
 
             if (e.Key == Key.Up)
             {
-                buttonUp.RaiseEvent(new RoutedEventArgs(
-                    System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
+                buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
+
             if (e.Key == Key.Down)
             {
-                buttonDown.RaiseEvent(new RoutedEventArgs(
-                    System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
+                buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
         }
 
-        void TextBoxTextToValue()
+        private void TextBoxTextToValue()
         {
-            string text = textBox.Text;
+            var text = textBox.Text;
 
             // Remove all except digits, signs and commas
-            StringBuilder stringBuilder = new StringBuilder();
-            for(int i = 0; i < text.Length; i++)
+            var stringBuilder = new StringBuilder();
+
+            foreach (var symbol in text)
             {
-                char symbol = text[i];
-                if (Char.IsDigit(symbol) || 
-                    symbol == ',' ||
-                    symbol == '.'||
-                    (symbol == '-' && stringBuilder.Length == 0)) stringBuilder.Append(symbol);
+                if (Char.IsDigit(symbol)
+                    || symbol == ','
+                    || symbol == '.'
+                    || (symbol == '-' && stringBuilder.Length == 0))
+                {
+                    stringBuilder.Append(symbol);
+                }
             }
+
             text = stringBuilder.ToString();
 
             double value;
+
             if (Double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
             {
-                Value = value;
+                Value = GetLimitedValue(this, value);
             }
+
             ValueToTextBoxText();
         }
 
@@ -556,7 +522,7 @@ namespace Fluent
             Bind(this, spinner, "Format", FormatProperty, BindingMode.OneWay);
             Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
-            
+
             RibbonControl.BindQuickAccessItem(this, element);
         }
 

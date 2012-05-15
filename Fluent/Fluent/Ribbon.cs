@@ -647,43 +647,43 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (tabControl == null)
+            {
+                return;
+            }
+
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (tabControl != null)
-                        {
-                            tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
-                        }
+                        tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
+
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
-                        if (tabControl != null)
-                        {
-                            tabControl.Items.Remove(item);
-                            RibbonTabItem tab = (RibbonTabItem)item;
-                            tab.Group = null;
-                        }
+                        tabControl.Items.Remove(item);
                     }
                     break;
+
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.Items.Remove(item);
+                        tabControl.Items.Remove(item);
                     }
-                    foreach (object item in e.NewItems)
+
+                    foreach (var item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.Items.Add(item);
+                        tabControl.Items.Add(item);
                     }
                     break;
+
                 case NotifyCollectionChangedAction.Reset:
-                    if (tabControl != null) tabControl.Items.Clear();
+                    tabControl.Items.Clear();
                     break;
             }
-
         }
 
         /// <summary>
@@ -942,7 +942,9 @@ namespace Fluent
             set { SetValue(ContentGapHeightProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ContentGapHeight.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// DependencyProperty for <see cref="ContentGapHeight"/>
+        /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(Ribbon), new UIPropertyMetadata(5D));
 

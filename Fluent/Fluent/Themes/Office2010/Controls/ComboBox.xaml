@@ -123,7 +123,7 @@
                     <ColumnDefinition Width="13"/>
                   </Grid.ColumnDefinitions>
                   <Border Grid.ColumnSpan="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource TextBoxHoverBorderBrush}" Visibility="Collapsed" x:Name="border1" Background="{DynamicResource TextBoxBackgroundBrush}"/>
-                  <Fluent:ToggleButton IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0" CanAddToQuickAccessToolBar="False"/>
+                  <Fluent:ToggleButton IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Margin="0,-1,-1,-1" Style="{DynamicResource RibbonComboButtonStyle}" Opacity="0" CanAddToQuickAccessToolBar="False" />
                   <ContentPresenter Margin="3" x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Top" HorizontalAlignment="Left" />
                   <Image Margin="0" Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed" Width="Auto" Height="Auto"/>
                   <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Hidden"/>
@@ -134,7 +134,7 @@
                 x:Name="PART_Popup"
                 Placement="Bottom"
                 PlacementTarget="{Binding ElementName=PART_ContentBorder}"
-                IsOpen="{TemplateBinding IsDropDownOpen}"
+                IsOpen="{Binding IsChecked, ElementName=ToggleButton}"
                 AllowsTransparency="True"
                 Focusable="False"
                 PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">

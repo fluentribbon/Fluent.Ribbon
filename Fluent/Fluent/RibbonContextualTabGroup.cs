@@ -20,7 +20,7 @@ namespace Fluent
     /// <summary>
     /// Represents contextual tab group
     /// </summary>
-    public class RibbonContextualTabGroup: Control
+    public class RibbonContextualTabGroup : Control
     {
         #region Fields
 
@@ -47,7 +47,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup), 
+            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup),
             new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -97,11 +97,17 @@ namespace Fluent
         public static readonly DependencyProperty IsWindowMaximizedProperty =
             DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
 
+        /// <summary>
+        /// Gets the first visible TabItem in this group
+        /// </summary>
         public RibbonTabItem FirstVisibleItem
         {
-            get { return items[GetFirstVisibleItem()] ; }
+            get { return items[GetFirstVisibleItem()]; }
         }
 
+        /// <summary>
+        /// Gets the last visible TabItem in this group
+        /// </summary>
         public RibbonTabItem LastVisibleItem
         {
             get { return items[GetFirstVisibleItem()]; }
@@ -131,7 +137,7 @@ namespace Fluent
 
             return basevalue;
         }
-        
+
         /// <summary>
         /// Handles visibility prioperty changed
         /// </summary>
@@ -150,7 +156,7 @@ namespace Fluent
         /// </summary>
         public RibbonContextualTabGroup()
         {
-            
+
         }
 
         #endregion
@@ -174,7 +180,7 @@ namespace Fluent
         public void UpdateGroupBorders()
         {
             bool leftset = false, rightset = false;
-            for (int i = 0; i < items.Count;i++ )
+            for (int i = 0; i < items.Count; i++)
             {
                 //if (i == 0) items[i].HasLeftGroupBorder = true;
                 //else items[i].HasLeftGroupBorder = false;
@@ -186,15 +192,17 @@ namespace Fluent
                 {
                     items[i].HasLeftGroupBorder = true;
                     leftset = true;
-                }else
+                }
+                else
                     items[i].HasLeftGroupBorder = false;
 
 
-                if (items[items.Count-1-i].Visibility == Visibility.Visible && rightset == false)
+                if (items[items.Count - 1 - i].Visibility == Visibility.Visible && rightset == false)
                 {
                     items[items.Count - 1 - i].HasRightGroupBorder = true;
                     rightset = true;
-                }else
+                }
+                else
                     items[items.Count - 1 - i].HasRightGroupBorder = false;
             }
         }
@@ -258,7 +266,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
-            
+
             base.OnMouseDoubleClick(e);
             /*if(e.RightButton==MouseButtonState.Pressed)
             {
@@ -277,7 +285,7 @@ namespace Fluent
         /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
         /// </summary>
         public override void OnApplyTemplate()
-        {            
+        {
             base.OnApplyTemplate();
             if (parentWidow != null) parentWidow.StateChanged -= OnParentWindowStateChanged;
             parentWidow = Window.GetWindow(this);
