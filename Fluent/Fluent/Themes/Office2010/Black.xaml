@@ -781,18 +781,16 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="{x:Type StatusBarItem}" TargetType="{x:Type StatusBarItem}">
-    <Style.Triggers>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Foreground" Value="#FF888888" />
-      </Trigger>
-    </Style.Triggers>
+    <Setter Property="Padding" Value="3,0,3,0" />
     <Setter Property="OverridesDefaultStyle" Value="True" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type StatusBarItem}">
-          <ContentPresenter Margin="3" />
+          <ContentPresenter Margin="{TemplateBinding Padding}" />
           <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="false" />
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Foreground" Value="#FF888888" />
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
@@ -840,18 +838,19 @@
     </Setter>
   </Style>
   <Style x:Key="RibbonStatusBarItemStyle" TargetType="{x:Type Fluent:StatusBarItem}">
+    <Setter Property="Padding" Value="3,0,3,0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Fluent:StatusBarItem}">
+          <ContentPresenter Margin="{TemplateBinding Padding}" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
     <Style.Triggers>
       <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Foreground" Value="#FF888888" />
       </Trigger>
     </Style.Triggers>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Fluent:StatusBarItem}">
-          <ContentPresenter Margin="3,0,3,0" />
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
   </Style>
   <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
     <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -1237,8 +1236,8 @@
     <Setter Property="HorizontalAlignment" Value="Left" />
     <Setter Property="VerticalAlignment" Value="Top" />
     <Setter Property="Height" Value="31" />
-    <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay}" />
-    <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay}" />
+    <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
+    <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">
@@ -4823,7 +4822,7 @@
                   <RowDefinition Height="*" />
                   <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBox x:Name="PART_TextBox" BorderThickness="0" Grid.RowSpan="2" Grid.Column="0" Background="{StaticResource TextBoxBackgroundBrush}" />
+                <TextBox x:Name="PART_TextBox" BorderThickness="0" Grid.RowSpan="2" Grid.Column="0" Background="{StaticResource TextBoxBackgroundBrush}" Foreground="{TemplateBinding Foreground}" />
                 <Path Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,-1,0,-1" x:Name="path" Width="1" Fill="#FF000000" Stretch="Fill" Stroke="{StaticResource TextBoxHoverBorderBrush}" StrokeThickness="1" Grid.Column="1" Grid.RowSpan="2" Data="M0,0L0,1" />
                 <Path HorizontalAlignment="Left" Margin="0,0,-1,0" Width="Auto" Fill="#FF000000" Stretch="Fill" Stroke="{StaticResource TextBoxHoverBorderBrush}" StrokeThickness="1" Data="M0,0L1,0" Visibility="Collapsed" x:Name="path1" VerticalAlignment="Bottom" Height="1" Grid.Column="1" Grid.RowSpan="1" />
                 <RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonStyle}" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch">
@@ -6365,7 +6364,7 @@
                   <Path x:Name="path" Grid.Column="1" Data="M0,0L2,0 1,1z" Fill="{StaticResource DefaultFontBrush}" Margin="0" StrokeStartLineCap="Round" Stretch="Fill" StrokeEndLineCap="Round" Stroke="{StaticResource DefaultFontBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Round" Width="5" Height="4" StrokeDashCap="Round" IsHitTestVisible="False" />
                 </Grid>
               </Border>
-              <Popup x:Name="PART_Popup" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_ContentBorder}" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+              <Popup x:Name="PART_Popup" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_ContentBorder}" IsOpen="{Binding IsChecked, ElementName=ToggleButton}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                 <Popup.Resources>
                   <ResourceDictionary>
                     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}" />
