@@ -7504,27 +7504,24 @@
         <Setter Property="Content" TargetName="border1" Value="{x:Null}" />
         <Setter Property="Content" TargetName="popupContent" Value="{Binding ElementName=PART_ParentPanel}" />
       </Trigger>
-      <EventTrigger RoutedEvent="Mouse.MouseLeave">
-        <BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave1}" />
-      </EventTrigger>
-      <EventTrigger RoutedEvent="Mouse.MouseEnter">
-        <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
-      </EventTrigger>
-      <Trigger Property="IsFocused" Value="True">
-        <Setter Property="Opacity" TargetName="hoverGrid" Value="1" />
-      </Trigger>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Opacity" TargetName="hoverGrid" Value="1" />
+        <Trigger.EnterActions>
+          <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
+        </Trigger.EnterActions>
+        <Trigger.ExitActions>
+          <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
+        </Trigger.ExitActions>
       </Trigger>
       <Trigger Property="IsDropDownOpen" Value="True">
-        <Setter Property="Opacity" TargetName="hoverGrid" Value="1" />
+        <Trigger.EnterActions>
+          <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
+        </Trigger.EnterActions>
+        <Trigger.ExitActions>
+          <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
+        </Trigger.ExitActions>
       </Trigger>
       <Trigger Property="IsLauncherVisible" Value="False">
         <Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed" />
-      </Trigger>
-      <Trigger Property="IsDropDownOpen" Value="True">
-        <Setter Property="Opacity" TargetName="hoverGrid" Value="1" />
-        <!--<Setter Property="Visibility" TargetName="rectangle" Value="Collapsed"/>-->
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
