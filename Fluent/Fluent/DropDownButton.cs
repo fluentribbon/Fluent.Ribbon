@@ -8,12 +8,7 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +16,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -36,15 +30,12 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        Thumb resizeBothThumb;
-        // Thumb to resize vertical
-        Thumb resizeVerticalThumb;
+        private Thumb resizeBothThumb;
 
-        private Popup popup;
+        // Thumb to resize vertical
+        private Thumb resizeVerticalThumb;
 
         private Border buttonBorder;
-
-        private IInputElement focusedElement;
 
         private MenuPanel menuPanel;
 
@@ -59,10 +50,7 @@ namespace Fluent
         /// <summary>
         /// Gets drop down popup
         /// </summary>
-        public Popup DropDownPopup
-        {
-            get { return popup; }
-        }
+        public Popup DropDownPopup { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether context menu is opened
@@ -300,30 +288,15 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
-            Type type = typeof(DropDownButton);
+            var type = typeof(DropDownButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
 
-            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-            KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
 
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
-
-
-            StyleProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(DropDownButton));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -331,12 +304,7 @@ namespace Fluent
         /// </summary>
         public DropDownButton()
         {
-            KeyboardNavigation.SetControlTabNavigation(this, KeyboardNavigationMode.Cycle);
-            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Cycle);
-            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
-
             ContextMenuService.Coerce(this);
-            Focusable = false;
         }
 
         #endregion
@@ -359,7 +327,7 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is FrameworkElement);
+            return item is FrameworkElement;
         }
 
         /// <summary>
@@ -371,57 +339,61 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (buttonBorder.IsMouseOver)
+            if (!buttonBorder.IsMouseOver)
             {
-                if (!IsDropDownOpen)
-                {
-                    if (isFirstTime) popup.Opacity = 0;
-                    if (menuPanel != null)
-                    {
-                        if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
-                            scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                        menuPanel.Width = double.NaN;
-                        menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
-                        menuPanel.Loaded += OnMenuPanelLoaded;
-                    }
-                    if (!isFirstTime) IsDropDownOpen = true;
-                }
-                else
-                {
-                    PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
-                    IsDropDownOpen = false;
-                }
-                //Keyboard.Focus(popup);
-                //Keyboard.Focus(FocusManager.GetFocusScope(ItemContainerGenerator.ContainerFromIndex(0) as FrameworkElement) as IInputElement);
-                //Debug.WriteLine(Keyboard.FocusedElement);
+                return;
+            }
 
-                focusedElement = Keyboard.FocusedElement;
-                if (focusedElement != null)
-                {
-                    focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
-                    focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
-                }
-                e.Handled = true;
-
+            if (!IsDropDownOpen)
+            {
                 if (isFirstTime)
                 {
-                    isFirstTime = false;
-                    //IsDropDownOpen = false;
-                    Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
-                    {
-                        if (menuPanel != null)
-                        {
-                            if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
-                                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                            menuPanel.Width = double.NaN;
-                            menuPanel.Height = double.NaN;
-                            menuPanel.Loaded += OnMenuPanelLoaded;
-                        }
-                        IsDropDownOpen = true;
-                        OnMenuPanelLoaded(null, null);
-                        popup.Opacity = 1;
-                    }));
+                    DropDownPopup.Opacity = 0;
                 }
+
+                if (menuPanel != null)
+                {
+                    if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
+                    {
+                        scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                    }
+
+                    menuPanel.Width = double.NaN;
+                    menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
+                    menuPanel.Loaded += OnMenuPanelLoaded;
+                }
+
+                if (!isFirstTime)
+                {
+                    IsDropDownOpen = true;
+                }
+            }
+            else
+            {
+                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                IsDropDownOpen = false;
+            }
+
+            e.Handled = true;
+
+            if (isFirstTime)
+            {
+                isFirstTime = false;
+                //IsDropDownOpen = false;
+                Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
+                                                                             {
+                                                                                 if (menuPanel != null)
+                                                                                 {
+                                                                                     if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
+                                                                                         scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                                                                                     menuPanel.Width = double.NaN;
+                                                                                     menuPanel.Height = double.NaN;
+                                                                                     menuPanel.Loaded += OnMenuPanelLoaded;
+                                                                                 }
+                                                                                 IsDropDownOpen = true;
+                                                                                 OnMenuPanelLoaded(null, null);
+                                                                                 DropDownPopup.Opacity = 1;
+                                                                             }));
             }
         }
 
@@ -429,6 +401,7 @@ namespace Fluent
         {
             menuPanel.Loaded -= OnMenuPanelLoaded;
             if (ResizeMode != ContextMenuResizeMode.None)
+            {
                 Dispatcher.Invoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
                 {
                     if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
@@ -437,29 +410,7 @@ namespace Fluent
                     menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), Math.Min(DropDownHeight, MaxDropDownHeight));
                     if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }));
-        }
-
-        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Down)
-            {
-                if (!Items.Contains(Keyboard.FocusedElement))
-                    Keyboard.Focus(Items[0] as IInputElement);
-                e.Handled = true;
             }
-            else if (e.Key == Key.Up)
-            {
-                if (!Items.Contains(Keyboard.FocusedElement))
-                    Keyboard.Focus(Items[Items.Count - 1] as IInputElement);
-                e.Handled = true;
-            }
-            else if (e.Key == Key.Escape) IsDropDownOpen = false;
-        }
-
-        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
-            focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
         }
 
         /// <summary>
@@ -468,8 +419,82 @@ namespace Fluent
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) IsDropDownOpen = false;
-            base.OnKeyDown(e);
+            var handled = false;
+
+            switch (e.Key)
+            {
+                case Key.Down:
+                    if (HasItems)
+                    {
+                        this.IsDropDownOpen = true;
+
+                        var container = ItemContainerGenerator.ContainerFromIndex(0);
+
+                        NavigateToContainer(container);
+
+                        handled = true;
+                    }
+                    break;
+
+                case Key.Up:
+                    if (HasItems)
+                    {
+                        this.IsDropDownOpen = true;
+
+                        var container = ItemContainerGenerator.ContainerFromIndex(Items.Count - 1);
+
+                        NavigateToContainer(container);
+
+                        handled = true;
+                    }
+                    break;
+
+                case Key.Escape:
+                    IsDropDownOpen = false;
+                    handled = true;
+                    Mouse.Capture(this);
+                    break;
+
+                case Key.Enter:
+                case Key.Space:
+                    this.IsDropDownOpen = !this.IsDropDownOpen;
+
+                    if (this.IsDropDownOpen == false)
+                    {
+                        Mouse.Capture(this);
+                    }
+
+                    handled = true;
+                    break;
+
+                default:
+                    handled = false;
+                    break;
+            }
+
+            if (handled)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private static void NavigateToContainer(DependencyObject container)
+        {
+            var element = container as UIElement;
+
+            if (element == null)
+            {
+                return;
+            }
+
+            if (element.Focusable)
+            {
+                Keyboard.Focus(element);
+            }
+            else
+            {
+                element.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+            }
         }
 
         /// <summary>
@@ -478,29 +503,32 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             isFirstTime = true;
-            if (popup != null)
+
+            if (DropDownPopup != null)
             {
-                popup.Opened -= OnDropDownOpened;
-                popup.Closed -= OnDropDownClosed;
+                DropDownPopup.Opened -= OnDropDownOpened;
+                DropDownPopup.Closed -= OnDropDownClosed;
             }
 
-            popup = GetTemplateChild("PART_Popup") as Popup;
+            DropDownPopup = GetTemplateChild("PART_Popup") as Popup;
 
-            if (popup != null)
+            if (DropDownPopup != null)
             {
-                popup.Opened += OnDropDownOpened;
-                popup.Closed += OnDropDownClosed;
+                DropDownPopup.Opened += OnDropDownOpened;
+                DropDownPopup.Closed += OnDropDownClosed;
 
-                KeyboardNavigation.SetControlTabNavigation(popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetDirectionalNavigation(popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetTabNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetControlTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetDirectionalNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
             if (resizeVerticalThumb != null)
             {
                 resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
             }
+
             resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+
             if (resizeVerticalThumb != null)
             {
                 resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
@@ -510,7 +538,9 @@ namespace Fluent
             {
                 resizeBothThumb.DragDelta -= OnResizeBothDelta;
             }
+
             resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+
             if (resizeBothThumb != null)
             {
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
@@ -535,13 +565,6 @@ namespace Fluent
         public virtual void OnKeyTipPressed()
         {
             IsDropDownOpen = true;
-
-            focusedElement = Keyboard.FocusedElement;
-            if (focusedElement != null)
-            {
-                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
-                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
-            }
         }
 
         #endregion
@@ -567,25 +590,24 @@ namespace Fluent
         }
 
         // Handles drop down opened
-        void OnDropDownClosed(object sender, EventArgs e)
+        private void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (DropDownClosed != null) DropDownClosed(this, e);
-            if (Mouse.Captured == this) Mouse.Capture(null);
+            if (DropDownClosed != null)
+            {
+                DropDownClosed(this, e);
+            }
         }
 
         // Handles drop down closed
-        void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownOpened(object sender, EventArgs e)
         {
-            /*if (menuPanel != null)
+            Mouse.Capture(this.DropDownPopup, CaptureMode.SubTree);
+            this.DropDownPopup.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+
+            if (DropDownOpened != null)
             {
-                menuPanel.Width = double.NaN;
-                menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);
-                menuPanel.Loaded += OnMenuPanelLoaded;
-            }*/
-            if (DropDownOpened != null) DropDownOpened(this, e);
-            Mouse.Capture(this, CaptureMode.SubTree);
-            /*menuPanel.UpdateMenuSizes();
-            menuPanel.UpdateLayout();*/
+                DropDownOpened(this, e);
+            }
         }
 
         #endregion
@@ -714,6 +736,4 @@ namespace Fluent
 
         #endregion
     }
-
-
 }
