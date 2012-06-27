@@ -166,8 +166,6 @@ namespace Fluent
                 if ((bool)e.NewValue) button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
                 else button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
 
-                if (Mouse.Captured == button) Mouse.Capture(null);
-
                 ToggleButtonHelper.OnIsCheckedChanged(d, e);
             }
         }

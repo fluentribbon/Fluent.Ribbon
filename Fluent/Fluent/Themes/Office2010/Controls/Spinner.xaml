@@ -93,7 +93,7 @@
                   <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBox x:Name="PART_TextBox" BorderThickness="0" Grid.RowSpan="2" Grid.Column="0" Background="{DynamicResource TextBoxBackgroundBrush}" Foreground="{TemplateBinding Foreground}"/>
+                <TextBox x:Name="PART_TextBox" BorderThickness="0" Grid.RowSpan="2" Grid.Column="0" Background="{DynamicResource TextBoxBackgroundBrush}" Foreground="{TemplateBinding Foreground}" Padding="2,0,2,0" Margin="0" />
                 <Path Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,-1,0,-1" x:Name="path" Width="1" Fill="#FF000000" Stretch="Fill" Stroke="{DynamicResource TextBoxHoverBorderBrush}" StrokeThickness="1" Grid.Column="1" Grid.RowSpan="2" Data="M0,0L0,1"/>
                 <Path HorizontalAlignment="Left" Margin="0,0,-1,0" Width="Auto" Fill="#FF000000" Stretch="Fill" Stroke="{DynamicResource TextBoxHoverBorderBrush}" StrokeThickness="1" Data="M0,0L1,0" Visibility="Collapsed" x:Name="path1" VerticalAlignment="Bottom" Height="1" Grid.Column="1" Grid.RowSpan="1"/>
                 <RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonStyle}" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch">
