@@ -436,7 +436,9 @@ namespace Fluent
             UIElement current = element;
             while (true)
             {
-                current = (UIElement)VisualTreeHelper.GetParent(current);
+                var parent = (UIElement)VisualTreeHelper.GetParent(current);
+                if (parent == null) parent = (UIElement)LogicalTreeHelper.GetParent(current);
+                current = parent;
                 if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
             }
         }
