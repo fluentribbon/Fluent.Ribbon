@@ -156,7 +156,46 @@ namespace Fluent
         /// </summary>
         public RibbonContextualTabGroup()
         {
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
+        }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            parentWidow = Window.GetWindow(this);
+
+            this.SubscribeEvents();
+
+            if (parentWidow != null)
+            {
+                IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
+            }
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.UnSubscribeEvents();
+
+            this.parentWidow = null;
+        }
+
+        private void SubscribeEvents()
+        {
+            // Always unsubscribe events to ensure we don't subscribe twice
+            this.UnSubscribeEvents();
+
+            if (this.parentWidow != null)
+            {
+                this.parentWidow.StateChanged += this.OnParentWindowStateChanged;
+            }
+        }
+
+        private void UnSubscribeEvents()
+        {
+            if (this.parentWidow != null)
+            {
+                this.parentWidow.StateChanged -= this.OnParentWindowStateChanged;
+            }
         }
 
         #endregion
@@ -247,7 +286,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was released.</param>
-        protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if ((e.ClickCount == 1) && (items.Count > 0))
             {
@@ -266,33 +305,23 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
-
             base.OnMouseDoubleClick(e);
             /*if(e.RightButton==MouseButtonState.Pressed)
             {
                 RibbonWindow wnd = Window.GetWindow(this) as RibbonWindow;
                 if (wnd != null) wnd.ShowSystemMenu(PointToScreen(e.GetPosition(this)));
             }*/
-            Window wnd = Window.GetWindow(this);
-            if (wnd != null)
-            {
-                if (wnd.WindowState == WindowState.Maximized) wnd.WindowState = WindowState.Normal;
-                else wnd.WindowState = WindowState.Maximized;
-            }
-        }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            if (parentWidow != null) parentWidow.StateChanged -= OnParentWindowStateChanged;
-            parentWidow = Window.GetWindow(this);
-            if (parentWidow != null)
+            if (this.parentWidow != null)
             {
-                parentWidow.StateChanged += OnParentWindowStateChanged;
-                IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
+                if (this.parentWidow.WindowState == WindowState.Maximized)
+                {
+                    this.parentWidow.WindowState = WindowState.Normal;
+                }
+                else
+                {
+                    this.parentWidow.WindowState = WindowState.Maximized;
+                }
             }
         }
 

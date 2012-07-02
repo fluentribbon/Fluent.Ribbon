@@ -35,7 +35,7 @@ namespace Fluent
 
         // Content container
         private Border contentContainer;
-        
+
         // Desired width
         private double desiredWidth;
 
@@ -144,7 +144,7 @@ namespace Fluent
         public bool IsSelected
         {
             get
-            {                
+            {
                 return (bool)base.GetValue(IsSelectedProperty);
             }
             set
@@ -377,8 +377,8 @@ namespace Fluent
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
             RibbonTabItem control = (d as RibbonTabItem);
-            if (control!=null)
-            {                
+            if (control != null)
+            {
                 Ribbon ribbon = control.FindParentRibbon();
                 if (ribbon != null)
                 {
@@ -387,7 +387,7 @@ namespace Fluent
             }
             return basevalue;
         }
-        
+
         // Find parent ribbon
         private Ribbon FindParentRibbon()
         {
@@ -395,13 +395,13 @@ namespace Fluent
             while (element != null)
             {
                 Ribbon ribbon = element as Ribbon;
-                if (ribbon!=null) return ribbon;
+                if (ribbon != null) return ribbon;
                 element = VisualTreeHelper.GetParent(element);
             }
             return null;
         }
 
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -416,7 +416,7 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
-            VisibilityProperty.AddOwner(typeof (RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
+            VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
             StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
@@ -435,7 +435,7 @@ namespace Fluent
         static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonTabItem item = d as RibbonTabItem;
-            if((item.IsSelected)&&((Visibility)e.NewValue==Visibility.Collapsed))
+            if ((item.IsSelected) && ((Visibility)e.NewValue == Visibility.Collapsed))
             {
                 if (item.TabControlParent != null) item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
             }
@@ -454,11 +454,12 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            this.Unloaded += this.OnUnloaded;
-
             AddLogicalChild(groupsContainer);
             groupsContainer.Content = groupsInnerContainer;
             ContextMenuService.Coerce(this);
+
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
         }
 
         #endregion
@@ -475,7 +476,7 @@ namespace Fluent
             if (contentContainer == null) return base.MeasureOverride(constraint);
             contentContainer.Padding = new Thickness(Indent, contentContainer.Padding.Top, Indent, contentContainer.Padding.Bottom);
             Size baseConstraint = base.MeasureOverride(constraint);
-            double totalWidth = contentContainer.DesiredSize.Width -contentContainer.Margin.Left - contentContainer.Margin.Right;
+            double totalWidth = contentContainer.DesiredSize.Width - contentContainer.Margin.Left - contentContainer.Margin.Right;
             (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double headerWidth = contentContainer.Child.DesiredSize.Width;
             if (totalWidth < headerWidth + Indent * 2)
@@ -488,18 +489,18 @@ namespace Fluent
                 if (desiredWidth != 0)
                 {
                     // If header width is larger then tab increase tab width
-                    if ((constraint.Width > desiredWidth)&&(desiredWidth>totalWidth)) baseConstraint.Width = desiredWidth;
+                    if ((constraint.Width > desiredWidth) && (desiredWidth > totalWidth)) baseConstraint.Width = desiredWidth;
                     else
-                        baseConstraint.Width = headerWidth + Indent*2 + contentContainer.Margin.Left +
+                        baseConstraint.Width = headerWidth + Indent * 2 + contentContainer.Margin.Left +
                                                contentContainer.Margin.Right;
                 }
             }
-            
-            if ((cachedWidth!=baseConstraint.Width)&&(IsContextual)&&(Group!=null))
+
+            if ((cachedWidth != baseConstraint.Width) && (IsContextual) && (Group != null))
             {
                 cachedWidth = baseConstraint.Width;
                 FrameworkElement parent = (VisualTreeHelper.GetParent(Group) as FrameworkElement);
-                if(parent != null) parent.InvalidateMeasure();
+                if (parent != null) parent.InvalidateMeasure();
             }
 
             return baseConstraint;
@@ -521,18 +522,18 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) &&(e.ClickCount==2)))
+            if (((e.Source == this) && (e.ClickCount == 2)))
             {
                 e.Handled = true;
                 if (TabControlParent != null) TabControlParent.IsMinimized = !TabControlParent.IsMinimized;
             }
             else if (((e.Source == this) || !this.IsSelected))
             {
-                if (TabControlParent!=null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
+                        (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
                 e.Handled = true;
                 this.IsSelected = true;
-            }            
+            }
         }
 
         #endregion
@@ -554,7 +555,7 @@ namespace Fluent
             {
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
             }
-            
+
         }
         /// <summary>
         /// Handles selected
@@ -583,18 +584,33 @@ namespace Fluent
             base.RaiseEvent(e);
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.SubscribeEvents();
+        }
+
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            this.Group = null;
+            this.UnSubscribeEvents();
+        }
 
-            this.groupsInnerContainer = null;
+        private void SubscribeEvents()
+        {
+            // Always unsubscribe events to ensure we don't subscribe twice
+            this.UnSubscribeEvents();
 
+            if (this.groups != null)
+            {
+                this.groups.CollectionChanged += this.OnGroupsCollectionChanged;
+            }
+        }
+
+        private void UnSubscribeEvents()
+        {
             if (this.groups != null)
             {
                 this.groups.CollectionChanged -= this.OnGroupsCollectionChanged;
             }
-
-            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion

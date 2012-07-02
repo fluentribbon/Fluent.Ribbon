@@ -305,6 +305,60 @@ namespace Fluent
         public DropDownButton()
         {
             ContextMenuService.Coerce(this);
+
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.SubscribeEvents();
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            // Always unsubscribe events to ensure we don't subscribe twice
+            this.UnSubscribeEvents();
+
+            if (DropDownPopup != null)
+            {
+                DropDownPopup.Opened += OnDropDownOpened;
+                DropDownPopup.Closed += OnDropDownClosed;
+            }
+
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
+            }
+
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta += OnResizeBothDelta;
+            }
+        }
+
+        private void UnSubscribeEvents()
+        {
+            if (DropDownPopup != null)
+            {
+                DropDownPopup.Opened -= OnDropDownOpened;
+                DropDownPopup.Closed -= OnDropDownClosed;
+            }
+
+            if (resizeVerticalThumb != null)
+            {
+                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+            }
+
+            if (resizeBothThumb != null)
+            {
+                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+            }
         }
 
         #endregion
@@ -502,49 +556,22 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            isFirstTime = true;
+            this.UnSubscribeEvents();
 
-            if (DropDownPopup != null)
-            {
-                DropDownPopup.Opened -= OnDropDownOpened;
-                DropDownPopup.Closed -= OnDropDownClosed;
-            }
+            isFirstTime = true;
 
             DropDownPopup = GetTemplateChild("PART_Popup") as Popup;
 
             if (DropDownPopup != null)
             {
-                DropDownPopup.Opened += OnDropDownOpened;
-                DropDownPopup.Closed += OnDropDownClosed;
-
                 KeyboardNavigation.SetControlTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetDirectionalNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
-            if (resizeVerticalThumb != null)
-            {
-                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
-            }
-
             resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
 
-            if (resizeVerticalThumb != null)
-            {
-                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
-            }
-
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta -= OnResizeBothDelta;
-            }
-
             resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta += OnResizeBothDelta;
-            }
 
             buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
 
@@ -553,6 +580,8 @@ namespace Fluent
             scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
             base.OnApplyTemplate();
+
+            this.SubscribeEvents();
         }
 
         #endregion

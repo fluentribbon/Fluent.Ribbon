@@ -9,20 +9,18 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -191,9 +189,12 @@ namespace Fluent
             }
         }
 
-        void OnScalableControlScaled(object sender, EventArgs e)
+        private void OnScalableControlScaled(object sender, EventArgs e)
         {
-            if (!SuppressCacheReseting) cachedMeasures.Clear();
+            if (!SuppressCacheReseting)
+            {
+                cachedMeasures.Clear();
+            }
         }
 
         /// <summary>
@@ -216,15 +217,14 @@ namespace Fluent
             }
         }
 
-        private void UpdateScalableControlSubscribing(bool subscribe = true)
+        private void UpdateScalableControlSubscribing(bool registerEvents = true)
         {
-            foreach (object item in Items)
+            foreach (var scalableRibbonControl in Items.OfType<IScalableRibbonControl>())
             {
-                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl == null) continue;
+                // Always unregister first to ensure that we don't subscribe twice
                 scalableRibbonControl.Scaled -= OnScalableControlScaled;
 
-                if (subscribe)
+                if (registerEvents)
                 {
                     scalableRibbonControl.Scaled += OnScalableControlScaled;
                 }
@@ -248,7 +248,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            RibbonControl.HeaderProperty.AddOwner(typeof (RibbonGroupBox));
+            RibbonControl.HeaderProperty.AddOwner(typeof(RibbonGroupBox));
 
         #endregion
 
@@ -488,7 +488,7 @@ namespace Fluent
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
             RibbonGroupBox box = d as RibbonGroupBox;
-            if ((box.State != RibbonGroupBoxState.Collapsed)&&(box.State != RibbonGroupBoxState.QuickAccess)) return false;
+            if ((box.State != RibbonGroupBoxState.Collapsed) && (box.State != RibbonGroupBoxState.QuickAccess)) return false;
             return basevalue;
         }
 
@@ -623,11 +623,43 @@ namespace Fluent
             Focusable = false;
             FocusManager.SetIsFocusScope(this, false);
 
-            this.Unloaded += this.OnUnloaded;
+            this.Loaded += OnLoaded;
+            this.Unloaded += OnUnloaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.SubscribeEvents();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            this.UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            // Always unsubscribe events to ensure we don't subscribe twice
+            this.UnSubscribeEvents();
+
+            this.UpdateScalableControlSubscribing();
+
+            if (LauncherButton != null)
+            {
+                LauncherButton.Click += OnDialogLauncherButtonClick;
+            }
+
+            if (popup != null)
+            {
+                popup.Opened += OnPopupOpened;
+                popup.Closed += OnPopupClosed;
+            }
+        }
+
+        private void UnSubscribeEvents()
+        {
+            this.UpdateScalableControlSubscribing(registerEvents: false);
+
             if (LauncherButton != null)
             {
                 LauncherButton.Click -= OnDialogLauncherButtonClick;
@@ -638,10 +670,6 @@ namespace Fluent
                 popup.Opened -= OnPopupOpened;
                 popup.Closed -= OnPopupClosed;
             }
-
-            UpdateScalableControlSubscribing(subscribe: false);
-
-            BindingOperations.ClearAllBindings(this);
         }
 
         /// <summary>
@@ -651,7 +679,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if ((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess))
+            if ((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess))
             {
                 IsDropDownOpen = true;
                 e.Handled = true;
@@ -826,7 +854,7 @@ namespace Fluent
             {
                 foreach (Visual visual in e.NewItems)
                 {
-                    RibbonControl.SetAppropriateSize((UIElement)visual, State==RibbonGroupBoxState.QuickAccess?RibbonGroupBoxState.Collapsed:State);
+                    RibbonControl.SetAppropriateSize((UIElement)visual, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
                 }
             }
             base.OnItemsChanged(e);
@@ -838,35 +866,30 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            this.UnSubscribeEvents();
+
             // Clear cache
             cachedMeasures.Clear();
 
-            if (LauncherButton != null) LauncherButton.Click -= OnDialogLauncherButtonClick;
             LauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
+
             if (LauncherButton != null)
             {
-                LauncherButton.Click += OnDialogLauncherButtonClick;
                 if (LauncherKeys != null)
+                {
                     KeyTip.SetKeys(LauncherButton, LauncherKeys);
+                }
             }
 
-            if (popup != null)
-            {
-                popup.Opened -= OnPopupOpened;
-                popup.Closed -= OnPopupClosed;
-            }
             popup = GetTemplateChild("PART_Popup") as Popup;
-            if (popup != null)
-            {
-                popup.Opened += OnPopupOpened;
-                popup.Closed += OnPopupClosed;
-            }
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
             parentPanel = GetTemplateChild("PART_ParentPanel") as Panel;
 
             snappedImage = GetTemplateChild("PART_SnappedImage") as Image;
+
+            this.SubscribeEvents();
         }
 
         private void OnPopupOpened(object sender, EventArgs e)
@@ -888,14 +911,14 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess)) && (popup != null))
+            if (((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess)) && (popup != null))
             {
                 e.Handled = true;
                 if (!IsDropDownOpen)
                 {
                     IsDropDownOpen = true;
                 }
-                else PopupService.RaiseDismissPopupEvent(this,DismissPopupMode.MouseNotOver);
+                else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
             }
         }
 
@@ -985,11 +1008,11 @@ namespace Fluent
             groupBox.DropDownClosed += OnQuickAccessClosed;
             groupBox.State = RibbonGroupBoxState.QuickAccess;
 
-            
+
             //RibbonControl.BindQuickAccessItem(this, groupBox);
             //if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
             //RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
-            
+
             if (Icon != null)
             {
                 Visual iconVisual = Icon as Visual;
@@ -1003,7 +1026,7 @@ namespace Fluent
                 }
                 else RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
             }
-            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);            
+            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
             return groupBox;
         }
@@ -1150,7 +1173,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if((State == RibbonGroupBoxState.Collapsed)||(State == RibbonGroupBoxState.QuickAccess))
+            if ((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess))
                 IsDropDownOpen = true;
         }
 

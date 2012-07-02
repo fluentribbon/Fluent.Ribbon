@@ -357,12 +357,37 @@ namespace Fluent
             Click += OnClick;
             //            AddHandler(ClickEvent, OnClick);
 
+            this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.SubscribeEvents();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            BindingOperations.ClearAllBindings(this);
+            this.UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            // Always unsubscribe events to ensure we don't subscribe twice
+            this.UnSubscribeEvents();
+
+            if (this.button != null)
+            {
+                this.button.Click += this.OnButtonClick;
+            }
+        }
+
+        private void UnSubscribeEvents()
+        {
+            if (this.button != null)
+            {
+                this.button.Click -= this.OnButtonClick;
+            }
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
@@ -380,12 +405,13 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (button != null) button.Click -= OnButtonClick;
-            button = GetTemplateChild("PART_Button") as ToggleButton;
-            if (button != null) button.Click += OnButtonClick;
+            this.UnSubscribeEvents();
 
+            button = GetTemplateChild("PART_Button") as ToggleButton;
 
             base.OnApplyTemplate();
+
+            this.SubscribeEvents();
         }
         /// <summary>
         /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
