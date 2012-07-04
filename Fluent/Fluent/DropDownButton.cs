@@ -57,6 +57,14 @@ namespace Fluent
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
 
+        private bool HasCapture
+        {
+            get
+            {
+                return Mouse.Captured == this;
+            }
+        }
+
         #region Size Property
 
         /// <summary>
@@ -200,7 +208,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton),
-            new UIPropertyMetadata(false));
+            new UIPropertyMetadata(false, OnIsDropDownOpenChanged));
 
         #endregion
 
@@ -291,6 +299,8 @@ namespace Fluent
             var type = typeof(DropDownButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
 
+            System.Windows.Controls.ToolTipService.IsEnabledProperty.OverrideMetadata(typeof(DropDownButton), new FrameworkPropertyMetadata(null, CoerceToolTipIsEnabled));
+
             KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
 
@@ -325,45 +335,93 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (DropDownPopup != null)
+            if (this.resizeVerticalThumb != null)
             {
-                DropDownPopup.Opened += OnDropDownOpened;
-                DropDownPopup.Closed += OnDropDownClosed;
+                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (resizeVerticalThumb != null)
+            if (this.resizeBothThumb != null)
             {
-                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
-            }
-
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta += OnResizeBothDelta;
+                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
         }
 
         private void UnSubscribeEvents()
         {
-            if (DropDownPopup != null)
+            if (this.resizeVerticalThumb != null)
             {
-                DropDownPopup.Opened -= OnDropDownOpened;
-                DropDownPopup.Closed -= OnDropDownClosed;
+                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
-            if (resizeVerticalThumb != null)
+            if (this.resizeBothThumb != null)
             {
-                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
+            }
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            this.UnSubscribeEvents();
+
+            this.isFirstTime = true;
+
+            this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
+
+            if (this.DropDownPopup != null)
+            {
+                KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
             }
 
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta -= OnResizeBothDelta;
-            }
+            this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
+
+            this.resizeBothThumb = this.Template.FindName("PART_ResizeBothThumb", this) as Thumb;
+
+            this.buttonBorder = this.Template.FindName("PART_ButtonBorder", this) as Border;
+
+            this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as MenuPanel;
+
+            this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
+
+            base.OnApplyTemplate();
+
+            this.SubscribeEvents();
         }
 
         #endregion
 
         #region Overrides
+
+        /// <summary>
+        /// Responds to a change to the <see cref="P:System.Windows.UIElement.IsKeyboardFocusWithin"/> property. 
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.IsKeyboardFocusWithinChanged"/> event.</param>
+        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnIsKeyboardFocusWithinChanged(e);
+
+            // This is for the case when focus goes elsewhere and the popup is still open; make sure it is closed.
+            if (!this.IsDropDownOpen
+                || IsKeyboardFocusWithin)
+            {
+                return;
+            }
+
+            // IsKeyboardFocusWithin still flickers under certain conditions.  The case
+            // we care about is focus going from the ComboBox to a ComboBoxItem. 
+            // Here we can just check if something has focus and if it's a child 
+            // of ours or is a context menu that opened below us.
+            var currentFocus = Keyboard.FocusedElement as DependencyObject;
+
+            if (currentFocus == null
+                || ItemsControlFromItemContainer(currentFocus) != this)
+            {
+                this.IsDropDownOpen = false;
+            }
+        }
 
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.
@@ -506,18 +564,11 @@ namespace Fluent
                 case Key.Escape:
                     IsDropDownOpen = false;
                     handled = true;
-                    Mouse.Capture(this);
                     break;
 
                 case Key.Enter:
                 case Key.Space:
                     this.IsDropDownOpen = !this.IsDropDownOpen;
-
-                    if (this.IsDropDownOpen == false)
-                    {
-                        Mouse.Capture(this);
-                    }
-
                     handled = true;
                     break;
 
@@ -551,37 +602,11 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
-        public override void OnApplyTemplate()
+        private static object CoerceToolTipIsEnabled(DependencyObject d, object basevalue)
         {
-            this.UnSubscribeEvents();
+            var control = (DropDownButton)d;
 
-            isFirstTime = true;
-
-            DropDownPopup = GetTemplateChild("PART_Popup") as Popup;
-
-            if (DropDownPopup != null)
-            {
-                KeyboardNavigation.SetControlTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetDirectionalNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetTabNavigation(DropDownPopup, KeyboardNavigationMode.Cycle);
-            }
-
-            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-
-            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-
-            buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
-
-            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
-
-            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-
-            base.OnApplyTemplate();
-
-            this.SubscribeEvents();
+            return !control.IsDropDownOpen;
         }
 
         #endregion
@@ -618,24 +643,58 @@ namespace Fluent
             menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
-        // Handles drop down opened
-        private void OnDropDownClosed(object sender, EventArgs e)
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (DropDownClosed != null)
+            var control = (DropDownButton)d;
+
+            var newValue = (bool)e.NewValue;
+            var oldValue = !newValue;
+
+            if (newValue)
             {
-                DropDownClosed(this, e);
+                Mouse.Capture(control, CaptureMode.SubTree);
+
+                var container = control.ItemContainerGenerator.ContainerFromIndex(0);
+
+                NavigateToContainer(container);
+
+                control.OnDropDownOpened();
+            }
+            else
+            {
+                // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd 
+                if (control.IsKeyboardFocusWithin)
+                {
+                    // make sure the control has focus 
+                    control.Focus();
+                }
+
+                // Make sure to clear the highlight when the dropdown closes
+
+                if (control.HasCapture)
+                {
+                    Mouse.Capture(null);
+                }
+
+                control.OnDropDownClosed();
             }
         }
 
         // Handles drop down closed
-        private void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownClosed()
         {
-            Mouse.Capture(this.DropDownPopup, CaptureMode.SubTree);
-            this.DropDownPopup.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
-            if (DropDownOpened != null)
+            if (DropDownClosed != null)
             {
-                DropDownOpened(this, e);
+                DropDownClosed(this, EventArgs.Empty);
+            }
+        }
+
+        // Handles drop down opened
+        private void OnDropDownOpened()
+        {
+            if (this.DropDownOpened != null)
+            {
+                this.DropDownOpened(this, EventArgs.Empty);
             }
         }
 
