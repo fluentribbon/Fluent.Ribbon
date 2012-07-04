@@ -30,7 +30,7 @@ namespace Fluent
         // Raises PropertYChanegd event
         private void RaisePropertyChanged(string propertyName)
         {
-            if(PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace Fluent
         string backstageButtonText = "File";
 
         private string backstageButtonTextProperty;
-        
+
         /// <summary>
         /// Gets or sets text of backstage button
         /// </summary>
@@ -80,7 +80,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region KeyTip of backstage button
@@ -104,7 +104,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Minimize Button ScreenTip Title
@@ -129,7 +129,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Minimize Button ScreenTip Text
@@ -177,7 +177,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Expand Button ScreenTip Text
@@ -202,7 +202,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access ToolBar DropDown Button ToolTip
@@ -227,7 +227,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access ToolBar MoreControls Button ToolTip
@@ -251,7 +251,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access ToolBar Menu Header
@@ -275,7 +275,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access ToolBar Context Menu Show Below
@@ -419,7 +419,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Quick Access ToolBar Menu Remove Item
@@ -467,7 +467,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Ribbon Context Menu Customize Ribbon
@@ -491,7 +491,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Ribbon Context Menu Minimize Ribbon
@@ -587,7 +587,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region ScreenTipF1Label
@@ -635,7 +635,7 @@ namespace Fluent
                 }
             }
         }
-        
+
         #endregion
 
         #region Initialization
@@ -656,7 +656,7 @@ namespace Fluent
         void LoadCulture(CultureInfo culture)
         {
             string language = culture.TwoLetterISOLanguageName;
-            
+
             switch (language)
             {
                 case "en": LoadEnglish(); break;
@@ -684,7 +684,7 @@ namespace Fluent
             }
 
             // Coerce all values
-            
+
             RaisePropertyChanged("BackstageButtonText");
             RaisePropertyChanged("BackstageButtonKeyTip");
 
@@ -766,7 +766,7 @@ namespace Fluent
             minimizeButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только\nимена вкладок.";
             expandButtonScreenTipTitle = "Развернуть ленту (Ctrl + F1)";
             expandButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только\nимена вкладок.";
-            
+
             quickAccessToolBarDropDownButtonTooltip = "Настройка панели быстрого доступа";
             quickAccessToolBarMoreControlsButtonTooltip = "Другие элементы";
             quickAccessToolBarMenuHeader = "Настройка панели быстрого доступа";
@@ -791,40 +791,40 @@ namespace Fluent
         }
 
         #endregion
-        
+
         #region Ukrainian
 
         void LoadUkrainian()
         {
             // Backstage button text & key tip 
-            backstageButtonText = "Файл"; 
-            backstageButtonKeyTip = "Ф"; 
+            backstageButtonText = "Файл";
+            backstageButtonKeyTip = "Ф";
             // See right-top corner... (two different tooltips must be if you press it) 
-            minimizeButtonScreenTipTitle = "Сховати Стрічку (Ctrl + F1)"; 
-            minimizeButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок"; 
-            expandButtonScreenTipTitle = "Показати Стрічку (Ctrl + F1)"; 
-            expandButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок"; 
+            minimizeButtonScreenTipTitle = "Сховати Стрічку (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок";
+            expandButtonScreenTipTitle = "Показати Стрічку (Ctrl + F1)";
+            expandButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок";
             // QAT tooltips and menu items 
-            quickAccessToolBarDropDownButtonTooltip = "Налаштувати Панель Інструментів Швидкого Доступу"; 
+            quickAccessToolBarDropDownButtonTooltip = "Налаштувати Панель Інструментів Швидкого Доступу";
             quickAccessToolBarMoreControlsButtonTooltip = "Більше елементів"; // When two arrows appear ">>" 
             quickAccessToolBarMenuHeader = "Налаштувати Панель Інструментів Швидкого Доступу";
-            quickAccessToolBarMenuShowAbove = "Показати Поверх Стрічки"; 
-            quickAccessToolBarMenuShowBelow = "Показати Знизу Стрічки"; 
+            quickAccessToolBarMenuShowAbove = "Показати Поверх Стрічки";
+            quickAccessToolBarMenuShowBelow = "Показати Знизу Стрічки";
             // Click on Ribbon to show context menu 
             ribbonContextMenuAddItem = "Додати до Панелі Інструментів Швидкого Доступу"; // Button 
             ribbonContextMenuAddGroup = "Додати Групу до Панелі Інструментів Швидкого Доступу"; // For ex., by collapsed group
             ribbonContextMenuAddGallery = "Додати Галерею до Панелі Інструментів Швидкого Доступу"; // For ex., by opened font context menu
             ribbonContextMenuAddMenu = "Додати Меню до Панелі Інструментів Швидкого Доступу"; // By dashed splitter in context menu 
             ribbonContextMenuRemoveItem = "Видалити з Панелі Інструментів Швидкого Доступу"; // By item in QAT 
-            ribbonContextMenuCustomizeQuickAccessToolbar = "Налаштувати Панель Інструментів Швидкого Доступу..."; 
-            ribbonContextMenuShowBelow = "Показати Панель Інструментів Швидкого Доступу Знизу Стрічки"; 
-            ribbonContextMenuShowAbove = "Показати Панель Інструментів Швидкого Доступу Поверх Стрічки"; 
-            ribbonContextMenuCustomizeRibbon = "Налаштувати Стрічку..."; 
-            ribbonContextMenuMinimizeRibbon = "Зменшити Стрічку"; 
-            
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Налаштувати Панель Інструментів Швидкого Доступу...";
+            ribbonContextMenuShowBelow = "Показати Панель Інструментів Швидкого Доступу Знизу Стрічки";
+            ribbonContextMenuShowAbove = "Показати Панель Інструментів Швидкого Доступу Поверх Стрічки";
+            ribbonContextMenuCustomizeRibbon = "Налаштувати Стрічку...";
+            ribbonContextMenuMinimizeRibbon = "Зменшити Стрічку";
+
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot 
             // (This prop was introduced after v1.3) 
-            screenTipDisableReasonHeader = "Ця команда на даний момент недоступна."; 
+            screenTipDisableReasonHeader = "Ця команда на даний момент недоступна.";
         }
 
         #endregion
@@ -898,8 +898,11 @@ namespace Fluent
             ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
 
             //Others
-            ScreenTipDisableReasonHeader = "Diese Funktion is momentan nicht verfügbar!";
-            ScreenTipF1LabelHeader = "Drücken sie F1 für die Hilfe";
+            ScreenTipDisableReasonHeader = "Diese Funktion ist momentan nicht verfügbar!";
+            ScreenTipF1LabelHeader = "Drücken Sie F1 für die Hilfe";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Statusleiste anpassen";
         }
 
         #endregion
@@ -1093,7 +1096,7 @@ namespace Fluent
         }
 
         #endregion
-        
+
         #region Dutch
 
         void LoadDutch()
@@ -1153,9 +1156,9 @@ namespace Fluent
             ribbonContextMenuAddItem = "Adicionar para Barra de acesso rápido"; // Button
             ribbonContextMenuAddGroup = " Adicionar o grupo para Barra de acesso rápido"; // For ex., by collapsed group
             ribbonContextMenuAddGallery = "Adicionar a galeria para Barra de acesso rápido";
-                // For ex., by opened font context menu
+            // For ex., by opened font context menu
             ribbonContextMenuAddMenu = " Adicionar o menu para Barra de acesso rápido";
-                // By dashed splitter in context menu
+            // By dashed splitter in context menu
             ribbonContextMenuRemoveItem = "Remover da Barra de acesso rápido"; // By item in QAT
             ribbonContextMenuCustomizeQuickAccessToolbar = "Customizar Barra de acesso rápido...";
             ribbonContextMenuShowBelow = "Mostrar Barra de acesso rápido abaixo do Ribbon";
@@ -1362,7 +1365,7 @@ namespace Fluent
         }
 
         #endregion
-                
+
         #region Italian
 
         void LoadItalian()
@@ -1410,7 +1413,7 @@ namespace Fluent
             // Backstage button text & key tip
             backstageButtonText = "ملف    ";
             backstageButtonKeyTip = "م    ";
-            
+
             // See right-top corner... (two different tooltips must be if you press it)
             minimizeButtonScreenTipTitle = "(Ctrl + F1)تصغير الشريط ";
             minimizeButtonScreenTipText = "إظهار أسماء علامات التبويب فقط على الشريط.";
@@ -1423,7 +1426,7 @@ namespace Fluent
             quickAccessToolBarMenuHeader = "تخصيص شريط أدوات الوصول السريع";
             quickAccessToolBarMenuShowAbove = "إظهار أعلى الشريط";
             quickAccessToolBarMenuShowBelow = "إظهار أسفل الشريط";
-            
+
             // Click on Ribbon to show context menu
             ribbonContextMenuAddItem = "إضافة إلى شريط أدوات الوصول السريع"; // Button
             ribbonContextMenuAddGroup = "إضافة إلى شريط أدوات الوصول السريع"; // For ex., by collapsed group
