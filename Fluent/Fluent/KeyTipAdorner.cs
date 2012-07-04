@@ -196,7 +196,7 @@ namespace Fluent
                 Log("Focus Attached to " + focusedElement.ToString());
                 focusedElement.LostKeyboardFocus += OnFocusLost;
                 focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
             }
             else Log("[!] Focus Setup Failed");
             GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown += OnInputActionOccured;
@@ -236,14 +236,14 @@ namespace Fluent
                 {
                     focusedElement.LostKeyboardFocus -= OnFocusLost;
                     focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                    focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                    focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
                 }
                 focusedElement = Keyboard.FocusedElement;
                 if (focusedElement != null)
                 {
                     focusedElement.LostKeyboardFocus += OnFocusLost;
                     focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                    focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                    focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
                 }
             }
         }
@@ -291,7 +291,7 @@ namespace Fluent
             {
                 focusedElement.LostKeyboardFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
                 focusedElement = null;
             }
 
@@ -335,95 +335,87 @@ namespace Fluent
         #region Event Handlers
 
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
-        void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             Log("Key Down " + e.Key.ToString() + " (" + e.OriginalSource.ToString() + ")");
 
-            if (e.IsRepeat) return;
-            if (Visibility == Visibility.Hidden) return;
+            if (e.IsRepeat
+                || this.Visibility == Visibility.Hidden)
+            {
+                return;
+            }
 
             if ((!(AdornedElement is ContextMenu)) &&
                 ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) ||
                 (e.Key == Key.Enter) || (e.Key == Key.Tab)))
             {
-                Visibility = Visibility.Hidden;
+                this.Visibility = Visibility.Hidden;
             }
-            else if (e.Key == Key.Escape) Back();
+            else if (e.Key == Key.Escape)
+            {
+                Back();
+            }
+        }
+
+        private void OnFocusedElementPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var keyToSearch = this.enteredKeys + e.Text;
+
+            if (this.IsElementsStartWith(keyToSearch))
+            {
+                this.enteredKeys += e.Text;
+
+                var element = TryGetElement(enteredKeys);
+
+                if (element != null)
+                {
+                    Forward(element);
+                }
+                else
+                {
+                    FilterKeyTips();
+                }
+            }
             else
             {
-                Key key = (e.Key == Key.System) ? e.SystemKey : e.Key;
-
-                char? neutralKey = KeyTranslator.KeyToChar(key, CultureInfo.InvariantCulture);
-                char? specificKey = KeyTranslator.KeyToChar(key, CultureInfo.CurrentUICulture);
-
-                // Try neutral key first
-                if (neutralKey != null)
-                {
-                    e.Handled = true;
-                    neutralKey = Char.ToUpper(neutralKey.Value, CultureInfo.InvariantCulture);
-
-                    if (IsElementsStartWith(enteredKeys + neutralKey))
-                    {
-                        enteredKeys += neutralKey;
-                        UIElement element = TryGetElement(enteredKeys);
-                        if (element != null) Forward(element);
-                        else FilterKeyTips();
-                        goto end;
-                    }
-                }
-
-                // Try culture specific key
-                if (specificKey != null)
-                {
-                    e.Handled = true;
-                    specificKey = Char.ToUpper(specificKey.Value, CultureInfo.CurrentUICulture);
-
-                    if (IsElementsStartWith(enteredKeys + specificKey))
-                    {
-                        enteredKeys += specificKey;
-                        UIElement element = TryGetElement(enteredKeys);
-                        if (element != null) Forward(element);
-                        else FilterKeyTips();
-                    }
-                    else System.Media.SystemSounds.Beep.Play();
-                }
-
-            end: ;
+                System.Media.SystemSounds.Beep.Play();
             }
         }
 
-        void OnPreviewKeyUp(object sender, KeyEventArgs e)
+        private void OnInputActionOccured(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        void OnInputActionOccured(object sender, RoutedEventArgs e)
-        {
-            if (attached)
+            if (!this.attached)
             {
-                Log("Input Action, Keystips will be terminated");
-                Terminate();
+                return;
             }
+
+            this.Log("Input Action, Keystips will be terminated");
+            this.Terminate();
         }
 
-        void OnFocusLost(object sender, RoutedEventArgs e)
+        private void OnFocusLost(object sender, RoutedEventArgs e)
         {
             if (attached)
             {
                 Log("Focus Lost");
-                IInputElement previousFocusedElementElement = focusedElement;
+
+                var previousFocusedElementElement = focusedElement;
                 focusedElement.LostKeyboardFocus -= OnFocusLost;
                 focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                focusedElement.PreviewKeyUp -= OnPreviewKeyUp;
+                focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
                 focusedElement = Keyboard.FocusedElement;
+
                 if (focusedElement != null)
                 {
                     Log("Focus Changed from " + previousFocusedElementElement.ToString() + " to " + focusedElement.ToString());
                     focusedElement.LostKeyboardFocus += OnFocusLost;
                     focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                    focusedElement.PreviewKeyUp += OnPreviewKeyUp;
+                    focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
                 }
-                else Log("Focus Not Restored");
+                else
+                {
+                    Log("Focus Not Restored");
+                }
             }
         }
 
@@ -520,15 +512,23 @@ namespace Fluent
         /// </summary>
         /// <param name="keys"></param>
         /// <returns>Element</returns>
-        UIElement TryGetElement(string keys)
+        private UIElement TryGetElement(string keys)
         {
-            for (int i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < keyTips.Count; i++)
             {
-                if (!keyTips[i].IsEnabled) continue;
-                string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
-                string contentUpper = ((string)keyTips[i].Content).ToUpper(CultureInfo.CurrentUICulture);
-                if (keysUpper == contentUpper) return associatedElements[i];
+                if (!keyTips[i].IsEnabled)
+                {
+                    continue;
+                }
+
+                var content = (string)keyTips[i].Content;
+
+                if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return associatedElements[i];
+                }
             }
+
             return null;
         }
 
@@ -537,38 +537,52 @@ namespace Fluent
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
-        public bool IsElementsStartWith(string keys)
+        private bool IsElementsStartWith(string keys)
         {
-            for (int i = 0; i < keyTips.Count; i++)
-            {
-                if (!keyTips[i].IsEnabled) continue;
-                string keysUpper = keys.ToUpper(CultureInfo.CurrentUICulture);
-                string contentUpper = ((string)keyTips[i].Content).ToUpper(CultureInfo.CurrentUICulture);
-                if (contentUpper.StartsWith(keysUpper, StringComparison.CurrentCulture)) return true;
+            foreach (var keyTip in keyTips.Where(x => x.IsEnabled))
+            {                               
+                var content = (string)keyTip.Content;
+
+                if (content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return true;
+                }
             }
+
             return false;
         }
 
         Visibility[] backupedVisibilities;
+
         // Hide / unhide keytips relative matching to entered keys
-        void FilterKeyTips()
+        private void FilterKeyTips()
         {
             if (backupedVisibilities == null)
             {
                 // Backup current visibility of key tips
                 backupedVisibilities = new Visibility[keyTips.Count];
-                for (int i = 0; i < backupedVisibilities.Length; i++)
+
+                for (var i = 0; i < backupedVisibilities.Length; i++)
                 {
                     backupedVisibilities[i] = keyTips[i].Visibility;
                 }
             }
 
             // Hide / unhide keytips relative matching to entered keys
-            for (int i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < keyTips.Count; i++)
             {
-                string keys = (string)keyTips[i].Content;
-                if (string.IsNullOrEmpty(enteredKeys)) keyTips[i].Visibility = backupedVisibilities[i];
-                else keyTips[i].Visibility = keys.StartsWith(enteredKeys, StringComparison.CurrentCulture) ? backupedVisibilities[i] : Visibility.Collapsed;
+                var content = (string)keyTips[i].Content;
+
+                if (string.IsNullOrEmpty(enteredKeys))
+                {
+                    keyTips[i].Visibility = backupedVisibilities[i];
+                }
+                else
+                {
+                    keyTips[i].Visibility = content.StartsWith(enteredKeys, StringComparison.CurrentCultureIgnoreCase)
+                        ? backupedVisibilities[i]
+                        : Visibility.Collapsed;
+                }
             }
         }
 
