@@ -8,15 +8,11 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Linq;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -214,13 +210,6 @@ namespace Fluent
         {
             ContextMenuService.Coerce(this);
             FocusManager.SetIsFocusScope(this, true);
-
-            this.Unloaded += this.OnUnloaded;
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion

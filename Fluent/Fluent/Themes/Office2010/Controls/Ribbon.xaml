@@ -1,58 +1,131 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  
-  <ControlTemplate x:Key="RibbonControlTemplate" TargetType="{x:Type Fluent:Ribbon}">
-      <ControlTemplate.Resources>
-      </ControlTemplate.Resources>
-      <Grid x:Name="PART_LayoutRoot" Width="Auto" Height="Auto">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar" Height="25" Style="{DynamicResource RibbonTitleBarStyle}" Margin="20,0,113,0" VerticalAlignment="Top">
-        <Fluent:RibbonTitleBar.Header>
-          <Grid>
-          <Rectangle x:Name="rectangle" Fill="#7FFFFFFF" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,3" Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}" Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}" RadiusX="2" RadiusY="2">
-            <Rectangle.Effect>
-              <BlurEffect Radius="10"/>
-            </Rectangle.Effect>
-          </Rectangle>
-          <TextBlock x:Name="PART_Title" Margin="4,0,4,0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Center" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
-        </Grid>
-        </Fluent:RibbonTitleBar.Header>
-          
-        </Fluent:RibbonTitleBar>
-        <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}" Style="{DynamicResource RibbonTabControlStyle}" x:Name="PART_RibbonTabControl" Margin="0,25,0,0" Focusable="False" ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"/>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+
+    <ControlTemplate x:Key="RibbonControlTemplate"
+                     TargetType="{x:Type Fluent:Ribbon}">
+        <ControlTemplate.Resources>
+        </ControlTemplate.Resources>
+        <Grid x:Name="PART_LayoutRoot"
+              Width="Auto"
+              Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
+                                   Height="25"
+                                   Style="{DynamicResource RibbonTitleBarStyle}"
+                                   Margin="20,0,113,0"
+                                   VerticalAlignment="Top">
+                <Fluent:RibbonTitleBar.Header>
+                    <Grid>
+                        <Rectangle x:Name="rectangle"
+                                   Fill="#7FFFFFFF"
+                                   Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="0,2,0,3"
+                                   Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}"
+                                   Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}"
+                                   RadiusX="2"
+                                   RadiusY="2">
+                            <Rectangle.Effect>
+                                <BlurEffect Radius="10" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <TextBlock x:Name="PART_Title"
+                                   Margin="4,0,4,0"
+                                   VerticalAlignment="Center"
+                                   d:LayoutOverrides="Width"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                   Foreground="Black"
+                                   TextWrapping="NoWrap"
+                                   TextTrimming="CharacterEllipsis" />
+                    </Grid>
+                </Fluent:RibbonTitleBar.Header>
+
+            </Fluent:RibbonTitleBar>
+            <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}"
+                                     Style="{DynamicResource RibbonTabControlStyle}"
+                                     x:Name="PART_RibbonTabControl"
+                                     Margin="0,25,0,0"
+                                     Focusable="False"
+                                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />
             <!--<ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                           ContentSource="Menu"/>-->
-            <Border x:Name="border" Margin="0,-2,0,0" BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}" BorderThickness="0,1" Grid.Row="1" Height="26">
-          <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}" BorderThickness="0,1" Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
-            <ContentControl x:Name="contentControl" HorizontalAlignment="Left">
-              <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar" Style="{DynamicResource QuickAccessToolbarStyle}" ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left"/>
-            </ContentControl>
-          </Border>
-        </Border>
-      <Grid x:Name="grid" Margin="28,0,113,0" Height="30" IsHitTestVisible="False" VerticalAlignment="Top" Visibility="Collapsed" HorizontalAlignment="Left">
-          <Rectangle x:Name="rectangle5" Fill="#7FFFFFFF" Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-4,5,-4,3" Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}" Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}" RadiusX="2" RadiusY="2">
-            <Rectangle.Effect>
-              <BlurEffect Radius="10"/>
-            </Rectangle.Effect>
-          </Rectangle>
-          <TextBlock x:Name="textBlock5" Margin="0,3,0,0" VerticalAlignment="Center" d:LayoutOverrides="Width" HorizontalAlignment="Left" Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+            <Border x:Name="border"
+                    Margin="0,-2,0,0"
+                    BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}"
+                    BorderThickness="0,1"
+                    Grid.Row="1"
+                    Height="26">
+                <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}"
+                        BorderThickness="0,1"
+                        Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
+                    <ContentControl x:Name="contentControl"
+                                    HorizontalAlignment="Left">
+                        <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
+                                                   Style="{DynamicResource QuickAccessToolbarStyle}"
+                                                   ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                   HorizontalAlignment="Left" />
+                    </ContentControl>
+                </Border>
+            </Border>
+            <Grid x:Name="grid"
+                  Margin="28,0,113,0"
+                  Height="30"
+                  IsHitTestVisible="False"
+                  VerticalAlignment="Top"
+                  Visibility="Collapsed"
+                  HorizontalAlignment="Left">
+                <Rectangle x:Name="rectangle5"
+                           Fill="#7FFFFFFF"
+                           Stroke="{x:Null}"
+                           StrokeThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="-4,5,-4,3"
+                           Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}"
+                           Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}"
+                           RadiusX="2"
+                           RadiusY="2">
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="10" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <TextBlock x:Name="textBlock5"
+                           Margin="0,3,0,0"
+                           VerticalAlignment="Center"
+                           d:LayoutOverrides="Width"
+                           HorizontalAlignment="Left"
+                           Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                           Foreground="Black"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis" />
+            </Grid>
+
         </Grid>
-        
-      </Grid>
-      <ControlTemplate.Triggers>
-    <!--<Trigger Property="CanQuickAccessLocationChanging" Value="False">
+        <ControlTemplate.Triggers>
+            <!--<Trigger Property="CanQuickAccessLocationChanging" Value="False">
         <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
       </Trigger>-->
-      <Trigger Property="IsQuickAccessToolBarVisible" Value="False">
-        <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_QuickAccessToolBar" Value="Collapsed"/>
-        <!--<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
+            <Trigger Property="IsQuickAccessToolBarVisible"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="PART_QuickAccessToolBar"
+                        Value="Collapsed" />
+                <!--<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_RemoveFromQuickAccessMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="PART_AddGalleryToQuickAccessMenuItem" Value="Collapsed"/>
@@ -61,24 +134,48 @@
         <Setter Property="Visibility" TargetName="PART_AddToQuickAccessMenuItem" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
         <Setter Property="Visibility" TargetName="topMenuSeparator" Value="Collapsed"/>-->
-      </Trigger>
-      <Trigger Property="IsCollapsed" Value="True">
-        <Setter Property="Visibility" TargetName="PART_RibbonTitleBar" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_RibbonTabControl" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="IsCollapsed"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="PART_RibbonTitleBar"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="PART_RibbonTabControl"
+                        Value="Collapsed" />
                 <!--<Setter Property="Visibility" TargetName="button" Value="Collapsed"/>-->
-                <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="grid" Value="Visible"/>
-        <Setter Property="Margin" TargetName="rectangle5" Value="0,5,0,3"/>
-        <Setter Property="Margin" TargetName="textBlock5" Value="4,3,4,0"/>
-        <Setter Property="Width" TargetName="rectangle5" Value="{Binding ActualWidth, ElementName=grid, Mode=Default}"/>
-      </Trigger>
-      <Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">    			
-        <Setter Property="Content" TargetName="contentControl" Value="{x:Null}"/>
-        <Setter Property="QuickAccessToolBar" TargetName="PART_RibbonTitleBar" Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}"/>
-        <Setter Property="Visibility" TargetName="border" Value="Collapsed"/>
-        <Setter Property="Margin" TargetName="PART_QuickAccessToolBar" Value="0,2,0,0"/>
-      </Trigger>
-      <!--<MultiTrigger>
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="grid"
+                        Value="Visible" />
+                <Setter Property="Margin"
+                        TargetName="rectangle5"
+                        Value="0,5,0,3" />
+                <Setter Property="Margin"
+                        TargetName="textBlock5"
+                        Value="4,3,4,0" />
+                <Setter Property="Width"
+                        TargetName="rectangle5"
+                        Value="{Binding ActualWidth, ElementName=grid, Mode=Default}" />
+            </Trigger>
+            <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
+                     Value="True">
+                <Setter Property="Content"
+                        TargetName="contentControl"
+                        Value="{x:Null}" />
+                <Setter Property="QuickAccessToolBar"
+                        TargetName="PART_RibbonTitleBar"
+                        Value="{Binding ElementName=PART_QuickAccessToolBar, Mode=OneWay}" />
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Collapsed" />
+                <Setter Property="Margin"
+                        TargetName="PART_QuickAccessToolBar"
+                        Value="0,2,0,0" />
+            </Trigger>
+            <!--<MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddToQuickAccessMenuItem"/>
           <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddGroupToQuickAccessMenuItem"/>
@@ -88,7 +185,7 @@
         </MultiTrigger.Conditions>
         <Setter Property="Visibility" Value="Collapsed" TargetName="topMenuSeparator"/>
       </MultiTrigger>-->
-      <!--<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
+            <!--<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
         <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
       </Trigger>
       <Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="False">
@@ -100,17 +197,26 @@
       <Trigger Property="CanCustomizeRibbon" Value="False">
         <Setter Property="Visibility" TargetName="PART_CustomizeTheRibbonMenuItem" Value="Collapsed"/>
       </Trigger>-->
-    </ControlTemplate.Triggers>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
-  <Style x:Key="RibbonStyle" TargetType="{x:Type Fluent:Ribbon}">
-    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="Template" Value="{StaticResource RibbonControlTemplate}"/>
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-    <Setter Property="FocusManager.IsFocusScope" Value="False"/>
-    <Setter Property="VerticalAlignment" Value="Top"/>
-  <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-  </Style>
+    <Style x:Key="RibbonStyle"
+           TargetType="{x:Type Fluent:Ribbon}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="Template"
+                Value="{StaticResource RibbonControlTemplate}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusManager.IsFocusScope"
+                Value="False" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+    </Style>
 </ResourceDictionary>

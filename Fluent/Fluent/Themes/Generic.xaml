@@ -8507,7 +8507,7 @@
     <Setter Property="FocusVisualStyle" Value="{StaticResource ControlStyleEmptyFocus}" />
     <Setter Property="FocusManager.IsFocusScope" Value="False" />
     <Setter Property="VerticalAlignment" Value="Top" />
-    <Setter Property="FocusVisualStyle" Value="{StaticResource ControlStyleEmptyFocus}" />
+    <Setter Property="IsTabStop" Value="False" />
   </Style>
   <Style x:Key="{x:Type Fluent:DropDownButton}" TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource RibbonDropDownButtonStyle}" />
   <Style x:Key="{x:Type Fluent:SplitButton}" TargetType="{x:Type Fluent:SplitButton}" BasedOn="{StaticResource RibbonSplitButtonStyle}" />
