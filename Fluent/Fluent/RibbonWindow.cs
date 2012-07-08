@@ -27,6 +27,8 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using System.Linq;
+
     internal static class DpiHelper
     {
         private static Matrix transformToDevice;
@@ -43,9 +45,9 @@ namespace Fluent
             int pixelsPerInchY = NativeMethods.GetDeviceCaps(desktop, 90);
 
             transformToDip = Matrix.Identity;
-            transformToDip.Scale(96d / (double)pixelsPerInchX, 96d / (double)pixelsPerInchY);
+            transformToDip.Scale(96d / pixelsPerInchX, 96d / pixelsPerInchY);
             transformToDevice = Matrix.Identity;
-            transformToDevice.Scale((double)pixelsPerInchX / 96d, (double)pixelsPerInchY / 96d);
+            transformToDevice.Scale(pixelsPerInchX / 96d, pixelsPerInchY / 96d);
             NativeMethods.ReleaseDC(IntPtr.Zero, desktop);
         }
 
@@ -311,7 +313,7 @@ namespace Fluent
                 NativeMethods.Rect adjustedOffset = GetAdjustedWindowRect(new NativeMethods.Rect() { Bottom = 100, Right = 100 });
                 Point windowTopLeft = new Point(Left, Top);
                 windowTopLeft -= (Vector)DpiHelper.DevicePixelsToLogical(new Point(adjustedOffset.Left, adjustedOffset.Top));
-                
+
                 return RestoreBounds.Location != windowTopLeft;
             }
         }
@@ -490,7 +492,7 @@ namespace Fluent
 
                             // There is no neet to shift System Menu in RightToLeft mode
                             //if (FlowDirection == FlowDirection.RightToLeft) pos.X += size.Width;
-                            
+
                             if (FlowDirection == FlowDirection.LeftToRight) ShowSystemMenu(new System.Windows.Point(pos.X, pos.Y + size.Height));
                             else
                             {
@@ -532,12 +534,10 @@ namespace Fluent
 
         private void ApplyCustomChrome()
         {
-
             if (!isHooked)
             {
-
-                hwndSource.AddHook(WndProc);
-                mouseProc = new NativeMethods.HookProc(MouseWndProc);
+                hwndSource.AddHook(this.WndProc);
+                mouseProc = this.MouseWndProc;
 #pragma warning disable 618
                 mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_MOUSE, mouseProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
                 isHooked = true;
@@ -915,7 +915,7 @@ namespace Fluent
             NativeMethods.WINDOWPLACEMENT wpl = new NativeMethods.WINDOWPLACEMENT();
             NativeMethods.GetWindowPlacement(handle, wpl);
 
-            if (wpl.showCmd == NativeMethods.SW_SHOWMAXIMIZED && IsDwmEnabled==true)
+            if (wpl.showCmd == NativeMethods.SW_SHOWMAXIMIZED && IsDwmEnabled == true)
             {
                 int left;
                 int top;
@@ -1191,7 +1191,7 @@ namespace Fluent
                         if (WindowState == WindowState.Maximized)
                         {
                             NativeMethods.APPBARDATA abd = new NativeMethods.APPBARDATA();
-                            int temp = (int)NativeMethods.SHAppBarMessage(4, ref abd);
+                            int temp = NativeMethods.SHAppBarMessage(4, ref abd);
                             if (temp == 1)
                             {
                                 NativeMethods.NCCALCSIZE_PARAMS ncParams = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
@@ -1201,7 +1201,7 @@ namespace Fluent
                         }
 
                         handled = true;
-                        return new IntPtr((int)NativeMethods.WVR_REDRAW);
+                        return new IntPtr(NativeMethods.WVR_REDRAW);
                     }
                 case NativeMethods.WM_NCHITTEST:
                     {
@@ -1363,26 +1363,26 @@ namespace Fluent
                     /*
                     Point mousePosWindow = mousePosScreen;
                     mousePosWindow.Offset(-windowPosition.X, -windowPosition.Y);*/
-                    
+
                     IInputElement inputElement = mainGrid.InputHitTest(ptMouse);
                     if (inputElement != null)
                     {
                         FrameworkElement frameworkElement = inputElement as FrameworkElement;
-                        if ((frameworkElement!= null) && (frameworkElement.Name == "PART_TitleBar")) ht = NativeMethods.HTCAPTION;                        
+                        if ((frameworkElement != null) && (frameworkElement.Name == "PART_TitleBar")) ht = NativeMethods.HTCAPTION;
                         else if (inputElement != mainGrid) ht = NativeMethods.HTCLIENT;
-                    }                    
+                    }
                 }
 
                 // Check resize grip
                 ResizeGrip grip = (GetTemplateChild("PART_ResizeGrip") as ResizeGrip);
                 if ((grip != null) && (grip.IsLoaded) && (grip.InputHitTest(grip.PointFromScreen(mousePosScreen)) != null))
                 {
-                    if(FlowDirection==FlowDirection.LeftToRight) ht = NativeMethods.HTBOTTOMRIGHT;
+                    if (FlowDirection == FlowDirection.LeftToRight) ht = NativeMethods.HTBOTTOMRIGHT;
                     else ht = NativeMethods.HTBOTTOMLEFT;
                 }
 
                 handled = true;
-                lRet = new IntPtr((int)ht);
+                lRet = new IntPtr(ht);
             }
             return lRet;
         }
@@ -1400,7 +1400,7 @@ namespace Fluent
                     case 0x0204:
                     case 0x0206:
                         // Check popups
-                        if (IsInRootPopup(Mouse.Captured as DependencyObject)) 
+                        if (IsInRootPopup(Mouse.Captured as DependencyObject))
                             return IntPtr.Zero;
 
                         //
@@ -1412,14 +1412,14 @@ namespace Fluent
                         int htR = htResult.ToInt32();
                         int ncMessage = 0x00A1;
                         if (msg == 0x0203) ncMessage = 0x00A3;
-                        else if((msg == 0x0204)&&((htR == NativeMethods.HTCAPTION)||(htR == NativeMethods.HTTOP)))
+                        else if ((msg == 0x0204) && ((htR == NativeMethods.HTCAPTION) || (htR == NativeMethods.HTTOP)))
                         {
                             NativeMethods.ReleaseCapture();
                             if (htR == NativeMethods.HTCAPTION) ShowSystemMenu(new Point(cc.pt.x, cc.pt.y));
                             ncMessage = 0x00A4;
                         }
 
-                        if ((htR == NativeMethods.HTCAPTION)||(htR == NativeMethods.HTTOP))
+                        if ((htR == NativeMethods.HTCAPTION) || (htR == NativeMethods.HTTOP))
                         {
                             NativeMethods.ReleaseCapture();
                             htResult = DoHitTest(NativeMethods.WM_NCHITTEST, IntPtr.Zero, NativeMethods.MakeDWord(cc.pt.x, cc.pt.y), out handled);
@@ -1445,35 +1445,65 @@ namespace Fluent
             return NativeMethods.CallNextHookEx(mouseHook, code, wParam, lParam);
         }
 
-        private bool IsInRootPopup(DependencyObject element)
+        private static bool IsInRootPopup(DependencyObject element)
         {
-            if (PopupService.IsMousePhysicallyOver(element as UIElement)) return true;
-            // Check if is drop down control
-            IDropDownControl dropDown = element as IDropDownControl;
-            if ((dropDown != null) && (dropDown.IsDropDownOpen) && (dropDown.DropDownPopup != null) &&
-                (dropDown.DropDownPopup.Child != null) &&
-                (PopupService.IsMousePhysicallyOver(dropDown.DropDownPopup.Child)))
+            if (PopupService.IsMousePhysicallyOver(element as UIElement))
+            {
                 return true;
+            }
+
+            // Check if is drop down control
+            var dropDown = element as IDropDownControl;
+            if (dropDown != null
+                && dropDown.IsDropDownOpen
+                && dropDown.DropDownPopup != null
+                && dropDown.DropDownPopup.Child != null
+                && PopupService.IsMousePhysicallyOver(dropDown.DropDownPopup.Child))
+            {
+                return true;
+            }
+
             // Check if is context menu
-            ContextMenu menu = element as ContextMenu;
-            if ((menu != null) && (menu.IsOpen) && (PopupService.IsMousePhysicallyOver(menu))) return true;
+            var menu = element as ContextMenu;
+            if (menu != null
+                && menu.IsOpen
+                && PopupService.IsMousePhysicallyOver(menu))
+            {
+                return true;
+            }
+
             // Check if is menu item
-            MenuItem menuItem = element as MenuItem;
-            if ((menuItem != null) && (menuItem.IsDropDownOpen) && (PopupService.IsMousePhysicallyOver(menuItem.DropDownPopup.Child))) return true;
+            var menuItem = element as MenuItem;
+            if (menuItem != null
+                && menuItem.IsDropDownOpen
+                && PopupService.IsMousePhysicallyOver(menuItem.DropDownPopup.Child))
+            {
+                return true;
+            }
+
             // Check if is Popup
-            Popup popup = element as Popup;
-            if ((popup != null) && (popup.IsOpen) && (PopupService.IsMousePhysicallyOver(popup.Child))) return true;
-            
+            var popup = element as Popup;
+            if (popup != null
+                && popup.IsOpen
+                && PopupService.IsMousePhysicallyOver(popup.Child))
+            {
+                return true;
+            }
+
             // Check childs
             var children = LogicalTreeHelper.GetChildren(element);
-            foreach (var child in children)
+
+            // we are only interested in children of type FrameworkElement
+            foreach (var child in children.OfType<FrameworkElement>())
             {
-                DependencyObject childObject = child as DependencyObject;
-                if ((childObject as FrameworkElement != null) && ((childObject as FrameworkElement).IsVisible) && (IsInRootPopup(childObject)))
+                if (child.IsVisible
+                    && IsInRootPopup(child))
+                {
                     return true;
+                }
 
             }
-            
+
             return false;
         }
 

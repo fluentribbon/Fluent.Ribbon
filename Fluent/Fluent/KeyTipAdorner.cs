@@ -8,21 +8,17 @@
 #endregion
 using System;
 using System.Collections;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Threading;
-using System.Windows.Interop;
-using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Controls.Primitives;
 using System.Collections.Generic;
-using System.Windows.Input;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -103,7 +99,7 @@ namespace Fluent
 
             // Try to find supported elements
             FindKeyTips(keyTipElementContainer, false);
-            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count != 0 ? 
+            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count != 0 ?
                 associatedElements[0] :
                 adornedElement // Maybe here is bug, coz we need keytipped item here...
                 );
@@ -423,25 +419,37 @@ namespace Fluent
 
         #region Static Methods
 
-        static AdornerLayer GetAdornerLayer(UIElement element)
+        private static AdornerLayer GetAdornerLayer(UIElement element)
         {
-            UIElement current = element;
+            var current = element;
+
             while (true)
             {
-                var parent = (UIElement)VisualTreeHelper.GetParent(current);
-                if (parent == null) parent = (UIElement)LogicalTreeHelper.GetParent(current);
+                var parent = (UIElement)VisualTreeHelper.GetParent(current)
+                    ?? (UIElement)LogicalTreeHelper.GetParent(current);
+
                 current = parent;
-                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+
+                if (current is AdornerDecorator)
+                {
+                    return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+                }
             }
         }
 
-        static UIElement GetTopLevelElement(UIElement element)
+        private static UIElement GetTopLevelElement(UIElement element)
         {
-            UIElement current = element;
+            var current = element;
+
             while (true)
             {
                 current = (VisualTreeHelper.GetParent(element)) as UIElement;
-                if (current == null) return element;
+
+                if (current == null)
+                {
+                    return element;
+                }
+
                 element = current;
             }
         }
@@ -540,7 +548,7 @@ namespace Fluent
         private bool IsElementsStartWith(string keys)
         {
             foreach (var keyTip in keyTips.Where(x => x.IsEnabled))
-            {                               
+            {
                 var content = (string)keyTip.Content;
 
                 if (content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase))
