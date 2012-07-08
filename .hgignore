@@ -4,3 +4,7 @@ syntax: glob
 */obj
 */_ReSharper*
 */bin
+Fluent/Fluent/Themes/Office2010/Silver.xaml
+Fluent/Fluent/Themes/Office2010/Blue.xaml
+Fluent/Fluent/Themes/Office2010/Black.xaml
+Fluent/Fluent/Themes/Generic.xaml
