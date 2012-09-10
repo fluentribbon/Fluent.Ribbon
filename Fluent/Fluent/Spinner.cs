@@ -409,12 +409,12 @@ namespace Fluent
 
         private void OnButtonUpClick(object sender, RoutedEventArgs e)
         {
-            Value += Increment;
+            this.Value = GetLimitedValue(this, this.Value + this.Increment);
         }
 
         private void OnButtonDownClick(object sender, RoutedEventArgs e)
         {
-            Value -= Increment;
+            this.Value = GetLimitedValue(this, this.Value - this.Increment);
         }
 
         private void OnTextBoxLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
