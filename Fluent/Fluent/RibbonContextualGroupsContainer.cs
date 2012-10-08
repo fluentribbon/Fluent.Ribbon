@@ -7,22 +7,23 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-
 namespace Fluent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents contextual groups container
     /// </summary>
-    public class RibbonContextualGroupsContainer: Panel
+    public class RibbonContextualGroupsContainer : Panel
     {
         #region Fields
 
-        readonly List<Size> sizes = new List<Size>();
+        private readonly List<Size> sizes = new List<Size>();
 
         #endregion
 
@@ -49,7 +50,7 @@ namespace Fluent
             }
             return finalSize;
         }
-        
+
         /// <summary>
         /// When overridden in a derived class, measures the size in layout required for 
         /// child elements and determines a size for the System.Windows.FrameworkElement-derived class.
@@ -59,31 +60,38 @@ namespace Fluent
         /// <returns>The size that this element determines it needs during layout, based on its calculations of child element sizes.</returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            double x = 0;
+            var x = 0D;
             sizes.Clear();
-            Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+
             foreach (RibbonContextualTabGroup child in InternalChildren)
             {
                 // Calculate width of tab items of the group
-                double tabsWidth = 0;
-                for(int i=0;i<child.Items.Count;i++)
-                {
-                    tabsWidth += child.Items[i].DesiredSize.Width;
-                }
-                child.Measure(infinity);
-                double groupWidth = child.DesiredSize.Width;
+                var tabsWidth = 0D;
 
-                bool tabWasChanged = false;                
-                if(groupWidth>tabsWidth)
+                var visibleItems = child.Items.Where(l => l.Visibility == Visibility.Visible).ToList();
+
+                foreach (var item in visibleItems)
+                {
+                    tabsWidth += item.DesiredSize.Width;
+                }
+
+                child.Measure(infinity);
+                var groupWidth = child.DesiredSize.Width;
+
+                var tabWasChanged = false;
+
+                if (groupWidth > tabsWidth)
                 {
                     // If tab's width is less than group's width we have to stretch tabs
-                    double delta = (groupWidth - tabsWidth) / child.Items.Count;
-                    for (int i = 0; i < child.Items.Count; i++)
+                    var delta = (groupWidth - tabsWidth) / visibleItems.Count;
+
+                    foreach (var item in visibleItems)
                     {
-                        if (child.Items[i].DesiredWidth==0)
+                        if (item.DesiredWidth == 0)
                         {
-                            child.Items[i].DesiredWidth=child.Items[i].DesiredSize.Width+delta;
-                            child.Items[i].Measure(new Size(child.Items[i].DesiredWidth, child.Items[i].DesiredSize.Height));
+                            item.DesiredWidth = item.DesiredSize.Width + delta;
+                            item.Measure(new Size(item.DesiredWidth, item.DesiredSize.Height));
                             tabWasChanged = true;
                         }
                     }
@@ -93,10 +101,10 @@ namespace Fluent
                 {
                     // If we have changed tabs layout we have 
                     // to invalidate down to RibbonTabsContainer 
-                    Visual visual = child.Items[0] as Visual;
+                    var visual = visibleItems[0] as Visual;
                     while (visual != null)
                     {
-                        UIElement uiElement = visual as UIElement;
+                        var uiElement = visual as UIElement;
                         if (uiElement != null)
                         {
                             if (uiElement is RibbonTabsContainer)
@@ -110,29 +118,38 @@ namespace Fluent
 
                         visual = VisualTreeHelper.GetParent(visual) as Visual;
                     }
+
                     tabsWidth = 0;
-                    for (int i = 0; i < child.Items.Count; i++)
+
+                    foreach (var item in visibleItems)
                     {
-                        tabsWidth += child.Items[i].DesiredSize.Width;
+                        tabsWidth += item.DesiredSize.Width;
                     }
                 }
 
                 // Calc final width and measure the group using it 
-                double finalWidth = tabsWidth;
+                var finalWidth = tabsWidth;
                 x += finalWidth;
+
                 if (x > availableSize.Width)
                 {
                     finalWidth -= x - availableSize.Width;
                     x = availableSize.Width;
                 }
+
                 child.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
                 sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
             }
-            double height = availableSize.Height;
-            if (double.IsPositiveInfinity(height)) height = 0;
+
+            var height = availableSize.Height;
+            if (double.IsPositiveInfinity(height))
+            {
+                height = 0;
+            }
+
             return new Size(x, height);
         }
-        
+
         #endregion
     }
 }

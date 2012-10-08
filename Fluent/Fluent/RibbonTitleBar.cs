@@ -22,7 +22,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_QuickAccessToolbarHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_HeaderHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ItemsContainer", Type = typeof(Panel))]
-    public class RibbonTitleBar: HeaderedItemsControl
+    public class RibbonTitleBar : HeaderedItemsControl
     {
         #region Fields
 
@@ -56,7 +56,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty QuickAccessToolBarProperty =
-            DependencyProperty.Register("QuickAccessToolBar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null,OnQuickAccessToolbarChanged));
+            DependencyProperty.Register("QuickAccessToolBar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null, OnQuickAccessToolbarChanged));
 
         // Handles QuickAccessToolBar property chages
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -117,7 +117,7 @@ namespace Fluent
 
             return basevalue;
         }
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -168,9 +168,9 @@ namespace Fluent
         {
             if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.MeasureOverride(constraint);
             Size resultSize = constraint;
-            if((double.IsPositiveInfinity(resultSize.Width))||(double.IsPositiveInfinity(resultSize.Height))) resultSize = base.MeasureOverride(resultSize);
+            if ((double.IsPositiveInfinity(resultSize.Width)) || (double.IsPositiveInfinity(resultSize.Height))) resultSize = base.MeasureOverride(resultSize);
             Update(resultSize);
-            
+
             itemsContainer.Measure(itemsRect.Size);
             headerHolder.Measure(headerRect.Size);
             quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
@@ -213,7 +213,7 @@ namespace Fluent
             }
 
             Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-            
+
             if ((visibleGroups.Count == 0) || (visibleGroups[0].Items[0].Parent as RibbonTabControl).CanScroll)
             {
                 // Collapse itemRect
@@ -223,7 +223,7 @@ namespace Fluent
 
                 if (constraint.Width <= quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
-                    quickAccessToolbarRect = new Rect(0, 0, Math.Max(0, constraint.Width-50), quickAccessToolbarHolder.DesiredSize.Height);
+                    quickAccessToolbarRect = new Rect(0, 0, Math.Max(0, constraint.Width - 50), quickAccessToolbarHolder.DesiredSize.Height);
                     quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
                 }
 
@@ -238,7 +238,7 @@ namespace Fluent
                     }
                     else if (HeaderAlignment == HorizontalAlignment.Center)
                     {
-                        headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width/2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
+                        headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else if (HeaderAlignment == HorizontalAlignment.Right)
                     {
@@ -247,10 +247,10 @@ namespace Fluent
                     else if (HeaderAlignment == HorizontalAlignment.Stretch)
                     {
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width, 0, allTextWidth, constraint.Height);
-                    }                    
+                    }
                 }
                 else
-                {                    
+                {
                     headerRect = new Rect(Math.Max(0, constraint.Width - 50), 0, 50, constraint.Height);
                 }
             }
@@ -264,20 +264,28 @@ namespace Fluent
                 //Get minimum x point (workaround)
                 foreach (RibbonContextualTabGroup group in visibleGroups)
                 {
-                    firstItem = group.Items[0];
-                    if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
+                    firstItem = group.FirstVisibleItem;
+                    if (firstItem != null)
                     {
-                        startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                        if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
+                        {
+                            startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                        }
                     }
-                    lastItem = group.Items[group.Items.Count - 1];
-                    if (lastItem.IsVisible && lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
+
+                    lastItem = group.LastVisibleItem;
+                    if (lastItem != null
+                        && lastItem.IsVisible)
                     {
-                        endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                        if (lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
+                        {
+                            endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                        }
                     }
                 }
                 //double startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
                 //double endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
-                
+
                 //Looks like thr titlebar things are ordered in an other way
 
                 if (startX != endX)

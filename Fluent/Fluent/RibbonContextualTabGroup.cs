@@ -10,10 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
 
 namespace Fluent
 {
@@ -25,7 +25,7 @@ namespace Fluent
         #region Fields
 
         // Collection of ribbon tab items
-        readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
+        private readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
 
         private Window parentWidow;
 
@@ -102,7 +102,10 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem FirstVisibleItem
         {
-            get { return items[GetFirstVisibleItem()]; }
+            get
+            {
+                return this.GetFirstVisibleItem();
+            }
         }
 
         /// <summary>
@@ -110,7 +113,10 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem LastVisibleItem
         {
-            get { return items[GetFirstVisibleItem()]; }
+            get
+            {
+                return this.GetLastVisibleItem();
+            }
         }
         #endregion
 
@@ -256,24 +262,14 @@ namespace Fluent
             UpdateGroupBorders();
         }
 
-        private int GetFirstVisibleItem()
+        private RibbonTabItem GetFirstVisibleItem()
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[i].Visibility == Visibility.Visible)
-                    return i;
-            }
-            return -1;
+            return this.items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private int GetLastVisibleItem()
+        private RibbonTabItem GetLastVisibleItem()
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (items[items.Count - 1 - i].Visibility == Visibility.Visible)
-                    return items.Count - 1 - i;
-            }
-            return -1;
+            return this.items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
         #endregion
 
