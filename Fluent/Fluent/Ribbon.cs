@@ -1514,28 +1514,35 @@ namespace Fluent
             }
         }
 
-        void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            keyTipService.Attach();
+            this.keyTipService.Attach();
 
             if (this.ownerWindow != null)
             {
-                this.ownerWindow.SizeChanged += OnSizeChanged;
-                this.ownerWindow.KeyDown += OnKeyDown;
+                this.ownerWindow.SizeChanged += this.OnSizeChanged;
+                this.ownerWindow.KeyDown += this.OnKeyDown;
             }
 
-            InitialLoadState();
+            this.InitialLoadState();
 
-            /*if (IsBackstageOpen) ShowBackstage();
-            else*/
-            if ((tabControl != null) && (tabControl.SelectedIndex == -1) && (!IsMinimized)) tabControl.SelectedIndex = 0;
+            if (this.tabControl != null
+                && this.tabControl.SelectedIndex == -1
+                && !this.IsMinimized)
+            {
+                this.tabControl.SelectedIndex = 0;
+            }
         }
 
-        void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1 && ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control))
+            if (e.Key == Key.F1
+                && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                IsMinimized = !IsMinimized;
+                if (this.tabControl.HasItems)
+                {
+                    this.IsMinimized = !this.IsMinimized;
+                }
             }
         }
 

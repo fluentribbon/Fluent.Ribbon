@@ -12,14 +12,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -38,14 +37,16 @@ namespace Fluent
         #region Fields
 
         // Popup
-        Popup popup;
+        private Popup popup;
         // Old selected item
-        WeakReference oldSelectedItem;
+        private WeakReference oldSelectedItem;
 
         // Collection of toolbar items
-        ObservableCollection<UIElement> toolBarItems;
+        private ObservableCollection<UIElement> toolBarItems;
         // ToolBar panel
-        Panel toolbarPanel;
+        private Panel toolbarPanel;
+
+        private bool isMinimizedBecauseZeroItems;
 
         #endregion
 
@@ -93,11 +94,11 @@ namespace Fluent
         {
             get
             {
-                return base.GetValue(SelectedContentProperty);
+                return this.GetValue(SelectedContentProperty);
             }
             internal set
             {
-                base.SetValue(SelectedContentPropertyKey, value);
+                this.SetValue(SelectedContentPropertyKey, value);
             }
         }
 
@@ -139,8 +140,18 @@ namespace Fluent
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
-            RibbonTabControl tabControl = d as RibbonTabControl;
-            if (!tabControl.IsMinimized) return false;
+            var tabControl = d as RibbonTabControl;
+
+            if (tabControl == null)
+            {
+                return basevalue;
+            }
+
+            if (!tabControl.IsMinimized)
+            {
+                return false;
+            }
+
             return basevalue;
         }
 
@@ -151,9 +162,13 @@ namespace Fluent
         {
             get
             {
-                IScrollInfo scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
-                if (scrollInfo != null) return (scrollInfo.ExtentWidth > scrollInfo.ViewportWidth);
-                else return false;
+                var scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
+                if (scrollInfo != null)
+                {
+                    return (scrollInfo.ExtentWidth > scrollInfo.ViewportWidth);
+                }
+
+                return false;
             }
         }
 
@@ -180,8 +195,9 @@ namespace Fluent
                 if (this.toolBarItems == null)
                 {
                     this.toolBarItems = new ObservableCollection<UIElement>();
-                    this.toolBarItems.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnToolbarItemsCollectionChanged);
+                    this.toolBarItems.CollectionChanged += this.OnToolbarItemsCollectionChanged;
                 }
+
                 return this.toolBarItems;
             }
         }
@@ -194,30 +210,35 @@ namespace Fluent
         // Handle toolbar iitems changes
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (this.ToolbarPanel == null)
+            {
+                return;
+            }
+
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (ToolbarPanel != null) ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object obj3 in e.OldItems)
+                    foreach (var obj3 in e.OldItems.OfType<UIElement>())
                     {
-                        if (ToolbarPanel != null) ToolbarPanel.Children.Remove(obj3 as UIElement);
+                        ToolbarPanel.Children.Remove(obj3);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object obj4 in e.OldItems)
+                    foreach (var obj4 in e.OldItems.OfType<UIElement>())
                     {
-                        if (ToolbarPanel != null) ToolbarPanel.Children.Remove(obj4 as UIElement);
+                        this.ToolbarPanel.Children.Remove(obj4);
                     }
-                    foreach (object obj5 in e.NewItems)
+                    foreach (var obj5 in e.NewItems.OfType<UIElement>())
                     {
-                        if (ToolbarPanel != null) ToolbarPanel.Children.Add(obj5 as UIElement);
+                        this.ToolbarPanel.Children.Add(obj5);
                     }
                     break;
             }
@@ -288,7 +309,7 @@ namespace Fluent
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
+            this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
         }
 
         /// <summary>
@@ -306,29 +327,34 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            popup = GetTemplateChild("PART_Popup") as Popup;
-            if (popup != null)
+            this.popup = this.Template.FindName("PART_Popup", this) as Popup;
+            if (this.popup != null)
             {
                 /*Binding binding = new Binding("IsOpen");
                 binding.Mode = BindingMode.TwoWay;
                 binding.Source = this;
                 popup.SetBinding(Popup.IsOpenProperty, binding);
                 */
-                popup.CustomPopupPlacementCallback = CustomPopupPlacementMethod;
+                this.popup.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
             }
-            if ((ToolbarPanel != null) && (toolBarItems != null))
+
+            if (this.ToolbarPanel != null
+                && this.toolBarItems != null)
             {
-                for (int i = 0; i < toolBarItems.Count; i++)
+                for (int i = 0; i < this.toolBarItems.Count; i++)
                 {
-                    ToolbarPanel.Children.Remove(toolBarItems[i]);
+                    this.ToolbarPanel.Children.Remove(this.toolBarItems[i]);
                 }
             }
-            toolbarPanel = GetTemplateChild("PART_ToolbarPanel") as Panel;
-            if ((ToolbarPanel != null) && (toolBarItems != null))
+
+            this.toolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
+
+            if (this.ToolbarPanel != null
+                && this.toolBarItems != null)
             {
-                for (int i = 0; i < toolBarItems.Count; i++)
+                for (int i = 0; i < this.toolBarItems.Count; i++)
                 {
-                    ToolbarPanel.Children.Add(toolBarItems[i]);
+                    this.ToolbarPanel.Children.Add(this.toolBarItems[i]);
                 }
             }
         }
@@ -350,19 +376,44 @@ namespace Fluent
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
-            if ((e.Action == NotifyCollectionChangedAction.Remove) && (base.SelectedIndex == -1))
+
+            if (e.Action == NotifyCollectionChangedAction.Remove
+                && this.SelectedIndex == -1)
             {
-                int startIndex = e.OldStartingIndex + 1;
-                if (startIndex > base.Items.Count)
+                var startIndex = e.OldStartingIndex + 1;
+                if (startIndex > this.Items.Count)
                 {
                     startIndex = 0;
                 }
-                RibbonTabItem item = this.FindNextTabItem(startIndex, -1);
+
+                var item = this.FindNextTabItem(startIndex, -1);
                 if (item != null)
                 {
                     item.IsSelected = true;
                 }
-                else SelectedContent = null;
+                else
+                {
+                    this.SelectedContent = null;
+                }
+            }
+
+            if (this.Items.Count == 0)
+            {
+                var wasMinimized = this.IsMinimized;
+
+                this.IsMinimized = true;
+
+                if (wasMinimized == false)
+                {
+                    this.isMinimizedBecauseZeroItems = true;
+                }
+            }
+            else
+            {
+                if (this.isMinimizedBecauseZeroItems)
+                {
+                    this.IsMinimized = false;
+                }
             }
         }
 
@@ -374,27 +425,28 @@ namespace Fluent
         {
             if (e.AddedItems.Count > 0)
             {
-                Backstage backstage = Menu as Backstage;
-                if (IsMinimized && (backstage == null || !backstage.IsOpen))
+                var backstage = Menu as Backstage;
+                if (this.IsMinimized
+                    && (backstage == null || !backstage.IsOpen))
                 {
                     if (oldSelectedItem != null
                         && oldSelectedItem.IsAlive
                         && oldSelectedItem.Target == e.AddedItems[0])
                     {
-                        IsDropDownOpen = !IsDropDownOpen;
+                        this.IsDropDownOpen = !this.IsDropDownOpen;
                     }
                     else
                     {
-                        Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate { IsDropDownOpen = true; }));
+                        this.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate { this.IsDropDownOpen = true; }));
                     }
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
 
-                UpdateSelectedContent();
+                this.UpdateSelectedContent();
             }
             else
             {
-                IsDropDownOpen = false;
+                this.IsDropDownOpen = false;
             }
 
             if (e.RemovedItems.Count > 0)
@@ -491,7 +543,7 @@ namespace Fluent
         // Get selected ribbon tab item
         private RibbonTabItem GetSelectedTabItem()
         {
-            object selectedItem = base.SelectedItem;
+            object selectedItem = this.SelectedItem;
             if (selectedItem == null)
             {
                 return null;
@@ -499,7 +551,7 @@ namespace Fluent
             RibbonTabItem item = selectedItem as RibbonTabItem;
             if (item == null)
             {
-                item = base.ItemContainerGenerator.ContainerFromIndex(base.SelectedIndex) as RibbonTabItem;
+                item = this.ItemContainerGenerator.ContainerFromIndex(this.SelectedIndex) as RibbonTabItem;
             }
             return item;
         }
@@ -510,18 +562,18 @@ namespace Fluent
             if (direction != 0)
             {
                 int index = startIndex;
-                for (int i = 0; i < base.Items.Count; i++)
+                for (int i = 0; i < this.Items.Count; i++)
                 {
                     index += direction;
-                    if (index >= base.Items.Count)
+                    if (index >= this.Items.Count)
                     {
                         index = 0;
                     }
                     else if (index < 0)
                     {
-                        index = base.Items.Count - 1;
+                        index = this.Items.Count - 1;
                     }
-                    RibbonTabItem item2 = base.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
+                    RibbonTabItem item2 = this.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
                     if (((item2 != null) && item2.IsEnabled) && (item2.Visibility == Visibility.Visible))
                     {
                         return item2;
@@ -568,7 +620,10 @@ namespace Fluent
         // Handles IsMinimized changed
         static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabControl tab = (RibbonTabControl)d;
+            var tab = (RibbonTabControl)d;
+
+            tab.isMinimizedBecauseZeroItems = false;
+
             if (!tab.IsMinimized)
             {
                 tab.IsDropDownOpen = false;
