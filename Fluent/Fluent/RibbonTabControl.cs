@@ -46,8 +46,6 @@ namespace Fluent
         // ToolBar panel
         private Panel toolbarPanel;
 
-        private bool isMinimizedBecauseZeroItems;
-
         #endregion
 
         #region Properties
@@ -85,6 +83,16 @@ namespace Fluent
         /// Gets a value indicating whether context menu is opened
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the tabcontrol was minimized because there were zero items left
+        /// </summary>
+        public bool IsMinimizedBecauseZeroItems { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the tabcontrol was minimized before it was minimized because there were zero items left
+        /// </summary>
+        public bool WasMinimizedBeforeMinimizeBecauseZeroItems { get; private set; }
 
         /// <summary>
         /// Gets content of selected tab item
@@ -399,18 +407,18 @@ namespace Fluent
 
             if (this.Items.Count == 0)
             {
-                var wasMinimized = this.IsMinimized;
+                this.WasMinimizedBeforeMinimizeBecauseZeroItems = this.IsMinimized;
 
                 this.IsMinimized = true;
 
-                if (wasMinimized == false)
+                if (this.WasMinimizedBeforeMinimizeBecauseZeroItems == false)
                 {
-                    this.isMinimizedBecauseZeroItems = true;
+                    this.IsMinimizedBecauseZeroItems = true;
                 }
             }
             else
             {
-                if (this.isMinimizedBecauseZeroItems)
+                if (this.IsMinimizedBecauseZeroItems)
                 {
                     this.IsMinimized = false;
                 }
@@ -622,7 +630,10 @@ namespace Fluent
         {
             var tab = (RibbonTabControl)d;
 
-            tab.isMinimizedBecauseZeroItems = false;
+            if (tab.IsMinimized)
+            {
+                tab.IsMinimizedBecauseZeroItems = false;
+            }
 
             if (!tab.IsMinimized)
             {
