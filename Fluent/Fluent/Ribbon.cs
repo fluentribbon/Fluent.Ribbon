@@ -1045,7 +1045,7 @@ namespace Fluent
                 && ribbon.tabControl != null)
             {
                 e.CanExecute = !ribbon.tabControl.IsMinimizedBecauseZeroItems;
-            }            
+            }
         }
 
         // Occurs when toggle minimize command executed
@@ -1196,10 +1196,17 @@ namespace Fluent
 
         #region Overrides
 
-        void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((e.NewSize.Width < MinimalVisibleWidth) || (e.NewSize.Height < MinimalVisibleHeight)) IsCollapsed = true;
-            else IsCollapsed = false;
+            if (e.NewSize.Width < MinimalVisibleWidth
+                || e.NewSize.Height < MinimalVisibleHeight)
+            {
+                this.IsCollapsed = true;
+            }
+            else
+            {
+                this.IsCollapsed = false;
+            }
         }
 
         /// <summary>
@@ -1380,21 +1387,6 @@ namespace Fluent
                     }
                 }
             }*/
-
-            if (this.ownerWindow == null)
-            {
-                this.ownerWindow = Window.GetWindow(this);
-
-                if (this.ownerWindow != null)
-                {
-                    this.ownerWindow.Closed += this.OnOwnerWindowClosed;
-
-                    Binding binding = new Binding("Title");
-                    binding.Mode = BindingMode.OneWay;
-                    binding.Source = ownerWindow;
-                    SetBinding(TitleProperty, binding);
-                }
-            }
         }
 
         /// <summary>
@@ -1402,33 +1394,57 @@ namespace Fluent
         /// </summary>
         private void OnOwnerWindowClosed(object sender, EventArgs e)
         {
-            this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
+            this.DetachFromWindow();
+        }
+
+        private void AttachToWindow()
+        {
+            this.DetachFromWindow();
+
+            this.ownerWindow = Window.GetWindow(this);
 
             if (this.ownerWindow != null)
             {
-                this.ownerWindow.SizeChanged -= OnSizeChanged;
-                this.ownerWindow.KeyDown -= OnKeyDown;
+                this.ownerWindow.Closed += this.OnOwnerWindowClosed;
+                this.ownerWindow.SizeChanged += this.OnSizeChanged;
+                this.ownerWindow.KeyDown += this.OnKeyDown;
+
+                var binding = new Binding("Title")
+                    {
+                        Mode = BindingMode.OneWay,
+                        Source = this.ownerWindow
+                    };
+                this.SetBinding(TitleProperty, binding);
+            }
+        }
+
+        private void DetachFromWindow()
+        {
+            if (this.ownerWindow != null)
+            {
+                this.SaveState();
+
+                this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
+                this.ownerWindow.SizeChanged -= this.OnSizeChanged;
+                this.ownerWindow.KeyDown -= this.OnKeyDown;
+
+                BindingOperations.ClearBinding(this, TitleProperty);
             }
 
             this.ownerWindow = null;
-
-            this.LayoutUpdated -= this.OnJustLayoutUpdated;
-
-            BindingOperations.ClearBinding(this, TitleProperty);
         }
 
-        void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
+        private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
         {
-            quickAccessToolBar.Loaded -= OnFirstToolbarLoaded;
-            if (quickAccessStream != null)
+            this.quickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
+            if (this.quickAccessStream != null)
             {
-                quickAccessStream.Position = 0;
-                LoadState(quickAccessStream);
-                quickAccessStream.Close();
-                quickAccessStream = null;
+                this.quickAccessStream.Position = 0;
+                this.LoadState(this.quickAccessStream);
+                this.quickAccessStream.Close();
+                this.quickAccessStream = null;
             }
         }
-
 
         #endregion
 
@@ -1506,15 +1522,19 @@ namespace Fluent
         #region Event Handling
 
         // Handles tab control selection changed
-        void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tabControl != null)
+            if (this.tabControl != null)
             {
-                SelectedTabItem = tabControl.SelectedItem as RibbonTabItem;
-                SelectedTabIndex = tabControl.SelectedIndex;
+                this.SelectedTabItem = this.tabControl.SelectedItem as RibbonTabItem;
+                this.SelectedTabIndex = this.tabControl.SelectedIndex;
             }
 
-            if (SelectedTabChanged != null) SelectedTabChanged(this, e);
+            if (this.SelectedTabChanged != null)
+            {
+                this.SelectedTabChanged(this, e);
+            }
+
             if (e.AddedItems.Count > 0)
             {
                 //if (IsBackstageOpen)
@@ -1529,11 +1549,7 @@ namespace Fluent
         {
             this.keyTipService.Attach();
 
-            if (this.ownerWindow != null)
-            {
-                this.ownerWindow.SizeChanged += this.OnSizeChanged;
-                this.ownerWindow.KeyDown += this.OnKeyDown;
-            }
+            this.AttachToWindow();
 
             this.InitialLoadState();
 
@@ -1976,7 +1992,17 @@ namespace Fluent
 
             // Load Ribbon State
             var ribbonProperties = splitted[0].Split(',');
-            this.IsMinimized = Boolean.Parse(ribbonProperties[0]);
+
+            var isMinimized = Boolean.Parse(ribbonProperties[0]);
+            if (this.tabControl.IsMinimizedBecauseZeroItems)
+            {
+                this.tabControl.WasMinimizedBeforeMinimizeBecauseZeroItems = isMinimized;
+            }
+            else
+            {
+                this.IsMinimized = isMinimized;
+            }
+
             this.ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
 
             // Load items
