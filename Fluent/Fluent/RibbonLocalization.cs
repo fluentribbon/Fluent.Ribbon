@@ -681,6 +681,15 @@ namespace Fluent
                 case "da": LoadDanish(); break;
                 case "az": LoadAzerbaijani(); break;
                 case "fi": LoadFinnish(); break;
+                case "no": LoadNorwegian(); break;
+                case "tr": LoadTurkish(); break;
+                case "he": LoadHebrew(); break;
+                case "ge": LoadGreek(); break;
+                case "ko": LoadKorean(); break;
+                case "vi": LoadVietnamese(); break;
+                case "si": LoadSinhala(); break;
+                case "sl": LoadSlovenian(); break;
+                case "ca": LoadCatalan(); break;
             }
 
             // Coerce all values
@@ -751,6 +760,13 @@ namespace Fluent
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             // (This prop was introduced after v1.3) 
             screenTipDisableReasonHeader = "This command is currently disabled.";
+            ScreenTipF1LabelHeader = "Press F1 for help";
+
+            //Screentips
+            ScreenTipDisableReasonHeader = "This function is not available!";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Customize status bar";
         }
 
         #endregion
@@ -897,8 +913,8 @@ namespace Fluent
             ribbonContextMenuCustomizeRibbon = "Menüband anpassen...";
             ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
 
-            //Others
-            ScreenTipDisableReasonHeader = "Diese Funktion ist momentan nicht verfügbar!";
+            //Screentips
+            ScreenTipDisableReasonHeader = "Diese Funktion ist momentan deaktiviert!";
             ScreenTipF1LabelHeader = "Drücken Sie F1 für die Hilfe";
 
             // Right-click on status bar to see it. NEW! from v2.0
@@ -1588,6 +1604,384 @@ namespace Fluent
             ribbonContextMenuCustomizeRibbon = "Mukauta valintanauhaa...";
             ribbonContextMenuMinimizeRibbon = "Pienennä valintanauha";
             screenTipDisableReasonHeader = "Tämä komento on tällä hetkellä poissa käytöstä";
+        }
+
+        #endregion
+
+        #region Norwegian
+
+        void LoadNorwegian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Fil";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimer båndet (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Viser bare kategorinavnene på båndet";
+            expandButtonScreenTipTitle = "Utvider båndet (Ctrl + F1)";
+            expandButtonScreenTipText = "Vis båndet slik at det alltid er utvidet selv etter at du har valgt en kommando";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Tilpass verktøylinje for hurtigtilgang";
+            quickAccessToolBarMoreControlsButtonTooltip = "Flere kontroller"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Tilpass verktøylinje for hurtigtilgang";
+            quickAccessToolBarMenuShowAbove = "Vis over båndet";
+            quickAccessToolBarMenuShowBelow = "Vis under båndet";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Legg til på verktøylinje for hurtigtilgang"; // Button
+            ribbonContextMenuAddGroup = "Legg til gruppe på verktøylinje for hurtigtilgang"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Legg til galleri på verktøylinje for hurtigtilgang"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Legg til meny på verktøylinje for hurtigtilgang"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Fjern verktøylinjen for hurtigtilgang"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Tilpass verktøylinje for hurtigtilgang...";
+            ribbonContextMenuShowBelow = "Vis verktøylinjen for hurtigtilgang under båndet";
+            ribbonContextMenuShowAbove = "Vis verktøylinjen for hurtigtilgang over båndet";
+            ribbonContextMenuCustomizeRibbon = "Tilpass båndet...";
+            ribbonContextMenuMinimizeRibbon = "Minimer båndet";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Denne kommandoen er for øyeblikket deaktivert.";
+        }
+
+        #endregion
+
+        #region Turkish
+
+        void LoadTurkish()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Dosya";
+            backstageButtonKeyTip = "D";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Şeridi Simge Durumuna Küçült (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Şeritte yanlız sekme adlarını\n görüntüleyin.";
+            expandButtonScreenTipTitle = "Şeridi Genişlet (Ctrl + F1)";
+            expandButtonScreenTipText = "Şeridi göstererek\n bir komut tıklatıldıktan sonra bile\n her zaman genişletilmiş olmasını sağlayın.";
+
+            // QAT tooltips and menu items           
+            quickAccessToolBarDropDownButtonTooltip = "Hızlı Erişim Çubuğu'nu Özelleştir";
+            quickAccessToolBarMoreControlsButtonTooltip = "Daha Fazla Özellik"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Hızlı Erişim Çubuğu'nu Özelleştir";
+            quickAccessToolBarMenuShowAbove = "Şeridin Üstünde Göster";
+            quickAccessToolBarMenuShowBelow = "Şeridin Altında Göster";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Hızlı Erişim Çubuğu'na Ekle"; // Button
+            ribbonContextMenuAddGroup = "Hızlı Erişim Çubuğu'na Grup Ekle"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Hızlı Erişim Çubuğu'na Galeri Ekle"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Hızlı Erişim Çubuğu'na Menü Ekle"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Hızlı Erişim Çubuğu'ndan Kaldır"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Hızlı Erişim Çubuğu'nu Özelleştir";
+            ribbonContextMenuShowBelow = "Hızlı Erişim Çubuğu'nu Şeridin Altında Göster";
+            ribbonContextMenuShowAbove = "Hızlı Erişim Çubuğu'nu Şeridin Üstünde Göster";
+            ribbonContextMenuCustomizeRibbon = "Şeridi Özelleştir";
+            ribbonContextMenuMinimizeRibbon = "Şeridi Simge Durumuna Küçült";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Bu Özellik Şu Anda Devre Dışı";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Durum Çubuğunu Özelleştir";
+        }
+
+        #endregion
+
+        #region Hebrew
+
+        void LoadHebrew()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "קובץ";
+            backstageButtonKeyTip = "ק";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "מזער את רצועת הכלים (Ctrl + F1)";
+            minimizeButtonScreenTipText = "הצג רק את שמות הכרטיסיות\nברצועת הכלים.";
+            expandButtonScreenTipTitle = "הרחב את רצועת הכלים (Ctrl + F1)";
+            expandButtonScreenTipText = "הצג את רצועת הכלים כשהיא\nמורחבת תמיד, גם לאחר\nשתלחץ על הפקודה.";
+
+            // QAT tooltips and menu items           
+            quickAccessToolBarDropDownButtonTooltip = "התאמה אישית של סרגל הכלים לגישה מהירה";
+            quickAccessToolBarMoreControlsButtonTooltip = "פקודות נוספות"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "התאמה אישית של סרגל הכלים לגישה מהירה";
+            quickAccessToolBarMenuShowAbove = "הצג מעל לרצועת הכלים";
+            quickAccessToolBarMenuShowBelow = "הצג מעל לרצועת הכלים";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "הוסף לסרגל הכלים לגישה מהירה"; // Button
+            ribbonContextMenuAddGroup = "הוסף קבוצה לסרגל הכלים לגישה מהירה"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "הוסף גלריה לסרגל הכלים לגישה מהירה"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "הוסף תפריט לסרגל הכלים לגישה מהירה"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "הסר מסרגל הכלים לגישה מהירה"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "של סרגל הכלים רצועת הכלים...";
+            ribbonContextMenuShowBelow = "הצג את סרגל הכלים לגישה מהירה מתחת לרצועת הכלים";
+            ribbonContextMenuShowAbove = "הצג את סרגל הכלים לגישה מהירה מעל לרצועת הכלים";
+            ribbonContextMenuCustomizeRibbon = "התאמה אישית של רצועת הכלים...";
+            ribbonContextMenuMinimizeRibbon = "מזער את רצועת הכלים";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "פקודה זו אינה זמינה כעת.";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "התאמה אישית של שורת המצב";
+        }
+
+        #endregion
+
+        #region Greek
+
+        void LoadGreek()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Αρχείο";
+            backstageButtonKeyTip = "Α";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Ελαχιστοποίηση της Κορδέλας (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Εμφάνιση μόνο των ονομάτων καρτελών στην\nΚορδέλα.";
+            expandButtonScreenTipTitle = "Ανάπτυξη της Κορδέλας (Ctrl + F1)";
+            expandButtonScreenTipText = "Εμφάνιση της Κορδέλας προκειμένου να αναπτύσσεται\nπάντα, ακόμα και αφού κάνετε κλικ σε μια εντολή.";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Προσαρμογή γραμμής εργαλείων γρήγορης πρόσβασης";
+            quickAccessToolBarMoreControlsButtonTooltip = "Περισσότερες εντολές"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Προσαρμογή γραμμής εργαλείων γρήγορης πρόσβασης";
+            quickAccessToolBarMenuShowAbove = "Εμφάνιση πάνω από την Κορδέλα";
+            quickAccessToolBarMenuShowBelow = "Εμφάνιση κάτω από την Κορδέλα";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Προσθήκη στη γραμμή εργαλείων γρήγορης πρόσβασης"; // Button
+            ribbonContextMenuAddGroup = "Προσθήκη ομάδας στη γραμμή εργαλείων γρήγορης πρόσβασης"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Προσθήκη συλλογής στη γραμμή εργαλείων γρήγορης πρόσβασης"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Προσθήκη μενού στη γραμμή εργαλείων γρήγορης πρόσβασης"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Κατάργηση από τη γραμμή εργαλείων γρήγορης πρόσβασης"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Προσαρμογή γραμμής εργαλείων γρήγορης πρόσβασης...";
+            ribbonContextMenuShowBelow = "Εμφάνιση της γραμμής εργαλείων γρήγορης πρόσβασης κάτω από την Κορδέλα";
+            ribbonContextMenuShowAbove = "Εμφάνιση της γραμμής εργαλείων γρήγορης πρόσβασης πάνω από την Κορδέλα";
+            ribbonContextMenuCustomizeRibbon = "Προσαρμογή της Κορδέλας...";
+            ribbonContextMenuMinimizeRibbon = "Ελαχιστοποίηση της Κορδέλας";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Αυτή η εντολή είναι απενεργοποιημένη προς το παρόν.";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Προσαρμογή γραμμής κατάστασης";
+        }
+
+        #endregion 
+
+        #region Korean
+
+        void LoadKorean()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "파일";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "리본 메뉴를 최소화 합니다 (Ctrl + F1)";
+            minimizeButtonScreenTipText = "리본 메뉴를 표시하거나 숨깁니다\n\n리본 메뉴가 숨김 상태일때만,\n탭이름이 보여집니다";
+            expandButtonScreenTipTitle = "리본 메뉴를 표시합니다 (Ctrl + F1)";
+            expandButtonScreenTipText = "리본 메뉴를 표시하거나 숨깁니다\n\n리본 메뉴가 숨김 상태일때만,\n탭이름이 보여집니다";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "빠른 실행 도구 모음 사용자 지정";
+            quickAccessToolBarMoreControlsButtonTooltip = "기타 컨트롤들"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "빠른 실행 도구 모음 사용자 지정";
+            quickAccessToolBarMenuShowAbove = "리본 메뉴 위에 표시";
+            quickAccessToolBarMenuShowBelow = "리본 메뉴 아래에 표시";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "빠른 실행 도구 모음에 추가"; // Button
+            ribbonContextMenuAddGroup = "그룹을 빠른 실행 도구 모음에 추가"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "갤러리를 빠른 실행 도구 모음에 추가"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "메뉴를 빠른 실행 도구 모음에 추가"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "빠른 실행 도구 모음에서 단추 제거"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "빠른 실행 도구 모음 사용자 지정...";
+            ribbonContextMenuShowBelow = "리본 메뉴 아래에 빠른 실행 도구 모음 표시";
+            ribbonContextMenuShowAbove = "리본 메뉴 위에 빠른 실행 도구 모음 표시";
+            ribbonContextMenuCustomizeRibbon = "리본 메뉴 사용자 지정...";
+            ribbonContextMenuMinimizeRibbon = "리본 메뉴 최소화";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "이 명령은 현재 사용할 수 없습니다.";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "상태 표시줄 사용자 지정";
+        }
+
+        #endregion
+
+        #region Vietnamese
+
+        void LoadVietnamese()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Tệp";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Thu gọn Ruy băng (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ\ncó tên thẻ được hiện";
+            expandButtonScreenTipTitle = "Mở rộng Ruy băng (Ctrl + F1)";
+            expandButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ\ncó tên thẻ được hiện";
+
+            // QAT tooltips and menu items
+            quickAccessToolBarDropDownButtonTooltip = "Tùy chỉnh thanh công cụ Truy cập nhanh";
+            quickAccessToolBarMoreControlsButtonTooltip = "Thêm điều khiển"; // khi có hai mũi tên ">>"
+            quickAccessToolBarMenuHeader = "Tùy chỉnh thanh công cụ Truy cập nhanh";
+            quickAccessToolBarMenuShowAbove = "Hiện trên thanh Ruy băng";
+            quickAccessToolBarMenuShowBelow = "Hiện dưới thanh Ruy băng";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Thêm vào thanh công cụ Truy cập nhanh"; // Button
+            ribbonContextMenuAddGroup = "Thêm nhóm vào thanh công cụ Truy cập nhanh"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Thêm bộ sưu tập vào thanh công cụ Truy cập nhanh"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Thêm menu vào thanh công cụ Truy cập nhanh"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Loại"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Tùy chỉnh thanh công cụ Truy cập nhanh...";
+            ribbonContextMenuShowBelow = "Hiện thanh công cụ truy cập nhanh dưới thanh Ruy băng";
+            ribbonContextMenuShowAbove = "Hiện thanh công cụ truy cập nhanh trên thanh Ruy băng";
+            ribbonContextMenuCustomizeRibbon = "Tùy biến thanh Ruy băng...";
+            ribbonContextMenuMinimizeRibbon = "Thu gọn Ruy băng";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Lệnh này hiện bị tắt.";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Tùy biến thanh Trạng thái";
+        }
+
+        #endregion
+
+        #region Sinhala (Sri Lanka)
+
+        void LoadSinhala()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "ගොනුව";
+            backstageButtonKeyTip = "න1";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "රිබනය හකුළන්න (Ctrl + F1)";
+            minimizeButtonScreenTipText = "රිබනය මත පටිති නාම පමණක් පෙන්වන්න.";
+            expandButtonScreenTipTitle = "රිබනය විහිදන්න (Ctrl + F1)";
+            expandButtonScreenTipText = "රිබනය පෙන්වන්න, එවිට ඔබ\n\n විධානයක් ක්ලික් කළද එය\n\n සැමවිටම විහිදී පවතී.";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය";
+            quickAccessToolBarMoreControlsButtonTooltip = "තවත් විධාන"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය";
+            quickAccessToolBarMenuShowAbove = "රිබනයට ඉහලින් පෙන්වන්න";
+            quickAccessToolBarMenuShowBelow = "රිබනයට පහලින් පෙන්වන්න";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයට එක් කරන්න"; // Button
+            ribbonContextMenuAddGroup = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයට එක් කරන්න"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයට ගැලරිය එක් කරන්න"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයට මෙනුව එක් කරන්න"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයෙන් ඉවත් කරන්න"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය කරන්න...";
+            ribbonContextMenuShowBelow = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට පහලින් පෙන්වන්න";
+            ribbonContextMenuShowAbove = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට ඉහලින් පෙන්වන්න";
+            ribbonContextMenuCustomizeRibbon = "රිබනය අභිමත කරණය කරන්න...";
+            ribbonContextMenuMinimizeRibbon = "රිබනය හකුළන්න";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "මෙම විධානය දැනට භාවිතා කළ නොහැක";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "තත්ව තීරුව අභිමත කරණය";
+        }
+
+        #endregion
+
+        #region Slovenian
+
+        void LoadSlovenian()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Datoteka";
+            backstageButtonKeyTip = "D";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            minimizeButtonScreenTipTitle = "Minimiraj trak (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so\nprikazani samo zavihki";
+            expandButtonScreenTipTitle = "Razširi trak (Ctrl + F1)";
+            expandButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so\nprikazani samo zavihki";
+
+            // QAT tooltips and menu items            
+            quickAccessToolBarDropDownButtonTooltip = "Prilagodi orodno vrstico za hitri dostop";
+            quickAccessToolBarMoreControlsButtonTooltip = "Več ukazov"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Prilagodi orodno vrstico za hitri dostop";
+            quickAccessToolBarMenuShowAbove = "Pokaži nad trakom";
+            quickAccessToolBarMenuShowBelow = "Pokaži pod trakom";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Dodaj v orodno vrstico za hitri dostop"; // Button
+            ribbonContextMenuAddGroup = "Dodaj skupino orodni vrstici za hitri dostop"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Dodaj galerijo orodni vrstici za hitri dostop"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Dodaj meni orodni vrstici za hitri dostop"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Odstrani iz orodne vrstice za hitri dostop"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Prilagodi orodno vrstico za hitri dostop...";
+            ribbonContextMenuShowBelow = "Pokaži orodno vrstico za hitri dostop pod trakom";
+            ribbonContextMenuShowAbove = "Pokaži orodno vrstico za hitri dostop nad trakom";
+            ribbonContextMenuCustomizeRibbon = "Prilagodi trak...";
+            ribbonContextMenuMinimizeRibbon = "Minimiraj trak";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            screenTipDisableReasonHeader = "Ta ukaz je trenutno onemogočen.";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Prilagodi vrstico stanja";
+        }
+
+        #endregion
+
+        #region Catalan
+
+        void LoadCatalan()
+        {
+            // Backstage button text & key tip
+            backstageButtonText = "Fitxer";
+            backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            // TRANSLATOR'S NOTE: This block is not shown at Windows 7's Apps (WordPad or Paint)
+            minimizeButtonScreenTipTitle = "Minimitza la cinta (Ctrl + F1)";
+            minimizeButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només\ns'ensenyen els noms de les pestanyes";
+            expandButtonScreenTipTitle = "Expandeix la cinta (Ctrl + F1)";
+            expandButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només\ns'ensenyen els noms de les pestanyes";
+
+            // QAT tooltips and menu items
+            quickAccessToolBarDropDownButtonTooltip = "Personalitza la barra d'eines d'accés ràpid";
+            quickAccessToolBarMoreControlsButtonTooltip = "Més controls"; // When two arrows appear ">>"
+            quickAccessToolBarMenuHeader = "Personalitza la barra d'eines d'accés ràpid";
+            quickAccessToolBarMenuShowAbove = "Mostra sobre la cinta";
+            quickAccessToolBarMenuShowBelow = "Mostra sota la cinta";
+
+            // Click on Ribbon to show context menu
+            ribbonContextMenuAddItem = "Afegeix a la barra d'eines d'accés ràpid"; // Button
+            ribbonContextMenuAddGroup = "Afegeix grup a la barra d'eines d'accés ràpid"; // For ex., by collapsed group
+            ribbonContextMenuAddGallery = "Afegeix galeria a la barra d'eines d'accés ràpid"; // For ex., by opened font context menu
+            ribbonContextMenuAddMenu = "Afegeix menú a la barra d'eines d'accés ràpid"; // By dashed splitter in context menu
+            ribbonContextMenuRemoveItem = "Elimina la barra d'eines d'accés ràpid"; // By item in QAT
+            ribbonContextMenuCustomizeQuickAccessToolbar = "Personalitza la barra d'eines d'accés ràpid...";
+            ribbonContextMenuShowBelow = "Mostra la barra d'eines d'accés ràpid sota la cinta";
+            ribbonContextMenuShowAbove = "Mostra la barra d'eines d'accés ràpid sobre la cinta";
+            ribbonContextMenuCustomizeRibbon = "Personalitza la cinta...";
+            ribbonContextMenuMinimizeRibbon = "Minimitza la cinta";
         }
 
         #endregion

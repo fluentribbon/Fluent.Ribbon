@@ -51,7 +51,7 @@ namespace Fluent
 #if NET35
 #else
             d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);            
-            TextOptions.SetTextFormattingMode(d, TextFormattingMode.Display);
+            TextOptions.SetTextFormattingMode(d, TextFormattingMode.Ideal);
             RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
 #endif
         }
