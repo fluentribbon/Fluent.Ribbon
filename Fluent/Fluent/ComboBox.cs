@@ -8,13 +8,8 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,7 +51,7 @@ namespace Fluent
 
         // Freezed image (created during snapping)
         Image snappedImage;
-        
+
         // Is visual currently snapped
         private bool isSnapped;
 
@@ -290,7 +285,7 @@ namespace Fluent
                                                                                    (int)contentSite.ActualHeight + (int)contentSite.Margin.Top + (int)contentSite.Margin.Bottom, 96, 96,
                                                                                    PixelFormats.Pbgra32);
                     renderTargetBitmap.Render(contentSite);
-                    snappedImage.Source = renderTargetBitmap;                    
+                    snappedImage.Source = renderTargetBitmap;
                     snappedImage.FlowDirection = FlowDirection;
                     /*snappedImage.Width = contentSite.ActualWidth;
                     snappedImage.Height = contentSite.ActualHeight;*/
@@ -312,7 +307,7 @@ namespace Fluent
         #endregion
 
         #region DropDownHeight
-        
+
         /// <summary>
         /// Gets or sets initial dropdown height
         /// </summary>
@@ -327,7 +322,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
             DependencyProperty.Register("InitialDropDownHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-                 
+
         #endregion
 
         #region ShowPopupOnTop
@@ -342,13 +337,13 @@ namespace Fluent
         }
 
         // 
-        private static readonly DependencyPropertyKey ShowPopupOnTopPropertyKey= DependencyProperty.RegisterReadOnly("ShowPopupOnTop", typeof(bool), typeof(ComboBox),new UIPropertyMetadata(false));
-        
+        private static readonly DependencyPropertyKey ShowPopupOnTopPropertyKey = DependencyProperty.RegisterReadOnly("ShowPopupOnTop", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false));
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for ShowPopupOnTop.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowPopupOnTopProperty = ShowPopupOnTopPropertyKey.DependencyProperty;
-            
+
         #endregion
 
         #endregion
@@ -384,7 +379,7 @@ namespace Fluent
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ComboBox combo = d as ComboBox;
-            if(!combo.isQuickAccessOpened && !combo.isQuickAccessFocused && (combo.quickAccessCombo!=null)) combo.UpdateQuickAccessCombo();
+            if (!combo.isQuickAccessOpened && !combo.isQuickAccessFocused && (combo.quickAccessCombo != null)) combo.UpdateQuickAccessCombo();
         }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
@@ -434,7 +429,7 @@ namespace Fluent
             RibbonControl.Bind(this, combo, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += OnQuickAccessOpened;
-            if(IsEditable) combo.GotFocus += OnQuickAccessTextBoxGetFocus;            
+            if (IsEditable) combo.GotFocus += OnQuickAccessTextBoxGetFocus;
             quickAccessCombo = combo;
             UpdateQuickAccessCombo();
             return combo;
@@ -464,15 +459,16 @@ namespace Fluent
             quickAccessCombo.DropDownClosed += OnQuickAccessMenuClosed;
             quickAccessCombo.UpdateLayout();
             if (!isQuickAccessFocused) Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
-            { Freeze();
+            {
+                Freeze();
                 Dispatcher.BeginInvoke(DispatcherPriority.Input, ((ThreadStart)(() =>
             {
                 if (quickAccessCombo.SelectedItem != null) (quickAccessCombo.ItemContainerGenerator.ContainerFromItem(quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView();
             }
                )));
             }
-               )));    
-            
+               )));
+
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -485,7 +481,7 @@ namespace Fluent
         private void Freeze()
         {
             IsSnapped = true;
-            selectedItem = SelectedItem;            
+            selectedItem = SelectedItem;
             if (ItemsSource != null)
             {
                 quickAccessCombo.ItemsSource = ItemsSource;
@@ -505,13 +501,13 @@ namespace Fluent
             quickAccessCombo.SelectedItem = selectedItem;
             quickAccessCombo.Menu = Menu;
             Menu = null;
-            quickAccessCombo.IsSnapped = false;            
+            quickAccessCombo.IsSnapped = false;
         }
 
         private void Unfreeze()
         {
             string text = quickAccessCombo.Text;
-            selectedItem = quickAccessCombo.SelectedItem;            
+            selectedItem = quickAccessCombo.SelectedItem;
             quickAccessCombo.IsSnapped = true;
             if (quickAccessCombo.ItemsSource != null)
             {
@@ -527,11 +523,11 @@ namespace Fluent
                     Items.Add(item);
                     i--;
                 }
-            }            
+            }
             quickAccessCombo.SelectedItem = null;
             SelectedItem = selectedItem;
             Menu = quickAccessCombo.Menu;
-            quickAccessCombo.Menu = null;            
+            quickAccessCombo.Menu = null;
             IsSnapped = false;
             Text = text;
             UpdateLayout();
@@ -540,26 +536,26 @@ namespace Fluent
         private void UpdateQuickAccessCombo()
         {
             if (!IsLoaded) Loaded += OnFirstLoaded;
-            if(!IsEditable) Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
-                                                                                 {
-                                                                                     quickAccessCombo.IsSnapped = true;
-                                                                                     IsSnapped = true;
-                                                                                     if (snappedImage != null && quickAccessCombo.snappedImage != null)
-                                                                                     {
-                                                                                         quickAccessCombo.snappedImage.
-                                                                                             Source
-                                                                                             = snappedImage.Source;
-                                                                                         quickAccessCombo.
-                                                                                                 snappedImage.
-                                                                                                 Visibility =
-                                                                                                 Visibility.Visible;
-                                                                                         if (!quickAccessCombo.IsSnapped)
-                                                                                         {
-                                                                                             quickAccessCombo.isSnapped = true;
-                                                                                         }
-                                                                                     }
-                                                                                     IsSnapped = false;
-                                                                                 }));
+            if (!IsEditable) Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+                                                                                  {
+                                                                                      quickAccessCombo.IsSnapped = true;
+                                                                                      IsSnapped = true;
+                                                                                      if (snappedImage != null && quickAccessCombo.snappedImage != null)
+                                                                                      {
+                                                                                          quickAccessCombo.snappedImage.
+                                                                                              Source
+                                                                                              = snappedImage.Source;
+                                                                                          quickAccessCombo.
+                                                                                                  snappedImage.
+                                                                                                  Visibility =
+                                                                                                  Visibility.Visible;
+                                                                                          if (!quickAccessCombo.IsSnapped)
+                                                                                          {
+                                                                                              quickAccessCombo.isSnapped = true;
+                                                                                          }
+                                                                                      }
+                                                                                      IsSnapped = false;
+                                                                                  }));
 
         }
 
@@ -651,7 +647,7 @@ namespace Fluent
 
             canSizeX = true;
             canSizeY = true;
-            
+
             galleryPanel.Width = double.NaN;
             scrollViewer.Height = double.NaN;
 
@@ -661,21 +657,21 @@ namespace Fluent
             popup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             double heightDelta = popupChild.DesiredSize.Height - scrollViewer.DesiredSize.Height;
 
-            double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height *2/3, MaxDropDownHeight);
+            double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, MaxDropDownHeight);
             if (!double.IsNaN(DropDownHeight)) initialHeight = Math.Min(DropDownHeight, MaxDropDownHeight);
             if (scrollViewer.DesiredSize.Height > initialHeight)
-            {                
+            {
                 scrollViewer.Height = initialHeight;
             }
             else initialHeight = scrollViewer.DesiredSize.Height;
 
             Rect monitor = RibbonControl.GetControlMonitor(this);
-            double delta = monitor.Bottom - this.PointToScreen(new Point()).Y -ActualHeight - initialHeight - heightDelta ;
+            double delta = monitor.Bottom - this.PointToScreen(new Point()).Y - ActualHeight - initialHeight - heightDelta;
             if (delta >= 0) ShowPopupOnTop = false;
             else
             {
                 double deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
-                if(deltaTop > delta)ShowPopupOnTop = true;
+                if (deltaTop > delta) ShowPopupOnTop = true;
                 else ShowPopupOnTop = false;
 
                 if (deltaTop < 0)
@@ -690,7 +686,7 @@ namespace Fluent
                         canSizeY = false;
                         scrollViewer.Height = galleryPanel.GetItemSize().Height;
                     }
-                
+
                 }
             }
             popupChild.UpdateLayout();
@@ -732,13 +728,13 @@ namespace Fluent
         /// <param name="e">Event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            if ((IsEditable) && ((e.Key == Key.Down)||(e.Key == Key.Up)) && (!IsDropDownOpen))
+            if ((IsEditable) && ((e.Key == Key.Down) || (e.Key == Key.Up)) && (!IsDropDownOpen))
             {
                 IsDropDownOpen = true;
                 e.Handled = true;
                 return;
             }
-            if ((IsEditable) && ((e.Key == Key.Enter) || (e.Key == Key.Escape))&& (!IsDropDownOpen))
+            if ((IsEditable) && ((e.Key == Key.Enter) || (e.Key == Key.Escape)) && (!IsDropDownOpen))
             {
                 // Move Focus
                 editableTextBox.Focusable = false;
@@ -836,9 +832,21 @@ namespace Fluent
                 e.Handled = true;
                 return;
             }
-            else if ((e.Key == Key.Return) && (!IsEditable))
+            else if ((e.Key == Key.Return) && (!IsEditable) && this.IsDropDownOpen)
             {
-                SelectedIndex = ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                var element = Keyboard.FocusedElement as DependencyObject;
+
+                // only try to select if we got a focusedElement
+                if (element != null)
+                {
+                    var newSelectedIndex = ItemContainerGenerator.IndexFromContainer(element);
+
+                    // only set the selected index if the focused element was in a container in this combobox
+                    if (newSelectedIndex > -1)
+                    {
+                        SelectedIndex = newSelectedIndex;
+                    }
+                }
             }
             base.OnKeyDown(e);
         }
@@ -869,16 +877,16 @@ namespace Fluent
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
             // Set height
-            SetDragHeight(e); 
+            SetDragHeight(e);
 
             // Set width
             menuPanel.Width = Double.NaN;
             if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = galleryPanel.ActualWidth;
-            
+
             double monitorRight = RibbonControl.GetControlMonitor(this).Right;
             FrameworkElement popupChild = popup.Child as FrameworkElement;
             double delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
-            double deltaX = popupChild.ActualWidth - galleryPanel.ActualWidth;            
+            double deltaX = popupChild.ActualWidth - galleryPanel.ActualWidth;
             double deltaBorders = dropDownBorder.ActualWidth - galleryPanel.ActualWidth;
             if (delta > 0) galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, ActualWidth - deltaBorders);
             else
@@ -959,9 +967,9 @@ namespace Fluent
                                    new CustomPopupPlacement(new Point(0, -dropDownBorder.ActualHeight), PopupPrimaryAxis.Horizontal),                
                                };
                 }
-                else 
-                {                    
-                    
+                else
+                {
+
                     return new CustomPopupPlacement[]
                                {
                                    new CustomPopupPlacement(new Point(0, ActualHeight), PopupPrimaryAxis.Horizontal),                
