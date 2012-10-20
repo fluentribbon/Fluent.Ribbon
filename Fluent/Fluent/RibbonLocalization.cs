@@ -9,7 +9,6 @@
 
 using System.ComponentModel;
 using System.Globalization;
-using System.Windows;
 
 namespace Fluent
 {
@@ -759,11 +758,9 @@ namespace Fluent
 
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             // (This prop was introduced after v1.3) 
+            //Screentips
             screenTipDisableReasonHeader = "This command is currently disabled.";
             ScreenTipF1LabelHeader = "Press F1 for help";
-
-            //Screentips
-            ScreenTipDisableReasonHeader = "This function is not available!";
 
             // Right-click on status bar to see it. NEW! from v2.0
             customizeStatusBar = "Customize status bar";
@@ -890,9 +887,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             minimizeButtonScreenTipTitle = "Menüband minimieren (Strg + F1)";
-            minimizeButtonScreenTipText = "Das Menüband anzeigen oder ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
+            minimizeButtonScreenTipText = "Das Menüband ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
             expandButtonScreenTipTitle = "Menüband erweitern (Strg + F1)";
-            expandButtonScreenTipText = "Das Menüband anzeigen oder ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
+            expandButtonScreenTipText = minimizeButtonScreenTipText;
 
             // QAT tooltips and menu items
             quickAccessToolBarDropDownButtonTooltip = "Symbolleiste für den Schnellzugriff anpassen";
@@ -902,10 +899,11 @@ namespace Fluent
             quickAccessToolBarMenuShowBelow = "Unter dem Menüband anzeigen";
 
             // Click on Ribbon to show context menu
-            ribbonContextMenuAddItem = "Zu Symbolleiste für den Schnellzugriff hinzufügen"; // Button
+            ribbonContextMenuAddItem = "Zur Symbolleiste für den Schnellzugriff hinzufügen"; // Button
             ribbonContextMenuAddGroup = "Gruppe zur Symbolleiste für den Schnellzugriff hinzufügen"; // For ex., by collapsed group
             ribbonContextMenuAddGallery = "Katalog zur Symbolleiste für den Schnellzugriff hinzufügen"; // For ex., by opened font context menu
-            ribbonContextMenuAddMenu = "Zu Symbolleiste für den Schnellzugriff hinzufügen"; // By dashed splitter in context menu
+            ribbonContextMenuAddMenu = "Zur Symbolleiste für den Schnellzugriff hinzufügen"; // By dashed splitter in context menu
+
             ribbonContextMenuRemoveItem = "Aus Symbolleiste für den Schnellzugriff entfernen"; // By item in QAT
             ribbonContextMenuCustomizeQuickAccessToolbar = "Symbolleiste für den Schnellzugriff anpassen...";
             ribbonContextMenuShowBelow = "Symbolleiste für den Schnellzugriff unter dem Menüband anzeigen";
@@ -914,7 +912,7 @@ namespace Fluent
             ribbonContextMenuMinimizeRibbon = "Menüband minimieren";
 
             //Screentips
-            ScreenTipDisableReasonHeader = "Diese Funktion ist momentan deaktiviert!";
+            ScreenTipDisableReasonHeader = "Diese Funktion ist momentan deaktiviert.";
             ScreenTipF1LabelHeader = "Drücken Sie F1 für die Hilfe";
 
             // Right-click on status bar to see it. NEW! from v2.0
@@ -1775,7 +1773,7 @@ namespace Fluent
             customizeStatusBar = "Προσαρμογή γραμμής κατάστασης";
         }
 
-        #endregion 
+        #endregion
 
         #region Korean
 
