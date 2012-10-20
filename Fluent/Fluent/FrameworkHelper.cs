@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows;
-using System.Windows.Media;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Reflection;
+    using System.Windows;
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents class to determine .NET Framework version difference
     /// </summary>
@@ -17,7 +14,6 @@ namespace Fluent
         /// Version of WPF
         /// </summary>
         public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window)).GetName().Version;
-
 
         /// <summary>
         /// Gets UseLayoutRounding attached property value
@@ -50,9 +46,8 @@ namespace Fluent
             d.SetValue(UIElement.SnapsToDevicePixelsProperty, true);
 #if NET35
 #else
-            d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);            
-            TextOptions.SetTextFormattingMode(d, TextFormattingMode.Ideal);
             RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
+            d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
 #endif
         }
     }
