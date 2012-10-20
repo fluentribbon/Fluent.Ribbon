@@ -303,6 +303,7 @@
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Cut (Ctrl+X)"
                                               Text="Cut the contents to the Clipboard."
+                                              DisableReason="Cut is currently not available."
                                               Width="190" />
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
