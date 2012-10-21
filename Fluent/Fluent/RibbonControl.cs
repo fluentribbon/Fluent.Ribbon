@@ -14,11 +14,11 @@ using System.Globalization;
 using System.Net.Cache;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -42,16 +42,21 @@ namespace Fluent
         {
             if (value is string)
             {
-                Image image = new Image();
-                image.Stretch = Stretch.Fill;
-                image.Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
+                var image = new Image
+                    {
+                        Source = new BitmapImage(new Uri(value as string, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
+                    };
                 return image;
             }
-            if (value is ImageSource)
+
+            var imageSource = value as ImageSource;
+
+            if (imageSource != null)
             {
-                Image image = new Image();
-                image.Stretch = Stretch.Fill;
-                image.Source = (ImageSource)value;
+                var image = new Image
+                    {
+                        Source = imageSource
+                    };
                 return image;
             }
             return value;
