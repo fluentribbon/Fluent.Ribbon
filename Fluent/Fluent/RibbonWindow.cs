@@ -11,10 +11,7 @@
 // http://code.msdn.microsoft.com/WPFShell/
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -259,6 +256,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register("IsIconVisible", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(true));
 
+        // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
         /// Gets whether window is collapsed
         /// </summary>              
@@ -275,6 +273,22 @@ namespace Fluent
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool),
             typeof(RibbonWindow), new UIPropertyMetadata(false));
+
+        /// <summary>
+        /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="Ribbon.MinimalVisibleWidth"/> or <see cref="Ribbon.MinimalVisibleHeight"/>
+        /// </summary>
+        public bool IsAutomaticCollapseEnabled
+        {
+            get { return (bool)GetValue(IsAutomaticCollapseEnabledProperty); }
+            set { SetValue(IsAutomaticCollapseEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
+            DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets whether client window area is activated
@@ -410,10 +424,22 @@ namespace Fluent
         }
 
         // Size change to collapse ribbon
-        void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((e.NewSize.Width < Ribbon.MinimalVisibleWidth) || (e.NewSize.Height < Ribbon.MinimalVisibleHeight)) IsCollapsed = true;
-            else IsCollapsed = false;
+            if (this.IsAutomaticCollapseEnabled == false)
+            {
+                return;
+            }
+
+            if (e.NewSize.Width < Ribbon.MinimalVisibleWidth
+                || e.NewSize.Height < Ribbon.MinimalVisibleHeight)
+            {
+                this.IsCollapsed = true;
+            }
+            else
+            {
+                this.IsCollapsed = false;
+            }
         }
 
         #endregion

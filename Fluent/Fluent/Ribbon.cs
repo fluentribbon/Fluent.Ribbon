@@ -12,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -21,18 +20,15 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms.Integration;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
-using System.Windows.Threading;
-using System.Threading;
+using System.Windows.Media;
 
 namespace Fluent
 {
@@ -939,30 +935,44 @@ namespace Fluent
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(Ribbon), new UIPropertyMetadata(5D));
 
+        // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
         /// Gets whether ribbon is collapsed
         /// </summary>
         public bool IsCollapsed
         {
             get { return (bool)GetValue(IsCollapsedProperty); }
-            private set { SetValue(IsCollapsedPropertyKey, value); }
+            set { SetValue(IsCollapsedProperty, value); }
         }
 
-        private static readonly DependencyPropertyKey IsCollapsedPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsCollapsed", typeof(bool),
+        private static readonly DependencyProperty IsCollapsedProperty =
+            DependencyProperty.Register("IsCollapsed", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsCollapsedChanged));
 
-
-        static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = (Ribbon)d;
-            if (ribbon.IsCollapsedChanged != null) ribbon.IsCollapsedChanged(ribbon, e);
+            var ribbon = (Ribbon)d;
+            if (ribbon.IsCollapsedChanged != null)
+            {
+                ribbon.IsCollapsedChanged(ribbon, e);
+            }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
+        /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="MinimalVisibleWidth"/> or <see cref="MinimalVisibleHeight"/>
         /// </summary>
-        public static readonly DependencyProperty IsCollapsedProperty = IsCollapsedPropertyKey.DependencyProperty;
+        public bool IsAutomaticCollapseEnabled
+        {
+            get { return (bool)GetValue(IsAutomaticCollapseEnabledProperty); }
+            set { SetValue(IsAutomaticCollapseEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
+            DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets or sets whether QAT is visible
@@ -994,8 +1004,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
             DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
-
-
 
         #endregion
 
@@ -1198,6 +1206,11 @@ namespace Fluent
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (this.IsAutomaticCollapseEnabled == false)
+            {
+                return;
+            }
+
             if (e.NewSize.Width < MinimalVisibleWidth
                 || e.NewSize.Height < MinimalVisibleHeight)
             {
