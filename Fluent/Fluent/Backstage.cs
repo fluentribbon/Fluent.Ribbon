@@ -13,17 +13,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -172,12 +169,11 @@ namespace Fluent
         /// </summary>
         public Backstage()
         {
-            this.Unloaded += this.Backstage_Unloaded;
+            this.Loaded += this.OnBackstageLoaded;
+            this.Unloaded += this.OnBackstageUnloaded;
 
             CoerceValue(HeaderProperty);
             CoerceValue(KeyTip.KeysProperty);
-
-            AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
         }
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
@@ -386,9 +382,14 @@ namespace Fluent
             if (e.Key == Key.Escape) IsOpen = false;
         }
 
-        private void Backstage_Unloaded(object sender, RoutedEventArgs e)
+        private void OnBackstageLoaded(object sender, RoutedEventArgs e)
         {
-            RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
+            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+        }
+
+        private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
         }
 
         /// <summary>

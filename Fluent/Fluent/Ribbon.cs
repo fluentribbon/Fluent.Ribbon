@@ -1597,8 +1597,6 @@ namespace Fluent
                 this.ownerWindow.SizeChanged -= this.OnSizeChanged;
                 this.ownerWindow.KeyDown -= this.OnKeyDown;
             }
-
-            BindingOperations.ClearAllBindings(this);
         }
 
         #endregion
