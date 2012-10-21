@@ -24,6 +24,7 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using System.ComponentModel;
     using System.Linq;
 
     internal static class DpiHelper
@@ -491,7 +492,10 @@ namespace Fluent
 
             IsDwmEnabled = NativeMethods.IsDwmEnabled();
 
-            ApplyCustomChrome();
+            if (DesignerProperties.GetIsInDesignMode(this) == false)
+            {
+                ApplyCustomChrome();
+            }
         }
 
         /// <summary>
@@ -580,6 +584,11 @@ namespace Fluent
 
         private void FixFrameworkIssues()
         {
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
             // This margin is only necessary if the client rectangle is going to be calculated incorrectly by WPF version less then 4.0
             if (FrameworkHelper.PresentationFrameworkVersion >= new Version("4.0"))
             {
