@@ -73,7 +73,8 @@
                         <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
                                                    Style="{DynamicResource QuickAccessToolbarStyle}"
                                                    ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                   HorizontalAlignment="Left" />
+                                                   HorizontalAlignment="Left"
+                                                   Focusable="False" />
                     </ContentControl>
                 </Border>
             </Border>

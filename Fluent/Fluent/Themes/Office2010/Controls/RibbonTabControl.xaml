@@ -434,7 +434,8 @@
                                 Grid.Row="1"
                                 Grid.RowSpan="1">
                             <ContentControl x:Name="mainContentControl"
-                                            Margin="0,1,0,0">
+                                            Margin="0,1,0,0"
+                                            Focusable="False">
                                 <ContentPresenter ContentSource="SelectedContent"
                                                   x:Name="contentPresenter"
                                                   HorizontalAlignment="Stretch"

@@ -226,7 +226,8 @@
       <Grid x:Name="hoverGrid" Background="{DynamicResource GroupHoverBrush}" HorizontalAlignment="Stretch" Margin="0,0,1,1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" ClipToBounds="True" Opacity="0" Grid.RowSpan="2">
         <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Fill="{DynamicResource GroupHighlightBrush}"/>
       </Grid>
-      <ContentControl x:Name="border1">
+      <ContentControl x:Name="border1"
+                      Focusable="False">
       <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="85">
             <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
