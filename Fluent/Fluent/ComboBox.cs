@@ -395,6 +395,8 @@ namespace Fluent
         public ComboBox()
         {
             ContextMenuService.Coerce(this);
+
+            this.PreviewMouseDown += this.OnComboBoxPreviewMouseDown;
         }
 
         #endregion
@@ -872,6 +874,18 @@ namespace Fluent
         #endregion
 
         #region Private methods
+
+        // Prevent reopenning of the dropdown menu (popup)
+        private void OnComboBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var control = (ComboBox)sender;
+
+            if (this.IsDropDownOpen)
+            {
+                control.IsDropDownOpen = false;
+                e.Handled = true;
+            }
+        }
 
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
