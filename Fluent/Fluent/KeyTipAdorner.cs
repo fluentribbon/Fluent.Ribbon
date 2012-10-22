@@ -350,6 +350,7 @@ namespace Fluent
             else if (e.Key == Key.Escape)
             {
                 Back();
+                e.Handled = true;
             }
         }
 

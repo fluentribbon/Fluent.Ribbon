@@ -255,7 +255,7 @@ namespace Fluent
             Window window = Window.GetWindow(this);
             if (window != null)
             {
-                window.PreviewKeyDown += OnBackstageEscapeKeyDown;
+                window.KeyDown += OnBackstageEscapeKeyDown;
                 savedMinWidth = window.MinWidth;
                 savedMinHeight = window.MinHeight;
 
