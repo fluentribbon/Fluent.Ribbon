@@ -372,6 +372,8 @@ namespace Fluent
                 {
                     FilterKeyTips();
                 }
+
+                e.Handled = true;
             }
             else
             {
