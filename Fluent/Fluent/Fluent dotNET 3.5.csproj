@@ -54,7 +54,7 @@
     <Compile Include="ApplicatonMenu.cs" />
     <Compile Include="Backstage.cs" />
     <Compile Include="BackstageAdorner.cs" />
-    <Compile Include="BackstageTabControll.cs" />
+    <Compile Include="BackstageTabControl.cs" />
     <Compile Include="BackstageTabItem.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="CheckBox.cs" />
