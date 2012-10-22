@@ -1846,8 +1846,10 @@ namespace Fluent
             }
         }
 
-        // Loads from Isolated Storage (in user store for domain)
-        private void LoadState()
+        /// <summary>
+        /// Loads the State from Isolated Storage (in user store for domain)
+        /// </summary>
+        public void LoadState()
         {
             if (!this.AutomaticStateManagement)
             {
