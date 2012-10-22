@@ -46,6 +46,7 @@ namespace Fluent
         private Panel menuPanel;
 
         private Border dropDownBorder;
+        private Border contentBorder;
 
         private ContentPresenter contentSite;
 
@@ -395,8 +396,6 @@ namespace Fluent
         public ComboBox()
         {
             ContextMenuService.Coerce(this);
-
-            this.PreviewMouseDown += this.OnComboBoxPreviewMouseDown;
         }
 
         #endregion
@@ -625,6 +624,10 @@ namespace Fluent
 
             snappedImage = GetTemplateChild("PART_SelectedImage") as Image;
             contentSite = GetTemplateChild("PART_ContentSite") as ContentPresenter;
+
+            if (contentBorder != null) contentBorder.PreviewMouseDown -= OnContentBorderPreviewMouseDown;
+            contentBorder = GetTemplateChild("PART_ContentBorder") as Border;
+            if (contentBorder != null) contentBorder.PreviewMouseDown += OnContentBorderPreviewMouseDown;
 
             galleryPanel = GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
             scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
@@ -876,13 +879,11 @@ namespace Fluent
         #region Private methods
 
         // Prevent reopenning of the dropdown menu (popup)
-        private void OnComboBoxPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void OnContentBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            var control = (ComboBox)sender;
-
             if (this.IsDropDownOpen)
             {
-                control.IsDropDownOpen = false;
+                this.IsDropDownOpen = false;
                 e.Handled = true;
             }
         }
