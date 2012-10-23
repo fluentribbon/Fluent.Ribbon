@@ -429,7 +429,7 @@ namespace Fluent
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            Click();
+            IsOpen = true;
             base.OnKeyTipPressed();
         }
 
