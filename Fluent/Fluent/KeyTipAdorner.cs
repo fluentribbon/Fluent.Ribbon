@@ -184,6 +184,9 @@ namespace Fluent
                 return;
             }
 
+            adornerLayer = GetAdornerLayer(oneOfAssociatedElements);
+            if (adornerLayer == null) return;
+
             // Focus current adorned element
             // Keyboard.Focus(adornedElement);
             focusedElement = Keyboard.FocusedElement;
@@ -198,7 +201,6 @@ namespace Fluent
             GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown += OnInputActionOccured;
 
             // Show this adorner
-            adornerLayer = GetAdornerLayer(oneOfAssociatedElements);
             adornerLayer.Add(this);
 
             // Clears previous user input
@@ -428,6 +430,8 @@ namespace Fluent
 
             while (true)
             {
+                if (current == null) return null;
+
                 var parent = (UIElement)VisualTreeHelper.GetParent(current)
                     ?? (UIElement)LogicalTreeHelper.GetParent(current);
 
