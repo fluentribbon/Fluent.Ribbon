@@ -12,12 +12,10 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -43,8 +41,8 @@ namespace Fluent
         private ObservableCollection<RibbonGroupBox> groups;
 
         // Ribbon groups container
-        private RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
-        private ScrollViewer groupsContainer = new ScrollViewer();
+        private readonly RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
+        private readonly ScrollViewer groupsContainer = new ScrollViewer();
 
         // Cached width
         private double cachedWidth;
@@ -220,14 +218,22 @@ namespace Fluent
         // handles Group property chanhged
         private static void OnGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem tab = d as RibbonTabItem;
-            if (e.OldValue != null) (e.OldValue as RibbonContextualTabGroup).RemoveTabItem(tab);
+            var tab = (RibbonTabItem)d;
+
+            if (e.OldValue != null)
+            {
+                ((RibbonContextualTabGroup)e.OldValue).RemoveTabItem(tab);
+            }
+
             if (e.NewValue != null)
             {
-                (e.NewValue as RibbonContextualTabGroup).AppendTabItem(tab);
+                ((RibbonContextualTabGroup)e.NewValue).AppendTabItem(tab);
                 tab.IsContextual = true;
             }
-            else tab.IsContextual = false;
+            else
+            {
+                tab.IsContextual = false;
+            }
         }
 
         /// <summary>
@@ -417,7 +423,7 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
-            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
@@ -432,20 +438,40 @@ namespace Fluent
         }
 
         // Handles visibility changes
-        static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem item = d as RibbonTabItem;
-            if ((item.IsSelected) && ((Visibility)e.NewValue == Visibility.Collapsed))
+            var item = d as RibbonTabItem;
+
+            if (item == null)
             {
-                if (item.TabControlParent != null) item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                return;
+            }
+
+            if (item.IsSelected
+                && (Visibility)e.NewValue == Visibility.Collapsed)
+            {
+                if (item.TabControlParent != null)
+                {
+                    item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                }
+            }
+
+            if (item.Group != null)
+            {
+                item.Group.UpdateInnerVisiblityAndGroupBorders();
             }
         }
 
         // Coerce ToolTip to ensure that tooltip displays name of the tabitem
         static object CoerceToolTip(DependencyObject d, object basevalue)
         {
-            RibbonTabItem tabItem = (RibbonTabItem)d;
-            if ((basevalue == null) && (tabItem.Header is string)) basevalue = tabItem.Header;
+            var tabItem = (RibbonTabItem)d;
+            if (basevalue == null
+                && tabItem.Header is string)
+            {
+                basevalue = tabItem.Header;
+            }
+
             return basevalue;
         }
 
@@ -620,9 +646,17 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                    (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
-            IsSelected = true;
+            if (this.TabControlParent != null)
+            {
+                var currentSelectedItem = this.TabControlParent.SelectedItem as RibbonTabItem;
+
+                if (currentSelectedItem != null)
+                {
+                    currentSelectedItem.IsSelected = false;
+                }
+            }
+
+            this.IsSelected = true;
         }
     }
 }
