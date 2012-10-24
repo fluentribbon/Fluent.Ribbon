@@ -38,9 +38,10 @@ namespace Fluent
         /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect finalRect = new Rect(finalSize);
-            int index = 0;
-            foreach (UIElement item in InternalChildren)
+            var finalRect = new Rect(finalSize);
+            var index = 0;
+
+            foreach (UIElement item in this.InternalChildren)
             {
                 finalRect.Width = sizes[index].Width;//item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, sizes[index].Height);//Math.Max(finalSize.Height, item.DesiredSize.Height);
@@ -64,20 +65,20 @@ namespace Fluent
             sizes.Clear();
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
-            foreach (RibbonContextualTabGroup child in InternalChildren)
+            foreach (RibbonContextualTabGroup contextualGroup in this.InternalChildren)
             {
                 // Calculate width of tab items of the group
                 var tabsWidth = 0D;
 
-                var visibleItems = child.Items.Where(l => l.Visibility == Visibility.Visible).ToList();
+                var visibleItems = contextualGroup.Items.Where(group => group.Visibility == Visibility.Visible).ToList();
 
                 foreach (var item in visibleItems)
                 {
                     tabsWidth += item.DesiredSize.Width;
                 }
 
-                child.Measure(infinity);
-                var groupWidth = child.DesiredSize.Width;
+                contextualGroup.Measure(infinity);
+                var groupWidth = contextualGroup.DesiredSize.Width;
 
                 var tabWasChanged = false;
 
@@ -137,7 +138,7 @@ namespace Fluent
                     x = availableSize.Width;
                 }
 
-                child.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
+                contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
                 sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
             }
 
