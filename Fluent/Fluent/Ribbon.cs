@@ -377,7 +377,6 @@ namespace Fluent
         private ObservableCollection<UIElement> toolBarItems;
 
         // Ribbon title bar
-        private RibbonTitleBar titleBar;
         // Ribbon tab control
         private RibbonTabControl tabControl;
         // Ribbon quick access toolbar
@@ -451,35 +450,8 @@ namespace Fluent
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as Ribbon).titleBar != null) (d as Ribbon).titleBar.InvalidateMeasure();
+            if ((d as Ribbon).TitleBar != null) (d as Ribbon).TitleBar.InvalidateMeasure();
         }
-
-
-        /*/// <summary>
-        /// Gets or sets selected tab item
-        /// </summary>
-        public RibbonTabItem SelectedTabItem
-        {
-            get { return selectedTabItem; }
-            set
-            {
-                if (tabControl != null) tabControl.SelectedItem = value;
-                selectedTabItem = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets selected tab index
-        /// </summary>
-        public int SelectedTabIndex
-        {
-            get { return selectedTabIndex; }
-            set
-            {
-                if (tabControl != null) tabControl.SelectedIndex = value;
-                selectedTabIndex = value;
-            }
-        }*/
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -498,11 +470,23 @@ namespace Fluent
 
         private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = d as Ribbon;
-            if (ribbon.tabControl != null) ribbon.tabControl.SelectedItem = e.NewValue;
-            RibbonTabItem selectedItem = e.NewValue as RibbonTabItem;
-            if ((selectedItem != null) && (ribbon.Tabs.Contains(selectedItem))) ribbon.SelectedTabIndex = ribbon.Tabs.IndexOf(selectedItem);
-            else ribbon.SelectedTabIndex = -1;
+            var ribbon = (Ribbon)d;
+            if (ribbon.tabControl != null)
+            {
+                ribbon.tabControl.SelectedItem = e.NewValue;
+            }
+
+            var selectedItem = e.NewValue as RibbonTabItem;
+
+            if (selectedItem != null
+                && ribbon.Tabs.Contains(selectedItem))
+            {
+                ribbon.SelectedTabIndex = ribbon.Tabs.IndexOf(selectedItem);
+            }
+            else
+            {
+                ribbon.SelectedTabIndex = -1;
+            }
         }
 
         /// <summary>
@@ -522,21 +506,51 @@ namespace Fluent
 
         private static void OnSelectedTabIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = d as Ribbon;
-            int selectedIndex = (int)e.NewValue;
-            if (ribbon.tabControl != null) ribbon.tabControl.SelectedIndex = selectedIndex;
-            if ((selectedIndex >= 0) && (selectedIndex < ribbon.Tabs.Count)) ribbon.SelectedTabItem = ribbon.Tabs[selectedIndex];
-            else ribbon.SelectedTabItem = null;
+            var ribbon = (Ribbon)d;
+            var selectedIndex = (int)e.NewValue;
+
+            if (ribbon.tabControl != null)
+            {
+                ribbon.tabControl.SelectedIndex = selectedIndex;
+            }
+
+            if (selectedIndex >= 0
+                && selectedIndex < ribbon.Tabs.Count)
+            {
+                ribbon.SelectedTabItem = ribbon.Tabs[selectedIndex];
+            }
+            else
+            {
+                ribbon.SelectedTabItem = null;
+            }
         }
 
+        /// <summary>
+        /// Gets the first visible TabItem
+        /// </summary>
+        public RibbonTabItem FirstVisibleItem
+        {
+            get
+            {
+                return this.GetFirstVisibleItem();
+            }
+        }
+
+        /// <summary>
+        /// Gets the last visible TabItem
+        /// </summary>
+        public RibbonTabItem LastVisibleItem
+        {
+            get
+            {
+                return this.GetLastVisibleItem();
+            }
+        }
 
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>
-        internal RibbonTitleBar TitleBar
-        {
-            get { return titleBar; }
-        }
+        internal RibbonTitleBar TitleBar { get; private set; }
 
         /// <summary>
         /// Gets or sets whether quick access toolbar showes above ribbon
@@ -561,7 +575,7 @@ namespace Fluent
         private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Ribbon ribbon = (Ribbon)d;
-            if (ribbon.titleBar != null) ribbon.titleBar.InvalidateMeasure();
+            if (ribbon.TitleBar != null) ribbon.TitleBar.InvalidateMeasure();
             ribbon.SaveState();
         }
 
@@ -592,29 +606,29 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (titleBar != null) titleBar.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        if (this.TitleBar != null) this.TitleBar.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (titleBar != null) titleBar.Items.Remove(item);
+                        if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (titleBar != null) titleBar.Items.Remove(item);
+                        if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (titleBar != null) titleBar.Items.Add(item);
+                        if (this.TitleBar != null) this.TitleBar.Items.Add(item);
                     }
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    if (titleBar != null) titleBar.Items.Clear();
+                    if (this.TitleBar != null) this.TitleBar.Items.Clear();
                     break;
             }
 
@@ -1249,19 +1263,19 @@ namespace Fluent
 
             if (layoutRoot != null) AddLogicalChild(layoutRoot);
 
-            if ((titleBar != null) && (groups != null))
+            if ((this.TitleBar != null) && (groups != null))
             {
                 for (int i = 0; i < groups.Count; i++)
                 {
-                    titleBar.Items.Remove(groups[i]);
+                    this.TitleBar.Items.Remove(groups[i]);
                 }
             }
-            titleBar = GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
-            if ((titleBar != null) && (groups != null))
+            this.TitleBar = GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
+            if ((this.TitleBar != null) && (groups != null))
             {
                 for (int i = 0; i < groups.Count; i++)
                 {
-                    titleBar.Items.Add(groups[i]);
+                    this.TitleBar.Items.Add(groups[i]);
                 }
             }
             RibbonTabItem selectedTab = SelectedTabItem;
@@ -1603,12 +1617,20 @@ namespace Fluent
 
         #region Private methods
 
-
-
         // Handles backstage Esc key keydown
         void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
             // if (e.Key == Key.Escape) IsBackstageOpen = false;
+        }
+
+        private RibbonTabItem GetFirstVisibleItem()
+        {
+            return this.Tabs.FirstOrDefault(item => item.Visibility == Visibility.Visible);
+        }
+
+        private RibbonTabItem GetLastVisibleItem()
+        {
+            return this.Tabs.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
         #endregion
