@@ -7,8 +7,6 @@
 
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
-        <ControlTemplate.Resources>
-        </ControlTemplate.Resources>
         <Grid x:Name="PART_LayoutRoot"
               Width="Auto"
               Height="Auto">
@@ -20,7 +18,8 @@
                                    Height="25"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
-                                   VerticalAlignment="Top">
+                                   VerticalAlignment="Top"
+                                   IsCollapsed="{TemplateBinding IsCollapsed}">
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
                         <Rectangle x:Name="rectangle"
@@ -49,8 +48,8 @@
                                    TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </Fluent:RibbonTitleBar.Header>
-
             </Fluent:RibbonTitleBar>
+
             <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}"
                                      Style="{DynamicResource RibbonTabControlStyle}"
                                      x:Name="PART_RibbonTabControl"
@@ -77,40 +76,7 @@
                                                    Focusable="False" />
                     </ContentControl>
                 </Border>
-            </Border>
-            <Grid x:Name="grid"
-                  Margin="28,0,113,0"
-                  Height="30"
-                  IsHitTestVisible="False"
-                  VerticalAlignment="Top"
-                  Visibility="Collapsed"
-                  HorizontalAlignment="Left">
-                <Rectangle x:Name="rectangle5"
-                           Fill="#7FFFFFFF"
-                           Stroke="{x:Null}"
-                           StrokeThickness="0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="-4,5,-4,3"
-                           Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}"
-                           Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}"
-                           RadiusX="2"
-                           RadiusY="2">
-                    <Rectangle.Effect>
-                        <BlurEffect Radius="10" />
-                    </Rectangle.Effect>
-                </Rectangle>
-                <TextBlock x:Name="textBlock5"
-                           Margin="0,3,0,0"
-                           VerticalAlignment="Center"
-                           d:LayoutOverrides="Width"
-                           HorizontalAlignment="Left"
-                           Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                           Foreground="Black"
-                           TextWrapping="NoWrap"
-                           TextTrimming="CharacterEllipsis" />
-            </Grid>
-
+            </Border>           
         </Grid>
         <ControlTemplate.Triggers>
             <!--<Trigger Property="CanQuickAccessLocationChanging" Value="False">
@@ -139,27 +105,15 @@
             <Trigger Property="IsCollapsed"
                      Value="True">
                 <Setter Property="Visibility"
-                        TargetName="PART_RibbonTitleBar"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
                         TargetName="PART_RibbonTabControl"
                         Value="Collapsed" />
-                <!--<Setter Property="Visibility" TargetName="button" Value="Collapsed"/>-->
                 <Setter Property="Visibility"
                         TargetName="border"
                         Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="grid"
-                        Value="Visible" />
-                <Setter Property="Margin"
-                        TargetName="rectangle5"
-                        Value="0,5,0,3" />
-                <Setter Property="Margin"
-                        TargetName="textBlock5"
-                        Value="4,3,4,0" />
-                <Setter Property="Width"
-                        TargetName="rectangle5"
-                        Value="{Binding ActualWidth, ElementName=grid, Mode=Default}" />
+                <!-- Setting height to the exact same value as GlassBorderThickness -->
+                <Setter Property="Height"
+                        TargetName="PART_RibbonTitleBar"
+                        Value="{Binding GlassBorderThickness.Top, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=30}" />                
             </Trigger>
             <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
                      Value="True">
