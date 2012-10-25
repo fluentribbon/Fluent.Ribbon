@@ -959,7 +959,10 @@ namespace Fluent
             set { SetValue(IsCollapsedProperty, value); }
         }
 
-        private static readonly DependencyProperty IsCollapsedProperty =
+        /// <summary>
+        /// DependencyProperty for <see cref="IsCollapsed"/>
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsCollapsedChanged));
 
