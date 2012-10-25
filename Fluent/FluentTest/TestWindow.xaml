@@ -42,10 +42,17 @@
                                                  Background="Purple"
                                                  Header="First"
                                                  Visibility="Visible" />
+                
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
                                                  BorderBrush="Green"
                                                  Background="Lime"
                                                  Header="Second"
+                                                 Visibility="Visible" />
+
+                <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
+                                                 BorderBrush="Green"
+                                                 Background="Red"
+                                                 Header="MUST BE HIDDEN"
                                                  Visibility="Visible" />
             </Fluent:Ribbon.ContextualGroups>
 
@@ -1259,7 +1266,7 @@
                                     Text="CurrentText" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            <Fluent:RibbonTabItem Header="Format"
+            <!--<Fluent:RibbonTabItem Header="Format"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -1272,7 +1279,15 @@
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>-->
 
+            <Fluent:RibbonTabItem Header="MUST BE HIDDEN"
+                                  Group="{Binding ElementName=invisibleTabGroup, Mode=OneWay}"
+                                  Visibility="Collapsed">
+                <Fluent:RibbonGroupBox Header="MUST BE HIDDEN"
+                                       IsLauncherVisible="False"
+                                       Visibility="Collapsed">
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
@@ -1409,5 +1424,4 @@
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>
-
 </Fluent:RibbonWindow>

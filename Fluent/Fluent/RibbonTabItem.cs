@@ -447,6 +447,11 @@ namespace Fluent
                 return;
             }
 
+            if (item.Group != null)
+            {
+                item.Group.UpdateInnerVisiblityAndGroupBorders();
+            }
+
             if (item.IsSelected
                 && (Visibility)e.NewValue == Visibility.Collapsed)
             {
@@ -454,11 +459,6 @@ namespace Fluent
                 {
                     item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
                 }
-            }
-
-            if (item.Group != null)
-            {
-                item.Group.UpdateInnerVisiblityAndGroupBorders();
             }
         }
 
