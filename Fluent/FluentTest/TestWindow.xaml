@@ -1266,7 +1266,7 @@
                                     Text="CurrentText" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            <!--<Fluent:RibbonTabItem Header="Format"
+            <Fluent:RibbonTabItem Header="Format"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -1280,7 +1280,7 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                 </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>-->
+            </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="MUST BE HIDDEN"
                                   Group="{Binding ElementName=invisibleTabGroup, Mode=OneWay}"
