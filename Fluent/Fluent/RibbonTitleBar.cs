@@ -216,8 +216,22 @@ namespace Fluent
 
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
-            if ((visibleGroups.Count == 0)
-                || ((RibbonTabControl)visibleGroups[0].Items[0].Parent).CanScroll)
+            var canRibbonTabControlScroll = false;
+
+            // Defensively try to find out if the RibbonTabControl can scroll
+            if (visibleGroups.Count > 0)
+            {
+                var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
+
+                if (firstVisibleItem != null
+                    && firstVisibleItem.Parent != null)
+                {
+                    canRibbonTabControlScroll = ((RibbonTabControl)firstVisibleItem.Parent).CanScroll;
+                }
+            }
+
+            if (visibleGroups.Count == 0
+                || canRibbonTabControlScroll)
             {
                 // Collapse itemRect
                 itemsRect = new Rect(0, 0, 0, 0);
