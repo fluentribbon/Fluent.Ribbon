@@ -10,7 +10,6 @@
 #endregion
 
 using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,6 +18,8 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using Fluent.Internal;
+
     /// <summary>
     /// Represent panel with ribbon group.
     /// It is automatically adjusting size of controls
@@ -26,7 +27,7 @@ namespace Fluent
     public class RibbonGroupsContainer : Panel, IScrollInfo
     {
         #region Reduce Order
-        
+
         /// <summary>
         /// Gets or sets reduce order of group in the ribbon panel.
         /// It must be enumerated with comma from the first to reduce to 
@@ -51,7 +52,7 @@ namespace Fluent
         static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonGroupsContainer ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] {',',' '}, StringSplitOptions.RemoveEmptyEntries);
+            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
             ribbonPanel.InvalidateMeasure();
@@ -72,7 +73,8 @@ namespace Fluent
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RibbonGroupsContainer(): base()
+        public RibbonGroupsContainer()
+            : base()
         {
             Focusable = false;
             FocusManager.SetIsFocusScope(this, false);
@@ -119,7 +121,6 @@ namespace Fluent
                 // Increase size of another item
                 reduceOrderIndex++;
                 IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
-
 
                 desiredSize = GetChildrenDesiredSizeIntermediate();
             }
@@ -183,7 +184,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        
+
 
         // Increase size of the item
         void IncreaseGroupBoxSize(string name)
@@ -195,7 +196,7 @@ namespace Fluent
             if (scale) groupBox.ScaleIntermediate++;
             else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Large) ? groupBox.StateIntermediate - 1 : RibbonGroupBoxState.Large;
         }
-       
+
 
         // Decrease size of the item
         void DecreaseGroupBoxSize(string name)
@@ -208,7 +209,7 @@ namespace Fluent
             else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed) ? groupBox.StateIntermediate + 1 : groupBox.StateIntermediate;
         }
 
-        
+
 
         RibbonGroupBox FindGroup(string name)
         {
@@ -306,7 +307,6 @@ namespace Fluent
             SetHorizontalOffset(HorizontalOffset + 16.0);
         }
 
-        
         /// <summary>
         /// Forces content to scroll until the coordinate space of a System.Windows.Media.Visual object is visible.
         /// This is optimized for horizontal scrolling only
@@ -320,7 +320,7 @@ namespace Fluent
             // An empty rect has no size or position.  We can't meaningfully use it.
             if (rectangle.IsEmpty
                 || visual == null
-                || visual == (Visual)this
+                || ReferenceEquals(visual, this)
                 || !this.IsAncestorOf(visual))
             {
                 return Rect.Empty;
@@ -495,7 +495,7 @@ namespace Fluent
         {
             get { return 0.0; }
         }
-        
+
         // Gets scroll data info
         private ScrollData ScrollData
         {
@@ -534,13 +534,9 @@ namespace Fluent
 
             double offsetX = CoerceOffset(ScrollData.OffsetX, extentWidth, viewportWidth);
 
-            /*isValid &= DoubleUtil.AreClose(viewportWidth, ScrollData.ViewportWidth);
+            isValid &= DoubleUtil.AreClose(viewportWidth, ScrollData.ViewportWidth);
             isValid &= DoubleUtil.AreClose(extentWidth, ScrollData.ExtentWidth);
-            isValid &= DoubleUtil.AreClose(ScrollData.OffsetX, offsetX);*/
-
-            isValid &= (viewportWidth == ScrollData.ViewportWidth);
-            isValid &= (extentWidth == ScrollData.ExtentWidth);
-            isValid &= (ScrollData.OffsetX == offsetX);
+            isValid &= DoubleUtil.AreClose(ScrollData.OffsetX, offsetX);
 
             ScrollData.ViewportWidth = viewportWidth;
             ScrollData.ExtentWidth = extentWidth;

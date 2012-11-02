@@ -62,6 +62,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="DropDownButton.cs" />
     <Compile Include="FrameworkHelper.cs" />
     <Compile Include="Gallery.cs" />

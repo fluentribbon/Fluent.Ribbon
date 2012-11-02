@@ -26,6 +26,7 @@ namespace Fluent
 {
     using System.ComponentModel;
     using System.Linq;
+    using Fluent.Internal;
 
     internal static class DpiHelper
     {
@@ -109,11 +110,6 @@ namespace Fluent
     public class RibbonWindow : Window
     {
         #region Constants
-
-        /// <summary>
-        /// Epsilon - more or less random, more or less small number.
-        /// </summary>
-        private const double Epsilon = 0.00000153;
 
         private const int SwpFlags = NativeMethods.SWP_FRAMECHANGED | NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_NOOWNERZORDER | NativeMethods.SWP_NOACTIVATE;
 
@@ -423,7 +419,7 @@ namespace Fluent
 
         void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -1074,33 +1070,11 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// AreClose returns whether or not two doubles are "close".  That is, whether or 
-        /// not they are within epsilon of each other.
-        /// There are plenty of ways for this to return false even for numbers which
-        /// are theoretically identical, so no code calling this should fail to work if this 
-        /// returns false. 
-        /// </summary>
-        /// <param name="value1">The first double to compare.</param>
-        /// <param name="value2">The second double to compare.</param>
-        /// <returns>The result of the AreClose comparision.</returns>
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public static bool AreClose(double value1, double value2)
-        {
-            if (value1 == value2)
-            {
-                return true;
-            }
-
-            double delta = value1 - value2;
-            return (delta < Epsilon) && (delta > -Epsilon);
-        }
-
         private static IntPtr CreateRoundRectRgn(Rect region, double radius)
         {
             // Round outwards.
 
-            if (AreClose(0, radius))
+            if (DoubleUtil.AreClose(0, radius))
             {
                 return NativeMethods.CreateRectRgn(
                     (int)Math.Floor(region.Left),
@@ -1141,17 +1115,17 @@ namespace Fluent
 
         private static bool IsUniform(CornerRadius cornerRadius)
         {
-            if (!AreClose(cornerRadius.BottomLeft, cornerRadius.BottomRight))
+            if (!DoubleUtil.AreClose(cornerRadius.BottomLeft, cornerRadius.BottomRight))
             {
                 return false;
             }
 
-            if (!AreClose(cornerRadius.TopLeft, cornerRadius.TopRight))
+            if (!DoubleUtil.AreClose(cornerRadius.TopLeft, cornerRadius.TopRight))
             {
                 return false;
             }
 
-            if (!AreClose(cornerRadius.BottomLeft, cornerRadius.TopRight))
+            if (!DoubleUtil.AreClose(cornerRadius.BottomLeft, cornerRadius.TopRight))
             {
                 return false;
             }

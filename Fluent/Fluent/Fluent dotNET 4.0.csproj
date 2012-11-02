@@ -94,6 +94,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="FrameworkHelper.cs" />
     <Compile Include="GalleryGroupContainer.cs" />
     <Compile Include="GalleryItemPlaceholder.cs" />
@@ -554,12 +555,10 @@
     <Resource Include="Themes\Office2010\Images\MoreColors.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Themes\Generic.txt" />
     <None Include="Themes\Office2010\Black.txt" />
     <None Include="Themes\Office2010\Blue.txt" />
     <None Include="Themes\Office2010\Silver.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Themes\Generic.txt" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

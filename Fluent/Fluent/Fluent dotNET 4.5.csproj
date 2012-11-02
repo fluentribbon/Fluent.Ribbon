@@ -96,6 +96,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="FrameworkHelper.cs" />
     <Compile Include="GalleryGroupContainer.cs" />
     <Compile Include="GalleryItemPlaceholder.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="IRibbonControl.cs" />
-	<Compile Include="IToggleButton.cs" />
+    <Compile Include="IToggleButton.cs" />
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="RibbonMenu.cs" />
@@ -136,7 +137,7 @@
     <Compile Include="RibbonWindow.cs" />
     <Compile Include="Spinner.cs" />
     <Compile Include="SplitButton.cs" />
-	<Compile Include="ToggleButtonHelper.cs" />
+    <Compile Include="ToggleButtonHelper.cs" />
     <Compile Include="ToolTipService.cs" />
     <Compile Include="TwoLineLabel.cs" />
     <Compile Include="GroupSeparatorMenuItem.cs" />
