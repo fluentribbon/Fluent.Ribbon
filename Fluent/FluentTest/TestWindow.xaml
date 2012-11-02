@@ -63,7 +63,6 @@
                         <Fluent:Button Header="Save"
                                        Icon="Images\Save.png"
                                        Fluent:KeyTip.Keys="S"
-                                       Command="Cut"
                                        Click="OnBtnClick" />
                         <Fluent:Button Header="Save As"
                                        Icon="Images\Save.png"
@@ -1269,6 +1268,9 @@
                                     Icon="Images\GrowFont.png"
                                     Header="Text"
                                     Text="CurrentText" />
+                    
+                    <Fluent:Button Header="PrintVisual"
+                                   Click="OnPrintVisualClick" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Format"

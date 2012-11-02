@@ -407,6 +407,12 @@ namespace FluentTest
         {
             get { return new1; }
         }
+
+        private void OnPrintVisualClick(object sender, RoutedEventArgs e)
+        {
+            var printDlg = new PrintDialog();
+            printDlg.PrintVisual(this, "Main Window");
+        }
     }
 
     public class FooCommand1
