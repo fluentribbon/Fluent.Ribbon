@@ -101,6 +101,7 @@ namespace Fluent
             return new Size(pt.X, pt.Y);
         }
     }
+
     /// <summary>
     /// Represents basic window for ribbon
     /// </summary>
@@ -416,7 +417,13 @@ namespace Fluent
         public RibbonWindow()
         {
             SizeChanged += OnSizeChanged;
+            this.Loaded += RibbonWindow_Loaded;
             Closed += OnWindowClosed;
+        }
+
+        void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -1223,17 +1230,7 @@ namespace Fluent
                     }
                 case NativeMethods.WM_NCCALCSIZE:
                     {
-                        if (WindowState == WindowState.Maximized)
-                        {
-                            NativeMethods.APPBARDATA abd = new NativeMethods.APPBARDATA();
-                            int temp = NativeMethods.SHAppBarMessage(4, ref abd);
-                            if (temp == 1)
-                            {
-                                NativeMethods.NCCALCSIZE_PARAMS ncParams = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
-                                ncParams.rect0.Bottom -= 9;
-                                Marshal.StructureToPtr(ncParams, lParam, false);
-                            }
-                        }
+                        this.FixClientRect(lParam);
 
                         handled = true;
                         return new IntPtr(NativeMethods.WVR_REDRAW);
@@ -1357,6 +1354,52 @@ namespace Fluent
             }
 
             return IntPtr.Zero;
+        }
+
+        private void FixClientRect(IntPtr lParam)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                var abd = new NativeMethods.APPBARDATA();
+                var temp = NativeMethods.SHAppBarMessage(4, ref abd);
+                if (temp == 1)
+                {
+                    var ncParams = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
+                    ncParams.rect0.Bottom -= 9;
+                    Marshal.StructureToPtr(ncParams, lParam, false);
+                }
+            }
+
+            // below code should fix issue 18229, but causes the minimize, restore and close button to be unreachable when window is maximized
+            ////// Fixes the client rect to render edge to edge on one display if maximized
+            ////// Issue fixed with this method: 
+            ////// http://fluent.codeplex.com/workitem/18229
+            ////// "When maximized, client area goes 8px offscreen, killing perf on multimonitor"
+            ////if (this.WindowState == WindowState.Maximized)
+            ////{
+            ////    var ncParams = (NativeMethods.NCCALCSIZE_PARAMS)Marshal.PtrToStructure(lParam, typeof(NativeMethods.NCCALCSIZE_PARAMS));
+
+            ////    ncParams.rect0.Left += 8;
+            ////    ncParams.rect0.Top += 8;
+            ////    ncParams.rect0.Right -= 8;
+            ////    ncParams.rect0.Bottom -= 8;
+
+            ////    Marshal.StructureToPtr(ncParams, lParam, false);
+
+            ////    if (VisualTreeHelper.GetChildrenCount(this) != 0)
+            ////    {
+            ////        var rootElement = (FrameworkElement)VisualTreeHelper.GetChild(this, 0);
+            ////        rootElement.Margin = new Thickness(-8);
+            ////    }
+            ////}
+            ////else
+            ////{
+            ////    if (VisualTreeHelper.GetChildrenCount(this) != 0)
+            ////    {
+            ////        var rootElement = (FrameworkElement)VisualTreeHelper.GetChild(this, 0);
+            ////        rootElement.Margin = new Thickness(0);
+            ////    }
+            ////}
         }
 
         private IntPtr DoHitTest(int msg, IntPtr wParam, IntPtr lParam, out bool handled)

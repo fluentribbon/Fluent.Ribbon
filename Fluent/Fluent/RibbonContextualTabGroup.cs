@@ -57,17 +57,8 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
-        /// <summary>
-        /// Gets or space whitespace extender
-        /// </summary>
-        public double IndentExtender
-        {
-            get { return (double)GetValue(IndentExtenderProperty); }
-            set { SetValue(IndentExtenderProperty, value); }
-        }
         /// <summary>
         /// Gets collection of tab items
         /// </summary>
@@ -75,12 +66,6 @@ namespace Fluent
         {
             get { return items; }
         }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RightOffset.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IndentExtenderProperty =
-            DependencyProperty.Register("IndentExtender", typeof(double), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(0.0));
 
         /// <summary>
         /// Gets or sets a value indicating whether parent window is maximized
@@ -96,6 +81,23 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
             DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)
+        /// </summary>
+        public Visibility InnerVisibility
+        {
+            get { return (Visibility)GetValue(InnerVisibilityProperty); }
+            private set { SetValue(InnerVisibilityPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
+            DependencyProperty.RegisterReadOnly("InnerVisibility", typeof(Visibility), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(Visibility.Visible));
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty InnerVisibilityProperty = InnerVisibilityPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets the first visible TabItem in this group
@@ -118,6 +120,7 @@ namespace Fluent
                 return this.GetLastVisibleItem();
             }
         }
+
         #endregion
 
         #region Initialization
@@ -129,8 +132,8 @@ namespace Fluent
         static RibbonContextualTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
-            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(System.Windows.Visibility.Collapsed, OnVisibilityChanged));
-            StyleProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(Visibility.Collapsed, OnVisibilityChanged));
+            StyleProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
@@ -138,7 +141,7 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonContextualTabGroup));
+                basevalue = ((FrameworkElement)d).TryFindResource(typeof(RibbonContextualTabGroup));
             }
 
             return basevalue;
@@ -151,10 +154,21 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonContextualTabGroup group = (RibbonContextualTabGroup)d;
-            for (int i = 0; i < group.Items.Count; i++) group.Items[i].Visibility = group.Visibility;
-            if (group.Parent is RibbonTitleBar) ((RibbonTitleBar)group.Parent).InvalidateMeasure();
-            group.UpdateGroupBorders();
+            var group = (RibbonContextualTabGroup)d;
+
+            foreach (var tab in group.Items)
+            {
+                tab.Visibility = group.Visibility;
+            }
+
+            group.UpdateInnerVisiblityAndGroupBorders();
+
+            var titleBar = group.Parent as RibbonTitleBar;
+
+            if (titleBar != null)
+            {
+                titleBar.InvalidateMeasure();
+            }
         }
 
         /// <summary>
@@ -214,42 +228,8 @@ namespace Fluent
         /// <param name="item">Ribbon tab item</param>
         internal void AppendTabItem(RibbonTabItem item)
         {
-            Items.Add(item);
-            item.Visibility = Visibility;
-            UpdateGroupBorders();
-        }
-
-        /// <summary>
-        /// Updates the group border
-        /// </summary>
-        public void UpdateGroupBorders()
-        {
-            bool leftset = false, rightset = false;
-            for (int i = 0; i < items.Count; i++)
-            {
-                //if (i == 0) items[i].HasLeftGroupBorder = true;
-                //else items[i].HasLeftGroupBorder = false;
-                //if (i == items.Count - 1) items[i].HasRightGroupBorder = true;
-                //else items[i].HasRightGroupBorder = false;
-
-                //Workaround so you can have inivisible Tabs on a Group
-                if (items[i].Visibility == Visibility.Visible && leftset == false)
-                {
-                    items[i].HasLeftGroupBorder = true;
-                    leftset = true;
-                }
-                else
-                    items[i].HasLeftGroupBorder = false;
-
-
-                if (items[items.Count - 1 - i].Visibility == Visibility.Visible && rightset == false)
-                {
-                    items[items.Count - 1 - i].HasRightGroupBorder = true;
-                    rightset = true;
-                }
-                else
-                    items[items.Count - 1 - i].HasRightGroupBorder = false;
-            }
+            this.Items.Add(item);
+            this.UpdateInnerVisiblityAndGroupBorders();
         }
 
         /// <summary>
@@ -258,8 +238,8 @@ namespace Fluent
         /// <param name="item">Ribbon tab item</param>
         internal void RemoveTabItem(RibbonTabItem item)
         {
-            Items.Remove(item);
-            UpdateGroupBorders();
+            this.Items.Remove(item);
+            this.UpdateInnerVisiblityAndGroupBorders();
         }
 
         private RibbonTabItem GetFirstVisibleItem()
@@ -271,6 +251,49 @@ namespace Fluent
         {
             return this.items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
+
+        /// <summary>
+        /// Updates the group border
+        /// </summary>
+        public void UpdateInnerVisiblityAndGroupBorders()
+        {
+            this.UpdateInnerVisibility();
+
+            var leftset = false;
+            var rightset = false;
+
+            for (var i = 0; i < this.items.Count; i++)
+            {
+                //if (i == 0) items[i].HasLeftGroupBorder = true;
+                //else items[i].HasLeftGroupBorder = false;
+                //if (i == items.Count - 1) items[i].HasRightGroupBorder = true;
+                //else items[i].HasRightGroupBorder = false;
+
+                //Workaround so you can have inivisible Tabs on a Group
+                if (this.items[i].Visibility == Visibility.Visible
+                    && leftset == false)
+                {
+                    this.items[i].HasLeftGroupBorder = true;
+                    leftset = true;
+                }
+                else
+                {
+                    this.items[i].HasLeftGroupBorder = false;
+                }
+
+                if (this.items[this.items.Count - 1 - i].Visibility == Visibility.Visible
+                    && rightset == false)
+                {
+                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = true;
+                    rightset = true;
+                }
+                else
+                {
+                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = false;
+                }
+            }
+        }
+
         #endregion
 
         #region Override
@@ -284,14 +307,34 @@ namespace Fluent
         /// The event data reports that the left mouse button was released.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            if ((e.ClickCount == 1) && (items.Count > 0))
+            var firstVisibleItem = this.FirstVisibleItem;
+
+            if (e.ClickCount == 1
+                && firstVisibleItem != null)
             {
-                if (items[0].TabControlParent != null) if (items[0].TabControlParent.SelectedItem is RibbonTabItem)
-                        (items[0].TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                if (firstVisibleItem.TabControlParent != null)
+                {
+                    var currentSelectedItem = firstVisibleItem.TabControlParent.SelectedItem as RibbonTabItem;
+
+                    if (currentSelectedItem != null)
+                    {
+                        currentSelectedItem.IsSelected = false;
+                    }
+                }
+
                 e.Handled = true;
-                if (items[0].TabControlParent != null) if (items[0].TabControlParent.IsMinimized) items[0].TabControlParent.IsMinimized = false;
-                items[0].IsSelected = true;
+
+                if (firstVisibleItem.TabControlParent != null)
+                {
+                    if (firstVisibleItem.TabControlParent.IsMinimized)
+                    {
+                        firstVisibleItem.TabControlParent.IsMinimized = false;
+                    }
+
+                    firstVisibleItem.IsSelected = true;
+                }
             }
+
             base.OnMouseLeftButtonUp(e);
         }
 
@@ -302,30 +345,30 @@ namespace Fluent
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
-            /*if(e.RightButton==MouseButtonState.Pressed)
-            {
-                RibbonWindow wnd = Window.GetWindow(this) as RibbonWindow;
-                if (wnd != null) wnd.ShowSystemMenu(PointToScreen(e.GetPosition(this)));
-            }*/
 
-            if (this.parentWidow != null)
+            if (this.parentWidow == null)
             {
-                if (this.parentWidow.WindowState == WindowState.Maximized)
-                {
-                    this.parentWidow.WindowState = WindowState.Normal;
-                }
-                else
-                {
-                    this.parentWidow.WindowState = WindowState.Maximized;
-                }
+                return;
             }
+
+            this.parentWidow.WindowState = this.parentWidow.WindowState == WindowState.Maximized
+                ? WindowState.Normal
+                : WindowState.Maximized;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Updates the Visibility of the inner container
+        /// </summary>
+        private void UpdateInnerVisibility()
+        {
+            this.InnerVisibility = this.Items.Any(item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void OnParentWindowStateChanged(object sender, EventArgs e)
         {
-            IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
+            this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
         }
-
-        #endregion
     }
 }

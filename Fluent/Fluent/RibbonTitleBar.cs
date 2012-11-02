@@ -8,8 +8,8 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -61,7 +61,7 @@ namespace Fluent
         // Handles QuickAccessToolBar property chages
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTitleBar titleBar = (RibbonTitleBar)d;
+            var titleBar = (RibbonTitleBar)d;
             titleBar.InvalidateMeasure();
         }
 
@@ -80,18 +80,20 @@ namespace Fluent
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register("HeaderAlignment", typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
 
-        /*/// <summary>
-        /// Gets an enumerator to the logical child elements of the System.Windows.Controls.HeaderedItemsControl.
+        /// <summary>
+        /// Defines whether title bar is collapsed
         /// </summary>
-        protected override IEnumerator LogicalChildren
+        public bool IsCollapsed
         {
-            get
-            {
-                ArrayList list = new ArrayList();
-                if (QuickAccessToolBar != null) list.Add(QuickAccessToolBar);
-                return list.GetEnumerator();
-            }
-        }*/
+            get { return (bool)GetValue(IsCollapsedProperty); }
+            set { SetValue(IsCollapsedProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for <see cref="IsCollapsed"/>
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -104,25 +106,6 @@ namespace Fluent
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
-            StyleProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonTitleBar));
-            }
-
-            return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RibbonTitleBar()
-        {
         }
 
         #endregion
@@ -166,9 +149,26 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.MeasureOverride(constraint);
-            Size resultSize = constraint;
-            if ((double.IsPositiveInfinity(resultSize.Width)) || (double.IsPositiveInfinity(resultSize.Height))) resultSize = base.MeasureOverride(resultSize);
+            if (quickAccessToolbarHolder == null
+                || headerHolder == null
+                || itemsContainer == null)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            if (this.IsCollapsed)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            var resultSize = constraint;
+
+            if (double.IsPositiveInfinity(resultSize.Width)
+                || double.IsPositiveInfinity(resultSize.Height))
+            {
+                resultSize = base.MeasureOverride(resultSize);
+            }
+
             Update(resultSize);
 
             itemsContainer.Measure(itemsRect.Size);
@@ -185,7 +185,18 @@ namespace Fluent
         /// <returns>The size of the control.</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            if ((quickAccessToolbarHolder == null) || (headerHolder == null) || (itemsContainer == null)) return base.ArrangeOverride(arrangeBounds);
+            if (quickAccessToolbarHolder == null
+                || headerHolder == null
+                || itemsContainer == null)
+            {
+                return base.ArrangeOverride(arrangeBounds);
+            }
+
+            if (this.IsCollapsed)
+            {
+                return base.ArrangeOverride(arrangeBounds);
+            }
+
             itemsContainer.Arrange(itemsRect);
             headerHolder.Arrange(headerRect);
             quickAccessToolbarHolder.Arrange(quickAccessToolbarRect);
@@ -199,22 +210,28 @@ namespace Fluent
         // Update items size and positions
         private void Update(Size constraint)
         {
-            List<RibbonContextualTabGroup> visibleGroups = new List<RibbonContextualTabGroup>();
-            for (int i = 0; i < Items.Count; i++)
+            var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
+                .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
+                .ToList();
+
+            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+
+            var canRibbonTabControlScroll = false;
+
+            // Defensively try to find out if the RibbonTabControl can scroll
+            if (visibleGroups.Count > 0)
             {
-                if (Items[i] is RibbonContextualTabGroup)
+                var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
+
+                if (firstVisibleItem != null
+                    && firstVisibleItem.Parent != null)
                 {
-                    RibbonContextualTabGroup group = Items[i] as RibbonContextualTabGroup;
-                    if ((group.Visibility == Visibility.Visible) && (group.Items.Count > 0))
-                    {
-                        visibleGroups.Add(group);
-                    }
+                    canRibbonTabControlScroll = ((RibbonTabControl)firstVisibleItem.Parent).CanScroll;
                 }
             }
 
-            Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
-            if ((visibleGroups.Count == 0) || (visibleGroups[0].Items[0].Parent as RibbonTabControl).CanScroll)
+            if (visibleGroups.Count == 0
+                || canRibbonTabControlScroll)
             {
                 // Collapse itemRect
                 itemsRect = new Rect(0, 0, 0, 0);
@@ -257,12 +274,14 @@ namespace Fluent
             else
             {
                 // Set items container size and position
-                RibbonTabItem firstItem = visibleGroups[0].Items[0];
-                RibbonTabItem lastItem = visibleGroups[visibleGroups.Count - 1].Items[visibleGroups[visibleGroups.Count - 1].Items.Count - 1];
-                double startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                double endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                var firstItem = visibleGroups.First().FirstVisibleItem;
+                var lastItem = visibleGroups.Last().LastVisibleItem;
+
+                var startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
+                var endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+
                 //Get minimum x point (workaround)
-                foreach (RibbonContextualTabGroup group in visibleGroups)
+                foreach (var group in visibleGroups)
                 {
                     firstItem = group.FirstVisibleItem;
                     if (firstItem != null)
@@ -289,16 +308,20 @@ namespace Fluent
                 //Looks like thr titlebar things are ordered in an other way
 
                 if (startX != endX)
+                {
                     itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
+                }
+
                 // Set quick launch toolbar position and size
                 quickAccessToolbarHolder.Measure(infinity);
-                double quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
+
+                var quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
                 quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), quickAccessToolbarHolder.DesiredSize.Height);
+
                 if (quickAccessToolbarWidth > startX)
                 {
                     quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
-                    quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarHolder.DesiredSize.Width,
-                                                      quickAccessToolbarHolder.DesiredSize.Height);
+                    quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarHolder.DesiredSize.Width, quickAccessToolbarHolder.DesiredSize.Height);
                     quickAccessToolbarWidth = quickAccessToolbarHolder.DesiredSize.Width;
                 }
                 // Set header
@@ -307,25 +330,26 @@ namespace Fluent
                 {
                     if (startX - quickAccessToolbarWidth > 150)
                     {
-                        double allTextWidth = startX - quickAccessToolbarWidth;
+                        var allTextWidth = startX - quickAccessToolbarWidth;
                         headerRect = new Rect(quickAccessToolbarRect.Width, 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0, constraint.Width - endX);
+                        var allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
                 else if (HeaderAlignment == HorizontalAlignment.Center)
                 {
-                    if (((startX - quickAccessToolbarWidth < 150) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
+                    if ((startX - quickAccessToolbarWidth < 150 && startX - quickAccessToolbarWidth > 0 && startX - quickAccessToolbarWidth < constraint.Width - endX)
+                        || endX < constraint.Width / 2)
                     {
-                        double allTextWidth = Math.Max(0, constraint.Width - endX);
+                        var allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
+                        var allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
@@ -333,12 +357,12 @@ namespace Fluent
                 {
                     if (startX - quickAccessToolbarWidth > 150)
                     {
-                        double allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
+                        var allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
                         headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth - headerHolder.DesiredSize.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0, constraint.Width - endX);
+                        var allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width - headerHolder.DesiredSize.Width), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
@@ -346,12 +370,12 @@ namespace Fluent
                 {
                     if (startX - quickAccessToolbarWidth > 150)
                     {
-                        double allTextWidth = startX - quickAccessToolbarWidth;
+                        var allTextWidth = startX - quickAccessToolbarWidth;
                         headerRect = new Rect(quickAccessToolbarRect.Width, 0, allTextWidth, constraint.Height);
                     }
                     else
                     {
-                        double allTextWidth = Math.Max(0, constraint.Width - endX);
+                        var allTextWidth = Math.Max(0, constraint.Width - endX);
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                     }
                 }
