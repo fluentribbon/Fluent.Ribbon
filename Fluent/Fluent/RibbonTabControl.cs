@@ -81,16 +81,6 @@ namespace Fluent
         public bool IsContextMenuOpened { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the tabcontrol was minimized because there were zero items left
-        /// </summary>
-        public bool IsMinimizedBecauseZeroItems { get; private set; }
-
-        /// <summary>
-        /// Gets a value indicating whether the tabcontrol was minimized before it was minimized because there were zero items left
-        /// </summary>
-        public bool WasMinimizedBeforeMinimizeBecauseZeroItems { get; set; }
-
-        /// <summary>
         /// Gets content of selected tab item
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -419,30 +409,6 @@ namespace Fluent
                     this.SelectedContent = null;
                 }
             }
-
-            this.MinimizeWhenItemCountIsZero();
-        }
-
-        private void MinimizeWhenItemCountIsZero()
-        {
-            if (this.Items.Count == 0)
-            {
-                this.WasMinimizedBeforeMinimizeBecauseZeroItems = this.IsMinimized;
-
-                this.IsMinimized = true;
-
-                if (this.WasMinimizedBeforeMinimizeBecauseZeroItems == false)
-                {
-                    this.IsMinimizedBecauseZeroItems = true;
-                }
-            }
-            else
-            {
-                if (this.IsMinimizedBecauseZeroItems)
-                {
-                    this.IsMinimized = this.WasMinimizedBeforeMinimizeBecauseZeroItems;
-                }
-            }
         }
 
         /// <summary>
@@ -650,7 +616,6 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            this.MinimizeWhenItemCountIsZero();
         }
 
         // Handles GeneratorStatus changed
@@ -666,8 +631,6 @@ namespace Fluent
         private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tab = (RibbonTabControl)d;
-
-            tab.IsMinimizedBecauseZeroItems = false;
 
             if (!tab.IsMinimized)
             {

@@ -1069,7 +1069,7 @@ namespace Fluent
             if (ribbon != null
                 && ribbon.tabControl != null)
             {
-                e.CanExecute = !ribbon.tabControl.IsMinimizedBecauseZeroItems;
+                e.CanExecute = true;
             }
         }
 
@@ -1938,9 +1938,7 @@ namespace Fluent
         {
             var builder = new StringBuilder();
 
-            var isMinimizedSaveState = this.tabControl.IsMinimizedBecauseZeroItems
-                ? this.tabControl.WasMinimizedBeforeMinimizeBecauseZeroItems
-                : this.IsMinimized;
+            var isMinimizedSaveState = this.IsMinimized;
 
             // Save Ribbon State
             builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
@@ -2032,14 +2030,8 @@ namespace Fluent
             var ribbonProperties = splitted[0].Split(',');
 
             var isMinimized = Boolean.Parse(ribbonProperties[0]);
-            if (this.tabControl.IsMinimizedBecauseZeroItems)
-            {
-                this.tabControl.WasMinimizedBeforeMinimizeBecauseZeroItems = isMinimized;
-            }
-            else
-            {
-                this.IsMinimized = isMinimized;
-            }
+
+            this.IsMinimized = isMinimized;
 
             this.ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
 
