@@ -159,9 +159,7 @@ namespace Fluent
                 var scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
                 if (scrollInfo != null)
                 {
-                    // hack: substracting 5 units to prevent the titlebar from flickering
-                    // instead of doing this hack, we should consider optimizing the code in the RibbonTabsContainer
-                    return (scrollInfo.ExtentWidth - 5) > scrollInfo.ViewportWidth;
+                    return scrollInfo.ExtentWidth > scrollInfo.ViewportWidth;
                 }
 
                 return false;
@@ -410,7 +408,7 @@ namespace Fluent
                 }
             }
 
-            
+
         }
 
         /// <summary>
