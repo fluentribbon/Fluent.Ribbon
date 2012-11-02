@@ -1213,10 +1213,15 @@
                                          Icon="Images\GrowFont.png"
                                          SizeDefinition="Middle"
                                          GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Button long text ggggggg gggg"
+                                         LargeIcon="Images\Test32.png"
+                                         Icon="Images\Test16.png"
+                                         SizeDefinition="Middle"
                                          GroupName="Group1" />
                     <Separator />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Button long text ggggggg gggg"
+                                         LargeIcon="Images\Test32.png"
+                                         Icon="Images\Test16.png"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />

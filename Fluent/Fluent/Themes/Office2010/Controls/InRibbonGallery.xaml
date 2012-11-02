@@ -12,7 +12,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="66" />
+                Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Focusable"
@@ -31,7 +31,7 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="66" />
+                        Value="68" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">

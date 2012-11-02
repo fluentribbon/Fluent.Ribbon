@@ -87,7 +87,7 @@
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
-    <Setter Property="Height" Value="66"/>
+    <Setter Property="Height" Value="68"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -96,7 +96,7 @@
     <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
-        <Setter Property="Height" Value="66"/>
+        <Setter Property="Height" Value="68"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Height" Value="22"/>
