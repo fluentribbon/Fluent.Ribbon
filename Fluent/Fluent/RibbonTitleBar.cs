@@ -379,6 +379,8 @@ namespace Fluent
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                     }
                 }
+
+                headerRect.Width = headerRect.Width + 2;
             }
         }
 
