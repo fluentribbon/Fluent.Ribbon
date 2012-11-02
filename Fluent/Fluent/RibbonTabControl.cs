@@ -409,6 +409,8 @@ namespace Fluent
                     this.SelectedContent = null;
                 }
             }
+
+            
         }
 
         /// <summary>
@@ -440,13 +442,13 @@ namespace Fluent
 
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
-
-                this.UpdateSelectedContent();
             }
             else
             {
                 this.IsDropDownOpen = false;
             }
+
+            this.UpdateSelectedContent();
 
             if (e.RemovedItems.Count > 0)
             {

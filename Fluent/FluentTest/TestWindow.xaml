@@ -1284,6 +1284,7 @@
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
+                    <Fluent:Button Header="TEST" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
