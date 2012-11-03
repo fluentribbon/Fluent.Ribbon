@@ -393,6 +393,26 @@
                                     TargetName="border3"
                                     Value="0,0,0,1" />
                         </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="True" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="1,0,1,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="1,0,1,0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="1,0,0,1" />
+                        </MultiTrigger>
                         <Trigger Property="Group"
                                  Value="{x:Null}">
                             <Setter Property="Visibility"
