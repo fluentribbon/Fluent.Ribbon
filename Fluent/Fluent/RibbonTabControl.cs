@@ -403,7 +403,7 @@ namespace Fluent
                 if (this.IsMinimized
                     && (backstage == null || !backstage.IsOpen))
                 {
-                    this.IsDropDownOpen = !this.IsDropDownOpen;
+                    this.IsDropDownOpen = true;
 
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }

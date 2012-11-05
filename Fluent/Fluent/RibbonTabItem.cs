@@ -548,17 +548,36 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) && (e.ClickCount == 2)))
+            if (e.Source == this
+                && e.ClickCount == 2)
             {
                 e.Handled = true;
-                if (TabControlParent != null) TabControlParent.IsMinimized = !TabControlParent.IsMinimized;
+
+                if (this.TabControlParent != null)
+                {
+                    this.TabControlParent.IsMinimized = !this.TabControlParent.IsMinimized;
+                }
             }
-            else if (((e.Source == this) || !this.IsSelected))
+            else if (e.Source == this 
+                || !this.IsSelected)
             {
-                if (TabControlParent != null) if (TabControlParent.SelectedItem is RibbonTabItem)
-                        (TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                if (this.TabControlParent != null)
+                {
+                    var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
+
+                    if (this.TabControlParent.SelectedTabItem == newItem)
+                    {
+                        this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
+                    }
+
+                    this.TabControlParent.SelectedItem = newItem;
+                }
+                else
+                {
+                    this.IsSelected = true;
+                }
+
                 e.Handled = true;
-                this.IsSelected = true;
             }
         }
 
