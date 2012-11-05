@@ -14,6 +14,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <!-- When you change the default height of 25 of the RibbonTitleBar to something else, don't forget to change it in code behind (see OnIsCollapsedChanged) -->
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
                                    Height="25"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
@@ -108,11 +109,7 @@
                         Value="Collapsed" />
                 <Setter Property="Visibility"
                         TargetName="border"
-                        Value="Collapsed" />
-                <!-- Setting height to the exact same value as GlassBorderThickness -->
-                <Setter Property="Height"
-                        TargetName="PART_RibbonTitleBar"
-                        Value="{Binding GlassBorderThickness.Top, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=30}" />                
+                        Value="Collapsed" />               
             </Trigger>
             <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
                      Value="True">

@@ -964,7 +964,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool),
-            typeof(Ribbon), new UIPropertyMetadata(false, OnIsCollapsedChanged));
+            typeof(Ribbon), new FrameworkPropertyMetadata(false, OnIsCollapsedChanged));
 
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -972,6 +972,22 @@ namespace Fluent
             if (ribbon.IsCollapsedChanged != null)
             {
                 ribbon.IsCollapsedChanged(ribbon, e);
+            }
+
+            if (ribbon.TitleBar != null)
+            {
+                var ribbonOwnerWindow = ribbon.ownerWindow as RibbonWindow;
+
+                if (ribbonOwnerWindow != null)
+                {
+                    // Setting height to the exact same value as GlassBorderThickness of the owning RibbonWindow
+                    // We have to do this to fix a problem with the content area
+                    // to see what this means, comment out the code below and decrease the window size till the ribbon gets collapsed
+                    // We could set this via Style-Triggers in the ribbon, but this causes other layout problems when the ribbon is collapsed and then the window is maximized
+                    ribbon.TitleBar.Height = ribbon.IsCollapsed
+                        ? ribbonOwnerWindow.GlassBorderThickness.Top
+                        : 25;
+                }
             }
         }
 
@@ -1223,13 +1239,19 @@ namespace Fluent
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (this.IsAutomaticCollapseEnabled == false)
+            this.MaintainIsCollapsed();
+        }
+
+        private void MaintainIsCollapsed()
+        {
+            if (this.IsAutomaticCollapseEnabled == false
+                || this.ownerWindow == null)
             {
                 return;
             }
 
-            if (e.NewSize.Width < MinimalVisibleWidth
-                || e.NewSize.Height < MinimalVisibleHeight)
+            if (this.ownerWindow.ActualWidth < MinimalVisibleWidth
+                || this.ownerWindow.ActualHeight < MinimalVisibleHeight)
             {
                 this.IsCollapsed = true;
             }
@@ -1825,7 +1847,7 @@ namespace Fluent
         {
             this.LayoutUpdated -= this.OnJustLayoutUpdated;
 
-            if (this.QuickAccessToolBar != null 
+            if (this.QuickAccessToolBar != null
                 && !this.QuickAccessToolBar.IsLoaded)
             {
                 this.InitialLoadState();

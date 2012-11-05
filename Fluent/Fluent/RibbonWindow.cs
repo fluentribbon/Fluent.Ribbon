@@ -270,7 +270,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool),
-            typeof(RibbonWindow), new UIPropertyMetadata(false));
+            typeof(RibbonWindow), new FrameworkPropertyMetadata(false));
 
         /// <summary>
         /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="Ribbon.MinimalVisibleWidth"/> or <see cref="Ribbon.MinimalVisibleHeight"/>
@@ -417,9 +417,8 @@ namespace Fluent
             Closed += OnWindowClosed;
         }
 
-        void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
+        private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -430,13 +429,18 @@ namespace Fluent
         // Size change to collapse ribbon
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            this.MaintainIsCollapsed();
+        }
+
+        private void MaintainIsCollapsed()
+        {
             if (this.IsAutomaticCollapseEnabled == false)
             {
                 return;
             }
 
-            if (e.NewSize.Width < Ribbon.MinimalVisibleWidth
-                || e.NewSize.Height < Ribbon.MinimalVisibleHeight)
+            if (this.ActualWidth < Ribbon.MinimalVisibleWidth
+                || this.ActualHeight < Ribbon.MinimalVisibleHeight)
             {
                 this.IsCollapsed = true;
             }
@@ -652,7 +656,7 @@ namespace Fluent
             if (!isFixedUp)
             {
                 hasUserMovedWindow = false;
-                StateChanged += FixRestoreBounds;
+                this.StateChanged += this.FixRestoreBounds;
 
                 isFixedUp = true;
             }
@@ -712,7 +716,8 @@ namespace Fluent
 
         private void FixRestoreBounds(object sender, EventArgs e)
         {
-            if (WindowState == WindowState.Maximized || WindowState == WindowState.Minimized)
+            if (this.WindowState == WindowState.Maximized
+                || this.WindowState == WindowState.Minimized)
             {
                 // Old versions of WPF sometimes force their incorrect idea of the Window's location
                 // on the Win32 restore bounds.  If we have reason to think this is the case, then

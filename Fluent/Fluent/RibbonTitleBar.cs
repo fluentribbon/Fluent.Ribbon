@@ -93,7 +93,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsCollapsed"/>
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(false));
 
         #endregion
 
@@ -379,9 +379,9 @@ namespace Fluent
                         headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                     }
                 }
-
-                headerRect.Width = headerRect.Width + 2;
             }
+
+            headerRect.Width = headerRect.Width + 2;
         }
 
         #endregion
