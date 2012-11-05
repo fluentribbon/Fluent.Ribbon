@@ -15,13 +15,11 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -36,12 +34,9 @@ namespace Fluent
     {
         #region Fields
 
-        // Popup
-        // Old selected item
-        private WeakReference oldSelectedItem;
-
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
+
         // ToolBar panel
         private Panel toolbarPanel;
 
@@ -254,8 +249,6 @@ namespace Fluent
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(RibbonTabControl), new UIPropertyMetadata(5D));
 
-        private bool? selectionChangedBecauseFirstItemWasAdded;
-
         #endregion
 
         #region Initializion
@@ -373,19 +366,6 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                if (this.selectionChangedBecauseFirstItemWasAdded == null
-                    && this.Items.Count == 1)
-                {
-                    this.selectionChangedBecauseFirstItemWasAdded = true;
-                }
-                else
-                {
-                    this.selectionChangedBecauseFirstItemWasAdded = false;
-                }
-            }
-
             base.OnItemsChanged(e);
 
             if (e.Action == NotifyCollectionChangedAction.Remove
@@ -407,8 +387,6 @@ namespace Fluent
                     this.SelectedContent = null;
                 }
             }
-
-
         }
 
         /// <summary>
@@ -417,26 +395,15 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
+            this.UpdateSelectedContent();
+
             if (e.AddedItems.Count > 0)
             {
                 var backstage = Menu as Backstage;
                 if (this.IsMinimized
                     && (backstage == null || !backstage.IsOpen))
                 {
-                    // Prevent flickering when Ribbon is minimized and the first item is added to the ribbon
-                    if (this.selectionChangedBecauseFirstItemWasAdded == false)
-                    {
-                        if (oldSelectedItem != null
-                            && oldSelectedItem.IsAlive
-                            && oldSelectedItem.Target == e.AddedItems[0])
-                        {
-                            this.IsDropDownOpen = !this.IsDropDownOpen;
-                        }
-                        else
-                        {
-                            this.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new ThreadStart(delegate { this.IsDropDownOpen = true; }));
-                        }
-                    }
+                    this.IsDropDownOpen = !this.IsDropDownOpen;
 
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
@@ -446,11 +413,8 @@ namespace Fluent
                 this.IsDropDownOpen = false;
             }
 
-            this.UpdateSelectedContent();
-
             if (e.RemovedItems.Count > 0)
             {
-                oldSelectedItem = new WeakReference(e.RemovedItems[0]);
                 ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
             }
 

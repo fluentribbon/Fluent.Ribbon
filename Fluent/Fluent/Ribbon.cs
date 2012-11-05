@@ -1582,13 +1582,6 @@ namespace Fluent
             this.AttachToWindow();
 
             this.InitialLoadState();
-
-            if (this.tabControl != null
-                && this.tabControl.SelectedIndex == -1
-                && !this.IsMinimized)
-            {
-                this.tabControl.SelectedIndex = 0;
-            }
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -1832,7 +1825,8 @@ namespace Fluent
         {
             this.LayoutUpdated -= this.OnJustLayoutUpdated;
 
-            if (this.QuickAccessToolBar != null && !this.QuickAccessToolBar.IsLoaded)
+            if (this.QuickAccessToolBar != null 
+                && !this.QuickAccessToolBar.IsLoaded)
             {
                 this.InitialLoadState();
                 return;
@@ -1841,6 +1835,13 @@ namespace Fluent
             if (!this.IsStateLoaded)
             {
                 this.LoadState();
+
+                if (this.tabControl != null
+                    && this.tabControl.SelectedIndex == -1
+                    && !this.tabControl.IsMinimized)
+                {
+                    this.tabControl.SelectedIndex = 0;
+                }
             }
         }
 
