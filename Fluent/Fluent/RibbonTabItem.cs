@@ -558,7 +558,7 @@ namespace Fluent
                     this.TabControlParent.IsMinimized = !this.TabControlParent.IsMinimized;
                 }
             }
-            else if (e.Source == this 
+            else if (e.Source == this
                 || !this.IsSelected)
             {
                 if (this.TabControlParent != null)
@@ -569,8 +569,13 @@ namespace Fluent
                     {
                         this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
                     }
+                    else
+                    {
+                        this.TabControlParent.IsDropDownOpen = true;
+                    }
 
                     this.TabControlParent.SelectedItem = newItem;
+                    this.TabControlParent.RaiseRequestBackstageClose();
                 }
                 else
                 {

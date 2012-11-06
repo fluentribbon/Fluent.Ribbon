@@ -262,7 +262,7 @@ namespace Fluent
             if (ribbon != null)
             {
                 ribbon.TabControl.IsDropDownOpen = false;
-                ribbon.TabControl.IsDropDownOpenChanged += this.OnTabControlIsDropDownOpenChanged;
+                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
                 ribbon.SelectedTabChanged += this.OnSelectedRibbonTabChanged;
 
                 // Disable QAT & title bar
@@ -336,7 +336,7 @@ namespace Fluent
             var ribbon = this.FindRibbon();
             if (ribbon != null)
             {
-                ribbon.TabControl.IsDropDownOpenChanged -= this.OnTabControlIsDropDownOpenChanged;
+                ribbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
                 ribbon.SelectedTabChanged -= this.OnSelectedRibbonTabChanged;
 
                 // Restore enable under QAT & title bar
@@ -407,14 +407,9 @@ namespace Fluent
             this.IsOpen = false;
         }
 
-        private void OnTabControlIsDropDownOpenChanged(object sender, EventArgs e)
+        private void OnTabControlRequestBackstageClose(object sender, EventArgs e)
         {
-            var ribbonTabControl = (RibbonTabControl)sender;
-
-            if (ribbonTabControl.IsDropDownOpen)
-            {
-                this.IsOpen = false;
-            }
+            this.IsOpen = false;
         }
 
         // We have to collapse WindowsFormsHost while Backstage is open

@@ -45,9 +45,9 @@ namespace Fluent
         #region Events
 
         /// <summary>
-        /// Event which is fired when <see cref="IsDropDownOpen"/> changed
+        /// Event which is fired when the, maybe listening, <see cref="Backstage"/> should be closed
         /// </summary>
-        public event EventHandler IsDropDownOpenChanged;
+        public event EventHandler RequestBackstageClose;
 
         #endregion
 
@@ -715,6 +715,8 @@ namespace Fluent
         {
             var ribbonTabControl = (RibbonTabControl)d;
 
+            ribbonTabControl.RaiseRequestBackstageClose();
+
             if (ribbonTabControl.IsDropDownOpen)
             {
                 ribbonTabControl.OnRibbonTabPopupOpening();
@@ -723,12 +725,18 @@ namespace Fluent
             {
                 ribbonTabControl.OnRibbonTabPopupClosing();
             }
+        }
 
-            var handler = ribbonTabControl.IsDropDownOpenChanged;
+        /// <summary>
+        /// Raises an event causing the Backstage-View to be closed
+        /// </summary>
+        public void RaiseRequestBackstageClose()
+        {
+            var handler = this.RequestBackstageClose;
 
             if (handler != null)
             {
-                handler(ribbonTabControl, null);
+                handler(this, null);
             }
         }
 
