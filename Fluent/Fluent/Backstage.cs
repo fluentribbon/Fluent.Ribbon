@@ -67,14 +67,24 @@ namespace Fluent
             DependencyProperty.Register("IsOpen", typeof(bool),
             typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
 
-        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Backstage backstage = (Backstage)d;
-            if ((bool)e.NewValue) backstage.Show();
-            else backstage.Hide();
+            var backstage = (Backstage)d;
+
+            if ((bool)e.NewValue)
+            {
+                backstage.Show();
+            }
+            else
+            {
+                backstage.Hide();
+            }
 
             // Invoke the event
-            if (backstage.IsOpenChanged != null) backstage.IsOpenChanged(backstage, e);
+            if (backstage.IsOpenChanged != null)
+            {
+                backstage.IsOpenChanged(backstage, e);
+            }
         }
 
         #endregion
@@ -186,9 +196,9 @@ namespace Fluent
         #region Methods
 
         // Handles click event
-        void Click()
+        private void Click()
         {
-            IsOpen = !IsOpen;
+            this.IsOpen = !this.IsOpen;
         }
 
         #region Show / Hide
@@ -196,8 +206,6 @@ namespace Fluent
         // We have to collapse WindowsFormsHost while Backstate is open
         Dictionary<FrameworkElement, Visibility> collapsedElements =
             new Dictionary<FrameworkElement, Visibility>();
-        // Saved when backstage opened tab item
-        RibbonTabItem savedTabItem;
 
         // Saved window sizes
         double savedMinWidth;
@@ -206,156 +214,218 @@ namespace Fluent
         int savedHeight;
 
         // Opens backstage on an Adorner layer
-        void Show()
+        private void Show()
         {
-            if (!IsLoaded)
+            if (!this.IsLoaded)
             {
-                Loaded += OnDelayedShow;
+                this.Loaded += this.OnDelayedShow;
                 return;
             }
 
-            if (Content == null) return;
+            if (this.Content == null)
+            {
+                return;
+            }
 
-            AdornerLayer layer = GetAdornerLayer(this);
+            var layer = GetAdornerLayer(this);
             if (adorner == null)
             {
                 if (DesignerProperties.GetIsInDesignMode(this))
                 {
                     // TODO: in design mode it is required to use design time adorner
-                    FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
-                    double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                    var topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                    var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
                     adorner = new BackstageAdorner(topLevelElement, Content, topOffset);
                 }
                 else
                 {
-                    Window mainWindow = Window.GetWindow(this);
-                    if (mainWindow == null) return;
-                    FrameworkElement topLevelElement = (FrameworkElement)mainWindow.Content;
-                    if (topLevelElement == null) return;
-                    double topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                    var mainWindow = Window.GetWindow(this);
+                    if (mainWindow == null)
+                    {
+                        return;
+                    }
+
+                    var topLevelElement = (FrameworkElement)mainWindow.Content;
+                    if (topLevelElement == null)
+                    {
+                        return;
+                    }
+
+                    var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
                     adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
                 }
             }
+
             layer.Add(adorner);
 
-            Ribbon ribbon = FindRibbon();
+            var ribbon = this.FindRibbon();
             if (ribbon != null)
             {
-                savedTabItem = ribbon.SelectedTabItem;
-                if (savedTabItem == null && ribbon.Tabs.Count > 0)
-                    savedTabItem = (RibbonTabItem)ribbon.Tabs[0];
-                ribbon.SelectedTabItem = null;
-                ribbon.SelectedTabChanged += OnSelectedRibbonTabChanged;
+                ribbon.TabControl.IsDropDownOpen = false;
+                ribbon.TabControl.IsDropDownOpenChanged += this.OnTabControlIsDropDownOpenChanged;
+                ribbon.SelectedTabChanged += this.OnSelectedRibbonTabChanged;
 
                 // Disable QAT & title bar
-                if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = false;
-                if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = false;
+                if (ribbon.QuickAccessToolBar != null)
+                {
+                    ribbon.QuickAccessToolBar.IsEnabled = false;
+                }
+
+                if (ribbon.TitleBar != null)
+                {
+                    ribbon.TitleBar.IsEnabled = false;
+                }
             }
 
-            Window window = Window.GetWindow(this);
+            var window = Window.GetWindow(this);
             if (window != null)
             {
-                window.KeyDown += OnBackstageEscapeKeyDown;
+                window.KeyDown += this.OnBackstageEscapeKeyDown;
                 savedMinWidth = window.MinWidth;
                 savedMinHeight = window.MinHeight;
 
-                SaveWindowSize(window);
+                this.SaveWindowSize(window);
 
-                if (savedMinWidth < 500) window.MinWidth = 500;
-                if (savedMinHeight < 400) window.MinHeight = 400;
-                window.SizeChanged += OnWindowSizeChanged;
+                if (savedMinWidth < 500)
+                {
+                    window.MinWidth = 500;
+                }
+
+                if (savedMinHeight < 400)
+                {
+                    window.MinHeight = 400;
+                }
+
+                window.SizeChanged += this.OnWindowSizeChanged;
 
                 // We have to collapse WindowsFormsHost while Backstage is open
-                CollapseWindowsFormsHosts(window);
+                this.CollapseWindowsFormsHosts(window);
             }
 
-            IInputElement content = Content as IInputElement;
-            if (content != null) content.Focus();
+            var content = this.Content as IInputElement;
+            if (content != null)
+            {
+                content.Focus();
+            }
         }
 
-        void OnDelayedShow(object sender, EventArgs args)
+        private void OnDelayedShow(object sender, EventArgs args)
         {
-            Loaded -= OnDelayedShow;
-            Show();
+            this.Loaded -= this.OnDelayedShow;
+            this.Show();
         }
 
         // Hide backstage
-        void Hide()
+        private void Hide()
         {
-            Loaded -= OnDelayedShow;
-            if (Content == null) return;
-            if (!IsLoaded || adorner == null) return;
-
-            AdornerLayer layer = GetAdornerLayer(this);
-            layer.Remove(adorner);
-            Ribbon ribbon = FindRibbon();
-            if (ribbon != null)
+            this.Loaded -= this.OnDelayedShow;
+            if (this.Content == null)
             {
-                ribbon.SelectedTabChanged -= OnSelectedRibbonTabChanged;
-                if (!ribbon.IsMinimized) ribbon.SelectedTabItem = savedTabItem;
-                // Restore enable under QAT & title bar
-                if (ribbon.QuickAccessToolBar != null) ribbon.QuickAccessToolBar.IsEnabled = true;
-                if (ribbon.TitleBar != null) ribbon.TitleBar.IsEnabled = true;
+                return;
             }
 
-            Window window = Window.GetWindow(this);
+            if (!this.IsLoaded
+                || this.adorner == null)
+            {
+                return;
+            }
+
+            var layer = GetAdornerLayer(this);
+            layer.Remove(adorner);
+
+            var ribbon = this.FindRibbon();
+            if (ribbon != null)
+            {
+                ribbon.TabControl.IsDropDownOpenChanged -= this.OnTabControlIsDropDownOpenChanged;
+                ribbon.SelectedTabChanged -= this.OnSelectedRibbonTabChanged;
+
+                // Restore enable under QAT & title bar
+                if (ribbon.QuickAccessToolBar != null)
+                {
+                    ribbon.QuickAccessToolBar.IsEnabled = true;
+                }
+
+                if (ribbon.TitleBar != null)
+                {
+                    ribbon.TitleBar.IsEnabled = true;
+                }
+            }
+
+            var window = Window.GetWindow(this);
             if (window != null)
             {
-                window.PreviewKeyDown -= OnBackstageEscapeKeyDown;
-                window.SizeChanged -= OnWindowSizeChanged;
+                window.PreviewKeyDown -= this.OnBackstageEscapeKeyDown;
+                window.SizeChanged -= this.OnWindowSizeChanged;
 
-                window.MinWidth = savedMinWidth;
-                window.MinHeight = savedMinHeight;
+                window.MinWidth = this.savedMinWidth;
+                window.MinHeight = this.savedMinHeight;
                 NativeMethods.SetWindowPos((new WindowInteropHelper(window)).Handle,
                                            new IntPtr(NativeMethods.HWND_NOTOPMOST),
                                            0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
             }
 
             // Uncollapse elements
-            foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
-            collapsedElements.Clear();
+            foreach (var element in this.collapsedElements)
+            {
+                element.Key.Visibility = element.Value;
+            }
 
-            if (ribbon != null && !ribbon.IsMinimized) ribbon.SelectedTabItem = savedTabItem;
-
+            this.collapsedElements.Clear();
         }
 
         // Finds underlying ribbon control
-        Ribbon FindRibbon()
+        private Ribbon FindRibbon()
         {
             DependencyObject item = this;
-            while (item != null && !(item is Ribbon))
+
+            while (item != null
+                && !(item is Ribbon))
+            {
                 item = VisualTreeHelper.GetParent(item);
+            }
+
             return (Ribbon)item;
         }
 
-        void SaveWindowSize(Window wnd)
+        private void SaveWindowSize(Window wnd)
         {
-            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
+            var info = new NativeMethods.WINDOWINFO();
             info.cbSize = (uint)Marshal.SizeOf(info);
             NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
             savedWidth = info.rcWindow.Right - info.rcWindow.Left;
             savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
         }
 
-        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Window wnd = Window.GetWindow(this);
+            var wnd = Window.GetWindow(this);
             SaveWindowSize(wnd);
         }
 
-
-        void OnSelectedRibbonTabChanged(object sender, EventArgs e)
+        private void OnSelectedRibbonTabChanged(object sender, EventArgs e)
         {
-            Ribbon ribbon = FindRibbon();
-            if (ribbon != null) savedTabItem = ribbon.SelectedTabItem;
-            IsOpen = false;
+            this.IsOpen = false;
+        }
+
+        private void OnTabControlIsDropDownOpenChanged(object sender, EventArgs e)
+        {
+            var ribbonTabControl = (RibbonTabControl)sender;
+
+            if (ribbonTabControl.IsDropDownOpen)
+            {
+                this.IsOpen = false;
+            }
         }
 
         // We have to collapse WindowsFormsHost while Backstage is open
-        void CollapseWindowsFormsHosts(DependencyObject parent)
+        private void CollapseWindowsFormsHosts(DependencyObject parent)
         {
-            if (parent == null) return;
-            FrameworkElement frameworkElement = parent as FrameworkElement;
+            if (parent == null)
+            {
+                return;
+            }
+
+            var frameworkElement = parent as FrameworkElement;
 
             if (frameworkElement != null)
             {
@@ -369,17 +439,19 @@ namespace Fluent
             }
 
             // Traverse visual tree
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
             }
-
         }
 
         // Handles backstage Esc key keydown
-        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        private void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) IsOpen = false;
+            if (e.Key == Key.Escape)
+            {
+                this.IsOpen = false;
+            }
         }
 
         private void OnBackstageLoaded(object sender, RoutedEventArgs e)
@@ -397,13 +469,17 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>Adorner layer</returns>
-        static AdornerLayer GetAdornerLayer(UIElement element)
+        private static AdornerLayer GetAdornerLayer(UIElement element)
         {
-            UIElement current = element;
+            var current = element;
+
             while (true)
             {
                 current = (UIElement)VisualTreeHelper.GetParent(current);
-                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+                if (current is AdornerDecorator)
+                {
+                    return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
+                }
             }
         }
 
@@ -419,9 +495,9 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         ///  The event data reports that the left mouse button was pressed.</param>
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            Click();
+            this.Click();
         }
 
         /// <summary>

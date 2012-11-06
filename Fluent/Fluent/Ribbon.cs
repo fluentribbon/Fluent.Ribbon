@@ -371,19 +371,18 @@ namespace Fluent
 
         // Collection of contextual tab groups
         private ObservableCollection<RibbonContextualTabGroup> groups;
+
         // Collection of tabs
         private ObservableCollection<RibbonTabItem> tabs;
+
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
 
-        // Ribbon title bar
-        // Ribbon tab control
-        private RibbonTabControl tabControl;
         // Ribbon quick access toolbar
         private QuickAccessToolBar quickAccessToolBar;
+
         // Ribbon layout root
         private Panel layoutRoot;
-
 
         // Handles F10, Alt and so on
         readonly KeyTipService keyTipService;
@@ -391,11 +390,8 @@ namespace Fluent
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
 
-
         // Currently added in QAT items
         readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
-
-
 
         // Stream to save quickaccesselements on aplytemplate
         MemoryStream quickAccessStream;
@@ -471,9 +467,9 @@ namespace Fluent
         private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            if (ribbon.tabControl != null)
+            if (ribbon.TabControl != null)
             {
-                ribbon.tabControl.SelectedItem = e.NewValue;
+                ribbon.TabControl.SelectedItem = e.NewValue;
             }
 
             var selectedItem = e.NewValue as RibbonTabItem;
@@ -509,9 +505,9 @@ namespace Fluent
             var ribbon = (Ribbon)d;
             var selectedIndex = (int)e.NewValue;
 
-            if (ribbon.tabControl != null)
+            if (ribbon.TabControl != null)
             {
-                ribbon.tabControl.SelectedIndex = selectedIndex;
+                ribbon.TabControl.SelectedIndex = selectedIndex;
             }
 
             if (selectedIndex >= 0
@@ -551,6 +547,11 @@ namespace Fluent
         /// Gets ribbon titlebar
         /// </summary>
         internal RibbonTitleBar TitleBar { get; private set; }
+
+        /// <summary>
+        /// Gets the Ribbon tab control
+        /// </summary>
+        internal RibbonTabControl TabControl { get; private set; }
 
         /// <summary>
         /// Gets or sets whether quick access toolbar showes above ribbon
@@ -657,7 +658,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (tabControl == null)
+            if (TabControl == null)
             {
                 return;
             }
@@ -667,31 +668,31 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        tabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        tabControl.Items.Remove(item);
+                        TabControl.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        tabControl.Items.Remove(item);
+                        TabControl.Items.Remove(item);
                     }
 
                     foreach (var item in e.NewItems)
                     {
-                        tabControl.Items.Add(item);
+                        TabControl.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    tabControl.Items.Clear();
+                    TabControl.Items.Clear();
                     break;
             }
         }
@@ -724,25 +725,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        if (TabControl != null) TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Remove(item as UIElement);
+                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Remove(item as UIElement);
+                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (tabControl != null) tabControl.ToolBarItems.Add(item as UIElement);
+                        if (TabControl != null) TabControl.ToolBarItems.Add(item as UIElement);
                     }
                     break;
             }
@@ -768,7 +769,7 @@ namespace Fluent
                 if (layoutRoot != null) list.Add(layoutRoot);
                 if (Menu != null) list.Add(Menu);
                 if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
-                if ((tabControl != null) && (tabControl.ToolbarPanel != null)) list.Add(tabControl.ToolbarPanel);
+                if ((TabControl != null) && (TabControl.ToolbarPanel != null)) list.Add(TabControl.ToolbarPanel);
                 return list.GetEnumerator();
             }
         }
@@ -1083,7 +1084,7 @@ namespace Fluent
             var ribbon = sender as Ribbon;
 
             if (ribbon != null
-                && ribbon.tabControl != null)
+                && ribbon.TabControl != null)
             {
                 e.CanExecute = true;
             }
@@ -1094,9 +1095,9 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
             if (ribbon != null
-                && ribbon.tabControl != null)
+                && ribbon.TabControl != null)
             {
-                ribbon.tabControl.IsMinimized = !ribbon.tabControl.IsMinimized;
+                ribbon.TabControl.IsMinimized = !ribbon.TabControl.IsMinimized;
             }
         }
 
@@ -1268,9 +1269,9 @@ namespace Fluent
         /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (tabControl != null)
+            if (TabControl != null)
             {
-                RibbonTabItem ribbonTabItem = (RibbonTabItem)tabControl.SelectedItem;
+                RibbonTabItem ribbonTabItem = (RibbonTabItem)TabControl.SelectedItem;
                 if (ribbonTabItem != null) ribbonTabItem.Focus();
             }
         }
@@ -1304,48 +1305,48 @@ namespace Fluent
                 }
             }
             RibbonTabItem selectedTab = SelectedTabItem;
-            if (tabControl != null)
+            if (TabControl != null)
             {
-                tabControl.SelectionChanged -= OnTabControlSelectionChanged;
-                selectedTab = tabControl.SelectedItem as RibbonTabItem;
+                TabControl.SelectionChanged -= OnTabControlSelectionChanged;
+                selectedTab = TabControl.SelectedItem as RibbonTabItem;
             }
-            if ((tabControl != null) && (tabs != null))
+            if ((TabControl != null) && (tabs != null))
             {
                 for (int i = 0; i < tabs.Count; i++)
                 {
-                    tabControl.Items.Remove(tabs[i]);
+                    TabControl.Items.Remove(tabs[i]);
                 }
             }
 
-            if ((tabControl != null) && (toolBarItems != null))
+            if ((TabControl != null) && (toolBarItems != null))
             {
                 for (int i = 0; i < toolBarItems.Count; i++)
                 {
-                    tabControl.ToolBarItems.Remove(toolBarItems[i]);
+                    TabControl.ToolBarItems.Remove(toolBarItems[i]);
                 }
             }
 
-            tabControl = GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
+            TabControl = GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
 
-            if (tabControl != null)
+            if (TabControl != null)
             {
-                tabControl.SelectionChanged += OnTabControlSelectionChanged;
+                TabControl.SelectionChanged += OnTabControlSelectionChanged;
 
-                tabControl.IsMinimized = this.IsMinimized;
-                tabControl.ContentGapHeight = this.ContentGapHeight;
+                TabControl.IsMinimized = this.IsMinimized;
+                TabControl.ContentGapHeight = this.ContentGapHeight;
 
-                tabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
-                tabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding("ContentGapHeight") { Source = this, Mode = BindingMode.OneWay });
+                TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
+                TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding("ContentGapHeight") { Source = this, Mode = BindingMode.OneWay });
             }
 
-            if ((tabControl != null) && (tabs != null))
+            if ((TabControl != null) && (tabs != null))
             {
                 for (int i = 0; i < tabs.Count; i++)
                 {
-                    tabControl.Items.Add(tabs[i]);
+                    TabControl.Items.Add(tabs[i]);
                 }
-                tabControl.SelectedItem = selectedTab;
-                if (tabControl.SelectedItem == null)
+                TabControl.SelectedItem = selectedTab;
+                if (TabControl.SelectedItem == null)
                 {
                     //bool isBacstageOpen = IsBackstageOpen;
                     //tabControl.SelectedIndex = selectedTabIndex >= 0 ? selectedTabIndex : 0;
@@ -1353,11 +1354,11 @@ namespace Fluent
                 }
             }
 
-            if ((tabControl != null) && (toolBarItems != null))
+            if ((TabControl != null) && (toolBarItems != null))
             {
                 for (int i = 0; i < toolBarItems.Count; i++)
                 {
-                    tabControl.ToolBarItems.Add(toolBarItems[i]);
+                    TabControl.ToolBarItems.Add(toolBarItems[i]);
                 }
             }
 
@@ -1576,10 +1577,10 @@ namespace Fluent
         // Handles tab control selection changed
         private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.tabControl != null)
+            if (this.TabControl != null)
             {
-                this.SelectedTabItem = this.tabControl.SelectedItem as RibbonTabItem;
-                this.SelectedTabIndex = this.tabControl.SelectedIndex;
+                this.SelectedTabItem = this.TabControl.SelectedItem as RibbonTabItem;
+                this.SelectedTabIndex = this.TabControl.SelectedIndex;
             }
 
             if (this.SelectedTabChanged != null)
@@ -1611,7 +1612,7 @@ namespace Fluent
             if (e.Key == Key.F1
                 && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                if (this.tabControl.HasItems)
+                if (this.TabControl.HasItems)
                 {
                     this.IsMinimized = !this.IsMinimized;
                 }
@@ -1858,11 +1859,11 @@ namespace Fluent
             {
                 this.LoadState();
 
-                if (this.tabControl != null
-                    && this.tabControl.SelectedIndex == -1
-                    && !this.tabControl.IsMinimized)
+                if (this.TabControl != null
+                    && this.TabControl.SelectedIndex == -1
+                    && !this.TabControl.IsMinimized)
                 {
-                    this.tabControl.SelectedIndex = 0;
+                    this.TabControl.SelectedIndex = 0;
                 }
             }
         }

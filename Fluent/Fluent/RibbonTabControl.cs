@@ -42,6 +42,15 @@ namespace Fluent
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// Event which is fired when <see cref="IsDropDownOpen"/> changed
+        /// </summary>
+        public event EventHandler IsDropDownOpenChanged;
+
+        #endregion
+
         #region Properties
 
         #region Menu
@@ -125,7 +134,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -690,18 +699,25 @@ namespace Fluent
             return null;
         }
 
-        // Handles IsOpen property changed
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        // Handles IsDropDownOpen property changed
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ribbon = (RibbonTabControl)d;
+            var ribbonTabControl = (RibbonTabControl)d;
 
-            if (ribbon.IsDropDownOpen)
+            if (ribbonTabControl.IsDropDownOpen)
             {
-                ribbon.OnRibbonTabPopupOpening();
+                ribbonTabControl.OnRibbonTabPopupOpening();
             }
             else
             {
-                ribbon.OnRibbonTabPopupClosing();
+                ribbonTabControl.OnRibbonTabPopupClosing();
+            }
+
+            var handler = ribbonTabControl.IsDropDownOpenChanged;
+
+            if (handler != null)
+            {
+                handler(ribbonTabControl, null);
             }
         }
 
