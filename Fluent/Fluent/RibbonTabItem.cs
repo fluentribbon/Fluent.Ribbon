@@ -571,10 +571,9 @@ namespace Fluent
                     }
                     else
                     {
-                        this.TabControlParent.IsDropDownOpen = true;
+                        this.TabControlParent.SelectedItem = newItem;
                     }
 
-                    this.TabControlParent.SelectedItem = newItem;
                     this.TabControlParent.RaiseRequestBackstageClose();
                 }
                 else
