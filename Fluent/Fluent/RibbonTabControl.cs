@@ -176,7 +176,7 @@ namespace Fluent
         internal RibbonTabItem SelectedTabItem
         {
             get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
-            set { SetValue(SelectedTabItemProperty, value); }
+            private set { SetValue(SelectedTabItemProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
@@ -608,6 +608,17 @@ namespace Fluent
             if (!tab.IsMinimized)
             {
                 tab.IsDropDownOpen = false;
+            }
+
+            if ((bool)e.NewValue == false
+                && tab.SelectedIndex < 0)
+            {
+                var item = tab.FindNextTabItem(-1, 1);
+
+                if (item != null)
+                {
+                    item.IsSelected = true;
+                }
             }
         }
 
