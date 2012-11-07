@@ -974,22 +974,6 @@ namespace Fluent
             {
                 ribbon.IsCollapsedChanged(ribbon, e);
             }
-
-            if (ribbon.TitleBar != null)
-            {
-                var ribbonOwnerWindow = ribbon.ownerWindow as RibbonWindow;
-
-                if (ribbonOwnerWindow != null)
-                {
-                    // Setting height to the exact same value as GlassBorderThickness of the owning RibbonWindow
-                    // We have to do this to fix a problem with the content area
-                    // to see what this means, comment out the code below and decrease the window size till the ribbon gets collapsed
-                    // We could set this via Style-Triggers in the ribbon, but this causes other layout problems when the ribbon is collapsed and then the window is maximized
-                    ribbon.TitleBar.Height = ribbon.IsCollapsed
-                        ? ribbonOwnerWindow.GlassBorderThickness.Top
-                        : 25;
-                }
-            }
         }
 
         /// <summary>
