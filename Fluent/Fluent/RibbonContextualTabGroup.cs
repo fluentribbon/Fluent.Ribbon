@@ -363,7 +363,7 @@ namespace Fluent
         /// </summary>
         private void UpdateInnerVisibility()
         {
-            this.InnerVisibility = this.Items.Any(item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
+            this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void OnParentWindowStateChanged(object sender, EventArgs e)
