@@ -93,7 +93,25 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsCollapsed"/>
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(false));
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false, OnIsCollapsedChanged));
+
+        private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var titleBar = (RibbonTitleBar)d;
+
+            var ribbonOwnerWindow = Window.GetWindow(titleBar) as RibbonWindow;
+
+            if (ribbonOwnerWindow != null)
+            {
+                // Setting height to the exact same value as GlassBorderThickness of the owning RibbonWindow
+                // We have to do this to fix a problem with the content area
+                // to see what this means, comment out the code below and decrease the window size till the ribbon gets collapsed
+                // We could set this via Style-Triggers in the ribbon, but this causes other layout problems when the ribbon is collapsed and then the window is maximized
+                titleBar.Height = (bool)e.NewValue
+                    ? ribbonOwnerWindow.GlassBorderThickness.Top
+                    : 25;
+            }
+        }
 
         #endregion
 
@@ -284,6 +302,7 @@ namespace Fluent
                 foreach (var group in visibleGroups)
                 {
                     firstItem = group.FirstVisibleItem;
+
                     if (firstItem != null)
                     {
                         if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
@@ -293,8 +312,8 @@ namespace Fluent
                     }
 
                     lastItem = group.LastVisibleItem;
-                    if (lastItem != null
-                        && lastItem.IsVisible)
+
+                    if (lastItem != null)
                     {
                         if (lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
                         {
