@@ -140,11 +140,22 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            DropDownButton element = d as DropDownButton;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            var element = d as DropDownButton;
+
+            var oldElement = e.OldValue as FrameworkElement;
+
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            var newElement = e.NewValue as FrameworkElement;
+
+            if (newElement != null
+                && LogicalTreeHelper.GetParent(newElement) == null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
