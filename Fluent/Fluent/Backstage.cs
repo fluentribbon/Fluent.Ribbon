@@ -262,6 +262,7 @@ namespace Fluent
             if (ribbon != null)
             {
                 ribbon.TabControl.IsDropDownOpen = false;
+                ribbon.TabControl.HighlightSelectedItem = false;
                 ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
                 ribbon.SelectedTabChanged += this.OnSelectedRibbonTabChanged;
 
@@ -336,6 +337,7 @@ namespace Fluent
             var ribbon = this.FindRibbon();
             if (ribbon != null)
             {
+                ribbon.TabControl.HighlightSelectedItem = true;
                 ribbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
                 ribbon.SelectedTabChanged -= this.OnSelectedRibbonTabChanged;
 

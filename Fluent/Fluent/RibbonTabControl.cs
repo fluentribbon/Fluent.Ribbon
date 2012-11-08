@@ -104,7 +104,7 @@ namespace Fluent
         static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedContent.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
 
@@ -118,7 +118,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMinimized.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for <see cref="IsMinimized"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
 
@@ -132,7 +132,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for <see cref="IsDropDownOpen"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
@@ -152,6 +152,21 @@ namespace Fluent
 
             return basevalue;
         }
+
+        /// <summary>
+        /// Defines if the currently selected item should draw it's highlight/selected borders
+        /// </summary>
+        public bool HighlightSelectedItem
+        {
+            get { return (bool)GetValue(HighlightSelectedItemProperty); }
+            set { SetValue(HighlightSelectedItemProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for <see cref="HighlightSelectedItem"/>.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HighlightSelectedItemProperty =
+            DependencyProperty.RegisterAttached("HighlightSelectedItem", typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Gets whether ribbon tabs can scroll

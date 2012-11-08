@@ -434,6 +434,8 @@
                                            Value="True" />
                                 <Condition Property="IsMinimized"
                                            Value="False" />
+                                <Condition Property="Fluent:RibbonTabControl.HighlightSelectedItem"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter Property="Visibility"
                                     TargetName="selectedGrid"
