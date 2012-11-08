@@ -1150,9 +1150,9 @@
                         <TextBlock Tag="Group1">4</TextBlock>
                         <TextBlock Tag="Group1">5</TextBlock>
                         <TextBlock Tag="Group1">6</TextBlock>
-                        <TextBlock Tag="Group2">1</TextBlock>
-                        <TextBlock Tag="Group2">2</TextBlock>
-                        <TextBlock Tag="Group2">3</TextBlock>
+                        <TextBlock Tag="Group2">1 (G 2)</TextBlock>
+                        <TextBlock Tag="Group2">2 (G 2)</TextBlock>
+                        <TextBlock Tag="Group2">3 (G 2)</TextBlock>
                     </Fluent:InRibbonGallery>
                     <Fluent:Button Icon="Images\GrowFont.png"
                                    LargeIcon="Images\GrowFont.png"
@@ -1256,7 +1256,24 @@
             <Fluent:RibbonTabItem Header="Review">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-
+                    <Fluent:ToggleButton Header="blah blah"
+                                         SizeDefinition="Small">
+                        <Fluent:ToggleButton.Icon>
+                            <Grid>
+                                <Image />
+                                <TextBlock Text="1" />
+                            </Grid>
+                        </Fluent:ToggleButton.Icon>
+                    </Fluent:ToggleButton>
+                    <Fluent:SplitButton Header="blah blah"
+                                         SizeDefinition="Small">
+                        <Fluent:SplitButton.Icon>
+                            <Grid>
+                                <Image />
+                                <TextBlock Text="1" />
+                            </Grid>
+                        </Fluent:SplitButton.Icon>
+                    </Fluent:SplitButton>                    
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="View">
