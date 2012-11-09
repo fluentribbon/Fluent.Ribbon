@@ -1,43 +1,30 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-using Fluent;
-using Microsoft.Win32;
-using Button = Fluent.Button;
-using ComboBox = Fluent.ComboBox;
-using MenuItem = Fluent.MenuItem;
-
 namespace FluentTest
 {
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+    using Fluent;
+
     public enum TstEnum
     {
-        Elemen1, Elemen2
+        Elemen1,
+        Elemen2
     }
+
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class TestWindow : RibbonWindow
+    public partial class TestWindow
     {
-        
-
-        private string[] data = new string[] {"Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol"};
+        private readonly string[] data = new[] { "Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol" };
         public string[] FontsData
         {
             get { return data; }
@@ -53,7 +40,7 @@ namespace FluentTest
         public static readonly DependencyProperty TSTProperty =
             DependencyProperty.Register("TST", typeof(TstEnum), typeof(TestWindow), new UIPropertyMetadata(TstEnum.Elemen1));
 
-        private Color[] themeColors = new Color[]{Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple};
+        private readonly Color[] themeColors = new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
         public Color[] ThemeColors
         {
             get { return themeColors; }
@@ -61,35 +48,35 @@ namespace FluentTest
 
         public Array TstArr
         {
-            get { return Enum.GetValues(typeof (TstEnum)); }
+            get { return Enum.GetValues(typeof(TstEnum)); }
         }
-        
+
         public TestWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             //ribbon.IsBackstageOpen = true;
 
-            ScreenTip.HelpPressed += new EventHandler<ScreenTipHelpEventArgs>(OnScreenTipHelpPressed);
-            
+            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
+
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
             //IView = CollectionViewSource.GetDefaultView();
-            
+
             //Visibility = Visibility.Hidden;
-//            (Content as UIElement).Visibility = Visibility.Hidden;
+            //            (Content as UIElement).Visibility = Visibility.Hidden;
             /*Loaded += delegate
             {*/
-                /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
-                tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
-                /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
-                                                                                               {
-                                                                                                   (Content as UIElement)
-                                                                                                       .Visibility =
-                                                                                                       Visibility.
-                                                                                                           Visible;
-                                                                                               }));*/
-           // };
-           
+            /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
+            tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
+            /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
+                                                                                           {
+                                                                                               (Content as UIElement)
+                                                                                                   .Visibility =
+                                                                                                   Visibility.
+                                                                                                       Visible;
+                                                                                           }));*/
+            // };
+
             //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
             buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
@@ -100,7 +87,8 @@ namespace FluentTest
             timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };
             timer.Start();*/
         }
-        static AdornerLayer GetAdornerLayer(UIElement element)
+
+        private static AdornerLayer GetAdornerLayer(UIElement element)
         {
             UIElement current = element;
             while (true)
@@ -109,26 +97,29 @@ namespace FluentTest
                 if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
             }
         }
-        void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
+
+        private void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
-            System.Diagnostics.Process.Start((string)e.HelpTopic);
+            Process.Start((string)e.HelpTopic);
         }
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-           /* MessageBox.Show(this,"Launcher button pressed!!!");
+            /* MessageBox.Show(this,"Launcher button pressed!!!");
             
-            Thread thread = new Thread(()=>
-                                           {
-                                            TestWindow wnd = new TestWindow();
-                                            wnd.ShowDialog();
-                                           });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.IsBackground = true;
-            thread.Start();*/
-            Window wnd = new Window();
-            System.Windows.Controls.ComboBox box = new System.Windows.Controls.ComboBox();
-            box.ItemsSource = new string[] {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+             Thread thread = new Thread(()=>
+                                            {
+                                             TestWindow wnd = new TestWindow();
+                                             wnd.ShowDialog();
+                                            });
+             thread.SetApartmentState(ApartmentState.STA);
+             thread.IsBackground = true;
+             thread.Start();*/
+            var wnd = new Window();
+            var box = new System.Windows.Controls.ComboBox
+                          {
+                              ItemsSource = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
+                          };
             wnd.Content = box;
             wnd.Owner = this;
             wnd.Show();
@@ -138,16 +129,17 @@ namespace FluentTest
         {
             if (tabGroup1.Visibility == Visibility.Visible)
             {
-                tabGroup1.Visibility = System.Windows.Visibility.Collapsed;
-                tabGroup2.Visibility = System.Windows.Visibility.Collapsed;
-               // tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
+                tabGroup1.Visibility = Visibility.Collapsed;
+                tabGroup2.Visibility = Visibility.Collapsed;
+                // tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
             }
             else
             {
-                tabGroup1.Visibility = System.Windows.Visibility.Visible;
-                tabGroup2.Visibility = System.Windows.Visibility.Visible;
+                tabGroup1.Visibility = Visibility.Visible;
+                tabGroup2.Visibility = Visibility.Visible;
                 //tabGroup3.Visibility = System.Windows.Visibility.Visible;
             }
+
             e.Handled = true;
         }
 
@@ -166,22 +158,12 @@ namespace FluentTest
             }            */
         }
 
-        private void OnTestClick(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void OnSomeClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala",typeof(TestWindow));
+        public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala", typeof(TestWindow));
 
         private void ExecutedCustomCommand(object sender, ExecutedRoutedEventArgs e)
         {
             /*MessageBox.Show("Custom Command Executed");*/
-         //   canEx = !canEx;
+            //   canEx = !canEx;
             /*Window dialog = new Window();
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();*/
@@ -193,57 +175,6 @@ namespace FluentTest
             e.CanExecute = canEx;
         }
 
-        private void OnSomeTestClick(object sender, RoutedEventArgs e)
-        {
-            //A.IsCached = false;
-            //A.Items.Add(new Fluent.Button() { Header = "fsdfsd" });
-            //MessageBox.Show("lala");
-            CheckLogicalTree(ribbon);
-            logicalTreeView.Items.Clear();
-            BuildLogicalTree(ribbon, null);
-        }
-
-        void CheckLogicalTree(DependencyObject root)
-        {
-            var children = LogicalTreeHelper.GetChildren(root);
-            foreach (var child in children)
-            {
-                if (child is DependencyObject)
-                {
-                    if (LogicalTreeHelper.GetParent(child as DependencyObject) != root)
-                    {
-                        Debug.WriteLine(string.Format("Incorrect logical parent in element - {0} in {1}", child.ToString(), root.ToString()));
-                    }
-                    CheckLogicalTree(child as DependencyObject);
-                }
-            }
-        }
-
-        void BuildLogicalTree(DependencyObject root, TreeViewItem item)
-        {  
-
-            TreeViewItem newItem = new TreeViewItem();
-            newItem.Header = String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement)?(root as FrameworkElement).Name:"");
-            newItem.Tag = root;
-            if(item!=null)
-            {
-                item.Items.Add(newItem);
-            }
-            else
-            {
-                logicalTreeView.Items.Add(newItem);
-            }
-            var children = LogicalTreeHelper.GetChildren(root);
-            foreach (var child in children)
-            {
-                if (child is DependencyObject)
-                {
-                    BuildLogicalTree(child as DependencyObject, newItem);
-                }
-            }
-        }
-
-        
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Split Clicked!!!");
@@ -269,31 +200,30 @@ namespace FluentTest
             inRibbonGallery.Reduce();
         }
 
-       
-
         private void OnLauncherClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Launcher Click");
             xxx.Items.Add(CreateRibbonButton());
         }
-        
+
         public Fluent.Button CreateRibbonButton()
         {
             Fluent.Button button = new Fluent.Button();
             FooCommand1 fooCommand1 = new FooCommand1();
             button.Command = fooCommand1.ItemCommand;
-            
+
             button.Header = "Foo";
-            
+
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
             return button;
         }
 
-        void OnExitClick(object sender, RoutedEventArgs e)
+        private void OnExitClick(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
+        #region Theme change
 
         private void OnSilverClick(object sender, RoutedEventArgs e)
         {
@@ -327,7 +257,102 @@ namespace FluentTest
                 Application.Current.Resources.EndInit();
             }));
         }
-        
+
+        #endregion Theme change
+
+        #region Logical tree
+
+        private void OnShowLogicalTreeClick(object sender, RoutedEventArgs e)
+        {
+            this.CheckLogicalTree(this.ribbon);
+            this.logicalTreeView.Items.Clear();
+            this.BuildLogicalTree(this.ribbon, this.logicalTreeView);
+        }
+
+        private string GetDebugInfo(DependencyObject element)
+        {
+            var header = element is IRibbonControl
+                           ? (element as IRibbonControl).Header
+                           : string.Empty;
+
+            var name = element is FrameworkElement
+                           ? (element as FrameworkElement).Name
+                           : string.Empty;
+
+            return string.Format("[{0}] (Header: {1} || Name: {2})", element, header, name);
+        }
+
+        private void CheckLogicalTree(DependencyObject root)
+        {
+            var children = LogicalTreeHelper.GetChildren(root);
+            foreach (var child in children.OfType<DependencyObject>())
+            {
+                if (LogicalTreeHelper.GetParent(child) != root)
+                {
+                    Debug.WriteLine(string.Format("Incorrect logical parent for {0}", this.GetDebugInfo(child)));
+                    Debug.WriteLine(string.Format("\tExpected: {0}", root));
+                    Debug.WriteLine(string.Format("\tFound: {0}", LogicalTreeHelper.GetParent(child)));
+                }
+
+                this.CheckLogicalTree(child);
+            }
+        }
+
+        private void BuildLogicalTree(DependencyObject current, ItemsControl parentControl)
+        {
+            var newItem = new TreeViewItem
+            {
+                Header = this.GetDebugInfo(current),
+                Tag = current
+            };
+
+            parentControl.Items.Add(newItem);
+
+            var children = LogicalTreeHelper.GetChildren(current);
+            foreach (var child in children.OfType<DependencyObject>())
+            {
+                this.BuildLogicalTree(child, newItem);
+            }
+        }
+
+        private void OnTreeDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var treeView = sender as TreeView;
+
+            if (treeView == null)
+            {
+                return;
+            }
+
+            var item = treeView.SelectedItem as TreeViewItem;
+            if (item == null)
+            {
+                return;
+            }
+
+            var stringBuilder = new StringBuilder();
+            this.BuildBackLogicalTree(item.Tag as DependencyObject, stringBuilder);
+
+            MessageBox.Show(string.Format("From buttom to top:\n{0}", stringBuilder));
+        }
+
+        private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)
+        {
+            if (current == null
+                || current == this.ribbon)
+            {
+                return;
+            }
+
+            stringBuilder.AppendFormat(" -> {0}\n", this.GetDebugInfo(current));
+
+            var parent = LogicalTreeHelper.GetParent(current);
+
+            this.BuildBackLogicalTree(parent, stringBuilder);
+        }
+
+        #endregion Logical tree
+
         private void OnFormatPainterClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("FP");
@@ -336,10 +361,10 @@ namespace FluentTest
             /*if (Font.Visibility == Visibility.Collapsed) Font.Visibility = Visibility.Visible;
             else Font.Visibility = Visibility.Collapsed;*/
         }
-        
+
         private void OnHelpClick(object sender, RoutedEventArgs e)
         {
-            if(tabGroup1.Visibility==Visibility.Visible)
+            if (tabGroup1.Visibility == Visibility.Visible)
             {
                 tabGroup1.Visibility = Visibility.Collapsed;
                 tabGroup2.Visibility = Visibility.Collapsed;
@@ -349,16 +374,16 @@ namespace FluentTest
                 tabGroup1.Visibility = Visibility.Visible;
                 tabGroup2.Visibility = Visibility.Visible;
             }
-           //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
+            //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
             //homeTabItem.Groups.Add(new RibbonGroupBox() { Header = "Lala" });
-//            ribbon.SelectedTabItem = homeTabItem;
+            //            ribbon.SelectedTabItem = homeTabItem;
             //Clipboard.Visibility = Visibility.Visible;
             //ribbon.Tabs.RemoveAt(0);
         }
 
-        void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           // MessageBox.Show(String.Format("Changed from {0} to {1}", e.OldValue, e.NewValue));
+            // MessageBox.Show(String.Format("Changed from {0} to {1}", e.OldValue, e.NewValue));
         }
 
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
@@ -366,28 +391,6 @@ namespace FluentTest
             TestWindow wnd = new TestWindow();
             wnd.Owner = this;
             wnd.Show();
-        }
-        
-
-        private void OnTreeDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            TreeViewItem item = ((sender as TreeView).SelectedItem as TreeViewItem);
-            if(item==null) return;
-            Debug.Write("//");            
-            BuildBackLogicalTree(item.Tag as DependencyObject);
-            Debug.WriteLine("//");
-        }
-        void BuildBackLogicalTree(DependencyObject root)
-        {
-
-            if (root == null) return;
-            Debug.Write(" - " + String.Format("[{0}]{1}", root.ToString(), (root is FrameworkElement) ? (root as FrameworkElement).Name : ""));
-
-            var parent = LogicalTreeHelper.GetParent(root);
-
-            BuildBackLogicalTree(parent as DependencyObject);
-                
-            
         }
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -398,7 +401,6 @@ namespace FluentTest
         private void New_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
-     
         }
 
         static RoutedCommand new1 = new RoutedCommand("New1", typeof(TestWindow));
@@ -417,7 +419,6 @@ namespace FluentTest
 
     public class FooCommand1
     {
-
         public static RoutedCommand TestPresnterCommand = new RoutedCommand("TestPresnterCommand", typeof(FooCommand1));
 
         public System.Windows.Input.ICommand ItemCommand
@@ -435,7 +436,6 @@ namespace FluentTest
 
         }
 
-
         private void CanExecuteTestCommand(object sender,
        CanExecuteRoutedEventArgs e)
         {
@@ -447,7 +447,5 @@ namespace FluentTest
         {
             MessageBox.Show("Test Module Command");
         }
-
     }
-    
 }
