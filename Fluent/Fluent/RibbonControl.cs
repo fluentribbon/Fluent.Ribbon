@@ -140,34 +140,43 @@ namespace Fluent
                                           FrameworkPropertyMetadataOptions.AffectsParentMeasure,
                                           OnSizeDefinitionPropertyChanged));
 
-        internal static DependencyProperty AttachSizeDefinition(Type type)
+        /// <summary>
+        /// Adds <paramref name="type"/> as owner to <see cref="SizeDefinitionProperty"/>
+        /// </summary>
+        /// <param name="type">The type to add as owner</param>
+        /// <returns>The <see cref="DependencyProperty"/> returned from SizeDefinitionProperty.AddOwner</returns>
+        public static DependencyProperty AttachSizeDefinition(Type type)
         {
-            return RibbonControl.SizeDefinitionProperty.AddOwner(type,
-                                                                 new FrameworkPropertyMetadata("Large, Middle, Small",
-                                                                                               FrameworkPropertyMetadataOptions
-                                                                                                   .AffectsArrange |
-                                                                                               FrameworkPropertyMetadataOptions
-                                                                                                   .AffectsMeasure |
-                                                                                               FrameworkPropertyMetadataOptions
-                                                                                                   .AffectsRender |
-                                                                                               FrameworkPropertyMetadataOptions
-                                                                                                   .AffectsParentArrange |
-                                                                                               FrameworkPropertyMetadataOptions
-                                                                                                   .AffectsParentMeasure,
-                                                                                               OnSizeDefinitionPropertyChanged));
+            return SizeDefinitionProperty.AddOwner(type,
+                                                    new FrameworkPropertyMetadata("Large, Middle, Small",
+                                                                                FrameworkPropertyMetadataOptions
+                                                                                    .AffectsArrange |
+                                                                                FrameworkPropertyMetadataOptions
+                                                                                    .AffectsMeasure |
+                                                                                FrameworkPropertyMetadataOptions
+                                                                                    .AffectsRender |
+                                                                                FrameworkPropertyMetadataOptions
+                                                                                    .AffectsParentArrange |
+                                                                                FrameworkPropertyMetadataOptions
+                                                                                    .AffectsParentMeasure,
+                                                                                OnSizeDefinitionPropertyChanged));
         }
 
         // Handles SizeDefinitionProperty changes
         internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Find parent group box
-            RibbonGroupBox groupBox = FindParentRibbonGroupBox(d);
-            UIElement element = (UIElement)d;
+            var groupBox = FindParentRibbonGroupBox(d);
+            var element = (UIElement)d;
+
             if (groupBox != null)
             {
                 SetAppropriateSize(element, groupBox.State);
             }
-            else SetAppropriateSize(element, RibbonGroupBoxState.Large);
+            else
+            {
+                SetAppropriateSize(element, RibbonGroupBoxState.Large);
+            }
         }
 
         // Finds parent group box
@@ -190,10 +199,17 @@ namespace Fluent
         /// <param name="state">Group box state</param>
         public static void SetAppropriateSize(UIElement element, RibbonGroupBoxState state)
         {
-            int index = (int)state;
-            if (state == RibbonGroupBoxState.Collapsed) index = 0;
-            IRibbonControl control = (element as IRibbonControl);
-            if (control != null) control.Size = GetThreeSizeDefinition(element)[index];
+            var index = (int)state;
+            if (state == RibbonGroupBoxState.Collapsed)
+            {
+                index = 0;
+            }
+
+            var control = element as IRibbonControl;
+            if (control != null)
+            {
+                control.Size = GetThreeSizeDefinition(element)[index];
+            }
         }
 
 
