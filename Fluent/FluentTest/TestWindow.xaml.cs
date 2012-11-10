@@ -230,7 +230,7 @@ namespace FluentTest
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
                 Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") });
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") });
                 Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                 Application.Current.Resources.EndInit();
             }));
@@ -241,7 +241,7 @@ namespace FluentTest
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
                 Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
                 Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                 Application.Current.Resources.EndInit();
             }));
@@ -252,7 +252,7 @@ namespace FluentTest
             Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
                 Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
                 Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                 Application.Current.Resources.EndInit();
             }));

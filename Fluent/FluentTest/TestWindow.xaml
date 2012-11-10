@@ -19,7 +19,7 @@
     <Fluent:RibbonWindow.CommandBindings>
         <CommandBinding Command="{x:Static FluentTest:TestWindow.New1}"
                         Executed="New_Executed"
-                        CanExecute="New_CanExecute"></CommandBinding>
+                        CanExecute="New_CanExecute" />
     </Fluent:RibbonWindow.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
@@ -63,7 +63,7 @@
                                        Icon="Images\Save.png"
                                        Fluent:KeyTip.Keys="A" />
                         <Fluent:BackstageTabItem Header="TEST"
-                                                 Content="HEllo">
+                                                 Content="Hello">
 
                             <Fluent:BackstageTabItem.ContentTemplate>
 
@@ -1313,9 +1313,32 @@
         </Fluent:Ribbon>
 
         <TabControl Grid.Row="1">
+            <TabControl.Resources>
+                <Style x:Key="ThemeButtonStyle"
+                       TargetType="Button">
+                    <Setter Property="Margin"
+                            Value="10" />
+                    <Setter Property="Width"
+                            Value="200" />
+                    <Setter Property="Height"
+                            Value="60" />
+                </Style>
+            </TabControl.Resources>
             <!--<TabItem Header="Home">
                 <WebBrowser Source="http://fluent.codeplex.com/" />
             </TabItem>-->
+            <TabItem Header="Themes">
+                <WrapPanel>
+                    <Button Style="{StaticResource ThemeButtonStyle}" 
+                            Click="OnBlackClick">Black (Office 2010)</Button>
+                    <Button Style="{StaticResource ThemeButtonStyle}"
+                            Click="OnBlueClick">Blue (Office 2010)</Button>
+                    <Button Style="{StaticResource ThemeButtonStyle}"
+                            Click="OnSilverClick">Silver (Office 2010)</Button>
+                    <Button Style="{StaticResource ThemeButtonStyle}"
+                            Click="OnSilverClick">Office 2013 (coming soon)</Button>
+                </WrapPanel>
+            </TabItem>
             <TabItem Header="Developer">
                 <Grid>
                     <Grid.RowDefinitions>
