@@ -49,6 +49,10 @@
     <Reference Include="WindowsFormsIntegration">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicatonMenu.cs" />
@@ -62,7 +66,7 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
-    <Compile Include="Internal\DoubleUtil.cs" />
+    <Compile Include="ClosingWindowEventHandlerArgs.cs" />
     <Compile Include="DropDownButton.cs" />
     <Compile Include="FrameworkHelper.cs" />
     <Compile Include="Gallery.cs" />
@@ -79,12 +83,29 @@
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="InRibbonGallery.cs" />
     <Compile Include="IRibbonControl.cs" />
-	<Compile Include="IToggleButton.cs" />
+    <Compile Include="IToggleButton.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="KeyTip.cs" />
     <Compile Include="KeyTipAdorner.cs" />
     <Compile Include="KeyTipService.cs" />
     <Compile Include="KeyTranslator.cs" />
+    <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
+    <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
+    <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
+    <Compile Include="Metro\Behaviours\WindowSettingBehaviour.cs" />
+    <Compile Include="MetroWindow.cs" />
+    <Compile Include="Metro\Controls\WindowSettings.cs" />
+    <Compile Include="Metro\Converters\MarkupConverter.cs" />
+    <Compile Include="Metro\Converters\ToUpperConverter.cs" />
+    <Compile Include="Metro\Natives\Constants.cs" />
+    <Compile Include="Metro\Natives\CREATESTRUCT.cs" />
+    <Compile Include="Metro\Natives\MARGINS.cs" />
+    <Compile Include="Metro\Natives\MINMAXINFO.cs" />
+    <Compile Include="Metro\Natives\MONITORINFO.cs" />
+    <Compile Include="Metro\Natives\POINT.cs" />
+    <Compile Include="Metro\Natives\RECT.cs" />
+    <Compile Include="Metro\Natives\UnsafeNativeMethods.cs" />
+    <Compile Include="Metro\Natives\WINDOWPLACEMENT.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="MenuPanel.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -130,6 +151,7 @@
     <Compile Include="ToggleButton.cs" />
     <Compile Include="ToolTipService.cs" />
     <Compile Include="TwoLineLabel.cs" />
+    <Compile Include="WindowCommands.cs" />
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +185,110 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Colors\ColorsWhite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\Backstage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\BackstageTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\BackstageTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\ComboBoxItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\DropDownButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\GalleryItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\Ribbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonContextualTabGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonGroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonStatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\Spinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\SplitButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\MetroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Metro\RibbonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\White.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -420,6 +546,7 @@
     <None Include="Themes\Office2010\Black.txt" />
     <None Include="Themes\Office2010\Blue.txt" />
     <None Include="Themes\Office2010\Silver.txt" />
+    <None Include="Themes\Metro\White.txt" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +564,7 @@
     <PreBuildEvent>"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
 "$(ProjectDir)Themes\XamlCombine.exe" Office2010\Black.txt Office2010\Black.xaml
 "$(ProjectDir)Themes\XamlCombine.exe" Office2010\Blue.txt Office2010\Blue.xaml
-"$(ProjectDir)Themes\XamlCombine.exe" Office2010\Silver.txt Office2010\Silver.xaml</PreBuildEvent>
+"$(ProjectDir)Themes\XamlCombine.exe" Office2010\Silver.txt Office2010\Silver.xaml
+"$(ProjectDir)Themes\XamlCombine.exe" Metro\White.txt Metro\White.xaml</PreBuildEvent>
   </PropertyGroup>
 </Project>
