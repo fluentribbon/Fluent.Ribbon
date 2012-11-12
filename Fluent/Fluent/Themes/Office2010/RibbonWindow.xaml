@@ -5,9 +5,9 @@
     xmlns:Fluent="clr-namespace:Fluent">
   <Fluent:IconConverter x:Key="IconConvert"/>
   <BitmapImage x:Key="ImageCaptionButtonClose" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png" PresentationOptions:Freeze="True"/>	
-	<BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
-	<BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
-	<BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
+    <BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
+    <BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
+    <BitmapImage x:Key="ImageCaptionButtonMaximize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png" PresentationOptions:Freeze="True"/>
   <Style TargetType="{x:Type ResizeGrip}">
     <Setter Property="Template">
       <Setter.Value>
@@ -161,7 +161,9 @@
     <Setter Property="Width" Value="35"/>
     <Setter Property="Height" Value="19"/>
     <Setter Property="Template" Value="{DynamicResource CaptionButtonControlTemplate}"/>
-  </Style>
+        <Setter Property="Focusable"
+                Value="False" />
+    </Style>
   <ControlTemplate x:Key="CaptionButtonControlTemplate" TargetType="{x:Type Button}">
     <Grid Background="Transparent">
       <Border x:Name="hoverBorder" Margin="0" BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}" BorderThickness="1" CornerRadius="2" Visibility="Collapsed">
