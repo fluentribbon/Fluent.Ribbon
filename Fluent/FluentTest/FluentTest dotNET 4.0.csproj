@@ -59,25 +59,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
-
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
-
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
-
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase">
-
     </Reference>
     <Reference Include="PresentationCore">
-
     </Reference>
     <Reference Include="PresentationFramework">
-
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="MetroStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TestRibbonTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,6 +98,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MetroStyle.xaml.cs">
+      <DependentUpon>MetroStyle.xaml</DependentUpon>
     </Compile>
     <Compile Include="TestRibbonTab.xaml.cs">
       <DependentUpon>TestRibbonTab.xaml</DependentUpon>

@@ -1,91 +1,41 @@
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
+using Fluent;
+
 namespace FluentTest
 {
-    using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Threading;
-    using Fluent;
-
-    public enum TstEnum
-    {
-        Elemen1,
-        Elemen2
-    }
-
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaktionslogik für MetroStyle.xaml
     /// </summary>
-    public partial class TestWindow
+    public partial class MetroStyle
     {
+        public MetroStyle()
+        {
+            InitializeComponent();
+            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
+            ribbon.DataContext = this;
+            DataContext = this;
+        }
+
         private readonly string[] data = new[] { "Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol" };
         public string[] FontsData
         {
             get { return data; }
         }
 
-        public TstEnum TST
-        {
-            get { return (TstEnum)GetValue(TSTProperty); }
-            set { SetValue(TSTProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for TST.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TSTProperty =
-            DependencyProperty.Register("TST", typeof(TstEnum), typeof(TestWindow), new UIPropertyMetadata(TstEnum.Elemen1));
-
         private readonly Color[] themeColors = new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
         public Color[] ThemeColors
         {
             get { return themeColors; }
-        }
-
-        public Array TstArr
-        {
-            get { return Enum.GetValues(typeof(TstEnum)); }
-        }
-
-        public TestWindow()
-        {
-            this.InitializeComponent();
-
-            //ribbon.IsBackstageOpen = true;
-
-            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
-
-            //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
-            //IView = CollectionViewSource.GetDefaultView();
-
-            //Visibility = Visibility.Hidden;
-            //            (Content as UIElement).Visibility = Visibility.Hidden;
-            /*Loaded += delegate
-            {*/
-            /*tabGroup1.Visibility = System.Windows.Visibility.Visible;
-            tabGroup2.Visibility = System.Windows.Visibility.Visible;*/
-            /*Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() =>
-                                                                                           {
-                                                                                               (Content as UIElement)
-                                                                                                   .Visibility =
-                                                                                                   Visibility.
-                                                                                                       Visible;
-                                                                                           }));*/
-            // };
-
-            //Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new ThreadStart(() => { Visibility = Visibility.Visible; }));
-            buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
-            buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
-            ribbon.DataContext = this;
-            DataContext = this;
-            /*DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
-            timer.Tick += (s, e) => { Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement); };
-            timer.Start();*/
         }
 
         private static AdornerLayer GetAdornerLayer(UIElement element)
@@ -227,44 +177,17 @@ namespace FluentTest
 
         private void OnSilverClick(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") });
-                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                Application.Current.Resources.EndInit();
-            }));
-        }
-
-        private void OnMetroClick(object sender, RoutedEventArgs e)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                MetroStyle metro = new MetroStyle();
-                metro.Show();
-            }));
+            this.Close();
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });
-                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                Application.Current.Resources.EndInit();
-            }));
+            this.Close();
         }
 
         private void OnBlueClick(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });
-                Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                Application.Current.Resources.EndInit();
-            }));
+            this.Close();
         }
 
         #endregion Theme change
@@ -423,38 +346,6 @@ namespace FluentTest
         {
             var printDlg = new PrintDialog();
             printDlg.PrintVisual(this, "Main Window");
-        }
-    }
-
-    public class FooCommand1
-    {
-        public static RoutedCommand TestPresnterCommand = new RoutedCommand("TestPresnterCommand", typeof(FooCommand1));
-
-        public System.Windows.Input.ICommand ItemCommand
-        {
-            get { return TestPresnterCommand; }
-        }
-
-        public System.Windows.Input.CommandBinding ItemCommandBinding
-        {
-            get { return new CommandBinding(TestPresnterCommand, OnTestCommandExecuted, CanExecuteTestCommand); }
-        }
-
-        public FooCommand1()
-        {
-
-        }
-
-        private void CanExecuteTestCommand(object sender,
-       CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void OnTestCommandExecuted(object sender,
-        ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Test Module Command");
         }
     }
 }

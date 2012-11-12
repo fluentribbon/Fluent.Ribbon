@@ -1,4 +1,4 @@
-﻿<Fluent:RibbonWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Fluent:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                      xmlns:FluentTest="clr-namespace:FluentTest"
@@ -6,21 +6,22 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:System="clr-namespace:System;assembly=mscorlib"
                      x:Name="window"
-                     x:Class="FluentTest.TestWindow"
+                     x:Class="FluentTest.MetroStyle"
                      Title="Fluent Ribbon Control Suite 2.1"
                      Height="600"
                      Width="800"
                      mc:Ignorable="d"
                      ResizeMode="CanResizeWithGrip"
+                     RibbonThemeColor="Green"
                      FlowDirection="LeftToRight">
-    <Fluent:RibbonWindow.Resources>
-
-    </Fluent:RibbonWindow.Resources>
-    <Fluent:RibbonWindow.CommandBindings>
+    <Fluent:MetroWindow.Resources>
+        <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
+    </Fluent:MetroWindow.Resources>
+    <Fluent:MetroWindow.CommandBindings>
         <CommandBinding Command="{x:Static FluentTest:TestWindow.New1}"
                         Executed="New_Executed"
                         CanExecute="New_CanExecute" />
-    </Fluent:RibbonWindow.CommandBindings>
+    </Fluent:MetroWindow.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -33,14 +34,12 @@
 
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
-                                                 BorderBrush="Magenta"
-                                                 Background="Purple"
+                                                 Background="#FF2B579A"
                                                  Header="First"
                                                  Visibility="Visible" />
-                
+
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
-                                                 BorderBrush="Green"
-                                                 Background="Lime"
+                                                 Background="#FFF2CB1D"
                                                  Header="Second"
                                                  Visibility="Visible" />
 
@@ -1268,7 +1267,7 @@
                                 <TextBlock Text="1" />
                             </Grid>
                         </Fluent:SplitButton.Icon>
-                    </Fluent:SplitButton>                    
+                    </Fluent:SplitButton>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="View">
@@ -1280,7 +1279,7 @@
                                     Icon="Images\GrowFont.png"
                                     Header="Text"
                                     Text="CurrentText" />
-                    
+
                     <Fluent:Button Header="PrintVisual"
                                    Click="OnPrintVisualClick" />
                 </Fluent:RibbonGroupBox>
@@ -1335,8 +1334,8 @@
                             Click="OnBlueClick">Blue (Office 2010)</Button>
                     <Button Style="{StaticResource ThemeButtonStyle}"
                             Click="OnSilverClick">Silver (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
-                            Click="OnMetroClick">Office 2013 (opens new Window)</Button>
+                    <!--<Button Style="{StaticResource ThemeButtonStyle}"
+                            Click="OnSilverClick">Office 2013 (coming soon)</Button>-->
                 </WrapPanel>
             </TabItem>
             <TabItem Header="Developer">
@@ -1345,7 +1344,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    
+
                     <TextBox x:Name="textBoxTest"
                              Visibility="Collapsed"
                              Margin="20,150,0,0"
@@ -1429,7 +1428,7 @@
                               MouseDoubleClick="OnTreeDoubleClick" />
                 </Grid>
             </TabItem>
-        </TabControl>       
+        </TabControl>
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"
@@ -1460,4 +1459,4 @@
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>
-</Fluent:RibbonWindow>
+</Fluent:MetroWindow>
