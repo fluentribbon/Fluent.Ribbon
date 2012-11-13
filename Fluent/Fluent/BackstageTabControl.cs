@@ -393,10 +393,6 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            // todo hack we have to find a way to get rid of this.ApplyTemplate() here.
-            // actually we have to call it to avoid "'grid' name cannot be found in the name scope of 'System.Windows.Controls.ControlTemplate'." when the control gets loaded.
-            this.ApplyTemplate();
-
             AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
         }
 
