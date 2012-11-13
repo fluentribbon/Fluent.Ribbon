@@ -10,7 +10,7 @@
     <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
     <Style x:Key="RibbonSplitButtonStyle" TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template" Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
-        <Setter Property="Height" Value="66" />
+        <Setter Property="Height" Value="68" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
@@ -19,7 +19,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
-                <Setter Property="Height" Value="66" />
+                <Setter Property="Height" Value="68" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter Property="Height" Value="22" />
@@ -35,38 +35,26 @@
         <Grid>
             <Border x:Name="PART_ButtonBorder" BorderThickness="1" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto"
                     HorizontalAlignment="Left" VerticalAlignment="Stretch" SnapsToDevicePixels="True" ToolTip="{TemplateBinding DropDownToolTip}">
-                <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" Background="{DynamicResource TransparentBrush}">
                     <Grid x:Name="grid" Height="Auto">
-                        <Border x:Name="downRect" VerticalAlignment="Bottom" Height="27" Background="{DynamicResource TransparentBrush}" BorderThickness="0,1,0,0" Margin="-1,0" />
+                        <Border x:Name="downRect" VerticalAlignment="Bottom" Height="28" Background="{DynamicResource TransparentBrush}" BorderThickness="0,1,0,0" Margin="-1,0" />
                         <StackPanel x:Name="stackPanel"
                                     Width="Auto"
                                     Orientation="Vertical"
                                     d:LayoutOverrides="Width, Height"
                                     IsHitTestVisible="False"
-                                    Margin="0">
-                            <ContentPresenter x:Name="iconImage"
-                                              HorizontalAlignment="Center"
-                                              Height="32"
-                                              VerticalAlignment="Center"
-                                              Content="{x:Null}"
-                                              Width="32"
-                                              Margin="3,2"
-                                              SnapsToDevicePixels="True"
-                                              IsHitTestVisible="false"
-                                              Visibility="Hidden" />
-                            <Fluent:TwoLineLabel x:Name="controlLabel"
-                                                 Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Margin="2,-2,2,2"
+                                    Margin="0" VerticalAlignment="Bottom">
+                            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="30"
+                                              VerticalAlignment="Center" Width="32" Margin="3,2" SnapsToDevicePixels="True"
+                                              IsHitTestVisible="false" Visibility="Hidden" />
+                            <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                         </StackPanel>
                         <Fluent:ToggleButton x:Name="PART_Button"
                                              Command="{TemplateBinding Command}"
                                              CommandParameter="{TemplateBinding CommandParameter}"
                                              CommandTarget="{TemplateBinding CommandTarget}"
-                                             Margin="-1,-1,-1,26"
+                                             Margin="0,0,0,30"
                                              Height="Auto"
                                              Width="Auto"
                                              Style="{DynamicResource InnerButtonStyle}"
@@ -80,7 +68,7 @@
                                              CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
                     </Grid>
                 </Border>
-            </Border>
+            <!--</Border>-->
             <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True" Focusable="False" PopupAnimation="Fade"
                    Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
@@ -307,8 +295,8 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
                 <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                <Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
-				<Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                <!--<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+				<Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />-->
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -446,10 +434,10 @@
             <Trigger Property="IsDropDownOpen"
                      Value="True">
                 <Setter Property="Background"
-                        TargetName="border1"
+                        TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
+                        TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <Trigger Property="IsButtonEnabled"
@@ -473,11 +461,11 @@
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
 				<Setter Property="Background"
                         TargetName="downRect"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="downRect"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
@@ -485,12 +473,12 @@
 			<MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
-                               Value="True" />
+                               Value="True"/>
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
+                        TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="downRect"
@@ -522,11 +510,6 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 SnapsToDevicePixels="False">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto">
                     <Rectangle x:Name="rectangle"
                                StrokeThickness="0"
@@ -555,7 +538,6 @@
                                              Visibility="Collapsed" />
                     </StackPanel>
                 </Grid>
-            </Border>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed"
@@ -566,12 +548,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -582,12 +558,6 @@
                     <Condition Property="IsEnabled"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
@@ -604,12 +574,6 @@
                     <Condition Property="IsEnabled"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
@@ -655,12 +619,6 @@
                 <Setter Property="Content"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="2,0,0,2" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="2,0,0,2" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,-1,2,1" />
@@ -697,12 +655,6 @@
                 <Setter Property="Content"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="2,0,0,2" />
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="2,0,0,2" />
                 <Setter Property="Visibility"
                         TargetName="controlLabel"
                         Value="Visible" />

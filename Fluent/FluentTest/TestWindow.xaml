@@ -747,6 +747,9 @@
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small"
                                                MaxDropDownHeight="500">
+                            <Fluent:DropDownButton.ToolTip>
+                                <Fluent:ScreenTip>Test-ScreenTip to test wrong ToolTip appearence when Popup is open</Fluent:ScreenTip>
+                            </Fluent:DropDownButton.ToolTip>
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
                                     <Image Source="Images\FontColor.png"

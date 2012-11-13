@@ -238,11 +238,8 @@ namespace FluentTest
 
         private void OnMetroClick(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                MetroStyle metro = new MetroStyle();
-                metro.Show();
-            }));
+            var metro = new MetroStyle();
+            metro.Show();
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
