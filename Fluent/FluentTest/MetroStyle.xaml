@@ -13,7 +13,7 @@
                      mc:Ignorable="d"
                      ResizeMode="CanResizeWithGrip"
                      RibbonThemeColor="Green"
-                     FlowDirection="LeftToRight">
+                     FlowDirection="LeftToRight" Foreground="White">
     <Fluent:MetroWindow.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
     </Fluent:MetroWindow.Resources>
@@ -1311,7 +1311,7 @@
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" Margin="1">
             <TabControl.Resources>
                 <Style x:Key="ThemeButtonStyle"
                        TargetType="Button">
@@ -1327,16 +1327,17 @@
                 <WebBrowser Source="http://fluent.codeplex.com/" />
             </TabItem>-->
             <TabItem Header="Themes">
-                <WrapPanel>
-                    <Button Style="{StaticResource ThemeButtonStyle}" 
+                <StackPanel>
+                    <WrapPanel>
+                        <Button Style="{StaticResource ThemeButtonStyle}" 
                             Click="OnBlackClick">Black (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
+                        <Button Style="{StaticResource ThemeButtonStyle}"
                             Click="OnBlueClick">Blue (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
+                        <Button Style="{StaticResource ThemeButtonStyle}"
                             Click="OnSilverClick">Silver (Office 2010)</Button>
-                    <!--<Button Style="{StaticResource ThemeButtonStyle}"
-                            Click="OnSilverClick">Office 2013 (coming soon)</Button>-->
-                </WrapPanel>
+                    </WrapPanel>
+                    <Label Content="These Office 2013 styles are WORK IN PROGRESS and for demonstration purposes only. Some things may look weird and/or wrong placed!"/>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Developer">
                 <Grid>
@@ -1436,14 +1437,14 @@
             <Fluent:StatusBarItem Title="Words Width"
                                   Value="150"
                                   HorizontalAlignment="Left">
-                <TextBlock Text="150 px" />
+                <TextBlock Text="150 px" Foreground="White" />
             </Fluent:StatusBarItem>
             <Separator HorizontalAlignment="Left" />
             <Fluent:StatusBarItem Title="Selected Words"
                                   Value="15"
                                   ToolTip="This is Selected Words"
                                   Content="15"
-                                  HorizontalAlignment="Left" />
+                                  HorizontalAlignment="Left" Foreground="White" />
             <Separator HorizontalAlignment="Left" />
             <Fluent:StatusBarItem Title="Zoom"
                                   HorizontalAlignment="Right"
