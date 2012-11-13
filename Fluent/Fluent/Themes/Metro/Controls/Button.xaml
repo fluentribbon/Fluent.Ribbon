@@ -4,15 +4,12 @@
   <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
   <ControlTemplate x:Key="RibbonButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
     <Border x:Name="border" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-      <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}">
-        <Grid Height="Auto">
+      <Grid Height="Auto">
           <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="3,2,3,1" SnapsToDevicePixels="True">
-            </ContentPresenter>
+            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="3,2,3,1" SnapsToDevicePixels="True"/>
             <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2"/>
           </StackPanel>
         </Grid>
-      </Border>
     </Border>
     <ControlTemplate.Triggers>
       <Trigger Property="Size" Value="Small">
@@ -41,8 +38,6 @@
       <Trigger Property="IsPressed" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
       </Trigger>
       <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
@@ -59,8 +54,6 @@
           <Condition Property="IsPressed" Value="False"/>
           <Condition Property="IsEnabled" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
       </MultiTrigger>
@@ -69,8 +62,6 @@
           <Condition Property="IsKeyboardFocusWithin" Value="True"/>
           <Condition Property="IsPressed" Value="False"/>
         </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
       </MultiTrigger>
@@ -78,7 +69,7 @@
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
-    <Setter Property="Height" Value="66"/>
+    <Setter Property="Height" Value="68"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -87,7 +78,7 @@
     <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
-        <Setter Property="Height" Value="66"/>
+        <Setter Property="Height" Value="68"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Height" Value="22"/>

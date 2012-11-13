@@ -13,7 +13,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource RibbonDropDownButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="66" />
+                Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="FontSize"
@@ -30,7 +30,7 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="66" />
+                        Value="68" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -61,12 +61,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
-                <Border x:Name="border1"
-                        Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
-                        BorderThickness="1"
-                        Background="{DynamicResource TransparentBrush}">
-                    <Grid Height="Auto">
+                <Grid Height="Auto">
                         <StackPanel x:Name="stackPanel"
                                     Width="Auto"
                                     Orientation="Vertical"
@@ -88,7 +83,6 @@
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                         </StackPanel>
                     </Grid>
-                </Border>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -400,12 +394,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -429,12 +417,6 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
@@ -449,12 +431,6 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
