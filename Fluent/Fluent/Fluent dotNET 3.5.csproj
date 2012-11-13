@@ -84,6 +84,9 @@
     <Compile Include="InRibbonGallery.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
+    <Compile Include="Internal\DoubleUtil.cs" />
+    <Compile Include="Internal\InvokeCommand.cs" />
+    <Compile Include="RibbonCommands.cs" />    
     <Compile Include="IScalableRibbonControl.cs" />
     <Compile Include="KeyTip.cs" />
     <Compile Include="KeyTipAdorner.cs" />

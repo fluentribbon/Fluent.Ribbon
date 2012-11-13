@@ -150,7 +150,7 @@ namespace Fluent
             // Make default header
             HeaderProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceHeader));
             KeyTip.KeysProperty.AddOwner(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
-            StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
@@ -184,6 +184,8 @@ namespace Fluent
 
             CoerceValue(HeaderProperty);
             CoerceValue(KeyTip.KeysProperty);
+
+            this.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, (sender, args) => this.IsOpen = !this.IsOpen));
         }
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
@@ -204,8 +206,7 @@ namespace Fluent
         #region Show / Hide
 
         // We have to collapse WindowsFormsHost while Backstate is open
-        Dictionary<FrameworkElement, Visibility> collapsedElements =
-            new Dictionary<FrameworkElement, Visibility>();
+        readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new Dictionary<FrameworkElement, Visibility>();
 
         // Saved window sizes
         double savedMinWidth;

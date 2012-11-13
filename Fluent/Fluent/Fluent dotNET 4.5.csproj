@@ -108,10 +108,12 @@
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
+    <Compile Include="Internal\InvokeCommand.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
+    <Compile Include="RibbonCommands.cs" />
     <Compile Include="RibbonMenu.cs" />
     <Compile Include="StatusBar.cs" />
     <Compile Include="StatusBarItem.cs" />
