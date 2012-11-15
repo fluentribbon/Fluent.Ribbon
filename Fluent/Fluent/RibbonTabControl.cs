@@ -423,9 +423,7 @@ namespace Fluent
 
             if (e.AddedItems.Count > 0)
             {
-                var backstage = Menu as Backstage;
-                if (this.IsMinimized
-                    && (backstage == null || !backstage.IsOpen))
+                if (this.IsMinimized)
                 {
                     this.IsDropDownOpen = true;
 
