@@ -185,6 +185,7 @@ namespace Fluent
             parentWidow = Window.GetWindow(this);
 
             this.SubscribeEvents();
+            this.UpdateInnerVisibility();
 
             if (parentWidow != null)
             {
