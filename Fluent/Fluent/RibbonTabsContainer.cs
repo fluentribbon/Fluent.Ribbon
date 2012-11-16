@@ -299,7 +299,7 @@ namespace Fluent
             }
         }
 
-        Size MeasureChildrenDesiredSize(Size availableSize)
+        private Size MeasureChildrenDesiredSize(Size availableSize)
         {
             double width = 0;
             double height = 0;
@@ -312,7 +312,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        Size GetChildrenDesiredSize()
+        private Size GetChildrenDesiredSize()
         {
             double width = 0;
             double height = 0;
@@ -334,9 +334,15 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect finalRect = new Rect(finalSize);
-            finalRect.X = -HorizontalOffset;
-            foreach (UIElement item in InternalChildren)
+            var finalRect = new Rect(finalSize)
+                                {
+                                    X = -this.HorizontalOffset
+                                };
+
+            var orderedChildren = this.InternalChildren.OfType<RibbonTabItem>()
+                                      .OrderBy(x => x.Group != null);
+
+            foreach (var item in orderedChildren)
             {
                 finalRect.Width = item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
@@ -344,16 +350,16 @@ namespace Fluent
                 finalRect.X += item.DesiredSize.Width;
             }
 
-            for (int i = 0; i < InternalChildren.Count; i++)
+            var ribbonTabItemsWithGroups = this.InternalChildren.OfType<RibbonTabItem>()
+                                               .Where(item => item.Group != null);
+
+            var ribbonTitleBar = ribbonTabItemsWithGroups.Select(ribbonTabItemsWithGroup => ribbonTabItemsWithGroup.Group.Parent)
+                                                         .OfType<RibbonTitleBar>()
+                                                         .FirstOrDefault();
+
+            if (ribbonTitleBar != null)
             {
-                if (InternalChildren[i] is RibbonTabItem)
-                {
-                    if ((InternalChildren[i] as RibbonTabItem).Group != null)
-                    {
-                        ((InternalChildren[i] as RibbonTabItem).Group.Parent as RibbonTitleBar).InvalidateMeasure();
-                        break;
-                    }
-                }
+                ribbonTitleBar.InvalidateMeasure();
             }
 
             return finalSize;
@@ -364,7 +370,7 @@ namespace Fluent
         /// </summary>
         /// <param name="regularTabs">If this parameter true, regular tabs will have separators</param>
         /// <param name="contextualTabs">If this parameter true, contextual tabs will have separators</param>
-        void UpdateSeparators(bool regularTabs, bool contextualTabs)
+        private void UpdateSeparators(bool regularTabs, bool contextualTabs)
         {
             foreach (RibbonTabItem tab in Children)
             {
