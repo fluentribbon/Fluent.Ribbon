@@ -683,13 +683,15 @@ namespace Fluent
             // newExtentWidth is neccessary to fix 20762 (Tab scroll button appears randomly when resizing)
             // To fix 20762 we are manipulating the extentWidth by checking if all regular (non contextual) tabs are at their minimum width.
             // When they are all at their minimum width we have to force the extentWidth to be greater than the viewportWidth.
+            // When there are no regular tabs, we MUST NOT apply this fix
             var newExtentWidth = Math.Max(viewportWidth, extentWidth);
 
             var visibleRegularTabs = this.InternalChildren.Cast<RibbonTabItem>()
                 .Where(item => item.IsContextual == false && item.Visibility != Visibility.Collapsed)
                 .ToArray();
 
-            if (visibleRegularTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth)))
+            if (visibleRegularTabs.Any()
+                && visibleRegularTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth)))
             {
                 if (DoubleUtil.AreClose(newExtentWidth, viewportWidth))
                 {
