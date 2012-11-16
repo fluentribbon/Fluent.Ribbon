@@ -68,7 +68,7 @@ namespace Fluent
         private ObservableCollection<UIElement> items;
 
         private Size cachedConstraint;
-        private int cachedCount = -1;
+        private int cachedNonOverflowItemsCount = -1;
 
         // Itemc collection was changed
         private bool itemsHadChanged;
@@ -100,8 +100,8 @@ namespace Fluent
 
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.cachedCount = this.GetNonOverflowItemsCount(this.DesiredSize.Width);
-            this.HasOverflowItems = this.cachedCount < this.Items.Count;
+            this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.DesiredSize.Width);
+            this.UpdateHasOverflowItems();
             this.itemsHadChanged = true;
             this.InvalidateMeasure();
 
@@ -395,7 +395,6 @@ namespace Fluent
                 }
             }
 
-
             if (this.toolBarDownButton != null)
             {
                 this.toolBarDownButton.DropDownOpened -= this.OnToolBarDownOpened;
@@ -410,12 +409,7 @@ namespace Fluent
                 this.toolBarDownButton.DropDownClosed += this.OnToolBarDownClosed;
             }
 
-
-            //DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
-            //if (btn != null) btn.ContextMenu = btn.DropDownMenu;
-
             // ToolBar panels
-
             this.toolBarPanel = this.GetTemplateChild("PART_ToolBarPanel") as Panel;
             this.toolBarOverflowPanel = this.GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
 
@@ -433,7 +427,7 @@ namespace Fluent
 
             // Clears cache
             this.cachedDeltaWidth = 0;
-            this.cachedCount = this.GetNonOverflowItemsCount(this.ActualWidth);
+            this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
             this.cachedConstraint = new Size();
         }
 
@@ -449,7 +443,7 @@ namespace Fluent
                 this.toolBarOverflowPanel.Children.Clear();
             }
 
-            for (var i = this.cachedCount; i < this.Items.Count; i++)
+            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
             {
                 this.toolBarOverflowPanel.Children.Add(this.Items[i]);
             }
@@ -482,24 +476,35 @@ namespace Fluent
         /// <param name="constraint">The maximum size that the method can return</param>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (this.cachedConstraint == constraint
+            if ((this.cachedConstraint == constraint)
                 && !this.itemsHadChanged)
             {
                 return base.MeasureOverride(constraint);
             }
 
-            this.cachedCount = this.GetNonOverflowItemsCount(constraint.Width);
-            this.HasOverflowItems = this.cachedCount < this.Items.Count;
+            var nonOverflowItemsCount = this.GetNonOverflowItemsCount(constraint.Width);
+
+            if (this.itemsHadChanged == false
+                && nonOverflowItemsCount == this.cachedNonOverflowItemsCount)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            this.cachedNonOverflowItemsCount = nonOverflowItemsCount;
+            this.UpdateHasOverflowItems();
             this.cachedConstraint = constraint;
 
-            this.toolBarOverflowPanel.Children.Clear();
+            if (this.HasOverflowItems == false)
+            {
+                this.toolBarOverflowPanel.Children.Clear();
+            }
 
             if (this.itemsHadChanged)
             {
                 // Refill toolbar
                 this.toolBarPanel.Children.Clear();
 
-                for (var i = 0; i < this.cachedCount; i++)
+                for (var i = 0; i < this.cachedNonOverflowItemsCount; i++)
                 {
                     this.toolBarPanel.Children.Add(this.Items[i]);
                 }
@@ -508,11 +513,11 @@ namespace Fluent
             }
             else
             {
-                if (this.cachedCount > this.toolBarPanel.Children.Count)
+                if (this.cachedNonOverflowItemsCount > this.toolBarPanel.Children.Count)
                 {
                     // Add needed items
                     var savedCount = this.toolBarPanel.Children.Count;
-                    for (var i = savedCount; i < this.cachedCount; i++)
+                    for (var i = savedCount; i < this.cachedNonOverflowItemsCount; i++)
                     {
                         this.toolBarPanel.Children.Add(this.Items[i]);
                     }
@@ -520,7 +525,7 @@ namespace Fluent
                 else
                 {
                     // Remove nonneeded items
-                    for (var i = this.toolBarPanel.Children.Count - 1; i >= this.cachedCount; i--)
+                    for (var i = this.toolBarPanel.Children.Count - 1; i >= this.cachedNonOverflowItemsCount; i--)
                     {
                         this.toolBarPanel.Children.Remove(this.Items[i]);
                     }
@@ -528,6 +533,21 @@ namespace Fluent
             }
 
             return base.MeasureOverride(constraint);
+        }
+
+        /// <summary>
+        /// We have to use this function because setting a <see cref="DependencyProperty"/> very frequently is quite expensive
+        /// </summary>
+        private void UpdateHasOverflowItems()
+        {
+            var newValue = this.cachedNonOverflowItemsCount < this.Items.Count;
+
+            // ReSharper disable RedundantCheckBeforeAssignment
+            if (this.HasOverflowItems != newValue)
+            // ReSharper restore RedundantCheckBeforeAssignment
+            {
+                this.HasOverflowItems = newValue;
+            }
         }
 
         #endregion

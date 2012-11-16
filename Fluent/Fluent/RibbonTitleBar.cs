@@ -95,6 +95,8 @@ namespace Fluent
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false, OnIsCollapsedChanged));
 
+        private bool isAtLeastOneRequiredControlPresent;
+
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var titleBar = (RibbonTitleBar)d;
@@ -155,9 +157,13 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            quickAccessToolbarHolder = GetTemplateChild("PART_QuickAccessToolbarHolder") as FrameworkElement;
-            headerHolder = GetTemplateChild("PART_HeaderHolder") as FrameworkElement;
-            itemsContainer = GetTemplateChild("PART_ItemsContainer") as Panel;
+            this.quickAccessToolbarHolder = this.GetTemplateChild("PART_QuickAccessToolbarHolder") as FrameworkElement;
+            this.headerHolder = this.GetTemplateChild("PART_HeaderHolder") as FrameworkElement;
+            this.itemsContainer = this.GetTemplateChild("PART_ItemsContainer") as Panel;
+
+            this.isAtLeastOneRequiredControlPresent = this.quickAccessToolbarHolder != null
+                                     || this.headerHolder != null
+                                     || this.itemsContainer != null;
         }
 
         /// <summary>
@@ -167,9 +173,7 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (quickAccessToolbarHolder == null
-                || headerHolder == null
-                || itemsContainer == null)
+            if (this.isAtLeastOneRequiredControlPresent == false)
             {
                 return base.MeasureOverride(constraint);
             }
@@ -187,11 +191,11 @@ namespace Fluent
                 resultSize = base.MeasureOverride(resultSize);
             }
 
-            Update(resultSize);
+            this.Update(resultSize);
 
-            itemsContainer.Measure(itemsRect.Size);
-            headerHolder.Measure(headerRect.Size);
-            quickAccessToolbarHolder.Measure(quickAccessToolbarRect.Size);
+            this.itemsContainer.Measure(this.itemsRect.Size);
+            this.headerHolder.Measure(this.headerRect.Size);
+            this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
 
             return resultSize;
         }
@@ -203,9 +207,7 @@ namespace Fluent
         /// <returns>The size of the control.</returns>
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            if (quickAccessToolbarHolder == null
-                || headerHolder == null
-                || itemsContainer == null)
+            if (this.isAtLeastOneRequiredControlPresent == false)
             {
                 return base.ArrangeOverride(arrangeBounds);
             }
@@ -215,9 +217,9 @@ namespace Fluent
                 return base.ArrangeOverride(arrangeBounds);
             }
 
-            itemsContainer.Arrange(itemsRect);
-            headerHolder.Arrange(headerRect);
-            quickAccessToolbarHolder.Arrange(quickAccessToolbarRect);
+            this.itemsContainer.Arrange(this.itemsRect);
+            this.headerHolder.Arrange(this.headerRect);
+            this.quickAccessToolbarHolder.Arrange(this.quickAccessToolbarRect);
             return arrangeBounds;
         }
 
