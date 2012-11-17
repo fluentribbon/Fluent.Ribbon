@@ -867,7 +867,7 @@
                                         Fluent:KeyTip.Keys="S"
                                         Click="OnSplitClick"
                                         ResizeMode="Both"
-                                        SizeDefinition="Large"
+                                        SizeDefinition="Small"
                                         MaxDropDownHeight="1000"
                                         DropDownHeight="300">
                         <Fluent:Gallery x:Name="gallery"
