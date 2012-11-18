@@ -204,8 +204,7 @@
     <Setter Property="ResizeBorderThickness" Value="8,8,8,8"/>
     <Setter Property="CornerRadius" Value="15"/>
     <Setter Property="CaptionHeight" Value="50"/>
-    <Setter Property="Foreground" Value="#FF000000"/>
-    <Setter Property="Template" Value="{StaticResource DwmRibbonWindowControlTemplate}"/>
+    <Setter Property="Foreground" Value="#FF000000"/>    
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     <Style.Triggers>
@@ -218,7 +217,12 @@
       <Trigger Property="IsDwmEnabled" Value="False">
         <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
       </Trigger>
-    </Style.Triggers>
+            <Trigger Property="IsDwmEnabled"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{StaticResource DwmRibbonWindowControlTemplate}" />
+            </Trigger>
+        </Style.Triggers>
   </Style>
   <!--<Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>-->
 </ResourceDictionary>

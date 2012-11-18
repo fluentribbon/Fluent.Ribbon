@@ -661,6 +661,8 @@ namespace Fluent
             var newValue = (bool)e.NewValue;
             var oldValue = !newValue;
 
+            control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
+
             if (newValue)
             {
                 Mouse.Capture(control, CaptureMode.SubTree);

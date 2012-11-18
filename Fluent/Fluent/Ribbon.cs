@@ -1571,15 +1571,6 @@ namespace Fluent
             {
                 this.SelectedTabChanged(this, e);
             }
-
-            if (e.AddedItems.Count > 0)
-            {
-                //if (IsBackstageOpen)
-                //{
-                //    savedTabItem = e.AddedItems[0] as RibbonTabItem;
-                //    if (savedTabItem != null) IsBackstageOpen = false;
-                //}
-            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

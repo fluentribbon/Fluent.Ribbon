@@ -265,7 +265,6 @@ namespace Fluent
                 ribbon.TabControl.IsDropDownOpen = false;
                 ribbon.TabControl.HighlightSelectedItem = false;
                 ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
-                ribbon.SelectedTabChanged += this.OnSelectedRibbonTabChanged;
 
                 // Disable QAT & title bar
                 if (ribbon.QuickAccessToolBar != null)
@@ -340,7 +339,6 @@ namespace Fluent
             {
                 ribbon.TabControl.HighlightSelectedItem = true;
                 ribbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
-                ribbon.SelectedTabChanged -= this.OnSelectedRibbonTabChanged;
 
                 // Restore enable under QAT & title bar
                 if (ribbon.QuickAccessToolBar != null)
@@ -403,11 +401,6 @@ namespace Fluent
         {
             var wnd = Window.GetWindow(this);
             SaveWindowSize(wnd);
-        }
-
-        private void OnSelectedRibbonTabChanged(object sender, EventArgs e)
-        {
-            this.IsOpen = false;
         }
 
         private void OnTabControlRequestBackstageClose(object sender, EventArgs e)

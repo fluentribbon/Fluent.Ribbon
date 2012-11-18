@@ -77,7 +77,7 @@ namespace Fluent
             // the tab selection and hover states is reached (regular tabs)
             double overflowWidth = desiredSize.Width - availableSize.Width;
             double whitespace = (InternalChildren[0] as RibbonTabItem).Indent;
-            RibbonTabItem[] contextualTabs = InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed)).ToArray();
+            RibbonTabItem[] contextualTabs = InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
             double contextualTabsCount = contextualTabs.Length;
             var regularTabs =
                 InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
@@ -299,7 +299,7 @@ namespace Fluent
             }
         }
 
-        Size MeasureChildrenDesiredSize(Size availableSize)
+        private Size MeasureChildrenDesiredSize(Size availableSize)
         {
             double width = 0;
             double height = 0;
@@ -312,7 +312,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        Size GetChildrenDesiredSize()
+        private Size GetChildrenDesiredSize()
         {
             double width = 0;
             double height = 0;
@@ -334,9 +334,15 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect finalRect = new Rect(finalSize);
-            finalRect.X = -HorizontalOffset;
-            foreach (UIElement item in InternalChildren)
+            var finalRect = new Rect(finalSize)
+                                {
+                                    X = -this.HorizontalOffset
+                                };
+
+            var orderedChildren = this.InternalChildren.OfType<RibbonTabItem>()
+                                      .OrderBy(x => x.Group != null);
+
+            foreach (var item in orderedChildren)
             {
                 finalRect.Width = item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
@@ -344,16 +350,16 @@ namespace Fluent
                 finalRect.X += item.DesiredSize.Width;
             }
 
-            for (int i = 0; i < InternalChildren.Count; i++)
+            var ribbonTabItemsWithGroups = this.InternalChildren.OfType<RibbonTabItem>()
+                                               .Where(item => item.Group != null);
+
+            var ribbonTitleBar = ribbonTabItemsWithGroups.Select(ribbonTabItemsWithGroup => ribbonTabItemsWithGroup.Group.Parent)
+                                                         .OfType<RibbonTitleBar>()
+                                                         .FirstOrDefault();
+
+            if (ribbonTitleBar != null)
             {
-                if (InternalChildren[i] is RibbonTabItem)
-                {
-                    if ((InternalChildren[i] as RibbonTabItem).Group != null)
-                    {
-                        ((InternalChildren[i] as RibbonTabItem).Group.Parent as RibbonTitleBar).InvalidateMeasure();
-                        break;
-                    }
-                }
+                ribbonTitleBar.InvalidateMeasure();
             }
 
             return finalSize;
@@ -364,7 +370,7 @@ namespace Fluent
         /// </summary>
         /// <param name="regularTabs">If this parameter true, regular tabs will have separators</param>
         /// <param name="contextualTabs">If this parameter true, contextual tabs will have separators</param>
-        void UpdateSeparators(bool regularTabs, bool contextualTabs)
+        private void UpdateSeparators(bool regularTabs, bool contextualTabs)
         {
             foreach (RibbonTabItem tab in Children)
             {
@@ -683,13 +689,15 @@ namespace Fluent
             // newExtentWidth is neccessary to fix 20762 (Tab scroll button appears randomly when resizing)
             // To fix 20762 we are manipulating the extentWidth by checking if all regular (non contextual) tabs are at their minimum width.
             // When they are all at their minimum width we have to force the extentWidth to be greater than the viewportWidth.
+            // When there are no regular tabs, we MUST NOT apply this fix
             var newExtentWidth = Math.Max(viewportWidth, extentWidth);
 
             var visibleRegularTabs = this.InternalChildren.Cast<RibbonTabItem>()
                 .Where(item => item.IsContextual == false && item.Visibility != Visibility.Collapsed)
                 .ToArray();
 
-            if (visibleRegularTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth)))
+            if (visibleRegularTabs.Any()
+                && visibleRegularTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth)))
             {
                 if (DoubleUtil.AreClose(newExtentWidth, viewportWidth))
                 {

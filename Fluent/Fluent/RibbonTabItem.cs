@@ -499,7 +499,16 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (contentContainer == null) return base.MeasureOverride(constraint);
+            if (contentContainer == null)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            if (this.IsContextual && this.Group != null && this.Group.Visibility == Visibility.Collapsed)
+            {
+                return Size.Empty;
+            }
+
             contentContainer.Padding = new Thickness(Indent, contentContainer.Padding.Top, Indent, contentContainer.Padding.Bottom);
             Size baseConstraint = base.MeasureOverride(constraint);
             double totalWidth = contentContainer.DesiredSize.Width - contentContainer.Margin.Left - contentContainer.Margin.Right;

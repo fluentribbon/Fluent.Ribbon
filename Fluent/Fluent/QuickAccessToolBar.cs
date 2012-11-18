@@ -7,20 +7,20 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Markup;
-
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Markup;
+    using Fluent.Internal;
+
     /// <summary>
     /// Represents quick access toolbar
     /// </summary>
@@ -29,14 +29,14 @@ namespace Fluent
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
     [ContentProperty("QuickAccessItems")]
-    public class QuickAccessToolBar:Control
+    public class QuickAccessToolBar : Control
     {
         #region Events
 
         /// <summary>
         /// Occured when items are added or removed from Quick Access toolbar
         /// </summary>
-        public event NotifyCollectionChangedEventHandler ItemsChanged;
+        public event NotifyCollectionChangedEventHandler ItemsChanged = delegate { };
 
         #endregion
 
@@ -48,23 +48,27 @@ namespace Fluent
 
         // Show above menu item
         private MenuItem showAbove;
+
         // Show below menu item
         private MenuItem showBelow;
+
         // Items of quick access menu
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
 
-
         // Root panel
         private Panel rootPanel;
+
         // ToolBar panel
         private Panel toolBarPanel;
+
         // ToolBar overflow panel
         private Panel toolBarOverflowPanel;
+
         // Items of quick access menu
         private ObservableCollection<UIElement> items;
 
         private Size cachedConstraint;
-        private int cachedCount=-1;
+        private int cachedNonOverflowItemsCount = -1;
 
         // Itemc collection was changed
         private bool itemsHadChanged;
@@ -87,49 +91,55 @@ namespace Fluent
                 if (this.items == null)
                 {
                     this.items = new ObservableCollection<UIElement>();
-                    this.items.CollectionChanged += new NotifyCollectionChangedEventHandler(this.OnItemsCollectionChanged);
+                    this.items.CollectionChanged += this.OnItemsCollectionChanged;
                 }
+
                 return this.items;
             }
         }
 
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {                        
-            cachedCount = GetNonOverflowItemsCount(DesiredSize.Width);
-            HasOverflowItems = cachedCount<Items.Count;
-            itemsHadChanged = true;
-            InvalidateMeasure();
-            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
+        {
+            this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.DesiredSize.Width);
+            this.UpdateHasOverflowItems();
+            this.itemsHadChanged = true;
+            this.InvalidateMeasure();
 
-            UpdateKeyTips();
+            this.InvalidateMeasureOfParentRibbon();
 
-            if(e.OldItems !=null)
-            for (int i = 0; i < e.OldItems.Count; i++)
+            this.UpdateKeyTips();
+
+            if (e.OldItems != null)
             {
-                (e.OldItems[i] as FrameworkElement).SizeChanged -= OnChildSizeChanged;
+                foreach (var item in e.OldItems.OfType<FrameworkElement>())
+                {
+                    item.SizeChanged -= this.OnChildSizeChanged;
+                }
             }
-            
+
             if (e.NewItems != null)
-            for (int i = 0; i < e.NewItems.Count; i++)
             {
-                (e.NewItems[i] as FrameworkElement).SizeChanged += OnChildSizeChanged;
+                foreach (var item in e.NewItems.OfType<FrameworkElement>())
+                {
+                    item.SizeChanged += this.OnChildSizeChanged;
+                }
             }
 
             if (e.Action == NotifyCollectionChangedAction.Reset)
             {
-                for (int i = 0; i < Items.Count; i++)
+                foreach (var item in this.Items.OfType<FrameworkElement>())
                 {
-                    (Items[i] as FrameworkElement).SizeChanged -= OnChildSizeChanged;
+                    item.SizeChanged -= this.OnChildSizeChanged;
                 }
             }
 
             // Raise items changed event
-            if (ItemsChanged != null) ItemsChanged(this, e);
+            this.ItemsChanged(this, e);
         }
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (this.Parent is Ribbon) (this.Parent as Ribbon).TitleBar.InvalidateMeasure();
+            this.InvalidateMeasureOfParentRibbon();
         }
 
         #endregion
@@ -164,14 +174,16 @@ namespace Fluent
         {
             get
             {
-                if (quickAccessItems == null)
+                if (this.quickAccessItems == null)
                 {
-                    quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
-                    quickAccessItems.CollectionChanged += OnQuickAccessItemsCollectionChanged;
+                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
                 }
-                return quickAccessItems;
+
+                return this.quickAccessItems;
             }
         }
+
         /// <summary>
         /// Handles quick access menu items chages
         /// </summary>
@@ -182,37 +194,62 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (menuDownButton != null) menuDownButton.Items.Insert(e.NewStartingIndex + i + 1, (QuickAccessMenuItem)e.NewItems[i]);
-                        else AddLogicalChild(e.NewItems[i]);
+                        if (this.menuDownButton != null)
+                        {
+                            this.menuDownButton.Items.Insert(e.NewStartingIndex + i + 1, e.NewItems[i]);
+                        }
+                        else
+                        {
+                            this.AddLogicalChild(e.NewItems[i]);
+                        }
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
-                        if (menuDownButton != null) menuDownButton.Items.Remove((QuickAccessMenuItem)item);
-                        else RemoveLogicalChild(item);
+                        if (this.menuDownButton != null)
+                        {
+                            this.menuDownButton.Items.Remove(item);
+                        }
+                        else
+                        {
+                            this.RemoveLogicalChild(item);
+                        }
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
-                        if (menuDownButton != null) menuDownButton.Items.Remove((QuickAccessMenuItem)item);
-                        else RemoveLogicalChild(item);
+                        if (this.menuDownButton != null)
+                        {
+                            this.menuDownButton.Items.Remove(item);
+                        }
+                        else
+                        {
+                            this.RemoveLogicalChild(item);
+                        }
                     }
-                    int ii = 0;
-                    foreach (object item in e.NewItems)
+
+                    var ii = 0;
+                    foreach (var item in e.NewItems)
                     {
-                        if (menuDownButton != null) menuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, (QuickAccessMenuItem)item);
-                        else AddLogicalChild(item);
+                        if (this.menuDownButton != null)
+                        {
+                            this.menuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, item);
+                        }
+                        else
+                        {
+                            this.AddLogicalChild(item);
+                        }
+
                         ii++;
                     }
                     break;
             }
-
         }
 
         #endregion
@@ -247,19 +284,7 @@ namespace Fluent
         {
             get
             {
-                ArrayList array = new ArrayList();                                
-                
-                /*foreach(var item in QuickAccessItems)
-                {
-                    array.Add(item);
-                }
-                for (int i = 0; i < cachedCount; i++)
-                {
-                    array.Add(Items[i]);
-                }
-                if (menuButton != null) array.Add(menuButton);*/
-                if (rootPanel != null) array.Add(rootPanel);
-                return array.GetEnumerator();
+                yield return rootPanel;
             }
         }
 
@@ -295,11 +320,11 @@ namespace Fluent
         static QuickAccessToolBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
-            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -307,14 +332,6 @@ namespace Fluent
             }
 
             return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public QuickAccessToolBar()
-        {
-
         }
 
         #endregion
@@ -327,83 +344,108 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (showAbove != null) showAbove.Click -= OnShowAboveClick;
-            if (showBelow != null) showBelow.Click -= OnShowBelowClick;
-            
-            showAbove = GetTemplateChild("PART_ShowAbove") as MenuItem;            
-            showBelow = GetTemplateChild("PART_ShowBelow") as MenuItem;
-
-            if (showAbove != null) showAbove.Click += OnShowAboveClick;
-            if (showBelow != null) showBelow.Click += OnShowBelowClick;
-
-            if (menuDownButton != null)
+            if (this.showAbove != null)
             {
-                for (int i = 0; i < QuickAccessItems.Count; i++)
+                this.showAbove.Click -= this.OnShowAboveClick;
+            }
+
+            if (this.showBelow != null)
+            {
+                this.showBelow.Click -= this.OnShowBelowClick;
+            }
+
+            this.showAbove = this.GetTemplateChild("PART_ShowAbove") as MenuItem;
+            this.showBelow = this.GetTemplateChild("PART_ShowBelow") as MenuItem;
+
+            if (this.showAbove != null)
+            {
+                this.showAbove.Click += this.OnShowAboveClick;
+            }
+
+            if (this.showBelow != null)
+            {
+                this.showBelow.Click += this.OnShowBelowClick;
+            }
+
+            if (this.menuDownButton != null)
+            {
+                foreach (var item in this.QuickAccessItems)
                 {
-                    menuDownButton.Items.Remove(QuickAccessItems[i]);
-                    QuickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    this.menuDownButton.Items.Remove(item);
+                    item.InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
-            else if(quickAccessItems!=null)
+            else if (this.quickAccessItems != null)
             {
-                for (int i = 0; i < quickAccessItems.Count; i++)
+                foreach (var item in this.quickAccessItems)
                 {
-                    RemoveLogicalChild(quickAccessItems[i]);
-                }
-            }
-            menuDownButton = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
-            if ((menuDownButton != null) && (quickAccessItems != null))
-            {
-                for (int i = 0; i < quickAccessItems.Count; i++)
-                {
-                    menuDownButton.Items.Insert(i + 1, quickAccessItems[i]);
-                    quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    this.RemoveLogicalChild(item);
                 }
             }
 
+            this.menuDownButton = this.GetTemplateChild("PART_MenuDownButton") as DropDownButton;
 
-            if (toolBarDownButton != null)
+            if (this.menuDownButton != null
+                && this.quickAccessItems != null)
             {
-                toolBarDownButton.DropDownOpened -= OnToolBarDownOpened;
-                toolBarDownButton.DropDownClosed -= OnToolBarDownClosed;
+                for (var i = 0; i < this.quickAccessItems.Count; i++)
+                {
+                    this.menuDownButton.Items.Insert(i + 1, this.quickAccessItems[i]);
+                    this.quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                }
             }
-            toolBarDownButton = GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
-            if (toolBarDownButton != null)
+
+            if (this.toolBarDownButton != null)
             {
-                toolBarDownButton.DropDownOpened += OnToolBarDownOpened;
-                toolBarDownButton.DropDownClosed += OnToolBarDownClosed;
+                this.toolBarDownButton.DropDownOpened -= this.OnToolBarDownOpened;
+                this.toolBarDownButton.DropDownClosed -= this.OnToolBarDownClosed;
             }
 
+            this.toolBarDownButton = this.GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
 
-            //DropDownButton btn = GetTemplateChild("PART_MenuDownButton") as DropDownButton;
-            //if (btn != null) btn.ContextMenu = btn.DropDownMenu;
-            
+            if (this.toolBarDownButton != null)
+            {
+                this.toolBarDownButton.DropDownOpened += this.OnToolBarDownOpened;
+                this.toolBarDownButton.DropDownClosed += this.OnToolBarDownClosed;
+            }
+
             // ToolBar panels
-            
-            toolBarPanel = GetTemplateChild("PART_ToolBarPanel") as Panel;
-            toolBarOverflowPanel = GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
+            this.toolBarPanel = this.GetTemplateChild("PART_ToolBarPanel") as Panel;
+            this.toolBarOverflowPanel = this.GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
 
-            if (rootPanel != null) RemoveLogicalChild(rootPanel);
-            rootPanel = GetTemplateChild("PART_RootPanel") as Panel;
-            if (rootPanel != null) AddLogicalChild(rootPanel);
+            if (this.rootPanel != null)
+            {
+                this.RemoveLogicalChild(this.rootPanel);
+            }
+
+            this.rootPanel = this.GetTemplateChild("PART_RootPanel") as Panel;
+
+            if (this.rootPanel != null)
+            {
+                this.AddLogicalChild(this.rootPanel);
+            }
 
             // Clears cache
-            cachedDeltaWidth = 0;
-            cachedCount = GetNonOverflowItemsCount(ActualWidth);
-            cachedConstraint = new Size();
+            this.cachedDeltaWidth = 0;
+            this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
+            this.cachedConstraint = new Size();
         }
 
         private void OnToolBarDownClosed(object sender, EventArgs e)
         {
-            toolBarOverflowPanel.Children.Clear();
+            this.toolBarOverflowPanel.Children.Clear();
         }
 
         private void OnToolBarDownOpened(object sender, EventArgs e)
-        {            
-            if(toolBarOverflowPanel.Children.Count>0) toolBarOverflowPanel.Children.Clear();
-            for(int i=cachedCount;i<Items.Count;i++)
+        {
+            if (this.toolBarOverflowPanel.Children.Count > 0)
             {
-                toolBarOverflowPanel.Children.Add(Items[i]);
+                this.toolBarOverflowPanel.Children.Clear();
+            }
+
+            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
+            {
+                this.toolBarOverflowPanel.Children.Add(this.Items[i]);
             }
         }
 
@@ -414,7 +456,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnShowBelowClick(object sender, RoutedEventArgs e)
         {
-            ShowAboveRibbon = false;
+            this.ShowAboveRibbon = false;
         }
 
         /// <summary>
@@ -424,7 +466,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnShowAboveClick(object sender, RoutedEventArgs e)
         {
-            ShowAboveRibbon = true;
+            this.ShowAboveRibbon = true;
         }
 
         /// <summary>
@@ -434,86 +476,140 @@ namespace Fluent
         /// <param name="constraint">The maximum size that the method can return</param>
         protected override Size MeasureOverride(Size constraint)
         {
-            if ((cachedConstraint == constraint)&&!itemsHadChanged) return base.MeasureOverride(constraint);
-            
-            cachedCount = GetNonOverflowItemsCount(constraint.Width);
-            HasOverflowItems = cachedCount < Items.Count;
-            cachedConstraint = constraint;
-            
-            toolBarOverflowPanel.Children.Clear();
-            if (itemsHadChanged)
+            if ((this.cachedConstraint == constraint)
+                && !this.itemsHadChanged)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            var nonOverflowItemsCount = this.GetNonOverflowItemsCount(constraint.Width);
+
+            if (this.itemsHadChanged == false
+                && nonOverflowItemsCount == this.cachedNonOverflowItemsCount)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
+            this.cachedNonOverflowItemsCount = nonOverflowItemsCount;
+            this.UpdateHasOverflowItems();
+            this.cachedConstraint = constraint;
+
+            if (this.HasOverflowItems == false)
+            {
+                this.toolBarOverflowPanel.Children.Clear();
+            }
+
+            if (this.itemsHadChanged)
             {
                 // Refill toolbar
-                toolBarPanel.Children.Clear();
-                for (int i = 0; i < cachedCount; i++)
+                this.toolBarPanel.Children.Clear();
+
+                for (var i = 0; i < this.cachedNonOverflowItemsCount; i++)
                 {
-                    toolBarPanel.Children.Add(Items[i]);
+                    this.toolBarPanel.Children.Add(this.Items[i]);
                 }
-                itemsHadChanged = false;
+
+                this.itemsHadChanged = false;
             }
             else
-            {                
-                if (cachedCount > toolBarPanel.Children.Count)
+            {
+                if (this.cachedNonOverflowItemsCount > this.toolBarPanel.Children.Count)
                 {
                     // Add needed items
-                    int savedCount = toolBarPanel.Children.Count;
-                    for (int i = savedCount; i < cachedCount; i++)
+                    var savedCount = this.toolBarPanel.Children.Count;
+                    for (var i = savedCount; i < this.cachedNonOverflowItemsCount; i++)
                     {
-                        toolBarPanel.Children.Add(Items[i]);
+                        this.toolBarPanel.Children.Add(this.Items[i]);
                     }
                 }
                 else
                 {
                     // Remove nonneeded items
-                    for (int i = toolBarPanel.Children.Count-1; i >= cachedCount; i--)
+                    for (var i = this.toolBarPanel.Children.Count - 1; i >= this.cachedNonOverflowItemsCount; i--)
                     {
-                        toolBarPanel.Children.Remove(Items[i]);
+                        this.toolBarPanel.Children.Remove(this.Items[i]);
                     }
                 }
             }
+
             return base.MeasureOverride(constraint);
+        }
+
+        /// <summary>
+        /// We have to use this function because setting a <see cref="DependencyProperty"/> very frequently is quite expensive
+        /// </summary>
+        private void UpdateHasOverflowItems()
+        {
+            var newValue = this.cachedNonOverflowItemsCount < this.Items.Count;
+
+            // ReSharper disable RedundantCheckBeforeAssignment
+            if (this.HasOverflowItems != newValue)
+            // ReSharper restore RedundantCheckBeforeAssignment
+            {
+                this.HasOverflowItems = newValue;
+            }
         }
 
         #endregion
 
         #region Methods
 
-        // Updates keys for keytip access
-        void UpdateKeyTips()
+        private void InvalidateMeasureOfParentRibbon()
         {
-            for (int i = 0; i < Math.Min(9, Items.Count); i++)
+            var parentRibbon = this.Parent as Ribbon;
+
+            if (parentRibbon != null)
+            {
+                parentRibbon.TitleBar.InvalidateMeasure();
+            }
+        }
+
+        // Updates keys for keytip access
+        private void UpdateKeyTips()
+        {
+            for (var i = 0; i < Math.Min(9, Items.Count); i++)
             {
                 // 1, 2, 3, ... , 9
                 KeyTip.SetKeys(Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
             }
-            for (int i = 9; i < Math.Min(18, Items.Count); i++)
+
+            for (var i = 9; i < Math.Min(18, Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
                 KeyTip.SetKeys(Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
-            char startChar = 'A';
-            for (int i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
+
+            var startChar = 'A';
+            for (var i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
             {
                 // 0A, 0B, 0C, ... , 0Z
                 KeyTip.SetKeys(Items[i], "0" + startChar++);
             }
         }
 
-        int GetNonOverflowItemsCount(double width)
-        {            
-            if(cachedDeltaWidth==0 && rootPanel != null && toolBarPanel != null)
+        private int GetNonOverflowItemsCount(double width)
+        {
+            if (DoubleUtil.AreClose(this.cachedDeltaWidth, 0)
+                && this.rootPanel != null
+                && this.toolBarPanel != null)
             {
-                rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                cachedDeltaWidth = rootPanel.DesiredSize.Width - toolBarPanel.DesiredSize.Width;
+                this.rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                this.cachedDeltaWidth = this.rootPanel.DesiredSize.Width - this.toolBarPanel.DesiredSize.Width;
             }
-            double currentWidth = 0;
-            for (int i = 0; i < Items.Count;i++ )
+
+            var currentWidth = 0D;
+            for (var i = 0; i < Items.Count; i++)
             {
-                Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                currentWidth += Items[i].DesiredSize.Width;
-                if (currentWidth + cachedDeltaWidth > width) return i;
+                this.Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                currentWidth += this.Items[i].DesiredSize.Width;
+
+                if (currentWidth + cachedDeltaWidth > width)
+                {
+                    return i;
+                }
             }
-            return Items.Count;
+
+            return this.Items.Count;
         }
 
         #endregion
