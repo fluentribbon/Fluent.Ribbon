@@ -17,7 +17,7 @@ Metro\Controls\SplitButton.xaml
 Office2010\Controls\CheckBox.xaml
 Office2010\Controls\RadioButton.xaml
 Office2010\Controls\GalleryGroupContainer.xaml
-Office2010\Controls\RibbonScrollViewer.xaml
+Metro\Controls\RibbonScrollViewer.xaml
 Metro\Controls\RibbonContextualTabGroup.xaml
 Office2010\Controls\RibbonTitleBar.xaml
 Office2010\Controls\KeyTip.xaml
@@ -27,7 +27,7 @@ Office2010\Controls\Menu.xaml
 Office2010\Controls\MenuItem.xaml
 Office2010\Controls\MenuSeparator.xaml
 Office2010\Controls\RibbonMenu.xaml
-Office2010\Controls\Gallery.xaml
+Metro\Controls\Gallery.xaml
 Metro\Controls\GalleryItem.xaml
 Metro\Controls\ComboBoxItem.xaml
 Office2010\Controls\InRibbonGallery.xaml
@@ -39,7 +39,6 @@ Office2010\Controls\RibbonToolBar.xaml
 Office2010\Controls\RibbonToolBarControlGroup.xaml
 Metro\Controls\StatusBar.xaml
 Metro\Controls\ScrollBar.xaml
-Office2010\Controls\ScrollBarWhite.xaml
 Office2010\Controls\RibbonTextBox.xaml
 Office2010\Controls\TextBox.xaml
 Office2010\Controls\Spinner.xaml

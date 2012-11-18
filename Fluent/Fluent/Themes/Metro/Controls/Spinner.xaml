@@ -6,8 +6,7 @@
                     mc:Ignorable="d">
     <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
     <!--Button in Spinner Control Style-->
-    <ControlTemplate x:Key="SpinnerButtonControlTemplate"
-                     TargetType="{x:Type RepeatButton}">
+    <ControlTemplate x:Key="SpinnerButtonControlTemplate" TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 BorderThickness="1"
                 Background="{DynamicResource TransparentBrush}"
@@ -15,30 +14,9 @@
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}">
-                <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <ContentPresenter x:Name="contentPresenter"
+            <ContentPresenter x:Name="contentPresenter"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
-                </Grid>
-            </Border>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -51,12 +29,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -71,21 +43,12 @@
                     <Condition Property="IsPressed"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -94,12 +57,6 @@
                     <Condition Property="IsPressed"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />

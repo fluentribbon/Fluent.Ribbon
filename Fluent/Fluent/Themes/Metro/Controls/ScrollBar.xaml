@@ -280,6 +280,22 @@
         </Trigger>
       </Style.Triggers>
     </Style>
+	
+	<Style TargetType="ScrollBar" x:Key="ScrollBarWhite">
+      <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Style.Triggers>
+        <Trigger Property="Orientation" Value="Horizontal">
+          <Setter Property="Width" Value="Auto"/>
+          <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+          <Setter Property="Height" Value="17"/>
+        </Trigger>
+        <Trigger Property="Orientation" Value="Vertical">
+          <Setter Property="Height" Value="Auto" />
+          <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+          <Setter Property="Width" Value="17"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
 
   <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush" Color="#FFABABAB"/>
   <SolidColorBrush x:Key="ScrollButtonDefaultBackgroundBrush" Color="White"/>

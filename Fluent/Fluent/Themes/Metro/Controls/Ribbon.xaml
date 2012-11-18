@@ -21,31 +21,15 @@
                                    VerticalAlignment="Top"
                                    IsCollapsed="{TemplateBinding IsCollapsed}">
                 <Fluent:RibbonTitleBar.Header>
-                    <Grid>
-                        <Rectangle x:Name="rectangle"
-                                   Fill="#7FFFFFFF"
-                                   StrokeThickness="0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   
-                                   Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}"
-                                   Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}"
-                                   RadiusX="2"
-                                   RadiusY="2">
-                            <Rectangle.Effect>
-                                <BlurEffect Radius="10" />
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <TextBlock x:Name="PART_Title"
-                                   Margin="-2,0"
-                                   VerticalAlignment="Center"
-                                   d:LayoutOverrides="Width"
-                                   HorizontalAlignment="Center"
-                                   Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                   Foreground="Black"
-                                   TextWrapping="NoWrap"
-                                   TextTrimming="CharacterEllipsis" />
-                    </Grid>
+                    <TextBlock x:Name="PART_Title"
+                                Margin="-2,0"
+                                VerticalAlignment="Center"
+                                d:LayoutOverrides="Width"
+                                HorizontalAlignment="Center"
+                                Text="{Binding Path=Title,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                Foreground="Black"
+                                TextWrapping="NoWrap"
+                                TextTrimming="CharacterEllipsis" />
                 </Fluent:RibbonTitleBar.Header>
             </Fluent:RibbonTitleBar>
 

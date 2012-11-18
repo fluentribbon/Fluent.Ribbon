@@ -33,28 +33,13 @@
 	<Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}" />
     <ControlTemplate x:Key="RibbonSplitButtonControlTemplate" TargetType="{x:Type Fluent:SplitButton}">
         <Grid>
-            <Border x:Name="PART_ButtonBorder" BorderThickness="1" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto"
-                    HorizontalAlignment="Left" VerticalAlignment="Stretch" SnapsToDevicePixels="True" ToolTip="{TemplateBinding DropDownToolTip}">
-                    <Grid x:Name="grid" Height="Auto">
-                        <Border x:Name="downRect" VerticalAlignment="Bottom" Height="31" Background="{DynamicResource TransparentBrush}" BorderThickness="0,1,0,0" Margin="0,0" />
-                        <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Vertical"
-                                    d:LayoutOverrides="Width, Height"
-                                    IsHitTestVisible="False"
-                                    Margin="0" VerticalAlignment="Bottom">
-                            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="30"
-                                              VerticalAlignment="Center" Width="32" Margin="3,2" SnapsToDevicePixels="True"
-                                              IsHitTestVisible="false" Visibility="Hidden" />
-                            <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,1"
-                                                 HasGlyph="{TemplateBinding HasTriangle}" />
-                        </StackPanel>
-                        <Fluent:ToggleButton x:Name="PART_Button"
+            <Border BorderThickness="1" Name="PART_ButtonBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}">
+            	<StackPanel Orientation="Vertical" Name="stackPanel">
+            		<Fluent:ToggleButton x:Name="PART_Button"
                                              Command="{TemplateBinding Command}"
                                              CommandParameter="{TemplateBinding CommandParameter}"
                                              CommandTarget="{TemplateBinding CommandTarget}"
-                                             Margin="0.5,0,-0.5,31"
+											 Margin="0,0,0,0"
                                              Height="Auto"
                                              Width="Auto"
                                              Style="{DynamicResource InnerButtonStyle}"
@@ -66,9 +51,19 @@
                                              IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                              IsDefinitive="{TemplateBinding IsDefinitive}"
                                              CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
-                    </Grid>
-                </Border>
-            <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
+					<Border BorderThickness="0,1,0,0" Name="downBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}">
+						<Grid>
+							<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,1"
+                                                 HasGlyph="{TemplateBinding HasTriangle}" />
+							<!--<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" 
+                                              	VerticalAlignment="Center" MinWidth="10" Margin="3,2" SnapsToDevicePixels="True"
+                                              	IsHitTestVisible="false" Visibility="Hidden" />-->
+						</Grid>
+					</Border>
+				</StackPanel>         
+			</Border>
+			<Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True" Focusable="False" PopupAnimation="Fade"
                    Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                 <Grid Name="DropDown"
@@ -91,17 +86,7 @@
                                Grid.Column="1"
                                StrokeThickness="0"
                                Margin="-1,-1,0,0">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush RadiusX="0.984"
-                                                 Center="0.017,0.002"
-                                                 GradientOrigin="0.017,0.002"
-                                                 RadiusY="1">
-                                <GradientStop Color="#3F000000"
-                                              Offset="0" />
-                                <GradientStop Color="#00000000"
-                                              Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
+                        
                     </Rectangle>
                     <Rectangle StrokeThickness="0"
                                HorizontalAlignment="Left"
@@ -111,17 +96,7 @@
                                Height="4"
                                Grid.Column="1"
                                Grid.Row="0">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.032,1.01"
-                                                 GradientOrigin="0.032,1.01"
-                                                 RadiusX="0.984"
-                                                 RadiusY="1">
-                                <GradientStop Color="#3F000000"
-                                              Offset="0" />
-                                <GradientStop Color="#00000000"
-                                              Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
+                        
                     </Rectangle>
                     <Rectangle StrokeThickness="0"
                                HorizontalAlignment="Left"
@@ -131,17 +106,7 @@
                                Height="4"
                                Grid.Column="0"
                                Grid.Row="1">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.996,0.027"
-                                                 GradientOrigin="0.996,0.027"
-                                                 RadiusX="0.984"
-                                                 RadiusY="1">
-                                <GradientStop Color="#3F000000"
-                                              Offset="0" />
-                                <GradientStop Color="#00000000"
-                                              Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
+                        
                     </Rectangle>
                     <Rectangle StrokeThickness="0"
                                HorizontalAlignment="Stretch"
@@ -151,16 +116,7 @@
                                Height="4"
                                Grid.Column="0"
                                Grid.Row="1">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0"
-                                                 MappingMode="RelativeToBoundingBox">
-                                <GradientStop Color="#3F000000"
-                                              Offset="0" />
-                                <GradientStop Color="#00000000"
-                                              Offset="1" />
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
+                       
                     </Rectangle>
                     <Rectangle StrokeThickness="0"
                                HorizontalAlignment="Left"
@@ -170,16 +126,7 @@
                                Height="Auto"
                                Grid.Column="1"
                                Grid.Row="0">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush EndPoint="1,0.5"
-                                                 StartPoint="0,0.5"
-                                                 MappingMode="RelativeToBoundingBox">
-                                <GradientStop Color="#3F000000"
-                                              Offset="0" />
-                                <GradientStop Color="#00000000"
-                                              Offset="1" />
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
+                        
                     </Rectangle>
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
@@ -200,8 +147,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1" />
+                                    BorderThickness="1"/>
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -294,153 +240,27 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
                 <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                <!--<Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
-				<Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonPressedOuterBorderBrush}" />-->
             </Trigger>
-            <Trigger Property="Size"
-                     Value="Small">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
-                <!--        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"/>-->
-                <Setter Property="HasTwoLines"
-                        TargetName="controlLabel"
-                        Value="False" />
-                <Setter Property="Text"
-                        TargetName="controlLabel"
-                        Value="" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="1,0,0,0" />
-                <Setter Property="Margin"
-                        TargetName="controlLabel"
-                        Value="3,-1,0,1" />
-                <Setter Property="Margin"
-                        TargetName="PART_Button"
-                        Value="-1,-1,10,-1" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="downRect"
-                        Value="Stretch" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="downRect"
-                        Value="Right" />
-                <Setter Property="Height"
-                        TargetName="downRect"
-                        Value="Auto" />
-                <Setter Property="Margin"
-                        TargetName="downRect"
-                        Value="-1,-1,-1,-1" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="controlLabel"
-                        Value="Right" />
-                <Setter Property="BorderThickness"
-                        TargetName="downRect"
-                        Value="1" />
-                <Setter Property="Width"
-                        TargetName="downRect"
-                        Value="12" />
-                <Setter Property="Width"
-                        TargetName="controlLabel"
-                        Value="12" />
-                <Setter Property="Size"
-                        TargetName="PART_Button"
-                        Value="Small" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="controlLabel"
-                        Value="Center" />
+            <Trigger Property="Size" Value="Small">
+                <Setter Property="Size" TargetName="PART_Button" Value="Small"/>
+				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+				<Setter Property="Width" TargetName="controlLabel" Value="10"/>
+				<Setter Property="Margin" TargetName="controlLabel" Value="0,-19,0,0"/>
+				<Setter Property="Text" TargetName="controlLabel" Value=""/>
             </Trigger>
-            <Trigger Property="Size"
-                     Value="Middle">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="iconImage"
-                        Value="Center" />
-                <Setter Property="HasTwoLines"
-                        TargetName="controlLabel"
-                        Value="False" />
-                <Setter Property="Margin"
-                        TargetName="controlLabel"
-                        Value="3,-1,-2,1" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="PART_ButtonBorder"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="1,0,2,0" />
-                <Setter Property="Margin"
-                        TargetName="PART_Button"
-                        Value="0.5,0,12,0" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="downRect"
-                        Value="Right" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="downRect"
-                        Value="Stretch" />
-                <Setter Property="Height"
-                        TargetName="downRect"
-                        Value="Auto" />
-                <Setter Property="Style"
-                        TargetName="PART_Button"
-                        Value="{DynamicResource InnerButtonStyle}" />
-                <Setter Property="Margin"
-                        TargetName="downRect"
-                        Value="-1,0,0,0" />
-                <Setter Property="Width"
-                        TargetName="downRect"
-                        Value="12" />
-                <Setter Property="Size"
-                        TargetName="PART_Button"
-                        Value="Middle" />
-                <Setter Property="BorderThickness"
-                        TargetName="downRect"
-                        Value="1,0,0,0" />
-                <Setter Property="Text"
-                        TargetName="controlLabel"
-                        Value="" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="stackPanel"
-                        Value="Right" />
-                <Setter Property="Width"
-                        TargetName="stackPanel"
-                        Value="Auto" />
-                <Setter Property="Width"
-                        TargetName="controlLabel"
-                        Value="12" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="grid"
-                        Value="Stretch" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="controlLabel"
-                        Value="Center" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="controlLabel"
-                        Value="Right" />
+			<Trigger Property="Size" Value="Middle">
+                <Setter Property="Size" TargetName="PART_Button" Value="Middle"/>
+				<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
+				<Setter Property="Width" TargetName="controlLabel" Value="10"/>
+				<Setter Property="Margin" TargetName="controlLabel" Value="0,-19,0,0"/>
+				<Setter Property="Text" TargetName="controlLabel" Value=""/>
             </Trigger>
+            
             <Trigger Property="IsButtonEnabled"
                      Value="False">
-                <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="IsEnabled"
+                        TargetName="PART_Button"
+                        Value="False" />
             </Trigger>
 			<Trigger Property="IsDropDownOpen"
                      Value="True">
@@ -454,33 +274,31 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
-                               Value="True" 
-							   SourceName="downRect"/>
-                    <Condition Property="IsDropDownOpen"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-				<Setter Property="Background"
-                        TargetName="downRect"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="downRect"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-            </MultiTrigger>
-			<MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True"/>
+                               Value="True"
+							   SourceName="PART_Button"/>
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+            </MultiTrigger>
+			<MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True"
+							   SourceName="downBorder"/>
+                    <Condition Property="IsDropDownOpen"
+                               Value="False" />
+                </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
-                        TargetName="downRect"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+				<Setter Property="Background"
+                        TargetName="downBorder"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="downBorder"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
