@@ -748,7 +748,7 @@
                                                SizeDefinition="Small"
                                                MaxDropDownHeight="500">
                             <Fluent:DropDownButton.ToolTip>
-                                <Fluent:ScreenTip>Test-ScreenTip to test wrong ToolTip appearence when Popup is open</Fluent:ScreenTip>
+                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
                             </Fluent:DropDownButton.ToolTip>
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
@@ -1236,7 +1236,8 @@
 
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="Mailings">
+            <Fluent:RibbonTabItem Header="Mailings"
+                                  Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox>
                     <Fluent:ComboBox x:Name="someCombo"
                                      ItemsSource="{Binding TstArr, ElementName=window}"

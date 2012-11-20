@@ -63,7 +63,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register("Group", typeof(string), 
+            DependencyProperty.Register("Group", typeof(string),
             typeof(GalleryItem), new UIPropertyMetadata(null));
 
 
@@ -294,7 +294,7 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
-            IsSelectedProperty.AddOwner(typeof (GalleryItem), new FrameworkPropertyMetadata(false,FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
             StyleProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
@@ -311,11 +311,11 @@ namespace Fluent
 
         static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if((bool)e.NewValue)
+            if ((bool)e.NewValue)
             {
                 ((GalleryItem)d).BringIntoView();
-                Selector parentSelector = ItemsControl.ItemsControlFromItemContainer(((GalleryItem) d)) as Selector;
-                if (parentSelector != null) parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem) d));
+                Selector parentSelector = ItemsControl.ItemsControlFromItemContainer(((GalleryItem)d)) as Selector;
+                if (parentSelector != null) parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem)d));
             }
         }
 
@@ -338,9 +338,20 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            IsPressed = true;
+            this.IsPressed = true;
             Mouse.Capture(this);
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.LostMouseCapture"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains event data.</param>
+        protected override void OnLostMouseCapture(MouseEventArgs e)
+        {
+            base.OnLostMouseCapture(e);
+
+            this.IsPressed = false;
         }
 
         /// <summary>
@@ -350,14 +361,22 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            IsPressed = false;
-            if (Mouse.Captured == this) Mouse.Capture(null);
-            Point position = Mouse.PrimaryDevice.GetPosition(this);
-            if (((position.X >= 0.0) && (position.X <= ActualWidth)) && ((position.Y >= 0.0) && (position.Y <= ActualHeight)) && (e.ClickCount == 1))
+            this.IsPressed = false;
+            if (Mouse.Captured == this)
             {
-                RaiseClick();
+                Mouse.Capture(null);
+            }
+
+            var position = Mouse.PrimaryDevice.GetPosition(this);
+
+            if ((position.X >= 0.0 && position.X <= this.ActualWidth)
+                && (position.Y >= 0.0 && position.Y <= this.ActualHeight)
+                && e.ClickCount == 1)
+            {
+                this.RaiseClick();
                 e.Handled = true;
             }
+
             e.Handled = true;
         }
 
@@ -377,7 +396,7 @@ namespace Fluent
             PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
             e.Handled = true;
         }
-        
+
         #endregion
 
         /// <summary>
