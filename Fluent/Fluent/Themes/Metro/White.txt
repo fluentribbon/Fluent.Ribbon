@@ -30,7 +30,7 @@ Office2010\Controls\RibbonMenu.xaml
 Metro\Controls\Gallery.xaml
 Metro\Controls\GalleryItem.xaml
 Metro\Controls\ComboBoxItem.xaml
-Office2010\Controls\InRibbonGallery.xaml
+Metro\Controls\InRibbonGallery.xaml
 Metro\Controls\BackstageTabItem.xaml
 Office2010\Controls\BackstageControls.xaml
 Metro\Controls\BackstageTabControl.xaml

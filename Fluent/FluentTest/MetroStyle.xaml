@@ -15,7 +15,12 @@
                      RibbonThemeColor="#FF217346"
                      FlowDirection="LeftToRight" Foreground="White">
     <Fluent:MetroWindow.Resources>
-        <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+        
     </Fluent:MetroWindow.Resources>
     <Fluent:MetroWindow.CommandBindings>
         <CommandBinding Command="{x:Static FluentTest:TestWindow.New1}"
