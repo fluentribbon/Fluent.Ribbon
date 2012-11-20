@@ -23,6 +23,7 @@
       </Trigger>
     </Style.Triggers>
   </Style>
+  <SolidColorBrush x:Key="ButtonCheckedBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
   <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
     <Border x:Name="border" BorderThickness="1" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 		<Grid Height="Auto">
@@ -61,8 +62,8 @@
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
       </Trigger>
       <Trigger Property="IsChecked" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonCheckedBrush}"/>
       </Trigger>
             <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
@@ -95,8 +96,8 @@
           <Condition Property="IsPressed" Value="False"/>
           <Condition Property="IsChecked" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
       </MultiTrigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>

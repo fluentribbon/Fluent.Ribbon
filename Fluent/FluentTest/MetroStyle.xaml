@@ -12,7 +12,7 @@
                      Width="800"
                      mc:Ignorable="d"
                      ResizeMode="CanResizeWithGrip"
-                     RibbonThemeColor="Green"
+                     RibbonThemeColor="#FF217346"
                      FlowDirection="LeftToRight" Foreground="White">
     <Fluent:MetroWindow.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
@@ -51,7 +51,7 @@
             </Fluent:Ribbon.ContextualGroups>
 
             <Fluent:Ribbon.Menu>
-                <Fluent:Backstage Background="Green">
+                <Fluent:Backstage >
 
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"
@@ -867,7 +867,7 @@
                                         Fluent:KeyTip.Keys="S"
                                         Click="OnSplitClick"
                                         ResizeMode="Both"
-                                        SizeDefinition="Small"
+                                        SizeDefinition="Large"
                                         MaxDropDownHeight="1000"
                                         DropDownHeight="300">
                         <Fluent:Gallery x:Name="gallery"

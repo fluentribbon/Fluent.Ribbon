@@ -3,23 +3,23 @@
 					xmlns:Fluent="clr-namespace:Fluent">
 	     <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Name="noneditComboboxItem" x:Key="noneditComboboxItemControlTemplate">
           <Grid Background="{DynamicResource TransparentBrush}">
-            <Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" Visibility="Collapsed">
+            <Border x:Name="hoverBorder" BorderThickness="1" Visibility="Collapsed">
             	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
 				</Border.Background>
-              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1">
+              <Border Height="Auto" BorderThickness="1">
               	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
 				</Border.Background>
 			  </Border>
             </Border>
-            <Border x:Name="selectedBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" Visibility="Collapsed">
+            <Border x:Name="selectedBorder" BorderThickness="1" Visibility="Collapsed">
             	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
 				</Border.Background>
-              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" >
+              <Border Height="Auto" BorderThickness="1" >
               	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
 				</Border.Background>         
 			  </Border>
             </Border>
@@ -51,23 +51,23 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Name="noneditComboboxItem">
           <Grid Background="{DynamicResource TransparentBrush}">
-            <Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" Visibility="Collapsed">
+            <Border x:Name="hoverBorder" BorderThickness="1" Visibility="Collapsed">
             	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
 				</Border.Background>
-              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1">
+              <Border Height="Auto" BorderThickness="1">
               	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
 				</Border.Background>         
 			  </Border>
             </Border>
-            <Border x:Name="selectedBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" Visibility="Collapsed">
+            <Border x:Name="selectedBorder" BorderThickness="1" Visibility="Collapsed">
             	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
 				</Border.Background>
-              <Border Height="Auto" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1">
+              <Border Height="Auto" BorderThickness="1">
               	<Border.Background>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
 				</Border.Background>         
 			  </Border>
             </Border>

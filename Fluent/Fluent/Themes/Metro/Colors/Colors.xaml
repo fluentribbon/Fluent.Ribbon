@@ -6,7 +6,7 @@
 	<!--Backstage-->
 	<SolidColorBrush x:Key="BackstageBackgroundBrush" Color="White"/>
 	    	
-		    	<LinearGradientBrush x:Key="BackstagePanelShadowBackgroundBrush" EndPoint="1.012,0">
+		<LinearGradientBrush x:Key="BackstagePanelShadowBackgroundBrush" EndPoint="1.012,0">
     		<GradientStop Color="#00000000" Offset="0"/>
     		<GradientStop Color="#19000000" Offset="1"/>
     	</LinearGradientBrush>
@@ -19,15 +19,15 @@
     		<GradientStop Offset="1"/>
     	</LinearGradientBrush>
 	
-	<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
-	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
-	<SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
-	<SolidColorBrush x:Key="ButtonHoverInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.09"/>
+	<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
 		
-	<SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.25"/>
-	<SolidColorBrush x:Key="ButtonPressedOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.25"/>
-	<SolidColorBrush x:Key="ButtonPressedInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.25"/>
-	<SolidColorBrush x:Key="ButtonPressedInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.25"/>
+	<SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
 	
 	<!--<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="Green" Opacity="0.1"/>
 	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="Green" Opacity="0.1"/>
