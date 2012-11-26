@@ -640,6 +640,20 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.UIElement.GotFocus"/> event reaches this element in its route.
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            base.OnGotFocus(e);
+
+            if (this.textBoxTemplated != null)
+            {
+                this.textBoxTemplated.Focus();
+            }
+        }
+
+        /// <summary>
         /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
