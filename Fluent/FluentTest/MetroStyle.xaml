@@ -140,9 +140,7 @@
                         <Fluent:SeparatorTabItem />
                         <Fluent:BackstageTabItem Header="New"
                                                  Fluent:KeyTip.Keys="N">
-                            <Grid Background="#550000FF"
-                                  Opacity="1"
-                                  Margin="50"
+                            <Grid Margin="50"
                                   MinWidth="0"
                                   Width="Auto"
                                   HorizontalAlignment="Stretch">

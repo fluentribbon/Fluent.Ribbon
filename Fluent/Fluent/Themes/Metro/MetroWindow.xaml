@@ -19,7 +19,7 @@
                         <Grid x:Name="PART_TitleBar" Height="{Binding TitlebarHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
                                   Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.Background>
-                                <SolidColorBrush Color="{DynamicResource TransparentWhiteColor}"/>
+                                <SolidColorBrush Color="Transparent"/>
                             </Grid.Background>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -38,7 +38,6 @@
                         <ContentPresenter Grid.Row="1"/>
                     </Grid>
             </AdornerDecorator>
-            <!--<Border x:Name="PART_Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
             <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
             <!--<ItemsControl ItemsSource="{Binding Flyouts, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" VerticalAlignment="Stretch">
                 <ItemsControl.ItemsPanel>
@@ -59,9 +58,6 @@
 				<Setter Property="Visibility" TargetName="themecolorborder" Value="Visible"/>
                 <Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>
             </MultiTrigger>
-            <!--<Trigger Property="TitleCaps" Value="True">
-                <Setter TargetName="WindowTitleTextBlock" Property="Text" Value="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" />
-            </Trigger>-->
 			<Trigger Property="WindowState" Value="Maximized">
 				<Setter Property="Margin" TargetName="root" Value="0,-2,0,0"/>
 				<Setter Property="Margin" TargetName="content" Value="0"/>

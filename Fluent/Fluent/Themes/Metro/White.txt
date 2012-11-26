@@ -32,7 +32,7 @@ Metro\Controls\GalleryItem.xaml
 Metro\Controls\ComboBoxItem.xaml
 Metro\Controls\InRibbonGallery.xaml
 Metro\Controls\BackstageTabItem.xaml
-Office2010\Controls\BackstageControls.xaml
+Metro\Controls\BackstageControls.xaml
 Metro\Controls\BackstageTabControl.xaml
 Office2010\Controls\RibbonSeparator.xaml
 Office2010\Controls\RibbonToolBar.xaml
