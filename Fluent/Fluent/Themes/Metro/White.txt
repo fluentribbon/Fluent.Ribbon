@@ -41,7 +41,7 @@ Metro\Controls\StatusBar.xaml
 Metro\Controls\ScrollBar.xaml
 Office2010\Controls\RibbonTextBox.xaml
 Office2010\Controls\TextBox.xaml
-Office2010\Controls\Spinner.xaml
+Metro\Controls\Spinner.xaml
 Metro\Controls\ComboBox.xaml
 Metro\Controls\Ribbon.xaml
 Office2010\Controls\ColorGallery.xaml
