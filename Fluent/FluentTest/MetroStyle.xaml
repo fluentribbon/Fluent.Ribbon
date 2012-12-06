@@ -235,6 +235,7 @@
                         <Fluent:SplitButton.ToolTip>
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Text="Paste the contents of the Clipboard."
+                                              DisableReason="Enable it do use this function"
                                               Width="190" />
                         </Fluent:SplitButton.ToolTip>
                         <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden"
