@@ -12,7 +12,7 @@
     </Style>
   <ControlTemplate x:Key="ButtonBackstageControlTemplate" TargetType="{x:Type Fluent:Button}">
         <Grid x:Name="grid">
-  			<Border x:Name="border" BorderThickness="1" Margin="0" Background="Transparent" BorderBrush="Gray">
+  			<Border x:Name="border" BorderThickness="1" Margin="0" Background="Transparent" BorderBrush="LightGray">
   				<StackPanel Margin="2" x:Name="stackPanel">
             		<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" Width="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Margin="9,9,9,0" SnapsToDevicePixels="True"/>
   					<Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Header}"/>
@@ -84,7 +84,7 @@
     </Style>
   <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
   	<Grid x:Name="grid">
-      <Border x:Name="border" BorderThickness="1" Margin="0" BorderBrush="Gray">
+      <Border x:Name="border" BorderThickness="1" Margin="0" BorderBrush="LightGray">
        	<StackPanel x:Name="stackPanel">
             <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="9,9,9,0" SnapsToDevicePixels="True"/>
             <Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="7,7,7,5" VerticalAlignment="Center" Text="{TemplateBinding Header}"/>
@@ -166,7 +166,7 @@
   </Style>
   <ControlTemplate x:Key="DropDownButtonBackstageControlTemplate" TargetType="{x:Type Fluent:DropDownButton}">
   	<Grid>
-  		<Border x:Name="PART_ButtonBorder" BorderThickness="1" Margin="0" BorderBrush="Gray">
+  		<Border x:Name="PART_ButtonBorder" BorderThickness="1" Margin="0" BorderBrush="LightGray">
   			<StackPanel x:Name="stackPanel" Margin="0">
             		<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="7,7,7,0" SnapsToDevicePixels="True"/>
   					<Fluent:TwoLineLabel x:Name="twoLineLabel" Margin="5,5,5,3" VerticalAlignment="Center" HasGlyph="True" Text="{TemplateBinding Header}"/>
@@ -190,46 +190,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
-          <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="4" Height="4" Grid.Row="1" Grid.Column="1" StrokeThickness="0" Margin="-1,-1,0,0">
-            <Rectangle.Fill>
-              <RadialGradientBrush RadiusX="0.984" Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,3,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="1" Grid.Row="0">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="3,-1,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="0" Grid.Row="1">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Stretch" Margin="7,-1,1,0" VerticalAlignment="Top" Width="Auto" Height="4" Grid.Column="0" Grid.Row="1">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,7,0,1" VerticalAlignment="Stretch" Width="4" Height="Auto" Grid.Column="1" Grid.Row="0">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
           <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
               <Border VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
@@ -410,46 +370,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
-          <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="4" Height="4" Grid.Row="1" Grid.Column="1" StrokeThickness="0" Margin="-1,-1,0,0">
-            <Rectangle.Fill>
-              <RadialGradientBrush RadiusX="0.984" Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,3,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="1" Grid.Row="0">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="3,-1,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="0" Grid.Row="1">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Stretch" Margin="7,-1,1,0" VerticalAlignment="Top" Width="Auto" Height="4" Grid.Column="0" Grid.Row="1">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,7,0,1" VerticalAlignment="Stretch" Width="4" Height="Auto" Grid.Column="1" Grid.Row="0">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#3F000000" Offset="0"/>
-                <GradientStop Color="#00000000" Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
           <Border x:Name="PART_DropDownBorder" MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" KeyboardNavigation.DirectionalNavigation="Cycle">
               <Border VerticalAlignment="Stretch" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
@@ -502,7 +422,6 @@
   		<Trigger Property="IsEnabled" Value="False">
   			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="#FFC8C8C9"/>
   			<Setter Property="Opacity" TargetName="rectangle" Value="0"/>
-  			
   		</Trigger>  		
   	</ControlTemplate.Triggers>
   </ControlTemplate>
@@ -582,7 +501,6 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
-          
             <Grid Width="Auto" Height="22" Background="#00000000">
             	<Grid.ColumnDefinitions>
             		<ColumnDefinition Width="Auto"/>
@@ -592,7 +510,6 @@
             		<Image Width="16" Height="16" VerticalAlignment="Center" Margin="4,0,3,0" Source="{TemplateBinding Icon}"/>
             		<TextBlock Text="{TemplateBinding Header}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="2,0,4,0" x:Name="textBlock"/>
             	</StackPanel>
-				
               <Border x:Name="border" Height="22" BorderThickness="1" Background="{DynamicResource TextBoxBackgroundBrush}" Grid.ColumnSpan="1" Grid.Column="1" Width="{TemplateBinding InputWidth}" CornerRadius="2">
               	<Border.BorderBrush>
               		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
