@@ -7,7 +7,7 @@
       <Grid Height="Auto">
           <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
             <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="32" Margin="3,2,3,1" SnapsToDevicePixels="True"/>
-            <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2"/>
+            <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,0"/>
           </StackPanel>
         </Grid>
     </Border>
@@ -69,7 +69,7 @@
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
-    <Setter Property="Height" Value="68"/>
+    <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
@@ -78,7 +78,7 @@
     <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
-        <Setter Property="Height" Value="68"/>
+        <Setter Property="Height" Value="66"/>
       </Trigger>
       <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
         <Setter Property="Height" Value="22"/>

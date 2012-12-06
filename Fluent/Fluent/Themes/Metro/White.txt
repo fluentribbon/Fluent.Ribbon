@@ -9,7 +9,7 @@ Metro\Controls\RibbonTabItem.xaml
 Metro\Controls\RibbonTabControl.xaml
 Metro\Controls\RibbonGroupBox.xaml
 Office2010\Controls\ScreenTip.xaml
-Office2010\Controls\TwoLineLabel.xaml
+Metro\Controls\TwoLineLabel.xaml
 Metro\Controls\Button.xaml
 Metro\Controls\ToggleButton.xaml
 Metro\Controls\DropDownButton.xaml

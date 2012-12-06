@@ -10,7 +10,7 @@
     <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
     <Style x:Key="RibbonSplitButtonStyle" TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template" Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
-        <Setter Property="Height" Value="68" />
+        <Setter Property="Height" Value="66" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
@@ -19,7 +19,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
-                <Setter Property="Height" Value="68" />
+                <Setter Property="Height" Value="66" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter Property="Height" Value="22" />
@@ -51,10 +51,10 @@
                                              IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                              IsDefinitive="{TemplateBinding IsDefinitive}"
                                              CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
-					<Border BorderThickness="0,1,0,0" Name="downBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}">
+					<Border BorderThickness="0,1,0,0" Name="downBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}" Margin="0,0,0,0">
 						<Grid>
 							<Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,1"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,0"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
 							<!--<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" 
                                               	VerticalAlignment="Center" MinWidth="10" Margin="3,2" SnapsToDevicePixels="True"
@@ -247,6 +247,7 @@
 				<Setter Property="Width" TargetName="controlLabel" Value="10"/>
 				<Setter Property="Margin" TargetName="controlLabel" Value="0,-19,0,0"/>
 				<Setter Property="Text" TargetName="controlLabel" Value=""/>
+				<Setter Property="Margin" TargetName="downBorder" Value="0"/>
             </Trigger>
 			<Trigger Property="Size" Value="Middle">
                 <Setter Property="Size" TargetName="PART_Button" Value="Middle"/>
@@ -254,6 +255,7 @@
 				<Setter Property="Width" TargetName="controlLabel" Value="10"/>
 				<Setter Property="Margin" TargetName="controlLabel" Value="0,-19,0,0"/>
 				<Setter Property="Text" TargetName="controlLabel" Value=""/>
+				<Setter Property="Margin" TargetName="downBorder" Value="0"/>
             </Trigger>
             
             <Trigger Property="IsButtonEnabled"
@@ -344,7 +346,6 @@
                                           VerticalAlignment="Center"
                                           Content="{TemplateBinding LargeIcon}"
                                           Width="32"
-                                          Margin="0,2,0,1"
                                           SnapsToDevicePixels="True" />
                         <Fluent:TwoLineLabel x:Name="controlLabel"
                                              Text="{TemplateBinding Header}"
