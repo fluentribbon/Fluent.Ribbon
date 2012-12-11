@@ -340,7 +340,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="22"/>
           </Grid.ColumnDefinitions>
-          <Fluent:ToggleButton Size="Small" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
+          <Fluent:ToggleButton Size="Small" Width="{Binding ElementName=PART_ContentBorder, Path=ActualWidth}" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
           <ContentPresenter Margin="3" x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Top" HorizontalAlignment="Left" />
           <Image Margin="0" Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed" Width="Auto" Height="Auto"/>
           <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Collapsed"/>
@@ -385,8 +385,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                   </Grid.RowDefinitions>
-                  <ScrollViewer Grid.Row="0" Focusable="False" BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="scrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
-                    <Fluent:GalleryPanel Background="White" ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
+                  <ScrollViewer Grid.Row="0" Focusable="False" BorderBrush="{DynamicResource GalleryBorderBrush}" x:Name="PART_ScrollViewer" Margin="1" SnapsToDevicePixels="True" KeyboardNavigation.DirectionalNavigation="None" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Visible" BorderThickness="0,0,0,1">
+                    <Fluent:GalleryPanel Background="White" x:Name="PART_GalleryPanel" ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}" GroupBy="{TemplateBinding GroupBy}" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" ItemHeight="{TemplateBinding ItemHeight}" Orientation="Vertical"/>
                     <!--<StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" Orientation="Vertical"/>-->
                   </ScrollViewer>
 
