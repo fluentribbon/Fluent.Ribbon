@@ -16,6 +16,8 @@ namespace Fluent
         private const string PART_TitleBar = "PART_TitleBar";
         private readonly int doubleclick = UnsafeNativeMethods.GetDoubleClickTime();
         private DateTime lastMouseClick;
+        private bool _isContextMenuOpen = false;
+        private bool _isMouseDown = false;
 
         public static readonly DependencyProperty ShowIconOnTitleBarProperty = DependencyProperty.Register("ShowIconOnTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
@@ -130,7 +132,11 @@ namespace Fluent
         protected void TitleBarMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
+            {
                 DragMove();
+                // Do not resize window 
+                _isMouseDown = (e.ClickCount == 1 ? true : false);
+            }
 
             if (e.ClickCount == 2 && (ResizeMode == ResizeMode.CanResizeWithGrip || ResizeMode == ResizeMode.CanResize))
             {
@@ -138,9 +144,26 @@ namespace Fluent
             }
         }
 
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            // Do not resize window 
+            _isContextMenuOpen = true;
+            base.OnContextMenuOpening(e);
+        }
+
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            // Do not resize window 
+            _isContextMenuOpen = false;
+            base.OnContextMenuClosing(e);
+        }
+
         protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (!ShowIconOnTitleBar) return;
+
+            _isMouseDown = false;
+
             var mousePosition = GetCorrectPosition(this);
 
             if (mousePosition.X <= TitlebarHeight && mousePosition.Y <= TitlebarHeight)
@@ -171,7 +194,7 @@ namespace Fluent
         {
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
                 && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized
-                && ResizeMode != ResizeMode.NoResize)
+                && ResizeMode != ResizeMode.NoResize && _isMouseDown && !_isContextMenuOpen)
             {
                 // Calculating correct left coordinate for multi-screen system.
                 Point mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
