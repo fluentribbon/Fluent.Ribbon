@@ -442,6 +442,7 @@ namespace Fluent
             if (e.Key == Key.Escape)
             {
                 this.IsOpen = false;
+                e.Handled = true;
             }
         }
 
