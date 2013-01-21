@@ -3,7 +3,7 @@ using System.Windows.Interactivity;
 
 namespace Fluent.Metro.Behaviours
 {
-    class StylizedBehaviors
+    public class StylizedBehaviors
     {
         private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached(@"OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new UIPropertyMetadata(null));
 
