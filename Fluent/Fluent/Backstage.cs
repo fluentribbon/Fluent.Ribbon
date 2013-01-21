@@ -151,6 +151,8 @@ namespace Fluent
             HeaderProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceHeader));
             KeyTip.KeysProperty.AddOwner(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
             StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, OnCoerceStyle));
+
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         // Coerce object style
@@ -441,8 +443,10 @@ namespace Fluent
         {
             if (e.Key == Key.Escape)
             {
+                // only handle ESC when the backstage is open
+                e.Handled = this.IsOpen;
+
                 this.IsOpen = false;
-                e.Handled = true;
             }
         }
 
