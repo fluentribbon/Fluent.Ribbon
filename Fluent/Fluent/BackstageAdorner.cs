@@ -10,6 +10,7 @@
 using System;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Fluent
@@ -40,6 +41,8 @@ namespace Fluent
         /// <param name="topOffset">Adorner offset from top of window</param>
         public BackstageAdorner(FrameworkElement adornedElement, UIElement backstage, double topOffset) : base(adornedElement)
         {
+            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
+
             this.backstage = backstage;
             this.topOffset = topOffset;
             visualChildren = new VisualCollection(this);
