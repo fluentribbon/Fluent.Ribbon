@@ -254,16 +254,16 @@
                         </Interactivity:EventTrigger>
                     </Interactivity:Interaction.Triggers>
                 </Grid>
-                <StackPanel Margin="0,70,0,0"
-                            Height="Auto"
-                            IsItemsHost="True" />
+                <ItemsPresenter Margin="0,70,0,0"
+                                Height="Auto" />
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
                          Value="True">
                 <DataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="IsOpenBeginStoryboard" Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
+                    <BeginStoryboard x:Name="IsOpenBeginStoryboard"
+                                     Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
                 </DataTrigger.EnterActions>
                 <DataTrigger.ExitActions>
                     <RemoveStoryboard BeginStoryboardName="IsOpenBeginStoryboard" />
