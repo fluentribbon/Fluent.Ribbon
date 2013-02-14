@@ -466,15 +466,25 @@ namespace Fluent
         #region Methods
 
         // Back to the previous adorner
-        void Back()
+        private void Back()
         {
             if (parentAdorner != null)
             {
+                var backstage = this.AdornedElement as Backstage;
+                if (backstage != null
+                    && parentAdorner.AdornedElement is Ribbon)
+                {
+                    backstage.IsOpen = false;
+                }
+
                 Log("Back");
                 Detach();
                 parentAdorner.Attach();
             }
-            else Terminate();
+            else
+            {
+                Terminate();
+            }
         }
 
         /// <summary>
