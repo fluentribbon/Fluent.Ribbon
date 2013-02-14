@@ -40,6 +40,7 @@ namespace Fluent
         HwndSource attachedHwndSource;
 
         private KeyConverter keyConverter = new KeyConverter();
+        private string currentUserInput;
 
         #endregion
 
@@ -72,21 +73,34 @@ namespace Fluent
         /// </summary>
         public void Attach()
         {
-            if (attached) return;
-            attached = true;
+            if (this.attached)
+            {
+                return;
+            }
+
+            this.attached = true;
 
             // KeyTip service must not work in design mode
-            if (DesignerProperties.GetIsInDesignMode(ribbon)) return;
+            if (DesignerProperties.GetIsInDesignMode(this.ribbon))
+            {
+                return;
+            }
 
-            window = GetElementWindow(ribbon);
-            if (window == null) return;
+            this.window = GetElementWindow(this.ribbon);
+            if (this.window == null)
+            {
+                return;
+            }
 
-            window.KeyDown += OnWindowKeyDown;
-            window.KeyUp += OnWindowKeyUp;
+            this.window.KeyDown += this.OnWindowKeyDown;
+            this.window.KeyUp += this.OnWindowKeyUp;
 
             // Hookup non client area messages
-            attachedHwndSource = (HwndSource)PresentationSource.FromVisual(window);
-            if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
+            this.attachedHwndSource = (HwndSource)PresentationSource.FromVisual(this.window);
+            if (this.attachedHwndSource != null)
+            {
+                this.attachedHwndSource.AddHook(this.WindowProc);
+            }
         }
 
         /// <summary>
@@ -158,13 +172,14 @@ namespace Fluent
                 }
                 else
                 {
-                    this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
+                    this.currentUserInput = string.Empty;
+                    this.timer.Stop();
                 }
             }
             else
             {
                 if (e.Key == Key.System
+                    && e.SystemKey != Key.Escape
                     && e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
                 {
                     if (this.activeAdornerChain == null || (!this.activeAdornerChain.IsAdornerChainAlive || !this.activeAdornerChain.AreAnyKeyTipsVisible))
@@ -181,8 +196,11 @@ namespace Fluent
 
                     if (this.activeAdornerChain != null)
                     {
-                        if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.keyConverter.ConvertToString(e.SystemKey), true))
+                        this.currentUserInput += this.keyConverter.ConvertToString(e.SystemKey);
+
+                        if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                         {
+                            this.currentUserInput = string.Empty;
                             e.Handled = true;
                         }
                     }
@@ -203,6 +221,8 @@ namespace Fluent
                  (e.SystemKey == Key.F10) ||
                  (e.SystemKey == Key.Space)))
             {
+                this.currentUserInput = string.Empty;
+
                 e.Handled = true;
 
                 if (this.timer.IsEnabled)
@@ -222,6 +242,9 @@ namespace Fluent
                     this.backUpFocusedElement = Keyboard.FocusedElement;
                     this.ribbon.Focusable = true;
                     this.ribbon.Focus();
+
+                    this.activeAdornerChain.Terminate();
+                    this.activeAdornerChain = null;
                 }
             }
             else
@@ -265,6 +288,8 @@ namespace Fluent
                 this.RestoreFocuses();
                 return;
             }
+
+            this.currentUserInput = string.Empty;
 
             this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;

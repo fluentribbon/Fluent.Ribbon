@@ -94,7 +94,7 @@ namespace Fluent
         {
             get
             {
-                return childAdorner != null
+                return childAdorner != null && childAdorner.IsAdornerChainAlive
                            ? childAdorner.ActiveKeyTipAdorner
                            : this;
             }
@@ -514,8 +514,14 @@ namespace Fluent
         /// <returns>If the element will be found the function will return true</returns>
         public bool Forward(string keys, bool click)
         {
-            UIElement element = TryGetElement(keys);
-            if (element == null) return false;
+            this.Log("Trying to forward {0}", keys);
+
+            var element = TryGetElement(keys);
+            if (element == null)
+            {
+                return false;
+            }
+
             Forward(element, click);
             return true;
         }
@@ -960,9 +966,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1822")]
         [SuppressMessage("Microsoft.Performance", "CA1801")]
         [Conditional("DEBUG")]
-        private void Log(string message)
+        private void Log(string format, params object[] args)
         {
-            Trace.WriteLine("[" + AdornedElement.GetType().Name + "] " + message);
+            Trace.WriteLine("[" + AdornedElement.GetType().Name + "] " + string.Format(format, args));
         }
 
         #endregion
