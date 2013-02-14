@@ -8,19 +8,11 @@
 #endregion
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Threading;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Collections.Generic;
 using System.Windows.Input;
-using System.Linq;
-using System.Text;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -47,6 +39,8 @@ namespace Fluent
         // Attached HWND source
         HwndSource attachedHwndSource;
 
+        private KeyConverter keyConverter = new KeyConverter();
+
         #endregion
 
         #region Initialization
@@ -67,7 +61,7 @@ namespace Fluent
             timer.Stop();
         }
 
-        void OnDelayedInitialization(object sender, EventArgs args)
+        private void OnDelayedInitialization(object sender, EventArgs args)
         {
             ribbon.Loaded -= OnDelayedInitialization;
             Attach();
@@ -117,7 +111,7 @@ namespace Fluent
         }
 
         // Window's messages hook up
-        IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // We must terminate the keytip's adorner chain if:
             // - mouse clicks in non client area
@@ -134,102 +128,165 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
-        void OnWindowKeyDown(object sender, KeyEventArgs e)
+        private void OnWindowKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.IsRepeat) return;
-            timer.Stop();
-
-            if (ribbon.IsCollapsed) return;
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10) ||
-                (e.SystemKey == Key.Space)))
+            if (e.IsRepeat)
             {
-                if ((activeAdornerChain == null) || (!activeAdornerChain.IsAdornerChainAlive))
-                {
-                    activeAdornerChain = null;
-                    timer.Start();
-                }
-                else { activeAdornerChain.Terminate(); activeAdornerChain = null; }
-            }
-        }
-
-        void OnWindowKeyUp(object sender, KeyEventArgs e)
-        {
-            if (ribbon.IsCollapsed) return;
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10) ||
-                (e.SystemKey == Key.Space)))
-            {
-                e.Handled = true;
-                if (timer.IsEnabled)
-                {
-                    timer.Stop();
-                    backUpFocusedElement = Keyboard.FocusedElement;
-
-                    // Focus ribbon
-                    ribbon.Focusable = true;
-                    ribbon.Focus();
-
-                    Show();
-                }
-                else if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
-                {
-                    // Focus ribbon
-                    backUpFocusedElement = Keyboard.FocusedElement;
-                    ribbon.Focusable = true;
-                    ribbon.Focus();
-                }
-            }
-            else timer.Stop();
-        }
-
-        void RestoreFocuses()
-        {
-            if (backUpFocusedElement != null)
-            {
-                backUpFocusedElement.Focus();
-            }
-            ribbon.Focusable = false;
-        }
-
-        void OnAdornerChainTerminated(object sender, EventArgs e)
-        {
-            RestoreFocuses();
-            ((KeyTipAdorner)sender).Terminated -= OnAdornerChainTerminated;
-        }
-
-        void OnDelayedShow(object sender, EventArgs e)
-        {
-            if (activeAdornerChain == null) Show();
-            timer.Stop();
-        }
-
-        void Show()
-        {
-            // Check whether the window is still active
-            // (it prevent keytips showing during Alt-Tab'ing)
-            if (!window.IsActive)
-            {
-                RestoreFocuses();
                 return;
             }
 
-            activeAdornerChain = new KeyTipAdorner(ribbon, ribbon, null);
-            activeAdornerChain.Terminated += OnAdornerChainTerminated;
+            if (this.ribbon.IsCollapsed)
+            {
+                return;
+            }
+
+            if ((e.Key == Key.System) &&
+                ((e.SystemKey == Key.LeftAlt) ||
+                (e.SystemKey == Key.RightAlt) ||
+                (e.SystemKey == Key.F10) ||
+                (e.SystemKey == Key.Space)))
+            {
+                if (this.activeAdornerChain == null || (!this.activeAdornerChain.IsAdornerChainAlive || !this.activeAdornerChain.AreAnyKeyTipsVisible))
+                {
+                    if (this.activeAdornerChain != null)
+                    {
+                        this.activeAdornerChain.Terminate();
+                    }
+
+                    this.activeAdornerChain = null;
+                    this.timer.Start();
+                }
+                else
+                {
+                    this.activeAdornerChain.Terminate();
+                    this.activeAdornerChain = null;
+                }
+            }
+            else
+            {
+                if (e.Key == Key.System
+                    && e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
+                {
+                    if (this.activeAdornerChain == null || (!this.activeAdornerChain.IsAdornerChainAlive || !this.activeAdornerChain.AreAnyKeyTipsVisible))
+                    {
+                        this.timer.Stop();
+                        this.backUpFocusedElement = Keyboard.FocusedElement;
+
+                        // Focus ribbon
+                        this.ribbon.Focusable = true;
+                        this.ribbon.Focus();
+
+                        this.Show();
+                    }
+
+                    if (this.activeAdornerChain != null)
+                    {
+                        if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.keyConverter.ConvertToString(e.SystemKey), true))
+                        {
+                            e.Handled = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnWindowKeyUp(object sender, KeyEventArgs e)
+        {
+            if (this.ribbon.IsCollapsed)
+            {
+                return;
+            }
+
+            if ((e.Key == Key.System) &&
+                ((e.SystemKey == Key.LeftAlt) ||
+                 (e.SystemKey == Key.RightAlt) ||
+                 (e.SystemKey == Key.F10) ||
+                 (e.SystemKey == Key.Space)))
+            {
+                e.Handled = true;
+
+                if (this.timer.IsEnabled)
+                {
+                    this.timer.Stop();
+                    this.backUpFocusedElement = Keyboard.FocusedElement;
+
+                    // Focus ribbon
+                    this.ribbon.Focusable = true;
+                    this.ribbon.Focus();
+
+                    this.Show();
+                }
+                else if (this.activeAdornerChain != null && this.activeAdornerChain.IsAdornerChainAlive)
+                {
+                    // Focus ribbon
+                    this.backUpFocusedElement = Keyboard.FocusedElement;
+                    this.ribbon.Focusable = true;
+                    this.ribbon.Focus();
+                }
+            }
+            else
+            {
+                this.timer.Stop();
+            }
+        }
+
+        private void RestoreFocuses()
+        {
+            if (this.backUpFocusedElement != null)
+            {
+                this.backUpFocusedElement.Focus();
+            }
+
+            this.ribbon.Focusable = false;
+        }
+
+        private void OnAdornerChainTerminated(object sender, EventArgs e)
+        {
+            this.RestoreFocuses();
+            ((KeyTipAdorner)sender).Terminated -= this.OnAdornerChainTerminated;
+        }
+
+        private void OnDelayedShow(object sender, EventArgs e)
+        {
+            if (activeAdornerChain == null)
+            {
+                this.Show();
+            }
+
+            this.timer.Stop();
+        }
+
+        private void Show()
+        {
+            // Check whether the window is still active
+            // (it prevent keytips showing during Alt-Tab'ing)
+            if (!this.window.IsActive)
+            {
+                this.RestoreFocuses();
+                return;
+            }
+
+            this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
+            this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
 
             // Special behavior for backstage
-            Backstage backstage = ribbon.Menu as Backstage;
+            var backstage = this.ribbon.Menu as Backstage;
             if (backstage != null && backstage.IsOpen)
             {
-                string keys = KeyTip.GetKeys(backstage);
-                if (!String.IsNullOrEmpty(keys)) activeAdornerChain.Forward(KeyTip.GetKeys(backstage), false);
-                else activeAdornerChain.Attach();
+                var keys = KeyTip.GetKeys(backstage);
+                if (!String.IsNullOrEmpty(keys))
+                {
+                    this.activeAdornerChain.Forward(KeyTip.GetKeys(backstage), false);
+                }
+                else
+                {
+                    this.activeAdornerChain.Attach();
+                }
             }
-            else activeAdornerChain.Attach();
+            else
+            {
+                this.activeAdornerChain.Attach();
+            }
         }
 
         #endregion

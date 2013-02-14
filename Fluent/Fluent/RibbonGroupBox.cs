@@ -1173,8 +1173,19 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if ((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess))
-                IsDropDownOpen = true;
+            if (this.State == RibbonGroupBoxState.Collapsed
+                || this.State == RibbonGroupBoxState.QuickAccess)
+            {
+                this.IsDropDownOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+            this.IsDropDownOpen = false;
         }
 
         #endregion

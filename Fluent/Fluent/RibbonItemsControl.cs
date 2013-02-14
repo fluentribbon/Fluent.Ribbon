@@ -8,15 +8,9 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
@@ -101,7 +95,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonItemsControl));
 
-        #endregion  
+        #endregion
 
         #region Constructors
 
@@ -111,7 +105,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonItemsControl()
         {
-            Type type = typeof (RibbonItemsControl);
+            Type type = typeof(RibbonItemsControl);
             ToolTipService.Attach(type);
             ContextMenuService.Attach(type);
         }
@@ -159,7 +153,13 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
+        }
 
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
         }
 
         #endregion

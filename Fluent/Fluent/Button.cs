@@ -8,15 +8,10 @@
 #endregion
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
@@ -24,7 +19,7 @@ namespace Fluent
     /// Represents button
     /// </summary>
     [ContentProperty("Header")]
-    public class Button: System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider
+    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider
     {
         #region Properties
 
@@ -35,7 +30,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(Button));
-        
+
         /// <summary>
         /// Gets or sets Size for the element
         /// </summary>
@@ -53,8 +48,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(Button));            
-        
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(Button));
+
         /// <summary>
         /// Gets or sets SizeDefinition for element
         /// </summary>
@@ -82,7 +77,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(Button), new UIPropertyMetadata(null));       
+            DependencyProperty.Register("Header", typeof(string), typeof(Button), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -129,7 +124,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register("LargeIcon", typeof(object),
-            typeof(Button), new FrameworkPropertyMetadata(null,null));
+            typeof(Button), new FrameworkPropertyMetadata(null, null));
 
         #endregion
 
@@ -191,7 +186,7 @@ namespace Fluent
 
         #endregion
 
-        #region Overrides        
+        #region Overrides
 
         /// <summary>
         /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked. 
@@ -199,7 +194,7 @@ namespace Fluent
         protected override void OnClick()
         {
             // Close popup on click
-            if(IsDefinitive) PopupService.RaiseDismissPopupEvent(this,DismissPopupMode.Always);
+            if (IsDefinitive) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             base.OnClick();
         }
 
@@ -245,6 +240,13 @@ namespace Fluent
         public void OnKeyTipPressed()
         {
             OnClick();
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
         }
 
         #endregion

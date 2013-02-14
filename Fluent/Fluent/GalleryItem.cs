@@ -406,5 +406,12 @@ namespace Fluent
         {
             RaiseClick();
         }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+        }
     }
 }

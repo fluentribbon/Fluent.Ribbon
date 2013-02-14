@@ -501,8 +501,17 @@ namespace Fluent
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            IsOpen = true;
+            this.IsOpen = true;
             base.OnKeyTipPressed();
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public override void OnKeyTipBack()
+        {
+            this.IsOpen = false;
+            base.OnKeyTipBack();
         }
 
         /// <summary>

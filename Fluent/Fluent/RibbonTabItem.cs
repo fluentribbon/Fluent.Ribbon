@@ -690,5 +690,17 @@ namespace Fluent
 
             this.IsSelected = true;
         }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+            if (this.TabControlParent != null
+                && this.TabControlParent.IsMinimized)
+            {
+                this.TabControlParent.IsDropDownOpen = false;
+            }
+        }
     }
 }

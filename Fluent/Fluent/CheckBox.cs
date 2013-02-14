@@ -157,7 +157,7 @@ namespace Fluent
 
             return basevalue;
         }
-        
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -184,7 +184,7 @@ namespace Fluent
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => RaiseEvent(e));
             RibbonControl.BindQuickAccessItem(this, button);
-            
+
             return button;
         }
 
@@ -212,6 +212,13 @@ namespace Fluent
         public void OnKeyTipPressed()
         {
             OnClick();
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
         }
 
         #endregion

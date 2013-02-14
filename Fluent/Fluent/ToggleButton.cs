@@ -284,6 +284,13 @@ namespace Fluent
             OnClick();
         }
 
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+        }
+
         #endregion
     }
 }

@@ -629,7 +629,21 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            IsDropDownOpen = true;
+            this.IsDropDownOpen = true;
+
+            if (this.DropDownPopup != null)
+            {
+                Keyboard.Focus(this.DropDownPopup);
+                this.DropDownPopup.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+            }
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+            this.IsDropDownOpen = false;
         }
 
         #endregion

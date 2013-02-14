@@ -865,8 +865,21 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            if (IsEditable) Focus();
-            else IsDropDownOpen = true;
+            if (this.IsEditable)
+            {
+                this.Focus();
+            }
+            else
+            {
+                this.IsDropDownOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
         }
 
         #endregion

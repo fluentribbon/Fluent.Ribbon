@@ -7,7 +7,6 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -27,14 +26,14 @@ namespace Fluent
         /// <summary>
         /// Dependency property for isSelected
         /// </summary>
-        public static readonly DependencyProperty IsSelectedProperty = 
-            Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem), 
-            new FrameworkPropertyMetadata(false, 
-                FrameworkPropertyMetadataOptions.Journal | 
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | 
-                FrameworkPropertyMetadataOptions.AffectsParentMeasure, 
+        public static readonly DependencyProperty IsSelectedProperty =
+            Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem),
+            new FrameworkPropertyMetadata(false,
+                FrameworkPropertyMetadataOptions.Journal |
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault |
+                FrameworkPropertyMetadataOptions.AffectsParentMeasure,
                 OnIsSelectedChanged));
-        
+
         /// <summary>
         /// Gets or sets whether the tab is selected
         /// </summary>
@@ -76,7 +75,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), 
+            DependencyProperty.Register("Header", typeof(object),
             typeof(BackstageTabItem), new UIPropertyMetadata(null));
 
         #endregion
@@ -89,7 +88,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageTabItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), 
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem),
                 new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
             StyleProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
@@ -110,13 +109,13 @@ namespace Fluent
         /// </summary>
         public BackstageTabItem()
         {
-            
+
         }
 
         #endregion
 
         #region Overrides
-        
+
         /// <summary>
         /// Called when the System.Windows.Controls.ContentControl.Content property changes.
         /// </summary>
@@ -160,9 +159,9 @@ namespace Fluent
             bool newValue = (bool)e.NewValue;
 
             if (newValue)
-            {                
+            {
                 BackstageTabControl backstage = container.Parent as BackstageTabControl;
-                if((backstage!=null)&&(backstage.SelectedItem != container))
+                if ((backstage != null) && (backstage.SelectedItem != container))
                 {
                     if (backstage.SelectedItem is BackstageTabItem) (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
                     backstage.SelectedItem = container;
@@ -217,6 +216,13 @@ namespace Fluent
                 ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
 
             IsSelected = true;
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
         }
     }
 }

@@ -640,7 +640,13 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
+        }
 
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public virtual void OnKeyTipBack()
+        {
         }
 
         #endregion

@@ -8,14 +8,11 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -777,7 +774,7 @@ namespace Fluent
             DependencyProperty.Register("DropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
-        
+
         #region ShowPopupOnTop
 
         /// <summary>
@@ -879,6 +876,14 @@ namespace Fluent
         public void OnKeyTipPressed()
         {
             IsDropDownOpen = true;
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+            this.IsDropDownOpen = false;
         }
 
         /// <summary>
@@ -998,7 +1003,7 @@ namespace Fluent
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             // Ignore mouse up when mouse donw is on expand button
-            if(isButtonClicked)
+            if (isButtonClicked)
             {
                 isButtonClicked = false;
                 e.Handled = true;
@@ -1227,7 +1232,7 @@ namespace Fluent
         private InRibbonGallery quickAccessGallery;
         void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            
+
             for (int i = 0; i < Filters.Count; i++) quickAccessGallery.Filters.Add(Filters[i]);
             quickAccessGallery.SelectedFilter = SelectedFilter;
             quickAccessGallery.DropDownClosed += OnQuickAccessMenuClosed;
@@ -1245,7 +1250,7 @@ namespace Fluent
             SelectedFilter = quickAccessGallery.SelectedFilter;
             quickAccessGallery.Filters.Clear();
             Unfreeze();
-            
+
         }
 
         private void Freeze()

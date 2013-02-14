@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Fluent
+﻿namespace Fluent
 {
     /// <summary>
     /// Base interface for controls supports key tips
@@ -14,5 +9,10 @@ namespace Fluent
         /// Handles key tip pressed
         /// </summary>
         void OnKeyTipPressed();
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        void OnKeyTipBack();
     }
 }

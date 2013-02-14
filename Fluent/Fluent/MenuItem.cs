@@ -8,10 +8,7 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -22,8 +19,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Fluent
 {
@@ -529,12 +524,23 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            if (!HasItems) OnClick();
+            if (!HasItems)
+            {
+                OnClick();
+            }
             else
             {
                 Keyboard.Focus(this);
-                IsDropDownOpen = true;
+                this.IsDropDownOpen = true;
             }
+        }
+
+        /// <summary>
+        /// Handles back navigation with KeyTips
+        /// </summary>
+        public void OnKeyTipBack()
+        {
+            this.IsDropDownOpen = false;
         }
 
         #endregion
