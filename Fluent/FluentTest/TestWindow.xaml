@@ -1301,7 +1301,7 @@
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-                    <Fluent:Button Header="TEST" />
+                    <Fluent:Button Header="{Binding Title, ElementName=window, StringFormat='Window title: {0}'}" />
                     <DatePicker />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
@@ -1431,6 +1431,85 @@
                     <TreeView x:Name="logicalTreeView"
                               Grid.Row="1"                                                          
                               MouseDoubleClick="OnTreeDoubleClick" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="ViewboxTest"
+                     UseLayoutRounding="False">
+                <Grid>
+                    <Viewbox Stretch="Uniform"
+                             Width="768"
+                             Height="576">
+                        <Canvas Width="6"
+                                Height="6">
+                            <Canvas.Resources>
+                                <Style TargetType="Line">
+                                    <Setter Property="Stroke"
+                                            Value="Red" />
+                                    <Setter Property="StrokeThickness"
+                                            Value="0.05" />
+                                </Style>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Stroke"
+                                            Value="Red" />
+                                    <Setter Property="StrokeThickness"
+                                            Value="0.05" />
+                                </Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Stroke"
+                                            Value="Red" />
+                                    <Setter Property="StrokeThickness"
+                                            Value="0.05" />
+                                </Style>
+                            </Canvas.Resources>
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="3"
+                                                    Y="3" />
+                            </Canvas.RenderTransform>
+                            <Label Canvas.Left="-3"
+                                   Canvas.Top="-3"
+                                   Foreground="Red"
+                                   FontSize="0.2"
+                                   Padding="0">
+                                Rectangle and Ellipse should be between green lines and Text 1 to 3 shouldn't overlap
+                            </Label>
+                            <Label Canvas.Left="-2.2"
+                                   Canvas.Top="0"
+                                   Foreground="Red"
+                                   Content="Text 1"
+                                   FontSize="0.5"
+                                   Padding="0" />
+                            <Label Canvas.Left="-2.1"
+                                   Canvas.Top="0.5"
+                                   Foreground="Red"
+                                   Content="Text 2"
+                                   FontSize="0.5"
+                                   Padding="0" />
+                            <Label Canvas.Left="-2"
+                                   Canvas.Top="1"
+                                   Foreground="Red"
+                                   Content="Text 3"
+                                   FontSize="0.5"
+                                   Padding="0" />
+                            <Line X1="-0.2"
+                                  Y1="-3"
+                                  X2="-0.2"
+                                  Y2="3"
+                                  Stroke="Green" />
+                            <Line X1="0.3"
+                                  Y1="-3"
+                                  X2="0.3"
+                                  Y2="3"
+                                  Stroke="Green" />
+                            <Rectangle Canvas.Left="-0.2"
+                                       Canvas.Top="-0.2"
+                                       Width="0.5"
+                                       Height="0.6" />
+                            <Ellipse Canvas.Left="-0.2"
+                                     Canvas.Top="-0.2"
+                                     Width="0.5"
+                                     Height="0.6" />
+                        </Canvas>
+                    </Viewbox>
                 </Grid>
             </TabItem>
         </TabControl>       
