@@ -205,8 +205,7 @@
     <Setter Property="CornerRadius" Value="15"/>
     <Setter Property="CaptionHeight" Value="50"/>
     <Setter Property="Foreground" Value="#FF000000"/>    
-    <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
-    <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
+    <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>    
     <Style.Triggers>
       <Trigger Property="IsCollapsed" Value="True">
         <Setter Property="GlassBorderThickness" Value="8,30,8,8"/>

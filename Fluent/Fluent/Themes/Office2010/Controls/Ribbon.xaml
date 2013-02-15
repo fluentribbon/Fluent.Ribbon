@@ -169,5 +169,7 @@
                 Value="Top" />
         <Setter Property="IsTabStop"
                 Value="False" />
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
+                Value="True" />
     </Style>
 </ResourceDictionary>

@@ -201,7 +201,6 @@
     <Setter Property="Foreground" Value="#FF000000"/>
     <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
-    <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     <Style.Triggers>
       <Trigger Property="IsCollapsed" Value="True">
         <Setter Property="GlassBorderThickness" Value="8,30,8,8"/>
