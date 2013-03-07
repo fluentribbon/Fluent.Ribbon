@@ -76,7 +76,7 @@
               IsOpen="{TemplateBinding IsDropDownOpen}"
               AllowsTransparency="True"
               Focusable="False"
-              PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" >
+              PopupAnimation="Slide" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" >
         <Grid Width="Auto" Height="Auto" Margin="0,20">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

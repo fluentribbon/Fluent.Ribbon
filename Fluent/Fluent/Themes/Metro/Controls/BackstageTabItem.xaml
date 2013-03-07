@@ -42,8 +42,8 @@
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
                                Value="True" />
-                    <Condition Property="IsEnabled"
-                               Value="True" />
+                    <Condition Property="Selector.IsSelected"
+                               Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="hoverBorder"
                         Property="Visibility"

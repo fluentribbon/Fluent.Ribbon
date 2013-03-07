@@ -554,7 +554,7 @@
                                PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                                StaysOpen="True"
                                AllowsTransparency="True"
-                               PopupAnimation="Fade"
+                               PopupAnimation="Slide"
                                VerticalOffset="-1"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                HorizontalOffset="0"

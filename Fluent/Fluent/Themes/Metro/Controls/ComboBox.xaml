@@ -287,7 +287,7 @@
                                    IsOpen="{TemplateBinding IsDropDownOpen}"
                                    AllowsTransparency="True"
                                    Focusable="False"
-                                   PopupAnimation="Fade"
+                                   PopupAnimation="Slide"
                                    Margin="0,0,-4,0"
                                    VerticalAlignment="Top"
                                    Grid.ColumnSpan="2">

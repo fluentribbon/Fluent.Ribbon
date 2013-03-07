@@ -121,8 +121,8 @@
         <Setter Property="IsTabStop"
                 Value="False" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />        
+                Value="True" />
         <Setter Property="Margin"
-                Value="0,-30,0,0" />        
+                Value="0,-30,0,0" />
     </Style>
 </ResourceDictionary>

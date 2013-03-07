@@ -64,7 +64,7 @@
 				</StackPanel>         
 			</Border>
 			<Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
-                   AllowsTransparency="True" Focusable="False" PopupAnimation="Fade"
+                   AllowsTransparency="True" Focusable="False" PopupAnimation="Slide"
                    Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"

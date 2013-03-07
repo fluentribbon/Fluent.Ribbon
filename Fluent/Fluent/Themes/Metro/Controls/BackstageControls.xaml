@@ -178,7 +178,7 @@
             IsOpen="{TemplateBinding IsDropDownOpen}"
             AllowsTransparency="True"
             Focusable="False"
-            PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            PopupAnimation="Slide" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
         <Grid
           Name="DropDown"
           SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">
@@ -353,7 +353,7 @@
                 IsOpen="{TemplateBinding IsDropDownOpen}"
                 AllowsTransparency="True"
                 Focusable="False"
-                PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                PopupAnimation="Slide" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
         <Popup.Resources>
           <ResourceDictionary>
             <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>

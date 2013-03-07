@@ -88,7 +88,7 @@
                    Placement="Bottom"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
-                   PopupAnimation="Fade"
+                   PopupAnimation="Slide"
                    Margin="0,0,-4,0"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">
