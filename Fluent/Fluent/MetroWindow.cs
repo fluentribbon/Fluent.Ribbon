@@ -27,11 +27,11 @@ namespace Fluent
         public static readonly DependencyProperty TitlebarHeightProperty = DependencyProperty.Register("TitlebarHeight", typeof(int), typeof(MetroWindow), new PropertyMetadata(30));
         public static readonly DependencyProperty TitleCapsProperty = DependencyProperty.Register("TitleCaps", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
-        public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(Brush), typeof(MetroWindow), new PropertyMetadata(Brushes.Blue));
+        public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(SolidColorBrush), typeof(MetroWindow), new PropertyMetadata(Brushes.Blue));
 
-        public Brush RibbonThemeColor
+        public SolidColorBrush RibbonThemeColor
         {
-            get { return (Brush)GetValue(RibbonThemeColorProperty); }
+            get { return (SolidColorBrush)GetValue(RibbonThemeColorProperty); }
             set { SetValue(RibbonThemeColorProperty, value); }
         }
 
@@ -48,8 +48,8 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MetroWindow), new FrameworkPropertyMetadata(typeof(MetroWindow)));
         }
-		
-		public WindowCommands WindowCommands { get; set; }
+
+        public WindowCommands WindowCommands { get; set; }
 
         public bool ShowIconOnTitleBar
         {
@@ -101,8 +101,8 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-			
-			if (WindowCommands == null)
+
+            if (WindowCommands == null)
                 WindowCommands = new WindowCommands();
 
             var titleBar = GetTemplateChild(PART_TitleBar) as UIElement;
@@ -121,11 +121,11 @@ namespace Fluent
 
         protected override void OnStateChanged(EventArgs e)
         {
-			if (WindowCommands != null)
+            if (WindowCommands != null)
             {
                 WindowCommands.RefreshMaximiseIconState();
             }
-			
+
             base.OnStateChanged(e);
         }
 
