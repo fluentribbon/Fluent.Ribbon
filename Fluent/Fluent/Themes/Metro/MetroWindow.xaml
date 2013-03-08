@@ -32,9 +32,9 @@
                                 x:Name="PART_WindowCommands"
                                 Panel.ZIndex="1"
                                 Grid.RowSpan="2"
-								VerticalAlignment="Top"
+                                VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-								Height="{Binding TitlebarHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
+                                Height="{Binding TitlebarHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
                         <ContentPresenter Grid.Row="1"/>
                     </Grid>
             </AdornerDecorator>
@@ -53,19 +53,19 @@
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
                     <Condition Property="WindowState" Value="Normal"/>
                 </MultiTrigger.Conditions>
-				<Setter Property="Margin" TargetName="root" Value="0"/>
-				<Setter Property="Margin" TargetName="content" Value="1"/>
-				<Setter Property="Visibility" TargetName="themecolorborder" Value="Visible"/>
+                <Setter Property="Margin" TargetName="root" Value="0"/>
+                <Setter Property="Margin" TargetName="content" Value="1"/>
+                <Setter Property="Visibility" TargetName="themecolorborder" Value="Visible"/>
                 <Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>
             </MultiTrigger>
-			<Trigger Property="WindowState" Value="Maximized">
-				<Setter Property="Margin" TargetName="root" Value="0,-2,0,0"/>
-				<Setter Property="Margin" TargetName="content" Value="0"/>
-				<Setter Property="Visibility" TargetName="themecolorborder" Value="Collapsed"/>
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="Margin" TargetName="root" Value="0,-2,0,0"/>
+                <Setter Property="Margin" TargetName="content" Value="0"/>
+                <Setter Property="Visibility" TargetName="themecolorborder" Value="Collapsed"/>
                 <Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Collapsed"/>
-			</Trigger>
+            </Trigger>
         </ControlTemplate.Triggers>
-		
+        
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:MetroWindow}" x:Key="MetroWindowStyle">
@@ -89,12 +89,12 @@
         </Setter>
         <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
     </Style>
-	
-	<Style TargetType="{x:Type Fluent:WindowCommands}">
+    
+    <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
         <Setter Property="Template">
-        	<Setter.Value>
-        		<ControlTemplate TargetType="Fluent:WindowCommands">
+            <Setter.Value>
+                <ControlTemplate TargetType="Fluent:WindowCommands">
                     <ControlTemplate.Resources>
                         <ResourceDictionary>
                             <Style TargetType="{x:Type Button}">
@@ -124,7 +124,7 @@
                             Width="29"
                             Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
                             MaxHeight="19"    
-							Margin="0,3,0,0"
+                            Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
                             Padding="0"
                             ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
@@ -136,7 +136,7 @@
                             Width="29"
                             Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
                             MaxHeight="19"    
-							Margin="0,3,0,0"
+                            Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
                             Padding="0"
                             Foreground="{TemplateBinding Foreground}"
@@ -152,7 +152,7 @@
                             Width="29"
                             Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
                             MaxHeight="19"    
-							Margin="0,3,0,0"
+                            Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
                             ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                             Visibility="{Binding ShowCloseButton, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -161,17 +161,17 @@
                         </Button>
                     </StackPanel>
                 </ControlTemplate>           	
-			</Setter.Value>
-		</Setter>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Value="True">
                 <Setter Property="Foreground" Value="White" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
-	
-	
-	<ControlTemplate TargetType="{x:Type Button}" x:Key="WindowCommandsControlTemplate">
+    
+    
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="WindowCommandsControlTemplate">
                                             <Grid Background="{TemplateBinding Background}">
                                                 <ContentPresenter x:Name="contentPresenter"
                                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -204,6 +204,6 @@
                                                 </DataTrigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
-	
-	<Style BasedOn="{StaticResource MetroWindowStyle}" TargetType="{x:Type Fluent:MetroWindow}"/>
+    
+    <Style BasedOn="{StaticResource MetroWindowStyle}" TargetType="{x:Type Fluent:MetroWindow}"/>
 </ResourceDictionary>

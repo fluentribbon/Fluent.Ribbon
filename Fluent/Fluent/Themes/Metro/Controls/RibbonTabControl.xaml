@@ -165,9 +165,9 @@
                 Value="{DynamicResource DefaultFontSize}" />        
         <Setter Property="Template" Value="{StaticResource RibbonTabControlControlTemplate}"/>
     </Style>
-	
-	<!---->
-	<ControlTemplate x:Key="RibbonTabControlControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
+    
+    <!---->
+    <ControlTemplate x:Key="RibbonTabControlControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
                     <ControlTemplate.Resources>
                         <ControlTemplate x:Key="ScrollButtonControlTemplate"
                                          TargetType="{x:Type RepeatButton}">
@@ -381,7 +381,7 @@
                                            Height="86" />
                             <RowDefinition x:Name="rowDefinition1"
                                            Height="{TemplateBinding ContentGapHeight}" />
-							<!--<RowDefinition x:Name="rowDefinition1"
+                            <!--<RowDefinition x:Name="rowDefinition1"
                                            Height="{TemplateBinding ContentGapHeight}" />-->
                         </Grid.RowDefinitions>
                         <Border x:Name="border"
@@ -514,7 +514,7 @@
                                                            HorizontalScrollBarVisibility="Auto"
                                                            VerticalScrollBarVisibility="Disabled"
                                                            IsHitTestVisible="True">
-                                	<!---->
+                                    <!---->
                                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                                 IsItemsHost="True"
                                                                 Height="Auto"
@@ -542,9 +542,9 @@
                                                          Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
                                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                          Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}" />
-														 <!--Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}"-->
+                                                         <!--Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}"-->
                                 </Grid>
-								
+                                
                                 <StackPanel x:Name="PART_ToolbarPanel"
                                             Orientation="Horizontal"
                                             FocusManager.IsFocusScope="False" />
@@ -559,7 +559,7 @@
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                HorizontalOffset="0"
                                Placement="Custom">
-                        	
+                            
                             <Grid Width="Auto"
                                   Height="Auto"
                                   Margin="0,20">
