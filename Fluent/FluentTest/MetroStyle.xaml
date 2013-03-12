@@ -160,10 +160,10 @@
                                                        Icon="Images\Paste.png"
                                                        LargeIcon="Images\PasteLarge.png"></Fluent:DropDownButton>
                                 <Fluent:ComboBox VerticalAlignment="Bottom">
-                                    <TextBlock Text="1" />
-                                    <TextBlock Text="2" />
-                                    <TextBlock Text="3" />
-                                    <TextBlock Text="4" />
+                                    <ComboBoxItem Content="1" Style="{DynamicResource MetroComboBoxItemBackstageStyle}"/>
+                                    <ComboBoxItem Content="2" />
+                                    <ComboBoxItem Content="3" />
+                                    <ComboBoxItem Content="4" />
                                     <TextBlock Text="5" />
                                 </Fluent:ComboBox>
                                 <Fluent:Spinner Value="1"

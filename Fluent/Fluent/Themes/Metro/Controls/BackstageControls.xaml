@@ -242,7 +242,7 @@
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
   				<Setter.Value>
   					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
-				</Setter.Value>		
+				</Setter.Value>
 			</Setter>
   			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   		</Trigger>
@@ -289,12 +289,7 @@
     <Setter Property="Template" Value="{StaticResource GalleryItemBackstageControlTemplate}"/>
 	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
-  <Style x:Key="ComboBoxItemBackstageStyle" TargetType="{x:Type ComboBoxItem}">
-    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    <Setter Property="MinHeight" Value="40"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+  <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Key="ComboBoxItemBackstageControlTemplate">
           <Grid Background="{DynamicResource TransparentBrush}" HorizontalAlignment="Stretch">
             <Border x:Name="hoverBorder" Background="Transparent">
               <ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
@@ -305,17 +300,28 @@
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-        			<Setter Property="Background" TargetName="hoverBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+        			<Setter Property="Background" TargetName="hoverBorder">
+        				<Setter.Value>
+  							<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.5"/>	
+						</Setter.Value>   			
+					</Setter>
         	</Trigger>
         	<Trigger Property="IsMouseOver" Value="True">
-        		<Setter Property="Background" TargetName="hoverBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+        		<Setter Property="Background" TargetName="hoverBorder">
+        			<Setter.Value>
+  						<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+					</Setter.Value>
+				</Setter>
         	</Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+  <Style x:Key="MetroComboBoxItemBackstageStyle" TargetType="{x:Type ComboBoxItem}">
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="MinHeight" Value="40"/>
+    <Setter Property="Template" Value="{StaticResource ComboBoxItemBackstageControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
+  
   
   <Style TargetType="{x:Type Fluent:ComboBox}" x:Key="ComboBoxBackstageStyle">
   	<Setter Property="Template" Value="{DynamicResource ComboBoxBackstageControlTemplate}"/>
@@ -330,23 +336,22 @@
       	<Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
       	<Style x:Key="{x:Type Fluent:ToggleButton}" TargetType="{x:Type Fluent:ToggleButton}" BasedOn="{StaticResource ToggleButtonBackstageStyle}"/>
       	<Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerStyle}"/>
-  		<Style BasedOn="{StaticResource ComboBoxItemBackstageStyle}" TargetType="{x:Type ComboBoxItem}"/>
+  		<Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource MetroComboBoxItemBackstageStyle}"/>
 	</ControlTemplate.Resources>
-  	<Grid>
-  		<Rectangle x:Name="rectangle" Fill="{x:Null}" Stroke="{DynamicResource ButtonBackstageShadowBrush}" Height="2" VerticalAlignment="Bottom" RadiusX="2" RadiusY="2" Margin="3,0"/>
-      <Border Height="Auto" x:Name="PART_ContentBorder" HorizontalAlignment="Stretch">
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="22"/>
-          </Grid.ColumnDefinitions>
-          <Fluent:ToggleButton Size="Small" Width="{Binding ElementName=PART_ContentBorder, Path=ActualWidth}" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"  Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
-          <ContentPresenter Margin="3" x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Top" HorizontalAlignment="Left" />
-          <Image Margin="0" Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed" Width="Auto" Height="Auto"/>
-          <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Collapsed"/>
-          <Path x:Name="path" HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" Data="M0,0L1,1 2,0z" Fill="#FF000000" Width="7" Height="4" VerticalAlignment="Center" Grid.Column="1"/>
-        </Grid>
-      </Border>
+  	<Grid >
+      		<Border Height="Auto" x:Name="PART_ContentBorder" HorizontalAlignment="Stretch">
+        		<Grid>
+          			<Grid.ColumnDefinitions>
+            			<ColumnDefinition Width="*"/>
+            			<ColumnDefinition Width="22"/>
+          			</Grid.ColumnDefinitions>
+          			<Fluent:ToggleButton Size="Small" Width="{Binding ElementName=PART_ContentBorder, Path=ActualWidth}" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
+          			<ContentPresenter Margin="3" x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Top" HorizontalAlignment="Left" />
+          			<Image Margin="0" Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed" Width="Auto" Height="Auto"/>
+          			<TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Collapsed"/>
+          			<Path x:Name="path" HorizontalAlignment="Center" Margin="0,0,0,0" Stretch="Fill" Stroke="{x:Null}" StrokeThickness="0" Data="M0,0L1,1 2,0z" Fill="#FF000000" Width="7" Height="4" VerticalAlignment="Center" Grid.Column="1"/>
+        		</Grid>
+      		</Border>
       <Popup x:Name="PART_Popup"
                 Placement="Bottom"
                 PlacementTarget="{Binding ElementName=PART_ContentBorder}"
@@ -421,7 +426,6 @@
       </Trigger>
   		<Trigger Property="IsEnabled" Value="False">
   			<Setter Property="BorderBrush" TargetName="PART_ContentBorder" Value="#FFC8C8C9"/>
-  			<Setter Property="Opacity" TargetName="rectangle" Value="0"/>
   		</Trigger>  		
   	</ControlTemplate.Triggers>
   </ControlTemplate>
