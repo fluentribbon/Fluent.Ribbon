@@ -1302,7 +1302,7 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:Button Header="{Binding Title, ElementName=window, StringFormat='Window title: {0}'}" />
-                    <DatePicker />
+                    <FluentTest:DatePicker />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -1434,7 +1434,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="ViewboxTest"
-                     UseLayoutRounding="False">
+                     Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
                     <Viewbox Stretch="Uniform"
                              Width="768"

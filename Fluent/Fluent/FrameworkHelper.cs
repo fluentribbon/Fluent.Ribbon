@@ -50,5 +50,43 @@
             d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
 #endif
         }
+
+#if NET35
+        public static bool HasFlag(this Enum thisInstance, Enum flag)
+        {
+            ulong instanceVal = Convert.ToUInt64(thisInstance);
+            ulong flagVal = Convert.ToUInt64(flag);
+
+            return (instanceVal & flagVal) == flagVal;
+        }
+#endif
     }
+
+#if NET35
+    public class EasingThicknessKeyFrame : System.Windows.Media.Animation.LinearThicknessKeyFrame
+    {
+       public object EasingFunction { get; set; }
+    }
+
+    public class CubicEase
+    {
+       public object EasingMode { get; set; }
+    }
+
+    public class EasingDoubleKeyFrame : System.Windows.Media.Animation.LinearDoubleKeyFrame
+    {
+    }
+#else  // .NET 4.0 and above
+    public class EasingThicknessKeyFrame : System.Windows.Media.Animation.EasingThicknessKeyFrame
+    {
+    }
+
+    public class CubicEase : System.Windows.Media.Animation.CubicEase
+    {
+    }
+
+    public class EasingDoubleKeyFrame : System.Windows.Media.Animation.EasingDoubleKeyFrame
+    {
+    }
+#endif
 }
