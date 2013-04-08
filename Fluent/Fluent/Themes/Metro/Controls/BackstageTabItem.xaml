@@ -23,7 +23,7 @@
                 </Grid>
             </Border>
             <ContentControl x:Name="PART_Header"
-                            Margin="20,0"
+                            Margin="25,0,20,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}">
