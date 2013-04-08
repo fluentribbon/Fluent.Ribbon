@@ -18,7 +18,7 @@
 		<GradientStop Color="White" Offset="1"/>
 	</LinearGradientBrush>
 	<SolidColorBrush x:Key="DefaultFontBrush" Color="#FF3B3B3B"/>
-	<SolidColorBrush x:Key="BackstageFontBrush" Color="#FF000000"/>
+	<SolidColorBrush x:Key="BackstageFontBrush" Color="White"/>
 	<SolidColorBrush x:Key="GroupBoxFontBrush" Color="#FF666D7C"/>
 	<SolidColorBrush x:Key="TabItemSelectedFontBrush" Color="#FF212121"/>
 	<SolidColorBrush x:Key="TabItemFontBrush" Color="#FF212121"/>
