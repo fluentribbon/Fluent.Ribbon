@@ -242,7 +242,7 @@
                         </Interactivity:EventTrigger>
                     </Interactivity:Interaction.Triggers>
                 </Grid>
-                <ItemsPresenter Margin="0,70,0,0"
+                <ItemsPresenter Margin="0,55,0,0"
                                 Height="Auto" />
             </Grid>
         </Grid>
