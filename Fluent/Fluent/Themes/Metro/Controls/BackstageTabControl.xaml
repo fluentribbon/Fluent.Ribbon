@@ -97,30 +97,18 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
-                    <Grid Margin="0,0,10,0">
+                    <StackPanel Margin="15,0,10,0">
                         <TextBlock x:Name="header"
-                                   Margin="5,5"
+                                   Margin="10,5"
                                    TextWrapping="Wrap"
                                    Text="{TemplateBinding Header}"
                                    VerticalAlignment="Center"
                                    FontSize="14"
-                                   FontWeight="Bold"
-                                   Foreground="#FF5E5E5E"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource BackstageFontBrush}"
                                    Visibility="Visible" />
-                        <Path Data="M0,0L1,0"
-                              Fill="{x:Null}"
-                              Height="1"
-                              Margin="0"
-                              StrokeStartLineCap="Flat"
-                              Stretch="Fill"
-                              StrokeEndLineCap="Flat"
-                              Stroke="{DynamicResource RibbonTopBorderBrush}"
-                              StrokeThickness="1"
-                              StrokeMiterLimit="10"
-                              StrokeLineJoin="Miter"
-                              VerticalAlignment="Bottom"
-                              StrokeDashArray="2 2" />
-                    </Grid>
+                        <Line Width="75" Height="2" X2="1" StrokeThickness="1.25" Stroke="White" Stretch="Uniform" Opacity="0.3"/>
+                    </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasHeader"
                                  Value="False">
@@ -188,7 +176,7 @@
               Margin="0"
               Background="{DynamicResource BackstageBackgroundBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="107"
+                <ColumnDefinition MinWidth="115"
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -198,7 +186,7 @@
                     <ResourceDictionary>
                         <Style x:Key="{x:Type Fluent:Button}"
                                TargetType="{x:Type Fluent:Button}"
-                               BasedOn="{StaticResource ButtonBackstageStyle}" />
+                               BasedOn="{StaticResource BackstageButtonStyle}" />
                     </ResourceDictionary>
                 </Grid.Resources>
                 <ContentPresenter x:Name="PART_SelectedContentHost"
@@ -214,7 +202,7 @@
                 <Grid Width="32"
                       Height="32"
                       UseLayoutRounding="False"
-                      Margin="15,10,0,0"
+                      Margin="22,10,0,0"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"
                       x:Name="backbutton"
