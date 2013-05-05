@@ -79,5 +79,5 @@
     <!--<Style x:Key="{x:Type Fluent:TextBox}" TargetType="{x:Type Fluent:TextBox}" BasedOn="{StaticResource RibbonTextBoxStyle}"/>-->
     <Style x:Key="{x:Type Fluent:RibbonToolBarControlGroup}" TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}"/>
     <Style x:Key="{x:Type Fluent:Ribbon}" TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}"/>
-    <Style x:Key="{x:Type Fluent:RibbonWindow}" TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}"/>
+    <Style x:Key="{x:Type Fluent:MetroWindow}" TargetType="{x:Type Fluent:MetroWindow}" BasedOn="{StaticResource MetroWindowStyle}"/>
 </ResourceDictionary>
