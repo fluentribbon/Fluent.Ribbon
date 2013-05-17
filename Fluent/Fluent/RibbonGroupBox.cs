@@ -217,7 +217,12 @@ namespace Fluent
             }
         }
 
-        private void UpdateScalableControlSubscribing(bool registerEvents = true)
+        private void UpdateScalableControlSubscribing()
+        {
+            UpdateScalableControlSubscribing(true);
+        }
+
+        private void UpdateScalableControlSubscribing(bool registerEvents)
         {
             foreach (var scalableRibbonControl in Items.OfType<IScalableRibbonControl>())
             {
@@ -658,7 +663,7 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            this.UpdateScalableControlSubscribing(registerEvents: false);
+            this.UpdateScalableControlSubscribing(false);
 
             if (LauncherButton != null)
             {

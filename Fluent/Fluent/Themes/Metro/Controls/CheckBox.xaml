@@ -10,17 +10,17 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverRectangle">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressedRectangle">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
+                                            <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1" />
                                         </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -107,7 +107,7 @@
                                       Height="7.6"
                                       Stretch="Fill"
                                       Stroke="#FF000000"
-                                      UseLayoutRounding="False"
+                                      Fluent:FrameworkHelper.UseLayoutRounding="False"
                                       VerticalAlignment="Center"
                                       Width="8.9"
                                       StrokeStartLineCap="Triangle"

@@ -147,28 +147,28 @@
                 <Storyboard x:Key="OnIsOpenTrueStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
-                        <EasingThicknessKeyFrame KeyTime="0"
-                                                 Value="-30,0,0,0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
-                                                 Value="0">
-                            <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut" />
-                            </EasingThicknessKeyFrame.EasingFunction>
-                        </EasingThicknessKeyFrame>
+                        <Fluent:EasingThicknessKeyFrame KeyTime="0"
+                                                        Value="-30,0,0,0" />
+                        <Fluent:EasingThicknessKeyFrame KeyTime="0:0:0.2"
+                                                        Value="0">
+                            <Fluent:EasingThicknessKeyFrame.EasingFunction>
+                                <Fluent:CubicEase EasingMode="EaseInOut" />
+                            </Fluent:EasingThicknessKeyFrame.EasingFunction>
+                        </Fluent:EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                    Storyboard.TargetName="grid">
-                        <EasingDoubleKeyFrame KeyTime="0"
-                                              Value="0" />
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                              Value="1" />
+                        <Fluent:EasingDoubleKeyFrame KeyTime="0"
+                                                     Value="0" />
+                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                                                     Value="1" />
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)"
                                                    Storyboard.TargetName="backbutton">
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.1"
-                                              Value="-23" />
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                              Value="0" />
+                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.1"
+                                                     Value="-23" />
+                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                                                     Value="0" />
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
             </ResourceDictionary>
@@ -202,7 +202,7 @@
                   Background="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}">
                 <Grid Width="35"
                       Height="35"
-                      UseLayoutRounding="False"
+                      Fluent:FrameworkHelper.UseLayoutRounding="False"
                       Margin="22,19,0,0"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Left"

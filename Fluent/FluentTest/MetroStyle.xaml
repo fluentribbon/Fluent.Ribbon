@@ -1301,7 +1301,7 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:Button Header="TEST" />
-                    <DatePicker />
+                    <FluentTest:DatePicker />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

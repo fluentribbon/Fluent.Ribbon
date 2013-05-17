@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:Fluent="clr-namespace:Fluent">
-	     <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Name="noneditComboboxItem" x:Key="noneditComboboxItemControlTemplate">
+	     <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Key="noneditComboboxItemControlTemplate">
           <Grid Background="{DynamicResource TransparentBrush}">
             <Border x:Name="hoverBorder" BorderThickness="1" Visibility="Collapsed">
             	<Border.Background>

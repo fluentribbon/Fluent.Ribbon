@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FrameworkHelper.cs" />
     <Compile Include="MetroStyle.xaml.cs">
       <DependentUpon>MetroStyle.xaml</DependentUpon>
     </Compile>
