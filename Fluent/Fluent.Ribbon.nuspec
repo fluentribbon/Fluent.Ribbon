@@ -6,7 +6,7 @@
     <title>Fluent Ribbon Control Suite</title>
     <summary>Fluent Ribbon Control Suite is a library that implements an Office-like Ribbon for WPF.</summary>
     <description>Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft® Office Fluent™ user interface) for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010 styles.</description>
-    <authors>daVinci,SableRaven,batzen,LastElb</authors>
+    <authors>daVinci,SableRaven,batzen,LastElb,firehirsch</authors>
     <licenseUrl>http://fluent.codeplex.com/license</licenseUrl>
     <projectUrl>http://fluent.codeplex.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
