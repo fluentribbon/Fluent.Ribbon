@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Fluent.Ribbon</id>
+    <version>$Version$</version>
+    <title>Fluent Ribbon Control Suite</title>
+    <summary>Fluent Ribbon Control Suite is a library that implements an Office-like Ribbon for WPF.</summary>
+    <description>Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft® Office Fluent™ user interface) for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010 styles.</description>
+    <authors>daVinci,SableRaven,batzen,LastElb</authors>
+    <licenseUrl>http://fluent.codeplex.com/license</licenseUrl>
+    <projectUrl>http://fluent.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>ribbon fluent ribbonwindow</tags>
+  </metadata>
+  <files>
+    <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.dll" target="lib\net35" />
+    <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.pdb" target="lib\net35" />
+    <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.XML" target="lib\net35" />
+    <file src="Lib\Net35\System.Windows.Interactivity.dll" target="lib\net35" />
+    <file src="Lib\Net35\WPFToolkit.dll" target="lib\net35" />
+
+    <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
+    <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.pdb" target="lib\net40" />
+    <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.XML" target="lib\net40" />
+    <file src="Lib\Net40\System.Windows.Interactivity.dll" target="lib\net40" />
+
+    <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.dll" target="lib\net45" />
+    <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.pdb" target="lib\net45" />
+    <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.XML" target="lib\net45" />
+    <file src="Lib\Net40\System.Windows.Interactivity.dll" target="lib\net45" />
+  </files>
+</package>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Root>$(MSBuildProjectDirectory)\</Root>
+    <Configuration Condition="$(Configuration) == ''">Release</Configuration>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <!-- Build the project for all supported .NET versions -->
+    <MSBuild Projects="$(Root)Fluent dotNET 3.5.sln" Properties="Configuration=$(Configuration);" />
+    <MSBuild Projects="$(Root)Fluent dotNET 4.0.sln" Properties="Configuration=$(Configuration);" />
+    <MSBuild Projects="$(Root)Fluent dotNET 4.5.sln" Properties="Configuration=$(Configuration);" />
+  </Target>
+
+  <Target Name="ReadVersion" DependsOnTargets="Build">
+    <!-- Read assembly version from the DLL -->
+    <GetAssemblyIdentity AssemblyFiles="$(Root)Fluent\bin\NET 4.5\$(Configuration)\Fluent.dll">
+        <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
+    </GetAssemblyIdentity>
+    <PropertyGroup>
+        <!-- Construct NuGet package version according to SemVer -->
+        <PrereleaseSuffix Condition="$(Prerelease) != ''">-$(Prerelease)</PrereleaseSuffix>
+        <Version>$([System.String]::new(%(FluentAssembly.Version)).TrimEnd('0').TrimEnd('.'))$(PrereleaseSuffix)</Version>
+    </PropertyGroup>
+  </Target>
+  
+  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion">
+    <!-- Build NuGet package -->
+    <Exec Command="$(Root)Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -Properties Configuration=$(Configuration)" />
+  </Target>
+</Project>
