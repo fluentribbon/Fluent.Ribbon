@@ -59,9 +59,10 @@
                                        Icon="Images\Save.png"
                                        Fluent:KeyTip.Keys="S"
                                        Click="OnBtnClick" />
-                        <Fluent:Button Header="Save As"
-                                       Icon="Images\Save.png"
-                                       Fluent:KeyTip.Keys="A" />
+                        <Fluent:Button Header="Save As" 
+                                       Icon="Images\Save.png" 
+                                       Fluent:KeyTip.Keys="A" 
+                                       Command="{x:Static FluentTest:TestWindow.New1}"/>
                         <Fluent:BackstageTabItem Header="TEST"
                                                  Content="Hello">
 
