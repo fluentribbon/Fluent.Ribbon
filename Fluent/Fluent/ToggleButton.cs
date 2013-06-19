@@ -232,8 +232,12 @@ namespace Fluent
         /// </summary>
         protected override void OnClick()
         {
-            // Close popup on click
-            if (IsDefinitive) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+            // Close popup on click            
+            if (this.IsDefinitive)
+            {
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
+            }
+
             base.OnClick();
         }
 

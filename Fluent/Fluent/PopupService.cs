@@ -90,34 +90,20 @@ namespace Fluent
         public static readonly RoutedEvent DismissPopupEvent = EventManager.RegisterRoutedEvent("DismissPopup", RoutingStrategy.Bubble, typeof(DismissPopupEventHandler), typeof(PopupService));
 
         /// <summary>
-        /// Raises DismissPopup event
+        /// Raises DismissPopup event (Async)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="mode"></param>
-        public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
+        public static void RaiseDismissPopupEventAsync(object sender, DismissPopupMode mode)
         {
-            object element = sender;
-            /*while (!(element is IDropDownControl))
+            var element = sender as UIElement;
+
+            if (element == null)
             {
-                object parent = VisualTreeHelper.GetParent(element as DependencyObject);
-                if (parent is IDropDownControl)
-                {
-                    element = parent;
-                    break;
-                }
-                else if (parent != null) element = parent;
-                else
-                {
-                    parent = LogicalTreeHelper.GetParent(element as DependencyObject);
-                    if (parent != null)
-                    {
-                        element = parent;
-                        if (parent is IDropDownControl) break;
-                    }
-                    else break;                    
-                }
+                return;
             }
-            if (element != null) */(element as UIElement).RaiseEvent(new DismissPopupEventArgs(mode));
+
+            element.Dispatcher.BeginInvoke((Action)(() => element.RaiseEvent(new DismissPopupEventArgs(mode))));
         }
 
         #endregion
@@ -145,7 +131,7 @@ namespace Fluent
             {
                 if (Mouse.Captured == sender)
                 {
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                 }
             }
         }
@@ -165,7 +151,7 @@ namespace Fluent
                 Popup popup = control.DropDownPopup;
                 if ((popup == null) || (popup.Child == null))
                 {
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
 
@@ -174,7 +160,7 @@ namespace Fluent
                     // If Ribbon loses capture because something outside popup is clicked - close the popup
                     if (Mouse.Captured == null || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     }
                 }
                 else
@@ -190,7 +176,7 @@ namespace Fluent
                     }
                     else
                     {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     }
                 }
             }
@@ -287,7 +273,7 @@ namespace Fluent
             {
                 //Debug.WriteLine("Context menu closed");
                 control.IsContextMenuOpened = false;
-                RaiseDismissPopupEvent(control, DismissPopupMode.MouseNotOver);
+                RaiseDismissPopupEventAsync(control, DismissPopupMode.MouseNotOver);
             }
         }
     }

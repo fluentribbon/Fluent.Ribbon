@@ -314,8 +314,18 @@ namespace Fluent
             if ((bool)e.NewValue)
             {
                 ((GalleryItem)d).BringIntoView();
-                Selector parentSelector = ItemsControl.ItemsControlFromItemContainer(((GalleryItem)d)) as Selector;
-                if (parentSelector != null) parentSelector.SelectedItem = parentSelector.ItemContainerGenerator.ItemFromContainer(((GalleryItem)d));
+
+                var parentSelector = ItemsControl.ItemsControlFromItemContainer(d) as Selector;
+
+                if (parentSelector != null)
+                {
+                    var item = parentSelector.ItemContainerGenerator.ItemFromContainer(d);
+
+                    if (ReferenceEquals(parentSelector.SelectedItem, item) == false)
+                    {
+                        parentSelector.SelectedItem = item;
+                    }
+                }
             }
         }
 
@@ -391,9 +401,10 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected virtual void OnClick(object sender, RoutedEventArgs e)
         {
-            ExecuteCommand();
-            IsSelected = true;
-            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+            PopupService.RaiseDismissPopupEventAsync(sender, DismissPopupMode.Always);
+
+            this.ExecuteCommand();
+            this.IsSelected = true;            
             e.Handled = true;
         }
 

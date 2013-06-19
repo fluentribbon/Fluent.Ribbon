@@ -493,7 +493,7 @@ namespace Fluent
             }
             else
             {
-                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.MouseNotOver);
                 IsDropDownOpen = false;
             }
 
@@ -631,10 +631,11 @@ namespace Fluent
         {
             this.IsDropDownOpen = true;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup != null
+                && this.DropDownPopup.Child != null)
             {
-                Keyboard.Focus(this.DropDownPopup);
-                this.DropDownPopup.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                Keyboard.Focus(this.DropDownPopup.Child);
+                this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             }
         }
 

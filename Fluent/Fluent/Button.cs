@@ -194,8 +194,11 @@ namespace Fluent
         protected override void OnClick()
         {
             // Close popup on click
-            if (IsDefinitive) 
-            	Dispatcher.BeginInvoke((Action) (() => PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always)));
+            if (this.IsDefinitive)
+            {
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
+            }
+
             base.OnClick();
         }
 

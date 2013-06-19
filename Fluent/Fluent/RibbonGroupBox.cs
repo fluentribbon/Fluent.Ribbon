@@ -916,14 +916,19 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess)) && (popup != null))
+            if ((this.State == RibbonGroupBoxState.Collapsed || this.State == RibbonGroupBoxState.QuickAccess) 
+                && popup != null)
             {
                 e.Handled = true;
-                if (!IsDropDownOpen)
+
+                if (!this.IsDropDownOpen)
                 {
-                    IsDropDownOpen = true;
+                    this.IsDropDownOpen = true;
                 }
-                else PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.MouseNotOver);
+                else
+                {
+                    PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.MouseNotOver);
+                }
             }
         }
 

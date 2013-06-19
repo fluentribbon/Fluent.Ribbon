@@ -853,7 +853,7 @@ namespace Fluent
                     if (listBoxes[i] != sender) listBoxes[i].SelectedItem = null;
                 }
                 SelectedColor = (Color)e.AddedItems[0];
-                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
             isSelectionChanged = false;
         }

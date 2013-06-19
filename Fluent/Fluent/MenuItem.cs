@@ -598,18 +598,13 @@ namespace Fluent
         protected override void OnClick()
         {
             // Close popup on click
-            //if ((IsDefinitive)&&(!HasItems)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
-            /*if (HasItems && IsSplited)
+            if (this.IsDefinitive
+                && (!this.HasItems || this.IsSplited))
             {
-                Border buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
-                if ((buttonBorder != null) && (buttonBorder.IsMouseOver))
-                {
-                    if (IsDefinitive) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
-                }
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
-            else */
-            if ((IsDefinitive) && (!HasItems || IsSplited)) PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
-            base.OnClick();
+
+            base.OnClick();            
         }
 
         /// <summary>

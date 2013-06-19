@@ -387,7 +387,7 @@ namespace Fluent
 
             if (backstage != null)
             {
-                PopupService.RaiseDismissPopupEvent(backstage, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEventAsync(backstage, DismissPopupMode.Always);
             }
         }
 
