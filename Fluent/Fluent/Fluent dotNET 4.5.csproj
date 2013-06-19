@@ -79,9 +79,9 @@
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase">
     </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\lib\Net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="WindowsFormsIntegration">
     </Reference>
