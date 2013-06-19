@@ -27,7 +27,6 @@
                 </Setter>
             </Trigger>
             <Trigger Property="IsOpen" Value="True">
-                <Setter Property="Margin" TargetName="border2" Value="0" />
                 <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
