@@ -16,17 +16,17 @@
     <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.dll" target="lib\net35" />
     <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.pdb" target="lib\net35" />
     <file src="Fluent\bin\NET 3.5\$Configuration$\Fluent.XML" target="lib\net35" />
-    <file src="Lib\Net35\System.Windows.Interactivity.dll" target="lib\net35" />
-    <file src="Lib\Net35\WPFToolkit.dll" target="lib\net35" />
+    <file src="Fluent\bin\NET 3.5\$Configuration$\System.Windows.Interactivity.dll" target="lib\net35" />
+    <file src="Fluent\bin\NET 3.5\$Configuration$\WPFToolkit.dll" target="lib\net35" />
 
     <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
     <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.pdb" target="lib\net40" />
     <file src="Fluent\bin\NET 4.0\$Configuration$\Fluent.XML" target="lib\net40" />
-    <file src="Lib\Net40\System.Windows.Interactivity.dll" target="lib\net40" />
+    <file src="Fluent\bin\NET 4.0\$Configuration$\System.Windows.Interactivity.dll" target="lib\net40" />
 
     <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.dll" target="lib\net45" />
     <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.pdb" target="lib\net45" />
     <file src="Fluent\bin\NET 4.5\$Configuration$\Fluent.XML" target="lib\net45" />
-    <file src="Lib\Net40\System.Windows.Interactivity.dll" target="lib\net45" />
+    <file src="Fluent\bin\NET 4.5\$Configuration$\System.Windows.Interactivity.dll" target="lib\net45" />
   </files>
 </package>
