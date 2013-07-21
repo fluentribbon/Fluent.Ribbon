@@ -604,7 +604,7 @@ namespace Fluent
                 PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
 
-            base.OnClick();            
+            base.OnClick();
         }
 
         /// <summary>
@@ -718,37 +718,76 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (menuPanel != null)
+            {
+                if (double.IsNaN(menuPanel.Width))
+                {
+                    menuPanel.Width = menuPanel.ActualWidth;
+                }
+
+                if (double.IsNaN(menuPanel.Height))
+                {
+                    menuPanel.Height = menuPanel.ActualHeight;
+                }
+
+                menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            }
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (menuPanel != null)
+            {
+                if (double.IsNaN(menuPanel.Height))
+                {
+                    menuPanel.Height = menuPanel.ActualHeight;
+                }
+
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            }
         }
 
         // Handles drop down opened
-        void OnDropDownClosed(object sender, EventArgs e)
+        private void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (DropDownClosed != null) DropDownClosed(this, e);
+            if (DropDownClosed != null)
+            {
+                DropDownClosed(this, e);
+            }
             //if (Mouse.Captured == this) Mouse.Capture(null);
         }
 
         // Handles drop down closed
-        void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            if (scrollViewer != null
+                && ResizeMode != ContextMenuResizeMode.None)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            }
 
-            menuPanel.Width = double.NaN;
-            menuPanel.Height = double.NaN;
+            if (menuPanel != null)
+            {
+                menuPanel.Width = double.NaN;
+                menuPanel.Height = double.NaN;
+            }
 
-            if (DropDownOpened != null) DropDownOpened(this, e);
+            if (DropDownOpened != null)
+            {
+                DropDownOpened(this, e);
+            }
             //Mouse.Capture(this, CaptureMode.SubTree);
         }
 
