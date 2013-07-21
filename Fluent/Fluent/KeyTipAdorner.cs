@@ -486,7 +486,7 @@ namespace Fluent
         #region Methods
 
         // Back to the previous adorner
-        private void Back()
+        public void Back()
         {
             var control = this.keyTipElementContainer as IKeyTipedControl;
             if (control != null)
