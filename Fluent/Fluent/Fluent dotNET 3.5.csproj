@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicatonMenu.cs" />
+    <Compile Include="AttachedProperties\RibbonAttachedProperties.cs" />
     <Compile Include="Backstage.cs" />
     <Compile Include="BackstageAdorner.cs" />
     <Compile Include="BackstageTabControl.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="ComboBox.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="Converters\InvertNumericConverter.cs" />
+    <Compile Include="Converters\StaticConverters.cs" />
+    <Compile Include="Converters\ThicknessConverter.cs" />
     <Compile Include="ClosingWindowEventHandlerArgs.cs" />
     <Compile Include="DropDownButton.cs" />
     <Compile Include="FrameworkHelper.cs" />
@@ -537,13 +541,6 @@
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <PropertyGroup>
     <PreBuildEvent>"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
 "$(ProjectDir)Themes\XamlCombine.exe" Office2010\Black.txt Office2010\Black.xaml

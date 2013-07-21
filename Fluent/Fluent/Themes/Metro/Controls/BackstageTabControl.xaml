@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Internal="clr-namespace:Fluent.Internal"
-                    xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+                    xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:ribbonAttachedProperties="clr-namespace:Fluent.AttachedProperties">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml" />
@@ -197,9 +199,18 @@
                                   Grid.Column="1"
                                   ContentSource="SelectedContent" />
             </Grid>
-            <Grid Margin="0,-25,0,0"
-                  VerticalAlignment="Stretch"
+            <Grid VerticalAlignment="Stretch"
                   Background="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}">
+                <Grid.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding RelativeSource="{RelativeSource Self}"
+                                 Path="(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight)"
+                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
+                    </MultiBinding>
+                </Grid.Margin>
                 <Grid Width="35"
                       Height="35"
                       Fluent:FrameworkHelper.UseLayoutRounding="False"

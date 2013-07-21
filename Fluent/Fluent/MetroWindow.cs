@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +8,8 @@ using Fluent.Metro.Native;
 
 namespace Fluent
 {
+    using Fluent.AttachedProperties;
+
     [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
     public class MetroWindow : Window
     {
@@ -24,7 +24,7 @@ namespace Fluent
         public static readonly DependencyProperty ShowMinButtonProperty = DependencyProperty.Register("ShowMinButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register("ShowCloseButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowMaxRestoreButtonProperty = DependencyProperty.Register("ShowMaxRestoreButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
-        public static readonly DependencyProperty TitlebarHeightProperty = DependencyProperty.Register("TitlebarHeight", typeof(int), typeof(MetroWindow), new PropertyMetadata(30));
+
         public static readonly DependencyProperty TitleCapsProperty = DependencyProperty.Register("TitleCaps", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
         public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(SolidColorBrush), typeof(MetroWindow), new PropertyMetadata(Brushes.Blue));
@@ -75,12 +75,6 @@ namespace Fluent
             set { SetValue(ShowCloseButtonProperty, value); }
         }
 
-        public int TitlebarHeight
-        {
-            get { return (int)GetValue(TitlebarHeightProperty); }
-            set { SetValue(TitlebarHeightProperty, value); }
-        }
-
         public bool ShowMaxRestoreButton
         {
             get { return (bool)GetValue(ShowMaxRestoreButtonProperty); }
@@ -123,7 +117,7 @@ namespace Fluent
         {
             if (WindowCommands != null)
             {
-                WindowCommands.RefreshMaximiseIconState();
+                WindowCommands.RefreshMaximizeIconState();
             }
 
             base.OnStateChanged(e);
@@ -166,7 +160,8 @@ namespace Fluent
 
             var mousePosition = GetCorrectPosition(this);
 
-            if (mousePosition.X <= TitlebarHeight && mousePosition.Y <= TitlebarHeight)
+            if (mousePosition.X <= RibbonAttachedProperties.GetTitleBarHeight(this)
+                && mousePosition.Y <= RibbonAttachedProperties.GetTitleBarHeight(this))
             {
                 if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= doubleclick)
                 {
@@ -175,7 +170,7 @@ namespace Fluent
                 }
                 lastMouseClick = DateTime.Now;
 
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(new Point(0, TitlebarHeight)));
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(new Point(0, RibbonAttachedProperties.GetTitleBarHeight(this))));
             }
             else if (e.ChangedButton == MouseButton.Right)
             {

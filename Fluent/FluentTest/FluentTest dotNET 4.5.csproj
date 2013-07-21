@@ -140,7 +140,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Fluent\Fluent dotNET 4.5.csproj">
       <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
-      <Name>Fluent</Name>
+      <Name>Fluent dotNET 4.5</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
