@@ -22,6 +22,8 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using System.Linq;
+
     /// <summary>
     /// Represents ribbon tab item
     /// </summary>
@@ -308,20 +310,20 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item as UIElement);
+                        groupsInnerContainer.Children.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item as UIElement);
+                        groupsInnerContainer.Children.Remove(item);
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Add(item as UIElement);
+                        groupsInnerContainer.Children.Add(item);
                     }
                     break;
 

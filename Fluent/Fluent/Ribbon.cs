@@ -808,24 +808,24 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        QuickAccessMenuItem menuItem = item;
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        QuickAccessMenuItem menuItem = item;
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)item;
+                        QuickAccessMenuItem menuItem = item;
                         if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
                         menuItem.Ribbon = this;
                     }

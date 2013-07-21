@@ -8,20 +8,14 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Navigation;
 
 namespace Fluent
 {
@@ -222,11 +216,11 @@ namespace Fluent
                             groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
                         }
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
@@ -269,7 +263,7 @@ namespace Fluent
         {
             Gallery gallery = (Gallery)d;
             GalleryGroupFilter filter = e.NewValue as GalleryGroupFilter;
-            if(filter!=null)
+            if (filter != null)
             {
                 gallery.SelectedFilterTitle = filter.Title;
                 gallery.SelectedFilterGroups = filter.Groups;
@@ -406,7 +400,7 @@ namespace Fluent
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLastItemProperty = IsLastItemPropertyKey.DependencyProperty;
-        
+
         #endregion
 
         #endregion
@@ -419,7 +413,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Gallery()
         {
-            Type type = typeof (Gallery);
+            Type type = typeof(Gallery);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(Gallery)));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
             ContextMenuService.Attach(type);

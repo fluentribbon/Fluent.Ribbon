@@ -857,9 +857,9 @@ namespace Fluent
         {
             if (e.NewItems != null)
             {
-                foreach (Visual visual in e.NewItems)
+                foreach (var element in e.NewItems.OfType<UIElement>())
                 {
-                    RibbonControl.SetAppropriateSize((UIElement)visual, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
+                    RibbonControl.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
                 }
             }
             base.OnItemsChanged(e);

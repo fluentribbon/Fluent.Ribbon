@@ -302,11 +302,11 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
@@ -318,28 +318,28 @@ namespace Fluent
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
                         }
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
                         }
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
