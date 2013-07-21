@@ -128,19 +128,6 @@
                 Value="22" />
         <Setter Property="Width"
                 Value="22" />
-        <!--<Setter Property="QuickAccessElementStyle">
-        <Setter.Value>
-            <Style TargetType="{x:Type Fluent:ToggleButton}">
-                <Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
-                <Setter Property="Height" Value="22"/>
-                <Setter Property="Width" Value="22"/>			
-                <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-                <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-                <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-                <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
-            </Style>
-        </Setter.Value>
-    </Setter>-->
         <Setter Property="FontSize"
                 Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="FontFamily"
@@ -381,8 +368,6 @@
                                            Height="86" />
                             <RowDefinition x:Name="rowDefinition1"
                                            Height="{TemplateBinding ContentGapHeight}" />
-                            <!--<RowDefinition x:Name="rowDefinition1"
-                                           Height="{TemplateBinding ContentGapHeight}" />-->
                         </Grid.RowDefinitions>
                         <Border x:Name="border"
                                 HorizontalAlignment="Stretch"
@@ -514,7 +499,6 @@
                                                            HorizontalScrollBarVisibility="Auto"
                                                            VerticalScrollBarVisibility="Disabled"
                                                            IsHitTestVisible="True">
-                                    <!---->
                                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                                 IsItemsHost="True"
                                                                 Height="Auto"
@@ -571,7 +555,7 @@
                                         BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                         Background="{DynamicResource RibbonBackgoundBrush}"
                                         BorderThickness="0,1">
-                                    <ContentControl x:Name="contentControl"
+                                    <ContentControl x:Name="popupContentControl"
                                                     Margin="0" />
                                 </Border>
                                 <Border Margin="0,-1,0,0"
@@ -634,12 +618,14 @@
                             <Setter Property="Height"
                                     TargetName="rowDefinition1"
                                     Value="0" />
+                            <!-- Switch content to popup -->
                             <Setter Property="Content"
                                     TargetName="mainContentControl"
                                     Value="{x:Null}" />
                             <Setter Property="Content"
-                                    TargetName="contentControl"
+                                    TargetName="popupContentControl"
                                     Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
+                            <!-- Switch content to popup END -->
                             <Setter Property="Visibility"
                                     TargetName="border"
                                     Value="Collapsed" />

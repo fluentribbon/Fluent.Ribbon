@@ -436,7 +436,7 @@
                             <ContentControl x:Name="mainContentControl"
                                             Margin="0,1,0,0"
                                             Focusable="False">
-                                <ContentPresenter ContentSource="SelectedContent"
+                                <ContentPresenter ContentSource="SelectedContent"                                                  
                                                   x:Name="contentPresenter"
                                                   HorizontalAlignment="Stretch"
                                                   Margin="0" />
@@ -568,7 +568,7 @@
                                         BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                         Background="{DynamicResource RibbonBackgoundBrush}"
                                         BorderThickness="0,1">
-                                    <ContentControl x:Name="contentControl"
+                                    <ContentControl x:Name="popupContentControl"
                                                     Margin="0" />
                                 </Border>
                                 <Border Margin="0,-1,0,0"
@@ -632,12 +632,14 @@
                             <Setter Property="Height"
                                     TargetName="rowDefinition1"
                                     Value="0" />
+                            <!-- Switch content to popup -->
                             <Setter Property="Content"
                                     TargetName="mainContentControl"
                                     Value="{x:Null}" />
                             <Setter Property="Content"
-                                    TargetName="contentControl"
+                                    TargetName="popupContentControl"
                                     Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
+                            <!-- Switch content to popup END -->
                             <Setter Property="Visibility"
                                     TargetName="border"
                                     Value="Collapsed" />
