@@ -538,7 +538,7 @@
                                                          Margin="0"
                                                          Width="22"
                                                          Height="22"
-                                                         Size="Small"
+                                                         Fluent:RibbonAttachedProperties.RibbonSize="Small"
                                                          Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
                                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                          Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}" />

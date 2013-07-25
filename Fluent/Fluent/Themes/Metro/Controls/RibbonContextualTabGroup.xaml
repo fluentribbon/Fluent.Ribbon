@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:ribbonAttachedProperties="clr-namespace:Fluent.AttachedProperties"
                     xmlns:Converters="clr-namespace:Fluent.Converters" xmlns:internal="clr-namespace:Fluent.Internal">
     <Style x:Key="RibbonContextualTabGroupStyle"
            TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
@@ -18,25 +17,25 @@
         <Border x:Name="rootBorder" Visibility="{TemplateBinding InnerVisibility}"
                 Margin="2,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                 Width="Auto"
-                Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" 
+                Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" 
                 BorderThickness="1,0">
             <Border BorderBrush="{TemplateBinding BorderBrush}" 
                     BorderThickness="0,0" 
                     VerticalAlignment="Top"
-                    Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <Border.Margin>
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight)"
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
                                  Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
                     </MultiBinding>                    
                 </Border.Margin>
                 <Grid Margin="0"
                       VerticalAlignment="Top"
-                      Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                      Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                     <Rectangle Fill="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                Width="Auto" Height="Auto" >
                         <Rectangle.OpacityMask>

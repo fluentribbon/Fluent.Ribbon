@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-    xmlns:System="clr-namespace:System;assembly=mscorlib"
-    xmlns:Fluent="clr-namespace:Fluent">
-  <Fluent:IconConverter x:Key="IconConvert"/>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <Fluent:IconConverter x:Key="IconConvert"/>
   <BitmapImage x:Key="ImageCaptionButtonClose" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png" PresentationOptions:Freeze="True"/>	
     <BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
     <BitmapImage x:Key="ImageCaptionButtonNormalize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png" PresentationOptions:Freeze="True"/>
@@ -196,32 +199,49 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
-  <Style x:Key="RibbonWindowStyle" TargetType="{x:Type Fluent:RibbonWindow}">
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontWeight" Value="Normal"/>
-    <Setter Property="GlassBorderThickness" Value="8,50,8,8"/>
-    <Setter Property="ResizeBorderThickness" Value="8,8,8,8"/>
-    <Setter Property="CornerRadius" Value="15"/>
-    <Setter Property="CaptionHeight" Value="50"/>
-    <Setter Property="Foreground" Value="#FF000000"/>    
-    <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>    
-    <Style.Triggers>
-      <Trigger Property="IsCollapsed" Value="True">
-        <Setter Property="GlassBorderThickness" Value="8,30,8,8"/>
-      </Trigger>
-      <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="GlassBorderThickness" Value="0,56,0,0"/>
-      </Trigger>
-      <Trigger Property="IsDwmEnabled" Value="False">
-        <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
-      </Trigger>
+
+    <Style x:Key="RibbonWindowStyle"
+           TargetType="{x:Type Fluent:RibbonWindow}">
+        <Setter Property="FontSize"
+                Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource DefaultFontFamily}" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
+        <Setter Property="GlassBorderThickness"
+                Value="8,50,8,8" />
+        <Setter Property="ResizeBorderThickness"
+                Value="8,8,8,8" />
+        <Setter Property="CornerRadius"
+                Value="15" />
+        <Setter Property="CaptionHeight"
+                Value="50" />
+        <Setter Property="Foreground"
+                Value="#FF000000" />
+        <Setter Property="Background"
+                Value="{DynamicResource WindowBackgroundBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsCollapsed"
+                     Value="True">
+                <Setter Property="GlassBorderThickness"
+                        Value="8,30,8,8" />
+            </Trigger>
+            <Trigger Property="WindowState"
+                     Value="Maximized">
+                <Setter Property="GlassBorderThickness"
+                        Value="0,56,0,0" />
+            </Trigger>
+            <Trigger Property="IsDwmEnabled"
+                     Value="False">
+                <Setter Property="Template"
+                        Value="{StaticResource NonDwmRibbonWindowControlTemplate}" />
+            </Trigger>
             <Trigger Property="IsDwmEnabled"
                      Value="True">
                 <Setter Property="Template"
                         Value="{StaticResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
         </Style.Triggers>
-  </Style>
-  <!--<Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>-->
+    </Style>
+    <!--<Style BasedOn="{StaticResource RibbonWindowStyle}" TargetType="{x:Type Fluent:RibbonWindow}"/>-->
 </ResourceDictionary>

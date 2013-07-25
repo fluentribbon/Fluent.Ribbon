@@ -253,13 +253,13 @@
                             </Setter>
                         </Trigger>
 
-                        <Trigger Property="Size"
+                        <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                                  Value="Middle">
                             <Setter Property="Visibility"
                                     TargetName="textBlock"
                                     Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="Size"
+                        <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                                  Value="Small">
                             <Setter Property="Visibility"
                                     TargetName="stackPanel"

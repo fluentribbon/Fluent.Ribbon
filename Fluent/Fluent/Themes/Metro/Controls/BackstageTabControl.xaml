@@ -3,8 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Internal="clr-namespace:Fluent.Internal"
                     xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
-                    xmlns:ribbonAttachedProperties="clr-namespace:Fluent.AttachedProperties">
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml" />

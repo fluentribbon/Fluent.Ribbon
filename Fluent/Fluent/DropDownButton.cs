@@ -65,44 +65,6 @@ namespace Fluent
             }
         }
 
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(DropDownButton));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(DropDownButton));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
-
         #region Header
 
         /// <summary>
@@ -739,7 +701,8 @@ namespace Fluent
         public virtual FrameworkElement CreateQuickAccessItem()
         {
             DropDownButton button = new DropDownButton();
-            button.Size = RibbonControlSize.Small;
+            RibbonAttachedProperties.SetRibbonSize(button, RibbonControlSize.Small);
+
             BindQuickAccessItem(button);
             RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);

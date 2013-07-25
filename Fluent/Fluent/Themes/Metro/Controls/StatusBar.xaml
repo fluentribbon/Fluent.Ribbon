@@ -24,7 +24,9 @@
   <Setter Property="Template">
     <Setter.Value>
       <ControlTemplate TargetType="{x:Type Separator}">
-        <Border BorderThickness="1,0" Margin="0,-1,0,0" Width="3" Background="{DynamicResource StatusBarSeparatorBackgroundBrush}" BorderBrush="{DynamicResource StatusBarSeparatorBorderBrush}"/>
+                    <Border Width="10"
+                            Background="Transparent" 
+                            BorderBrush="Transparent"/>
       </ControlTemplate>
     </Setter.Value>
   </Setter>

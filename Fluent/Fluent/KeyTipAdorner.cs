@@ -866,8 +866,11 @@ namespace Fluent
                 }
                 else
                 {
-                    if (((associatedElements[i] is IRibbonControl) && (((IRibbonControl)associatedElements[i]).Size != RibbonControlSize.Large)) ||
-                        (associatedElements[i] is Spinner) || (associatedElements[i] is ComboBox) || (associatedElements[i] is TextBox) || (associatedElements[i] is CheckBox))
+                    if ((RibbonAttachedProperties.GetRibbonSize(associatedElements[i]) != RibbonControlSize.Large) 
+                        || (associatedElements[i] is Spinner) 
+                        || (associatedElements[i] is ComboBox) 
+                        || (associatedElements[i] is TextBox) 
+                        || (associatedElements[i] is CheckBox))
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(associatedElements[i]);
                         var translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);

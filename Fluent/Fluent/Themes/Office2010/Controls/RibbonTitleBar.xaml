@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:ribbonAttachedProperties="clr-namespace:Fluent.AttachedProperties">
+                    xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonTitleBarStyle"
            TargetType="{x:Type Fluent:RibbonTitleBar}">
         <Setter Property="Template"
@@ -14,7 +13,7 @@
     
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTitleBar}">
-        <Grid Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+        <Grid Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
                               ContentSource="QuickAccessToolBar" />
             <ContentPresenter x:Name="PART_HeaderHolder"

@@ -13,11 +13,13 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using Fluent.Extensibility;
+
     /// <summary>
     /// Represent panel for group box panel
     /// </summary>
     [ContentProperty("Children")]
-    public class RibbonToolBar : RibbonControl
+    public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink
     {
         #region Fields
 
@@ -198,7 +200,7 @@ namespace Fluent
 
             foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
             {
-                if (definition.Size == Size) return definition;
+                if (definition.Size == RibbonAttachedProperties.GetRibbonSize(this)) return definition;
             }
 
             // TODO: try to find a better definition
@@ -214,7 +216,7 @@ namespace Fluent
         /// </summary>
         /// <param name="previous">Previous value</param>
         /// <param name="current">Current value</param>
-        protected override void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
             rebuildVisualAndLogicalChildren = true;
             InvalidateMeasure();
@@ -472,8 +474,7 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            IRibbonControl ribbonControl = control as IRibbonControl;
-                            if (ribbonControl != null) ribbonControl.Size = controlDefinition.Size;
+                            RibbonAttachedProperties.SetRibbonSize(control, RibbonAttachedProperties.GetRibbonSize(controlDefinition));
                             control.Width = controlDefinition.Width;
                             control.Measure(availableSize);
                         }

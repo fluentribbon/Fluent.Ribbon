@@ -138,15 +138,15 @@ namespace Fluent
 
         static void SetAppropriateSizeRecursive(UIElement root, RibbonGroupBoxState ribbonGroupBoxState)
         {
-            if (root == null) return;
-            if (root is IRibbonControl)
+            if (root == null)
             {
-                RibbonControl.SetAppropriateSize(root, ribbonGroupBoxState);
                 return;
             }
 
-            int childrenCount = VisualTreeHelper.GetChildrenCount(root);
-            for (int i = 0; i < childrenCount; i++)
+            RibbonAttachedProperties.SetAppropriateSize(root, ribbonGroupBoxState);
+
+            var childrenCount = VisualTreeHelper.GetChildrenCount(root);
+            for (var i = 0; i < childrenCount; i++)
             {
                 SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root, i) as UIElement, ribbonGroupBoxState);
             }
@@ -859,7 +859,7 @@ namespace Fluent
             {
                 foreach (var element in e.NewItems.OfType<UIElement>())
                 {
-                    RibbonControl.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
+                    RibbonAttachedProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
                 }
             }
             base.OnItemsChanged(e);
@@ -916,7 +916,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((this.State == RibbonGroupBoxState.Collapsed || this.State == RibbonGroupBoxState.QuickAccess) 
+            if ((this.State == RibbonGroupBoxState.Collapsed || this.State == RibbonGroupBoxState.QuickAccess)
                 && popup != null)
             {
                 e.Handled = true;

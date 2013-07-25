@@ -11,13 +11,13 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Style.Triggers>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Large">
+      <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize" Value="Large">
         <Setter Property="Height" Value="68"/>
       </Trigger>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
+      <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize" Value="Middle">
         <Setter Property="Height" Value="22"/>
       </Trigger>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
+      <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize" Value="Small">
         <Setter Property="Height" Value="22"/>
         <Setter Property="Width" Value="22"/>
       </Trigger>
@@ -43,7 +43,7 @@
       </Border>
     </Border>
     <ControlTemplate.Triggers>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Small">
+      <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize" Value="Small">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
@@ -53,7 +53,7 @@
         <Setter Property="Content" TargetName="iconImage" Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"/>
         <Setter Property="Margin" TargetName="controlLabel" Value="2,-2,2,2"/>				
       </Trigger>
-      <Trigger Property="Fluent:RibbonControl.Size" Value="Middle">
+      <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
         <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>

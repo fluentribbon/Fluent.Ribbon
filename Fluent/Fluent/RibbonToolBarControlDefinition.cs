@@ -4,40 +4,17 @@ using System.Windows;
 
 namespace Fluent
 {
+    using Fluent.Extensibility;
+
     /// <summary>
     /// Represent logical definition for a control in toolbar
     /// </summary>
-    public class RibbonToolBarControlDefinition : DependencyObject, INotifyPropertyChanged
+    public class RibbonToolBarControlDefinition : DependencyObject, INotifyPropertyChanged, IRibbonSizeChangedSink
     {
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
-          "Size",
-          typeof(RibbonControlSize),
-          typeof(RibbonToolBarControlDefinition),
-          new FrameworkPropertyMetadata(RibbonControlSize.Small, OnSizePropertyChanged)
-        );
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
+        public RibbonToolBarControlDefinition()
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            RibbonAttachedProperties.SetRibbonSize(this, RibbonControlSize.Small);
         }
-
-        static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RibbonToolBarControlDefinition definition = (RibbonToolBarControlDefinition) d;
-            definition.Invalidate("Size");
-        }
-
-        #endregion
 
         #region Target Property
         
@@ -102,6 +79,15 @@ namespace Fluent
         void Invalidate(string propertyName)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+        #region Implementation of IRibbonSizeChangedSink
+
+        public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        {
+            this.Invalidate("Size");
         }
 
         #endregion

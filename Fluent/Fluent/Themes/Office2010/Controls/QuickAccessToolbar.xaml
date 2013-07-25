@@ -309,7 +309,7 @@
                         TargetName="iconImage"
                         Value="0.25" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Small">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -330,7 +330,7 @@
                         TargetName="grid"
                         Value="0" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Middle">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -452,7 +452,7 @@
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png"
-                                       Size="Small"
+                                       Fluent:RibbonAttachedProperties.RibbonSize="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"
                                                    Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}" />
@@ -475,7 +475,7 @@
                                    Height="22"
                                    DockPanel.Dock="Right"
                                    Fluent:KeyTip.Keys="00"
-                                   Size="Small"
+                                   Fluent:RibbonAttachedProperties.RibbonSize="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png"
                                    ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">

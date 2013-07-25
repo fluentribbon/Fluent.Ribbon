@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Media;
-
+﻿
 namespace Fluent
 {
     /// <summary>
@@ -25,23 +18,13 @@ namespace Fluent
         /// Small size of a control
         /// </summary>
         Small
-    }    
+    }
 
     /// <summary>
     /// Base interface for Fluent controls
     /// </summary>
-    public interface IRibbonControl: IKeyTipedControl
+    public interface IRibbonControl : IKeyTipedControl
     {
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        RibbonControlSize Size { get; set; }
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        string SizeDefinition { get; set; }
-
         /// <summary>
         /// Gets or sets element Text
         /// </summary>

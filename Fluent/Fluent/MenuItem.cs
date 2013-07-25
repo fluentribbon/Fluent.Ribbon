@@ -78,44 +78,6 @@ namespace Fluent
 
         #endregion
 
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(MenuItem));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(MenuItem));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
-
         #region IsDropDownOpen
 
         /// <summary>
@@ -705,15 +667,6 @@ namespace Fluent
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Handles size property changing
-        /// </summary>
-        /// <param name="previous">Previous value</param>
-        /// <param name="current">Current value</param>
-        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
-        {
-        }
 
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)

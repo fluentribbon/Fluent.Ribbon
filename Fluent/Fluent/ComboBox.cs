@@ -80,44 +80,6 @@ namespace Fluent
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
 
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(ComboBox));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(ComboBox));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
-
         #region Header
 
         /// <summary>

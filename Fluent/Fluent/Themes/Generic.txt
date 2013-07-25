@@ -1,4 +1,3 @@
-Office2010\Colors\ColorsSilver.xaml
 Office2010\Fonts.xaml
 Office2010\Colors\Colors.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
@@ -50,7 +49,7 @@ Office2010\Controls\SeparatorTabItem.xaml
 Office2010\Controls\RibbonStatusBar.xaml
 Office2010\Controls\Slider.xaml
 Office2010\RibbonWindow.xaml
-Metro\MetroWindow.xaml
 Office2010\Common.xaml
+Metro\MetroWindow.xaml
 Metro\Colors\ColorsWhite.xaml
 Metro\Colors\Colors.xaml

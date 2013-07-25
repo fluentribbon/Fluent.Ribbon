@@ -3,7 +3,6 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:ribbonAttachedProperties="clr-namespace:Fluent.AttachedProperties"
                     xmlns:Converters="clr-namespace:Fluent.Converters" xmlns:internal="clr-namespace:Fluent.Internal"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
@@ -16,7 +15,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                   Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                   Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
                                    VerticalAlignment="Top"
@@ -43,7 +42,7 @@
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight)" />
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                     </MultiBinding>
@@ -54,7 +53,7 @@
                     BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}"
                     BorderThickness="0,1"
                     Grid.Row="1"
-                    Height="{Binding Path=(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}"
                         BorderThickness="0,1"
                         Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
@@ -135,7 +134,7 @@
                 <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                     <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                     <Binding RelativeSource="{RelativeSource Self}"
-                             Path="(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight)"
+                             Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
                              Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
                     <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                     <Binding Source="{x:Static internal:DoubleUtil.Zero}" />

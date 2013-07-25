@@ -22,44 +22,6 @@ namespace Fluent
     [ContentProperty("Items")]
     public abstract class RibbonItemsControl : ItemsControl, IQuickAccessItemProvider, IRibbonControl
     {
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(RibbonItemsControl));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(RibbonItemsControl));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
-
         #region Header
 
         /// <summary>
@@ -159,19 +121,6 @@ namespace Fluent
         /// Handles back navigation with KeyTips
         /// </summary>
         public void OnKeyTipBack()
-        {
-        }
-
-        #endregion
-
-        #region Protected
-
-        /// <summary>
-        /// Handles size property changing
-        /// </summary>
-        /// <param name="previous">Previous value</param>
-        /// <param name="current">Current value</param>
-        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
         }
 

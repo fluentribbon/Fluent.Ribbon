@@ -8,8 +8,6 @@ using Fluent.Metro.Native;
 
 namespace Fluent
 {
-    using Fluent.AttachedProperties;
-
     [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
     public class MetroWindow : Window
     {
