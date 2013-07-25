@@ -205,6 +205,11 @@ namespace Fluent
 
         #endregion
 
+        public void InvokeClick()
+        {
+            this.OnClick();
+        }
+
         #region Quick Access Item Creating
 
         /// <summary>
