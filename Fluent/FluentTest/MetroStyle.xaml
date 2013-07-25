@@ -1292,6 +1292,12 @@
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
+                    <Fluent:RadioButton Header="Test-Radio 1"
+                                        GroupName="Test-Radio"
+                                        IsChecked="True" />
+                    <Fluent:RadioButton Header="Test-Radio 2"
+                                        GroupName="Test-Radio"
+                                        IsChecked="False" />                    
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Design"
