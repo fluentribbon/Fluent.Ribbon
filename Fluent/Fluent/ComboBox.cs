@@ -701,15 +701,7 @@ namespace Fluent
                 e.Handled = true;
                 return;
             }
-            if ((IsEditable) && ((e.Key == Key.Enter) || (e.Key == Key.Escape)) && (!IsDropDownOpen))
-            {
-                // Move Focus
-                editableTextBox.Focusable = false;
-                Focus();
-                editableTextBox.Focusable = true;
-                e.Handled = true;
-                return;
-            }
+
             base.OnPreviewKeyDown(e);
         }
 

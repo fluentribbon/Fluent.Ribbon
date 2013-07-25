@@ -143,9 +143,13 @@ namespace Fluent
                     if (keys != null)
                     {
                         // Gotcha!
-                        KeyTip keyTip = new KeyTip();
-                        keyTip.Content = keys;
-                        keyTip.Visibility = hide ? Visibility.Collapsed : Visibility.Visible;
+                        KeyTip keyTip = new KeyTip
+                                        {
+                                            Content = keys,
+                                            Visibility = hide
+                                                ? Visibility.Collapsed
+                                                : Visibility.Visible
+                                        };
 
                         // Add to list & visual 
                         // children collections
@@ -166,18 +170,25 @@ namespace Fluent
                         else
                         {
                             // Bind IsEnabled property
-                            Binding binding = new Binding("IsEnabled");
-                            binding.Source = child;
-                            binding.Mode = BindingMode.OneWay;
+                            Binding binding = new Binding("IsEnabled")
+                                              {
+                                                  Source = child,
+                                                  Mode = BindingMode.OneWay
+                                              };
                             keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
                             continue;
                         }
                     }
 
                     if ((groupBox != null) &&
-                       (groupBox.State == RibbonGroupBoxState.Collapsed))
+                        (groupBox.State == RibbonGroupBoxState.Collapsed))
+                    {
                         FindKeyTips(child, true);
-                    else FindKeyTips(child, hide);
+                    }
+                    else
+                    {
+                        FindKeyTips(child, hide);
+                    }
                 }
             }
         }
@@ -571,7 +582,8 @@ namespace Fluent
 
                 var content = (string)keyTips[i].Content;
 
-                if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase))
+                if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase)
+                    && associatedElements[i].IsVisible)
                 {
                     return associatedElements[i];
                 }
@@ -866,10 +878,10 @@ namespace Fluent
                 }
                 else
                 {
-                    if ((RibbonAttachedProperties.GetRibbonSize(associatedElements[i]) != RibbonControlSize.Large) 
-                        || (associatedElements[i] is Spinner) 
-                        || (associatedElements[i] is ComboBox) 
-                        || (associatedElements[i] is TextBox) 
+                    if ((RibbonAttachedProperties.GetRibbonSize(associatedElements[i]) != RibbonControlSize.Large)
+                        || (associatedElements[i] is Spinner)
+                        || (associatedElements[i] is ComboBox)
+                        || (associatedElements[i] is TextBox)
                         || (associatedElements[i] is CheckBox))
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(associatedElements[i]);
