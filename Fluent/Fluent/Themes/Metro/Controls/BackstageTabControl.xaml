@@ -204,11 +204,11 @@
                 <Grid.Margin>
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(ribbonAttachedProperties:RibbonAttachedProperties.TitleBarHeight)"
-                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                     </MultiBinding>
                 </Grid.Margin>
                 <Grid Width="35"
