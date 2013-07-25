@@ -341,12 +341,19 @@ namespace Fluent
 
             this.isFirstTime = true;
 
+            if (this.DropDownPopup != null)
+            {
+                this.DropDownPopup.KeyUp -= this.OnDropDownPopupKeyUp;
+            }
+
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
             if (this.DropDownPopup != null)
             {
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
+
+                this.DropDownPopup.KeyUp += this.OnDropDownPopupKeyUp;
             }
 
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
@@ -498,11 +505,21 @@ namespace Fluent
             }
         }
 
+        private void OnDropDownPopupKeyUp(object sender, KeyEventArgs e)
+        {
+            this.KeyDownHandler(e);
+        }
+
         /// <summary>
         /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
+        {
+            this.KeyDownHandler(e);
+        }
+
+        private void KeyDownHandler(KeyEventArgs e)
         {
             var handled = false;
 
@@ -644,9 +661,23 @@ namespace Fluent
             {
                 Mouse.Capture(control, CaptureMode.SubTree);
 
-                var container = control.ItemContainerGenerator.ContainerFromIndex(0);
+                control.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Normal,
+                    (DispatcherOperationCallback)delegate(object arg)
+                    {
+                        var ctrl = (DropDownButton)arg;
+                        var container = ctrl.ItemContainerGenerator.ContainerFromIndex(0);
 
-                NavigateToContainer(container);
+                        NavigateToContainer(container);
+
+                        // Edge case: Whole dropdown content is disabled
+                        if (ctrl.IsKeyboardFocusWithin == false)
+                        {
+                            Keyboard.Focus(ctrl);
+                        }
+                        return null;
+                    },
+                    control);
 
                 control.OnDropDownOpened();
             }
