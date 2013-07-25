@@ -91,7 +91,7 @@
         /// <summary>
         /// Sets SizeDefinition for element
         /// </summary>
-        public static void SetRibbonSizeDefinition(UIElement element, string value)
+        public static void SetRibbonSizeDefinition(DependencyObject element, string value)
         {
             element.SetValue(RibbonSizeDefinitionProperty, value);
         }
@@ -99,7 +99,7 @@
         /// <summary>
         /// Gets SizeDefinition for element
         /// </summary>
-        public static string GetRibbonSizeDefinition(UIElement element)
+        public static string GetRibbonSizeDefinition(DependencyObject element)
         {
             return (string)element.GetValue(RibbonSizeDefinitionProperty);
         }
@@ -143,7 +143,7 @@
         /// </summary>
         /// <param name="element">UI Element</param>
         /// <param name="state">Group box state</param>
-        public static void SetAppropriateSize(UIElement element, RibbonGroupBoxState state)
+        public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
         {
             var index = (int)state;
             if (state == RibbonGroupBoxState.Collapsed)
@@ -158,7 +158,7 @@
         /// Gets value of the attached property SizeDefinition of the given element
         /// </summary>
         /// <param name="element">The given element</param>
-        public static RibbonControlSize[] GetThreeRibbonSizeDefinition(UIElement element)
+        public static RibbonControlSize[] GetThreeRibbonSizeDefinition(DependencyObject element)
         {
             var sizeDefinition = GetRibbonSizeDefinition(element);
 

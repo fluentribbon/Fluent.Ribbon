@@ -120,35 +120,23 @@ namespace Fluent
         /// <param name="e">The event data</param>
         static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
-            RibbonGroupBoxState ribbonGroupBoxState = (RibbonGroupBoxState)e.NewValue;
+            var ribbonGroupBox = (RibbonGroupBox)d;
+            var ribbonGroupBoxState = (RibbonGroupBoxState)e.NewValue;
 
             SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);
         }
 
         // Set child sizes
-        private static void SetChildSizes(RibbonGroupBoxState ribbonGroupBoxState, RibbonGroupBox ribbonGroupBox)
+        private static void SetChildSizes(RibbonGroupBoxState ribbonGroupBoxState, ItemsControl ribbonGroupBox)
         {
-            for (int i = 0; i < ribbonGroupBox.Items.Count; i++)
-            {
-                SetAppropriateSizeRecursive((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
-                //RibbonControl.SetAppropriateSize((UIElement)ribbonGroupBox.Items[i], ribbonGroupBoxState);
-            }
-        }
-
-        static void SetAppropriateSizeRecursive(UIElement root, RibbonGroupBoxState ribbonGroupBoxState)
-        {
-            if (root == null)
+            if (ribbonGroupBox.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
                 return;
             }
 
-            RibbonAttachedProperties.SetAppropriateSize(root, ribbonGroupBoxState);
-
-            var childrenCount = VisualTreeHelper.GetChildrenCount(root);
-            for (var i = 0; i < childrenCount; i++)
+            foreach (var item in ribbonGroupBox.Items)
             {
-                SetAppropriateSizeRecursive(VisualTreeHelper.GetChild(root, i) as UIElement, ribbonGroupBoxState);
+                RibbonAttachedProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
             }
         }
 
