@@ -50,27 +50,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore">
-    </Reference>
-    <Reference Include="PresentationFramework">
-    </Reference>
-    <Reference Include="ReachFramework">
-    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq">
-    </Reference>
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="UIAutomationTypes" />
-    <Reference Include="WindowsBase">
-    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Net40\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsFormsIntegration">
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +171,7 @@
     <Compile Include="WindowCommands.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Documents\Features.xlsx" />
     <None Include="Documents\Fluent Ribbon Control Suite Walkthrough.docx" />
     <None Include="Properties\FluentStrongName.snk" />
     <Resource Include="Themes\Office2010\Effects\Grayscale.ps" />
@@ -341,8 +331,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Colors\ColorsBlue.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
