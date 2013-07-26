@@ -286,7 +286,7 @@
         </ControlTemplate>
   <Style x:Key="GalleryItemBackstageStyle" TargetType="{x:Type Fluent:GalleryItem}">
     <Setter Property="HorizontalAlignment" Value="Stretch"/>
-    <Setter Property="Template" Value="{StaticResource GalleryItemBackstageControlTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource GalleryItemBackstageControlTemplate}"/>
 	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
   <ControlTemplate TargetType="{x:Type ComboBoxItem}" x:Key="ComboBoxItemBackstageControlTemplate">
@@ -318,7 +318,7 @@
   <Style x:Key="MetroComboBoxItemBackstageStyle" TargetType="{x:Type ComboBoxItem}">
     <Setter Property="HorizontalAlignment" Value="Stretch"/>
     <Setter Property="MinHeight" Value="40"/>
-    <Setter Property="Template" Value="{StaticResource ComboBoxItemBackstageControlTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource ComboBoxItemBackstageControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
   
@@ -490,7 +490,7 @@
   	</ControlTemplate.Triggers>
 	</ControlTemplate>
   <Style x:Key="SpinnerButtonBackstageStyle" TargetType="{x:Type RepeatButton}">
-    <Setter Property="Template" Value="{StaticResource SpinnerButtonBackstageControlTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource SpinnerButtonBackstageControlTemplate}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>    
@@ -548,10 +548,10 @@
             				</LinearGradientBrush>
             			</Border.Background>
             		</Border>
-            		<RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{StaticResource SpinnerButtonBackstageStyle}" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch" BorderThickness="0,1,0,0" Margin="0,-1,-1,0">
+            		<RepeatButton x:Name="PART_ButtonUp" Grid.Column="1" Grid.Row="0" Style="{DynamicResource SpinnerButtonBackstageStyle}" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch" BorderThickness="0,1,0,0" Margin="0,-1,-1,0">
             			<Path Width="7" Height="4" Fill="#FF757778" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,-1 2,0" HorizontalAlignment="Center" StrokeThickness="0" VerticalAlignment="Center" Margin="1,1,0,1"  RenderOptions.EdgeMode="Aliased"/>
             		</RepeatButton>
-            		<RepeatButton x:Name="PART_ButtonDown" Grid.Column="1" Grid.Row="1" Style="{StaticResource SpinnerButtonBackstageStyle}" BorderThickness="0,0,1,0" Margin="0,0,-1,-1" >
+            		<RepeatButton x:Name="PART_ButtonDown" Grid.Column="1" Grid.Row="1" Style="{DynamicResource SpinnerButtonBackstageStyle}" BorderThickness="0,0,1,0" Margin="0,0,-1,-1" >
             			<Path Width="7" Height="4" Fill="#FF757778" Stretch="Fill" Stroke="#FF000000" Data="M0,0L1,1 2,0" StrokeThickness="0" HorizontalAlignment="Center" Margin="1,0,0,0" VerticalAlignment="Center" RenderOptions.EdgeMode="Aliased"/>
             		</RepeatButton>
             	</Grid>

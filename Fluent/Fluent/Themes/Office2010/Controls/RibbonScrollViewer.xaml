@@ -49,7 +49,8 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="ScrollButtonStyle" TargetType="{x:Type RepeatButton}">
-    <Setter Property="Template" Value="{StaticResource ScrollButtonControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ScrollButtonControlTemplate}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>    
@@ -65,7 +66,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Left" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Left" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{DynamicResource ScrollButtonStyle}">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -86,7 +87,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Right" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Right" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{DynamicResource ScrollButtonStyle}">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -124,7 +125,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Left" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{StaticResource ScrollButtonStyle}" Margin="0,7,0,1">
+                                      Focusable="false" HorizontalAlignment="Left" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{DynamicResource ScrollButtonStyle}" Margin="0,7,0,1">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -145,7 +146,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Right" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{StaticResource ScrollButtonStyle}" Margin="0,7,0,1">
+                                      Focusable="false" HorizontalAlignment="Right" Width="13" Height="Auto" VerticalAlignment="Stretch" Style="{DynamicResource ScrollButtonStyle}" Margin="0,7,0,1">
                 <RepeatButton.Visibility>
                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -185,7 +186,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineUpCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Top" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Top" Style="{DynamicResource ScrollButtonStyle}">
               <RepeatButton.Visibility>
                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                           Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -215,7 +216,7 @@
                                       
                                       Command="{x:Static ScrollBar.LineDownCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Bottom" Style="{StaticResource ScrollButtonStyle}">
+                                      Focusable="false" HorizontalAlignment="Stretch" Width="Auto" Height="12" VerticalAlignment="Bottom" Style="{DynamicResource ScrollButtonStyle}">
               <RepeatButton.Visibility>
                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                           Converter="{StaticResource MenuScrollingVisibilityConverter}"

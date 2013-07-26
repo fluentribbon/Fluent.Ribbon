@@ -171,7 +171,8 @@
 
     <Style x:Key="RibbonBackstageStyle" 
            TargetType="{x:Type Fluent:Backstage}">
-        <Setter Property="Template" Value="{StaticResource BackstageToggleButtonControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource BackstageToggleButtonControlTemplate}"/>
         <Setter Property="Background" Value="Blue"/>
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

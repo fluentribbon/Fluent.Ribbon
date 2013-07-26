@@ -114,7 +114,7 @@
     <Style x:Key="SpinnerButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
-                Value="{StaticResource SpinnerButtonControlTemplate}" />
+                Value="{DynamicResource SpinnerButtonControlTemplate}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="FocusVisualStyle"
@@ -221,7 +221,7 @@
                                 <RepeatButton x:Name="PART_ButtonUp"
                                               Grid.Column="1"
                                               Grid.Row="0"
-                                              Style="{StaticResource SpinnerButtonStyle}"
+                                              Style="{DynamicResource SpinnerButtonStyle}"
                                               RenderTransformOrigin="0,0.5"
                                               HorizontalAlignment="Stretch">
                                     <Path Width="5"
@@ -239,7 +239,7 @@
                                 <RepeatButton x:Name="PART_ButtonDown"
                                               Grid.Column="1"
                                               Grid.Row="1"
-                                              Style="{StaticResource SpinnerButtonStyle}">
+                                              Style="{DynamicResource SpinnerButtonStyle}">
                                     <Path Width="5"
                                           Height="3"
                                           Fill="#FF000000"

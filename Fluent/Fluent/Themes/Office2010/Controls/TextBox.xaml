@@ -69,6 +69,6 @@
         <Setter Property="Foreground"
                 Value="#FF52002D" />
         <Setter Property="ContextMenu"
-                Value="{StaticResource TextBoxContextMenu}" />
+                Value="{DynamicResource TextBoxContextMenu}" />
     </Style>
 </ResourceDictionary>

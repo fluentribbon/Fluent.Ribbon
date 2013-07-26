@@ -8,7 +8,7 @@
         <Grid x:Name="grid" Background="#00000000" Height="24" VerticalAlignment="Top" Margin="0,7,0,0">
             <Border x:Name="border3" Margin="2,0,0,1" Grid.ColumnSpan="2">
                 <Border x:Name="border5"
-                        Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
+                        Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
                         BorderThickness="0,0,0,0" Margin="0,0,0,0">
                     <Border.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1"
@@ -335,7 +335,8 @@
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
         <Setter Property="IsOpen"
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
-        <Setter Property="Template" Value="{StaticResource RibbonTabItemControlTemplate}" />
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonTabItemControlTemplate}" />
         <Setter Property="IsTabStop"
                 Value="False" />
         <Setter Property="Indent"

@@ -674,7 +674,7 @@
                                                                         Height="13"
                                                                         Background="{DynamicResource GalleryHeaderBackgroundBrush}">
                                                                     <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
-                                                                                           Style="{StaticResource GalleryDropDownButtonStyle}"
+                                                                                           Style="{DynamicResource GalleryDropDownButtonStyle}"
                                                                                            Height="Auto"
                                                                                            HorizontalAlignment="Left"
                                                                                            VerticalAlignment="Top"

@@ -86,7 +86,7 @@
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
-    <Setter Property="Template" Value="{StaticResource RibbonButtonControlTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
     <Setter Property="Height" Value="68"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

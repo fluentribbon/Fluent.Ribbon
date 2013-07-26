@@ -234,12 +234,12 @@
             <Trigger Property="IsDwmEnabled"
                      Value="False">
                 <Setter Property="Template"
-                        Value="{StaticResource NonDwmRibbonWindowControlTemplate}" />
+                        Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
             </Trigger>
             <Trigger Property="IsDwmEnabled"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{StaticResource DwmRibbonWindowControlTemplate}" />
+                        Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
         </Style.Triggers>
     </Style>

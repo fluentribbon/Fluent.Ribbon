@@ -1287,7 +1287,12 @@
                                     Text="CurrentText" />
                     
                     <Fluent:Button Header="PrintVisual"
-                                   Click="OnPrintVisualClick" />
+                                   Click="OnPrintVisualClick" />                    
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Threading"
+                                       IsLauncherVisible="False">
+                    <Fluent:Button Header="Open threaded window"
+                                   Click="OnThreadWindowButtonClick" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Format"
@@ -1340,13 +1345,13 @@
             </TabItem>-->
             <TabItem Header="Themes">
                 <WrapPanel>
-                    <Button Style="{StaticResource ThemeButtonStyle}" 
+                    <Button Style="{DynamicResource ThemeButtonStyle}" 
                             Click="OnBlackClick">Black (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
+                    <Button Style="{DynamicResource ThemeButtonStyle}"
                             Click="OnBlueClick">Blue (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
+                    <Button Style="{DynamicResource ThemeButtonStyle}"
                             Click="OnSilverClick">Silver (Office 2010)</Button>
-                    <Button Style="{StaticResource ThemeButtonStyle}"
+                    <Button Style="{DynamicResource ThemeButtonStyle}"
                             Click="OnMetroClick">Office 2013 (opens new Window)</Button>
                 </WrapPanel>
             </TabItem>

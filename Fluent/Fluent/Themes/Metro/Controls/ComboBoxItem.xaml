@@ -42,7 +42,8 @@
         </ControlTemplate>
 	
   <Style x:Key="EditableComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
-    <Setter Property="Template" Value="{StaticResource noneditComboboxItemControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource noneditComboboxItemControlTemplate}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 

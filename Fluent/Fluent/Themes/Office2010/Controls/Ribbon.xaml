@@ -130,7 +130,7 @@
         <Setter Property="FontSize"
                 Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template"
-                Value="{StaticResource RibbonControlTemplate}" />
+                Value="{DynamicResource RibbonControlTemplate}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="FocusManager.IsFocusScope"

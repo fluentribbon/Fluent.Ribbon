@@ -1136,7 +1136,7 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="Template"
-                Value="{StaticResource MenuItemTemplate}" />
+                Value="{DynamicResource MenuItemTemplate}" />
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -1146,7 +1146,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
-                        Value="{StaticResource SplitedMenuItemTemplate}" />
+                        Value="{DynamicResource SplitedMenuItemTemplate}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -1156,7 +1156,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
-                        Value="{StaticResource HeaderMenuItemTemplate}" />
+                        Value="{DynamicResource HeaderMenuItemTemplate}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>

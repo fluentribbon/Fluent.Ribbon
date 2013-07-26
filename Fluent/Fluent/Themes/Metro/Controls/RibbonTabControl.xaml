@@ -123,7 +123,7 @@
     <Style x:Key="RibbonTabControlToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
-                Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}" />
+                Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}" />
         <Setter Property="Height"
                 Value="22" />
         <Setter Property="Width"
@@ -149,8 +149,9 @@
         <Setter Property="FontFamily"
                 Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />        
-        <Setter Property="Template" Value="{StaticResource RibbonTabControlControlTemplate}"/>
+                Value="{DynamicResource DefaultFontSize}" />
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonTabControlControlTemplate}"/>
     </Style>
     
     <!---->
@@ -259,7 +260,7 @@
                         <Style x:Key="ScrollButtonStyle"
                                TargetType="{x:Type RepeatButton}">
                             <Setter Property="Template"
-                                    Value="{StaticResource ScrollButtonControlTemplate}" />
+                                    Value="{DynamicResource ScrollButtonControlTemplate}" />
                             <Setter Property="Foreground"
                                     Value="{DynamicResource DefaultFontBrush}" />
                             <Setter Property="FocusVisualStyle"
@@ -288,7 +289,7 @@
                                                           Width="13"
                                                           Height="Auto"
                                                           VerticalAlignment="Stretch"
-                                                          Style="{StaticResource ScrollButtonStyle}">
+                                                          Style="{DynamicResource ScrollButtonStyle}">
                                                 <RepeatButton.Visibility>
                                                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -321,7 +322,7 @@
                                                           Width="13"
                                                           Height="Auto"
                                                           VerticalAlignment="Stretch"
-                                                          Style="{StaticResource ScrollButtonStyle}">
+                                                          Style="{DynamicResource ScrollButtonStyle}">
                                                 <RepeatButton.Visibility>
                                                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"

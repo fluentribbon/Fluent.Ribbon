@@ -93,15 +93,15 @@
             <Track Grid.Row="0" x:Name="PART_Track" Height="16" Grid.ColumnSpan="1" Grid.Column="1">
               <Track.DecreaseRepeatButton>
                 <RepeatButton
-                  Style="{StaticResource SliderButtonStyle}"
+                  Style="{DynamicResource SliderButtonStyle}"
                   Command="Slider.DecreaseLarge" x:Name="leftButton"/>
               </Track.DecreaseRepeatButton>
               <Track.Thumb>
-                <Thumb x:Name="thumb" Style="{StaticResource SliderThumbStyle}" />
+                <Thumb x:Name="thumb" Style="{DynamicResource SliderThumbStyle}" />
               </Track.Thumb>
               <Track.IncreaseRepeatButton>
                 <RepeatButton
-                  Style="{StaticResource SliderButtonStyle}"
+                  Style="{DynamicResource SliderButtonStyle}"
                   Command="Slider.IncreaseLarge" x:Name="rightButton"/>
               </Track.IncreaseRepeatButton>
             </Track>

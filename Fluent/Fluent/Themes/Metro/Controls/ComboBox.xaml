@@ -704,7 +704,8 @@
                 </ControlTemplate>
 	
     <Style TargetType="{x:Type Fluent:ComboBox}">
-        <Setter Property="Template" Value="{StaticResource ComboboxControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ComboboxControlTemplate}"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Visible" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"

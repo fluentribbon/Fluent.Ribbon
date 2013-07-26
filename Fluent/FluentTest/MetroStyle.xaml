@@ -1287,6 +1287,11 @@
                     <Fluent:Button Header="PrintVisual"
                                    Click="OnPrintVisualClick" />
                 </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Threading"
+                                       IsLauncherVisible="False">
+                    <Fluent:Button Header="Open threaded window"
+                                   Click="OnThreadWindowButtonClick" />
+                </Fluent:RibbonGroupBox>                
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Format"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
@@ -1339,11 +1344,11 @@
             <TabItem Header="Themes">
                 <StackPanel>
                     <WrapPanel>
-                        <Button Style="{StaticResource ThemeButtonStyle}" 
+                        <Button Style="{DynamicResource ThemeButtonStyle}" 
                             Click="OnBlackClick">Black (Office 2010)</Button>
-                        <Button Style="{StaticResource ThemeButtonStyle}"
+                        <Button Style="{DynamicResource ThemeButtonStyle}"
                             Click="OnBlueClick">Blue (Office 2010)</Button>
-                        <Button Style="{StaticResource ThemeButtonStyle}"
+                        <Button Style="{DynamicResource ThemeButtonStyle}"
                             Click="OnSilverClick">Silver (Office 2010)</Button>
                     </WrapPanel>
                     <Label Content="These Office 2013 styles are WORK IN PROGRESS and for demonstration purposes only. Some things may look weird and/or wrong placed!"/>

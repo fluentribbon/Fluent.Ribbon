@@ -88,7 +88,8 @@
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource WindowTemplateKey}"/>
     </Style>
     
     <Style TargetType="{x:Type Fluent:WindowCommands}">
@@ -103,7 +104,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
                                 <Setter Property="Padding" Value="1" />
-                                <Setter Property="Template" Value="{StaticResource WindowCommandsControlTemplate}"/>
+                                <Setter Property="Template"
+                                        Value="{DynamicResource WindowCommandsControlTemplate}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Value="True">
                                         <Setter Property="Foreground" Value="White" />

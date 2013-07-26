@@ -421,6 +421,26 @@ namespace FluentTest
             var printDlg = new PrintDialog();
             printDlg.PrintVisual(this, "Main Window");
         }
+
+        #region threading
+
+        private void OnThreadWindowButtonClick(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(ShowThreadedWindow);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        private static void ShowThreadedWindow()
+        {
+            var window = new ThreadedWindow();
+            window.Show();
+
+            Dispatcher.Run();
+        }
+
+        #endregion threading
     }
 
     public class FooCommand1
