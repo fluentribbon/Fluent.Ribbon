@@ -251,88 +251,125 @@ namespace Fluent
         // Occurs when context menu is opening
         private static void OnContextMenuOpened(object sender, RoutedEventArgs e)
         {
-            Ribbon ribbon = contextMenuOwner;
-            if ((RibbonContextMenu != null) && (ribbon != null))
+            var ribbon = contextMenuOwner;
+
+            if (RibbonContextMenu == null 
+                || ribbon == null)
             {
-                addToQuickAccessMenuItem.CommandTarget = ribbon;
-                addGroupToQuickAccessMenuItem.CommandTarget = ribbon;
-                addMenuToQuickAccessMenuItem.CommandTarget = ribbon;
-                addGalleryToQuickAccessMenuItem.CommandTarget = ribbon;
-                removeFromQuickAccessMenuItem.CommandTarget = ribbon;
-                customizeQuickAccessToolbarMenuItem.CommandTarget = ribbon;
-                customizeTheRibbonMenuItem.CommandTarget = ribbon;
-                minimizeTheRibbonMenuItem.CommandTarget = ribbon;
-                showQuickAccessToolbarBelowTheRibbonMenuItem.CommandTarget = ribbon;
-                showQuickAccessToolbarAboveTheRibbonMenuItem.CommandTarget = ribbon;
-                // Hide items for ribbon controls
-                addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
-                firstSeparator.Visibility = Visibility.Collapsed;
-                // Hide customize quick access menu item
-                customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Collapsed;
-                secondSeparator.Visibility = Visibility.Visible;
+                return;
+            }
 
-                // Set minimize the ribbon menu item state
-                minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
+            addToQuickAccessMenuItem.CommandTarget = ribbon;
+            addGroupToQuickAccessMenuItem.CommandTarget = ribbon;
+            addMenuToQuickAccessMenuItem.CommandTarget = ribbon;
+            addGalleryToQuickAccessMenuItem.CommandTarget = ribbon;
+            removeFromQuickAccessMenuItem.CommandTarget = ribbon;
+            customizeQuickAccessToolbarMenuItem.CommandTarget = ribbon;
+            customizeTheRibbonMenuItem.CommandTarget = ribbon;
+            minimizeTheRibbonMenuItem.CommandTarget = ribbon;
+            showQuickAccessToolbarBelowTheRibbonMenuItem.CommandTarget = ribbon;
+            showQuickAccessToolbarAboveTheRibbonMenuItem.CommandTarget = ribbon;
 
-                // Set customize the ribbon menu item visibility
-                if (ribbon.CanCustomizeRibbon) customizeTheRibbonMenuItem.Visibility = Visibility.Visible;
-                else customizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            // Hide items for ribbon controls
+            addToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+            addGroupToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+            addMenuToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+            addGalleryToQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+            removeFromQuickAccessMenuItem.Visibility = Visibility.Collapsed;
+            firstSeparator.Visibility = Visibility.Collapsed;
 
-                // Hide quick access position menu items
-                showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Collapsed;
-                showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            // Hide customize quick access menu item
+            customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Collapsed;
+            secondSeparator.Visibility = Visibility.Visible;
 
-                // If quick access toolbar is visible show 
-                if (ribbon.IsQuickAccessToolBarVisible)
+            // Set minimize the ribbon menu item state
+            minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
+
+            // Set customize the ribbon menu item visibility
+            if (ribbon.CanCustomizeRibbon)
+            {
+                customizeTheRibbonMenuItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                customizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            }
+
+            // Hide quick access position menu items
+            showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+
+            // If quick access toolbar is visible show 
+            if (ribbon.IsQuickAccessToolBarVisible)
+            {
+                // Set quick access position menu items visibility
+                if (ribbon.CanQuickAccessLocationChanging)
                 {
-                    // Set quick access position menu items visibility
-                    if (ribbon.ShowQuickAccessToolBarAboveRibbon) showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Visible;
-                    else showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Visible;
-                    if (ribbon.CanCustomizeQuickAccessToolBar) customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Visible;
-                    secondSeparator.Visibility = Visibility.Visible;
-
-                    // Gets control that raise menu opened
-                    UIElement control = RibbonContextMenu.PlacementTarget as UIElement;
-                    AddToQuickAccessCommand.CanExecute(null, control);
-                    RemoveFromQuickAccessCommand.CanExecute(null, control);
-
-                    //Debug.WriteLine("Menu opened on "+control);
-                    if (control != null)
+                    if (ribbon.ShowQuickAccessToolBarAboveRibbon)
                     {
-                        firstSeparator.Visibility = Visibility.Visible;
-                        if (ribbon.quickAccessElements.ContainsValue(control))
-                        {
-                            // Control is on quick access
-                            removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        }
-                        else if (control is System.Windows.Controls.MenuItem)
-                        {
-                            // Control is menu item
-                            addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        }
-                        else if ((control is Gallery) || (control is InRibbonGallery))
-                        {
-                            // Control is gallery
-                            addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        }
-                        else if (control is RibbonGroupBox)
-                        {
-                            // Control is group box
-                            addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        }
-                        else if (control is IQuickAccessItemProvider)
-                        {
-                            // Its other control
-                            addToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                        }
-                        else firstSeparator.Visibility = Visibility.Collapsed;
+                        showQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        showQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Visible;
                     }
                 }
 
+                if (ribbon.CanCustomizeQuickAccessToolBar)
+                {
+                    customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Visible;
+                }
+
+                if (ribbon.CanQuickAccessLocationChanging
+                    || ribbon.CanCustomizeQuickAccessToolBar)
+                {
+                    secondSeparator.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    secondSeparator.Visibility = Visibility.Collapsed;
+                }
+
+                // Gets control that raise menu opened
+                var control = RibbonContextMenu.PlacementTarget;
+                AddToQuickAccessCommand.CanExecute(null, control);
+                RemoveFromQuickAccessCommand.CanExecute(null, control);
+
+                //Debug.WriteLine("Menu opened on "+control);
+                if (control != null)
+                {
+                    firstSeparator.Visibility = Visibility.Visible;
+
+                    if (ribbon.quickAccessElements.ContainsValue(control))
+                    {
+                        // Control is on quick access
+                        removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else if (control is System.Windows.Controls.MenuItem)
+                    {
+                        // Control is menu item
+                        addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else if ((control is Gallery) || (control is InRibbonGallery))
+                    {
+                        // Control is gallery
+                        addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else if (control is RibbonGroupBox)
+                    {
+                        // Control is group box
+                        addGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else if (control is IQuickAccessItemProvider)
+                    {
+                        // Its other control
+                        addToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        firstSeparator.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
         }
 
@@ -446,7 +483,13 @@ namespace Fluent
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((d as Ribbon).TitleBar != null) (d as Ribbon).TitleBar.InvalidateMeasure();
+            var ribbon = d as Ribbon;
+
+            if (ribbon != null
+                && ribbon.TitleBar != null)
+            {
+                ribbon.TitleBar.InvalidateMeasure();
+            }
         }
 
         /// <summary>
@@ -1160,14 +1203,24 @@ namespace Fluent
         // Occurs when add to quick access command can execute handles
         private static void OnAddToQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
-            if (ribbon.IsQuickAccessToolBarVisible)
+            var ribbon = sender as Ribbon;
+
+            if (ribbon != null
+                && ribbon.IsQuickAccessToolBarVisible)
             {
-                if (e.Parameter is Gallery) e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement);
-                else e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement);
-                Debug.WriteLine("Add to QAT - " + e.Parameter);
+                if (e.Parameter is Gallery)
+                {
+                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement);
+                }
+                else
+                {
+                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement);
+                }
             }
-            else e.CanExecute = false;
+            else
+            {
+                e.CanExecute = false;
+            }
         }
 
         #endregion
@@ -1384,9 +1437,11 @@ namespace Fluent
                 }
                 quickAccessToolBar.ItemsChanged += OnQuickAccessItemsChanged;
 
-                Binding binding = new Binding("CanQuickAccessLocationChanging");
-                binding.Source = this;
-                binding.Mode = BindingMode.OneWay;
+                var binding = new Binding("CanQuickAccessLocationChanging")
+                              {
+                                  Source = this,
+                                  Mode = BindingMode.OneWay
+                              };
                 quickAccessToolBar.SetBinding(Fluent.QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
 
                 //quickAccessToolBar.SizeChanged += OnQATSizeChanged;

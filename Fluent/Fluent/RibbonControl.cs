@@ -442,23 +442,16 @@ namespace Fluent
 
         #region Binding
 
-        /// <summary>
-        /// Binds elements property
-        /// </summary>
-        /// <param name="source">Source element</param>
-        /// <param name="target">Target element</param>
-        /// <param name="path">Property path</param>
-        /// <param name="property">Property to bind</param>
-        /// <param name="mode">Binding mode</param>
         static internal void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
         {
-            Binding binding = new Binding();
-            binding.Path = new PropertyPath(path);
-            binding.Source = source;
-            binding.Mode = mode;
+            var binding = new Binding
+                              {
+                                  Path = new PropertyPath(path),
+                                  Source = source,
+                                  Mode = mode
+                              };
             target.SetBinding(property, binding);
         }
-
         #endregion
 
         #region Methods
