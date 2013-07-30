@@ -8,7 +8,6 @@
 #endregion
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
@@ -23,6 +22,8 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using System.Diagnostics;
+
     /// <summary>
     /// Represents custom Fluent UI ComboBox
     /// </summary>
@@ -325,18 +326,6 @@ namespace Fluent
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnSelectionItemChanged, CoerceSelectedItem));
-            StyleProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ComboBox));
-            }
-
-            return basevalue;
         }
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -605,7 +594,6 @@ namespace Fluent
         /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.ComboBox.DropDownOpened"/> event.</param>
         protected override void OnDropDownOpened(EventArgs e)
         {
-            Focus();
             base.OnDropDownOpened(e);
             Mouse.Capture(this, CaptureMode.SubTree);
             if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
@@ -819,11 +807,22 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            if (this.IsEditable)
-            {
-                this.Focus();
-            }
-            else
+            this.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                (DispatcherOperationCallback)delegate(object arg)
+                {
+                    var ctrl = (ComboBox)arg;
+
+                    // Edge case: Whole dropdown content is disabled
+                    if (ctrl.IsKeyboardFocusWithin == false)
+                    {
+                        Keyboard.Focus(ctrl);
+                    }
+                    return null;
+                },
+                this);
+
+            if (!this.IsEditable)
             {
                 this.IsDropDownOpen = true;
             }
@@ -835,11 +834,6 @@ namespace Fluent
         public void OnKeyTipBack()
         {
         }
-
-        #endregion
-
-        #region Protected
-
 
         #endregion
 
