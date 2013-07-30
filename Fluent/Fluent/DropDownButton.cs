@@ -61,7 +61,7 @@ namespace Fluent
         {
             get
             {
-                return Mouse.Captured == this;
+                return ReferenceEquals(Mouse.Captured, this);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
@@ -102,7 +102,7 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as DropDownButton;
+            var element = (DropDownButton)d;
 
             var oldElement = e.OldValue as FrameworkElement;
 
@@ -397,7 +397,7 @@ namespace Fluent
             var currentFocus = Keyboard.FocusedElement as DependencyObject;
 
             if (currentFocus == null
-                || ItemsControlFromItemContainer(currentFocus) != this)
+                || ReferenceEquals(ItemsControlFromItemContainer(currentFocus), this) == false)
             {
                 this.IsDropDownOpen = false;
             }
@@ -429,7 +429,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (!buttonBorder.IsMouseOver)
             {
@@ -526,7 +526,8 @@ namespace Fluent
             switch (e.Key)
             {
                 case Key.Down:
-                    if (HasItems)
+                    if (this.HasItems
+                        && this.IsDropDownOpen == false) // Only handle this for initial navigation. Further navigation is handled by the dropdown itself
                     {
                         this.IsDropDownOpen = true;
 
@@ -539,11 +540,12 @@ namespace Fluent
                     break;
 
                 case Key.Up:
-                    if (HasItems)
+                    if (this.HasItems
+                        && this.IsDropDownOpen == false) // Only handle this for initial navigation. Further navigation is handled by the dropdown itself
                     {
                         this.IsDropDownOpen = true;
 
-                        var container = ItemContainerGenerator.ContainerFromIndex(Items.Count - 1);
+                        var container = ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1);
 
                         NavigateToContainer(container);
 
@@ -560,10 +562,6 @@ namespace Fluent
                 case Key.Space:
                     this.IsDropDownOpen = !this.IsDropDownOpen;
                     handled = true;
-                    break;
-
-                default:
-                    handled = false;
                     break;
             }
 
@@ -653,7 +651,6 @@ namespace Fluent
             var control = (DropDownButton)d;
 
             var newValue = (bool)e.NewValue;
-            var oldValue = !newValue;
 
             control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
 
@@ -731,7 +728,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            DropDownButton button = new DropDownButton();
+            var button = new DropDownButton();
             RibbonAttachedProperties.SetRibbonSize(button, RibbonControlSize.Small);
 
             BindQuickAccessItem(button);
@@ -757,7 +754,7 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+            var button = (DropDownButton)sender;
             /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                    {*/
             if (ItemsSource != null)
@@ -786,7 +783,7 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+            var button = (DropDownButton)sender;
             button.DropDownClosed -= OnQuickAccessMenuClosed;
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                {
