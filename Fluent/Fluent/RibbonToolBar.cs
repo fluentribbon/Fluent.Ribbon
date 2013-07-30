@@ -200,7 +200,7 @@ namespace Fluent
 
             foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
             {
-                if (definition.Size == RibbonAttachedProperties.GetRibbonSize(this)) return definition;
+                if (RibbonAttachedProperties.GetRibbonSize(definition) == RibbonAttachedProperties.GetRibbonSize(this)) return definition;
             }
 
             // TODO: try to find a better definition
@@ -218,6 +218,11 @@ namespace Fluent
         /// <param name="current">Current value</param>
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+            foreach (var frameworkElement in actualChildren)
+            {
+                RibbonAttachedProperties.SetRibbonSize(frameworkElement, current);
+            }
+
             rebuildVisualAndLogicalChildren = true;
             InvalidateMeasure();
         }
