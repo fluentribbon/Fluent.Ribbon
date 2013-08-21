@@ -1847,19 +1847,32 @@ namespace Fluent
         {
             get
             {
-                if (isolatedStorageFileName == null)
+                if (this.isolatedStorageFileName != null)
                 {
-                    string stringForHash = "";
-                    Window window = Window.GetWindow(this);
-                    if (window != null)
-                    {
-                        stringForHash += "." + window.GetType().FullName;
-                        if (!String.IsNullOrEmpty(window.Name) && (window.Name.Trim().Length > 0)) stringForHash += "." + window.Name;
-                    }
-                    if (!String.IsNullOrEmpty(this.Name) && (this.Name.Trim().Length > 0)) stringForHash += "." + this.Name;
-
-                    isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
+                    return this.isolatedStorageFileName;
                 }
+
+                var stringForHash = "";
+                var window = Window.GetWindow(this);
+
+                if (window != null)
+                {
+                    stringForHash += "." + window.GetType().FullName;
+
+                    if (!String.IsNullOrEmpty(window.Name) 
+                        && window.Name.Trim().Length > 0)
+                    {
+                        stringForHash += "." + window.Name;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(this.Name) 
+                    && this.Name.Trim().Length > 0)
+                {
+                    stringForHash += "." + this.Name;
+                }
+
+                this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
                 return isolatedStorageFileName;
             }
         }
@@ -1918,10 +1931,17 @@ namespace Fluent
                 return;
             }
 
-            var storage = GetIsolatedStorageFile();
-            using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
+            try
             {
-                this.SaveState(stream);
+                var storage = GetIsolatedStorageFile();
+                using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
+                {
+                    this.SaveState(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex.Message));
             }
         }
 
@@ -1935,13 +1955,20 @@ namespace Fluent
                 return;
             }
 
-            var storage = GetIsolatedStorageFile();
-            if (FileExists(storage, IsolatedStorageFileName))
+            try
             {
-                using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
+                var storage = GetIsolatedStorageFile();
+                if (FileExists(storage, IsolatedStorageFileName))
                 {
-                    this.LoadState(stream);
+                    using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
+                    {
+                        this.LoadState(stream);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex.Message));
             }
 
             // Now we can save states
