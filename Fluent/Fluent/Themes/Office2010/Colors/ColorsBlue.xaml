@@ -475,8 +475,8 @@
                       Offset="1" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="ResizeGripFront"
+    <SolidColorBrush x:Key="ResizeGripFrontBrush"
                      Color="#FF849DBD" />
-    <SolidColorBrush x:Key="ResizeGripBack"
+    <SolidColorBrush x:Key="ResizeGripBackBrush"
                      Color="#FFD4E1F1" />
 </ResourceDictionary>

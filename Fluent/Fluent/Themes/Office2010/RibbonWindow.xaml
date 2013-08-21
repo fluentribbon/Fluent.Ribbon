@@ -17,28 +17,28 @@
         <ControlTemplate TargetType="{x:Type ResizeGrip}">
           <Grid Width="11" Height="11" Background="Transparent">
             <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>              
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>              
             </Grid>
             <Grid Width="3" Height="3" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
             <Grid Width="3" Height="3" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
             <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Center">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
             <Grid Width="3" Height="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
             <Grid Width="3" Height="3" HorizontalAlignment="Right" VerticalAlignment="Top">
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBack}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFront}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripBackBrush}" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+              <Rectangle Width="2" Height="2" Fill="{DynamicResource ResizeGripFrontBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </Grid>
           </Grid>
         </ControlTemplate>
