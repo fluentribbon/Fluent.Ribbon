@@ -575,15 +575,15 @@ namespace Fluent
         {
             for (var i = 0; i < keyTips.Count; i++)
             {
-                if (!keyTips[i].IsEnabled)
+                if (!keyTips[i].IsEnabled
+                    || keyTips[i].Visibility != Visibility.Visible)
                 {
                     continue;
                 }
 
                 var content = (string)keyTips[i].Content;
 
-                if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase)
-                    && associatedElements[i].IsVisible)
+                if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return associatedElements[i];
                 }
@@ -745,7 +745,7 @@ namespace Fluent
                 }
 
                 // Update KeyTip Visibility
-                var associatedElementIsVisible = associatedElements[i].Visibility == Visibility.Visible;
+                var associatedElementIsVisible = associatedElements[i].IsVisible;
                 var associatedElementInVisualTree = VisualTreeHelper.GetParent(associatedElements[i]) != null;
                 keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 

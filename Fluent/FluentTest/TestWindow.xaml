@@ -1244,7 +1244,8 @@
                                      ItemsSource="{Binding TstArr, ElementName=window}"
                                      InputWidth="80"
                                      SelectedItem="{Binding TST, Mode=TwoWay, ElementName=window}"
-                                     IsEditable="False"></Fluent:ComboBox>
+                                     Fluent:KeyTip.Keys="SO"
+                                     IsEditable="False" />
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button1"
