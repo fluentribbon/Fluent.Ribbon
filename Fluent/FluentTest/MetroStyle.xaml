@@ -13,11 +13,12 @@
                      mc:Ignorable="d"
                      ResizeMode="CanResizeWithGrip"
                      RibbonThemeColor="#FF217346"
+                     Style="{DynamicResource MetroWindowStyle}"
                      FlowDirection="LeftToRight" Foreground="White">
     <Fluent:MetroWindow.Resources>
     	<ResourceDictionary>
-    		<ResourceDictionary.MergedDictionaries>
-    			<ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
         

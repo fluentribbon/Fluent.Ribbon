@@ -129,17 +129,5 @@
                 Value="False" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
-        <Setter Property="Margin">
-            <Setter.Value>
-                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                    <Binding RelativeSource="{RelativeSource Self}"
-                             Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
-                             Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
-                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                </MultiBinding>
-            </Setter.Value>
-        </Setter>
     </Style>
 </ResourceDictionary>

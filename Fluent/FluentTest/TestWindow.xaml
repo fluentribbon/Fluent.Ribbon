@@ -1093,7 +1093,8 @@
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
                                      Header="Test"
-                                     ItemsSource="{Binding FontsData}">
+                                     ItemsSource="{Binding FontsData}"
+                                     Fluent:KeyTip.Keys="FD">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}"
@@ -1118,6 +1119,9 @@
                                      IsReadOnly="True"
                                      Fluent:KeyTip.Keys="H"
                                      SelectedIndex="0">
+                        <Fluent:ComboBox.Menu>
+                            <Fluent:RibbonMenu></Fluent:RibbonMenu>
+                        </Fluent:ComboBox.Menu>
                         <System:String>Show All</System:String>
                         <System:String>Read-only</System:String>
                         <System:String>Writeable</System:String>
@@ -1294,6 +1298,30 @@
                                        IsLauncherVisible="False">
                     <Fluent:Button Header="Open threaded window"
                                    Click="OnThreadWindowButtonClick" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox>
+                    <Fluent:DropDownButton HorizontalAlignment="Left"
+                                           Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Small">
+                        <Fluent:DropDownButton.Icon>
+                            <Grid>
+                                <Image Source="Images\TextHighlightColor.png"
+                                       Width="16"
+                                       Height="16" />
+                                <Rectangle VerticalAlignment="Bottom"
+                                           Height="4"
+                                           Width="16"
+                                           HorizontalAlignment="Center">
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery2}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                        </Fluent:DropDownButton.Icon>
+                        <Fluent:ColorGallery Mode="HighlightColors"
+                                             x:Name="highlightColorGallery2"
+                                             SelectedColor="Yellow"
+                                             IsAutomaticColorButtonVisible="False" />
+                    </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Format"

@@ -50,6 +50,3 @@ Office2010\Controls\RibbonStatusBar.xaml
 Office2010\Controls\Slider.xaml
 Office2010\RibbonWindow.xaml
 Office2010\Common.xaml
-Metro\MetroWindow.xaml
-Metro\Colors\ColorsWhite.xaml
-Metro\Colors\Colors.xaml

@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:conv="clr-namespace:Fluent.Metro.Converters"
-                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours">
+                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:internal="clr-namespace:Fluent.Internal"
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <conv:ToUpperConverter x:Key="ToUpperConverter" />
@@ -36,7 +38,18 @@
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                       Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-                        <ContentPresenter Grid.Row="1"/>
+                        <ContentPresenter Grid.Row="1">
+                            <ContentPresenter.Margin>
+                                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding RelativeSource="{RelativeSource Self}"
+                                             Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                             Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                </MultiBinding>
+                            </ContentPresenter.Margin>
+                    </ContentPresenter>
                     </Grid>
             </AdornerDecorator>
             <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
