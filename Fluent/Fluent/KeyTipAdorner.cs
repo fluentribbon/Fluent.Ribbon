@@ -548,8 +548,10 @@ namespace Fluent
             {
                 //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
                 var control = element as IKeyTipedControl;
-                if (control != null) control.OnKeyTipPressed();
-                element.UpdateLayout();
+                if (control != null)
+                {
+                    control.OnKeyTipPressed();
+                }
             }
 
             var children = LogicalTreeHelper.GetChildren(element)
