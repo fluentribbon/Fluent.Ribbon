@@ -254,6 +254,14 @@ namespace Fluent
                         this.ToolbarPanel.Children.Add(obj5);
                     }
                     break;
+
+                case NotifyCollectionChangedAction.Reset:
+                    this.toolbarPanel.Children.Clear();
+                    foreach (var toolBarItem in this.ToolBarItems)
+                    {
+                        this.ToolbarPanel.Children.Add(toolBarItem);
+                    }
+                    break;
             }
 
         }

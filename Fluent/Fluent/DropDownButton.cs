@@ -381,14 +381,16 @@ namespace Fluent
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.IsKeyboardFocusWithinChanged"/> event.</param>
         protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
         {
-            base.OnIsKeyboardFocusWithinChanged(e);
-
             // This is for the case when focus goes elsewhere and the popup is still open; make sure it is closed.
             if (!this.IsDropDownOpen
-                || IsKeyboardFocusWithin)
+                || this.IsKeyboardFocusWithin
+                || this.HasCapture
+                || (this.DropDownPopup != null && this.DropDownPopup.IsKeyboardFocusWithin))
             {
                 return;
             }
+
+            base.OnIsKeyboardFocusWithinChanged(e);
 
             // IsKeyboardFocusWithin still flickers under certain conditions.  The case
             // we care about is focus going from the ComboBox to a ComboBoxItem. 
@@ -521,6 +523,11 @@ namespace Fluent
 
         private void KeyDownHandler(KeyEventArgs e)
         {
+            if (e.Handled)
+            {
+                return;
+            }
+
             var handled = false;
 
             switch (e.Key)
