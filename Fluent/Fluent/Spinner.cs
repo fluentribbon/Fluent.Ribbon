@@ -320,7 +320,7 @@ namespace Fluent
 
             MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
             MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
-            ValueProperty = DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnValueChanged, CoerceValue));
+            ValueProperty = DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
         }
 
         #endregion
