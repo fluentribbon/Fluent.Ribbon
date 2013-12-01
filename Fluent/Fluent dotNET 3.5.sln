@@ -1,6 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
+# SharpDevelop 4.3
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 3.5", "Fluent\Fluent dotNET 3.5.csproj", "{892F3590-8759-4BE6-91C1-A488A8359A5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentTest dotNET 3.5", "FluentTest\FluentTest dotNET 3.5.csproj", "{F04C32D3-5C96-4CD1-B569-12B1A8111396}"

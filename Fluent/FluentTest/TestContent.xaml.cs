@@ -247,8 +247,8 @@
                 if (LogicalTreeHelper.GetParent(child) != root)
                 {
                     Debug.WriteLine("Incorrect logical parent for {0}", this.GetDebugInfo(child));
-                    Debug.WriteLine("\tExpected: {0}", root);
-                    Debug.WriteLine("\tFound: {0}", LogicalTreeHelper.GetParent(child));
+                    Debug.WriteLine("\tExpected: {0}", root.ToString());
+                    Debug.WriteLine("\tFound: {0}", LogicalTreeHelper.GetParent(child).ToString());
                 }
 
                 this.CheckLogicalTree(child);
