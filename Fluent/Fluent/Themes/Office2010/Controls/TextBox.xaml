@@ -30,13 +30,13 @@
 
     <ContextMenu x:Key="TextBoxContextMenu"
                  x:Shared="False">
-        <Fluent:MenuItem Icon="{StaticResource MenuCutIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuCutIcon}"
                          Command="ApplicationCommands.Cut"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
-        <Fluent:MenuItem Icon="{StaticResource MenuCopyIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuCopyIcon}"
                          Command="ApplicationCommands.Copy"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
-        <Fluent:MenuItem Icon="{StaticResource MenuPasteIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuPasteIcon}"
                          Command="ApplicationCommands.Paste"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
     </ContextMenu>

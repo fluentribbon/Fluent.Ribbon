@@ -254,7 +254,7 @@
                     </MultiBinding>
                 </Grid.Margin>
                 <Button x:Name="backbutton"
-                        Style="{StaticResource BackstageBackButtonStyle}"
+                        Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                         Width="35"
                       Height="35"
