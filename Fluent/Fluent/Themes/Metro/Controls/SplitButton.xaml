@@ -30,8 +30,12 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-	<Style BasedOn="{StaticResource MenuSeparatorStyle}" TargetType="{x:Type Separator}" />
+
     <ControlTemplate x:Key="RibbonSplitButtonControlTemplate" TargetType="{x:Type Fluent:SplitButton}">
+        <ControlTemplate.Resources>
+            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
+                   TargetType="{x:Type Separator}" />
+        </ControlTemplate.Resources>        
         <Grid>
             <Border BorderThickness="1" Name="PART_ButtonBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}">
             	<StackPanel Orientation="Vertical" Name="stackPanel">
