@@ -23,9 +23,15 @@ namespace Fluent
         public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register("ShowCloseButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowMaxRestoreButtonProperty = DependencyProperty.Register("ShowMaxRestoreButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
 
-        public static readonly DependencyProperty TitleCapsProperty = DependencyProperty.Register("TitleCaps", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
-        public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(SolidColorBrush), typeof(MetroWindow), new PropertyMetadata(Brushes.Blue));
+
+        /// <summary>
+        /// DependencyProperty for RibbonThemeColor
+        /// </summary>
+        /// <remarks>
+        /// Default value matches Word 2013 color
+        /// </remarks>
+        public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(SolidColorBrush), typeof(MetroWindow), new PropertyMetadata(new BrushConverter().ConvertFrom("#2B579A")));
 
         public SolidColorBrush RibbonThemeColor
         {
@@ -42,6 +48,7 @@ namespace Fluent
         public MetroWindow()
         {
         }
+
         static MetroWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MetroWindow), new FrameworkPropertyMetadata(typeof(MetroWindow)));
@@ -77,17 +84,6 @@ namespace Fluent
         {
             get { return (bool)GetValue(ShowMaxRestoreButtonProperty); }
             set { SetValue(ShowMaxRestoreButtonProperty, value); }
-        }
-
-        public bool TitleCaps
-        {
-            get { return (bool)GetValue(TitleCapsProperty); }
-            set { SetValue(TitleCapsProperty, value); }
-        }
-
-        public string WindowTitle
-        {
-            get { return TitleCaps ? Title.ToUpper() : Title; }
         }
 
         public override void OnApplyTemplate()

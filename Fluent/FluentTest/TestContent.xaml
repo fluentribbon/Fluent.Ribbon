@@ -42,7 +42,7 @@
             </Fluent:Ribbon.ContextualGroups>
 
             <Fluent:Ribbon.Menu>
-                <Fluent:Backstage Background="Green">
+                <Fluent:Backstage>
 
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"

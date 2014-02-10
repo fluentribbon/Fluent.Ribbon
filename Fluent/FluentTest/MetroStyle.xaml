@@ -11,9 +11,10 @@
                      Width="800"
                      mc:Ignorable="d"
                      ResizeMode="CanResizeWithGrip"
-                     RibbonThemeColor="#FF217346"
                      Style="{DynamicResource MetroWindowStyle}"
-                     FlowDirection="LeftToRight" Foreground="White">
+                     FlowDirection="LeftToRight" 
+                    Foreground="White"
+                    ShowIconOnTitleBar="True">
     <Fluent:MetroWindow.Resources>
     	<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
