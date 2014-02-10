@@ -31,7 +31,8 @@
         {
             this.InitializeComponent();
 
-            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
+            this.Loaded += this.HandleTestContentLoaded;
+            this.Unloaded += this.HandleTestContentUnloaded;
 
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
 
@@ -97,6 +98,16 @@
         private void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
             Process.Start((string)e.HelpTopic);
+        }
+
+        private void HandleTestContentLoaded(object sender, RoutedEventArgs e)
+        {
+            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
+        }
+
+        private void HandleTestContentUnloaded(object sender, RoutedEventArgs e)
+        {
+            ScreenTip.HelpPressed -= this.OnScreenTipHelpPressed;
         }
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
