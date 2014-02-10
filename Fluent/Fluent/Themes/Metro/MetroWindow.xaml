@@ -8,6 +8,7 @@
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <conv:ToUpperConverter x:Key="ToUpperConverter" />
+    <Fluent:IconConverter x:Key="IconConvert" />
 
     <ControlTemplate x:Key="WindowTemplateKey" TargetType="{x:Type Fluent:MetroWindow}">
         <Grid Background="{TemplateBinding Background}" x:Name="root">
@@ -28,7 +29,12 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Height="16" Width="16" Margin="2,-2,0,0" Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" Source="{TemplateBinding Icon}" Stretch="UniformToFill"/>
+                        <Image Height="16"
+                               Width="16"
+                               Margin="2,-2,0,0"
+                               Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}" 
+                               Stretch="UniformToFill"/>
                         </Grid>
                         <ContentPresenter 
                                 Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" 
