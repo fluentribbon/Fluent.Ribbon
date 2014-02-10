@@ -118,13 +118,17 @@
               </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton" d:LayoutOverrides="Width, Height" Style="{DynamicResource SliderRepeatButtonStyle}" Command="Slider.DecreaseLarge">
-              <Grid Margin="0">
-                <Path Data="M0,0L1,0" Fill="{x:Null}" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>
+                <Grid Margin="0"
+                      Background="Transparent"
+                      IsHitTestVisible="True">
+                    <Path Data="M0,0L1,0" Fill="{x:Null}" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>
               </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy" Style="{DynamicResource SliderRepeatButtonStyle}" Grid.Column="2" Command="Slider.IncreaseLarge">
-              	<Grid Margin="0">
-              		<Path Data="M0,0L0,1" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="2" VerticalAlignment="Center" Height="10" StrokeThickness="2" Stroke="White"/>
+                <Grid Margin="0"
+                      Background="Transparent"
+                      IsHitTestVisible="True">
+                    <Path Data="M0,0L0,1" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="2" VerticalAlignment="Center" Height="10" StrokeThickness="2" Stroke="White"/>
                 	<Path Data="M0,0L1,0" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>       	
 				</Grid>
             </RepeatButton>
