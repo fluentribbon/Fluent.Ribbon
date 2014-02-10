@@ -199,7 +199,8 @@
     <Setter Property="CornerRadius" Value="0"/>
     <Setter Property="CaptionHeight" Value="50"/>
     <Setter Property="Foreground" Value="#FF000000"/>
-    <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
     <Setter Property="Background" Value="{DynamicResource WindowBackgroundBrush}"/>
     <Style.Triggers>
       <Trigger Property="IsCollapsed" Value="True">
@@ -209,7 +210,8 @@
         <Setter Property="GlassBorderThickness" Value="0,56,0,0"/>
       </Trigger>
       <Trigger Property="IsDwmEnabled" Value="False">
-        <Setter Property="Template" Value="{StaticResource NonDwmRibbonWindowControlTemplate}"/>
+                <Setter Property="Template"
+                        Value="{DynamicResource NonDwmRibbonWindowControlTemplate}"/>
       </Trigger>
     </Style.Triggers>
   </Style>

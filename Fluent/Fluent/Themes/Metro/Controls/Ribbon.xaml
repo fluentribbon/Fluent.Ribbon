@@ -3,8 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters" xmlns:internal="clr-namespace:Fluent.Internal"
                     mc:Ignorable="d">
-
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
         <Grid x:Name="PART_LayoutRoot"
@@ -15,7 +15,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                   Height="25"
+                                   Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
                                    VerticalAlignment="Top"
@@ -36,17 +36,24 @@
             <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}"
                                      Style="{DynamicResource RibbonTabControlStyle}"
                                      x:Name="PART_RibbonTabControl"
-                                     Margin="0,25,0,0"
-                                     Focusable="False"
-                                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />
-            <!--<ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                          ContentSource="Menu"/>-->
+                                     Focusable="False"                                     
+                                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}">
+                <Fluent:RibbonTabControl.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding RelativeSource="{RelativeSource Self}"
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)" />
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                    </MultiBinding>
+                </Fluent:RibbonTabControl.Margin>
+            </Fluent:RibbonTabControl>
             <Border x:Name="border"
                     Margin="0,-2,0,0"
                     BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}"
                     BorderThickness="0,1"
                     Grid.Row="1"
-                    Height="26">
+                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}"
                         BorderThickness="0,1"
                         Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
@@ -111,7 +118,7 @@
         <Setter Property="FontSize"
                 Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template"
-                Value="{StaticResource RibbonControlTemplate}" />
+                Value="{DynamicResource RibbonControlTemplate}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="FocusManager.IsFocusScope"
@@ -122,7 +129,5 @@
                 Value="False" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
-        <Setter Property="Margin"
-                Value="0,-30,0,0" />
     </Style>
 </ResourceDictionary>

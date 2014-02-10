@@ -61,47 +61,9 @@ namespace Fluent
         {
             get
             {
-                return Mouse.Captured == this;
+                return ReferenceEquals(Mouse.Captured, this);
             }
         }
-
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(DropDownButton));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(DropDownButton));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
 
         #region Header
 
@@ -110,7 +72,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
@@ -140,7 +102,7 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as DropDownButton;
+            var element = (DropDownButton)d;
 
             var oldElement = e.OldValue as FrameworkElement;
 
@@ -379,12 +341,19 @@ namespace Fluent
 
             this.isFirstTime = true;
 
+            if (this.DropDownPopup != null)
+            {
+                this.DropDownPopup.KeyUp -= this.OnDropDownPopupKeyUp;
+            }
+
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
             if (this.DropDownPopup != null)
             {
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
+
+                this.DropDownPopup.KeyUp += this.OnDropDownPopupKeyUp;
             }
 
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
@@ -412,14 +381,16 @@ namespace Fluent
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.IsKeyboardFocusWithinChanged"/> event.</param>
         protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
         {
-            base.OnIsKeyboardFocusWithinChanged(e);
-
             // This is for the case when focus goes elsewhere and the popup is still open; make sure it is closed.
             if (!this.IsDropDownOpen
-                || IsKeyboardFocusWithin)
+                || this.IsKeyboardFocusWithin
+                || this.HasCapture
+                || (this.DropDownPopup != null && this.DropDownPopup.IsKeyboardFocusWithin))
             {
                 return;
             }
+
+            base.OnIsKeyboardFocusWithinChanged(e);
 
             // IsKeyboardFocusWithin still flickers under certain conditions.  The case
             // we care about is focus going from the ComboBox to a ComboBoxItem. 
@@ -428,7 +399,7 @@ namespace Fluent
             var currentFocus = Keyboard.FocusedElement as DependencyObject;
 
             if (currentFocus == null
-                || ItemsControlFromItemContainer(currentFocus) != this)
+                || ReferenceEquals(ItemsControlFromItemContainer(currentFocus), this) == false)
             {
                 this.IsDropDownOpen = false;
             }
@@ -460,7 +431,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (!buttonBorder.IsMouseOver)
             {
@@ -536,18 +507,34 @@ namespace Fluent
             }
         }
 
+        private void OnDropDownPopupKeyUp(object sender, KeyEventArgs e)
+        {
+            this.KeyDownHandler(e);
+        }
+
         /// <summary>
         /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            this.KeyDownHandler(e);
+        }
+
+        private void KeyDownHandler(KeyEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
             var handled = false;
 
             switch (e.Key)
             {
                 case Key.Down:
-                    if (HasItems)
+                    if (this.HasItems
+                        && this.IsDropDownOpen == false) // Only handle this for initial navigation. Further navigation is handled by the dropdown itself
                     {
                         this.IsDropDownOpen = true;
 
@@ -560,11 +547,12 @@ namespace Fluent
                     break;
 
                 case Key.Up:
-                    if (HasItems)
+                    if (this.HasItems
+                        && this.IsDropDownOpen == false) // Only handle this for initial navigation. Further navigation is handled by the dropdown itself
                     {
                         this.IsDropDownOpen = true;
 
-                        var container = ItemContainerGenerator.ContainerFromIndex(Items.Count - 1);
+                        var container = ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1);
 
                         NavigateToContainer(container);
 
@@ -581,10 +569,6 @@ namespace Fluent
                 case Key.Space:
                     this.IsDropDownOpen = !this.IsDropDownOpen;
                     handled = true;
-                    break;
-
-                default:
-                    handled = false;
                     break;
             }
 
@@ -674,7 +658,6 @@ namespace Fluent
             var control = (DropDownButton)d;
 
             var newValue = (bool)e.NewValue;
-            var oldValue = !newValue;
 
             control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
 
@@ -682,9 +665,23 @@ namespace Fluent
             {
                 Mouse.Capture(control, CaptureMode.SubTree);
 
-                var container = control.ItemContainerGenerator.ContainerFromIndex(0);
+                control.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Normal,
+                    (DispatcherOperationCallback)delegate(object arg)
+                    {
+                        var ctrl = (DropDownButton)arg;
+                        var container = ctrl.ItemContainerGenerator.ContainerFromIndex(0);
 
-                NavigateToContainer(container);
+                        NavigateToContainer(container);
+
+                        // Edge case: Whole dropdown content is disabled
+                        if (ctrl.IsKeyboardFocusWithin == false)
+                        {
+                            Keyboard.Focus(ctrl);
+                        }
+                        return null;
+                    },
+                    control);
 
                 control.OnDropDownOpened();
             }
@@ -738,8 +735,9 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            DropDownButton button = new DropDownButton();
-            button.Size = RibbonControlSize.Small;
+            var button = new DropDownButton();
+            RibbonAttachedProperties.SetRibbonSize(button, RibbonControlSize.Small);
+
             BindQuickAccessItem(button);
             RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
@@ -763,7 +761,7 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+            var button = (DropDownButton)sender;
             /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                    {*/
             if (ItemsSource != null)
@@ -792,7 +790,7 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            DropDownButton button = (DropDownButton)sender;
+            var button = (DropDownButton)sender;
             button.DropDownClosed -= OnQuickAccessMenuClosed;
             Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                {

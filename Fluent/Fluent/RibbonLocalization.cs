@@ -1220,6 +1220,13 @@ namespace Fluent
             ribbonContextMenuShowAbove = "Mostrar barra de herramientas de acceso rápido sobre la cinta";
             ribbonContextMenuCustomizeRibbon = "Personalizar la cinta...";
             ribbonContextMenuMinimizeRibbon = "Minimizar la cinta";
+
+            //Screentips
+            screenTipDisableReasonHeader = "Este comando está desactivado actualmente";
+            ScreenTipF1LabelHeader = "Pulse F1 para obtener más ayuda";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            customizeStatusBar = "Personalizar barra de estado";
         }
 
         #endregion

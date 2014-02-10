@@ -107,6 +107,7 @@
     	<Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     	<Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     	<Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    	<Setter Property="Template" Value="{StaticResource ScreenTipControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ScreenTipControlTemplate}"/>
     </Style>
 </ResourceDictionary>

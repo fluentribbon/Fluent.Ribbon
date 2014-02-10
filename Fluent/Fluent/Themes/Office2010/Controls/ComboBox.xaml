@@ -287,13 +287,13 @@
                                                       Content="{TemplateBinding SelectionBoxItem}"
                                                       ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                                       ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                                      VerticalAlignment="Top"
+                                                      VerticalAlignment="Center"
                                                       HorizontalAlignment="Left" />
                                     <Image Margin="0"
                                            Stretch="None"
                                            x:Name="PART_SelectedImage"
                                            IsHitTestVisible="False"
-                                           VerticalAlignment="Top"
+                                           VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Visibility="Collapsed"
                                            Width="Auto"
@@ -302,6 +302,7 @@
                                              x:Name="PART_EditableTextBox"
                                              HorizontalAlignment="Stretch"
                                              VerticalAlignment="Stretch"
+                                             VerticalContentAlignment="Center"
                                              TextWrapping="NoWrap"
                                              BorderThickness="0,0,0,0"
                                              IsReadOnly="{TemplateBinding IsReadOnly}"
@@ -626,13 +627,13 @@
                                     TargetName="PART_ContentBorder"
                                     Value="Stretch" />
                         </Trigger>
-                        <Trigger Property="Size"
+                        <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                                  Value="Middle">
                             <Setter Property="Visibility"
                                     TargetName="textBlock"
                                     Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="Size"
+                        <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                                  Value="Small">
                             <Setter Property="Visibility"
                                     TargetName="stackPanel"

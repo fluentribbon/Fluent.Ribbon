@@ -92,7 +92,7 @@ namespace Fluent
                 return;
             }
 
-            this.window.KeyDown += this.OnWindowKeyDown;
+            this.window.PreviewKeyDown += this.OnWindowKeyDown;
             this.window.KeyUp += this.OnWindowKeyUp;
 
             // Hookup non client area messages
@@ -173,7 +173,13 @@ namespace Fluent
                 else
                 {
                     this.currentUserInput = string.Empty;
-                    this.timer.Stop();
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                if (this.activeAdornerChain != null)
+                {
+                    this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 }
             }
             else
@@ -189,7 +195,7 @@ namespace Fluent
 
                         // Focus ribbon
                         this.ribbon.Focusable = true;
-                        this.ribbon.Focus();
+                        //this.ribbon.Focus();
 
                         this.Show();
                     }
@@ -208,7 +214,7 @@ namespace Fluent
             }
         }
 
-        private void OnWindowKeyUp(object sender, KeyEventArgs e)
+        private void OnWindowKeyUp(object sender, KeyEventArgs e)               
         {
             if (this.ribbon.IsCollapsed)
             {
@@ -232,7 +238,7 @@ namespace Fluent
 
                     // Focus ribbon
                     this.ribbon.Focusable = true;
-                    this.ribbon.Focus();
+                    //this.ribbon.Focus();
 
                     this.Show();
                 }
@@ -241,7 +247,7 @@ namespace Fluent
                     // Focus ribbon
                     this.backUpFocusedElement = Keyboard.FocusedElement;
                     this.ribbon.Focusable = true;
-                    this.ribbon.Focus();
+                    //this.ribbon.Focus();
 
                     this.activeAdornerChain.Terminate();
                     this.activeAdornerChain = null;

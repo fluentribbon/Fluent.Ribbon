@@ -392,7 +392,10 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource != this) e.Handled = true;
+            if (e.OriginalSource != this)
+            {
+                e.Handled = true;
+            }
         }
 
         #endregion
@@ -425,7 +428,25 @@ namespace Fluent
             if (!PopupService.IsMousePhysicallyOver(button)) base.OnPreviewMouseLeftButtonDown(e);
         }
 
-        void OnButtonClick(object sender, RoutedEventArgs e)
+        #region Overrides of DropDownButton
+
+        /// <summary>
+        /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
+        /// </summary>
+        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.Key == Key.Enter)
+            {
+                this.button.InvokeClick();
+            }
+        }
+
+        #endregion
+
+        private void OnButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
             RaiseEvent(new RoutedEventArgs(ClickEvent, this));
@@ -445,7 +466,7 @@ namespace Fluent
         {
             SplitButton button = new SplitButton();
             button.Click += ((sender, e) => RaiseEvent(e));
-            button.Size = RibbonControlSize.Small;
+            RibbonAttachedProperties.SetRibbonSize(button, RibbonControlSize.Small);
             button.CanAddButtonToQuickAccessToolBar = false;
             BindQuickAccessItem(button);
             BindQuickAccessItemDropDownEvents(button);

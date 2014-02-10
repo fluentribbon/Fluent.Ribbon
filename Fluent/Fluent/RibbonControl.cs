@@ -81,178 +81,6 @@ namespace Fluent
     /// </summary>
     public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemProvider, IRibbonControl
     {
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
-          "Size",
-          typeof(RibbonControlSize),
-          typeof(RibbonControl),
-          new FrameworkPropertyMetadata(RibbonControlSize.Large,
-              FrameworkPropertyMetadataOptions.AffectsArrange |
-              FrameworkPropertyMetadataOptions.AffectsMeasure |
-              FrameworkPropertyMetadataOptions.AffectsRender |
-              FrameworkPropertyMetadataOptions.AffectsParentArrange |
-              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-              OnSizePropertyChanged)
-        );
-
-        // When the ControlSizeDefinition property changes we need to invalidate 
-        // the parent chain measure so that the RibbonGroupsContainer can calculate 
-        // the new size within the same MeasureOverride call.  This property
-        // usually changes from RibbonGroupsContainer.MeasureOverride.
-        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RibbonControl ribbonControl = (RibbonControl)d;
-            ribbonControl.OnSizePropertyChanged(
-                (RibbonControlSize)e.OldValue,
-                (RibbonControlSize)e.NewValue);
-        }
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = DependencyProperty.Register(
-          "SizeDefinition",
-          typeof(string),
-          typeof(RibbonControl), new FrameworkPropertyMetadata("Large, Middle, Small",
-                                          FrameworkPropertyMetadataOptions.AffectsArrange |
-                                          FrameworkPropertyMetadataOptions.AffectsMeasure |
-                                          FrameworkPropertyMetadataOptions.AffectsRender |
-                                          FrameworkPropertyMetadataOptions.AffectsParentArrange |
-                                          FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                          OnSizeDefinitionPropertyChanged));
-
-        /// <summary>
-        /// Adds <paramref name="type"/> as owner to <see cref="SizeDefinitionProperty"/>
-        /// </summary>
-        /// <param name="type">The type to add as owner</param>
-        /// <returns>The <see cref="DependencyProperty"/> returned from SizeDefinitionProperty.AddOwner</returns>
-        public static DependencyProperty AttachSizeDefinition(Type type)
-        {
-            return SizeDefinitionProperty.AddOwner(type,
-                                                    new FrameworkPropertyMetadata("Large, Middle, Small",
-                                                                                FrameworkPropertyMetadataOptions
-                                                                                    .AffectsArrange |
-                                                                                FrameworkPropertyMetadataOptions
-                                                                                    .AffectsMeasure |
-                                                                                FrameworkPropertyMetadataOptions
-                                                                                    .AffectsRender |
-                                                                                FrameworkPropertyMetadataOptions
-                                                                                    .AffectsParentArrange |
-                                                                                FrameworkPropertyMetadataOptions
-                                                                                    .AffectsParentMeasure,
-                                                                                OnSizeDefinitionPropertyChanged));
-        }
-
-        // Handles SizeDefinitionProperty changes
-        internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            // Find parent group box
-            var groupBox = FindParentRibbonGroupBox(d);
-            var element = (UIElement)d;
-
-            if (groupBox != null)
-            {
-                SetAppropriateSize(element, groupBox.State);
-            }
-            else
-            {
-                SetAppropriateSize(element, RibbonGroupBoxState.Large);
-            }
-        }
-
-        // Finds parent group box
-        [SuppressMessage("Microsoft.Performance", "CA1800")]
-        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
-        {
-            while (!(o is RibbonGroupBox))
-            {
-                o = VisualTreeHelper.GetParent(o) ?? LogicalTreeHelper.GetParent(o);
-                if (o == null) break;
-            }
-            return (RibbonGroupBox)o;
-        }
-
-        /// <summary>
-        /// Sets appropriate size of the control according to the 
-        /// given group box state and control's size definition
-        /// </summary>
-        /// <param name="element">UI Element</param>
-        /// <param name="state">Group box state</param>
-        public static void SetAppropriateSize(UIElement element, RibbonGroupBoxState state)
-        {
-            var index = (int)state;
-            if (state == RibbonGroupBoxState.Collapsed)
-            {
-                index = 0;
-            }
-
-            var control = element as IRibbonControl;
-            if (control != null)
-            {
-                control.Size = GetThreeSizeDefinition(element)[index];
-            }
-        }
-
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets value of the attached property SizeDefinition of the given element
-        /// </summary>
-        /// <param name="element">The given element</param>
-        public static RibbonControlSize[] GetThreeSizeDefinition(UIElement element)
-        {
-            string[] splitted = ((element as IRibbonControl).SizeDefinition).Split(new char[] { ' ', ',', ';', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
-
-            int count = Math.Min(splitted.Length, 3);
-            if (count == 0) return new RibbonControlSize[] { RibbonControlSize.Large, RibbonControlSize.Large, RibbonControlSize.Large };
-
-            RibbonControlSize[] sizes = new RibbonControlSize[3];
-            for (int i = 0; i < count; i++)
-            {
-                switch (splitted[i])
-                {
-                    case "Large": sizes[i] = RibbonControlSize.Large; break;
-                    case "Middle": sizes[i] = RibbonControlSize.Middle; break;
-                    case "Small": sizes[i] = RibbonControlSize.Small; break;
-                    default: sizes[i] = RibbonControlSize.Large; break;
-                }
-            }
-            for (int i = count; i < 3; i++)
-            {
-                sizes[i] = sizes[count - 1];
-            }
-            return sizes;
-        }
-
-        #endregion
-
         #region Header
 
         /// <summary>
@@ -582,7 +410,7 @@ namespace Fluent
             }
             if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
-            (element as IRibbonControl).Size = RibbonControlSize.Small;
+            RibbonAttachedProperties.SetRibbonSize(element, RibbonControlSize.Small);
         }
 
         /// <summary>
@@ -614,23 +442,16 @@ namespace Fluent
 
         #region Binding
 
-        /// <summary>
-        /// Binds elements property
-        /// </summary>
-        /// <param name="source">Source element</param>
-        /// <param name="target">Target element</param>
-        /// <param name="path">Property path</param>
-        /// <param name="property">Property to bind</param>
-        /// <param name="mode">Binding mode</param>
         static internal void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
         {
-            Binding binding = new Binding();
-            binding.Path = new PropertyPath(path);
-            binding.Source = source;
-            binding.Mode = mode;
+            var binding = new Binding
+                              {
+                                  Path = new PropertyPath(path),
+                                  Source = source,
+                                  Mode = mode
+                              };
             target.SetBinding(property, binding);
         }
-
         #endregion
 
         #region Methods
@@ -646,19 +467,6 @@ namespace Fluent
         /// Handles back navigation with KeyTips
         /// </summary>
         public virtual void OnKeyTipBack()
-        {
-        }
-
-        #endregion
-
-        #region Protected
-
-        /// <summary>
-        /// Handles size property changing
-        /// </summary>
-        /// <param name="previous">Previous value</param>
-        /// <param name="current">Current value</param>
-        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
         }
 

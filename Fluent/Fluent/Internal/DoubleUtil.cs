@@ -35,5 +35,7 @@
             double delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
+
+        public static readonly double Zero = 0D;
     }
 }

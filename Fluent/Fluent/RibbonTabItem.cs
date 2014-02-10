@@ -22,6 +22,9 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using System.Linq;
+    using System.Windows.Data;
+
     /// <summary>
     /// Represents ribbon tab item
     /// </summary>
@@ -121,12 +124,14 @@ namespace Fluent
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
         /// </summary>
-        protected override System.Collections.IEnumerator LogicalChildren
+        protected override IEnumerator LogicalChildren
         {
             get
             {
-                ArrayList array = new ArrayList();
-                array.Add(groupsContainer);
+                var array = new ArrayList
+                                {
+                                    this.groupsContainer
+                                };
                 return array.GetEnumerator();
                 /*if (Groups != null) return Groups.GetEnumerator();
                 else return (new ArrayList()).GetEnumerator();*/
@@ -183,7 +188,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IndentProperty =
             DependencyProperty.Register("Indent", typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata((double)12.0));
-
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -308,20 +312,20 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item as UIElement);
+                        groupsInnerContainer.Children.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item as UIElement);
+                        groupsInnerContainer.Children.Remove(item);
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Add(item as UIElement);
+                        groupsInnerContainer.Children.Add(item);
                     }
                     break;
 
@@ -463,7 +467,7 @@ namespace Fluent
         }
 
         // Coerce ToolTip to ensure that tooltip displays name of the tabitem
-        static object CoerceToolTip(DependencyObject d, object basevalue)
+        private static object CoerceToolTip(DependencyObject d, object basevalue)
         {
             var tabItem = (RibbonTabItem)d;
             if (basevalue == null
@@ -480,8 +484,15 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            AddLogicalChild(groupsContainer);
-            groupsContainer.Content = groupsInnerContainer;
+            this.AddLogicalChild(this.groupsContainer);
+            this.groupsContainer.Content = this.groupsInnerContainer;
+
+            // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
+            this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding("DataContext")
+                                                                          {
+                                                                              Source = this
+                                                                          });
+
             ContextMenuService.Coerce(this);
 
             this.Loaded += this.OnLoaded;

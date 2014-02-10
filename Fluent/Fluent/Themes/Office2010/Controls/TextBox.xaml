@@ -2,6 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <BitmapImage x:Key="MenuCutIcon"
+                 UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Cut.png"
+                 PresentationOptions:Freeze="True"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuCopyIcon"
+                 UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Copy.png"
+                 PresentationOptions:Freeze="True"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuPasteIcon"
+                 UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Paste.png"
+                 PresentationOptions:Freeze="True"
+                 x:Shared="False" />
+
     <ControlTemplate x:Key="TextBoxControlTemplate"
                      TargetType="{x:Type Fluent:TextBox}">
         <Border Name="Border"
@@ -17,24 +30,13 @@
 
     <ContextMenu x:Key="TextBoxContextMenu"
                  x:Shared="False">
-        <ContextMenu.Resources>
-            <BitmapImage x:Key="MenuCutIcon"
-                         UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Cut.png"
-                         PresentationOptions:Freeze="True" />
-            <BitmapImage x:Key="MenuCopyIcon"
-                         UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Copy.png"
-                         PresentationOptions:Freeze="True" />
-            <BitmapImage x:Key="MenuPasteIcon"
-                         UriSource="pack://application:,,,/Fluent;component/Themes\Office2010\Images\Paste.png"
-                         PresentationOptions:Freeze="True" />
-        </ContextMenu.Resources>
-        <Fluent:MenuItem Icon="{StaticResource MenuCutIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuCutIcon}"
                          Command="ApplicationCommands.Cut"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
-        <Fluent:MenuItem Icon="{StaticResource MenuCopyIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuCopyIcon}"
                          Command="ApplicationCommands.Copy"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
-        <Fluent:MenuItem Icon="{StaticResource MenuPasteIcon}"
+        <Fluent:MenuItem Icon="{DynamicResource MenuPasteIcon}"
                          Command="ApplicationCommands.Paste"
                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" />
     </ContextMenu>
@@ -67,6 +69,6 @@
         <Setter Property="Foreground"
                 Value="#FF52002D" />
         <Setter Property="ContextMenu"
-                Value="{StaticResource TextBoxContextMenu}" />
+                Value="{DynamicResource TextBoxContextMenu}" />
     </Style>
 </ResourceDictionary>

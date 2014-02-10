@@ -26,6 +26,8 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using Fluent.Extensibility;
+
     /// <summary>
     /// Represents the In-Ribbon Gallery, a gallery-based control that exposes 
     /// a default subset of items directly in the Ribbon. Any remaining items 
@@ -33,7 +35,7 @@ namespace Fluent
     /// </summary>
     [ContentProperty("Items")]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
-    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider
+    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink
     {
         #region Fields
 
@@ -81,49 +83,6 @@ namespace Fluent
         #endregion
 
         #region Properties
-
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(OnSizeChanged));
-
-        private static void OnSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as InRibbonGallery).OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
-        }
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(InRibbonGallery));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
 
         #region Header
 
@@ -302,11 +261,11 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
@@ -318,28 +277,28 @@ namespace Fluent
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
                         }
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
                         }
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = (GalleryGroupFilter)item;
+                            GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
@@ -1114,14 +1073,24 @@ namespace Fluent
         /// </summary>
         /// <param name="previous">Previous value</param>
         /// <param name="current">Current value</param>
-        protected void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
+        public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
             if (CanCollapseToButton)
             {
-                if ((current == RibbonControlSize.Large) && ((galleryPanel.MinItemsInRow > MinItemsInRow))) IsCollapsed = false;
-                else IsCollapsed = true;
+                if ((current == RibbonControlSize.Large)
+                    && (galleryPanel.MinItemsInRow > MinItemsInRow))
+                {
+                    IsCollapsed = false;
+                }
+                else
+                {
+                    IsCollapsed = true;
+                }
             }
-            else IsCollapsed = false;
+            else
+            {
+                IsCollapsed = false;
+            }
         }
 
         /// <summary>
@@ -1222,7 +1191,8 @@ namespace Fluent
             gallery.DropDownOpened += OnQuickAccessOpened;
             if (DropDownClosed != null) gallery.DropDownClosed += DropDownClosed;
             if (DropDownOpened != null) gallery.DropDownOpened += DropDownOpened;
-            gallery.Size = RibbonControlSize.Small;
+
+            RibbonAttachedProperties.SetRibbonSize(gallery, RibbonControlSize.Small);
             quickAccessGallery = gallery;
             return gallery;
         }
@@ -1362,7 +1332,7 @@ namespace Fluent
             if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
 
             InvalidateMeasure();*/
-            if (IsCollapsed && (Size == RibbonControlSize.Large)) IsCollapsed = false;
+            if (IsCollapsed && (RibbonAttachedProperties.GetRibbonSize(this) == RibbonControlSize.Large)) IsCollapsed = false;
             else if (galleryPanel.MinItemsInRow < MaxItemsInRow)
             {
                 galleryPanel.MinItemsInRow++;

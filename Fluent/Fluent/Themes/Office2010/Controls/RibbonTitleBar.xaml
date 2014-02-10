@@ -13,7 +13,7 @@
     
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTitleBar}">
-        <Grid Height="25">
+        <Grid Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
                               ContentSource="QuickAccessToolBar" />
             <ContentPresenter x:Name="PART_HeaderHolder"

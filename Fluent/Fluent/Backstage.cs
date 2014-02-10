@@ -147,33 +147,8 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
             // Disable QAT for this control
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(false));
-            // Make default header
-            HeaderProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceHeader));
-            KeyTip.KeysProperty.AddOwner(typeof(Backstage), new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
-            StyleProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(null, OnCoerceStyle));
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(Backstage));
-            }
-
-            return basevalue;
-        }
-
-        static object CoerceHeader(DependencyObject d, object basevalue)
-        {
-            return basevalue ?? Ribbon.Localization.BackstageButtonText;
-        }
-
-        static object CoerceKeyTipKeys(DependencyObject d, object basevalue)
-        {
-            return basevalue ?? Ribbon.Localization.BackstageButtonKeyTip;
         }
 
         /// <summary>
@@ -184,15 +159,12 @@ namespace Fluent
             this.Loaded += this.OnBackstageLoaded;
             this.Unloaded += this.OnBackstageUnloaded;
 
-            CoerceValue(HeaderProperty);
-            CoerceValue(KeyTip.KeysProperty);
-
             this.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, (sender, args) => this.IsOpen = !this.IsOpen));
         }
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
         {
-            IsOpen = false;
+            this.IsOpen = false;
         }
 
         #endregion

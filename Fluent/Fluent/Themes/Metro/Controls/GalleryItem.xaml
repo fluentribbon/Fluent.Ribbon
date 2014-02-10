@@ -36,7 +36,8 @@
           </ControlTemplate.Triggers>
         </ControlTemplate>
   <Style x:Key="GalleryItemStyle" TargetType="{x:Type Fluent:GalleryItem}">
-    <Setter Property="Template" Value="{StaticResource GalleryItemControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource GalleryItemControlTemplate}"/>
     <!--<Setter Property="Width" Value="{Binding ItemWidth, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>
     <Setter Property="Height" Value="{Binding ItemHeight, FallbackValue=0, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonItemsControl}}, Diagnostics:PresentationTraceSources.TraceLevel=None}"/>-->
   	<Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>

@@ -2,10 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:conv="clr-namespace:Fluent.Metro.Converters"
-                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours">
+                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:internal="clr-namespace:Fluent.Internal"
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <conv:ToUpperConverter x:Key="ToUpperConverter" />
+    <Fluent:IconConverter x:Key="IconConvert" />
 
     <ControlTemplate x:Key="WindowTemplateKey" TargetType="{x:Type Fluent:MetroWindow}">
         <Grid Background="{TemplateBinding Background}" x:Name="root">
@@ -16,7 +19,8 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Grid x:Name="PART_TitleBar" Height="{Binding TitlebarHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                    <Grid x:Name="PART_TitleBar"
+                          Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                   Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid.Background>
                                 <SolidColorBrush Color="Transparent"/>
@@ -25,7 +29,12 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Image Height="16" Width="16" Margin="2,-2,0,0" Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" Source="{TemplateBinding Icon}" Stretch="UniformToFill"/>
+                        <Image Height="16"
+                               Width="16"
+                               Margin="2,-2,0,0"
+                               Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}" 
+                               Stretch="UniformToFill"/>
                         </Grid>
                         <ContentPresenter 
                                 Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" 
@@ -34,8 +43,19 @@
                                 Grid.RowSpan="2"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Height="{Binding TitlebarHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
-                        <ContentPresenter Grid.Row="1"/>
+                                      Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                        <ContentPresenter Grid.Row="1">
+                            <ContentPresenter.Margin>
+                                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding RelativeSource="{RelativeSource Self}"
+                                             Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                             Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                </MultiBinding>
+                            </ContentPresenter.Margin>
+                    </ContentPresenter>
                     </Grid>
             </AdornerDecorator>
             <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
@@ -87,7 +107,8 @@
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource WindowTemplateKey}"/>
     </Style>
     
     <Style TargetType="{x:Type Fluent:WindowCommands}">
@@ -102,7 +123,8 @@
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
                                 <Setter Property="Padding" Value="1" />
-                                <Setter Property="Template" Value="{StaticResource WindowCommandsControlTemplate}"/>
+                                <Setter Property="Template"
+                                        Value="{DynamicResource WindowCommandsControlTemplate}"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Value="True">
                                         <Setter Property="Foreground" Value="White" />
@@ -122,7 +144,7 @@
                         </ItemsControl>
                         <Button x:Name="PART_Min"
                             Width="29"
-                            Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
+                            Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                             MaxHeight="19"    
                             Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
@@ -134,7 +156,7 @@
 
                         <Button x:Name="PART_Max"
                             Width="29"
-                            Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
+                            Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                             MaxHeight="19"    
                             Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
@@ -150,7 +172,7 @@
 
                         <Button x:Name="PART_Close"
                             Width="29"
-                            Height="{Binding TitlebarHeight, RelativeSource={RelativeSource AncestorType=Fluent:MetroWindow}}"
+                            Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                             MaxHeight="19"    
                             Margin="0,3,0,0"
                             Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"

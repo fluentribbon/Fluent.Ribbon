@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -25,30 +20,7 @@ namespace Fluent
 
         #region Properties
 
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
-          "Size",
-          typeof(RibbonControlSize),
-          typeof(RibbonToolBarLayoutDefinition),
-          new FrameworkPropertyMetadata(RibbonControlSize.Large)
-        );
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-        
+       
         #region Row Count
 
         /// <summary>

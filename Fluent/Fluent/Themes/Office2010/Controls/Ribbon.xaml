@@ -3,8 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters" xmlns:internal="clr-namespace:Fluent.Internal"
                     mc:Ignorable="d">
-
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
         <Grid x:Name="PART_LayoutRoot"
@@ -14,9 +14,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <!-- When you change the default height of 25 of the RibbonTitleBar to something else, don't forget to change it in code behind (see OnIsCollapsedChanged) -->
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                   Height="25"
+                                   Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
                                    VerticalAlignment="Top"
@@ -53,17 +52,24 @@
             <Fluent:RibbonTabControl Menu="{TemplateBinding Menu}"
                                      Style="{DynamicResource RibbonTabControlStyle}"
                                      x:Name="PART_RibbonTabControl"
-                                     Margin="0,25,0,0"
                                      Focusable="False"
-                                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />
-            <!--<ContentPresenter x:Name="button" Margin="2,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                          ContentSource="Menu"/>-->
+                                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}">
+                <Fluent:RibbonTabControl.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding RelativeSource="{RelativeSource Self}"
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)" />
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                    </MultiBinding>
+                </Fluent:RibbonTabControl.Margin>                
+            </Fluent:RibbonTabControl>
             <Border x:Name="border"
                     Margin="0,-2,0,0"
                     BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}"
                     BorderThickness="0,1"
                     Grid.Row="1"
-                    Height="26">
+                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}"
                         BorderThickness="0,1"
                         Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
@@ -79,11 +85,6 @@
             </Border>           
         </Grid>
         <ControlTemplate.Triggers>
-            <!--<Trigger Property="CanQuickAccessLocationChanging" Value="False">
-        <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
-      </Trigger>-->
             <Trigger Property="IsQuickAccessToolBarVisible"
                      Value="False">
                 <Setter Property="Visibility"
@@ -91,16 +92,7 @@
                         Value="Collapsed" />
                 <Setter Property="Visibility"
                         TargetName="PART_QuickAccessToolBar"
-                        Value="Collapsed" />
-                <!--<Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_RemoveFromQuickAccessMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_AddGalleryToQuickAccessMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_AddMenuToQuickAccessMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_AddGroupToQuickAccessMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="PART_AddToQuickAccessMenuItem" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
-        <Setter Property="Visibility" TargetName="topMenuSeparator" Value="Collapsed"/>-->
+                        Value="Collapsed" />       
             </Trigger>
             <Trigger Property="IsCollapsed"
                      Value="True">
@@ -126,28 +118,6 @@
                         TargetName="PART_QuickAccessToolBar"
                         Value="0,2,0,0" />
             </Trigger>
-            <!--<MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddToQuickAccessMenuItem"/>
-          <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddGroupToQuickAccessMenuItem"/>
-          <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddMenuToQuickAccessMenuItem"/>
-          <Condition Property="Visibility" Value="Collapsed" SourceName="PART_AddGalleryToQuickAccessMenuItem"/>
-          <Condition Property="Visibility" Value="Collapsed" SourceName="PART_RemoveFromQuickAccessMenuItem"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="Visibility" Value="Collapsed" TargetName="topMenuSeparator"/>
-      </MultiTrigger>-->
-            <!--<Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
-        <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarAboveTheRibbonMenuItem" Value="Collapsed"/>
-      </Trigger>
-      <Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="False">
-        <Setter Property="Visibility" TargetName="PART_ShowQuickAccessToolbarBelowTheRibbonMenuItem" Value="Collapsed"/>
-      </Trigger>
-      <Trigger Property="CanCustomizeQuickAccessToolBar" Value="False">
-        <Setter Property="Visibility" TargetName="PART_CustomizeQuickAccessToolbarMenuItem" Value="Collapsed"/>
-      </Trigger>
-      <Trigger Property="CanCustomizeRibbon" Value="False">
-        <Setter Property="Visibility" TargetName="PART_CustomizeTheRibbonMenuItem" Value="Collapsed"/>
-      </Trigger>-->
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -160,7 +130,7 @@
         <Setter Property="FontSize"
                 Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template"
-                Value="{StaticResource RibbonControlTemplate}" />
+                Value="{DynamicResource RibbonControlTemplate}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="FocusManager.IsFocusScope"

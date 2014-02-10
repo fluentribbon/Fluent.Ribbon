@@ -143,9 +143,13 @@ namespace Fluent
                     if (keys != null)
                     {
                         // Gotcha!
-                        KeyTip keyTip = new KeyTip();
-                        keyTip.Content = keys;
-                        keyTip.Visibility = hide ? Visibility.Collapsed : Visibility.Visible;
+                        KeyTip keyTip = new KeyTip
+                                        {
+                                            Content = keys,
+                                            Visibility = hide
+                                                ? Visibility.Collapsed
+                                                : Visibility.Visible
+                                        };
 
                         // Add to list & visual 
                         // children collections
@@ -166,18 +170,25 @@ namespace Fluent
                         else
                         {
                             // Bind IsEnabled property
-                            Binding binding = new Binding("IsEnabled");
-                            binding.Source = child;
-                            binding.Mode = BindingMode.OneWay;
+                            Binding binding = new Binding("IsEnabled")
+                                              {
+                                                  Source = child,
+                                                  Mode = BindingMode.OneWay
+                                              };
                             keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
                             continue;
                         }
                     }
 
                     if ((groupBox != null) &&
-                       (groupBox.State == RibbonGroupBoxState.Collapsed))
+                        (groupBox.State == RibbonGroupBoxState.Collapsed))
+                    {
                         FindKeyTips(child, true);
-                    else FindKeyTips(child, hide);
+                    }
+                    else
+                    {
+                        FindKeyTips(child, hide);
+                    }
                 }
             }
         }
@@ -486,7 +497,7 @@ namespace Fluent
         #region Methods
 
         // Back to the previous adorner
-        private void Back()
+        public void Back()
         {
             var control = this.keyTipElementContainer as IKeyTipedControl;
             if (control != null)
@@ -537,8 +548,10 @@ namespace Fluent
             {
                 //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
                 var control = element as IKeyTipedControl;
-                if (control != null) control.OnKeyTipPressed();
-                element.UpdateLayout();
+                if (control != null)
+                {
+                    control.OnKeyTipPressed();
+                }
             }
 
             var children = LogicalTreeHelper.GetChildren(element)
@@ -564,7 +577,8 @@ namespace Fluent
         {
             for (var i = 0; i < keyTips.Count; i++)
             {
-                if (!keyTips[i].IsEnabled)
+                if (!keyTips[i].IsEnabled
+                    || keyTips[i].Visibility != Visibility.Visible)
                 {
                     continue;
                 }
@@ -733,7 +747,7 @@ namespace Fluent
                 }
 
                 // Update KeyTip Visibility
-                var associatedElementIsVisible = associatedElements[i].Visibility == Visibility.Visible;
+                var associatedElementIsVisible = associatedElements[i].IsVisible;
                 var associatedElementInVisualTree = VisualTreeHelper.GetParent(associatedElements[i]) != null;
                 keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
@@ -866,8 +880,11 @@ namespace Fluent
                 }
                 else
                 {
-                    if (((associatedElements[i] is IRibbonControl) && (((IRibbonControl)associatedElements[i]).Size != RibbonControlSize.Large)) ||
-                        (associatedElements[i] is Spinner) || (associatedElements[i] is ComboBox) || (associatedElements[i] is TextBox) || (associatedElements[i] is CheckBox))
+                    if ((RibbonAttachedProperties.GetRibbonSize(associatedElements[i]) != RibbonControlSize.Large)
+                        || (associatedElements[i] is Spinner)
+                        || (associatedElements[i] is ComboBox)
+                        || (associatedElements[i] is TextBox)
+                        || (associatedElements[i] is CheckBox))
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(associatedElements[i]);
                         var translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);

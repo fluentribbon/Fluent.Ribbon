@@ -286,7 +286,8 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Setter Property="Template" Value="{StaticResource ApplicationMenuButtonControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ApplicationMenuButtonControlTemplate}"/>
         <Setter Property="Background" Value="Blue"/>
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>

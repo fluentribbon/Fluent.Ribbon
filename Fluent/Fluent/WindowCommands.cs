@@ -1,62 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using Fluent.Metro.Native;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Text;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+    using System.Windows.Shapes;
+    using Fluent.Metro.Native;
+
+    /// <summary>
+    /// Contains commands for <see cref="MetroWindow"/>
+    /// </summary>
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Min", Type = typeof(Button))]
     public class WindowCommands : ItemsControl
     {
-        public event ClosingWindowEventHandler ClosingWindow;
-        public delegate void ClosingWindowEventHandler(object sender, ClosingWindowEventHandlerArgs args);
-
-        public string Minimize
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(minimize))
-                    minimize = GetCaption(900);
-                return minimize;
-            }
-        }
-
-        public string Maximize
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(maximize))
-                    maximize = GetCaption(901);
-                return maximize;
-            }
-        }
-
-        public string Close
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(closeText))
-                    closeText = GetCaption(905);
-                return closeText;
-            }
-        }
-
-        public string Restore
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(restore))
-                    restore = GetCaption(903);
-                return restore;
-            }
-        }
-
         private static string minimize;
         private static string maximize;
         private static string closeText;
@@ -77,6 +36,63 @@ namespace Fluent
                 UnsafeNativeMethods.FreeLibrary(user32);
         }
 
+        /// <summary>
+        /// Event which is raised when the window should be closed
+        /// </summary>
+        public event EventHandler<ClosingWindowEventHandlerArgs> ClosingWindow;
+
+        /// <summary>
+        /// Retrieves the translated string for Minimize
+        /// </summary>
+        public string Minimize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(minimize))
+                    minimize = GetCaption(900);
+                return minimize;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the translated string for Maximize
+        /// </summary>
+        public string Maximize
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(maximize))
+                    maximize = GetCaption(901);
+                return maximize;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the translated string for Close
+        /// </summary>
+        public string Close
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(closeText))
+                    closeText = GetCaption(905);
+                return closeText;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the translated string for Restore
+        /// </summary>
+        public string Restore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(restore))
+                    restore = GetCaption(903);
+                return restore;
+            }
+        }
+
         private string GetCaption(int id)
         {
             if (user32 == IntPtr.Zero)
@@ -87,6 +103,9 @@ namespace Fluent
             return sb.ToString().Replace("&", "");
         }
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -102,9 +121,12 @@ namespace Fluent
             if (min != null)
                 min.Click += MinimiseClick;
 
-            RefreshMaximiseIconState();
+            this.RefreshMaximizeIconState();
         }
 
+        /// <summary>
+        /// Is called when the window should be closed
+        /// </summary>
         protected void OnClosingWindow(ClosingWindowEventHandlerArgs args)
         {
             var handler = ClosingWindow;
@@ -126,15 +148,18 @@ namespace Fluent
                 return;
 
             parentWindow.WindowState = parentWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-            RefreshMaximiseIconState(parentWindow);
+            this.RefreshMaximizeIconState(parentWindow);
         }
 
-        public void RefreshMaximiseIconState()
+        /// <summary>
+        /// Upates the visual state of the maximize icon
+        /// </summary>
+        public void RefreshMaximizeIconState()
         {
-            RefreshMaximiseIconState(GetParentWindow());
+            this.RefreshMaximizeIconState(GetParentWindow());
         }
 
-        private void RefreshMaximiseIconState(Window parentWindow)
+        private void RefreshMaximizeIconState(Window parentWindow)
         {
             if (parentWindow == null)
                 return;
@@ -142,20 +167,32 @@ namespace Fluent
             if (parentWindow.WindowState == WindowState.Normal)
             {
                 var maxpath = (Path)max.FindName("MaximisePath");
-                maxpath.Visibility = Visibility.Visible;
+                if (maxpath != null)
+                {
+                    maxpath.Visibility = Visibility.Visible;
+                }
 
                 var restorepath = (Path)max.FindName("RestorePath");
-                restorepath.Visibility = Visibility.Collapsed;
+                if (restorepath != null)
+                {
+                    restorepath.Visibility = Visibility.Collapsed;
+                }
 
                 max.ToolTip = Maximize;
             }
             else
             {
                 var restorepath = (Path)max.FindName("RestorePath");
-                restorepath.Visibility = Visibility.Visible;
+                if (restorepath != null)
+                {
+                    restorepath.Visibility = Visibility.Visible;
+                }
 
                 var maxpath = (Path)max.FindName("MaximisePath");
-                maxpath.Visibility = Visibility.Collapsed;
+                if (maxpath != null)
+                {
+                    maxpath.Visibility = Visibility.Collapsed;
+                }
                 max.ToolTip = Restore;
             }
         }

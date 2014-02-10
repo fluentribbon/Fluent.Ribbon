@@ -8,7 +8,6 @@
 #endregion
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows;
@@ -23,6 +22,8 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using System.Diagnostics;
+
     /// <summary>
     /// Represents custom Fluent UI ComboBox
     /// </summary>
@@ -79,44 +80,6 @@ namespace Fluent
         /// Gets a value indicating whether context menu is opened
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
-
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(ComboBox));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.AttachSizeDefinition(typeof(ComboBox));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
 
         #region Header
 
@@ -363,18 +326,6 @@ namespace Fluent
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnSelectionItemChanged, CoerceSelectedItem));
-            StyleProperty.OverrideMetadata(typeof(ComboBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ComboBox));
-            }
-
-            return basevalue;
         }
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -643,7 +594,6 @@ namespace Fluent
         /// <param name="e">The event data for the <see cref="E:System.Windows.Controls.ComboBox.DropDownOpened"/> event.</param>
         protected override void OnDropDownOpened(EventArgs e)
         {
-            Focus();
             base.OnDropDownOpened(e);
             Mouse.Capture(this, CaptureMode.SubTree);
             if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
@@ -739,15 +689,7 @@ namespace Fluent
                 e.Handled = true;
                 return;
             }
-            if ((IsEditable) && ((e.Key == Key.Enter) || (e.Key == Key.Escape)) && (!IsDropDownOpen))
-            {
-                // Move Focus
-                editableTextBox.Focusable = false;
-                Focus();
-                editableTextBox.Focusable = true;
-                e.Handled = true;
-                return;
-            }
+
             base.OnPreviewKeyDown(e);
         }
 
@@ -865,11 +807,22 @@ namespace Fluent
         /// </summary>
         public virtual void OnKeyTipPressed()
         {
-            if (this.IsEditable)
-            {
-                this.Focus();
-            }
-            else
+            this.Dispatcher.BeginInvoke(
+                DispatcherPriority.Normal,
+                (DispatcherOperationCallback)delegate(object arg)
+                {
+                    var ctrl = (ComboBox)arg;
+
+                    // Edge case: Whole dropdown content is disabled
+                    if (ctrl.IsKeyboardFocusWithin == false)
+                    {
+                        Keyboard.Focus(ctrl);
+                    }
+                    return null;
+                },
+                this);
+
+            if (!this.IsEditable)
             {
                 this.IsDropDownOpen = true;
             }
@@ -881,11 +834,6 @@ namespace Fluent
         public void OnKeyTipBack()
         {
         }
-
-        #endregion
-
-        #region Protected
-
 
         #endregion
 

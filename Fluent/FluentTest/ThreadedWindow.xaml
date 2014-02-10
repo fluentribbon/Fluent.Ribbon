@@ -1,0 +1,7 @@
+﻿<Window x:Class="FluentTest.ThreadedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:FluentTest="clr-namespace:FluentTest"
+        Title="ThreadedWindow" Height="300" Width="300">
+    <FluentTest:TestContent />
+</Window>

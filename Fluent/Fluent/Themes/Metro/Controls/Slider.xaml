@@ -23,7 +23,8 @@
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="Height" Value="14"/>
     <Setter Property="Width" Value="14"/>
-    <Setter Property="Template" Value="{StaticResource SliderThumbControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource SliderThumbControlTemplate}"/>
   </Style>
   
   <ControlTemplate TargetType="{x:Type Thumb}" x:Key="SliderThumbControlTemplate" >
@@ -79,7 +80,8 @@
   </ControlTemplate>
 
   <Style x:Key="ZoomSliderStyle" TargetType="{x:Type Slider}">
-    <Setter Property="Template" Value="{StaticResource ZoomSliderControlTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ZoomSliderControlTemplate}"/>
     <Setter Property="Width" Value="133"/>
     <Setter Property="Height" Value="16"/>
     <Setter Property="Maximum" Value="500"/>
@@ -103,27 +105,30 @@
             <Rectangle x:Name="rectangle" Grid.ColumnSpan="1" Margin="0" Stroke="{x:Null}" Grid.Column="1" StrokeThickness="0" Fill="#00000000"/>
             <Track Grid.Row="0" x:Name="PART_Track" Height="16" Grid.ColumnSpan="1" Grid.Column="1">
               <Track.DecreaseRepeatButton>
-                <RepeatButton
-                  Style="{StaticResource SliderButtonStyle}"
+                <RepeatButton Style="{DynamicResource SliderButtonStyle}"
                   Command="Slider.DecreaseLarge" x:Name="leftButton"/>
               </Track.DecreaseRepeatButton>
               <Track.Thumb>
-                <Thumb x:Name="thumb" Style="{StaticResource SliderThumbStyle}"/>
+                    <Thumb x:Name="thumb"
+                           Style="{DynamicResource SliderThumbStyle}"/>
               </Track.Thumb>
               <Track.IncreaseRepeatButton>
-                <RepeatButton
-                  Style="{StaticResource SliderButtonStyle}"
+                <RepeatButton Style="{DynamicResource SliderButtonStyle}"
                   Command="Slider.IncreaseLarge" x:Name="rightButton"/>
               </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton" d:LayoutOverrides="Width, Height" Style="{DynamicResource SliderRepeatButtonStyle}" Command="Slider.DecreaseLarge">
-              <Grid Margin="0">
-                <Path Data="M0,0L1,0" Fill="{x:Null}" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>
+                <Grid Margin="0"
+                      Background="Transparent"
+                      IsHitTestVisible="True">
+                    <Path Data="M0,0L1,0" Fill="{x:Null}" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>
               </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy" Style="{DynamicResource SliderRepeatButtonStyle}" Grid.Column="2" Command="Slider.IncreaseLarge">
-              	<Grid Margin="0">
-              		<Path Data="M0,0L0,1" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="2" VerticalAlignment="Center" Height="10" StrokeThickness="2" Stroke="White"/>
+                <Grid Margin="0"
+                      Background="Transparent"
+                      IsHitTestVisible="True">
+                    <Path Data="M0,0L0,1" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="2" VerticalAlignment="Center" Height="10" StrokeThickness="2" Stroke="White"/>
                 	<Path Data="M0,0L1,0" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="White"/>       	
 				</Grid>
             </RepeatButton>

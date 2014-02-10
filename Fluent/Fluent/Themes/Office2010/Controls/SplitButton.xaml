@@ -27,17 +27,17 @@
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Style.Triggers>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Large">
                 <Setter Property="Height"
                         Value="68" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Middle">
                 <Setter Property="Height"
                         Value="22" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Small">
                 <Setter Property="Height"
                         Value="22" />
@@ -119,7 +119,7 @@
                                                  Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="2,-2,2,2"
+                                                 Margin="2,0,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                         </StackPanel>
                         <Fluent:ToggleButton x:Name="PART_Button"
@@ -386,7 +386,7 @@
                         TargetName="downRect"
                         Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Small">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -452,14 +452,14 @@
                 <Setter Property="Width"
                         TargetName="controlLabel"
                         Value="12" />
-                <Setter Property="Size"
+                <Setter Property="Fluent:RibbonAttachedProperties.RibbonSize"
                         TargetName="PART_Button"
                         Value="Small" />
                 <Setter Property="VerticalAlignment"
                         TargetName="controlLabel"
                         Value="Center" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Middle">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -522,7 +522,7 @@
                 <Setter Property="Width"
                         TargetName="downRect_Copy"
                         Value="11" />
-                <Setter Property="Size"
+                <Setter Property="Fluent:RibbonAttachedProperties.RibbonSize"
                         TargetName="PART_Button"
                         Value="Middle" />
                 <Setter Property="BorderThickness"
@@ -786,7 +786,7 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Small">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -819,7 +819,7 @@
                         TargetName="controlLabel"
                         Value="2,-1,2,1" />
             </Trigger>
-            <Trigger Property="Size"
+            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
                      Value="Middle">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"

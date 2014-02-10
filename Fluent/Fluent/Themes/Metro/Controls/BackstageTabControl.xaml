@@ -2,12 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Internal="clr-namespace:Fluent.Internal"
-                    xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
+    
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    
     <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
+    
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid Background="#00000000">
@@ -77,6 +80,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="BackstageButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="FocusVisualStyle"
@@ -86,12 +90,59 @@
         <Setter Property="Margin"
                 Value="5,1" />
         <Setter Property="Template"
-                Value="{StaticResource BackstageButtonControlTemplate}" />
+                Value="{DynamicResource BackstageButtonControlTemplate}" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, FallbackValue=Red}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource BackstageFontBrush}" />
     </Style>
+
+    <ControlTemplate x:Key="BackstageBackButtonTemplate" TargetType="Button">
+        <Grid x:Name="ContentGrid"
+              Fluent:FrameworkHelper.UseLayoutRounding="False">
+            <Path x:Name="arrowpath"
+                  Width="16"
+                  Height="12"
+                  Canvas.Top="10"
+                  Canvas.Left="7.5"
+                  Stretch="Uniform"
+                  Fill="White"
+                  Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z " />
+
+            <Ellipse x:Name="backellipse"
+                     Stroke="White"
+                     Height="35"
+                     Canvas.Left="0"
+                     Width="35"
+                     StrokeThickness="2" />
+
+            <Path Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
+                  Fill="Transparent"
+                  HorizontalAlignment="Stretch"
+                  Margin="0"
+                  Stretch="None"
+                  Width="Auto" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Opacity"
+                        TargetName="arrowpath"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="backellipse"
+                        Value="0.5" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <Style x:Key="BackstageBackButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Width" Value="35" />
+        <Setter Property="Template" Value="{DynamicResource BackstageBackButtonTemplate}" />
+    </Style>
+
+
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
         <Setter Property="Margin" Value="25,10,20,10"></Setter>
@@ -163,13 +214,6 @@
                         <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
                                                      Value="1" />
                     </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)"
-                                                   Storyboard.TargetName="backbutton">
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.1"
-                                                     Value="-23" />
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                                     Value="0" />
-                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
@@ -197,52 +241,28 @@
                                   Grid.Column="1"
                                   ContentSource="SelectedContent" />
             </Grid>
-            <Grid Margin="0,-25,0,0"
-                  VerticalAlignment="Stretch"
+            <Grid VerticalAlignment="Stretch"
                   Background="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}">
-                <Grid Width="35"
+                <Grid.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding RelativeSource="{RelativeSource Self}"
+                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                    </MultiBinding>
+                </Grid.Margin>
+                <Button x:Name="backbutton"
+                        Style="{DynamicResource BackstageBackButtonStyle}"
+                        Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
+                        Width="35"
                       Height="35"
-                      Fluent:FrameworkHelper.UseLayoutRounding="False"
                       Margin="22,19,0,0"
                       VerticalAlignment="Top"
-                      HorizontalAlignment="Left"
-                      x:Name="backbutton"
-                      RenderTransformOrigin="0.5,0.5">
-                    <Grid.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Grid.RenderTransform>
-                    <Path x:Name="arrowpath"
-                          Width="16"
-                          Height="12"
-                          Canvas.Top="10"
-                          Canvas.Left="7.5"
-                          Stretch="Uniform"
-                          Fill="White"
-                          Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z " />
-                    <Ellipse x:Name="backellipse"
-                             Stroke="White"
-                             Height="35"
-                             Canvas.Left="0"
-                             Width="35"
-                             StrokeThickness="2" />
-                    <Path Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
-                          Fill="Transparent"
-                          HorizontalAlignment="Stretch"
-                          Margin="0"
-                          Stretch="None"
-                          Width="Auto" />
-                    <Interactivity:Interaction.Triggers>
-                        <Interactivity:EventTrigger EventName="MouseLeftButtonDown"
-                                                    SourceName="backbutton">
-                            <Internal:InvokeCommand Command="{x:Static Fluent:RibbonCommands.OpenBackstage}" />
-                        </Interactivity:EventTrigger>
-                    </Interactivity:Interaction.Triggers>
-                </Grid>
+                        HorizontalAlignment="Left">
+                </Button>
+                
                 <ItemsPresenter Margin="0,69,0,0"
                                 Height="Auto" />
             </Grid>
@@ -257,16 +277,6 @@
                     <RemoveStoryboard BeginStoryboardName="IsOpenBeginStoryboard" />
                 </DataTrigger.ExitActions>
             </DataTrigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True"
-                     SourceName="backbutton">
-                <Setter Property="Opacity"
-                        TargetName="arrowpath"
-                        Value="0.5" />
-                <Setter Property="Opacity"
-                        TargetName="backellipse"
-                        Value="0.5" />
-            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -279,7 +289,7 @@
         <Setter Property="FontSize"
                 Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template"
-                Value="{StaticResource BackstageControlTemplate}" />
+                Value="{DynamicResource BackstageControlTemplate}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Margin"

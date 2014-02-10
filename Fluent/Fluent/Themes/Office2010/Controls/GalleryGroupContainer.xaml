@@ -52,7 +52,8 @@
   </ControlTemplate>
 
   <Style x:Key="GalleryGroupContainerStyle" TargetType="{x:Type Fluent:GalleryGroupContainer}">
-    <Setter Property="Template" Value="{StaticResource GalleryGroupContainerTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource GalleryGroupContainerTemplate}"/>
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="ItemsPanel">
       <Setter.Value>

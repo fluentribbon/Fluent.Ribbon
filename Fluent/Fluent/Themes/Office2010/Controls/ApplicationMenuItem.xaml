@@ -387,21 +387,24 @@
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     <Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="Template" Value="{StaticResource ApplicationMenuSecondLevelItemTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ApplicationMenuSecondLevelItemTemplate}"/>
     <Style.Triggers>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="Fluent:MenuItem.IsSplited" Value="True"/>
           <Condition Property="HasItems" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Template" Value="{StaticResource SplitedApplicationMenuSecondLevelItemTemplate}"/>
+                <Setter Property="Template"
+                        Value="{DynamicResource SplitedApplicationMenuSecondLevelItemTemplate}"/>
       </MultiTrigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="Fluent:MenuItem.IsSplited" Value="False"/>
           <Condition Property="HasItems" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Template" Value="{StaticResource HeaderApplicationMenuSecondLevelItemTemplate}"/>
+                <Setter Property="Template"
+                        Value="{DynamicResource HeaderApplicationMenuSecondLevelItemTemplate}"/>
       </MultiTrigger>
     </Style.Triggers>
   </Style>
@@ -787,21 +790,24 @@
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True"/>
     <Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="Template" Value="{StaticResource ApplicationMenuItemTemplate}"/>
+        <Setter Property="Template"
+                Value="{DynamicResource ApplicationMenuItemTemplate}"/>
     <Style.Triggers>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="Fluent:MenuItem.IsSplited" Value="True"/>
           <Condition Property="HasItems" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Template" Value="{StaticResource SplitedApplicationMenuItemTemplate}"/>
+                <Setter Property="Template"
+                        Value="{DynamicResource SplitedApplicationMenuItemTemplate}"/>
       </MultiTrigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
           <Condition Property="Fluent:MenuItem.IsSplited" Value="False"/>
           <Condition Property="HasItems" Value="True"/>
         </MultiTrigger.Conditions>
-        <Setter Property="Template" Value="{StaticResource HeaderApplicationMenuItemTemplate}"/>
+                <Setter Property="Template"
+                        Value="{DynamicResource HeaderApplicationMenuItemTemplate}"/>
       </MultiTrigger>
     </Style.Triggers>
   </Style>

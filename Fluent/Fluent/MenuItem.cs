@@ -78,44 +78,6 @@ namespace Fluent
 
         #endregion
 
-        #region Size Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeProperty = RibbonControl.SizeProperty.AddOwner(typeof(MenuItem));
-
-        /// <summary>
-        /// Gets or sets Size for the element
-        /// </summary>
-        public RibbonControlSize Size
-        {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
-        }
-
-        #endregion
-
-        #region SizeDefinition Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SizeDefinitionProperty = RibbonControl.SizeDefinitionProperty.AddOwner(typeof(MenuItem));
-
-        /// <summary>
-        /// Gets or sets SizeDefinition for element
-        /// </summary>
-        public string SizeDefinition
-        {
-            get { return (string)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
-        }
-
-        #endregion
-
         #region IsDropDownOpen
 
         /// <summary>
@@ -604,7 +566,7 @@ namespace Fluent
                 PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
 
-            base.OnClick();            
+            base.OnClick();
         }
 
         /// <summary>
@@ -706,49 +668,79 @@ namespace Fluent
 
         #region Methods
 
-        /// <summary>
-        /// Handles size property changing
-        /// </summary>
-        /// <param name="previous">Previous value</param>
-        /// <param name="current">Current value</param>
-        protected virtual void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
-        {
-        }
-
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (menuPanel != null)
+            {
+                if (double.IsNaN(menuPanel.Width))
+                {
+                    menuPanel.Width = menuPanel.ActualWidth;
+                }
+
+                if (double.IsNaN(menuPanel.Height))
+                {
+                    menuPanel.Height = menuPanel.ActualHeight;
+                }
+
+                menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            }
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (menuPanel != null)
+            {
+                if (double.IsNaN(menuPanel.Height))
+                {
+                    menuPanel.Height = menuPanel.ActualHeight;
+                }
+
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            }
         }
 
         // Handles drop down opened
-        void OnDropDownClosed(object sender, EventArgs e)
+        private void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (DropDownClosed != null) DropDownClosed(this, e);
+            if (DropDownClosed != null)
+            {
+                DropDownClosed(this, e);
+            }
             //if (Mouse.Captured == this) Mouse.Capture(null);
         }
 
         // Handles drop down closed
-        void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownOpened(object sender, EventArgs e)
         {
-            if (scrollViewer != null && ResizeMode != ContextMenuResizeMode.None) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            if (scrollViewer != null
+                && ResizeMode != ContextMenuResizeMode.None)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+            }
 
-            menuPanel.Width = double.NaN;
-            menuPanel.Height = double.NaN;
+            if (menuPanel != null)
+            {
+                menuPanel.Width = double.NaN;
+                menuPanel.Height = double.NaN;
+            }
 
-            if (DropDownOpened != null) DropDownOpened(this, e);
+            if (DropDownOpened != null)
+            {
+                DropDownOpened(this, e);
+            }
             //Mouse.Capture(this, CaptureMode.SubTree);
         }
 

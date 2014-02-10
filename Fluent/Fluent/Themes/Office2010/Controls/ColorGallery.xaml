@@ -130,7 +130,8 @@
   
   <Style x:Key="ColorGalleryGradientListBox" TargetType="{x:Type ListBox}">
     <Setter Property="Background" Value="{DynamicResource GalleryBackgroundBrush}"/>
-    <Setter Property="ItemTemplateSelector" Value="{StaticResource ColorGradientItemTemplateSelect}"/>
+        <Setter Property="ItemTemplateSelector"
+                Value="{DynamicResource ColorGradientItemTemplateSelect}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ListBox}">
@@ -195,13 +196,28 @@
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Background="{TemplateBinding Background}" ClipToBounds="True" Margin="0,1,0,1" KeyboardNavigation.DirectionalNavigation="Contained">
             <Fluent:GroupSeparatorMenuItem Header="Theme Colors" x:Name="themeColorsSeparator"/>
-              <ListBox KeyboardNavigation.DirectionalNavigation="Contained" x:Name="PART_ThemeColorsListBox" ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ColorGalleryListBox}"/>
-              <ListBox KeyboardNavigation.DirectionalNavigation="Contained" x:Name="PART_ThemeGradientColorsListBox" ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ColorGalleryGradientListBox}"/>
+                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
+                                         x:Name="PART_ThemeColorsListBox"
+                                         ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Style="{DynamicResource ColorGalleryListBox}"/>
+                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
+                                         x:Name="PART_ThemeGradientColorsListBox"
+                                         ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Style="{DynamicResource ColorGalleryGradientListBox}"/>
               <Fluent:GroupSeparatorMenuItem Header="Standard Colors" x:Name="standardColorsSeparator"/>
-              <ListBox KeyboardNavigation.DirectionalNavigation="Contained" x:Name="PART_StandardColorsListBox" ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}" Style="{StaticResource ColorGalleryListBox}"/>
-              <ListBox KeyboardNavigation.DirectionalNavigation="Contained" x:Name="PART_StandardGradientColorsListBox" ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ColorGalleryGradientListBox}"/>
+                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
+                                         x:Name="PART_StandardColorsListBox"
+                                         ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}"
+                                         Style="{DynamicResource ColorGalleryListBox}"/>
+                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
+                                         x:Name="PART_StandardGradientColorsListBox"
+                                         ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Style="{DynamicResource ColorGalleryGradientListBox}"/>
             <Fluent:GroupSeparatorMenuItem Header="Recent Colors" x:Name="recentColorsSeparator"/>
-              <ListBox KeyboardNavigation.DirectionalNavigation="Contained" x:Name="PART_RecentColorsListBox" ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}" Style="{StaticResource ColorGalleryListBox}"/>
+                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
+                                         x:Name="PART_RecentColorsListBox"
+                                         ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}"
+                                         Style="{DynamicResource ColorGalleryListBox}"/>
             </StackPanel>
             </ScrollViewer>
             <Fluent:MenuItem x:Name="PART_NoColor" Header="No Color">
@@ -239,8 +255,9 @@
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_RecentColorsListBox"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_StandardGradientColorsListBox"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_ThemeGradientColorsListBox"/>
-              <Setter Property="Columns" Value="5"/>              
-              <Setter Property="Style" Value="{StaticResource HightlightColorGalleryListBox}" TargetName="PART_StandardColorsListBox"/>
+              <Setter Property="Columns" Value="5"/>
+                            <Setter Property="Style"
+                                    Value="{DynamicResource HightlightColorGalleryListBox}" TargetName="PART_StandardColorsListBox"/>
               <Setter Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" TargetName="PART_StandardColorsListBox"/>
             </Trigger>
             <Trigger Property="Mode" Value="StandardColors">

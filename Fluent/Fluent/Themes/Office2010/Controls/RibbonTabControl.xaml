@@ -125,7 +125,7 @@
     <Style x:Key="RibbonTabControlToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
-                Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}" />
+                Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}" />
         <Setter Property="Height"
                 Value="22" />
         <Setter Property="Width"
@@ -133,7 +133,7 @@
         <!--<Setter Property="QuickAccessElementStyle">
         <Setter.Value>
             <Style TargetType="{x:Type Fluent:ToggleButton}">
-                <Setter Property="Template" Value="{StaticResource RibbonTabControlToggleButtonControlTemplate}"/>
+                <Setter Property="Template" Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}"/>
                 <Setter Property="Height" Value="22"/>
                 <Setter Property="Width" Value="22"/>			
                 <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
@@ -275,7 +275,7 @@
                         <Style x:Key="ScrollButtonStyle"
                                TargetType="{x:Type RepeatButton}">
                             <Setter Property="Template"
-                                    Value="{StaticResource ScrollButtonControlTemplate}" />
+                                    Value="{DynamicResource ScrollButtonControlTemplate}" />
                             <Setter Property="Foreground"
                                     Value="{DynamicResource DefaultFontBrush}" />
                             <Setter Property="FocusVisualStyle"
@@ -304,7 +304,7 @@
                                                           Width="13"
                                                           Height="Auto"
                                                           VerticalAlignment="Stretch"
-                                                          Style="{StaticResource ScrollButtonStyle}">
+                                                          Style="{DynamicResource ScrollButtonStyle}">
                                                 <RepeatButton.Visibility>
                                                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -337,7 +337,7 @@
                                                           Width="13"
                                                           Height="Auto"
                                                           VerticalAlignment="Stretch"
-                                                          Style="{StaticResource ScrollButtonStyle}">
+                                                          Style="{DynamicResource ScrollButtonStyle}">
                                                 <RepeatButton.Visibility>
                                                     <MultiBinding FallbackValue="Visibility.Collapsed"
                                                                   Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -436,7 +436,7 @@
                             <ContentControl x:Name="mainContentControl"
                                             Margin="0,1,0,0"
                                             Focusable="False">
-                                <ContentPresenter ContentSource="SelectedContent"
+                                <ContentPresenter ContentSource="SelectedContent"                                                  
                                                   x:Name="contentPresenter"
                                                   HorizontalAlignment="Stretch"
                                                   Margin="0" />
@@ -538,7 +538,7 @@
                                                          Margin="0"
                                                          Width="22"
                                                          Height="22"
-                                                         Size="Small"
+                                                         Fluent:RibbonAttachedProperties.RibbonSize="Small"
                                                          Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
                                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                          Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}" />
@@ -568,7 +568,7 @@
                                         BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                         Background="{DynamicResource RibbonBackgoundBrush}"
                                         BorderThickness="0,1">
-                                    <ContentControl x:Name="contentControl"
+                                    <ContentControl x:Name="popupContentControl"
                                                     Margin="0" />
                                 </Border>
                                 <Border Margin="0,-1,0,0"
@@ -632,12 +632,14 @@
                             <Setter Property="Height"
                                     TargetName="rowDefinition1"
                                     Value="0" />
+                            <!-- Switch content to popup -->
                             <Setter Property="Content"
                                     TargetName="mainContentControl"
                                     Value="{x:Null}" />
                             <Setter Property="Content"
-                                    TargetName="contentControl"
+                                    TargetName="popupContentControl"
                                     Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
+                            <!-- Switch content to popup END -->
                             <Setter Property="Visibility"
                                     TargetName="border"
                                     Value="Collapsed" />

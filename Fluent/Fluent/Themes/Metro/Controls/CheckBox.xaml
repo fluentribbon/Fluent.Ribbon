@@ -166,7 +166,7 @@
   </Style>
     <Style x:Key="RibbonCheckBoxStyle" TargetType="{x:Type Fluent:CheckBox}">
     <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
-    <Setter Property="Template" Value="{StaticResource CheckBoxControlTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
 	<Setter Property="Background">
 		<Setter.Value>
 			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

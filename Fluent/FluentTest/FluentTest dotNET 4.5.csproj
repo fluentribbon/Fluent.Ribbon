@@ -80,20 +80,27 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="TestRibbonTab.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="TestContent.xaml.cs">
+      <DependentUpon>TestContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadedWindow.xaml.cs">
+      <DependentUpon>ThreadedWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MetroStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestWindow.xaml">
+    <Page Include="TestContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestRibbonTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -112,6 +119,10 @@
       <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ThreadedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -140,7 +151,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Fluent\Fluent dotNET 4.5.csproj">
       <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
-      <Name>Fluent</Name>
+      <Name>Fluent dotNET 4.5</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
