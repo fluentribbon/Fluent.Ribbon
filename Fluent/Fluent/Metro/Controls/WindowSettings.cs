@@ -34,6 +34,7 @@ namespace Fluent.Metro.Controls
                     {
                         return ((WINDOWPLACEMENT)this["Placement"]);
                     }
+
                     return null;
                 }
                 set
@@ -53,7 +54,9 @@ namespace Fluent.Metro.Controls
         {
             var window = dependencyObject as Window;
             if (window == null || !((bool)e.NewValue))
+            {
                 return;
+            }
 
             var settings = new WindowSettings(window);
             settings.Attach();
@@ -64,7 +67,9 @@ namespace Fluent.Metro.Controls
             Settings.Reload();
 
             if (Settings.Placement == null)
+            {
                 return;
+            }
 
             try
             {
@@ -78,7 +83,7 @@ namespace Fluent.Metro.Controls
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(string.Format("Failed to load window state:\r\n{0}", ex));
+                Trace.WriteLine(string.Format("Failed to load window state:\r\n{0}", ex));
             }
         }
 
