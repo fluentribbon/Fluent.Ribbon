@@ -25,28 +25,10 @@ namespace Fluent
 
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
 
-        /// <summary>
-        /// DependencyProperty for RibbonThemeColor
-        /// </summary>
-        /// <remarks>
-        /// Default value matches Word 2013 color
-        /// </remarks>
-        public static readonly DependencyProperty RibbonThemeColorProperty = DependencyProperty.Register("RibbonThemeColor", typeof(SolidColorBrush), typeof(MetroWindow), new PropertyMetadata(new BrushConverter().ConvertFrom("#2B579A")));
-
-        public SolidColorBrush RibbonThemeColor
-        {
-            get { return (SolidColorBrush)GetValue(RibbonThemeColorProperty); }
-            set { SetValue(RibbonThemeColorProperty, value); }
-        }
-
         public bool SaveWindowPosition
         {
             get { return (bool)GetValue(SavePositionProperty); }
             set { SetValue(SavePositionProperty, value); }
-        }
-
-        public MetroWindow()
-        {
         }
 
         static MetroWindow()

@@ -81,12 +81,13 @@
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
+    <Compile Include="Metro\MetroColors.cs" />
     <Compile Include="RibbonCommands.cs" />    
     <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
     <Compile Include="Metro\Behaviours\WindowSettingBehaviour.cs" />
-    <Compile Include="MetroWindow.cs" />
+    <Compile Include="Metro\Controls\MetroWindow.cs" />
     <Compile Include="Metro\Controls\WindowSettings.cs" />
     <Compile Include="Metro\Converters\MarkupConverter.cs" />
     <Compile Include="Metro\Converters\ToUpperConverter.cs" />
@@ -157,7 +158,7 @@
     <Compile Include="RibbonGroupsContainer.cs" />
     <Compile Include="RibbonTabItem.cs" />
     <Compile Include="ToggleButton.cs" />
-    <Compile Include="WindowCommands.cs" />
+    <Compile Include="Metro\Controls\WindowCommands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />

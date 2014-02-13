@@ -5,18 +5,18 @@
           <Grid Background="{DynamicResource TransparentBrush}">
             <Border x:Name="hoverBorder" d:LayoutOverrides="Width, Height" BorderThickness="4" Visibility="Collapsed">
             	<Border.BorderBrush>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
+            		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
 				</Border.BorderBrush>               
 			</Border>
             <Border x:Name="selectedBorder" d:LayoutOverrides="Width, Height" BorderThickness="4" Visibility="Collapsed">
             	<Border.BorderBrush>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
+            		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>
 				</Border.BorderBrush>         
 			</Border>
             <ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
             <Border x:Name="pressedBorder" BorderThickness="4" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
             	<Border.BorderBrush>
-            		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
+            		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
 				</Border.BorderBrush>
 			</Border>
           </Grid>

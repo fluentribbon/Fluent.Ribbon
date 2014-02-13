@@ -2,7 +2,12 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:System="clr-namespace:System;assembly=mscorlib"
 	xmlns:Fluent="clr-namespace:Fluent">
-	<SolidColorBrush x:Key="RibbonTopBorderBrush" Color="#FFD4D4D4"/>
+
+    <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#2B579A</Color>
+    <SolidColorBrush x:Key="RibbonThemeColorBrush"
+                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" />
+
+    <SolidColorBrush x:Key="RibbonTopBorderBrush" Color="#FFD4D4D4"/>
 	<SolidColorBrush x:Key="RibbonBackgoundBrush" Color="White"/>
 	<SolidColorBrush x:Key="ActiveTabBackgroundBrush" Color="White"/>
 	<LinearGradientBrush x:Key="GroupSeparatorBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -31,9 +36,9 @@
 		<GradientStop Color="#BFFFFFFF"/>
 		<GradientStop Offset="1"/>
 	</RadialGradientBrush>
-  <SolidColorBrush x:Key="StatusBarBorderBrushBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"/>
-  <SolidColorBrush x:Key="StatusBarInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"/>
-  <SolidColorBrush x:Key="StatusBarInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"/>
+    <SolidColorBrush x:Key="StatusBarBorderBrushBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
+  <SolidColorBrush x:Key="StatusBarInnerBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
+  <SolidColorBrush x:Key="StatusBarInnerBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
   <LinearGradientBrush x:Key="StatusBarSeparatorBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
   	<GradientStop Color="#FFC1C5C9" Offset="0"/>
   	<GradientStop Color="#FFACAFB3" Offset="1"/>

@@ -9,7 +9,9 @@
             <Setter.Value>
             <ControlTemplate TargetType="{x:Type StatusBar}">
         <Border BorderThickness="0,1" >
-            <Border Height="Auto" BorderThickness="0,1" Background="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}">
+                        <Border Height="Auto"
+                                BorderThickness="0,1"
+                                Background="{DynamicResource RibbonThemeColorBrush}">
                 <ItemsPresenter Height="Auto"/>
             </Border>
         </Border>

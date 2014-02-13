@@ -39,7 +39,7 @@
             <Trigger Property="IsDragging" Value="True">
               <Setter Property="Background" TargetName="hoverborder">
               	<Setter.Value>
-              		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.5"/>
+              		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>
 				</Setter.Value>
 			  </Setter>
             </Trigger>
@@ -50,7 +50,7 @@
 				</MultiTrigger.Conditions>
 				<Setter Property="Background" TargetName="hoverborder">
               	<Setter.Value>
-              		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.5"/>
+              		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>
 				</Setter.Value>
 			  </Setter>
 			</MultiTrigger>

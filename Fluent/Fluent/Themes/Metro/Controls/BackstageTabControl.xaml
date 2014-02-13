@@ -242,7 +242,7 @@
                                   ContentSource="SelectedContent" />
             </Grid>
             <Grid VerticalAlignment="Stretch"
-                  Background="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}">
+                  Background="{DynamicResource RibbonThemeColorBrush}">
                 <Grid.Margin>
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />

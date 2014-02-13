@@ -180,7 +180,8 @@ namespace Fluent.Metro.Behaviours
         private void RemoveHwndHook()
         {
             AssociatedObject.SourceInitialized -= AssociatedObject_SourceInitialized;
-            _mHWNDSource.RemoveHook(HwndHook);
+            if (_mHWNDSource != null)
+                _mHWNDSource.RemoveHook(HwndHook);
         }
 
         private void AssociatedObject_SourceInitialized(object sender, EventArgs e)

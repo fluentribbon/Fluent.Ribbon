@@ -15,13 +15,13 @@
                      FlowDirection="LeftToRight" 
                     Foreground="White"
                     ShowIconOnTitleBar="True">
-    <Fluent:MetroWindow.Resources>
+    <!--<Fluent:MetroWindow.Resources>
     	<ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Fluent;Component/Themes/Metro/White.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
         
-    </Fluent:MetroWindow.Resources>
+    </Fluent:MetroWindow.Resources>-->
     <FluentTest:TestContent x:Name="TestContent" />
 </Fluent:MetroWindow>

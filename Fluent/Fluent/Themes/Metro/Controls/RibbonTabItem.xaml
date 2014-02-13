@@ -237,7 +237,7 @@
                         Value="Visible" />
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
+                        Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -265,7 +265,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
+                        Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -278,7 +278,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
+                        Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

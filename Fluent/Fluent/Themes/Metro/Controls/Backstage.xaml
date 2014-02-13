@@ -43,7 +43,7 @@
            TargetType="{x:Type Fluent:Backstage}">
         <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
         <Setter Property="Background"
-                Value="{Binding RibbonThemeColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" />
+                Value="{DynamicResource RibbonThemeColorBrush}" />
         <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Foreground" Value="White" />

@@ -19,15 +19,15 @@
     		<GradientStop Offset="1"/>
     	</LinearGradientBrush>
 	
-	<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
-	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
-	<SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
-	<SolidColorBrush x:Key="ButtonHoverInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
+	<SolidColorBrush x:Key="ButtonHoverInnerBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
 		
-	<SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
-	<SolidColorBrush x:Key="ButtonPressedOuterBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
-	<SolidColorBrush x:Key="ButtonPressedInnerBackgroundBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
-	<SolidColorBrush x:Key="ButtonPressedInnerBorderBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedOuterBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedInnerBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
+	<SolidColorBrush x:Key="ButtonPressedInnerBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
 	
 	<!--<SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush" Color="Green" Opacity="0.1"/>
 	<SolidColorBrush x:Key="ButtonHoverOuterBorderBrush" Color="Green" Opacity="0.1"/>

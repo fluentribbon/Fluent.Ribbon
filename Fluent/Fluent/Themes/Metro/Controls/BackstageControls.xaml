@@ -55,7 +55,7 @@
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
 			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
 				</Setter.Value>		
 			</Setter>
   		</Trigger>
@@ -63,14 +63,14 @@
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
 			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
 				</Setter.Value>		
 			</Setter>
   		</Trigger>
   		<Trigger Property="IsPressed" Value="True">
   			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.5"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
 				</Setter.Value>		
 			</Setter>
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
@@ -125,7 +125,7 @@
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
 			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
 				</Setter.Value>		
 			</Setter>
   		</Trigger>
@@ -133,14 +133,14 @@
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
 			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
 				</Setter.Value>		
 			</Setter>
   		</Trigger>
   		<Trigger Property="IsPressed" Value="True">
   			<Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.5"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
 				</Setter.Value>		
 			</Setter>
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
@@ -148,12 +148,12 @@
       <Trigger Property="IsChecked" Value="True">
         <Setter Property="BorderBrush" TargetName="border">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
 				</Setter.Value>		
 			</Setter>
         <Setter Property="Background" TargetName="border">
         	<Setter.Value>
-        		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>     	
+        		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>     	
 			</Setter.Value>      
 		</Setter>
       </Trigger>
@@ -241,7 +241,7 @@
   		<Trigger Property="IsMouseOver" Value="True">
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
 				</Setter.Value>
 			</Setter>
   			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
@@ -249,7 +249,7 @@
   		<Trigger Property="IsFocused" Value="True">
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
 				</Setter.Value>		
 			</Setter>
   			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
@@ -257,7 +257,7 @@
   		<Trigger Property="IsDropDownOpen" Value="True">
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
   				<Setter.Value>
-  					<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.5"/>	
+  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
 				</Setter.Value>		
 			</Setter>
   			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
@@ -302,14 +302,14 @@
             <Trigger Property="IsSelected" Value="True">
         			<Setter Property="Background" TargetName="hoverBorder">
         				<Setter.Value>
-  							<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.5"/>	
+  							<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
 						</Setter.Value>   			
 					</Setter>
         	</Trigger>
         	<Trigger Property="IsMouseOver" Value="True">
         		<Setter Property="Background" TargetName="hoverBorder">
         			<Setter.Value>
-  						<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}" Opacity="0.3"/>	
+  						<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
 					</Setter.Value>
 				</Setter>
         	</Trigger>
@@ -618,7 +618,7 @@
                     <Grid Margin="0,0,10,0">
                         <TextBlock Margin="0,5" TextWrapping="Wrap" Text="{TemplateBinding Header}" VerticalAlignment="Center" FontSize="17" FontFamily="Segoe UI Light, Lucida Sans Unicode, Verdana">
                         	<TextBlock.Foreground>
-                        		<SolidColorBrush Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, FallbackValue=Blue}"/>                 	
+                        		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>                 	
 							</TextBlock.Foreground>                  
 						</TextBlock>
                     </Grid>

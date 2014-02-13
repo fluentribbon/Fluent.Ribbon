@@ -23,7 +23,7 @@
       </Trigger>
     </Style.Triggers>
   </Style>
-  <SolidColorBrush x:Key="ButtonCheckedBrush" Color="{Binding RibbonThemeColor.Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Opacity="0.2"/>
+  <SolidColorBrush x:Key="ButtonCheckedBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>
   <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
     <Border x:Name="border" BorderThickness="1" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 		<Grid Height="Auto">

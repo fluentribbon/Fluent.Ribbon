@@ -12,7 +12,7 @@
 
     <ControlTemplate x:Key="WindowTemplateKey" TargetType="{x:Type Fluent:MetroWindow}">
         <Grid Background="{TemplateBinding Background}" x:Name="root">
-            <Border BorderBrush="{TemplateBinding RibbonThemeColor}" BorderThickness="1" x:Name="themecolorborder"/>
+            <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}" BorderThickness="1" x:Name="themecolorborder"/> 
             <AdornerDecorator Margin="0" x:Name="content">
                     <Grid>
                         <Grid.RowDefinitions>
