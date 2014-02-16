@@ -264,6 +264,7 @@ namespace Fluent
             if (this.backUpFocusedElement != null)
             {
                 this.backUpFocusedElement.Focus();
+                this.backUpFocusedElement = null; // Release the reference, so GC can work
             }
 
             this.ribbon.Focusable = false;
