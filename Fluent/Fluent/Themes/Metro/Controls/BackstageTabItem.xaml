@@ -78,8 +78,6 @@
            TargetType="{x:Type Fluent:BackstageTabItem}">
         <Setter Property="FontFamily"
                 Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BackstageFontBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource BackstageTabItemControlTemplate}" />
         <Setter Property="FocusVisualStyle"
