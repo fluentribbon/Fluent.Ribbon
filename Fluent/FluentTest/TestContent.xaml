@@ -24,14 +24,16 @@
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  BorderBrush="Magenta"
-                                                 Background="Purple"
-                                                 Header="First"
+                                                 Background="Magenta"
+												 Foreground="Purple"
+                                                 Header="FIRST"
                                                  Visibility="Visible" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
-                                                 BorderBrush="Green"
-                                                 Background="Lime"
-                                                 Header="Second"
+                                                 BorderBrush="#FF9D00"
+                                                 Background="#FF9D00"
+												 Foreground="#C45300"
+                                                 Header="SECOND"
                                                  Visibility="Visible" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
@@ -1229,7 +1231,7 @@
 
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="Mailings"
+            <Fluent:RibbonTabItem Header="MAILINGS"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox>
                     <Fluent:ComboBox x:Name="someCombo"
@@ -1312,7 +1314,7 @@
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            <Fluent:RibbonTabItem Header="Format"
+            <Fluent:RibbonTabItem Header="FORMAT"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -1324,9 +1326,9 @@
                                         IsChecked="False" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            <Fluent:RibbonTabItem Header="Design"
+            <Fluent:RibbonTabItem Header="DESIGN"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}" />
-            <Fluent:RibbonTabItem Header="Layout"
+            <Fluent:RibbonTabItem Header="LAYOUT"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
