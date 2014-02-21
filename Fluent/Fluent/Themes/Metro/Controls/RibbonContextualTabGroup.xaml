@@ -39,25 +39,20 @@
                     <Rectangle Fill="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                Width="Auto" Height="Auto" >
                         <Rectangle.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0">
-                                <GradientStop Color="#E5000000"
-                                              Offset="0" />
-                                <GradientStop Color="#26000000"
-                                              Offset="1" />
-                                <GradientStop Color="#E5000000"
-                                              Offset="0.16" />
-                                <GradientStop Color="#26000000"
-                                              Offset="0.16" />
-                            </LinearGradientBrush>
+                            <SolidColorBrush Color="#16000000"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Text="{TemplateBinding Header}"
+					<Rectangle Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                               Width="Auto" Height="4" />
+                    <Grid Margin="0,4,0,0">
+                        <TextBlock Text="{TemplateBinding Header}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Margin="5,0"
+                               Margin="6,0"
                                TextTrimming="CharacterEllipsis"
-                               Foreground="{TemplateBinding Background}" />
+                               Foreground="{TemplateBinding Foreground}"
+                               FontSize="11"/>
+                    </Grid>
                 </Grid>
             </Border>
         </Border>

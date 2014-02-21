@@ -21,7 +21,7 @@ Metro\Controls\RibbonScrollViewer.xaml
 Metro\Controls\RibbonContextualTabGroup.xaml
 Office2010\Controls\RibbonTitleBar.xaml
 Metro\Controls\KeyTip.xaml
-Office2010\Controls\QuickAccessToolBar.xaml
+Metro\Controls\QuickAccessToolBar.xaml
 Office2010\Controls\Menu.xaml
 Metro\Controls\MenuItem.xaml
 Office2010\Controls\MenuSeparator.xaml

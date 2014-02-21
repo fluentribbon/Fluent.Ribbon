@@ -13,9 +13,9 @@
                     <Border.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1"
                                              StartPoint="0.5,0">
-                            <GradientStop Color="#26000000"
+                            <GradientStop Color="#16000000"
                                           Offset="0" />
-                            <GradientStop Color="#26000000"
+                            <GradientStop Color="#16000000"
                                           Offset="1" />
                         </LinearGradientBrush>
                     </Border.OpacityMask>
@@ -221,7 +221,7 @@
                         Value="Visible" />
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -250,7 +250,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -294,7 +294,7 @@
                         Value="#00000000" />
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
-                        Value="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
             </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">

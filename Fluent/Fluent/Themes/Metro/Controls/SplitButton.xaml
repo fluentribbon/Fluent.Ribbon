@@ -160,16 +160,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Rectangle Fill="{x:Null}"
-                                           Stretch="Fill"
-                                           Stroke="#FFE2E4E7"
-                                           HorizontalAlignment="Left"
-                                           Margin="24,0,0,0"
-                                           Width="1"
-                                           Height="Auto"
-                                           Grid.RowSpan="2"
-                                           Visibility="Visible"
-                                           VerticalAlignment="Stretch" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
                                               Margin="1"

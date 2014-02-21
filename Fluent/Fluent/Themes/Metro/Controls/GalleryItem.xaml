@@ -3,21 +3,21 @@
                     xmlns:Diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase">
   <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}" x:Key="GalleryItemControlTemplate">       
           <Grid Background="{DynamicResource TransparentBrush}">
-            <Border x:Name="hoverBorder" d:LayoutOverrides="Width, Height" BorderThickness="4" Visibility="Collapsed">
-            	<Border.BorderBrush>
+            <Border x:Name="hoverBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+            	<Border.Background>
             		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.12"/>
-				</Border.BorderBrush>               
+				</Border.Background>               
 			</Border>
-            <Border x:Name="selectedBorder" d:LayoutOverrides="Width, Height" BorderThickness="4" Visibility="Collapsed">
-            	<Border.BorderBrush>
+            <Border x:Name="selectedBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+            	<Border.Background>
             		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>
-				</Border.BorderBrush>         
+				</Border.Background>         
 			</Border>
             <ContentPresenter x:Name="contentPresenter" Margin="1" Opacity="1"/>
-            <Border x:Name="pressedBorder" BorderThickness="4" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
-            	<Border.BorderBrush>
+            <Border x:Name="pressedBorder" d:LayoutOverrides="Width, Height" Visibility="Collapsed">
+            	<Border.Background>
             		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
-				</Border.BorderBrush>
+				</Border.Background>
 			</Border>
           </Grid>
           <ControlTemplate.Triggers>
