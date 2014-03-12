@@ -198,6 +198,9 @@
         <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
         <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
       </MultiTrigger>
+            <Trigger Property="IsLauncherVisible" Value="False">
+                <Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>
+            </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <ControlTemplate x:Key="RibbonGroupBoxControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">

@@ -1107,6 +1107,7 @@ namespace Fluent
             ribbonContextMenuShowAbove = "クイック アクセス ツール バーをリボンの上に表示";
             ribbonContextMenuCustomizeRibbon = "リボンのユーザー設定...";
             ribbonContextMenuMinimizeRibbon = "リボンの最小化";
+            customizeStatusBar= "ステータス バーのユーザー設定";
         }
 
         #endregion

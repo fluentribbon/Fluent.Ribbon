@@ -392,7 +392,7 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource != this)
+            if (e.OriginalSource != this && e.OriginalSource != this._quickAccessButton)
             {
                 e.Handled = true;
             }
@@ -471,6 +471,7 @@ namespace Fluent
             BindQuickAccessItem(button);
             BindQuickAccessItemDropDownEvents(button);
             button.DropDownOpened += OnQuickAccessOpened;
+            this._quickAccessButton = button;
             return button;
         }
 
@@ -512,6 +513,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register("CanAddButtonToQuickAccessToolBar", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
+        private SplitButton _quickAccessButton;
 
         #endregion
     }
