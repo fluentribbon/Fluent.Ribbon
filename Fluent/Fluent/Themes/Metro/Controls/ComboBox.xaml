@@ -253,13 +253,13 @@
                                                          Margin="0,-1,-1,-1"
                                                          Style="{DynamicResource RibbonComboButtonStyle}"
                                                          CanAddToQuickAccessToolBar="False" />
-                                    <ContentPresenter Margin="3"
+                                    <ContentPresenter Margin="3,0,3,0"
                                                       x:Name="PART_ContentSite"
                                                       IsHitTestVisible="False"
                                                       Content="{TemplateBinding SelectionBoxItem}"
                                                       ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                                       ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                                      VerticalAlignment="Top"
+                                                      VerticalAlignment="Center"
                                                       HorizontalAlignment="Left" />
                                     <Image Margin="0"
                                            Stretch="None"
