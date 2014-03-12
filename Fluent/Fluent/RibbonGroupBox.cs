@@ -1010,7 +1010,16 @@ namespace Fluent
             //RibbonControl.BindQuickAccessItem(this, groupBox);
             //if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
             //RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
-
+            RibbonControl.Bind(this, groupBox, "LauncherCommandParameter", LauncherCommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "LauncherCommand", LauncherCommandProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "LauncherCommandTarget", LauncherCommandTargetProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "LauncherIcon", LauncherIconProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "LauncherText", LauncherTextProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "LauncherToolTip", LauncherToolTipProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "IsLauncherEnabled", IsLauncherEnabledProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "IsLauncherVisible", IsLauncherVisibleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "DialogLauncherButtonKeyTipKeys", DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
+            groupBox.LauncherClick += this.LauncherClick;
             if (Icon != null)
             {
                 Visual iconVisual = Icon as Visual;
