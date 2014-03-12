@@ -294,7 +294,7 @@
         <Track
           Name="PART_Track"
           Grid.Column="1"
-          IsDirectionReversed="False" Margin="0,0,0,1" ViewportSize="{TemplateBinding ViewportSize}">
+          IsDirectionReversed="False" Margin="0,1,0,1" ViewportSize="{TemplateBinding ViewportSize}">
           <Track.Resources>
             <!-- Set the Thumb's minimum height to 50.
                       The Thumb's minimum height is half the
