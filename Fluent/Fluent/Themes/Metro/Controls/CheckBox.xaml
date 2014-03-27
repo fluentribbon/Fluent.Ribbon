@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent"
-	xmlns:System="clr-namespace:System;assembly=mscorlib">
-	
-	<ControlTemplate TargetType="{x:Type Fluent:CheckBox}" x:Key="CheckBoxControlTemplate">
-		   <Grid>
+    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    
+    <ControlTemplate TargetType="{x:Type Fluent:CheckBox}" x:Key="CheckBoxControlTemplate">
+           <Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -167,16 +167,16 @@
     <Style x:Key="RibbonCheckBoxStyle" TargetType="{x:Type Fluent:CheckBox}">
     <Setter Property="ToolTipService.ShowDuration" Value="30000"/>
     <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}"/>
-	<Setter Property="Background">
-		<Setter.Value>
-			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        		<GradientStop Color="{DynamicResource Gray5}" Offset="0"/>
-        		<GradientStop Color="{DynamicResource WhiteColor}" Offset="1"/>
-    		</LinearGradientBrush>
-		</Setter.Value>
-	</Setter>
+    <Setter Property="Background">
+        <Setter.Value>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="{DynamicResource Gray5}" Offset="0"/>
+                <GradientStop Color="{DynamicResource WhiteColor}" Offset="1"/>
+            </LinearGradientBrush>
+        </Setter.Value>
+    </Setter>
     <Setter Property="Foreground" Value="Black"/>
-	<Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderThickness" Value="1" />
     <Setter Property="BorderBrush" Value="#FF7F7F7F" />
   </Style>
 
