@@ -53,27 +53,15 @@
   		</Trigger>
   		<Trigger Property="IsMouseOver" Value="True">
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
-				</Setter.Value>		
-			</Setter>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlHoverBorderBrush}"/>
   		</Trigger>
   		<Trigger Property="IsFocused" Value="True">
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
-				</Setter.Value>		
-			</Setter>
-  		</Trigger>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlFocusBorderBrush}" />
+            </Trigger>
   		<Trigger Property="IsPressed" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
-				</Setter.Value>		
-			</Setter>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlActiveBorderBrush}" />
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
   		</Trigger>
   	</ControlTemplate.Triggers>
   </ControlTemplate>
@@ -123,39 +111,19 @@
       </Trigger>
       <Trigger Property="IsMouseOver" Value="True">
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
-				</Setter.Value>		
-			</Setter>
-  		</Trigger>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlHoverBorderBrush}" />
+            </Trigger>
   		<Trigger Property="IsFocused" Value="True">
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
-				</Setter.Value>		
-			</Setter>
-  		</Trigger>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlFocusBorderBrush}" />
+            </Trigger>
   		<Trigger Property="IsPressed" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
-				</Setter.Value>		
-			</Setter>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageControlActiveBorderBrush}" />
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
   		</Trigger>
       <Trigger Property="IsChecked" Value="True">
-        <Setter Property="BorderBrush" TargetName="border">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>
-				</Setter.Value>		
-			</Setter>
-        <Setter Property="Background" TargetName="border">
-        	<Setter.Value>
-        		<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>     	
-			</Setter.Value>      
-		</Setter>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource BackstageToggleButtonCheckedBorderBrush}" />
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource BackstageToggleButtonCheckedBackgroundBrush}" />
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
@@ -239,28 +207,16 @@
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="#FFC8C8C9"/>
   		</Trigger>
   		<Trigger Property="IsMouseOver" Value="True">
-  			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
-				</Setter.Value>
-			</Setter>
-  			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource BackstageControlHoverBorderBrush}" />
+                <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   		</Trigger>
   		<Trigger Property="IsFocused" Value="True">
-  			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
-				</Setter.Value>		
-			</Setter>
-  			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource BackstageControlFocusBorderBrush}" />
+                <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   		</Trigger>
   		<Trigger Property="IsDropDownOpen" Value="True">
-  			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder">
-  				<Setter.Value>
-  					<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
-				</Setter.Value>		
-			</Setter>
-  			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+                <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource BackstageControlActiveBorderBrush}" />
+                <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
   		</Trigger>
   	</ControlTemplate.Triggers>
   </ControlTemplate>
@@ -300,19 +256,11 @@
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-        			<Setter Property="Background" TargetName="hoverBorder">
-        				<Setter.Value>
-  							<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.5"/>	
-						</Setter.Value>   			
-					</Setter>
-        	</Trigger>
+                <Setter Property="Background" TargetName="hoverBorder" Value="{DynamicResource BackstageGalleryItemSelectedBackgroundBrush}" />
+            </Trigger>
         	<Trigger Property="IsMouseOver" Value="True">
-        		<Setter Property="Background" TargetName="hoverBorder">
-        			<Setter.Value>
-  						<SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.3"/>	
-					</Setter.Value>
-				</Setter>
-        	</Trigger>
+                <Setter Property="Background" TargetName="hoverBorder" Value="{DynamicResource BackstageGalleryItemHoverBackgroundBrush}" />
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
   <Style x:Key="MetroComboBoxItemBackstageStyle" TargetType="{x:Type ComboBoxItem}">

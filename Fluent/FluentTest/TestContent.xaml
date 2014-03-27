@@ -1055,19 +1055,19 @@
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                     IsEnabled="False" />
                     <Fluent:Spinner Fluent:KeyTip.Keys="KB"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
                     <Fluent:Spinner Fluent:KeyTip.Keys="KC"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem x:Name="secondTab"
@@ -1117,7 +1117,7 @@
                         <System:String>Writeable</System:String>
                     </Fluent:ComboBox>
                     <Fluent:InRibbonGallery x:Name="inRibbonGallery"
-                                            Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/WarningSmall.png"
+                                            Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                             Header="Split"
                                             Fluent:KeyTip.Keys="S"
                                             GroupBy="Tag"

@@ -232,7 +232,7 @@
                 </ControlTemplate>
               </Separator.Template>
             </Separator>
-            <Fluent:MenuItem x:Name="PART_MoreColors" Header="More Colors..." Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/MoreColors.png"/>
+            <Fluent:MenuItem x:Name="PART_MoreColors" Header="More Colors..." Icon="{DynamicResource MoreColorsIcon}"/>
           </StackPanel>
           <ControlTemplate.Triggers>
             <Trigger Property="IsAutomaticColorButtonVisible" Value="False">

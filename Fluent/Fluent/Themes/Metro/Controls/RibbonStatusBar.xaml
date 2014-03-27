@@ -80,7 +80,7 @@
     <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
                      TargetType="{x:Type Controls:StatusBarMenuItem}">
         <Grid Width="Auto"
-              Height="22"
+              Height="24"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -95,13 +95,11 @@
                     Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                     BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
                 <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                         BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
+                        BorderThickness="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
@@ -117,25 +115,14 @@
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
-                       Margin="9,3,3,3"
+                       Margin="5,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="1"
                        TextTrimming="CharacterEllipsis" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       RadiusX="1"
-                       RadiusY="1"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -173,12 +160,6 @@
             </Path>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Icon"

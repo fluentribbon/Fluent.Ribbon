@@ -8,12 +8,12 @@ using System.Windows.Data;
 namespace Fluent.Metro.Converters
 {
     [ValueConversion(typeof(string), typeof(string))]
-    public class ToUpperConverter : MarkupConverter
+    public class ToLowerConverter : MarkupConverter
     {
         protected override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var val = value as string;
-            return String.IsNullOrEmpty(val) ? value : val.ToUpper(Ribbon.Localization.Culture);
+            return String.IsNullOrEmpty(val) ? value : val.ToLower(Ribbon.Localization.Culture);
         }
 
         protected override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
