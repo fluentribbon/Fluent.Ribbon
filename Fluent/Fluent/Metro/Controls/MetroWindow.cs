@@ -9,9 +9,11 @@ using Fluent.Metro.Native;
 namespace Fluent
 {
     [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
     public class MetroWindow : Window
     {
         private const string PART_TitleBar = "PART_TitleBar";
+        private const string PART_Icon = "PART_Icon";
         private readonly int doubleclick = UnsafeNativeMethods.GetDoubleClickTime();
         private DateTime lastMouseClick;
         private bool _isContextMenuOpen = false;
@@ -24,6 +26,7 @@ namespace Fluent
         public static readonly DependencyProperty ShowMaxRestoreButtonProperty = DependencyProperty.Register("ShowMaxRestoreButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
 
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
+        private FrameworkElement iconImage;
 
         public bool SaveWindowPosition
         {
@@ -72,16 +75,33 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            if (WindowCommands == null)
-                WindowCommands = new WindowCommands();
-
-            var titleBar = GetTemplateChild(PART_TitleBar) as UIElement;
-
-            if (ShowTitleBar && titleBar != null)
+            if (this.iconImage != null)
             {
-                titleBar.MouseDown += TitleBarMouseDown;
-                titleBar.MouseUp += TitleBarMouseUp;
-                titleBar.MouseMove += TitleBarMouseMove;
+                this.iconImage.MouseUp -= this.HandleIconMouseUp;
+            }
+
+            this.iconImage = GetTemplateChild(PART_Icon) as FrameworkElement;
+
+            if (WindowCommands == null)
+            {
+                WindowCommands = new WindowCommands();
+            }
+
+            if (ShowTitleBar)
+            {
+                var titleBar = GetTemplateChild(PART_TitleBar) as FrameworkElement;
+
+                if (titleBar != null)
+                {
+                    titleBar.MouseDown += TitleBarMouseDown;
+                    titleBar.MouseUp += TitleBarMouseUp;
+                    titleBar.MouseMove += TitleBarMouseMove;
+                }                
+
+                if (this.iconImage != null)
+                {
+                    this.iconImage.MouseUp += this.HandleIconMouseUp;
+                }
             }
             else
             {
@@ -101,9 +121,14 @@ namespace Fluent
 
         protected void TitleBarMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (ReferenceEquals(e.OriginalSource, this.iconImage))
+            {
+                return;
+            }
+
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
             {
-                DragMove();
+                this.DragMove();
                 // Do not resize window 
                 _isMouseDown = (e.ClickCount == 1 ? true : false);
             }
@@ -130,7 +155,10 @@ namespace Fluent
 
         protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (!ShowIconOnTitleBar) return;
+            if (!ShowIconOnTitleBar)
+            {
+                return;
+            }
 
             _isMouseDown = false;
 
@@ -146,9 +174,18 @@ namespace Fluent
                 }
                 lastMouseClick = DateTime.Now;
 
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(new Point(0, RibbonAttachedProperties.GetTitleBarHeight(this))));
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
             }
             else if (e.ChangedButton == MouseButton.Right)
+            {
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
+            }
+        }
+
+        private void HandleIconMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed
+                && e.ClickCount == 1)
             {
                 ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
             }
@@ -165,7 +202,7 @@ namespace Fluent
         {
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
                 && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized
-                && ResizeMode != ResizeMode.NoResize && _isMouseDown && !_isContextMenuOpen)
+                && ResizeMode != ResizeMode.NoResize && !_isContextMenuOpen)
             {
                 // Calculating correct left coordinate for multi-screen system.
                 Point mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
