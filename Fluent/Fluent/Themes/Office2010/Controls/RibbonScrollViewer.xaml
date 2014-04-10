@@ -110,7 +110,7 @@
     </Setter>
               <Setter Property="CanContentScroll" Value="True"/>
     <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
-    <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
     <Setter Property="Focusable" Value="False"/>
   </Style>
   <Style x:Key="RibbonTabScrollViewer" TargetType="{x:Type ScrollViewer}">
