@@ -123,7 +123,6 @@
     <Compile Include="RibbonToolBarControlDefinition.cs" />
     <Compile Include="RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="RibbonToolBarRow.cs" />
-    <Compile Include="MenuPanel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="RibbonToolBar.cs" />
     <Compile Include="RibbonToolBarLayoutDefinition.cs" />

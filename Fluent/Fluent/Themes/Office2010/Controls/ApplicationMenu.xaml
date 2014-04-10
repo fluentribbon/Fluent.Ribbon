@@ -133,7 +133,7 @@
                                 <ContentControl x:Name="buttonOnPopupContent" HorizontalAlignment="Left" Margin="-1,-1,0,0"/>
                               </Border>
                                 
-                              <Fluent:MenuPanel ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
+                              <StackPanel Orientation="Vertical" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                               <Border Grid.Row="1" Grid.Column="1" BorderThickness="1,0,0,0" BorderBrush="{DynamicResource ContextMenuSeparatorBrush}" Width="{TemplateBinding RightPaneWidth}" Background="{DynamicResource GalleryBackgroundBrush}">
                                 <ContentPresenter ContentSource="RightPaneContent" x:Name="PART_RightContentPresenter"/>
                               </Border>

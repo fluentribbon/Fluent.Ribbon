@@ -37,7 +37,7 @@ namespace Fluent
 
         private Border buttonBorder;
 
-        private MenuPanel menuPanel;
+        private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -362,7 +362,7 @@ namespace Fluent
 
             this.buttonBorder = this.Template.FindName("PART_ButtonBorder", this) as Border;
 
-            this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as MenuPanel;
+            this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as Panel;
 
             this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
 
@@ -445,18 +445,6 @@ namespace Fluent
                     DropDownPopup.Opacity = 0;
                 }
 
-                if (menuPanel != null)
-                {
-                    if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
-                    {
-                        scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                    }
-
-                    menuPanel.Width = double.NaN;
-                    menuPanel.Height = double.NaN;// Math.Min(menuPanel.MinHeight, MaxDropDownHeight);                        
-                    menuPanel.Loaded += OnMenuPanelLoaded;
-                }
-
                 if (!isFirstTime)
                 {
                     IsDropDownOpen = true;
@@ -476,34 +464,9 @@ namespace Fluent
                 //IsDropDownOpen = false;
                 Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
                                                                              {
-                                                                                 if (menuPanel != null)
-                                                                                 {
-                                                                                     if (scrollViewer != null/* && ResizeMode != ContextMenuResizeMode.None*/)
-                                                                                         scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                                                                                     menuPanel.Width = double.NaN;
-                                                                                     menuPanel.Height = double.NaN;
-                                                                                     menuPanel.Loaded += OnMenuPanelLoaded;
-                                                                                 }
                                                                                  IsDropDownOpen = true;
-                                                                                 OnMenuPanelLoaded(null, null);
                                                                                  DropDownPopup.Opacity = 1;
                                                                              }));
-            }
-        }
-
-        private void OnMenuPanelLoaded(object sender, RoutedEventArgs e)
-        {
-            menuPanel.Loaded -= OnMenuPanelLoaded;
-            if (ResizeMode != ContextMenuResizeMode.None)
-            {
-                Dispatcher.Invoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-                {
-                    if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-                    if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-                    menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width);
-                    menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height), Math.Min(DropDownHeight, MaxDropDownHeight));
-                    if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-                }));
             }
         }
 
@@ -641,8 +604,8 @@ namespace Fluent
             if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
@@ -650,7 +613,7 @@ namespace Fluent
         {
             if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
-            menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+            menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

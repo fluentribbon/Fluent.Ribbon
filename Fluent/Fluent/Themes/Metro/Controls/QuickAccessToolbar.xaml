@@ -229,9 +229,10 @@
                                               SnapsToDevicePixels="True"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                                    <Fluent:MenuPanel x:Name="PART_MenuPanel"
-                                                      IsItemsHost="True"
-                                                      KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                    <StackPanel x:Name="PART_MenuPanel"
+                                                Orientation="Vertical"
+                                                IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </ScrollViewer>
                                 <Border x:Name="resizeBorder"
                                         HorizontalAlignment="Stretch"

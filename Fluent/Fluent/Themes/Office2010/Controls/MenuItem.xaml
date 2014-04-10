@@ -560,9 +560,10 @@
                                               Style="{DynamicResource MenuScrollViewer}"
                                               Margin="1"
                                               SnapsToDevicePixels="True">
-                                    <Fluent:MenuPanel x:Name="PART_MenuPanel"
-                                                      IsItemsHost="True"
-                                                      KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    <StackPanel x:Name="PART_MenuPanel"
+                                                Orientation="Vertical"
+                                                IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                                 <Border x:Name="resizeBorder"
                                         HorizontalAlignment="Stretch"
@@ -978,9 +979,10 @@
                                               x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
                                               SnapsToDevicePixels="True">
-                                    <Fluent:MenuPanel x:Name="PART_MenuPanel"
-                                                      IsItemsHost="True"
-                                                      KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    <StackPanel x:Name="PART_MenuPanel"
+                                                Orientation="Vertical"
+                                                IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                                 <Border x:Name="resizeBorder"
                                         HorizontalAlignment="Stretch"

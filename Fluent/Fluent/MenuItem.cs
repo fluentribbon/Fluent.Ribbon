@@ -37,7 +37,7 @@ namespace Fluent
         // Thumb to resize vertical
         Thumb resizeVerticalThumb;
 
-        private MenuPanel menuPanel;
+        private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -612,7 +612,7 @@ namespace Fluent
                 resizeBothThumb.DragDelta += OnResizeBothDelta;
             }
             scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-            menuPanel = GetTemplateChild("PART_MenuPanel") as MenuPanel;
+            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
         }
 
         /// <summary>
@@ -688,8 +688,8 @@ namespace Fluent
                     menuPanel.Height = menuPanel.ActualHeight;
                 }
 
-                menuPanel.Width = Math.Max(menuPanel.ResizeMinWidth, menuPanel.Width + e.HorizontalChange);
-                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+                menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
             }
         }
 
@@ -708,7 +708,7 @@ namespace Fluent
                     menuPanel.Height = menuPanel.ActualHeight;
                 }
 
-                menuPanel.Height = Math.Min(Math.Max(menuPanel.ResizeMinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
+                menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
             }
         }
 

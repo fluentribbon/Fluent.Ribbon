@@ -1173,6 +1173,36 @@
                     <Fluent:CheckBox>Text 2</Fluent:CheckBox>
                     <Fluent:CheckBox>Text 3</Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Split buttons">
+                    <Fluent:SplitButton Header="Too many items" ResizeMode="Both">
+                        <MenuItem Header="1" />
+                        <MenuItem Header="2" />
+                        <MenuItem Header="3" />
+                        <MenuItem Header="4" />
+                        <MenuItem Header="5" />
+                        <MenuItem Header="6" />
+                        <MenuItem Header="7" />
+                        <MenuItem Header="8" />
+                        <MenuItem Header="9" />
+                        <MenuItem Header="10" />
+                        <MenuItem Header="11" />
+                        <MenuItem Header="12" />
+                        <MenuItem Header="13" />
+                        <MenuItem Header="14" />
+                        <MenuItem Header="15" />
+                        <MenuItem Header="16" />
+                        <MenuItem Header="17" />
+                        <MenuItem Header="18" />
+                        <MenuItem Header="19" />
+                        <MenuItem Header="20" />
+                        <MenuItem Header="21" />
+                        <MenuItem Header="22" />
+                        <MenuItem Header="23" />
+                        <MenuItem Header="24" />
+                        <MenuItem Header="25" />
+                    </Fluent:SplitButton>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="References"
                                   Fluent:KeyTip.Keys="Ü2">

@@ -169,7 +169,7 @@
                 </Grid.RowDefinitions>
                 <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="PART_ScrollViewer" Margin="1" SnapsToDevicePixels="True">
-                  <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                  <StackPanel x:Name="PART_MenuPanel" Orientation="Vertical" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                 </ScrollViewer>
               </Grid>
             </Grid>
@@ -325,7 +325,7 @@
                 </Grid.RowDefinitions>
                 <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>
                 <ScrollViewer Margin="1" x:Name="PART_ScrollViewer" Style="{DynamicResource MenuScrollViewer}" SnapsToDevicePixels="True">
-                  <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                  <StackPanel x:Name="PART_MenuPanel" Orientation="Vertical" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                 </ScrollViewer>
               </Grid>
             </Grid>
@@ -506,7 +506,7 @@
               Focusable="False"
               PopupAnimation="Fade" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
               Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
-              Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MenuPanel}}}"
+              Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}"
               >
         <Grid
           Name="DropDown"
@@ -569,7 +569,7 @@
                   <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="PART_ScrollViewer" Margin="1" SnapsToDevicePixels="True">
-                  <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                  <StackPanel x:Name="PART_MenuPanel" Orientation="Vertical" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                 </ScrollViewer>
               </Grid>
             </Grid>
@@ -664,7 +664,7 @@
               Focusable="False"
               PopupAnimation="Fade" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"
               Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
-              Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MenuPanel}}}"
+              Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}"
         >
         <Grid
     			x:Name="DropDown"
@@ -727,7 +727,7 @@
                 </Grid.RowDefinitions>
                 <Path Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Left" Margin="24,0,0,0" Width="1" Height="Auto" Data="M0,0L0,1" Grid.RowSpan="2" Visibility="Visible"/>
                 <ScrollViewer Margin="1" x:Name="PART_ScrollViewer" Style="{DynamicResource MenuScrollViewer}" SnapsToDevicePixels="True">
-                  <Fluent:MenuPanel x:Name="PART_MenuPanel" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                  <StackPanel x:Name="PART_MenuPanel" Orientation="Vertical" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                 </ScrollViewer>
 
               </Grid>
