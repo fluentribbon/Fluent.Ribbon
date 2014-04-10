@@ -164,6 +164,8 @@ namespace Fluent.Metro.Behaviours
 
         protected override void OnDetaching()
         {
+            AssociatedObject.StateChanged -= AssociatedObjectStateChanged;
+
             RemoveHwndHook();
             base.OnDetaching();
         }
@@ -290,11 +292,18 @@ namespace Fluent.Metro.Behaviours
                     handled = false;
                     break;
                 case Constants.WM_NCHITTEST:
+                    // don't process the message on windows that are maximized as those don't have a resize border at all
+                    if (this.AssociatedObject.WindowState == WindowState.Maximized)
+                    {
+                        break;
+                    }
 
                     // don't process the message on windows that can't be resized
                     var resizeMode = AssociatedObject.ResizeMode;
                     if (resizeMode == ResizeMode.CanMinimize || resizeMode == ResizeMode.NoResize)
+                    {
                         break;
+                    }
 
                     // get X & Y out of the message                   
                     var screenPoint = new Point(UnsafeNativeMethods.GET_X_LPARAM(lParam), UnsafeNativeMethods.GET_Y_LPARAM(lParam));
