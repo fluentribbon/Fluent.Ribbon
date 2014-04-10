@@ -543,7 +543,8 @@ namespace Fluent
         // Forward to the next element
         private void Forward(UIElement element, bool click)
         {
-            Detach();
+            this.Detach();
+
             if (click)
             {
                 //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
@@ -555,17 +556,28 @@ namespace Fluent
             }
 
             var children = LogicalTreeHelper.GetChildren(element)
-                .Cast<object>()
-                .Where(x => x is UIElement)
-                .Cast<UIElement>().ToArray();
-            if (children.Length == 0) { Terminate(); return; }
+                .OfType<UIElement>()
+                .ToArray();
 
-            childAdorner = GetTopLevelElement(children[0]) != GetTopLevelElement(element) ?
-                new KeyTipAdorner(children[0], element, this) :
-                new KeyTipAdorner(element, element, this);
+            if (children.Length == 0) 
+            { 
+                this.Terminate(); 
+                return; 
+            }
 
-            Detach();
-            childAdorner.Attach();
+            this.childAdorner = ReferenceEquals(GetTopLevelElement(children[0]), GetTopLevelElement(element)) == false
+                ? new KeyTipAdorner(children[0], element, this) 
+                : new KeyTipAdorner(element, element, this);
+
+            // Stop if no further KeyTips can be displayed.
+            if (!this.childAdorner.keyTips.Any())
+            {
+                this.Terminate();
+                return;
+            }
+
+            this.Detach();
+            this.childAdorner.Attach();
         }
 
         /// <summary>
