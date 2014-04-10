@@ -115,7 +115,6 @@
     <Compile Include="IconConverter.cs" />
     <Compile Include="InRibbonGallery.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
-    <Compile Include="KeyTranslator.cs" />
     <Compile Include="RibbonItemsControl.cs" />
     <Compile Include="RibbonLocalization.cs" />
     <Compile Include="RibbonScrollViewer.cs" />
