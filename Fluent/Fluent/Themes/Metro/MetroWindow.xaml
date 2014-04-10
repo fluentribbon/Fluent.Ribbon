@@ -7,7 +7,6 @@
                     xmlns:Converters="clr-namespace:Fluent.Converters">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <conv:ToUpperConverter x:Key="ToUpperConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
 
     <ControlTemplate x:Key="WindowTemplateKey"
@@ -26,15 +25,14 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="PART_TitleBar"
                           Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
-                          Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Grid.Background>
-                            <SolidColorBrush Color="Transparent" />
-                        </Grid.Background>
+                          Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Background="Transparent">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Image Height="16"
+                        <Image x:Name="PART_Icon"
+                               Height="16"
                                Width="16"
                                Margin="10,-2,0,0"
                                Visibility="{TemplateBinding ShowIconOnTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
