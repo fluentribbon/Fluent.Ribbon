@@ -81,7 +81,6 @@
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
-    <Compile Include="Metro\Converters\ToLowerConverter.cs" />
     <Compile Include="Metro\MetroColors.cs" />
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
@@ -604,6 +603,9 @@
     <None Include="Themes\Generic.txt" />
     <None Include="Themes\Metro\White.txt" />
     <None Include="Themes\XamlCombine.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Metro\Converters\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
