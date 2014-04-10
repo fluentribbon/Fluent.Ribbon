@@ -100,8 +100,6 @@
     <Compile Include="Metro\Behaviours\WindowSettingBehaviour.cs" />
     <Compile Include="Metro\Controls\MetroWindow.cs" />
     <Compile Include="Metro\Controls\WindowSettings.cs" />
-    <Compile Include="Metro\Converters\MarkupConverter.cs" />
-    <Compile Include="Metro\Converters\ToUpperConverter.cs" />
     <Compile Include="Metro\Natives\Constants.cs" />
     <Compile Include="Metro\Natives\CREATESTRUCT.cs" />
     <Compile Include="Metro\Natives\MARGINS.cs" />
