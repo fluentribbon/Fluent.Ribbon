@@ -20,6 +20,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Converters;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -151,6 +152,8 @@ namespace Fluent
 
         private Grid mainGrid;
 
+        private bool _isSourceInitialized;
+
         #endregion
 
         #region Properties
@@ -240,6 +243,29 @@ namespace Fluent
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1704")]
         public static readonly DependencyProperty IsDwmEnabledProperty = IsDwmEnabledPropertyKey.DependencyProperty;
+
+        public static readonly DependencyProperty DontUseDwmProperty =
+            DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow),
+                new PropertyMetadata(false, OnDontUseDwmPropertyChanged, CoerceDontUseDwmProperty));
+
+        /// <summary>
+        ///  Gets or sets whether DWM will be used. This property can only be set before <see cref="E:System.Windows.Window.SourceInitialized"/> event.
+        /// </summary>
+        public bool DontUseDwm
+        {
+            get { return (bool)GetValue(DontUseDwmProperty); }
+            set { SetValue(DontUseDwmProperty, value); }
+        }
+
+        private static object CoerceDontUseDwmProperty(DependencyObject sender, object value)
+        {
+            var window = sender as RibbonWindow;
+            return window != null && window._isSourceInitialized ? window.DontUseDwm : value;
+        }
+
+        private static void OnDontUseDwmPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+        }
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -497,12 +523,17 @@ namespace Fluent
             handle = new WindowInteropHelper(this).Handle;
             hwndSource = HwndSource.FromHwnd(handle);
 
-            IsDwmEnabled = NativeMethods.IsDwmEnabled();
+            if (!DontUseDwm)
+            {
+                IsDwmEnabled = NativeMethods.IsDwmEnabled();
+            }
 
             if (DesignerProperties.GetIsInDesignMode(this) == false)
             {
                 ApplyCustomChrome();
             }
+
+            _isSourceInitialized = true;
         }
 
         /// <summary>
@@ -1264,7 +1295,10 @@ namespace Fluent
                     }
                 case NativeMethods.WM_DWMCOMPOSITIONCHANGED:
                     {
-                        IsDwmEnabled = NativeMethods.IsDwmEnabled();
+                        if (!DontUseDwm)
+                        {
+                            IsDwmEnabled = NativeMethods.IsDwmEnabled();
+                        }
 
                         UpdateFrameState(false);
 

@@ -143,7 +143,7 @@
           		</Grid>
                   <Border x:Name="separator" Height="2" Width="Auto" HorizontalAlignment="Stretch" Visibility="{Binding ElementName=disableReasonSection, Path=Visibility}" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1" IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"/>
                   <Grid x:Name="disableReasonSection">
-                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\WarningSmall.png" />                    
+                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="{DynamicResource ScreenTipWarningImage}" />                    
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
@@ -157,7 +157,7 @@
                   </Grid>
                   <Border x:Name="separator2" Height="2" Width="Auto" HorizontalAlignment="Stretch" Visibility="{TemplateBinding Property=HelpLabelVisibility}" BorderBrush="White" Margin="5" Background="#FF9199A4" BorderThickness="0,0,0,1" />
                   <Grid x:Name="helpSection" Visibility="{TemplateBinding Property=HelpLabelVisibility}">
-                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\HelpSmall.png"/>
+                    <Image Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0,0,0" Source="{DynamicResource ScreenTipHelpImage}"/>
                     <TextBlock x:Uid="HelpText" x:Name="textBlock" Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipF1LabelHeader, Mode=OneWay}" TextWrapping="Wrap" Margin="28,0,6,6" Foreground="#FF414141" FontWeight="Bold" HorizontalAlignment="Stretch"/>
 					<ContentControl x:Name="helpTopic" Content="{TemplateBinding Property=HelpTopic}" Visibility="Collapsed"/>
                   </Grid>

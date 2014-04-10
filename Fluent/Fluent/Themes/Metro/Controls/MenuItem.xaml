@@ -154,7 +154,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="22"
+              Height="24"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -187,24 +187,15 @@
                               ContentSource="Header"
                               Width="Auto"
                               Height="Auto"
-                              Margin="9,3,3,3"
+                              Margin="5,3,3,3"
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -236,12 +227,6 @@
                 <Setter Property="Visibility"
                         TargetName="gestureTextBlock"
                         Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -305,7 +290,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="22"
+              Height="24"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -338,24 +323,15 @@
                               ContentSource="Header"
                               Width="Auto"
                               Height="Auto"
-                              Margin="9,3,3,3"
+                              Margin="5,3,3,3"
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -559,12 +535,6 @@
                         TargetName="resizeBorder"
                         Value="Visible" />
             </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Icon"
@@ -624,7 +594,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="22"
+              Height="24"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -689,24 +659,15 @@
                               ContentSource="Header"
                               Width="Auto"
                               Height="Auto"
-                              Margin="9,3,3,3"
+                              Margin="5,3,3,3"
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -916,12 +877,6 @@
                         Value="Visible" />
                 <Setter Property="Visibility"
                         TargetName="resizeBorder"
-                        Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
                         Value="Visible" />
             </Trigger>
             <MultiTrigger>

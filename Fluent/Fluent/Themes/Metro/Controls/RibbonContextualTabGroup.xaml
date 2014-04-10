@@ -15,7 +15,7 @@
     </Style>
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder" Visibility="{TemplateBinding InnerVisibility}"
-                Margin="2,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                Margin="1,0,1,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                 Width="Auto"
                 Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" 
                 BorderThickness="1,0">
@@ -39,7 +39,7 @@
                     <Rectangle Fill="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                Width="Auto" Height="Auto" >
                         <Rectangle.OpacityMask>
-                            <SolidColorBrush Color="#16000000"/>
+                            <SolidColorBrush Color="#14000000"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
 					<Rectangle Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Top"

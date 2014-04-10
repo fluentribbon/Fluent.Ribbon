@@ -211,7 +211,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -369,7 +369,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -787,7 +787,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="/Fluent;Component/Themes/Office2010/Images/Checked.png"
+                   Source="{DynamicResource MenuCheckedImage}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />

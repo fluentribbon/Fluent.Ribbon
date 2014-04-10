@@ -7,35 +7,19 @@
     <SolidColorBrush x:Key="RibbonThemeColorBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" />
 
-    <SolidColorBrush x:Key="RibbonTopBorderBrush" Color="#FFD4D4D4"/>
+    <SolidColorBrush x:Key="RibbonTopBorderBrush" Color="#FFE1E1E1"/>
 	<SolidColorBrush x:Key="RibbonBackgoundBrush" Color="White"/>
 	<SolidColorBrush x:Key="ActiveTabBackgroundBrush" Color="White"/>
-	<LinearGradientBrush x:Key="GroupSeparatorBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-		<GradientStop Color="#00F6F7F8" Offset="0"/>
-		<GradientStop Color="#FFD4D4D4" Offset="0.1"/>
-		<GradientStop Color="#FFD4D4D4" Offset="0.9"/>
-		<GradientStop Color="#00B0B6BC" Offset="1"/>
-		<GradientStop Color="#00D4D4D4" Offset="0.901"/>
-		<GradientStop Color="#00E7E8E9" Offset="0.099"/>
-	</LinearGradientBrush>
-	<LinearGradientBrush x:Key="GroupSeparatorBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-		<GradientStop Color="#FFFDFDFD" Offset="0"/>
-		<GradientStop Color="White" Offset="1"/>
-	</LinearGradientBrush>
-	<SolidColorBrush x:Key="DefaultFontBrush" Color="#FF3B3B3B"/>
+	<SolidColorBrush x:Key="GroupSeparatorBrush" Color="#FFE1E1E1" />
+	<SolidColorBrush x:Key="DefaultFontBrush" Color="#FF444444"/>
 	<SolidColorBrush x:Key="BackstageFontBrush" Color="White"/>
 	<SolidColorBrush x:Key="GroupBoxFontBrush" Color="#FF666D7C"/>
 	<SolidColorBrush x:Key="TabItemSelectedFontBrush" Color="#FF212121"/>
 	<SolidColorBrush x:Key="TabItemFontBrush" Color="#FF212121"/>
-	<LinearGradientBrush x:Key="GroupHoverBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-		<GradientStop Color="#FFFEFEFE" Offset="0"/>
-		<GradientStop Color="#FFE3E7EE" Offset="1"/>
-	</LinearGradientBrush>
-
-	<RadialGradientBrush x:Key="GroupHighlightBrush" Center="0.505,1" GradientOrigin="0.505,1">
-		<GradientStop Color="#BFFFFFFF"/>
-		<GradientStop Offset="1"/>
-	</RadialGradientBrush>
+    
+	<SolidColorBrush x:Key="GroupHoverBrush" Color="#FFF7F7F7" />
+	<SolidColorBrush x:Key="GroupHighlightBrush" Color="#FFF0F0F0" />
+    
     <SolidColorBrush x:Key="StatusBarBorderBrushBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
   <SolidColorBrush x:Key="StatusBarInnerBorderBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
   <SolidColorBrush x:Key="StatusBarInnerBackgroundBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"/>
@@ -106,19 +90,7 @@
   <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush" Color="#FFFAFAFA"/>
   <SolidColorBrush x:Key="ButtonDisabledBorderBrush" Color="#FFE4E7EB"/>
   
-    <LinearGradientBrush x:Key="RibbonSeparatorBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-  	<GradientStop Color="#FFAFB2B9" Offset="0.522"/>
-  	<GradientStop Color="#00C0C3C8"/>
-  	<GradientStop Color="#00C0C3C8" Offset="1"/>
-  	<GradientStop Color="#66AFB2B9" Offset="0.168"/>
-  	<GradientStop Color="#66A7ADB5" Offset="0.828"/>
-  </LinearGradientBrush>
-  <LinearGradientBrush x:Key="RibbonSeparatorBorderBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-  	<GradientStop Offset="1" Color="#19FFFFFF"/>
-  	<GradientStop Color="#19EFEFEF"/>
-  	<GradientStop Color="#99F6F6F6" Offset="0.237"/>
-  	<GradientStop Color="#99FBFBFB" Offset="0.741"/>
-  </LinearGradientBrush>
+    <SolidColorBrush x:Key="RibbonSeparatorBrush" Color="#FFE1E1E1" />
   
   <SolidColorBrush x:Key="WindowOutterBackgroundBrush" Color="#FFEBEDF0"/>
   <SolidColorBrush x:Key="WindowOutterBorderBrush" Color="#FF656D75"/>

@@ -49,23 +49,18 @@
                 </Fluent:RibbonTabControl.Margin>
             </Fluent:RibbonTabControl>
             <Border x:Name="border"
-                    Margin="0,-2,0,0"
-                    BorderBrush="{DynamicResource QuickAccessToolBarOutterBorderBrush}"
-                    BorderThickness="0,1"
+                    BorderThickness="0"
                     Grid.Row="1"
+                    Background="{DynamicResource RibbonBackgoundBrush}"
                     Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
-                <Border BorderBrush="{DynamicResource QuickAccessToolBarInnerBorderBrush}"
-                        BorderThickness="0,1"
-                        Background="{DynamicResource QuickAccessToolBarInnerBackgroundBrush}">
-                    <ContentControl x:Name="contentControl"
-                                    HorizontalAlignment="Left">
-                        <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
-                                                   Style="{DynamicResource QuickAccessToolbarStyle}"
-                                                   ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                   HorizontalAlignment="Left"
-                                                   Focusable="False" />
-                    </ContentControl>
-                </Border>
+                <ContentControl x:Name="contentControl"
+                                HorizontalAlignment="Left">
+                    <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
+                                               Style="{DynamicResource QuickAccessToolbarStyle}"
+                                               ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                               HorizontalAlignment="Left"
+                                               Focusable="False" />
+                </ContentControl>
             </Border>           
         </Grid>
         <ControlTemplate.Triggers>

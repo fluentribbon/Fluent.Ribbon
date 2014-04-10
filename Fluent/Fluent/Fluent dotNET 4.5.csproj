@@ -92,6 +92,7 @@
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
+    <Compile Include="Metro\Converters\ToLowerConverter.cs" />
     <Compile Include="Metro\MetroColors.cs" />
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
@@ -325,6 +326,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <None Include="Themes\Metro\Images\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Include="Themes\Metro\Controls\RibbonToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Metro\Controls\RibbonSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <None Include="Themes\Metro\Controls\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\Metro\Controls\MenuSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\Office2010\Images\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <None Include="Themes\Office2010\Colors\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -555,47 +580,35 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Themes\Office2010\Images\HelpSmall.png" />
-    <Resource Include="Themes\Office2010\Images\WarningSmall.png" />
+    <Resource Include="Themes\Metro\Images\Warning.png" />
+    <Resource Include="Themes\Metro\Images\Copy.png" />
+    <Resource Include="Themes\Metro\Images\Cut.png" />
+    <Resource Include="Themes\Metro\Images\Paste.png" />
+    <Resource Include="Themes\Metro\Images\MoreColors.png" />
+    <Resource Include="Themes\Metro\Images\Help.png" />
+    <Resource Include="Themes\Metro\Images\Checked.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\Help.png" />
+    <Resource Include="Themes\Office2010\Images\Warning.png" />
     <Resource Include="Themes\Office2010\Images\DialogLauncher.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\DefaultSmallIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\BackstageCorner.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\QuickAccessToolbarExtender.png" />
     <Resource Include="Themes\Office2010\Images\RibbonPin.png" />
     <Resource Include="Themes\Office2010\Images\QuickAccessToolbarDropDown.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\RibbonCollapse.png" />
     <Resource Include="Themes\Office2010\Images\RibbonExpand.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\CaptionButtonClose.png" />
     <Resource Include="Themes\Office2010\Images\CaptionButtonMaximize.png" />
     <Resource Include="Themes\Office2010\Images\CaptionButtonMinimize.png" />
     <Resource Include="Themes\Office2010\Images\CaptionButtonNormalize.png" />
     <Resource Include="Themes\Office2010\Images\ResizeGrip.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\Checked.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\Copy.png" />
     <Resource Include="Themes\Office2010\Images\Cut.png" />
     <Resource Include="Themes\Office2010\Images\Paste.png" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\ApplicationMenu.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Themes\Office2010\Images\MoreColors.png" />
   </ItemGroup>
   <ItemGroup>
