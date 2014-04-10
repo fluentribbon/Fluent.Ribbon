@@ -717,8 +717,8 @@ namespace Fluent
                         startPoint.X = monitorInfo.Work.Left;
                     }
 
-                    // Set width
-                    this.DropDownPopup.Width = Math.Min(actualWidth, inWindowRibbonWidth);
+                    // Set width and prevent negative values
+                    this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
                     return new[]
                                {
                                    new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, this.SelectedTabItem.ActualHeight - ((FrameworkElement)this.DropDownPopup.Child).Margin.Top), PopupPrimaryAxis.None),
