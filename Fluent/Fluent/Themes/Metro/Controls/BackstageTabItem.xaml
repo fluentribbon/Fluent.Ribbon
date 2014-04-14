@@ -23,6 +23,7 @@
                 </Grid>
             </Border>
             <ContentControl x:Name="PART_Header"
+                            Foreground="{DynamicResource BackstageFontBrush}"
                             Margin="25,0,15,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -66,9 +67,6 @@
                 <Setter TargetName="selectedBorder"
                         Property="Visibility"
                         Value="Visible" />
-                <Setter TargetName="PART_Header"
-                        Property="Foreground"
-                        Value="White" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
