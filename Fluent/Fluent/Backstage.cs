@@ -394,7 +394,7 @@ namespace Fluent
 
             if (frameworkElement != null)
             {
-                if ((parent is WindowsFormsHost || parent is WebBrowser) &&
+                if ((parent is HwndHost) &&
                     frameworkElement.Visibility != Visibility.Collapsed)
                 {
                     collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
