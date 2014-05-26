@@ -428,7 +428,7 @@ namespace Fluent
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
 
         // Currently added in QAT items
-        readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
+        private readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
         // Stream to save quickaccesselements on aplytemplate
         MemoryStream quickAccessStream;
@@ -583,6 +583,17 @@ namespace Fluent
             get
             {
                 return this.GetLastVisibleItem();
+            }
+        }
+
+        /// <summary>
+        /// Gets the list of currently active quick access elements.
+        /// </summary>
+        protected Dictionary<UIElement, UIElement> QuickAccessElements
+        {
+            get
+            {
+                return this.quickAccessElements;
             }
         }
 
