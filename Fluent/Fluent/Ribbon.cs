@@ -1528,6 +1528,14 @@ namespace Fluent
         public void AddToQuickAccessToolBar(UIElement element)
         {
             if (element is Gallery) element = FindParentRibbonControl(element) as UIElement;
+
+            // Do not add menu items without icon.
+            MenuItem menuItem = element as MenuItem;
+            if (menuItem != null && menuItem.Icon == null)
+            {
+                element = FindParentRibbonControl(element) as UIElement;
+            }
+
             if (!QuickAccessItemsProvider.IsSupported(element)) return;
             if (!IsInQuickAccessToolBar(element))
             {
