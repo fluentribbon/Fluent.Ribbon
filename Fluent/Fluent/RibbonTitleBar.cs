@@ -362,16 +362,17 @@ namespace Fluent
                 }
                 else if (HeaderAlignment == HorizontalAlignment.Center)
                 {
-                    if ((startX - quickAccessToolbarWidth < 150 && startX - quickAccessToolbarWidth > 0 && startX - quickAccessToolbarWidth < constraint.Width - endX)
-                        || endX < constraint.Width / 2)
+                    double allTextWidthRight = Math.Max(0, constraint.Width - endX);
+                    double allTextWidthLeft = Math.Max(0,startX - quickAccessToolbarWidth);
+                    bool fitsRightButNotLeft = (allTextWidthRight >= headerHolder.DesiredSize.Width && allTextWidthLeft < headerHolder.DesiredSize.Width);
+
+                    if (((startX - quickAccessToolbarWidth < 150 || fitsRightButNotLeft) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                     {
-                        var allTextWidth = Math.Max(0, constraint.Width - endX);
-                        headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
+                        headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidthRight, headerHolder.DesiredSize.Width), constraint.Height);                        
                     }
                     else
                     {
-                        var allTextWidth = Math.Max(0, startX - quickAccessToolbarWidth);
-                        headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, headerHolder.DesiredSize.Width), constraint.Height);
+                        headerRect = new Rect(quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidthLeft / 2 - headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidthLeft, headerHolder.DesiredSize.Width), constraint.Height);
                     }
                 }
                 else if (HeaderAlignment == HorizontalAlignment.Right)
