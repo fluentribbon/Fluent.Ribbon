@@ -89,6 +89,13 @@
               </MultiTrigger.Conditions>
               <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
             </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Content" SourceName="helpTopic" Value="{x:Null}"/>
+                    <Condition Property="IsEnabled" Value="True" SourceName="separator"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility" TargetName="separator" Value="Collapsed"/>
+            </MultiTrigger>
             <Trigger Property="Text" SourceName="disableReasonText" Value="">
               <Setter Property="Visibility" TargetName="disableReasonSection" Value="Collapsed"/>              
             </Trigger>
