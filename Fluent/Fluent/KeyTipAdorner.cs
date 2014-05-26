@@ -137,7 +137,7 @@ namespace Fluent
             {
                 UIElement child = item as UIElement;
                 RibbonGroupBox groupBox = (child as RibbonGroupBox);
-                if (child != null)
+                if (child != null && child.Visibility == Visibility.Visible)
                 {
                     string keys = KeyTip.GetKeys(child);
                     if (keys != null)
