@@ -392,6 +392,9 @@ namespace Fluent
 
             var frameworkElement = parent as FrameworkElement;
 
+            // Do not hide contents in the backstage area
+            if (parent is BackstageAdorner) return;
+
             if (frameworkElement != null)
             {
                 if ((parent is HwndHost) &&
