@@ -581,20 +581,29 @@ namespace Fluent
             else if (e.Source == this
                 || !this.IsSelected)
             {
-                if (this.TabControlParent != null)
+                if (this.Visibility == Visibility.Visible)
                 {
-                    var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
-
-                    if (this.TabControlParent.SelectedTabItem == newItem)
+                    if (this.TabControlParent != null)
                     {
-                        this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
+                        var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
+
+                        if (this.TabControlParent.SelectedTabItem == newItem)
+                        {
+                            this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
+                        }
+                        else
+                        {
+                            this.TabControlParent.SelectedItem = newItem;
+                        }
+
+                        this.TabControlParent.RaiseRequestBackstageClose();
                     }
                     else
                     {
-                        this.TabControlParent.SelectedItem = newItem;
+                        this.IsSelected = true;
                     }
 
-                    this.TabControlParent.RaiseRequestBackstageClose();
+                    e.Handled = true;
                 }
             }
         }
