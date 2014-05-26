@@ -596,12 +596,6 @@ namespace Fluent
 
                     this.TabControlParent.RaiseRequestBackstageClose();
                 }
-                else
-                {
-                    this.IsSelected = true;
-                }
-
-                e.Handled = true;
             }
         }
 
