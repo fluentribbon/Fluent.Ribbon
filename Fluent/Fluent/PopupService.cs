@@ -160,7 +160,7 @@ namespace Fluent
                     // If Ribbon loses capture because something outside popup is clicked - close the popup
                     if (Mouse.Captured == null || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.Always);
                     }
                 }
                 else
