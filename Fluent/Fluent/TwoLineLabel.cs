@@ -181,39 +181,49 @@ namespace Fluent
                 string text = Text.Trim();
                 if (HasTwoLines)
                 {
-                    int centerIndex = Text.Length / 2;
-                    // Find spaces nearest to center from left and right
-                    int leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex); 
-                    int rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
-                    if ((leftSpaceIndex == -1) && (rightSpaceIndex == -1))
+                    // Find soft hyphen, break at its position and display a normal hyphen.
+                    int hyphenIndex = text.IndexOf((char)173);
+                    if (hyphenIndex >= 0)
                     {
-                        // The text can`t be separated. Add new line for glyph
-                        //textRun.Text += '\u0085';
-                    }
-                    else if (leftSpaceIndex == -1)
-                    {
-                        // Finds only space from right. New line adds on it
-                        textRun.Text = text.Substring(0, rightSpaceIndex);
-                        textRun2.Text = text.Substring(rightSpaceIndex) + " ";
-                    }
-                    else if (rightSpaceIndex == -1)
-                    {
-                        // Finds only space from left. New line adds on it
-                        textRun.Text = text.Substring(0, leftSpaceIndex);
-                        textRun2.Text = text.Substring(leftSpaceIndex) + " ";
+                        textRun.Text = text.Substring(0, hyphenIndex) + "-";
+                        textRun2.Text = text.Substring(hyphenIndex) + " ";
                     }
                     else
                     {
-                        // Find nearest to center space and add new line on it
-                        if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
+                        int centerIndex = Text.Length / 2;
+                        // Find spaces nearest to center from left and right
+                        int leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex);
+                        int rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
+                        if ((leftSpaceIndex == -1) && (rightSpaceIndex == -1))
                         {
+                            // The text can`t be separated. Add new line for glyph
+                            //textRun.Text += '\u0085';
+                        }
+                        else if (leftSpaceIndex == -1)
+                        {
+                            // Finds only space from right. New line adds on it
+                            textRun.Text = text.Substring(0, rightSpaceIndex);
+                            textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+                        }
+                        else if (rightSpaceIndex == -1)
+                        {
+                            // Finds only space from left. New line adds on it
                             textRun.Text = text.Substring(0, leftSpaceIndex);
                             textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                         }
                         else
                         {
-                            textRun.Text = text.Substring(0, rightSpaceIndex);
-                            textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+                            // Find nearest to center space and add new line on it
+                            if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
+                            {
+                                textRun.Text = text.Substring(0, leftSpaceIndex);
+                                textRun2.Text = text.Substring(leftSpaceIndex) + " ";
+                            }
+                            else
+                            {
+                                textRun.Text = text.Substring(0, rightSpaceIndex);
+                                textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+                            }
                         }
                     }
                 }
