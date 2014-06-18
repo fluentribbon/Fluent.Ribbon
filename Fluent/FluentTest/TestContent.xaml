@@ -25,14 +25,14 @@
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  BorderBrush="Magenta"
                                                  Background="Magenta"
-												 Foreground="Purple"
+                                                 Foreground="Purple"
                                                  Header="FIRST"
                                                  Visibility="Visible" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
                                                  BorderBrush="#FF9D00"
                                                  Background="#FF9D00"
-												 Foreground="#C45300"
+                                                 Foreground="#C45300"
                                                  Header="SECOND"
                                                  Visibility="Visible" />
 
@@ -304,7 +304,12 @@
                                    Header="Copy"
                                    Icon="Images\Copy.png"
                                    Fluent:RibbonAttachedProperties.RibbonSizeDefinition="Middle,Small"
-                                   Command="Copy" />
+                                   Command="Copy">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Insert Chart"
+                                              DisableReason="Disable reason reason." />
+                        </Fluent:Button.ToolTip>
+                    </Fluent:Button>
                     <Fluent:Button Fluent:KeyTip.Keys="FP"
                                    Header="Format Painter"
                                    Icon="Images\FormatPainter.png"
