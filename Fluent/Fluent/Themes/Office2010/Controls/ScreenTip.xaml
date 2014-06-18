@@ -436,6 +436,17 @@
                                     TargetName="helpText"
                                     Value="Collapsed" />
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text"
+                                           Value="" />
+                                <Condition Property="Image"
+                                           Value="{x:Null}" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="imageAndTextSection"
+                                    Value="Collapsed" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
