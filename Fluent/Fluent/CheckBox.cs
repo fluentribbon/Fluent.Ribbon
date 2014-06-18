@@ -126,7 +126,6 @@ namespace Fluent
         public CheckBox()
         {
             ContextMenuService.Coerce(this);
-            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion

@@ -126,7 +126,6 @@ namespace Fluent
         public RadioButton()
         {
             ContextMenuService.Coerce(this);
-            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion

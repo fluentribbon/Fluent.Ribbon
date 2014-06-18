@@ -7,8 +7,6 @@
                 Value="{DynamicResource RibbonTitleBarControlTemplate}" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="FocusManager.IsFocusScope"
-                Value="False" />
     </Style>
     
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"

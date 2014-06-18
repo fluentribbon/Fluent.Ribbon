@@ -426,8 +426,6 @@
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
         <Setter Property="Template"
                 Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
-        <Setter Property="FocusManager.IsFocusScope"
-                Value="False" />
     </Style>
     
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate"
@@ -507,8 +505,7 @@
                         x:Name="PART_ToolBarPanel"
                         Width="Auto"
                         Height="Auto"
-                        VerticalAlignment="Stretch"
-                        FocusManager.IsFocusScope="False" />
+                        VerticalAlignment="Stretch" />
         </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="CanQuickAccessLocationChanging"

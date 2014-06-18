@@ -37,14 +37,6 @@ namespace Fluent
             return basevalue;
         }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RibbonMenu()
-        {
-            FocusManager.SetIsFocusScope(this, false);
-        }
-
         #endregion
 
         #region Overrides

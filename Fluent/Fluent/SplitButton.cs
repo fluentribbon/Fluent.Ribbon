@@ -353,7 +353,6 @@ namespace Fluent
         public SplitButton()
         {
             ContextMenuService.Coerce(this);
-            //FocusManager.SetIsFocusScope(this, true);
             Click += OnClick;
             //            AddHandler(ClickEvent, OnClick);
 

@@ -77,7 +77,6 @@ namespace Fluent
             : base()
         {
             Focusable = false;
-            FocusManager.SetIsFocusScope(this, false);
         }
 
         #endregion

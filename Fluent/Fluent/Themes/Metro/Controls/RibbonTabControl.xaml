@@ -142,8 +142,6 @@
            TargetType="{x:Type Fluent:RibbonTabControl}">
         <Setter Property="VerticalAlignment"
                 Value="Top" />
-        <Setter Property="FocusManager.IsFocusScope"
-                Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="FontFamily"
@@ -268,8 +266,6 @@
                         </Style>
 
                         <Style TargetType="{x:Type ScrollViewer}">
-                            <Setter Property="FocusManager.IsFocusScope"
-                                    Value="False" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -504,7 +500,6 @@
                                                                 IsItemsHost="True"
                                                                 Height="Auto"
                                                                 HorizontalAlignment="Stretch"
-                                                                FocusManager.IsFocusScope="False"
                                                                 Margin="0" />
                                 </Fluent:RibbonScrollViewer>
                             </DockPanel>
@@ -531,8 +526,7 @@
                                 </Grid>
                                 
                                 <StackPanel x:Name="PART_ToolbarPanel"
-                                            Orientation="Horizontal"
-                                            FocusManager.IsFocusScope="False" />
+                                            Orientation="Horizontal" />
                             </StackPanel>
                         </Grid>
                         <Popup x:Name="PART_Popup"

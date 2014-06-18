@@ -614,7 +614,6 @@ namespace Fluent
             (ToolTip as ToolTip).Template = null;
             CoerceValue(ContextMenuProperty);
             Focusable = false;
-            FocusManager.SetIsFocusScope(this, false);
 
             this.Loaded += OnLoaded;
             this.Unloaded += OnUnloaded;
@@ -896,7 +895,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown�routed 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown
         /// event reaches an element in its route that is derived from this class. 
         /// Implement this method to add class handling for this event.
         /// </summary>
@@ -904,8 +903,14 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if ((this.State == RibbonGroupBoxState.Collapsed || this.State == RibbonGroupBoxState.QuickAccess)
-                && popup != null)
+            if (e.Source != this
+                || this.popup == null)
+            {
+                return;
+            }
+
+            if (this.State == RibbonGroupBoxState.Collapsed
+                || this.State == RibbonGroupBoxState.QuickAccess)
             {
                 e.Handled = true;
 

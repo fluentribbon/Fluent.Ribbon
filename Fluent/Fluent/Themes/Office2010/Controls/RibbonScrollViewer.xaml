@@ -56,7 +56,6 @@
   </Style>    
   <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter"/>
   <Style x:Key="RibbonScrollViewer" TargetType="{x:Type ScrollViewer}">
-  <Setter Property="FocusManager.IsFocusScope" Value="False"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -115,7 +114,6 @@
   </Style>
   <Style x:Key="RibbonTabScrollViewer" TargetType="{x:Type ScrollViewer}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
-  <Setter Property="FocusManager.IsFocusScope" Value="False"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -176,7 +174,6 @@
 
   <Style x:Key="MenuScrollViewer" TargetType="{x:Type ScrollViewer}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
-    <Setter Property="FocusManager.IsFocusScope" Value="False"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ScrollViewer}">

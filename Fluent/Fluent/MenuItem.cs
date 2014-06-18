@@ -343,9 +343,8 @@ namespace Fluent
         public MenuItem()
         {
             ContextMenuService.Coerce(this);
-            ToolTip = new ToolTip();
-            (ToolTip as ToolTip).Template = null;
-            FocusManager.SetIsFocusScope(this, true);
+            this.ToolTip = new ToolTip();
+            ((ToolTip)this.ToolTip).Template = null;
             this.MouseWheel += OnMenuItemMouseWheel;
         }
 

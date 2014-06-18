@@ -182,7 +182,6 @@ namespace Fluent
         public ToggleButton()
         {
             ContextMenuService.Coerce(this);
-            FocusManager.SetIsFocusScope(this, true);
         }
 
         #endregion
