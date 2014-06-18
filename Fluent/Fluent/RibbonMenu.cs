@@ -57,7 +57,8 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is System.Windows.Controls.MenuItem);
+            return item is System.Windows.Controls.MenuItem 
+                || item is Separator;
         }
 
         /// <summary>

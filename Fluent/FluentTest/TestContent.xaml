@@ -1115,7 +1115,11 @@
                                      Fluent:KeyTip.Keys="H"
                                      SelectedIndex="0">
                         <Fluent:ComboBox.Menu>
-                            <Fluent:RibbonMenu></Fluent:RibbonMenu>
+                            <Fluent:RibbonMenu>
+                                <Fluent:MenuItem Header="Test" />
+                                <Separator />
+                                <Fluent:MenuItem Header="Test" />
+                            </Fluent:RibbonMenu>
                         </Fluent:ComboBox.Menu>
                         <System:String>Show All</System:String>
                         <System:String>Read-only</System:String>
