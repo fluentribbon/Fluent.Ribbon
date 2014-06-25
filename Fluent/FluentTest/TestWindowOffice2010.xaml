@@ -12,10 +12,10 @@
                      mc:Ignorable="d">
     <Fluent:RibbonWindow.Resources>                
         <ResourceDictionary>           
-            <!--<ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Generic.xaml" />                
                 <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
-            </ResourceDictionary.MergedDictionaries>-->
+            </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="unused" />
         </ResourceDictionary>
