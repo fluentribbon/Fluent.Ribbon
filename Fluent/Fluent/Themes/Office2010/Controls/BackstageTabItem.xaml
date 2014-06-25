@@ -6,9 +6,7 @@
         <Grid Background="#00000000">
             <Border x:Name="hoverBorder"
                     Margin="0,0,1,0"
-                    Background="{Binding Background,
-                                         RelativeSource={RelativeSource FindAncestor,
-                                                                        AncestorType={x:Type Fluent:BackstageTabControl}}}"
+                    Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}"
                     BorderBrush="{x:Null}"
                     BorderThickness="0"
                     Visibility="Collapsed">
@@ -18,9 +16,7 @@
             </Border>
             <Border x:Name="selectedBorder"
                     Margin="0"
-                    Background="{Binding Background,
-                                         RelativeSource={RelativeSource FindAncestor,
-                                                                        AncestorType={x:Type Fluent:BackstageTabControl}}}"
+                    Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}"
                     BorderBrush="#FF000463"
                     BorderThickness="0"
                     Visibility="Collapsed">
@@ -121,9 +117,7 @@
         <Setter Property="Height"
                 Value="37" />
         <Setter Property="Background"
-                Value="{Binding Background,
-                                RelativeSource={RelativeSource FindAncestor,
-                                                               AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
         <Setter Property="Margin"
                 Value="0,1" />
     </Style>

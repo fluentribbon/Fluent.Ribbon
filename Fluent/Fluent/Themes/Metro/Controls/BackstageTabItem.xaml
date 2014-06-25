@@ -7,16 +7,18 @@
             <Border x:Name="hoverBorder"
                     Margin="0,0,0,0"
                     Visibility="Collapsed">
-            	<Border.Background>
-            		<SolidColorBrush Color="Black" Opacity="0.2"/>        	
-				</Border.Background>
+                <Border.Background>
+                    <SolidColorBrush Color="Black"
+                                     Opacity="0.2" />
+                </Border.Background>
             </Border>
             <Border x:Name="selectedBorder"
                     Margin="0"
                     Visibility="Collapsed">
-            	<Border.Background>
-            		<SolidColorBrush Color="White" Opacity="0.2"/>
-				</Border.Background>
+                <Border.Background>
+                    <SolidColorBrush Color="White"
+                                     Opacity="0.2" />
+                </Border.Background>
                 <Grid Width="Auto"
                       Margin="0"
                       HorizontalAlignment="Stretch">
@@ -49,7 +51,7 @@
                 <Setter TargetName="hoverBorder"
                         Property="Visibility"
                         Value="Visible" />
-				<Setter TargetName="selectedBorder"
+                <Setter TargetName="selectedBorder"
                         Property="Visibility"
                         Value="Collapsed" />
             </MultiTrigger>
@@ -71,7 +73,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
     <Style x:Key="BackstageTabItemStyle"
            TargetType="{x:Type Fluent:BackstageTabItem}">
         <Setter Property="FontFamily"
@@ -83,9 +84,7 @@
         <Setter Property="Height"
                 Value="38" />
         <Setter Property="Background"
-                Value="{Binding Background,
-                                RelativeSource={RelativeSource FindAncestor,
-                                                               AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
         <Setter Property="Margin"
                 Value="0" />
     </Style>

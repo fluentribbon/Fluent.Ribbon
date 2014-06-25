@@ -393,7 +393,7 @@ namespace Fluent
         /// </summary>
         static RibbonWindow()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
             if (FrameworkHelper.PresentationFrameworkVersion < new Version("4.0"))
             {
@@ -410,15 +410,22 @@ namespace Fluent
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
-            if (basevalue == null)
+            if (basevalue != null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonWindow));
+                return basevalue;
+            }
+
+            var frameworkElement = d as FrameworkElement;
+            if (frameworkElement != null)
+            {
+                basevalue = frameworkElement.TryFindResource(typeof(RibbonWindow));
             }
 
             return basevalue;
         }
+
         private static void OnWindowPropertyChangedThatRequiresTemplateFixup(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RibbonWindow window = d as RibbonWindow;

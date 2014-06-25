@@ -139,73 +139,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <GroupStyle x:Key="ComboBoxGroupStyle">
-        <GroupStyle.ContainerStyle>
-            <Style TargetType="{x:Type GroupItem}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type GroupItem}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Height="21"
-                                      Background="#FFF0F2F5"
-                                      Grid.ColumnSpan="2"
-                                      VerticalAlignment="Top">
-                                    <TextBlock Margin="7,0"
-                                               Text="{Binding Name}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               FontWeight="Bold"
-                                               TextWrapping="NoWrap"
-                                               TextTrimming="CharacterEllipsis" />
-                                </Grid>
-                                <Image Grid.Column="0"
-                                       Stretch="None"
-                                       Margin="4,21,4,0"
-                                       VerticalAlignment="Top"
-                                       HorizontalAlignment="Center"
-                                       x:Name="iconImage">
-                                    <Image.Source>
-                                        <MultiBinding Converter="{StaticResource GroupIconConverter}">
-                                            <Binding Path="Items" />
-                                            <Binding ElementName="layoutRoot" />
-                                        </MultiBinding>
-                                    </Image.Source>
-                                </Image>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
-                                      HorizontalAlignment="Right"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Visibility="Visible"
-                                      x:Name="menuLine"
-                                      Margin="0,21,0,0" />
-                                <ItemsPresenter Grid.Column="1"
-                                                Margin="0,21,0,0" />
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="iconImage"
-                                         Property="Source"
-                                         Value="{x:Null}">
-                                    <Setter TargetName="menuLine"
-                                            Property="Visibility"
-                                            Value="Collapsed" />
-                                    <Setter TargetName="iconImage"
-                                            Property="Visibility"
-                                            Value="Collapsed" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </GroupStyle.ContainerStyle>
-    </GroupStyle>
+
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Template">
             <Setter.Value>

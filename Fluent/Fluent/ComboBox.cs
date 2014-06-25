@@ -61,7 +61,6 @@ namespace Fluent
 
         private ScrollViewer scrollViewer;
 
-        private bool canSizeX;
         private bool canSizeY;
 
         #endregion
@@ -600,7 +599,6 @@ namespace Fluent
             focusedElement = Keyboard.FocusedElement;
             focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
 
-            canSizeX = true;
             canSizeY = true;
 
             galleryPanel.Width = double.NaN;
