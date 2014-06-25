@@ -1,7 +1,6 @@
 Metro\Colors\ColorsWhite.xaml
 Metro\Fonts.xaml
 Metro\Colors\Colors.xaml
-Metro\Images\Images.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
 Office2010\Controls\ApplicationMenuItem.xaml
 Office2010\Controls\ApplicationMenu.xaml
@@ -23,9 +22,9 @@ Metro\Controls\RibbonContextualTabGroup.xaml
 Office2010\Controls\RibbonTitleBar.xaml
 Metro\Controls\KeyTip.xaml
 Metro\Controls\QuickAccessToolBar.xaml
-Metro\Controls\Menu.xaml
+Office2010\Controls\Menu.xaml
 Metro\Controls\MenuItem.xaml
-Metro\Controls\MenuSeparator.xaml
+Office2010\Controls\MenuSeparator.xaml
 Office2010\Controls\RibbonMenu.xaml
 Metro\Controls\Gallery.xaml
 Metro\Controls\GalleryItem.xaml
@@ -34,8 +33,8 @@ Metro\Controls\InRibbonGallery.xaml
 Metro\Controls\BackstageTabItem.xaml
 Metro\Controls\BackstageControls.xaml
 Metro\Controls\BackstageTabControl.xaml
-Metro\Controls\RibbonSeparator.xaml
-Metro\Controls\RibbonToolBar.xaml
+Office2010\Controls\RibbonSeparator.xaml
+Office2010\Controls\RibbonToolBar.xaml
 Office2010\Controls\RibbonToolBarControlGroup.xaml
 Metro\Controls\StatusBar.xaml
 Metro\Controls\ScrollBar.xaml

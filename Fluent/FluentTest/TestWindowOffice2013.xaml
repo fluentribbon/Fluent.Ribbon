@@ -1,0 +1,24 @@
+﻿<Fluent:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                    xmlns:FluentTest="clr-namespace:FluentTest"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    x:Name="window"
+                    x:Class="FluentTest.TestWindowOffice2013"
+                    Title="Fluent Ribbon Control Suite 2.1"
+                    Height="600"
+                    Width="800"
+                    mc:Ignorable="d">
+    <Fluent:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Fluent;Component/Themes/Metro/Generic.xaml" />                
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="unused" />
+        </ResourceDictionary>
+    </Fluent:MetroWindow.Resources>
+
+    <FluentTest:TestContent x:Name="TestContent" />
+</Fluent:MetroWindow>

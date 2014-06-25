@@ -74,16 +74,17 @@
 
         public TstEnum TST
         {
-            get { return (TstEnum)this.GetValue(TSTProperty); }
-            set { this.SetValue(TSTProperty, value); }
+            get { return this.tst; }
+            set 
+            { 
+                this.tst = value; 
+                this.OnPropertyChanged("TST");
+            }
         }
-
-        // Using a DependencyProperty as the backing store for TST.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TSTProperty =
-            DependencyProperty.Register("TST", typeof(TstEnum), typeof(TestWindow), new UIPropertyMetadata(TstEnum.Elemen1));
 
         private readonly Color[] themeColors = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
         private int boundSpinnerValue;
+        private TstEnum tst;
 
         public Color[] ThemeColors
         {
@@ -140,7 +141,7 @@
             e.Handled = true;
         }
 
-        public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala", typeof(TestWindow));
+        public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala", typeof(Window));
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
@@ -187,42 +188,37 @@
 
         #region Theme change
 
-        private void OnSilverClick(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.RemoveAt(1);
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml") });                
-                Application.Current.Resources.EndInit();
-            }));
-        }
-
         private void OnMetroClick(object sender, RoutedEventArgs e)
         {
-            var metro = new MetroStyle();
+            var metro = new TestWindowOffice2013();
             metro.Show();
+        }
+
+        private void OnSilverClick(object sender, RoutedEventArgs e)
+        {
+            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.RemoveAt(1);
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml") });                
-                Application.Current.Resources.EndInit();
-            }));
+            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
         }
 
         private void OnBlueClick(object sender, RoutedEventArgs e)
         {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
+        }
+
+        private void ChangeTheme(string theme)
+        {
+            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
             {
-                Application.Current.Resources.BeginInit();
-                Application.Current.Resources.MergedDictionaries.RemoveAt(1);
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml") });                
-                Application.Current.Resources.EndInit();
+                var owner = Window.GetWindow(this);
+                if (owner == null) return;
+                owner.Resources.BeginInit();
+                owner.Resources.MergedDictionaries.RemoveAt(1);
+                owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(theme) });
+                owner.Resources.EndInit();
             }));
         }
 
@@ -352,7 +348,7 @@
 
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
         {
-            var wnd = new TestWindow
+            var wnd = new TestWindowOffice2010
                       {
                           Owner = Window.GetWindow(this)
                       };

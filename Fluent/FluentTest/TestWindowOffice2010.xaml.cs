@@ -3,9 +3,9 @@ namespace FluentTest
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class TestWindow
+    public partial class TestWindowOffice2010
     {
-        public TestWindow()
+        public TestWindowOffice2010()
         {
             this.InitializeComponent();
         }

@@ -1,23 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using Fluent;
-
 namespace FluentTest
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        static App()
-        { 
-   //Ribbon.ResetState();
+        public App()
+        {
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
 
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
@@ -40,16 +27,6 @@ namespace FluentTest
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ar");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da");
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("az");
-        }
-
-        public App()
-        {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU"); ;
-        }
-
-        private void OnApplicationStartup(object sender, StartupEventArgs e)
-        {
-            
         }
     }
 }

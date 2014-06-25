@@ -5,12 +5,21 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      x:Name="window"
-                     x:Class="FluentTest.TestWindow"
+                     x:Class="FluentTest.TestWindowOffice2010"
                      Title="Fluent Ribbon Control Suite 2.1"
                      Height="600"
                      Width="800"
-                     mc:Ignorable="d"
-                     ResizeMode="CanResizeWithGrip"
-                     FlowDirection="LeftToRight">
+                     mc:Ignorable="d">
+    <Fluent:RibbonWindow.Resources>                
+        <ResourceDictionary>           
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Generic.xaml" />                
+                <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
+            </ResourceDictionary.MergedDictionaries>-->
+
+            <Style x:Key="unused" />
+        </ResourceDictionary>
+    </Fluent:RibbonWindow.Resources>
+    
     <FluentTest:TestContent x:Name="TestContent" />
 </Fluent:RibbonWindow>
