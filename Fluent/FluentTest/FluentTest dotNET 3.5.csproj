@@ -67,14 +67,30 @@
     <Compile Include="ThreadedWindow.xaml.cs">
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="TestWindowOffice2013.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TestContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TestWindowOffice2010.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrameworkHelper.cs" />
+    <Compile Include="TestWindowOffice2013.xaml.cs">
+      <DependentUpon>TestWindowOffice2013.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestWindowOffice2010.xaml.cs">
+      <DependentUpon>TestWindowOffice2010.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Page Include="ThreadedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,16 +110,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TestRibbonTab.xaml.cs">
-      <DependentUpon>TestRibbonTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MetroStyle.xaml.cs">
-      <DependentUpon>MetroStyle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FrameworkHelper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -121,56 +127,66 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MetroStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TestRibbonTab.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TestWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Resource Include="Images\SampleImageForScreenTip.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\App.ico" />
-    <Resource Include="Images\BlackTheme.png" />
-    <Resource Include="Images\BlueTheme.png" />
+    <Resource Include="Images\Paste.png" />
+    <Resource Include="Images\PasteLarge.png" />
+    <Resource Include="Images\Cut.png" />
+    <Resource Include="Images\Copy.png" />
+    <Resource Include="Images\FormatPainter.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\Bold.png" />
-    <Resource Include="Images\Box.png" />
     <Resource Include="Images\ChangeCase.png" />
     <Resource Include="Images\ClearFormatting.png" />
-    <Resource Include="Images\Copy.png" />
-    <Resource Include="Images\Cut.png" />
-    <Resource Include="Images\Default.png" />
-    <Resource Include="Images\Exit.png" />
     <Resource Include="Images\FontColor.png" />
-    <Resource Include="Images\FormatPainter.png" />
-    <Resource Include="Images\GalleryLarge.png" />
     <Resource Include="Images\GrowFont.png" />
-    <Resource Include="Images\Help.png" />
     <Resource Include="Images\Italic.png" />
-    <Resource Include="Images\Paste.png" />
-    <Resource Include="Images\PasteFormating.png" />
-    <Resource Include="Images\PasteImage.png" />
-    <Resource Include="Images\PasteLarge.png" />
-    <Resource Include="Images\PasteSourceFormating.png" />
-    <Resource Include="Images\PasteText.png" />
-    <Resource Include="Images\PasteTextOnly.png" />
-    <Resource Include="Images\SampleImageForScreenTip.png" />
-    <Resource Include="Images\Save.png" />
     <Resource Include="Images\ShrinkFont.png" />
-    <Resource Include="Images\SilverTheme.png" />
     <Resource Include="Images\Strikethrough.png" />
     <Resource Include="Images\Subscript.png" />
     <Resource Include="Images\Superscript.png" />
-    <Resource Include="Images\Test16.png" />
-    <Resource Include="Images\Test32.png" />
     <Resource Include="Images\TextEffects.png" />
     <Resource Include="Images\TextHighlightColor.png" />
     <Resource Include="Images\Underline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PasteImage.png" />
+    <Resource Include="Images\PasteTextOnly.png" />
+    <Resource Include="Images\PasteText.png" />
+    <Resource Include="Images\PasteFormating.png" />
+    <Resource Include="Images\PasteSourceFormating.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Test16.png" />
+    <Resource Include="Images\Test32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GalleryLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BlackTheme.png" />
+    <Resource Include="Images\BlueTheme.png" />
+    <Resource Include="Images\SilverTheme.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

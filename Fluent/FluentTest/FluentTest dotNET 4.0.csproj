@@ -67,7 +67,7 @@
     <Compile Include="ThreadedWindow.xaml.cs">
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="MetroStyle.xaml">
+    <Page Include="TestWindowOffice2013.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,11 +75,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestRibbonTab.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TestWindow.xaml">
+    <Page Include="TestWindowOffice2010.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,14 +84,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FrameworkHelper.cs" />
-    <Compile Include="MetroStyle.xaml.cs">
-      <DependentUpon>MetroStyle.xaml</DependentUpon>
+    <Compile Include="TestWindowOffice2013.xaml.cs">
+      <DependentUpon>TestWindowOffice2013.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestRibbonTab.xaml.cs">
-      <DependentUpon>TestRibbonTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
+    <Compile Include="TestWindowOffice2010.xaml.cs">
+      <DependentUpon>TestWindowOffice2010.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ThreadedWindow.xaml">
