@@ -232,38 +232,41 @@
                                         Selectable="False"
                                         ItemWidth="32"
                                         ItemHeight="32">
-                            <Fluent:Gallery.ItemContainerStyle>
-                                <Style TargetType="{x:Type Fluent:GalleryItem}"
-                                       BasedOn="{StaticResource {x:Type Fluent:GalleryItem}}">
-                                    <Setter Property="Fluent:GalleryItem.Command"
-                                            Value="Paste" />
-                                </Style>
-                            </Fluent:Gallery.ItemContainerStyle>
-                            <Image Source="Images\PasteImage.png"
-                                   Width="24"
-                                   Height="24"
-                                   Fluent:KeyTip.Keys="K"
-                                   Tag="Paste Options:" />
-                            <Image Source="Images\PasteText.png"
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="Images\PasteImage.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="K"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="Images\PasteText.png"
                                    Width="24"
                                    Height="24"
                                    Fluent:KeyTip.Keys="M"
                                    Tag="Paste Options:" />
-                            <Image Source="Images\PasteTextOnly.png"
-                                   Width="24"
-                                   Height="24"
-                                   Fluent:KeyTip.Keys="T"
-                                   Tag="Paste Options:" />
-                            <Image Source="Images\PasteFormating.png"
-                                   Width="24"
-                                   Height="24"
-                                   Fluent:KeyTip.Keys="L"
-                                   Tag="Paste Options:" />
-                            <Image Source="Images\PasteSourceFormating.png"
-                                   Width="24"
-                                   Height="24"
-                                   Fluent:KeyTip.Keys="E"
-                                   Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="Images\PasteTextOnly.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="T"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="Images\PasteFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="L"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="Images\PasteSourceFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="E"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
                         </Fluent:Gallery>
                         <Fluent:MenuItem Header="Paste Special..."
                                          Fluent:KeyTip.Keys="S"
