@@ -400,6 +400,11 @@ namespace Fluent
         {
             base.OnItemsChanged(e);
 
+            if (this.IsMinimized)
+            {
+                return;
+            }
+
             if (e.Action == NotifyCollectionChangedAction.Remove
                 && this.SelectedIndex == -1)
             {
