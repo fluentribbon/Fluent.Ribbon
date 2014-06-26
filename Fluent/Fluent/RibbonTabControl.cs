@@ -598,6 +598,7 @@ namespace Fluent
                 if (selectedTabItem != null)
                 {
                     this.SelectedContent = selectedTabItem.GroupsContainer;
+                    this.UpdateLayout();
                     this.SelectedTabItem = selectedTabItem;
                 }
             }
