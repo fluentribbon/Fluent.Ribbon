@@ -392,6 +392,15 @@
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        private void AddRibbonTab_OnClick(object sender, RoutedEventArgs e)
+        {
+            var tab = new RibbonTabItem
+            {
+                Header = "Test"
+            };
+            this.ribbon.Tabs.Add(tab);
+        }
     }
 
     public class FooCommand1

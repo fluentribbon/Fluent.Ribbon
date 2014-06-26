@@ -1588,6 +1588,11 @@
                     </Viewbox>
                 </Grid>
             </TabItem>
+            <TabItem Header="Tests">
+                <WrapPanel>
+                    <Button x:Name="AddRibbonTab" Click="AddRibbonTab_OnClick">Add tab</Button>
+                </WrapPanel>
+            </TabItem>
         </TabControl>
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
