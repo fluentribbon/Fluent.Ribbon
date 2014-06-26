@@ -219,7 +219,7 @@ namespace Fluent
             if (!this.oneOfAssociatedElements.IsLoaded)
             {
                 // Delay attaching
-                this.Log("Delay attach");
+                this.Log("Delaying attach");
                 this.oneOfAssociatedElements.Loaded += this.OnDelayAttach;
                 return;
             }
@@ -228,6 +228,7 @@ namespace Fluent
 
             if (this.adornerLayer == null)
             {
+                this.Log("No adorner layer found");
                 return;
             }
 
@@ -276,6 +277,7 @@ namespace Fluent
             this.timerFocusTracking.Start();
 
             this.attached = true;
+
             this.Log("Attach end");
         }
 
@@ -320,6 +322,7 @@ namespace Fluent
 
         private void OnDelayAttach(object sender, EventArgs args)
         {
+            this.Log("Delay attach (control loaded)");
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
             this.Attach();
         }
@@ -726,9 +729,9 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            for (var i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < this.keyTips.Count; i++)
             {
-                keyTips[i].Arrange(new Rect(keyTipPositions[i], keyTips[i].DesiredSize));
+                this.keyTips[i].Arrange(new Rect(this.keyTipPositions[i], this.keyTips[i].DesiredSize));
             }
 
             return finalSize;

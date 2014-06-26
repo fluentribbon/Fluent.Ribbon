@@ -214,7 +214,7 @@ namespace Fluent
             }
         }
 
-        private void OnWindowKeyUp(object sender, KeyEventArgs e)               
+        private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
             if (this.ribbon.IsCollapsed)
             {
@@ -335,9 +335,17 @@ namespace Fluent
             while (true)
             {
                 element = VisualTreeHelper.GetParent(element) as UIElement;
-                if (element == null) return null;
-                Window window = element as Window;
-                if (window != null) return window;
+                if (element == null)
+                {
+                    return null;
+                }
+
+                var window = element as Window;
+
+                if (window != null)
+                {
+                    return window;
+                }
             }
         }
 
