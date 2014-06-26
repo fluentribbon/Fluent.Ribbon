@@ -18,17 +18,13 @@ using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -629,8 +625,12 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = (Ribbon)d;
-            if (ribbon.TitleBar != null) ribbon.TitleBar.InvalidateMeasure();
+            var ribbon = (Ribbon)d;
+            if (ribbon.TitleBar != null)
+            {
+                ribbon.TitleBar.InvalidateMeasure();
+            }
+
             ribbon.SaveState();
         }
 
@@ -823,11 +823,28 @@ namespace Fluent
         {
             get
             {
-                ArrayList list = new ArrayList();
-                if (layoutRoot != null) list.Add(layoutRoot);
-                if (Menu != null) list.Add(Menu);
-                if (quickAccessToolBar != null) list.Add(quickAccessToolBar);
-                if ((TabControl != null) && (TabControl.ToolbarPanel != null)) list.Add(TabControl.ToolbarPanel);
+                var list = new ArrayList();
+                if (layoutRoot != null)
+                {
+                    list.Add(layoutRoot);
+                }
+
+                if (Menu != null)
+                {
+                    list.Add(Menu);
+                }
+
+                if (quickAccessToolBar != null)
+                {
+                    list.Add(quickAccessToolBar);
+                }
+
+                if (TabControl != null 
+                    && TabControl.ToolbarPanel != null)
+                {
+                    list.Add(TabControl.ToolbarPanel);
+                }
+
                 return list.GetEnumerator();
             }
         }
@@ -859,10 +876,13 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        QuickAccessMenuItem menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
+                        var menuItem = (QuickAccessMenuItem)e.NewItems[i];
+                        if (quickAccessToolBar != null)
+                        {
+                            quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
+                        }
                         menuItem.Ribbon = this;
                     }
                     break;
@@ -870,8 +890,11 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = item;
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        var menuItem = item;
+                        if (quickAccessToolBar != null)
+                        {
+                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        }
                         menuItem.Ribbon = null;
                     }
                     break;
@@ -879,58 +902,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = item;
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        var menuItem = item;
+                        if (quickAccessToolBar != null)
+                        {
+                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                        }
                         menuItem.Ribbon = null;
                     }
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
-                        QuickAccessMenuItem menuItem = item;
-                        if (quickAccessToolBar != null) quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                        var menuItem = item;
+                        if (quickAccessToolBar != null)
+                        {
+                            quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                        }
                         menuItem.Ribbon = this;
                     }
                     break;
             }
         }
-
-
-
-        /* /// <summary>
-         /// Handles collection of backstage items changes
-         /// </summary>
-         /// <param name="sender">Sender</param>
-         /// <param name="e">Th event data</param>
-         private void OnBackstageItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-         {
-             switch (e.Action)
-             {
-                 case NotifyCollectionChangedAction.Add:
-                     foreach (object item in e.NewItems)
-                     {
-                         if (backstageButton != null) backstageButton.Backstage.Items.Add(item);
-                     }
-                     break;
-
-                 case NotifyCollectionChangedAction.Remove:
-                     foreach (object item in e.OldItems)
-                     {
-                         if (backstageButton != null) backstageButton.Backstage.Items.Remove(item);
-                     }
-                     break;
-
-                 case NotifyCollectionChangedAction.Replace:
-                     foreach (object item in e.OldItems)
-                     {
-                         if (backstageButton != null) backstageButton.Backstage.Items.Remove(item);
-                     }
-                     foreach (object item in e.NewItems)
-                     {
-                         if (backstageButton != null) backstageButton.Backstage.Items.Add(item);
-                     }
-                     break;
-             }
-         }*/
-
 
         /// <summary>
         /// Gets or set whether Customize Quick Access Toolbar menu item is shown
@@ -1148,24 +1138,41 @@ namespace Fluent
         // Occurs when show quick access below command executed
         private static void OnShowQuickAccessBelowCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
             ribbon.ShowQuickAccessToolBarAboveRibbon = false;
         }
 
         // Occurs when show quick access above command executed
         private static void OnShowQuickAccessAboveCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
             ribbon.ShowQuickAccessToolBarAboveRibbon = true;
         }
 
         // Occurs when remove from quick access command executed
         private static void OnRemoveFromQuickAccessCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
             if (ribbon.quickAccessToolBar != null)
             {
-                UIElement element = ribbon.quickAccessElements.First(x => x.Value == e.Parameter).Key;
+                var element = ribbon.quickAccessElements.First(x => x.Value == e.Parameter).Key;
                 ribbon.RemoveFromQuickAccessToolBar(element);
             }
         }
@@ -1173,7 +1180,13 @@ namespace Fluent
         // Occurs when add to quick access command executed
         private static void OnAddToQuickAccessCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
             if (ribbon.quickAccessToolBar != null)
             {
                 ribbon.AddToQuickAccessToolBar(e.Parameter as UIElement);
@@ -1183,38 +1196,79 @@ namespace Fluent
         // Occurs when customize quick access command executed
         private static void OnCustomizeQuickAccessToolbarCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
-            if (ribbon.CustomizeQuickAccessToolbar != null) ribbon.CustomizeQuickAccessToolbar(sender, EventArgs.Empty);
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
+            if (ribbon.CustomizeQuickAccessToolbar != null)
+            {
+                ribbon.CustomizeQuickAccessToolbar(sender, EventArgs.Empty);
+            }
         }
 
         // Occurs when customize the ribbon command executed
         private static void OnCustomizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
-            if (ribbon.CustomizeTheRibbon != null) ribbon.CustomizeTheRibbon(sender, EventArgs.Empty);
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
+            if (ribbon.CustomizeTheRibbon != null)
+            {
+                ribbon.CustomizeTheRibbon(sender, EventArgs.Empty);
+            }
         }
 
         // Occurs when customize quick access command can execute handles
         private static void OnCustomizeQuickAccessToolbarCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Ribbon).CanCustomizeQuickAccessToolBar;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
+            e.CanExecute = ribbon.CanCustomizeQuickAccessToolBar;
         }
 
         // Occurs when customize the ribbon command can execute handles
         private static void OnCustomizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = (sender as Ribbon).CanCustomizeRibbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
+            e.CanExecute = ribbon.CanCustomizeRibbon;
         }
 
         // Occurs when remove from quick access command can execute handles
         private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            Ribbon ribbon = sender as Ribbon;
+            var ribbon = sender as Ribbon;
+
+            if (ribbon == null)
+            {
+                return;
+            }
+
             if (ribbon.IsQuickAccessToolBarVisible)
             {
                 e.CanExecute = ribbon.quickAccessElements.ContainsValue(e.Parameter as UIElement);
             }
-            else e.CanExecute = false;
+            else
+            {
+                e.CanExecute = false;
+            }
         }
 
         // Occurs when add to quick access command can execute handles
@@ -1653,12 +1707,6 @@ namespace Fluent
 
         #region Private methods
 
-        // Handles backstage Esc key keydown
-        void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
-        {
-            // if (e.Key == Key.Escape) IsBackstageOpen = false;
-        }
-
         private RibbonTabItem GetFirstVisibleItem()
         {
             return this.Tabs.FirstOrDefault(item => item.Visibility == Visibility.Visible);
@@ -1670,155 +1718,6 @@ namespace Fluent
         }
 
         #endregion
-
-        #region Static Methods
-
-        /// <summary>
-        /// Get adorner layer for element
-        /// </summary>
-        /// <param name="element">Element</param>
-        /// <returns>Adorner layer</returns>
-        static AdornerLayer GetAdornerLayer(UIElement element)
-        {
-            UIElement current = element;
-            while (true)
-            {
-                current = (UIElement)VisualTreeHelper.GetParent(current);
-                if (current is AdornerDecorator) return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
-            }
-        }
-
-        #endregion
-
-        #region Show / Hide Backstage
-
-        /* // We have to collapse WindowsFormsHost while Backstate is open
-        Dictionary<FrameworkElement, Visibility> collapsedElements =
-            new Dictionary<FrameworkElement, Visibility>();
-
-        // Show backstage
-        void ShowBackstage()
-        {
-            if (!IsLoaded) return;
-
-            AdornerLayer layer = GetAdornerLayer(this);
-            if (adorner == null)
-            {
-                if (DesignerProperties.GetIsInDesignMode(this))
-                {
-                    // TODO: in design mode it is required to use design time adorner
-                    FrameworkElement topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
-                    double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                    //adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
-                }
-                else
-                {
-                    FrameworkElement topLevelElement = (FrameworkElement)Window.GetWindow(this).Content;
-                    double topOffset = backstageButton.TranslatePoint(new Point(0, backstageButton.ActualHeight), topLevelElement).Y;
-                    //adorner = new BackstageAdorner(topLevelElement, backstageButton.Backstage, topOffset);
-                }
-            }
-            layer.Add(adorner);
-            if (tabControl != null)
-            {
-                savedTabItem = tabControl.SelectedItem as RibbonTabItem;
-                if (savedTabItem == null && tabControl.Items.Count > 0)
-                    savedTabItem = (RibbonTabItem)tabControl.Items[0];
-                tabControl.SelectedItem = null;
-            }
-            if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = false;
-            if (titleBar != null) titleBar.IsEnabled = false;
-
-            Window window = Window.GetWindow(this);
-            if (window != null)
-            {
-                window.PreviewKeyDown += OnBackstageEscapeKeyDown;
-                savedMinWidth = window.MinWidth;
-                savedMinHeight = window.MinHeight;
-
-                SaveWindowSize(window);
-
-                if (savedMinWidth < 500) window.MinWidth = 500;
-                if (savedMinHeight < 400) window.MinHeight = 400;
-                window.SizeChanged += OnWindowSizeChanged;
-
-                // We have to collapse WindowsFormsHost while Backstate is open
-                CollapseWindowsFormsHosts(window);
-            }
-        }
-
-        // We have to collapse WindowsFormsHost while Backstate is open
-        void CollapseWindowsFormsHosts(DependencyObject parent)
-        {
-            FrameworkElement frameworkElement = parent as FrameworkElement;
-            if (frameworkElement != null)
-            {
-                if ((parent is WindowsFormsHost || parent is WebBrowser) &&
-                    frameworkElement.Visibility != Visibility.Collapsed)
-                {
-                    collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
-                    frameworkElement.Visibility = Visibility.Collapsed;
-                    return;
-                }
-            }
-            // Traverse visual tree
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-            {
-                CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
-            }
-        }
-
-        // Hide backstage
-        void HideBackstage()
-        {
-            if (!IsLoaded || adorner == null) return;
-
-            AdornerLayer layer = GetAdornerLayer(this);
-            layer.Remove(adorner);
-            if (tabControl != null) tabControl.SelectedItem = savedTabItem;
-            if (quickAccessToolBar != null) quickAccessToolBar.IsEnabled = true;
-            if (titleBar != null) titleBar.IsEnabled = true;
-
-            Window window = Window.GetWindow(this);
-            if (window != null)
-            {
-                window.PreviewKeyDown -= OnBackstageEscapeKeyDown;
-                window.SizeChanged -= OnWindowSizeChanged;
-
-                window.MinWidth = savedMinWidth;
-                window.MinHeight = savedMinHeight;
-                NativeMethods.SetWindowPos((new WindowInteropHelper(window)).Handle,
-                                           new IntPtr(NativeMethods.HWND_NOTOPMOST),
-                                           0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
-            }
-
-            // Uncollapse elements
-            foreach (var element in collapsedElements) element.Key.Visibility = element.Value;
-            collapsedElements.Clear();
-
-            if (SelectedTabIndex < 0)
-            {
-                if ((tabControl != null) && (tabControl.SelectedIndex < 0)) SelectedTabIndex = 0;
-                else SelectedTabIndex = tabControl.SelectedIndex;
-            }
-        }*/
-
-        #endregion
-
-        void SaveWindowSize(Window wnd)
-        {
-            NativeMethods.WINDOWINFO info = new NativeMethods.WINDOWINFO();
-            info.cbSize = (uint)Marshal.SizeOf(info);
-            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
-            /*savedWidth = info.rcWindow.Right - info.rcWindow.Left;
-            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;*/
-        }
-
-        void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Window wnd = Window.GetWindow(this);
-            SaveWindowSize(wnd);
-        }
 
         #region State Management
 
