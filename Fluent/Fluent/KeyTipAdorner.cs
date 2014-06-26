@@ -7,7 +7,6 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -44,34 +43,34 @@ namespace Fluent
 
         // KeyTips that have been
         // found on this element
-        List<KeyTip> keyTips = new List<KeyTip>();
-        List<UIElement> associatedElements = new List<UIElement>();
-        FrameworkElement oneOfAssociatedElements;
-        Point[] keyTipPositions;
+        private readonly List<KeyTip> keyTips = new List<KeyTip>();
+        private readonly List<UIElement> associatedElements = new List<UIElement>();
+        private readonly FrameworkElement oneOfAssociatedElements;
+        private readonly Point[] keyTipPositions;
 
         // Parent adorner
-        KeyTipAdorner parentAdorner;
+        private readonly KeyTipAdorner parentAdorner;
         KeyTipAdorner childAdorner;
 
         // Focused element
-        IInputElement focusedElement;
+        private IInputElement focusedElement;
 
-        Visibility[] backupedVisibilities;
-        private UIElement keyTipElementContainer;
+        private Visibility[] backupedVisibilities;
+        private readonly UIElement keyTipElementContainer;
 
         // Is this adorner attached to the adorned element?
-        bool attached;
-        HwndSource attachedHwndSource;
+        private bool attached;
+        private HwndSource attachedHwndSource;
 
         // Current entered chars
         string enteredKeys = "";
 
         // Designate that this adorner is terminated
-        bool terminated;
+        private bool terminated;
 
-        DispatcherTimer timerFocusTracking;
+        private DispatcherTimer timerFocusTracking;
 
-        AdornerLayer adornerLayer;
+        private AdornerLayer adornerLayer;
 
         #endregion
 
@@ -118,13 +117,14 @@ namespace Fluent
             this.keyTipElementContainer = keyTipElementContainer;
 
             // Try to find supported elements
-            FindKeyTips(this.keyTipElementContainer, false);
-            oneOfAssociatedElements = (FrameworkElement)(associatedElements.Count != 0 ?
-                associatedElements[0] :
-                adornedElement // Maybe here is bug, coz we need keytipped item here...
+            this.FindKeyTips(this.keyTipElementContainer, false);
+            this.oneOfAssociatedElements = (FrameworkElement)(
+                associatedElements.Count != 0
+                    ? associatedElements[0]
+                    : adornedElement // Maybe here is bug, coz we need keytipped item here...
                 );
 
-            keyTipPositions = new Point[keyTips.Count];
+            this.keyTipPositions = new Point[this.keyTips.Count];
         }
 
         // Find key tips on the given element
@@ -132,63 +132,70 @@ namespace Fluent
         {
             this.Log("FindKeyTips");
 
-            IEnumerable children = LogicalTreeHelper.GetChildren(element);
-            foreach (object item in children)
+            var children = LogicalTreeHelper.GetChildren(element);
+            foreach (var item in children)
             {
-                UIElement child = item as UIElement;
-                RibbonGroupBox groupBox = (child as RibbonGroupBox);
-                if (child != null && child.Visibility == Visibility.Visible)
+                var child = item as UIElement;
+
+                if (child == null || child.Visibility != Visibility.Visible)
                 {
-                    string keys = KeyTip.GetKeys(child);
-                    if (keys != null)
+                    continue;
+                }
+
+                var groupBox = child as RibbonGroupBox;
+
+                var keys = KeyTip.GetKeys(child);
+                if (keys != null)
+                {
+                    // Gotcha!
+                    var keyTip = new KeyTip
                     {
-                        // Gotcha!
-                        KeyTip keyTip = new KeyTip
-                                        {
-                                            Content = keys,
-                                            Visibility = hide
-                                                ? Visibility.Collapsed
-                                                : Visibility.Visible
-                                        };
+                        Content = keys,
+                        Visibility = hide
+                            ? Visibility.Collapsed
+                            : Visibility.Visible
+                    };
 
-                        // Add to list & visual 
-                        // children collections
-                        keyTips.Add(keyTip);
-                        base.AddVisualChild(keyTip);
-                        associatedElements.Add(child);
+                    // Add to list & visual 
+                    // children collections
+                    this.keyTips.Add(keyTip);
+                    this.AddVisualChild(keyTip);
+                    this.associatedElements.Add(child);
 
-                        if (groupBox != null)
+                    if (groupBox != null)
+                    {
+                        if (groupBox.State == RibbonGroupBoxState.Collapsed)
                         {
-                            if (groupBox.State == RibbonGroupBoxState.Collapsed)
-                            {
-                                keyTip.Visibility = Visibility.Visible;
-                                FindKeyTips(child, true);
-                                continue;
-                            }
-                            else keyTip.Visibility = Visibility.Collapsed;
+                            keyTip.Visibility = Visibility.Visible;
+                            this.FindKeyTips(child, true);
+                            continue;
                         }
                         else
                         {
-                            // Bind IsEnabled property
-                            Binding binding = new Binding("IsEnabled")
-                                              {
-                                                  Source = child,
-                                                  Mode = BindingMode.OneWay
-                                              };
-                            keyTip.SetBinding(UIElement.IsEnabledProperty, binding);
-                            continue;
+                            keyTip.Visibility = Visibility.Collapsed;
                         }
-                    }
-
-                    if ((groupBox != null) &&
-                        (groupBox.State == RibbonGroupBoxState.Collapsed))
-                    {
-                        FindKeyTips(child, true);
                     }
                     else
                     {
-                        FindKeyTips(child, hide);
+                        // Bind IsEnabled property
+                        var binding = new Binding("IsEnabled")
+                        {
+                            Source = child,
+                            Mode = BindingMode.OneWay
+                        };
+                        keyTip.SetBinding(IsEnabledProperty, binding);
+                        continue;
                     }
+                }
+
+                if (groupBox != null &&
+                    groupBox.State == RibbonGroupBoxState.Collapsed)
+                {
+                    this.FindKeyTips(child, true);
+                }
+                else
+                {
+                    this.FindKeyTips(child, hide);
                 }
             }
         }
@@ -202,75 +209,99 @@ namespace Fluent
         /// </summary>
         public void Attach()
         {
-            if (attached) return;
-            Log("Attach begin");
-
-            if (!oneOfAssociatedElements.IsLoaded)
+            if (this.attached)
             {
-                // Delay attaching
-                oneOfAssociatedElements.Loaded += OnDelayAttach;
                 return;
             }
 
-            adornerLayer = GetAdornerLayer(oneOfAssociatedElements);
-            if (adornerLayer == null) return;
+            this.Log("Attach begin");
+
+            if (!this.oneOfAssociatedElements.IsLoaded)
+            {
+                // Delay attaching
+                this.Log("Delay attach");
+                this.oneOfAssociatedElements.Loaded += this.OnDelayAttach;
+                return;
+            }
+
+            this.adornerLayer = GetAdornerLayer(this.oneOfAssociatedElements);
+
+            if (this.adornerLayer == null)
+            {
+                return;
+            }
 
             // Focus current adorned element
             // Keyboard.Focus(adornedElement);
-            focusedElement = Keyboard.FocusedElement;
-            if (focusedElement != null)
+            this.focusedElement = Keyboard.FocusedElement;
+
+            if (this.focusedElement != null)
             {
-                Log("Focus Attached to " + focusedElement.ToString());
-                focusedElement.LostKeyboardFocus += OnFocusLost;
-                focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
+                this.Log("Focus Attached to {0}", this.focusedElement);
+                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
+                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
+                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
             }
-            else Log("[!] Focus Setup Failed");
-            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown += OnInputActionOccured;
+            else
+            {
+                this.Log("[!] Focus Setup Failed");
+            }
+
+            GetTopLevelElement(this.oneOfAssociatedElements).PreviewMouseDown += this.OnInputActionOccured;
 
             // Show this adorner
-            adornerLayer.Add(this);
+            this.adornerLayer.Add(this);
 
             // Clears previous user input
-            enteredKeys = "";
-            FilterKeyTips();
-
+            this.enteredKeys = "";
+            this.FilterKeyTips();
 
             // Hookup window activation
-            attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(oneOfAssociatedElements));
-            if (attachedHwndSource != null) attachedHwndSource.AddHook(WindowProc);
+            this.attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(this.oneOfAssociatedElements));
+            if (this.attachedHwndSource != null)
+            {
+                this.attachedHwndSource.AddHook(this.WindowProc);
+            }
 
             // Start timer to track focus changing
-            if (timerFocusTracking == null)
+            if (this.timerFocusTracking == null)
             {
-                timerFocusTracking = new DispatcherTimer(DispatcherPriority.ApplicationIdle, Dispatcher.CurrentDispatcher);
-                timerFocusTracking.Interval = TimeSpan.FromMilliseconds(50);
-                timerFocusTracking.Tick += OnTimerFocusTrackingTick;
+                this.timerFocusTracking = new DispatcherTimer(DispatcherPriority.ApplicationIdle, Dispatcher.CurrentDispatcher)
+                {
+                    Interval = TimeSpan.FromMilliseconds(50)
+                };
+                this.timerFocusTracking.Tick += this.OnTimerFocusTrackingTick;
             }
-            timerFocusTracking.Start();
 
-            attached = true;
-            Log("Attach end");
+            this.timerFocusTracking.Start();
+
+            this.attached = true;
+            this.Log("Attach end");
         }
 
         private void OnTimerFocusTrackingTick(object sender, EventArgs e)
         {
-            if (focusedElement != Keyboard.FocusedElement)
+            if (this.focusedElement == Keyboard.FocusedElement)
             {
-                Log("Focus is changed, but focus lost is not occured");
-                if (focusedElement != null)
-                {
-                    focusedElement.LostKeyboardFocus -= OnFocusLost;
-                    focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                    focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-                }
-                focusedElement = Keyboard.FocusedElement;
-                if (focusedElement != null)
-                {
-                    focusedElement.LostKeyboardFocus += OnFocusLost;
-                    focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                    focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
-                }
+                return;
+            }
+
+            this.Log("Focus is changed, but focus lost is not occured");
+
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
+                this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
+                this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
+            }
+
+            this.focusedElement = Keyboard.FocusedElement;
+
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
+                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
+                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
             }
         }
 
@@ -280,16 +311,17 @@ namespace Fluent
             // Check whether window is deactivated (wParam == 0)
             if ((msg == 6) && (wParam == IntPtr.Zero) && (attached))
             {
-                Log("The host window is deactivated, keytips will be terminated");
-                Terminate();
+                this.Log("The host window is deactivated, keytips will be terminated");
+                this.Terminate();
             }
+
             return IntPtr.Zero;
         }
 
         private void OnDelayAttach(object sender, EventArgs args)
         {
-            oneOfAssociatedElements.Loaded -= OnDelayAttach;
-            Attach();
+            this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
+            this.Attach();
         }
 
         /// <summary>
@@ -297,42 +329,48 @@ namespace Fluent
         /// </summary> 
         public void Detach()
         {
-            if (childAdorner != null) childAdorner.Detach();
-            if (!attached) return;
+            if (this.childAdorner != null)
+            {
+                this.childAdorner.Detach();
+            }
 
+            if (!this.attached)
+            {
+                return;
+            }
 
-            Log("Detach Begin");
+            this.Log("Detach Begin");
 
             // Remove window hookup
-            if ((attachedHwndSource != null) && (!attachedHwndSource.IsDisposed))
+            if ((this.attachedHwndSource != null) && (!this.attachedHwndSource.IsDisposed))
             {
                 // Crashes in a few time if invoke immediately ???
-                AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)delegate { attachedHwndSource.RemoveHook(WindowProc); });
+                this.AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)delegate { this.attachedHwndSource.RemoveHook(this.WindowProc); });
             }
 
             // Maybe adorner awaiting attaching, cancel it
-            oneOfAssociatedElements.Loaded -= OnDelayAttach;
+            this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
 
-            if (focusedElement != null)
+            if (this.focusedElement != null)
             {
-                focusedElement.LostKeyboardFocus -= OnFocusLost;
-                focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-                focusedElement = null;
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
+                this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
+                this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
+                this.focusedElement = null;
             }
 
-            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown -= OnInputActionOccured;
+            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown -= this.OnInputActionOccured;
 
             // Show this adorner
-            adornerLayer.Remove(this);
+            this.adornerLayer.Remove(this);
             // Clears previous user input
-            enteredKeys = "";
-            attached = false;
+            this.enteredKeys = "";
+            this.attached = false;
 
             // Stop timer to track focus changing
-            timerFocusTracking.Stop();
+            this.timerFocusTracking.Stop();
 
-            Log("Detach End");
+            this.Log("Detach End");
         }
 
         #endregion
@@ -344,19 +382,31 @@ namespace Fluent
         /// </summary>
         public void Terminate()
         {
-            if (terminated)
+            if (this.terminated)
             {
                 return;
             }
 
-            terminated = true;
+            this.terminated = true;
 
-            Detach();
-            if (parentAdorner != null) parentAdorner.Terminate();
-            if (childAdorner != null) childAdorner.Terminate();
-            if (Terminated != null) Terminated(this, EventArgs.Empty);
+            this.Detach();
 
-            Log("Termination");
+            if (this.parentAdorner != null)
+            {
+                this.parentAdorner.Terminate();
+            }
+
+            if (this.childAdorner != null)
+            {
+                this.childAdorner.Terminate();
+            }
+
+            if (this.Terminated != null)
+            {
+                this.Terminated(this, EventArgs.Empty);
+            }
+
+            this.Log("Termination");
         }
 
         #endregion
@@ -366,7 +416,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Log("Key Down " + e.Key.ToString() + " (" + e.OriginalSource + ")");
+            this.Log("Key Down {0} ({1})", e.Key, e.OriginalSource);
 
             if (e.IsRepeat
                 || this.Visibility == Visibility.Hidden)
@@ -382,7 +432,7 @@ namespace Fluent
             }
             else if (e.Key == Key.Escape)
             {
-                Back();
+                this.Back();
                 e.Handled = true;
             }
         }
@@ -427,27 +477,29 @@ namespace Fluent
 
         private void OnFocusLost(object sender, RoutedEventArgs e)
         {
-            if (attached)
+            if (!this.attached)
             {
-                Log("Focus Lost");
+                return;
+            }
 
-                var previousFocusedElementElement = focusedElement;
-                focusedElement.LostKeyboardFocus -= OnFocusLost;
-                focusedElement.PreviewKeyDown -= OnPreviewKeyDown;
-                focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-                focusedElement = Keyboard.FocusedElement;
+            this.Log("Focus Lost");
 
-                if (focusedElement != null)
-                {
-                    Log("Focus Changed from " + previousFocusedElementElement.ToString() + " to " + focusedElement.ToString());
-                    focusedElement.LostKeyboardFocus += OnFocusLost;
-                    focusedElement.PreviewKeyDown += OnPreviewKeyDown;
-                    focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
-                }
-                else
-                {
-                    Log("Focus Not Restored");
-                }
+            var previousFocusedElementElement = this.focusedElement;
+            this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
+            this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
+            this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
+            this.focusedElement = Keyboard.FocusedElement;
+
+            if (this.focusedElement != null)
+            {
+                this.Log("Focus Changed from {0} to {1}", previousFocusedElementElement, this.focusedElement);
+                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
+                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
+                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
+            }
+            else
+            {
+                this.Log("Focus Not Restored");
             }
         }
 
@@ -505,15 +557,15 @@ namespace Fluent
                 control.OnKeyTipBack();
             }
 
-            if (parentAdorner != null)
+            if (this.parentAdorner != null)
             {
-                Log("Back");
-                Detach();
-                parentAdorner.Attach();
+                this.Log("Back");
+                this.Detach();
+                this.parentAdorner.Attach();
             }
             else
             {
-                Terminate();
+                this.Terminate();
             }
         }
 
@@ -559,14 +611,14 @@ namespace Fluent
                 .OfType<UIElement>()
                 .ToArray();
 
-            if (children.Length == 0) 
-            { 
-                this.Terminate(); 
-                return; 
+            if (children.Length == 0)
+            {
+                this.Terminate();
+                return;
             }
 
             this.childAdorner = ReferenceEquals(GetTopLevelElement(children[0]), GetTopLevelElement(element)) == false
-                ? new KeyTipAdorner(children[0], element, this) 
+                ? new KeyTipAdorner(children[0], element, this)
                 : new KeyTipAdorner(element, element, this);
 
             // Stop if no further KeyTips can be displayed.
@@ -674,9 +726,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect rect = new Rect(finalSize);
-
-            for (int i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < keyTips.Count; i++)
             {
                 keyTips[i].Arrange(new Rect(keyTipPositions[i], keyTips[i].DesiredSize));
             }
@@ -693,18 +743,31 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            Size infinitySize = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
-            foreach (KeyTip tip in keyTips) tip.Measure(infinitySize);
-            UpdateKeyTipPositions();
-
-            Size result = new Size(0, 0);
-            for (int i = 0; i < keyTips.Count; i++)
+            var infinitySize = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
+            foreach (var tip in keyTips)
             {
-                double cornerX = keyTips[i].DesiredSize.Width + keyTipPositions[i].X;
-                double cornerY = keyTips[i].DesiredSize.Height + keyTipPositions[i].Y;
-                if (cornerX > result.Width) result.Width = cornerX;
-                if (cornerY > result.Height) result.Height = cornerY;
+                tip.Measure(infinitySize);
             }
+
+            this.UpdateKeyTipPositions();
+
+            var result = new Size(0, 0);
+            for (var i = 0; i < keyTips.Count; i++)
+            {
+                var cornerX = keyTips[i].DesiredSize.Width + keyTipPositions[i].X;
+                var cornerY = keyTips[i].DesiredSize.Height + keyTipPositions[i].Y;
+
+                if (cornerX > result.Width)
+                {
+                    result.Width = cornerX;
+                }
+
+                if (cornerY > result.Height)
+                {
+                    result.Height = cornerY;
+                }
+            }
+
             return result;
         }
 
@@ -713,12 +776,20 @@ namespace Fluent
         /// </summary>
         /// <param name="element"></param>
         /// <returns></returns>
-        static RibbonGroupBox GetGroupBox(DependencyObject element)
+        private static RibbonGroupBox GetGroupBox(DependencyObject element)
         {
-            if (element == null) return null;
-            RibbonGroupBox groupBox = element as RibbonGroupBox;
-            if (groupBox != null) return groupBox;
-            DependencyObject parent = VisualTreeHelper.GetParent(element);
+            if (element == null)
+            {
+                return null;
+            }
+
+            var groupBox = element as RibbonGroupBox;
+            if (groupBox != null)
+            {
+                return groupBox;
+            }
+
+            var parent = VisualTreeHelper.GetParent(element);
             return GetGroupBox(parent);
         }
 
@@ -727,13 +798,13 @@ namespace Fluent
         {
             this.Log("UpdateKeyTipPositions");
 
-            if (keyTips.Count == 0)
+            if (this.keyTips.Count == 0)
             {
                 return;
             }
 
             double[] rows = null;
-            var groupBox = GetGroupBox(oneOfAssociatedElements);
+            var groupBox = GetGroupBox(this.oneOfAssociatedElements);
             if (groupBox != null)
             {
                 var panel = groupBox.GetPanel();
@@ -750,10 +821,10 @@ namespace Fluent
                 }
             }
 
-            for (var i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < this.keyTips.Count; i++)
             {
                 // Skip invisible keytips
-                if (keyTips[i].Visibility != Visibility.Visible)
+                if (this.keyTips[i].Visibility != Visibility.Visible)
                 {
                     continue;
                 }
@@ -761,7 +832,7 @@ namespace Fluent
                 // Update KeyTip Visibility
                 var associatedElementIsVisible = associatedElements[i].IsVisible;
                 var associatedElementInVisualTree = VisualTreeHelper.GetParent(associatedElements[i]) != null;
-                keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
+                this.keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
                 if (!KeyTip.GetAutoPlacement(associatedElements[i]))
                 {
@@ -808,31 +879,31 @@ namespace Fluent
                 else if (((FrameworkElement)associatedElements[i]).Name == "PART_DialogLauncherButton")
                 {
                     // Dialog Launcher Button Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
+                    var keyTipSize = this.keyTips[i].DesiredSize;
                     var elementSize = associatedElements[i].RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
-                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                            0), AdornedElement);
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                        elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                        0), AdornedElement);
                     keyTipPositions[i].Y = rows[3];
                 }
                 else if ((associatedElements[i] is InRibbonGallery && !((InRibbonGallery)associatedElements[i]).IsCollapsed))
                 {
                     // InRibbonGallery Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
+                    var keyTipSize = this.keyTips[i].DesiredSize;
                     var elementSize = associatedElements[i].RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
-                        new Point(elementSize.Width - keyTipSize.Width / 2.0,
-                            0), AdornedElement);
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                        elementSize.Width - keyTipSize.Width / 2.0,
+                        0), AdornedElement);
                     keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
                 else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is Backstage))
@@ -840,24 +911,24 @@ namespace Fluent
                     // Ribbon Tab Item Exclusive Placement
                     var keyTipSize = keyTips[i].DesiredSize;
                     var elementSize = associatedElements[i].RenderSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
-                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                            elementSize.Height - keyTipSize.Height / 2.0), AdornedElement);
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                        elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                        elementSize.Height - keyTipSize.Height / 2.0), AdornedElement);
                 }
                 else if (associatedElements[i] is RibbonGroupBox)
                 {
                     // Ribbon Group Box Exclusive Placement
                     var keyTipSize = keyTips[i].DesiredSize;
                     var elementSize = associatedElements[i].DesiredSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
-                        new Point(elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                            elementSize.Height + 1), AdornedElement);
+                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                        elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                        elementSize.Height + 1), AdornedElement);
                 }
                 else if (IsWithinQuickAccessToolbar(associatedElements[i]))
                 {
                     var translatedPoint = associatedElements[i].TranslatePoint(new Point(
-                            associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
-                            associatedElements[i].DesiredSize.Height - keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
+                        associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
+                        associatedElements[i].DesiredSize.Height - keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
                     keyTipPositions[i] = translatedPoint;
                 }
                 else if (associatedElements[i] is MenuItem)
@@ -943,27 +1014,48 @@ namespace Fluent
         }
 
         // Determines whether the element is children to RibbonToolBar
-        static bool IsWithinRibbonToolbarInTwoLine(DependencyObject element)
+        private static bool IsWithinRibbonToolbarInTwoLine(DependencyObject element)
         {
-            UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
-            RibbonToolBar ribbonToolBar = parent as RibbonToolBar;
+            var parent = LogicalTreeHelper.GetParent(element) as UIElement;
+            var ribbonToolBar = parent as RibbonToolBar;
             if (ribbonToolBar != null)
             {
-                RibbonToolBarLayoutDefinition definition = ribbonToolBar.GetCurrentLayoutDefinition();
-                if (definition == null) return false;
-                if (definition.RowCount == 2 || definition.Rows.Count == 2) return true;
+                var definition = ribbonToolBar.GetCurrentLayoutDefinition();
+                if (definition == null)
+                {
+                    return false;
+                }
+
+                if (definition.RowCount == 2 || definition.Rows.Count == 2)
+                {
+                    return true;
+                }
+
                 return false;
             }
-            if (parent == null) return false;
+
+            if (parent == null)
+            {
+                return false;
+            }
+
             return IsWithinRibbonToolbarInTwoLine(parent);
         }
 
         // Determines whether the element is children to quick access toolbar
-        static bool IsWithinQuickAccessToolbar(DependencyObject element)
+        private static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
-            UIElement parent = LogicalTreeHelper.GetParent(element) as UIElement;
-            if (parent is QuickAccessToolBar) return true;
-            if (parent == null) return false;
+            var parent = LogicalTreeHelper.GetParent(element) as UIElement;
+            if (parent is QuickAccessToolBar)
+            {
+                return true;
+            }
+
+            if (parent == null)
+            {
+                return false;
+            }
+
             return IsWithinQuickAccessToolbar(parent);
         }
 
