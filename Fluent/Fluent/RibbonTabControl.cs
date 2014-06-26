@@ -400,7 +400,8 @@ namespace Fluent
         {
             base.OnItemsChanged(e);
 
-            if (this.IsMinimized)
+            if (this.IsMinimized
+                && this.IsDropDownOpen == false)
             {
                 return;
             }
