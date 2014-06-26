@@ -138,7 +138,8 @@ namespace Fluent
             {
                 var child = item as UIElement;
 
-                if (child == null || child.Visibility != Visibility.Visible)
+                if (child == null
+                    || child.Visibility != Visibility.Visible)
                 {
                     continue;
                 }
@@ -215,7 +216,7 @@ namespace Fluent
                 return;
             }
 
-            this.Log("Attach begin");
+            this.Log("Attach begin {0}", this.Visibility);
 
             if (!this.oneOfAssociatedElements.IsLoaded)
             {
@@ -251,12 +252,12 @@ namespace Fluent
 
             GetTopLevelElement(this.oneOfAssociatedElements).PreviewMouseDown += this.OnInputActionOccured;
 
-            // Show this adorner
-            this.adornerLayer.Add(this);
-
             // Clears previous user input
             this.enteredKeys = "";
             this.FilterKeyTips();
+
+            // Show this adorner
+            this.adornerLayer.Add(this);
 
             // Hookup window activation
             this.attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(this.oneOfAssociatedElements));
@@ -671,7 +672,7 @@ namespace Fluent
         /// <returns></returns>
         private bool IsElementsStartWith(string keys)
         {
-            foreach (var keyTip in keyTips.Where(x => x.IsEnabled))
+            foreach (var keyTip in this.keyTips.Where(x => x.IsEnabled))
             {
                 var content = (string)keyTip.Content;
 
@@ -729,6 +730,8 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
+            this.Log("ArrangeOverride");
+
             for (var i = 0; i < this.keyTips.Count; i++)
             {
                 this.keyTips[i].Arrange(new Rect(this.keyTipPositions[i], this.keyTips[i].DesiredSize));
@@ -746,6 +749,8 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
+            this.Log("MeasureOverride");
+
             var infinitySize = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
             foreach (var tip in keyTips)
             {
