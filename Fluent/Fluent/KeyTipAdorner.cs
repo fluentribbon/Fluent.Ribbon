@@ -55,7 +55,7 @@ namespace Fluent
         // Focused element
         private IInputElement focusedElement;
 
-        private Visibility[] backupedVisibilities;
+        private readonly Visibility[] backupedVisibilities;
         private readonly UIElement keyTipElementContainer;
 
         // Is this adorner attached to the adorned element?
@@ -125,6 +125,7 @@ namespace Fluent
                 );
 
             this.keyTipPositions = new Point[this.keyTips.Count];
+            this.backupedVisibilities = new Visibility[this.keyTips.Count];
         }
 
         // Find key tips on the given element
@@ -348,7 +349,7 @@ namespace Fluent
             if ((this.attachedHwndSource != null) && (!this.attachedHwndSource.IsDisposed))
             {
                 // Crashes in a few time if invoke immediately ???
-                this.AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)delegate { this.attachedHwndSource.RemoveHook(this.WindowProc); });
+                this.AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => this.attachedHwndSource.RemoveHook(this.WindowProc)));
             }
 
             // Maybe adorner awaiting attaching, cancel it
@@ -598,6 +599,8 @@ namespace Fluent
         // Forward to the next element
         private void Forward(UIElement element, bool click)
         {
+            this.Log("Forwarding");
+
             this.Detach();
 
             if (click)
@@ -686,33 +689,30 @@ namespace Fluent
         {
             this.Log("FilterKeyTips");
 
-            if (backupedVisibilities == null)
+            // Backup current visibility of key tips
+            for (var i = 0; i < this.backupedVisibilities.Length; i++)
             {
-                // Backup current visibility of key tips
-                backupedVisibilities = new Visibility[keyTips.Count];
-
-                for (var i = 0; i < backupedVisibilities.Length; i++)
-                {
-                    backupedVisibilities[i] = keyTips[i].Visibility;
-                }
+                this.backupedVisibilities[i] = keyTips[i].Visibility;
             }
 
             // Hide / unhide keytips relative matching to entered keys
-            for (var i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < this.keyTips.Count; i++)
             {
-                var content = (string)keyTips[i].Content;
+                var content = (string)this.keyTips[i].Content;
 
-                if (string.IsNullOrEmpty(enteredKeys))
+                if (string.IsNullOrEmpty(this.enteredKeys))
                 {
-                    keyTips[i].Visibility = backupedVisibilities[i];
+                    this.keyTips[i].Visibility = this.backupedVisibilities[i];
                 }
                 else
                 {
-                    keyTips[i].Visibility = content.StartsWith(enteredKeys, StringComparison.CurrentCultureIgnoreCase)
-                        ? backupedVisibilities[i]
+                    this.keyTips[i].Visibility = content.StartsWith(enteredKeys, StringComparison.CurrentCultureIgnoreCase)
+                        ? this.backupedVisibilities[i]
                         : Visibility.Collapsed;
                 }
             }
+
+            this.Log("Filtered key tips: {0}", this.keyTips.Count(x => x.Visibility == Visibility.Visible));
         }
 
         #endregion
@@ -755,10 +755,10 @@ namespace Fluent
             this.UpdateKeyTipPositions();
 
             var result = new Size(0, 0);
-            for (var i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < this.keyTips.Count; i++)
             {
-                var cornerX = keyTips[i].DesiredSize.Width + keyTipPositions[i].X;
-                var cornerY = keyTips[i].DesiredSize.Height + keyTipPositions[i].Y;
+                var cornerX = this.keyTips[i].DesiredSize.Width + this.keyTipPositions[i].X;
+                var cornerY = this.keyTips[i].DesiredSize.Height + this.keyTipPositions[i].Y;
 
                 if (cornerX > result.Width)
                 {
