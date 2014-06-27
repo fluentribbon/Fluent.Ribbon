@@ -1250,7 +1250,7 @@ namespace Fluent
                         this.FixClientRect(lParam);
 
                         handled = true;
-                        return new IntPtr(NativeMethods.WVR_REDRAW);
+                        return IntPtr.Zero;
                     }
                 case NativeMethods.WM_NCHITTEST:
                     {
