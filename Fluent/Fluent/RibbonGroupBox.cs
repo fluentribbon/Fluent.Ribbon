@@ -664,20 +664,6 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Click event handler
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            if ((State == RibbonGroupBoxState.Collapsed) || (State == RibbonGroupBoxState.QuickAccess))
-            {
-                IsDropDownOpen = true;
-                e.Handled = true;
-            }
-        }
-
         #endregion
 
         #region Methods

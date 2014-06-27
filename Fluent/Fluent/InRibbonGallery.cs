@@ -1295,15 +1295,6 @@ namespace Fluent
                                                                                   })));
         }
 
-        private void OnItemsContainerGeneratorStatusChanged(object sender, EventArgs e)
-        {
-            if (ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {
-                SelectedItem = selectedItem;
-                ItemContainerGenerator.StatusChanged -= OnItemsContainerGeneratorStatusChanged;
-            }
-        }
-
         /// <summary>
         /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>

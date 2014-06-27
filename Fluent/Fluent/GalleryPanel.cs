@@ -372,17 +372,6 @@ namespace Fluent
             }
         }
 
-        static void InvalidateArrangeRecursive(UIElement visual)
-        {
-            visual.InvalidateArrange();
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
-            {
-                UIElement element = VisualTreeHelper.GetChild(visual, i) as UIElement;
-                if (element != null) InvalidateMeasureRecursive(element);
-            }
-        }
-
         #endregion
 
         #region GetItemSize

@@ -251,24 +251,6 @@ namespace Fluent
             }
         }
 
-
-        /// <summary>
-        /// Coerces IsEnabled 
-        /// </summary>
-        /// <param name="d"></param>
-        /// <param name="basevalue"></param>
-        /// <returns></returns>
-        private static object CoerceIsEnabled(DependencyObject d, object basevalue)
-        {
-            RibbonControl control = (RibbonControl)d;
-            UIElement parent = LogicalTreeHelper.GetParent(control) as UIElement;
-            bool parentIsEnabled = parent == null || parent.IsEnabled;
-            bool commandIsEnabled = control.Command == null || control.currentCanExecute;
-
-            // We force disable if parent is disabled or command cannot be executed
-            return (bool)basevalue && parentIsEnabled && commandIsEnabled;
-        }
-
         #endregion
 
         #region Constructors

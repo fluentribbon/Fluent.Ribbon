@@ -160,11 +160,6 @@ namespace Fluent
             CoerceValue(KeyTip.KeysProperty);
         }
 
-        void OnPopupOpened(object sender, EventArgs e)
-        {
-            Mouse.Capture(this, CaptureMode.SubTree);
-        }
-
         #endregion
        
         #region Methods
