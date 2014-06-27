@@ -68,6 +68,7 @@
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
+    <Compile Include="Converters\ObjectToImageConverter.cs" />
     <Compile Include="Converters\StaticConverters.cs" />
     <Compile Include="Converters\ThicknessConverter.cs" />
     <Compile Include="Extensibility\IRibbonSizeChangedSink.cs" />

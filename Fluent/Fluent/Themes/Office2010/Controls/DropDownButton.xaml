@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
+    
     <Style x:Key="RibbonDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template"
@@ -86,7 +86,7 @@
                                               HorizontalAlignment="Center"
                                               Height="32"
                                               VerticalAlignment="Center"
-                                              Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"
+                                              Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                               Width="32"
                                               Margin="3,2"
                                               SnapsToDevicePixels="True" />
@@ -342,7 +342,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" />
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
@@ -375,7 +375,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" />
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
                 <Setter Property="Width"
                         TargetName="stackPanel"
                         Value="Auto" />

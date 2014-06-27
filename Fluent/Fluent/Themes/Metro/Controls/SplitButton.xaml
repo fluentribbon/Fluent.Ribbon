@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
+    
     <Style x:Key="RibbonSplitButtonStyle" TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template" Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
         <Setter Property="Height" Value="66" />
@@ -46,8 +46,8 @@
                                              Height="Auto"
                                              Width="Auto"
                                              Style="{DynamicResource InnerButtonStyle}"
-                                             LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"
-                                             Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"
+                                             LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                             Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                              IsEnabled="{TemplateBinding IsButtonEnabled}"
                                              Header="{TemplateBinding Header}"
                                              ToolTip="{TemplateBinding ToolTip}"

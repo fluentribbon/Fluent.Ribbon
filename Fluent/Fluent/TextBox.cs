@@ -33,7 +33,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name="PART_TextBox")]
     [ContentProperty("Text")]
-    public class TextBox: RibbonControl
+    public class TextBox : RibbonControl
     {
         #region Events
 

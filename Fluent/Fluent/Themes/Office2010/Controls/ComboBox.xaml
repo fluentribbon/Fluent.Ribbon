@@ -10,9 +10,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
-    
+       
     <Style x:Key="RibbonComboButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -170,7 +168,7 @@
                                                   Height="16"
                                                   VerticalAlignment="Center"
                                                   Margin="3,0,0,0"
-                                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" />
+                                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
                                 <TextBlock Text="{TemplateBinding Header}"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Center"

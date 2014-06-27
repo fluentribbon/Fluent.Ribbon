@@ -4,7 +4,7 @@
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
     <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
   </ResourceDictionary.MergedDictionaries>
-  <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
+  
   <Style TargetType="Separator" x:Key="GroupBoxSeparator">
     <Setter Property="Template">
       <Setter.Value>
@@ -57,7 +57,7 @@
               </Rectangle.Fill>
             </Rectangle>
             <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-              <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" Margin="1,1,0,0" SnapsToDevicePixels="True"/>
+              <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="16" Margin="1,1,0,0" SnapsToDevicePixels="True"/>
               <Fluent:TwoLineLabel Visibility="Collapsed" x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2"/>
             </StackPanel>
           </Grid>
@@ -143,7 +143,7 @@
     <ControlTemplate.Triggers>
        <Trigger Property="State" Value="Collapsed">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"/>
+        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
         <Setter Property="Text" TargetName="controlLabel" Value=""/>
         <Setter Property="Width" TargetName="iconImage" Value="16"/>
@@ -229,7 +229,7 @@
       <Grid x:Name="grid1" Margin="0" Width="Auto" Height="Auto" Background="#00000000" Visibility="Collapsed" Grid.RowSpan="2">			
         <Fluent:TwoLineLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource TwoLineLabelStyle}"/>
         <Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
-          <ContentPresenter x:Name="iconImage" Height="16" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}" Width="16" SnapsToDevicePixels="True"/>
+          <ContentPresenter x:Name="iconImage" Height="16" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="16" SnapsToDevicePixels="True"/>
         </Border>
         <Popup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsDropDownOpen}">
           <Grid Width="Auto" Height="Auto" Margin="0,20">

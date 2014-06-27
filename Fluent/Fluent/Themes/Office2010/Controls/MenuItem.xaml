@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
+    
     <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
         <Grid Background="#00000000">
@@ -219,7 +219,7 @@
                               HorizontalAlignment="Center"
                               Height="16"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"
+                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                               Width="16"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -377,7 +377,7 @@
                               HorizontalAlignment="Center"
                               Height="16"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConvert}}"
+                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                               Width="16"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True"
@@ -796,7 +796,7 @@
                               HorizontalAlignment="Center"
                               Height="16"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, Converter={StaticResource StringToImageConvert}, RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
                               Width="16"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True"

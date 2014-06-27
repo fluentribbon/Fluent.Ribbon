@@ -158,7 +158,7 @@
             </Trigger>
             <Trigger Property="Header" Value="{x:Null}">
 <!--<Setter Property="Tag" TargetName="contentPresenter" Value="pack://application:,,,/Fluent;component\Themes\Office2010\Images\ApplicationMenu.png"/>
-              <Setter Property="Content" TargetName="contentPresenter" Value="{Binding Tag, ElementName=contentPresenter, Converter={StaticResource StringToImageConvert}}"/>
+              <Setter Property="Content" TargetName="contentPresenter" Value="{Binding Tag, ElementName=contentPresenter, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
               <Setter Property="Width" TargetName="contentPresenter" Value="{Binding Content.Source.Width, ElementName=contentPresenter}"/>
               <Setter Property="Height" TargetName="contentPresenter" Value="{Binding Content.Source.Height, ElementName=contentPresenter}"/>-->
                 <Setter Property="Content" TargetName="contentPresenter">
