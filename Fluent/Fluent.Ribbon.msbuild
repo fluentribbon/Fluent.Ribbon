@@ -7,8 +7,11 @@
 
   <Target Name="Build">
     <!-- Build the project for all supported .NET versions -->
+    <Message Text="Building .NET 3.5" Importance="high" />
     <MSBuild Projects="$(Root)Fluent dotNET 3.5.sln" Properties="Configuration=$(Configuration);" />
+    <Message Text="Building .NET 4.0" Importance="high" />
     <MSBuild Projects="$(Root)Fluent dotNET 4.0.sln" Properties="Configuration=$(Configuration);" />
+    <Message Text="Building .NET 4.5" Importance="high" />
     <MSBuild Projects="$(Root)Fluent dotNET 4.5.sln" Properties="Configuration=$(Configuration);" />
   </Target>
 
