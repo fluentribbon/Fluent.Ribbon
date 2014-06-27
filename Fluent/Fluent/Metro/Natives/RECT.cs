@@ -4,7 +4,9 @@ using System.Windows;
 
 namespace Fluent.Metro.Native
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 0)]
+#pragma warning disable 1591
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential, Pack = 0)]    
     public struct RECT
     {
         public int left;
@@ -78,7 +80,5 @@ namespace Fluent.Metro.Native
         {
             return !(rect1 == rect2);
         }
-
-
     }
 }

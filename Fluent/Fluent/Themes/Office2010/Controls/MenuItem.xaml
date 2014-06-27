@@ -1127,10 +1127,6 @@
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="SnapsToDevicePixels"

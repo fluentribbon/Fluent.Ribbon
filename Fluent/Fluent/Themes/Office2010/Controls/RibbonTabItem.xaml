@@ -508,10 +508,6 @@
                 Value="12" />
         <Setter Property="Foreground"
                 Value="{DynamicResource TabItemSelectedFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Margin"
                 Value="0" />
         <Setter Property="BorderBrush"

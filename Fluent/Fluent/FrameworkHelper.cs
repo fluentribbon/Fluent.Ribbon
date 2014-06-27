@@ -77,14 +77,23 @@
     {
     }
 #else  // .NET 4.0 and above
+    /// <summary>
+    /// Forwards to <see cref="System.Windows.Media.Animation.EasingThicknessKeyFrame"/>
+    /// </summary>
     public class EasingThicknessKeyFrame : System.Windows.Media.Animation.EasingThicknessKeyFrame
     {
     }
 
+    /// <summary>
+    /// Forwards to <see cref="System.Windows.Media.Animation.CubicEase"/>
+    /// </summary>
     public class CubicEase : System.Windows.Media.Animation.CubicEase
     {
     }
 
+    /// <summary>
+    /// Forwards to <see cref="System.Windows.Media.Animation.EasingDoubleKeyFrame"/>
+    /// </summary>
     public class EasingDoubleKeyFrame : System.Windows.Media.Animation.EasingDoubleKeyFrame
     {
     }

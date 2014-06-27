@@ -64,10 +64,6 @@
     <Style TargetType="{x:Type Controls:StatusBarMenuItem}">
         <Setter Property="Template"
                 Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="IsCheckable"

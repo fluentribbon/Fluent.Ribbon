@@ -129,10 +129,6 @@
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Template">

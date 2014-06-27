@@ -6,8 +6,6 @@
     <Setter Property="Template" Value="{DynamicResource RibbonToggleButtonControlTemplate}"/>
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Style.Triggers>

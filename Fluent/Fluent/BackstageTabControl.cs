@@ -27,7 +27,7 @@ namespace Fluent
         #region Properties
 
         // Dependency property key for SelectedContent
-        static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Dependency property SelectedContent
@@ -50,18 +50,40 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Dependency property ContentStringFormat
+        /// </summary>
         public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register("ContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Dependency property ContentTemplate
+        /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Dependency property ContentTemplateSelector
+        /// </summary>
         public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register("ContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
-
         private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Dependency property SelectedContentStringFormat
+        /// </summary>
         public static readonly DependencyProperty SelectedContentStringFormatProperty = SelectedContentStringFormatPropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Dependency property SelectedContentTemplate
+        /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateProperty = SelectedContentTemplatePropertyKey.DependencyProperty;
 
         private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+
+        /// <summary>
+        /// Dependency property SelectedContentTemplateSelector
+        /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateSelectorProperty = SelectedContentTemplateSelectorPropertyKey.DependencyProperty;
 
         public string ContentStringFormat

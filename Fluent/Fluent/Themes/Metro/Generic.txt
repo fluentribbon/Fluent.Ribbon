@@ -1,5 +1,4 @@
 Metro\Colors\ColorsWhite.xaml
-Metro\Fonts.xaml
 Metro\Colors\Colors.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
 Office2010\Controls\ApplicationMenuItem.xaml

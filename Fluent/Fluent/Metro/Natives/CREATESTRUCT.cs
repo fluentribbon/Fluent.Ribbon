@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Fluent.Metro.Native
 {
+#pragma warning disable 1591
     [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Auto)]
     internal struct CREATESTRUCT
     {

@@ -620,8 +620,6 @@
   <Style x:Key="SpinnerBackstageStyle" TargetType="{x:Type Fluent:Spinner}">
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:Spinner}">

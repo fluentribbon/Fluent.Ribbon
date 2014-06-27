@@ -8,10 +8,6 @@
            TargetType="{x:Type ToolTip}">
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToolTip}">
@@ -227,10 +223,6 @@
            TargetType="{x:Type Fluent:ScreenTip}">
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Width"
                 Value="205" />
         <Setter Property="Template"

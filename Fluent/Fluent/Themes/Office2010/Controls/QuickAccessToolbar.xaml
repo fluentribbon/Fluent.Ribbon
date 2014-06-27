@@ -10,10 +10,6 @@
                 Value="22" />
         <Setter Property="Width"
                 Value="13" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="FocusVisualStyle"

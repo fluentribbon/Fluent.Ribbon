@@ -202,12 +202,10 @@
 
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="FontWeight"
                 Value="Normal" />
+        <Setter Property="FontSize"
+                Value="11" />
         <Setter Property="GlassBorderThickness"
                 Value="8,50,8,8" />
         <Setter Property="ResizeBorderThickness"

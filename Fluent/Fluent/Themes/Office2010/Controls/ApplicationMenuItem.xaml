@@ -380,8 +380,6 @@
   <Style x:Key="ApplicationMenuSecondLevelStyle" TargetType="{x:Type Fluent:MenuItem}">
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="ResizeMode" Value="None"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -783,8 +781,6 @@
   <Style x:Key="ApplicationMenuStyle" TargetType="{x:Type Fluent:MenuItem}">
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="ResizeMode" Value="None"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>

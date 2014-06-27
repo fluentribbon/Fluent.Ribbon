@@ -1,5 +1,7 @@
 ﻿namespace Fluent.Metro.Native
 {
+#pragma warning disable 1591
+#pragma warning disable 3003
     public static class Constants
     {
         public const int MONITOR_DEFAULTTONEAREST = 0x00000002;

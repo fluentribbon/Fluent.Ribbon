@@ -9,8 +9,6 @@
   <Style TargetType="{x:Type Fluent:ContextMenu}">
     <Setter Property="Template" Value="{DynamicResource FluentPopupMenuControlTemplate}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="MinWidth" Value="0"/>
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -117,8 +115,6 @@
   <Style TargetType="{x:Type ContextMenu}">
     <Setter Property="Template" Value="{DynamicResource PopupMenuControlTemplate}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="MinWidth" Value="0"/>
     <Setter Property="MinHeight" Value="0"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>

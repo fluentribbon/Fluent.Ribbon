@@ -19,8 +19,6 @@
     <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxControlTemplate}"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="Height" Value="85"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <!--<Setter Property="QuickAccessElementStyle" Value="{DynamicResource RibbonGroupBoxQuickAccessStyle}"/>-->
@@ -30,8 +28,6 @@
         <Setter Property="Height" Value="22"/>
         <Setter Property="Width" Value="22"/>
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-        <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
         <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
         <Setter Property="SnapsToDevicePixels" Value="False"/>
@@ -43,8 +39,6 @@
     <Setter Property="Height" Value="22"/>
     <Setter Property="Width" Value="22"/>
     <Setter Property="Focusable" Value="False"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
     <Setter Property="SnapsToDevicePixels" Value="False"/>

@@ -136,17 +136,11 @@
                 <Setter Property="Template" Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}"/>
                 <Setter Property="Height" Value="22"/>
                 <Setter Property="Width" Value="22"/>			
-                <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-                <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
                 <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
                 <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
             </Style>
         </Setter.Value>
     </Setter>-->
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="FocusVisualStyle"
@@ -158,11 +152,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />        
+                Value="{DynamicResource DefaultFontBrush}" />    
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonTabControl}">

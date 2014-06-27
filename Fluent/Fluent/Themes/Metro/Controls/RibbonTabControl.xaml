@@ -128,10 +128,6 @@
                 Value="22" />
         <Setter Property="Width"
                 Value="22" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="FocusVisualStyle"
@@ -144,10 +140,6 @@
                 Value="Top" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource DefaultFontSize}" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabControlControlTemplate}"/>
     </Style>
