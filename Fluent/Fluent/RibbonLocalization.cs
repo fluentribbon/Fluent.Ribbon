@@ -1084,6 +1084,8 @@ namespace Fluent
             _ribbonContextMenuCustomizeRibbon = "リボンのユーザー設定...";
             _ribbonContextMenuMinimizeRibbon = "リボンの最小化";
             _customizeStatusBar= "ステータス バーのユーザー設定";
+
+            _screenTipDisableReasonHeader = "このコマンドは現在無効になっています";
         }
 
         #endregion
