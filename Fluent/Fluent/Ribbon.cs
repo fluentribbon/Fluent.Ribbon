@@ -1408,7 +1408,7 @@ namespace Fluent
                 // Make sure everything is cleared
                 this.TitleBar.Items.Clear();
             }
-
+            
             this.TitleBar = this.GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
 
             if (this.TitleBar != null)

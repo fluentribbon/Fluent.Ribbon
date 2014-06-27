@@ -14,9 +14,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
@@ -24,12 +22,20 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using System.Threading;
+#if !NET35
+    using System.Threading.Tasks;
+#endif
+    using Fluent.Extensions;
+
     /// <summary>
     /// Represents backstage button
     /// </summary>
     [ContentProperty("Content")]
     public class Backstage : RibbonControl
     {
+        private static object syncIsOpen = new object();
+
         #region Events
 
         /// <summary>
@@ -71,19 +77,38 @@ namespace Fluent
         {
             var backstage = (Backstage)d;
 
-            if ((bool)e.NewValue)
+            lock (syncIsOpen)
             {
-                backstage.Show();
-            }
-            else
-            {
-                backstage.Hide();
-            }
+                if ((bool) e.NewValue)
+                {
+                    backstage.Show();
+                }
+                else
+                {
+#if !NET35
+                    if (Window.GetWindow(backstage) is MetroWindow)
+                    {
+                        Task.Factory.StartNew(() =>
+                        {
+                            Thread.Sleep(TimeSpan.Parse("0:0:0.2"));
 
-            // Invoke the event
-            if (backstage.IsOpenChanged != null)
-            {
-                backstage.IsOpenChanged(backstage, e);
+                            backstage.Dispatcher.RunInDispatcher(backstage.Hide);
+                        });
+                    }
+                    else
+                    {
+                        backstage.Hide();
+                    }
+#else
+                backstage.Hide();
+#endif
+                }
+
+                // Invoke the event
+                if (backstage.IsOpenChanged != null)
+                {
+                    backstage.IsOpenChanged(backstage, e);
+                }
             }
         }
 
@@ -238,7 +263,7 @@ namespace Fluent
             {
                 ribbon.TabControl.IsDropDownOpen = false;
                 ribbon.TabControl.HighlightSelectedItem = false;
-                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
+                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;                
 
                 // Disable QAT & title bar
                 if (ribbon.QuickAccessToolBar != null)
@@ -249,6 +274,7 @@ namespace Fluent
                 if (ribbon.TitleBar != null)
                 {
                     ribbon.TitleBar.IsEnabled = false;
+                    ribbon.TitleBar.HideContextTabs = Window.GetWindow(this) is MetroWindow;
                 }
             }
 
@@ -323,6 +349,7 @@ namespace Fluent
                 if (ribbon.TitleBar != null)
                 {
                     ribbon.TitleBar.IsEnabled = true;
+                    ribbon.TitleBar.HideContextTabs = false;
                 }
             }
 

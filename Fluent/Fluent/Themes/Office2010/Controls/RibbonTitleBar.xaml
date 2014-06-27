@@ -30,6 +30,12 @@
                         Value="Collapsed"
                         TargetName="PART_ItemsContainer" />                
             </Trigger>
+            <Trigger Property="HideContextTabs"
+                     Value="True">
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_ItemsContainer" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

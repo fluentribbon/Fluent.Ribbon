@@ -116,6 +116,16 @@ namespace Fluent
             }
         }
 
+        // Using a DependencyProperty as the backing store for AreContextTabsVisible.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty HideContextTabsProperty =
+            DependencyProperty.Register("HideContextTabs", typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false));
+
+        public bool HideContextTabs
+        {
+            get { return (bool)GetValue(HideContextTabsProperty); }
+            set { SetValue(HideContextTabsProperty, value); }
+        }
+
         #endregion
 
         #region Initialize
