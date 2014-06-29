@@ -256,9 +256,18 @@
                      Value="False">
                 <Setter Property="IsEnabled"
                         TargetName="PART_Button"
-                        Value="False" />
+                        Value="False" />        
             </Trigger>
-			<Trigger Property="IsDropDownOpen"
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="IsEnabled"
+                        TargetName="PART_Button"
+                        Value="False" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsDropDownOpen"
                      Value="True">
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
