@@ -601,9 +601,21 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Width)) menuPanel.Width = menuPanel.ActualWidth;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (double.IsNaN(menuPanel.Width))
+            {
+                menuPanel.Width = menuPanel.ActualWidth;
+            }
+
+            if (double.IsNaN(menuPanel.Height))
+            {
+                menuPanel.Height = menuPanel.ActualHeight;
+            }
+
             menuPanel.Width = Math.Max(menuPanel.MinWidth, menuPanel.Width + e.HorizontalChange);
             menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
@@ -611,8 +623,16 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (scrollViewer != null) scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            if (double.IsNaN(menuPanel.Height)) menuPanel.Height = menuPanel.ActualHeight;
+            if (scrollViewer != null)
+            {
+                scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            }
+
+            if (double.IsNaN(menuPanel.Height))
+            {
+                menuPanel.Height = menuPanel.ActualHeight;
+            }
+
             menuPanel.Height = Math.Min(Math.Max(menuPanel.MinHeight, menuPanel.Height + e.VerticalChange), MaxDropDownHeight);
         }
 

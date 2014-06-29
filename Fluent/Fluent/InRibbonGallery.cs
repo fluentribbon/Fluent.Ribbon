@@ -1142,20 +1142,33 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
-            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(this.scrollViewer.Height))
+            {
+                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+            }
 
-            menuPanel.Width = Double.NaN;
-            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = galleryPanel.ActualWidth;
-            galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, minimalGallerylWidth);
+            this.scrollViewer.Height = Math.Max(0, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
+
+            this.menuPanel.Width = Double.NaN;
+
+            if (Double.IsNaN(this.galleryPanel.Width))
+            {
+                this.galleryPanel.Width = this.galleryPanel.ActualWidth;
+            }
+
+            this.galleryPanel.Width = Math.Max(0, Math.Max(this.galleryPanel.Width + e.HorizontalChange, this.minimalGallerylWidth));
 
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
-            scrollViewer.Height = Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange), MaxDropDownHeight);
+            if (double.IsNaN(this.scrollViewer.Height))
+            {
+                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+            }
+
+            this.scrollViewer.Height = Math.Max(0, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
         }
 
         #endregion

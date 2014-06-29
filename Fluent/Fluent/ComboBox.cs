@@ -855,17 +855,24 @@ namespace Fluent
 
             // Set width
             menuPanel.Width = Double.NaN;
-            if (Double.IsNaN(galleryPanel.Width)) galleryPanel.Width = galleryPanel.ActualWidth;
+            if (Double.IsNaN(galleryPanel.Width))
+            {
+                galleryPanel.Width = galleryPanel.ActualWidth;
+            }
 
-            double monitorRight = RibbonControl.GetControlMonitor(this).Right;
-            FrameworkElement popupChild = popup.Child as FrameworkElement;
-            double delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
-            double deltaX = popupChild.ActualWidth - galleryPanel.ActualWidth;
-            double deltaBorders = dropDownBorder.ActualWidth - galleryPanel.ActualWidth;
-            if (delta > 0) galleryPanel.Width = Math.Max(galleryPanel.Width + e.HorizontalChange, ActualWidth - deltaBorders);
+            var monitorRight = RibbonControl.GetControlMonitor(this).Right;
+            var popupChild = popup.Child as FrameworkElement;
+            var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
+            var deltaX = popupChild.ActualWidth - galleryPanel.ActualWidth;
+            var deltaBorders = dropDownBorder.ActualWidth - galleryPanel.ActualWidth;
+
+            if (delta > 0)
+            {
+                galleryPanel.Width = Math.Max(0, Math.Max(galleryPanel.Width + e.HorizontalChange, ActualWidth - deltaBorders));
+            }
             else
             {
-                galleryPanel.Width = Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, ActualWidth - deltaBorders);
+                galleryPanel.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, ActualWidth - deltaBorders));
             }
         }
 
@@ -877,45 +884,53 @@ namespace Fluent
 
         private void SetDragHeight(DragDeltaEventArgs e)
         {
-            if (!canSizeY) return;
-            if (double.IsNaN(scrollViewer.Height)) scrollViewer.Height = scrollViewer.ActualHeight;
+            if (!canSizeY)
+            {
+                return;
+            }
+
+            if (double.IsNaN(scrollViewer.Height))
+            {
+                scrollViewer.Height = scrollViewer.ActualHeight;
+            }
+
             if (ShowPopupOnTop)
             {
-                double monitorTop = RibbonControl.GetControlMonitor(this).Top;
+                var monitorTop = RibbonControl.GetControlMonitor(this).Top;
 
                 // Calc shadow height
-                double delta = this.PointToScreen(new Point()).Y - dropDownBorder.ActualHeight - e.VerticalChange - monitorTop;
+                var delta = this.PointToScreen(new Point()).Y - dropDownBorder.ActualHeight - e.VerticalChange - monitorTop;
                 if (delta > 0)
                 {
-                    scrollViewer.Height =
+                    scrollViewer.Height = Math.Max(0, 
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange),
-                                 MaxDropDownHeight);
+                                 MaxDropDownHeight));
                 }
                 else
                 {
                     delta = this.PointToScreen(new Point()).Y - dropDownBorder.ActualHeight - monitorTop;
-                    scrollViewer.Height =
+                    scrollViewer.Height = Math.Max(0, 
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + delta),
-                                 MaxDropDownHeight);
+                                 MaxDropDownHeight));
                 }
             }
             else
             {
-                double monitorBottom = RibbonControl.GetControlMonitor(this).Bottom;
-                FrameworkElement popupChild = popup.Child as FrameworkElement;
-                double delta = monitorBottom - this.PointToScreen(new Point()).Y - ActualHeight - popupChild.ActualHeight - e.VerticalChange;
+                var monitorBottom = RibbonControl.GetControlMonitor(this).Bottom;
+                var popupChild = popup.Child as FrameworkElement;
+                var delta = monitorBottom - this.PointToScreen(new Point()).Y - ActualHeight - popupChild.ActualHeight - e.VerticalChange;
                 if (delta > 0)
                 {
-                    scrollViewer.Height =
+                    scrollViewer.Height = Math.Max(0, 
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange),
-                                 MaxDropDownHeight);
+                                 MaxDropDownHeight));
                 }
                 else
                 {
                     delta = monitorBottom - this.PointToScreen(new Point()).Y - ActualHeight - popupChild.ActualHeight;
-                    scrollViewer.Height =
+                    scrollViewer.Height = Math.Max(0, 
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + delta),
-                                 MaxDropDownHeight);
+                                 MaxDropDownHeight));
                 }
             }
         }
