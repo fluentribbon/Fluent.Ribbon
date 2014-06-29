@@ -6,6 +6,8 @@ using System.Text;
 
 namespace Fluent.Metro.Native
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <devdoc>http://msdn.microsoft.com/en-us/library/ms182161.aspx</devdoc>
     [SuppressUnmanagedCodeSecurity]
     internal static class UnsafeNativeMethods
@@ -82,6 +84,7 @@ namespace Fluent.Metro.Native
         [DllImport("user32.dll", EntryPoint = "SetClassLong")]
         internal static extern uint SetClassLongPtr32(IntPtr hWnd, int nIndex, uint dwNewLong);
 
+        [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
         [DllImport("user32.dll", EntryPoint = "SetClassLongPtr")]
         internal static extern IntPtr SetClassLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 

@@ -14,7 +14,7 @@
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Min", Type = typeof(Button))]
-    public class WindowCommands : ItemsControl
+    public class WindowCommands : ItemsControl, IDisposable
     {
         private static string minimize;
         private static string maximize;
@@ -24,6 +24,7 @@
         private System.Windows.Controls.Button max;
         private System.Windows.Controls.Button close;
         private IntPtr user32 = IntPtr.Zero;
+        private bool disposed;
 
         static WindowCommands()
         {
@@ -32,8 +33,55 @@
 
         ~WindowCommands()
         {
-            if (user32 != IntPtr.Zero)
-                UnsafeNativeMethods.FreeLibrary(user32);
+            this.Dispose(false);
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose(bool disposing) executes in two distinct scenarios.
+        /// If disposing equals true, the method has been called directly
+        /// or indirectly by a user's code. Managed and unmanaged resources
+        /// can be disposed.
+        /// If disposing equals false, the method has been called by the
+        /// runtime from inside the finalizer and you should not reference
+        /// other objects. Only unmanaged resources can be disposed.
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            // Check to see if Dispose has already been called.
+            if (this.disposed)
+            {
+                return;
+            }
+
+            // If disposing equals true, dispose all managed
+            // and unmanaged resources.
+            if (disposing)
+            {
+                // Dispose managed resources.
+            }
+
+            // Call the appropriate methods to clean up
+            // unmanaged resources here.
+            // If disposing is false,
+            // only the following code is executed.
+            if (this.user32 != IntPtr.Zero)
+            {
+                UnsafeNativeMethods.FreeLibrary(this.user32);
+                this.user32 = IntPtr.Zero;
+            }
+
+            // Note disposing has been done.
+            this.disposed = true;
         }
 
         /// <summary>
@@ -88,18 +136,23 @@
             get
             {
                 if (string.IsNullOrEmpty(restore))
+                {
                     restore = GetCaption(903);
+                }
+
                 return restore;
             }
         }
 
         private string GetCaption(int id)
         {
-            if (user32 == IntPtr.Zero)
-                user32 = UnsafeNativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
+            if (this.user32 == IntPtr.Zero)
+            {
+                this.user32 = UnsafeNativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
+            }
 
             var sb = new StringBuilder(256);
-            UnsafeNativeMethods.LoadString(user32, (uint)id, sb, sb.Capacity);
+            UnsafeNativeMethods.LoadString(this.user32, (uint)id, sb, sb.Capacity);
             return sb.ToString().Replace("&", "");
         }
 
