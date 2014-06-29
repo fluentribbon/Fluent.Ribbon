@@ -1109,7 +1109,7 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is GalleryItem);
+            return item is GalleryItem;
         }
 
         /// <summary>

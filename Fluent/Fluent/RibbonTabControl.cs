@@ -345,6 +345,16 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            return item is RibbonTabItem;
+        }
+
+        /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or 
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
@@ -380,16 +390,6 @@ namespace Fluent
                     this.ToolbarPanel.Children.Add(this.toolBarItems[i]);
                 }
             }
-        }
-
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return (item is RibbonTabItem);
         }
 
         /// <summary>

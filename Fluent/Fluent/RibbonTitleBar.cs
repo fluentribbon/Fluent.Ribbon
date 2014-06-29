@@ -159,7 +159,7 @@ namespace Fluent
         /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is RibbonContextualTabGroup);
+            return item is RibbonContextualTabGroup;
         }
 
         /// <summary>
