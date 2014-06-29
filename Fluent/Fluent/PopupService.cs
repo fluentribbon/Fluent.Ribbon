@@ -207,28 +207,66 @@ namespace Fluent
         /// <param name="e"></param>
         public static void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
-            IDropDownControl control = sender as IDropDownControl;
-            if (control == null) return;
+            var control = sender as IDropDownControl;
+
+            if (control == null)
+            {
+                return;
+            }
+
             if (e.DismissMode == DismissPopupMode.Always)
             {
-                if (Mouse.Captured == control) Mouse.Capture(null);
-               // Debug.WriteLine("DropDown Closed");
+                if (Mouse.Captured == control)
+                {
+                    Mouse.Capture(null);
+                }
+
+                // Debug.WriteLine("DropDown Closed");
                 control.IsDropDownOpen = false;
             }
             else
             {
-                if ((control.IsDropDownOpen)&&(!PopupService.IsMousePhysicallyOver(control.DropDownPopup.Child)))
+                if (control.IsDropDownOpen
+                    && !IsMousePhysicallyOver(control.DropDownPopup))
                 {
-                    if (Mouse.Captured == control) Mouse.Capture(null);
-                   // Debug.WriteLine("DropDown Closed");
+                    if (Mouse.Captured == control)
+                    {
+                        Mouse.Capture(null);
+                    }
+
+                    // Debug.WriteLine("DropDown Closed");
                     control.IsDropDownOpen = false;
                 }
                 else
                 {
-                    if ((control.IsDropDownOpen) && (Mouse.Captured != control)) Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                    if (control.IsDropDownOpen) e.Handled = true;
+                    if (control.IsDropDownOpen
+                        && Mouse.Captured != control)
+                    {
+                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                    }
+
+                    if (control.IsDropDownOpen)
+                    {
+                        e.Handled = true;
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns true whether mouse is physically over the popup 
+        /// </summary>
+        /// <param name="popup">Element</param>
+        /// <returns>Returns true whether mouse is physically over the popup</returns>
+        public static bool IsMousePhysicallyOver(Popup popup)
+        {
+            if (popup == null
+                || popup.Child == null)
+            {
+                return false;
+            }
+
+            return IsMousePhysicallyOver(popup.Child);
         }
 
         /// <summary>
@@ -242,8 +280,10 @@ namespace Fluent
             {
                 return false;
             }
-            Point position = Mouse.GetPosition(element);
-            return ((position.X >= 0.0) && (position.Y >= 0.0)) && ((position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height));
+
+            var position = Mouse.GetPosition(element);
+            return ((position.X >= 0.0) && (position.Y >= 0.0))
+                && ((position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height));
         }
 
         /// <summary>
