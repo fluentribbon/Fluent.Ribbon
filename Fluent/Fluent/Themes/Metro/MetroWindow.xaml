@@ -16,7 +16,7 @@
             <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}"
                     BorderThickness="1"
                     x:Name="themecolorborder" />
-            <AdornerDecorator Margin="0"
+            <AdornerDecorator Margin="1,0,1,0"
                               x:Name="content">
                 <Grid>
                     <Grid.RowDefinitions>
