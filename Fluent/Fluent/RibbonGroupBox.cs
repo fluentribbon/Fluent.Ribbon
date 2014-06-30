@@ -569,10 +569,11 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnVisibilityChanged));
-            ContextMenuProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, OnContextMenuChanged, CoerceContextMenu));
 
             PopupService.Attach(typeof(RibbonGroupBox));
             StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+
+            ContextMenuService.Attach(typeof(RibbonGroupBox));
         }
 
         // Coerce object style
@@ -583,17 +584,6 @@ namespace Fluent
                 basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonGroupBox));
             }
 
-            return basevalue;
-        }
-
-        private static void OnContextMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            d.CoerceValue(ContextMenuProperty);
-        }
-
-        private static object CoerceContextMenu(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null) return Ribbon.RibbonContextMenu;
             return basevalue;
         }
 
@@ -1160,7 +1150,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
+            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 
