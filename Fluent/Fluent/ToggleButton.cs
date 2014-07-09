@@ -62,6 +62,25 @@ namespace Fluent
 
         #endregion
 
+        #region KeyTip
+
+        /// <summary>
+        /// Gets or sets KeyTip for element.
+        /// </summary>
+        public string KeyTip
+        {
+            get { return (string)GetValue(KeyTipProperty); }
+            set { SetValue(KeyTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Keys.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(ToggleButton));
+
+        #endregion
+
         #region GroupName
 
         /// <summary>

@@ -49,11 +49,11 @@
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"
                                        Icon="Images\Save.png"
-                                       Fluent:KeyTip.Keys="S"
+                                       KeyTip="S"
                                        Click="OnBtnClick" />
                         <Fluent:Button Header="Save As"
                                        Icon="Images\Save.png"
-                                       Fluent:KeyTip.Keys="A" />
+                                       KeyTip="A" />
                         <Fluent:BackstageTabItem Header="TEST"
                                                  Content="Hello">
 
@@ -73,7 +73,7 @@
                         <Fluent:SeparatorTabItem Header="Separator" />
 
                         <Fluent:BackstageTabItem Header="Info"
-                                                 Fluent:KeyTip.Keys="E"
+                                                 KeyTip="E"
                                                  IsEnabled="False">
                             <ScrollViewer>
                                 <Grid Height="400"
@@ -105,7 +105,7 @@
                         </Fluent:BackstageTabItem>
 
                         <Fluent:BackstageTabItem Header="Recent"
-                                                 Fluent:KeyTip.Keys="R">
+                                                 KeyTip="R">
                             <TabControl Margin="20,5,20,5"
                                         Style="{DynamicResource InnerBackstageTabControlStyle}">
                                 <Fluent:SeparatorTabItem Header="Test1" />
@@ -127,7 +127,7 @@
 
                         <Fluent:SeparatorTabItem />
                         <Fluent:BackstageTabItem Header="New"
-                                                 Fluent:KeyTip.Keys="N">
+                                                 KeyTip="N">
                             <Grid Margin="50"
                                   MinWidth="0"
                                   Width="Auto"
@@ -164,14 +164,14 @@
                             </Grid>
                         </Fluent:BackstageTabItem>
                         <Fluent:BackstageTabItem Header="Print"
-                                                 Fluent:KeyTip.Keys="P">
+                                                 KeyTip="P">
                             <Grid Background="Yellow"
                                   Opacity="0.3"
                                   Margin="50" />
                         </Fluent:BackstageTabItem>
                         <Fluent:Button Header="Exit"
                                        Icon="Images\Exit.png"
-                                       Fluent:KeyTip.Keys="X"
+                                       KeyTip="X"
                                        Command="ApplicationCommands.Close" />
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
@@ -203,18 +203,18 @@
 
             <Fluent:RibbonTabItem   x:Name="homeTabItem"
                                     Header="Home"
-                                    Fluent:KeyTip.Keys="H"
+                                    KeyTip="H"
                                     ToolTip="Regular Tool Tip"
                                     ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       Fluent:KeyTip.Keys="C"
+                                       KeyTip="C"
                                        x:Name="Clipboard"
                                        Header="Clipboard"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
                                        LauncherKeys="ZB">
                     <Fluent:SplitButton x:Name="pasteButton"
-                                        Fluent:KeyTip.Keys="V"
+                                        KeyTip="V"
                                         Header="Paste"
                                         Icon="Images\Paste.png"
                                         LargeIcon="Images\PasteLarge.png"
@@ -269,7 +269,7 @@
                             </Fluent:GalleryItem>
                         </Fluent:Gallery>
                         <Fluent:MenuItem Header="Paste Special..."
-                                         Fluent:KeyTip.Keys="S"
+                                         KeyTip="S"
                                          Command="{x:Static FluentTest:TestContent.CustomRoutedCommand}">
                             <Fluent:MenuItem.ToolTip>
                                 <Fluent:ScreenTip Title="Paste Special"
@@ -278,7 +278,7 @@
                         </Fluent:MenuItem>
                         <Separator />
                         <Fluent:MenuItem Header="Set Default Paste..."
-                                         Fluent:KeyTip.Keys="A"
+                                         KeyTip="A"
                                          IsSplited="True"
                                          Command="Paste">
                             <Fluent:MenuItem Header="1"
@@ -290,7 +290,7 @@
                                          Command="Paste"></Fluent:MenuItem>
                     </Fluent:SplitButton>
                     <Fluent:Button x:Name="cutButton"
-                                   Fluent:KeyTip.Keys="X"
+                                   KeyTip="X"
                                    Header="Cut"
                                    Icon="Images\Cut.png"
                                    SizeDefinition="Middle,Small"
@@ -303,7 +303,7 @@
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
                     <Fluent:Button x:Name="copyButton"
-                                   Fluent:KeyTip.Keys="C"
+                                   KeyTip="C"
                                    Header="Copy"
                                    Icon="Images\Copy.png"
                                    SizeDefinition="Middle,Small"
@@ -313,13 +313,13 @@
                                               DisableReason="Disable reason reason." />
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
-                    <Fluent:Button Fluent:KeyTip.Keys="FP"
+                    <Fluent:Button KeyTip="FP"
                                    Header="Format Painter"
                                    Icon="Images\FormatPainter.png"
                                    SizeDefinition="Middle,Small"
                                    Click="OnFormatPainterClick" />
                     <Fluent:DropDownButton Name="buttonWatermark"
-                                           Fluent:KeyTip.Keys="W"
+                                           KeyTip="W"
                                            Header="Watermark"
                                            Icon="Images\watermark32.png"
                                            LargeIcon="Images\watermark32.png"
@@ -509,7 +509,7 @@
 
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="ZF"
+                <Fluent:RibbonGroupBox KeyTip="ZF"
                                        x:Name="Font"
                                        Header="Font"
                                        IsLauncherVisible="True"
@@ -602,7 +602,7 @@
                                          DisplayMemberPath="Text"
                                          IsTextSearchEnabled="True"
                                          ResizeMode="Vertical"
-                                         Fluent:KeyTip.Keys="FF"
+                                         KeyTip="FF"
                                          SizeDefinition="Small"
                                          SelectedIndex="0">
                             <TextBlock Text="Arial"
@@ -635,7 +635,7 @@
                                          IsEditable="False"
                                          SizeDefinition="Small"
                                          ResizeMode="Vertical"
-                                         Fluent:KeyTip.Keys="FS">
+                                         KeyTip="FS">
                             <TextBlock Text="7" />
                             <TextBlock Text="8" />
                             <TextBlock Text="9" />
@@ -654,7 +654,7 @@
                             <TextBlock Text="48" />
                             <TextBlock Text="72" />
                         </Fluent:ComboBox>
-                        <Fluent:Button Fluent:KeyTip.Keys="GF"
+                        <Fluent:Button KeyTip="GF"
                                        x:Name="buttonGrowFont"
                                        Icon="Images\GrowFont.png"
                                        HorizontalAlignment="Left"
@@ -671,13 +671,13 @@
                                        Icon="Images\ClearFormatting.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
-                        <Fluent:ToggleButton Fluent:KeyTip.Keys="B"
+                        <Fluent:ToggleButton KeyTip="B"
                                              x:Name="buttonBold"
                                              Icon="Images\Bold.png"
                                              HorizontalAlignment="Left"
                                              SizeDefinition="Small" />
                         <Fluent:ToggleButton x:Name="buttonItalic"
-                                             Fluent:KeyTip.Keys="I"
+                                             KeyTip="I"
                                              Icon="Images\Italic.png"
                                              HorizontalAlignment="Left"
                                              SizeDefinition="Small" />
@@ -783,7 +783,7 @@
 
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        x:Name="A"
-                                       Fluent:KeyTip.Keys="A"
+                                       KeyTip="A"
                                        Header="Galleries"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick">
@@ -791,7 +791,7 @@
                                             LargeIcon="Images/GalleryLarge.png"
                                             x:Name="inRibbonGallery1"
                                             Header="In-Ribbon Gallery"
-                                            Fluent:KeyTip.Keys="JS"
+                                            KeyTip="JS"
                                             SelectedFilter="{Binding ElementName=galleryFilterAll}"
                                             ResizeMode="Both"
                                             MinItemsInRow="2"
@@ -867,7 +867,7 @@
                     <Fluent:SplitButton Icon="Images/Default.png"
                                         LargeIcon="/Images/GalleryLarge.png"
                                         Header="Split"
-                                        Fluent:KeyTip.Keys="S"
+                                        KeyTip="S"
                                         Click="OnSplitClick"
                                         ResizeMode="Both"
                                         SizeDefinition="Large"
@@ -929,19 +929,19 @@
                             </Border>
                         </Fluent:Gallery>
                         <Fluent:MenuItem Header="Item5"
-                                         Fluent:KeyTip.Keys="E"
+                                         KeyTip="E"
                                          Icon="Images\ChangeCase.png" />
                         <Fluent:MenuItem Header="Item5"
-                                         Fluent:KeyTip.Keys="R">
+                                         KeyTip="R">
                             <Fluent:MenuItem Header="Itemq"
-                                             Fluent:KeyTip.Keys="A" />
+                                             KeyTip="A" />
                             <Fluent:MenuItem Header="Itemw"
-                                             Fluent:KeyTip.Keys="B" />
+                                             KeyTip="B" />
                             <Fluent:MenuItem Header="Item5"
-                                             Fluent:KeyTip.Keys="R"
+                                             KeyTip="R"
                                              Icon="Images\ChangeCase.png">
                                 <Fluent:MenuItem Header="Itemq"
-                                                 Fluent:KeyTip.Keys="A"
+                                                 KeyTip="A"
                                                  MaxDropDownHeight="350">
                                     <Fluent:Gallery x:Name="galleryl"
                                                     MinHeight="60"
@@ -1000,19 +1000,19 @@
                                     </Fluent:Gallery>
                                 </Fluent:MenuItem>
                                 <Fluent:MenuItem Header="Itemw"
-                                                 Fluent:KeyTip.Keys="B" />
+                                                 KeyTip="B" />
                                 <Fluent:MenuItem Header="Item5"
-                                                 Fluent:KeyTip.Keys="R">
+                                                 KeyTip="R">
                                     <Fluent:MenuItem Header="Itemq"
-                                                     Fluent:KeyTip.Keys="A"
+                                                     KeyTip="A"
                                                      IsCheckable="True"
                                                      GroupName="ABC" />
                                     <Fluent:MenuItem Header="Itemw"
-                                                     Fluent:KeyTip.Keys="B"
+                                                     KeyTip="B"
                                                      IsCheckable="True"
                                                      GroupName="ABC" />
                                     <Fluent:MenuItem Header="Iteme"
-                                                     Fluent:KeyTip.Keys="C"
+                                                     KeyTip="C"
                                                      IsCheckable="True"
                                                      GroupName="ABC"
                                                      IsChecked="True" />
@@ -1037,7 +1037,7 @@
 
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       Fluent:KeyTip.Keys="ZXK"
+                                       KeyTip="ZXK"
                                        x:Name="C"
                                        Header="Themes"
                                        IsLauncherVisible="False"
@@ -1053,25 +1053,25 @@
                                    SizeDefinition="Middle">Blue</Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       Fluent:KeyTip.Keys="ZXB"
+                                       KeyTip="ZXB"
                                        x:Name="B"
                                        Header="Spinners"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick">
-                    <Fluent:Spinner Fluent:KeyTip.Keys="KA"
+                    <Fluent:Spinner KeyTip="KA"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Left:"
                                     Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                     IsEnabled="False" />
-                    <Fluent:Spinner Fluent:KeyTip.Keys="KB"
+                    <Fluent:Spinner KeyTip="KB"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
                                     Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
-                    <Fluent:Spinner Fluent:KeyTip.Keys="KC"
+                    <Fluent:Spinner KeyTip="KC"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Top:"
@@ -1079,11 +1079,11 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem x:Name="secondTab"
-                                  Fluent:KeyTip.Keys="Y"
+                                  KeyTip="Y"
                                   Header="Insert"
                                   IsSeparatorVisible="true"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
-                <Fluent:RibbonGroupBox Fluent:KeyTip.Keys="FG"
+                <Fluent:RibbonGroupBox KeyTip="FG"
                                        Header=""
                                        IsLauncherVisible="False"
                                        x:Name="groupLL">
@@ -1092,7 +1092,7 @@
                                      InputWidth="150"
                                      Header="Test"
                                      ItemsSource="{Binding FontsData}"
-                                     Fluent:KeyTip.Keys="FD">
+                                     KeyTip="FD">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}"
@@ -1115,7 +1115,7 @@
 
                     <Fluent:ComboBox Name="FilterComboBox"
                                      IsReadOnly="True"
-                                     Fluent:KeyTip.Keys="H"
+                                     KeyTip="H"
                                      SelectedIndex="0">
                         <Fluent:ComboBox.Menu>
                             <Fluent:RibbonMenu>
@@ -1131,7 +1131,7 @@
                     <Fluent:InRibbonGallery x:Name="inRibbonGallery"
                                             Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                             Header="Split"
-                                            Fluent:KeyTip.Keys="S"
+                                            KeyTip="S"
                                             GroupBy="Tag"
                                             ResizeMode="Both"
                                             MaxItemsInRow="6"
@@ -1178,7 +1178,7 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Page Layout"
-                                  Fluent:KeyTip.Keys="Ü1">
+                                  KeyTip="Ü1">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:CheckBox>Text 1</Fluent:CheckBox>
@@ -1217,7 +1217,7 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="References"
-                                  Fluent:KeyTip.Keys="Ü2">
+                                  KeyTip="Ü2">
                 <Fluent:RibbonGroupBox x:Name="xxx"
                                        Header="LongLongGroup"
                                        IsLauncherVisible="True"
@@ -1280,7 +1280,7 @@
                                      ItemsSource="{Binding TstArr, ElementName=TestContentControl}"
                                      InputWidth="80"
                                      SelectedItem="{Binding TST, Mode=TwoWay, ElementName=TestContentControl}"
-                                     Fluent:KeyTip.Keys="SO"
+                                     KeyTip="SO"
                                      IsEditable="False" />
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />
