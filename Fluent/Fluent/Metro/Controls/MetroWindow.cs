@@ -181,8 +181,8 @@ namespace Fluent
 
             var mousePosition = GetCorrectPosition(this);
 
-            if (mousePosition.X <= RibbonAttachedProperties.GetTitleBarHeight(this)
-                && mousePosition.Y <= RibbonAttachedProperties.GetTitleBarHeight(this))
+            if (mousePosition.X <= RibbonProperties.GetTitleBarHeight(this)
+                && mousePosition.Y <= RibbonProperties.GetTitleBarHeight(this))
             {
                 if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= doubleclick)
                 {

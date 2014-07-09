@@ -200,7 +200,7 @@ namespace Fluent
 
             foreach (RibbonToolBarLayoutDefinition definition in layoutDefinitions)
             {
-                if (RibbonAttachedProperties.GetRibbonSize(definition) == RibbonAttachedProperties.GetRibbonSize(this)) return definition;
+                if (RibbonProperties.GetSize(definition) == RibbonProperties.GetSize(this)) return definition;
             }
 
             // TODO: try to find a better definition
@@ -220,7 +220,7 @@ namespace Fluent
         {
             foreach (var frameworkElement in actualChildren)
             {
-                RibbonAttachedProperties.SetRibbonSize(frameworkElement, current);
+                RibbonProperties.SetSize(frameworkElement, current);
             }
 
             rebuildVisualAndLogicalChildren = true;
@@ -479,7 +479,7 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            RibbonAttachedProperties.SetRibbonSize(control, RibbonAttachedProperties.GetRibbonSize(controlDefinition));
+                            RibbonProperties.SetSize(control, RibbonProperties.GetSize(controlDefinition));
                             control.Width = controlDefinition.Width;
                             control.Measure(availableSize);
                         }

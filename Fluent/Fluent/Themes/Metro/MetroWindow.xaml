@@ -24,7 +24,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid x:Name="PART_TitleBar"
-                          Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                          Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                           Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
                           Background="Transparent">
                         <Grid.ColumnDefinitions>
@@ -45,13 +45,13 @@
                                       Grid.RowSpan="2"
                                       VerticalAlignment="Top"
                                       HorizontalAlignment="Right"
-                                      Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
                     <ContentPresenter Grid.Row="1">
                         <ContentPresenter.Margin>
                             <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                                 <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                                 <Binding RelativeSource="{RelativeSource Self}"
-                                         Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                         Path="(Fluent:RibbonProperties.TitleBarHeight)"
                                          Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
                                 <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                                 <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
@@ -141,7 +141,7 @@
                         </ItemsControl>
                         <Button x:Name="PART_Min"
                                 Width="29"
-                                Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                 MaxHeight="19"
                                 Margin="0,3,0,0"
                                 Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
@@ -157,7 +157,7 @@
 
                         <Button x:Name="PART_Max"
                                 Width="29"
-                                Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                 MaxHeight="19"
                                 Margin="0,3,0,0"
                                 Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"
@@ -180,7 +180,7 @@
 
                         <Button x:Name="PART_Close"
                                 Width="29"
-                                Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                 MaxHeight="19"
                                 Margin="0,3,0,0"
                                 Style="{DynamicResource IronicallyNamedChromelessButtonStyle}"

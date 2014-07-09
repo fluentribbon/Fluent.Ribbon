@@ -232,7 +232,7 @@
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                 Path="(Fluent:RibbonProperties.TitleBarHeight)"
                                  Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />

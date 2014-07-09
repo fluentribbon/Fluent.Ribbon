@@ -132,7 +132,7 @@ namespace Fluent
             // Disable QAT for this control
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
             // Make default KeyTip
-            KeyTip.KeysProperty.AddOwner(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
+            KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
             StyleProperty.OverrideMetadata(typeof(ApplicationMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
@@ -157,7 +157,7 @@ namespace Fluent
         /// </summary>
         public ApplicationMenu()
         {
-            CoerceValue(KeyTip.KeysProperty);
+            CoerceValue(KeyTipProperty);
         }
 
         #endregion

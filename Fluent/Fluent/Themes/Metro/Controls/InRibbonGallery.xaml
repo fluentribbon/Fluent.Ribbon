@@ -24,17 +24,17 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Style.Triggers>
-            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
+            <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Large">
                 <Setter Property="Height"
                         Value="68" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
+            <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Middle">
                 <Setter Property="Height"
                         Value="22" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
+            <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Small">
                 <Setter Property="Height"
                         Value="22" />
@@ -88,7 +88,7 @@
                 </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
+            <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Small">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -118,7 +118,7 @@
                         TargetName="controlLabel"
                         Value="10" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonAttachedProperties.RibbonSize"
+            <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Middle">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -667,8 +667,8 @@
                                              Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                              LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                              Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                             Fluent:RibbonAttachedProperties.RibbonSize="{Binding Path=(Fluent:RibbonAttachedProperties.RibbonSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                             Fluent:RibbonAttachedProperties.RibbonSizeDefinition="{Binding Path=(Fluent:RibbonAttachedProperties.RibbonSizeDefinition), RelativeSource={RelativeSource TemplatedParent}}"                                             
+                                             Fluent:RibbonProperties.Size="{Binding Path=(Fluent:RibbonProperties.Size), RelativeSource={RelativeSource TemplatedParent}}"
+                                             Fluent:RibbonProperties.SizeDefinition="{Binding Path=(Fluent:RibbonProperties.SizeDefinition), RelativeSource={RelativeSource TemplatedParent}}"                                             
                                              Style="{DynamicResource InRibbonGalleryToggleButtonStyle}"
                                              HorizontalAlignment="Left"
                                              VerticalAlignment="Top"

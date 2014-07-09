@@ -84,6 +84,63 @@ namespace Fluent
 
         #region Properties
 
+        #region Size
+
+        /// <summary>
+        /// Gets or sets Size for the element.
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(InRibbonGallery));
+
+        #endregion
+
+        #region SizeDefinition
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element.
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(InRibbonGallery));
+
+        #endregion
+
+        #region KeyTip
+
+        /// <summary>
+        /// Gets or sets KeyTip for element.
+        /// </summary>
+        public string KeyTip
+        {
+            get { return (string)GetValue(KeyTipProperty); }
+            set { SetValue(KeyTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Keys.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(InRibbonGallery));
+
+        #endregion
+
         #region Header
 
         /// <summary>
@@ -1205,7 +1262,7 @@ namespace Fluent
             if (DropDownClosed != null) gallery.DropDownClosed += DropDownClosed;
             if (DropDownOpened != null) gallery.DropDownOpened += DropDownOpened;
 
-            RibbonAttachedProperties.SetRibbonSize(gallery, RibbonControlSize.Small);
+            RibbonProperties.SetSize(gallery, RibbonControlSize.Small);
             quickAccessGallery = gallery;
             return gallery;
         }
@@ -1336,7 +1393,7 @@ namespace Fluent
             if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
 
             InvalidateMeasure();*/
-            if (IsCollapsed && (RibbonAttachedProperties.GetRibbonSize(this) == RibbonControlSize.Large)) IsCollapsed = false;
+            if (IsCollapsed && (RibbonProperties.GetSize(this) == RibbonControlSize.Large)) IsCollapsed = false;
             else if (galleryPanel.MinItemsInRow < MaxItemsInRow)
             {
                 galleryPanel.MinItemsInRow++;

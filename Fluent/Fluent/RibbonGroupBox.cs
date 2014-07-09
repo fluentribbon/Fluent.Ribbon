@@ -82,6 +82,25 @@ namespace Fluent
 
         #region Properties
 
+        #region KeyTip
+
+        /// <summary>
+        /// Gets or sets KeyTip for element.
+        /// </summary>
+        public string KeyTip
+        {
+            get { return (string)GetValue(KeyTipProperty); }
+            set { SetValue(KeyTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Keys.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(RibbonGroupBox));
+
+        #endregion
+
         /// <summary>
         /// Gets drop down popup
         /// </summary>
@@ -136,7 +155,7 @@ namespace Fluent
 
             foreach (var item in ribbonGroupBox.Items)
             {
-                RibbonAttachedProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
+                RibbonProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
             }
         }
 
@@ -291,7 +310,7 @@ namespace Fluent
             RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
             if (ribbonGroupBox.LauncherButton != null)
             {
-                KeyTip.SetKeys(ribbonGroupBox.LauncherButton, (string)e.NewValue);
+                ribbonGroupBox.LauncherButton.KeyTip = (string)e.NewValue;
             }
         }
 
@@ -822,7 +841,7 @@ namespace Fluent
             {
                 foreach (var element in e.NewItems.OfType<UIElement>())
                 {
-                    RibbonAttachedProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
+                    RibbonProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
                 }
             }
             base.OnItemsChanged(e);
@@ -845,7 +864,7 @@ namespace Fluent
             {
                 if (LauncherKeys != null)
                 {
-                    KeyTip.SetKeys(LauncherButton, LauncherKeys);
+                    LauncherButton.KeyTip = LauncherKeys;
                 }
             }
 

@@ -45,6 +45,63 @@ namespace Fluent
 
         #region Properties
 
+        #region Size
+
+        /// <summary>
+        /// Gets or sets Size for the element.
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(MenuItem));
+
+        #endregion
+
+        #region SizeDefinition
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element.
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(MenuItem));
+
+        #endregion
+
+        #region KeyTip
+
+        /// <summary>
+        /// Gets or sets KeyTip for element.
+        /// </summary>
+        public string KeyTip
+        {
+            get { return (string)GetValue(KeyTipProperty); }
+            set { SetValue(KeyTipProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Keys.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(MenuItem));
+
+        #endregion
+
         /// <summary>
         /// Gets drop down popup
         /// </summary>

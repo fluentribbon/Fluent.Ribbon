@@ -26,6 +26,16 @@ namespace Fluent
     public interface IRibbonControl : IKeyTipedControl
     {
         /// <summary>
+        /// Gets or sets Size for the element
+        /// </summary>
+        RibbonControlSize Size { get; set; }
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element
+        /// </summary>
+        string SizeDefinition { get; set; }
+
+        /// <summary>
         /// Gets or sets element Text
         /// </summary>
         object Header { get; set; }
