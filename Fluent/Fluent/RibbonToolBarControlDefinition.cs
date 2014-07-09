@@ -13,8 +13,46 @@ namespace Fluent
     {
         public RibbonToolBarControlDefinition()
         {
-            RibbonAttachedProperties.SetRibbonSize(this, RibbonControlSize.Small);
+            RibbonProperties.SetSize(this, RibbonControlSize.Small);
         }
+
+        #region Size
+
+        /// <summary>
+        /// Gets or sets Size for the element.
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonToolBarControlDefinition));
+
+        #endregion
+
+        #region SizeDefinition
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element.
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonToolBarControlDefinition));
+
+        #endregion
 
         #region Target Property
         

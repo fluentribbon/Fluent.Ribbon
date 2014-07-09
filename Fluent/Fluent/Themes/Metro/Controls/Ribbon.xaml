@@ -15,7 +15,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                   Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                   Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="36,0,113,0"
                                    VerticalAlignment="Top"
@@ -42,7 +42,7 @@
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)" />
+                                 Path="(Fluent:RibbonProperties.TitleBarHeight)" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                     </MultiBinding>
@@ -52,7 +52,7 @@
                     BorderThickness="0"
                     Grid.Row="1"
                     Background="{DynamicResource RibbonBackgoundBrush}"
-                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                    Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <ContentControl x:Name="contentControl"
                                 HorizontalAlignment="Left">
                     <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"

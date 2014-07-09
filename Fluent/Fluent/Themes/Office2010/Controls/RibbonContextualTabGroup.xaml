@@ -21,7 +21,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Width="Auto"
-                Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                 BorderThickness="1,0"
                 Background="{DynamicResource TransparentBrush}">
             <Border.BorderBrush>
@@ -37,20 +37,20 @@
                     BorderThickness="1,0"
                     Background="{x:Null}"
                     VerticalAlignment="Top"
-                    Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                    Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                 <Border.Margin>
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonAttachedProperties.TitleBarHeight)"
+                                 Path="(Fluent:RibbonProperties.TitleBarHeight)"
                                  Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
                     </MultiBinding>
                 </Border.Margin>
                 <Grid Margin="0"
                       VerticalAlignment="Top"
-                      Height="{Binding Path=(Fluent:RibbonAttachedProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
                     <Rectangle Fill="{TemplateBinding Background}"
                                Stroke="{x:Null}"
                                HorizontalAlignment="Stretch"

@@ -9,10 +9,12 @@
     /// <summary>
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
-    public class RibbonAttachedProperties
+    public class RibbonProperties
     {
+        #region TitleBarHeight Property
+
         public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonAttachedProperties),
+            DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
                 new FrameworkPropertyMetadata(25D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetTitleBarHeight(UIElement element, double value)
@@ -25,24 +27,26 @@
             return (double)element.GetValue(TitleBarHeightProperty);
         }
 
+        #endregion
+
         #region Size Property
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Size.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RibbonSizeProperty =
-            DependencyProperty.RegisterAttached("RibbonSize", typeof(RibbonControlSize), typeof(RibbonAttachedProperties),
+        public static readonly DependencyProperty SizeProperty =
+            DependencyProperty.RegisterAttached("Size", typeof(RibbonControlSize), typeof(RibbonProperties),
                 new FrameworkPropertyMetadata(RibbonControlSize.Large,
                                               FrameworkPropertyMetadataOptions.AffectsArrange |
                                               FrameworkPropertyMetadataOptions.AffectsMeasure |
                                               FrameworkPropertyMetadataOptions.AffectsRender |
                                               FrameworkPropertyMetadataOptions.AffectsParentArrange |
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                              OnRibbonSizePropertyChanged)
+                                              OnSizePropertyChanged)
         );
 
-        private static void OnRibbonSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var sink = d as IRibbonSizeChangedSink;
 
@@ -57,17 +61,17 @@
         /// <summary>
         /// Sets SizeDefinition for element
         /// </summary>
-        public static void SetRibbonSize(DependencyObject element, RibbonControlSize value)
+        public static void SetSize(DependencyObject element, RibbonControlSize value)
         {
-            element.SetValue(RibbonSizeProperty, value);
+            element.SetValue(SizeProperty, value);
         }
 
         /// <summary>
         /// Gets SizeDefinition for element
         /// </summary>
-        public static RibbonControlSize GetRibbonSize(DependencyObject element)
+        public static RibbonControlSize GetSize(DependencyObject element)
         {
-            return (RibbonControlSize)element.GetValue(RibbonSizeProperty);
+            return (RibbonControlSize)element.GetValue(SizeProperty);
         }
 
         #endregion
@@ -78,34 +82,34 @@
         /// Using a DependencyProperty as the backing store for SizeDefinition.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RibbonSizeDefinitionProperty =
-            DependencyProperty.RegisterAttached("RibbonSizeDefinition", typeof(string), typeof(RibbonAttachedProperties),
+        public static readonly DependencyProperty SizeDefinitionProperty =
+            DependencyProperty.RegisterAttached("SizeDefinition", typeof(string), typeof(RibbonProperties),
                 new FrameworkPropertyMetadata("Large, Middle, Small",
                                               FrameworkPropertyMetadataOptions.AffectsArrange |
                                               FrameworkPropertyMetadataOptions.AffectsMeasure |
                                               FrameworkPropertyMetadataOptions.AffectsRender |
                                               FrameworkPropertyMetadataOptions.AffectsParentArrange |
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                              OnRibbonSizeDefinitionPropertyChanged));
+                                              OnSizeDefinitionPropertyChanged));
 
         /// <summary>
         /// Sets SizeDefinition for element
         /// </summary>
-        public static void SetRibbonSizeDefinition(DependencyObject element, string value)
+        public static void SetSizeDefinition(DependencyObject element, string value)
         {
-            element.SetValue(RibbonSizeDefinitionProperty, value);
+            element.SetValue(SizeDefinitionProperty, value);
         }
 
         /// <summary>
         /// Gets SizeDefinition for element
         /// </summary>
-        public static string GetRibbonSizeDefinition(DependencyObject element)
+        public static string GetSizeDefinition(DependencyObject element)
         {
-            return (string)element.GetValue(RibbonSizeDefinitionProperty);
+            return (string)element.GetValue(SizeDefinitionProperty);
         }
 
         // Handles RibbonSizeDefinitionProperty changes
-        internal static void OnRibbonSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Find parent group box
             var groupBox = FindParentRibbonGroupBox(d);
@@ -151,7 +155,7 @@
                 index = 0;
             }
 
-            SetRibbonSize(element, GetThreeRibbonSizeDefinition(element)[index]);
+            SetSize(element, GetThreeRibbonSizeDefinition(element)[index]);
         }
 
         /// <summary>
@@ -160,7 +164,7 @@
         /// <param name="element">The given element</param>
         public static RibbonControlSize[] GetThreeRibbonSizeDefinition(DependencyObject element)
         {
-            var sizeDefinition = GetRibbonSizeDefinition(element);
+            var sizeDefinition = GetSizeDefinition(element);
 
             if (string.IsNullOrEmpty(sizeDefinition))
             {

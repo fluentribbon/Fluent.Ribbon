@@ -465,7 +465,7 @@ namespace Fluent
         {
             SplitButton button = new SplitButton();
             button.Click += ((sender, e) => RaiseEvent(e));
-            RibbonAttachedProperties.SetRibbonSize(button, RibbonControlSize.Small);
+            RibbonProperties.SetSize(button, RibbonControlSize.Small);
             button.CanAddButtonToQuickAccessToolBar = false;
             BindQuickAccessItem(button);
             BindQuickAccessItemDropDownEvents(button);

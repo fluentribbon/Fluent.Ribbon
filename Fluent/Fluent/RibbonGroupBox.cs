@@ -136,7 +136,7 @@ namespace Fluent
 
             foreach (var item in ribbonGroupBox.Items)
             {
-                RibbonAttachedProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
+                RibbonProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
             }
         }
 
@@ -822,7 +822,7 @@ namespace Fluent
             {
                 foreach (var element in e.NewItems.OfType<UIElement>())
                 {
-                    RibbonAttachedProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
+                    RibbonProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
                 }
             }
             base.OnItemsChanged(e);

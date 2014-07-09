@@ -971,7 +971,7 @@ namespace Fluent
                 }
                 else
                 {
-                    if ((RibbonAttachedProperties.GetRibbonSize(associatedElements[i]) != RibbonControlSize.Large)
+                    if ((RibbonProperties.GetSize(associatedElements[i]) != RibbonControlSize.Large)
                         || (associatedElements[i] is Spinner)
                         || (associatedElements[i] is ComboBox)
                         || (associatedElements[i] is TextBox)

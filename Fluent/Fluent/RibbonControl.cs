@@ -253,6 +253,44 @@ namespace Fluent
 
         #endregion
 
+        #region Size
+
+        /// <summary>
+        /// Gets or sets Size for the element.
+        /// </summary>
+        public RibbonControlSize Size
+        {
+            get { return (RibbonControlSize)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Size.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonControl));
+
+        #endregion
+
+        #region SizeDefinition
+
+        /// <summary>
+        /// Gets or sets SizeDefinition for element.
+        /// </summary>
+        public string SizeDefinition
+        {
+            get { return (string)GetValue(SizeDefinitionProperty); }
+            set { SetValue(SizeDefinitionProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonControl));
+
+        #endregion
+
         #region Constructors
 
         /// <summary>
@@ -337,7 +375,7 @@ namespace Fluent
             }
             if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
-            RibbonAttachedProperties.SetRibbonSize(element, RibbonControlSize.Small);
+            RibbonProperties.SetSize(element, RibbonControlSize.Small);
         }
 
         /// <summary>
