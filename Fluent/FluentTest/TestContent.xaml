@@ -178,7 +178,7 @@
             </Fluent:Ribbon.Menu>
 
             <Fluent:Ribbon.ToolBarItems>
-                <Fluent:Button Fluent:RibbonProperties.Size="Small"
+                <Fluent:Button Size="Small"
                                Icon="Images/Help.png"
                                Click="OnHelpClick">
                     <Fluent:Button.ToolTip>
@@ -218,7 +218,7 @@
                                         Header="Paste"
                                         Icon="Images\Paste.png"
                                         LargeIcon="Images\PasteLarge.png"
-                                        Fluent:RibbonProperties.SizeDefinition="Large"
+                                        SizeDefinition="Large"
                                         Command="Paste">
                         <Fluent:SplitButton.ToolTip>
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
@@ -293,7 +293,7 @@
                                    Fluent:KeyTip.Keys="X"
                                    Header="Cut"
                                    Icon="Images\Cut.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle,Small"
+                                   SizeDefinition="Middle,Small"
                                    Command="Cut">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Cut (Ctrl+X)"
@@ -306,7 +306,7 @@
                                    Fluent:KeyTip.Keys="C"
                                    Header="Copy"
                                    Icon="Images\Copy.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle,Small"
+                                   SizeDefinition="Middle,Small"
                                    Command="Copy">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Insert Chart"
@@ -316,7 +316,7 @@
                     <Fluent:Button Fluent:KeyTip.Keys="FP"
                                    Header="Format Painter"
                                    Icon="Images\FormatPainter.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle,Small"
+                                   SizeDefinition="Middle,Small"
                                    Click="OnFormatPainterClick" />
                     <Fluent:DropDownButton Name="buttonWatermark"
                                            Fluent:KeyTip.Keys="W"
@@ -503,7 +503,7 @@
                         <Fluent:MenuItem Name="buttonRemoveWatermark"
                                          Header="Remove Watermark"
                                          Icon="Images\removeWatermark16.png"
-                                         Fluent:RibbonProperties.Size="Middle"
+                                         Size="Middle"
                                          IsEnabled="True" />
                     </Fluent:DropDownButton>
 
@@ -522,7 +522,7 @@
                         <!--ToolBar Layout Definitions-->
 
                         <Fluent:RibbonToolBar.LayoutDefinitions>
-                            <Fluent:RibbonToolBarLayoutDefinition Fluent:RibbonProperties.Size="Large">
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
                                 <Fluent:RibbonToolBarRow>
                                     <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
                                                                            Width="75" />
@@ -556,7 +556,7 @@
                                 </Fluent:RibbonToolBarRow>
                             </Fluent:RibbonToolBarLayoutDefinition>
 
-                            <Fluent:RibbonToolBarLayoutDefinition Fluent:RibbonProperties.Size="Middle">
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
                                 <Fluent:RibbonToolBarRow>
                                     <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
                                                                            Width="125" />
@@ -603,7 +603,7 @@
                                          IsTextSearchEnabled="True"
                                          ResizeMode="Vertical"
                                          Fluent:KeyTip.Keys="FF"
-                                         Fluent:RibbonProperties.SizeDefinition="Small"
+                                         SizeDefinition="Small"
                                          SelectedIndex="0">
                             <TextBlock Text="Arial"
                                        Tag="Theme Fonts" />
@@ -633,7 +633,7 @@
                                          Text="12"
                                          DisplayMemberPath="Text"
                                          IsEditable="False"
-                                         Fluent:RibbonProperties.SizeDefinition="Small"
+                                         SizeDefinition="Small"
                                          ResizeMode="Vertical"
                                          Fluent:KeyTip.Keys="FS">
                             <TextBlock Text="7" />
@@ -658,48 +658,48 @@
                                        x:Name="buttonGrowFont"
                                        Icon="Images\GrowFont.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonShrinkFont"
                                        Icon="Images\ShrinkFont.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:DropDownButton x:Name="buttonChangeCase"
                                                Icon="Images\ChangeCase.png"
                                                HorizontalAlignment="Left"
-                                               Fluent:RibbonProperties.SizeDefinition="Small" />
+                                               SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonClearFormatting"
                                        Icon="Images\ClearFormatting.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:ToggleButton Fluent:KeyTip.Keys="B"
                                              x:Name="buttonBold"
                                              Icon="Images\Bold.png"
                                              HorizontalAlignment="Left"
-                                             Fluent:RibbonProperties.SizeDefinition="Small" />
+                                             SizeDefinition="Small" />
                         <Fluent:ToggleButton x:Name="buttonItalic"
                                              Fluent:KeyTip.Keys="I"
                                              Icon="Images\Italic.png"
                                              HorizontalAlignment="Left"
-                                             Fluent:RibbonProperties.SizeDefinition="Small" />
+                                             SizeDefinition="Small" />
                         <Fluent:DropDownButton x:Name="buttonUnderline"
                                                Icon="Images\Underline.png"
                                                HorizontalAlignment="Left"
-                                               Fluent:RibbonProperties.SizeDefinition="Small" />
+                                               SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonStrikethrough"
                                        Icon="Images\Strikethrough.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonSubscript"
                                        Icon="Images\Subscript.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonSuperscript"
                                        Icon="Images\Superscript.png"
                                        HorizontalAlignment="Left"
-                                       Fluent:RibbonProperties.SizeDefinition="Small" />
+                                       SizeDefinition="Small" />
                         <Fluent:DropDownButton x:Name="buttonTextEffects"
                                                HorizontalAlignment="Left"
-                                               Fluent:RibbonProperties.SizeDefinition="Small">
+                                               SizeDefinition="Small">
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
                                     <Image Source="Images\TextEffects.png"
@@ -721,7 +721,7 @@
                         </Fluent:DropDownButton>
                         <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
                                                HorizontalAlignment="Left"
-                                               Fluent:RibbonProperties.SizeDefinition="Small">
+                                               SizeDefinition="Small">
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
                                     <Image Source="Images\TextHighlightColor.png"
@@ -744,7 +744,7 @@
                         </Fluent:DropDownButton>
                         <Fluent:DropDownButton x:Name="buttonFontColor"
                                                HorizontalAlignment="Left"
-                                               Fluent:RibbonProperties.SizeDefinition="Small"
+                                               SizeDefinition="Small"
                                                MaxDropDownHeight="500">
                             <Fluent:DropDownButton.ToolTip>
                                 <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
@@ -796,7 +796,7 @@
                                             ResizeMode="Both"
                                             MinItemsInRow="2"
                                             MaxItemsInRow="7"
-                                            Fluent:RibbonProperties.SizeDefinition="Large"
+                                            SizeDefinition="Large"
                                             Orientation="Horizontal"
                                             ItemWidth="40"
                                             ItemHeight="56"
@@ -870,7 +870,7 @@
                                         Fluent:KeyTip.Keys="S"
                                         Click="OnSplitClick"
                                         ResizeMode="Both"
-                                        Fluent:RibbonProperties.SizeDefinition="Large"
+                                        SizeDefinition="Large"
                                         MaxDropDownHeight="1000"
                                         DropDownHeight="300">
                         <Fluent:Gallery x:Name="gallery"
@@ -1044,13 +1044,13 @@
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:Button Click="OnSilverClick"
                                    Icon="Images/SilverTheme.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle">Silver</Fluent:Button>
+                                   SizeDefinition="Middle">Silver</Fluent:Button>
                     <Fluent:Button Click="OnBlackClick"
                                    Icon="Images/BlackTheme.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle">Black</Fluent:Button>
+                                   SizeDefinition="Middle">Black</Fluent:Button>
                     <Fluent:Button Click="OnBlueClick"
                                    Icon="Images/BlueTheme.png"
-                                   Fluent:RibbonProperties.SizeDefinition="Middle">Blue</Fluent:Button>
+                                   SizeDefinition="Middle">Blue</Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        Fluent:KeyTip.Keys="ZXB"
@@ -1174,7 +1174,7 @@
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-                    <Fluent:Button Fluent:RibbonProperties.SizeDefinition="Large,Large,Large"></Fluent:Button>
+                    <Fluent:Button SizeDefinition="Large,Large,Large"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             <Fluent:RibbonTabItem Header="Page Layout"
@@ -1245,12 +1245,12 @@
                 <Fluent:RibbonGroupBox>
                     <Fluent:ToggleButton Header="Pause"
                                          Icon="Images\GrowFont.png"
-                                         Fluent:RibbonProperties.SizeDefinition="Middle"
+                                         SizeDefinition="Middle"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
                                          LargeIcon="Images\Test32.png"
                                          Icon="Images\Test16.png"
-                                         Fluent:RibbonProperties.SizeDefinition="Middle"
+                                         SizeDefinition="Middle"
                                          GroupName="Group1" />
                     <Separator />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
@@ -1294,7 +1294,7 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:ToggleButton Header="blah blah"
-                                         Fluent:RibbonProperties.SizeDefinition="Small">
+                                         SizeDefinition="Small">
                         <Fluent:ToggleButton.Icon>
                             <Grid>
                                 <Image />
@@ -1303,7 +1303,7 @@
                         </Fluent:ToggleButton.Icon>
                     </Fluent:ToggleButton>
                     <Fluent:SplitButton Header="blah blah"
-                                        Fluent:RibbonProperties.SizeDefinition="Small">
+                                        SizeDefinition="Small">
                         <Fluent:SplitButton.Icon>
                             <Grid>
                                 <Image />
@@ -1333,7 +1333,7 @@
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox>
                     <Fluent:DropDownButton HorizontalAlignment="Left"
-                                           Fluent:RibbonProperties.SizeDefinition="Small">
+                                           SizeDefinition="Small">
                         <Fluent:DropDownButton.Icon>
                             <Grid>
                                 <Image Source="Images\TextHighlightColor.png"
