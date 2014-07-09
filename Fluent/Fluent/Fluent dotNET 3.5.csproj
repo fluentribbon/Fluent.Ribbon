@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicatonMenu.cs" />
-    <Compile Include="AttachedProperties\RibbonAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\RibbonProperties.cs" />
     <Compile Include="BackstageAdorner.cs" />
     <Compile Include="Backstage.cs" />
     <Compile Include="BackstageTabControl.cs" />
