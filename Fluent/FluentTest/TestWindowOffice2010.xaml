@@ -13,7 +13,7 @@
     <Fluent:RibbonWindow.Resources>                
         <ResourceDictionary>           
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Generic.xaml" />                
+                <ResourceDictionary Source="/Fluent;Component/Themes/Generic.xaml" />                
                 <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
