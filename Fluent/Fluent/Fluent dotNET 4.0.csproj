@@ -178,10 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -607,7 +603,7 @@
     <Resource Include="Themes\Office2010\Images\MoreColors.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Themes\Office2010\Generic.txt" />
+    <None Include="Themes\Generic.txt" />
     <None Include="Themes\Metro\Generic.txt" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
@@ -616,7 +612,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)Themes\XamlCombine.exe" Office2010\Generic.txt Office2010\Generic.xaml
+    <PreBuildEvent>"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
 "$(ProjectDir)Themes\XamlCombine.exe" Metro\Generic.txt Metro\Generic.xaml</PreBuildEvent>
   </PropertyGroup>
 </Project>
