@@ -24,22 +24,25 @@ namespace Fluent
         #region Fields
 
         // Host element, usually this is Ribbon
-        Ribbon ribbon;
+        private readonly Ribbon ribbon;
+
         // Timer to show KeyTips with delay
-        DispatcherTimer timer;
+        private readonly DispatcherTimer timer;
+
         // Is KeyTips Actived now
-        KeyTipAdorner activeAdornerChain;
+        private KeyTipAdorner activeAdornerChain;
         // This element must be remembered to restore it
         IInputElement backUpFocusedElement;
         // Window where we attached
-        Window window;
+        private Window window;
+
         // Whether we attached to window
-        bool attached;
+        private bool attached;
 
         // Attached HWND source
-        HwndSource attachedHwndSource;
+        private HwndSource attachedHwndSource;
 
-        private KeyConverter keyConverter = new KeyConverter();
+        private static readonly KeyConverter keyConverter = new KeyConverter();
         private string currentUserInput;
 
         #endregion
@@ -202,7 +205,7 @@ namespace Fluent
 
                     if (this.activeAdornerChain != null)
                     {
-                        this.currentUserInput += this.keyConverter.ConvertToString(e.SystemKey);
+                        this.currentUserInput += keyConverter.ConvertToString(e.SystemKey);
 
                         if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                         {
