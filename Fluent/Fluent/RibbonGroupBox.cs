@@ -25,33 +25,6 @@ using System.Windows.Shapes;
 namespace Fluent
 {
     /// <summary>
-    /// Represents states of ribbon group 
-    /// </summary>
-    public enum RibbonGroupBoxState
-    {
-        /// <summary>
-        /// Large. All controls in the group will try to be large size
-        /// </summary>
-        Large = 0,
-        /// <summary>
-        /// Middle. All controls in the group will try to be middle size
-        /// </summary>
-        Middle,
-        /// <summary>
-        /// Small. All controls in the group will try to be small size
-        /// </summary>
-        Small,
-        /// <summary>
-        /// Collapsed. Group will collapse its content in a single button
-        /// </summary>
-        Collapsed,
-        /// <summary>
-        /// QuickAccess. Group will collapse its content in a single button in quick access toolbar
-        /// </summary>
-        QuickAccess
-    }
-
-    /// <summary>
     /// RibbonGroup represents a logical group of controls as they appear on
     /// a RibbonTab.  These groups can resize its content
     /// </summary>
@@ -839,11 +812,16 @@ namespace Fluent
         {
             if (e.NewItems != null)
             {
-                foreach (var element in e.NewItems.OfType<UIElement>())
+                var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess 
+                    ? RibbonGroupBoxState.Collapsed 
+                    : this.State;
+
+                foreach (var item in e.NewItems)
                 {
-                    RibbonProperties.SetAppropriateSize(element, State == RibbonGroupBoxState.QuickAccess ? RibbonGroupBoxState.Collapsed : State);
+                    RibbonProperties.SetAppropriateSize(this.ItemContainerGenerator.ContainerFromItem(item), groupBoxState);
                 }
             }
+
             base.OnItemsChanged(e);
         }
 
@@ -919,24 +897,6 @@ namespace Fluent
                 }
             }
         }
-
-        /*/// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <param name="constraint">The maximum size that the method can return.</param>
-        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
-        protected override Size MeasureOverride(Size constraint)
-        {
-            // System.Diagnostics.Debug.WriteLine("Measure " + Header + " (" + State + ") (" + scale + ")");
-            if (State == RibbonGroupBoxState.Collapsed) return base.MeasureOverride(constraint);
-
-            Size size = base.MeasureOverride(constraint);
-            if ((upPanel != null) && (upPanel.DesiredSize.Width < downGrid.DesiredSize.Width))
-            {
-                return base.MeasureOverride(new Size(upPanel.DesiredSize.Width + upPanel.Margin.Left + upPanel.Margin.Right, constraint.Height));
-            }
-            return size;
-        }*/
 
         #endregion
 
@@ -1068,93 +1028,6 @@ namespace Fluent
             }
             IsSnapped = false;
         }
-
-        /*UIElement popupPlacementTarget;
-        
-        void OnQuickAccessClick(object sender, MouseButtonEventArgs e)
-        {
-            ToggleButton button = (ToggleButton)sender;
-            if ((!IsDropDownOpen) && (!IsSnapped))
-            {
-                if (popup == null)
-                {
-                    // Trying to load control
-                    RibbonTabItem item = Parent as RibbonTabItem;
-                    if (item != null)
-                    {
-                        RibbonTabControl tabControl = item.Parent as RibbonTabControl;
-                        if (tabControl != null)
-                        {
-                            RibbonTabItem selectedItem = tabControl.SelectedItem as RibbonTabItem;
-                            tabControl.SelectedItem = item;
-                            tabControl.UpdateLayout();
-                            tabControl.SelectedItem = selectedItem;
-                        }
-                    }
-                }
-                IsSnapped = true;
-                savedState = this.State;
-                this.State = RibbonGroupBoxState.Collapsed;
-                if (!IsVisible)
-                {
-                    UIElement element = popup.Child;
-                    popup.Child = null;
-                    if (element != null)
-                    {
-                        Decorator parent = VisualTreeHelper.GetParent(element) as Decorator;
-                        if (parent != null) parent.Child = null;
-                    }
-                    quickAccessPopup = new Popup();
-                    quickAccessPopup.AllowsTransparency = popup.AllowsTransparency;
-                    quickAccessPopup.Child = element;
-                }
-                else quickAccessPopup = popup as Popup;
-                quickAccessPopup.Closed += OnMenuClosed;
-                popupPlacementTarget = popup.PlacementTarget;
-                quickAccessPopup.PlacementTarget = button;
-                quickAccessPopup.Tag = button;
-                if (IsVisible)
-                {
-                    Width = ActualWidth;
-                    Height = ActualHeight;
-                }
-                savedScale = Scale;
-                Scale = -100;
-                quickAccessPopup.IsOpen = true;                
-                //IsDropDownOpen = true;
-                Mouse.Capture(this, CaptureMode.SubTree);
-                if (quickAccessPopup.Child != null) quickAccessPopup.Child.InvalidateMeasure();
-                button.IsChecked = true;
-                e.Handled = true;
-            }
-        }
-
-        private void OnMenuClosed(object sender, EventArgs e)
-        {
-            Scale = savedScale;
-            if (quickAccessPopup != popup)
-            {
-                UIElement element = quickAccessPopup.Child;
-                quickAccessPopup.Child = null;
-                if (element != null)
-                {
-                    Decorator parent = VisualTreeHelper.GetParent(element) as Decorator;
-                    if (parent != null) parent.Child = null;
-                }
-                popup.Child = element;
-            }
-            if (Mouse.Captured == this) Mouse.Capture(null);
-            Width = double.NaN;
-            Height = double.NaN;
-            this.State = savedState;
-            quickAccessPopup.PlacementTarget = popupPlacementTarget;
-            UpdateLayout();
-            ((ToggleButton)((Popup)sender).Tag).IsChecked = false;
-            quickAccessPopup.Closed -= OnMenuClosed;
-            quickAccessPopup = null;
-            IsSnapped = false;
-            IsDropDownOpen = false;            
-        }*/
 
         /// <summary>
         /// Gets or sets whether control can be added to quick access toolbar
