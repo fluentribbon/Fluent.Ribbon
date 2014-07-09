@@ -25,9 +25,7 @@
             }
             else
             {
-                dispatcher.BeginInvoke(
-                    priority,
-                    new Action(action));
+                dispatcher.BeginInvoke(priority, action);
             }
         }
 
@@ -50,9 +48,7 @@
             }
             else
             {
-                dispatcher.Invoke(
-                    priority,
-                    new Action(action));
+                dispatcher.Invoke(priority, action);
             }
         }
     }
