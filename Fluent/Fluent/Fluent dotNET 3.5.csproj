@@ -71,6 +71,7 @@
     <Compile Include="Converters\ObjectToImageConverter.cs" />
     <Compile Include="Converters\StaticConverters.cs" />
     <Compile Include="Converters\ThicknessConverter.cs" />
+    <Compile Include="Enumerations\RibbonControlSize.cs" />
     <Compile Include="Enumerations\RibbonGroupBoxState.cs" />
     <Compile Include="Extensibility\IRibbonSizeChangedSink.cs" />
     <Compile Include="Extensions\DispatcherExtensions.cs" />
