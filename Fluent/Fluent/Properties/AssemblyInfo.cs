@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 [assembly: AssemblyTitle("Fluent")]
 [assembly: AssemblyDescription("Fluent Ribbon Control Suite")]
@@ -32,6 +33,12 @@ using System.Windows;
 [assembly: AssemblyVersion("2.1")]
 [assembly: AssemblyFileVersion("2.1")]
 [assembly: CLSCompliant(true)]
+
+[assembly: XmlnsPrefix("urn:fluent-ribbon", "fluent")]
+[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent")]
+[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Converters")]
+[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Behaviours")]
+[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Controls")]
 
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
