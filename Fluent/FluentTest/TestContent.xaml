@@ -7,8 +7,8 @@
              xmlns:FluentTest="clr-namespace:FluentTest"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" 
-             d:DesignWidth="300"
+             d:DesignHeight="600" 
+             d:DesignWidth="800"
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance FluentTest:TestContent, IsDesignTimeCreatable=False}">
     <Grid>
@@ -1040,6 +1040,7 @@
                                        KeyTip="ZXK"
                                        x:Name="C"
                                        Header="Themes"
+                                       CanAddToQuickAccessToolBar="False"
                                        IsLauncherVisible="False"
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:Button Click="OnSilverClick"
@@ -1128,6 +1129,9 @@
                         <System:String>Read-only</System:String>
                         <System:String>Writeable</System:String>
                     </Fluent:ComboBox>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Gallery">
                     <Fluent:InRibbonGallery x:Name="inRibbonGallery"
                                             Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                             Header="Split"
@@ -1159,6 +1163,366 @@
                         <TextBlock Tag="Group2">2 (G 2)</TextBlock>
                         <TextBlock Tag="Group2">3 (G 2)</TextBlock>
                     </Fluent:InRibbonGallery>
+
+                    <Fluent:InRibbonGallery MinItemsInDropDownRow="5"
+                                            MaxItemsInDropDownRow="5"
+                                            IsCollapsed="True"
+                                            ItemHeight="100"
+                                            ItemWidth="100"
+                                            ResizeMode="Both">
+                        <Fluent:GalleryItem>AAAA - First</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>BBBB</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>BBBB</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>BBBB</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>BBBB</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>BBBB</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>CCCC</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>CCCC</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>CCCC</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>CCCC</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>CCCC</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>DDDD</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>DDDD</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>DDDD</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>DDDD</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>DDDD</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>EEEE</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>EEEE</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>EEEE</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>EEEE</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>EEEE</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>FFFF</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>FFFF</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>FFFF</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>FFFF</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>FFFF</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>GGGG</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>GGGG</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>GGGG</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>GGGG</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>GGGG</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>HHHH</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>HHHH</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>HHHH</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>HHHH</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>HHHH</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>IIII</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>IIII</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>IIII</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>IIII</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>IIII</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>JJJJ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>JJJJ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>JJJJ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>JJJJ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>JJJJ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>KKKK</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>KKKK</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>KKKK</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>KKKK</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>KKKK</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>LLLL</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>LLLL</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>LLLL</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>LLLL</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>LLLL</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>MMMM</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>MMMM</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>MMMM</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>MMMM</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>MMMM</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>NNNN</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>NNNN</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>NNNN</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>NNNN</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>NNNN</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>OOOO</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>OOOO</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>OOOO</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>OOOO</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>OOOO</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>PPPP</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>PPPP</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>PPPP</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>PPPP</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>PPPP</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>QQQQ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>QQQQ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>QQQQ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>QQQQ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>QQQQ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>AAAA</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>YYYY</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>YYYY</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>YYYY</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>YYYY</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>YYYY</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>ZZZZ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>ZZZZ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>ZZZZ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>ZZZZ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>ZZZZ</Fluent:GalleryItem>
+                        <Fluent:GalleryItem>Last</Fluent:GalleryItem>
+                    </Fluent:InRibbonGallery>
+                </Fluent:RibbonGroupBox>
+                    
+                <Fluent:RibbonGroupBox Header="Buttons">
                     <Fluent:Button Icon="Images\GrowFont.png"
                                    LargeIcon="Images\GrowFont.png"
                                    Header="Enlarge"
@@ -1187,7 +1551,10 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">
-                    <Fluent:SplitButton Header="Too many items" ResizeMode="Both">
+                    <Fluent:SplitButton Header="Too many items"
+                                        ResizeMode="Both"
+                                        Icon="Images\Box.png"
+                                        LargeIcon="Images\Box.png">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
