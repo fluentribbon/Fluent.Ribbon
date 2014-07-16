@@ -456,7 +456,8 @@ namespace Fluent
             var currentFocus = Keyboard.FocusedElement as DependencyObject;
 
             if (currentFocus == null
-                || ReferenceEquals(ItemsControlFromItemContainer(currentFocus), this) == false)
+                || !this.IsContextMenuOpened 
+                && ReferenceEquals(ItemsControlFromItemContainer(currentFocus), this) == false)
             {
                 this.IsDropDownOpen = false;
             }
