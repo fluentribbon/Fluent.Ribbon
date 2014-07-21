@@ -69,6 +69,7 @@
     <Compile Include="ContextMenuService.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
     <Compile Include="Converters\ObjectToImageConverter.cs" />
+    <Compile Include="Converters\SizeDefinitionConverter.cs" />
     <Compile Include="Converters\StaticConverters.cs" />
     <Compile Include="Converters\ThicknessConverter.cs" />
     <Compile Include="Enumerations\RibbonControlSize.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="RibbonMenu.cs" />
+    <Compile Include="RibbonSizeDefinition.cs" />
     <Compile Include="StatusBar.cs" />
     <Compile Include="StatusBarItem.cs" />
     <Compile Include="StatusBarMenuItem.cs" />

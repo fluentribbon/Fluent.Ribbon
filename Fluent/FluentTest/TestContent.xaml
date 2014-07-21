@@ -306,8 +306,10 @@
                                    KeyTip="C"
                                    Header="Copy"
                                    Icon="Images\Copy.png"
-                                   SizeDefinition="Middle,Small"
-                                   Command="Copy">
+                                   Command="Copy">                        
+                        <Fluent:Button.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle" Middle="Small" />
+                        </Fluent:Button.SizeDefinition>
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Insert Chart"
                                               DisableReason="Disable reason reason." />

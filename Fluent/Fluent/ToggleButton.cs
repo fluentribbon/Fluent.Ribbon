@@ -48,9 +48,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets SizeDefinition for element.
         /// </summary>
-        public string SizeDefinition
+        public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (string)GetValue(SizeDefinitionProperty); }
+            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
             set { SetValue(SizeDefinitionProperty, value); }
         }
 

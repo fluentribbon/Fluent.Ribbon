@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets or sets SizeDefinition for element
         /// </summary>
-        string SizeDefinition { get; set; }
+        RibbonControlSizeDefinition SizeDefinition { get; set; }
 
         /// <summary>
         /// Gets or sets element Text

@@ -1,6 +1,5 @@
 ﻿namespace Fluent
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Media;
@@ -83,8 +82,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty =
-            DependencyProperty.RegisterAttached("SizeDefinition", typeof(string), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata("Large, Middle, Small",
+            DependencyProperty.RegisterAttached("SizeDefinition", typeof(RibbonControlSizeDefinition), typeof(RibbonProperties),
+                new FrameworkPropertyMetadata(new RibbonControlSizeDefinition(RibbonControlSize.Large, RibbonControlSize.Middle, RibbonControlSize.Small),
                                               FrameworkPropertyMetadataOptions.AffectsArrange |
                                               FrameworkPropertyMetadataOptions.AffectsMeasure |
                                               FrameworkPropertyMetadataOptions.AffectsRender |
@@ -93,19 +92,19 @@
                                               OnSizeDefinitionPropertyChanged));
 
         /// <summary>
-        /// Sets SizeDefinition for element
+        /// Gets SizeDefinition for element
         /// </summary>
-        public static void SetSizeDefinition(DependencyObject element, string value)
+        public static RibbonControlSizeDefinition GetSizeDefinition(DependencyObject element)
         {
-            element.SetValue(SizeDefinitionProperty, value);
+            return (RibbonControlSizeDefinition)element.GetValue(SizeDefinitionProperty);
         }
 
         /// <summary>
-        /// Gets SizeDefinition for element
+        /// Sets SizeDefinition for element
         /// </summary>
-        public static string GetSizeDefinition(DependencyObject element)
+        public static void SetSizeDefinition(DependencyObject element, RibbonControlSizeDefinition value)
         {
-            return (string)element.GetValue(SizeDefinitionProperty);
+            element.SetValue(SizeDefinitionProperty, value);
         }
 
         // Handles RibbonSizeDefinitionProperty changes
@@ -149,65 +148,7 @@
         /// <param name="state">Group box state</param>
         public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
         {
-            var index = (int)state;
-            if (state == RibbonGroupBoxState.Collapsed)
-            {
-                index = 0;
-            }
-
-            SetSize(element, GetThreeRibbonSizeDefinition(element)[index]);
-        }
-
-        /// <summary>
-        /// Gets value of the attached property SizeDefinition of the given element
-        /// </summary>
-        /// <param name="element">The given element</param>
-        public static RibbonControlSize[] GetThreeRibbonSizeDefinition(DependencyObject element)
-        {
-            var sizeDefinition = GetSizeDefinition(element);
-
-            if (string.IsNullOrEmpty(sizeDefinition))
-            {
-                return new[] { RibbonControlSize.Large, RibbonControlSize.Large, RibbonControlSize.Large };
-            }
-
-            var splitted = sizeDefinition.Split(new[] { ' ', ',', ';', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
-
-            var count = Math.Min(splitted.Length, 3);
-            if (count == 0)
-            {
-                return new[] { RibbonControlSize.Large, RibbonControlSize.Large, RibbonControlSize.Large };
-            }
-
-            var sizes = new RibbonControlSize[3];
-            for (var i = 0; i < count; i++)
-            {
-                switch (splitted[i])
-                {
-                    case "Large":
-                        sizes[i] = RibbonControlSize.Large;
-                        break;
-
-                    case "Middle":
-                        sizes[i] = RibbonControlSize.Middle;
-                        break;
-
-                    case "Small":
-                        sizes[i] = RibbonControlSize.Small;
-                        break;
-
-                    default:
-                        sizes[i] = RibbonControlSize.Large;
-                        break;
-                }
-            }
-
-            for (var i = count; i < 3; i++)
-            {
-                sizes[i] = sizes[count - 1];
-            }
-
-            return sizes;
+            SetSize(element, GetSizeDefinition(element).GetSize(state));
         }
 
         #endregion
