@@ -117,7 +117,7 @@
     <Compile Include="PopupService.cs" />
     <Compile Include="RadioButton.cs" />
     <Compile Include="RibbonMenu.cs" />
-    <Compile Include="RibbonSizeDefinition.cs" />
+    <Compile Include="RibbonControlSizeDefinition.cs" />
     <Compile Include="StatusBar.cs" />
     <Compile Include="StatusBarItem.cs" />
     <Compile Include="StatusBarMenuItem.cs" />
