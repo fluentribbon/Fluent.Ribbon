@@ -399,6 +399,11 @@
             {
                 Header = "Test"
             };
+
+            var group = new RibbonGroupBox();
+            group.Items.Add(this.CreateRibbonButton());
+            tab.Groups.Add(group);
+
             this.ribbon.Tabs.Add(tab);
         }
     }

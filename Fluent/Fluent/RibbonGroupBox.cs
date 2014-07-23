@@ -37,7 +37,6 @@ namespace Fluent
         #region Fields
 
         // Dropdown poup
-        private Popup popup;
 
         // Down part
         private Grid downGrid;
@@ -47,9 +46,12 @@ namespace Fluent
         private Panel parentPanel;
 
         // Freezed image (created during snapping)
-        Image snappedImage;
+        private Image snappedImage;
+        
         // Is visual currently snapped
-        bool isSnapped;
+        private bool isSnapped;
+
+        private bool waitingForItemContainerGenerator;
 
         #endregion
 
@@ -77,10 +79,7 @@ namespace Fluent
         /// <summary>
         /// Gets drop down popup
         /// </summary>
-        public Popup DropDownPopup
-        {
-            get { return popup; }
-        }
+        public Popup DropDownPopup { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether context menu is opened
@@ -113,22 +112,45 @@ namespace Fluent
         static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
-            var ribbonGroupBoxState = (RibbonGroupBoxState)e.NewValue;
-
-            SetChildSizes(ribbonGroupBoxState, ribbonGroupBox);
+            ribbonGroupBox.UpdateChildSizes();
         }
 
-        // Set child sizes
-        private static void SetChildSizes(RibbonGroupBoxState ribbonGroupBoxState, ItemsControl ribbonGroupBox)
+        private void HandleItemContainerGenerator_StatusChanged(object sender, EventArgs e)
         {
-            if (ribbonGroupBox.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
+            this.UpdateChildSizes();
+        }
+
+        private void HandleItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
+        {
+            this.UpdateChildSizes();
+        }
+
+        private void UpdateChildSizes()
+        {
+            // todo: find a better way to queue action which should run when ItemContainerGenerator finishes generating containers
+            // maybe a separate class would help here
+            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
+                if (this.waitingForItemContainerGenerator)
+                {
+                    return;
+                }
+
+                this.waitingForItemContainerGenerator = true;
+                this.ItemContainerGenerator.StatusChanged += this.HandleItemContainerGenerator_StatusChanged;
                 return;
             }
 
-            foreach (var item in ribbonGroupBox.Items)
+            this.waitingForItemContainerGenerator = false;
+            this.ItemContainerGenerator.StatusChanged -= this.HandleItemContainerGenerator_StatusChanged;
+
+            var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess
+                            ? RibbonGroupBoxState.Collapsed
+                            : this.State;
+
+            foreach (var item in this.Items)
             {
-                RibbonProperties.SetAppropriateSize(ribbonGroupBox.ItemContainerGenerator.ContainerFromItem(item), ribbonGroupBoxState);
+                RibbonProperties.SetAppropriateSize(this.ItemContainerGenerator.ContainerFromItem(item), groupBoxState);
             }
         }
 
@@ -599,6 +621,8 @@ namespace Fluent
 
             this.Loaded += OnLoaded;
             this.Unloaded += OnUnloaded;
+
+            this.ItemContainerGenerator.ItemsChanged += this.HandleItemContainerGenerator_ItemsChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -623,10 +647,10 @@ namespace Fluent
                 LauncherButton.Click += OnDialogLauncherButtonClick;
             }
 
-            if (popup != null)
+            if (this.DropDownPopup != null)
             {
-                popup.Opened += OnPopupOpened;
-                popup.Closed += OnPopupClosed;
+                this.DropDownPopup.Opened += OnPopupOpened;
+                this.DropDownPopup.Closed += OnPopupClosed;
             }
         }
 
@@ -639,10 +663,10 @@ namespace Fluent
                 LauncherButton.Click -= OnDialogLauncherButtonClick;
             }
 
-            if (popup != null)
+            if (this.DropDownPopup != null)
             {
-                popup.Opened -= OnPopupOpened;
-                popup.Closed -= OnPopupClosed;
+                this.DropDownPopup.Opened -= OnPopupOpened;
+                this.DropDownPopup.Closed -= OnPopupClosed;
             }
         }
 
@@ -805,27 +829,6 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Invoked when the System.Windows.Controls.ItemsControl.Items property changes.
-        /// </summary>
-        /// <param name="e">Information about the change.</param>
-        protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess 
-                    ? RibbonGroupBoxState.Collapsed 
-                    : this.State;
-
-                foreach (var item in e.NewItems)
-                {
-                    RibbonProperties.SetAppropriateSize(this.ItemContainerGenerator.ContainerFromItem(item), groupBoxState);
-                }
-            }
-
-            base.OnItemsChanged(e);
-        }
-
-        /// <summary>
         /// When overridden in a derived class, is invoked whenever application code 
         /// or internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
@@ -846,7 +849,7 @@ namespace Fluent
                 }
             }
 
-            popup = GetTemplateChild("PART_Popup") as Popup;
+            this.DropDownPopup = GetTemplateChild("PART_Popup") as Popup;
 
             downGrid = GetTemplateChild("PART_DownGrid") as Grid;
             upPanel = GetTemplateChild("PART_UpPanel") as Panel;
@@ -877,7 +880,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (e.Source != this
-                || this.popup == null)
+                || this.DropDownPopup == null)
             {
                 return;
             }
@@ -1042,7 +1045,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));        
 
         #endregion
 
