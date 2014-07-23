@@ -24,6 +24,8 @@ using System.Windows.Shapes;
 
 namespace Fluent
 {
+    using Fluent.Internal;
+
     /// <summary>
     /// RibbonGroup represents a logical group of controls as they appear on
     /// a RibbonTab.  These groups can resize its content
@@ -51,7 +53,7 @@ namespace Fluent
         // Is visual currently snapped
         private bool isSnapped;
 
-        private bool waitingForItemContainerGenerator;
+        private readonly ItemContainerGeneratorAction updateChildSizesItemContainerGeneratorAction;
 
         #endregion
 
@@ -112,38 +114,11 @@ namespace Fluent
         static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
-            ribbonGroupBox.UpdateChildSizes();
-        }
-
-        private void HandleItemContainerGenerator_StatusChanged(object sender, EventArgs e)
-        {
-            this.UpdateChildSizes();
-        }
-
-        private void HandleItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
-        {
-            this.UpdateChildSizes();
+            ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
         }
 
         private void UpdateChildSizes()
         {
-            // todo: find a better way to queue action which should run when ItemContainerGenerator finishes generating containers
-            // maybe a separate class would help here
-            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
-            {
-                if (this.waitingForItemContainerGenerator)
-                {
-                    return;
-                }
-
-                this.waitingForItemContainerGenerator = true;
-                this.ItemContainerGenerator.StatusChanged += this.HandleItemContainerGenerator_StatusChanged;
-                return;
-            }
-
-            this.waitingForItemContainerGenerator = false;
-            this.ItemContainerGenerator.StatusChanged -= this.HandleItemContainerGenerator_StatusChanged;
-
             var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess
                             ? RibbonGroupBoxState.Collapsed
                             : this.State;
@@ -604,8 +579,8 @@ namespace Fluent
         // Handles visibility changed
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox box = (d as RibbonGroupBox);
-            box.ClearCache();
+            var box = (d as RibbonGroupBox);
+            if (box != null) box.ClearCache();
         }
 
         /// <summary>
@@ -613,16 +588,15 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBox()
         {
-            //AddHandler(Button.ClickEvent, new RoutedEventHandler(OnClick));
-            ToolTip = new ToolTip();
-            (ToolTip as ToolTip).Template = null;
-            CoerceValue(ContextMenuProperty);
-            Focusable = false;
+            this.ToolTip = new ToolTip();
+            ((ToolTip)this.ToolTip).Template = null;
+            this.CoerceValue(ContextMenuProperty);
+            this.Focusable = false;
 
             this.Loaded += OnLoaded;
             this.Unloaded += OnUnloaded;
 
-            this.ItemContainerGenerator.ItemsChanged += this.HandleItemContainerGenerator_ItemsChanged;
+            this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes, true);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
