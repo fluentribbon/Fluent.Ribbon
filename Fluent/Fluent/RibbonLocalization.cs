@@ -617,9 +617,9 @@ namespace Fluent
         public RibbonLocalization()
         {
             // Fallback values
-            LoadEnglish();
+            this.LoadEnglish();
 
-            Culture = CultureInfo.CurrentUICulture;
+            this.Culture = CultureInfo.CurrentUICulture;
         }
 
         #endregion
@@ -629,41 +629,144 @@ namespace Fluent
         // Coerce all localized values
         private void LoadCulture(CultureInfo culture)
         {
-            string language = culture.TwoLetterISOLanguageName;
+            var language = culture.TwoLetterISOLanguageName;
 
             switch (language)
             {
-                case "en": LoadEnglish(); break;
-                case "ru": LoadRussian(); break;
-                case "uk": LoadUkrainian(); break;
-                case "fa": LoadPersian(); break;
-                case "de": LoadGerman(); break;
-                case "hu": LoadHungarian(); break;
-                case "cs": LoadCzech(); break;
-                case "fr": LoadFrench(); break;
-                case "pl": LoadPolish(); break;
-                case "ja": LoadJapanese(); break;
-                case "nl": LoadDutch(); break;
-                case "pt": if (culture.Name == "pt-BR") LoadPortugueseBrazilian(); else LoadPortuguese(); break;
-                case "es": LoadSpanish(); break;
-                case "zh": LoadChinese(); break;
-                case "sv": LoadSwedish(); break;
-                case "sk": LoadSlovak(); break;
-                case "ro": LoadRomanian(); break;
-                case "it": LoadItalian(); break;
-                case "ar": LoadArabic(); break;
-                case "da": LoadDanish(); break;
-                case "az": LoadAzerbaijani(); break;
-                case "fi": LoadFinnish(); break;
-                case "no": LoadNorwegian(); break;
-                case "tr": LoadTurkish(); break;
-                case "he": LoadHebrew(); break;
-                case "ge": LoadGreek(); break;
-                case "ko": LoadKorean(); break;
-                case "vi": LoadVietnamese(); break;
-                case "si": LoadSinhala(); break;
-                case "sl": LoadSlovenian(); break;
-                case "ca": LoadCatalan(); break;
+                case "en": 
+                    LoadEnglish(); 
+                    break;
+
+                case "ru": 
+                    LoadRussian(); 
+                    break;
+
+                case "uk": 
+                    LoadUkrainian(); 
+                    break;
+
+                case "fa": 
+                    LoadPersian(); 
+                    break;
+
+                case "de": 
+                    LoadGerman(); 
+                    break;
+
+                case "hu": 
+                    LoadHungarian(); 
+                    break;
+
+                case "cs": 
+                    LoadCzech(); 
+                    break;
+
+                case "fr": 
+                    LoadFrench(); 
+                    break;
+
+                case "pl": 
+                    LoadPolish(); 
+                    break;
+
+                case "ja": 
+                    LoadJapanese(); 
+                    break;
+
+                case "nl": 
+                    LoadDutch(); 
+                    break;
+                case "pt":
+                {
+                    if (culture.Name == "pt-BR")
+                    {
+                        LoadPortugueseBrazilian();
+                    }
+                    else
+                    {
+                        LoadPortuguese();
+                    }
+                    break;
+                }
+
+                case "es": 
+                    LoadSpanish(); 
+                    break;
+
+                case "zh": 
+                    LoadChinese(); 
+                    break;
+
+                case "sv": 
+                    LoadSwedish(); 
+                    break;
+
+                case "sk": 
+                    LoadSlovak(); 
+                    break;
+
+                case "ro": 
+                    LoadRomanian(); 
+                    break;
+
+                case "it": 
+                    LoadItalian(); 
+                    break;
+
+                case "ar": 
+                    LoadArabic(); 
+                    break;
+
+                case "da": 
+                    LoadDanish(); 
+                    break;
+
+                case "az": 
+                    LoadAzerbaijani(); 
+                    break;
+
+                case "fi": 
+                    LoadFinnish(); 
+                    break;
+
+                case "nb":
+                case "nn":
+                case "no": 
+                    LoadNorwegian(); 
+                    break;
+
+                case "tr": 
+                    LoadTurkish(); 
+                    break;
+
+                case "he": 
+                    LoadHebrew(); 
+                    break;
+
+                case "ge": 
+                    LoadGreek(); 
+                    break;
+
+                case "ko": 
+                    LoadKorean(); 
+                    break;
+
+                case "vi": 
+                    LoadVietnamese(); 
+                    break;
+
+                case "si": 
+                    LoadSinhala(); 
+                    break;
+
+                case "sl": 
+                    LoadSlovenian(); 
+                    break;
+
+                case "ca": 
+                    LoadCatalan(); 
+                    break;
+
             }
 
             // Coerce all values
@@ -701,7 +804,7 @@ namespace Fluent
 
         #region English
 
-        void LoadEnglish()
+        private void LoadEnglish()
         {
             // Backstage button text & key tip
             _backstageButtonText = "File";
@@ -746,7 +849,7 @@ namespace Fluent
 
         #region Russian
 
-        void LoadRussian()
+        private void LoadRussian()
         {
             _backstageButtonText = "Файл";
             _backstageButtonKeyTip = "Ф";
@@ -783,7 +886,7 @@ namespace Fluent
 
         #region Ukrainian
 
-        void LoadUkrainian()
+        private void LoadUkrainian()
         {
             // Backstage button text & key tip 
             _backstageButtonText = "Файл";
@@ -820,7 +923,7 @@ namespace Fluent
 
         #region Persian
 
-        void LoadPersian()
+        private void LoadPersian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "فایل";
@@ -855,7 +958,7 @@ namespace Fluent
 
         #region German
 
-        void LoadGerman()
+        private void LoadGerman()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Datei";
@@ -899,7 +1002,7 @@ namespace Fluent
 
         #region Hungarian
 
-        void LoadHungarian()
+        private void LoadHungarian()
         {
             // Backstage button text & key tip 
             _backstageButtonText = "Fájl";
@@ -939,7 +1042,7 @@ namespace Fluent
 
         #region Czech
 
-        void LoadCzech()
+        private void LoadCzech()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Soubor";
@@ -977,7 +1080,7 @@ namespace Fluent
 
         #region French
 
-        void LoadFrench()
+        private void LoadFrench()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Fichier";
@@ -1017,7 +1120,7 @@ namespace Fluent
 
         #region Polish
 
-        void LoadPolish()
+        private void LoadPolish()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Plik";
@@ -1053,7 +1156,7 @@ namespace Fluent
 
         #region Japanese
 
-        void LoadJapanese()
+        private void LoadJapanese()
         {
             // Backstage button text & key tip
             _backstageButtonText = "ファイル";
@@ -1092,7 +1195,7 @@ namespace Fluent
 
         #region Dutch
 
-        void LoadDutch()
+        private void LoadDutch()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Bestand";
@@ -1126,7 +1229,7 @@ namespace Fluent
 
         #region Brazilian
 
-        void LoadPortugueseBrazilian()
+        private void LoadPortugueseBrazilian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Arquivo";
@@ -1168,7 +1271,7 @@ namespace Fluent
 
         #region Spanish
 
-        void LoadSpanish()
+        private void LoadSpanish()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Archivo";
@@ -1212,7 +1315,7 @@ namespace Fluent
 
         #region Chinese
 
-        void LoadChinese()
+        private void LoadChinese()
         {
             // Backstage button text & key tip
             _backstageButtonText = "文件";
@@ -1255,7 +1358,7 @@ namespace Fluent
 
         #region Swedish
 
-        void LoadSwedish()
+        private void LoadSwedish()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Arkiv";
@@ -1291,7 +1394,7 @@ namespace Fluent
 
         #region Slovak
 
-        void LoadSlovak()
+        private void LoadSlovak()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Súbor";
@@ -1327,7 +1430,7 @@ namespace Fluent
 
         #region Romanian
 
-        void LoadRomanian()
+        private void LoadRomanian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Fișier";
@@ -1368,7 +1471,7 @@ namespace Fluent
 
         #region Italian
 
-        void LoadItalian()
+        private void LoadItalian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "File";
@@ -1408,7 +1511,7 @@ namespace Fluent
 
         #region Arabic
 
-        void LoadArabic()
+        private void LoadArabic()
         {
             // Backstage button text & key tip
             _backstageButtonText = "ملف    ";
@@ -1448,7 +1551,7 @@ namespace Fluent
 
         #region Danish
 
-        void LoadDanish()
+        private void LoadDanish()
         {
             // Backstage button text & key 
             _backstageButtonText = "Filer";
@@ -1488,7 +1591,7 @@ namespace Fluent
 
         #region Portuguese
 
-        void LoadPortuguese()
+        private void LoadPortuguese()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Ficheiro";
@@ -1528,7 +1631,7 @@ namespace Fluent
 
         #region Azerbaijani
 
-        void LoadAzerbaijani()
+        private void LoadAzerbaijani()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Fayl";
@@ -1564,7 +1667,7 @@ namespace Fluent
 
         #region Finnish
 
-        void LoadFinnish()
+        private void LoadFinnish()
         {
             _backstageButtonText = "Tiedosto";
             _backstageButtonKeyTip = "T";
@@ -1594,7 +1697,7 @@ namespace Fluent
 
         #region Norwegian
 
-        void LoadNorwegian()
+        private void LoadNorwegian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Fil";
@@ -1634,7 +1737,7 @@ namespace Fluent
 
         #region Turkish
 
-        void LoadTurkish()
+        private void LoadTurkish()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Dosya";
@@ -1678,7 +1781,7 @@ namespace Fluent
 
         #region Hebrew
 
-        void LoadHebrew()
+        private void LoadHebrew()
         {
             // Backstage button text & key tip
             _backstageButtonText = "קובץ";
@@ -1721,7 +1824,7 @@ namespace Fluent
 
         #region Greek
 
-        void LoadGreek()
+        private void LoadGreek()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Αρχείο";
@@ -1764,7 +1867,7 @@ namespace Fluent
 
         #region Korean
 
-        void LoadKorean()
+        private void LoadKorean()
         {
             // Backstage button text & key tip
             _backstageButtonText = "파일";
@@ -1807,7 +1910,7 @@ namespace Fluent
 
         #region Vietnamese
 
-        void LoadVietnamese()
+        private void LoadVietnamese()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Tệp";
@@ -1850,7 +1953,7 @@ namespace Fluent
 
         #region Sinhala (Sri Lanka)
 
-        void LoadSinhala()
+        private void LoadSinhala()
         {
             // Backstage button text & key tip
             _backstageButtonText = "ගොනුව";
@@ -1893,7 +1996,7 @@ namespace Fluent
 
         #region Slovenian
 
-        void LoadSlovenian()
+        private void LoadSlovenian()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Datoteka";
@@ -1936,7 +2039,7 @@ namespace Fluent
 
         #region Catalan
 
-        void LoadCatalan()
+        private void LoadCatalan()
         {
             // Backstage button text & key tip
             _backstageButtonText = "Fitxer";
