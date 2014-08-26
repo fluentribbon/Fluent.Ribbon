@@ -255,7 +255,10 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return ((item is BackstageTabItem) || (item is Button) || (item is SeparatorTabItem));
+            return item is BackstageTabItem 
+                || item is Button 
+                || item is SeparatorTabItem
+                || item is Separator;
         }
 
         /// <summary>
@@ -265,14 +268,16 @@ namespace Fluent
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
-            if ((e.Action == NotifyCollectionChangedAction.Remove) && (base.SelectedIndex == -1))
+            
+            if ((e.Action == NotifyCollectionChangedAction.Remove) && (this.SelectedIndex == -1))
             {
-                int startIndex = e.OldStartingIndex + 1;
-                if (startIndex > base.Items.Count)
+                var startIndex = e.OldStartingIndex + 1;
+                if (startIndex > this.Items.Count)
                 {
                     startIndex = 0;
                 }
-                BackstageTabItem item = FindNextTabItem(startIndex, -1);
+
+                var item = this.FindNextTabItem(startIndex, -1);
                 if (item != null)
                 {
                     item.IsSelected = true;

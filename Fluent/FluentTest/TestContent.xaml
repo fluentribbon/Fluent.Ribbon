@@ -56,18 +56,13 @@
                                        KeyTip="A" />
                         <Fluent:BackstageTabItem Header="TEST"
                                                  Content="Hello">
-
                             <Fluent:BackstageTabItem.ContentTemplate>
-
                                 <DataTemplate>
-
                                     <Grid>
                                         <TextBox Text="{Binding Mode=OneWay}" />
                                     </Grid>
                                 </DataTemplate>
-
                             </Fluent:BackstageTabItem.ContentTemplate>
-
                         </Fluent:BackstageTabItem>
 
                         <Fluent:SeparatorTabItem Header="Separator" />
