@@ -406,6 +406,12 @@
 
             this.ribbon.Tabs.Add(tab);
         }
+
+        private void HandleSaveAsClick(object sender, RoutedEventArgs e)
+        {
+            var w = new Window();
+            w.ShowDialog();
+        }
     }
 
     public class FooCommand1

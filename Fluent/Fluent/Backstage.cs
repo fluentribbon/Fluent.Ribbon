@@ -12,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -34,7 +33,7 @@ namespace Fluent
     [ContentProperty("Content")]
     public class Backstage : RibbonControl
     {
-        private static object syncIsOpen = new object();
+        private static readonly object syncIsOpen = new object();
 
         #region Events
 
@@ -135,9 +134,16 @@ namespace Fluent
 
         static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Backstage backstage = (Backstage)d;
-            if (e.OldValue != null) backstage.RemoveLogicalChild(e.OldValue);
-            if (e.NewValue != null) backstage.AddLogicalChild(e.NewValue);
+            var backstage = (Backstage)d;
+            if (e.OldValue != null)
+            {
+                backstage.RemoveLogicalChild(e.OldValue);
+            }
+
+            if (e.NewValue != null)
+            {
+                backstage.AddLogicalChild(e.NewValue);
+            }
         }
 
         #endregion
@@ -151,8 +157,12 @@ namespace Fluent
         {
             get
             {
-                ArrayList list = new ArrayList();
-                if (Content != null) list.Add(Content);
+                var list = new ArrayList();
+                if (this.Content != null)
+                {
+                    list.Add(this.Content);
+                }
+
                 return list.GetEnumerator();
             }
         }
@@ -208,10 +218,10 @@ namespace Fluent
         readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new Dictionary<FrameworkElement, Visibility>();
 
         // Saved window sizes
-        double savedMinWidth;
-        double savedMinHeight;
-        int savedWidth;
-        int savedHeight;
+        double savedWindowMinWidth = double.NaN;
+        double savedWindowMinHeight = double.NaN;
+        double savedWindowWidth = double.NaN;
+        double savedWindowHeight = double.NaN;
 
         // Opens backstage on an Adorner layer
         private void Show()
@@ -279,20 +289,21 @@ namespace Fluent
             }
 
             var window = Window.GetWindow(this);
+
+            this.SaveWindowSize(window);
+            this.SaveWindowMinSize(window);
+            
             if (window != null)
             {
                 window.KeyDown += this.OnBackstageEscapeKeyDown;
-                savedMinWidth = window.MinWidth;
-                savedMinHeight = window.MinHeight;
+           
 
-                this.SaveWindowSize(window);
-
-                if (savedMinWidth < 500)
+                if (this.savedWindowMinWidth < 500)
                 {
                     window.MinWidth = 500;
                 }
 
-                if (savedMinHeight < 400)
+                if (this.savedWindowMinHeight < 400)
                 {
                     window.MinHeight = 400;
                 }
@@ -359,11 +370,19 @@ namespace Fluent
                 window.PreviewKeyDown -= this.OnBackstageEscapeKeyDown;
                 window.SizeChanged -= this.OnWindowSizeChanged;
 
-                window.MinWidth = this.savedMinWidth;
-                window.MinHeight = this.savedMinHeight;
-                NativeMethods.SetWindowPos((new WindowInteropHelper(window)).Handle,
-                                           new IntPtr(NativeMethods.HWND_NOTOPMOST),
-                                           0, 0, savedWidth, savedHeight, NativeMethods.SWP_NOMOVE);
+                if (double.IsNaN(this.savedWindowMinWidth) == false
+                    && double.IsNaN(this.savedWindowMinHeight) == false)
+                {
+                    window.MinWidth = this.savedWindowMinWidth;
+                    window.MinHeight = this.savedWindowMinHeight;
+                }
+
+                if (double.IsNaN(this.savedWindowWidth) == false
+                    && double.IsNaN(this.savedWindowHeight) == false)
+                {
+                    window.Width = this.savedWindowWidth;
+                    window.Height = this.savedWindowHeight;
+                }
             }
 
             // Uncollapse elements
@@ -389,19 +408,35 @@ namespace Fluent
             return (Ribbon)item;
         }
 
-        private void SaveWindowSize(Window wnd)
+        private void SaveWindowMinSize(Window window)
         {
-            var info = new NativeMethods.WINDOWINFO();
-            info.cbSize = (uint)Marshal.SizeOf(info);
-            NativeMethods.GetWindowInfo((new WindowInteropHelper(wnd)).Handle, ref info);
-            savedWidth = info.rcWindow.Right - info.rcWindow.Left;
-            savedHeight = info.rcWindow.Bottom - info.rcWindow.Top;
+            if (window == null)
+            {
+                this.savedWindowMinWidth = double.NaN;
+                this.savedWindowMinHeight = double.NaN;
+                return;
+            }
+
+            this.savedWindowMinWidth = window.MinWidth;
+            this.savedWindowMinHeight = window.MinHeight;
+        }
+
+        private void SaveWindowSize(Window window)
+        {
+            if (window == null)
+            {
+                this.savedWindowWidth = double.NaN;
+                this.savedWindowHeight = double.NaN;
+                return;
+            }
+
+            this.savedWindowWidth = window.ActualWidth;
+            this.savedWindowHeight = window.ActualHeight;
         }
 
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            var wnd = Window.GetWindow(this);
-            SaveWindowSize(wnd);
+            this.SaveWindowSize(Window.GetWindow(this));
         }
 
         private void OnTabControlRequestBackstageClose(object sender, EventArgs e)

@@ -53,7 +53,8 @@
                                        Click="OnBtnClick" />
                         <Fluent:Button Header="Save As"
                                        Icon="Images\Save.png"
-                                       KeyTip="A" />
+                                       KeyTip="A"
+                                       Click="HandleSaveAsClick" />
                         <Fluent:BackstageTabItem Header="TEST"
                                                  Content="Hello">
                             <Fluent:BackstageTabItem.ContentTemplate>
