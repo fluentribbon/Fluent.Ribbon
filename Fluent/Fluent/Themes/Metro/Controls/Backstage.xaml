@@ -3,8 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    mc:Ignorable="d"
-                    xmlns:conv="clr-namespace:Fluent.Metro.Converters">
+                    mc:Ignorable="d">
     <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:Backstage}">
         <Border x:Name="border2" MinWidth="60" Height="24" Background="{TemplateBinding Background}" Margin="0,0,1,0">
             <Grid>
