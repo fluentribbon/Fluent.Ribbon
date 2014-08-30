@@ -93,6 +93,7 @@
     <Compile Include="GalleryPanel.cs" />
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
+    <Compile Include="Internal\DpiHelper.cs" />
     <Compile Include="Internal\ItemContainerGeneratorAction.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
