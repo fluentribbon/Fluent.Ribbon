@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentTest dotNET 4.0", "Fl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 4.0", "Fluent\Fluent dotNET 4.0.csproj", "{4C92FCF4-3561-499F-BC5B-F2F089863047}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B3EE3E07-9FD5-4282-9743-AC457EB45BBA}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

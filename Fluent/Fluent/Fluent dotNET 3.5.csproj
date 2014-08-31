@@ -52,6 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ApplicatonMenu.cs" />
     <Compile Include="AttachedProperties\RibbonProperties.cs" />
     <Compile Include="BackstageAdorner.cs" />
