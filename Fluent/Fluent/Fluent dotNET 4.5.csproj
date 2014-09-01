@@ -98,6 +98,7 @@
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="Internal\DpiHelper.cs" />
     <Compile Include="Internal\ItemContainerGeneratorAction.cs" />
+    <Compile Include="Internal\WindowChrome.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
