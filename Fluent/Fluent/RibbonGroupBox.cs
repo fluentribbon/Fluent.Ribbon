@@ -125,7 +125,9 @@ namespace Fluent
 
             foreach (var item in this.Items)
             {
-                RibbonProperties.SetAppropriateSize(this.ItemContainerGenerator.ContainerFromItem(item), groupBoxState);
+                var element = this.ItemContainerGenerator.ContainerFromItem(item);
+
+                RibbonProperties.SetAppropriateSize(element, groupBoxState);
             }
         }
 
@@ -596,7 +598,7 @@ namespace Fluent
             this.Loaded += OnLoaded;
             this.Unloaded += OnUnloaded;
 
-            this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes, true);
+            this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

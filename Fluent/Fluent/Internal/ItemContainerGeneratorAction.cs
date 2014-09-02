@@ -14,16 +14,10 @@
         /// </summary>
         /// <param name="generator">The <see cref="ItemContainerGenerator"/> to be used.</param>
         /// <param name="action">The <see cref="System.Action"/> that should be invoked.</param>
-        /// <param name="queueActionOnItemsChanged">Defines if we should monitor the <see cref="ItemContainerGenerator.ItemsChanged"/> of <paramref name="generator"/> and queue <paramref name="action"/> every time it fires.</param>
-        public ItemContainerGeneratorAction(ItemContainerGenerator generator, Action action, bool queueActionOnItemsChanged)
+        public ItemContainerGeneratorAction(ItemContainerGenerator generator, Action action)
         {
             this.Generator = generator;
             this.Action = action;
-
-            if (queueActionOnItemsChanged)
-            {
-                this.Generator.ItemsChanged += this.HandleItemContainerGenerator_ItemsChanged;
-            }
         }
 
         /// <summary>
@@ -65,11 +59,6 @@
         }
 
         private void HandleItemContainerGenerator_StatusChanged(object sender, EventArgs e)
-        {
-            this.QueueAction();
-        }
-
-        private void HandleItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             this.QueueAction();
         }
