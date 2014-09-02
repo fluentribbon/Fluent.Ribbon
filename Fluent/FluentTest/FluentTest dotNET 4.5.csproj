@@ -91,6 +91,7 @@
     <Compile Include="ThreadedWindow.xaml.cs">
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="TestWindowOffice2013.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

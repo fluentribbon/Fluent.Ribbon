@@ -20,12 +20,6 @@ namespace Fluent
     /// </summary>
     public class ApplicationMenu : DropDownButton
     {
-        #region Fields
-
-        
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -41,16 +35,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RightPaneWidthProperty =
-            DependencyProperty.Register("RightPaneWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
-
-        
+            DependencyProperty.Register("RightPaneWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));        
 
         /// <summary>
         /// Gets or sets application menu right pane content
         /// </summary>
         public object RightPaneContent
         {
-            get { return (object)GetValue(RightPaneContentProperty); }
+            get { return this.GetValue(RightPaneContentProperty); }
             set { SetValue(RightPaneContentProperty, value); }
         }
 
@@ -65,7 +57,7 @@ namespace Fluent
         /// </summary>
         public object FooterPaneContent
         {
-            get { return (object)GetValue(FooterPaneContentProperty); }
+            get { return this.GetValue(FooterPaneContentProperty); }
             set { SetValue(FooterPaneContentProperty, value); }
         }
 
@@ -85,7 +77,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ApplicationMenu()
         {
-            Type type = typeof (ApplicationMenu);
+            var type = typeof (ApplicationMenu);
 
             // Override style metadata
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
@@ -93,7 +85,7 @@ namespace Fluent
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
             // Make default KeyTip
             KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
-            StyleProperty.OverrideMetadata(typeof(ApplicationMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(ApplicationMenu), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
@@ -101,7 +93,7 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ApplicationMenu));
+                basevalue = ((FrameworkElement) d).TryFindResource(typeof(ApplicationMenu));
             }
 
             return basevalue;
@@ -122,28 +114,6 @@ namespace Fluent
 
         #endregion
        
-        #region Methods
-
-
-        #endregion
-
-        #region Overrides
-        /*/// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
-        /// reaches an element in its route that is derived from this class. Implement this method to add 
-        /// class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Border buttonBorder = GetTemplateChild("PART_ButtonBorder") as Border;
-            if (buttonBorder.IsMouseOver && IsDropDownOpen) IsDropDownOpen = false;
-            else base.OnPreviewMouseLeftButtonDown(e);
-        }
-        */
-        #endregion
-
         #region Quick Access Toolbar
 
         /// <summary>

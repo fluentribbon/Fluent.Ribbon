@@ -30,6 +30,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty("Groups")]
+    [DefaultProperty("Groups")]
     public class RibbonTabItem : Control, IKeyTipedControl
     {
         #region Fields
@@ -313,6 +314,7 @@ namespace Fluent
                 return this.groups;
             }
         }
+
         // handles ribbon groups collection changes
         private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

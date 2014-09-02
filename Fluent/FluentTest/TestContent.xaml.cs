@@ -334,11 +334,6 @@
                 this.tabGroup1.Visibility = Visibility.Visible;
                 this.tabGroup2.Visibility = Visibility.Visible;
             }
-            //Title = "Long long long title - Fluent Ribbon Control Suite 1.2";
-            //homeTabItem.Groups.Add(new RibbonGroupBox() { Header = "Lala" });
-            //            ribbon.SelectedTabItem = homeTabItem;
-            //Clipboard.Visibility = Visibility.Visible;
-            //ribbon.Tabs.RemoveAt(0);
         }
 
         private void OnSpinnerValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
