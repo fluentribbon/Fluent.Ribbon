@@ -81,6 +81,7 @@
     <Compile Include="ClosingWindowEventHandlerArgs.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
+    <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
     <Compile Include="Converters\ObjectToImageConverter.cs" />
     <Compile Include="Converters\SizeDefinitionConverter.cs" />
