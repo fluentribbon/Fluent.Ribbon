@@ -1,8 +1,8 @@
-﻿using System.Windows.Interactivity;
-using Fluent.Metro.Controls;
-
-namespace Fluent.Metro.Behaviours
+﻿namespace Fluent.Metro.Behaviours
 {
+    using System.Windows.Interactivity;
+    using Fluent.Metro.Controls;
+
     public class WindowsSettingBehaviour : Behavior<MetroWindow>
     {
         protected override void OnAttached()
