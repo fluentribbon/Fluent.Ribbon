@@ -939,16 +939,16 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public FrameworkElement CreateQuickAccessItem()
         {
-            RibbonGroupBox groupBox = new RibbonGroupBox();
+            var groupBox = new RibbonGroupBox();
 
             groupBox.DropDownOpened += OnQuickAccessOpened;
             groupBox.DropDownClosed += OnQuickAccessClosed;
+            
             groupBox.State = RibbonGroupBoxState.QuickAccess;
 
-
-            //RibbonControl.BindQuickAccessItem(this, groupBox);
-            //if (QuickAccessElementStyle != null) RibbonControl.Bind(this, groupBox, "QuickAccessElementStyle", StyleProperty, BindingMode.OneWay);
-            //RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, "ItemsSource", ItemsSourceProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, "LauncherCommandParameter", LauncherCommandParameterProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, "LauncherCommand", LauncherCommandProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, "LauncherCommandTarget", LauncherCommandTargetProperty, BindingMode.OneWay);
@@ -959,53 +959,72 @@ namespace Fluent
             RibbonControl.Bind(this, groupBox, "IsLauncherVisible", IsLauncherVisibleProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, "DialogLauncherButtonKeyTipKeys", DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
             groupBox.LauncherClick += this.LauncherClick;
-            if (Icon != null)
+
+            if (this.Icon != null)
             {
-                Visual iconVisual = Icon as Visual;
+                var iconVisual = this.Icon as Visual;
                 if (iconVisual != null)
                 {
-                    Rectangle rect = new Rectangle();
-                    rect.Width = 16;
-                    rect.Height = 16;
-                    rect.Fill = new VisualBrush(iconVisual);
+                    var rect = new Rectangle
+                    {
+                        Width = 16,
+                        Height = 16,
+                        Fill = new VisualBrush(iconVisual)
+                    };
                     groupBox.Icon = rect;
                 }
-                else RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+                else
+                {
+                    RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+                }
             }
-            if (Header != null) RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
+
+            if (this.Header != null)
+            {
+                RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
+            }
 
             return groupBox;
         }
 
         private void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            if ((!IsDropDownOpen) && (!IsSnapped))
+            if (!this.IsDropDownOpen
+                && !this.IsSnapped)
             {
-                RibbonGroupBox groupBox = sender as RibbonGroupBox;
+                var groupBox = sender as RibbonGroupBox;
                 // Save state
-                IsSnapped = true;
-                for (int i = 0; i < Items.Count; i++)
+                this.IsSnapped = true;
+
+                if (this.ItemsSource == null)
                 {
-                    object item = Items[0];
-                    Items.Remove(item);
-                    groupBox.Items.Add(item);
-                    i--;
+                    for (var i = 0; i < this.Items.Count; i++)
+                    {
+                        var item = this.Items[0];
+                        this.Items.Remove(item);
+                        groupBox.Items.Add(item);
+                        i--;
+                    }
                 }
             }
         }
 
         private void OnQuickAccessClosed(object sender, EventArgs e)
         {
-            RibbonGroupBox groupBox = sender as RibbonGroupBox;
+            var groupBox = sender as RibbonGroupBox;
 
-            for (int i = 0; i < groupBox.Items.Count; i++)
+            if (this.ItemsSource == null)
             {
-                object item = groupBox.Items[0];
-                groupBox.Items.Remove(item);
-                Items.Add(item);
-                i--;
+                for (var i = 0; i < groupBox.Items.Count; i++)
+                {
+                    var item = groupBox.Items[0];
+                    groupBox.Items.Remove(item);
+                    this.Items.Add(item);
+                    i--;
+                }
             }
-            IsSnapped = false;
+
+            this.IsSnapped = false;
         }
 
         /// <summary>
