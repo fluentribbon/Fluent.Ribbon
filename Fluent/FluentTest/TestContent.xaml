@@ -142,7 +142,7 @@
                                 <Fluent:DropDownButton Header="123"
                                                        HorizontalAlignment="Right"
                                                        Icon="Images\Paste.png"
-                                                       LargeIcon="Images\PasteLarge.png"></Fluent:DropDownButton>
+                                                       LargeIcon="Images\PasteLarge.png" />
                                 <Fluent:ComboBox VerticalAlignment="Bottom">
                                     <TextBlock Text="1" />
                                     <TextBlock Text="2" />
