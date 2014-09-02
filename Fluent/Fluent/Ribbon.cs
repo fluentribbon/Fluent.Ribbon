@@ -332,8 +332,7 @@ namespace Fluent
                 RemoveFromQuickAccessCommand.CanExecute(null, control);
 
                 //Debug.WriteLine("Menu opened on "+control);
-                if (control != null
-                    && ribbon.CanCustomizeQuickAccessToolBar)
+                if (control != null)
                 {
                     firstSeparator.Visibility = Visibility.Visible;
 
