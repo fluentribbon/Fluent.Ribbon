@@ -3,7 +3,7 @@
     using System.Windows.Interactivity;
     using Fluent.Metro.Controls;
 
-    public class WindowsSettingBehaviour : Behavior<MetroWindow>
+    public class WindowsSettingBehaviour : Behavior<RibbonWindow>
     {
         protected override void OnAttached()
         {

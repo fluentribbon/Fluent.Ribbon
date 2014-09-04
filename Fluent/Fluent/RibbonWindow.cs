@@ -12,7 +12,11 @@ namespace Fluent
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Interop;
+    using System.Windows.Media;
+    using Fluent.Metro.Native;
 #if NET35 || NET40
     using Microsoft.Windows.Shell;
 #else
@@ -23,9 +27,39 @@ namespace Fluent
     /// Represents basic window for ribbon
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1049")]
+    [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_ButtonsPanel, Type = typeof(UIElement))]
     public class RibbonWindow : Window
     {
+        private const string PART_TitleBar = "PART_TitleBar";
+        private const string PART_Icon = "PART_Icon";
+        private const string PART_ButtonsPanel = "PART_ButtonsPanel";
+
+        private readonly int doubleclick = UnsafeNativeMethods.GetDoubleClickTime();
+        private DateTime lastMouseClick;
+        private bool isContextMenuOpen;
+
+        private FrameworkElement iconImage;
+        private FrameworkElement titleBar;
+
         #region Properties
+
+        public WindowCommands WindowCommands { get; set; }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SaveWindowPosition.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        ///  Gets or sets whether window position will be saved and loaded.
+        /// </summary>
+        public bool SaveWindowPosition
+        {
+            get { return (bool)GetValue(SavePositionProperty); }
+            set { SetValue(SavePositionProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets resize border thickness
@@ -208,7 +242,7 @@ namespace Fluent
         /// Close command
         /// </summary>
         [SuppressMessage("Microsoft.Usage", "CA2211")]
-        public static RoutedCommand CloseCommand = new RoutedCommand();
+        public static RoutedCommand CloseCommand = new RoutedCommand();        
 
         #endregion
 
@@ -318,23 +352,6 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            var buttonsPanel = this.GetTemplateChild("PART_ButtonsPanel") as FrameworkElement;
-
-            if (buttonsPanel != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(buttonsPanel, true);
-            }
-
-            this.UpdateWindowChrome();
-        }
-
         #endregion
 
         private static void OnWindowChromeRelevantPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -400,5 +417,204 @@ namespace Fluent
             return NativeMethods.IsDwmEnabled()
                 && !this.DontUseDwm;
         }
+
+        #region Metro
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.UpdateWindowChrome();
+
+            if (this.UseWindowChrome.GetValueOrDefault())
+            {
+                var buttonsPanel = this.GetTemplateChild(PART_ButtonsPanel) as FrameworkElement;
+
+                if (buttonsPanel != null)
+                {
+                    WindowChrome.SetIsHitTestVisibleInChrome(buttonsPanel, true);
+                }
+            }
+            else
+            {
+                if (this.iconImage != null)
+                {
+                    this.iconImage.MouseUp -= this.HandleIconMouseUp;
+                }
+
+                this.iconImage = GetTemplateChild(PART_Icon) as FrameworkElement;
+
+                if (this.WindowCommands == null)
+                {
+                    this.WindowCommands = new WindowCommands();
+                }
+
+                if (this.titleBar != null)
+                {
+                    this.titleBar.MouseDown -= this.TitleBarMouseDown;
+                    this.titleBar.MouseUp -= this.TitleBarMouseUp;
+                    this.titleBar.MouseMove -= this.TitleBarMouseMove;
+                }
+
+                this.titleBar = this.GetTemplateChild(PART_TitleBar) as FrameworkElement;
+
+                if (this.titleBar != null)
+                {
+                    this.titleBar.MouseDown += this.TitleBarMouseDown;
+                    this.titleBar.MouseUp += this.TitleBarMouseUp;
+                    this.titleBar.MouseMove += this.TitleBarMouseMove;
+                }
+
+                if (this.iconImage != null)
+                {
+                    this.iconImage.MouseUp += this.HandleIconMouseUp;
+                }
+            }
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (this.WindowCommands != null)
+            {
+                this.WindowCommands.RefreshMaximizeIconState();
+            }
+
+            base.OnStateChanged(e);
+        }
+
+        protected void TitleBarMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (ReferenceEquals(e.OriginalSource, this.iconImage))
+            {
+                return;
+            }
+
+            if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+
+            if (e.ClickCount == 2 && (this.ResizeMode == ResizeMode.CanResizeWithGrip || this.ResizeMode == ResizeMode.CanResize))
+            {
+                this.WindowState = this.WindowState == WindowState.Maximized 
+                    ? WindowState.Normal 
+                    : WindowState.Maximized;
+            }
+        }
+
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            // Do not resize window 
+            this.isContextMenuOpen = true;
+            base.OnContextMenuOpening(e);
+        }
+
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            // Do not resize window 
+            this.isContextMenuOpen = false;
+            base.OnContextMenuClosing(e);
+        }
+
+        protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsIconVisible)
+            {
+                return;
+            }
+
+            var mousePosition = GetCorrectPosition(this);
+
+            if (mousePosition.X <= RibbonProperties.GetTitleBarHeight(this)
+                && mousePosition.Y <= RibbonProperties.GetTitleBarHeight(this))
+            {
+                if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= doubleclick)
+                {
+                    Close();
+                    return;
+                }
+                lastMouseClick = DateTime.Now;
+
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
+            }
+            else if (e.ChangedButton == MouseButton.Right)
+            {
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
+            }
+        }
+
+        private void HandleIconMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed
+                && e.ClickCount == 1)
+            {
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
+            }
+        }
+
+        private static Point GetCorrectPosition(Visual relativeTo)
+        {
+            UnsafeNativeMethods.Win32Point w32Mouse;
+            UnsafeNativeMethods.GetCursorPos(out w32Mouse);
+            return relativeTo.PointFromScreen(new Point(w32Mouse.X, w32Mouse.Y));
+        }
+
+        private void TitleBarMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
+                && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized
+                && ResizeMode != ResizeMode.NoResize && !this.isContextMenuOpen)
+            {
+                // Calculating correct left coordinate for multi-screen system.
+                Point mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
+                double width = RestoreBounds.Width;
+                double left = mouseAbsolute.X - width / 2;
+
+                // Aligning window's position to fit the screen.
+                double virtualScreenWidth = SystemParameters.VirtualScreenWidth;
+                left = left + width > virtualScreenWidth ? virtualScreenWidth - width : left;
+
+                var mousePosition = e.MouseDevice.GetPosition(this);
+
+                // When dragging the window down at the very top of the border,
+                // move the window a bit upwards to avoid showing the resize handle as soon as the mouse button is released
+                Top = mousePosition.Y < 5 ? -5 : mouseAbsolute.Y - mousePosition.Y;
+                Left = left;
+
+                // Restore window to normal state.
+                WindowState = WindowState.Normal;
+
+                DragMove();
+            }
+        }
+
+        internal T GetPart<T>(string name) where T : DependencyObject
+        {
+            return (T)GetTemplateChild(name);
+        }
+
+        private static void ShowSystemMenuPhysicalCoordinates(Window window, Point physicalScreenLocation)
+        {
+            if (window == null)
+            {
+                return;
+            }
+
+            var hwnd = new WindowInteropHelper(window).Handle;
+            if (hwnd == IntPtr.Zero || !UnsafeNativeMethods.IsWindow(hwnd))
+            {
+                return;
+            }
+
+            var hmenu = UnsafeNativeMethods.GetSystemMenu(hwnd, false);
+
+            var cmd = UnsafeNativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
+            if (0 != cmd)
+            {
+                UnsafeNativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
+            }
+        }
+
+        #endregion
     }
 }

@@ -85,7 +85,7 @@ namespace Fluent
                 else
                 {
 #if !NET35
-                    if (Window.GetWindow(backstage) is MetroWindow)
+                    if (backstage.UseOffice2013Behavior())
                     {
                         Task.Factory.StartNew(() =>
                         {
@@ -284,7 +284,7 @@ namespace Fluent
                 if (ribbon.TitleBar != null)
                 {
                     ribbon.TitleBar.IsEnabled = false;
-                    ribbon.TitleBar.HideContextTabs = Window.GetWindow(this) is MetroWindow;
+                    ribbon.TitleBar.HideContextTabs = this.UseOffice2013Behavior();
                 }
             }
 
@@ -591,5 +591,18 @@ namespace Fluent
         }
 
         #endregion
+
+        //todo: find better way to differentiate between Office 2010 and Office 2013 theme
+        private bool UseOffice2013Behavior()
+        {            
+            var window = Window.GetWindow(this) as RibbonWindow;
+            if (window != null
+                && window.UseWindowChrome == false)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

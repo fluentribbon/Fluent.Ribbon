@@ -46,5 +46,5 @@ Office2010\Controls\ColorGallery.xaml
 Office2010\Controls\SeparatorTabItem.xaml
 Office2013\Controls\RibbonStatusBar.xaml
 Office2013\Controls\Slider.xaml
-Office2013\MetroWindow.xaml
+Office2013\RibbonWindow.xaml
 Office2013\Common.xaml

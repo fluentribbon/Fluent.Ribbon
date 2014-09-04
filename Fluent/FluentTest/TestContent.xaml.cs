@@ -142,6 +142,7 @@
         }
 
         public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala", typeof(Window));
+        private Theme currentTheme;
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
@@ -188,38 +189,98 @@
 
         #region Theme change
 
+        private enum Theme
+        {
+            None,
+            Office2010,
+            Office2013
+        }
+
         private void OnMetroClick(object sender, RoutedEventArgs e)
         {
-            var metro = new TestWindowOffice2013();
-            metro.Show();
+            this.ChangeTheme(Theme.Office2013, "pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml");
         }
 
         private void OnSilverClick(object sender, RoutedEventArgs e)
         {
-            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
+            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
         }
 
         private void OnBlackClick(object sender, RoutedEventArgs e)
         {
-            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
+            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
         }
 
         private void OnBlueClick(object sender, RoutedEventArgs e)
         {
-            this.ChangeTheme("pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
+            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
         }
 
-        private void ChangeTheme(string theme)
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
+        private void ChangeTheme(Theme theme, string color)
+        {            
+            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
                 var owner = Window.GetWindow(this);
-                if (owner == null) return;
-                owner.Resources.BeginInit();
-                owner.Resources.MergedDictionaries.RemoveAt(1);
-                owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(theme) });
-                owner.Resources.EndInit();
+                if (owner != null)
+                {
+                    owner.Resources.BeginInit();
+
+                    if (owner.Resources.MergedDictionaries.Count > 0)
+                    {
+                        owner.Resources.MergedDictionaries.RemoveAt(0);
+                    }
+
+                    if (string.IsNullOrEmpty(color) == false)
+                    {
+                        owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(color) });
+                    }
+
+                    owner.Resources.EndInit();                    
+                }
+
+                if (this.currentTheme != theme)
+                {
+                    Application.Current.Resources.BeginInit();
+                    switch (theme)
+                    {
+                        case Theme.Office2010:
+                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml") });
+                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);                            
+                            break;
+                        case Theme.Office2013:
+                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
+                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);                            
+                            break;
+                    }
+
+                    this.currentTheme = theme;
+                    Application.Current.Resources.EndInit();
+
+                    if (owner != null)
+                    {
+                        owner.Style = null;
+                        owner.Style = owner.FindResource("RibbonWindowStyle") as Style;
+                        owner.Style = null;
+                    }
+                }
             }));
+
+            //this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
+            //{
+            //    var owner = Window.GetWindow(this);
+            //    if (owner == null)
+            //    {
+            //        return;
+            //    }
+            //    owner.Resources.BeginInit();
+            //    var toRemove = owner.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().ToLower().Contains("themes/generic.xaml") == false);
+            //    owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(theme) });                
+            //    if (toRemove != null)
+            //    {
+            //        owner.Resources.MergedDictionaries.Remove(toRemove);
+            //    }
+            //    owner.Resources.EndInit();
+            //}));
         }
 
         #endregion Theme change
@@ -343,7 +404,7 @@
 
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
         {
-            var wnd = new TestWindowOffice2010
+            var wnd = new TestWindow
                       {
                           Owner = Window.GetWindow(this)
                       };

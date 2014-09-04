@@ -71,15 +71,11 @@
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModel.cs" />
-    <Page Include="TestWindowOffice2013.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="TestContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TestWindowOffice2010.xaml">
+    <Page Include="TestWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,11 +84,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FrameworkHelper.cs" />
-    <Compile Include="TestWindowOffice2013.xaml.cs">
-      <DependentUpon>TestWindowOffice2013.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TestWindowOffice2010.xaml.cs">
-      <DependentUpon>TestWindowOffice2010.xaml</DependentUpon>
+    <Compile Include="TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ThreadedWindow.xaml">

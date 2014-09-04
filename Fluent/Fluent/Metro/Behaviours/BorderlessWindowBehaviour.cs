@@ -6,7 +6,6 @@ using System.Windows.Interactivity;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Fluent.Metro.Native;
-using Fluent.Metro.Controls;
 
 namespace Fluent.Metro.Behaviours
 {
@@ -72,9 +71,9 @@ namespace Fluent.Metro.Behaviours
             AssociatedObject.WindowStyle = WindowStyle.None;
             AssociatedObject.StateChanged += AssociatedObjectStateChanged;
 
-            if (AssociatedObject is MetroWindow)
+            if (AssociatedObject is RibbonWindow)
             {
-                var window = ((MetroWindow)AssociatedObject);
+                var window = ((RibbonWindow)AssociatedObject);
                 //MetroWindow already has a border we can use
                 AssociatedObject.Loaded += (s, e) =>
                 {
@@ -354,7 +353,7 @@ namespace Fluent.Metro.Behaviours
                     break;
 
                 case Constants.WM_INITMENU:
-                    var window = AssociatedObject as MetroWindow;
+                    var window = this.AssociatedObject;
 
                     if (window != null)
                     {

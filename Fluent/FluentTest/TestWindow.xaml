@@ -5,7 +5,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      x:Name="window"
-                     x:Class="FluentTest.TestWindowOffice2010"
+                     x:Class="FluentTest.TestWindow"
                      Title="Fluent Ribbon Control Suite 2.1"
                      DontUseDwm="False"
                      Height="600"

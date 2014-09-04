@@ -8,8 +8,8 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
 
-    <ControlTemplate x:Key="MetroWindowControlTemplate"
-                     TargetType="{x:Type Fluent:MetroWindow}">
+    <ControlTemplate x:Key="RibbonWindowControlTemplate"
+                     TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid Background="{TemplateBinding Background}"
               x:Name="root">
             <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}"
@@ -37,7 +37,7 @@
                                Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
                                Stretch="UniformToFill" />
                     </Grid>
-                    <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                    <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                       x:Name="PART_WindowCommands"
                                       Panel.ZIndex="1"
                                       Grid.RowSpan="2"
@@ -120,7 +120,7 @@
                                 <Setter Property="Template"
                                         Value="{DynamicResource WindowCommandsControlTemplate}"/>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}" Value="True">
+                                    <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" Value="True">
                                         <Setter Property="Foreground" Value="White" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -190,7 +190,7 @@
                         </Button>
                     </StackPanel>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                      Value="NoResize">
                             <Setter Property="Visibility"
                                     TargetName="PART_Min"
@@ -199,7 +199,7 @@
                                     TargetName="PART_Max"
                                     Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                      Value="CanMinimize">
                             <Setter Property="Visibility"
                                     TargetName="PART_Max"
@@ -263,9 +263,11 @@
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
-    <Style x:Key="MetroWindowStyle"
-           TargetType="{x:Type Fluent:MetroWindow}">
+
+    <Style x:Key="RibbonWindowStyle"
+           TargetType="{x:Type Fluent:RibbonWindow}">
+        <Setter Property="UseWindowChrome"
+                Value="False" />        
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource BlackColor}" />
@@ -285,6 +287,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Template"
-                Value="{StaticResource MetroWindowControlTemplate}" />
+                Value="{StaticResource RibbonWindowControlTemplate}" />
     </Style>
 </ResourceDictionary>

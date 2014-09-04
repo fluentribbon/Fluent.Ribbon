@@ -317,7 +317,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\Office2013\MetroWindow.xaml">
+    <None Include="Themes\Office2013\RibbonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -333,14 +333,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <Page Include="Themes\Office2013\Controls\RibbonToolBar.xaml">
+    <None Include="Themes\Office2013\Controls\RibbonToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2013\Controls\RibbonSeparator.xaml">
+    </None>
+    <None Include="Themes\Office2013\Controls\RibbonSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <None Include="Themes\Office2013\Controls\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

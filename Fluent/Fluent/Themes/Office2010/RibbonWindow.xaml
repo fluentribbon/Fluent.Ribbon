@@ -5,7 +5,8 @@
                     mc:Ignorable="d"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours">
     <Fluent:IconConverter x:Key="IconConvert"/>
   <BitmapImage x:Key="ImageCaptionButtonClose" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png" PresentationOptions:Freeze="True"/>	
     <BitmapImage x:Key="ImageCaptionButtonMinimize" UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png" PresentationOptions:Freeze="True"/>
@@ -220,6 +221,12 @@
                 Value="{DynamicResource WindowBackgroundBrush}" />
         <Setter Property="UseWindowChrome"
                 Value="True" />
+        <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
+            <Setter.Value>
+                <Behaviours:StylizedBehaviorCollection>
+                </Behaviours:StylizedBehaviorCollection>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsCollapsed"
                      Value="True">
