@@ -5,7 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Fluent;Component/Themes/Office2013/Generic.xaml" />
+                <ResourceDictionary Source="/Fluent;Component/Themes/Generic.xaml" />
+                <!--<ResourceDictionary Source="/Fluent;Component/Themes/Office2013/Generic.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
