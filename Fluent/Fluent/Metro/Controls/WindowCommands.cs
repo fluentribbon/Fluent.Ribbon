@@ -31,6 +31,9 @@
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowCommands), new FrameworkPropertyMetadata(typeof(WindowCommands)));
         }
 
+        /// <summary>
+        /// Finalizer
+        /// </summary>
         ~WindowCommands()
         {
             this.Dispose(false);

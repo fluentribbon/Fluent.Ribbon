@@ -261,6 +261,9 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>
+        /// Used to call OnClick (which is protected)
+        /// </summary>
         public void InvokeClick()
         {
             this.OnClick();

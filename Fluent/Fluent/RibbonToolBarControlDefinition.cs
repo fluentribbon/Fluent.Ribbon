@@ -11,6 +11,9 @@ namespace Fluent
     /// </summary>
     public class RibbonToolBarControlDefinition : DependencyObject, INotifyPropertyChanged, IRibbonSizeChangedSink
     {
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public RibbonToolBarControlDefinition()
         {
             RibbonProperties.SetSize(this, RibbonControlSize.Small);
@@ -114,7 +117,7 @@ namespace Fluent
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        void Invalidate(string propertyName)
+        private void Invalidate(string propertyName)
         {
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -123,6 +126,11 @@ namespace Fluent
 
         #region Implementation of IRibbonSizeChangedSink
 
+        /// <summary>
+        /// Called when the size is changed
+        /// </summary>
+        /// <param name="previous">Size before change</param>
+        /// <param name="current">Size after change</param>
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
             this.Invalidate("Size");

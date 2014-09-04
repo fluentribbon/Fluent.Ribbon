@@ -87,6 +87,9 @@ namespace Fluent
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(9, 9, 9, 9), OnWindowChromeRelevantPropertyChanged));
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty DontUseDwmProperty =
             DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false));
 
@@ -99,13 +102,18 @@ namespace Fluent
             set { SetValue(DontUseDwmProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets whether the WindowChrome will be used. This is needed to disable the WindowChrome for the Office 2013 theme
+        /// </summary>
         public bool? UseWindowChrome
         {
             get { return (bool?)GetValue(UseWindowChromeProperty); }
             set { SetValue(UseWindowChromeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for UseWindowChrome.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for UseWindowChrome.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty UseWindowChromeProperty =
             DependencyProperty.Register("UseWindowChrome", typeof(bool?), typeof(RibbonWindow), new PropertyMetadata(null, OnWindowChromeRelevantPropertyChanged));
 
