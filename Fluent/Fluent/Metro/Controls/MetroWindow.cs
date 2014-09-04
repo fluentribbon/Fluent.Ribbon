@@ -17,7 +17,6 @@ namespace Fluent
         private readonly int doubleclick = UnsafeNativeMethods.GetDoubleClickTime();
         private DateTime lastMouseClick;
         private bool _isContextMenuOpen = false;
-        private bool _isMouseDown = false;
 
         public static readonly DependencyProperty ShowIconOnTitleBarProperty = DependencyProperty.Register("ShowIconOnTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
@@ -146,8 +145,6 @@ namespace Fluent
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
             {
                 this.DragMove();
-                // Do not resize window 
-                _isMouseDown = (e.ClickCount == 1 ? true : false);
             }
 
             if (e.ClickCount == 2 && (ResizeMode == ResizeMode.CanResizeWithGrip || ResizeMode == ResizeMode.CanResize))
@@ -176,8 +173,6 @@ namespace Fluent
             {
                 return;
             }
-
-            _isMouseDown = false;
 
             var mousePosition = GetCorrectPosition(this);
 
