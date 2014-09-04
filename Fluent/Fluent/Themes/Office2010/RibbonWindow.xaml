@@ -218,6 +218,8 @@
                 Value="#FF000000" />
         <Setter Property="Background"
                 Value="{DynamicResource WindowBackgroundBrush}" />
+        <Setter Property="UseWindowChrome"
+                Value="True" />
         <Style.Triggers>
             <Trigger Property="IsCollapsed"
                      Value="True">
@@ -229,13 +231,13 @@
                 <Setter Property="GlassBorderThickness"
                         Value="0,56,0,0" />
             </Trigger>
-            <Trigger Property="IsDwmEnabled"
-                     Value="False">
+            <Trigger Property="DontUseDwm"
+                     Value="True">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
             </Trigger>
-            <Trigger Property="IsDwmEnabled"
-                     Value="True">
+            <Trigger Property="DontUseDwm"
+                     Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>

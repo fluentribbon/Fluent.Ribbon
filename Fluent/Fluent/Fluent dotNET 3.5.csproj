@@ -50,6 +50,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Net35\WPFToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.50506.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Net35\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>    
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Shared\GlobalAssemblyInfo.cs">

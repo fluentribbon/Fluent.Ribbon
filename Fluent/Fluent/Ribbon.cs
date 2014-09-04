@@ -939,7 +939,6 @@ namespace Fluent
             DependencyProperty.Register("CanCustomizeQuickAccessToolBar", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
-
         /// <summary>
         /// Gets or set whether Customize Ribbon menu item is shown
         /// </summary>

@@ -7,6 +7,7 @@
                      x:Name="window"
                      x:Class="FluentTest.TestWindowOffice2010"
                      Title="Fluent Ribbon Control Suite 2.1"
+                     DontUseDwm="False"
                      Height="600"
                      Width="800"
                      mc:Ignorable="d">
