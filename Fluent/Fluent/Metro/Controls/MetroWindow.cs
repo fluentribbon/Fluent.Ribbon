@@ -18,7 +18,7 @@ namespace Fluent
         private DateTime lastMouseClick;
         private bool _isContextMenuOpen = false;
 
-        public static readonly DependencyProperty ShowIconOnTitleBarProperty = DependencyProperty.Register("ShowIconOnTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register("IsIconVisible", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowMinButtonProperty = DependencyProperty.Register("ShowMinButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
         public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register("ShowCloseButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
@@ -57,10 +57,10 @@ namespace Fluent
 
         public WindowCommands WindowCommands { get; set; }
 
-        public bool ShowIconOnTitleBar
+        public bool IsIconVisible
         {
-            get { return (bool)GetValue(ShowIconOnTitleBarProperty); }
-            set { SetValue(ShowIconOnTitleBarProperty, value); }
+            get { return (bool)GetValue(IsIconVisibleProperty); }
+            set { SetValue(IsIconVisibleProperty, value); }
         }
 
         public bool ShowTitleBar
@@ -169,7 +169,7 @@ namespace Fluent
 
         protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (!ShowIconOnTitleBar)
+            if (!IsIconVisible)
             {
                 return;
             }
