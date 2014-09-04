@@ -99,59 +99,15 @@ namespace Fluent
             set { SetValue(DontUseDwmProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for UseWindowChrome.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty UseWindowChromeProperty =
-            DependencyProperty.Register("UseWindowChrome", typeof(bool?), typeof(RibbonWindow), new PropertyMetadata(null, OnWindowChromeRelevantPropertyChanged));
-
         public bool? UseWindowChrome
         {
             get { return (bool?)GetValue(UseWindowChromeProperty); }
             set { SetValue(UseWindowChromeProperty, value); }
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            this.UpdateWindowChrome();
-        }
-
-        /// <summary>
-        /// Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">A reference to the root of the old content tree.</param><param name="newContent">A reference to the root of the new content tree.</param>
-        protected override void OnContentChanged(object oldContent, object newContent)
-        {
-            base.OnContentChanged(oldContent, newContent);
-
-            var content = newContent as IInputElement;
-
-            if (content != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(content, true);
-            }
-        }
-
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            var buttonsPanel = this.GetTemplateChild("PART_ButtonsPanel") as FrameworkElement;
-
-            if (buttonsPanel != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(buttonsPanel, true);
-            }
-
-            this.UpdateWindowChrome();
-        }
+        // Using a DependencyProperty as the backing store for UseWindowChrome.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UseWindowChromeProperty =
+            DependencyProperty.Register("UseWindowChrome", typeof(bool?), typeof(RibbonWindow), new PropertyMetadata(null, OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -290,30 +246,6 @@ namespace Fluent
             this.SizeChanged += this.OnSizeChanged;            
         }
 
-        // Size change to collapse ribbon
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.MaintainIsCollapsed();
-        }
-
-        private void MaintainIsCollapsed()
-        {
-            if (this.IsAutomaticCollapseEnabled == false)
-            {
-                return;
-            }
-
-            if (this.ActualWidth < Ribbon.MinimalVisibleWidth
-                || this.ActualHeight < Ribbon.MinimalVisibleHeight)
-            {
-                this.IsCollapsed = true;
-            }
-            else
-            {
-                this.IsCollapsed = false;
-            }
-        }
-
         #endregion
 
         #region Commands handles
@@ -349,6 +281,54 @@ namespace Fluent
 
         #endregion
 
+        #region Overrides
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            this.UpdateWindowChrome();
+        }
+
+        /// <summary>
+        /// Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
+        /// </summary>
+        /// <param name="oldContent">A reference to the root of the old content tree.</param><param name="newContent">A reference to the root of the new content tree.</param>
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+
+            var content = newContent as IInputElement;
+
+            if (content != null)
+            {
+                WindowChrome.SetIsHitTestVisibleInChrome(content, true);
+            }
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            var buttonsPanel = this.GetTemplateChild("PART_ButtonsPanel") as FrameworkElement;
+
+            if (buttonsPanel != null)
+            {
+                WindowChrome.SetIsHitTestVisibleInChrome(buttonsPanel, true);
+            }
+
+            this.UpdateWindowChrome();
+        }
+
+        #endregion
+
         private static void OnWindowChromeRelevantPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var window = d as RibbonWindow;
@@ -359,6 +339,30 @@ namespace Fluent
             }
 
             window.UpdateWindowChrome();
+        }
+
+        // Size change to collapse ribbon
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.MaintainIsCollapsed();
+        }
+
+        private void MaintainIsCollapsed()
+        {
+            if (this.IsAutomaticCollapseEnabled == false)
+            {
+                return;
+            }
+
+            if (this.ActualWidth < Ribbon.MinimalVisibleWidth
+                || this.ActualHeight < Ribbon.MinimalVisibleHeight)
+            {
+                this.IsCollapsed = true;
+            }
+            else
+            {
+                this.IsCollapsed = false;
+            }
         }
 
         private void UpdateWindowChrome()
