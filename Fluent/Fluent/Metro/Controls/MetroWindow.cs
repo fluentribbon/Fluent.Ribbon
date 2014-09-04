@@ -19,10 +19,6 @@ namespace Fluent
         private bool _isContextMenuOpen = false;
 
         public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register("IsIconVisible", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
-        public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
-        public static readonly DependencyProperty ShowMinButtonProperty = DependencyProperty.Register("ShowMinButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
-        public static readonly DependencyProperty ShowCloseButtonProperty = DependencyProperty.Register("ShowCloseButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
-        public static readonly DependencyProperty ShowMaxRestoreButtonProperty = DependencyProperty.Register("ShowMaxRestoreButton", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
 
         public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
         private FrameworkElement iconImage;
@@ -63,30 +59,6 @@ namespace Fluent
             set { SetValue(IsIconVisibleProperty, value); }
         }
 
-        public bool ShowTitleBar
-        {
-            get { return (bool)GetValue(ShowTitleBarProperty); }
-            set { SetValue(ShowTitleBarProperty, value); }
-        }
-
-        public bool ShowMinButton
-        {
-            get { return (bool)GetValue(ShowMinButtonProperty); }
-            set { SetValue(ShowMinButtonProperty, value); }
-        }
-
-        public bool ShowCloseButton
-        {
-            get { return (bool)GetValue(ShowCloseButtonProperty); }
-            set { SetValue(ShowCloseButtonProperty, value); }
-        }
-
-        public bool ShowMaxRestoreButton
-        {
-            get { return (bool)GetValue(ShowMaxRestoreButtonProperty); }
-            set { SetValue(ShowMaxRestoreButtonProperty, value); }
-        }
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -103,25 +75,18 @@ namespace Fluent
                 WindowCommands = new WindowCommands();
             }
 
-            if (ShowTitleBar)
-            {
-                var titleBar = GetTemplateChild(PART_TitleBar) as FrameworkElement;
+            var titleBar = GetTemplateChild(PART_TitleBar) as FrameworkElement;
 
-                if (titleBar != null)
-                {
-                    titleBar.MouseDown += TitleBarMouseDown;
-                    titleBar.MouseUp += TitleBarMouseUp;
-                    titleBar.MouseMove += TitleBarMouseMove;
-                }                
-
-                if (this.iconImage != null)
-                {
-                    this.iconImage.MouseUp += this.HandleIconMouseUp;
-                }
-            }
-            else
+            if (titleBar != null)
             {
-                MouseDown += TitleBarMouseDown;
+                titleBar.MouseDown += TitleBarMouseDown;
+                titleBar.MouseUp += TitleBarMouseUp;
+                titleBar.MouseMove += TitleBarMouseMove;
+            }                
+
+            if (this.iconImage != null)
+            {
+                this.iconImage.MouseUp += this.HandleIconMouseUp;
             }
         }
 

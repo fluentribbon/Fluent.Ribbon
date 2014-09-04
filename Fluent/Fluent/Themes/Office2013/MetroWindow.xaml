@@ -24,7 +24,6 @@
                     </Grid.RowDefinitions>
                     <Grid x:Name="PART_TitleBar"
                           Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
-                          Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}"
                           Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -107,7 +106,7 @@
       
     <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
+                Value="White" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Fluent:WindowCommands">
@@ -147,8 +146,7 @@
                                 Padding="0"
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Visibility="{Binding ShowMinButton, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Path Data="F1M0,6L0,9 9,9 9,6 0,6z"
                                   SnapsToDevicePixels="True"
                                   Fill="{DynamicResource TabItemFontBrush}" />
@@ -163,8 +161,7 @@
                                 Padding="0"
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Visibility="{Binding ShowMaxRestoreButton, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Grid>
                                 <Path x:Name="MaximisePath"
                                       SnapsToDevicePixels="True"
@@ -186,23 +183,32 @@
                                 Padding="0"
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Visibility="{Binding ShowCloseButton, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Path Data="F1M0,0L2,0 5,3 8,0 10,0 6,4 10,8 8,8 5,5 2,8 0,8 4,4 0,0z"
                                   SnapsToDevicePixels="True"
                                   Fill="{DynamicResource TabItemFontBrush}" />
                         </Button>
                     </StackPanel>
-                </ControlTemplate>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                                     Value="NoResize">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Min"
+                                    Value="Collapsed" />                            
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Max"
+                                    Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
+                                     Value="CanMinimize">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Max"
+                                    Value="Collapsed" />
+                        </DataTrigger>                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>                
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:MetroWindow}}}"
-                         Value="True">
-                <Setter Property="Foreground"
-                        Value="White" />
-            </DataTrigger>
-        </Style.Triggers>
     </Style>
 
     <ControlTemplate TargetType="{x:Type Button}"

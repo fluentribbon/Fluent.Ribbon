@@ -87,12 +87,9 @@ namespace Fluent.Metro.Behaviours
                 switch (AssociatedObject.ResizeMode)
                 {
                     case ResizeMode.NoResize:
-                        window.ShowMaxRestoreButton = false;
-                        window.ShowMinButton = false;
                         ResizeWithGrip = false;
                         break;
                     case ResizeMode.CanMinimize:
-                        window.ShowMaxRestoreButton = false;
                         ResizeWithGrip = false;
                         break;
                     case ResizeMode.CanResize:
@@ -361,9 +358,12 @@ namespace Fluent.Metro.Behaviours
 
                     if (window != null)
                     {
-                        if (!window.ShowMaxRestoreButton)
+                        if (window.ResizeMode != ResizeMode.NoResize && window.ResizeMode != ResizeMode.CanMinimize)
+                        {
                             UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MAXIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
+                        }
                         else
+                        {
                             if (window.WindowState == WindowState.Maximized)
                             {
                                 UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MAXIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
@@ -376,12 +376,17 @@ namespace Fluent.Metro.Behaviours
                                 UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_RESTORE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
                                 UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MOVE, Constants.MF_ENABLED | Constants.MF_BYCOMMAND);
                             }
+                        }
 
-                        if (!window.ShowMinButton)
+                        if (window.ResizeMode != ResizeMode.NoResize)
+                        {
                             UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MINIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
+                        }
 
                         if (AssociatedObject.ResizeMode == ResizeMode.NoResize || window.WindowState == WindowState.Maximized)
+                        {
                             UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_SIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
+                        }
                     }
                     break;
             }
