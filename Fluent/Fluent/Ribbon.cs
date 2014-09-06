@@ -1072,6 +1072,22 @@ namespace Fluent
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
             DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
 
+
+		/// <summary>
+		/// Checks if any keytips are visible.
+		/// </summary>
+		public bool AreAnyKeyTipsVisible
+		{
+			get
+			{
+				if (keyTipService != null)
+				{
+					return keyTipService.AreAnyKeyTipsVisible;
+				}
+
+				return false;
+			}
+		}
         #endregion
 
         #region Commands

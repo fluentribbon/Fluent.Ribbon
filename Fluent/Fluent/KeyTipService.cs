@@ -45,6 +45,22 @@ namespace Fluent
         private static readonly KeyConverter keyConverter = new KeyConverter();
         private string currentUserInput;
 
+		/// <summary>
+		/// Checks if any keytips are visible.
+		/// </summary>
+		public bool AreAnyKeyTipsVisible
+		{
+			get
+			{
+				if (activeAdornerChain != null)
+				{
+					return activeAdornerChain.AreAnyKeyTipsVisible;
+				}
+
+				return false;
+			}
+		}
+
         #endregion
 
         #region Initialization
