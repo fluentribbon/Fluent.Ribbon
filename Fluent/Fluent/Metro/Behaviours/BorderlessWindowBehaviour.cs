@@ -288,15 +288,14 @@ namespace Fluent.Metro.Behaviours
                     /* Hides the border */
                     handled = true;
                     break;
-                case Constants.WM_NCPAINT:            
+                case Constants.WM_NCPAINT:
                     {
                         if (!this.ShouldHaveBorder())
                         {
-                            // disabled this, since this causes problems when switching between office 2010 and office 2013 themes
-                            //var val = 2;
-                            //UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle, 2, ref val, 4);
-                            //var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
-                            //UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle, ref m);
+                            var val = 2;
+                            UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle, 2, ref val, 4);
+                            var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
+                            UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle, ref m);
 
                             if (this.Border != null)
                             {
@@ -307,7 +306,7 @@ namespace Fluent.Metro.Behaviours
                         {
                             this.AddBorder();
                         }
-                        handled = true;
+                        //handled = true;
                     }
                     break;
                 case Constants.WM_NCACTIVATE:
