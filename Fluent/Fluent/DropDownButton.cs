@@ -25,7 +25,7 @@ namespace Fluent
     /// </summary>
     [ContentProperty("Items")]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -530,7 +530,25 @@ namespace Fluent
 
         private void OnDropDownPopupKeyUp(object sender, KeyEventArgs e)
         {
-            this.KeyDownHandler(e);
+            if (e.Handled)
+            {
+                return;
+            }
+
+            var handled = false;
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    this.IsDropDownOpen = false;
+                    handled = true;
+                    break;
+            }
+
+            if (handled)
+            {
+                e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -538,11 +556,6 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
-        {
-            this.KeyDownHandler(e);
-        }
-
-        private void KeyDownHandler(KeyEventArgs e)
         {
             if (e.Handled)
             {
@@ -582,7 +595,7 @@ namespace Fluent
                     break;
 
                 case Key.Escape:
-                    IsDropDownOpen = false;
+                    this.IsDropDownOpen = false;
                     handled = true;
                     break;
 
