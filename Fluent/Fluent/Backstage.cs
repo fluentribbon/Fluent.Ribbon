@@ -295,7 +295,7 @@ namespace Fluent
             
             if (window != null)
             {
-                window.KeyDown += this.OnBackstageEscapeKeyDown;
+                window.KeyDown += this.HandleWindowKeyDown;
            
 
                 if (this.savedWindowMinWidth < 500)
@@ -368,7 +368,7 @@ namespace Fluent
             var window = Window.GetWindow(this);
             if (window != null)
             {
-                window.PreviewKeyDown -= this.OnBackstageEscapeKeyDown;
+                window.PreviewKeyDown -= this.HandleWindowKeyDown;
                 window.SizeChanged -= this.OnWindowSizeChanged;
 
                 if (double.IsNaN(this.savedWindowMinWidth) == false
@@ -476,8 +476,34 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.KeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs"/> that contains the event data.</param>
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            switch (e.Key)
+            {
+                case Key.Enter:
+                case Key.Space:
+                    if (this.IsFocused)
+                    {
+                        this.IsOpen = !this.IsOpen;
+                        e.Handled = true;
+                    }
+                    break;
+            }
+
+            base.OnKeyDown(e);
+        }
+
         // Handles backstage Esc key keydown
-        private void OnBackstageEscapeKeyDown(object sender, KeyEventArgs e)
+        private void HandleWindowKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
