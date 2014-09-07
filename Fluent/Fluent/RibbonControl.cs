@@ -21,6 +21,8 @@ using System.Windows.Shapes;
 
 namespace Fluent
 {
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Represent base class for Fluent controls
     /// </summary>
@@ -466,19 +468,19 @@ namespace Fluent
         public static Rect GetControlWorkArea(FrameworkElement control)
         {
             Point tabItemPos = control.PointToScreen(new Point(0, 0));
-            NativeMethods.Rect tabItemRect = new NativeMethods.Rect();
-            tabItemRect.Left = (int)tabItemPos.X;
-            tabItemRect.Top = (int)tabItemPos.Y;
-            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            var tabItemRect = new RECT();
+            tabItemRect.left = (int)tabItemPos.X;
+            tabItemRect.top = (int)tabItemPos.Y;
+            tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
             uint MONITOR_DEFAULTTONEAREST = 0x00000002;
             System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
             if (monitor != System.IntPtr.Zero)
             {
-                NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
-                monitorInfo.Size = Marshal.SizeOf(monitorInfo);
-                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                return new Rect(monitorInfo.Work.Left, monitorInfo.Work.Top, monitorInfo.Work.Right - monitorInfo.Work.Left, monitorInfo.Work.Bottom - monitorInfo.Work.Top);
+                var monitorInfo = new MONITORINFO();
+                monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+                UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                return new Rect(monitorInfo.rcWork.left, monitorInfo.rcWork.top, monitorInfo.rcWork.right - monitorInfo.rcWork.left, monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
             }
             return new Rect();
         }
@@ -491,19 +493,19 @@ namespace Fluent
         public static Rect GetControlMonitor(FrameworkElement control)
         {
             Point tabItemPos = control.PointToScreen(new Point(0, 0));
-            NativeMethods.Rect tabItemRect = new NativeMethods.Rect();
-            tabItemRect.Left = (int)tabItemPos.X;
-            tabItemRect.Top = (int)tabItemPos.Y;
-            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            var tabItemRect = new RECT();
+            tabItemRect.left = (int)tabItemPos.X;
+            tabItemRect.top = (int)tabItemPos.Y;
+            tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
             uint MONITOR_DEFAULTTONEAREST = 0x00000002;
             System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
             if (monitor != System.IntPtr.Zero)
             {
-                NativeMethods.MonitorInfo monitorInfo = new NativeMethods.MonitorInfo();
-                monitorInfo.Size = Marshal.SizeOf(monitorInfo);
-                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                return new Rect(monitorInfo.Monitor.Left, monitorInfo.Monitor.Top, monitorInfo.Monitor.Right - monitorInfo.Monitor.Left, monitorInfo.Monitor.Bottom - monitorInfo.Monitor.Top);
+                var monitorInfo = new MONITORINFO();
+                monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+                UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
             }
             return new Rect();
         }

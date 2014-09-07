@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Fluent.Metro.Native
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
 
     /// <devdoc>http://msdn.microsoft.com/en-us/library/ms182161.aspx</devdoc>
     [SuppressUnmanagedCodeSecurity]
@@ -39,11 +39,14 @@ namespace Fluent.Metro.Native
         [DllImport("user32")]
         internal static extern IntPtr MonitorFromWindow([In] IntPtr handle, [In] int flags);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr MonitorFromPoint(POINT pt, MONITORINFO.MonitorOptions dwFlags);
+
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms633545(v=vs.85).aspx</devdoc>
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
-        
+
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms647486%28v=vs.85%29.aspx</devdoc>
         [DllImport("user32", CharSet = CharSet.Unicode, ExactSpelling = true, EntryPoint = "LoadStringW", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
         internal static extern int LoadString([In] [Optional] IntPtr hInstance, [In] uint uID, [Out] StringBuilder lpBuffer, [In] int nBufferMax);
@@ -66,7 +69,7 @@ namespace Fluent.Metro.Native
 
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms648390(v=vs.85).aspx</devdoc>
         [DllImport("user32")]
-        internal static extern bool GetCursorPos([Out] out Win32Point pt);
+        internal static extern bool GetCursorPos([Out] out POINT pt);
 
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms646258(v=vs.85).aspx</devdoc>
         [DllImport("user32", CharSet = CharSet.Auto, ExactSpelling = true)]
@@ -84,9 +87,30 @@ namespace Fluent.Metro.Native
         [DllImport("user32.dll", EntryPoint = "SetClassLong")]
         internal static extern uint SetClassLongPtr32(IntPtr hWnd, int nIndex, uint dwNewLong);
 
-        [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
         [DllImport("user32.dll", EntryPoint = "SetClassLongPtr")]
         internal static extern IntPtr SetClassLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        internal static IntPtr SetClassLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        {
+            if (Environment.Is64BitProcess)
+                return UnsafeNativeMethods.SetClassLongPtr64(hWnd, nIndex, dwNewLong);
+
+            return new IntPtr(UnsafeNativeMethods.SetClassLongPtr32(hWnd, nIndex, unchecked((uint)dwNewLong.ToInt32())));
+        }
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLong")]
+        private static extern uint GetClassLong32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        private static extern IntPtr GetClassLong64(IntPtr hWnd, int nIndex);
+
+        internal static IntPtr GetClassLong(IntPtr hWnd, int nIndex)
+        {
+            if (Environment.Is64BitProcess)
+                return UnsafeNativeMethods.GetClassLong64(hWnd, nIndex);
+
+            return new IntPtr(UnsafeNativeMethods.GetClassLong32(hWnd, nIndex));
+        }
 
         [DllImport("gdi32.dll")]
         internal static extern IntPtr CreateSolidBrush(int crColor);
@@ -104,6 +128,12 @@ namespace Fluent.Metro.Native
         [DllImport("user32.dll")]
         internal static extern uint EnableMenuItem(IntPtr hMenu, uint itemId, uint uEnable);
 
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
         internal static void PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam)
         {
             if (!_PostMessage(hWnd, Msg, wParam, lParam))
@@ -119,6 +149,15 @@ namespace Fluent.Metro.Native
             public readonly Int32 Y;
         };
 
+        // See: http://stackoverflow.com/questions/7913325/win-api-in-c-get-hi-and-low-word-from-intptr/7913393#7913393
+        internal static Point GetPoint(IntPtr ptr)
+        {
+            uint xy = unchecked(IntPtr.Size == 8 ? (uint)ptr.ToInt64() : (uint)ptr.ToInt32());
+            int x = unchecked((short)xy);
+            int y = unchecked((short)(xy >> 16));
+            return new Point(x, y);
+        }
+
         internal static int GET_X_LPARAM(IntPtr lParam)
         {
             return LOWORD(lParam.ToInt32());
@@ -129,14 +168,31 @@ namespace Fluent.Metro.Native
             return HIWORD(lParam.ToInt32());
         }
 
-        private static int HIWORD(int i)
+        private static int HIWORD(long i)
         {
             return (short)(i >> 16);
         }
 
-        private static int LOWORD(int i)
+        private static int LOWORD(long i)
         {
             return (short)(i & 0xFFFF);
         }
+
+        internal const int GWL_STYLE = -16;
+        internal const int WS_SYSMENU = 0x80000;
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("shell32.dll", CallingConvention = CallingConvention.StdCall)]
+        public static extern int SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
     }
 }

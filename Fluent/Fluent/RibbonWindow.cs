@@ -45,7 +45,15 @@ namespace Fluent
 
         #region Properties
 
-        public WindowCommands WindowCommands { get; set; }
+        // Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WindowCommandsProperty =
+            DependencyProperty.Register("WindowCommands", typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
+
+        public WindowCommands WindowCommands
+        {
+            get { return (WindowCommands)GetValue(WindowCommandsProperty); }
+            set { SetValue(WindowCommandsProperty, value); }
+        }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SaveWindowPosition.  This enables animation, styling, binding, etc...
@@ -332,7 +340,7 @@ namespace Fluent
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-
+            
             this.UpdateWindowChrome();
         }
 
@@ -426,8 +434,22 @@ namespace Fluent
 
             this.UpdateWindowChrome();
 
+            if (this.iconImage != null)
+            {
+                this.iconImage.MouseUp -= this.HandleIconMouseUp;
+            }
+
+            if (this.titleBar != null)
+            {
+                this.titleBar.MouseDown -= this.TitleBarMouseDown;
+                this.titleBar.MouseUp -= this.TitleBarMouseUp;
+                this.titleBar.MouseMove -= this.TitleBarMouseMove;
+            }
+
             if (this.UseWindowChrome.GetValueOrDefault())
             {
+                this.WindowCommands = null;
+
                 var buttonsPanel = this.GetTemplateChild(PART_ButtonsPanel) as FrameworkElement;
 
                 if (buttonsPanel != null)
@@ -437,23 +459,11 @@ namespace Fluent
             }
             else
             {
-                if (this.iconImage != null)
-                {
-                    this.iconImage.MouseUp -= this.HandleIconMouseUp;
-                }
-
                 this.iconImage = GetTemplateChild(PART_Icon) as FrameworkElement;
 
                 if (this.WindowCommands == null)
                 {
                     this.WindowCommands = new WindowCommands();
-                }
-
-                if (this.titleBar != null)
-                {
-                    this.titleBar.MouseDown -= this.TitleBarMouseDown;
-                    this.titleBar.MouseUp -= this.TitleBarMouseUp;
-                    this.titleBar.MouseMove -= this.TitleBarMouseMove;
                 }
 
                 this.titleBar = this.GetTemplateChild(PART_TitleBar) as FrameworkElement;
@@ -518,7 +528,7 @@ namespace Fluent
 
         protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (!IsIconVisible)
+            if (!this.IsIconVisible)
             {
                 return;
             }
@@ -528,12 +538,12 @@ namespace Fluent
             if (mousePosition.X <= RibbonProperties.GetTitleBarHeight(this)
                 && mousePosition.Y <= RibbonProperties.GetTitleBarHeight(this))
             {
-                if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= doubleclick)
+                if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= this.doubleclick)
                 {
-                    Close();
+                    this.Close();
                     return;
                 }
-                lastMouseClick = DateTime.Now;
+                this.lastMouseClick = DateTime.Now;
 
                 ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
             }
@@ -554,7 +564,7 @@ namespace Fluent
 
         private static Point GetCorrectPosition(Visual relativeTo)
         {
-            UnsafeNativeMethods.Win32Point w32Mouse;
+            POINT w32Mouse;
             UnsafeNativeMethods.GetCursorPos(out w32Mouse);
             return relativeTo.PointFromScreen(new Point(w32Mouse.X, w32Mouse.Y));
         }
@@ -567,7 +577,7 @@ namespace Fluent
             {
                 // Calculating correct left coordinate for multi-screen system.
                 Point mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
-                double width = RestoreBounds.Width;
+                double width = this.RestoreBounds.Width;
                 double left = mouseAbsolute.X - width / 2;
 
                 // Aligning window's position to fit the screen.
@@ -578,19 +588,19 @@ namespace Fluent
 
                 // When dragging the window down at the very top of the border,
                 // move the window a bit upwards to avoid showing the resize handle as soon as the mouse button is released
-                Top = mousePosition.Y < 5 ? -5 : mouseAbsolute.Y - mousePosition.Y;
-                Left = left;
+                this.Top = mousePosition.Y < 5 ? -5 : mouseAbsolute.Y - mousePosition.Y;
+                this.Left = left;
 
                 // Restore window to normal state.
-                WindowState = WindowState.Normal;
+                this.WindowState = WindowState.Normal;
 
-                DragMove();
+                this.DragMove();
             }
         }
 
         internal T GetPart<T>(string name) where T : DependencyObject
         {
-            return (T)GetTemplateChild(name);
+            return (T)this.GetTemplateChild(name);
         }
 
         private static void ShowSystemMenuPhysicalCoordinates(Window window, Point physicalScreenLocation)

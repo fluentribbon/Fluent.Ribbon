@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace Fluent.Metro.Native
 {
-#pragma warning disable 1591
+    #pragma warning disable 1591
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public class MONITORINFO
     {     
@@ -10,5 +10,12 @@ namespace Fluent.Metro.Native
         public RECT rcMonitor = new RECT(); 
         public RECT rcWork = new RECT();           
         public int dwFlags = 0;
+
+        public enum MonitorOptions : uint
+        {
+            MONITOR_DEFAULTTONULL = 0x00000000,
+            MONITOR_DEFAULTTOPRIMARY = 0x00000001,
+            MONITOR_DEFAULTTONEAREST = 0x00000002
+        }
     }
 }

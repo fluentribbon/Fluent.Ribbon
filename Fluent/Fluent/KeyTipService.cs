@@ -16,6 +16,9 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
+    using System.Diagnostics;
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Handles Alt, F10 and so on
     /// </summary>
@@ -149,7 +152,7 @@ namespace Fluent
             // We must terminate the keytip's adorner chain if:
             // - mouse clicks in non client area
             // - the window is deactivated
-            if (((msg >= 161) && (msg <= 173)) || msg == NativeMethods.WM_NCACTIVATE)
+            if (((msg >= 161) && (msg <= 173)) || msg == Constants.WM_NCACTIVATE)
             {
                 if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
                 {

@@ -267,7 +267,9 @@
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="UseWindowChrome"
-                Value="False" />        
+                Value="False" />
+        <Setter Property="WindowStyle"
+                Value="None" />
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource BlackColor}" />

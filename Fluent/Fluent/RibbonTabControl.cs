@@ -23,6 +23,8 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Represents ribbon tab control
     /// </summary>
@@ -692,12 +694,12 @@ namespace Fluent
             {
                 // Get current workarea                
                 var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
-                var tabItemRect = new NativeMethods.Rect
+                var tabItemRect = new RECT
                                       {
-                                          Left = (int)tabItemPos.X,
-                                          Top = (int)tabItemPos.Y,
-                                          Right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
-                                          Bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
+                                          left = (int)tabItemPos.X,
+                                          top = (int)tabItemPos.Y,
+                                          right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
+                                          bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
                                       };
 
                 const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
@@ -705,9 +707,9 @@ namespace Fluent
                 var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
                 if (monitor != IntPtr.Zero)
                 {
-                    var monitorInfo = new NativeMethods.MonitorInfo();
-                    monitorInfo.Size = Marshal.SizeOf(monitorInfo);
-                    NativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                    var monitorInfo = new MONITORINFO();
+                    monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+                    UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
 
                     var startPoint = this.PointToScreen(new Point(0, 0));
                     if (this.FlowDirection == FlowDirection.RightToLeft)
@@ -715,13 +717,13 @@ namespace Fluent
                         startPoint.X -= this.ActualWidth;
                     }
 
-                    var inWindowRibbonWidth = monitorInfo.Work.Right - Math.Max(monitorInfo.Work.Left, startPoint.X);
+                    var inWindowRibbonWidth = monitorInfo.rcWork.right - Math.Max(monitorInfo.rcWork.left, startPoint.X);
 
                     var actualWidth = this.ActualWidth;
-                    if (startPoint.X < monitorInfo.Work.Left)
+                    if (startPoint.X < monitorInfo.rcWork.left)
                     {
-                        actualWidth -= monitorInfo.Work.Left - startPoint.X;
-                        startPoint.X = monitorInfo.Work.Left;
+                        actualWidth -= monitorInfo.rcWork.left - startPoint.X;
+                        startPoint.X = monitorInfo.rcWork.left;
                     }
 
                     // Set width and prevent negative values

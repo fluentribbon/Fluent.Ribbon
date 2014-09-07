@@ -9,256 +9,303 @@ using Fluent.Metro.Native;
 
 namespace Fluent.Metro.Behaviours
 {
-    public class BorderlessWindowBehavior : Behavior<Window>
+    public class BorderlessWindowBehavior : Behavior<RibbonWindow>
     {
-        public static DependencyProperty ResizeWithGripProperty = DependencyProperty.Register("ResizeWithGrip", typeof(bool), typeof(BorderlessWindowBehavior), new PropertyMetadata(true));
-        public static DependencyProperty AutoSizeToContentProperty = DependencyProperty.Register("AutoSizeToContent", typeof(bool), typeof(BorderlessWindowBehavior), new PropertyMetadata(false));
-
-        public bool ResizeWithGrip
-        {
-            get { return (bool)GetValue(ResizeWithGripProperty); }
-            set { SetValue(ResizeWithGripProperty, value); }
-        }
-
-        public bool AutoSizeToContent
-        {
-            get { return (bool)GetValue(AutoSizeToContentProperty); }
-            set { SetValue(AutoSizeToContentProperty, value); }
-        }
-
         public Border Border { get; set; }
 
         private HwndSource _mHWNDSource;
-        private IntPtr _mHWND;
+        private IntPtr windowHandle;
 
-        private static IntPtr SetClassLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
-        {
-            if (IntPtr.Size > 4)
-                return UnsafeNativeMethods.SetClassLongPtr64(hWnd, nIndex, dwNewLong);
+        #region WindowSize
 
-            return new IntPtr(UnsafeNativeMethods.SetClassLongPtr32(hWnd, nIndex, unchecked((uint)dwNewLong.ToInt32())));
-        }
-
-        private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
+        private void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
             var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
             // Adjust the maximized size and position to fit the work area of the correct monitor
-            IntPtr monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
+            const int MONITOR_DEFAULTTONEAREST = 0x00000002;
+            var monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
 
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
                 UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                RECT rcWorkArea = monitorInfo.rcWork;
-                RECT rcMonitorArea = monitorInfo.rcMonitor;
+                var rcWorkArea = monitorInfo.rcWork;
+                var rcMonitorArea = monitorInfo.rcMonitor;
                 mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
                 mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
-                mmi.ptMaxSize.X = Math.Abs(rcWorkArea.right - rcWorkArea.left);
-                mmi.ptMaxSize.Y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+
+                var ignoreTaskBar = this.IgnoreTaskBar();
+                var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
+                var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
+                mmi.ptMaxSize.X = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
+                mmi.ptMaxSize.Y = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
+
+                // only do this on maximize
+                if (!ignoreTaskBar && this.AssociatedObject.WindowState == WindowState.Maximized)
+                {
+                    mmi.ptMaxTrackSize.X = mmi.ptMaxSize.X;
+                    mmi.ptMaxTrackSize.Y = mmi.ptMaxSize.Y;
+                    mmi = AdjustWorkingAreaForAutoHide(monitor, mmi);
+                }
             }
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
 
+        private static int GetEdge(RECT rc)
+        {
+            int uEdge;
+            if (rc.top == rc.left && rc.bottom > rc.right)
+                uEdge = (int)ABEdge.ABE_LEFT;
+            else if (rc.top == rc.left && rc.bottom < rc.right)
+                uEdge = (int)ABEdge.ABE_TOP;
+            else if (rc.top > rc.left)
+                uEdge = (int)ABEdge.ABE_BOTTOM;
+            else
+                uEdge = (int)ABEdge.ABE_RIGHT;
+            return uEdge;
+        }
+
+        /// <summary>
+        /// This method handles the window size if the taskbar is set to auto-hide.
+        /// </summary>
+        private static MINMAXINFO AdjustWorkingAreaForAutoHide(IntPtr monitorContainingApplication, MINMAXINFO mmi)
+        {
+            IntPtr hwnd = UnsafeNativeMethods.FindWindow("Shell_TrayWnd", null);
+            IntPtr monitorWithTaskbarOnIt = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
+
+            if (!monitorContainingApplication.Equals(monitorWithTaskbarOnIt))
+            {
+                return mmi;
+            }
+
+            var abd = new APPBARDATA();
+            abd.cbSize = Marshal.SizeOf(abd);
+            abd.hWnd = hwnd;
+            UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref abd);
+            int uEdge = GetEdge(abd.rc);
+            bool autoHide = Convert.ToBoolean(UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETSTATE, ref abd));
+
+            if (!autoHide)
+            {
+                return mmi;
+            }
+
+            switch (uEdge)
+            {
+                case (int)ABEdge.ABE_LEFT:
+                    mmi.ptMaxPosition.X += 2;
+                    mmi.ptMaxTrackSize.X -= 2;
+                    mmi.ptMaxSize.X -= 2;
+                    break;
+                case (int)ABEdge.ABE_RIGHT:
+                    mmi.ptMaxSize.X -= 2;
+                    mmi.ptMaxTrackSize.X -= 2;
+                    break;
+                case (int)ABEdge.ABE_TOP:
+                    mmi.ptMaxPosition.Y += 2;
+                    mmi.ptMaxTrackSize.Y -= 2;
+                    mmi.ptMaxSize.Y -= 2;
+                    break;
+                case (int)ABEdge.ABE_BOTTOM:
+                    mmi.ptMaxSize.Y -= 2;
+                    mmi.ptMaxTrackSize.Y -= 2;
+                    break;
+                default:
+                    return mmi;
+            }
+            return mmi;
+        }
+
+        #endregion WindowSize
+
         protected override void OnAttached()
         {
             if (PresentationSource.FromVisual(AssociatedObject) != null)
-                AddHwndHook();
-            else
-                AssociatedObject.SourceInitialized += AssociatedObject_SourceInitialized;
-
-            AssociatedObject.WindowStyle = WindowStyle.None;
-            AssociatedObject.StateChanged += AssociatedObjectStateChanged;
-
-            if (AssociatedObject is RibbonWindow)
             {
-                var window = ((RibbonWindow)AssociatedObject);
-                //MetroWindow already has a border we can use
-                AssociatedObject.Loaded += (s, e) =>
-                {
-                    var ancestors = window.GetPart<Border>("PART_Border");
-                    Border = ancestors;
-                    if (ShouldHaveBorder())
-                        AddBorder();
-                };
-
-                switch (AssociatedObject.ResizeMode)
-                {
-                    case ResizeMode.NoResize:
-                        ResizeWithGrip = false;
-                        break;
-                    case ResizeMode.CanMinimize:
-                        ResizeWithGrip = false;
-                        break;
-                    case ResizeMode.CanResize:
-                        ResizeWithGrip = false;
-                        break;
-                    case ResizeMode.CanResizeWithGrip:
-                        ResizeWithGrip = true;
-                        break;
-                }
+                this.AddHwndHook();
             }
             else
             {
-                //Other windows may not, easiest to just inject one!
-                var content = (UIElement)AssociatedObject.Content;
-                AssociatedObject.Content = null;
-
-                Border = new Border
-                {
-                    Child = content,
-                    BorderBrush = new SolidColorBrush(Colors.Black)
-                };
-
-                AssociatedObject.Content = Border;
+                this.AssociatedObject.SourceInitialized += this.AssociatedObject_SourceInitialized;
             }
-
-            if (ResizeWithGrip)
-                AssociatedObject.ResizeMode = ResizeMode.CanResizeWithGrip;
-
-            if (AutoSizeToContent)
-                AssociatedObject.Loaded += (s, e) =>
-                {
-                    //Temp fix, thanks @lynnx
-                    AssociatedObject.SizeToContent = SizeToContent.Height;
-                    AssociatedObject.SizeToContent = AutoSizeToContent
-                                                         ? SizeToContent.WidthAndHeight
-                                                         : SizeToContent.Manual;
-                };
-
-
+            
+            this.AssociatedObject.StateChanged += this.AssociatedObjectStateChanged;
+            this.AssociatedObject.Loaded += this.HandleAssociatedObjectLoaded;
+            if (this.AssociatedObject.IsLoaded)
+            {
+                this.HandleAssociatedObjectLoaded(this, new RoutedEventArgs());
+            }
 
             base.OnAttached();
         }
 
-        private void AssociatedObjectStateChanged(object sender, EventArgs e)
+        protected override void OnDetaching()
         {
-            if (AssociatedObject.WindowState == WindowState.Maximized)
+            this.AssociatedObject.SourceInitialized -= this.AssociatedObject_SourceInitialized;
+            this.AssociatedObject.StateChanged -= this.AssociatedObjectStateChanged;
+            this.AssociatedObject.Loaded -= this.HandleAssociatedObjectLoaded;
+
+            this.RemoveHwndHook();
+            base.OnDetaching();
+        }
+
+        private void HandleAssociatedObjectLoaded(object sender, RoutedEventArgs e)
+        {
+            var ancestors = this.AssociatedObject.GetPart<Border>("PART_Border");
+            this.Border = ancestors;
+            if (this.ShouldHaveBorder())
             {
-                HandleMaximize();
+                this.AddBorder();
             }
         }
 
-        private bool HandleMaximize()
+        private void AssociatedObjectStateChanged(object sender, EventArgs e)
         {
-            bool retVal = false;
-            IntPtr monitor = UnsafeNativeMethods.MonitorFromWindow(_mHWND, Constants.MONITOR_DEFAULTTONEAREST);
-            if (monitor != IntPtr.Zero)
+            if (this.AssociatedObject.WindowState == WindowState.Maximized)
+            {
+                this.HandleMaximize();
+            }
+        }
+
+        private void HandleMaximize()
+        {
+            var monitor = UnsafeNativeMethods.MonitorFromWindow(this.windowHandle, Constants.MONITOR_DEFAULTTONEAREST);
+            if (monitor != IntPtr.Zero) 
             {
                 var monitorInfo = new MONITORINFO();
                 UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                var x = monitorInfo.rcWork.left;
-                var y = monitorInfo.rcWork.top;
-                var cx = Math.Abs(monitorInfo.rcWork.right - x);
-                var cy = Math.Abs(monitorInfo.rcWork.bottom - y);
-                UnsafeNativeMethods.SetWindowPos(_mHWND, new IntPtr(-2), x, y, cx, cy, 0x0040);
-                retVal = true;
+                var ignoreTaskBar = this.IgnoreTaskBar();
+                var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
+                var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
+                var cx = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
+                var cy = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
+                UnsafeNativeMethods.SetWindowPos(this.windowHandle, new IntPtr(-2), x, y, cx, cy, 0x0040);
             }
-            return retVal;
         }
 
-        protected override void OnDetaching()
+        private bool IgnoreTaskBar()
         {
-            AssociatedObject.StateChanged -= AssociatedObjectStateChanged;
+            //var ignoreTaskBar = this.AssociatedObject.IgnoreTaskbarOnMaximize 
+            //    || this.AssociatedObject.WindowStyle == WindowStyle.None;
 
-            RemoveHwndHook();
-            base.OnDetaching();
+            var ignoreTaskBar = false;
+
+            return ignoreTaskBar;
         }
 
         private void AddHwndHook()
         {
-            _mHWNDSource = PresentationSource.FromVisual(AssociatedObject) as HwndSource;
-            if (_mHWNDSource != null)
-                _mHWNDSource.AddHook(HwndHook);
+            this._mHWNDSource = PresentationSource.FromVisual(AssociatedObject) as HwndSource;
+            if (this._mHWNDSource != null)
+            {
+                this._mHWNDSource.AddHook(this.HwndHook);
+            }
 
-            _mHWND = new WindowInteropHelper(AssociatedObject).Handle;
+            this.windowHandle = new WindowInteropHelper(this.AssociatedObject).Handle;
         }
 
         private void RemoveHwndHook()
         {
-            AssociatedObject.SourceInitialized -= AssociatedObject_SourceInitialized;
-            if (_mHWNDSource != null)
-                _mHWNDSource.RemoveHook(HwndHook);
+            this.AssociatedObject.SourceInitialized -= this.AssociatedObject_SourceInitialized;
+            if (this._mHWNDSource != null)
+            {
+                this._mHWNDSource.RemoveHook(this.HwndHook);
+            }
         }
 
         private void AssociatedObject_SourceInitialized(object sender, EventArgs e)
         {
-            AddHwndHook();
-            SetDefaultBackgroundColor();
+            this.AddHwndHook();
+            this.SetDefaultBackgroundColor();
         }
 
         private bool ShouldHaveBorder()
         {
             if (Environment.OSVersion.Version.Major < 6)
+            {
                 return true;
+            }
 
             if (!UnsafeNativeMethods.DwmIsCompositionEnabled())
+            {
                 return true;
+            }
 
             return false;
         }
 
-        readonly SolidColorBrush _borderColour = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#808080"));
+        readonly SolidColorBrush _borderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#808080"));
 
         private void AddBorder()
         {
-            if (Border == null)
+            if (this.Border == null)
+            {
                 return;
+            }
 
-            Border.BorderThickness = new Thickness(1);
-            Border.BorderBrush = _borderColour;
+            this.Border.BorderThickness = new Thickness(1);
+            this.Border.BorderBrush = this._borderColor;
         }
 
         private void RemoveBorder()
         {
-            if (Border == null)
+            if (this.Border == null)
+            {
                 return;
+            }
 
-            Border.BorderThickness = new Thickness(0);
-            Border.BorderBrush = null;
+            this.Border.BorderThickness = new Thickness(0);
+            this.Border.BorderBrush = null;
         }
 
         private void SetDefaultBackgroundColor()
         {
-            var bgSolidColorBrush = AssociatedObject.Background as SolidColorBrush;
+            var bgSolidColorBrush = this.AssociatedObject.Background as SolidColorBrush;
 
             if (bgSolidColorBrush != null)
             {
                 var rgb = bgSolidColorBrush.Color.R | (bgSolidColorBrush.Color.G << 8) | (bgSolidColorBrush.Color.B << 16);
 
                 // set the default background color of the window -> this avoids the black stripes when resizing
-                var hBrushOld = SetClassLong(_mHWND, Constants.GCLP_HBRBACKGROUND, UnsafeNativeMethods.CreateSolidBrush(rgb));
+                var hBrushOld = UnsafeNativeMethods.SetClassLong(this.windowHandle, Constants.GCLP_HBRBACKGROUND, UnsafeNativeMethods.CreateSolidBrush(rgb));
 
                 if (hBrushOld != IntPtr.Zero)
+                {
                     UnsafeNativeMethods.DeleteObject(hBrushOld);
+                }
             }
         }
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            IntPtr returnval = IntPtr.Zero;
+            var returnval = IntPtr.Zero;
+
             switch (message)
             {
                 case Constants.WM_NCCALCSIZE:
                     /* Hides the border */
                     handled = true;
                     break;
-                case Constants.WM_NCPAINT:
+                case Constants.WM_NCPAINT:            
                     {
-                        if (!ShouldHaveBorder())
+                        if (!this.ShouldHaveBorder())
                         {
-                            var val = 2;
-                            UnsafeNativeMethods.DwmSetWindowAttribute(_mHWND, 2, ref val, 4);
-                            var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
-                            UnsafeNativeMethods.DwmExtendFrameIntoClientArea(_mHWND, ref m);
+                            // disabled this, since this causes problems when switching between office 2010 and office 2013 themes
+                            //var val = 2;
+                            //UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle, 2, ref val, 4);
+                            //var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
+                            //UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle, ref m);
 
-                            if (Border != null)
-                                Border.BorderThickness = new Thickness(0);
+                            if (this.Border != null)
+                            {
+                                this.Border.BorderThickness = new Thickness(0);
+                            }
                         }
                         else
                         {
-                            AddBorder();
+                            this.AddBorder();
                         }
                         handled = true;
                     }
@@ -269,12 +316,17 @@ namespace Fluent.Metro.Behaviours
                          * "does not repaint the nonclient area to reflect the state change." */
                         returnval = UnsafeNativeMethods.DefWindowProc(hWnd, message, wParam, new IntPtr(-1));
 
-                        if (!ShouldHaveBorder())
-
+                        if (!this.ShouldHaveBorder())
+                        {
                             if (wParam == IntPtr.Zero)
-                                AddBorder();
+                            {
+                                this.AddBorder();
+                            }
                             else
-                                RemoveBorder();
+                            {
+                                this.RemoveBorder();
+                            }
+                        }
 
                         handled = true;
                     }
@@ -295,7 +347,7 @@ namespace Fluent.Metro.Behaviours
                     }
 
                     // don't process the message on windows that can't be resized
-                    var resizeMode = AssociatedObject.ResizeMode;
+                    var resizeMode = this.AssociatedObject.ResizeMode;
                     if (resizeMode == ResizeMode.CanMinimize || resizeMode == ResizeMode.NoResize)
                     {
                         break;
@@ -305,14 +357,16 @@ namespace Fluent.Metro.Behaviours
                     var screenPoint = new Point(UnsafeNativeMethods.GET_X_LPARAM(lParam), UnsafeNativeMethods.GET_Y_LPARAM(lParam));
 
                     // convert to window coordinates
-                    var windowPoint = AssociatedObject.PointFromScreen(screenPoint);
-                    var windowSize = AssociatedObject.RenderSize;
+                    var windowPoint = this.AssociatedObject.PointFromScreen(screenPoint);
+                    var windowSize = this.AssociatedObject.RenderSize;
                     var windowRect = new Rect(windowSize);
                     windowRect.Inflate(-6, -6);
 
                     // don't process the message if the mouse is outside the 6px resize border
                     if (windowRect.Contains(windowPoint))
+                    {
                         break;
+                    }
 
                     var windowHeight = (int)windowSize.Height;
                     var windowWidth = (int)windowSize.Width;
@@ -348,7 +402,9 @@ namespace Fluent.Metro.Behaviours
                         returnval = (IntPtr)Constants.HTBOTTOMRIGHT;
 
                     if (returnval != IntPtr.Zero)
+                    {
                         handled = true;
+                    }
 
                     break;
 

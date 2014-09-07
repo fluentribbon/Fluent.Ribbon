@@ -19,6 +19,8 @@ using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
@@ -107,7 +109,7 @@ namespace Fluent
 
                     if (zero == IntPtr.Zero)
                     {
-                        zero = NativeMethods.GetClassLongPtr(hwnd, -34);
+                        zero = UnsafeNativeMethods.GetClassLong(hwnd, -34);
                     }
 
                     if (zero == IntPtr.Zero)
