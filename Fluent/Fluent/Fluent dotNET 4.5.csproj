@@ -98,6 +98,7 @@
     <Compile Include="IDropDownControl.cs" />
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="Internal\ItemContainerGeneratorAction.cs" />
+    <Compile Include="Internal\WindowSizing.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
@@ -409,7 +410,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\Office2010\Controls\Backstagee.xaml">
+    <None Include="Themes\Office2010\Controls\Backstage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
