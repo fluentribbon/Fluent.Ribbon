@@ -749,8 +749,6 @@ namespace Fluent
         // Handles drop down closed
         private void OnDropDownClosed()
         {
-            this.PopMenuMode();
-
             if (DropDownClosed != null)
             {
                 DropDownClosed(this, EventArgs.Empty);
@@ -763,16 +761,6 @@ namespace Fluent
             if (this.DropDownOpened != null)
             {
                 this.DropDownOpened(this, EventArgs.Empty);
-            }
-        }
-
-        // As we inherit from MenuBase we have to pop the menu mode ourself.
-        private void PopMenuMode()
-        {
-            var source = PresentationSource.FromVisual(this);
-            if (source != null)
-            {
-                InputManager.Current.PopMenuMode(source);
             }
         }
 
