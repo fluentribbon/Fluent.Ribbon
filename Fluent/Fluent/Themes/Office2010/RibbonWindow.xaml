@@ -50,7 +50,7 @@
     <Grid>
       <AdornerDecorator x:Name="adornerDecorator" Margin="0">
         <Grid x:Name="PART_MainGrid" Margin="0" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
-          <Grid x:Name="PART_TitleBar" Margin="8" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
+          <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
           <Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,0,0,1" VerticalAlignment="Top" Height="50" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}" SnapsToDevicePixels="True"/>
           <Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,0,15.1,1" Height="50" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}" SnapsToDevicePixels="True"/>
           <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="50" Margin="50,0,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}" SnapsToDevicePixels="True"/>
@@ -75,9 +75,9 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="iconImage" Value="0,4,0,0"/>
+        <Setter Property="Margin" TargetName="PART_IconImage" Value="0,4,0,0"/>
         <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-        <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
+        <Setter Property="Margin" TargetName="contentPresenter" Value="0,0,0,0"/>
         <Setter Property="Margin" TargetName="rectangle" Value="15,4,0,1"/>
         <Setter Property="Margin" TargetName="rectangle1" Value="0,4,15.1,1"/>
         <Setter Property="Margin" TargetName="rectangle2" Value="50,4,50,1"/>
@@ -141,15 +141,15 @@
         <Setter Property="Visibility" TargetName="PART_ResizeGrip" Value="Visible"/>
       </MultiTrigger>
       <Trigger Property="WindowState" Value="Maximized">
-        <Setter Property="Margin" TargetName="iconImage" Value="0,4,0,0"/>
+        <Setter Property="Margin" TargetName="PART_IconImage" Value="0,4,0,0"/>
         <Setter Property="BorderThickness" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="PART_SizeBorder" Value="0,0,0,0"/>
         <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
-        <Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,8,8,0"/>
+        <Setter Property="Margin" TargetName="PART_ButtonsPanel" Value="0,0,0,0"/>
         <Setter Property="Visibility" TargetName="maximizeButton" Value="Collapsed"/>
         <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-        <Setter Property="Margin" TargetName="contentPresenter" Value="8,6,8,8"/>
+        <Setter Property="Margin" TargetName="contentPresenter" Value="0,0,0,0"/>
         <Setter Property="Height" TargetName="border2" Value="54"/>
       </Trigger>
       <Trigger Property="WindowState" Value="Normal">
