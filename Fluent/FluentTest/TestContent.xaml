@@ -1790,13 +1790,13 @@
                 <StackPanel>
                     <WrapPanel>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
+                                Click="OnSilverClick">Silver (Office 2010)</Button>
+                        <Button Style="{DynamicResource ThemeButtonStyle}"
                                 Click="OnBlackClick">Black (Office 2010)</Button>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
                                 Click="OnBlueClick">Blue (Office 2010)</Button>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnSilverClick">Silver (Office 2010)</Button>
-                        <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnMetroClick">Office 2013 (opens new Window)</Button>
+                                Click="OnMetroClick">Office 2013</Button>
                     </WrapPanel>
                     <Label Content="Office 2013 styles are WORK IN PROGRESS and for demonstration purposes only. Some things may look weird and/or wrong placed!" />
                 </StackPanel>
