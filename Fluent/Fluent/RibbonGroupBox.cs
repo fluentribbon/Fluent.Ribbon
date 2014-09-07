@@ -127,6 +127,11 @@ namespace Fluent
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
 
+                if (element == null)
+                {
+                    continue;
+                }
+
                 RibbonProperties.SetAppropriateSize(element, groupBoxState);
             }
         }
