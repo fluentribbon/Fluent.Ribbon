@@ -92,7 +92,11 @@ namespace Fluent.Metro.Native
 
         internal static IntPtr SetClassLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
         {
+#if NET35
+            if (IntPtr.Size > 4)
+#else
             if (Environment.Is64BitProcess)
+#endif
                 return UnsafeNativeMethods.SetClassLongPtr64(hWnd, nIndex, dwNewLong);
 
             return new IntPtr(UnsafeNativeMethods.SetClassLongPtr32(hWnd, nIndex, unchecked((uint)dwNewLong.ToInt32())));
@@ -106,7 +110,11 @@ namespace Fluent.Metro.Native
 
         internal static IntPtr GetClassLong(IntPtr hWnd, int nIndex)
         {
-            if (Environment.Is64BitProcess)
+#if NET35
+            if (IntPtr.Size > 4)
+#else
+            if (Environment.Is64BitProcess) 
+#endif
                 return UnsafeNativeMethods.GetClassLong64(hWnd, nIndex);
 
             return new IntPtr(UnsafeNativeMethods.GetClassLong32(hWnd, nIndex));
