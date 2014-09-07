@@ -11,7 +11,7 @@ namespace Fluent.Metro.Native
         public RECT rcWork = new RECT();           
         public int dwFlags = 0;
 
-        public enum MonitorOptions : uint
+        public enum MonitorOptions
         {
             MONITOR_DEFAULTTONULL = 0x00000000,
             MONITOR_DEFAULTTOPRIMARY = 0x00000001,
