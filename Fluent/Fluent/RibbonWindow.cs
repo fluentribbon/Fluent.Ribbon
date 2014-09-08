@@ -11,7 +11,6 @@ namespace Fluent
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -254,9 +253,6 @@ namespace Fluent
         [SuppressMessage("Microsoft.Usage", "CA2211")]
         public static RoutedCommand CloseCommand = new RoutedCommand();
 
-        private HwndSource hwndSource;
-        private IntPtr windowHandle;
-
         #endregion
 
         #region Constructors
@@ -298,7 +294,7 @@ namespace Fluent
         /// </summary>
         public RibbonWindow()
         {
-            this.SizeChanged += this.OnSizeChanged;            
+            this.SizeChanged += this.OnSizeChanged;
         }
 
         #endregion
@@ -345,7 +341,7 @@ namespace Fluent
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            
+
             this.UpdateWindowChrome();
 
             WindowSizing.WindowInitialized(this);
@@ -513,8 +509,8 @@ namespace Fluent
 
             if (e.ClickCount == 2 && (this.ResizeMode == ResizeMode.CanResizeWithGrip || this.ResizeMode == ResizeMode.CanResize))
             {
-                this.WindowState = this.WindowState == WindowState.Maximized 
-                    ? WindowState.Normal 
+                this.WindowState = this.WindowState == WindowState.Maximized
+                    ? WindowState.Normal
                     : WindowState.Maximized;
             }
         }
