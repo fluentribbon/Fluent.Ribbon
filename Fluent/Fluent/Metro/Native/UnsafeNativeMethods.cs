@@ -6,6 +6,8 @@ using System.Text;
 
 namespace Fluent.Metro.Native
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Versioning;
     using System.Windows;
 
     /// <devdoc>http://msdn.microsoft.com/en-us/library/ms182161.aspx</devdoc>
@@ -84,41 +86,45 @@ namespace Fluent.Metro.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool FreeLibrary([In] IntPtr hModule);
 
-        [DllImport("user32.dll", EntryPoint = "SetClassLong")]
-        internal static extern uint SetClassLongPtr32(IntPtr hWnd, int nIndex, uint dwNewLong);
-
-        [DllImport("user32.dll", EntryPoint = "SetClassLongPtr")]
-        internal static extern IntPtr SetClassLongPtr64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
-
-        internal static IntPtr SetClassLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong)
+        //SetClassLong won't work correctly for 64-bit: we should use SetClassLongPtr instead.  On
+        //32-bit, SetClassLongPtr is just #defined as SetClassLong.  SetClassLong really should 
+        //take/return int instead of IntPtr/HandleRef, but since we're running this only for 32-bit
+        //it'll be OK.
+        public static IntPtr SetClassLong(HandleRef hWnd, int nIndex, IntPtr dwNewLong)
         {
-#if NET35
-            if (IntPtr.Size > 4)
-#else
-            if (Environment.Is64BitProcess)
-#endif
-                return UnsafeNativeMethods.SetClassLongPtr64(hWnd, nIndex, dwNewLong);
+            if (IntPtr.Size == 4)
+            {
+                return SetClassLongPtr32(hWnd, nIndex, dwNewLong);
+            }
+            return SetClassLongPtr64(hWnd, nIndex, dwNewLong);
+        }
 
-            return new IntPtr(UnsafeNativeMethods.SetClassLongPtr32(hWnd, nIndex, unchecked((uint)dwNewLong.ToInt32())));
+        [SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable")]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "SetClassLong")]
+        [ResourceExposure(ResourceScope.None)]        
+        private static extern IntPtr SetClassLongPtr32(HandleRef hwnd, int nIndex, IntPtr dwNewLong);
+
+        [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "SetClassLongPtr")]
+        [ResourceExposure(ResourceScope.None)]
+        private static extern IntPtr SetClassLongPtr64(HandleRef hwnd, int nIndex, IntPtr dwNewLong);
+
+        internal static IntPtr GetClassLong(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size == 4)
+            {
+                return new IntPtr(GetClassLong32(hWnd, nIndex));
+            }
+
+            return GetClassLong64(hWnd, nIndex);
         }
 
         [DllImport("user32.dll", EntryPoint = "GetClassLong")]
         private static extern uint GetClassLong32(IntPtr hWnd, int nIndex);
 
         [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
         private static extern IntPtr GetClassLong64(IntPtr hWnd, int nIndex);
-
-        internal static IntPtr GetClassLong(IntPtr hWnd, int nIndex)
-        {
-#if NET35
-            if (IntPtr.Size > 4)
-#else
-            if (Environment.Is64BitProcess) 
-#endif
-                return UnsafeNativeMethods.GetClassLong64(hWnd, nIndex);
-
-            return new IntPtr(UnsafeNativeMethods.GetClassLong32(hWnd, nIndex));
-        }
 
         [DllImport("gdi32.dll")]
         internal static extern IntPtr CreateSolidBrush(int crColor);
@@ -137,7 +143,7 @@ namespace Fluent.Metro.Native
         internal static extern uint EnableMenuItem(IntPtr hMenu, uint itemId, uint uEnable);
 
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -197,7 +203,7 @@ namespace Fluent.Metro.Native
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("shell32.dll", CallingConvention = CallingConvention.StdCall)]
-        public static extern int SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
+        public static extern IntPtr SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

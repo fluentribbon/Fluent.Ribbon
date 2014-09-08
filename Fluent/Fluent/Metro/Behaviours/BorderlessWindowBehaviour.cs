@@ -14,7 +14,7 @@ namespace Fluent.Metro.Behaviours
         public Border Border { get; set; }
 
         private HwndSource _mHWNDSource;
-        private IntPtr windowHandle;
+        private HandleRef windowHandle;
 
         protected override void OnAttached()
         {
@@ -26,7 +26,7 @@ namespace Fluent.Metro.Behaviours
             {
                 this.AssociatedObject.SourceInitialized += this.AssociatedObject_SourceInitialized;
             }
-            
+
             this.AssociatedObject.Loaded += this.HandleAssociatedObjectLoaded;
             if (this.AssociatedObject.IsLoaded)
             {
@@ -63,7 +63,7 @@ namespace Fluent.Metro.Behaviours
                 this._mHWNDSource.AddHook(this.HwndHook);
             }
 
-            this.windowHandle = new WindowInteropHelper(this.AssociatedObject).Handle;
+            this.windowHandle = new HandleRef(this.AssociatedObject, new WindowInteropHelper(this.AssociatedObject).Handle);
         }
 
         private void RemoveHwndHook()
@@ -73,6 +73,9 @@ namespace Fluent.Metro.Behaviours
             {
                 this._mHWNDSource.RemoveHook(this.HwndHook);
             }
+
+            this._mHWNDSource = null;
+            this.windowHandle = new HandleRef();
         }
 
         private void AssociatedObject_SourceInitialized(object sender, EventArgs e)
@@ -153,9 +156,9 @@ namespace Fluent.Metro.Behaviours
                         if (!this.ShouldHaveBorder())
                         {
                             var val = 2;
-                            UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle, 2, ref val, 4);
+                            UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle.Handle, 2, ref val, 4);
                             var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
-                            UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle, ref m);
+                            UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle.Handle, ref m);
 
                             if (this.Border != null)
                             {
