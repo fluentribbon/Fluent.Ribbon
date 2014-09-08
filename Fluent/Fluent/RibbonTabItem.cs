@@ -482,7 +482,14 @@ namespace Fluent
             {
                 if (item.TabControlParent != null)
                 {
-                    item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                    if (item.TabControlParent.IsMinimized)
+                    {
+                        item.IsSelected = false;
+                    }
+                    else
+                    {
+                        item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                    }
                 }
             }
         }
