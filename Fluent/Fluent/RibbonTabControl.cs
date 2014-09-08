@@ -448,7 +448,10 @@ namespace Fluent
             }
             else
             {
-                this.IsDropDownOpen = false;
+                if (this.IsDropDownOpen)
+                {
+                    this.IsDropDownOpen = false;
+                }
             }
 
             if (e.RemovedItems.Count > 0)
@@ -606,7 +609,6 @@ namespace Fluent
                 if (selectedTabItem != null)
                 {
                     this.SelectedContent = selectedTabItem.GroupsContainer;
-                    this.UpdateLayout();
                     this.SelectedTabItem = selectedTabItem;
                 }
             }
