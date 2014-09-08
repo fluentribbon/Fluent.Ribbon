@@ -534,16 +534,27 @@ namespace Fluent
 
             var visualItems = new List<RibbonTabItem>();
             var selectedIndex = -1;
-            for (var i = 0; i < Items.Count; i++)
-            {
-                if (((RibbonTabItem)this.Items[i]).Visibility == Visibility.Visible)
-                {
-                    visualItems.Add((Items[i] as RibbonTabItem));
 
-                    if (((RibbonTabItem)this.Items[i]).IsSelected)
-                    {
-                        selectedIndex = visualItems.Count - 1;
-                    }
+#if NET45
+            var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
+                .Where(x => x.Visibility == Visibility.Visible && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .OrderBy(x => x.IsContextual)
+                .ToList();
+#else
+            var tabs = this.Items.OfType<object>().Select(x => this.ItemContainerGenerator.ContainerFromItem(x)).OfType<RibbonTabItem>()
+                .Where(x => x.Visibility == Visibility.Visible && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .OrderBy(x => x.IsContextual)
+                .ToList();
+#endif
+
+            for (var i = 0; i < tabs.Count; i++)
+            {
+                var ribbonTabItem = tabs[i];
+                visualItems.Add(ribbonTabItem);
+
+                if (ribbonTabItem.IsSelected)
+                {
+                    selectedIndex = visualItems.Count - 1;
                 }
             }
 
@@ -556,8 +567,7 @@ namespace Fluent
                     visualItems[selectedIndex].IsSelected = true;
                 }
             }
-
-            if (e.Delta < 0)
+            else if (e.Delta < 0)
             {
                 if (selectedIndex < visualItems.Count - 1)
                 {
