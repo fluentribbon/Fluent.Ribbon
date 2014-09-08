@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Markup;
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
