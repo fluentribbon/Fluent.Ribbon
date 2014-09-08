@@ -1,9 +1,8 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
-
-namespace Fluent.Internal
+﻿namespace Fluent.Internal
 {
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Windows;
     using System.Windows.Interop;
     using Fluent.Metro.Native;
 
@@ -114,7 +113,7 @@ namespace Fluent.Internal
             abd.hWnd = hwnd;
             UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref abd);
             int uEdge = GetEdge(abd.rc);
-            bool autoHide = Convert.ToBoolean(UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETSTATE, ref abd));
+            bool autoHide = UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETSTATE, ref abd) == new IntPtr(1);
 
             if (!autoHide)
             {
