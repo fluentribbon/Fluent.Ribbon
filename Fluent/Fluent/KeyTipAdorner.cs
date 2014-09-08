@@ -216,6 +216,8 @@ namespace Fluent
                 return;
             }
 
+            this.oneOfAssociatedElements.UpdateLayout();
+
             this.Log("Attach begin {0}", this.Visibility);
 
             if (!this.oneOfAssociatedElements.IsLoaded)
@@ -635,7 +637,6 @@ namespace Fluent
                 return;
             }
 
-            this.Detach();
             this.childAdorner.Attach();
         }
 
