@@ -474,6 +474,26 @@ namespace Fluent
             ProcessMouseWheel(e);
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    if (this.IsDropDownOpen)
+                    {
+                        this.IsDropDownOpen = false;
+                    }
+                    break;
+            }
+        }
+
         #endregion
 
         #region Private methods
