@@ -270,6 +270,8 @@
                 Value="False" />
         <Setter Property="WindowStyle"
                 Value="None" />
+        <Setter Property="FontSize"
+                Value="12" />
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource BlackColor}" />
