@@ -7,19 +7,20 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Threading;
-
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
+    using System.Windows.Threading;
+
     /// <summary>
     /// Represents drop down button
     /// </summary>
@@ -903,5 +904,27 @@ namespace Fluent
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
+
+        /// <summary>
+        /// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
+        /// </summary>
+        /// <returns>
+        /// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
+        /// </returns>
+        protected override IEnumerator LogicalChildren
+        {
+            get 
+            {
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                foreach (var item in this.Items)
+                {
+                    yield return item;
+                }
+            }
+        }
     }
 }
