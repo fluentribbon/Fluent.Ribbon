@@ -8,7 +8,7 @@ Office2013\Controls\RibbonTabItem.xaml
 Office2013\Controls\RibbonTabControl.xaml
 Office2013\Controls\RibbonGroupBox.xaml
 Office2013\Controls\ScreenTip.xaml
-Office2013\Controls\TwoLineLabel.xaml
+Office2010\Controls\TwoLineLabel.xaml
 Office2013\Controls\Button.xaml
 Office2013\Controls\ToggleButton.xaml
 Office2013\Controls\DropDownButton.xaml
