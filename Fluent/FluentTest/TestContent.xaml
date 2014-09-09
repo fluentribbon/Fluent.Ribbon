@@ -190,6 +190,7 @@
             </Fluent:Ribbon.ToolBarItems>
 
             <Fluent:Ribbon.QuickAccessItems>
+                <!--Quick Access toolbar items automatically have ScreenTips of the target -->
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}"
@@ -1722,8 +1723,8 @@
 
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other"
-                                  Header="Resizing">
+            <Fluent:RibbonTabItem Header="Resizing &amp; Screentips"
+                                  ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other">
 
                 <!--All group can be in four state: Large->Middle->Small->Collapsed
                     By default group in Large state. When group changes its state it 
@@ -1748,18 +1749,46 @@
                 <!--By default ReduceOrder="Large, Middle, Small"-->
                 <Fluent:RibbonGroupBox Name="Default"
                                        Header="Default Behaviour">
+                    <!--To use ScreenTip you have to create it and set to ToolTip property-->
                     <Fluent:Button Header="Green"
                                    Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png" />
+                                   LargeIcon="Images\GreenLarge.png">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Green"
+                                              HelpTopic="Help for Green ScreenTip"
+                                              Image="Images\GreenLarge.png"
+                                              Text="This ScreenTip is ribbon aligned. &#x0a;It has the image and handles F1." />
+                        </Fluent:Button.ToolTip>
+                    </Fluent:Button>
+                    <!--ScreenTip is able to be shown on disabled controls-->
                     <Fluent:Button Header="Grey"
                                    Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png" />
+                                   LargeIcon="Images\GrayLarge.png"
+                                   IsEnabled="False">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Brown"
+                                              Width="250"
+                                              Image="Images\BrownLarge.png"
+                                              Text="This control is disabled and has fixed width 250px"
+                                              HelpTopic="Help for Brown ScreenTip"
+                                              DisableReason="This control is disabled to show 'disable reason' section" />
+                        </Fluent:Button.ToolTip>                        
+                    </Fluent:Button>
+                    <!--Set IsRibbonAligned property to false to suppress aligment to ribbon bottom-->
                     <Fluent:Button Header="Yellow"
                                    Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png" />
+                                   LargeIcon="Images\YellowLarge.png">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Gray"
+                                              IsRibbonAligned="False"
+                                              Text="This ScreenTip is NOT aligned to ribbon bottom" />
+                        </Fluent:Button.ToolTip>                        
+                    </Fluent:Button>
+                    <!--You can use usual ToolTip-->
                     <Fluent:Button Header="Brown"
                                    Icon="Images\Brown.png"
-                                   LargeIcon="Images\BrownLarge.png" />
+                                   LargeIcon="Images\BrownLarge.png"
+                                   ToolTip="Regular Tooltip" />
                 </Fluent:RibbonGroupBox>
 
                 <!--You can set short form (for ex, "Middle" is equal "Middle,Middle,Middle")-->
