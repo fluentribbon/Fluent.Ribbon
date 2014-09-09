@@ -535,7 +535,7 @@
                                   Height="Auto"
                                   Margin="0,20">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="86" />
+                                    <RowDefinition Height="94" />
                                     <RowDefinition Height="5" />
                                 </Grid.RowDefinitions>
                                 <Border Height="Auto"
