@@ -1541,7 +1541,7 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
-            <Fluent:RibbonTabItem Header="Page Layout"
+            <Fluent:RibbonTabItem Header="Tests"
                                   KeyTip="Ü1">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -1581,6 +1581,87 @@
                         <MenuItem Header="24" />
                         <MenuItem Header="25" />
                     </Fluent:SplitButton>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="LongLongGroup"
+                                       IsLauncherVisible="False">
+                    <Fluent:ToggleButton Header="blah blah"
+                                         SizeDefinition="Small">
+                        <Fluent:ToggleButton.Icon>
+                            <Grid>
+                                <Image />
+                                <TextBlock Text="1" />
+                            </Grid>
+                        </Fluent:ToggleButton.Icon>
+                    </Fluent:ToggleButton>
+                    <Fluent:SplitButton Header="blah blah"
+                                        SizeDefinition="Small">
+                        <Fluent:SplitButton.Icon>
+                            <Grid>
+                                <Image />
+                                <TextBlock Text="1" />
+                            </Grid>
+                        </Fluent:SplitButton.Icon>
+                    </Fluent:SplitButton>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="LongLongGroup"
+                                       IsLauncherVisible="False">
+                    <Fluent:TextBox x:Name="textBox"
+                                    InputWidth="70"
+                                    MaxLength="5"
+                                    Icon="Images\GrowFont.png"
+                                    Header="Text"
+                                    Text="CurrentText" />
+
+                    <Fluent:Button Header="PrintVisual"
+                                   Click="OnPrintVisualClick" />
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox Header="Threading"
+                                       IsLauncherVisible="False">
+                    <Fluent:Button Header="Open threaded window"
+                                   Click="OnThreadWindowButtonClick" />
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox>
+                    <Fluent:DropDownButton HorizontalAlignment="Left"
+                                           SizeDefinition="Small">
+                        <Fluent:DropDownButton.Icon>
+                            <Grid>
+                                <Image Source="Images\TextHighlightColor.png"
+                                       Width="16"
+                                       Height="16" />
+                                <Rectangle VerticalAlignment="Bottom"
+                                           Height="4"
+                                           Width="16"
+                                           HorizontalAlignment="Center">
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery2}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                        </Fluent:DropDownButton.Icon>
+                        <Fluent:ColorGallery Mode="HighlightColors"
+                                             x:Name="highlightColorGallery2"
+                                             SelectedColor="Yellow"
+                                             IsAutomaticColorButtonVisible="False" />
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox>
+                    <Fluent:ComboBox x:Name="someCombo"
+                                     ItemsSource="{Binding TstArr, ElementName=TestContentControl}"
+                                     InputWidth="80"
+                                     SelectedItem="{Binding TST, Mode=TwoWay, ElementName=TestContentControl}"
+                                     KeyTip="SO"
+                                     IsEditable="False" />
+                    <Fluent:ToggleButton Header="Button1"
+                                         GroupName="Group1" />
+                    <Fluent:ToggleButton Header="Button1"
+                                         GroupName="Group1" />
+                    <Fluent:ToggleButton Header="Button1"
+                                         GroupName="Group1" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
@@ -1641,92 +1722,88 @@
 
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="Mailings"
-                                  Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
-                <Fluent:RibbonGroupBox>
-                    <Fluent:ComboBox x:Name="someCombo"
-                                     ItemsSource="{Binding TstArr, ElementName=TestContentControl}"
-                                     InputWidth="80"
-                                     SelectedItem="{Binding TST, Mode=TwoWay, ElementName=TestContentControl}"
-                                     KeyTip="SO"
-                                     IsEditable="False" />
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-            
-            <Fluent:RibbonTabItem Header="Review">
-                <Fluent:RibbonGroupBox Header="LongLongGroup"
-                                       IsLauncherVisible="False">
-                    <Fluent:ToggleButton Header="blah blah"
-                                         SizeDefinition="Small">
-                        <Fluent:ToggleButton.Icon>
-                            <Grid>
-                                <Image />
-                                <TextBlock Text="1" />
-                            </Grid>
-                        </Fluent:ToggleButton.Icon>
-                    </Fluent:ToggleButton>
-                    <Fluent:SplitButton Header="blah blah"
-                                        SizeDefinition="Small">
-                        <Fluent:SplitButton.Icon>
-                            <Grid>
-                                <Image />
-                                <TextBlock Text="1" />
-                            </Grid>
-                        </Fluent:SplitButton.Icon>
-                    </Fluent:SplitButton>
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-            
-            <Fluent:RibbonTabItem Header="View">
-                <Fluent:RibbonGroupBox Header="LongLongGroup"
-                                       IsLauncherVisible="False">
-                    <Fluent:TextBox x:Name="textBox"
-                                    InputWidth="70"
-                                    MaxLength="5"
-                                    Icon="Images\GrowFont.png"
-                                    Header="Text"
-                                    Text="CurrentText" />
+            <Fluent:RibbonTabItem ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other"
+                                  Header="Resizing">
 
-                    <Fluent:Button Header="PrintVisual"
-                                   Click="OnPrintVisualClick" />
+                <!--All group can be in four state: Large->Middle->Small->Collapsed
+                    By default group in Large state. When group changes its state it 
+                    changes size of all its controls.
+      
+                    RibbonTabItem has ReduceOrder property. 
+                    This property defines order of group to reduce.
+                    You can enumerate group names from the last to first to reduce.
+          
+                    All ribbon contols (Buttons, DropDownButtons, Spinners and so on) 
+                    have SizeDefinition property. You can define which size will be used 
+                    when group will be in particular state. 
+          
+                    For example, if you set SizeDefinition = "Middle, Middle, Small"
+                    That means:
+          
+                    Large State of the group -> Middle size of the control
+                    Middle State of the group -> Middle size of the control
+                    Small State of the group -> Small size of the control
+                    -->
+
+                <!--By default ReduceOrder="Large, Middle, Small"-->
+                <Fluent:RibbonGroupBox Name="Default"
+                                       Header="Default Behaviour">
+                    <Fluent:Button Header="Green"
+                                   Icon="Images\Green.png"
+                                   LargeIcon="Images\GreenLarge.png" />
+                    <Fluent:Button Header="Grey"
+                                   Icon="Images\Gray.png"
+                                   LargeIcon="Images\GrayLarge.png" />
+                    <Fluent:Button Header="Yellow"
+                                   Icon="Images\Yellow.png"
+                                   LargeIcon="Images\YellowLarge.png" />
+                    <Fluent:Button Header="Brown"
+                                   Icon="Images\Brown.png"
+                                   LargeIcon="Images\BrownLarge.png" />
                 </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox Header="Threading"
-                                       IsLauncherVisible="False">
-                    <Fluent:Button Header="Open threaded window"
-                                   Click="OnThreadWindowButtonClick" />
+
+                <!--You can set short form (for ex, "Middle" is equal "Middle,Middle,Middle")-->
+                <Fluent:RibbonGroupBox Name="Large"
+                                       Header="Large Only">
+                    <Fluent:Button SizeDefinition="Large"
+                                   Header="Green"
+                                   Icon="Images\Green.png"
+                                   LargeIcon="Images\GreenLarge.png" />
+                    <Fluent:Button SizeDefinition="Large"
+                                   Header="Grey"
+                                   Icon="Images\Gray.png"
+                                   LargeIcon="Images\GrayLarge.png" />
+                    <Fluent:Button SizeDefinition="Large"
+                                   Header="Grey"
+                                   Icon="Images\Yellow.png"
+                                   LargeIcon="Images\YellowLarge.png" />
+                    <Fluent:Button SizeDefinition="Large"
+                                   Header="Grey"
+                                   Icon="Images\Brown.png"
+                                   LargeIcon="Images\BrownLarge.png" />
                 </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox>
-                    <Fluent:DropDownButton HorizontalAlignment="Left"
-                                           SizeDefinition="Small">
-                        <Fluent:DropDownButton.Icon>
-                            <Grid>
-                                <Image Source="Images\TextHighlightColor.png"
-                                       Width="16"
-                                       Height="16" />
-                                <Rectangle VerticalAlignment="Bottom"
-                                           Height="4"
-                                           Width="16"
-                                           HorizontalAlignment="Center">
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery2}" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
-                        </Fluent:DropDownButton.Icon>
-                        <Fluent:ColorGallery Mode="HighlightColors"
-                                             x:Name="highlightColorGallery2"
-                                             SelectedColor="Yellow"
-                                             IsAutomaticColorButtonVisible="False" />
-                    </Fluent:DropDownButton>
+
+                <Fluent:RibbonGroupBox Name="Other"
+                                       Header="Other">
+                    <Fluent:Button SizeDefinition="Large, Large, Large"
+                                   Header="Green"
+                                   Icon="Images\Green.png"
+                                   LargeIcon="Images\GreenLarge.png" />
+                    <Fluent:Button SizeDefinition="Large, Large, Small"
+                                   Header="Grey"
+                                   Icon="Images\Gray.png"
+                                   LargeIcon="Images\GrayLarge.png" />
+                    <Fluent:Button SizeDefinition="Middle, Small, Small"
+                                   Header="Grey"
+                                   Icon="Images\Yellow.png"
+                                   LargeIcon="Images\YellowLarge.png" />
+                    <Fluent:Button SizeDefinition="Middle, Small, Small"
+                                   Header="Grey"
+                                   Icon="Images\Brown.png"
+                                   LargeIcon="Images\BrownLarge.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            
+                      
             <Fluent:RibbonTabItem Header="Format"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
