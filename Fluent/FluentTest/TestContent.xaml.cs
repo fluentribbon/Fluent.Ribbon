@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading;
     using System.Windows;
@@ -13,6 +14,7 @@
     using System.Windows.Threading;
     using Fluent;
     using FluentTest.Annotations;
+    using FluentTest.ViewModels;
     using Button = Fluent.Button;
     using ComboBox = System.Windows.Controls.ComboBox;
 
@@ -41,8 +43,12 @@
 
             this.BoundSpinnerValue = 1;
 
+            this.ColorViewModel = new ColorViewModel();
+
             this.DataContext = this;
         }
+
+        public ColorViewModel ColorViewModel { get; private set; }
 
         public string Title
         {
@@ -172,7 +178,7 @@
         private void OnLauncherClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Launcher Click");
-            this.xxx.Items.Add(this.CreateRibbonButton());
+            ////this.xxx.Items.Add(this.CreateRibbonButton());
         }
 
         public Button CreateRibbonButton()

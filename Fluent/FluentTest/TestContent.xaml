@@ -508,277 +508,6 @@
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox KeyTip="ZF"
-                                       x:Name="Font"
-                                       Header="Font"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick"
-                                       Icon="pack://application:,,,/FluentTest;component/Images/FontColor.png"
-                                       LauncherIcon="/Images/FontColor.png"
-                                       LauncherKeys="NF">
-                    <Fluent:RibbonToolBar>
-
-                        <!--ToolBar Layout Definitions-->
-
-                        <Fluent:RibbonToolBar.LayoutDefinitions>
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
-                                                                           Width="75" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
-                                                                           Width="45" />
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
-                                                                           Width="125" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
-                                                                           Width="50" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-                        </Fluent:RibbonToolBar.LayoutDefinitions>
-
-                        <!--ToolBar Controls-->
-
-                        <Fluent:ComboBox x:Name="comboBoxFontName"
-                                         MinWidth="40"
-                                         Height="22"
-                                         BorderBrush="Gainsboro"
-                                         Foreground="#FF222222"
-                                         GroupBy="Tag"
-                                         DisplayMemberPath="Text"
-                                         IsTextSearchEnabled="True"
-                                         ResizeMode="Vertical"
-                                         KeyTip="FF"
-                                         SizeDefinition="Small"
-                                         SelectedIndex="0">
-                            <TextBlock Text="Arial"
-                                       Tag="Theme Fonts" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="Theme Fonts" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="Recent Used Fonts" />
-                            <TextBlock Text="Arial"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Segoe UI"
-                                       Tag="AllFonts"
-                                       x:Name="segoeFont" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Webdings"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Winding"
-                                       Tag="AllFonts" />
-                        </Fluent:ComboBox>
-                        <Fluent:ComboBox x:Name="comboBoxFontSize"
-                                         Width="49"
-                                         HorizontalAlignment="Left"
-                                         Height="22"
-                                         SelectedIndex="1"
-                                         BorderBrush="Gainsboro"
-                                         Foreground="#FF222222"
-                                         Text="12"
-                                         DisplayMemberPath="Text"
-                                         IsEditable="False"
-                                         SizeDefinition="Small"
-                                         ResizeMode="Vertical"
-                                         KeyTip="FS">
-                            <TextBlock Text="7" />
-                            <TextBlock Text="8" />
-                            <TextBlock Text="9" />
-                            <TextBlock Text="10" />
-                            <TextBlock Text="11" />
-                            <TextBlock Text="12" />
-                            <TextBlock Text="14" />
-                            <TextBlock Text="16" />
-                            <TextBlock Text="18" />
-                            <TextBlock Text="20" />
-                            <TextBlock Text="22" />
-                            <TextBlock Text="24" />
-                            <TextBlock Text="28" />
-                            <TextBlock Text="32" />
-                            <TextBlock Text="36" />
-                            <TextBlock Text="48" />
-                            <TextBlock Text="72" />
-                        </Fluent:ComboBox>
-                        <Fluent:Button KeyTip="GF"
-                                       x:Name="buttonGrowFont"
-                                       Icon="Images\GrowFont.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonShrinkFont"
-                                       Icon="Images\ShrinkFont.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:DropDownButton x:Name="buttonChangeCase"
-                                               Icon="Images\ChangeCase.png"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonClearFormatting"
-                                       Icon="Images\ClearFormatting.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:ToggleButton KeyTip="B"
-                                             x:Name="buttonBold"
-                                             Icon="Images\Bold.png"
-                                             HorizontalAlignment="Left"
-                                             SizeDefinition="Small" />
-                        <Fluent:ToggleButton x:Name="buttonItalic"
-                                             KeyTip="I"
-                                             Icon="Images\Italic.png"
-                                             HorizontalAlignment="Left"
-                                             SizeDefinition="Small" />
-                        <Fluent:DropDownButton x:Name="buttonUnderline"
-                                               Icon="Images\Underline.png"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonStrikethrough"
-                                       Icon="Images\Strikethrough.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonSubscript"
-                                       Icon="Images\Subscript.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonSuperscript"
-                                       Icon="Images\Superscript.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:DropDownButton x:Name="buttonTextEffects"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small">
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="Images\TextEffects.png"
-                                           Width="16"
-                                           Height="16" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="2"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding SelectedColor, ElementName=standardColorGallery}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery Mode="StandardColors"
-                                                 x:Name="standardColorGallery"
-                                                 SelectedColor="{Binding SelectedColor, ElementName=highlightColorGallery, Mode=TwoWay}" />
-                        </Fluent:DropDownButton>
-                        <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small">
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="Images\TextHighlightColor.png"
-                                           Width="16"
-                                           Height="16" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="4"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery Mode="HighlightColors"
-                                                 x:Name="highlightColorGallery"
-                                                 SelectedColor="Yellow"
-                                                 IsAutomaticColorButtonVisible="False" />
-                        </Fluent:DropDownButton>
-                        <Fluent:DropDownButton x:Name="buttonFontColor"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small"
-                                               MaxDropDownHeight="500">
-                            <Fluent:DropDownButton.ToolTip>
-                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
-                            </Fluent:DropDownButton.ToolTip>
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="Images\FontColor.png"
-                                           Width="16"
-                                           Height="16"
-                                           SnapsToDevicePixels="True" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="4"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding SelectedColor, ElementName=themeColorGallery}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery ThemeColorsSource="{Binding ThemeColors}"
-                                                 SelectedColor="Blue"
-                                                 Mode="ThemeColors"
-                                                 StandardColorGridRows="3"
-                                                 Columns="10"
-                                                 ThemeColorGridRows="5"
-                                                 x:Name="themeColorGallery"
-                                                 IsNoColorButtonVisible="True">
-
-                            </Fluent:ColorGallery>
-
-                        </Fluent:DropDownButton>
-                    </Fluent:RibbonToolBar>
-                </Fluent:RibbonGroupBox>
-
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        x:Name="A"
                                        KeyTip="A"
@@ -1638,14 +1367,13 @@
                                            Width="16"
                                            HorizontalAlignment="Center">
                                     <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding SelectedColor, ElementName=highlightColorGallery2}" />
+                                        <SolidColorBrush Color="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}" />
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Grid>
                         </Fluent:DropDownButton.Icon>
                         <Fluent:ColorGallery Mode="HighlightColors"
-                                             x:Name="highlightColorGallery2"
-                                             SelectedColor="Yellow"
+                                             SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
                                              IsAutomaticColorButtonVisible="False" />
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
@@ -1666,9 +1394,9 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
-            <Fluent:RibbonTabItem Header="References"
+            <Fluent:RibbonTabItem Header="Toolbars"
                                   KeyTip="Ü2">
-                <Fluent:RibbonGroupBox x:Name="xxx"
+                <!--<Fluent:RibbonGroupBox x:Name="xxx"
                                        Header="LongLongGroup"
                                        IsLauncherVisible="True"
                                        LauncherCommand="Paste"
@@ -1719,8 +1447,350 @@
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button2"
                                          GroupName="Group2" />
+                </Fluent:RibbonGroupBox>-->
+
+                <Fluent:RibbonGroupBox KeyTip="ZF"
+                                       x:Name="Font"
+                                       Header="Font"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/FontColor.png"
+                                       LauncherIcon="/Images/FontColor.png"
+                                       LauncherKeys="NF">
+                    <Fluent:RibbonToolBar>
+
+                        <!--ToolBar Layout Definitions-->
+
+                        <Fluent:RibbonToolBar.LayoutDefinitions>
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
+                                                                           Width="75" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
+                                                                           Width="45" />
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
+                                                                           Width="125" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
+                                                                           Width="50" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+                        </Fluent:RibbonToolBar.LayoutDefinitions>
+
+                        <!--ToolBar Controls-->
+
+                        <Fluent:ComboBox x:Name="comboBoxFontName"
+                                         MinWidth="40"
+                                         Height="22"
+                                         BorderBrush="Gainsboro"
+                                         Foreground="#FF222222"
+                                         GroupBy="Tag"
+                                         DisplayMemberPath="Text"
+                                         IsTextSearchEnabled="True"
+                                         ResizeMode="Vertical"
+                                         KeyTip="FF"
+                                         SizeDefinition="Small"
+                                         SelectedIndex="0">
+                            <TextBlock Text="Arial"
+                                       Tag="Theme Fonts" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="Theme Fonts" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="Recent Used Fonts" />
+                            <TextBlock Text="Arial"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Segoe UI"
+                                       Tag="AllFonts"
+                                       x:Name="segoeFont" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Webdings"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Winding"
+                                       Tag="AllFonts" />
+                        </Fluent:ComboBox>
+                        <Fluent:ComboBox x:Name="comboBoxFontSize"
+                                         Width="49"
+                                         HorizontalAlignment="Left"
+                                         Height="22"
+                                         SelectedIndex="1"
+                                         BorderBrush="Gainsboro"
+                                         Foreground="#FF222222"
+                                         Text="12"
+                                         DisplayMemberPath="Text"
+                                         IsEditable="False"
+                                         SizeDefinition="Small"
+                                         ResizeMode="Vertical"
+                                         KeyTip="FS">
+                            <TextBlock Text="7" />
+                            <TextBlock Text="8" />
+                            <TextBlock Text="9" />
+                            <TextBlock Text="10" />
+                            <TextBlock Text="11" />
+                            <TextBlock Text="12" />
+                            <TextBlock Text="14" />
+                            <TextBlock Text="16" />
+                            <TextBlock Text="18" />
+                            <TextBlock Text="20" />
+                            <TextBlock Text="22" />
+                            <TextBlock Text="24" />
+                            <TextBlock Text="28" />
+                            <TextBlock Text="32" />
+                            <TextBlock Text="36" />
+                            <TextBlock Text="48" />
+                            <TextBlock Text="72" />
+                        </Fluent:ComboBox>
+                        <Fluent:Button KeyTip="GF"
+                                       x:Name="buttonGrowFont"
+                                       Icon="Images\GrowFont.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonShrinkFont"
+                                       Icon="Images\ShrinkFont.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:DropDownButton x:Name="buttonChangeCase"
+                                               Icon="Images\ChangeCase.png"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonClearFormatting"
+                                       Icon="Images\ClearFormatting.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:ToggleButton KeyTip="B"
+                                             x:Name="buttonBold"
+                                             Icon="Images\Bold.png"
+                                             HorizontalAlignment="Left"
+                                             SizeDefinition="Small" />
+                        <Fluent:ToggleButton x:Name="buttonItalic"
+                                             KeyTip="I"
+                                             Icon="Images\Italic.png"
+                                             HorizontalAlignment="Left"
+                                             SizeDefinition="Small" />
+                        <Fluent:DropDownButton x:Name="buttonUnderline"
+                                               Icon="Images\Underline.png"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonStrikethrough"
+                                       Icon="Images\Strikethrough.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonSubscript"
+                                       Icon="Images\Subscript.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonSuperscript"
+                                       Icon="Images\Superscript.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:DropDownButton x:Name="buttonTextEffects"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small">
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="Images\TextEffects.png"
+                                           Width="16"
+                                           Height="16" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="2"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.StandardColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery Mode="StandardColors"
+                                                 SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small">
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="Images\TextHighlightColor.png"
+                                           Width="16"
+                                           Height="16" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="4"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.HighlightColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery Mode="HighlightColors"
+                                                 SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
+                                                 IsAutomaticColorButtonVisible="False" />
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton x:Name="buttonFontColor"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small"
+                                               MaxDropDownHeight="500">
+                            <Fluent:DropDownButton.ToolTip>
+                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
+                            </Fluent:DropDownButton.ToolTip>
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="Images\FontColor.png"
+                                           Width="16"
+                                           Height="16"
+                                           SnapsToDevicePixels="True" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="4"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.ThemeColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery ThemeColorsSource="{Binding ThemeColors}"
+                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=TwoWay}"
+                                                 Mode="ThemeColors"
+                                                 StandardColorGridRows="3"
+                                                 Columns="10"
+                                                 ThemeColorGridRows="5"
+                                                 IsNoColorButtonVisible="True">
+                            </Fluent:ColorGallery>
+                        </Fluent:DropDownButton>
+                    </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
 
+                <Fluent:RibbonGroupBox Header="Group"
+                                       Name="Group">
+
+                    <Fluent:RibbonToolBar>
+                        <!--ToolBar Layout Definitions-->
+                        <Fluent:RibbonToolBar.LayoutDefinitions>
+
+                            <!--Large Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="127" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown"
+                                                                           Size="Middle" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+
+                            <!--Large Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="90" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                            <!--Middle Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Small">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="45" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                        </Fluent:RibbonToolBar.LayoutDefinitions>
+
+                        <!--ToolBar Controls-->
+                        <Fluent:Spinner x:Name="spinner" />
+                        <Fluent:Button x:Name="buttonGreen"
+                                       Header="Green"
+                                       Icon="Images\Green.png"
+                                       LargeIcon="Images\GreenLarge.png" />
+                        <Fluent:Button x:Name="buttonGray"
+                                       Header="Gray"
+                                       Icon="Images\Gray.png"
+                                       LargeIcon="Images\GrayLarge.png" />
+                        <Fluent:Button x:Name="buttonYellow"
+                                       Header="Yellow"
+                                       Icon="Images\Yellow.png"
+                                       LargeIcon="Images\YellowLarge.png" />
+                        <Fluent:Button x:Name="buttonBrown"
+                                       Header="Brown"
+                                       Icon="Images\Brown.png"
+                                       LargeIcon="Images\BrownLarge.png" />
+                    </Fluent:RibbonToolBar>
+
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Resizing &amp; Screentips"

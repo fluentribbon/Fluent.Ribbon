@@ -91,6 +91,7 @@
     <Compile Include="ThreadedWindow.xaml.cs">
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ColorViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="TestContent.xaml">
       <SubType>Designer</SubType>

@@ -1,6 +1,7 @@
 ﻿namespace FluentTest.ViewModels
 {
     using System.ComponentModel;
+    using System.Runtime.CompilerServices;
 
     public class ViewModel : INotifyPropertyChanged
     {
