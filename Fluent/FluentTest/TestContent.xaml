@@ -192,6 +192,12 @@
             <Fluent:Ribbon.QuickAccessItems>
                 <!--Quick Access toolbar items automatically have ScreenTips of the target -->
                 <!--KeyTips in Quick Access Toolbar names automatically-->
+                
+                <!--Use Content or Target Property to set QAT item-->
+                <Fluent:QuickAccessMenuItem IsChecked="true">
+                    <Fluent:Button Header="Pink"
+                                   Icon="Images\Pink.png" />
+                </Fluent:QuickAccessMenuItem>
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}"
