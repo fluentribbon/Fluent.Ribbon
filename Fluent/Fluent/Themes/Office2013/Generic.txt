@@ -1,5 +1,6 @@
 Office2013\Colors\Colors.xaml
 Office2013\Colors\ColorsWhite.xaml
+Office2013\Images\Images.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
 Office2010\Controls\ApplicationMenuItem.xaml
 Office2010\Controls\ApplicationMenu.xaml
