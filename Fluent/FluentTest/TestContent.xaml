@@ -1580,6 +1580,8 @@
                                        Icon="Images\Superscript.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
+
+                        <!-- It's possible to create custom icon to present selected color -->
                         <Fluent:DropDownButton x:Name="buttonTextEffects"
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small">
@@ -1600,7 +1602,11 @@
                             </Fluent:DropDownButton.Icon>
                             <Fluent:ColorGallery Mode="StandardColors"
                                                  SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
+                            <Fluent:MenuItem Icon="Images\Pink.png"
+                                             Header="Custom MenuItem" />
                         </Fluent:DropDownButton>
+                        
+                        <!-- The following code shows highlight colors mode for color gallery -->
                         <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small">
@@ -1623,6 +1629,8 @@
                                                  SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
                                                  IsAutomaticColorButtonVisible="False" />
                         </Fluent:DropDownButton>
+
+                        <!-- The following code shows theme colors mode for color gallery -->
                         <Fluent:DropDownButton x:Name="buttonFontColor"
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small"
