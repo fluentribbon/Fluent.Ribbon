@@ -1913,6 +1913,13 @@
                     <Fluent:RadioButton Header="Test-Radio 2"
                                         GroupName="Test-Radio"
                                         IsChecked="False" />
+
+                    <Fluent:ToggleButton Header="Missing pixel">
+                        <Fluent:ToggleButton.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Small" />
+                        </Fluent:ToggleButton.SizeDefinition>
+                    </Fluent:ToggleButton>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
