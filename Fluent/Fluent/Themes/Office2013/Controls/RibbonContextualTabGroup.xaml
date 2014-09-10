@@ -46,12 +46,11 @@
                                Width="Auto" Height="4" />
                     <Grid Margin="0,4,0,0">
                         <TextBlock Text="{TemplateBinding Header}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Margin="6,0"
-                               TextTrimming="CharacterEllipsis"
-                               Foreground="{TemplateBinding Foreground}"
-                               FontSize="11"/>
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="6,0"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="{TemplateBinding Foreground}" />
                     </Grid>
                 </Grid>
             </Border>
