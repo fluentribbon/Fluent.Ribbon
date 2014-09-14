@@ -101,46 +101,55 @@ namespace Fluent
         /// layout, based on its calculations of child element sizes.
         /// </returns>
         protected override Size MeasureOverride(Size availableSize)
-        {
-            Size infinitySize = new Size(Double.PositiveInfinity, availableSize.Height);
-            Size desiredSize = GetChildrenDesiredSizeIntermediate();
-            if (reduceOrder.Length == 0)
+        {          
+            var desiredSize = GetChildrenDesiredSizeIntermediate();
+
+            if (this.reduceOrder.Length == 0)
             {
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
             // If we have more available space - try to expand groups
             while (desiredSize.Width <= availableSize.Width)
             {
-                bool hasMoreVariants = reduceOrderIndex < reduceOrder.Length - 1;
-                if (!hasMoreVariants) break;
+                var hasMoreVariants = this.reduceOrderIndex < this.reduceOrder.Length - 1;
+                if (!hasMoreVariants)
+                {
+                    break;
+                }
 
                 // Increase size of another item
-                reduceOrderIndex++;
-                IncreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
+                this.reduceOrderIndex++;
+                this.IncreaseGroupBoxSize(this.reduceOrder[this.reduceOrderIndex]);
 
-                desiredSize = GetChildrenDesiredSizeIntermediate();
+                desiredSize = this.GetChildrenDesiredSizeIntermediate();
             }
 
             // If not enough space - go to next variant
             while (desiredSize.Width > availableSize.Width)
             {
-                bool hasMoreVariants = reduceOrderIndex >= 0;
-                if (!hasMoreVariants) break;
+                var hasMoreVariants = this.reduceOrderIndex >= 0;
+                if (!hasMoreVariants)
+                {
+                    break;
+                }
 
                 // Decrease size of another item
-                DecreaseGroupBoxSize(reduceOrder[reduceOrderIndex]);
-                reduceOrderIndex--;
+                this.DecreaseGroupBoxSize(this.reduceOrder[this.reduceOrderIndex]);
+                this.reduceOrderIndex--;
 
-                desiredSize = GetChildrenDesiredSizeIntermediate();
+                desiredSize = this.GetChildrenDesiredSizeIntermediate();
             }
 
             // Set find values
-            foreach (object item in InternalChildren)
+            foreach (var item in this.InternalChildren)
             {
-                RibbonGroupBox groupBox = item as RibbonGroupBox;
-                if (groupBox == null) continue;
+                var groupBox = item as RibbonGroupBox;
+                if (groupBox == null)
+                {
+                    continue;
+                }
 
                 if ((groupBox.State != groupBox.StateIntermediate) ||
                     (groupBox.Scale != groupBox.ScaleIntermediate))
@@ -149,7 +158,7 @@ namespace Fluent
                     groupBox.State = groupBox.StateIntermediate;
                     groupBox.Scale = groupBox.ScaleIntermediate;
                     groupBox.InvalidateLayout();
-                    groupBox.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    groupBox.Measure(new Size(Double.PositiveInfinity, availableSize.Height));
                     groupBox.SuppressCacheReseting = false;
                 }
 
@@ -158,11 +167,11 @@ namespace Fluent
                 {
                     // Reset cache and reinvoke masure
                     groupBox.ClearCache();
-                    return MeasureOverride(availableSize);
+                    return this.MeasureOverride(availableSize);
                 }
             }
 
-            VerifyScrollData(availableSize.Width, desiredSize.Width);
+            this.VerifyScrollData(availableSize.Width, desiredSize.Width);
             return desiredSize;
         }
 
@@ -172,10 +181,10 @@ namespace Fluent
             double height = 0;
             foreach (UIElement child in this.InternalChildren)
             {
-                RibbonGroupBox groupBox = child as RibbonGroupBox;
+                var groupBox = child as RibbonGroupBox;
                 if (groupBox == null) continue;
 
-                Size desiredSize = groupBox.DesiredSizeIntermediate;
+                var desiredSize = groupBox.DesiredSizeIntermediate;
                 width += desiredSize.Width;
                 height = Math.Max(height, desiredSize.Height);
             }
@@ -185,32 +194,61 @@ namespace Fluent
         // Increase size of the item
         private void IncreaseGroupBoxSize(string name)
         {
-            RibbonGroupBox groupBox = FindGroup(name);
-            bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
-            if (groupBox == null) return;
+            var groupBox = this.FindGroup(name);
+            var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+            if (groupBox == null)
+            {
+                return;
+            }
 
-            if (scale) groupBox.ScaleIntermediate++;
-            else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Large) ? groupBox.StateIntermediate - 1 : RibbonGroupBoxState.Large;
+            if (scale)
+            {
+                groupBox.ScaleIntermediate++;
+            }
+            else
+            {
+                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Large
+                    ? groupBox.StateIntermediate - 1 
+                    : RibbonGroupBoxState.Large;
+            }
         }
 
 
         // Decrease size of the item
         private void DecreaseGroupBoxSize(string name)
         {
-            RibbonGroupBox groupBox = FindGroup(name);
-            bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
-            if (groupBox == null) return;
+            var groupBox = FindGroup(name);
+            var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+            if (groupBox == null)
+            {
+                return;
+            }
 
-            if (scale) groupBox.ScaleIntermediate--;
-            else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed) ? groupBox.StateIntermediate + 1 : groupBox.StateIntermediate;
+            if (scale)
+            {
+                groupBox.ScaleIntermediate--;
+            }
+            else
+            {
+                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed 
+                    ? groupBox.StateIntermediate + 1 
+                    : groupBox.StateIntermediate;
+            }
         }
 
         private RibbonGroupBox FindGroup(string name)
         {
-            if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase)) name = name.Substring(1, name.Length - 2);
-            foreach (FrameworkElement child in InternalChildren)
+            if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase))
             {
-                if (child.Name == name) return child as RibbonGroupBox;
+                name = name.Substring(1, name.Length - 2);
+            }
+
+            foreach (FrameworkElement child in this.InternalChildren)
+            {
+                if (child.Name == name)
+                {
+                    return child as RibbonGroupBox;
+                }
             }
             return null;
         }
@@ -223,9 +261,11 @@ namespace Fluent
         /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect finalRect = new Rect(finalSize);
-            finalRect.X = -HorizontalOffset;
-            foreach (UIElement item in InternalChildren)
+            var finalRect = new Rect(finalSize) 
+                {
+                    X = -this.HorizontalOffset
+                };
+            foreach (UIElement item in this.InternalChildren)
             {
                 finalRect.Width = item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
@@ -254,11 +294,11 @@ namespace Fluent
         /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
         public void SetHorizontalOffset(double offset)
         {
-            double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), scrollData.ExtentWidth, scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
             if (ScrollData.OffsetX != newValue)
             {
                 scrollData.OffsetX = newValue;
-                InvalidateArrange();
+                this.InvalidateArrange();
             }
         }
         /// <summary>
