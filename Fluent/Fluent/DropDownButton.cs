@@ -26,7 +26,7 @@ namespace Fluent
     /// </summary>
     [ContentProperty("Items")]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -432,37 +432,6 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
-        /// <summary>
-        /// Responds to a change to the <see cref="P:System.Windows.UIElement.IsKeyboardFocusWithin"/> property. 
-        /// </summary>
-        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.IsKeyboardFocusWithinChanged"/> event.</param>
-        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
-        {
-            // This is for the case when focus goes elsewhere and the popup is still open; make sure it is closed.
-            if (!this.IsDropDownOpen
-                || this.IsKeyboardFocusWithin
-                || this.HasCapture
-                || (this.DropDownPopup != null && this.DropDownPopup.IsKeyboardFocusWithin))
-            {
-                return;
-            }
-
-            base.OnIsKeyboardFocusWithinChanged(e);
-
-            // IsKeyboardFocusWithin still flickers under certain conditions.  The case
-            // we care about is focus going from the ComboBox to a ComboBoxItem. 
-            // Here we can just check if something has focus and if it's a child 
-            // of ours or is a context menu that opened below us.
-            var currentFocus = Keyboard.FocusedElement as DependencyObject;
-
-            if (currentFocus == null
-                || !this.IsContextMenuOpened 
-                && ReferenceEquals(ItemsControlFromItemContainer(currentFocus), this) == false)
-            {
-                this.IsDropDownOpen = false;
-            }
-        }
 
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.
