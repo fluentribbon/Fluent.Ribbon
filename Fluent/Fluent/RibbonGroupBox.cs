@@ -567,7 +567,7 @@ namespace Fluent
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnVisibilityChanged));
 
             PopupService.Attach(typeof(RibbonGroupBox));
-            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, OnCoerceStyle));
 
             ContextMenuService.Attach(typeof(RibbonGroupBox));
         }
