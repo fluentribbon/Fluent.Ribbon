@@ -4,26 +4,26 @@
 
     <BitmapImage x:Key="MenuCutIcon"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Metro/Images/Cut.png"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Cut.png"
                  x:Shared="False" />
     <BitmapImage x:Key="MenuCopyIcon"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Metro/Images/Copy.png"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Copy.png"
                  x:Shared="False" />
     <BitmapImage x:Key="MenuPasteIcon"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Metro/Images/Paste.png"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Paste.png"
                  x:Shared="False" />
     <BitmapImage x:Key="MoreColorsIcon"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Metro/Images/MoreColors.png" />
+                 UriSource="/Fluent;component/Themes/Office2013/Images/MoreColors.png" />
     <BitmapImage x:Key="ScreenTipHelpImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Metro/Images/Help.png" />
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Help.png" />
     <BitmapImage x:Key="MenuCheckedImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;Component/Themes/Metro/Images/Checked.png" />
+                 UriSource="/Fluent;Component/Themes/Office2013/Images/Checked.png" />
     <BitmapImage x:Key="ScreenTipWarningImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;Component/Themes/Metro/Images/Warning.png" />
+                 UriSource="/Fluent;Component/Themes/Office2013/Images/Warning.png" />
 </ResourceDictionary>
