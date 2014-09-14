@@ -32,16 +32,11 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    [TemplatePart(Name = "PART_DownGrid", Type = typeof(Grid))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl
     {
         #region Fields
 
-        // Dropdown poup
-
-        // Down part
-        private Grid downGrid;
         // up part
         private Panel upPanel;
 
@@ -141,54 +136,59 @@ namespace Fluent
         #region Scale
 
         // Current scale index
-        int scale;
+        private int scale;
 
         /// <summary>
         /// Gets or sets scale index (for internal IRibbonScalableControl)
         /// </summary>
         internal int Scale
         {
-            get { return scale; }
+            get { return this.scale; }
             set
             {
-                int difference = value - scale;
-                scale = value;
+                var difference = value - this.scale;
+                this.scale = value;
 
-                for (int i = 0; i < Math.Abs(difference); i++)
+                for (var i = 0; i < Math.Abs(difference); i++)
                 {
-                    if (difference > 0) IncreaseScalableElement();
-                    else DecreaseScalableElement();
+                    if (difference > 0)
+                    {
+                        this.IncreaseScalableElement();
+                    }
+                    else
+                    {
+                        this.DecreaseScalableElement();
+                    }
                 }
             }
         }
 
         // Finds and increase size of all scalable elements in the given group box
-        void IncreaseScalableElement()
+        private void IncreaseScalableElement()
         {
-            foreach (object item in Items)
+            foreach (var item in Items)
             {
-                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl == null) continue;
+                var scalableRibbonControl = item as IScalableRibbonControl;
+                if (scalableRibbonControl == null)
+                {
+                    continue;
+                }
                 scalableRibbonControl.Enlarge();
             }
         }
 
         private void OnScalableControlScaled(object sender, EventArgs e)
         {
-            if (!SuppressCacheReseting)
+            if (!this.SuppressCacheReseting)
             {
-                cachedMeasures.Clear();
+                this.cachedMeasures.Clear();
             }
         }
 
         /// <summary>
         /// Gets or sets whether to reset cache when scalable control is scaled
         /// </summary>
-        internal bool SuppressCacheReseting
-        {
-            get;
-            set;
-        }
+        internal bool SuppressCacheReseting { get; set; }
 
         // Finds and decrease size of all scalable elements in the given group box
         private void DecreaseScalableElement()
@@ -573,7 +573,7 @@ namespace Fluent
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -600,8 +600,8 @@ namespace Fluent
             this.CoerceValue(ContextMenuProperty);
             this.Focusable = false;
 
-            this.Loaded += OnLoaded;
-            this.Unloaded += OnUnloaded;
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
 
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
         }
@@ -623,15 +623,15 @@ namespace Fluent
 
             this.UpdateScalableControlSubscribing();
 
-            if (LauncherButton != null)
+            if (this.LauncherButton != null)
             {
-                LauncherButton.Click += OnDialogLauncherButtonClick;
+                this.LauncherButton.Click += this.OnDialogLauncherButtonClick;
             }
 
             if (this.DropDownPopup != null)
             {
-                this.DropDownPopup.Opened += OnPopupOpened;
-                this.DropDownPopup.Closed += OnPopupClosed;
+                this.DropDownPopup.Opened += this.OnPopupOpened;
+                this.DropDownPopup.Closed += this.OnPopupClosed;
             }
         }
 
@@ -639,15 +639,15 @@ namespace Fluent
         {
             this.UpdateScalableControlSubscribing(false);
 
-            if (LauncherButton != null)
+            if (this.LauncherButton != null)
             {
-                LauncherButton.Click -= OnDialogLauncherButtonClick;
+                this.LauncherButton.Click -= this.OnDialogLauncherButtonClick;
             }
 
             if (this.DropDownPopup != null)
             {
-                this.DropDownPopup.Opened -= OnPopupOpened;
-                this.DropDownPopup.Closed -= OnPopupClosed;
+                this.DropDownPopup.Opened -= this.OnPopupOpened;
+                this.DropDownPopup.Closed -= this.OnPopupClosed;
             }
         }
 
@@ -679,35 +679,38 @@ namespace Fluent
         {
             get
             {
-                return isSnapped;
+                return this.isSnapped;
             }
             set
             {
-                if (value == isSnapped) return;
+                if (value == this.isSnapped)
+                {
+                    return;
+                }
+
                 if (value)
                 {
-                    if (IsVisible)
+                    if (this.IsVisible)
                     {
                         // Render the freezed image                        
-                        RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth,
-                                                                                       (int)ActualHeight, 96, 96,
-                                                                                       PixelFormats.Pbgra32);
+                        var renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
                         renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
-                        snappedImage.FlowDirection = FlowDirection;
-                        snappedImage.Source = renderTargetBitmap;
-                        snappedImage.Width = ActualWidth;
-                        snappedImage.Height = ActualHeight;
-                        snappedImage.Visibility = Visibility.Visible;
-                        isSnapped = value;
+                        this.snappedImage.FlowDirection = this.FlowDirection;
+                        this.snappedImage.Source = renderTargetBitmap;
+                        this.snappedImage.Width = this.ActualWidth;
+                        this.snappedImage.Height = this.ActualHeight;
+                        this.snappedImage.Visibility = Visibility.Visible;
+                        this.isSnapped = true;
                     }
                 }
-                else if (snappedImage != null)
+                else if (this.snappedImage != null)
                 {
                     // Clean up
-                    snappedImage.Visibility = Visibility.Collapsed;
-                    isSnapped = value;
+                    this.snappedImage.Visibility = Visibility.Collapsed;
+                    this.isSnapped = false;
                 }
-                InvalidateVisual();
+
+                this.InvalidateVisual();
             }
         }
 
@@ -751,29 +754,29 @@ namespace Fluent
             get
             {
                 Size result;
-                StateScale stateScale = new StateScale { Scale = ScaleIntermediate, State = StateIntermediate };
+                var stateScale = new StateScale { Scale = this.ScaleIntermediate, State = this.StateIntermediate };
                 if (!cachedMeasures.TryGetValue(stateScale, out result))
                 {
-                    SuppressCacheReseting = true;
-                    UpdateScalableControlSubscribing();
+                    this.SuppressCacheReseting = true;
+                    this.UpdateScalableControlSubscribing();
 
                     // Get desired size for these values
-                    RibbonGroupBoxState backupState = State;
-                    int backupScale = Scale;
-                    State = StateIntermediate;
-                    Scale = ScaleIntermediate;
-                    InvalidateLayout();
-                    Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                    cachedMeasures.Add(stateScale, DesiredSize);
+                    var backupState = State;
+                    var backupScale = Scale;
+                    this.State = StateIntermediate;
+                    this.Scale = ScaleIntermediate;
+                    this.InvalidateLayout();
+                    this.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    this.cachedMeasures.Add(stateScale, DesiredSize);
                     result = DesiredSize;
 
                     // Rollback changes
-                    State = backupState;
-                    Scale = backupScale;
-                    InvalidateLayout();
-                    Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    this.State = backupState;
+                    this.Scale = backupScale;
+                    this.InvalidateLayout();
+                    this.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
 
-                    SuppressCacheReseting = false;
+                    this.SuppressCacheReseting = false;
                 }
                 return result;
             }
@@ -784,7 +787,7 @@ namespace Fluent
         /// </summary>
         public void ClearCache()
         {
-            cachedMeasures.Clear();
+            this.cachedMeasures.Clear();
         }
 
         /// <summary>
@@ -795,13 +798,25 @@ namespace Fluent
             InvalidateMeasureRecursive(this);
         }
 
-        static void InvalidateMeasureRecursive(UIElement element)
+        private static void InvalidateMeasureRecursive(UIElement element)
         {
-            if (element == null) return;
-            element.InvalidateMeasure();
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            if (element == null)
             {
-                InvalidateMeasureRecursive(VisualTreeHelper.GetChild(element, i) as UIElement);
+                return;
+            }
+
+            element.InvalidateMeasure();
+
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i) as UIElement;
+
+                if (child == null)
+                {
+                    continue;
+                }
+
+                InvalidateMeasureRecursive(child);
             }
         }
 
@@ -818,37 +833,36 @@ namespace Fluent
             this.UnSubscribeEvents();
 
             // Clear cache
-            cachedMeasures.Clear();
+            this.cachedMeasures.Clear();
 
-            LauncherButton = GetTemplateChild("PART_DialogLauncherButton") as Button;
+            this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 
-            if (LauncherButton != null)
+            if (this.LauncherButton != null)
             {
-                if (LauncherKeys != null)
+                if (this.LauncherKeys != null)
                 {
-                    LauncherButton.KeyTip = LauncherKeys;
+                    this.LauncherButton.KeyTip = this.LauncherKeys;
                 }
             }
 
-            this.DropDownPopup = GetTemplateChild("PART_Popup") as Popup;
+            this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            downGrid = GetTemplateChild("PART_DownGrid") as Grid;
-            upPanel = GetTemplateChild("PART_UpPanel") as Panel;
-            parentPanel = GetTemplateChild("PART_ParentPanel") as Panel;
+            this.upPanel = this.GetTemplateChild("PART_UpPanel") as Panel;
+            this.parentPanel = this.GetTemplateChild("PART_ParentPanel") as Panel;
 
-            snappedImage = GetTemplateChild("PART_SnappedImage") as Image;
+            this.snappedImage = this.GetTemplateChild("PART_SnappedImage") as Image;
 
             this.SubscribeEvents();
         }
 
         private void OnPopupOpened(object sender, EventArgs e)
         {
-            if (DropDownOpened != null) DropDownOpened(this, e);
+            if (this.DropDownOpened != null) this.DropDownOpened(this, e);
         }
 
         private void OnPopupClosed(object sender, EventArgs e)
         {
-            if (DropDownClosed != null) DropDownClosed(this, e);
+            if (this.DropDownClosed != null) this.DropDownClosed(this, e);
         }
 
         /// <summary>
@@ -891,13 +905,13 @@ namespace Fluent
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">the event data</param>
-        void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
+        private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            if (LauncherClick != null) LauncherClick(this, e);
+            if (this.LauncherClick != null) this.LauncherClick(this, e);
         }
 
         // Handles popup closing
-        void OnRibbonGroupBoxPopupClosing()
+        private void OnRibbonGroupBoxPopupClosing()
         {
             //IsHitTestVisible = true;
             if (Mouse.Captured == this)
@@ -907,7 +921,7 @@ namespace Fluent
         }
 
         // handles popup opening
-        void OnRibbonGroupBoxPopupOpening()
+        private void OnRibbonGroupBoxPopupOpening()
         {
             //IsHitTestVisible = false;            
             Mouse.Capture(this, CaptureMode.SubTree);
@@ -918,9 +932,9 @@ namespace Fluent
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox ribbon = (RibbonGroupBox)d;
+            var ribbon = (RibbonGroupBox)d;
 
             if (ribbon.IsDropDownOpen)
             {
@@ -946,8 +960,8 @@ namespace Fluent
         {
             var groupBox = new RibbonGroupBox();
 
-            groupBox.DropDownOpened += OnQuickAccessOpened;
-            groupBox.DropDownClosed += OnQuickAccessClosed;
+            groupBox.DropDownOpened += this.OnQuickAccessOpened;
+            groupBox.DropDownClosed += this.OnQuickAccessClosed;
             
             groupBox.State = RibbonGroupBoxState.QuickAccess;
 

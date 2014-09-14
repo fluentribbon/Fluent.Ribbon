@@ -13,7 +13,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Fluent
@@ -63,8 +62,8 @@ namespace Fluent
 
         #region Fields
 
-        string[] reduceOrder = new string[0];
-        int reduceOrderIndex;
+        private string[] reduceOrder = new string[0];
+        private int reduceOrderIndex;
 
         #endregion
 
@@ -167,7 +166,7 @@ namespace Fluent
             return desiredSize;
         }
 
-        Size GetChildrenDesiredSizeIntermediate()
+        private Size GetChildrenDesiredSizeIntermediate()
         {
             double width = 0;
             double height = 0;
@@ -183,10 +182,8 @@ namespace Fluent
             return new Size(width, height);
         }
 
-
-
         // Increase size of the item
-        void IncreaseGroupBoxSize(string name)
+        private void IncreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
             bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
@@ -198,7 +195,7 @@ namespace Fluent
 
 
         // Decrease size of the item
-        void DecreaseGroupBoxSize(string name)
+        private void DecreaseGroupBoxSize(string name)
         {
             RibbonGroupBox groupBox = FindGroup(name);
             bool scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
@@ -208,9 +205,7 @@ namespace Fluent
             else groupBox.StateIntermediate = (groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed) ? groupBox.StateIntermediate + 1 : groupBox.StateIntermediate;
         }
 
-
-
-        RibbonGroupBox FindGroup(string name)
+        private RibbonGroupBox FindGroup(string name)
         {
             if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase)) name = name.Substring(1, name.Length - 2);
             foreach (FrameworkElement child in InternalChildren)
