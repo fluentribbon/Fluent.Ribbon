@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media;
+
     /// <summary>
     /// Dismiss popup mode
     /// </summary>
@@ -62,7 +56,7 @@ namespace Fluent
         /// <param name="dismissMode">Dismiss mode</param>
         public DismissPopupEventArgs(DismissPopupMode dismissMode)
         {
-            base.RoutedEvent = PopupService.DismissPopupEvent;
+            this.RoutedEvent = PopupService.DismissPopupEvent;
             this.DismissMode = dismissMode;
         }
 
@@ -72,7 +66,7 @@ namespace Fluent
         /// <param name="genericHandler">The generic handler / delegate implementation to be invoked.</param><param name="genericTarget">The target on which the provided handler should be invoked.</param>
         protected override void InvokeEventHandler(Delegate genericHandler, object genericTarget)
         {
-            DismissPopupEventHandler handler = (DismissPopupEventHandler)genericHandler;
+            var handler = (DismissPopupEventHandler)genericHandler;
             handler(genericTarget, this);
         }
     }
@@ -114,11 +108,11 @@ namespace Fluent
         /// <param name="classType">Control type</param>
         public static void Attach(Type classType)
         {
-            EventManager.RegisterClassHandler(classType, Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(PopupService.OnClickThroughThunk));
-            EventManager.RegisterClassHandler(classType, PopupService.DismissPopupEvent, new DismissPopupEventHandler(PopupService.OnDismissPopup));
-            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuOpeningEvent, new ContextMenuEventHandler(PopupService.OnContextMenuOpened), true);
-            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(PopupService.OnContextMenuClosed), true);
-            EventManager.RegisterClassHandler(classType, FrameworkElement.LostMouseCaptureEvent, new MouseEventHandler(PopupService.OnLostMouseCapture));
+            EventManager.RegisterClassHandler(classType, Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
+            EventManager.RegisterClassHandler(classType, DismissPopupEvent, new DismissPopupEventHandler(OnDismissPopup));
+            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuOpeningEvent, new ContextMenuEventHandler(OnContextMenuOpened), true);
+            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(OnContextMenuClosed), true);
+            EventManager.RegisterClassHandler(classType, UIElement.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
         }
         /// <summary>
         /// Handles PreviewMouseDownOutsideCapturedElementEvent event
@@ -144,12 +138,21 @@ namespace Fluent
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
             //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
-            IDropDownControl control = sender as IDropDownControl;
-            if (control == null) return;
-            if ((Mouse.Captured != sender) && (control.IsDropDownOpen) && (!control.IsContextMenuOpened))
+            var control = sender as IDropDownControl;
+
+            if (control == null)
             {
-                Popup popup = control.DropDownPopup;
-                if ((popup == null) || (popup.Child == null))
+                return;
+            }
+
+            if (Mouse.Captured != sender 
+                && control.IsDropDownOpen 
+                && !control.IsContextMenuOpened)
+            {
+                var popup = control.DropDownPopup;
+
+                if (popup == null
+                    || popup.Child == null)
                 {
                     RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     return;
@@ -158,7 +161,8 @@ namespace Fluent
                 if (e.OriginalSource == sender)
                 {
                     // If Ribbon loses capture because something outside popup is clicked - close the popup
-                    if (Mouse.Captured == null || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
+                    if (Mouse.Captured == null 
+                        || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
                         RaiseDismissPopupEventAsync(sender, DismissPopupMode.Always);
                     }
@@ -166,13 +170,11 @@ namespace Fluent
                 else
                 {
                     // If control inside Ribbon loses capture - restore capture to Ribbon
-                    if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject))
+                    if (Mouse.Captured == null
+                        && IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject))
                     {
-                        if (Mouse.Captured == null)
-                        {
-                            Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                            e.Handled = true;
-                        }
+                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                        e.Handled = true;
                     }
                     else
                     {
@@ -192,11 +194,14 @@ namespace Fluent
         {
             while (element != null)
             {
-                if (element == parent) return true;
-                DependencyObject elementParent = VisualTreeHelper.GetParent(element);
-                if (elementParent == null) element = LogicalTreeHelper.GetParent(element);
-                else element = elementParent;
+                if (ReferenceEquals(element, parent))
+                {
+                    return true;
+                }
+
+                element = VisualTreeHelper.GetParent(element) ?? LogicalTreeHelper.GetParent(element);
             }
+
             return false;
         }
 
@@ -293,7 +298,8 @@ namespace Fluent
         /// <param name="e"></param>
         public static void OnContextMenuOpened(object sender, ContextMenuEventArgs e)
         {
-            IDropDownControl control = sender as IDropDownControl;
+            var control = sender as IDropDownControl;
+
             if (control != null)
             {
                 control.IsContextMenuOpened = true;
@@ -308,7 +314,8 @@ namespace Fluent
         /// <param name="e"></param>
         public static void OnContextMenuClosed(object sender, ContextMenuEventArgs e)
         {
-            IDropDownControl control = sender as IDropDownControl;
+            var control = sender as IDropDownControl;
+
             if (control != null)
             {
                 //Debug.WriteLine("Context menu closed");
