@@ -503,10 +503,16 @@ namespace Fluent
             {
                 for (int i = 0; i < Filters.Count; i++)
                 {
-                    MenuItem item = new MenuItem();
-                    item.Header = Filters[i].Title;
-                    item.Tag = Filters[i];
-                    if (Filters[i] == SelectedFilter) item.IsChecked = true;
+                    var item = new MenuItem 
+                        {
+                            Header = this.Filters[i].Title, 
+                            Tag = this.Filters[i],
+                            IsDefinitive = false
+                        };
+                    if (Filters[i] == SelectedFilter)
+                    {
+                        item.IsChecked = true;
+                    }
                     item.Click += OnFilterMenuItemClick;
                     groupsMenuButton.Items.Add(item);
                 }
