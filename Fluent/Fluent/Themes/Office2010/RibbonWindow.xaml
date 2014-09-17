@@ -232,7 +232,7 @@
             <Trigger Property="WindowState"
                      Value="Maximized">
                 <Setter Property="GlassBorderThickness"
-                        Value="0,56,0,0" />
+                        Value="0,50,0,0" />
             </Trigger>
             <Trigger Property="DontUseDwm"
                      Value="True">
