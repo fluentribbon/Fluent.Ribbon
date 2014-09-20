@@ -171,6 +171,64 @@
                                        Command="ApplicationCommands.Close" />
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
+
+                <!--<Fluent:ApplicationMenu Header="File">
+                    <Fluent:ApplicationMenu.RightPaneContent>
+                        <StackPanel HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Vertical">
+
+                            <Border HorizontalAlignment="Stretch"
+                                    BorderBrush="#64647F"
+                                    BorderThickness="0,0,0,0">
+
+                                <TextBlock Text="Recent files"
+                                           Background="#F6F7F8"
+                                           TextAlignment="Left"
+                                           Padding="12,4,4,4"
+                                           Foreground="#64647F"
+                                           FontWeight="SemiBold"
+                                           FontSize="12" />
+                            </Border>
+
+                            <StackPanel HorizontalAlignment="Stretch"
+                                        Height="2">
+
+                                <Border Height="1"
+                                        BorderThickness="1"
+                                        HorizontalAlignment="Stretch"
+                                        BorderBrush="#DCDDDE" />
+
+                                <Border Height="1"
+                                        BorderThickness="1"
+                                        HorizontalAlignment="Stretch"
+                                        BorderBrush="#FEFEFF" />
+
+                            </StackPanel>
+
+                            <Menu Background="White">
+                                <Menu.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </Menu.ItemsPanel>
+
+                                <MenuItem Header="My file 1" />
+                                <MenuItem Header="My file 2" />
+                                <MenuItem Header="My file 3" />
+                            </Menu>
+                        </StackPanel>
+                    </Fluent:ApplicationMenu.RightPaneContent>
+
+                    <Fluent:MenuItem Header="New" />
+                    <Fluent:MenuItem Header="Open" />
+
+                    <Separator />
+
+                    <Fluent:MenuItem Header="Exit"
+                                     Icon="Images\Exit.png"
+                                     KeyTip="X" />
+                </Fluent:ApplicationMenu>-->
             </Fluent:Ribbon.Menu>
 
             <Fluent:Ribbon.ToolBarItems>
