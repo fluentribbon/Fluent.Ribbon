@@ -12,6 +12,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Diagnostics.CodeAnalysis;
+    using System.Reflection;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -25,8 +26,12 @@ namespace Fluent
     /// Represents drop down button
     /// </summary>
     [ContentProperty("Items")]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -36,13 +41,9 @@ namespace Fluent
         // Thumb to resize vertical
         private Thumb resizeVerticalThumb;
 
-        private Border buttonBorder;
-
         private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
-
-        private bool isFirstTime;
 
         #endregion
 
@@ -338,7 +339,51 @@ namespace Fluent
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
+
+            RegisterMenuBaseEvents();
         }
+
+        #region MenuItem hack
+
+        private static readonly DependencyProperty menuItemIsSelectedProperty = (DependencyProperty)typeof(System.Windows.Controls.MenuItem).GetField("IsSelectedProperty", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+
+        private static void RegisterMenuBaseEvents()
+        {
+            var hiddenRoutedEvent = (RoutedEvent)typeof(MenuBase).GetField("IsSelectedChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            EventManager.RegisterClassHandler(typeof(DropDownButton), hiddenRoutedEvent, new RoutedPropertyChangedEventHandler<bool>(OnMenuItemIsSelectedChanged));
+        }
+
+        private System.Windows.Controls.MenuItem lastMenuItem;
+
+        // This hack is needed to avoid MenuItem keyboardnavigation misbehavior when menu items are used directly within the DopDownButton. This is the case in the ApplicationMenu.
+        // It fixes codeplex issues 22472 and 22481
+        private static void OnMenuItemIsSelectedChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            var menuItem = e.OriginalSource as System.Windows.Controls.MenuItem;            
+
+            if (menuItem != null)
+            {
+                var dropDownButton = menuItem.Parent as DropDownButton;
+
+                if (dropDownButton != null)
+                {
+                    if (dropDownButton.lastMenuItem != null)
+                    {
+#if NET35
+                        dropDownButton.lastMenuItem.SetValue(menuItemIsSelectedProperty, false);
+#else
+                        dropDownButton.lastMenuItem.SetCurrentValue(menuItemIsSelectedProperty, false);
+#endif
+                    }
+
+                    dropDownButton.lastMenuItem = menuItem;                    
+                }
+            }
+
+            e.Handled = true;
+        }
+
+        #endregion MenuItem hack
 
         /// <summary>
         /// Default constructor
@@ -397,8 +442,6 @@ namespace Fluent
         {
             this.UnSubscribeEvents();
 
-            this.isFirstTime = true;
-
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.KeyUp -= this.OnDropDownPopupKeyUp;
@@ -417,8 +460,6 @@ namespace Fluent
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
 
             this.resizeBothThumb = this.Template.FindName("PART_ResizeBothThumb", this) as Thumb;
-
-            this.buttonBorder = this.Template.FindName("PART_ButtonBorder", this) as Border;
 
             this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as Panel;
 
@@ -453,49 +494,17 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
-        /// reaches an element in its route that is derived from this class. Implement this method to add 
-        /// class handling for this event.
+        /// Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonDown"/> routed event is raised on this element. Implement this method to add class handling for this event. 
         /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        /// <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> that contains the event data. The event data reports that the left mouse button was pressed.</param>
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (!buttonBorder.IsMouseOver)
-            {
-                return;
-            }
-
-            if (!IsDropDownOpen)
-            {
-                if (isFirstTime)
-                {
-                    DropDownPopup.Opacity = 0;
-                }
-
-                if (!isFirstTime)
-                {
-                    IsDropDownOpen = true;
-                }
-            }
-            else
-            {
-                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.MouseNotOver);
-                IsDropDownOpen = false;
-            }
-
             e.Handled = true;
 
-            if (isFirstTime)
-            {
-                isFirstTime = false;
-                //IsDropDownOpen = false;
-                Dispatcher.Invoke(DispatcherPriority.Send, (ThreadStart)(() =>
-                                                                             {
-                                                                                 IsDropDownOpen = true;
-                                                                                 DropDownPopup.Opacity = 1;
-                                                                             }));
-            }
+            this.Focus();
+            this.IsDropDownOpen = !this.IsDropDownOpen;
+
+            base.OnMouseLeftButtonDown(e);
         }
 
         private void OnDropDownPopupKeyUp(object sender, KeyEventArgs e)
@@ -711,6 +720,9 @@ namespace Fluent
             }
             else
             {
+                // hack: part of MenuItem hack
+                control.lastMenuItem = null;
+
                 // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd 
                 if (control.IsKeyboardFocusWithin)
                 {
@@ -732,9 +744,9 @@ namespace Fluent
         // Handles drop down closed
         private void OnDropDownClosed()
         {
-            if (DropDownClosed != null)
+            if (this.DropDownClosed != null)
             {
-                DropDownClosed(this, EventArgs.Empty);
+                this.DropDownClosed(this, EventArgs.Empty);
             }
         }
 
