@@ -134,7 +134,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DontUseDwmProperty =
-            DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false));
+            DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false, OnDontUseDwmChanged));
 
         /// <summary>
         ///  Gets or sets whether DWM should be used.
@@ -393,6 +393,18 @@ namespace Fluent
             }
 
             window.UpdateWindowChrome();
+        }
+
+        private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var window = d as RibbonWindow;
+
+            if (window == null)
+            {
+                return;
+            }
+
+            window.UpdateCanUseDwm();
         }
 
         // Size change to collapse ribbon
