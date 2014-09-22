@@ -137,13 +137,29 @@ namespace Fluent
             DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false));
 
         /// <summary>
-        ///  Gets or sets whether DWM will be used.
+        ///  Gets or sets whether DWM should be used.
         /// </summary>
         public bool DontUseDwm
         {
             get { return (bool)GetValue(DontUseDwmProperty); }
             set { SetValue(DontUseDwmProperty, value); }
         }
+
+        /// <summary>
+        /// Gets wheter DWM can be used (<see cref="NativeMethods.IsDwmEnabled"/> is true and <see cref="DontUseDwm"/> is false).
+        /// </summary>
+        public bool CanUseDwm
+        {
+            get { return (bool)GetValue(CanUseDwmProperty); }
+            private set { SetValue(CanUseDwmPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey CanUseDwmPropertyKey = DependencyProperty.RegisterReadOnly("CanUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanUseDwm.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets or sets whether the WindowChrome will be used. This is needed to disable the WindowChrome for the Office 2013 theme
@@ -342,6 +358,8 @@ namespace Fluent
         {
             base.OnSourceInitialized(e);
 
+            this.UpdateCanUseDwm();
+
             this.UpdateWindowChrome();
 
             WindowSizing.WindowInitialized(this);
@@ -411,11 +429,13 @@ namespace Fluent
                 {
                     CaptionHeight = this.CaptionHeight,
                     CornerRadius = this.CornerRadius,
-                    GlassFrameThickness = this.CanUseDwm() ? this.GlassBorderThickness : default(Thickness),
+                    GlassFrameThickness = this.CanUseDwm
+                        ? this.GlassBorderThickness 
+                        : default(Thickness),
                     ResizeBorderThickness = this.ResizeBorderThickness,
 #if NET45
                     ////NonClientFrameEdges = NonClientFrameEdges.Bottom,
-                    UseAeroCaptionButtons = this.CanUseDwm()
+                    UseAeroCaptionButtons = this.CanUseDwm
 #endif
                 };
             }
@@ -423,10 +443,10 @@ namespace Fluent
             WindowChrome.SetWindowChrome(this, windowChrome);
         }
 
-        private bool CanUseDwm()
+        private void UpdateCanUseDwm()
         {
-            return NativeMethods.IsDwmEnabled()
-                && !this.DontUseDwm;
+            this.CanUseDwm = NativeMethods.IsDwmEnabled()
+                          && this.DontUseDwm == false;
         }
 
         #region Metro
@@ -434,6 +454,8 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            this.UpdateCanUseDwm();
 
             this.UpdateWindowChrome();
 

@@ -234,13 +234,13 @@
                 <Setter Property="GlassBorderThickness"
                         Value="0,50,0,0" />
             </Trigger>
-            <Trigger Property="DontUseDwm"
-                     Value="True">
+            <Trigger Property="CanUseDwm"
+                     Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
             </Trigger>
-            <Trigger Property="DontUseDwm"
-                     Value="False">
+            <Trigger Property="CanUseDwm"
+                     Value="True">
                 <Setter Property="Template"
                         Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
