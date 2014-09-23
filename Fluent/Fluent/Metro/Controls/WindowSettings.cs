@@ -9,10 +9,20 @@ using Fluent.Metro.Native;
 
 namespace Fluent.Metro.Controls
 {
+    /// <summary>
+    /// Stores settings for a <see cref="Window"/>
+    /// </summary>
     public class WindowSettings
     {
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Save.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty SaveProperty = DependencyProperty.RegisterAttached("Save", typeof(bool), typeof(WindowSettings), new FrameworkPropertyMetadata(OnSaveInvalidated));
 
+        /// <summary>
+        /// Sets Save for dependencyObject
+        /// </summary>
         public static void SetSave(DependencyObject dependencyObject, bool enabled)
         {
             dependencyObject.SetValue(SaveProperty, enabled);
@@ -43,8 +53,12 @@ namespace Fluent.Metro.Controls
                 }
             }
         }
+
         private Window _window;
 
+        /// <summary>
+        /// Creates a new instance which uses <paramref name="window"/>
+        /// </summary>
         public WindowSettings(Window window)
         {
             _window = window;
@@ -62,6 +76,9 @@ namespace Fluent.Metro.Controls
             settings.Attach();
         }
 
+        /// <summary>
+        /// Loads the <see cref="Settings"/>
+        /// </summary>
         protected virtual void LoadWindowState()
         {
             Settings.Reload();
@@ -87,6 +104,9 @@ namespace Fluent.Metro.Controls
             }
         }
 
+        /// <summary>
+        /// Saves the <see cref="Settings"/>
+        /// </summary>
         protected virtual void SaveWindowState()
         {
             WINDOWPLACEMENT wp;
@@ -103,7 +123,7 @@ namespace Fluent.Metro.Controls
             _window.SourceInitialized += WindowSourceInitialized;
         }
 
-        void WindowSourceInitialized(object sender, EventArgs e)
+        private void WindowSourceInitialized(object sender, EventArgs e)
         {
             LoadWindowState();
         }

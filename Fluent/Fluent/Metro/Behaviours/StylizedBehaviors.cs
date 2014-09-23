@@ -3,24 +3,39 @@ using System.Windows.Interactivity;
 
 namespace Fluent.Metro.Behaviours
 {
+    /// <summary>
+    /// Enables the use of behaviors in styles
+    /// </summary>
     public class StylizedBehaviors
     {
         private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached(@"OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new UIPropertyMetadata(null));
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Behaviors.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.RegisterAttached(
             @"Behaviors",
             typeof(StylizedBehaviorCollection),
             typeof(StylizedBehaviors),
             new FrameworkPropertyMetadata(null, OnPropertyChanged));
+
+        /// <summary>
+        /// Gets Behaviors for element
+        /// </summary>
         public static StylizedBehaviorCollection GetBehaviors(DependencyObject uie)
         {
             return (StylizedBehaviorCollection)uie.GetValue(BehaviorsProperty);
         }
 
+        /// <summary>
+        /// Sets Behaviors for element
+        /// </summary>
         public static void SetBehaviors(DependencyObject uie, StylizedBehaviorCollection value)
         {
             uie.SetValue(BehaviorsProperty, value);
         }
+
         private static Behavior GetOriginalBehavior(DependencyObject obj)
         {
             return obj.GetValue(OriginalBehaviorProperty) as Behavior;

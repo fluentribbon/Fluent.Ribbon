@@ -284,7 +284,7 @@
             <Setter.Value>
                 <Behaviours:StylizedBehaviorCollection>
                     <Behaviours:BorderlessWindowBehavior />
-                    <Behaviours:WindowsSettingBehaviour />
+                    <Behaviours:WindowsSettingBehavior />
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>
         </Setter>

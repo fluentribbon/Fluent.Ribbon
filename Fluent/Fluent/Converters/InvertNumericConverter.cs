@@ -4,6 +4,9 @@
     using System.Globalization;
     using System.Windows.Data;
 
+    /// <summary>
+    /// Used to invert numbers
+    /// </summary>
     public class InvertNumericConverter : IValueConverter
     {
         #region Implementation of IValueConverter

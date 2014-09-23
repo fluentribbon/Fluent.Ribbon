@@ -83,7 +83,6 @@
     </Compile>
     <Compile Include="ColorGallery.cs" />
     <Compile Include="ComboBox.cs" />
-    <Compile Include="ClosingWindowEventHandlerArgs.cs" />
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
@@ -116,7 +115,7 @@
     <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
-    <Compile Include="Metro\Behaviours\WindowSettingBehaviour.cs" />
+    <Compile Include="Metro\Behaviours\WindowSettingBehavior.cs" />
     <Compile Include="Metro\Controls\MetroWindow.cs" />
     <Compile Include="Metro\Controls\WindowSettings.cs" />
     <Compile Include="Metro\Native\Constants.cs" />

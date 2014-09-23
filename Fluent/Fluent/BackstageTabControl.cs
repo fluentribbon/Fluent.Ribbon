@@ -86,6 +86,9 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateSelectorProperty = SelectedContentTemplateSelectorPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Get or sets the string format for the content.
+        /// </summary>
         public string ContentStringFormat
         {
             get
@@ -98,6 +101,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="DataTemplate"/> which should be used for the content
+        /// </summary>
         public DataTemplate ContentTemplate
         {
             get
@@ -110,6 +116,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the content
+        /// </summary>
         public DataTemplateSelector ContentTemplateSelector
         {
             get
@@ -122,6 +131,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Get or sets the string format for the selected content.
+        /// </summary>
         public string SelectedContentStringFormat
         {
             get
@@ -134,6 +146,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="DataTemplate"/> which should be used for the selected content
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DataTemplate SelectedContentTemplate
         {
@@ -147,6 +162,9 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the selected content
+        /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DataTemplateSelector SelectedContentTemplateSelector
         {

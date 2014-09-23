@@ -5,6 +5,9 @@
     using System.Windows;
     using System.Windows.Data;
 
+    /// <summary>
+    /// Used to convert from four double values to <see cref="Thickness"/>
+    /// </summary>
     public class ThicknessConverter : IMultiValueConverter
     {
         #region Implementation of IMultiValueConverter

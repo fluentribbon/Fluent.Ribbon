@@ -46,10 +46,14 @@ namespace Fluent
 
         #region Properties
 
-        // Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WindowCommandsProperty =
-            DependencyProperty.Register("WindowCommands", typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register("WindowCommands", typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the window commands
+        /// </summary>
         public WindowCommands WindowCommands
         {
             get { return (WindowCommands)GetValue(WindowCommandsProperty); }
@@ -463,6 +467,9 @@ namespace Fluent
 
         #region Metro
 
+        /// <summary>
+        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -478,9 +485,9 @@ namespace Fluent
 
             if (this.titleBar != null)
             {
-                this.titleBar.MouseDown -= this.TitleBarMouseDown;
-                this.titleBar.MouseUp -= this.TitleBarMouseUp;
-                this.titleBar.MouseMove -= this.TitleBarMouseMove;
+                this.titleBar.MouseDown -= this.HandleTitleBarMouseDown;
+                this.titleBar.MouseUp -= this.HandleTitleBarMouseUp;
+                this.titleBar.MouseMove -= this.HandleTitleBarMouseMove;
             }
 
             if (this.UseWindowChrome.GetValueOrDefault())
@@ -507,9 +514,9 @@ namespace Fluent
 
                 if (this.titleBar != null)
                 {
-                    this.titleBar.MouseDown += this.TitleBarMouseDown;
-                    this.titleBar.MouseUp += this.TitleBarMouseUp;
-                    this.titleBar.MouseMove += this.TitleBarMouseMove;
+                    this.titleBar.MouseDown += this.HandleTitleBarMouseDown;
+                    this.titleBar.MouseUp += this.HandleTitleBarMouseUp;
+                    this.titleBar.MouseMove += this.HandleTitleBarMouseMove;
                 }
 
                 if (this.iconImage != null)
@@ -519,6 +526,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Window.StateChanged"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
         protected override void OnStateChanged(EventArgs e)
         {
             if (this.WindowCommands != null)
@@ -529,7 +540,7 @@ namespace Fluent
             base.OnStateChanged(e);
         }
 
-        protected void TitleBarMouseDown(object sender, MouseButtonEventArgs e)
+        private void HandleTitleBarMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.OriginalSource, this.iconImage))
             {
@@ -549,6 +560,10 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
         {
             // Do not resize window 
@@ -556,6 +571,10 @@ namespace Fluent
             base.OnContextMenuOpening(e);
         }
 
+        /// <summary>
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// </summary>
+        /// <param name="e">Provides data about the event.</param>
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
         {
             // Do not resize window 
@@ -563,7 +582,7 @@ namespace Fluent
             base.OnContextMenuClosing(e);
         }
 
-        protected void TitleBarMouseUp(object sender, MouseButtonEventArgs e)
+        private void HandleTitleBarMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (!this.IsIconVisible)
             {
@@ -606,7 +625,7 @@ namespace Fluent
             return relativeTo.PointFromScreen(new Point(w32Mouse.X, w32Mouse.Y));
         }
 
-        private void TitleBarMouseMove(object sender, MouseEventArgs e)
+        private void HandleTitleBarMouseMove(object sender, MouseEventArgs e)
         {
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
                 && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized

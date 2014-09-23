@@ -12,15 +12,25 @@
     {
         #region TitleBarHeight Property
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for TitleBarHeight.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty TitleBarHeightProperty =
             DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
                 new FrameworkPropertyMetadata(25D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
 
+        /// <summary>
+        /// Sets TitleBarHeight for element
+        /// </summary>
         public static void SetTitleBarHeight(UIElement element, double value)
         {
             element.SetValue(TitleBarHeightProperty, value);
         }
 
+        /// <summary>
+        /// Gets TitleBarHeight for element
+        /// </summary>
         public static double GetTitleBarHeight(UIElement element)
         {
             return (double)element.GetValue(TitleBarHeightProperty);

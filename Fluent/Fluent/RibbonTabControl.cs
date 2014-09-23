@@ -474,6 +474,10 @@ namespace Fluent
             ProcessMouseWheel(e);
         }
 
+        /// <summary>
+        /// Invoked when the <see cref="E:System.Windows.UIElement.KeyDown"/> event is received.
+        /// </summary>
+        /// <param name="e">Information about the event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyUp(e);

@@ -88,11 +88,6 @@
         }
 
         /// <summary>
-        /// Event which is raised when the window should be closed
-        /// </summary>
-        public event EventHandler<ClosingWindowEventHandlerArgs> ClosingWindow;
-
-        /// <summary>
         /// Retrieves the translated string for Minimize
         /// </summary>
         public string Minimize
@@ -180,16 +175,6 @@
             this.RefreshMaximizeIconState();
         }
 
-        /// <summary>
-        /// Is called when the window should be closed
-        /// </summary>
-        protected void OnClosingWindow(ClosingWindowEventHandlerArgs args)
-        {
-            var handler = ClosingWindow;
-            if (handler != null)
-                handler(this, args);
-        }
-
         private void MinimiseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = GetParentWindow();
@@ -255,12 +240,6 @@
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
-            var closingWindowEventHandlerArgs = new ClosingWindowEventHandlerArgs();
-            OnClosingWindow(closingWindowEventHandlerArgs);
-
-            if (closingWindowEventHandlerArgs.Cancelled)
-                return;
-
             var parentWindow = GetParentWindow();
             if (parentWindow != null)
             {

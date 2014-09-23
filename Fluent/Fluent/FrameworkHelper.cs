@@ -52,6 +52,9 @@
         }
 
 #if NET35
+        /// <summary>
+        /// Checks if an enum has a certain flag
+        /// </summary>
         public static bool HasFlag(this Enum thisInstance, Enum flag)
         {
             ulong instanceVal = Convert.ToUInt64(thisInstance);
@@ -63,16 +66,31 @@
     }
 
 #if NET35
+    /// <summary>
+    /// Forwards to <see cref="System.Windows.Media.Animation.LinearDoubleKeyFrame"/>
+    /// </summary>
     public class EasingThicknessKeyFrame : System.Windows.Media.Animation.LinearThicknessKeyFrame
     {
-       public object EasingFunction { get; set; }
+        /// <summary>
+        /// Gets or sets EasingFunction
+        /// </summary>
+        public object EasingFunction { get; set; }
     }
 
+    /// <summary>
+    /// Container for EasingMode
+    /// </summary>
     public class CubicEase
     {
-       public object EasingMode { get; set; }
+        /// <summary>
+        /// Gets or sets EasingMode
+        /// </summary>
+        public object EasingMode { get; set; }
     }
 
+    /// <summary>
+    /// Forwards to <see cref="System.Windows.Media.Animation.LinearDoubleKeyFrame"/>
+    /// </summary>
     public class EasingDoubleKeyFrame : System.Windows.Media.Animation.LinearDoubleKeyFrame
     {
     }

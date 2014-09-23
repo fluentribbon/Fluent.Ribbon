@@ -9,13 +9,22 @@ using Fluent.Metro.Native;
 
 namespace Fluent.Metro.Behaviours
 {
+    /// <summary>
+    /// Behavior for borderless windows (used for Office 2013 theme)
+    /// </summary>
     public class BorderlessWindowBehavior : Behavior<RibbonWindow>
     {
+        /// <summary>
+        /// Gets or sets the <see cref="Border"/>
+        /// </summary>
         public Border Border { get; set; }
 
         private HwndSource _mHWNDSource;
         private HandleRef windowHandle;
 
+        /// <summary>
+        /// Called when behavior is being attached
+        /// </summary>
         protected override void OnAttached()
         {
             if (PresentationSource.FromVisual(AssociatedObject) != null)
@@ -36,6 +45,9 @@ namespace Fluent.Metro.Behaviours
             base.OnAttached();
         }
 
+        /// <summary>
+        /// Called when behavior is being detached
+        /// </summary>
         protected override void OnDetaching()
         {
             this.AssociatedObject.SourceInitialized -= this.AssociatedObject_SourceInitialized;

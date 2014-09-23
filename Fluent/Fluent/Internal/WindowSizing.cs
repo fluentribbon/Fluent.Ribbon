@@ -6,8 +6,14 @@
     using System.Windows.Interop;
     using Fluent.Metro.Native;
 
+    /// <summary>
+    /// Encapsulates logic for window sizing (maximizing etc.)
+    /// </summary>
     public static class WindowSizing
     {
+        /// <summary>
+        /// Called when <paramref name="window"/> has been initialize
+        /// </summary>
         public static void WindowInitialized(Window window)
         {
             var hwndSource = PresentationSource.FromVisual(window) as HwndSource;
