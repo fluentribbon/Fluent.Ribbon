@@ -2159,6 +2159,8 @@
             </TabControl.Resources>
             <TabItem Header="Themes">
                 <StackPanel>
+                    <CheckBox Name="DontUseDwm" 
+                              Click="HandleDontUseDwmClick">Don't use DWM (applies to Office 2010 theme only)</CheckBox>
                     <WrapPanel>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
                                 Click="OnSilverClick">Silver (Office 2010)</Button>

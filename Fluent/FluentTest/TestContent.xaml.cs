@@ -474,6 +474,25 @@
             var w = new Window();
             w.ShowDialog();
         }
+
+        private void HandleDontUseDwmClick(object sender, RoutedEventArgs e)
+        {
+            var control = sender as UIElement;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            var window = Window.GetWindow(control) as RibbonWindow;
+
+            if (window == null)
+            {
+                return;
+            }
+
+            window.DontUseDwm = this.DontUseDwm.IsChecked.GetValueOrDefault();
+        }
     }
 
     public class FooCommand1
