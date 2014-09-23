@@ -233,6 +233,8 @@
                      Value="Maximized">
                 <Setter Property="GlassBorderThickness"
                         Value="0,50,0,0" />
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
