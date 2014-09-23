@@ -243,7 +243,7 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="CanContentScroll" Value="True"/>
+    <Setter Property="CanContentScroll" Value="False"/>
     <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
     <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
     <Setter Property="Focusable" Value="False"/>

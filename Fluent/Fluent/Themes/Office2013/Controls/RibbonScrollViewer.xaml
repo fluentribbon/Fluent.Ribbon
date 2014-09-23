@@ -174,7 +174,7 @@
   <Style x:Key="MenuScrollViewer" TargetType="{x:Type ScrollViewer}">
     <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="Template" Value="{StaticResource MenuScrollViewerControlTemplate}"/>
-    <Setter Property="CanContentScroll" Value="True"/>
+    <Setter Property="CanContentScroll" Value="False"/>
     <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
     <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
     <Setter Property="Focusable" Value="False"/>
