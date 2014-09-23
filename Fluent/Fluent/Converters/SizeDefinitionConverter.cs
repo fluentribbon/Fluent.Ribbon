@@ -4,6 +4,9 @@
     using System.ComponentModel;
     using System.Globalization;
 
+    /// <summary>
+    /// Class which enables conversion from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
+    /// </summary>
     public class SizeDefinitionConverter : TypeConverter
     {
         /// <summary>

@@ -5,11 +5,17 @@
     using System.Linq;
     using Fluent.Converters;
 
+    /// <summary>
+    /// Class to map from <see cref="RibbonGroupBoxState"/> to <see cref="RibbonControlSize"/>
+    /// </summary>
     [TypeConverter(typeof(SizeDefinitionConverter))]
     public struct RibbonControlSizeDefinition
     {
         private const int MaxSizeDefinitionParts = 3;
 
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public RibbonControlSizeDefinition(RibbonControlSize large, RibbonControlSize middle, RibbonControlSize small)
             : this()
         {
@@ -18,6 +24,9 @@
             this.Small = small;
         }
 
+        /// <summary>
+        /// Creates a new instance
+        /// </summary>
         public RibbonControlSizeDefinition(string sizeDefinition)
             : this()
         {
@@ -50,22 +59,40 @@
             this.Small = ToRibbonControlSize(splitted[2]);
         }
 
+        /// <summary>
+        /// Gets or sets the value for large group sizes
+        /// </summary>
         public RibbonControlSize Large { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value for middle group sizes
+        /// </summary>
         public RibbonControlSize Middle { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value for small group sizes
+        /// </summary>
         public RibbonControlSize Small { get; set; }
 
+        /// <summary>
+        /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
+        /// </summary>
         public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
         {
             return new RibbonControlSizeDefinition(sizeDefinition);
         }
 
+        /// <summary>
+        /// Converts from <see cref="RibbonControlSizeDefinition"/> to <see cref="string"/>
+        /// </summary>
         public static implicit operator string(RibbonControlSizeDefinition sizeDefinition)
         {
             return sizeDefinition.ToString();
         }
 
+        /// <summary>
+        /// Converts from <see cref="string"/> to <see cref="RibbonControlSize"/>
+        /// </summary>
         public static RibbonControlSize ToRibbonControlSize(string ribbonControlSize)
         {
 #if NET35
@@ -86,6 +113,9 @@
 #endif
         }
 
+        /// <summary>
+        /// Gets the appropriate <see cref="RibbonControlSize"/> from <see cref="Large"/>, <see cref="Middle"/> or <see cref="Small"/> depending on <paramref name="ribbonGroupBoxState"/>
+        /// </summary>
         public RibbonControlSize GetSize(RibbonGroupBoxState ribbonGroupBoxState)
         {
             switch (ribbonGroupBoxState)

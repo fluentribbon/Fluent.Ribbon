@@ -4,7 +4,7 @@
     using System.Runtime.InteropServices;
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct APPBARDATA
+    internal struct APPBARDATA
     {
         public int cbSize;
         public IntPtr hWnd;

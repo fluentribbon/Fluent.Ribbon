@@ -2,6 +2,9 @@
 {
     using System.Windows.Input;
 
+    /// <summary>
+    /// Class for several commands belonging to the Ribbon
+    /// </summary>
     public static class RibbonCommands
     {
         private static readonly RoutedUICommand openBackstage = new RoutedUICommand("Open backstage", "OpenBackstage", typeof(RibbonCommands));

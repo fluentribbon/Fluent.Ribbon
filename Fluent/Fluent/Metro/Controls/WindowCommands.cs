@@ -9,7 +9,7 @@
     using Fluent.Metro.Native;
 
     /// <summary>
-    /// Contains commands for <see cref="MetroWindow"/>
+    /// Contains commands for <see cref="RibbonWindow"/>
     /// </summary>
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
