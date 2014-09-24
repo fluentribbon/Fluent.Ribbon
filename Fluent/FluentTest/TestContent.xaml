@@ -48,11 +48,11 @@
                 <Fluent:Backstage>
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"
-                                       Icon="Images\Save.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
                                        KeyTip="S"
                                        Click="OnBtnClick" />
                         <Fluent:Button Header="Save As"
-                                       Icon="Images\Save.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
                                        KeyTip="A"
                                        Click="HandleSaveAsClick" />
                         <Fluent:BackstageTabItem Header="TEST"
@@ -137,12 +137,12 @@
                                                Style="{DynamicResource ButtonBackstageStyle}"
                                                HorizontalAlignment="Left"
                                                Click="OnBlueClick"
-                                               Icon="Images\Paste.png"
-                                               LargeIcon="Images\PasteLarge.png">123</Fluent:Button>
+                                               Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                               LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png">123</Fluent:Button>
                                 <Fluent:DropDownButton Header="123"
                                                        HorizontalAlignment="Right"
-                                                       Icon="Images\Paste.png"
-                                                       LargeIcon="Images\PasteLarge.png" />
+                                                       Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png" />
                                 <Fluent:ComboBox VerticalAlignment="Bottom">
                                     <TextBlock Text="1" />
                                     <TextBlock Text="2" />
@@ -166,7 +166,7 @@
                                   Margin="50" />
                         </Fluent:BackstageTabItem>
                         <Fluent:Button Header="Exit"
-                                       Icon="Images\Exit.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
                                        KeyTip="X"
                                        Command="ApplicationCommands.Close" />
                     </Fluent:BackstageTabControl>
@@ -226,19 +226,19 @@
                     <Separator />
 
                     <Fluent:MenuItem Header="Exit"
-                                     Icon="Images\Exit.png"
+                                     Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
                                      KeyTip="X" />
                 </Fluent:ApplicationMenu>-->
             </Fluent:Ribbon.Menu>
 
             <Fluent:Ribbon.ToolBarItems>
                 <Fluent:Button Size="Small"
-                               Icon="Images/Help.png"
+                               Icon="pack://application:,,,/FluentTest;component/Images/Help.png"
                                Click="OnHelpClick">
                     <Fluent:Button.ToolTip>
                         <Fluent:ScreenTip Title="Insert Chart"
                                           Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
-                                          Image="pack://application:,,,/FluentTest;component\Images\SampleImageForScreenTip.png"
+                                          Image="pack://application:,,,/FluentTest;component\Images/SampleImageForScreenTip.png"
                                           HelpTopic="http:\\fluent.codeplex.com"
                                           DisableReason="Disable reason reason."
                                           Width="190"
@@ -254,7 +254,7 @@
                 <!--Use Content or Target Property to set QAT item-->
                 <Fluent:QuickAccessMenuItem IsChecked="true">
                     <Fluent:Button Header="Pink"
-                                   Icon="Images\Pink.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
                                             IsChecked="True" />
@@ -278,8 +278,8 @@
                     <Fluent:SplitButton x:Name="pasteButton"
                                         KeyTip="V"
                                         Header="Paste"
-                                        Icon="Images\Paste.png"
-                                        LargeIcon="Images\PasteLarge.png"
+                                        Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png"
                                         SizeDefinition="Large"
                                         Command="Paste">
                         <Fluent:SplitButton.ToolTip>
@@ -295,35 +295,35 @@
                                         ItemWidth="32"
                                         ItemHeight="32">
                             <Fluent:GalleryItem Command="Paste">
-                                <Image Source="Images\PasteImage.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteImage.png"
                                        Width="24"
                                        Height="24"
                                        Fluent:KeyTip.Keys="K"
                                        Tag="Paste Options:" />
                             </Fluent:GalleryItem>
                             <Fluent:GalleryItem Command="Paste">
-                                <Image Source="Images\PasteText.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteText.png"
                                        Width="24"
                                        Height="24"
                                        Fluent:KeyTip.Keys="M"
                                        Tag="Paste Options:" />
                             </Fluent:GalleryItem>
                             <Fluent:GalleryItem Command="Paste">
-                                <Image Source="Images\PasteTextOnly.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteTextOnly.png"
                                        Width="24"
                                        Height="24"
                                        Fluent:KeyTip.Keys="T"
                                        Tag="Paste Options:" />
                             </Fluent:GalleryItem>
                             <Fluent:GalleryItem Command="Paste">
-                                <Image Source="Images\PasteFormating.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteFormating.png"
                                        Width="24"
                                        Height="24"
                                        Fluent:KeyTip.Keys="L"
                                        Tag="Paste Options:" />
                             </Fluent:GalleryItem>
                             <Fluent:GalleryItem Command="Paste">
-                                <Image Source="Images\PasteSourceFormating.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteSourceFormating.png"
                                        Width="24"
                                        Height="24"
                                        Fluent:KeyTip.Keys="E"
@@ -354,7 +354,7 @@
                     <Fluent:Button x:Name="cutButton"
                                    KeyTip="X"
                                    Header="Cut"
-                                   Icon="Images\Cut.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Cut.png"
                                    SizeDefinition="Middle,Small"
                                    Command="Cut">
                         <Fluent:Button.ToolTip>
@@ -367,7 +367,7 @@
                     <Fluent:Button x:Name="copyButton"
                                    KeyTip="C"
                                    Header="Copy"
-                                   Icon="Images\Copy.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Copy.png"
                                    Command="Copy">
                         <Fluent:Button.SizeDefinition>
                             <Fluent:RibbonControlSizeDefinition Large="Middle"
@@ -380,14 +380,14 @@
                     </Fluent:Button>
                     <Fluent:Button KeyTip="FP"
                                    Header="Format Painter"
-                                   Icon="Images\FormatPainter.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/FormatPainter.png"
                                    SizeDefinition="Middle,Small"
                                    Click="OnFormatPainterClick" />
                     <Fluent:DropDownButton Name="buttonWatermark"
                                            KeyTip="W"
                                            Header="Watermark"
-                                           Icon="Images\watermark32.png"
-                                           LargeIcon="Images\watermark32.png"
+                                           Icon="pack://application:,,,/FluentTest;component/Images/Red.png"
+                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            IsEnabled="True"
                                            VerticalAlignment="Top">
                         <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
@@ -417,7 +417,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\confidential.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/GreenLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="CONFIDENTIAL 1"
                                                VerticalAlignment="Bottom"
@@ -429,7 +429,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\confidential2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/YellowLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="CONFIDENTIAL 2"
                                                VerticalAlignment="Bottom"
@@ -441,7 +441,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\donotcopy1.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/PinkLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="DO NOT COPY 1"
                                                VerticalAlignment="Bottom"
@@ -453,7 +453,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\donotcopy2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="DO NOT COPY 2"
                                                VerticalAlignment="Bottom"
@@ -468,7 +468,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\draft1.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="DRAFT 1"
                                                VerticalAlignment="Bottom"
@@ -480,7 +480,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\draft2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/OrangeLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="DRAFT 2"
                                                VerticalAlignment="Bottom"
@@ -492,7 +492,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\sample1.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="SAMPLE 1"
                                                VerticalAlignment="Bottom"
@@ -504,7 +504,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\sample2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="SAMPLE 2"
                                                VerticalAlignment="Bottom"
@@ -519,7 +519,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\asap1.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="ASAP 1"
                                                VerticalAlignment="Bottom"
@@ -531,7 +531,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\asap2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="ASAP 2"
                                                VerticalAlignment="Bottom"
@@ -543,7 +543,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\urgent1.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="URGENT 1"
                                                VerticalAlignment="Bottom"
@@ -555,7 +555,7 @@
                                     BorderBrush="Transparent">
                                 <StackPanel>
                                     <Image VerticalAlignment="Top"
-                                           Source="Images\urgent2.png"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            Stretch="None" />
                                     <TextBlock Text="URGENT 2"
                                                VerticalAlignment="Bottom"
@@ -567,7 +567,7 @@
                         <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
                         <Fluent:MenuItem Name="buttonRemoveWatermark"
                                          Header="Remove Watermark"
-                                         Icon="Images\removeWatermark16.png"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                          Size="Middle"
                                          IsEnabled="True" />
                     </Fluent:DropDownButton>
@@ -579,8 +579,8 @@
                                        Header="Galleries"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick">
-                    <Fluent:InRibbonGallery Icon="Images/Default.png"
-                                            LargeIcon="Images/GalleryLarge.png"
+                    <Fluent:InRibbonGallery Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                            LargeIcon="pack://application:,,,/FluentTest;component/Images/GalleryLarge.png"
                                             x:Name="inRibbonGallery1"
                                             Header="In-Ribbon Gallery"
                                             KeyTip="JS"
@@ -656,7 +656,7 @@
 
                     </Fluent:InRibbonGallery>
 
-                    <Fluent:SplitButton Icon="Images/Default.png"
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                         LargeIcon="/Images/GalleryLarge.png"
                                         Header="Split"
                                         KeyTip="S"
@@ -722,7 +722,7 @@
                         </Fluent:Gallery>
                         <Fluent:MenuItem Header="Item5"
                                          KeyTip="E"
-                                         Icon="Images\ChangeCase.png" />
+                                         Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png" />
                         <Fluent:MenuItem Header="Item5"
                                          KeyTip="R">
                             <Fluent:MenuItem Header="Itemq"
@@ -731,7 +731,7 @@
                                              KeyTip="B" />
                             <Fluent:MenuItem Header="Item5"
                                              KeyTip="R"
-                                             Icon="Images\ChangeCase.png">
+                                             Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png">
                                 <Fluent:MenuItem Header="Itemq"
                                                  KeyTip="A"
                                                  MaxDropDownHeight="350">
@@ -837,13 +837,13 @@
                                        IsLauncherVisible="False"
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:Button Click="OnSilverClick"
-                                   Icon="Images/SilverTheme.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">Silver</Fluent:Button>
                     <Fluent:Button Click="OnBlackClick"
-                                   Icon="Images/BlackTheme.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/BlackTheme.png"
                                    SizeDefinition="Middle">Black</Fluent:Button>
                     <Fluent:Button Click="OnBlueClick"
-                                   Icon="Images/BlueTheme.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/BlueTheme.png"
                                    SizeDefinition="Middle">Blue</Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
@@ -1317,16 +1317,16 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Buttons">
-                    <Fluent:Button Icon="Images\GrowFont.png"
-                                   LargeIcon="Images\GrowFont.png"
+                    <Fluent:Button Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                    Header="Enlarge"
                                    Click="OnEnlargeClick" />
-                    <Fluent:Button Icon="Images\ShrinkFont.png"
-                                   LargeIcon="Images\ShrinkFont.png"
+                    <Fluent:Button Icon="pack://application:,,,/FluentTest;component/Images/ShrinkFont.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/ShrinkFont.png"
                                    Header="Reduce"
                                    Click="OnReduceClick" />
-                    <Fluent:Button Icon="Images\Box.png"
-                                   LargeIcon="Images\Box.png"
+                    <Fluent:Button Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                    Header="Cmd"
                                    Command="{x:Static FluentTest:TestContent.CustomRoutedCommand}" />
                 </Fluent:RibbonGroupBox>
@@ -1344,8 +1344,8 @@
                 <Fluent:RibbonGroupBox Header="Split buttons">
                     <Fluent:SplitButton Header="Too many items"
                                         ResizeMode="Both"
-                                        Icon="Images\Box.png"
-                                        LargeIcon="Images\Box.png">
+                                        Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
@@ -1375,8 +1375,8 @@
 
                     <Fluent:DropDownButton Header="Dropdown"
                                         ResizeMode="Both"
-                                        Icon="Images\Box.png"
-                                        LargeIcon="Images\Box.png">
+                                        Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
@@ -1432,7 +1432,7 @@
                     <Fluent:TextBox x:Name="textBox"
                                     InputWidth="70"
                                     MaxLength="5"
-                                    Icon="Images\GrowFont.png"
+                                    Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                     Header="Text"
                                     Text="CurrentText" />
 
@@ -1451,7 +1451,7 @@
                                            SizeDefinition="Small">
                         <Fluent:DropDownButton.Icon>
                             <Grid>
-                                <Image Source="Images\TextHighlightColor.png"
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/TextHighlightColor.png"
                                        Width="16"
                                        Height="16" />
                                 <Rectangle VerticalAlignment="Bottom"
@@ -1634,45 +1634,45 @@
                         </Fluent:ComboBox>
                         <Fluent:Button KeyTip="GF"
                                        x:Name="buttonGrowFont"
-                                       Icon="Images\GrowFont.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonShrinkFont"
-                                       Icon="Images\ShrinkFont.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/ShrinkFont.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
                         <Fluent:DropDownButton x:Name="buttonChangeCase"
-                                               Icon="Images\ChangeCase.png"
+                                               Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png"
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonClearFormatting"
-                                       Icon="Images\ClearFormatting.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/ClearFormatting.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
                         <Fluent:ToggleButton KeyTip="B"
                                              x:Name="buttonBold"
-                                             Icon="Images\Bold.png"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/Bold.png"
                                              HorizontalAlignment="Left"
                                              SizeDefinition="Small" />
                         <Fluent:ToggleButton x:Name="buttonItalic"
                                              KeyTip="I"
-                                             Icon="Images\Italic.png"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/Italic.png"
                                              HorizontalAlignment="Left"
                                              SizeDefinition="Small" />
                         <Fluent:DropDownButton x:Name="buttonUnderline"
-                                               Icon="Images\Underline.png"
+                                               Icon="pack://application:,,,/FluentTest;component/Images/Underline.png"
                                                HorizontalAlignment="Left"
                                                SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonStrikethrough"
-                                       Icon="Images\Strikethrough.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Strikethrough.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonSubscript"
-                                       Icon="Images\Subscript.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Subscript.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
                         <Fluent:Button x:Name="buttonSuperscript"
-                                       Icon="Images\Superscript.png"
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Superscript.png"
                                        HorizontalAlignment="Left"
                                        SizeDefinition="Small" />
 
@@ -1682,7 +1682,7 @@
                                                SizeDefinition="Small">
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
-                                    <Image Source="Images\TextEffects.png"
+                                    <Image Source="pack://application:,,,/FluentTest;component/Images/TextEffects.png"
                                            Width="16"
                                            Height="16" />
                                     <Rectangle VerticalAlignment="Bottom"
@@ -1697,7 +1697,7 @@
                             </Fluent:DropDownButton.Icon>
                             <Fluent:ColorGallery Mode="StandardColors"
                                                  SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
-                            <Fluent:MenuItem Icon="Images\Pink.png"
+                            <Fluent:MenuItem Icon="pack://application:,,,/FluentTest;component/Images/Pink.png"
                                              Header="Custom MenuItem" />
                         </Fluent:DropDownButton>
                         
@@ -1707,7 +1707,7 @@
                                                SizeDefinition="Small">
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
-                                    <Image Source="Images\TextHighlightColor.png"
+                                    <Image Source="pack://application:,,,/FluentTest;component/Images/TextHighlightColor.png"
                                            Width="16"
                                            Height="16" />
                                     <Rectangle VerticalAlignment="Bottom"
@@ -1735,7 +1735,7 @@
                             </Fluent:DropDownButton.ToolTip>
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
-                                    <Image Source="Images\FontColor.png"
+                                    <Image Source="pack://application:,,,/FluentTest;component/Images/FontColor.png"
                                            Width="16"
                                            Height="16"
                                            SnapsToDevicePixels="True" />
@@ -1819,20 +1819,20 @@
                         <Fluent:Spinner x:Name="spinner" />
                         <Fluent:Button x:Name="buttonGreen"
                                        Header="Green"
-                                       Icon="Images\Green.png"
-                                       LargeIcon="Images\GreenLarge.png" />
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Green.png"
+                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
                         <Fluent:Button x:Name="buttonGray"
                                        Header="Gray"
-                                       Icon="Images\Gray.png"
-                                       LargeIcon="Images\GrayLarge.png" />
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png" />
                         <Fluent:Button x:Name="buttonYellow"
                                        Header="Yellow"
-                                       Icon="Images\Yellow.png"
-                                       LargeIcon="Images\YellowLarge.png" />
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
                         <Fluent:Button x:Name="buttonBrown"
                                        Header="Brown"
-                                       Icon="Images\Brown.png"
-                                       LargeIcon="Images\BrownLarge.png" />
+                                       Icon="pack://application:,,,/FluentTest;component/Images/Brown.png"
+                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png" />
                     </Fluent:RibbonToolBar>
 
                 </Fluent:RibbonGroupBox>
@@ -1867,24 +1867,24 @@
                                        Header="Default Behaviour">
                     <!--To use ScreenTip you have to create it and set to ToolTip property-->
                     <Fluent:Button Header="Green"
-                                   Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png">
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Green.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Green"
                                               HelpTopic="Help for Green ScreenTip"
-                                              Image="Images\GreenLarge.png"
+                                              Image="pack://application:,,,/FluentTest;component/Images/GreenLarge.png"
                                               Text="This ScreenTip is ribbon aligned. &#x0a;It has the image and handles F1." />
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
                     <!--ScreenTip is able to be shown on disabled controls-->
                     <Fluent:Button Header="Grey"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    IsEnabled="False">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Brown"
                                               Width="250"
-                                              Image="Images\BrownLarge.png"
+                                              Image="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
                                               Text="This control is disabled and has fixed width 250px"
                                               HelpTopic="Help for Brown ScreenTip"
                                               DisableReason="This control is disabled to show 'disable reason' section" />
@@ -1892,8 +1892,8 @@
                     </Fluent:Button>
                     <!--Set IsRibbonAligned property to false to suppress aligment to ribbon bottom-->
                     <Fluent:Button Header="Yellow"
-                                   Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png">
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Gray"
                                               IsRibbonAligned="False"
@@ -1902,8 +1902,8 @@
                     </Fluent:Button>
                     <!--You can use usual ToolTip-->
                     <Fluent:Button Header="Brown"
-                                   Icon="Images\Brown.png"
-                                   LargeIcon="Images\BrownLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Brown.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
                                    ToolTip="Regular Tooltip" />
                 </Fluent:RibbonGroupBox>
 
@@ -1912,40 +1912,40 @@
                                        Header="Large Only">
                     <Fluent:Button SizeDefinition="Large"
                                    Header="Green"
-                                   Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Green.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
                     <Fluent:Button SizeDefinition="Large"
                                    Header="Grey"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png" />
                     <Fluent:Button SizeDefinition="Large"
                                    Header="Grey"
-                                   Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
                     <Fluent:Button SizeDefinition="Large"
                                    Header="Grey"
-                                   Icon="Images\Brown.png"
-                                   LargeIcon="Images\BrownLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Brown.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Name="Other"
                                        Header="Other">
                     <Fluent:Button SizeDefinition="Large, Large, Large"
                                    Header="Green"
-                                   Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Green.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
                     <Fluent:Button SizeDefinition="Large, Large, Small"
                                    Header="Grey"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png" />
                     <Fluent:Button SizeDefinition="Middle, Small, Small"
                                    Header="Grey"
-                                   Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
                     <Fluent:Button SizeDefinition="Middle, Small, Small"
                                    Header="Grey"
-                                   Icon="Images\Brown.png"
-                                   LargeIcon="Images\BrownLarge.png" />
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Brown.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
                       
@@ -1971,59 +1971,59 @@
                                        Name="ZC">
                     <Fluent:SplitButton Fluent:KeyTip.Keys="R"
                                         Header="Red"
-                                        Icon="Images\Red.png"
-                                        LargeIcon="Images\RedLarge.png"
+                                        Icon="pack://application:,,,/FluentTest;component/Images/Red.png"
+                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                         SizeDefinition="Large">
                         <Fluent:MenuItem Fluent:KeyTip.Keys="P"
                                          Header="Pink"
-                                         Icon="Images\Pink.png" />
+                                         Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
                         <Fluent:MenuItem Fluent:KeyTip.Keys="R"
                                          Header="Red"
-                                         Icon="Images\Red.png">
+                                         Icon="pack://application:,,,/FluentTest;component/Images/Red.png">
                             <Fluent:MenuItem Fluent:KeyTip.Keys="O"
                                              Header="Orange"
-                                             Icon="Images\Orange.png" />
+                                             Icon="pack://application:,,,/FluentTest;component/Images/Orange.png" />
                         </Fluent:MenuItem>
                     </Fluent:SplitButton>
                     <Fluent:Button Fluent:KeyTip.Keys="G"
                                    Header="Grey"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Large" />
                     <Fluent:Button Fluent:KeyTip.Keys="O"
                                    Header="Orange"
-                                   Icon="Images\Orange.png"
-                                   LargeIcon="Images\OrangeLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Orange.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/OrangeLarge.png"
                                    SizeDefinition="Large" />
                     <Fluent:Button Fluent:KeyTip.Keys="P"
                                    Header="Pink"
-                                   Icon="Images\Pink.png"
-                                   LargeIcon="Images\PinkLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Pink.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/PinkLarge.png"
                                    SizeDefinition="Large" />
                     <Fluent:Button Fluent:KeyTip.Keys="Y"
                                    Header="Yellow"
-                                   Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png"
                                    SizeDefinition="Large" />
                     <Fluent:Button Fluent:KeyTip.Keys="B"
                                    Header="Brown"
-                                   Icon="Images\Brown.png"
-                                   LargeIcon="Images\BrownLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Brown.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
                                    SizeDefinition="Large" />
                     <Fluent:Button Fluent:KeyTip.Keys="X1"
                                    Header="Gray"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
                     <Fluent:Button Fluent:KeyTip.Keys="X2"
                                    Header="Gray"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
                     <Fluent:Button Fluent:KeyTip.Keys="X3"
                                    Header="Gray"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
                 </Fluent:RibbonGroupBox>
 
@@ -2035,22 +2035,22 @@
                         Fluent:KeyTip.Margin -->
                 <Fluent:RibbonGroupBox Header="Custom KeyTip placement">
                     <Fluent:Button Header="Center"
-                                   Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Green.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png"
                                    Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Center"
                                    Fluent:KeyTip.VerticalAlignment="Center"
                                    Fluent:KeyTip.Keys="C" />
                     <Fluent:Button Header="Left"
-                                   Icon="Images\Gray.png"
-                                   LargeIcon="Images\GrayLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Left"
                                    Fluent:KeyTip.VerticalAlignment="Center"
                                    Fluent:KeyTip.Keys="L" />
                     <Fluent:Button Header="Top"
-                                   Icon="Images\Yellow.png"
-                                   LargeIcon="Images\YellowLarge.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png"
                                    Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Center"
                                    Fluent:KeyTip.VerticalAlignment="Top"
@@ -2086,38 +2086,38 @@
                                        LauncherCommand="Paste"
                                        LauncherClick="OnLauncherClick">
                     <Fluent:Button Header="Button"
-                                   Icon="Images\GrowFont.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
                     <Fluent:Button Header="Button"
-                                   Icon="Images\GrowFont.png"
-                                   Command="ApplicationCommands.Paste" />
-                    <Separator />
-                    <Fluent:Button Header="Button"
-                                   Icon="Images\GrowFont.png"
-                                   Command="ApplicationCommands.Paste" />
-                    <Fluent:Button Header="Button"
-                                   Icon="Images\GrowFont.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
                     <Separator />
                     <Fluent:Button Header="Button"
-                                   Icon="Images\GrowFont.png"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
+                                   Command="ApplicationCommands.Paste" />
+                    <Fluent:Button Header="Button"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
+                                   Command="ApplicationCommands.Paste" />
+                    <Separator />
+                    <Fluent:Button Header="Button"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>
                     <Fluent:ToggleButton Header="Pause"
-                                         Icon="Images\GrowFont.png"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                          SizeDefinition="Middle"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
-                                         LargeIcon="Images\Test32.png"
-                                         Icon="Images\Test16.png"
+                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/Test32.png"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/Test16.png"
                                          SizeDefinition="Middle"
                                          GroupName="Group1" />
                     <Separator />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
-                                         LargeIcon="Images\Test32.png"
-                                         Icon="Images\Test16.png"
+                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/Test32.png"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/Test16.png"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />
@@ -2211,7 +2211,7 @@
                                 </Fluent:MenuItem>
                                 <Fluent:MenuItem Header="Lala">
                                     <Fluent:MenuItem.Icon>
-                                        <BitmapImage UriSource="Images\GrowFont.png" />
+                                        <BitmapImage UriSource="pack://application:,,,/FluentTest;component/Images/GrowFont.png" />
                                     </Fluent:MenuItem.Icon>
                                 </Fluent:MenuItem>
                                 <Separator />
