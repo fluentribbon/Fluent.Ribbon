@@ -4,25 +4,17 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using System.Windows.Media;
     using System.Windows.Threading;
     using Fluent;
     using FluentTest.Annotations;
+    using FluentTest.Commanding;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
-    using ComboBox = System.Windows.Controls.ComboBox;
-
-    public enum TstEnum
-    {
-        Elemen1,
-        Elemen2
-    }
 
     /// <summary>
     /// Interaction logic for TestContent.xaml
@@ -34,7 +26,6 @@
             this.InitializeComponent();
 
             this.Loaded += this.HandleTestContentLoaded;
-            this.Unloaded += this.HandleTestContentUnloaded;
 
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
 
@@ -44,22 +35,34 @@
             this.BoundSpinnerValue = 1;
 
             this.ColorViewModel = new ColorViewModel();
+            this.FontsViewModel = new FontsViewModel();
+            this.GalleryViewModel = new GalleryViewModel();
+
+            this.PreviewCommand = new RelayCommand<GalleryItem>(this.Preview);
+            this.CancelPreviewCommand = new RelayCommand<GalleryItem>(this.CancelPreview);
 
             this.DataContext = this;
+        }        
+
+        private void Preview(GalleryItem galleryItem)
+        {
+            Trace.WriteLine(string.Format("Preview: {0}", galleryItem));
+        }
+
+        private void CancelPreview(GalleryItem galleryItem)
+        {
+            Trace.WriteLine(string.Format("CancelPreview: {0}", galleryItem));
         }
 
         public ColorViewModel ColorViewModel { get; private set; }
 
-        public string Title
-        {
-            get
-            {
-                var window = Window.GetWindow(this);
-                return window == null
-                    ? "Test"
-                    : window.Title;
-            }
-        }
+        public FontsViewModel FontsViewModel { get; private set; }
+
+        public GalleryViewModel GalleryViewModel { get; private set; }
+
+        public ICommand PreviewCommand { get; private set; }
+
+        public ICommand CancelPreviewCommand { get; private set; }
 
         public int BoundSpinnerValue
         {
@@ -71,114 +74,44 @@
             }
         }
 
-        private readonly string[] data = { "Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol" };
-
-        public string[] FontsData
-        {
-            get { return this.data; }
-        }
-
-        public TstEnum TST
-        {
-            get { return this.tst; }
-            set 
-            { 
-                this.tst = value; 
-                this.OnPropertyChanged("TST");
-            }
-        }
-
-        private readonly Color[] themeColors = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
         private int boundSpinnerValue;
-        private TstEnum tst;
 
-        public Color[] ThemeColors
-        {
-            get { return this.themeColors; }
-        }
-
-        public Array TstArr
-        {
-            get { return Enum.GetValues(typeof(TstEnum)); }
-        }
-
-        private void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
+        private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
             Process.Start((string)e.HelpTopic);
         }
 
         private void HandleTestContentLoaded(object sender, RoutedEventArgs e)
         {
-            ScreenTip.HelpPressed += this.OnScreenTipHelpPressed;
-        }
-
-        private void HandleTestContentUnloaded(object sender, RoutedEventArgs e)
-        {
-            ScreenTip.HelpPressed -= this.OnScreenTipHelpPressed;
+            ScreenTip.HelpPressed += OnScreenTipHelpPressed;
         }
 
         private void OnLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            var wnd = new Window();
-            var box = new ComboBox
-                          {
-                              ItemsSource = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
-                          };
-            wnd.Content = box;
-            wnd.Owner = Window.GetWindow(this);
+            var groupBox = (RibbonGroupBox)sender;
+
+            var wnd = new Window 
+                {
+                    Content = string.Format("Launcher-Window for: {0}", groupBox.Header), 
+                    Owner = Window.GetWindow(this)
+                };
+
             wnd.Show();
-        }
-
-        private void OnBtnClick(object sender, RoutedEventArgs e)
-        {
-            if (this.tabGroup1.Visibility == Visibility.Visible)
-            {
-                this.tabGroup1.Visibility = Visibility.Collapsed;
-                this.tabGroup2.Visibility = Visibility.Collapsed;
-                // tabGroup3.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else
-            {
-                this.tabGroup1.Visibility = Visibility.Visible;
-                this.tabGroup2.Visibility = Visibility.Visible;
-                //tabGroup3.Visibility = System.Windows.Visibility.Visible;
-            }
-
-            e.Handled = true;
-        }
-
-        public static RoutedCommand CustomRoutedCommand = new RoutedCommand("lala", typeof(Window));
-        private Theme currentTheme;
+        }        
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Split Clicked!!!");
         }
 
-        private void OnUnfreezeClick(object sender, RoutedEventArgs e)
-        {
-            this.Clipboard.IsSnapped = false;
-        }
-
-        private void OnFreezeClick(object sender, RoutedEventArgs e)
-        {
-            this.Clipboard.IsSnapped = true;
-        }
-
         private void OnEnlargeClick(object sender, RoutedEventArgs e)
         {
-            this.inRibbonGallery.Enlarge();
+            this.InRibbonGallery.Enlarge();
         }
 
         private void OnReduceClick(object sender, RoutedEventArgs e)
         {
-            this.inRibbonGallery.Reduce();
-        }
-
-        private void OnLauncherClick(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Launcher Click");
-            ////this.xxx.Items.Add(this.CreateRibbonButton());
+            this.InRibbonGallery.Reduce();
         }
 
         public Button CreateRibbonButton()
@@ -193,31 +126,32 @@
             return button;
         }
 
-        #region Theme change
+        #region Theming
 
         private enum Theme
         {
-            None,
             Office2010,
             Office2013
         }
 
-        private void OnMetroClick(object sender, RoutedEventArgs e)
+        private Theme? currentTheme;
+
+        private void OnOffice2013Click(object sender, RoutedEventArgs e)
         {
             this.ChangeTheme(Theme.Office2013, "pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml");
         }
 
-        private void OnSilverClick(object sender, RoutedEventArgs e)
+        private void OnOffice2010SilverClick(object sender, RoutedEventArgs e)
         {
             this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
         }
 
-        private void OnBlackClick(object sender, RoutedEventArgs e)
+        private void OnOffice2010BlackClick(object sender, RoutedEventArgs e)
         {
             this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
         }
 
-        private void OnBlueClick(object sender, RoutedEventArgs e)
+        private void OnOffice2010BlueClick(object sender, RoutedEventArgs e)
         {
             this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
         }
@@ -270,26 +204,28 @@
                     }
                 }
             }));
-
-            //this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart) (() =>
-            //{
-            //    var owner = Window.GetWindow(this);
-            //    if (owner == null)
-            //    {
-            //        return;
-            //    }
-            //    owner.Resources.BeginInit();
-            //    var toRemove = owner.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().ToLower().Contains("themes/generic.xaml") == false);
-            //    owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(theme) });                
-            //    if (toRemove != null)
-            //    {
-            //        owner.Resources.MergedDictionaries.Remove(toRemove);
-            //    }
-            //    owner.Resources.EndInit();
-            //}));
         }
 
-        #endregion Theme change
+        private void HandleDontUseDwmClick(object sender, RoutedEventArgs e)
+        {
+            var control = sender as UIElement;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            var window = Window.GetWindow(control) as RibbonWindow;
+
+            if (window == null)
+            {
+                return;
+            }
+
+            window.DontUseDwm = this.DontUseDwm.IsChecked.GetValueOrDefault();
+        }
+
+        #endregion Theming
 
         #region Logical tree
 
@@ -300,8 +236,13 @@
             this.BuildLogicalTree(this.ribbon, this.logicalTreeView);
         }
 
-        private string GetDebugInfo(DependencyObject element)
+        private static string GetDebugInfo(DependencyObject element)
         {
+            if (element == null)
+            {
+                return "NULL";
+            }
+
             var header = element is IRibbonControl
                            ? (element as IRibbonControl).Header
                            : string.Empty;
@@ -320,9 +261,9 @@
             {
                 if (LogicalTreeHelper.GetParent(child) != root)
                 {
-                    Debug.WriteLine("Incorrect logical parent for {0}", this.GetDebugInfo(child));
-                    Debug.WriteLine("\tExpected: {0}", root.ToString());
-                    Debug.WriteLine("\tFound: {0}", LogicalTreeHelper.GetParent(child).ToString());
+                    Debug.WriteLine(string.Format("Incorrect logical parent for {0}", GetDebugInfo(child)));
+                    Debug.WriteLine(string.Format("\tExpected: {0}", GetDebugInfo(root)));
+                    Debug.WriteLine(string.Format("\tFound: {0}", GetDebugInfo(LogicalTreeHelper.GetParent(child))));
                 }
 
                 this.CheckLogicalTree(child);
@@ -333,7 +274,7 @@
         {
             var newItem = new TreeViewItem
             {
-                Header = this.GetDebugInfo(current),
+                Header = GetDebugInfo(current),
                 Tag = current
             };
 
@@ -375,7 +316,7 @@
                 return;
             }
 
-            stringBuilder.AppendFormat(" -> {0}\n", this.GetDebugInfo(current));
+            stringBuilder.AppendFormat(" -> {0}\n", GetDebugInfo(current));
 
             var parent = LogicalTreeHelper.GetParent(current);
 
@@ -420,7 +361,11 @@
         private void OnPrintVisualClick(object sender, RoutedEventArgs e)
         {
             var printDlg = new PrintDialog();
-            printDlg.PrintVisual(this, "Main Window");
+
+            if (printDlg.ShowDialog() == true)
+            {
+                printDlg.PrintVisual(this, "Main Window");
+            }
         }
 
         #region threading
@@ -473,25 +418,6 @@
         {
             var w = new Window();
             w.ShowDialog();
-        }
-
-        private void HandleDontUseDwmClick(object sender, RoutedEventArgs e)
-        {
-            var control = sender as UIElement;
-
-            if (control == null)
-            {
-                return;
-            }
-
-            var window = Window.GetWindow(control) as RibbonWindow;
-
-            if (window == null)
-            {
-                return;
-            }
-
-            window.DontUseDwm = this.DontUseDwm.IsChecked.GetValueOrDefault();
         }
     }
 

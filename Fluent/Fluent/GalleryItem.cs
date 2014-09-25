@@ -17,6 +17,8 @@ using System.Windows.Input;
 
 namespace Fluent
 {
+    using Fluent.Internal;
+
     /// <summary>
     /// Represents gallery item
     /// </summary>
@@ -142,19 +144,50 @@ namespace Fluent
         /// Identifies the CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
 
-        // Keep a copy of the handler so it doesn't get garbage collected.
-        [SuppressMessage("Microsoft.Performance", "CA1823")]
-        EventHandler canExecuteChangedHandler;
+        /// <summary>
+        /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
+        /// This is a dependency property.
+        /// </summary>
+        [Bindable(true), Category("Action")]
+        public ICommand PreviewCommand
+        {
+            get { return (ICommand)GetValue(PreviewCommandProperty); }
+            set { SetValue(PreviewCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Identifies the PreviewCommand dependency property.
+        /// </summary>
+        public static readonly DependencyProperty PreviewCommandProperty =
+            DependencyProperty.Register("PreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
+        /// This is a dependency property.
+        /// </summary>
+        [Bindable(true), Category("Action")]
+        public ICommand CancelPreviewCommand
+        {
+            get { return (ICommand)GetValue(CancelPreviewCommandProperty); }
+            set { SetValue(CancelPreviewCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Identifies the PreviewCommand dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CancelPreviewCommandProperty =
+            DependencyProperty.Register("CancelPreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Handles Command changed
@@ -163,21 +196,24 @@ namespace Fluent
         /// <param name="e"></param>
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            GalleryItem control = d as GalleryItem;
-            EventHandler handler = control.OnCommandCanExecuteChanged;
-            if (e.OldValue != null)
+            var control = d as GalleryItem;
+            if (control == null)
             {
-                (e.OldValue as ICommand).CanExecuteChanged -= handler;
+                return;
             }
-            if (e.NewValue != null)
+            
+            var oldCommand = e.OldValue as ICommand;
+            if (oldCommand != null)
             {
-                handler = new EventHandler(control.OnCommandCanExecuteChanged);
-                control.canExecuteChangedHandler = handler;
-                (e.NewValue as ICommand).CanExecuteChanged += handler;
+                oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+            }
 
-                //RoutedUICommand cmd = e.NewValue as RoutedUICommand;
-                //if ((cmd != null) && (control.Content==null)) control.Content = cmd.Text;
+            var newCommand = e.NewValue as ICommand;
+            if (newCommand != null)
+            {
+                newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
             }
+
             control.UpdateCanExecute();
         }
         /// <summary>
@@ -192,7 +228,8 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            bool canExecute = Command != null && CanExecuteCommand();
+            var canExecute = this.Command != null 
+                && this.CanExecuteCommand();
             if (currentCanExecute != canExecute)
             {
                 currentCanExecute = canExecute;
@@ -205,23 +242,7 @@ namespace Fluent
         /// </summary>
         protected void ExecuteCommand()
         {
-            ICommand command = Command;
-            if (command != null)
-            {
-                object commandParameter = CommandParameter;
-                RoutedCommand routedCommand = command as RoutedCommand;
-                if (routedCommand != null)
-                {
-                    if (routedCommand.CanExecute(commandParameter, CommandTarget))
-                    {
-                        routedCommand.Execute(commandParameter, CommandTarget);
-                    }
-                }
-                else if (command.CanExecute(commandParameter))
-                {
-                    command.Execute(commandParameter);
-                }
-            }
+            CommandHelper.Execute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         /// <summary>
@@ -230,18 +251,7 @@ namespace Fluent
         /// <returns>Returns Command CanExecute</returns>
         protected bool CanExecuteCommand()
         {
-            ICommand command = Command;
-            if (command == null)
-            {
-                return false;
-            }
-            object commandParameter = CommandParameter;
-            RoutedCommand routedCommand = command as RoutedCommand;
-            if (routedCommand == null)
-            {
-                return command.CanExecute(commandParameter);
-            }
-            return routedCommand.CanExecute(commandParameter, CommandTarget);
+            return CommandHelper.CanExecute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         #endregion
@@ -407,6 +417,28 @@ namespace Fluent
             }
 
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// Called when the mouse enters a <see cref="T:System.Windows.Controls.ListBoxItem"/>. 
+        /// </summary>
+        /// <param name="e">The event data.</param>
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+
+            CommandHelper.Execute(this.PreviewCommand, this, null);
+        }
+
+        /// <summary>
+        /// Called when the mouse leaves a <see cref="T:System.Windows.Controls.ListBoxItem"/>. 
+        /// </summary>
+        /// <param name="e">The event data.</param>
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            base.OnMouseLeave(e);
+
+            CommandHelper.Execute(this.CancelPreviewCommand, this, null);
         }
 
         #endregion

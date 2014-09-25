@@ -84,6 +84,8 @@
     <Compile Include="..\Shared\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commanding\IRelayCommand.cs" />
+    <Compile Include="Commanding\RelayCommand.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TestContent.xaml.cs">
       <DependentUpon>TestContent.xaml</DependentUpon>
@@ -92,6 +94,9 @@
       <DependentUpon>ThreadedWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ColorViewModel.cs" />
+    <Compile Include="ViewModels\FontsViewModel.cs" />
+    <Compile Include="ViewModels\GalleryItemViewModel.cs" />
+    <Compile Include="ViewModels\GalleryViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="TestContent.xaml">
       <SubType>Designer</SubType>

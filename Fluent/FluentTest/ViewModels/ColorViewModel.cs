@@ -7,6 +7,7 @@
         private Color standardColor;
         private Color highlightColor;
 
+        private readonly Color[] themeColors = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
         private Color themeColor;
 
         public ColorViewModel()
@@ -34,6 +35,11 @@
                 this.highlightColor = value;
                 this.OnPropertyChanged("HighlightColor");
             }
+        }
+
+        public Color[] ThemeColors
+        {
+            get { return this.themeColors; }
         }
 
         public Color ThemeColor

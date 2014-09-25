@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 
 namespace Fluent
 {
+    using Fluent.Internal;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -161,10 +162,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null));
 
-        // Keep a copy of the handler so it doesn't get garbage collected.
-        [SuppressMessage("Microsoft.Performance", "CA1823")]
-        EventHandler canExecuteChangedHandler;
-
         /// <summary>
         /// Handles Command changed
         /// </summary>
@@ -172,21 +169,32 @@ namespace Fluent
         /// <param name="e"></param>
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonControl control = d as RibbonControl;
-            EventHandler handler = control.OnCommandCanExecuteChanged;
-            if (e.OldValue != null)
-            {
-                (e.OldValue as ICommand).CanExecuteChanged -= handler;
-            }
-            if (e.NewValue != null)
-            {
-                handler = new EventHandler(control.OnCommandCanExecuteChanged);
-                control.canExecuteChangedHandler = handler;
-                (e.NewValue as ICommand).CanExecuteChanged += handler;
+            var control = d as RibbonControl;
 
-                RoutedUICommand cmd = e.NewValue as RoutedUICommand;
-                if ((cmd != null) && (control.Header == null)) control.Header = cmd.Text;
+            if (control == null)
+            {
+                return;
             }
+
+            var oldCommand = e.OldValue as ICommand;
+            if (oldCommand != null)
+            {
+                oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+            }
+
+            var newCommand = e.NewValue as ICommand;
+            if (newCommand != null)
+            {
+                newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
+
+                var routedUiCommand = e.NewValue as RoutedUICommand;
+                if (routedUiCommand != null 
+                    && control.Header == null)
+                {
+                    control.Header = routedUiCommand.Text;
+                }
+            }
+
             control.UpdateCanExecute();
         }
         /// <summary>
@@ -201,7 +209,9 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            bool canExecute = Command != null && CanExecuteCommand();
+            var canExecute = this.Command != null 
+                && this.CanExecuteCommand();
+
             if (currentCanExecute != canExecute)
             {
                 currentCanExecute = canExecute;
@@ -214,23 +224,7 @@ namespace Fluent
         /// </summary>
         protected void ExecuteCommand()
         {
-            ICommand command = Command;
-            if (command != null)
-            {
-                object commandParameter = CommandParameter;
-                RoutedCommand routedCommand = command as RoutedCommand;
-                if (routedCommand != null)
-                {
-                    if (routedCommand.CanExecute(commandParameter, CommandTarget))
-                    {
-                        routedCommand.Execute(commandParameter, CommandTarget);
-                    }
-                }
-                else if (command.CanExecute(commandParameter))
-                {
-                    command.Execute(commandParameter);
-                }
-            }
+            CommandHelper.Execute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         /// <summary>
@@ -239,18 +233,7 @@ namespace Fluent
         /// <returns>Returns Command CanExecute</returns>
         protected bool CanExecuteCommand()
         {
-            ICommand command = Command;
-            if (command == null)
-            {
-                return false;
-            }
-            object commandParameter = CommandParameter;
-            RoutedCommand routedCommand = command as RoutedCommand;
-            if (routedCommand == null)
-            {
-                return command.CanExecute(commandParameter);
-            }
-            return routedCommand.CanExecute(commandParameter, CommandTarget);
+            return CommandHelper.CanExecute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         #endregion
@@ -357,8 +340,8 @@ namespace Fluent
                 if (source is MenuItem)
                 {
                     Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                    Bind(source, element, "CommandTarget", MenuItem.CommandTargetProperty, BindingMode.OneWay);
-                    Bind(source, element, "Command", MenuItem.CommandProperty, BindingMode.OneWay);
+                    Bind(source, element, "CommandTarget", System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, "Command", System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
                 }
                 else
                 {
@@ -367,6 +350,7 @@ namespace Fluent
                     Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
                 }
             }
+
             Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
 
             Bind(source, element, "FontFamily", FontFamilyProperty, BindingMode.OneWay);
@@ -380,21 +364,31 @@ namespace Fluent
             Bind(source, element, "Opacity", OpacityProperty, BindingMode.OneWay);
             Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
-            IRibbonControl sourceControl = source as IRibbonControl;
-            if (sourceControl.Icon != null)
+            var sourceControl = source as IRibbonControl;
+            if (sourceControl != null)
             {
-                Visual iconVisual = sourceControl.Icon as Visual;
-                if (iconVisual != null)
+                if (sourceControl.Icon != null)
                 {
-                    Rectangle rect = new Rectangle();
-                    rect.Width = 16;
-                    rect.Height = 16;
-                    rect.Fill = new VisualBrush(iconVisual);
-                    (element as IRibbonControl).Icon = rect;
+                    var iconVisual = sourceControl.Icon as Visual;
+                    if (iconVisual != null)
+                    {
+                        var rect = new Rectangle();
+                        rect.Width = 16;
+                        rect.Height = 16;
+                        rect.Fill = new VisualBrush(iconVisual);
+                        ((IRibbonControl) element).Icon = rect;
+                    }
+                    else
+                    {
+                        Bind(source, element, "Icon", IconProperty, BindingMode.OneWay);
+                    }
                 }
-                else Bind(source, element, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+
+                if (sourceControl.Header != null)
+                {
+                    Bind(source, element, "Header", HeaderProperty, BindingMode.OneWay);
+                }
             }
-            if (sourceControl.Header != null) Bind(source, element, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
 
             RibbonProperties.SetSize(element, RibbonControlSize.Small);
         }
@@ -421,7 +415,7 @@ namespace Fluent
         /// <param name="e"></param>
         public static void OnCanAddToQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            d.CoerceValue(FrameworkElement.ContextMenuProperty);
+            d.CoerceValue(ContextMenuProperty);
         }
 
         #endregion
@@ -467,15 +461,15 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlWorkArea(FrameworkElement control)
         {
-            Point tabItemPos = control.PointToScreen(new Point(0, 0));
+            var tabItemPos = control.PointToScreen(new Point(0, 0));
             var tabItemRect = new RECT();
             tabItemRect.left = (int)tabItemPos.X;
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
-            if (monitor != System.IntPtr.Zero)
+            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
                 monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
@@ -492,15 +486,15 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlMonitor(FrameworkElement control)
         {
-            Point tabItemPos = control.PointToScreen(new Point(0, 0));
+            var tabItemPos = control.PointToScreen(new Point(0, 0));
             var tabItemRect = new RECT();
             tabItemRect.left = (int)tabItemPos.X;
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            System.IntPtr monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
-            if (monitor != System.IntPtr.Zero)
+            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
                 monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);

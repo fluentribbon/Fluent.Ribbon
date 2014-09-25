@@ -6,6 +6,7 @@
              xmlns:Fluent="urn:fluent-ribbon"
              xmlns:FluentTest="clr-namespace:FluentTest"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -49,8 +50,7 @@
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"
                                        Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
-                                       KeyTip="S"
-                                       Click="OnBtnClick" />
+                                       KeyTip="S" />
                         <Fluent:Button Header="Save As"
                                        Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
                                        KeyTip="A"
@@ -136,7 +136,7 @@
                                                IsEnabled="True"
                                                Style="{DynamicResource ButtonBackstageStyle}"
                                                HorizontalAlignment="Left"
-                                               Click="OnBlueClick"
+                                               Click="OnOffice2010BlueClick"
                                                Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
                                                LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png">123</Fluent:Button>
                                 <Fluent:DropDownButton Header="123"
@@ -331,8 +331,7 @@
                             </Fluent:GalleryItem>
                         </Fluent:Gallery>
                         <Fluent:MenuItem Header="Paste Special..."
-                                         KeyTip="S"
-                                         Command="{x:Static FluentTest:TestContent.CustomRoutedCommand}">
+                                         KeyTip="S">
                             <Fluent:MenuItem.ToolTip>
                                 <Fluent:ScreenTip Title="Paste Special"
                                                   Text="This ScreenTip is attached to menu item" />
@@ -565,8 +564,7 @@
                         </Fluent:Gallery>
 
                         <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
-                        <Fluent:MenuItem Name="buttonRemoveWatermark"
-                                         Header="Remove Watermark"
+                        <Fluent:MenuItem Header="Remove Watermark"
                                          Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                          Size="Middle"
                                          IsEnabled="True" />
@@ -581,10 +579,10 @@
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:InRibbonGallery Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                             LargeIcon="pack://application:,,,/FluentTest;component/Images/GalleryLarge.png"
-                                            x:Name="inRibbonGallery1"
                                             Header="In-Ribbon Gallery"
                                             KeyTip="JS"
-                                            SelectedFilter="{Binding ElementName=galleryFilterAll}"
+                                            ItemsSource="{Binding GalleryViewModel.Items}"
+                                            SelectedFilter="{Binding ElementName=GalleryFilterAll}"
                                             ResizeMode="Both"
                                             MinItemsInRow="2"
                                             MaxItemsInRow="7"
@@ -592,68 +590,37 @@
                                             Orientation="Horizontal"
                                             ItemWidth="40"
                                             ItemHeight="56"
-                                            GroupBy="Tag"
+                                            GroupBy="Group"
                                             CanCollapseToButton="True"
                                             MinItemsInDropDownRow="4">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
-                                                       Groups="Group1,Group2"
-                                                       x:Name="galleryFilterAll" />
-                            <Fluent:GalleryGroupFilter Title="Group1 L"
-                                                       Groups="Group1" />
-                            <Fluent:GalleryGroupFilter Title="Group2 L"
-                                                       Groups="Group2" />
+                                                       Groups="Group 1,Group 2"
+                                                       x:Name="GalleryFilterAll" />
+                            <Fluent:GalleryGroupFilter Title="Group 1 L"
+                                                       Groups="Group 1" />
+                            <Fluent:GalleryGroupFilter Title="Group 2 L"
+                                                       Groups="Group 2" />
                         </Fluent:InRibbonGallery.Filters>
-                        <Border Tag="Group1"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">1</TextBlock>
-                        </Border>
-                        <Border Tag="Group1"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">2</TextBlock>
-                        </Border>
-                        <Border Tag="Group1"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">3</TextBlock>
-                        </Border>
-                        <Border Tag="Group1"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">4</TextBlock>
-                        </Border>
-                        <Border Tag="Group1"
-                                x:Name="ghh"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">33</TextBlock>
-                        </Border>
-                        <Border Tag="Group2"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">5</TextBlock>
-                        </Border>
-                        <Border Tag="Group2"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">6</TextBlock>
-                        </Border>
-                        <Border Tag="Group2"
-                                BorderThickness="1"
-                                BorderBrush="Aqua">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">7</TextBlock>
-                        </Border>
-
+                        <Fluent:InRibbonGallery.ItemContainerStyle>
+                            <Style TargetType="{x:Type Fluent:GalleryItem}"
+                                   BasedOn="{StaticResource GalleryItemStyle}">
+                                <Setter Property="PreviewCommand"
+                                        Value="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonGroupBox}}}" />
+                                <Setter Property="CancelPreviewCommand"
+                                        Value="{Binding DataContext.CancelPreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonGroupBox}}}" />
+                            </Style>
+                        </Fluent:InRibbonGallery.ItemContainerStyle>
+                        <Fluent:InRibbonGallery.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:GalleryItemViewModel}">
+                                <Border BorderThickness="1"
+                                        BorderBrush="Aqua">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Text}" />
+                                </Border>
+                            </DataTemplate>
+                        </Fluent:InRibbonGallery.ItemTemplate>
                     </Fluent:InRibbonGallery>
 
                     <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
@@ -665,8 +632,7 @@
                                         SizeDefinition="Large"
                                         MaxDropDownHeight="1000"
                                         DropDownHeight="300">
-                        <Fluent:Gallery x:Name="gallery"
-                                        MinHeight="60"
+                        <Fluent:Gallery MinHeight="60"
                                         MinItemsInRow="2"
                                         MaxItemsInRow="6"
                                         ItemWidth="128"
@@ -735,8 +701,7 @@
                                 <Fluent:MenuItem Header="Itemq"
                                                  KeyTip="A"
                                                  MaxDropDownHeight="350">
-                                    <Fluent:Gallery x:Name="galleryl"
-                                                    MinHeight="60"
+                                    <Fluent:Gallery MinHeight="60"
                                                     MinItemsInRow="3"
                                                     MaxItemsInRow="6"
                                                     ItemWidth="28"
@@ -836,13 +801,13 @@
                                        CanAddToQuickAccessToolBar="False"
                                        IsLauncherVisible="False"
                                        LauncherClick="OnLauncherButtonClick">
-                    <Fluent:Button Click="OnSilverClick"
+                    <Fluent:Button Click="OnOffice2010SilverClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">Silver</Fluent:Button>
-                    <Fluent:Button Click="OnBlackClick"
+                    <Fluent:Button Click="OnOffice2010BlackClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/BlackTheme.png"
                                    SizeDefinition="Middle">Black</Fluent:Button>
-                    <Fluent:Button Click="OnBlueClick"
+                    <Fluent:Button Click="OnOffice2010BlueClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueTheme.png"
                                    SizeDefinition="Middle">Blue</Fluent:Button>
                 </Fluent:RibbonGroupBox>
@@ -873,9 +838,8 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
-            <Fluent:RibbonTabItem x:Name="secondTab"
+            <Fluent:RibbonTabItem Header="Insert"
                                   KeyTip="I"
-                                  Header="Insert"
                                   IsSeparatorVisible="true"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
                 <Fluent:RibbonGroupBox KeyTip="FG"
@@ -886,7 +850,7 @@
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
                                      Header="Test"
-                                     ItemsSource="{Binding FontsData}"
+                                     ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -898,7 +862,7 @@
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
                                      Header="Test"
-                                     ItemsSource="{Binding FontsData}">
+                                     ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}"
@@ -926,7 +890,7 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Gallery">
-                    <Fluent:InRibbonGallery x:Name="inRibbonGallery"
+                    <Fluent:InRibbonGallery x:Name="InRibbonGallery"
                                             Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
                                             Header="Split"
                                             KeyTip="S"
@@ -939,8 +903,7 @@
                                             MinItemsInDropDownRow="5">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
-                                                       Groups="Group1,Group2"
-                                                       x:Name="galleryFilterAll2" />
+                                                       Groups="Group1,Group2" />
                             <Fluent:GalleryGroupFilter Title="Group1"
                                                        Groups="Group1" />
                             <Fluent:GalleryGroupFilter Title="Group2"
@@ -1327,8 +1290,7 @@
                                    Click="OnReduceClick" />
                     <Fluent:Button Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                    LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
-                                   Header="Cmd"
-                                   Command="{x:Static FluentTest:TestContent.CustomRoutedCommand}" />
+                                   Header="Cmd" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
@@ -1470,13 +1432,7 @@
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox>
-                    <Fluent:ComboBox x:Name="someCombo"
-                                     ItemsSource="{Binding TstArr, ElementName=TestContentControl}"
-                                     InputWidth="80"
-                                     SelectedItem="{Binding TST, Mode=TwoWay, ElementName=TestContentControl}"
-                                     KeyTip="SO"
-                                     IsEditable="False" />
+                <Fluent:RibbonGroupBox Header="ToggleButton">
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Button1"
@@ -1749,7 +1705,7 @@
                                     </Rectangle>
                                 </Grid>
                             </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery ThemeColorsSource="{Binding ThemeColors}"
+                            <Fluent:ColorGallery ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
                                                  SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=TwoWay}"
                                                  Mode="ThemeColors"
                                                  StandardColorGridRows="3"
@@ -2062,7 +2018,7 @@
                                   KeyTip="B"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
-                                       ItemsSource="{Binding Path=FontsData}">
+                                       ItemsSource="{Binding FontsViewModel.FontsData}">
                     <Fluent:RibbonGroupBox.ItemTemplate>
                         <DataTemplate>
                             <Fluent:Button Header="{Binding}" />
@@ -2076,7 +2032,6 @@
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">                
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-                    <Fluent:Button Header="{Binding Title, ElementName=TestContentControl, StringFormat='Window title: {0}'}" />
                     <FluentTest:DatePicker />
                 </Fluent:RibbonGroupBox>
                 
@@ -2084,7 +2039,7 @@
                                        Header="LongLongGroup"
                                        IsLauncherVisible="True"
                                        LauncherCommand="Paste"
-                                       LauncherClick="OnLauncherClick">
+                                       LauncherClick="OnLauncherButtonClick">
                     <Fluent:Button Header="Button"
                                    Icon="pack://application:,,,/FluentTest;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
@@ -2163,13 +2118,13 @@
                               Click="HandleDontUseDwmClick">Don't use DWM (applies to Office 2010 theme only)</CheckBox>
                     <WrapPanel>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnSilverClick">Silver (Office 2010)</Button>
+                                Click="OnOffice2010SilverClick">Silver (Office 2010)</Button>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnBlackClick">Black (Office 2010)</Button>
+                                Click="OnOffice2010BlackClick">Black (Office 2010)</Button>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnBlueClick">Blue (Office 2010)</Button>
+                                Click="OnOffice2010BlueClick">Blue (Office 2010)</Button>
                         <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnMetroClick">Office 2013</Button>
+                                Click="OnOffice2013Click">Office 2013</Button>
                     </WrapPanel>
                     <Label Content="Office 2013 styles are WORK IN PROGRESS and for demonstration purposes only. Some things may look weird and/or wrong placed!" />
                 </StackPanel>
