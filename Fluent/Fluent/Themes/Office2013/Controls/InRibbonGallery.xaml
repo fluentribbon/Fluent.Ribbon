@@ -15,8 +15,6 @@
                 Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
-        <Setter Property="Focusable"
-                Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Style.Triggers>
