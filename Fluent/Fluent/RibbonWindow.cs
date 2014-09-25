@@ -627,17 +627,22 @@ namespace Fluent
 
         private void HandleTitleBarMouseMove(object sender, MouseEventArgs e)
         {
+            if (PopupService.DismissingPopup)
+            {
+                return;
+            }
+
             if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
                 && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized
                 && ResizeMode != ResizeMode.NoResize && !this.isContextMenuOpen)
             {
                 // Calculating correct left coordinate for multi-screen system.
-                Point mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
-                double width = this.RestoreBounds.Width;
-                double left = mouseAbsolute.X - width / 2;
+                var mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
+                var width = this.RestoreBounds.Width;
+                var left = mouseAbsolute.X - width / 2;
 
                 // Aligning window's position to fit the screen.
-                double virtualScreenWidth = SystemParameters.VirtualScreenWidth;
+                var virtualScreenWidth = SystemParameters.VirtualScreenWidth;
                 left = left + width > virtualScreenWidth ? virtualScreenWidth - width : left;
 
                 var mousePosition = e.MouseDevice.GetPosition(this);
