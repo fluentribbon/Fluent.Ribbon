@@ -7,6 +7,8 @@
     <Setter Property="Height" Value="68"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
+      <Setter Property="BorderThickness"
+              Value="1" />
     <Style.Triggers>
       <Trigger Property="Fluent:RibbonProperties.Size" Value="Large">
         <Setter Property="Height" Value="68"/>
@@ -21,8 +23,9 @@
     </Style.Triggers>
   </Style>
   <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
-    <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-      <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+      <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
         <Grid Height="Auto">
           <Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
             <Rectangle.Fill>

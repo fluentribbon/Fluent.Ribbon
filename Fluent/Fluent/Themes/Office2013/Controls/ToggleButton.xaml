@@ -7,7 +7,9 @@
     <Setter Property="Height" Value="66"/>
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Style.Triggers>
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Style.Triggers>
       <Trigger Property="Fluent:RibbonProperties.Size" Value="Large">
         <Setter Property="Height" Value="66"/>
       </Trigger>
@@ -22,7 +24,8 @@
   </Style>
   <SolidColorBrush x:Key="ButtonCheckedBrush" Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" Opacity="0.2"/>
   <ControlTemplate x:Key="RibbonToggleButtonControlTemplate" TargetType="{x:Type Fluent:ToggleButton}">
-    <Border x:Name="border" BorderThickness="1" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 		<Grid Height="Auto">
           <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
             <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="32" Margin="2" SnapsToDevicePixels="True"/>
