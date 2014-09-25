@@ -21,13 +21,11 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
     <ControlTemplate x:Key="RibbonComboButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                BorderThickness="1"
+                BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="0"
                 Background="{DynamicResource ButtonBackgroundBrush}"
                 BorderBrush="{DynamicResource ButtonBorderBrush}"
@@ -37,7 +35,7 @@
             <Border x:Name="border1"
                     Height="Auto"
                     BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
+                    BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="0"
                     Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto" 
@@ -191,22 +189,16 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="13" />
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.ColumnSpan="1"
-                                            Grid.Column="1"
-                                            BorderThickness="1,0,0,0"
-                                            BorderBrush="{DynamicResource TextBoxHoverBorderBrush}"
-                                            Visibility="Collapsed"
-                                            x:Name="border1"
-                                            Background="{DynamicResource TextBoxBackgroundBrush}" />
                                     <Fluent:ToggleButton IsDefinitive="False"
                                                          x:Name="ToggleButton"
                                                          Focusable="false"
                                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                         BorderThickness="0"
                                                          ClickMode="Press"
                                                          Height="Auto"
                                                          VerticalAlignment="Stretch"
                                                          Grid.ColumnSpan="2"
-                                                         Margin="0,-1,-1,-1"
+                                                         Margin="0"
                                                          Style="{DynamicResource RibbonComboButtonStyle}"
                                                          CanAddToQuickAccessToolBar="False" />
                                     <ContentPresenter Margin="3,0,3,0"
@@ -580,9 +572,6 @@
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxDisabledBorderBrush}" />
                             <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
-                            <Setter Property="BorderBrush"
                                     TargetName="PART_EditableTextBox"
                                     Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
                             <Setter Property="Opacity"
@@ -600,17 +589,11 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
-                            <Setter Property="Visibility"
-                                    TargetName="border1"
-                                    Value="Visible" />
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_EditableTextBox"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
@@ -619,17 +602,11 @@
 
                         <Trigger Property="IsKeyboardFocusWithin"
                                  Value="True">
-                            <Setter Property="Visibility"
-                                    TargetName="border1"
-                                    Value="Visible" />
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_EditableTextBox"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
@@ -672,11 +649,7 @@
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="IsEditable"
                 Value="True" />
-        <!--<Setter Property="ItemContainerStyle" Value="{DynamicResource EditableComboBoxItemStyle}"/>-->
         <Style.Triggers>
-            <!--<Trigger Property="IsEditable" Value="False">
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource NonEditableComboBoxItemStyle}"/>
-      </Trigger>-->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ItemContainerStyleSelector"
