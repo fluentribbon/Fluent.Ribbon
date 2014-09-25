@@ -21,9 +21,6 @@
             <Trigger Property="IsSelected" Value="True">
               <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
             </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
-            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
               <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
             </Trigger>
@@ -32,7 +29,6 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 
   <Style x:Key="NonEditableComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
@@ -53,14 +49,10 @@
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.5"/>
             </Trigger>            
-            <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Visibility" TargetName="selectedBorder" Value="Visible"/>
-            </Trigger>
           </ControlTemplate.Triggers>
 
         </ControlTemplate>
       </Setter.Value>
     </Setter>
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>
 </ResourceDictionary>

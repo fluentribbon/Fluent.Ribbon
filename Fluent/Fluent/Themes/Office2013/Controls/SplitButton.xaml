@@ -13,7 +13,6 @@
         <Setter Property="Height" Value="66" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Style.Triggers>
@@ -318,8 +317,6 @@
                 Value="Stretch" />
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
 
     <ControlTemplate x:Key="InnerButtonControlTemplate"
@@ -373,22 +370,6 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsPressed"
-                               Value="False" />
-                    <Condition Property="IsEnabled"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsKeyboardFocusWithin"
                                Value="True" />
                     <Condition Property="IsPressed"
                                Value="False" />

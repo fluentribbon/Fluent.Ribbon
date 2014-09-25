@@ -18,8 +18,6 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Style.Triggers>
@@ -642,17 +640,6 @@
                         TargetName="downRect_Copy"
                         Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
             </MultiTrigger>
-            <!--<MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsFocused" Value="True"/>
-          <Condition Property="IsDropDownOpen" Value="False"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="downRect" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>        
-        <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="BorderBrush" TargetName="downRect" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-      </MultiTrigger>-->
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -666,8 +653,6 @@
                 Value="Stretch" />
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
 
     <ControlTemplate x:Key="InnerButtonControlTemplate"
@@ -766,28 +751,6 @@
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsKeyboardFocusWithin"
-                               Value="True" />
-                    <Condition Property="IsPressed"
-                               Value="False" />
-                    <Condition Property="IsEnabled"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled"
                      Value="False">

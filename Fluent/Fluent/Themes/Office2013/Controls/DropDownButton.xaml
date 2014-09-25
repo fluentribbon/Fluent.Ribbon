@@ -19,8 +19,6 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
         <Style.Triggers>
@@ -401,20 +399,6 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsDropDownOpen"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsFocused"
                                Value="True" />
                     <Condition Property="IsDropDownOpen"
                                Value="False" />

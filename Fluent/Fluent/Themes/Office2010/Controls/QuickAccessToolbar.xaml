@@ -12,8 +12,6 @@
                 Value="13" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
     
     <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate"
@@ -397,29 +395,6 @@
                 <Setter Property="Margin"
                         TargetName="grid"
                         Value="0" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsFocused"
-                               Value="True" />
-                    <Condition Property="IsDropDownOpen"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -17,12 +17,8 @@
                 Value="Auto" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Style.Triggers>
             <Trigger Property="Fluent:RibbonProperties.Size"
                      Value="Large">
@@ -202,8 +198,6 @@
     </ControlTemplate>
     <Style x:Key="InRibbonGalleryButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:ToggleButton}">
@@ -270,8 +264,6 @@
     </Style>
     <Style x:Key="InRibbonGalleryRepeatButton"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">

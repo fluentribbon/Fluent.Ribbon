@@ -71,14 +71,6 @@
   			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
   			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
   		</Trigger>
-  		<Trigger Property="IsFocused" Value="True">
-  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-  			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
-  			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
-  		</Trigger>
   		<Trigger Property="IsPressed" Value="True">
   			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
   			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
@@ -146,14 +138,6 @@
         </Setter>
       </Trigger>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="BorderThickness" TargetName="border1" Value="1"/>
-        <Setter Property="Margin" TargetName="stackPanel" Value="1"/>
-      </Trigger>
-      <Trigger Property="IsFocused" Value="True">
         <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
         <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
         <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
@@ -307,14 +291,6 @@
   			</Setter>
   		</Trigger>
   		<Trigger Property="IsMouseOver" Value="True">
-  			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-  			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-  			<Setter Property="BorderThickness" TargetName="border1" Value="1"/>
-  			<Setter Property="Margin" TargetName="stackPanel" Value="1"/>
-  		</Trigger>
-  		<Trigger Property="IsFocused" Value="True">
   			<Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
   			<Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
   			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
@@ -596,23 +572,12 @@
   			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
   			<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
   		</MultiTrigger>
-  		<MultiTrigger>
-  			<MultiTrigger.Conditions>
-  				<Condition Property="IsKeyboardFocusWithin" Value="True"/>
-  				<Condition Property="IsPressed" Value="False"/>
-  			</MultiTrigger.Conditions>
-  			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-  			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-  			<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-  			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-  		</MultiTrigger>
   	</ControlTemplate.Triggers>
 	</ControlTemplate>
   <Style x:Key="SpinnerButtonBackstageStyle" TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
                 Value="{DynamicResource SpinnerButtonBackstageControlTemplate}"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}"/>
   </Style>    
   
   
