@@ -1,7 +1,7 @@
 ﻿namespace FluentTest.ViewModels
 {
     using System.ComponentModel;
-    using FluentTest.Annotations;
+    using JetBrains.Annotations;
 
     public class ViewModel : INotifyPropertyChanged
     {

@@ -1,12 +1,15 @@
 ﻿namespace FluentTest.ViewModels
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
-    public class GalleryViewModel
+    public class GalleryViewModel : ViewModel
     {
+        private ObservableCollection<GalleryItemViewModel> items;
+
         public GalleryViewModel()
         {
-            this.Items = new List<GalleryItemViewModel> 
+            this.Items = new ObservableCollection<GalleryItemViewModel> 
                 {
                     new GalleryItemViewModel("Group 1", "1"),
                     new GalleryItemViewModel("Group 1", "2"),
@@ -24,6 +27,15 @@
                 };
         }
 
-        public List<GalleryItemViewModel> Items { get; private set; }
+        public ObservableCollection<GalleryItemViewModel> Items
+        {
+            get { return this.items; }
+            private set
+            {
+                if (Equals(value, this.items)) return;
+                this.items = value;
+                this.OnPropertyChanged("Items");
+            }
+        }
     }
 }

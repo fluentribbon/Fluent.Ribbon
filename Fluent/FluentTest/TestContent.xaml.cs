@@ -1,7 +1,6 @@
 ﻿namespace FluentTest
 {
     using System;
-    using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Text;
@@ -11,15 +10,13 @@
     using System.Windows.Input;
     using System.Windows.Threading;
     using Fluent;
-    using FluentTest.Annotations;
-    using FluentTest.Commanding;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
     /// <summary>
     /// Interaction logic for TestContent.xaml
     /// </summary>
-    public partial class TestContent : INotifyPropertyChanged
+    public partial class TestContent
     {
         public TestContent()
         {
@@ -32,49 +29,8 @@
             this.buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
-            this.BoundSpinnerValue = 1;
-
-            this.ColorViewModel = new ColorViewModel();
-            this.FontsViewModel = new FontsViewModel();
-            this.GalleryViewModel = new GalleryViewModel();
-
-            this.PreviewCommand = new RelayCommand<GalleryItem>(this.Preview);
-            this.CancelPreviewCommand = new RelayCommand<GalleryItem>(this.CancelPreview);
-
-            this.DataContext = this;
+            this.DataContext = new MainViewModel();
         }        
-
-        private void Preview(GalleryItem galleryItem)
-        {
-            Trace.WriteLine(string.Format("Preview: {0}", galleryItem));
-        }
-
-        private void CancelPreview(GalleryItem galleryItem)
-        {
-            Trace.WriteLine(string.Format("CancelPreview: {0}", galleryItem));
-        }
-
-        public ColorViewModel ColorViewModel { get; private set; }
-
-        public FontsViewModel FontsViewModel { get; private set; }
-
-        public GalleryViewModel GalleryViewModel { get; private set; }
-
-        public ICommand PreviewCommand { get; private set; }
-
-        public ICommand CancelPreviewCommand { get; private set; }
-
-        public int BoundSpinnerValue
-        {
-            get { return this.boundSpinnerValue; }
-            set 
-            { 
-                this.boundSpinnerValue = value;
-                this.OnPropertyChanged("BoundSpinnerValue");
-            }
-        }
-
-        private int boundSpinnerValue;
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
@@ -365,38 +321,6 @@
             if (printDlg.ShowDialog() == true)
             {
                 printDlg.PrintVisual(this, "Main Window");
-            }
-        }
-
-        #region threading
-
-        private void OnThreadWindowButtonClick(object sender, RoutedEventArgs e)
-        {
-            var thread = new Thread(ShowThreadedWindow);
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.IsBackground = true;
-            thread.Start();
-        }
-
-        private static void ShowThreadedWindow()
-        {
-            var window = new ThreadedWindow();
-            window.Show();
-
-            Dispatcher.Run();
-        }
-
-        #endregion threading
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
