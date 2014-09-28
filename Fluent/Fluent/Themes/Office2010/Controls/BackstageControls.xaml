@@ -32,7 +32,7 @@
           </Setter.Value>
         </Setter>
       </Trigger>
-  		<Trigger Property="Fluent:RibbonProperties.Size" Value="Small">
+  		<Trigger Property="Size" Value="Small">
   			<Setter Property="Visibility" TargetName="iconImage" Value="Collapsed"/>
   			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
   			<Setter Property="HorizontalAlignment" TargetName="stackPanel" Value="Center"/>
@@ -43,7 +43,7 @@
   			<Setter Property="HorizontalAlignment" TargetName="twoLineLabel" Value="Center"/>
   			<Setter Property="HasTwoLines" TargetName="twoLineLabel" Value="False"/>
   		</Trigger>
-  		<Trigger Property="Fluent:RibbonProperties.Size" Value="Middle">
+  		<Trigger Property="Size" Value="Middle">
   			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
   			<Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
   			<Setter Property="Margin" TargetName="twoLineLabel" Value="7,0"/>
@@ -106,7 +106,7 @@
           </Setter.Value>
         </Setter>
       </Trigger>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Small">
+      <Trigger Property="Size" Value="Small">
         <Setter Property="Visibility" TargetName="iconImage" Value="Collapsed"/>
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="HorizontalAlignment" TargetName="stackPanel" Value="Center"/>
@@ -117,7 +117,7 @@
         <Setter Property="HorizontalAlignment" TargetName="twoLineLabel" Value="Center"/>
         <Setter Property="HasTwoLines" TargetName="twoLineLabel" Value="False"/>
       </Trigger>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Middle">
+      <Trigger Property="Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
         <Setter Property="Margin" TargetName="twoLineLabel" Value="7,0"/>
@@ -397,7 +397,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="22"/>
           </Grid.ColumnDefinitions>
-                    <Fluent:ToggleButton Fluent:RibbonProperties.Size="Small" Width="{Binding ElementName=PART_ContentBorder, Path=ActualWidth}" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
+                    <Fluent:ToggleButton Size="Small" Width="{Binding ElementName=PART_ContentBorder, Path=ActualWidth}" IsDefinitive="False" x:Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" CanAddToQuickAccessToolBar="False"/>
           <ContentPresenter Margin="3" x:Name="PART_ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Top" HorizontalAlignment="Left" />
           <Image Margin="0" Stretch="None" x:Name="PART_SelectedImage" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed" Width="Auto" Height="Auto"/>
           <TextBox Focusable="True" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="NoWrap" BorderThickness="0,0,0,0" IsReadOnly="{TemplateBinding IsReadOnly}" Background="{DynamicResource TextBoxBackgroundBrush}" Visibility="Collapsed"/>
@@ -657,10 +657,10 @@
         			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxDisabledBorderBrush}"/>
         			<Setter Property="Background" TargetName="PART_TextBox" Value="{DynamicResource TextBoxDisabledBackgroundBrush}"/>
         		</Trigger>
-        		<Trigger Property="Fluent:RibbonProperties.Size" Value="Middle">
+        		<Trigger Property="Size" Value="Middle">
         			<Setter Property="Visibility" TargetName="textBlock" Value="Collapsed"/>
         		</Trigger>
-        		<Trigger Property="Fluent:RibbonProperties.Size" Value="Small">
+        		<Trigger Property="Size" Value="Small">
         			<Setter Property="Visibility" TargetName="stackPanel" Value="Collapsed"/>
         		</Trigger>
         		<Trigger Property="IsMouseOver" Value="True">

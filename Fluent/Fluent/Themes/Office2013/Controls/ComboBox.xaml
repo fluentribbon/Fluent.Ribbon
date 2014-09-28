@@ -520,13 +520,13 @@
                                     TargetName="PART_ContentBorder"
                                     Value="Stretch" />
                         </Trigger>
-                        <Trigger Property="Fluent:RibbonProperties.Size"
+                        <Trigger Property="Size"
                                  Value="Middle">
                             <Setter Property="Visibility"
                                     TargetName="textBlock"
                                     Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="Fluent:RibbonProperties.Size"
+                        <Trigger Property="Size"
                                  Value="Small">
                             <Setter Property="Visibility"
                                     TargetName="stackPanel"

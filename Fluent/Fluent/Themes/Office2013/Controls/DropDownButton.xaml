@@ -22,17 +22,17 @@
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
         <Style.Triggers>
-            <Trigger Property="Fluent:RibbonProperties.Size"
+            <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
                         Value="66" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.Size"
+            <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Height"
                         Value="22" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.Size"
+            <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Height"
                         Value="22" />
@@ -303,7 +303,7 @@
                         TargetName="resizeBorder"
                         Value="Visible" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.Size"
+            <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
@@ -336,7 +336,7 @@
                         TargetName="controlLabel"
                         Value="Center" />
             </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.Size"
+            <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Orientation"
                         TargetName="stackPanel"

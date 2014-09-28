@@ -23,7 +23,7 @@
       </Border>
     </Border>
     <ControlTemplate.Triggers>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Small">
+      <Trigger Property="Size" Value="Small">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
         <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
@@ -33,7 +33,7 @@
         <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
         <Setter Property="Margin" TargetName="controlLabel" Value="2,-1,2,1"/>				
       </Trigger>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Middle">
+      <Trigger Property="Size" Value="Middle">
         <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
         <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
         <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
@@ -82,14 +82,14 @@
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Large">
+      <Trigger Property="Size" Value="Large">
         <Setter Property="Height" Value="68"/>
       </Trigger>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Middle">
+      <Trigger Property="Size" Value="Middle">
         <Setter Property="Height" Value="22"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
       </Trigger>
-      <Trigger Property="Fluent:RibbonProperties.Size" Value="Small">
+      <Trigger Property="Size" Value="Small">
         <Setter Property="Height" Value="22"/>
         <Setter Property="Width" Value="22"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
