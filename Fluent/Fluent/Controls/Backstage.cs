@@ -115,7 +115,7 @@ namespace Fluent
                 else
                 {
 #if !NET35
-                    if (backstage.HideAnimationDuration != null)
+                    if (backstage.HideAnimationDuration.HasTimeSpan)
                     {
                         var timespan = backstage.HideAnimationDuration.TimeSpan;
 
