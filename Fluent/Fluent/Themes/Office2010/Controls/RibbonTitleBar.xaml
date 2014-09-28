@@ -35,6 +35,9 @@
                 <Setter Property="Visibility"
                         Value="Collapsed"
                         TargetName="PART_ItemsContainer" />
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_QuickAccessToolbarHolder" />                
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
