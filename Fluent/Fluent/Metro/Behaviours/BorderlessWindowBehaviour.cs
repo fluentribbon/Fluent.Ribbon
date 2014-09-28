@@ -14,13 +14,7 @@ namespace Fluent.Metro.Behaviours
     /// </summary>
     public class BorderlessWindowBehavior : Behavior<RibbonWindow>
     {
-        /// <summary>
-        /// Gets or sets the <see cref="Border"/>
-        /// </summary>
-        public Border Border { get; set; }
-
-        private HwndSource _mHWNDSource;
-        private HandleRef windowHandle;
+        private HwndSource hwndSource;
 
         /// <summary>
         /// Called when behavior is being attached
@@ -33,13 +27,7 @@ namespace Fluent.Metro.Behaviours
             }
             else
             {
-                this.AssociatedObject.SourceInitialized += this.AssociatedObject_SourceInitialized;
-            }
-
-            this.AssociatedObject.Loaded += this.HandleAssociatedObjectLoaded;
-            if (this.AssociatedObject.IsLoaded)
-            {
-                this.HandleAssociatedObjectLoaded(this, new RoutedEventArgs());
+                this.AssociatedObject.SourceInitialized += this.HandleAssociatedObject_SourceInitialized;
             }
 
             base.OnAttached();
@@ -50,107 +38,35 @@ namespace Fluent.Metro.Behaviours
         /// </summary>
         protected override void OnDetaching()
         {
-            this.AssociatedObject.SourceInitialized -= this.AssociatedObject_SourceInitialized;
-            this.AssociatedObject.Loaded -= this.HandleAssociatedObjectLoaded;
+            this.AssociatedObject.SourceInitialized -= this.HandleAssociatedObject_SourceInitialized;
 
             this.RemoveHwndHook();
             base.OnDetaching();
         }
 
-        private void HandleAssociatedObjectLoaded(object sender, RoutedEventArgs e)
-        {
-            var ancestors = this.AssociatedObject.GetPart<Border>("PART_Border");
-            this.Border = ancestors;
-            if (this.ShouldHaveBorder())
-            {
-                this.AddBorder();
-            }
-        }
-
         private void AddHwndHook()
         {
-            this._mHWNDSource = PresentationSource.FromVisual(AssociatedObject) as HwndSource;
-            if (this._mHWNDSource != null)
+            this.hwndSource = PresentationSource.FromVisual(AssociatedObject) as HwndSource;
+            if (this.hwndSource != null)
             {
-                this._mHWNDSource.AddHook(this.HwndHook);
+                this.hwndSource.AddHook(this.HwndHook);
             }
-
-            this.windowHandle = new HandleRef(this.AssociatedObject, new WindowInteropHelper(this.AssociatedObject).Handle);
         }
 
         private void RemoveHwndHook()
         {
-            this.AssociatedObject.SourceInitialized -= this.AssociatedObject_SourceInitialized;
-            if (this._mHWNDSource != null)
+            this.AssociatedObject.SourceInitialized -= this.HandleAssociatedObject_SourceInitialized;
+            if (this.hwndSource != null)
             {
-                this._mHWNDSource.RemoveHook(this.HwndHook);
+                this.hwndSource.RemoveHook(this.HwndHook);
             }
 
-            this._mHWNDSource = null;
-            this.windowHandle = new HandleRef();
+            this.hwndSource = null;
         }
 
-        private void AssociatedObject_SourceInitialized(object sender, EventArgs e)
+        private void HandleAssociatedObject_SourceInitialized(object sender, EventArgs e)
         {
             this.AddHwndHook();
-            this.SetDefaultBackgroundColor();
-        }
-
-        private bool ShouldHaveBorder()
-        {
-            if (Environment.OSVersion.Version.Major < 6)
-            {
-                return true;
-            }
-
-            if (!UnsafeNativeMethods.DwmIsCompositionEnabled())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        readonly SolidColorBrush _borderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#808080"));
-
-        private void AddBorder()
-        {
-            if (this.Border == null)
-            {
-                return;
-            }
-
-            this.Border.BorderThickness = new Thickness(1);
-            this.Border.BorderBrush = this._borderColor;
-        }
-
-        private void RemoveBorder()
-        {
-            if (this.Border == null)
-            {
-                return;
-            }
-
-            this.Border.BorderThickness = new Thickness(0);
-            this.Border.BorderBrush = null;
-        }
-
-        private void SetDefaultBackgroundColor()
-        {
-            var bgSolidColorBrush = this.AssociatedObject.Background as SolidColorBrush;
-
-            if (bgSolidColorBrush != null)
-            {
-                var rgb = bgSolidColorBrush.Color.R | (bgSolidColorBrush.Color.G << 8) | (bgSolidColorBrush.Color.B << 16);
-
-                // set the default background color of the window -> this avoids the black stripes when resizing
-                var hBrushOld = UnsafeNativeMethods.SetClassLong(this.windowHandle, Constants.GCLP_HBRBACKGROUND, UnsafeNativeMethods.CreateSolidBrush(rgb));
-
-                if (hBrushOld != IntPtr.Zero)
-                {
-                    UnsafeNativeMethods.DeleteObject(hBrushOld);
-                }
-            }
         }
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -159,53 +75,6 @@ namespace Fluent.Metro.Behaviours
 
             switch (message)
             {
-                case Constants.WM_NCCALCSIZE:
-                    /* Hides the border */
-                    handled = true;
-                    break;
-                case Constants.WM_NCPAINT:
-                    {
-                        if (!this.ShouldHaveBorder())
-                        {
-                            var val = 2;
-                            UnsafeNativeMethods.DwmSetWindowAttribute(this.windowHandle.Handle, 2, ref val, 4);
-                            var m = new MARGINS { bottomHeight = 1, leftWidth = 1, rightWidth = 1, topHeight = 1 };
-                            UnsafeNativeMethods.DwmExtendFrameIntoClientArea(this.windowHandle.Handle, ref m);
-
-                            if (this.Border != null)
-                            {
-                                this.Border.BorderThickness = new Thickness(0);
-                            }
-                        }
-                        else
-                        {
-                            this.AddBorder();
-                        }
-                        //handled = true;
-                    }
-                    break;
-                case Constants.WM_NCACTIVATE:
-                    {
-                        /* As per http://msdn.microsoft.com/en-us/library/ms632633(VS.85).aspx , "-1" lParam
-                         * "does not repaint the nonclient area to reflect the state change." */
-                        returnval = UnsafeNativeMethods.DefWindowProc(hWnd, message, wParam, new IntPtr(-1));
-
-                        if (!this.ShouldHaveBorder())
-                        {
-                            if (wParam == IntPtr.Zero)
-                            {
-                                this.AddBorder();
-                            }
-                            else
-                            {
-                                this.RemoveBorder();
-                            }
-                        }
-
-                        handled = true;
-                    }
-                    break;
-
                 case Constants.WM_NCHITTEST:
                     // don't process the message on windows that are maximized as those don't have a resize border at all
                     if (this.AssociatedObject.WindowState == WindowState.Maximized)
@@ -215,7 +84,8 @@ namespace Fluent.Metro.Behaviours
 
                     // don't process the message on windows that can't be resized
                     var resizeMode = this.AssociatedObject.ResizeMode;
-                    if (resizeMode == ResizeMode.CanMinimize || resizeMode == ResizeMode.NoResize)
+                    if (resizeMode == ResizeMode.CanMinimize 
+                        || resizeMode == ResizeMode.NoResize)
                     {
                         break;
                     }
@@ -273,43 +143,6 @@ namespace Fluent.Metro.Behaviours
                         handled = true;
                     }
 
-                    break;
-
-                case Constants.WM_INITMENU:
-                    var window = this.AssociatedObject;
-
-                    if (window != null)
-                    {
-                        if (window.ResizeMode != ResizeMode.NoResize && window.ResizeMode != ResizeMode.CanMinimize)
-                        {
-                            UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MAXIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                        }
-                        else
-                        {
-                            if (window.WindowState == WindowState.Maximized)
-                            {
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MAXIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_RESTORE, Constants.MF_ENABLED | Constants.MF_BYCOMMAND);
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MOVE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                            }
-                            else
-                            {
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MAXIMIZE, Constants.MF_ENABLED | Constants.MF_BYCOMMAND);
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_RESTORE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                                UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MOVE, Constants.MF_ENABLED | Constants.MF_BYCOMMAND);
-                            }
-                        }
-
-                        if (window.ResizeMode != ResizeMode.NoResize)
-                        {
-                            UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_MINIMIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                        }
-
-                        if (AssociatedObject.ResizeMode == ResizeMode.NoResize || window.WindowState == WindowState.Maximized)
-                        {
-                            UnsafeNativeMethods.EnableMenuItem(UnsafeNativeMethods.GetSystemMenu(hWnd, false), Constants.SC_SIZE, Constants.MF_GRAYED | Constants.MF_BYCOMMAND);
-                        }
-                    }
                     break;
             }
             return returnval;

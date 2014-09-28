@@ -5,7 +5,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-    using System.Windows.Shapes;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -142,6 +141,20 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the button brush
+        /// </summary>
+        public Brush ButtonBrush
+        {
+            get { return (Brush)GetValue(ButtonBrushProperty); }
+            set { SetValue(ButtonBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register("ButtonBrush", typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
+
         private string GetCaption(int id)
         {
             if (this.user32 == IntPtr.Zero)
@@ -207,13 +220,13 @@
 
             if (parentWindow.WindowState == WindowState.Normal)
             {
-                var maxpath = (Path)max.FindName("MaximisePath");
+                var maxpath = (UIElement)max.FindName("PART_MaximizeButtonContent");
                 if (maxpath != null)
                 {
                     maxpath.Visibility = Visibility.Visible;
                 }
 
-                var restorepath = (Path)max.FindName("RestorePath");
+                var restorepath = (UIElement)max.FindName("PART_RestoreButtonContent");
                 if (restorepath != null)
                 {
                     restorepath.Visibility = Visibility.Collapsed;
@@ -223,13 +236,13 @@
             }
             else
             {
-                var restorepath = (Path)max.FindName("RestorePath");
+                var restorepath = (UIElement)max.FindName("PART_RestoreButtonContent");
                 if (restorepath != null)
                 {
                     restorepath.Visibility = Visibility.Visible;
                 }
 
-                var maxpath = (Path)max.FindName("MaximisePath");
+                var maxpath = (UIElement)max.FindName("PART_MaximizeButtonContent");
                 if (maxpath != null)
                 {
                     maxpath.Visibility = Visibility.Collapsed;

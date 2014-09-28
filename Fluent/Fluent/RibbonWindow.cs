@@ -12,7 +12,6 @@ namespace Fluent
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Media;
@@ -28,21 +27,12 @@ namespace Fluent
     /// Represents basic window for ribbon
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1049")]
-    [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
-    [TemplatePart(Name = PART_ButtonsPanel, Type = typeof(UIElement))]
     public class RibbonWindow : Window
     {
-        private const string PART_TitleBar = "PART_TitleBar";
         private const string PART_Icon = "PART_Icon";
-        private const string PART_ButtonsPanel = "PART_ButtonsPanel";
-
-        private readonly int doubleclick = UnsafeNativeMethods.GetDoubleClickTime();
-        private DateTime lastMouseClick;
-        private bool isContextMenuOpen;
 
         private FrameworkElement iconImage;
-        private FrameworkElement titleBar;
 
         #region Properties
 
@@ -87,7 +77,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(9), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -102,7 +92,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassBorderThicknessProperty =
-            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(9, 29, 9, 9), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8, 50, 8, 8), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets caption height
@@ -132,7 +122,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(9, 9, 9, 9), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(15), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
@@ -164,21 +154,6 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanUseDwm.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
-
-        /// <summary>
-        /// Gets or sets whether the WindowChrome will be used. This is needed to disable the WindowChrome for the Office 2013 theme
-        /// </summary>
-        public bool? UseWindowChrome
-        {
-            get { return (bool?)GetValue(UseWindowChromeProperty); }
-            set { SetValue(UseWindowChromeProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for UseWindowChrome.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty UseWindowChromeProperty =
-            DependencyProperty.Register("UseWindowChrome", typeof(bool?), typeof(RibbonWindow), new PropertyMetadata(null, OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -228,54 +203,9 @@ namespace Fluent
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
             DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
 
-        /// <summary>
-        /// Gets whether client window area is activated
-        /// </summary>
-        public bool IsNonClientAreaActive
-        {
-            get { return (bool)GetValue(IsNonClientAreaActiveProperty); }
-            internal set { SetValue(IsNonClientAreaActivePropertyKey, value); }
-        }
-
-        private static readonly DependencyPropertyKey IsNonClientAreaActivePropertyKey = DependencyProperty.RegisterReadOnly("IsNonClientAreaActive", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(true));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsNcActivated.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsNonClientAreaActiveProperty = IsNonClientAreaActivePropertyKey.DependencyProperty;
-
         #endregion
 
-        #region Commands
-
-        /// <summary>
-        /// Minimize command
-        /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2211")]
-        public static RoutedCommand MinimizeCommand = new RoutedCommand();
-
-        /// <summary>
-        /// Maximize command
-        /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2211")]
-        public static RoutedCommand MaximizeCommand = new RoutedCommand();
-
-        /// <summary>
-        /// Normalize command
-        /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2211")]
-        public static RoutedCommand NormalizeCommand = new RoutedCommand();
-
-        /// <summary>
-        /// Close command
-        /// </summary>
-        [SuppressMessage("Microsoft.Usage", "CA2211")]
-        public static RoutedCommand CloseCommand = new RoutedCommand();
-
-        #endregion
-
-        #region Constructors
+ #region Constructors
 
         /// <summary>
         /// Static constructor
@@ -284,12 +214,6 @@ namespace Fluent
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-
-            // Register commands
-            CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(CloseCommand, OnCloseCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(MinimizeCommand, OnMinimizeCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(MaximizeCommand, OnMaximizeCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(RibbonWindow), new CommandBinding(NormalizeCommand, OnNormalizeCommandExecuted));
         }
 
         // Coerce object style
@@ -315,39 +239,6 @@ namespace Fluent
         public RibbonWindow()
         {
             this.SizeChanged += this.OnSizeChanged;
-        }
-
-        #endregion
-
-        #region Commands handles
-
-        // Handles Close command
-        static void OnCloseCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            // TODO: why sender must be RibbonWindow?
-            RibbonWindow window = sender as RibbonWindow;
-            if (window != null) window.Close();
-        }
-
-        // Handles Maximize command
-        static void OnMaximizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            RibbonWindow window = sender as RibbonWindow;
-            if (window != null) window.WindowState = WindowState.Maximized;
-        }
-
-        // Handles Normalize command
-        static void OnNormalizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            RibbonWindow window = sender as RibbonWindow;
-            if (window != null) window.WindowState = WindowState.Normal;
-        }
-
-        // Handles Minimize command
-        static void OnMinimizeCommandExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            RibbonWindow window = sender as RibbonWindow;
-            if (window != null) window.WindowState = WindowState.Minimized;
         }
 
         #endregion
@@ -437,24 +328,19 @@ namespace Fluent
 
         private void UpdateWindowChrome()
         {
-            WindowChrome windowChrome = null;
-
-            if (this.UseWindowChrome.GetValueOrDefault())
+            var windowChrome = new WindowChrome
             {
-                windowChrome = new WindowChrome
-                {
-                    CaptionHeight = this.CaptionHeight,
-                    CornerRadius = this.CornerRadius,
-                    GlassFrameThickness = this.CanUseDwm
-                        ? this.GlassBorderThickness 
-                        : default(Thickness),
-                    ResizeBorderThickness = this.ResizeBorderThickness,
+                CaptionHeight = this.CaptionHeight,
+                CornerRadius = this.CornerRadius,
+                GlassFrameThickness = this.CanUseDwm
+                    ? this.GlassBorderThickness 
+                    : default(Thickness),
+                ResizeBorderThickness = this.ResizeBorderThickness,
 #if NET45
-                    ////NonClientFrameEdges = NonClientFrameEdges.Bottom,
-                    UseAeroCaptionButtons = this.CanUseDwm
+                ////NonClientFrameEdges = NonClientFrameEdges.Bottom,
+                UseAeroCaptionButtons = this.CanUseDwm
 #endif
-                };
-            }
+            };
 
             WindowChrome.SetWindowChrome(this, windowChrome);
         }
@@ -483,46 +369,25 @@ namespace Fluent
                 this.iconImage.MouseUp -= this.HandleIconMouseUp;
             }
 
-            if (this.titleBar != null)
+            if (this.WindowCommands == null)
             {
-                this.titleBar.MouseDown -= this.HandleTitleBarMouseDown;
-                this.titleBar.MouseUp -= this.HandleTitleBarMouseUp;
-                this.titleBar.MouseMove -= this.HandleTitleBarMouseMove;
+                this.WindowCommands = new WindowCommands();
             }
 
-            if (this.UseWindowChrome.GetValueOrDefault())
+            var partWindowCommands = this.GetTemplateChild("PART_WindowCommands") as UIElement;
+
+            if (partWindowCommands != null)
             {
-                this.WindowCommands = null;
-
-                var buttonsPanel = this.GetTemplateChild(PART_ButtonsPanel) as FrameworkElement;
-
-                if (buttonsPanel != null)
-                {
-                    WindowChrome.SetIsHitTestVisibleInChrome(buttonsPanel, true);
-                }
+                WindowChrome.SetIsHitTestVisibleInChrome(partWindowCommands, true);
             }
-            else
+
+            this.iconImage = this.GetTemplateChild(PART_Icon) as FrameworkElement;
+
+            if (this.iconImage != null)
             {
-                this.iconImage = this.GetTemplateChild(PART_Icon) as FrameworkElement;
+                WindowChrome.SetIsHitTestVisibleInChrome(this.iconImage, true);
 
-                if (this.WindowCommands == null)
-                {
-                    this.WindowCommands = new WindowCommands();
-                }
-
-                this.titleBar = this.GetTemplateChild(PART_TitleBar) as FrameworkElement;
-
-                if (this.titleBar != null)
-                {
-                    this.titleBar.MouseDown += this.HandleTitleBarMouseDown;
-                    this.titleBar.MouseUp += this.HandleTitleBarMouseUp;
-                    this.titleBar.MouseMove += this.HandleTitleBarMouseMove;
-                }
-
-                if (this.iconImage != null)
-                {
-                    this.iconImage.MouseUp += this.HandleIconMouseUp;
-                }
+                this.iconImage.MouseUp += this.HandleIconMouseUp;
             }
         }
 
@@ -540,84 +405,6 @@ namespace Fluent
             base.OnStateChanged(e);
         }
 
-        private void HandleTitleBarMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (ReferenceEquals(e.OriginalSource, this.iconImage))
-            {
-                return;
-            }
-
-            if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed && e.LeftButton == MouseButtonState.Pressed)
-            {
-                this.DragMove();
-            }
-
-            if (e.ClickCount == 2 && (this.ResizeMode == ResizeMode.CanResizeWithGrip || this.ResizeMode == ResizeMode.CanResize))
-            {
-                this.WindowState = this.WindowState == WindowState.Maximized
-                    ? WindowState.Normal
-                    : WindowState.Maximized;
-            }
-        }
-
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
-        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
-        {
-            // Do not resize window 
-            this.isContextMenuOpen = true;
-            base.OnContextMenuOpening(e);
-        }
-
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">Provides data about the event.</param>
-        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
-        {
-            // Do not resize window 
-            this.isContextMenuOpen = false;
-            base.OnContextMenuClosing(e);
-        }
-
-        private void HandleTitleBarMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (!this.IsIconVisible)
-            {
-                return;
-            }
-
-            var mousePosition = GetCorrectPosition(this);
-
-            if (mousePosition.X <= RibbonProperties.GetTitleBarHeight(this)
-                && mousePosition.Y <= RibbonProperties.GetTitleBarHeight(this))
-            {
-                if ((DateTime.Now - lastMouseClick).TotalMilliseconds <= this.doubleclick)
-                {
-                    this.Close();
-                    return;
-                }
-                this.lastMouseClick = DateTime.Now;
-
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
-            }
-            else if (e.ChangedButton == MouseButton.Right)
-            {
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
-            }
-        }
-
-        private void HandleIconMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed
-                && e.ClickCount == 1)
-            {
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
-            }
-        }
-
         private static Point GetCorrectPosition(Visual relativeTo)
         {
             POINT w32Mouse;
@@ -625,43 +412,12 @@ namespace Fluent
             return relativeTo.PointFromScreen(new Point(w32Mouse.X, w32Mouse.Y));
         }
 
-        private void HandleTitleBarMouseMove(object sender, MouseEventArgs e)
+        private void HandleIconMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (PopupService.DismissingPopup)
+            if (e.ClickCount == 1)
             {
-                return;
+                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
             }
-
-            if (e.RightButton != MouseButtonState.Pressed && e.MiddleButton != MouseButtonState.Pressed
-                && e.LeftButton == MouseButtonState.Pressed && WindowState == WindowState.Maximized
-                && ResizeMode != ResizeMode.NoResize && !this.isContextMenuOpen)
-            {
-                // Calculating correct left coordinate for multi-screen system.
-                var mouseAbsolute = PointToScreen(Mouse.GetPosition(this));
-                var width = this.RestoreBounds.Width;
-                var left = mouseAbsolute.X - width / 2;
-
-                // Aligning window's position to fit the screen.
-                var virtualScreenWidth = SystemParameters.VirtualScreenWidth;
-                left = left + width > virtualScreenWidth ? virtualScreenWidth - width : left;
-
-                var mousePosition = e.MouseDevice.GetPosition(this);
-
-                // When dragging the window down at the very top of the border,
-                // move the window a bit upwards to avoid showing the resize handle as soon as the mouse button is released
-                this.Top = mousePosition.Y < 5 ? -5 : mouseAbsolute.Y - mousePosition.Y;
-                this.Left = left;
-
-                // Restore window to normal state.
-                this.WindowState = WindowState.Normal;
-
-                this.DragMove();
-            }
-        }
-
-        internal T GetPart<T>(string name) where T : DependencyObject
-        {
-            return (T)this.GetTemplateChild(name);
         }
 
         private static void ShowSystemMenuPhysicalCoordinates(Window window, Point physicalScreenLocation)

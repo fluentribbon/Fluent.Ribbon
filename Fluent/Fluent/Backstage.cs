@@ -72,6 +72,36 @@ namespace Fluent
             DependencyProperty.Register("IsOpen", typeof(bool),
             typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
 
+        /// <summary>
+        /// Gets or sets the duration for the hide animation
+        /// </summary>
+        public Duration HideAnimationDuration
+        {
+            get { return (Duration)GetValue(HideAnimationDurationProperty); }
+            set { SetValue(HideAnimationDurationProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HideAnimationDuration.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HideAnimationDurationProperty = DependencyProperty.Register("HideAnimationDuration", typeof(Duration), typeof(Backstage), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets whether context tabs on the titlebar should be hidden when backstage is open
+        /// </summary>
+        public bool HideContextTabsOnOpen
+        {
+            get { return (bool)GetValue(HideContextTabsOnOpenProperty); }
+            set { SetValue(HideContextTabsOnOpenProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HideContextTabsOnOpenProperty = DependencyProperty.Register("HideContextTabsOnOpen", typeof(bool), typeof(Backstage), new PropertyMetadata(false));
+
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var backstage = (Backstage)d;
@@ -85,11 +115,13 @@ namespace Fluent
                 else
                 {
 #if !NET35
-                    if (backstage.UseOffice2013Behavior())
+                    if (backstage.HideAnimationDuration != null)
                     {
+                        var timespan = backstage.HideAnimationDuration.TimeSpan;
+
                         Task.Factory.StartNew(() =>
                         {
-                            Thread.Sleep(TimeSpan.Parse("0:0:0.2"));
+                            Thread.Sleep(timespan);
 
                             backstage.Dispatcher.RunInDispatcher(backstage.Hide);
                         });
@@ -284,7 +316,7 @@ namespace Fluent
                 if (ribbon.TitleBar != null)
                 {
                     ribbon.TitleBar.IsEnabled = false;
-                    ribbon.TitleBar.HideContextTabs = this.UseOffice2013Behavior();
+                    ribbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
             }
 
@@ -617,18 +649,5 @@ namespace Fluent
         }
 
         #endregion
-
-        //todo: find better way to differentiate between Office 2010 and Office 2013 theme
-        private bool UseOffice2013Behavior()
-        {            
-            var window = Window.GetWindow(this) as RibbonWindow;
-            if (window != null
-                && window.UseWindowChrome == false)
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }

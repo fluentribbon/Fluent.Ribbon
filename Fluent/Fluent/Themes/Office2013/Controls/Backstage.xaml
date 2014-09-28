@@ -52,6 +52,10 @@
                 Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText , Mode=OneWay}" />
         <Setter Property="Fluent:KeyTip.Keys"
                 Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip , Mode=OneWay}" />
+        <Setter Property="HideAnimationDuration"
+                Value="0:0:0.2" />
+        <Setter Property="HideContextTabsOnOpen"
+                Value="True" />
     </Style>
 
     <Style TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource RibbonBackstageStyle}" />

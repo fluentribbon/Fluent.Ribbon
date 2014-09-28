@@ -78,8 +78,6 @@
     {
         #region DismissPopup
 
-        public static bool DismissingPopup { get; private set; }
-
         /// <summary>
         /// Occurs then popup is dismissed
         /// </summary>
@@ -221,8 +219,6 @@
                 return;
             }
 
-            DismissingPopup = true;
-
             if (e.DismissMode == DismissPopupMode.Always)
             {
                 if (Mouse.Captured == control)
@@ -260,8 +256,6 @@
                     }
                 }
             }
-
-            DismissingPopup = false;
         }
 
         /// <summary>
