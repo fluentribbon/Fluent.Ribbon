@@ -721,7 +721,18 @@ namespace Fluent
             else
             {
                 // hack: part of MenuItem hack
-                control.lastMenuItem = null;
+                {
+                    if (control.lastMenuItem != null)
+                    {
+#if NET35
+                        control.lastMenuItem.SetValue(menuItemIsSelectedProperty, false);
+#else
+                        control.lastMenuItem.SetCurrentValue(menuItemIsSelectedProperty, false);
+#endif
+                    }
+                    
+                    control.lastMenuItem = null;
+                }
 
                 // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd 
                 if (control.IsKeyboardFocusWithin)
