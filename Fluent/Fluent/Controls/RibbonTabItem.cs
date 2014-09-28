@@ -31,6 +31,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty("Groups")]
     [DefaultProperty("Groups")]
+    [DefaultEvent("IsSelectedChanged")]
     public class RibbonTabItem : Control, IKeyTipedControl
     {
         #region Fields
