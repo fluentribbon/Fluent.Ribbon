@@ -7,25 +7,24 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
-
 namespace Fluent
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Threading;
     using Fluent.Extensibility;
 
     /// <summary>
@@ -48,8 +47,6 @@ namespace Fluent
 
         //
         private int currentItemsInRow;
-
-        private Panel layoutRoot;
 
         // Freezed image (created during snapping)
         Image snappedImage;
@@ -310,7 +307,7 @@ namespace Fluent
         }
 
         // Handle toolbar items changes
-        void OnFilterCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnFilterCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             HasFilter = Filters.Count > 0;
             InvalidateProperty(SelectedFilterProperty);
@@ -937,8 +934,6 @@ namespace Fluent
             dropDownButton = GetTemplateChild("PART_DropDownButton") as ToggleButton;
             if (dropDownButton != null) dropDownButton.Click += OnDropDownClick;
 
-            layoutRoot = GetTemplateChild("PART_LayoutRoot") as Panel;
-
             if (popup != null)
             {
                 popup.Opened -= OnDropDownOpened;
@@ -1078,50 +1073,67 @@ namespace Fluent
         }
 
         // Handles drop down closed
-        void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownOpened(object sender, EventArgs e)
         {
-            IsSnapped = true;
-            minimalGallerylWidth = Math.Max(galleryPanel.ActualWidth, galleryPanel.GetActualMinWidth(MinItemsInDropDownRow));
-            currentItemsInRow = galleryPanel.MinItemsInRow;
-            controlPresenter.Content = null;
-            popupControlPresenter.Content = galleryPanel;
-            galleryPanel.Width = double.NaN;
-            scrollViewer.Height = double.NaN;
-            if (DropDownOpened != null) DropDownOpened(this, e);
-            galleryPanel.MinItemsInRow = Math.Max(currentItemsInRow, MinItemsInDropDownRow);
-            galleryPanel.MaxItemsInRow = MaxItemsInDropDownRow;
-            galleryPanel.IsGrouped = true;
-            dropDownButton.IsChecked = true;
-            canOpenDropDown = false;
+            this.IsSnapped = true;
+
+            this.minimalGallerylWidth = Math.Max(this.galleryPanel.ActualWidth, this.galleryPanel.GetActualMinWidth(this.MinItemsInDropDownRow));
+            this.currentItemsInRow = this.galleryPanel.MinItemsInRow;
+            this.controlPresenter.Content = null;
+            this.popupControlPresenter.Content = this.galleryPanel;
+            this.galleryPanel.Width = double.NaN;
+            this.scrollViewer.Height = double.NaN;
+
+            if (this.DropDownOpened != null)
+            {
+                this.DropDownOpened(this, e);
+            }
+
+            this.galleryPanel.MinItemsInRow = Math.Max(this.currentItemsInRow, this.MinItemsInDropDownRow);
+            this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
+            this.galleryPanel.IsGrouped = true;
+            this.dropDownButton.IsChecked = true;
+            this.canOpenDropDown = false;
 
             Mouse.Capture(this, CaptureMode.SubTree);
 
-            focusedElement = Keyboard.FocusedElement;
-            Debug.WriteLine("Focused element - " + focusedElement);
-            if (focusedElement != null)
+            this.focusedElement = Keyboard.FocusedElement;
+            Debug.WriteLine("Focused element - " + this.focusedElement);
+
+            if (this.focusedElement != null)
             {
-                focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
-                focusedElement.PreviewKeyDown += OnFocusedElementPreviewKeyDown;
+                this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
+                this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
             }
 
             //if (ResizeMode != ContextMenuResizeMode.None)
             {
-                scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, MaxDropDownHeight);
-                if (!double.IsNaN(DropDownHeight)) initialHeight = Math.Min(DropDownHeight, MaxDropDownHeight);
-                double menuHeight = 0;
-                if (Menu != null)
+                this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
+
+                if (!double.IsNaN(this.DropDownHeight))
                 {
-                    Menu.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
+                }
+
+                double menuHeight = 0;
+                if (this.Menu != null)
+                {
+                    this.Menu.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                     menuHeight = Menu.DesiredSize.Height;
                 }
-                if (scrollViewer.DesiredSize.Height > initialHeight)
+
+                if (this.scrollViewer.DesiredSize.Height > initialHeight)
                 {
-                    scrollViewer.Height = initialHeight - menuHeight;
-                    if (scrollViewer.Height < galleryPanel.GetItemSize().Height)
-                        scrollViewer.Height = galleryPanel.GetItemSize().Height;
+                    this.scrollViewer.Height = initialHeight - menuHeight;
+
+                    if (this.scrollViewer.Height < this.galleryPanel.GetItemSize().Height)
+                    {
+                        this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
+                    }
                 }
-                galleryPanel.Width = minimalGallerylWidth;
+                this.galleryPanel.Width = this.minimalGallerylWidth;
             }
         }
 
@@ -1132,21 +1144,21 @@ namespace Fluent
         /// <param name="current">Current value</param>
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
-            if (CanCollapseToButton)
+            if (this.CanCollapseToButton)
             {
-                if ((current == RibbonControlSize.Large)
-                    && (galleryPanel.MinItemsInRow > MinItemsInRow))
+                if (current == RibbonControlSize.Large
+                    && this.galleryPanel.MinItemsInRow > this.MinItemsInRow)
                 {
-                    IsCollapsed = false;
+                    this.IsCollapsed = false;
                 }
                 else
                 {
-                    IsCollapsed = true;
+                    this.IsCollapsed = true;
                 }
             }
             else
             {
-                IsCollapsed = false;
+                this.IsCollapsed = false;
             }
         }
 
@@ -1175,13 +1187,20 @@ namespace Fluent
         /// <param name="e">Information about the event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) IsDropDownOpen = false;
+            if (e.Key == Key.Escape)
+            {
+                this.IsDropDownOpen = false;
+            }
+
             base.OnKeyDown(e);
         }
 
         private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape) IsDropDownOpen = false;
+            if (e.Key == Key.Escape)
+            {
+                this.IsDropDownOpen = false;
+            }
         }
 
         private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
