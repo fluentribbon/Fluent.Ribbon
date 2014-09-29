@@ -364,6 +364,8 @@ namespace Fluent
             Bind(source, element, "Opacity", OpacityProperty, BindingMode.OneWay);
             Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
+            Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
+
             var sourceControl = source as IRibbonControl;
             if (sourceControl != null)
             {
@@ -422,16 +424,22 @@ namespace Fluent
 
         #region Binding
 
-        static internal void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
+        internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
+        {
+            Bind(source, target, new PropertyPath(path), property, mode);
+        }
+
+        internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode)
         {
             var binding = new Binding
-                              {
-                                  Path = new PropertyPath(path),
-                                  Source = source,
-                                  Mode = mode
-                              };
+            {
+                Path = path,
+                Source = source,
+                Mode = mode
+            };
             target.SetBinding(property, binding);
         }
+
         #endregion
 
         #region Methods
