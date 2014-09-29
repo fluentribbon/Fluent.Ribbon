@@ -9,21 +9,28 @@
     /// <summary>
     /// Encapsulates logic for window sizing (maximizing etc.)
     /// </summary>
-    public static class WindowSizing
+    public class WindowSizing
     {
-        /// <summary>
-        /// Called when <paramref name="window"/> has been initialize
-        /// </summary>
-        public static void WindowInitialized(Window window)
+        private readonly Window window;
+
+        public WindowSizing(Window window)
         {
-            var hwndSource = PresentationSource.FromVisual(window) as HwndSource;
+            this.window = window;
+        }
+
+        /// <summary>
+        /// Called when <see cref="window"/> has been initialize
+        /// </summary>
+        public void WindowInitialized()
+        {
+            var hwndSource = PresentationSource.FromVisual(this.window) as HwndSource;
             if (hwndSource != null)
             {
                 hwndSource.AddHook(HwndHook);
             }
         }
 
-        private static IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             var returnval = IntPtr.Zero;
 
@@ -57,34 +64,42 @@
         {
             var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
+            mmi = GetMinMaxInfo(hwnd, mmi);
+
+            Marshal.StructureToPtr(mmi, lParam, true);
+        }
+
+        private static MINMAXINFO GetMinMaxInfo(IntPtr hwnd, MINMAXINFO mmi)
+        {
             // Adjust the maximized size and position to fit the work area of the correct monitor
             const int MONITOR_DEFAULTTONEAREST = 0x00000002;
             var monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
 
-            if (monitor != IntPtr.Zero)
+            if (monitor == IntPtr.Zero)
             {
-                var monitorInfo = new MONITORINFO();
-                UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                var rcWorkArea = monitorInfo.rcWork;
-                var rcMonitorArea = monitorInfo.rcMonitor;
-                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
-
-                var ignoreTaskBar = false; //this.IgnoreTaskBar();
-                var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
-                var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
-                mmi.ptMaxSize.X = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
-                mmi.ptMaxSize.Y = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
-
-                if (!ignoreTaskBar)
-                {
-                    mmi.ptMaxTrackSize.X = mmi.ptMaxSize.X;
-                    mmi.ptMaxTrackSize.Y = mmi.ptMaxSize.Y;
-                    mmi = AdjustWorkingAreaForAutoHide(monitor, mmi);
-                }
+                return mmi;
             }
 
-            Marshal.StructureToPtr(mmi, lParam, true);
+            var monitorInfo = new MONITORINFO();
+            UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+            var rcWorkArea = monitorInfo.rcWork;
+            var rcMonitorArea = monitorInfo.rcMonitor;
+            mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+            mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+
+            var ignoreTaskBar = false; //this.IgnoreTaskBar();
+            var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
+            var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
+            mmi.ptMaxSize.X = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
+            mmi.ptMaxSize.Y = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
+
+            if (!ignoreTaskBar)
+            {
+                mmi.ptMaxTrackSize.X = mmi.ptMaxSize.X;
+                mmi.ptMaxTrackSize.Y = mmi.ptMaxSize.Y;
+                mmi = AdjustWorkingAreaForAutoHide(monitor, mmi);
+            }
+            return mmi;
         }
 
         private static int GetEdge(RECT rc)
@@ -106,8 +121,8 @@
         /// </summary>
         private static MINMAXINFO AdjustWorkingAreaForAutoHide(IntPtr monitorContainingApplication, MINMAXINFO mmi)
         {
-            IntPtr hwnd = UnsafeNativeMethods.FindWindow("Shell_TrayWnd", null);
-            IntPtr monitorWithTaskbarOnIt = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
+            var hwnd = UnsafeNativeMethods.FindWindow("Shell_TrayWnd", null);
+            var monitorWithTaskbarOnIt = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
 
             if (!monitorContainingApplication.Equals(monitorWithTaskbarOnIt))
             {
@@ -118,8 +133,8 @@
             abd.cbSize = Marshal.SizeOf(abd);
             abd.hWnd = hwnd;
             UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETTASKBARPOS, ref abd);
-            int uEdge = GetEdge(abd.rc);
-            bool autoHide = UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETSTATE, ref abd) == new IntPtr(1);
+            var uEdge = GetEdge(abd.rc);
+            var autoHide = UnsafeNativeMethods.SHAppBarMessage((int)ABMsg.ABM_GETSTATE, ref abd) == new IntPtr(1);
 
             if (!autoHide)
             {

@@ -203,9 +203,11 @@ namespace Fluent
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
             DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
 
+        private readonly WindowSizing windowSizing;
+
         #endregion
 
- #region Constructors
+        #region Constructors
 
         /// <summary>
         /// Static constructor
@@ -239,6 +241,8 @@ namespace Fluent
         public RibbonWindow()
         {
             this.SizeChanged += this.OnSizeChanged;
+
+            this.windowSizing = new WindowSizing(this);
         }
 
         #endregion
@@ -257,7 +261,7 @@ namespace Fluent
 
             this.UpdateWindowChrome();
 
-            WindowSizing.WindowInitialized(this);
+            this.windowSizing.WindowInitialized();
         }
 
         /// <summary>

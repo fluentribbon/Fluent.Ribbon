@@ -1,14 +1,11 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Interactivity;
-using System.Windows.Interop;
-using System.Windows.Media;
-using Fluent.Metro.Native;
-
-namespace Fluent.Metro.Behaviours
+﻿namespace Fluent.Metro.Behaviours
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Interactivity;
+    using System.Windows.Interop;
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Behavior for borderless windows (used for Office 2013 theme)
     /// </summary>
