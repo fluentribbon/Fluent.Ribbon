@@ -206,13 +206,7 @@
 
                             </StackPanel>
 
-                            <Menu Background="White">
-                                <Menu.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel Orientation="Vertical" />
-                                    </ItemsPanelTemplate>
-                                </Menu.ItemsPanel>
-
+                            <Menu Style="{DynamicResource DropDownMenuStyle}">
                                 <MenuItem Header="My file 1" />
                                 <MenuItem Header="My file 2" />
                                 <MenuItem Header="My file 3" />
@@ -220,14 +214,16 @@
                         </StackPanel>
                     </Fluent:ApplicationMenu.RightPaneContent>
 
-                    <Fluent:MenuItem Header="New" />
-                    <Fluent:MenuItem Header="Open" />
+                    <Menu Style="{DynamicResource DropDownMenuStyle}">
+                        <Fluent:MenuItem Header="New" />
+                        <Fluent:MenuItem Header="Open" />
 
-                    <Separator />
+                        <Separator />
 
-                    <Fluent:MenuItem Header="Exit"
-                                     Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
-                                     KeyTip="X" />
+                        <Fluent:MenuItem Header="Exit"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
+                                         KeyTip="X" />
+                    </Menu>
                 </Fluent:ApplicationMenu>-->
             </Fluent:Ribbon.Menu>
 
@@ -281,7 +277,8 @@
                                         Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png"
                                         SizeDefinition="Large"
-                                        Command="Paste">
+                                        Command="ApplicationCommands.Paste"
+                                        FocusManager.IsFocusScope="True">
                         <Fluent:SplitButton.ToolTip>
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Text="Paste the contents of the Clipboard."
@@ -330,32 +327,35 @@
                                        Tag="Paste Options:" />
                             </Fluent:GalleryItem>
                         </Fluent:Gallery>
-                        <Fluent:MenuItem Header="Paste Special..."
-                                         KeyTip="S">
-                            <Fluent:MenuItem.ToolTip>
-                                <Fluent:ScreenTip Title="Paste Special"
-                                                  Text="This ScreenTip is attached to menu item" />
-                            </Fluent:MenuItem.ToolTip>
-                        </Fluent:MenuItem>
-                        <Separator />
-                        <Fluent:MenuItem Header="Set Default Paste..."
-                                         KeyTip="A"
-                                         IsSplited="True"
-                                         Command="Paste">
-                            <Fluent:MenuItem Header="1"
-                                             Click="OnMenuItemClick"></Fluent:MenuItem>
-                            <Fluent:MenuItem Header="2"
+                        <Menu Style="{DynamicResource DropDownMenuStyle}">
+                            <Fluent:MenuItem Header="Paste Special..."
+                                             KeyTip="S">
+                                <Fluent:MenuItem.ToolTip>
+                                    <Fluent:ScreenTip Title="Paste Special"
+                                                      Text="This ScreenTip is attached to menu item" />
+                                </Fluent:MenuItem.ToolTip>
+                            </Fluent:MenuItem>
+                            <Separator />
+                            <Fluent:MenuItem Header="Set Default Paste..."
+                                             KeyTip="A"
+                                             IsSplited="True"
+                                             Command="Paste">
+                                <Fluent:MenuItem Header="1"
+                                                 Click="OnMenuItemClick"></Fluent:MenuItem>
+                                <Fluent:MenuItem Header="2"
+                                                 Command="Paste"></Fluent:MenuItem>
+                            </Fluent:MenuItem>
+                            <Fluent:MenuItem Header="Paste now"
                                              Command="Paste"></Fluent:MenuItem>
-                        </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="Paste now"
-                                         Command="Paste"></Fluent:MenuItem>
+                        </Menu>
                     </Fluent:SplitButton>
                     <Fluent:Button x:Name="cutButton"
                                    KeyTip="X"
                                    Header="Cut"
                                    Icon="pack://application:,,,/FluentTest;component/Images/Cut.png"
                                    SizeDefinition="Middle,Small"
-                                   Command="Cut">
+                                   Command="Cut"
+                                   FocusManager.IsFocusScope="True">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Cut (Ctrl+X)"
                                               Text="Cut the contents to the Clipboard."
@@ -367,7 +367,8 @@
                                    KeyTip="C"
                                    Header="Copy"
                                    Icon="pack://application:,,,/FluentTest;component/Images/Copy.png"
-                                   Command="Copy">
+                                   Command="Copy"
+                                   FocusManager.IsFocusScope="True">
                         <Fluent:Button.SizeDefinition>
                             <Fluent:RibbonControlSizeDefinition Large="Middle"
                                                                 Middle="Small" />
@@ -685,110 +686,110 @@
                                            VerticalAlignment="Center">8</TextBlock>
                             </Border>
                         </Fluent:Gallery>
-                        <Fluent:MenuItem Header="Item5"
-                                         KeyTip="E"
-                                         Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png" />
-                        <Fluent:MenuItem Header="Item5"
-                                         KeyTip="R">
-                            <Fluent:MenuItem Header="Itemq"
-                                             KeyTip="A" />
-                            <Fluent:MenuItem Header="Itemw"
-                                             KeyTip="B" />
+
+                        <Menu Style="{DynamicResource DropDownMenuStyle}">                          
                             <Fluent:MenuItem Header="Item5"
-                                             KeyTip="R"
-                                             Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png">
+                                             KeyTip="R">
                                 <Fluent:MenuItem Header="Itemq"
-                                                 KeyTip="A"
-                                                 MaxDropDownHeight="350">
-                                    <Fluent:Gallery MinHeight="60"
-                                                    MinItemsInRow="3"
-                                                    MaxItemsInRow="6"
-                                                    ItemWidth="28"
-                                                    ItemHeight="28">
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">1</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">2</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">3</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">4</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">5</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">6</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">7</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group3"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">8</TextBlock>
-                                        </Border>
-                                    </Fluent:Gallery>
-                                </Fluent:MenuItem>
+                                                 KeyTip="A" />
                                 <Fluent:MenuItem Header="Itemw"
                                                  KeyTip="B" />
                                 <Fluent:MenuItem Header="Item5"
-                                                 KeyTip="R">
+                                                 KeyTip="R"
+                                                 Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png">
                                     <Fluent:MenuItem Header="Itemq"
                                                      KeyTip="A"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC" />
+                                                     MaxDropDownHeight="350">
+                                        <Fluent:Gallery MinHeight="60"
+                                                        MinItemsInRow="3"
+                                                        MaxItemsInRow="6"
+                                                        ItemWidth="28"
+                                                        ItemHeight="28">
+                                            <Border Tag="Group1"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">1</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group1"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">2</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group1"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">3</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">4</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">5</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">6</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group2"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">7</TextBlock>
+                                            </Border>
+                                            <Border Tag="Group3"
+                                                    BorderThickness="1"
+                                                    BorderBrush="Aqua">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center">8</TextBlock>
+                                            </Border>
+                                        </Fluent:Gallery>
+                                    </Fluent:MenuItem>
                                     <Fluent:MenuItem Header="Itemw"
-                                                     KeyTip="B"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC" />
-                                    <Fluent:MenuItem Header="Iteme"
-                                                     KeyTip="C"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC"
-                                                     IsChecked="True" />
+                                                     KeyTip="B" />
+                                    <Fluent:MenuItem Header="Item5"
+                                                     KeyTip="R">
+                                        <Fluent:MenuItem Header="Itemq"
+                                                         KeyTip="A"
+                                                         IsCheckable="True"
+                                                         GroupName="ABC" />
+                                        <Fluent:MenuItem Header="Itemw"
+                                                         KeyTip="B"
+                                                         IsCheckable="True"
+                                                         GroupName="ABC" />
+                                        <Fluent:MenuItem Header="Iteme"
+                                                         KeyTip="C"
+                                                         IsCheckable="True"
+                                                         GroupName="ABC"
+                                                         IsChecked="True" />
+                                    </Fluent:MenuItem>
                                 </Fluent:MenuItem>
                             </Fluent:MenuItem>
-                        </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                            <Fluent:MenuItem Header="Item" />
+                        </Menu>
                     </Fluent:SplitButton>
 
                 </Fluent:RibbonGroupBox>
@@ -1307,62 +1308,66 @@
                                         ResizeMode="Both"
                                         Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png">
-                        <MenuItem Header="1" />
-                        <MenuItem Header="2" />
-                        <MenuItem Header="3" />
-                        <MenuItem Header="4" />
-                        <MenuItem Header="5" />
-                        <MenuItem Header="6" />
-                        <MenuItem Header="7" />
-                        <MenuItem Header="8" />
-                        <MenuItem Header="9" />
-                        <MenuItem Header="10" />
-                        <MenuItem Header="11" />
-                        <MenuItem Header="12" />
-                        <MenuItem Header="13" />
-                        <MenuItem Header="14" />
-                        <MenuItem Header="15" />
-                        <MenuItem Header="16" />
-                        <MenuItem Header="17" />
-                        <MenuItem Header="18" />
-                        <MenuItem Header="19" />
-                        <MenuItem Header="20" />
-                        <MenuItem Header="21" />
-                        <MenuItem Header="22" />
-                        <MenuItem Header="23" />
-                        <MenuItem Header="24" />
-                        <MenuItem Header="25" />
+                        <Menu Style="{DynamicResource DropDownMenuStyle}">
+                            <MenuItem Header="1" />
+                            <MenuItem Header="2" />
+                            <MenuItem Header="3" />
+                            <MenuItem Header="4" />
+                            <MenuItem Header="5" />
+                            <MenuItem Header="6" />
+                            <MenuItem Header="7" />
+                            <MenuItem Header="8" />
+                            <MenuItem Header="9" />
+                            <MenuItem Header="10" />
+                            <MenuItem Header="11" />
+                            <MenuItem Header="12" />
+                            <MenuItem Header="13" />
+                            <MenuItem Header="14" />
+                            <MenuItem Header="15" />
+                            <MenuItem Header="16" />
+                            <MenuItem Header="17" />
+                            <MenuItem Header="18" />
+                            <MenuItem Header="19" />
+                            <MenuItem Header="20" />
+                            <MenuItem Header="21" />
+                            <MenuItem Header="22" />
+                            <MenuItem Header="23" />
+                            <MenuItem Header="24" />
+                            <MenuItem Header="25" />
+                        </Menu>
                     </Fluent:SplitButton>
 
                     <Fluent:DropDownButton Header="Dropdown"
                                         ResizeMode="Both"
                                         Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png">
-                        <MenuItem Header="1" />
-                        <MenuItem Header="2" />
-                        <MenuItem Header="3" />
-                        <MenuItem Header="4" />
-                        <MenuItem Header="5" />
-                        <MenuItem Header="6" />
-                        <MenuItem Header="7" />
-                        <MenuItem Header="8" />
-                        <MenuItem Header="9" />
-                        <MenuItem Header="10" />
-                        <MenuItem Header="11" />
-                        <MenuItem Header="12" />
-                        <MenuItem Header="13" />
-                        <MenuItem Header="14" />
-                        <MenuItem Header="15" />
-                        <MenuItem Header="16" />
-                        <MenuItem Header="17" />
-                        <MenuItem Header="18" />
-                        <MenuItem Header="19" />
-                        <MenuItem Header="20" />
-                        <MenuItem Header="21" />
-                        <MenuItem Header="22" />
-                        <MenuItem Header="23" />
-                        <MenuItem Header="24" />
-                        <MenuItem Header="25" />
+                        <Menu Style="{DynamicResource DropDownMenuStyle}">
+                            <MenuItem Header="1" />
+                            <MenuItem Header="2" />
+                            <MenuItem Header="3" />
+                            <MenuItem Header="4" />
+                            <MenuItem Header="5" />
+                            <MenuItem Header="6" />
+                            <MenuItem Header="7" />
+                            <MenuItem Header="8" />
+                            <MenuItem Header="9" />
+                            <MenuItem Header="10" />
+                            <MenuItem Header="11" />
+                            <MenuItem Header="12" />
+                            <MenuItem Header="13" />
+                            <MenuItem Header="14" />
+                            <MenuItem Header="15" />
+                            <MenuItem Header="16" />
+                            <MenuItem Header="17" />
+                            <MenuItem Header="18" />
+                            <MenuItem Header="19" />
+                            <MenuItem Header="20" />
+                            <MenuItem Header="21" />
+                            <MenuItem Header="22" />
+                            <MenuItem Header="23" />
+                            <MenuItem Header="24" />
+                            <MenuItem Header="25" />
+                        </Menu>
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
@@ -1646,8 +1651,10 @@
                             </Fluent:DropDownButton.Icon>
                             <Fluent:ColorGallery Mode="StandardColors"
                                                  SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
-                            <Fluent:MenuItem Icon="pack://application:,,,/FluentTest;component/Images/Pink.png"
-                                             Header="Custom MenuItem" />
+                            <Menu Style="{DynamicResource DropDownMenuStyle}">
+                                <Fluent:MenuItem Icon="pack://application:,,,/FluentTest;component/Images/Pink.png"
+                                                 Header="Custom MenuItem" />
+                            </Menu>
                         </Fluent:DropDownButton>
                         
                         <!-- The following code shows highlight colors mode for color gallery -->
@@ -1923,16 +1930,18 @@
                                         Icon="pack://application:,,,/FluentTest;component/Images/Red.png"
                                         LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                         SizeDefinition="Large">
-                        <Fluent:MenuItem Fluent:KeyTip.Keys="P"
-                                         Header="Pink"
-                                         Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
-                        <Fluent:MenuItem Fluent:KeyTip.Keys="R"
-                                         Header="Red"
-                                         Icon="pack://application:,,,/FluentTest;component/Images/Red.png">
-                            <Fluent:MenuItem Fluent:KeyTip.Keys="O"
-                                             Header="Orange"
-                                             Icon="pack://application:,,,/FluentTest;component/Images/Orange.png" />
-                        </Fluent:MenuItem>
+                        <Menu Style="{DynamicResource DropDownMenuStyle}">
+                            <Fluent:MenuItem Fluent:KeyTip.Keys="P"
+                                             Header="Pink"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
+                            <Fluent:MenuItem Fluent:KeyTip.Keys="R"
+                                             Header="Red"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/Red.png">
+                                <Fluent:MenuItem Fluent:KeyTip.Keys="O"
+                                                 Header="Orange"
+                                                 Icon="pack://application:,,,/FluentTest;component/Images/Orange.png" />
+                            </Fluent:MenuItem>
+                        </Menu>
                     </Fluent:SplitButton>
                     <Fluent:Button Fluent:KeyTip.Keys="G"
                                    Header="Grey"
@@ -2295,6 +2304,7 @@
                 <WrapPanel>
                     <Button x:Name="AddRibbonTab"
                             Click="AddRibbonTab_OnClick">Add tab</Button>
+                    <TextBox Width="200"></TextBox>
                 </WrapPanel>
             </TabItem>
         </TabControl>

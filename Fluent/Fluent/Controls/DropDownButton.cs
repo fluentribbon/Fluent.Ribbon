@@ -339,51 +339,7 @@ namespace Fluent
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
-
-            RegisterMenuBaseEvents();
         }
-
-        #region MenuItem hack
-
-        private static readonly DependencyProperty menuItemIsSelectedProperty = (DependencyProperty)typeof(System.Windows.Controls.MenuItem).GetField("IsSelectedProperty", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-
-        private static void RegisterMenuBaseEvents()
-        {
-            var hiddenRoutedEvent = (RoutedEvent)typeof(MenuBase).GetField("IsSelectedChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-            EventManager.RegisterClassHandler(typeof(DropDownButton), hiddenRoutedEvent, new RoutedPropertyChangedEventHandler<bool>(OnMenuItemIsSelectedChanged));
-        }
-
-        private System.Windows.Controls.MenuItem lastMenuItem;
-
-        // This hack is needed to avoid MenuItem keyboardnavigation misbehavior when menu items are used directly within the DopDownButton. This is the case in the ApplicationMenu.
-        // It fixes codeplex issues 22472 and 22481
-        private static void OnMenuItemIsSelectedChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            var menuItem = e.OriginalSource as System.Windows.Controls.MenuItem;            
-
-            if (menuItem != null)
-            {
-                var dropDownButton = menuItem.Parent as DropDownButton;
-
-                if (dropDownButton != null)
-                {
-                    if (dropDownButton.lastMenuItem != null)
-                    {
-#if NET35
-                        dropDownButton.lastMenuItem.SetValue(menuItemIsSelectedProperty, false);
-#else
-                        dropDownButton.lastMenuItem.SetCurrentValue(menuItemIsSelectedProperty, false);
-#endif
-                    }
-
-                    dropDownButton.lastMenuItem = menuItem;                    
-                }
-            }
-
-            e.Handled = true;
-        }
-
-        #endregion MenuItem hack
 
         /// <summary>
         /// Default constructor
@@ -444,7 +400,7 @@ namespace Fluent
 
             if (this.DropDownPopup != null)
             {
-                this.DropDownPopup.KeyUp -= this.OnDropDownPopupKeyUp;
+                this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
             }
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
@@ -454,7 +410,7 @@ namespace Fluent
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
 
-                this.DropDownPopup.KeyUp += this.OnDropDownPopupKeyUp;
+                this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
             }
 
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
@@ -507,7 +463,7 @@ namespace Fluent
             base.OnMouseLeftButtonDown(e);
         }
 
-        private void OnDropDownPopupKeyUp(object sender, KeyEventArgs e)
+        private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Handled)
             {
@@ -720,20 +676,6 @@ namespace Fluent
             }
             else
             {
-                // hack: part of MenuItem hack
-                {
-                    if (control.lastMenuItem != null)
-                    {
-#if NET35
-                        control.lastMenuItem.SetValue(menuItemIsSelectedProperty, false);
-#else
-                        control.lastMenuItem.SetCurrentValue(menuItemIsSelectedProperty, false);
-#endif
-                    }
-                    
-                    control.lastMenuItem = null;
-                }
-
                 // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd 
                 if (control.IsKeyboardFocusWithin)
                 {
