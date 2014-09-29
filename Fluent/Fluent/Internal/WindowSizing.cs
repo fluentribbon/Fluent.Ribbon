@@ -13,6 +13,9 @@
     {
         private readonly Window window;
 
+        /// <summary>
+        /// Creates a new instance and binds it to <paramref name="window"/>
+        /// </summary>
         public WindowSizing(Window window)
         {
             this.window = window;
