@@ -108,14 +108,26 @@
         private static int GetEdge(RECT rc)
         {
             int uEdge;
-            if (rc.top == rc.left && rc.bottom > rc.right)
-                uEdge = (int)ABEdge.ABE_LEFT;
-            else if (rc.top == rc.left && rc.bottom < rc.right)
-                uEdge = (int)ABEdge.ABE_TOP;
+
+            if (rc.top == rc.left 
+                && rc.bottom > rc.right)
+            {
+                uEdge = (int) ABEdge.ABE_LEFT;
+            }
+            else if (rc.top == rc.left 
+                && rc.bottom < rc.right)
+            {
+                uEdge = (int) ABEdge.ABE_TOP;
+            }
             else if (rc.top > rc.left)
-                uEdge = (int)ABEdge.ABE_BOTTOM;
+            {
+                uEdge = (int) ABEdge.ABE_BOTTOM;
+            }
             else
-                uEdge = (int)ABEdge.ABE_RIGHT;
+            {
+                uEdge = (int) ABEdge.ABE_RIGHT;
+            }
+
             return uEdge;
         }
 
@@ -127,7 +139,7 @@
             var hwnd = UnsafeNativeMethods.FindWindow("Shell_TrayWnd", null);
             var monitorWithTaskbarOnIt = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
 
-            if (!monitorContainingApplication.Equals(monitorWithTaskbarOnIt))
+            if (monitorContainingApplication.Equals(monitorWithTaskbarOnIt) == false)
             {
                 return mmi;
             }
