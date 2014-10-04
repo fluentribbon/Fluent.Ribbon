@@ -84,7 +84,7 @@
                 <!-- Setting height to the exact same value as GlassBorderThickness -->
                 <Setter Property="Height"
                         TargetName="PART_RibbonTitleBar"
-                        Value="{Binding GlassBorderThickness.Top, RelativeSource={RelativeSource AncestorType={x:Type Window}}, FallbackValue=30}" />                
+                        Value="{Binding CaptionHeight, RelativeSource={RelativeSource AncestorType={x:Type Window}}, FallbackValue=30}" />                
             </Trigger>
             <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
                      Value="True">

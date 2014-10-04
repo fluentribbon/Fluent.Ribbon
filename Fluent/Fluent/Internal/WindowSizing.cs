@@ -11,14 +11,18 @@
     /// </summary>
     public class WindowSizing
     {
-        private readonly Window window;
+        private readonly RibbonWindow window;
+        private IntPtr hwnd;
+        private bool fixingNastyWindowChromeBug;
 
         /// <summary>
         /// Creates a new instance and binds it to <paramref name="window"/>
         /// </summary>
-        public WindowSizing(Window window)
+        public WindowSizing(RibbonWindow window)
         {
             this.window = window;
+
+            this.window.StateChanged += this.HandleWindowStateChanged;
         }
 
         /// <summary>
@@ -29,9 +33,41 @@
             var hwndSource = PresentationSource.FromVisual(this.window) as HwndSource;
             if (hwndSource != null)
             {
+                this.hwnd = hwndSource.Handle;
                 hwndSource.AddHook(HwndHook);
             }
         }
+
+        private void HandleWindowStateChanged(object sender, EventArgs e)
+        {
+            this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
+        }
+
+        private void FixNastyWindowChromeBug()
+        {
+            if (this.fixingNastyWindowChromeBug
+                || this.ShouldTryToFixNastyWindowChromeBug() == false
+                || this.window.WindowState != WindowState.Maximized)
+            {
+                return;
+            }
+
+            this.fixingNastyWindowChromeBug = true;
+
+            var mmi = GetMinMaxInfo(hwnd, new MINMAXINFO());
+            MoveWindow(hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y + 10, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            MoveWindow(hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+
+            this.fixingNastyWindowChromeBug = false;
+        }
+
+        private bool ShouldTryToFixNastyWindowChromeBug()
+        {
+            return this.window.GlassBorderThickness != default(Thickness);
+        }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int width, int height, bool repaint);
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -45,9 +81,10 @@
 
                     /* Setting handled to false enables the application to process it's own Min/Max requirements,
                      * as mentioned by jason.bullard (comment from September 22, 2011) on http://gallery.expression.microsoft.com/ZuneWindowBehavior/ */
-                    handled = false;
+                    handled = true;
                     break;
             }
+
             return returnval;
         }
 
@@ -63,7 +100,7 @@
         ////    return ignoreTaskBar;
         ////}
 
-        private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
+        private void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
             var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
@@ -72,7 +109,7 @@
             Marshal.StructureToPtr(mmi, lParam, true);
         }
 
-        private static MINMAXINFO GetMinMaxInfo(IntPtr hwnd, MINMAXINFO mmi)
+        private MINMAXINFO GetMinMaxInfo(IntPtr hwnd, MINMAXINFO mmi)
         {
             // Adjust the maximized size and position to fit the work area of the correct monitor
             const int MONITOR_DEFAULTTONEAREST = 0x00000002;
@@ -87,8 +124,17 @@
             UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
             var rcWorkArea = monitorInfo.rcWork;
             var rcMonitorArea = monitorInfo.rcMonitor;
-            mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-            mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+
+            if (this.ShouldTryToFixNastyWindowChromeBug())
+            {
+                mmi.ptMaxPosition.X = rcWorkArea.left;
+                mmi.ptMaxPosition.Y = rcWorkArea.top;
+            }
+            else
+            {
+                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+            }
 
             var ignoreTaskBar = false; //this.IgnoreTaskBar();
             var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
@@ -153,8 +199,6 @@
 
             if (!autoHide)
             {
-                mmi.ptMaxSize.X -= 1;
-                mmi.ptMaxTrackSize.X -= 1;
                 return mmi;
             }
 

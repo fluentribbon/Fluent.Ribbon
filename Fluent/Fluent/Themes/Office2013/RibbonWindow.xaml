@@ -10,59 +10,61 @@
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
-        <Grid Background="{TemplateBinding Background}"
+        <Grid Background="{TemplateBinding Background}"              
               x:Name="root">
-            <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}"
-                    BorderThickness="1"
-                    x:Name="themecolorborder" />
-            <AdornerDecorator Margin="1,0,1,0"
-                              x:Name="content">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid x:Name="PART_TitleBar"
-                          Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
-                          Background="Transparent">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image x:Name="PART_Icon"
-                               Height="16"
-                               Width="16"
-                               Margin="8,-2,0,0"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
-                               Stretch="UniformToFill" />
+            <Grid Margin="{TemplateBinding BorderThickness}">
+                <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}"
+                        BorderThickness="1"
+                        x:Name="themecolorborder" />
+                <AdornerDecorator Margin="1,0,1,0"
+                                  x:Name="content">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="PART_TitleBar"
+                              Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                              Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="PART_Icon"
+                                   Height="16"
+                                   Width="16"
+                                   Margin="8,-2,0,0"
+                                   Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
+                                   Stretch="UniformToFill" />
+                        </Grid>
+                        <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                          x:Name="PART_WindowCommands"
+                                          Panel.ZIndex="1"
+                                          Grid.RowSpan="2"
+                                          VerticalAlignment="Top"
+                                          HorizontalAlignment="Right"
+                                          Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                        <ContentPresenter Grid.Row="1">
+                            <ContentPresenter.Margin>
+                                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding RelativeSource="{RelativeSource Self}"
+                                             Path="(Fluent:RibbonProperties.TitleBarHeight)"
+                                             Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                                </MultiBinding>
+                            </ContentPresenter.Margin>
+                        </ContentPresenter>
                     </Grid>
-                    <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                      x:Name="PART_WindowCommands"
-                                      Panel.ZIndex="1"
-                                      Grid.RowSpan="2"
-                                      VerticalAlignment="Top"
-                                      HorizontalAlignment="Right"
-                                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-                    <ContentPresenter Grid.Row="1">
-                        <ContentPresenter.Margin>
-                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                                <Binding RelativeSource="{RelativeSource Self}"
-                                         Path="(Fluent:RibbonProperties.TitleBarHeight)"
-                                         Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
-                                <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                                <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                            </MultiBinding>
-                        </ContentPresenter.Margin>
-                    </ContentPresenter>
-                </Grid>
-            </AdornerDecorator>
-            <ResizeGrip x:Name="WindowResizeGrip"
-                        HorizontalAlignment="Right"
-                        IsTabStop="false"
-                        Visibility="Collapsed"
-                        VerticalAlignment="Bottom" />
+                </AdornerDecorator>
+                <ResizeGrip x:Name="WindowResizeGrip"
+                            HorizontalAlignment="Right"
+                            IsTabStop="false"
+                            Visibility="Collapsed"
+                            VerticalAlignment="Bottom" />
+            </Grid>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsActive"
@@ -79,9 +81,6 @@
                                Value="Normal" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
-                        TargetName="root"
-                        Value="0" />
-                <Setter Property="Margin"
                         TargetName="content"
                         Value="1" />
                 <Setter Property="Visibility"
@@ -93,9 +92,6 @@
             </MultiTrigger>
             <Trigger Property="WindowState"
                      Value="Maximized">
-                <Setter Property="Margin"
-                        TargetName="root"
-                        Value="0,-2,0,0" />
                 <Setter Property="Margin"
                         TargetName="content"
                         Value="0" />
@@ -273,11 +269,15 @@
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="ResizeBorderThickness"
-                Value="8,8,8,8" />        
+                Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
         <Setter Property="CornerRadius"
                 Value="0" />
         <Setter Property="GlassBorderThickness"
-                Value="0,0,0,0" />
+                Value="0" />
+        <Setter Property="DontUseDwm"
+                Value="True" />
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource BlackColor}" />
@@ -301,8 +301,8 @@
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
+                <Setter Property="BorderThickness"
+                        Value="8,6,8,8" />
             </Trigger>            
         </Style.Triggers>
     </Style>

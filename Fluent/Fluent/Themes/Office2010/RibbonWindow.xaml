@@ -84,14 +84,12 @@
         <Setter Property="Margin" TargetName="rectangle1" Value="0,4,15.1,1"/>
         <Setter Property="Margin" TargetName="rectangle2" Value="50,4,50,1"/>
       </Trigger>
-      <Trigger Property="IsIconVisible" Value="False">
-        <Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>
-      </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     <Grid>
-      <AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch" Margin="0">
+        <Grid Margin="{TemplateBinding BorderThickness}">
+      <AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch">
         <Grid>
           <Border x:Name="PART_SizeBorder" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8.5" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
             <Border x:Name="border2" BorderBrush="{DynamicResource WindowInnerBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="7,7,7,7" Background="{x:Null}" Opacity="1">
@@ -106,13 +104,13 @@
             </StackPanel>
             <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                 x:Name="PART_WindowCommands"
-                                Margin="0,8,8,0"
+                                Margin="0,2,8,0"
                                 Panel.ZIndex="1"
                                 Grid.RowSpan="2"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-            <Border x:Name="border4" Margin="{TemplateBinding GlassBorderThickness}" >
+            <Border x:Name="border4" Margin="8,50,8,8" >
               <Border x:Name="border1" Height="Auto" BorderThickness="1,1,1,1" BorderBrush="{DynamicResource WindowContentBorderBrush}" Margin="-1">
                 <Grid x:Name="grid" Background="{TemplateBinding Background}"/>
               </Border>
@@ -124,6 +122,7 @@
           </Grid>
         </Grid>
       </AdornerDecorator>
+        </Grid>
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsActive" Value="False">
@@ -144,14 +143,18 @@
         <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
         <Setter Property="Margin" TargetName="PART_WindowCommands" Value="0,0,0,0"/>
-        <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
         <Setter Property="Margin" TargetName="contentPresenter" Value="0,0,0,0"/>
         <Setter Property="Height" TargetName="border2" Value="54"/>
-      </Trigger>
-      <Trigger Property="IsIconVisible" Value="False">
-        <Setter Property="Visibility" TargetName="PART_IconImage" Value="Collapsed"/>
-      </Trigger>
-
+                <Setter Property="Margin"
+                        TargetName="border4"
+                        Value="0,50,0,0" />
+            </Trigger>
+        <Trigger Property="IsCollapsed"
+                    Value="True">
+            <Setter Property="Margin"
+                    TargetName="border4"
+                    Value="8,30,8,8" />
+        </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
   <Style x:Key="CaptionButtonStyle" TargetType="{x:Type Button}">
@@ -315,6 +318,8 @@
                 Value="8,50,8,8" />
         <Setter Property="ResizeBorderThickness"
                 Value="8,8,8,8" />
+        <Setter Property="BorderThickness"
+                Value="0" />        
         <Setter Property="CornerRadius"
                 Value="15" />
         <Setter Property="CaptionHeight"
@@ -339,13 +344,15 @@
                      Value="Maximized">
                 <Setter Property="GlassBorderThickness"
                         Value="0,50,0,0" />
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
+                <Setter Property="BorderThickness"
+                        Value="8,6,8,8" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
+                <Setter Property="GlassBorderThickness"
+                        Value="0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">

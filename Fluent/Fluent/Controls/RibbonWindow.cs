@@ -332,21 +332,19 @@ namespace Fluent
 
         private void UpdateWindowChrome()
         {
-            var windowChrome = new WindowChrome
-            {
-                CaptionHeight = this.CaptionHeight,
-                CornerRadius = this.CornerRadius,
-                GlassFrameThickness = this.CanUseDwm
-                    ? this.GlassBorderThickness 
-                    : default(Thickness),
-                ResizeBorderThickness = this.ResizeBorderThickness,
-#if NET45
-                ////NonClientFrameEdges = NonClientFrameEdges.Bottom,
-                UseAeroCaptionButtons = this.CanUseDwm
-#endif
-            };
+            var windowChrome = WindowChrome.GetWindowChrome(this);
 
-            WindowChrome.SetWindowChrome(this, windowChrome);
+            if (windowChrome == null)
+            {
+                windowChrome = new WindowChrome();
+                WindowChrome.SetWindowChrome(this, windowChrome);
+            }
+
+            windowChrome.CaptionHeight = this.CaptionHeight;
+            windowChrome.CornerRadius = this.CornerRadius;
+            windowChrome.GlassFrameThickness = this.GlassBorderThickness;
+            windowChrome.ResizeBorderThickness = this.ResizeBorderThickness;
+            windowChrome.UseAeroCaptionButtons = this.CanUseDwm;            
         }
 
         private void UpdateCanUseDwm()
