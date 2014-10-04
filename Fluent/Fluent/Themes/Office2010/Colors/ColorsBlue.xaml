@@ -269,7 +269,7 @@
                          GradientOrigin="1,1"
                          RadiusX="1">
         <GradientStop Offset="1" />
-        <GradientStop Color="#D8F9F7FA" />
+        <GradientStop Color="{DynamicResource RibbonTabControlGradientBlueColor}" />
     </RadialGradientBrush>
     <RadialGradientBrush x:Key="RibbonTabControlTopGradientRightBrush"
                          RadiusY="1"
@@ -277,14 +277,14 @@
                          GradientOrigin="0,1"
                          RadiusX="1">
         <GradientStop Offset="1" />
-        <GradientStop Color="#D8F9F7FA" />
+        <GradientStop Color="{DynamicResource RibbonTabControlGradientBlueColor}" />
     </RadialGradientBrush>
 
     <LinearGradientBrush x:Key="RibbonTabControlTopGradientCenterBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">
         <GradientStop Offset="0" />
-        <GradientStop Color="#D8F9F7FA"
+        <GradientStop Color="{DynamicResource RibbonTabControlGradientBlueColor}"
                       Offset="1" />
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="BackstagePanelBackgroundBrush"
@@ -479,4 +479,6 @@
                      Color="#FF849DBD" />
     <SolidColorBrush x:Key="ResizeGripBackBrush"
                      Color="#FFD4E1F1" />
+
+    <Color x:Key="RibbonTabControlGradientBlueColor">#D8F9F7FA</Color>
 </ResourceDictionary>

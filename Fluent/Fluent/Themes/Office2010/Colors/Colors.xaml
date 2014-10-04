@@ -390,4 +390,7 @@
         <GradientStop Color="#FFEDEFF1"
                       Offset="1" />
     </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="RibbonWindowTitleTextGlowBackground"
+                     Color="#7FFFFFFF" />
 </ResourceDictionary>
