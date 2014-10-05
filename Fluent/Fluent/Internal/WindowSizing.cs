@@ -35,6 +35,8 @@
             {
                 this.hwnd = hwndSource.Handle;
                 hwndSource.AddHook(HwndHook);
+
+                this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
             }
         }
 
