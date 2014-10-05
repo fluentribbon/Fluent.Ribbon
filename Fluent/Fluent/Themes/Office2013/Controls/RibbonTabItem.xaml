@@ -259,6 +259,9 @@
                     <Condition Property="IsOpen"
                                Value="True" />
                 </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="selectedGrid"
+                        Value="Visible" />                
                 <Setter Property="Background"
                         TargetName="grid"
                         Value="#00000000" />
