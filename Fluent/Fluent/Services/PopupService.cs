@@ -114,6 +114,7 @@
             EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(OnContextMenuClosed), true);
             EventManager.RegisterClassHandler(classType, UIElement.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
         }
+
         /// <summary>
         /// Handles PreviewMouseDownOutsideCapturedElementEvent event
         /// </summary>
@@ -221,11 +222,6 @@
 
             if (e.DismissMode == DismissPopupMode.Always)
             {
-                if (Mouse.Captured == control)
-                {
-                    Mouse.Capture(null);
-                }
-
                 // Debug.WriteLine("DropDown Closed");
                 control.IsDropDownOpen = false;
             }
@@ -234,22 +230,11 @@
                 if (control.IsDropDownOpen
                     && !IsMousePhysicallyOver(control.DropDownPopup))
                 {
-                    if (Mouse.Captured == control)
-                    {
-                        Mouse.Capture(null);
-                    }
-
                     // Debug.WriteLine("DropDown Closed");
                     control.IsDropDownOpen = false;
                 }
                 else
                 {
-                    if (control.IsDropDownOpen
-                        && Mouse.Captured != control)
-                    {
-                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                    }
-
                     if (control.IsDropDownOpen)
                     {
                         e.Handled = true;
