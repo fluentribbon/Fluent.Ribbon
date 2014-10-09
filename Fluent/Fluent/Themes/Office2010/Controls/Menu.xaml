@@ -191,17 +191,4 @@
       </Border>
     </Grid>   
   </ControlTemplate>
-
-    <Style x:Key="DropDownMenuStyle"
-           TargetType="{x:Type Menu}">
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

@@ -11,6 +11,7 @@ namespace Fluent
 {
     using System;
     using System.Collections;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.Threading;
@@ -20,6 +21,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using System.Windows.Media;
     using System.Windows.Threading;
 
     /// <summary>
@@ -31,7 +33,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -450,17 +452,20 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonDown"/> routed event is raised on this element. Implement this method to add class handling for this event. 
+        /// Called when a mouse button is pressed or released. 
         /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.Input.MouseButtonEventArgs"/> that contains the event data. The event data reports that the left mouse button was pressed.</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        /// <param name="e">The event data for a mouse event.</param>
+        protected override void HandleMouseButton(MouseButtonEventArgs e)
         {
-            e.Handled = true;
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                e.Handled = true;
 
-            this.Focus();
-            this.IsDropDownOpen = !this.IsDropDownOpen;
+                this.Focus();
+                this.IsDropDownOpen = !this.IsDropDownOpen;
+            }
 
-            base.OnMouseLeftButtonDown(e);
+            base.HandleMouseButton(e);
         }
 
         private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
@@ -683,15 +688,35 @@ namespace Fluent
                     control.Focus();
                 }
 
-                // Make sure to clear the highlight when the dropdown closes
-
-                if (control.HasCapture)
-                {
-                    Mouse.Capture(null);
-                }
+                control.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (Action)(() => FixMenuMode(control)));
 
                 control.OnDropDownClosed();
             }
+        }
+
+        private static void FixMenuMode(Visual control)
+        {
+#if !NET35
+            if (InputManager.Current.IsInMenuMode == false)
+            {
+                return;
+            }
+
+            var source = PresentationSource.FromVisual(control);
+            if (source == null)
+            {
+                return;
+            }
+
+            try
+            {
+                InputManager.Current.PopMenuMode(source);
+            }
+            catch (Exception exception)
+            {
+                Trace.WriteLine(exception);
+            }
+#endif
         }
 
         // Handles drop down closed

@@ -138,6 +138,12 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
+            // Only react when the mouse is pressed, not when it's released.
+            if (e.LeftButton == MouseButtonState.Released)
+            {
+                return;
+            }
+
             //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
             var control = sender as IDropDownControl;
 
@@ -165,7 +171,7 @@
                     if (Mouse.Captured == null 
                         || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.Always);
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     }
                 }
                 else
