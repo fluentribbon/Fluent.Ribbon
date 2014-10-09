@@ -1,6 +1,7 @@
 ﻿namespace Fluent.Internal
 {
     using System;
+    using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Interop;
@@ -81,8 +82,6 @@
                     /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
                     WmGetMinMaxInfo(hWnd, lParam);
 
-                    /* Setting handled to false enables the application to process it's own Min/Max requirements,
-                     * as mentioned by jason.bullard (comment from September 22, 2011) on http://gallery.expression.microsoft.com/ZuneWindowBehavior/ */
                     handled = true;
                     break;
             }
@@ -114,10 +113,10 @@
         private MINMAXINFO GetMinMaxInfo(IntPtr hwnd, MINMAXINFO mmi)
         {
             // Adjust the maximized size and position to fit the work area of the correct monitor
-            const int MONITOR_DEFAULTTONEAREST = 0x00000002;
-            var monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            var monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
 
-            if (monitor == IntPtr.Zero)
+            if (monitor == IntPtr.Zero
+                || this.window.WindowState != WindowState.Maximized)
             {
                 return mmi;
             }
@@ -126,6 +125,12 @@
             UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
             var rcWorkArea = monitorInfo.rcWork;
             var rcMonitorArea = monitorInfo.rcMonitor;
+
+            Debug.WriteLine("Monitor-Info");
+            Debug.WriteLine("Work: {0}", rcWorkArea);
+            Debug.WriteLine("Mon : {0}", rcMonitorArea);
+
+            Debug.WriteLine("Before: {0}", mmi);
 
             if (this.ShouldTryToFixNastyWindowChromeBug())
             {
@@ -139,6 +144,7 @@
             }
 
             var ignoreTaskBar = false; //this.IgnoreTaskBar();
+
             var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
             var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
             mmi.ptMaxSize.X = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
@@ -150,6 +156,9 @@
                 mmi.ptMaxTrackSize.Y = mmi.ptMaxSize.Y;
                 mmi = AdjustWorkingAreaForAutoHide(monitor, mmi);
             }
+
+            Debug.WriteLine("After: {0}", mmi);
+
             return mmi;
         }
 
@@ -211,22 +220,27 @@
                     mmi.ptMaxTrackSize.X -= 2;
                     mmi.ptMaxSize.X -= 2;
                     break;
+
                 case (int)ABEdge.ABE_RIGHT:
                     mmi.ptMaxSize.X -= 2;
                     mmi.ptMaxTrackSize.X -= 2;
                     break;
+
                 case (int)ABEdge.ABE_TOP:
                     mmi.ptMaxPosition.Y += 2;
                     mmi.ptMaxTrackSize.Y -= 2;
                     mmi.ptMaxSize.Y -= 2;
                     break;
+
                 case (int)ABEdge.ABE_BOTTOM:
                     mmi.ptMaxSize.Y -= 2;
                     mmi.ptMaxTrackSize.Y -= 2;
                     break;
+
                 default:
                     return mmi;
             }
+
             return mmi;
         }
 
