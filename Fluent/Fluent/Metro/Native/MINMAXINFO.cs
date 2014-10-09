@@ -11,5 +11,10 @@ namespace Fluent.Metro.Native
         public POINT ptMaxPosition;
         public POINT ptMinTrackSize;
         public POINT ptMaxTrackSize;
+
+        public override string ToString()
+        {
+            return "MINMAXINFO { ptMaxPosition : " + ptMaxPosition + " / ptMaxSize : " + ptMaxSize + " }";
+        }
     };
 }

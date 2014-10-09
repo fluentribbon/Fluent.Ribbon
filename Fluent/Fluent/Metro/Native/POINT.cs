@@ -53,5 +53,10 @@ namespace Fluent.Metro.Native
         {
             return !(a == b);
         }
+
+        public override string ToString()
+        {
+            return "POINT { x: " + _x + " / y : " + _y + " }";
+        }
     }
 }
