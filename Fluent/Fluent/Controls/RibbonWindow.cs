@@ -344,7 +344,9 @@ namespace Fluent
             windowChrome.CornerRadius = this.CornerRadius;
             windowChrome.GlassFrameThickness = this.GlassBorderThickness;
             windowChrome.ResizeBorderThickness = this.ResizeBorderThickness;
+#if NET45
             windowChrome.UseAeroCaptionButtons = this.CanUseDwm;            
+#endif
         }
 
         private void UpdateCanUseDwm()
