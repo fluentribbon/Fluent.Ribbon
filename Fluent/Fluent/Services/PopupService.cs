@@ -152,8 +152,8 @@
                 return;
             }
 
-            if (Mouse.Captured != sender 
-                && control.IsDropDownOpen 
+            if (Mouse.Captured != sender
+                && control.IsDropDownOpen
                 && !control.IsContextMenuOpened)
             {
                 var popup = control.DropDownPopup;
@@ -168,10 +168,11 @@
                 if (e.OriginalSource == sender)
                 {
                     // If Ribbon loses capture because something outside popup is clicked - close the popup
-                    if (Mouse.Captured == null 
+                    if (Mouse.Captured == null
                         || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
                         RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                        return;
                     }
                 }
                 else
@@ -182,11 +183,11 @@
                     {
                         Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                         e.Handled = true;
+                        return;
                     }
-                    else
-                    {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
-                    }
+                    
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    return;
                 }
             }
         }
@@ -294,7 +295,7 @@
             if (control != null)
             {
                 control.IsContextMenuOpened = true;
-               // Debug.WriteLine("Context menu opened");
+                // Debug.WriteLine("Context menu opened");
             }
         }
 
