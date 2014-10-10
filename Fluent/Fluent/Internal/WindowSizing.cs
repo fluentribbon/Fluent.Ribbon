@@ -58,8 +58,8 @@
             this.fixingNastyWindowChromeBug = true;
 
             var mmi = GetMinMaxInfo(hwnd, new MINMAXINFO());
-            MoveWindow(hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y + 10, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
-            MoveWindow(hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            UnsafeNativeMethods.MoveWindow(hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y + 10, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            UnsafeNativeMethods.MoveWindow(hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
 
             this.fixingNastyWindowChromeBug = false;
         }
@@ -68,9 +68,6 @@
         {
             return this.window.GlassBorderThickness != default(Thickness);
         }
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool MoveWindow(IntPtr hwnd, int x, int y, int width, int height, bool repaint);
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -127,10 +124,10 @@
             var rcMonitorArea = monitorInfo.rcMonitor;
 
             Debug.WriteLine("Monitor-Info");
-            Debug.WriteLine("Work: {0}", rcWorkArea);
-            Debug.WriteLine("Mon : {0}", rcMonitorArea);
+            Debug.WriteLine(string.Format("Work: {0}", rcWorkArea));
+            Debug.WriteLine(string.Format("Mon : {0}", rcMonitorArea));
 
-            Debug.WriteLine("Before: {0}", mmi);
+            Debug.WriteLine(string.Format("Before: {0}", mmi));
 
             if (this.ShouldTryToFixNastyWindowChromeBug())
             {
@@ -157,7 +154,7 @@
                 mmi = AdjustWorkingAreaForAutoHide(monitor, mmi);
             }
 
-            Debug.WriteLine("After: {0}", mmi);
+            Debug.WriteLine(string.Format("After: {0}", mmi));
 
             return mmi;
         }
@@ -166,23 +163,23 @@
         {
             int uEdge;
 
-            if (rc.top == rc.left 
+            if (rc.top == rc.left
                 && rc.bottom > rc.right)
             {
-                uEdge = (int) ABEdge.ABE_LEFT;
+                uEdge = (int)ABEdge.ABE_LEFT;
             }
-            else if (rc.top == rc.left 
+            else if (rc.top == rc.left
                 && rc.bottom < rc.right)
             {
-                uEdge = (int) ABEdge.ABE_TOP;
+                uEdge = (int)ABEdge.ABE_TOP;
             }
             else if (rc.top > rc.left)
             {
-                uEdge = (int) ABEdge.ABE_BOTTOM;
+                uEdge = (int)ABEdge.ABE_BOTTOM;
             }
             else
             {
-                uEdge = (int) ABEdge.ABE_RIGHT;
+                uEdge = (int)ABEdge.ABE_RIGHT;
             }
 
             return uEdge;

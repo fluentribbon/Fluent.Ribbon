@@ -14,6 +14,9 @@ namespace Fluent.Metro.Native
     [SuppressUnmanagedCodeSecurity]
     internal static class UnsafeNativeMethods
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool MoveWindow(IntPtr hwnd, int x, int y, int width, int height, bool repaint);
+
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/aa969518%28v=vs.85%29.aspx</devdoc>
         [DllImport("dwmapi", PreserveSig = false, CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -101,7 +104,7 @@ namespace Fluent.Metro.Native
 
         [SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable")]
         [DllImport("user32.dll", CharSet = CharSet.Auto, EntryPoint = "SetClassLong")]
-        [ResourceExposure(ResourceScope.None)]        
+        [ResourceExposure(ResourceScope.None)]
         private static extern IntPtr SetClassLongPtr32(HandleRef hwnd, int nIndex, IntPtr dwNewLong);
 
         [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
