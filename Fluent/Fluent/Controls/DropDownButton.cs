@@ -13,7 +13,6 @@ namespace Fluent
     using System.Collections;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
-    using System.Reflection;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -33,6 +32,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
     public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
@@ -46,6 +46,8 @@ namespace Fluent
         private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
+
+        private UIElement buttonBorder;
 
         #endregion
 
@@ -378,6 +380,16 @@ namespace Fluent
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
+
+            if (this.buttonBorder != null)
+            {
+                this.buttonBorder.MouseLeftButtonDown += this.HandleButtonBorderMouseLeftButtonDown;
+            }
+
+            if (this.DropDownPopup != null)
+            {
+                this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
+            }
         }
 
         private void UnSubscribeEvents()
@@ -391,6 +403,16 @@ namespace Fluent
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
+
+            if (this.buttonBorder != null)
+            {
+                this.buttonBorder.MouseLeftButtonDown -= this.HandleButtonBorderMouseLeftButtonDown;
+            }
+
+            if (this.DropDownPopup != null)
+            {
+                this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
+            }
         }
 
         /// <summary>
@@ -400,19 +422,12 @@ namespace Fluent
         {
             this.UnSubscribeEvents();
 
-            if (this.DropDownPopup != null)
-            {
-                this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
-            }
-
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
             if (this.DropDownPopup != null)
             {
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
-
-                this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
             }
 
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
@@ -422,6 +437,8 @@ namespace Fluent
             this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as Panel;
 
             this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
+
+            this.buttonBorder = this.Template.FindName("PART_ButtonBorder", this) as UIElement;
 
             base.OnApplyTemplate();
 
@@ -451,23 +468,6 @@ namespace Fluent
             return item is FrameworkElement;
         }
 
-        /// <summary>
-        /// Called when a mouse button is pressed or released. 
-        /// </summary>
-        /// <param name="e">The event data for a mouse event.</param>
-        protected override void HandleMouseButton(MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                e.Handled = true;
-
-                this.Focus();
-                this.IsDropDownOpen = !this.IsDropDownOpen;
-            }
-
-            base.HandleMouseButton(e);
-        }
-
         private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Handled)
@@ -490,6 +490,15 @@ namespace Fluent
                 e.Handled = true;
             }
         }
+
+        private void HandleButtonBorderMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+
+            this.Focus();
+            this.IsDropDownOpen = !this.IsDropDownOpen;
+        }
+
 
         /// <summary>
         /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
@@ -535,8 +544,11 @@ namespace Fluent
                     break;
 
                 case Key.Escape:
-                    this.IsDropDownOpen = false;
-                    handled = true;
+                    if (this.IsDropDownOpen)
+                    {
+                        this.IsDropDownOpen = false;
+                        handled = true;
+                    }
                     break;
 
                 case Key.Enter:
@@ -671,8 +683,9 @@ namespace Fluent
                         // Edge case: Whole dropdown content is disabled
                         if (ctrl.IsKeyboardFocusWithin == false)
                         {
-                            Keyboard.Focus(ctrl);
+                            Keyboard.Focus(ctrl.DropDownPopup);
                         }
+
                         return null;
                     },
                     control);
@@ -688,13 +701,11 @@ namespace Fluent
                     control.Focus();
                 }
 
-                control.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (Action)(() => FixMenuMode(control)));
-
                 control.OnDropDownClosed();
             }
         }
 
-        private static void FixMenuMode(Visual control)
+        private void FixMenuMode()
         {
 #if !NET35
             if (InputManager.Current.IsInMenuMode == false)
@@ -702,7 +713,7 @@ namespace Fluent
                 return;
             }
 
-            var source = PresentationSource.FromVisual(control);
+            var source = PresentationSource.FromVisual(this);
             if (source == null)
             {
                 return;
@@ -872,7 +883,7 @@ namespace Fluent
         /// </returns>
         protected override IEnumerator LogicalChildren
         {
-            get 
+            get
             {
                 if (this.Icon != null)
                 {
