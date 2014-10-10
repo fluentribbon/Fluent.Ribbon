@@ -202,7 +202,7 @@ namespace Fluent.Metro.Native
         [DllImport("user32.dll")]
         internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("shell32.dll", CallingConvention = CallingConvention.StdCall)]
