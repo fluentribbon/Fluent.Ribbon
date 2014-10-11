@@ -185,8 +185,8 @@ namespace Fluent
                 if (groupBox == null) continue;
 
                 var desiredSize = groupBox.DesiredSizeIntermediate;
-                width += desiredSize.Width;
-                height = Math.Max(height, desiredSize.Height);
+                width += Math.Max(groupBox.ActualWidth, desiredSize.Width);
+                height = Math.Max(groupBox.ActualHeight, Math.Max(height, desiredSize.Height));
             }
             return new Size(width, height);
         }
