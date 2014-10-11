@@ -8,8 +8,8 @@
                      x:Class="FluentTest.TestWindow"
                      Title="Fluent Ribbon Control Suite 2.1"
                      DontUseDwm="False"
-                     Height="600"
-                     Width="800"
+                     Height="768"
+                     Width="1024"
                      mc:Ignorable="d"
                      WindowState="Normal">   
     <FluentTest:TestContent x:Name="TestContent" />

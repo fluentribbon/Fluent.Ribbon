@@ -7,15 +7,8 @@
 
     public class MainViewModel : ViewModel
     {
-        public static MainViewModel DesignTimeInstance 
-        {
-            get 
-            { 
-                var result = new MainViewModel();
-                result.BoundSpinnerValue = 100;
-                return result;
-            }
-        }
+        // Data items
+        private GallerySampleDataItemViewModel[] dataItems;
 
         public MainViewModel()
         {
@@ -70,7 +63,28 @@
                 this.galleryViewModel = value;
                 this.OnPropertyChanged("GalleryViewModel");
             }
-        }        
+        }
+
+        /// <summary>
+        /// Gets data items (uses as DataContext)
+        /// </summary>
+        public GallerySampleDataItemViewModel[] DataItems
+        {
+            get
+            {
+                return this.dataItems ?? (this.dataItems = new[]
+                {
+                    GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
+                    GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
+                    GallerySampleDataItemViewModel.Create("Images\\Gray.png", "Images\\GrayLarge.png", "Gray", "Group A"),
+                    GallerySampleDataItemViewModel.Create("Images\\Green.png", "Images\\GreenLarge.png", "Green", "Group A"),
+                    GallerySampleDataItemViewModel.Create("Images\\Orange.png", "Images\\OrangeLarge.png", "Orange", "Group A"),
+                    GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
+                    GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
+                    GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
+                });
+            }
+        }
 
         public ICommand PreviewCommand { get; private set; }
 

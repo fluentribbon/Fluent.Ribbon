@@ -72,6 +72,7 @@
     <Compile Include="ViewModels\ColorViewModel.cs" />
     <Compile Include="ViewModels\FontsViewModel.cs" />
     <Compile Include="ViewModels\GalleryItemViewModel.cs" />
+    <Compile Include="ViewModels\GallerySampleDataItemViewModel.cs" />
     <Compile Include="ViewModels\GalleryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

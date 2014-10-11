@@ -13,6 +13,28 @@
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="middleDataItemTemplate"
+                          DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
+                <Border>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                        <Image Source="{Binding Icon}"
+                               Stretch="UniformToFill" />
+                        <TextBlock Text="{Binding Path=Text, Mode=OneWay}"
+                                   FontSize="10"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="largeDataItemTemplate"
+                          DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
+                <Border ToolTip="{Binding Text}">
+                    <Image Source="{Binding IconLarge}" />
+                </Border>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -263,319 +285,16 @@
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}"
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=dropDownGreen}"
+                                            IsChecked="True" />
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=gallerySampleInRibbonGallery}"
+                                            IsChecked="True" />
             </Fluent:Ribbon.QuickAccessItems>
 
             <Fluent:RibbonTabItem   x:Name="homeTabItem"
                                     Header="Home"
                                     KeyTip="H"
-                                    ToolTip="Regular Tool Tip"
-                                    ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       KeyTip="C"
-                                       x:Name="Clipboard"
-                                       Header="Clipboard"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick"
-                                       LauncherKeys="ZB">
-                    <Fluent:SplitButton x:Name="pasteButton"
-                                        KeyTip="V"
-                                        Header="Paste"
-                                        Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
-                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png"
-                                        SizeDefinition="Large"
-                                        Command="ApplicationCommands.Paste"
-                                        FocusManager.IsFocusScope="True">
-                        <Fluent:SplitButton.ToolTip>
-                            <Fluent:ScreenTip Title="Paste (Ctrl+V)"
-                                              Text="Paste the contents of the Clipboard."
-                                              DisableReason="Enable it do use this function"
-                                              Width="190" />
-                        </Fluent:SplitButton.ToolTip>
-                        <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                        Orientation="Horizontal"
-                                        GroupBy="Tag"
-                                        Selectable="False"
-                                        ItemWidth="32"
-                                        ItemHeight="32">
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteImage.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="K"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteText.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="M"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteTextOnly.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="T"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteFormating.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="L"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteSourceFormating.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="E"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                        </Fluent:Gallery>
-                        <Fluent:MenuItem Header="Paste Special..."
-                                         KeyTip="S">
-                            <Fluent:MenuItem.ToolTip>
-                                <Fluent:ScreenTip Title="Paste Special"
-                                                  Text="This ScreenTip is attached to menu item" />
-                            </Fluent:MenuItem.ToolTip>
-                        </Fluent:MenuItem>
-                        <Separator />
-                        <Fluent:MenuItem Header="Set Default Paste..."
-                                         KeyTip="A"
-                                         IsSplited="True"
-                                         Command="Paste">
-                            <Fluent:MenuItem Header="1"
-                                             Click="OnMenuItemClick"></Fluent:MenuItem>
-                            <Fluent:MenuItem Header="2"
-                                             Command="Paste"></Fluent:MenuItem>
-                        </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="Paste now"
-                                         Command="Paste"></Fluent:MenuItem>
-                    </Fluent:SplitButton>
-                    <Fluent:Button x:Name="cutButton"
-                                   KeyTip="X"
-                                   Header="Cut"
-                                   Icon="pack://application:,,,/FluentTest;component/Images/Cut.png"
-                                   SizeDefinition="Middle,Small"
-                                   Command="Cut"
-                                   FocusManager.IsFocusScope="True">
-                        <Fluent:Button.ToolTip>
-                            <Fluent:ScreenTip Title="Cut (Ctrl+X)"
-                                              Text="Cut the contents to the Clipboard."
-                                              DisableReason="Cut is currently not available."
-                                              Width="190" />
-                        </Fluent:Button.ToolTip>
-                    </Fluent:Button>
-                    <Fluent:Button x:Name="copyButton"
-                                   KeyTip="C"
-                                   Header="Copy"
-                                   Icon="pack://application:,,,/FluentTest;component/Images/Copy.png"
-                                   Command="Copy"
-                                   FocusManager.IsFocusScope="True">
-                        <Fluent:Button.SizeDefinition>
-                            <Fluent:RibbonControlSizeDefinition Large="Middle"
-                                                                Middle="Small" />
-                        </Fluent:Button.SizeDefinition>
-                        <Fluent:Button.ToolTip>
-                            <Fluent:ScreenTip Title="Insert Chart"
-                                              DisableReason="Disable reason reason." />
-                        </Fluent:Button.ToolTip>
-                    </Fluent:Button>
-                    <Fluent:Button KeyTip="FP"
-                                   Header="Format Painter"
-                                   Icon="pack://application:,,,/FluentTest;component/Images/FormatPainter.png"
-                                   SizeDefinition="Middle,Small"
-                                   Click="OnFormatPainterClick" />
-                    <Fluent:DropDownButton Name="buttonWatermark"
-                                           KeyTip="W"
-                                           Header="Watermark"
-                                           Icon="pack://application:,,,/FluentTest;component/Images/Red.png"
-                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           IsEnabled="True"
-                                           VerticalAlignment="Top">
-                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
-                        <Fluent:MenuItem Header="Remove Watermark"
-                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                         Size="Middle"
-                                         IsEnabled="True" />
-                        
-                        <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
-                                        GroupBy="Tag"
-                                        x:Name="WatermarkGallery"
-                                        MinItemsInRow="1"
-                                        MaxItemsInRow="3"
-                                        Orientation="Horizontal"
-                                        ItemWidth="100"
-                                        ItemHeight="100">
-
-                            <Fluent:Gallery.Filters>
-                                <Fluent:GalleryGroupFilter Title="All"
-                                                           Groups="Confidential,Disclaimers,Urgent"
-                                                           x:Name="galleryFilterAll3" />
-                                <Fluent:GalleryGroupFilter Title="Confidential"
-                                                           Groups="Confidential" />
-                                <Fluent:GalleryGroupFilter Title="Disclaimers"
-                                                           Groups="Disclaimers" />
-                                <Fluent:GalleryGroupFilter Title="Urgent"
-                                                           Groups="Urgent" />
-                            </Fluent:Gallery.Filters>
-
-                            <!-- Confidential group items -->
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/GreenLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="CONFIDENTIAL 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/YellowLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="CONFIDENTIAL 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/PinkLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DO NOT COPY 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DO NOT COPY 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Disclaimers group items -->
-                            <Border Tag="Disclaimers"
-                                    x:Name="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DRAFT 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/OrangeLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DRAFT 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="SAMPLE 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="SAMPLE 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Disclaimers group items -->
-                            <Border Tag="Urgent"
-                                    x:Name="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="ASAP 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="ASAP 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="URGENT 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="URGENT 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                        </Fluent:Gallery>
-                    </Fluent:DropDownButton>
-                </Fluent:RibbonGroupBox>
-
+                                    ToolTip="Regular Tool Tip">
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        x:Name="A"
                                        KeyTip="A"
@@ -812,32 +531,7 @@
                     <Fluent:Button Click="OnOffice2010BlueClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueTheme.png"
                                    SizeDefinition="Middle">Blue</Fluent:Button>
-                </Fluent:RibbonGroupBox>
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       KeyTip="ZXB"
-                                       x:Name="B"
-                                       Header="Spinners"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick">
-                    <Fluent:Spinner KeyTip="KA"
-                                    Value="{Binding BoundSpinnerValue}"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
-                                    IsEnabled="False" />
-                    <Fluent:Spinner KeyTip="KB"
-                                    Value="{Binding BoundSpinnerValue}"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
-                    <Fluent:Spinner KeyTip="KC"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
-                </Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>                
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Insert"
@@ -1438,8 +1132,403 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
+            <!--To define reducing of InRibbonGalleries
+              you must use special syntax (see below). 
+              Each time when group name in brackets is received 
+              it will reduce all InRibbonGalleries in this group by one item-->
+            <Fluent:RibbonTabItem Header="Galleries"
+                                  ReduceOrder="(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup)">
+                <Fluent:RibbonGroupBox Header="Without Grouping"
+                                       Name="FirstGalleryGroup">
+
+                    <!--You can use Gallery in ContextMenu. 
+                  Below we insert Gallery in DropDownButton's context menu
+                  We set ItemsSource and ItemTemplate.-->
+                    <Fluent:DropDownButton Name="dropDownGreen"
+                                           Header="DropDownButton"
+                                           Icon="Images\Green.png"
+                                           LargeIcon="Images\GreenLarge.png">
+                        <Fluent:Gallery ItemsSource="{Binding DataItems}"
+                                        ItemTemplate="{DynamicResource middleDataItemTemplate}"
+                                        MaxItemsInRow="3" />
+                        <Fluent:MenuItem Icon="Images\Pink.png"
+                                         Header="Pink" />
+                    </Fluent:DropDownButton>
+
+                    <!--Though, you may set children of the Gallery explicitly -->
+                    <Fluent:DropDownButton Header="Pink"
+                                           Icon="Images\Pink.png"
+                                           LargeIcon="Images\PinkLarge.png">
+                        <Fluent:Gallery>
+                            <Image Source="Images\RedLarge.png"
+                                   Stretch="None" />
+                            <Image Source="Images\GreenLarge.png"
+                                   Stretch="None" />
+                            <Image Source="Images\BlueLarge.png"
+                                   Stretch="None" />
+                        </Fluent:Gallery>
+                    </Fluent:DropDownButton>
+
+                    <!--InRibbonGallery-->
+                    <Fluent:InRibbonGallery MinItemsInRow="3"
+                                            MaxItemsInRow="8"
+                                            Icon="Images\Gray.png"
+                                            Header="InRibbonGallery"
+                                            ItemWidth="40"
+                                            ItemHeight="56"
+                                            ItemsSource="{Binding DataItems}"
+                                            ItemTemplate="{DynamicResource largeDataItemTemplate}"
+                                            ResizeMode="Both">
+                        <!--You can also add items to context menu-->
+                        <Fluent:InRibbonGallery.Menu>
+                            <Fluent:RibbonMenu>
+                                <Fluent:MenuItem Header="Menu Item 1"></Fluent:MenuItem>
+                                <Fluent:MenuItem Header="Menu Item 2"></Fluent:MenuItem>
+                            </Fluent:RibbonMenu>
+                        </Fluent:InRibbonGallery.Menu>
+                    </Fluent:InRibbonGallery>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="With Grouping"
+                                       Name="SecondGalleryGroup">
+
+                    <!--To group items in Gallery (or InRibbonGallery) 
+                  you can use GroupBy for simplified grouping method or 
+                  use traditional method as in System.Windows.Controls.ListBox -->
+                    <Fluent:InRibbonGallery Name="gallerySampleInRibbonGallery"
+                                            MinItemsInRow="1"
+                                            MaxItemsInRow="5"
+                                            Icon="Images\Gray.png"
+                                            Header="Grouped"
+                                            ItemWidth="50"
+                                            ItemHeight="18"
+                                            ItemsSource="{Binding DataItems}"
+                                            ItemTemplate="{DynamicResource middleDataItemTemplate}"
+                                            GroupBy="Group"
+                                            ResizeMode="Both">
+                        <Fluent:InRibbonGallery.Filters>
+                            <Fluent:GalleryGroupFilter Title="All"
+                                                       Groups="Group A,Group B"
+                                                       x:Name="galleryFilterAll" />
+                            <Fluent:GalleryGroupFilter Title="Group A"
+                                                       Groups="Group A" />
+                            <Fluent:GalleryGroupFilter Title="Group B"
+                                                       Groups="Group B" />
+                        </Fluent:InRibbonGallery.Filters>
+                    </Fluent:InRibbonGallery>
+
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
             <Fluent:RibbonTabItem Header="Toolbars"
-                                  KeyTip="TO">
+                                  KeyTip="TO"
+                                  ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                       KeyTip="C"
+                                       x:Name="Clipboard"
+                                       Header="Clipboard"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick"
+                                       LauncherKeys="ZB">
+                    <Fluent:SplitButton x:Name="pasteButton"
+                                        KeyTip="V"
+                                        Header="Paste"
+                                        Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png"
+                                        SizeDefinition="Large"
+                                        Command="ApplicationCommands.Paste"
+                                        FocusManager.IsFocusScope="True">
+                        <Fluent:SplitButton.ToolTip>
+                            <Fluent:ScreenTip Title="Paste (Ctrl+V)"
+                                              Text="Paste the contents of the Clipboard."
+                                              DisableReason="Enable it do use this function"
+                                              Width="190" />
+                        </Fluent:SplitButton.ToolTip>
+                        <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                        Orientation="Horizontal"
+                                        GroupBy="Tag"
+                                        Selectable="False"
+                                        ItemWidth="32"
+                                        ItemHeight="32">
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteImage.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="K"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteText.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="M"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteTextOnly.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="T"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="L"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/FluentTest;component/Images/PasteSourceFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="E"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                        </Fluent:Gallery>
+                        <Fluent:MenuItem Header="Paste Special..."
+                                         KeyTip="S">
+                            <Fluent:MenuItem.ToolTip>
+                                <Fluent:ScreenTip Title="Paste Special"
+                                                  Text="This ScreenTip is attached to menu item" />
+                            </Fluent:MenuItem.ToolTip>
+                        </Fluent:MenuItem>
+                        <Separator />
+                        <Fluent:MenuItem Header="Set Default Paste..."
+                                         KeyTip="A"
+                                         IsSplited="True"
+                                         Command="Paste">
+                            <Fluent:MenuItem Header="1"
+                                             Click="OnMenuItemClick"></Fluent:MenuItem>
+                            <Fluent:MenuItem Header="2"
+                                             Command="Paste"></Fluent:MenuItem>
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="Paste now"
+                                         Command="Paste"></Fluent:MenuItem>
+                    </Fluent:SplitButton>
+                    <Fluent:Button x:Name="cutButton"
+                                   KeyTip="X"
+                                   Header="Cut"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Cut.png"
+                                   SizeDefinition="Middle,Small"
+                                   Command="Cut"
+                                   FocusManager.IsFocusScope="True">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Cut (Ctrl+X)"
+                                              Text="Cut the contents to the Clipboard."
+                                              DisableReason="Cut is currently not available."
+                                              Width="190" />
+                        </Fluent:Button.ToolTip>
+                    </Fluent:Button>
+                    <Fluent:Button x:Name="copyButton"
+                                   KeyTip="C"
+                                   Header="Copy"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/Copy.png"
+                                   Command="Copy"
+                                   FocusManager.IsFocusScope="True">
+                        <Fluent:Button.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Small" />
+                        </Fluent:Button.SizeDefinition>
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Insert Chart"
+                                              DisableReason="Disable reason reason." />
+                        </Fluent:Button.ToolTip>
+                    </Fluent:Button>
+                    <Fluent:Button KeyTip="FP"
+                                   Header="Format Painter"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/FormatPainter.png"
+                                   SizeDefinition="Middle,Small"
+                                   Click="OnFormatPainterClick" />
+                    <Fluent:DropDownButton Name="buttonWatermark"
+                                           KeyTip="W"
+                                           Header="Watermark"
+                                           Icon="pack://application:,,,/FluentTest;component/Images/Red.png"
+                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           IsEnabled="True"
+                                           VerticalAlignment="Top">
+                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
+                        <Fluent:MenuItem Header="Remove Watermark"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                         Size="Middle"
+                                         IsEnabled="True" />
+
+                        <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
+                                        GroupBy="Tag"
+                                        x:Name="WatermarkGallery"
+                                        MinItemsInRow="1"
+                                        MaxItemsInRow="3"
+                                        Orientation="Horizontal"
+                                        ItemWidth="100"
+                                        ItemHeight="100">
+
+                            <Fluent:Gallery.Filters>
+                                <Fluent:GalleryGroupFilter Title="All"
+                                                           Groups="Confidential,Disclaimers,Urgent"
+                                                           x:Name="galleryFilterAll3" />
+                                <Fluent:GalleryGroupFilter Title="Confidential"
+                                                           Groups="Confidential" />
+                                <Fluent:GalleryGroupFilter Title="Disclaimers"
+                                                           Groups="Disclaimers" />
+                                <Fluent:GalleryGroupFilter Title="Urgent"
+                                                           Groups="Urgent" />
+                            </Fluent:Gallery.Filters>
+
+                            <!-- Confidential group items -->
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/GreenLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="CONFIDENTIAL 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/YellowLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="CONFIDENTIAL 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/PinkLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DO NOT COPY 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DO NOT COPY 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Disclaimers group items -->
+                            <Border Tag="Disclaimers"
+                                    x:Name="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/BrownLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DRAFT 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/OrangeLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DRAFT 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="SAMPLE 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="SAMPLE 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Disclaimers group items -->
+                            <Border Tag="Urgent"
+                                    x:Name="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="ASAP 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="ASAP 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="URGENT 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="URGENT 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </Fluent:Gallery>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+
                 <Fluent:RibbonGroupBox KeyTip="F"
                                        x:Name="Font"
                                        Header="Font"
@@ -1787,6 +1876,32 @@
                                        LargeIcon="pack://application:,,,/FluentTest;component/Images/BrownLarge.png" />
                     </Fluent:RibbonToolBar>
 
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                       KeyTip="ZXB"
+                                       x:Name="B"
+                                       Header="Spinners"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick">
+                    <Fluent:Spinner KeyTip="KA"
+                                    Value="{Binding BoundSpinnerValue}"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Left:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
+                                    IsEnabled="False" />
+                    <Fluent:Spinner KeyTip="KB"
+                                    Value="{Binding BoundSpinnerValue}"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Right:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
+                    <Fluent:Spinner KeyTip="KC"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Top:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
