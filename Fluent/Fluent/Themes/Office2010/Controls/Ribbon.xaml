@@ -23,7 +23,7 @@
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
                         <Rectangle x:Name="rectangle"
-                                   Fill="#7FFFFFFF"
+                                   Fill="{DynamicResource RibbonWindowTitleTextGlowBackground}"
                                    Stroke="{x:Null}"
                                    StrokeThickness="0"
                                    HorizontalAlignment="Center"
