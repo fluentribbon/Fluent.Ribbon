@@ -1342,44 +1342,66 @@ namespace Fluent
 
         private void Unfreeze()
         {
-            selectedItem = quickAccessGallery.SelectedItem;
+            this.selectedItem = quickAccessGallery.SelectedItem;
             //quickAccessGallery.IsSnapped = true;
-            quickAccessGallery.SelectedItem = null;
-            if (quickAccessGallery.ItemsSource != null)
+            this.quickAccessGallery.SelectedItem = null;
+
+            if (this.quickAccessGallery.ItemsSource != null)
             {
-                ItemsSource = quickAccessGallery.ItemsSource;
-                quickAccessGallery.ItemsSource = null;
+                this.ItemsSource = this.quickAccessGallery.ItemsSource;
+                this.quickAccessGallery.ItemsSource = null;
             }
             else
             {
-                for (int i = 0; i < quickAccessGallery.Items.Count; i++)
+                for (var i = 0; i < this.quickAccessGallery.Items.Count; i++)
                 {
-                    object item = quickAccessGallery.Items[0];
-                    quickAccessGallery.Items.Remove(item);
-                    Items.Add(item);
+                    var item = this.quickAccessGallery.Items[0];
+                    this.quickAccessGallery.Items.Remove(item);
+                    this.Items.Add(item);
                     i--;
                 }
             }
-            SelectedItem = selectedItem;
-            Menu = quickAccessGallery.Menu;
-            quickAccessGallery.Menu = null;
-            if (!IsDropDownOpen)
-            {
-                controlPresenter.Content = null;
-                popupControlPresenter.Content = galleryPanel;
-                galleryPanel.IsGrouped = true;
-                galleryPanel.IsGrouped = false;
-                popupControlPresenter.Content = null;
-                controlPresenter.Content = galleryPanel;
-            }
-            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart)(() =>
-                                                                                  {
-                                                                                      if (!IsDropDownOpen)
-                                                                                      {
 
-                                                                                          IsSnapped = false;
+            this.SelectedItem = this.selectedItem;
+            this.Menu = this.quickAccessGallery.Menu;
+            this.quickAccessGallery.Menu = null;
+
+            if (!this.IsDropDownOpen)
+            {
+                if (this.controlPresenter != null)
+                {
+                    this.controlPresenter.Content = null;
+                }
+
+                if (this.popupControlPresenter != null)
+                {
+                    this.popupControlPresenter.Content = this.galleryPanel;
+                }
+
+                if (this.galleryPanel != null)
+                {
+                    this.galleryPanel.IsGrouped = true;
+                    this.galleryPanel.IsGrouped = false;
+                }
+
+                if (this.popupControlPresenter != null)
+                {
+                    this.popupControlPresenter.Content = null;
+                }
+
+                if (this.controlPresenter != null)
+                {
+                    this.controlPresenter.Content = this.galleryPanel;
+                }
+            }
+
+            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart)(() =>
+                                                                                  {
+                                                                                      if (!this.IsDropDownOpen)
+                                                                                      {
+                                                                                          this.IsSnapped = false;
                                                                                       }
-                                                                                      GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+                                                                                      var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
                                                                                       if (selectedContainer != null) selectedContainer.BringIntoView();
                                                                                   })));
         }
