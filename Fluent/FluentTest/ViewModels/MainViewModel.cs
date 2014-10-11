@@ -117,7 +117,7 @@
             {
                 if (this.exitCommand == null)
                 {
-                    this.exitCommand = new RelayCommand(x => System.Windows.Application.Current.Shutdown());
+                    this.exitCommand = new RelayCommand(System.Windows.Application.Current.Shutdown);
                 }
 
                 return this.exitCommand;
