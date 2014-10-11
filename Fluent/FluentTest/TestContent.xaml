@@ -1133,6 +1133,54 @@
                     <Fluent:ToggleButton Header="Button1"
                                          GroupName="Group1" />
                 </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox>
+                    <Fluent:ToggleButton x:Name="ShowDetailButton"
+                                         Header="Detail" />
+                    <Fluent:ToggleButton x:Name="ShowMoreButton"
+                                         Header="More" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="TestOne">
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120" />
+                    <Separator />
+
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox>
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120" />
+                    <Separator />
+
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120" />
+                    <Separator />
+
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120" />
+                    <Separator />
+
+                    <Fluent:ComboBox Header="Test"
+                                     InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                </Fluent:RibbonGroupBox>
+
             </Fluent:RibbonTabItem>
 
             <!--To define reducing of InRibbonGalleries
