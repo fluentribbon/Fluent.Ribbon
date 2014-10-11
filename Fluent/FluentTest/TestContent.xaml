@@ -1348,12 +1348,6 @@
                                            LargeIcon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
                                            IsEnabled="True"
                                            VerticalAlignment="Top">
-                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
-                        <Fluent:MenuItem Header="Remove Watermark"
-                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                         Size="Middle"
-                                         IsEnabled="True" />
-
                         <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
                                         GroupBy="Tag"
                                         x:Name="WatermarkGallery"
@@ -1527,6 +1521,12 @@
                                 </StackPanel>
                             </Border>
                         </Fluent:Gallery>
+
+                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
+                        <Fluent:MenuItem Header="Remove Watermark"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                         Size="Middle"
+                                         IsEnabled="True" />
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 

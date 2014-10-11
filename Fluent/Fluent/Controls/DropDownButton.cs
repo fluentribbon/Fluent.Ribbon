@@ -267,7 +267,6 @@ namespace Fluent
             DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
             typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
-
         #endregion
 
         #region MaxDropDownHeight
@@ -499,7 +498,6 @@ namespace Fluent
             this.IsDropDownOpen = !this.IsDropDownOpen;
         }
 
-
         /// <summary>
         /// Provides class handling for the <see cref="E:System.Windows.UIElement.KeyDown"/> routed event that occurs when the user presses a key.
         /// </summary>
@@ -566,7 +564,7 @@ namespace Fluent
 
         private static void NavigateToContainer(DependencyObject container)
         {
-            var element = container as UIElement;
+            var element = container as FrameworkElement;
 
             if (element == null)
             {
@@ -579,7 +577,12 @@ namespace Fluent
             }
             else
             {
-                element.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                var predicted = element.PredictFocus(FocusNavigationDirection.Down);
+
+                if (predicted is MenuBase == false)
+                {
+                    element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+                }
             }
         }
 
@@ -671,11 +674,14 @@ namespace Fluent
             {
                 Mouse.Capture(control, CaptureMode.SubTree);
 
+                Keyboard.Focus(control.DropDownPopup);
+
                 control.Dispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
                     (DispatcherOperationCallback)delegate(object arg)
                     {
                         var ctrl = (DropDownButton)arg;
+
                         var container = ctrl.ItemContainerGenerator.ContainerFromIndex(0);
 
                         NavigateToContainer(container);
@@ -703,31 +709,6 @@ namespace Fluent
 
                 control.OnDropDownClosed();
             }
-        }
-
-        private void FixMenuMode()
-        {
-#if !NET35
-            if (InputManager.Current.IsInMenuMode == false)
-            {
-                return;
-            }
-
-            var source = PresentationSource.FromVisual(this);
-            if (source == null)
-            {
-                return;
-            }
-
-            try
-            {
-                InputManager.Current.PopMenuMode(source);
-            }
-            catch (Exception exception)
-            {
-                Trace.WriteLine(exception);
-            }
-#endif
         }
 
         // Handles drop down closed
@@ -760,8 +741,10 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            var button = new DropDownButton();
-            RibbonProperties.SetSize(button, RibbonControlSize.Small);
+            var button = new DropDownButton 
+                {
+                    Size = RibbonControlSize.Small
+                };
 
             BindQuickAccessItem(button);
             RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
@@ -787,25 +770,24 @@ namespace Fluent
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
             var button = (DropDownButton)sender;
-            /* Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
-                                                                                   {*/
-            if (ItemsSource != null)
+
+            if (this.ItemsSource != null)
             {
-                button.ItemsSource = ItemsSource;
-                ItemsSource = null;
+                button.ItemsSource = this.ItemsSource;
+                this.ItemsSource = null;
             }
             else
             {
-                for (int i = 0; i < Items.Count; i++)
+                for (var i = 0; i < this.Items.Count; i++)
                 {
-                    object item = Items[0];
-                    Items.Remove(item);
+                    var item = this.Items[0];
+                    this.Items.Remove(item);
                     button.Items.Add(item);
                     i--;
                 }
             }
-            //  }));
-            button.DropDownClosed += OnQuickAccessMenuClosed;
+
+            button.DropDownClosed += this.OnQuickAccessMenuClosed;
         }
 
         /// <summary>
@@ -816,21 +798,21 @@ namespace Fluent
         protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             var button = (DropDownButton)sender;
-            button.DropDownClosed -= OnQuickAccessMenuClosed;
-            Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+            button.DropDownClosed -= this.OnQuickAccessMenuClosed;
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
                                                                                {
                                                                                    if (button.ItemsSource != null)
                                                                                    {
-                                                                                       ItemsSource = button.ItemsSource;
+                                                                                       this.ItemsSource = button.ItemsSource;
                                                                                        button.ItemsSource = null;
                                                                                    }
                                                                                    else
                                                                                    {
-                                                                                       for (int i = 0; i < button.Items.Count; i++)
+                                                                                       for (var i = 0; i < button.Items.Count; i++)
                                                                                        {
-                                                                                           object item = button.Items[0];
+                                                                                           var item = button.Items[0];
                                                                                            button.Items.Remove(item);
-                                                                                           Items.Add(item);
+                                                                                           this.Items.Add(item);
                                                                                            i--;
                                                                                        }
                                                                                    }

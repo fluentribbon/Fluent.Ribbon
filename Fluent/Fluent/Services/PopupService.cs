@@ -97,7 +97,19 @@
                 return;
             }
 
-            element.Dispatcher.BeginInvoke((Action)(() => element.RaiseEvent(new DismissPopupEventArgs(mode))));
+            element.Dispatcher.BeginInvoke((Action)(() => RaiseDismissPopupEvent(sender, mode)));
+        }
+
+        public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
+        {
+            var element = sender as UIElement;
+
+            if (element == null)
+            {
+                return;
+            }
+
+            element.RaiseEvent(new DismissPopupEventArgs(mode));
         }
 
         #endregion
@@ -122,7 +134,8 @@
         /// <param name="e"></param>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right)
+            if (e.ChangedButton == MouseButton.Left 
+                || e.ChangedButton == MouseButton.Right)
             {
                 if (Mouse.Captured == sender)
                 {
@@ -138,12 +151,6 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            // Only react when the mouse is pressed, not when it's released.
-            if (e.LeftButton == MouseButtonState.Released)
-            {
-                return;
-            }
-
             //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
             var control = sender as IDropDownControl;
 
@@ -161,7 +168,7 @@
                 if (popup == null
                     || popup.Child == null)
                 {
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
 
@@ -171,7 +178,7 @@
                     if (Mouse.Captured == null
                         || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                         return;
                     }
                 }
@@ -185,8 +192,8 @@
                         e.Handled = true;
                         return;
                     }
-                    
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
             }
@@ -229,7 +236,11 @@
 
             if (e.DismissMode == DismissPopupMode.Always)
             {
-                // Debug.WriteLine("DropDown Closed");
+                if (Mouse.Captured == control)
+                {
+                    Mouse.Capture(null);
+                }
+
                 control.IsDropDownOpen = false;
             }
             else
@@ -237,11 +248,21 @@
                 if (control.IsDropDownOpen
                     && !IsMousePhysicallyOver(control.DropDownPopup))
                 {
-                    // Debug.WriteLine("DropDown Closed");
+                    if (Mouse.Captured == control)
+                    {
+                        Mouse.Capture(null);
+                    }
+
                     control.IsDropDownOpen = false;
                 }
                 else
                 {
+                    if (control.IsDropDownOpen
+                        && Mouse.Captured != control)
+                    {
+                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                    }
+
                     if (control.IsDropDownOpen)
                     {
                         e.Handled = true;
