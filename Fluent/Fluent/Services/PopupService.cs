@@ -86,8 +86,6 @@
         /// <summary>
         /// Raises DismissPopup event (Async)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="mode"></param>
         public static void RaiseDismissPopupEventAsync(object sender, DismissPopupMode mode)
         {
             var element = sender as UIElement;
@@ -100,6 +98,9 @@
             element.Dispatcher.BeginInvoke((Action)(() => RaiseDismissPopupEvent(sender, mode)));
         }
 
+        /// <summary>
+        /// Raises DismissPopup event
+        /// </summary>
         public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
         {
             var element = sender as UIElement;
