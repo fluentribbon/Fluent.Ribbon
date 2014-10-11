@@ -114,7 +114,7 @@
                 <ControlTemplate TargetType="Fluent:WindowCommands">
                     <ControlTemplate.Resources>
                         <ResourceDictionary>
-                            <!--<Style TargetType="{x:Type Button}">
+                            <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background" Value="#02FFFFFF" />
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -126,13 +126,17 @@
                                         <Setter Property="Foreground" Value="White" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                            </Style>-->
+                            </Style>
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
 
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top">
-                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"                                      
+                                      ItemTemplate="{TemplateBinding ItemTemplate}"
+                                      ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                      ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                      ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
