@@ -45,9 +45,6 @@ namespace Fluent
 
         private Panel menuPanel;
 
-        //
-        private int currentItemsInRow;
-
         // Freezed image (created during snapping)
         Image snappedImage;
 
@@ -769,6 +766,25 @@ namespace Fluent
 
         #endregion
 
+        #region MaxDropDownWidth
+
+        /// <summary>
+        /// Get or sets max width of drop down popup
+        /// </summary>
+        public double MaxDropDownWidth
+        {
+            get { return (double)GetValue(MaxDropDownWidthProperty); }
+            set { SetValue(MaxDropDownWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for MaxDropDownWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty MaxDropDownWidthProperty =
+            DependencyProperty.Register("MaxDropDownWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(SystemParameters.PrimaryScreenWidth / 3.0));
+
+        #endregion
+
         #region DropDownHeight
 
         /// <summary>
@@ -781,10 +797,29 @@ namespace Fluent
         }
 
         /// <summary>
-        /// /Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
+        /// /Using a DependencyProperty as the backing store for DropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
             DependencyProperty.Register("DropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+
+        #endregion
+
+        #region DropDownWidth
+
+        /// <summary>
+        /// Gets or sets initial dropdown width
+        /// </summary>
+        public double DropDownWidth
+        {
+            get { return (double)GetValue(DropDownWidthProperty); }
+            set { SetValue(DropDownWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// /Using a DependencyProperty as the backing store for DropDownWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DropDownWidthProperty =
+            DependencyProperty.Register("DropDownWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -1041,23 +1076,19 @@ namespace Fluent
         {
             galleryPanel.Width = Double.NaN;
             galleryPanel.IsGrouped = false;
-            galleryPanel.MinItemsInRow = currentItemsInRow;
-            galleryPanel.MaxItemsInRow = currentItemsInRow;
-            //galleryPanel.InvalidateMeasure();
+            galleryPanel.MinItemsInRow = this.MinItemsInRow;
+            galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            galleryPanel.UpdateMinAndMaxWidth();
+            
             popupControlPresenter.Content = null;
-            //galleryPanel.Opacity = 0;
-            /*Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)(() =>
-                                                                               {*/
             controlPresenter.Content = galleryPanel;
             Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
-         {
-             if ((quickAccessGallery == null) || ((quickAccessGallery != null) && (!quickAccessGallery.IsDropDownOpen)))
-             {
-                 IsSnapped = false;
-                 //galleryPanel.Opacity = 1;
-             }
-         }));
-            //}));
+            {
+                if ((quickAccessGallery == null) || ((quickAccessGallery != null) && (!quickAccessGallery.IsDropDownOpen)))
+                {
+                    IsSnapped = false;
+                }
+            }));
 
             //snappedImage.Visibility = Visibility.Collapsed;            
             if (DropDownClosed != null) DropDownClosed(this, e);
@@ -1075,10 +1106,8 @@ namespace Fluent
         // Handles drop down closed
         private void OnDropDownOpened(object sender, EventArgs e)
         {
-            this.IsSnapped = true;
+            this.IsSnapped = true;            
 
-            this.minimalGallerylWidth = Math.Max(this.galleryPanel.ActualWidth, this.galleryPanel.GetActualMinWidth(this.MinItemsInDropDownRow));
-            this.currentItemsInRow = this.galleryPanel.MinItemsInRow;
             this.controlPresenter.Content = null;
             this.popupControlPresenter.Content = this.galleryPanel;
             this.galleryPanel.Width = double.NaN;
@@ -1089,8 +1118,10 @@ namespace Fluent
                 this.DropDownOpened(this, e);
             }
 
-            this.galleryPanel.MinItemsInRow = Math.Max(this.currentItemsInRow, this.MinItemsInDropDownRow);
+            this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
+            this.galleryPanel.UpdateMinAndMaxWidth();
+
             this.galleryPanel.IsGrouped = true;
             this.dropDownButton.IsChecked = true;
             this.canOpenDropDown = false;
@@ -1110,18 +1141,28 @@ namespace Fluent
             {
                 this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
+                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);                
 
                 if (!double.IsNaN(this.DropDownHeight))
                 {
                     initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
                 }
 
+                var initialWidth = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownWidth);
+
+                if (!double.IsNaN(this.DropDownWidth))
+                {
+                    initialHeight = Math.Min(this.DropDownWidth, this.MaxDropDownWidth);
+                }
+
                 double menuHeight = 0;
+                double menuWidth = 0;
+
                 if (this.Menu != null)
                 {
                     this.Menu.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                    menuHeight = Menu.DesiredSize.Height;
+                    menuHeight = this.Menu.DesiredSize.Height;
+                    menuWidth = this.Menu.DesiredSize.Width;
                 }
 
                 if (this.scrollViewer.DesiredSize.Height > initialHeight)
@@ -1133,7 +1174,16 @@ namespace Fluent
                         this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
                     }
                 }
-                this.galleryPanel.Width = this.minimalGallerylWidth;
+
+                if (this.scrollViewer.DesiredSize.Width > initialWidth)
+                {
+                    this.scrollViewer.Width = initialWidth - menuWidth;
+
+                    if (this.scrollViewer.Width < this.galleryPanel.GetItemSize().Width)
+                    {
+                        this.scrollViewer.Width = this.galleryPanel.GetItemSize().Width;
+                    }
+                }
             }
         }
 
@@ -1213,8 +1263,6 @@ namespace Fluent
 
         #region Private Methods
 
-        double minimalGallerylWidth;
-
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
@@ -1232,7 +1280,7 @@ namespace Fluent
                 this.galleryPanel.Width = this.galleryPanel.ActualWidth;
             }
 
-            this.galleryPanel.Width = Math.Max(0, Math.Max(this.galleryPanel.Width + e.HorizontalChange, this.minimalGallerylWidth));
+            this.galleryPanel.Width = Math.Max(0, this.galleryPanel.Width + e.HorizontalChange);
 
         }
 
@@ -1259,7 +1307,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            InRibbonGallery gallery = new InRibbonGallery();
+            var gallery = new InRibbonGallery();
             RibbonControl.BindQuickAccessItem(this, gallery);
             RibbonControl.Bind(this, gallery, "GroupBy", InRibbonGallery.GroupByProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "ItemHeight", InRibbonGallery.ItemHeightProperty, BindingMode.OneWay);

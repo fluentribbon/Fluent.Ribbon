@@ -310,14 +310,16 @@
                                             SelectedFilter="{Binding ElementName=GalleryFilterAll}"
                                             ResizeMode="Both"
                                             MinItemsInRow="2"
-                                            MaxItemsInRow="7"
+                                            MaxItemsInRow="10"
+                                            IsCollapsed="False"
                                             SizeDefinition="Large"
                                             Orientation="Horizontal"
                                             ItemWidth="40"
                                             ItemHeight="56"
                                             GroupBy="Group"
                                             CanCollapseToButton="True"
-                                            MinItemsInDropDownRow="4">
+                                            MinItemsInDropDownRow="4"
+                                            MaxItemsInDropDownRow="5">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
                                                        Groups="Group 1,Group 2"

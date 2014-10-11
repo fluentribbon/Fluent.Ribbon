@@ -186,20 +186,24 @@ namespace Fluent
         #region MaxWidth Updating
         
         // Sets MaxWidth of the items panel based of ItemsInRow property
-        void UpdateMaxWidth()
+        private void UpdateMinAndMaxWidth()
         {
-            maxMinWidthNeedsToBeUpdated = false;
-            
-            Panel itemsPanel = FindItemsPanel(this);
+            this.maxMinWidthNeedsToBeUpdated = false;
+
+            var itemsPanel = FindItemsPanel(this);
             if (itemsPanel == null)
             {
                 // Item's panel is not ready now
-                if (IsLoaded) Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct or haven't attached yet)");
-                Dispatcher.BeginInvoke((Action) InvalidateMeasure, DispatcherPriority.ContextIdle);
+                if (this.IsLoaded)
+                {
+                    Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct or haven't attached yet)");
+                }
+
+                this.Dispatcher.BeginInvoke((Action) InvalidateMeasure, DispatcherPriority.ContextIdle);
                 return;
             }
 
-            if (Orientation == Orientation.Vertical)
+            if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
                 itemsPanel.MinWidth = 0;
@@ -207,15 +211,15 @@ namespace Fluent
                 return;
             }
 
-            double itemWidth = GetItemWidth();
+            var itemWidth = this.GetItemWidth();
             if (double.IsNaN(itemWidth))
             {
                 // We can't calc item's width now
                 return;
             }
 
-            itemsPanel.MinWidth = Math.Min(Items.Count, MinItemsInRow) * itemWidth + 0.1;
-            itemsPanel.MaxWidth = Math.Min(Items.Count, MaxItemsInRow) * itemWidth + 0.1;
+            itemsPanel.MinWidth = Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth + 0.1;
+            itemsPanel.MaxWidth = Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth + 0.1;
         }
         
         /// <summary>
@@ -273,7 +277,7 @@ namespace Fluent
                 // Track ItemsPanel changing
                 previousItemsPanel = panel;
                 previousItemsCount = Items.Count;
-                UpdateMaxWidth();
+                this.UpdateMinAndMaxWidth();
             }
             return base.MeasureOverride(constraint);
         }

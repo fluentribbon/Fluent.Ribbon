@@ -336,29 +336,35 @@ namespace Fluent
         #region GetActualMinWidth
 
         /// <summary>
-        /// Gets actual min width of the gallery panel (based on MinItemsInRow)
+        /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
         /// </summary>
-        public double GetActualMinWidth(int minItemsInRow)
+        public void UpdateMinAndMaxWidth()
         {
             // Calculate actual min width
             double actualMinWidth = 0;
+            double actualMaxWidth = double.PositiveInfinity;
 
-            foreach (GalleryGroupContainer galleryGroupContainer in galleryGroupContainers)
+            foreach (var galleryGroupContainer in galleryGroupContainers)
             {
-                int backupMinItemsInRow = galleryGroupContainer.MinItemsInRow;
-                int backupMaxItemsInRow = galleryGroupContainer.MaxItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = galleryGroupContainer.MinItemsInRow = minItemsInRow;
+                var backupMinItemsInRow = galleryGroupContainer.MinItemsInRow;
+                var backupMaxItemsInRow = galleryGroupContainer.MaxItemsInRow;
+                galleryGroupContainer.MinItemsInRow = this.MinItemsInRow;
+                galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
                 galleryGroupContainer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.DesiredSize.Width);
+
+                galleryGroupContainer.InvalidateMeasure();
+
+                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
+                actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
 
                 galleryGroupContainer.MinItemsInRow = backupMinItemsInRow;
                 galleryGroupContainer.MaxItemsInRow = backupMaxItemsInRow;
-                galleryGroupContainer.InvalidateMeasure();
             }
 
-            return actualMinWidth;
+            this.MinWidth = actualMinWidth;
+            this.MaxWidth = actualMaxWidth;
         }
 
         static void InvalidateMeasureRecursive(UIElement visual)
