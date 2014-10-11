@@ -7,7 +7,11 @@
 
     public class MainViewModel : ViewModel
     {
-        // Data items
+        private int boundSpinnerValue;
+        private ColorViewModel colorViewModel;
+        private FontsViewModel fontsViewModel;
+        private GalleryViewModel galleryViewModel;
+
         private GallerySampleDataItemViewModel[] dataItems;
 
         public MainViewModel()
@@ -100,9 +104,26 @@
             }
         }
 
-        private int boundSpinnerValue;
-        private ColorViewModel colorViewModel;
-        private FontsViewModel fontsViewModel;
-        private GalleryViewModel galleryViewModel;
+        #region Exit
+
+        private RelayCommand exitCommand;
+
+        /// <summary>
+        /// Exit from the application
+        /// </summary>
+        public ICommand ExitCommand
+        {
+            get
+            {
+                if (this.exitCommand == null)
+                {
+                    this.exitCommand = new RelayCommand(x => System.Windows.Application.Current.Shutdown());
+                }
+
+                return this.exitCommand;
+            }
+        }
+
+        #endregion
     }
 }

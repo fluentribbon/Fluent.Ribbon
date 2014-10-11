@@ -190,7 +190,7 @@
                         <Fluent:Button Header="Exit"
                                        Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
                                        KeyTip="X"
-                                       Command="ApplicationCommands.Close" />
+                                       Command="{Binding ExitCommand}" />
                     </Fluent:BackstageTabControl>
                 </Fluent:Backstage>
 
@@ -251,7 +251,8 @@
 
                     <Fluent:MenuItem Header="Exit"
                                         Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                        KeyTip="X" />
+                                        KeyTip="X"
+                                        Command="{Binding ExitCommand}" />
                 </Fluent:ApplicationMenu>-->
             </Fluent:Ribbon.Menu>
 
