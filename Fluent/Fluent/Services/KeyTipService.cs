@@ -17,6 +17,7 @@ using System.Windows.Threading;
 namespace Fluent
 {
     using System.Diagnostics;
+    using System.Windows.Controls;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -325,7 +326,22 @@ namespace Fluent
 
             // Special behavior for backstage
             var backstage = this.ribbon.Menu as Backstage;
-            if (backstage != null && backstage.IsOpen)
+
+            if (backstage == null)
+            {
+                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(this.ribbon.Menu); i++)
+                {
+                    backstage = VisualTreeHelper.GetChild(this.ribbon.Menu, i) as Backstage;
+
+                    if (backstage != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (backstage != null 
+                && backstage.IsOpen)
             {
                 var keys = KeyTip.GetKeys(backstage);
                 if (!String.IsNullOrEmpty(keys))

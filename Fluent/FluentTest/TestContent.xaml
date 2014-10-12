@@ -67,193 +67,196 @@
             </Fluent:Ribbon.ContextualGroups>
 
             <Fluent:Ribbon.Menu>
-                <!--Backstage items can be keytipped-->
-                <Fluent:Backstage>
-                    <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Save"
-                                       Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
-                                       KeyTip="S" />
-                        <Fluent:Button Header="Save As"
-                                       Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
-                                       KeyTip="A"
-                                       Click="HandleSaveAsClick" />
-                        <Fluent:BackstageTabItem Header="TEST"
-                                                 Content="Hello">
-                            <Fluent:BackstageTabItem.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <TextBox Text="{Binding Mode=OneWay}" />
+                <Grid>
+                    <!--Backstage items can be keytipped-->
+                    <Fluent:Backstage Visibility="{Binding IsChecked, ElementName=UseBackstage, Converter={StaticResource boolToVisibilityConverter}}">
+                        <Fluent:BackstageTabControl>
+                            <Fluent:Button Header="Save"
+                                           Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
+                                           KeyTip="S" />
+                            <Fluent:Button Header="Save As"
+                                           Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
+                                           KeyTip="A"
+                                           Click="HandleSaveAsClick" />
+                            <Fluent:BackstageTabItem Header="TEST"
+                                                     Content="Hello">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox Text="{Binding Mode=OneWay}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
+                            </Fluent:BackstageTabItem>
+
+                            <Fluent:SeparatorTabItem Header="Separator" />
+
+                            <Fluent:BackstageTabItem Header="Info"
+                                                     KeyTip="E"
+                                                     IsEnabled="False">
+                                <ScrollViewer>
+                                    <Grid Height="400"
+                                          Background="Red">
+                                        <ListBox Width="100"
+                                                 Height="100"
+                                                 VerticalAlignment="Top"
+                                                 HorizontalAlignment="Left">
+                                            <ListBoxItem>1</ListBoxItem>
+                                            <ListBoxItem>2</ListBoxItem>
+                                            <ListBoxItem>3</ListBoxItem>
+                                            <ListBoxItem>4</ListBoxItem>
+                                            <ListBoxItem>5</ListBoxItem>
+                                            <ListBoxItem>6</ListBoxItem>
+                                            <ListBoxItem>7</ListBoxItem>
+                                            <ListBoxItem>8</ListBoxItem>
+                                            <ListBoxItem>9</ListBoxItem>
+                                            <ListBoxItem>10</ListBoxItem>
+                                        </ListBox>
+                                        <Fluent:ComboBox SelectedIndex="1">
+                                            <ComboBoxItem>1</ComboBoxItem>
+                                            <ComboBoxItem>2</ComboBoxItem>
+                                            <ComboBoxItem>3</ComboBoxItem>
+                                            <ComboBoxItem>4</ComboBoxItem>
+                                            <ComboBoxItem>5</ComboBoxItem>
+                                        </Fluent:ComboBox>
                                     </Grid>
-                                </DataTemplate>
-                            </Fluent:BackstageTabItem.ContentTemplate>
-                        </Fluent:BackstageTabItem>
+                                </ScrollViewer>
+                            </Fluent:BackstageTabItem>
 
-                        <Fluent:SeparatorTabItem Header="Separator" />
+                            <Fluent:BackstageTabItem Header="Recent"
+                                                     KeyTip="R">
+                                <TabControl Margin="20,5,20,5"
+                                            Style="{DynamicResource InnerBackstageTabControlStyle}">
+                                    <Fluent:SeparatorTabItem Header="Test1" />
+                                    <TabItem Header="1">
 
-                        <Fluent:BackstageTabItem Header="Info"
-                                                 KeyTip="E"
-                                                 IsEnabled="False">
-                            <ScrollViewer>
-                                <Grid Height="400"
-                                      Background="Red">
-                                    <ListBox Width="100"
-                                             Height="100"
-                                             VerticalAlignment="Top"
-                                             HorizontalAlignment="Left">
-                                        <ListBoxItem>1</ListBoxItem>
-                                        <ListBoxItem>2</ListBoxItem>
-                                        <ListBoxItem>3</ListBoxItem>
-                                        <ListBoxItem>4</ListBoxItem>
-                                        <ListBoxItem>5</ListBoxItem>
-                                        <ListBoxItem>6</ListBoxItem>
-                                        <ListBoxItem>7</ListBoxItem>
-                                        <ListBoxItem>8</ListBoxItem>
-                                        <ListBoxItem>9</ListBoxItem>
-                                        <ListBoxItem>10</ListBoxItem>
-                                    </ListBox>
-                                    <Fluent:ComboBox SelectedIndex="1">
-                                        <ComboBoxItem>1</ComboBoxItem>
-                                        <ComboBoxItem>2</ComboBoxItem>
-                                        <ComboBoxItem>3</ComboBoxItem>
-                                        <ComboBoxItem>4</ComboBoxItem>
-                                        <ComboBoxItem>5</ComboBoxItem>
+                                    </TabItem>
+                                    <TabItem Header="2">
+
+                                    </TabItem>
+                                    <TabItem Header="3">
+
+                                    </TabItem>
+                                    <Fluent:SeparatorTabItem Header="Test2" />
+                                    <TabItem Header="4">
+
+                                    </TabItem>
+                                </TabControl>
+                            </Fluent:BackstageTabItem>
+
+                            <Fluent:SeparatorTabItem />
+                            <Fluent:BackstageTabItem Header="New"
+                                                     KeyTip="N">
+                                <Grid Margin="50"
+                                      MinWidth="0"
+                                      Width="Auto"
+                                      HorizontalAlignment="Stretch">
+                                    <TextBlock HorizontalAlignment="Left"
+                                               MinWidth="0"
+                                               TextWrapping="Wrap"
+                                               Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
+                                    <Fluent:Button IsDefinitive="True"
+                                                   IsEnabled="True"
+                                                   Style="{DynamicResource ButtonBackstageStyle}"
+                                                   HorizontalAlignment="Left"
+                                                   Click="OnOffice2010BlueClick"
+                                                   Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                                   LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png">123</Fluent:Button>
+                                    <Fluent:DropDownButton Header="123"
+                                                           HorizontalAlignment="Right"
+                                                           Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png" />
+                                    <Fluent:ComboBox VerticalAlignment="Bottom">
+                                        <TextBlock Text="1" />
+                                        <TextBlock Text="2" />
+                                        <TextBlock Text="3" />
+                                        <TextBlock Text="4" />
+                                        <TextBlock Text="5" />
                                     </Fluent:ComboBox>
+                                    <Fluent:Spinner Value="1"
+                                                    Format="0"
+                                                    InputWidth="50"
+                                                    Header="Lala"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Bottom"
+                                                    ValueChanged="OnSpinnerValueChanged" />
                                 </Grid>
-                            </ScrollViewer>
-                        </Fluent:BackstageTabItem>
+                            </Fluent:BackstageTabItem>
+                            <Fluent:BackstageTabItem Header="Print"
+                                                     KeyTip="P">
+                                <Grid Background="Yellow"
+                                      Opacity="0.3"
+                                      Margin="50" />
+                            </Fluent:BackstageTabItem>
+                            <Fluent:Button Header="Exit"
+                                           Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
+                                           KeyTip="X"
+                                           Command="{Binding ExitCommand}" />
+                        </Fluent:BackstageTabControl>
+                    </Fluent:Backstage>
 
-                        <Fluent:BackstageTabItem Header="Recent"
-                                                 KeyTip="R">
-                            <TabControl Margin="20,5,20,5"
-                                        Style="{DynamicResource InnerBackstageTabControlStyle}">
-                                <Fluent:SeparatorTabItem Header="Test1" />
-                                <TabItem Header="1">
-
-                                </TabItem>
-                                <TabItem Header="2">
-
-                                </TabItem>
-                                <TabItem Header="3">
-
-                                </TabItem>
-                                <Fluent:SeparatorTabItem Header="Test2" />
-                                <TabItem Header="4">
-
-                                </TabItem>
-                            </TabControl>
-                        </Fluent:BackstageTabItem>
-
-                        <Fluent:SeparatorTabItem />
-                        <Fluent:BackstageTabItem Header="New"
-                                                 KeyTip="N">
-                            <Grid Margin="50"
-                                  MinWidth="0"
-                                  Width="Auto"
-                                  HorizontalAlignment="Stretch">
-                                <TextBlock HorizontalAlignment="Left"
-                                           MinWidth="0"
-                                           TextWrapping="Wrap"
-                                           Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
-                                <Fluent:Button IsDefinitive="True"
-                                               IsEnabled="True"
-                                               Style="{DynamicResource ButtonBackstageStyle}"
-                                               HorizontalAlignment="Left"
-                                               Click="OnOffice2010BlueClick"
-                                               Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
-                                               LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png">123</Fluent:Button>
-                                <Fluent:DropDownButton Header="123"
-                                                       HorizontalAlignment="Right"
-                                                       Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
-                                                       LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png" />
-                                <Fluent:ComboBox VerticalAlignment="Bottom">
-                                    <TextBlock Text="1" />
-                                    <TextBlock Text="2" />
-                                    <TextBlock Text="3" />
-                                    <TextBlock Text="4" />
-                                    <TextBlock Text="5" />
-                                </Fluent:ComboBox>
-                                <Fluent:Spinner Value="1"
-                                                Format="0"
-                                                InputWidth="50"
-                                                Header="Lala"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                ValueChanged="OnSpinnerValueChanged" />
-                            </Grid>
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="Print"
-                                                 KeyTip="P">
-                            <Grid Background="Yellow"
-                                  Opacity="0.3"
-                                  Margin="50" />
-                        </Fluent:BackstageTabItem>
-                        <Fluent:Button Header="Exit"
-                                       Icon="pack://application:,,,/FluentTest;component/Images/Exit.png"
-                                       KeyTip="X"
-                                       Command="{Binding ExitCommand}" />
-                    </Fluent:BackstageTabControl>
-                </Fluent:Backstage>
-
-                <!--<Fluent:ApplicationMenu Header="File">
-                    <Fluent:ApplicationMenu.RightPaneContent>
-                        <StackPanel HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Orientation="Vertical">
-
-                            <Border HorizontalAlignment="Stretch"
-                                    BorderBrush="#64647F"
-                                    BorderThickness="0,0,0,0">
-
-                                <TextBlock Text="Recent files"
-                                           Background="#F6F7F8"
-                                           TextAlignment="Left"
-                                           Padding="12,4,4,4"
-                                           Foreground="#64647F"
-                                           FontWeight="SemiBold"
-                                           FontSize="12" />
-                            </Border>
-
+                    <Fluent:ApplicationMenu Header="File"
+                                            Visibility="{Binding IsChecked, ElementName=UseApplicationMenu, Converter={StaticResource boolToVisibilityConverter}}">
+                        <Fluent:ApplicationMenu.RightPaneContent>
                             <StackPanel HorizontalAlignment="Stretch"
-                                        Height="2">
+                                        VerticalAlignment="Stretch"
+                                        Orientation="Vertical">
 
-                                <Border Height="1"
-                                        BorderThickness="1"
-                                        HorizontalAlignment="Stretch"
-                                        BorderBrush="#DCDDDE" />
+                                <Border HorizontalAlignment="Stretch"
+                                        BorderBrush="#64647F"
+                                        BorderThickness="0,0,0,0">
 
-                                <Border Height="1"
-                                        BorderThickness="1"
-                                        HorizontalAlignment="Stretch"
-                                        BorderBrush="#FEFEFF" />
+                                    <TextBlock Text="Recent files"
+                                               Background="#F6F7F8"
+                                               TextAlignment="Left"
+                                               Padding="12,4,4,4"
+                                               Foreground="#64647F"
+                                               FontWeight="SemiBold"
+                                               FontSize="12" />
+                                </Border>
 
+                                <StackPanel HorizontalAlignment="Stretch"
+                                            Height="2">
+
+                                    <Border Height="1"
+                                            BorderThickness="1"
+                                            HorizontalAlignment="Stretch"
+                                            BorderBrush="#DCDDDE" />
+
+                                    <Border Height="1"
+                                            BorderThickness="1"
+                                            HorizontalAlignment="Stretch"
+                                            BorderBrush="#FEFEFF" />
+
+                                </StackPanel>
+
+                                <Fluent:MenuItem Header="File 1"
+                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
+                                                    IsDefinitive="True" />
+
+                                <Fluent:MenuItem Header="File 2"
+                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
+                                                    IsDefinitive="True" />
+
+                                <Fluent:MenuItem Header="File 3"
+                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
+                                                    IsDefinitive="True" />
                             </StackPanel>
+                        </Fluent:ApplicationMenu.RightPaneContent>
 
-                            <Fluent:MenuItem Header="File 1"
-                                                Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                IsDefinitive="True" />
+                        <Fluent:MenuItem Header="New"
+                                            Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
+                        <Fluent:MenuItem Header="Open"
+                                            Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
 
-                            <Fluent:MenuItem Header="File 2"
-                                                Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                IsDefinitive="True" />
+                        <Separator />
 
-                            <Fluent:MenuItem Header="File 3"
-                                                Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                IsDefinitive="True" />
-                        </StackPanel>
-                    </Fluent:ApplicationMenu.RightPaneContent>
-
-                    <Fluent:MenuItem Header="New"
-                                        Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
-                    <Fluent:MenuItem Header="Open"
-                                        Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
-
-                    <Separator />
-
-                    <Fluent:MenuItem Header="Exit"
-                                        Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
-                                        KeyTip="X"
-                                        Command="{Binding ExitCommand}" />
-                </Fluent:ApplicationMenu>-->
+                        <Fluent:MenuItem Header="Exit"
+                                            Icon="pack://application:,,,/FluentTest;component/Images/RedLarge.png"
+                                            KeyTip="X"
+                                            Command="{Binding ExitCommand}" />
+                    </Fluent:ApplicationMenu>
+                </Grid>
             </Fluent:Ribbon.Menu>
 
             <Fluent:Ribbon.ToolBarItems>
@@ -326,6 +329,20 @@
                                    SizeDefinition="Middle">White</Fluent:Button>
                 </Fluent:RibbonGroupBox>
 
+                <Fluent:RibbonGroupBox Header="Menu">
+                    <Fluent:ToggleButton GroupName="Menu"
+                                         Name="UseBackstage"
+                                         Size="Middle"
+                                         IsChecked="True">
+                        Use backstage
+                    </Fluent:ToggleButton>
+                    <Fluent:ToggleButton GroupName="Menu"
+                                         Name="UseApplicationMenu"
+                                         Size="Middle">
+                        Use application menu
+                    </Fluent:ToggleButton>                    
+                </Fluent:RibbonGroupBox>
+                
                 <Fluent:RibbonGroupBox Header="Window options">
                     <Fluent:CheckBox IsChecked="{Binding SaveWindowPosition, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
                         SaveWindowPosition
