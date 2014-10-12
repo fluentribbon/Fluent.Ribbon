@@ -297,234 +297,11 @@
                                     KeyTip="H"
                                     ToolTip="Regular Tool Tip">
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       x:Name="A"
-                                       KeyTip="A"
-                                       Header="Galleries"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick">
-                    <Fluent:InRibbonGallery Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                            LargeIcon="pack://application:,,,/FluentTest;component/Images/GalleryLarge.png"
-                                            Header="In-Ribbon Gallery"
-                                            KeyTip="JS"
-                                            ItemsSource="{Binding GalleryViewModel.Items}"
-                                            SelectedFilter="{Binding ElementName=GalleryFilterAll}"
-                                            ResizeMode="Both"
-                                            MinItemsInRow="2"
-                                            MaxItemsInRow="10"
-                                            IsCollapsed="False"
-                                            SizeDefinition="Large"
-                                            Orientation="Horizontal"
-                                            ItemWidth="40"
-                                            ItemHeight="56"
-                                            GroupBy="Group"
-                                            CanCollapseToButton="True"
-                                            MinItemsInDropDownRow="4"
-                                            MaxItemsInDropDownRow="5">
-                        <Fluent:InRibbonGallery.Filters>
-                            <Fluent:GalleryGroupFilter Title="All"
-                                                       Groups="Group 1,Group 2"
-                                                       x:Name="GalleryFilterAll" />
-                            <Fluent:GalleryGroupFilter Title="Group 1 L"
-                                                       Groups="Group 1" />
-                            <Fluent:GalleryGroupFilter Title="Group 2 L"
-                                                       Groups="Group 2" />
-                        </Fluent:InRibbonGallery.Filters>
-                        <Fluent:InRibbonGallery.ItemContainerStyle>
-                            <Style TargetType="{x:Type Fluent:GalleryItem}">
-                                <Setter Property="PreviewCommand"
-                                        Value="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
-                                <Setter Property="CancelPreviewCommand"
-                                        Value="{Binding DataContext.CancelPreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
-                            </Style>
-                        </Fluent:InRibbonGallery.ItemContainerStyle>
-                        <Fluent:InRibbonGallery.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModels:GalleryItemViewModel}">
-                                <Border BorderThickness="1"
-                                        BorderBrush="Aqua">
-                                    <TextBlock HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Text="{Binding Text}" />
-                                </Border>
-                            </DataTemplate>
-                        </Fluent:InRibbonGallery.ItemTemplate>
-                    </Fluent:InRibbonGallery>
-
-                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                        LargeIcon="/Images/GalleryLarge.png"
-                                        Header="Split"
-                                        KeyTip="S"
-                                        Click="OnSplitClick"
-                                        ResizeMode="Both"
-                                        SizeDefinition="Large"
-                                        MaxDropDownHeight="1000"
-                                        DropDownHeight="300">
-                        <Fluent:Gallery MinHeight="60"
-                                        MinItemsInRow="2"
-                                        MaxItemsInRow="6"
-                                        ItemWidth="128"
-                                        ItemHeight="128">
-                            <Border Tag="Group1"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">1</TextBlock>
-                            </Border>
-                            <Border Tag="Group1"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">2</TextBlock>
-                            </Border>
-                            <Border Tag="Group1"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">3</TextBlock>
-                            </Border>
-                            <Border Tag="Group2"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">4</TextBlock>
-                            </Border>
-                            <Border Tag="Group2"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">5</TextBlock>
-                            </Border>
-                            <Border Tag="Group2"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">6</TextBlock>
-                            </Border>
-                            <Border Tag="Group2"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">7</TextBlock>
-                            </Border>
-                            <Border Tag="Group3"
-                                    BorderThickness="1"
-                                    BorderBrush="Aqua">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">8</TextBlock>
-                            </Border>
-                        </Fluent:Gallery>
-
-                        <Fluent:MenuItem Header="Item5"
-                                         KeyTip="R">
-                            <Fluent:MenuItem Header="Itemq"
-                                             KeyTip="A" />
-                            <Fluent:MenuItem Header="Itemw"
-                                             KeyTip="B" />
-                            <Fluent:MenuItem Header="Item5"
-                                             KeyTip="R"
-                                             Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png">
-                                <Fluent:MenuItem Header="Itemq"
-                                                 KeyTip="A"
-                                                 MaxDropDownHeight="350">
-                                    <Fluent:Gallery MinHeight="60"
-                                                    MinItemsInRow="3"
-                                                    MaxItemsInRow="6"
-                                                    ItemWidth="28"
-                                                    ItemHeight="28">
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">1</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">2</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group1"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">3</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">4</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">5</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">6</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group2"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">7</TextBlock>
-                                        </Border>
-                                        <Border Tag="Group3"
-                                                BorderThickness="1"
-                                                BorderBrush="Aqua">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center">8</TextBlock>
-                                        </Border>
-                                    </Fluent:Gallery>
-                                </Fluent:MenuItem>
-                                <Fluent:MenuItem Header="Itemw"
-                                                 KeyTip="B" />
-                                <Fluent:MenuItem Header="Item5"
-                                                 KeyTip="R">
-                                    <Fluent:MenuItem Header="Itemq"
-                                                     KeyTip="A"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC" />
-                                    <Fluent:MenuItem Header="Itemw"
-                                                     KeyTip="B"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC" />
-                                    <Fluent:MenuItem Header="Iteme"
-                                                     KeyTip="C"
-                                                     IsCheckable="True"
-                                                     GroupName="ABC"
-                                                     IsChecked="True" />
-                                </Fluent:MenuItem>
-                            </Fluent:MenuItem>
-                        </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                        <Fluent:MenuItem Header="Item" />
-                    </Fluent:SplitButton>
-
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
-                                       KeyTip="ZXK"
+                                       KeyTip="T10"
                                        x:Name="C"
-                                       Header="Themes"
+                                       Header="Themes (Office 2010)"
                                        CanAddToQuickAccessToolBar="False"
-                                       IsLauncherVisible="False"
-                                       LauncherClick="OnLauncherButtonClick">
+                                       IsLauncherVisible="False">
                     <Fluent:Button Click="OnOffice2010SilverClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">Silver</Fluent:Button>
@@ -534,7 +311,20 @@
                     <Fluent:Button Click="OnOffice2010BlueClick"
                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueTheme.png"
                                    SizeDefinition="Middle">Blue</Fluent:Button>
-                </Fluent:RibbonGroupBox>                
+                    <Fluent:CheckBox Name="DontUseDwm" 
+                                     Click="HandleDontUseDwmClick">Don't use DWM</Fluent:CheckBox>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                       KeyTip="T13"
+                                       Header="Themes (Office 2013)"
+                                       CanAddToQuickAccessToolBar="False"
+                                       IsLauncherVisible="False"
+                                       MinWidth="150">
+                    <Fluent:Button Click="OnOffice2013Click"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
+                                   SizeDefinition="Middle">White</Fluent:Button>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Insert"
@@ -1267,7 +1057,227 @@
                                                        Groups="Group B" />
                         </Fluent:InRibbonGallery.Filters>
                     </Fluent:InRibbonGallery>
+                </Fluent:RibbonGroupBox>
 
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                       x:Name="A"
+                                       KeyTip="A"
+                                       Header="Galleries"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick">
+                    <Fluent:InRibbonGallery Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                            LargeIcon="pack://application:,,,/FluentTest;component/Images/GalleryLarge.png"
+                                            Header="In-Ribbon Gallery"
+                                            KeyTip="JS"
+                                            ItemsSource="{Binding GalleryViewModel.Items}"
+                                            SelectedFilter="{Binding ElementName=GalleryFilterAll}"
+                                            ResizeMode="Both"
+                                            MinItemsInRow="2"
+                                            MaxItemsInRow="10"
+                                            IsCollapsed="False"
+                                            SizeDefinition="Large"
+                                            Orientation="Horizontal"
+                                            ItemWidth="40"
+                                            ItemHeight="56"
+                                            GroupBy="Group"
+                                            CanCollapseToButton="True"
+                                            MinItemsInDropDownRow="4"
+                                            MaxItemsInDropDownRow="5">
+                        <Fluent:InRibbonGallery.Filters>
+                            <Fluent:GalleryGroupFilter Title="All"
+                                                       Groups="Group 1,Group 2"
+                                                       x:Name="GalleryFilterAll" />
+                            <Fluent:GalleryGroupFilter Title="Group 1 L"
+                                                       Groups="Group 1" />
+                            <Fluent:GalleryGroupFilter Title="Group 2 L"
+                                                       Groups="Group 2" />
+                        </Fluent:InRibbonGallery.Filters>
+                        <Fluent:InRibbonGallery.ItemContainerStyle>
+                            <Style TargetType="{x:Type Fluent:GalleryItem}">
+                                <Setter Property="PreviewCommand"
+                                        Value="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
+                                <Setter Property="CancelPreviewCommand"
+                                        Value="{Binding DataContext.CancelPreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
+                            </Style>
+                        </Fluent:InRibbonGallery.ItemContainerStyle>
+                        <Fluent:InRibbonGallery.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:GalleryItemViewModel}">
+                                <Border BorderThickness="1"
+                                        BorderBrush="Aqua">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding Text}" />
+                                </Border>
+                            </DataTemplate>
+                        </Fluent:InRibbonGallery.ItemTemplate>
+                    </Fluent:InRibbonGallery>
+
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                        LargeIcon="/Images/GalleryLarge.png"
+                                        Header="Split"
+                                        KeyTip="S"
+                                        Click="OnSplitClick"
+                                        ResizeMode="Both"
+                                        SizeDefinition="Large"
+                                        MaxDropDownHeight="1000"
+                                        DropDownHeight="300">
+                        <Fluent:Gallery MinHeight="60"
+                                        MinItemsInRow="2"
+                                        MaxItemsInRow="6"
+                                        ItemWidth="128"
+                                        ItemHeight="128">
+                            <Border Tag="Group1"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">1</TextBlock>
+                            </Border>
+                            <Border Tag="Group1"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">2</TextBlock>
+                            </Border>
+                            <Border Tag="Group1"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">3</TextBlock>
+                            </Border>
+                            <Border Tag="Group2"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">4</TextBlock>
+                            </Border>
+                            <Border Tag="Group2"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">5</TextBlock>
+                            </Border>
+                            <Border Tag="Group2"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">6</TextBlock>
+                            </Border>
+                            <Border Tag="Group2"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">7</TextBlock>
+                            </Border>
+                            <Border Tag="Group3"
+                                    BorderThickness="1"
+                                    BorderBrush="Aqua">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">8</TextBlock>
+                            </Border>
+                        </Fluent:Gallery>
+
+                        <Fluent:MenuItem Header="Item5"
+                                         KeyTip="R">
+                            <Fluent:MenuItem Header="Itemq"
+                                             KeyTip="A" />
+                            <Fluent:MenuItem Header="Itemw"
+                                             KeyTip="B" />
+                            <Fluent:MenuItem Header="Item5"
+                                             KeyTip="R"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/ChangeCase.png">
+                                <Fluent:MenuItem Header="Itemq"
+                                                 KeyTip="A"
+                                                 MaxDropDownHeight="350">
+                                    <Fluent:Gallery MinHeight="60"
+                                                    MinItemsInRow="3"
+                                                    MaxItemsInRow="6"
+                                                    ItemWidth="28"
+                                                    ItemHeight="28">
+                                        <Border Tag="Group1"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">1</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group1"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">2</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group1"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">3</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group2"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">4</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group2"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">5</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group2"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">6</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group2"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">7</TextBlock>
+                                        </Border>
+                                        <Border Tag="Group3"
+                                                BorderThickness="1"
+                                                BorderBrush="Aqua">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center">8</TextBlock>
+                                        </Border>
+                                    </Fluent:Gallery>
+                                </Fluent:MenuItem>
+                                <Fluent:MenuItem Header="Itemw"
+                                                 KeyTip="B" />
+                                <Fluent:MenuItem Header="Item5"
+                                                 KeyTip="R">
+                                    <Fluent:MenuItem Header="Itemq"
+                                                     KeyTip="A"
+                                                     IsCheckable="True"
+                                                     GroupName="ABC" />
+                                    <Fluent:MenuItem Header="Itemw"
+                                                     KeyTip="B"
+                                                     IsCheckable="True"
+                                                     GroupName="ABC" />
+                                    <Fluent:MenuItem Header="Iteme"
+                                                     KeyTip="C"
+                                                     IsCheckable="True"
+                                                     GroupName="ABC"
+                                                     IsChecked="True" />
+                                </Fluent:MenuItem>
+                            </Fluent:MenuItem>
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                        <Fluent:MenuItem Header="Item" />
+                    </Fluent:SplitButton>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2263,32 +2273,17 @@
         </Fluent:Ribbon>
 
         <TabControl Grid.Row="1">
-            <TabControl.Resources>
-                <Style x:Key="ThemeButtonStyle"
-                       TargetType="Button">
-                    <Setter Property="Margin"
-                            Value="10" />
-                    <Setter Property="Width"
-                            Value="200" />
-                    <Setter Property="Height"
-                            Value="60" />
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="Themes">
+            <TabItem Header="Home">
                 <StackPanel>
-                    <CheckBox Name="DontUseDwm"
-                              Click="HandleDontUseDwmClick">Don't use DWM (applies to Office 2010 theme only)</CheckBox>
-                    <WrapPanel>
-                        <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnOffice2010SilverClick">Silver (Office 2010)</Button>
-                        <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnOffice2010BlackClick">Black (Office 2010)</Button>
-                        <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnOffice2010BlueClick">Blue (Office 2010)</Button>
-                        <Button Style="{DynamicResource ThemeButtonStyle}"
-                                Click="OnOffice2013Click">Office 2013</Button>
-                    </WrapPanel>
-                    <Label Content="Office 2013 styles are WORK IN PROGRESS and for demonstration purposes only. Some things may look weird and/or wrong placed!" />
+                    <TextBlock TextWrapping="Wrap">
+                        <Run FontWeight="ExtraBold" FontSize="18">Fluent Ribbon Control Suite</Run>
+                        <LineBreak />
+                        Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft® Office Fluent™ user interface) for the Windows Presentation Foundation (WPF).
+                        <LineBreak />
+                        It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. 
+                        <LineBreak />
+                        It is bundled with the most up-to-date Office 2010 and Office 2013 styles.
+                    </TextBlock>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Developer">
