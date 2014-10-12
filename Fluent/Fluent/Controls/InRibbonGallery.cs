@@ -1152,7 +1152,7 @@ namespace Fluent
 
                 if (!double.IsNaN(this.DropDownWidth))
                 {
-                    initialHeight = Math.Min(this.DropDownWidth, this.MaxDropDownWidth);
+                    initialWidth = Math.Min(this.DropDownWidth, this.MaxDropDownWidth);
                 }
 
                 double menuHeight = 0;
@@ -1323,6 +1323,7 @@ namespace Fluent
             RibbonControl.Bind(this, gallery, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "MaxDropDownWidth", MaxDropDownWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
             gallery.DropDownOpened += OnQuickAccessOpened;
