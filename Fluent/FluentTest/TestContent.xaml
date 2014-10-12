@@ -325,6 +325,45 @@
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White</Fluent:Button>
                 </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Window options">
+                    <Fluent:CheckBox IsChecked="{Binding SaveWindowPosition, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
+                        SaveWindowPosition
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
+                        IsIconVisible
+                    </Fluent:CheckBox>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Ribbon options">
+                    <Fluent:CheckBox IsChecked="{Binding ShowQuickAccessToolBarAboveRibbon, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        ShowQuickAccessToolBarAboveRibbon
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBar, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        CanCustomizeQuickAccessToolBar
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeRibbon, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        CanCustomizeRibbon
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        IsMinimized
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        IsCollapsed
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        IsAutomaticCollapseEnabled
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        IsQuickAccessToolBarVisible
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        CanQuickAccessLocationChanging
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        AutomaticStateManagement
+                    </Fluent:CheckBox>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Insert"
