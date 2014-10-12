@@ -169,7 +169,7 @@
                 if (popup == null
                     || popup.Child == null)
                 {
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
 
@@ -179,7 +179,7 @@
                     if (Mouse.Captured == null
                         || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
                     {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                         return;
                     }
                 }
@@ -194,7 +194,7 @@
                         return;
                     }
 
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
             }
