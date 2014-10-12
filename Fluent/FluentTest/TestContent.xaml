@@ -332,9 +332,9 @@
                         <Fluent:InRibbonGallery.ItemContainerStyle>
                             <Style TargetType="{x:Type Fluent:GalleryItem}">
                                 <Setter Property="PreviewCommand"
-                                        Value="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonGroupBox}}}" />
+                                        Value="{Binding DataContext.PreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
                                 <Setter Property="CancelPreviewCommand"
-                                        Value="{Binding DataContext.CancelPreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonGroupBox}}}" />
+                                        Value="{Binding DataContext.CancelPreviewCommand, RelativeSource={RelativeSource AncestorType={x:Type Fluent:InRibbonGallery}}}" />
                             </Style>
                         </Fluent:InRibbonGallery.ItemContainerStyle>
                         <Fluent:InRibbonGallery.ItemTemplate>
