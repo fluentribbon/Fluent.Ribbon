@@ -871,7 +871,7 @@ namespace Fluent
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
-        void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
