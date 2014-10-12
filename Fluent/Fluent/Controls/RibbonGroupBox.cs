@@ -179,6 +179,11 @@ namespace Fluent
 
         private void OnScalableControlScaled(object sender, EventArgs e)
         {
+            this.TryClearCache();
+        }
+
+        private void TryClearCache()
+        {
             if (!this.SuppressCacheReseting)
             {
                 this.cachedMeasures.Clear();
@@ -265,9 +270,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets key tip for dialog launcher button
         /// </summary>
-        [System.ComponentModel.DisplayName("DialogLauncher Keys"),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Key tip keys for dialog launcher button")]
+        [DisplayName("DialogLauncher Keys"),
+        Category("KeyTips"),
+        Description("Key tip keys for dialog launcher button")]
         public string LauncherKeys
         {
             get { return (string)GetValue(DialogLauncherButtonKeyTipKeysProperty); }
@@ -754,8 +759,9 @@ namespace Fluent
             get
             {
                 Size result;
-                var stateScale = new StateScale { Scale = this.ScaleIntermediate, State = this.StateIntermediate };
-                if (!cachedMeasures.TryGetValue(stateScale, out result))
+                var stateScale = this.GetCurrentIntermediateStateScale();
+
+                if (cachedMeasures.TryGetValue(stateScale, out result) == false)
                 {
                     this.SuppressCacheReseting = true;
                     this.UpdateScalableControlSubscribing();
@@ -763,12 +769,12 @@ namespace Fluent
                     // Get desired size for these values
                     var backupState = State;
                     var backupScale = Scale;
-                    this.State = StateIntermediate;
-                    this.Scale = ScaleIntermediate;
+                    this.State = this.StateIntermediate;
+                    this.Scale = this.ScaleIntermediate;
                     this.InvalidateLayout();
                     this.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-                    this.cachedMeasures.Add(stateScale, DesiredSize);
-                    result = DesiredSize;
+                    this.cachedMeasures.Add(stateScale, this.DesiredSize);
+                    result = this.DesiredSize;
 
                     // Rollback changes
                     this.State = backupState;
@@ -778,6 +784,7 @@ namespace Fluent
 
                     this.SuppressCacheReseting = false;
                 }
+
                 return result;
             }
         }
@@ -896,6 +903,27 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Supports layout behavior when a child element is resized. 
+        /// </summary>
+        /// <param name="child">The child element that is being resized.</param>
+        protected override void OnChildDesiredSizeChanged(UIElement child)
+        {
+            base.OnChildDesiredSizeChanged(child);
+
+            this.cachedMeasures.Remove(this.GetCurrentIntermediateStateScale());
+        }
+
+        private StateScale GetCurrentIntermediateStateScale()
+        {
+            var stateScale = new StateScale 
+                {
+                    Scale = this.ScaleIntermediate, 
+                    State = this.StateIntermediate
+                };
+            return stateScale;
+        }
+
         #endregion
 
         #region Event Handling
@@ -907,7 +935,10 @@ namespace Fluent
         /// <param name="e">the event data</param>
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            if (this.LauncherClick != null) this.LauncherClick(this, e);
+            if (this.LauncherClick != null)
+            {
+                this.LauncherClick(this, e);
+            }
         }
 
         // Handles popup closing

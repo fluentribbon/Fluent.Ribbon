@@ -179,15 +179,20 @@ namespace Fluent
         {
             double width = 0;
             double height = 0;
+            
             foreach (UIElement child in this.InternalChildren)
             {
                 var groupBox = child as RibbonGroupBox;
-                if (groupBox == null) continue;
+                if (groupBox == null)
+                {
+                    continue;
+                }
 
                 var desiredSize = groupBox.DesiredSizeIntermediate;
-                width += Math.Max(groupBox.ActualWidth, desiredSize.Width);
-                height = Math.Max(groupBox.ActualHeight, Math.Max(height, desiredSize.Height));
+                width += desiredSize.Width;
+                height = Math.Max(height, desiredSize.Height);
             }
+
             return new Size(width, height);
         }
 
@@ -212,7 +217,6 @@ namespace Fluent
                     : RibbonGroupBoxState.Large;
             }
         }
-
 
         // Decrease size of the item
         private void DecreaseGroupBoxSize(string name)
@@ -295,7 +299,7 @@ namespace Fluent
         public void SetHorizontalOffset(double offset)
         {
             var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
-            if (ScrollData.OffsetX != newValue)
+            if (DoubleUtil.AreClose(ScrollData.OffsetX, newValue) == false)
             {
                 scrollData.OffsetX = newValue;
                 this.InvalidateArrange();
@@ -416,7 +420,7 @@ namespace Fluent
             }
 
             // Handle Cases: 2 & 3 above
-            else if (fAbove || fBelow)
+            if (fAbove || fBelow)
             {
                 return bottomChild - (bottomView - topView);
             }
