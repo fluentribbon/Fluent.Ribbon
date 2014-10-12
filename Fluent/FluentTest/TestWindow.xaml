@@ -6,7 +6,7 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
-                     Title="Fluent Ribbon Control Suite 2.1"
+                     Title="{Binding DataContext.Title, ElementName=TestContent}"
                      DontUseDwm="False"
                      Height="768"
                      Width="1024"

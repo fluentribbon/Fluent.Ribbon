@@ -16,6 +16,8 @@
 
         public MainViewModel()
         {
+            this.Title = string.Format("Fluent Ribbon Control Suite {0}", typeof(Ribbon).Assembly.GetName().Version);
+
             this.BoundSpinnerValue = 1;
 
             this.ColorViewModel = new ColorViewModel();
@@ -35,6 +37,8 @@
         {
             Trace.WriteLine(string.Format("CancelPreview: {0}", galleryItem));
         }
+
+        public string Title { get; set; }
 
         public ColorViewModel ColorViewModel
         {
