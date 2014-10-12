@@ -394,6 +394,7 @@
         <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
             <Setter.Value>
                 <Behaviours:StylizedBehaviorCollection>
+                    <Behaviours:WindowsSettingBehavior />
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>
         </Setter>
