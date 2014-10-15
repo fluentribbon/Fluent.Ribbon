@@ -1,0 +1,280 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
+                     TargetType="{x:Type Fluent:ApplicationMenu}">
+        <ControlTemplate.Resources>
+            <Style BasedOn="{StaticResource ApplicationMenuStyle}"
+                   TargetType="{x:Type Fluent:MenuItem}" />
+        </ControlTemplate.Resources>
+        <Grid Margin="0">
+            <ContentControl x:Name="buttonContent"
+                            Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
+                            Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
+                            Margin="0,0,1,0">
+                <Border x:Name="PART_ButtonBorder"
+                        MinWidth="60"
+                        Height="24"
+                        Background="{TemplateBinding Background}">
+                    <Grid>
+                        <Rectangle x:Name="rectangle" />
+                        <ContentPresenter x:Name="contentPresenter"
+                                          ContentSource="Header"
+                                          Margin="10,0,10,0"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center" />
+                    </Grid>
+                </Border>
+            </ContentControl>
+            <Popup x:Name="PART_Popup"
+                   Placement="Relative"
+                   PlacementTarget="{Binding ElementName=buttonContent}"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   Margin="0,0,-4,0"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="2">
+                <Grid Name="DropDown"
+                      SnapsToDevicePixels="True"
+                      Margin="0"
+                      VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Width="4"
+                               Height="4"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               StrokeThickness="0"
+                               Margin="-1,-1,0,0">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush RadiusX="0.984"
+                                                 Center="0.017,0.002"
+                                                 GradientOrigin="0.017,0.002"
+                                                 RadiusY="1">
+                                <GradientStop Color="#3F000000"
+                                              Offset="0" />
+                                <GradientStop Color="#00000000"
+                                              Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0"
+                               HorizontalAlignment="Left"
+                               Margin="-1,3,0,0"
+                               VerticalAlignment="Top"
+                               Width="4"
+                               Height="4"
+                               Grid.Column="1"
+                               Grid.Row="0">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.032,1.01"
+                                                 GradientOrigin="0.032,1.01"
+                                                 RadiusX="0.984"
+                                                 RadiusY="1">
+                                <GradientStop Color="#3F000000"
+                                              Offset="0" />
+                                <GradientStop Color="#00000000"
+                                              Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0"
+                               HorizontalAlignment="Left"
+                               Margin="3,-1,0,0"
+                               VerticalAlignment="Top"
+                               Width="4"
+                               Height="4"
+                               Grid.Column="0"
+                               Grid.Row="1">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.996,0.027"
+                                                 GradientOrigin="0.996,0.027"
+                                                 RadiusX="0.984"
+                                                 RadiusY="1">
+                                <GradientStop Color="#3F000000"
+                                              Offset="0" />
+                                <GradientStop Color="#00000000"
+                                              Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               Margin="7,-1,1,0"
+                               VerticalAlignment="Top"
+                               Width="Auto"
+                               Height="4"
+                               Grid.Column="0"
+                               Grid.Row="1">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                                 StartPoint="0.5,0"
+                                                 MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#3F000000"
+                                              Offset="0" />
+                                <GradientStop Color="#00000000"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle StrokeThickness="0"
+                               HorizontalAlignment="Left"
+                               Margin="-1,7,0,1"
+                               VerticalAlignment="Stretch"
+                               Width="4"
+                               Height="Auto"
+                               Grid.Column="1"
+                               Grid.Row="0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1,0.5"
+                                                 StartPoint="0,0.5"
+                                                 MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#3F000000"
+                                              Offset="0" />
+                                <GradientStop Color="#00000000"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Border x:Name="PART_DropDownBorder"
+                            MinWidth="{TemplateBinding ActualWidth}"
+                            SnapsToDevicePixels="True"
+                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
+                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            BorderThickness="1"
+                            Grid.ColumnSpan="1"
+                            d:LayoutOverrides="Width, Height"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top">
+                        <Grid Width="Auto"
+                              Height="Auto"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top">
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto"
+                                                   MinHeight="17" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"
+                                                      MinWidth="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        BorderThickness="0,0,0,1"
+                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
+                                        Margin="0"
+                                        Background="{DynamicResource RibbonBackgoundBrush}">
+                                    <ContentControl x:Name="buttonOnPopupContent"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="-1,-1,0,0" />
+                                </Border>
+
+                                <StackPanel Orientation="Vertical"
+                                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            x:Name="PART_MenuPanel"
+                                            IsItemsHost="True"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                <Border Grid.Row="1"
+                                        Grid.Column="1"
+                                        BorderThickness="1,0,0,0"
+                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
+                                        Width="{TemplateBinding RightPaneWidth}"
+                                        Background="{DynamicResource GalleryBackgroundBrush}">
+                                    <ContentPresenter ContentSource="RightPaneContent"
+                                                      x:Name="PART_RightContentPresenter" />
+                                </Border>
+                                <Border Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        BorderThickness="0,1,0,0"
+                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
+                                        Background="{DynamicResource RibbonBackgoundBrush}"
+                                        Margin="0">
+                                    <ContentPresenter ContentSource="FooterPaneContent" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Popup>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="PART_ButtonBorder"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="contentPresenter">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Header"
+                     Value="{x:Null}">
+                <Setter Property="Content"
+                        TargetName="contentPresenter">
+                    <Setter.Value>
+                        <Image Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\ApplicationMenu.png"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Stretch="None" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+            </MultiTrigger>
+            <Trigger Property="IsDropDownOpen"
+                     Value="True">
+                <Setter Property="Content"
+                        TargetName="buttonContent"
+                        Value="{x:Null}" />
+                <Setter Property="Content"
+                        TargetName="buttonOnPopupContent"
+                        Value="{Binding ElementName=PART_ButtonBorder}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True"
+                               SourceName="PART_ButtonBorder" />
+                    <Condition Property="IsDropDownOpen"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Fluent:ApplicationMenu}">
+        <Setter Property="Template"
+                Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
+        <Setter Property="Background"
+                Value="{DynamicResource RibbonThemeColorBrush}" />
+        <Setter Property="Foreground"
+                Value="White" />
+    </Style>
+</ResourceDictionary>

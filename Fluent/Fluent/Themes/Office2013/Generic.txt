@@ -3,7 +3,7 @@ Office2013\Colors\ColorsWhite.xaml
 Office2013\Images\Images.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
 Office2010\Controls\ApplicationMenuItem.xaml
-Office2010\Controls\ApplicationMenu.xaml
+Office2013\Controls\ApplicationMenu.xaml
 Office2013\Controls\Backstage.xaml
 Office2013\Controls\RibbonTabItem.xaml
 Office2013\Controls\RibbonTabControl.xaml

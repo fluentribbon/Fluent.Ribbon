@@ -8,7 +8,8 @@
         <Border x:Name="border2" MinWidth="60" Height="24" Background="{TemplateBinding Background}" Margin="0,0,1,0">
             <Grid>
                 <Rectangle x:Name="rectangle" />
-                <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Header}"
+                <ContentPresenter x:Name="contentPresenter"
+                                  ContentSource="Header"
                                   Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
         </Border>
