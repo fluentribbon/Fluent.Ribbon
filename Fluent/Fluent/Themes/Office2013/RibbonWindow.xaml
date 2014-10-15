@@ -18,12 +18,9 @@
                 <AdornerDecorator Margin="1,0,1,0"
                                   x:Name="content">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
                         <Grid x:Name="PART_TitleBar"
                               Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                              VerticalAlignment="Top"
                               Background="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -44,18 +41,7 @@
                                           VerticalAlignment="Top"
                                           HorizontalAlignment="Right"
                                           Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-                        <ContentPresenter Grid.Row="1">
-                            <ContentPresenter.Margin>
-                                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                                    <Binding RelativeSource="{RelativeSource Self}"
-                                             Path="(Fluent:RibbonProperties.TitleBarHeight)"
-                                             Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
-                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                                    <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                                </MultiBinding>
-                            </ContentPresenter.Margin>
-                        </ContentPresenter>
+                        <ContentPresenter />
                     </Grid>
                 </AdornerDecorator>
                 <ResizeGrip x:Name="WindowResizeGrip"
@@ -281,7 +267,7 @@
         <Setter Property="CornerRadius"
                 Value="0" />
         <Setter Property="GlassBorderThickness"
-                Value="8" />
+                Value="8,30,8,8" />
         <Setter Property="DontUseDwm"
                 Value="True" />
         <Setter Property="Foreground">

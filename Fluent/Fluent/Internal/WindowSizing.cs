@@ -49,7 +49,6 @@
         private void FixNastyWindowChromeBug()
         {
             if (this.fixingNastyWindowChromeBug
-                || this.ShouldTryToFixNastyWindowChromeBug() == false
                 || this.window.WindowState != WindowState.Maximized)
             {
                 return;
@@ -62,11 +61,6 @@
             UnsafeNativeMethods.MoveWindow(hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
 
             this.fixingNastyWindowChromeBug = false;
-        }
-
-        private bool ShouldTryToFixNastyWindowChromeBug()
-        {
-            return this.window.GlassBorderThickness != default(Thickness);
         }
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -133,16 +127,8 @@
 
             Debug.WriteLine(string.Format("Before: {0}", mmi));
 
-            if (this.ShouldTryToFixNastyWindowChromeBug())
-            {
-                mmi.ptMaxPosition.X = rcWorkArea.left;
-                mmi.ptMaxPosition.Y = rcWorkArea.top;
-            }
-            else
-            {
-                mmi.ptMaxPosition.X = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-                mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
-            }
+            mmi.ptMaxPosition.X = rcWorkArea.left;
+            mmi.ptMaxPosition.Y = rcWorkArea.top;
 
             var ignoreTaskBar = this.IgnoreTaskBar();
 
