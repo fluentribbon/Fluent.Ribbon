@@ -77,7 +77,10 @@
             {
                 case Constants.WM_GETMINMAXINFO:
 
-                    if (this.window.WindowState == WindowState.Maximized)
+                    WINDOWPLACEMENT windowPlacement;
+                    UnsafeNativeMethods.GetWindowPlacement(hwnd, out windowPlacement);
+
+                    if (windowPlacement.showCmd == 3)
                     {
                         /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
                         WmGetMinMaxInfo(hWnd, lParam);
@@ -92,15 +95,13 @@
 
         #region WindowSize
 
-        ////private bool IgnoreTaskBar()
-        ////{
-        ////    //var ignoreTaskBar = this.AssociatedObject.IgnoreTaskbarOnMaximize 
-        ////    //    || this.AssociatedObject.WindowStyle == WindowStyle.None;
+        private bool IgnoreTaskBar()
+        {
+            //var ignoreTaskBar = this.AssociatedObject.IgnoreTaskbarOnMaximize 
+            //    || this.AssociatedObject.WindowStyle == WindowStyle.None;
 
-        ////    var ignoreTaskBar = false;
-
-        ////    return ignoreTaskBar;
-        ////}
+            return false;
+        }
 
         private void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
@@ -143,7 +144,7 @@
                 mmi.ptMaxPosition.Y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
             }
 
-            var ignoreTaskBar = false; //this.IgnoreTaskBar();
+            var ignoreTaskBar = this.IgnoreTaskBar();
 
             var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
             var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;

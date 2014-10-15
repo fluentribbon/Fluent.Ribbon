@@ -42,7 +42,7 @@
                             <SolidColorBrush Color="#14000000"/>
                         </Rectangle.OpacityMask>
                     </Rectangle>
-					<Rectangle Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                    <Rectangle Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
                                Width="Auto" Height="4" />
                     <Grid Margin="0,4,0,0">
                         <TextBlock Text="{TemplateBinding Header}"
@@ -60,7 +60,7 @@
                      Value="True">
                 <Setter Property="Margin"
                         TargetName="rootBorder"
-                        Value="2,2,0,-0.1" />
+                        Value="1,0,1,-0.1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

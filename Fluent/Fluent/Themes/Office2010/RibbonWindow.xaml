@@ -88,7 +88,7 @@
   </ControlTemplate>
   <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate" TargetType="{x:Type Fluent:RibbonWindow}">
     <Grid>
-        <Grid Margin="{TemplateBinding BorderThickness}">
+        <Grid>
       <AdornerDecorator x:Name="adornerDecorator" VerticalAlignment="Stretch">
         <Grid>
           <Border x:Name="PART_SizeBorder" BorderBrush="{DynamicResource WindowOutterBorderBrush}" BorderThickness="1,1,1,1" CornerRadius="8.5" Opacity="1" Background="{DynamicResource WindowOutterBackgroundBrush}">
@@ -380,7 +380,7 @@
         <Setter Property="GlassBorderThickness"
                 Value="8,50,8,8" />
         <Setter Property="ResizeBorderThickness"
-                Value="8,8,8,8" />
+                Value="8" />
         <Setter Property="BorderThickness"
                 Value="0" />        
         <Setter Property="CornerRadius"
@@ -408,15 +408,15 @@
                      Value="Maximized">
                 <Setter Property="GlassBorderThickness"
                         Value="0,50,0,0" />
-                <Setter Property="BorderThickness"
-                        Value="8,6,8,8" />
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
                 <Setter Property="GlassBorderThickness"
-                        Value="0" />
+                        Value="8" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">

@@ -124,7 +124,7 @@
                      Value="True">
                 <Setter Property="Margin"
                         TargetName="rootBorder"
-                        Value="2,2,0,-0.1" />
+                        Value="2,0,0,-0.1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

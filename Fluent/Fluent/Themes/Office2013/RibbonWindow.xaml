@@ -10,9 +10,8 @@
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
-        <Grid Background="{TemplateBinding Background}"              
-              x:Name="root">
-            <Grid Margin="{TemplateBinding BorderThickness}">
+        <Grid Background="{TemplateBinding Background}">
+            <Grid x:Name="root">
                 <Border BorderBrush="{DynamicResource RibbonThemeColorBrush}"
                         BorderThickness="1"
                         x:Name="themecolorborder" />
@@ -92,6 +91,9 @@
             </MultiTrigger>
             <Trigger Property="WindowState"
                      Value="Maximized">
+                <Setter Property="Margin"
+                        TargetName="root"
+                        Value="0,-2,0,0" />                
                 <Setter Property="Margin"
                         TargetName="content"
                         Value="0" />
@@ -273,13 +275,13 @@
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="ResizeBorderThickness"
-                Value="0" />
+                Value="8" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="CornerRadius"
                 Value="0" />
         <Setter Property="GlassBorderThickness"
-                Value="0" />
+                Value="8" />
         <Setter Property="DontUseDwm"
                 Value="True" />
         <Setter Property="Foreground">
@@ -305,8 +307,8 @@
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">
-                <Setter Property="BorderThickness"
-                        Value="8,6,8,8" />
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
             </Trigger>            
         </Style.Triggers>
     </Style>
