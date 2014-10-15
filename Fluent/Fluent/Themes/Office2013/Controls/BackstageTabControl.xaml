@@ -277,7 +277,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Margin"
-                Value="0,-24,0,0" />
+                Value="0,-24,0,1" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
