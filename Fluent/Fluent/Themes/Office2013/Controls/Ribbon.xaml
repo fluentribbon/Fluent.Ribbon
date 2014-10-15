@@ -80,11 +80,7 @@
                         Value="Collapsed" />
                 <Setter Property="Visibility"
                         TargetName="border"
-                        Value="Collapsed" />
-                <!-- Setting height to the exact same value as GlassBorderThickness -->
-                <Setter Property="Height"
-                        TargetName="PART_RibbonTitleBar"
-                        Value="{Binding CaptionHeight, RelativeSource={RelativeSource AncestorType={x:Type Window}}, FallbackValue=30}" />                
+                        Value="Collapsed" />             
             </Trigger>
             <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
                      Value="True">
