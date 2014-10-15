@@ -705,6 +705,8 @@ namespace Fluent
                 {
                     // make sure the control has focus 
                     control.Focus();
+
+                    Mouse.Capture(null);
                 }
 
                 control.OnDropDownClosed();

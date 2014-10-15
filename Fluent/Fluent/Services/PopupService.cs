@@ -135,7 +135,7 @@
         /// <param name="e"></param>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left 
+            if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
             {
                 if (Mouse.Captured == sender)
@@ -185,17 +185,10 @@
                 }
                 else
                 {
-                    // If control inside Ribbon loses capture - restore capture to Ribbon
-                    if (Mouse.Captured == null
-                        && IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject))
+                    if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
                     {
-                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                        e.Handled = true;
-                        return;
+                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                     }
-
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
-                    return;
                 }
             }
         }
