@@ -76,10 +76,14 @@
             switch (message)
             {
                 case Constants.WM_GETMINMAXINFO:
-                    /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
-                    WmGetMinMaxInfo(hWnd, lParam);
 
-                    handled = true;
+                    if (this.window.WindowState == WindowState.Maximized)
+                    {
+                        /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
+                        WmGetMinMaxInfo(hWnd, lParam);
+
+                        handled = true;
+                    }
                     break;
             }
 
@@ -112,8 +116,7 @@
             // Adjust the maximized size and position to fit the work area of the correct monitor
             var monitor = UnsafeNativeMethods.MonitorFromWindow(hwnd, Constants.MONITOR_DEFAULTTONEAREST);
 
-            if (monitor == IntPtr.Zero
-                || this.window.WindowState != WindowState.Maximized)
+            if (monitor == IntPtr.Zero)
             {
                 return mmi;
             }
