@@ -335,6 +335,8 @@ namespace Fluent
         /// <param name="source">Source item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
+            Bind(source, element, "DataContext", DataContextProperty, BindingMode.OneWay);
+
             if (source is ICommandSource)
             {
                 if (source is MenuItem)
