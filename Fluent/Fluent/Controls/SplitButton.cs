@@ -7,12 +7,10 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -422,9 +420,16 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
         /// The event data reports that the left mouse button was pressed.</param>
-        protected override void OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (!PopupService.IsMousePhysicallyOver(button)) base.OnPreviewMouseLeftButtonDown(e);
+            if (!PopupService.IsMousePhysicallyOver(button))
+            {
+                base.OnPreviewMouseLeftButtonDown(e);
+            }
+            else
+            {
+                this.IsDropDownOpen = false;
+            }
         }
 
         #region Overrides of DropDownButton
