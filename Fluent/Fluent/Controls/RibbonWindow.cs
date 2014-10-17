@@ -28,9 +28,11 @@ namespace Fluent
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1049")]
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
     public class RibbonWindow : Window
     {
         private const string PART_Icon = "PART_Icon";
+        private const string PART_WindowCommands = "PART_WindowCommands";
 
         private FrameworkElement iconImage;
 
@@ -345,7 +347,7 @@ namespace Fluent
             windowChrome.GlassFrameThickness = this.GlassBorderThickness;
             windowChrome.ResizeBorderThickness = this.ResizeBorderThickness;
 #if NET45
-            windowChrome.UseAeroCaptionButtons = this.CanUseDwm;            
+            windowChrome.UseAeroCaptionButtons = this.CanUseDwm;
 #endif
         }
 
@@ -378,7 +380,7 @@ namespace Fluent
                 this.WindowCommands = new WindowCommands();
             }
 
-            var partWindowCommands = this.GetTemplateChild("PART_WindowCommands") as UIElement;
+            var partWindowCommands = this.GetTemplateChild(PART_WindowCommands) as UIElement;
 
             if (partWindowCommands != null)
             {
@@ -392,6 +394,13 @@ namespace Fluent
                 WindowChrome.SetIsHitTestVisibleInChrome(this.iconImage, true);
 
                 this.iconImage.MouseUp += this.HandleIconMouseUp;
+            }
+
+            // This has to be done when the theme is changed. Otherwise maximized windows have the wrong size.
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                this.WindowState = WindowState.Maximized;
             }
         }
 
