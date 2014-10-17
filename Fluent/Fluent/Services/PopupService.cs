@@ -1,6 +1,7 @@
 ﻿namespace Fluent
 {
     using System;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -138,7 +139,9 @@
             if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
             {
-                if (Mouse.Captured == sender)
+                if (Mouse.Captured == sender
+                    // Special handling for unknown Popups (for example datepickers used in the ribbon)
+                    || (sender is IDropDownControl && Mouse.Captured != null && Mouse.Captured.GetType().FullName == "System.Windows.Controls.Primitives.PopupRoot"))
                 {
                     RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                 }
@@ -152,7 +155,10 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            //Debug.WriteLine("Lost Capture - " + Mouse.Captured);
+            //Debug.WriteLine(string.Format("Sender         - {0}", sender));
+            //Debug.WriteLine(string.Format("OriginalSource - {0}", e.OriginalSource));
+            //Debug.WriteLine(string.Format("Mouse.Captured - {0}", Mouse.Captured));
+
             var control = sender as IDropDownControl;
 
             if (control == null)
@@ -188,6 +194,14 @@
                     if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
                     {
                         RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    }
+                    else if (e.OriginalSource != null
+                        && Mouse.Captured == null
+                        && e.OriginalSource.GetType().FullName == "System.Windows.Controls.Primitives.PopupRoot")
+                    {
+                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                        e.Handled = true;
+                        return;
                     }
                 }
             }
