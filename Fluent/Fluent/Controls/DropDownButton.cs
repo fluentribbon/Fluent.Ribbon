@@ -670,6 +670,8 @@ namespace Fluent
 
             control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
 
+            Debug.WriteLine(string.Format("{0} IsDropDownOpen: {1}", control.Header, newValue));
+
             if (newValue)
             {
                 Mouse.Capture(control, CaptureMode.SubTree);
@@ -705,9 +707,9 @@ namespace Fluent
                 {
                     // make sure the control has focus 
                     control.Focus();
-
-                    Mouse.Capture(null);
                 }
+
+                Mouse.Capture(null);
 
                 control.OnDropDownClosed();
             }
@@ -743,7 +745,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            var button = new DropDownButton 
+            var button = new DropDownButton
                 {
                     Size = RibbonControlSize.Small
                 };
