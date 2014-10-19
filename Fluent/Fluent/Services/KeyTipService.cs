@@ -18,6 +18,7 @@ namespace Fluent
 {
     using System.Diagnostics;
     using System.Windows.Controls;
+    using Fluent.Internal;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -49,21 +50,21 @@ namespace Fluent
         private static readonly KeyConverter keyConverter = new KeyConverter();
         private string currentUserInput;
 
-		/// <summary>
-		/// Checks if any keytips are visible.
-		/// </summary>
-		public bool AreAnyKeyTipsVisible
-		{
-			get
-			{
-				if (activeAdornerChain != null)
-				{
-					return activeAdornerChain.AreAnyKeyTipsVisible;
-				}
+        /// <summary>
+        /// Checks if any keytips are visible.
+        /// </summary>
+        public bool AreAnyKeyTipsVisible
+        {
+            get
+            {
+                if (activeAdornerChain != null)
+                {
+                    return activeAdornerChain.AreAnyKeyTipsVisible;
+                }
 
-				return false;
-			}
-		}
+                return false;
+            }
+        }
 
         #endregion
 
@@ -325,33 +326,29 @@ namespace Fluent
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
 
             // Special behavior for backstage
-            var backstage = this.ribbon.Menu as Backstage;
+            DependencyObject specialControl = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsOpen);
 
-            if (backstage == null)
+            if (specialControl == null)
             {
-                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(this.ribbon.Menu); i++)
-                {
-                    backstage = VisualTreeHelper.GetChild(this.ribbon.Menu, i) as Backstage;
-
-                    if (backstage != null)
-                    {
-                        break;
-                    }
-                }
+                specialControl = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsDropDownOpen);
             }
 
-            if (backstage != null 
-                && backstage.IsOpen)
+            if (specialControl != null)
             {
-                var keys = KeyTip.GetKeys(backstage);
-                if (!String.IsNullOrEmpty(keys))
-                {
-                    this.activeAdornerChain.Forward(KeyTip.GetKeys(backstage), false);
-                }
-                else
-                {
-                    this.activeAdornerChain.Attach();
-                }
+                this.DirectlyForwardToSpecialControl(specialControl);
+            }
+            else
+            {
+                this.activeAdornerChain.Attach();
+            }
+        }
+
+        private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
+        {
+            var keys = KeyTip.GetKeys(specialControl);
+            if (!String.IsNullOrEmpty(keys))
+            {
+                this.activeAdornerChain.Forward(KeyTip.GetKeys(specialControl), false);
             }
             else
             {
