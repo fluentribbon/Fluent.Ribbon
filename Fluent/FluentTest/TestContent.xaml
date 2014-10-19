@@ -1037,6 +1037,7 @@
               Each time when group name in brackets is received 
               it will reduce all InRibbonGalleries in this group by one item-->
             <Fluent:RibbonTabItem Header="Galleries"
+                                  KeyTip="GA"
                                   ReduceOrder="(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup)">
                 <Fluent:RibbonGroupBox Header="Without Grouping"
                                        Name="FirstGalleryGroup">
@@ -1123,6 +1124,7 @@
                                        KeyTip="A"
                                        Header="Galleries"
                                        IsLauncherVisible="True"
+                                       LauncherKeys="GAL"
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:InRibbonGallery Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                             LargeIcon="pack://application:,,,/FluentTest;component/Images/GalleryLarge.png"
