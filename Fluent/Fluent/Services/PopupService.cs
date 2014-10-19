@@ -141,7 +141,10 @@
             {
                 if (Mouse.Captured == sender
                     // Special handling for unknown Popups (for example datepickers used in the ribbon)
-                    || (sender is IDropDownControl && Mouse.Captured != null && Mouse.Captured.GetType().FullName == "System.Windows.Controls.Primitives.PopupRoot"))
+                    || (sender is IDropDownControl
+                        && IsPopupRoot(Mouse.Captured)
+                        )
+                    )
                 {
                     RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
                 }
@@ -155,9 +158,9 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            //Debug.WriteLine(string.Format("Sender         - {0}", sender));
-            //Debug.WriteLine(string.Format("OriginalSource - {0}", e.OriginalSource));
-            //Debug.WriteLine(string.Format("Mouse.Captured - {0}", Mouse.Captured));
+            Debug.WriteLine(string.Format("Sender         - {0}", sender));
+            Debug.WriteLine(string.Format("OriginalSource - {0}", e.OriginalSource));
+            Debug.WriteLine(string.Format("Mouse.Captured - {0}", Mouse.Captured));
 
             var control = sender as IDropDownControl;
 
@@ -183,26 +186,27 @@
                 {
                     // If Ribbon loses capture because something outside popup is clicked - close the popup
                     if (Mouse.Captured == null
-                        || !IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject))
+                        || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
                     {
                         RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
-                        return;
                     }
+
+                    return;
                 }
-                else
+
+                if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
                 {
-                    if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
-                    {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
-                    }
-                    else if (e.OriginalSource != null
-                        && Mouse.Captured == null
-                        && e.OriginalSource.GetType().FullName == "System.Windows.Controls.Primitives.PopupRoot")
-                    {
-                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                        e.Handled = true;
-                        return;
-                    }
+                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    return;
+                }
+
+                if (e.OriginalSource != null
+                    && Mouse.Captured == null
+                    && IsPopupRoot(e.OriginalSource))
+                {
+                    Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                    e.Handled = true;
+                    return;
                 }
             }
         }
@@ -343,6 +347,19 @@
                 control.IsContextMenuOpened = false;
                 RaiseDismissPopupEventAsync(control, DismissPopupMode.MouseNotOver);
             }
+        }
+
+        private static bool IsPopupRoot(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            var type = obj.GetType();
+
+            return type.FullName == "System.Windows.Controls.Primitives.PopupRoot"
+                   || type.Name == "PopupRoot";
         }
     }
 }
