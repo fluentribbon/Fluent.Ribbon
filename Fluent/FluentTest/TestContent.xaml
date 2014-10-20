@@ -12,6 +12,9 @@
              d:DesignWidth="800"
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="middleDataItemTemplate"
