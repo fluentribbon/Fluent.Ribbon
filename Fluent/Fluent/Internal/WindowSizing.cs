@@ -57,8 +57,15 @@
             this.fixingNastyWindowChromeBug = true;
 
             var mmi = GetMinMaxInfo(hwnd, new MINMAXINFO());
-            UnsafeNativeMethods.MoveWindow(hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y + 10, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
-            UnsafeNativeMethods.MoveWindow(hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            if (NativeMethods.IsDwmEnabled())
+            {
+                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            }
+            else
+            {
+                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y + 1, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+            }
 
             this.fixingNastyWindowChromeBug = false;
         }
