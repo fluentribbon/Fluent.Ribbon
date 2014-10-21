@@ -222,6 +222,17 @@
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
                                Value="True" />
+                    <Condition Property="Group"
+                               Value="{x:Null}" />                    
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground"
+                        TargetName="contentPresenter"
+                        Value="{DynamicResource RibbonThemeColorBrush}" />
+            </MultiTrigger>            
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
                     <Condition Property="Selector.IsSelected"
                                Value="False" />
                     <Condition Property="IsMinimized"
