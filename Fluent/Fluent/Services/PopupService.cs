@@ -96,6 +96,8 @@
                 return;
             }
 
+            Debug.WriteLine("Dismissing Popup (async)");
+
             element.Dispatcher.BeginInvoke((Action)(() => RaiseDismissPopupEvent(sender, mode)));
         }
 
@@ -110,6 +112,8 @@
             {
                 return;
             }
+
+            Debug.WriteLine("Dismissing Popup");
 
             element.RaiseEvent(new DismissPopupEventArgs(mode));
         }
@@ -136,6 +140,8 @@
         /// <param name="e"></param>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
+            ////Debug.WriteLine(string.Format("OnClickThroughThunk: sender = {0}; originalSource = {1}; mouse capture = {2}", sender, e.OriginalSource, Mouse.Captured));
+
             if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
             {
@@ -146,7 +152,7 @@
                         )
                     )
                 {
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                 }
             }
         }
@@ -178,7 +184,7 @@
                 if (popup == null
                     || popup.Child == null)
                 {
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
 
@@ -188,7 +194,7 @@
                     if (Mouse.Captured == null
                         || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
                     {
-                        RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     }
 
                     return;
@@ -196,14 +202,15 @@
 
                 if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
                 {
-                    RaiseDismissPopupEventAsync(sender, DismissPopupMode.MouseNotOver);
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     return;
                 }
 
                 if (e.OriginalSource != null
                     && Mouse.Captured == null
-                    && IsPopupRoot(e.OriginalSource))
+                    && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
                 {
+                    Debug.WriteLine(string.Format("Setting mouse capture to: {0}", sender));
                     Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                     e.Handled = true;
                     return;
@@ -345,7 +352,7 @@
             {
                 //Debug.WriteLine("Context menu closed");
                 control.IsContextMenuOpened = false;
-                RaiseDismissPopupEventAsync(control, DismissPopupMode.MouseNotOver);
+                RaiseDismissPopupEvent(control, DismissPopupMode.MouseNotOver);
             }
         }
 
