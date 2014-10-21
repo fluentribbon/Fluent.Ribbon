@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Root>$(MSBuildProjectDirectory)\</Root>
+    <Root>$(MSBuildProjectDirectory)/</Root>
     <Configuration Condition="$(Configuration) == ''">Release</Configuration>
-    <PublishDirectory>Publish\</PublishDirectory>
+    <PublishDirectory>Publish/</PublishDirectory>
   </PropertyGroup>
 
   <Target Name="Build">
@@ -18,7 +18,7 @@
 
   <Target Name="ReadVersion" DependsOnTargets="Build">
     <!-- Read assembly version from the DLL -->
-    <GetAssemblyIdentity AssemblyFiles="$(Root)Fluent\bin\NET 4.5\$(Configuration)\Fluent.dll">
+    <GetAssemblyIdentity AssemblyFiles="$(Root)Fluent/bin/NET 4.5/$(Configuration)/Fluent.dll">
         <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
     </GetAssemblyIdentity>
     <PropertyGroup>
@@ -27,10 +27,22 @@
         <Version>$([System.String]::new(%(FluentAssembly.Version)).TrimEnd('0').TrimEnd('.'))$(PrereleaseSuffix)</Version>
     </PropertyGroup>
   </Target>
+
+  <Target Name="EnsurePublishDir">
+    <MakeDir Directories="$(PublishDirectory)" />
+  </Target>
   
-  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion">
-    <MakeDir Directories="$(PublishDirectory)"/>
+  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Build NuGet package -->
     <Exec Command="$(Root)Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
   </Target>
+
+  <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
+    <!-- Create dll zip package -->
+    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; Fluent/bin/*" />
+    <!-- Create showcase zip package -->
+    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version) (Showcase).zip&quot; FluentTest/bin/*" />
+  </Target>  
+
+  <Target Name="PublishVersion" DependsOnTargets="MakeNuGetPackage; CreateZipPackages" />
 </Project>

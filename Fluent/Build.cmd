@@ -5,7 +5,7 @@ SET prerelease=
 
 :: Check if NuGet package should be built
 IF NOT '%1'=='' (
-    SET target=MakeNuGetPackage
+    SET target=PublishVersion
 
     :: Build a prerelease package
     IF NOT '%1'=='stable' (
