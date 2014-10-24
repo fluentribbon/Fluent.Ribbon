@@ -326,11 +326,11 @@ namespace Fluent
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
 
             // Special behavior for backstage
-            DependencyObject specialControl = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsOpen);
+            DependencyObject specialControl = this.GetBackstage();
 
             if (specialControl == null)
             {
-                specialControl = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsDropDownOpen);
+                specialControl = this.GetApplicationMenu();
             }
 
             if (specialControl != null)
@@ -343,10 +343,38 @@ namespace Fluent
             }
         }
 
+        private Backstage GetBackstage()
+        {
+            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsOpen);
+
+            if (control == null)
+            {
+                return null;
+            }
+
+            return control.IsOpen
+                ? control
+                : null;
+        }
+
+        private ApplicationMenu GetApplicationMenu()
+        {
+            var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
+
+            if (control == null)
+            {
+                return null;
+            }
+
+            return control.IsDropDownOpen
+                ? control
+                : null;
+        }
+
         private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
         {
             var keys = KeyTip.GetKeys(specialControl);
-            if (!String.IsNullOrEmpty(keys))
+            if (string.IsNullOrEmpty(keys) == false)
             {
                 this.activeAdornerChain.Forward(KeyTip.GetKeys(specialControl), false);
             }
