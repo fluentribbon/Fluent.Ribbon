@@ -108,7 +108,7 @@ namespace Fluent
 
             lock (syncIsOpen)
             {
-                if ((bool) e.NewValue)
+                if ((bool)e.NewValue)
                 {
                     backstage.Show();
                 }
@@ -247,13 +247,13 @@ namespace Fluent
         #region Show / Hide
 
         // We have to collapse WindowsFormsHost while Backstate is open
-        readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new Dictionary<FrameworkElement, Visibility>();
+        private readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new Dictionary<FrameworkElement, Visibility>();
 
         // Saved window sizes
-        double savedWindowMinWidth = double.NaN;
-        double savedWindowMinHeight = double.NaN;
-        double savedWindowWidth = double.NaN;
-        double savedWindowHeight = double.NaN;
+        private double savedWindowMinWidth = double.NaN;
+        private double savedWindowMinHeight = double.NaN;
+        private double savedWindowWidth = double.NaN;
+        private double savedWindowHeight = double.NaN;
 
         // Opens backstage on an Adorner layer
         private void Show()
@@ -269,43 +269,16 @@ namespace Fluent
                 return;
             }
 
-            var layer = GetAdornerLayer(this);
-            if (adorner == null)
-            {
-                if (DesignerProperties.GetIsInDesignMode(this))
-                {
-                    // TODO: in design mode it is required to use design time adorner
-                    var topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
-                    var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
-                    adorner = new BackstageAdorner(topLevelElement, Content, topOffset);
-                }
-                else
-                {
-                    var mainWindow = Window.GetWindow(this);
-                    if (mainWindow == null)
-                    {
-                        return;
-                    }
+            this.CreateAndAttachBackstageAdorner();
 
-                    var topLevelElement = (FrameworkElement)mainWindow.Content;
-                    if (topLevelElement == null)
-                    {
-                        return;
-                    }
-
-                    var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
-                    adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
-                }
-            }
-
-            layer.Add(adorner);
+            this.ShowAdorner();
 
             var ribbon = this.FindRibbon();
             if (ribbon != null)
             {
                 ribbon.TabControl.IsDropDownOpen = false;
                 ribbon.TabControl.HighlightSelectedItem = false;
-                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;                
+                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
 
                 // Disable QAT & title bar
                 if (ribbon.QuickAccessToolBar != null)
@@ -324,11 +297,11 @@ namespace Fluent
 
             this.SaveWindowSize(window);
             this.SaveWindowMinSize(window);
-            
+
             if (window != null)
             {
                 window.KeyDown += this.HandleWindowKeyDown;
-           
+
 
                 if (this.savedWindowMinWidth < 500)
                 {
@@ -353,6 +326,76 @@ namespace Fluent
             }
         }
 
+        private void ShowAdorner()
+        {
+            if (this.adorner == null)
+            {
+                return;
+            }
+
+            this.adorner.Visibility = Visibility.Visible;
+        }
+
+        private void HideAdorner()
+        {
+            if (this.adorner == null)
+            {
+                return;
+            }
+
+            this.adorner.Visibility = Visibility.Collapsed;
+        }
+
+        private void CreateAndAttachBackstageAdorner()
+        {
+            if (this.adorner != null)
+            {
+                return;
+            }
+
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                // TODO: in design mode it is required to use design time adorner
+                var topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                this.adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
+            }
+            else
+            {
+                var mainWindow = Window.GetWindow(this);
+                if (mainWindow == null)
+                {
+                    return;
+                }
+
+                var topLevelElement = (FrameworkElement)mainWindow.Content;
+                if (topLevelElement == null)
+                {
+                    return;
+                }
+
+                var topOffset = this.TranslatePoint(new Point(0, this.ActualHeight), topLevelElement).Y;
+                this.adorner = new BackstageAdorner(topLevelElement, this.Content, topOffset);
+            }
+
+            var layer = AdornerLayer.GetAdornerLayer(this);
+            layer.Add(this.adorner);
+        }
+
+        private void DestroyAdorner()
+        {
+            if (this.adorner == null)
+            {
+                return;
+            }
+
+            var layer = AdornerLayer.GetAdornerLayer(this);
+            layer.Remove(this.adorner);
+
+            this.adorner.Clear();
+            this.adorner = null;
+        }
+
         private void OnDelayedShow(object sender, EventArgs args)
         {
             this.Loaded -= this.OnDelayedShow;
@@ -375,8 +418,7 @@ namespace Fluent
                 return;
             }
 
-            var layer = GetAdornerLayer(this);
-            layer.Remove(adorner);
+            this.HideAdorner();
 
             var ribbon = this.FindRibbon();
             if (ribbon != null)
@@ -556,25 +598,6 @@ namespace Fluent
             this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
         }
 
-        /// <summary>
-        /// Get adorner layer for element
-        /// </summary>
-        /// <param name="element">Element</param>
-        /// <returns>Adorner layer</returns>
-        private static AdornerLayer GetAdornerLayer(UIElement element)
-        {
-            var current = element;
-
-            while (true)
-            {
-                current = (UIElement)VisualTreeHelper.GetParent(current);
-                if (current is AdornerDecorator)
-                {
-                    return AdornerLayer.GetAdornerLayer((UIElement)VisualTreeHelper.GetChild(current, 0));
-                }
-            }
-        }
-
         #endregion
 
         #endregion
@@ -617,20 +640,13 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            if (this.adorner == null)
-            {
-                return;
-            }
-
             if (this.IsOpen)
             {
                 this.Hide();
                 this.IsOpen = false;
             }
 
-            // Clear adorner
-            this.adorner.Clear();
-            this.adorner = null;
+            this.DestroyAdorner();
         }
 
         #endregion
