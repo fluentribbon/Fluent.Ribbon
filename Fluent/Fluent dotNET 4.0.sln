@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 4.0", "Fluent
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B3EE3E07-9FD5-4282-9743-AC457EB45BBA}"
 	ProjectSection(SolutionItems) = preProject
+		Changelog.md = Changelog.md
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 	EndProjectSection
 EndProject
