@@ -155,7 +155,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="24"
-              Background="#00000000">
+              Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -291,7 +291,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="24"
-              Background="#00000000">
+              Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -596,7 +596,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="24"
-              Background="#00000000">
+              Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />

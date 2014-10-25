@@ -295,4 +295,6 @@
     <SolidColorBrush x:Key="ResizeGripBackBrush"
                      Color="#FFE6E9ED" />
 
+    <SolidColorBrush x:Key="MenuItemBackground"
+                     Color="#00000000" />
 </ResourceDictionary>
