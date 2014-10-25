@@ -416,7 +416,7 @@
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
                 <Setter Property="GlassBorderThickness"
-                        Value="8,30,8,8" />
+                        Value="0,30,0,0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">
