@@ -1,5 +1,8 @@
 # Changelog for Fluent.Ribbon
 
+## 3.0.2
+- Fixed: 22519 (Normalize button closes application)
+
 ## 3.0.1
 - Fixed an issue with closed direct member menus (keytips were always redirected for direct childs)
 - Fixed: 22518 (Faulty white margin on the right and left of the window body)
