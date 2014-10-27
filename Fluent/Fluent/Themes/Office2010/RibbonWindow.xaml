@@ -399,15 +399,28 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsCollapsed"
-                     Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsCollapsed"
+                             Value="True" />
+                    <Condition Property="CanUseDwm"
+                               Value="True" />
+                </MultiTrigger.Conditions>
                 <Setter Property="GlassBorderThickness"
                         Value="8,30,8,8" />
-            </Trigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="WindowState"
+                               Value="Maximized" />
+                    <Condition Property="CanUseDwm"
+                               Value="True" />
+                </MultiTrigger.Conditions>
                 <Setter Property="GlassBorderThickness"
-                        Value="0,50,0,0" />
+                        Value="0,50,0,0" />                
+            </MultiTrigger>
+            <Trigger Property="WindowState"
+                    Value="Maximized">
                 <Setter Property="ResizeBorderThickness"
                         Value="0" />
             </Trigger>
@@ -415,8 +428,9 @@
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
+                <!-- Cheat with GlassBorderThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
                 <Setter Property="GlassBorderThickness"
-                        Value="0,30,0,0" />
+                        Value="0,0,0,1" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">
