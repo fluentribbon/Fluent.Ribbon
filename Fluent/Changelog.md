@@ -1,5 +1,9 @@
 # Changelog for Fluent.Ribbon
 
+## 3.0.3
+- Fixed: 22519 (Normalize button closes application)
+Thanks to GeertvanHorrik for finding out that the version of Microsoft.Windows.Shell for .NET 4.0 that was used is buggy.
+
 ## 3.0.2
 - Fixed: 22519 (Normalize button closes application)
 
