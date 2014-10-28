@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.Windows.Shell</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Windows.Shell.JumpItem">
+      <summary>Represents the base class for the <see cref="T:Microsoft.Windows.Shell.JumpPath" /> and <see cref="T:Microsoft.Windows.Shell.JumpTask" /> classes.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpItem.CustomCategory">
+      <summary>Gets or sets the name of the category the <see cref="T:Microsoft.Windows.Shell.JumpItem" /> is grouped with in the Windows 7 taskbar Jump List.</summary>
+      <returns>The name of the category the <see cref="T:Microsoft.Windows.Shell.JumpItem" /> is grouped with. The default is null.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpItemRejectionReason">
+      <summary>Describes why a <see cref="T:Microsoft.Windows.Shell.JumpItem" /> could not be added to the Jump List by the Windows shell.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.JumpItemRejectionReason.None">
+      <summary>The reason is not specified.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.JumpItemRejectionReason.InvalidItem">
+      <summary>The <see cref="T:Microsoft.Windows.Shell.JumpItem" /> references an invalid file path, or the operating system does not support Jump Lists.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.JumpItemRejectionReason.NoRegisteredHandler">
+      <summary>The application is not registered to handle the file name extension of the <see cref="T:Microsoft.Windows.Shell.JumpItem" />.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.JumpItemRejectionReason.RemovedByUser">
+      <summary>The item was previously in the Jump List but was removed by the user.</summary>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs">
+      <summary>Provides data for the <see cref="E:Microsoft.Windows.Shell.JumpList.JumpItemsRejected" /> event.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs.#ctor(System.Collections.Generic.IList{Microsoft.Windows.Shell.JumpItem},System.Collections.Generic.IList{Microsoft.Windows.Shell.JumpItemRejectionReason})">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs" /> class that has the specified parameters.</summary>
+      <param name="rejectedItems">The list of Jump List items that could not be added to the Jump List by the Windows shell.</param>
+      <param name="reasons">The list of reasons why the rejected Jump List items could not be added to the Jump List.</param>
+      <exception cref="T:System.ArgumentException">The count of <paramref name="rejectedItems " />does not equal the count of rejection <paramref name="reasons" />.</exception>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs.RejectedItems">
+      <summary>Gets the list of Jump List items that could not be added to the Jump List by the Windows shell.</summary>
+      <returns>The list of Jump List items that could not be added to the Jump List by the Windows shell.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpItemsRejectedEventArgs.RejectionReasons">
+      <summary>Gets the list of reasons why the rejected Jump List items could not be added to the Jump List.</summary>
+      <returns>The list of reasons why the rejected Jump List items could not be added to the Jump List.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs">
+      <summary>Provides data for the <see cref="E:Microsoft.Windows.Shell.JumpList.JumpItemsRemovedByUser" /> event.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs.#ctor(System.Collections.Generic.IList{Microsoft.Windows.Shell.JumpItem})">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs" /> class that has the specified parameters.</summary>
+      <param name="removedItems">The list of Jump List items that were removed by the user since <see cref="M:Microsoft.Windows.Shell.JumpList.Apply" /> was last called.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpItemsRemovedEventArgs.RemovedItems">
+      <summary>Gets the list of Jump List items that have been removed by the user since the <see cref="M:Microsoft.Windows.Shell.JumpList.Apply" /> method was last called.</summary>
+      <returns>The list of Jump List items that have been removed by the user since the <see cref="M:Microsoft.Windows.Shell.JumpList.Apply" /> method was last called.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpList">
+      <summary>Represents a list of items and tasks displayed as a menu on a Windows 7 taskbar button.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpList" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Windows.Shell.JumpItem},System.Boolean,System.Boolean)">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpList" /> class with the specified parameters.</summary>
+      <param name="items">The collection of <see cref="T:Microsoft.Windows.Shell.JumpItem" /> objects that are displayed in the Jump List.</param>
+      <param name="showFrequent">A value that indicates whether frequently used items are displayed in the Jump List.</param>
+      <param name="showRecent">A value that indicates whether recently used items are displayed in the Jump List.</param>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.AddToRecentCategory(Microsoft.Windows.Shell.JumpPath)">
+      <summary>Adds the specified jump path to the Recent category of the Jump List.</summary>
+      <param name="jumpPath">The <see cref="T:Microsoft.Windows.Shell.JumpPath" /> to add to the Jump List.</param>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.AddToRecentCategory(Microsoft.Windows.Shell.JumpTask)">
+      <summary>Adds the specified jump task to the Recent category of the Jump List.</summary>
+      <param name="jumpTask">The <see cref="T:Microsoft.Windows.Shell.JumpTask" /> to add to the Jump List.</param>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.AddToRecentCategory(System.String)">
+      <summary>Adds the specified item path to the Recent category of the Jump List.</summary>
+      <param name="itemPath">The path to add to the Jump List.</param>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.Apply">
+      <summary>Sends the <see cref="T:Microsoft.Windows.Shell.JumpList" /> to the Windows shell in its current state.</summary>
+      <exception cref="T:System.InvalidOperationException">The <see cref="T:Microsoft.Windows.Shell.JumpList" /> is not completely initialized.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.BeginInit">
+      <summary>Signals the start of the <see cref="T:Microsoft.Windows.Shell.JumpList" /> initialization.</summary>
+      <exception cref="T:System.InvalidOperationException">This call to <see cref="M:Microsoft.Windows.Shell.JumpList.BeginInit" /> is nested in a previous call to <see cref="M:Microsoft.Windows.Shell.JumpList.BeginInit" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.EndInit">
+      <summary>Signals the end of the <see cref="T:Microsoft.Windows.Shell.JumpList" /> initialization.</summary>
+      <exception cref="T:System.NotSupportedException">This call to <see cref="M:Microsoft.Windows.Shell.JumpList.EndInit" /> is not paired with a call to <see cref="M:Microsoft.Windows.Shell.JumpList.BeginInit" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.GetJumpList(System.Windows.Application)">
+      <summary>Returns the <see cref="T:Microsoft.Windows.Shell.JumpList" /> object associated with an application.</summary>
+      <returns>The <see cref="T:Microsoft.Windows.Shell.JumpList" /> object associated with the specified application.</returns>
+      <param name="application">The application associated with the <see cref="T:Microsoft.Windows.Shell.JumpList" />.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpList.JumpItems">
+      <summary>Gets the collection of <see cref="T:Microsoft.Windows.Shell.JumpItem" /> objects that are displayed in the Jump List.</summary>
+      <returns>The collection of <see cref="T:Microsoft.Windows.Shell.JumpItem" /> objects displayed in the Jump List. The default is an empty collection.</returns>
+    </member>
+    <member name="E:Microsoft.Windows.Shell.JumpList.JumpItemsRejected">
+      <summary>Occurs when jump items are not successfully added to the Jump List by the Windows shell.</summary>
+    </member>
+    <member name="E:Microsoft.Windows.Shell.JumpList.JumpItemsRemovedByUser">
+      <summary>Occurs when jump items previously in the Jump List are removed from the list by the user.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpList.SetJumpList(System.Windows.Application,Microsoft.Windows.Shell.JumpList)">
+      <summary>Sets the <see cref="T:Microsoft.Windows.Shell.JumpList" /> object associated with an application.</summary>
+      <param name="application">The application associated with the <see cref="T:Microsoft.Windows.Shell.JumpList" />.</param>
+      <param name="value">The <see cref="T:Microsoft.Windows.Shell.JumpList" /> to associate with the application.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpList.ShowFrequentCategory">
+      <summary>Gets or sets a value that indicates whether frequently used items are displayed in the Jump List.</summary>
+      <returns>true if frequently used items are displayed in the Jump List; otherwise, false. The default is false.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpList.ShowRecentCategory">
+      <summary>Gets or sets a value that indicates whether recently used items are displayed in the Jump List.</summary>
+      <returns>true if recently used items are displayed in the Jump List; otherwise, false. The default is false.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpPath">
+      <summary>Represents a link to a file that is displayed in a Windows 7 taskbar Jump List.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpPath.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpPath" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpPath.Path">
+      <summary>Gets or sets the path to the file to be included in the Jump List.</summary>
+      <returns>The path to the file to be included in the Jump List.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.JumpTask">
+      <summary>Represents a shortcut to an application in the Windows 7 taskbar Jump List.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.JumpTask.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.JumpTask" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.ApplicationPath">
+      <summary>Gets or sets the path to the application.</summary>
+      <returns>The path to the application. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.Arguments">
+      <summary>Gets or sets the arguments passed to the application on startup.</summary>
+      <returns>The arguments passed to the application on startup. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.Description">
+      <summary>Gets or sets the text displayed in the tooltip for the task in the Jump List.</summary>
+      <returns>The text displayed in the tooltip for the task. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.IconResourceIndex">
+      <summary>Gets or sets the zero-based index of an icon embedded in a resource.</summary>
+      <returns>The zero-based index of the icon, or -1 if no icon is used. The default is 0.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.IconResourcePath">
+      <summary>Gets or sets the path to a resource that contains the icon to display in the Jump List.</summary>
+      <returns>The path to a resource that contains the icon. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.Title">
+      <summary>Gets or sets the text displayed for the task in the Jump List.</summary>
+      <returns>The text displayed for the task in the Jump List. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.JumpTask.WorkingDirectory">
+      <summary>Gets or sets the working directory of the application on startup.</summary>
+      <returns>The working directory of the application on startup. The default is null.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.NonClientFrameEdges">
+      <summary>Specifies constants that indicate which edges of the window frame are not owned by the client.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.NonClientFrameEdges.None">
+      <summary>All edges are owned by the client (value = 0).</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.NonClientFrameEdges.Left">
+      <summary>The left edge is not owned by the client (value = 1).</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.NonClientFrameEdges.Top">
+      <summary>The top edge is not owned by the client (value = 2).</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.NonClientFrameEdges.Right">
+      <summary>The right edge is not owned by the client (value = 4).</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.NonClientFrameEdges.Bottom">
+      <summary>The bottom edge is not owned by the client (value = 8).</summary>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.ResizeGripDirection">
+      <summary>Specifies constants that indicate the direction of the resize grip behavior on an input element.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.None">
+      <summary>No resize behavior is specified.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.TopLeft">
+      <summary>The window resizes from its top-left corner.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.Top">
+      <summary>The window resizes from its top edge.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.TopRight">
+      <summary>The window resizes from its top-right corner.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.Right">
+      <summary>The window resizes from its right edge.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.BottomRight">
+      <summary>The window resizes from its bottom-right corner.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.Bottom">
+      <summary>The window resizes from its bottom edge.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.BottomLeft">
+      <summary>The window resizes from its bottom-left corner.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ResizeGripDirection.Left">
+      <summary>The windows resizes from its left edge.</summary>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.SystemCommands">
+      <summary>Defines routed commands that are common to window management.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.SystemCommands.CloseWindow(System.Windows.Window)">
+      <summary>Closes the specified window.</summary>
+      <param name="window">The window to close.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemCommands.CloseWindowCommand">
+      <summary>Gets a command that closes a window.</summary>
+      <returns>A command that closes a window.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.SystemCommands.MaximizeWindow(System.Windows.Window)">
+      <summary>Maximizes the specified window.</summary>
+      <param name="window">The window to maximize.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemCommands.MaximizeWindowCommand">
+      <summary>Gets a command that maximizes a window.</summary>
+      <returns>A command that maximizes a window.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.SystemCommands.MinimizeWindow(System.Windows.Window)">
+      <summary>Minimizes the specified window.</summary>
+      <param name="window">The window to minimize.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemCommands.MinimizeWindowCommand">
+      <summary>Gets a command that maximizes a window.</summary>
+      <returns>A command that maximizes a window.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.SystemCommands.RestoreWindow(System.Windows.Window)">
+      <summary>Restores the specified widow.</summary>
+      <param name="window">The window to restore.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemCommands.RestoreWindowCommand">
+      <summary>Gets a command that restores a window.</summary>
+      <returns>A command that restores a window.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(System.Windows.Window,System.Windows.Point)">
+      <summary>Displays the system menu for the specified window.</summary>
+      <param name="window">The window to have its system menu displayed.</param>
+      <param name="screenLocation">The location of the system menu.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemCommands.ShowSystemMenuCommand">
+      <summary>Gets a command that displays the system menu.</summary>
+      <returns>A command that displays the system menu.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.SystemParameters2">
+      <summary>Contains properties that you can use to query system settings of the non-client area of a window.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.Current">
+      <summary>Gets an instance of the <see cref="T:Microsoft.Windows.Shell.SystemParameters2" /> class.</summary>
+      <returns>An instance of the <see cref="T:Microsoft.Windows.Shell.SystemParameters2" /> class.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.HighContrast">
+      <summary>Gets a value that indicates whether the high contrast feature is being used. </summary>
+      <returns>true if the high contrast feature is being used; otherwise, false.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.IsGlassEnabled">
+      <summary>Gets a value that indicates whether glass window frames are being used.</summary>
+      <returns>true if glass window frames are being used; otherwise, false.</returns>
+    </member>
+    <member name="E:Microsoft.Windows.Shell.SystemParameters2.PropertyChanged">
+      <summary>Occurs when one of the properties changes.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.SmallIconSize">
+      <summary>Gets the recommended size, in pixels, of a small icon. </summary>
+      <returns>The recommended size, in pixels, of a small icon. </returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.UxThemeColor">
+      <summary>Gets the color theme name.</summary>
+      <returns>The color theme name.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.UxThemeName">
+      <summary>Gets the theme name.</summary>
+      <returns>The theme name.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowCaptionButtonsLocation">
+      <summary>Gets a <see cref="T:System.Windows.Rect" /> that indicates the default location of the minimize, maximize, and close buttons.</summary>
+      <returns>An object that indicates the default location of the minimize, maximize, and close buttons.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowCaptionHeight">
+      <summary>Gets the height of the area that contains the minimize, maximize, and close buttons.</summary>
+      <returns>The height of the area that contains the minimize, maximize, and close buttons.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowCornerRadius">
+      <summary>Gets the degree to which the corners of a window are rounded.</summary>
+      <returns>The degree to which the corners of a window are rounded.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowGlassBrush">
+      <summary>Gets the brush that paints the glass window frame.</summary>
+      <returns>The brush that paints the glass window frame.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowGlassColor">
+      <summary>Gets the color that is used to paint the glass window frame.</summary>
+      <returns>The color that is used to paint the glass window frame.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowNonClientFrameThickness">
+      <summary>Gets the size of the non-client area of the window.</summary>
+      <returns>The size of the non-client area of the window, in device-independent pixels (1/96th of an inch).</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.SystemParameters2.WindowResizeBorderThickness">
+      <summary>Gets the size of the resizing border around the window.</summary>
+      <returns>The size of the resizing border around the window, in device-independent pixels (1/96th of an inch).</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.TaskbarItemInfo">
+      <summary>Represents information about how the taskbar thumbnail is displayed.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.TaskbarItemInfo.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.TaskbarItemInfo" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.Description">
+      <summary>Gets or sets the text for the taskbar item tooltip.</summary>
+      <returns>The text for the taskbar item tooltip. The default is an empty string.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.DescriptionProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.Description" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.Description" /> dependency property.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.TaskbarItemInfo.GetTaskbarItemInfo(System.Windows.Window)">
+      <summary>Gets the value of the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo" /> attached property for an object.</summary>
+      <returns>The object’s <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo" /> property value.</returns>
+      <param name="window">The object from which the property value is read.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.Overlay">
+      <summary>Gets or sets the image that is displayed over the program icon in the taskbar button.</summary>
+      <returns>The image that is displayed over the program icon in the taskbar button. The default is null.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.OverlayProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.Overlay" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.Overlay" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressState">
+      <summary>Gets or sets a value that indicates how the progress indicator is displayed in the taskbar button.</summary>
+      <returns>An enumeration value that indicates how the progress indicator is displayed in the taskbar button. The default is <see cref="F:Microsoft.Windows.Shell.TaskbarItemProgressState.None" />.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressStateProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressState" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressState" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressValue">
+      <summary>Gets or sets a value that indicates the fullness of the progress indicator in the taskbar button.</summary>
+      <returns>A value that indicates the fullness of the progress indicator in the taskbar button. The default is 0.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressValueProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressValue" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ProgressValue" /> dependency property.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.TaskbarItemInfo.SetTaskbarItemInfo(System.Windows.Window,Microsoft.Windows.Shell.TaskbarItemInfo)">
+      <summary>Sets the value of the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo" /> attached property for an object.</summary>
+      <param name="window">The object to which the attached property is written.</param>
+      <param name="value">The value to set.</param>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo">
+      <summary>Gets or sets a <see cref="T:Microsoft.Windows.Shell.TaskbarItemInfo" /> that is attached to a window.</summary>
+      <returns>The <see cref="T:Microsoft.Windows.Shell.TaskbarItemInfo" /> that is attached to the window.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfoProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.TaskbarItemInfo" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbButtonInfos">
+      <summary>Gets or sets the collection of <see cref="T:Microsoft.Windows.Shell.ThumbButtonInfo" /> objects that are associated with the <see cref="T:System.Windows.Window" />.</summary>
+      <returns>The collection of <see cref="T:Microsoft.Windows.Shell.ThumbButtonInfo" /> objects that are associated with the <see cref="T:System.Windows.Window" />. The default is an empty collection.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbButtonInfosProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbButtonInfos" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbButtonInfos" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbnailClipMargin">
+      <summary>Gets or sets a value that specifies the part of the application window's client area that is displayed in the taskbar thumbnail.</summary>
+      <returns>A value that specifies the part of the application window's client area that is displayed in the taskbar thumbnail. The default is an empty <see cref="T:System.Windows.Thickness" />.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbnailClipMarginProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbnailClipMargin" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.TaskbarItemInfo.ThumbnailClipMargin" /> dependency property.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.TaskbarItemProgressState">
+      <summary>Specifies the state of the progress indicator in the Windows taskbar.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemProgressState.None">
+      <summary>No progress indicator is displayed in the taskbar button.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemProgressState.Indeterminate">
+      <summary>A pulsing green indicator is displayed in the taskbar button.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemProgressState.Normal">
+      <summary>A green progress indicator is displayed in the taskbar button.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemProgressState.Error">
+      <summary>A red progress indicator is displayed in the taskbar button.</summary>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.TaskbarItemProgressState.Paused">
+      <summary>A yellow progress indicator is displayed in the taskbar button.</summary>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.ThumbButtonInfo">
+      <summary>Represents information about how to display a button in the Windows 7 taskbar thumbnail.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.ThumbButtonInfo.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.ThumbButtonInfo" /> class.</summary>
+    </member>
+    <member name="E:Microsoft.Windows.Shell.ThumbButtonInfo.Click">
+      <summary>Occurs when the thumbnail button is clicked.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.Command">
+      <summary>Gets or sets the command to invoke when this thumbnail button is clicked.</summary>
+      <returns>The command to invoke when this thumbnail button is clicked. The default is null.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandParameter">
+      <summary>Gets or sets the parameter to pass to the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Command" /> property.</summary>
+      <returns>The parameter to pass to the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Command" /> property. The default is null.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.CommandParameterProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandParameter" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandParameter" /> dependency property.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.CommandProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Command" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Command" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandTarget">
+      <summary>Gets or sets the element on which to raise the specified command.</summary>
+      <returns>The element on which to raise the specified command. The default is null.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.CommandTargetProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandTarget" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.CommandTarget" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.Description">
+      <summary>Gets or sets the text to display for the thumbnail button tooltip.</summary>
+      <returns>The text to display for the thumbnail button tooltip. The default is an empty string.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.DescriptionProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Description" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Description" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.DismissWhenClicked">
+      <summary>Gets or sets a value that indicates whether the taskbar thumbnail closes when the thumbnail button is clicked.</summary>
+      <returns>true if the thumbnail closes; otherwise, false. The default is false.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.DismissWhenClickedProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.DismissWhenClicked" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.DismissWhenClicked" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.ImageSource">
+      <summary>Gets or sets the image that is displayed on the thumbnail button.</summary>
+      <returns>The image that is displayed on the thumbnail button. The default is null.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.ImageSourceProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.ImageSource" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.ImageSource" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsBackgroundVisible">
+      <summary>Gets or sets a value that indicates whether a border and highlight is displayed around the thumbnail button.</summary>
+      <returns>true if a border and highlight is displayed around the thumbnail button; otherwise, false. The default is true.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.IsBackgroundVisibleProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsBackgroundVisible" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsBackgroundVisible" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsEnabled">
+      <summary>Gets or sets a value that indicates whether the thumbnail button is enabled.</summary>
+      <returns>true if the thumbnail button is enabled; otherwise, false. The default is true.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.IsEnabledProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsEnabled" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsEnabled" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsInteractive">
+      <summary>Gets or sets a value that indicates whether the user can interact with the thumbnail button.</summary>
+      <returns>true if the user can interact with the thumbnail button; otherwise, false. The default is true.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.IsInteractiveProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsInteractive" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.IsInteractive" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.ThumbButtonInfo.Visibility">
+      <summary>Gets or sets a value that specifies the display state of the thumbnail button.</summary>
+      <returns>An enumeration value that specifies the display state of the thumbnail button. The default is <see cref="F:System.Windows.Visibility.Visible" />.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.ThumbButtonInfo.VisibilityProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Visibility" /> dependency property. </summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.ThumbButtonInfo.Visibility" /> dependency property.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.ThumbButtonInfoCollection">
+      <summary>Represents a collection of <see cref="T:Microsoft.Windows.Shell.ThumbButtonInfo" /> objects that are associated with a <see cref="T:System.Windows.Window" />.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.ThumbButtonInfoCollection.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.ThumbButtonInfoCollection" /> class.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.ThumbButtonInfoCollection.CreateInstanceCore">
+      <summary>Creates a new instance of the collection.</summary>
+      <returns>The new instance of the collection.</returns>
+    </member>
+    <member name="T:Microsoft.Windows.Shell.WindowChrome">
+      <summary>Represents an object that describes the customizations to the non-client area of a window.</summary>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.#ctor">
+      <summary>Initializes a new instance of the <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> class.</summary>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.CaptionHeight">
+      <summary>Gets or sets the height of the caption area at the top of a window.</summary>
+      <returns>The height of the caption area.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.CaptionHeightProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.CaptionHeight" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.CaptionHeight" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.CornerRadius">
+      <summary>Gets or sets a value that indicates the amount that the corners of a window are rounded.</summary>
+      <returns>A value that describes the amount that corners are rounded.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.CornerRadiusProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.CornerRadius" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.CornerRadius" /> dependency property.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.CreateInstanceCore">
+      <summary>Creates a new instance of the <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> class.</summary>
+      <returns>The new instance of this class.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.GetIsHitTestVisibleInChrome(System.Windows.IInputElement)">
+      <summary>Gets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> attached property from the specified input element.</summary>
+      <returns>The value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> attached property.</returns>
+      <param name="inputElement">The input element from which to read the property value.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="inputElement" /> is null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="inputElement" /> is not a <see cref="T:System.Windows.DependencyObject" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.GetResizeGripDirection(System.Windows.IInputElement)">
+      <summary>Gets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> attached property from the specified input element.</summary>
+      <returns>The value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> attached property.</returns>
+      <param name="inputElement">The input element from which to read the property value.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="inputElement" /> is null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="inputElement" /> is not a <see cref="T:System.Windows.DependencyObject" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.GetWindowChrome(System.Windows.Window)">
+      <summary>Gets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome" /> attached property from the specified <see cref="T:System.Windows.Window" />.</summary>
+      <returns>The instance of <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> that is attached to the specified <see cref="T:System.Windows.Window" />.</returns>
+      <param name="window">The <see cref="T:System.Windows.Window" /> from which to read the property value.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="window" /> is null.</exception>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.GlassFrameCompleteThickness">
+      <summary>Gets a uniform thickness of -1.</summary>
+      <returns>A uniform thickness of -1 in all cases.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.GlassFrameThickness">
+      <summary>Gets or sets a value that indicates the width of the glass border around a window.</summary>
+      <returns>The width of the glass border around a window.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.GlassFrameThicknessProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.GlassFrameThickness" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.GlassFrameThickness" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome">
+      <summary>Gets or sets a value that indicates whether WPF hit-testing is enabled on the part of an element that is in the non-client area of a window.</summary>
+      <returns>true if hit testing is enabled in the non-client area; otherwise, false. The registered default is false. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChromeProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.NonClientFrameEdges">
+      <summary>Gets or sets a value that indicates which edges of the window frame are not owned by the client.</summary>
+      <returns>A bitwise combination of the enumeration values that specify which edges of the frame are not owned by the client.The registered default is <see cref="F:Microsoft.Windows.Shell.NonClientFrameEdges.None" />. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.NonClientFrameEdgesProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.NonClientFrameEdges" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.NonClientFrameEdges" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.ResizeBorderThickness">
+      <summary>Gets or sets a value that indicates the width of the border that is used to resize a window.</summary>
+      <returns>The width of the border that is used to resize a window.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.ResizeBorderThicknessProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeBorderThickness" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeBorderThickness" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection">
+      <summary>Gets or sets a value that indicates the direction of the resize grip behavior on an input element.</summary>
+      <returns>One of the enumeration values that indicates the direction of the resize grip. The registered default is <see cref="F:Microsoft.Windows.Shell.ResizeGripDirection.None" />. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirectionProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> dependency property.</returns>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.SetIsHitTestVisibleInChrome(System.Windows.IInputElement,System.Boolean)">
+      <summary>Sets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> attached property on the specified input element.</summary>
+      <param name="inputElement">The element on which to set the <see cref="P:Microsoft.Windows.Shell.WindowChrome.IsHitTestVisibleInChrome" /> attached property.</param>
+      <param name="hitTestVisible">The property value to set.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="inputElement" /> is null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="inputElement" /> is not a <see cref="T:System.Windows.DependencyObject" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.SetResizeGripDirection(System.Windows.IInputElement,Microsoft.Windows.Shell.ResizeGripDirection)">
+      <summary>Sets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> attached property on the specified input element.</summary>
+      <param name="inputElement">The element on which to set the <see cref="P:Microsoft.Windows.Shell.WindowChrome.ResizeGripDirection" /> attached property.</param>
+      <param name="direction">The property value to set.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="inputElement" /> is null.</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="inputElement" /> is not a <see cref="T:System.Windows.DependencyObject" />.</exception>
+    </member>
+    <member name="M:Microsoft.Windows.Shell.WindowChrome.SetWindowChrome(System.Windows.Window,Microsoft.Windows.Shell.WindowChrome)">
+      <summary>Sets the value of the <see cref="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome" /> attached property on the specified <see cref="T:System.Windows.Window" />.</summary>
+      <param name="window">The <see cref="T:System.Windows.Window" /> on which to set the <see cref="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome" /> attached property.</param>
+      <param name="chrome">The instance of <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> to set.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="window" /> is null.</exception>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.UseAeroCaptionButtons">
+      <summary>Gets or sets a value that indicates whether the Windows Aero caption buttons are shown.</summary>
+      <returns>The registered default is true. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.UseAeroCaptionButtonsProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.UseAeroCaptionButtons" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.UseAeroCaptionButtons" /> dependency property.</returns>
+    </member>
+    <member name="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome">
+      <summary>Gets or sets the instance of <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> that is attached to a window.</summary>
+      <returns>The instance of <see cref="T:Microsoft.Windows.Shell.WindowChrome" /> attached to window. The registered default is null. For more information about what can influence the value, see Dependency Property Value Precedence.</returns>
+    </member>
+    <member name="F:Microsoft.Windows.Shell.WindowChrome.WindowChromeProperty">
+      <summary>Identifies the <see cref="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome" /> dependency property.</summary>
+      <returns>The identifier for the <see cref="P:Microsoft.Windows.Shell.WindowChrome.WindowChrome" /> dependency property.</returns>
+    </member>
+  </members>
+</doc>
