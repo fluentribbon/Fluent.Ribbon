@@ -121,7 +121,7 @@
             {
                 if (this.exitCommand == null)
                 {
-                    this.exitCommand = new RelayCommand(System.Windows.Application.Current.Shutdown);
+                    this.exitCommand = new RelayCommand(System.Windows.Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
                 }
 
                 return this.exitCommand;
