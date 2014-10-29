@@ -302,6 +302,7 @@ namespace Fluent
             {
                 window.KeyDown += this.HandleWindowKeyDown;
 
+
                 if (this.savedWindowMinWidth < 500)
                 {
                     window.MinWidth = 500;
@@ -391,6 +392,7 @@ namespace Fluent
             var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Remove(this.adorner);
 
+            this.adorner.Clear();
             this.adorner = null;
         }
 
