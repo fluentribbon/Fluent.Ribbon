@@ -10,7 +10,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace Fluent
@@ -87,7 +86,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
+            get { return (object)GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
 
@@ -95,8 +94,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(Button), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(Button), new PropertyMetadata(null));
 
         #endregion
 
