@@ -9,6 +9,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B3EE3E07-9FD5-4282-9743-AC457EB45BBA}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.md = Changelog.md
+		Fluent.Ribbon.msbuild = Fluent.Ribbon.msbuild
+		Fluent.Ribbon.nuspec = Fluent.Ribbon.nuspec
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 	EndProjectSection
 EndProject
