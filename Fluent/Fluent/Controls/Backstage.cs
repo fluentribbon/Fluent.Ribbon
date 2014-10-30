@@ -189,13 +189,10 @@ namespace Fluent
         {
             get
             {
-                var list = new ArrayList();
                 if (this.Content != null)
                 {
-                    list.Add(this.Content);
+                    yield return this.Content;
                 }
-
-                return list.GetEnumerator();
             }
         }
 
