@@ -6,18 +6,15 @@
 // Distributed under the terms of the Microsoft Public License (Ms-PL). 
 // The license is available online http://fluent.codeplex.com/license
 #endregion
-using System;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Fluent
 {
-    using System.Diagnostics;
-    using System.Windows.Controls;
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+    using System.Windows.Threading;
     using Fluent.Internal;
     using Fluent.Metro.Native;
 
@@ -78,19 +75,27 @@ namespace Fluent
         {
             this.ribbon = ribbon;
 
-            if (!ribbon.IsLoaded) ribbon.Loaded += OnDelayedInitialization;
-            else Attach();
+            if (this.ribbon.IsLoaded == false)
+            {
+                this.ribbon.Loaded += this.OnDelayedInitialization;
+            }
+            else
+            {
+                this.Attach();
+            }
 
             // Initialize timer
-            timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, OnDelayedShow, Dispatcher.CurrentDispatcher);
-            timer.Stop();
+            this.timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, this.OnDelayedShow, Dispatcher.CurrentDispatcher);
+            this.timer.Stop();
         }
 
         private void OnDelayedInitialization(object sender, EventArgs args)
         {
-            ribbon.Loaded -= OnDelayedInitialization;
-            Attach();
+            this.ribbon.Loaded -= this.OnDelayedInitialization;
+            this.Attach();
         }
+
+        #endregion
 
         /// <summary>
         /// Attaches self
@@ -110,7 +115,7 @@ namespace Fluent
                 return;
             }
 
-            this.window = GetElementWindow(this.ribbon);
+            this.window = Window.GetWindow(this.ribbon);
             if (this.window == null)
             {
                 return;
@@ -132,20 +137,27 @@ namespace Fluent
         /// </summary>
         public void Detach()
         {
-            if (!attached) return;
-            attached = false;
-
-            if (window != null)
+            if (!this.attached)
             {
-                window.PreviewKeyDown -= OnWindowKeyDown;
-                window.KeyUp -= OnWindowKeyUp;
+                return;
+            }
+
+            this.attached = false;
+
+            if (this.window != null)
+            {
+                this.window.PreviewKeyDown -= this.OnWindowKeyDown;
+                this.window.KeyUp -= this.OnWindowKeyUp;
 
                 this.window = null;
             }
 
             // Hookup non client area messages
-            if ((attachedHwndSource != null) && (!attachedHwndSource.IsDisposed))
-                attachedHwndSource.RemoveHook(WindowProc);
+            if (this.attachedHwndSource != null
+                && this.attachedHwndSource.IsDisposed == false)
+            {
+                this.attachedHwndSource.RemoveHook(this.WindowProc);
+            }
         }
 
         // Window's messages hook up
@@ -156,10 +168,11 @@ namespace Fluent
             // - the window is deactivated
             if (((msg >= 161) && (msg <= 173)) || msg == Constants.WM_NCACTIVATE)
             {
-                if ((activeAdornerChain != null) && (activeAdornerChain.IsAdornerChainAlive))
+                if (this.activeAdornerChain != null
+                    && this.activeAdornerChain.IsAdornerChainAlive)
                 {
-                    activeAdornerChain.Terminate();
-                    activeAdornerChain = null;
+                    this.activeAdornerChain.Terminate();
+                    this.activeAdornerChain = null;
                 }
             }
 
@@ -302,7 +315,7 @@ namespace Fluent
 
         private void OnDelayedShow(object sender, EventArgs e)
         {
-            if (activeAdornerChain == null)
+            if (this.activeAdornerChain == null)
             {
                 this.Show();
             }
@@ -314,7 +327,7 @@ namespace Fluent
         {
             // Check whether the window is still active
             // (it prevent keytips showing during Alt-Tab'ing)
-            if (!this.window.IsActive)
+            if (this.window.IsActive == false)
             {
                 this.RestoreFocuses();
                 return;
@@ -326,12 +339,8 @@ namespace Fluent
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
 
             // Special behavior for backstage
-            DependencyObject specialControl = this.GetBackstage();
-
-            if (specialControl == null)
-            {
-                specialControl = this.GetApplicationMenu();
-            }
+            var specialControl = this.GetBackstage()
+                ?? (DependencyObject)this.GetApplicationMenu();
 
             if (specialControl != null)
             {
@@ -383,35 +392,5 @@ namespace Fluent
                 this.activeAdornerChain.Attach();
             }
         }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Gets window where element is loacated or null
-        /// </summary>
-        /// <param name="element">Elemet</param>
-        /// <returns>Window where element is loacated or null</returns>
-        static Window GetElementWindow(UIElement element)
-        {
-            while (true)
-            {
-                element = VisualTreeHelper.GetParent(element) as UIElement;
-                if (element == null)
-                {
-                    return null;
-                }
-
-                var window = element as Window;
-
-                if (window != null)
-                {
-                    return window;
-                }
-            }
-        }
-
-        #endregion
     }
 }
