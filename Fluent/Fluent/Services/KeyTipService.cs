@@ -191,62 +191,63 @@ namespace Fluent
                 return;
             }
 
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                (e.SystemKey == Key.RightAlt) ||
-                (e.SystemKey == Key.F10) ||
-                (e.SystemKey == Key.Space)))
+            if (IsShowOrHideKey(e))
             {
-                if (this.activeAdornerChain == null || (!this.activeAdornerChain.IsAdornerChainAlive || !this.activeAdornerChain.AreAnyKeyTipsVisible))
+                if (this.activeAdornerChain == null
+                    || this.activeAdornerChain.IsAdornerChainAlive == false
+                    || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
                 {
-                    if (this.activeAdornerChain != null)
-                    {
-                        this.activeAdornerChain.Terminate();
-                    }
+                    this.ShowDelayed();
+                }
+                else if (this.activeAdornerChain != null
+                    && this.activeAdornerChain.IsAdornerChainAlive)
+                {
+                    // Focus ribbon
+                    this.backUpFocusedElement = Keyboard.FocusedElement;
+                    this.ribbon.Focusable = true;
+                    //this.ribbon.Focus();
 
+                    this.activeAdornerChain.Terminate();
                     this.activeAdornerChain = null;
-                    this.timer.Start();
                 }
                 else
                 {
-                    this.currentUserInput = string.Empty;
+                    this.ClearUserInput();
                 }
             }
-            else if (e.Key == Key.Escape)
+            else if (e.Key == Key.Escape
+                && this.activeAdornerChain != null)
             {
-                if (this.activeAdornerChain != null)
-                {
-                    this.activeAdornerChain.ActiveKeyTipAdorner.Back();
-                }
+                this.activeAdornerChain.ActiveKeyTipAdorner.Back();
             }
             else
             {
-                if (e.Key == Key.System
-                    && e.SystemKey != Key.Escape
-                    && e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
+                // Should we show the keytips and immediately react to key?
+                if (e.Key != Key.System
+                    || e.SystemKey == Key.Escape
+                    || e.KeyboardDevice.Modifiers != ModifierKeys.Alt)
                 {
-                    if (this.activeAdornerChain == null || (!this.activeAdornerChain.IsAdornerChainAlive || !this.activeAdornerChain.AreAnyKeyTipsVisible))
-                    {
-                        this.timer.Stop();
-                        this.backUpFocusedElement = Keyboard.FocusedElement;
+                    return;
+                }
 
-                        // Focus ribbon
-                        this.ribbon.Focusable = true;
-                        //this.ribbon.Focus();
+                if (this.activeAdornerChain == null
+                    || this.activeAdornerChain.IsAdornerChainAlive == false
+                    || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
+                {
+                    this.ShowImmediatly();
+                }
 
-                        this.Show();
-                    }
+                if (this.activeAdornerChain == null)
+                {
+                    return;
+                }
 
-                    if (this.activeAdornerChain != null)
-                    {
-                        this.currentUserInput += keyConverter.ConvertToString(e.SystemKey);
+                this.currentUserInput += keyConverter.ConvertToString(e.SystemKey);
 
-                        if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
-                        {
-                            this.currentUserInput = string.Empty;
-                            e.Handled = true;
-                        }
-                    }
+                if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
+                {
+                    this.ClearUserInput();
+                    e.Handled = true;
                 }
             }
         }
@@ -258,42 +259,35 @@ namespace Fluent
                 return;
             }
 
-            if ((e.Key == Key.System) &&
-                ((e.SystemKey == Key.LeftAlt) ||
-                 (e.SystemKey == Key.RightAlt) ||
-                 (e.SystemKey == Key.F10) ||
-                 (e.SystemKey == Key.Space)))
+            if (IsShowOrHideKey(e))
             {
-                this.currentUserInput = string.Empty;
+                this.ClearUserInput();
 
                 e.Handled = true;
 
                 if (this.timer.IsEnabled)
                 {
-                    this.timer.Stop();
-                    this.backUpFocusedElement = Keyboard.FocusedElement;
-
-                    // Focus ribbon
-                    this.ribbon.Focusable = true;
-                    //this.ribbon.Focus();
-
-                    this.Show();
-                }
-                else if (this.activeAdornerChain != null && this.activeAdornerChain.IsAdornerChainAlive)
-                {
-                    // Focus ribbon
-                    this.backUpFocusedElement = Keyboard.FocusedElement;
-                    this.ribbon.Focusable = true;
-                    //this.ribbon.Focus();
-
-                    this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
+                    this.ShowImmediatly();
                 }
             }
             else
             {
                 this.timer.Stop();
             }
+        }
+
+        private static bool IsShowOrHideKey(KeyEventArgs e)
+        {
+            return e.Key == Key.System
+                && (e.SystemKey == Key.LeftAlt
+                   || e.SystemKey == Key.RightAlt
+                   || e.SystemKey == Key.F10
+                   || e.SystemKey == Key.Space);
+        }
+
+        private void ClearUserInput()
+        {
+            this.currentUserInput = string.Empty;
         }
 
         private void RestoreFocuses()
@@ -323,6 +317,29 @@ namespace Fluent
             this.timer.Stop();
         }
 
+        private void ShowImmediatly()
+        {
+            this.timer.Stop();
+            this.backUpFocusedElement = Keyboard.FocusedElement;
+
+            // Focus ribbon
+            this.ribbon.Focusable = true;
+            //this.ribbon.Focus();
+
+            this.Show();
+        }
+
+        private void ShowDelayed()
+        {
+            if (this.activeAdornerChain != null)
+            {
+                this.activeAdornerChain.Terminate();
+            }
+
+            this.activeAdornerChain = null;
+            this.timer.Start();
+        }
+
         private void Show()
         {
             // Check whether the window is still active
@@ -333,7 +350,7 @@ namespace Fluent
                 return;
             }
 
-            this.currentUserInput = string.Empty;
+            this.ClearUserInput();
 
             this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
