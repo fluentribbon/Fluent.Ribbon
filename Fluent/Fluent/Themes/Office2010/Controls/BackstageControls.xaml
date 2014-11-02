@@ -715,7 +715,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="InnerBackstageTabCotrolItem" TargetType="{x:Type TabItem}">
+    <Style x:Key="InnerBackstageTabControlItem" TargetType="{x:Type TabItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
@@ -757,7 +757,7 @@
                 <ControlTemplate TargetType="{x:Type TabControl}">
                     <ControlTemplate.Resources>
                         <Style TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}"/>
-                        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource InnerBackstageTabCotrolItem}"/>
+                        <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource InnerBackstageTabControlItem}"/>
                     </ControlTemplate.Resources>
                     <Grid>
                         <Grid.ColumnDefinitions>
