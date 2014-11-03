@@ -403,11 +403,10 @@ namespace Fluent
                 this.buttonBorder.MouseLeftButtonDown += this.HandleButtonBorderMouseLeftButtonDown;
             }
 
-            var dropDownPopup = DropDownPopup;
-            if (dropDownPopup != null)
+            if (this.DropDownPopup != null)
             {
-                dropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
-                dropDownPopup.AddHandler(MouseDownEvent, new RoutedEventHandler(OnDropDownPopupMouseDown), true);
+                this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
+                this.DropDownPopup.AddHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown), true);
             }
         }
 
@@ -428,11 +427,10 @@ namespace Fluent
                 this.buttonBorder.MouseLeftButtonDown -= this.HandleButtonBorderMouseLeftButtonDown;
             }
 
-            var dropDownPopup = DropDownPopup;
-            if (dropDownPopup != null)
+            if (this.DropDownPopup != null)
             {
-                dropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
-                dropDownPopup.RemoveHandler(MouseDownEvent, new RoutedEventHandler(OnDropDownPopupMouseDown));
+                this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
+                this.DropDownPopup.RemoveHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown));
             }
         }
 
@@ -514,9 +512,9 @@ namespace Fluent
 
         private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
         {
-            if (ClosePopupOnMouseDown)
+            if (this.ClosePopupOnMouseDown)
             {
-                IsDropDownOpen = false;
+                this.IsDropDownOpen = false;
             }
         }
 
