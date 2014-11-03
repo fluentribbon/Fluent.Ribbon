@@ -300,10 +300,29 @@ namespace Fluent
         }
 
         /// <summary>
-        /// /Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
             DependencyProperty.Register("DropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
+
+        #endregion
+
+        #region ClosePopupOnMouseDown
+
+        /// <summary>
+        /// Gets or sets whether the popup of this drop down button should automatically be closed on mouse down.
+        /// </summary>
+        public bool ClosePopupOnMouseDown
+        {
+            get { return (bool)GetValue(ClosePopupOnMouseDownProperty); }
+            set { SetValue(ClosePopupOnMouseDownProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDown.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ClosePopupOnMouseDownProperty =
+            DependencyProperty.Register("ClosePopupOnMouseDown", typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
 
         #endregion
 
@@ -388,6 +407,7 @@ namespace Fluent
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
+                this.DropDownPopup.AddHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown), true);
             }
         }
 
@@ -411,6 +431,7 @@ namespace Fluent
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
+                this.DropDownPopup.RemoveHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown));
             }
         }
 
@@ -487,6 +508,14 @@ namespace Fluent
             if (handled)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
+        {
+            if (this.ClosePopupOnMouseDown)
+            {
+                this.IsDropDownOpen = false;
             }
         }
 

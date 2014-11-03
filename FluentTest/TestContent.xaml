@@ -886,10 +886,11 @@
                         <MenuItem Header="25" />
                     </Fluent:SplitButton>
 
-                    <Fluent:DropDownButton Header="Dropdown"
+                    <Fluent:DropDownButton Header="Dropdown (auto close on click)"
                                            ResizeMode="Both"
                                            Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
-                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png">
+                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                           ClosePopupOnMouseDown="True">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
