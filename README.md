@@ -26,3 +26,35 @@ To be more familiar with Ribbon concept see [msdn article](http://msdn.microsoft
 We highly recommend to license your Fluent UI based application and learn full guidelines, see [Fluent UI licensing page](http://msdn2.microsoft.com/en-us/office/aa973809.aspx).
 
 ## History &amp; Roadmap
+todo: take from codeplex
+
+## Feature List
+todo: take from codeplex
+
+If you feel lack of some important features feel free to use [discussions](https://github.com/fluentribbon/Fluent.Ribbon/issues) page.
+
+## Localizations
+
+*   English
+*   Russian
+*   Persian
+*   German
+*   Hungarian
+*   Czech
+*   French
+*   Polish
+*   Japanese
+*   Dutch
+*   Portuguese
+*   Spanish
+*   Chinese
+*   Swedish
+*   Slovak
+*   Ukrainian
+*   Romanian
+*   Italian
+*   Arabic
+*   Danish
+*   Azerbaijani
+
+_* Fluent is a trademark of Microsoft Corporation and the Fluent user interface is licensed from Microsoft Corporation_
