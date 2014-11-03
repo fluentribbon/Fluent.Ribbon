@@ -38,10 +38,10 @@ We highly recommend to license your Fluent UI based application and learn full g
 | April 6, 2010 |  V1.1 (fixes and silver/black/blue Office 2010 themes) |  Yes |  No |  No |
 | April 20, 2010 |  V1.2 |  Yes |  Yes |  No |
 | May 17, 2010 |  V1.3 (fixes, improved RibbonWindow, TextBox) |  Yes |  Yes |  No |
-| October 5, 2010 |  [V2.0 Preview][7], see [breaking changes][8] |  No |  Yes |  No |
-| November 12, 2010 |  [V2.0][9] |  Yes |  Yes |  No |
+| October 5, 2010 | V2.0 Preview |  No |  Yes |  No |
+| November 12, 2010 | V2.0 |  Yes |  Yes |  No |
 |   |  V2.1 (will be renamed to V3 because of breaking changes) |  Yes |  Yes |  Yes |
-| October 19, 2014 | V3 (Office 2013 theme, lots of fixes, breaking changes, NuGet) **[Changes in version 3.0][10]** |  Yes (Partial) |  Yes |  Yes |
+| October 19, 2014 | V3 (Office 2013 theme, lots of fixes, breaking changes, NuGet) **[Changes in version 3.0](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/ReleaseNotes.md)** |  Yes (Partial) |  Yes |  Yes |
 | Future (Roadmap) | V3.x (CI-Build, Updated documentation and walkthrough, dropping support for .NET 3.5, move to GitHub (maybe)) |  No |  Yes |  Yes |
 
 ## Feature List
