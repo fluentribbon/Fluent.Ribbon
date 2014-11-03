@@ -323,6 +323,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownProperty =
             DependencyProperty.Register("ClosePopupOnMouseDown", typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
+
         #endregion
 
         #endregion
