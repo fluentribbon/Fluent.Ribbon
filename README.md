@@ -17,7 +17,7 @@ Fluent Ribbon Control Suite is a library that implements an Office-like (Microso
 
 ## Documentation
 
-Please, [download walkthrough](http://www.codeplex.com/download?ProjectName=fluent&amp;DownloadId=166250)
+Please, [download walkthrough](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/Doc/Fluent%20Ribbon%20Control%20Suite%20Walkthrough.pdf?raw=true)
 This document covers the main features of this framework and highlights how to use it. 
 It is a good document to make fast inside in ribbon development. 
 To get more practice download samples.
