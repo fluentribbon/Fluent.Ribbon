@@ -17,6 +17,8 @@
     <AssemblyOriginatorKeyFile>Properties\FluentStrongName.snk</AssemblyOriginatorKeyFile>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
+    <BaseIntermediateOutputPath>obj\NET 4.5</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>        
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
