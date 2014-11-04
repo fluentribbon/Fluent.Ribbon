@@ -12,7 +12,7 @@
 
   <Target Name="ReadVersion" DependsOnTargets="Build">
     <!-- Read assembly version from the DLL -->
-    <GetAssemblyIdentity AssemblyFiles="$(Root)Fluent/bin/NET 4.5/$(Configuration)/Fluent.dll">
+    <GetAssemblyIdentity AssemblyFiles="$(Root)build/bin/NET 4.5/$(Configuration)/Fluent.dll">
         <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
     </GetAssemblyIdentity>
     <PropertyGroup>
@@ -28,14 +28,12 @@
   
   <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Build NuGet package -->
-    <Exec Command="$(Root)Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
+    <Exec Command="NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
   </Target>
 
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
-    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; Fluent/bin/*" />
-    <!-- Create showcase zip package -->
-    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version) (Showcase).zip&quot; FluentTest/bin/*" />
+    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; build/bin/*" />
   </Target>  
 
   <Target Name="PublishVersion" DependsOnTargets="MakeNuGetPackage; CreateZipPackages" />
