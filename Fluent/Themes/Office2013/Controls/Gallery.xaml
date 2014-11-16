@@ -23,55 +23,7 @@
             PopupAnimation="Slide" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <Grid
               Name="DropDown"
-              SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-              </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-              </Grid.ColumnDefinitions>
-              <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Width="4" Height="4" Grid.Row="1" Grid.Column="1" StrokeThickness="0" Margin="-1,-1,0,0">
-                <Rectangle.Fill>
-                  <RadialGradientBrush RadiusX="0.984" Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusY="1">
-                    <GradientStop Color="#3F000000" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                  </RadialGradientBrush>
-                </Rectangle.Fill>
-              </Rectangle>
-              <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,3,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="1" Grid.Row="0">
-                <Rectangle.Fill>
-                  <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
-                    <GradientStop Color="#3F000000" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                  </RadialGradientBrush>
-                </Rectangle.Fill>
-              </Rectangle>
-              <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="3,-1,0,0" VerticalAlignment="Top" Width="4" Height="4" Grid.Column="0" Grid.Row="1">
-                <Rectangle.Fill>
-                  <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
-                    <GradientStop Color="#3F000000" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                  </RadialGradientBrush>
-                </Rectangle.Fill>
-              </Rectangle>
-              <Rectangle StrokeThickness="0" HorizontalAlignment="Stretch" Margin="7,-1,1,0" VerticalAlignment="Top" Width="Auto" Height="4" Grid.Column="0" Grid.Row="1">
-                <Rectangle.Fill>
-                  <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-                    <GradientStop Color="#3F000000" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                  </LinearGradientBrush>
-                </Rectangle.Fill>
-              </Rectangle>
-              <Rectangle StrokeThickness="0" HorizontalAlignment="Left" Margin="-1,7,0,1" VerticalAlignment="Stretch" Width="4" Height="Auto" Grid.Column="1" Grid.Row="0">
-                <Rectangle.Fill>
-                  <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox">
-                    <GradientStop Color="#3F000000" Offset="0"/>
-                    <GradientStop Color="#00000000" Offset="1"/>
-                  </LinearGradientBrush>
-                </Rectangle.Fill>
-              </Rectangle>
+              SnapsToDevicePixels="True" Margin="0" VerticalAlignment="Top">            
               <Border x:Name="PART_DropDownBorder" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True" Background="{DynamicResource ContextMenuBarBackgroundBrush}" BorderBrush="{DynamicResource ContextMenuBarBorderBrush}" BorderThickness="1" CornerRadius="1" Grid.ColumnSpan="1" d:LayoutOverrides="Width, Height" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                 <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                   <Border VerticalAlignment="Top" Width="Auto" Height="Auto" BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}" BorderThickness="1" CornerRadius="1"/>
@@ -96,7 +48,7 @@
   </Setter>
   </Style>
     
-	<ControlTemplate TargetType="{x:Type Fluent:Gallery}" x:Key="GalleryControlTemplate">
+    <ControlTemplate TargetType="{x:Type Fluent:Gallery}" x:Key="GalleryControlTemplate">
         <ControlTemplate.Resources>
           <ResourceDictionary>
             <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerStyle}"/>
@@ -129,7 +81,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
       </ControlTemplate>
-	
+    
     <Style x:Key="GalleryStyle" TargetType="{x:Type Fluent:Gallery}">
       <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
       <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>

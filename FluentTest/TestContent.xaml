@@ -2374,7 +2374,7 @@
                             Content="Show logical tree"
                             Click="OnShowLogicalTreeClick">
                         <Button.ContextMenu>
-                            <Fluent:ContextMenu>
+                            <Fluent:ContextMenu ResizeMode="Both">
                                 <Fluent:MenuItem Header="_Lala"
                                                  InputGestureText="(Ctrl+F)" />
                                 <Fluent:MenuItem Header="Lala">
