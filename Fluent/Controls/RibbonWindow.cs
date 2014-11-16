@@ -12,6 +12,7 @@ namespace Fluent
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Media;
@@ -28,10 +29,12 @@ namespace Fluent
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1049")]
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
     public class RibbonWindow : Window
     {
         private const string PART_Icon = "PART_Icon";
+        private const string PART_ContentPresenter = "PART_ContentPresenter";
         private const string PART_WindowCommands = "PART_WindowCommands";
 
         private FrameworkElement iconImage;
@@ -380,13 +383,6 @@ namespace Fluent
                 this.WindowCommands = new WindowCommands();
             }
 
-            var partWindowCommands = this.GetTemplateChild(PART_WindowCommands) as UIElement;
-
-            if (partWindowCommands != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(partWindowCommands, true);
-            }
-
             this.iconImage = this.GetTemplateChild(PART_Icon) as FrameworkElement;
 
             if (this.iconImage != null)
@@ -394,6 +390,20 @@ namespace Fluent
                 WindowChrome.SetIsHitTestVisibleInChrome(this.iconImage, true);
 
                 this.iconImage.MouseUp += this.HandleIconMouseUp;
+            }
+
+            var partContentPresenter = this.GetTemplateChild(PART_ContentPresenter) as UIElement;
+
+            if (partContentPresenter != null)
+            {
+                WindowChrome.SetIsHitTestVisibleInChrome(partContentPresenter, true);
+            }
+
+            var partWindowCommands = this.GetTemplateChild(PART_WindowCommands) as UIElement;
+
+            if (partWindowCommands != null)
+            {
+                WindowChrome.SetIsHitTestVisibleInChrome(partWindowCommands, true);
             }
 
             // This has to be done when the theme is changed. Otherwise maximized windows have the wrong size.

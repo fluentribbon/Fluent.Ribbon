@@ -41,7 +41,7 @@
                                           VerticalAlignment="Top"
                                           HorizontalAlignment="Right"
                                           Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-                        <ContentPresenter />
+                        <ContentPresenter x:Name="PART_ContentPresenter" />
                     </Grid>
                 </AdornerDecorator>
                 <ResizeGrip x:Name="WindowResizeGrip"

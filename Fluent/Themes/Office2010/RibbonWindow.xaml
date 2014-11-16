@@ -61,7 +61,7 @@
             <Image x:Name="PART_Icon" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
           </StackPanel>
-          <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
+          <ContentPresenter Margin="8,1,8,8" x:Name="PART_ContentPresenter"/>
           <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" Focusable="False" Margin="0,0,5.5,5.5" Background="Transparent"
                 Visibility="Collapsed"/>
@@ -79,7 +79,7 @@
       <Trigger Property="WindowState" Value="Maximized">
         <Setter Property="Margin" TargetName="PART_IconImage" Value="0,4,0,0"/>
         <Setter Property="Margin" TargetName="adornerDecorator" Value="0"/>
-        <Setter Property="Margin" TargetName="contentPresenter" Value="0,0,0,0"/>
+        <Setter Property="Margin" TargetName="PART_ContentPresenter" Value="0,0,0,0"/>
         <Setter Property="Margin" TargetName="rectangle" Value="15,4,0,1"/>
         <Setter Property="Margin" TargetName="rectangle1" Value="0,4,15.1,1"/>
         <Setter Property="Margin" TargetName="rectangle2" Value="50,4,50,1"/>
@@ -115,7 +115,7 @@
                 <Grid x:Name="grid" Background="{TemplateBinding Background}"/>
               </Border>
             </Border>
-            <ContentPresenter Margin="8,1,8,8" x:Name="contentPresenter"/>
+            <ContentPresenter Margin="8,1,8,8" x:Name="PART_ContentPresenter"/>
             <ResizeGrip x:Name="PART_ResizeGrip" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
         VerticalAlignment="Bottom" Focusable="False" Margin="0,0,5.5,5.5"
         Cursor="SizeNWSE" Visibility="Collapsed"/>
@@ -143,7 +143,7 @@
         <Setter Property="BorderThickness" TargetName="border2" Value="0,0,0,0"/>
         <Setter Property="CornerRadius" TargetName="border2" Value="0,0,0,0"/>
         <Setter Property="Margin" TargetName="PART_WindowCommands" Value="0,0,0,0"/>
-        <Setter Property="Margin" TargetName="contentPresenter" Value="0,0,0,0"/>
+        <Setter Property="Margin" TargetName="PART_ContentPresenter" Value="0,0,0,0"/>
         <Setter Property="Height" TargetName="border2" Value="54"/>
                 <Setter Property="Margin"
                         TargetName="border4"
