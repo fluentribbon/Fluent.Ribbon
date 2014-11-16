@@ -273,8 +273,8 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return item is BackstageTabItem 
-                || item is Button 
+            return item is BackstageTabItem
+                || item is Button
                 || item is SeparatorTabItem
                 || item is Separator;
         }
@@ -286,7 +286,7 @@ namespace Fluent
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
-            
+
             if ((e.Action == NotifyCollectionChangedAction.Remove) && (this.SelectedIndex == -1))
             {
                 var startIndex = e.OldStartingIndex + 1;
@@ -432,7 +432,7 @@ namespace Fluent
 
             if (backstage != null)
             {
-                PopupService.RaiseDismissPopupEventAsync(backstage, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(backstage, DismissPopupMode.Always);
             }
         }
 

@@ -253,7 +253,7 @@ namespace Fluent
             // Close popup on click            
             if (this.IsDefinitive)
             {
-                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
 
             base.OnClick();

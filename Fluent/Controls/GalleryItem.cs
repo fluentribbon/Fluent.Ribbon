@@ -452,7 +452,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected virtual void OnClick(object sender, RoutedEventArgs e)
         {
-            PopupService.RaiseDismissPopupEventAsync(sender, DismissPopupMode.Always);
+            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
 
             this.ExecuteCommand();
             this.IsSelected = true;            

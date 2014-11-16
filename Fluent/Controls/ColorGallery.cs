@@ -83,7 +83,7 @@ namespace Fluent
     /// <summary>
     /// More colors event args
     /// </summary>
-    public class MoreColorsExecutingEventArgs: EventArgs
+    public class MoreColorsExecutingEventArgs : EventArgs
     {
         /// <summary>
         /// Gets or sets choosed color
@@ -271,11 +271,11 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ChipWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ChipWidthProperty =
-            DependencyProperty.Register("ChipWidth", typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0,null, CoerceChipSize));
+            DependencyProperty.Register("ChipWidth", typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0, null, CoerceChipSize));
 
         private static object CoerceChipSize(DependencyObject d, object basevalue)
         {
-            double value = (double) basevalue;
+            double value = (double)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
@@ -394,7 +394,7 @@ namespace Fluent
 
         private static object CoerceColumns(DependencyObject d, object basevalue)
         {
-            int value = (int) basevalue;
+            int value = (int)basevalue;
             if (value < 1) return 1;
             return basevalue;
         }
@@ -425,7 +425,7 @@ namespace Fluent
 
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
-            int value = (int) basevalue;
+            int value = (int)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
@@ -495,7 +495,7 @@ namespace Fluent
             {
                 isSelectionChanged = true;
                 bool isSetted = false;
-                
+
                 // Check menu items
                 if (!color.HasValue)
                 {
@@ -602,7 +602,7 @@ namespace Fluent
         // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly("ThemeGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
-        
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
         /// </summary>
@@ -621,10 +621,10 @@ namespace Fluent
             private set { SetValue(StandardGradientsPropertyKey, value); }
         }
 
-        
+
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly("StandardGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
-        
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
         /// </summary>
@@ -713,11 +713,11 @@ namespace Fluent
         {
             if (moreColorsButton != null) moreColorsButton.Click += OnMoreColorsClick;
             moreColorsButton = GetTemplateChild("PART_MoreColors") as MenuItem;
-            if (moreColorsButton!=null) moreColorsButton.Click += OnMoreColorsClick;
+            if (moreColorsButton != null) moreColorsButton.Click += OnMoreColorsClick;
 
             if (noColorButton != null) noColorButton.Click -= OnNoColorClick;
             noColorButton = GetTemplateChild("PART_NoColor") as MenuItem;
-            if (noColorButton!=null) noColorButton.Click += OnNoColorClick;
+            if (noColorButton != null) noColorButton.Click += OnNoColorClick;
 
             if (automaticButton != null) automaticButton.Click -= OnAutomaticClick;
             automaticButton = GetTemplateChild("PART_AutomaticColor") as MenuItem;
@@ -726,7 +726,7 @@ namespace Fluent
             // List boxes
             listBoxes.Clear();
 
-            if (themeColorsListBox != null) themeColorsListBox.SelectionChanged -= OnListBoxSelectedChanged; 
+            if (themeColorsListBox != null) themeColorsListBox.SelectionChanged -= OnListBoxSelectedChanged;
             themeColorsListBox = GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
             listBoxes.Add(themeColorsListBox);
             if (themeColorsListBox != null) themeColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
@@ -800,8 +800,8 @@ namespace Fluent
                 }
             }
         }
-        
-        private static Color ConvertFromWin32Color( int color )
+
+        private static Color ConvertFromWin32Color(int color)
         {
             int r = color & 0x000000FF;
             int g = (color & 0x0000FF00) >> 8;
@@ -853,7 +853,7 @@ namespace Fluent
                     if (listBoxes[i] != sender) listBoxes[i].SelectedItem = null;
                 }
                 SelectedColor = (Color)e.AddedItems[0];
-                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
             isSelectionChanged = false;
         }
