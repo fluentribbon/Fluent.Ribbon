@@ -640,10 +640,14 @@ namespace Fluent
             if (this.IsOpen)
             {
                 this.Hide();
-                this.IsOpen = false;
             }
 
             this.DestroyAdorner();
+
+            if (this.IsOpen)
+            {
+                this.Show();
+            }
         }
 
         #endregion
