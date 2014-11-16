@@ -1,6 +1,7 @@
 # Changelog for Fluent.Ribbon
 
 ## 3.1.0 (not release yet)
+- Fixed: #11 (ContextMenu and Popup has 10px space at bottom and right side)
 - Fixed: #18 (Tabs are disabled when using datatemplate for viewmodel in window content)
 - Fixed: #13 (Backstage does not open at application start anymore)
 - Fixed: #17 (Problem with Mouse Capture on SplitButton)
