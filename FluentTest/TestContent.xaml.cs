@@ -30,7 +30,7 @@
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
             this.DataContext = new MainViewModel();
-        }        
+        }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
         {
@@ -46,14 +46,14 @@
         {
             var groupBox = (RibbonGroupBox)sender;
 
-            var wnd = new Window 
+            var wnd = new Window
                 {
-                    Content = string.Format("Launcher-Window for: {0}", groupBox.Header), 
+                    Content = string.Format("Launcher-Window for: {0}", groupBox.Header),
                     Owner = Window.GetWindow(this)
                 };
 
             wnd.Show();
-        }        
+        }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
         {
@@ -113,7 +113,7 @@
         }
 
         private void ChangeTheme(Theme theme, string color)
-        {            
+        {
             this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
             {
                 var owner = Window.GetWindow(this);
@@ -131,7 +131,7 @@
                         owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(color) });
                     }
 
-                    owner.Resources.EndInit();                    
+                    owner.Resources.EndInit();
                 }
 
                 if (this.currentTheme != theme)
@@ -141,11 +141,11 @@
                     {
                         case Theme.Office2010:
                             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);                            
+                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                             break;
                         case Theme.Office2013:
                             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);                            
+                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                             break;
                     }
 
