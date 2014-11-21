@@ -26,7 +26,11 @@
     <MakeDir Directories="$(PublishDirectory)" />
   </Target>
   
-  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
+  <Target Name="RunGitLink">
+    <Exec Command="$(Root)\Lib\Tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
+  </Target>  
+  
+  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir; RunGitLink">
     <!-- Build NuGet package -->
     <Exec Command="NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
   </Target>
