@@ -640,7 +640,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Visible" />
+                Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Disabled" />
         <Setter Property="MaxDropDownHeight"
