@@ -10,7 +10,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
-       
+
     <Style x:Key="RibbonComboButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -38,7 +38,7 @@
                     BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="0"
                     Background="{DynamicResource TransparentBrush}">
-                <Grid Height="Auto" 
+                <Grid Height="Auto"
                       HorizontalAlignment="Right">
                     <Rectangle x:Name="rectangle"
                                StrokeThickness="0"
