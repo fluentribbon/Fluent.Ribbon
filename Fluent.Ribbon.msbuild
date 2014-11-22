@@ -27,19 +27,21 @@
   </Target>
   
   <Target Name="RunGitLink">
-    <Exec Command="$(Root)\Lib\Tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
+    <Exec Command="$(Root)\Tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
   </Target>  
   
-  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir; RunGitLink">
+  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
+    <!-- Update nuget -->
+    <Exec Command="$(Root)\Tools\NuGet.exe update -self" />
     <!-- Build NuGet package -->
-    <Exec Command="NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
+    <Exec Command="$(Root)\Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
   </Target>
 
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
-    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
+    <Exec Command="$(Root)\Tools\7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
           WorkingDirectory="$(Root)/build/bin" />    
   </Target>  
 
-  <Target Name="PublishVersion" DependsOnTargets="MakeNuGetPackage; CreateZipPackages" />
+  <Target Name="PublishVersion" DependsOnTargets="RunGitLink; MakeNuGetPackage; CreateZipPackages" />
 </Project>
