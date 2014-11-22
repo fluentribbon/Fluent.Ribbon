@@ -26,7 +26,7 @@
     <MakeDir Directories="$(PublishDirectory)" />
   </Target>
   
-  <Target Name="RunGitLink">
+  <Target Name="RunGitLink" DependsOnTargets="Build">
     <Exec Command="$(Root)\Tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
   </Target>  
   
@@ -40,7 +40,7 @@
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
     <Exec Command="$(Root)\Tools\7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
-          WorkingDirectory="$(Root)/build/bin" />    
+          WorkingDirectory="$(Root)/build/bin" />
   </Target>  
 
   <Target Name="PublishVersion" DependsOnTargets="RunGitLink; MakeNuGetPackage; CreateZipPackages" />
