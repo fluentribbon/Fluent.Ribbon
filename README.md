@@ -9,6 +9,10 @@ Fluent Ribbon Control Suite is a library that implements an Office-like (Microso
 
 *   [More Screenshots](https://github.com/fluentribbon/Fluent.Ribbon/wiki/Screenshots)
 
+### Contact
+
+If you wish to contact me (batzen) directly please use twitter https://twitter.com/batzendev.
+
 ### Contributing
 
 *   We accepting pull requests, so you are very welcome to create one.
