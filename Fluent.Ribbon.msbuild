@@ -37,7 +37,8 @@
 
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
-    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; build/bin/*" />
+    <Exec Command="7za a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
+          WorkingDirectory="$(Root)/build/bin" />    
   </Target>  
 
   <Target Name="PublishVersion" DependsOnTargets="MakeNuGetPackage; CreateZipPackages" />
