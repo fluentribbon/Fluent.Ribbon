@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 3.1.0 (not release yet)
+## 3.1.0
 - ### Features
  - Added DropDownButton.ClosePopupOnMouseDown property which defaults to false. If true, it will close the drop down popup automatically when a mouse down event occurs.
  - [#3](../../issues/3)     "Consider using GitLink to allow users to step through Fluent source code"
