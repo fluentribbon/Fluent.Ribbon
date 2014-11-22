@@ -714,7 +714,6 @@
                                                   SnapsToDevicePixels="True"
                                                   KeyboardNavigation.DirectionalNavigation="None"
                                                   VerticalAlignment="Stretch"
-                                                  VerticalScrollBarVisibility="Visible"
                                                   BorderThickness="0,0,0,1">
                                         <Fluent:GalleryPanel Background="White"
                                                              x:Name="PART_GalleryPanel"
