@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Root>$(MSBuildProjectDirectory)/</Root>
     <Configuration Condition="$(Configuration) == ''">Release</Configuration>
-    <PublishDirectory>Publish/</PublishDirectory>
+    <PublishDirectory>$(Root)/Publish/</PublishDirectory>
   </PropertyGroup>
 
   <Target Name="Build">
