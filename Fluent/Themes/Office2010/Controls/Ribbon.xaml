@@ -19,6 +19,7 @@
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
                                    VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
                                    IsCollapsed="{TemplateBinding IsCollapsed}">
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
