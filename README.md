@@ -1,4 +1,4 @@
-Fluent.Ribbon or "Fluent Ribbon Control Suite"
+Fluent.Ribbon or "Fluent Ribbon Control Suite" [![Build status](https://ci.appveyor.com/api/projects/status/675l2v012vpvch87?svg=true)](https://ci.appveyor.com/project/batzen/fluent-ribbon)
 =============
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
