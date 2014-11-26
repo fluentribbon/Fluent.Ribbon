@@ -122,6 +122,15 @@ namespace Fluent
             set { groupsInnerContainer.ReduceOrder = value; }
         }
 
+        public static readonly DependencyProperty ReduceOrderProperty = DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonTabItem),
+            new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnReduceOrderPropertyChanged)));
+
+        private static void OnReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem container = d as RibbonTabItem;
+            container.ReduceOrder = (string)e.NewValue;
+        }
+
         #region IsContextual
 
         /// <summary>
@@ -745,5 +754,77 @@ namespace Fluent
                 this.TabControlParent.IsDropDownOpen = false;
             }
         }
+
+        #region Group binding
+        public object ContextualGroupSource
+        {
+            get { return (object)GetValue(ContextualGroupSourceProperty); }
+            set { base.SetValue(ContextualGroupSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty ContextualGroupSourceProperty = DependencyProperty.Register("ContextualGroupSource", typeof(object), typeof(RibbonTabItem),
+            new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnContextualGroupSourcePropertyChanged)));
+
+        private static void OnContextualGroupSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem container = d as RibbonTabItem;
+            object ContextualGroupSource = e.NewValue;
+            foreach ( var group in container.FindParentRibbon().ContextualGroups)
+            {
+                if (group.DataContext == ContextualGroupSource)
+                    container.Group = group;
+            }
+        }
+        #endregion
+
+        #region GroupsItemsSource
+
+        #region GroupsTemplate
+
+        /// <summary>
+        /// Gets or sets GroupsTemplate
+        /// </summary>
+        public DataTemplate GroupsTemplate
+        {
+            get { return (DataTemplate)GetValue(GroupsTemplateProperty); }
+            set { SetValue(GroupsTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupsTemplate. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupsTemplateProperty =
+            DependencyProperty.Register("GroupsTemplate", typeof(DataTemplate), typeof(RibbonTabItem), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region GroupsSource
+
+        /// <summary>
+        /// Gets or sets GroupsSource
+        /// </summary>
+        public IEnumerable GroupsSource
+        {
+            get { return (IEnumerable)GetValue(GroupsSourceProperty); }
+            set { SetValue(GroupsSourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupsSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupsSourceProperty =
+            DependencyProperty.Register("GroupsSource", typeof(IEnumerable), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnGroupsSourceChanged));
+
+        static void OnGroupsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RibbonTabItem ribbonTabItem = (RibbonTabItem)d;
+            ItemsSourceHelper.ItemsSourceChanged<RibbonGroupBox>(ribbonTabItem.Groups, ribbonTabItem.GroupsTemplate, e);
+        }
+                
+        #endregion
+
+        #endregion
     }
 }

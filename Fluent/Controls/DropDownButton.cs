@@ -326,6 +326,10 @@ namespace Fluent
 
         #endregion
 
+#if NET45
+        private object currentItem;
+#endif
+
         #endregion
 
         #region Events
@@ -407,7 +411,11 @@ namespace Fluent
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
-                this.DropDownPopup.AddHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown), true);
+            }
+
+            if (this.menuPanel != null)
+            {
+                this.menuPanel.AddHandler(MouseDownEvent, new RoutedEventHandler(this.OnMenuPanelMouseDown), true);
             }
         }
 
@@ -431,7 +439,11 @@ namespace Fluent
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
-                this.DropDownPopup.RemoveHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown));
+            }
+
+            if (this.menuPanel != null)
+            {
+                this.menuPanel.RemoveHandler(MouseDownEvent, new RoutedEventHandler(this.OnMenuPanelMouseDown));
             }
         }
 
@@ -475,6 +487,27 @@ namespace Fluent
         /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
+#if NET45
+            var item = this.currentItem;
+            this.currentItem = null;
+
+            if (this.UsesItemContainerTemplate
+                && item != null)
+            {
+                var dataTemplate = this.ItemContainerTemplateSelector.SelectTemplate(item, this);
+                if (dataTemplate != null)
+                {
+                    var dataTemplateContent = (object)dataTemplate.LoadContent();
+                    if (dataTemplateContent is MenuItem
+                        || dataTemplateContent is Separator || dataTemplateContent is Gallery)
+                    {
+                        return dataTemplateContent as DependencyObject;
+                    }
+
+                    throw new InvalidOperationException("Invalid ItemContainer");
+                }
+            }
+#endif
             return new MenuItem();
         }
 
@@ -485,7 +518,16 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return item is FrameworkElement;
+            var isItemItsOwnContainerOverride = item is MenuItem || item is Separator || item is Gallery;
+
+#if NET45
+            if (isItemItsOwnContainerOverride == false)
+            {
+                this.currentItem = item;
+            }
+#endif
+
+            return isItemItsOwnContainerOverride;
         }
 
         private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
@@ -511,7 +553,7 @@ namespace Fluent
             }
         }
 
-        private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
+        private void OnMenuPanelMouseDown(object sender, RoutedEventArgs e)
         {
             if (this.ClosePopupOnMouseDown)
             {

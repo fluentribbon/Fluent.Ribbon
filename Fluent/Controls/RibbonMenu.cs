@@ -40,13 +40,35 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
+#if NET45
+        private object currentItem;
+#endif
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.
         /// </summary>
         /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
+#if NET45
+            var item = this.currentItem;
+            this.currentItem = null;
+
+            if (item != null)
+            {
+                var dataTemplate = this.ItemTemplate;
+                if (dataTemplate == null && this.UsesItemContainerTemplate && this.ItemContainerTemplateSelector != null)
+                    dataTemplate = this.ItemContainerTemplateSelector.SelectTemplate(item, this);
+                if (dataTemplate != null)
+                {
+                    var dataTemplateContent = (object)dataTemplate.LoadContent();
+                    if (dataTemplateContent is System.Windows.Controls.MenuItem
+                        || dataTemplateContent is MenuItem || dataTemplateContent is Separator || dataTemplateContent is Gallery)
+                    {
+                        return dataTemplateContent as DependencyObject;
+                    }
+                }
+            }
+#endif
             return new MenuItem();
         }
 
@@ -57,8 +79,19 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return item is System.Windows.Controls.MenuItem 
-                || item is Separator;
+            var isItemItsOwnContainerOverride = item is System.Windows.Controls.MenuItem 
+                            || item is MenuItem || item is Separator || item is Gallery;
+
+#if NET45
+            if (isItemItsOwnContainerOverride == false)
+            {
+                this.currentItem = item;
+            }
+            else
+                this.currentItem = null;
+#endif
+
+            return isItemItsOwnContainerOverride;
         }
 
         /// <summary>

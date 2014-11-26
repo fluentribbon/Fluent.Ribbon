@@ -19,5 +19,10 @@
         /// Get a static instance of <see cref="ObjectToImageConverter"/>
         /// </summary>
         public static readonly ObjectToImageConverter ObjectToImageConverter = new ObjectToImageConverter();
+
+        /// <summary>
+        /// Get a static instance of <see cref="NotNullVisibilityConverter"/>
+        /// </summary>
+        public static readonly EmptyContentToVisibilty EmptyContentToVisibilty = new EmptyContentToVisibilty();
     }
 }

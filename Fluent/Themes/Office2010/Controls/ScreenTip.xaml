@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="ToolTipStyle"
            TargetType="{x:Type ToolTip}">
@@ -12,7 +13,7 @@
             <Setter.Value>
                 <!--<ControlTemplate TargetType="Label">-->
                 <ControlTemplate TargetType="{x:Type ToolTip}">
-                    <Grid>
+                    <Grid Visibility="{Binding Path=Content, ElementName=ContentPresenter, Converter={x:Static Converters:StaticConverters.EmptyContentToVisibilty}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="5" />
@@ -130,7 +131,7 @@
                                 BorderThickness="1"
                                 BorderBrush="{DynamicResource ScreenTipBorderBrush}"
                                 Background="{DynamicResource ScreenTipBackgroundBrush}">
-                            <ContentPresenter Margin="4,4,4,4" />
+                            <ContentPresenter x:Name="ContentPresenter" Margin="4,4,4,4" />
                         </Border>
                     </Grid>
                 </ControlTemplate>

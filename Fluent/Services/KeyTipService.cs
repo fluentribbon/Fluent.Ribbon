@@ -371,6 +371,8 @@ namespace Fluent
 
         private Backstage GetBackstage()
         {
+            if (this.ribbon.Menu == null)
+                return null;
             var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsOpen);
 
             if (control == null)
@@ -385,6 +387,8 @@ namespace Fluent
 
         private ApplicationMenu GetApplicationMenu()
         {
+            if (this.ribbon.Menu == null)
+                return null;
             var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
 
             if (control == null)

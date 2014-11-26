@@ -853,6 +853,57 @@ namespace Fluent
             base.OnKeyDown(e);
         }
 
+#if NET45
+        private object currentItem;
+#endif
+        /// <summary>
+        /// Creates or identifies the element that is used to display the given item.
+        /// </summary>
+        /// <returns>The element that is used to display the given item.</returns>
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+#if NET45
+            var item = this.currentItem;
+            this.currentItem = null;
+
+            if (item != null)
+            {
+                var dataTemplate = this.ItemTemplate;
+                if (dataTemplate == null && this.ItemTemplateSelector != null)
+                    dataTemplate = this.ItemTemplateSelector.SelectTemplate(item, this);
+                if (dataTemplate != null)
+                {
+                    var dataTemplateContent = (object)dataTemplate.LoadContent();
+                    if (dataTemplateContent is ComboBoxItem)
+                    {
+                        return dataTemplateContent as DependencyObject;
+                    }
+
+                    //throw new InvalidOperationException("Invalid ItemContainer");
+                }
+            }
+#endif
+            return new ComboBoxItem();
+        }
+
+        /// <summary>
+        /// Determines if the specified item is (or is eligible to be) its own container.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns></returns>
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            var isItemItsOwnContainerOverride = item is ComboBoxItem;
+
+#if NET45
+            if (isItemItsOwnContainerOverride == false)
+            {
+                this.currentItem = item;
+            }
+#endif
+
+            return isItemItsOwnContainerOverride;
+        }
         #endregion
 
         #region Methods

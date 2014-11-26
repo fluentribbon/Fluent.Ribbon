@@ -414,7 +414,8 @@
                                                                   SnapsToDevicePixels="True"
                                                                   KeyboardNavigation.DirectionalNavigation="None"
                                                                   VerticalAlignment="Stretch"
-                                                                  BorderThickness="0,0,0,1">
+                                                                  BorderThickness="0,0,0,1"
+                                                                  VerticalScrollBarVisibility="Auto">
                                                         <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
                                                                              Background="White"
                                                                              ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"

@@ -79,11 +79,11 @@
         /// </summary>
         public static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var newValue = (bool)e.NewValue;
+            var newValue = (bool?)e.NewValue;
             var button = (IToggleButton)d;
 
             // Uncheck other toggle buttons
-            if (!newValue || button.GroupName == null)
+            if (!newValue.GetValueOrDefault() || button.GroupName == null)
             {
                 return;
             }

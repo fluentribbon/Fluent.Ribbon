@@ -18,7 +18,11 @@
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
     <BaseIntermediateOutputPath>..\build\obj\NET 4.5</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>        
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +85,8 @@
     <Compile Include="Controls\ColorGallery.cs" />
     <Compile Include="Controls\ComboBox.cs" />
     <Compile Include="Controls\ContextMenu.cs" />
+    <Compile Include="Converters\EmptyContentToVisibilty.cs" />
+    <Compile Include="Helpers\ItemsSourceHelper.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />

@@ -14,7 +14,7 @@ namespace Fluent
     /// <summary>
     /// Represents gallery group filter definition
     /// </summary>
-    public class GalleryGroupFilter : DependencyObject
+    public class GalleryGroupFilter : FrameworkElement
     {
         #region Properties
 
@@ -49,7 +49,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
-            DependencyProperty.Register("ContextualGroups", typeof(string), 
+            DependencyProperty.Register("Groups", typeof(string), 
             typeof(GalleryGroupFilter), new UIPropertyMetadata(""));
 
         #endregion

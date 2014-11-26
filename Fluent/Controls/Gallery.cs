@@ -8,6 +8,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
@@ -481,11 +482,6 @@ namespace Fluent
         #endregion
 
         #region Overrides
-
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new GalleryItem();
@@ -535,6 +531,52 @@ namespace Fluent
             }
 
             base.OnApplyTemplate();
+        }
+
+        #endregion
+
+        #region GalleryGroupFilterTemplate
+
+        /// <summary>
+        /// Gets or sets GalleryGroupFilterTemplate
+        /// </summary>
+        public DataTemplate GalleryGroupFilterTemplate
+        {
+            get { return (DataTemplate)GetValue(GalleryGroupFilterTemplateProperty); }
+            set { SetValue(GalleryGroupFilterTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GalleryGroupFilterTemplate. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GalleryGroupFilterTemplateProperty =
+            DependencyProperty.Register("GalleryGroupFilterTemplate", typeof(DataTemplate), typeof(Gallery), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region GalleryGroupFilterSource
+
+        /// <summary>
+        /// Gets or sets GalleryGroupFilterSource
+        /// </summary>
+        public IEnumerable GalleryGroupFilterSource
+        {
+            get { return (IEnumerable)GetValue(GalleryGroupFilterSourceProperty); }
+            set { SetValue(GalleryGroupFilterSourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GalleryGroupFilterSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GalleryGroupFilterSourceProperty =
+            DependencyProperty.Register("GalleryGroupFilterSource", typeof(IEnumerable), typeof(Gallery), new UIPropertyMetadata(null, OnGalleryGroupFilterSourceChanged));
+
+        static void OnGalleryGroupFilterSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Gallery gallery = (Gallery)d;
+            ItemsSourceHelper.ItemsSourceChanged<GalleryGroupFilter>(gallery.Filters, gallery.GalleryGroupFilterTemplate, e);
         }
 
         #endregion

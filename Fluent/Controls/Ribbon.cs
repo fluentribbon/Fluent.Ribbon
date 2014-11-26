@@ -2148,5 +2148,104 @@ namespace Fluent
         #endregion
 
         #endregion
+
+        #region TabItems
+
+        #region TabItemsTemplate
+
+        /// <summary>
+        /// Gets or sets TabItemsTemplate
+        /// </summary>
+        public DataTemplate TabItemsTemplate
+        {
+            get { return (DataTemplate)GetValue(TabItemsTemplateProperty); }
+            set { SetValue(TabItemsTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for TabItemsSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty TabItemsTemplateProperty =
+            DependencyProperty.Register("TabItemsTemplate", typeof(DataTemplate), typeof(Ribbon), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region TabItemsSource
+
+        /// <summary>
+        /// Gets or sets TabItemsSource
+        /// </summary>
+        public IEnumerable TabItemsSource
+        {
+            get { return (IEnumerable)GetValue(TabItemsSourceProperty); }
+            set { SetValue(TabItemsSourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for TabItemsSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty TabItemsSourceProperty =
+            DependencyProperty.Register("TabItemsSource", typeof(IEnumerable), typeof(Ribbon), new UIPropertyMetadata(null, OnTabItemsSourceChanged));
+
+        static void OnTabItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon)d;
+            ItemsSourceHelper.ItemsSourceChanged<RibbonTabItem>(ribbon.Tabs, ribbon.TabItemsTemplate, e,
+                (sender, args) => { Ribbon r = sender as Ribbon; r.SelectedTabIndex = ItemsSourceHelper.SelectorItemsSource_CollectionChanged(r.Tabs, r.TabItemsTemplate, r, args, r.SelectedTabIndex); });
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ContextualTabGroupsTemplate
+
+        /// <summary>
+        /// Gets or sets TabItemsTemplate
+        /// </summary>
+        public DataTemplate ContextualTabGroupsTemplate
+        {
+            get { return (DataTemplate)GetValue(ContextualTabGroupsTemplateProperty); }
+            set { SetValue(ContextualTabGroupsTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ContextualTabGroupsSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ContextualTabGroupsTemplateProperty =
+            DependencyProperty.Register("ContextualTabGroupsTemplate", typeof(DataTemplate), typeof(Ribbon), new UIPropertyMetadata(null));
+
+        #endregion
+
+        #region ContextualTabGroupsSource
+
+        /// <summary>
+        /// Gets or sets ContextualTabGroupsSource
+        /// </summary>
+        public IEnumerable ContextualTabGroupsSource
+        {
+            get { return (IEnumerable)GetValue(ContextualTabGroupsSourceProperty); }
+            set { SetValue(ContextualTabGroupsSourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ContextualTabGroupsSource. 
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ContextualTabGroupsSourceProperty =
+            DependencyProperty.Register("ContextualTabGroupsSource", typeof(IEnumerable), typeof(Ribbon), new UIPropertyMetadata(null, OnContextualTabGroupsSourceChanged));
+
+        static void OnContextualTabGroupsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Ribbon ribbon = (Ribbon)d;
+            ItemsSourceHelper.ItemsSourceChanged<RibbonContextualTabGroup>(ribbon.ContextualGroups, ribbon.ContextualTabGroupsTemplate, e);
+        }
+
+        #endregion
+
     }
+
 }
