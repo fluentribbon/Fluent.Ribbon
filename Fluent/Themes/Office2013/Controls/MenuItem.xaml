@@ -154,7 +154,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -182,7 +182,11 @@
                        TextTrimming="None"
                        d:LayoutOverrides="Width"
                        Visibility="Hidden"
-                       HorizontalAlignment="Left" />
+                       HorizontalAlignment="Left"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -191,7 +195,11 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
+                              RecognizesAccessKey="True"
+                              TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                              TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                              TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                              TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -290,7 +298,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -318,7 +326,11 @@
                        TextTrimming="None"
                        d:LayoutOverrides="Width"
                        Visibility="Hidden"
-                       HorizontalAlignment="Left" />
+                       HorizontalAlignment="Left"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -327,7 +339,11 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
+                              RecognizesAccessKey="True"
+                              TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                              TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                              TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                              TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -541,7 +557,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -601,7 +617,11 @@
                        TextTrimming="None"
                        d:LayoutOverrides="Width"
                        Visibility="Hidden"
-                       HorizontalAlignment="Left" />
+                       HorizontalAlignment="Left"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -610,7 +630,11 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
+                              RecognizesAccessKey="True"
+                              TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                              TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                              TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                              TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

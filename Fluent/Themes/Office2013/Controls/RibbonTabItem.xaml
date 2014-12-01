@@ -5,7 +5,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
     <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}" x:Key="RibbonTabItemControlTemplate">
-        <Grid x:Name="grid" Background="#00000000" Height="24" VerticalAlignment="Top" Margin="0,7,0,0">
+        <Grid x:Name="grid" Background="#00000000" Height="Auto" VerticalAlignment="Top" Margin="0,7,0,0">
             <Border x:Name="border3" Margin="0,0,0,1" Grid.ColumnSpan="2">
                 <Border x:Name="border5"
                         Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
@@ -100,7 +100,11 @@
                        Margin="0, -4, 0,-1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Height="Auto" />
+                       Height="Auto" 
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             </Border>
             <Grid x:Name="separatorGrid"
                   Margin="0"
@@ -294,7 +298,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Height"
-                Value="31" />
+                Value="Auto" />
         <Setter Property="IsMinimized"
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
         <Setter Property="IsOpen"

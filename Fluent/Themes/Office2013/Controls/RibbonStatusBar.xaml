@@ -76,7 +76,7 @@
     <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
                      TargetType="{x:Type Controls:StatusBarMenuItem}">
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -106,7 +106,11 @@
                        Grid.Column="1"
                        TextTrimming="None"
                        Visibility="Hidden"
-                       HorizontalAlignment="Left" />
+                       HorizontalAlignment="Left"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <TextBlock x:Name="textBlock"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
@@ -114,7 +118,11 @@
                        Margin="5,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="1"
-                       TextTrimming="CharacterEllipsis" />
+                       TextTrimming="CharacterEllipsis"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -135,7 +143,11 @@
                        Margin="9,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="3"
-                       TextTrimming="CharacterEllipsis" />
+                       TextTrimming="CharacterEllipsis"
+                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
+                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
+                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
+                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
