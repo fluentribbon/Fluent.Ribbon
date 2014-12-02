@@ -106,11 +106,7 @@
                        Grid.Column="1"
                        TextTrimming="None"
                        Visibility="Hidden"
-                       HorizontalAlignment="Left"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
@@ -118,11 +114,7 @@
                        Margin="5,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="1"
-                       TextTrimming="CharacterEllipsis"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                       TextTrimming="CharacterEllipsis" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -143,11 +135,7 @@
                        Margin="9,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="3"
-                       TextTrimming="CharacterEllipsis"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                       TextTrimming="CharacterEllipsis" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"

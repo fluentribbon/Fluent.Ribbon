@@ -291,6 +291,14 @@
         </Setter>
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
+        <Setter Property="FontSize" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
+        <Setter Property="FontFamily" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
+        <Setter Property="FontStyle" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
+        <Setter Property="FontWeight" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">

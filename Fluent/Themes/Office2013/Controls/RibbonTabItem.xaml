@@ -100,11 +100,7 @@
                        Margin="0, -4, 0,-1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Height="Auto" 
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                       Height="Auto" />
             </Border>
             <Grid x:Name="separatorGrid"
                   Margin="0"

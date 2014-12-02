@@ -60,24 +60,12 @@
             <Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" Width="Auto" Visibility="Collapsed" Background="{DynamicResource ButtonHoverOuterBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" CornerRadius="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1" CornerRadius="1"/>
             </Border>
-            <TextBlock x:Name="textBlock_Copy" Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" Visibility="Hidden" HorizontalAlignment="Left"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
-            <TextBlock x:Name="textBlock" Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="CharacterEllipsis"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+            <TextBlock x:Name="textBlock_Copy" Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,30,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="None" Visibility="Hidden" HorizontalAlignment="Left" />
+            <TextBlock x:Name="textBlock" Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="1" TextTrimming="CharacterEllipsis" />
             <Rectangle x:Name="rectangle" Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}" Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}" Grid.ColumnSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" RadiusX="1" RadiusY="1" Visibility="Collapsed"/>
             <Image x:Name="image" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{DynamicResource MenuCheckedImage}" Stretch="None" Visibility="Collapsed" SnapsToDevicePixels="True"/>
             <Image x:Name="iconImage" HorizontalAlignment="Center" Margin="3,2,2,2" VerticalAlignment="Center" Width="Auto" Source="{TemplateBinding Icon}" SnapsToDevicePixels="True"/>
-            <TextBlock Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="3" TextTrimming="CharacterEllipsis"
-                       FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                       FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                       FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                       FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+            <TextBlock Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}" Width="Auto" Height="Auto" Margin="9,3,3,3" VerticalAlignment="Center" Grid.Column="3" TextTrimming="CharacterEllipsis" />
             <Path x:Name="path" Stretch="Fill" Stroke="{x:Null}" HorizontalAlignment="Right" Margin="1,0,4,0" Width="4" Data="M0,0L1,1 0,2z" Height="6" Grid.Column="3">
                 <Path.Fill>
                     <LinearGradientBrush EndPoint="0.945,0.872" StartPoint="0.055,0.128">

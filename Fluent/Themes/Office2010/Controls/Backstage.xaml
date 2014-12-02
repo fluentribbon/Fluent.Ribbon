@@ -43,11 +43,7 @@
                             </Rectangle.Fill>
                         </Rectangle>
                         <!--<TextBlock Margin="2,0,2,2" Text="{TemplateBinding Header}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-                        <ContentPresenter x:Name="contentPresenter" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                          TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                                          TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                                          TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                                          TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                        <ContentPresenter x:Name="contentPresenter" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
                 </Border>
             </Border>

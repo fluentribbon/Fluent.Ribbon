@@ -10,11 +10,7 @@
                 <Rectangle x:Name="rectangle" />
                 <ContentPresenter x:Name="contentPresenter"
                                   ContentSource="Header"
-                                  Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                  TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"
-                                  TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"
-                                  TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" 
-                                  TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+                                  Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
