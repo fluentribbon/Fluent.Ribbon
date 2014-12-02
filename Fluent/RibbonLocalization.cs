@@ -633,138 +633,138 @@ namespace Fluent
 
             switch (language)
             {
-                case "en": 
-                    LoadEnglish(); 
+                case "en":
+                    LoadEnglish();
                     break;
 
-                case "ru": 
-                    LoadRussian(); 
+                case "ru":
+                    LoadRussian();
                     break;
 
-                case "uk": 
-                    LoadUkrainian(); 
+                case "uk":
+                    LoadUkrainian();
                     break;
 
-                case "fa": 
-                    LoadPersian(); 
+                case "fa":
+                    LoadPersian();
                     break;
 
-                case "de": 
-                    LoadGerman(); 
+                case "de":
+                    LoadGerman();
                     break;
 
-                case "hu": 
-                    LoadHungarian(); 
+                case "hu":
+                    LoadHungarian();
                     break;
 
-                case "cs": 
-                    LoadCzech(); 
+                case "cs":
+                    LoadCzech();
                     break;
 
-                case "fr": 
-                    LoadFrench(); 
+                case "fr":
+                    LoadFrench();
                     break;
 
-                case "pl": 
-                    LoadPolish(); 
+                case "pl":
+                    LoadPolish();
                     break;
 
-                case "ja": 
-                    LoadJapanese(); 
+                case "ja":
+                    LoadJapanese();
                     break;
 
-                case "nl": 
-                    LoadDutch(); 
+                case "nl":
+                    LoadDutch();
                     break;
                 case "pt":
-                {
-                    if (culture.Name == "pt-BR")
                     {
-                        LoadPortugueseBrazilian();
+                        if (culture.Name == "pt-BR")
+                        {
+                            LoadPortugueseBrazilian();
+                        }
+                        else
+                        {
+                            LoadPortuguese();
+                        }
+                        break;
                     }
-                    else
-                    {
-                        LoadPortuguese();
-                    }
-                    break;
-                }
 
-                case "es": 
-                    LoadSpanish(); 
+                case "es":
+                    LoadSpanish();
                     break;
 
-                case "zh": 
-                    LoadChinese(); 
+                case "zh":
+                    LoadChinese();
                     break;
 
-                case "sv": 
-                    LoadSwedish(); 
+                case "sv":
+                    LoadSwedish();
                     break;
 
-                case "sk": 
-                    LoadSlovak(); 
+                case "sk":
+                    LoadSlovak();
                     break;
 
-                case "ro": 
-                    LoadRomanian(); 
+                case "ro":
+                    LoadRomanian();
                     break;
 
-                case "it": 
-                    LoadItalian(); 
+                case "it":
+                    LoadItalian();
                     break;
 
-                case "ar": 
-                    LoadArabic(); 
+                case "ar":
+                    LoadArabic();
                     break;
 
-                case "da": 
-                    LoadDanish(); 
+                case "da":
+                    LoadDanish();
                     break;
 
-                case "az": 
-                    LoadAzerbaijani(); 
+                case "az":
+                    LoadAzerbaijani();
                     break;
 
-                case "fi": 
-                    LoadFinnish(); 
+                case "fi":
+                    LoadFinnish();
                     break;
 
                 case "nb":
                 case "nn":
-                case "no": 
-                    LoadNorwegian(); 
+                case "no":
+                    LoadNorwegian();
                     break;
 
-                case "tr": 
-                    LoadTurkish(); 
+                case "tr":
+                    LoadTurkish();
                     break;
 
-                case "he": 
-                    LoadHebrew(); 
+                case "he":
+                    LoadHebrew();
                     break;
 
-                case "ge": 
-                    LoadGreek(); 
+                case "ge":
+                    LoadGreek();
                     break;
 
-                case "ko": 
-                    LoadKorean(); 
+                case "ko":
+                    LoadKorean();
                     break;
 
-                case "vi": 
-                    LoadVietnamese(); 
+                case "vi":
+                    LoadVietnamese();
                     break;
 
-                case "si": 
-                    LoadSinhala(); 
+                case "si":
+                    LoadSinhala();
                     break;
 
-                case "sl": 
-                    LoadSlovenian(); 
+                case "sl":
+                    LoadSlovenian();
                     break;
 
-                case "ca": 
-                    LoadCatalan(); 
+                case "ca":
+                    LoadCatalan();
                     break;
 
             }
@@ -812,9 +812,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Collapse the Ribbon (Ctrl+F1)";
-            _minimizeButtonScreenTipText = "Need a bit more space? Collapse the\nribbon so only the tab names show.";
+            _minimizeButtonScreenTipText = "Need a bit more space? Collapse the ribbon so only the tab names show.";
             _expandButtonScreenTipTitle = "Pin the Ribbon (Ctrl+F1)";
-            _expandButtonScreenTipText = "Like seeing the ribbon? Keep it open\nwhile you work.";
+            _expandButtonScreenTipText = "Like seeing the ribbon? Keep it open while you work.";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Customize Quick Access Toolbar";
@@ -965,10 +965,10 @@ namespace Fluent
             _backstageButtonKeyTip = "D";
 
             // See right-top corner... (two different tooltips must be if you press it)
-            _minimizeButtonScreenTipTitle = "Menüband minimieren (Strg + F1)";
-            _minimizeButtonScreenTipText = "Das Menüband ausblenden.\n\nWenn das Menüband\nausgeblendet ist, werden nur die\nRegisterkartennamen angezeigt.";
-            _expandButtonScreenTipTitle = "Menüband erweitern (Strg + F1)";
-            _expandButtonScreenTipText = _minimizeButtonScreenTipText;
+            _minimizeButtonScreenTipTitle = "Menüband minimieren (Strg+F1)";
+            _minimizeButtonScreenTipText = "Sie benötigen etwas mehr Platz? Reduzieren Sie das Menüband, sodass nur die Registerkartennamen angezeigt werden.";
+            _expandButtonScreenTipTitle = "Menüband erweitern (Strg+F1)";
+            _expandButtonScreenTipText = "Ist es Ihnen lieber, wenn Sie das Menüband sehen? Lassen Sie es während der Arbeit geöffnet.";
 
             // QAT tooltips and menu items
             _quickAccessToolBarDropDownButtonTooltip = "Symbolleiste für den Schnellzugriff anpassen";
@@ -1186,7 +1186,7 @@ namespace Fluent
             _ribbonContextMenuShowAbove = "クイック アクセス ツール バーをリボンの上に表示";
             _ribbonContextMenuCustomizeRibbon = "リボンのユーザー設定...";
             _ribbonContextMenuMinimizeRibbon = "リボンの最小化";
-            _customizeStatusBar= "ステータス バーのユーザー設定";
+            _customizeStatusBar = "ステータス バーのユーザー設定";
 
             _screenTipDisableReasonHeader = "このコマンドは現在無効になっています";
         }
