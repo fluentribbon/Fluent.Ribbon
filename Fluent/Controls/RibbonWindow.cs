@@ -100,21 +100,6 @@ namespace Fluent
             DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8, 50, 8, 8), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
-        /// Gets or sets caption height
-        /// </summary>
-        public double CaptionHeight
-        {
-            get { return (double)GetValue(CaptionHeightProperty); }
-            set { SetValue(CaptionHeightProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CaptionHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CaptionHeightProperty =
-            DependencyProperty.Register("CaptionHeight", typeof(double), typeof(RibbonWindow), new UIPropertyMetadata(20.0, OnWindowChromeRelevantPropertyChanged));
-
-        /// <summary>
         /// Gets or sets corner radius 
         /// </summary>
         public CornerRadius CornerRadius
@@ -221,6 +206,8 @@ namespace Fluent
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
+
+            RibbonProperties.TitleBarHeightProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowChromeRelevantPropertyChanged));
         }
 
         // Coerce object style
@@ -345,7 +332,7 @@ namespace Fluent
                 WindowChrome.SetWindowChrome(this, windowChrome);
             }
 
-            windowChrome.CaptionHeight = this.CaptionHeight;
+            windowChrome.CaptionHeight = RibbonProperties.GetTitleBarHeight(this);
             windowChrome.CornerRadius = this.CornerRadius;
             windowChrome.GlassFrameThickness = this.GlassBorderThickness;
             windowChrome.ResizeBorderThickness = this.ResizeBorderThickness;
