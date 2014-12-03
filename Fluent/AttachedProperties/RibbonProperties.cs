@@ -12,13 +12,15 @@
     {
         #region TitleBarHeight Property
 
+        public const double MIN_TITLE_BAR_HEIGHT = 25;
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for TitleBarHeight.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleBarHeightProperty =
             DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata(25D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
+                new FrameworkPropertyMetadata(MIN_TITLE_BAR_HEIGHT, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Sets TitleBarHeight for element

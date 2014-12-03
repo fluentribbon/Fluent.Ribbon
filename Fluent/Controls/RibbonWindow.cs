@@ -23,6 +23,8 @@ namespace Fluent
 #else
     using System.Windows.Shell;
 #endif
+    using Microsoft.Win32;
+    using System.Globalization;
 
     /// <summary>
     /// Represents basic window for ribbon
@@ -235,6 +237,9 @@ namespace Fluent
             this.SizeChanged += this.OnSizeChanged;
 
             this.windowSizing = new WindowSizing(this);
+
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+            UpdateTitleBarHeight();
         }
 
         #endregion
@@ -273,6 +278,27 @@ namespace Fluent
         }
 
         #endregion
+
+        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            // When SystemsFont.MenuFont* changed
+            if (e.Category == UserPreferenceCategory.Window)
+            {
+                UpdateTitleBarHeight();
+            }
+        }
+
+        private void UpdateTitleBarHeight()
+        {
+            var fmt = new FormattedText(
+                "CANDIDATE",
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(SystemFonts.MenuFontFamily, SystemFonts.MenuFontStyle, SystemFonts.MenuFontWeight, FontStretches.Normal),
+                SystemFonts.MenuFontSize,
+                Brushes.Black);
+            RibbonProperties.SetTitleBarHeight(this, Math.Max(fmt.Height, RibbonProperties.MIN_TITLE_BAR_HEIGHT));
+        }
 
         private static void OnWindowChromeRelevantPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
