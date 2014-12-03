@@ -36,7 +36,7 @@
     </Style>
     <ControlTemplate x:Key="MenuGroupSeparatorControlTemplate"
                      TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
-        <Grid Height="24"
+        <Grid Height="Auto"
               Background="#FFEEEEEE">
             <TextBlock Margin="7,0"
                        Text="{TemplateBinding Header}"

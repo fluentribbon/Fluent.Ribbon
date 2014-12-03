@@ -6,7 +6,7 @@
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Setter Property="Height"
-                Value="24" />
+                Value="Auto" />
         <Setter Property="Margin"
                 Value="0,0,0,-1" />
         <Setter Property="Template">
