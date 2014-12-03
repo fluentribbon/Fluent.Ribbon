@@ -51,7 +51,9 @@
     <Grid>
       <AdornerDecorator x:Name="adornerDecorator" Margin="0">
         <Grid x:Name="PART_MainGrid" Margin="0" Background="{DynamicResource TransparentBrush}" VerticalAlignment="Stretch">
-          <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
+          <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" 
+                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                Background="{DynamicResource TransparentBrush}" IsHitTestVisible="True"/>
           <Rectangle x:Name="rectangle" Stroke="{x:Null}" HorizontalAlignment="Left" Width="35" StrokeThickness="0" Margin="15,0,0,1" VerticalAlignment="Top" Height="50" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientLeftBrush}" SnapsToDevicePixels="True"/>
           <Rectangle x:Name="rectangle1" Stroke="{x:Null}" HorizontalAlignment="Right" Width="35" StrokeThickness="0" Margin="0,0,15.1,1" Height="50" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientRightBrush}" SnapsToDevicePixels="True"/>
           <Rectangle x:Name="rectangle2" Stroke="{x:Null}" HorizontalAlignment="Stretch" Width="Auto" StrokeThickness="0" Height="50" Margin="50,0,50,1" VerticalAlignment="Top" IsHitTestVisible="False" Fill="{DynamicResource RibbonTabControlTopGradientCenterBrush}" SnapsToDevicePixels="True"/>
@@ -97,7 +99,9 @@
             </Border>
           </Border>
           <Grid x:Name="PART_MainGrid" Margin="0" Background="#00FFFFFF">
-            <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" Height="{TemplateBinding CaptionHeight}" Background="#00FFFFFF" IsHitTestVisible="True"/>
+            <Grid x:Name="PART_TitleBar" Margin="{TemplateBinding ResizeBorderThickness}" VerticalAlignment="Top" 
+                  Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                  Background="#00FFFFFF" IsHitTestVisible="True"/>
             <StackPanel Background="Transparent" x:Name="PART_IconImage" Margin="8,7,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
               <Image x:Name="PART_Icon" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}" Width="16" SnapsToDevicePixels="True" Stretch="Uniform"
                                    Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -385,8 +389,6 @@
                 Value="0" />        
         <Setter Property="CornerRadius"
                 Value="15" />
-        <Setter Property="CaptionHeight"
-                Value="50" />
         <Setter Property="Foreground"
                 Value="#FF000000" />
         <Setter Property="Background"
