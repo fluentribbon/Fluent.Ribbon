@@ -23,7 +23,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Height"
-                Value="31" />
+                Value="Auto" />
         <Setter Property="IsMinimized"
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
         <Setter Property="IsOpen"
@@ -33,7 +33,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">
                     <Grid x:Name="grid"
                           Background="#00000000"
-                          Height="24"
+                          Height="Auto"
                           VerticalAlignment="Top"
                           Margin="0,7,0,0">
                         <Border x:Name="border3"

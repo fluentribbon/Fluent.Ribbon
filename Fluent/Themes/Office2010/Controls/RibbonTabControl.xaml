@@ -330,7 +330,7 @@
                           Height="Auto"
                           VerticalAlignment="Top">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="24" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition x:Name="rowDefinition"
                                            Height="94" />
                             <RowDefinition x:Name="rowDefinition1"
@@ -454,7 +454,7 @@
                             </Grid.ColumnDefinitions>
 
                             <DockPanel LastChildFill="True">
-                                <ContentPresenter VerticalAlignment="Top"
+                                <ContentPresenter VerticalAlignment="Stretch"
                                                   ContentSource="Menu"
                                                   DockPanel.Dock="Left" />
                                 <Fluent:RibbonScrollViewer x:Name="scrollViewer"

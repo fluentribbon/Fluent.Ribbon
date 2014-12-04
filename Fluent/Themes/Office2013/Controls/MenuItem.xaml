@@ -154,7 +154,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -290,7 +290,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -541,7 +541,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="24"
+              Height="Auto"
               Background="{DynamicResource MenuItemBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
