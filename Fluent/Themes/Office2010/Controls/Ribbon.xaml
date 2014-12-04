@@ -19,7 +19,11 @@
                                    Style="{DynamicResource RibbonTitleBarStyle}"
                                    Margin="20,0,113,0"
                                    VerticalAlignment="Top"
-                                   IsCollapsed="{TemplateBinding IsCollapsed}">
+                                   IsCollapsed="{TemplateBinding IsCollapsed}"
+                                   TextBlock.FontSize="{DynamicResource {x:Static SystemFonts.CaptionFontSizeKey}}"
+                                   TextBlock.FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}"
+                                   TextBlock.FontStyle="{DynamicResource {x:Static SystemFonts.CaptionFontStyleKey}}"
+                                   TextBlock.FontWeight="{DynamicResource {x:Static SystemFonts.CaptionFontWeightKey}}">
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
                         <Rectangle x:Name="rectangle"
@@ -135,5 +139,13 @@
                 Value="False" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
+        <Setter Property="FontSize" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
+        <Setter Property="FontFamily" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
+        <Setter Property="FontStyle" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
+        <Setter Property="FontWeight" 
+                Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
     </Style>
 </ResourceDictionary>

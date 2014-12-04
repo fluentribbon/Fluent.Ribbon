@@ -294,8 +294,8 @@ namespace Fluent
                 "CANDIDATE",
                 CultureInfo.CurrentUICulture,
                 FlowDirection.LeftToRight,
-                new Typeface(SystemFonts.MenuFontFamily, SystemFonts.MenuFontStyle, SystemFonts.MenuFontWeight, FontStretches.Normal),
-                SystemFonts.MenuFontSize,
+                new Typeface(SystemFonts.CaptionFontFamily, SystemFonts.CaptionFontStyle, SystemFonts.CaptionFontWeight, FontStretches.Normal),
+                SystemFonts.CaptionFontSize,
                 Brushes.Black);
             RibbonProperties.SetTitleBarHeight(this, Math.Max(fmt.Height, RibbonProperties.MIN_TITLE_BAR_HEIGHT));
         }
