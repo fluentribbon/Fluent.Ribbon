@@ -10,21 +10,21 @@
     
     <Style x:Key="RibbonSplitButtonStyle" TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template" Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
-        <Setter Property="Height" Value="66" />
+        <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
         <Setter Property="Width" Value="Auto" />
         <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
-                <Setter Property="Height" Value="66" />
+                <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter Property="Height" Value="22" />
+                <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size" Value="Small">
-                <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="34" />
+                <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
+                <Setter Property="Width" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -53,10 +53,10 @@
                                              IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                              IsDefinitive="{TemplateBinding IsDefinitive}"
                                              CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
-                    <Border BorderThickness="0,1,0,0" Name="downBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}" Margin="0,0,0,0">
+                    <Border BorderThickness="0,0,0,0" Name="downBorder" BorderBrush="{DynamicResource TransparentBrush}" Background="{DynamicResource TransparentBrush}" Margin="0,0,0,0">
                         <Grid>
                             <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,0,2,0"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,0,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                             <!--<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" 
                                                 VerticalAlignment="Center" MinWidth="10" Margin="3,2" SnapsToDevicePixels="True"
@@ -287,6 +287,7 @@
                                           VerticalAlignment="Center"
                                           Content="{TemplateBinding LargeIcon}"
                                           Width="32"
+                                          Margin="2,1"
                                           SnapsToDevicePixels="True" />
                         <Fluent:TwoLineLabel x:Name="controlLabel"
                                              Text="{TemplateBinding Header}"

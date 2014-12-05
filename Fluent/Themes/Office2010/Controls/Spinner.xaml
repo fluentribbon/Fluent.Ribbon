@@ -114,7 +114,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
 
                     <Grid Width="Auto"
-                          Height="22"
+                          Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}"
                           Background="#00000000">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -139,7 +139,7 @@
                         </StackPanel>
 
                         <Border x:Name="border"
-                                Height="22"
+                                Height="Auto"
                                 BorderThickness="1"
                                 BorderBrush="{DynamicResource TextBoxBorderBrush}"
                                 Background="{DynamicResource TextBoxBackgroundBrush}"

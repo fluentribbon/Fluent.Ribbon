@@ -4,7 +4,7 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type Fluent:CheckBox}">
-        <Grid>
+        <Grid Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
@@ -188,7 +188,8 @@
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="BorderBrush" Value="#FFABABAB" />
-        <Setter Property="Margin" Value="2,2,2,2" />
+        <Setter Property="Margin" Value="2,0,2,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 
     <Style BasedOn="{StaticResource RibbonCheckBoxStyle}" TargetType="{x:Type Fluent:CheckBox}" />

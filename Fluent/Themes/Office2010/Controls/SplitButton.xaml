@@ -7,13 +7,15 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
+    <!-- TODO: fix this style, wrong highlight in large font size, should be same as Office2013? -->
+
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template"
                 Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="68" />
+                Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
@@ -24,19 +26,19 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="68" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Height"
-                        Value="22" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Height"
-                        Value="22" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Width"
-                        Value="34" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

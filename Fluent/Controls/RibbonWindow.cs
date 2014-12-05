@@ -210,6 +210,10 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
 
             RibbonProperties.TitleBarHeightProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowChromeRelevantPropertyChanged));
+
+            RibbonProperties.ControlHeightSmallProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata());
+            RibbonProperties.ControlHeightLargeProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata());
+            RibbonProperties.TabContentHeightProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata());
         }
 
         // Coerce object style
@@ -239,7 +243,7 @@ namespace Fluent
             this.windowSizing = new WindowSizing(this);
 
             SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
-            UpdateTitleBarHeight();
+            UpdateHeights();
         }
 
         #endregion
@@ -281,11 +285,17 @@ namespace Fluent
 
         private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
-            // When SystemsFont.MenuFont* changed
+            // When SystemsFont changed
             if (e.Category == UserPreferenceCategory.Window)
             {
-                UpdateTitleBarHeight();
+                UpdateHeights();
             }
+        }
+
+        private void UpdateHeights()
+        {
+            UpdateTitleBarHeight();
+            UpdateTabHeight();
         }
 
         private void UpdateTitleBarHeight()
@@ -298,6 +308,22 @@ namespace Fluent
                 SystemFonts.CaptionFontSize,
                 Brushes.Black);
             RibbonProperties.SetTitleBarHeight(this, Math.Max(fmt.Height, RibbonProperties.MIN_TITLE_BAR_HEIGHT));
+        }
+
+        private void UpdateTabHeight()
+        {
+            var fmt = new FormattedText(
+                "CANDIDATE",
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(SystemFonts.MenuFontFamily, SystemFonts.MenuFontStyle, SystemFonts.MenuFontWeight, FontStretches.Normal),
+                SystemFonts.MenuFontSize,
+                Brushes.Black);
+            var unitHeight = Math.Max(fmt.Height, RibbonProperties.MIN_CONTROL_HEIGHT);
+            var tolerance = fmt.Height / 10;
+            RibbonProperties.SetTabContentHeight(this, unitHeight * 4 + tolerance);
+            RibbonProperties.SetControlHeightSmall(this, unitHeight);
+            RibbonProperties.SetControlHeightLarge(this, unitHeight * 3);
         }
 
         private static void OnWindowChromeRelevantPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:TextBox}">
                     <Border Width="Auto"
                             Background="#00000000"
-                            Height="22">
+                            Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}">
                         <Grid Width="Auto"
                               Height="Auto"
                               Background="#00000000">
