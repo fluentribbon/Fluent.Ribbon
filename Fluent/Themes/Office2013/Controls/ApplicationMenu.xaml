@@ -14,10 +14,10 @@
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0,0,1,0">
+                            Margin="0,0,0,0">
                 <Border x:Name="PART_ButtonBorder"
                         MinWidth="60"
-                        Height="24"
+                        Height="23"
                         Background="{TemplateBinding Background}">
                     <Grid>
                         <Rectangle x:Name="rectangle" />
