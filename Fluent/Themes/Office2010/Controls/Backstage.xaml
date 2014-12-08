@@ -10,7 +10,7 @@
                             Margin="0">
                 <Border x:Name="PART_ButtonBorder"
                         MinWidth="56"
-                        Height="23"
+                        Height="24"
                         CornerRadius="2,2,0,0"
                         Background="{TemplateBinding Background}">
                     <Border x:Name="border1"
