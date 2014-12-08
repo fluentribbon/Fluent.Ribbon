@@ -855,9 +855,9 @@ namespace Fluent
             _backstageButtonKeyTip = "Ф";
 
             _minimizeButtonScreenTipTitle = "Свернуть ленту (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только\nимена вкладок.";
+            _minimizeButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только имена вкладок.";
             _expandButtonScreenTipTitle = "Развернуть ленту (Ctrl + F1)";
-            _expandButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только\nимена вкладок.";
+            _expandButtonScreenTipText = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только имена вкладок.";
 
             _quickAccessToolBarDropDownButtonTooltip = "Настройка панели быстрого доступа";
             _quickAccessToolBarMoreControlsButtonTooltip = "Другие элементы";
@@ -893,9 +893,9 @@ namespace Fluent
             _backstageButtonKeyTip = "Ф";
             // See right-top corner... (two different tooltips must be if you press it) 
             _minimizeButtonScreenTipTitle = "Сховати Стрічку (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок";
+            _minimizeButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно тільки назви вкладок";
             _expandButtonScreenTipTitle = "Показати Стрічку (Ctrl + F1)";
-            _expandButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно\nтільки назви вкладок";
+            _expandButtonScreenTipText = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно тільки назви вкладок";
             // QAT tooltips and menu items 
             _quickAccessToolBarDropDownButtonTooltip = "Налаштувати Панель Інструментів Швидкого Доступу";
             _quickAccessToolBarMoreControlsButtonTooltip = "Більше елементів"; // When two arrows appear ">>" 
@@ -1050,9 +1050,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Skrýt pás karet (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou\nzobrazeny pouze názvy karet";
+            _minimizeButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou zobrazeny pouze názvy karet";
             _expandButtonScreenTipTitle = "Zobrazit pás karet (Ctrl + F1)";
-            _expandButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou\nzobrazeny pouze názvy karet";
+            _expandButtonScreenTipText = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou zobrazeny pouze názvy karet";
 
             // QAT tooltips and menu items 
             _quickAccessToolBarDropDownButtonTooltip = "Přizpůsobit panel nástrojů Rychlý přístup";
@@ -1088,9 +1088,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimiser le Ruban (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul\nles noms sont affichés";
+            _minimizeButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul les noms sont affichés";
             _expandButtonScreenTipTitle = "Agrandir le Ruban (Ctrl + F1)";
-            _expandButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul\nles noms sont affichés";
+            _expandButtonScreenTipText = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul les noms sont affichés";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Personnaliser la barre d'outils Accès Rapide";
@@ -1128,9 +1128,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimalizuj Wstążkę (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko\nnazwy zakładek są widoczne";
+            _minimizeButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko nazwy zakładek są widoczne";
             _expandButtonScreenTipTitle = "Rozwiń Wstążkę (Ctrl + F1)";
-            _expandButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko\nnazwy zakładek są widoczne";
+            _expandButtonScreenTipText = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko nazwy zakładek są widoczne";
 
             // QAT tooltips and menu items
             _quickAccessToolBarDropDownButtonTooltip = "Dostosuj pasek narzędzi Szybki dostęp";
@@ -1202,9 +1202,9 @@ namespace Fluent
             _backstageButtonKeyTip = "B";
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Het lint minimaliseren (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, \nzijn alleen de tabulatie namen zichtbaar";
+            _minimizeButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, zijn alleen de tabulatie namen zichtbaar";
             _expandButtonScreenTipTitle = "Het lint Maximaliseren (Ctrl + F1)";
-            _expandButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is,\nzijn alleen de tabulatie namen zichtbaar";
+            _expandButtonScreenTipText = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, zijn alleen de tabulatie namen zichtbaar";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Werkbalk snelle toegang aanpassen";
@@ -1237,9 +1237,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimizar o Ribbon (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Mostrar ou esconder o  Ribbon\n\nQuando o Ribbon estiver escondido, somente\no nome das abas serão mostrados";
+            _minimizeButtonScreenTipText = "Mostrar ou esconder o  Ribbon\n\nQuando o Ribbon estiver escondido, somente o nome das abas serão mostrados";
             _expandButtonScreenTipTitle = "Expandir o Ribbon (Ctrl + F1)";
-            _expandButtonScreenTipText = "Mostrar ou esconder o  Ribbon\n\nQuando o Ribbon estiver escondido, somente\no nome das abas serão mostrados";
+            _expandButtonScreenTipText = "Mostrar ou esconder o  Ribbon\n\nQuando o Ribbon estiver escondido, somente o nome das abas serão mostrados";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Customizar Barra de acesso rápido";
@@ -1280,9 +1280,9 @@ namespace Fluent
             // See right-top corner... (two different tooltips must be if you press it)
             // TRANSLATOR'S NOTE: This block is not shown at Windows 7's Apps (WordPad or Paint)
             _minimizeButtonScreenTipTitle = "Minimizar la cinta (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo\nse muestran los nombres de las pestañas";
+            _minimizeButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo se muestran los nombres de las pestañas";
             _expandButtonScreenTipTitle = "Expandir la cinta (Ctrl + F1)";
-            _expandButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo\nse muestran los nombres de las pestañas";
+            _expandButtonScreenTipText = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo se muestran los nombres de las pestañas";
 
             // QAT tooltips and menu items
             _quickAccessToolBarDropDownButtonTooltip = "Personalizar barra de herramientas de acceso rápido";
@@ -1366,9 +1366,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimera menyfliksområdet (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas\nendast flikarna";
+            _minimizeButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas endast flikarna";
             _expandButtonScreenTipTitle = "Expandera menyfliksområdet (Ctrl + F1)";
-            _expandButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas\nendast flikarna";
+            _expandButtonScreenTipText = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas endast flikarna";
 
             // QAT tooltips and menu items          
             _quickAccessToolBarDropDownButtonTooltip = "Anpassa verktygsfältet Snabbåtkomst ";
@@ -1438,9 +1438,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimizează Ribbon-ul (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt\nafișate doar numele taburilor";
+            _minimizeButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt afișate doar numele taburilor";
             _expandButtonScreenTipTitle = "Expandează Ribbon-ul (Ctrl + F1)";
-            _expandButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt\nafișate doar numele taburilor";
+            _expandButtonScreenTipText = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt afișate doar numele taburilor";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Personalizează Bara de Acces Rapid";
@@ -1479,9 +1479,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Riduci a icona barra multifunzione (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Consente di visualizzare solo i nomi \ndelle schede nella barra multifunzione.";
+            _minimizeButtonScreenTipText = "Consente di visualizzare solo i nomi delle schede nella barra multifunzione.";
             _expandButtonScreenTipTitle = "Espandi la barra multifunzione (Ctrl + F1)";
-            _expandButtonScreenTipText = "Visualizza la barra multifunzione in modo\n che rimanga sempre espansa, anche se l’utente \nha fatto click su un comando.";
+            _expandButtonScreenTipText = "Visualizza la barra multifunzione in modo che rimanga sempre espansa, anche se l’utente ha fatto click su un comando.";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Personalizza barra di accesso rapido";
@@ -1561,7 +1561,7 @@ namespace Fluent
             _minimizeButtonScreenTipTitle = "Minimer båndet (Ctrl + F1)";
             _minimizeButtonScreenTipText = "Vis kun fanenavnene på båndet.";
             _expandButtonScreenTipTitle = "Udvid båndet (Ctrl + F1)";
-            _expandButtonScreenTipText = "Vis båndet, så det altid er udvidet, selv\nnår du klikker på en kommando.";
+            _expandButtonScreenTipText = "Vis båndet, så det altid er udvidet, selv når du klikker på en kommando.";
 
             // QAT tooltips and menu items          
             _quickAccessToolBarDropDownButtonTooltip = "Tilpas værktøjslinjen Hurtig adgang";
@@ -1599,9 +1599,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimizar o Friso (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Mostrar apenas os nomes dos separadores\n no Frisos.";
+            _minimizeButtonScreenTipText = "Mostrar apenas os nomes dos separadores no Frisos.";
             _expandButtonScreenTipTitle = "Expandir o Friso (Ctrl + F1)";
-            _expandButtonScreenTipText = "Mostrar o Friso de modo a aparecer sempre\nexpandido mesmo depois de clicar num\ncomando.";
+            _expandButtonScreenTipText = "Mostrar o Friso de modo a aparecer sempre expandido mesmo depois de clicar num comando.";
 
             // QAT tooltips and menu items           
             _quickAccessToolBarDropDownButtonTooltip = "Personalizar Barra de Ferramentas de Acesso Rápido";
@@ -1639,9 +1639,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Menyu lentini kiçilt (Ctrl + F1)";
-            _minimizeButtonScreenTipText = " Menyu lentini göstər və ya gizlət\n\n Menyu lentini kiçiləndə, yalnız\n tabların adları göstərilir";
-            _expandButtonScreenTipTitle = " Menyu lentini böyüt(Ctrl + F1)";
-            _expandButtonScreenTipText = " Menyu lentini göstər və ya gizlət\n\n Menyu lentini gizldəndə, yalnız, \n tabların adları göstərilir";
+            _minimizeButtonScreenTipText = "Menyu lentini göstər və ya gizlət\n\nMenyu lentini kiçiləndə, yalnız tabların adları göstərilir";
+            _expandButtonScreenTipTitle = "Menyu lentini böyüt(Ctrl + F1)";
+            _expandButtonScreenTipText = " Menyu lentini göstər və ya gizlət\n\nMenyu lentini gizldəndə, yalnız, tabların adları göstərilir";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Sürətli Keçidin Alətlərini fərdiləşdir";
@@ -1672,9 +1672,9 @@ namespace Fluent
             _backstageButtonText = "Tiedosto";
             _backstageButtonKeyTip = "T";
             _minimizeButtonScreenTipTitle = "Pienennä valintanauha (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Näytä valintanauhassa vain\nvälilehtien nimet";
+            _minimizeButtonScreenTipText = "Näytä valintanauhassa vain välilehtien nimet";
             _expandButtonScreenTipTitle = "Laajenna valintanauha (Ctrl + F1)";
-            _expandButtonScreenTipText = "Näytä valintanauha aina\nlaajennettuna silloinkin, kun\nvalitset komennon";
+            _expandButtonScreenTipText = "Näytä valintanauha aina laajennettuna silloinkin, kun valitset komennon";
             _quickAccessToolBarDropDownButtonTooltip = "Mukauta pikatyökaluriviä";
             _quickAccessToolBarMoreControlsButtonTooltip = "Lisää valintoja";
             _quickAccessToolBarMenuHeader = "Mukauta pikatyökaluriviä";
@@ -1745,9 +1745,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Şeridi Daralt (Ctrl+F1)";
-            _minimizeButtonScreenTipText = "Daha fazla alana mı\nihtiyacınız var? Şeridi\ndaraltın, yalnızca sekme\nisimleri görünsün.";
+            _minimizeButtonScreenTipText = "Daha fazla alana mı\nihtiyacınız var? Şeridi daraltın, yalnızca sekme isimleri görünsün.";
             _expandButtonScreenTipTitle = "Şeridi Sabitle (Ctrl+F1)";
-            _expandButtonScreenTipText = "Şeridi görmek mi\nistiyorsunuz? Çalışırken\naçık tutun.";
+            _expandButtonScreenTipText = "Şeridi görmek mi istiyorsunuz? Çalışırken açık tutun.";
 
             // QAT tooltips and menu items           
             _quickAccessToolBarDropDownButtonTooltip = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";
@@ -1832,9 +1832,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Ελαχιστοποίηση της Κορδέλας (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Εμφάνιση μόνο των ονομάτων καρτελών στην\nΚορδέλα.";
+            _minimizeButtonScreenTipText = "Εμφάνιση μόνο των ονομάτων καρτελών στην Κορδέλα.";
             _expandButtonScreenTipTitle = "Ανάπτυξη της Κορδέλας (Ctrl + F1)";
-            _expandButtonScreenTipText = "Εμφάνιση της Κορδέλας προκειμένου να αναπτύσσεται\nπάντα, ακόμα και αφού κάνετε κλικ σε μια εντολή.";
+            _expandButtonScreenTipText = "Εμφάνιση της Κορδέλας προκειμένου να αναπτύσσεται πάντα, ακόμα και αφού κάνετε κλικ σε μια εντολή.";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Προσαρμογή γραμμής εργαλείων γρήγορης πρόσβασης";
@@ -1918,9 +1918,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Thu gọn Ruy băng (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ\ncó tên thẻ được hiện";
+            _minimizeButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ có tên thẻ được hiện";
             _expandButtonScreenTipTitle = "Mở rộng Ruy băng (Ctrl + F1)";
-            _expandButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ\ncó tên thẻ được hiện";
+            _expandButtonScreenTipText = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ có tên thẻ được hiện";
 
             // QAT tooltips and menu items
             _quickAccessToolBarDropDownButtonTooltip = "Tùy chỉnh thanh công cụ Truy cập nhanh";
@@ -2004,9 +2004,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "Minimiraj trak (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so\nprikazani samo zavihki";
+            _minimizeButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so prikazani samo zavihki";
             _expandButtonScreenTipTitle = "Razširi trak (Ctrl + F1)";
-            _expandButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so\nprikazani samo zavihki";
+            _expandButtonScreenTipText = "Pokaži ali skrij trak\n\nKo je trak skrit, so prikazani samo zavihki";
 
             // QAT tooltips and menu items            
             _quickAccessToolBarDropDownButtonTooltip = "Prilagodi orodno vrstico za hitri dostop";
@@ -2048,9 +2048,9 @@ namespace Fluent
             // See right-top corner... (two different tooltips must be if you press it)
             // TRANSLATOR'S NOTE: This block is not shown at Windows 7's Apps (WordPad or Paint)
             _minimizeButtonScreenTipTitle = "Minimitza la cinta (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només\ns'ensenyen els noms de les pestanyes";
+            _minimizeButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només s'ensenyen els noms de les pestanyes";
             _expandButtonScreenTipTitle = "Expandeix la cinta (Ctrl + F1)";
-            _expandButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només\ns'ensenyen els noms de les pestanyes";
+            _expandButtonScreenTipText = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només s'ensenyen els noms de les pestanyes";
 
             // QAT tooltips and menu items
             _quickAccessToolBarDropDownButtonTooltip = "Personalitza la barra d'eines d'accés ràpid";
