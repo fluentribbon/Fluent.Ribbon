@@ -15,11 +15,11 @@
             <Style BasedOn="{StaticResource ApplicationMenuStyle}"
                    TargetType="{x:Type Fluent:MenuItem}" />
         </ControlTemplate.Resources>
-        <Grid Margin="0,0,0,0">
+        <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0,0,0,1">
+                            Margin="0">
                 <Border x:Name="PART_ButtonBorder"
                         MinWidth="56"
                         Height="23"
