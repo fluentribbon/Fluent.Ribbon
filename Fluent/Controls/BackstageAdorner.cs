@@ -23,11 +23,13 @@ namespace Fluent
         #region Fields
 
         // Backstage
-        readonly UIElement backstage;
+        private readonly UIElement backstage;
+
         // Adorner offset from top of window
-        readonly double topOffset;
+        private readonly double topOffset;
+
         // Collection of visual children
-        readonly VisualCollection visualChildren;
+        private readonly VisualCollection visualChildren;
 
         #endregion
 
@@ -46,33 +48,38 @@ namespace Fluent
 
             this.backstage = backstage;
             this.topOffset = topOffset;
-            visualChildren = new VisualCollection(this);
-            visualChildren.Add(backstage);
+            this.visualChildren = new VisualCollection(this) 
+                {
+                    this.backstage
+                };
 
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
             // Syncronize with visual size
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
         }
 
-        void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            CompositionTarget.Rendering += CompositionTargetRendering;
+            CompositionTarget.Rendering += this.CompositionTargetRendering;
         }
 
-        void OnUnloaded(object sender, RoutedEventArgs e)
+        private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            CompositionTarget.Rendering -= CompositionTargetRendering;
+            CompositionTarget.Rendering -= this.CompositionTargetRendering;
         }
 
-        void CompositionTargetRendering(object sender, System.EventArgs e)
+        private void CompositionTargetRendering(object sender, EventArgs e)
         {
-            if (RenderSize != AdornedElement.RenderSize) InvalidateMeasure();
+            if (this.RenderSize != this.AdornedElement.RenderSize)
+            {
+                this.InvalidateMeasure();
+            }
         }
 
         public void Clear()
         {
-            visualChildren.Clear();
+            this.visualChildren.Clear();
         }
 
         #endregion
@@ -89,7 +96,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            backstage.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0, finalSize.Height - topOffset)));
+            this.backstage.Arrange(new Rect(0, this.topOffset, finalSize.Width, Math.Max(0, finalSize.Height - this.topOffset)));
             return finalSize;
         }
 
@@ -103,21 +110,21 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            backstage.Measure(new Size(AdornedElement.RenderSize.Width, Math.Max(0, AdornedElement.RenderSize.Height - this.topOffset)));
-            return AdornedElement.RenderSize;
+            this.backstage.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height - this.topOffset)));
+            return this.AdornedElement.RenderSize;
         }
 
         /// <summary>
         /// Gets visual children count
         /// </summary>
-        protected override int VisualChildrenCount { get { return visualChildren.Count; } }
+        protected override int VisualChildrenCount { get { return this.visualChildren.Count; } }
 
         /// <summary>
         /// Returns a child at the specified index from a collection of child elements
         /// </summary>
         /// <param name="index">The zero-based index of the requested child element in the collection</param>
         /// <returns>The requested child element</returns>
-        protected override Visual GetVisualChild(int index) { return visualChildren[index]; }
+        protected override Visual GetVisualChild(int index) { return this.visualChildren[index]; }
 
         #endregion
     }
