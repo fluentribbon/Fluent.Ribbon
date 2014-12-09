@@ -22,9 +22,7 @@ using System.Windows.Media;
 namespace Fluent
 {
     using System.Threading;
-#if !NET35
     using System.Threading.Tasks;
-#endif
     using Fluent.Extensions;
 
     /// <summary>
@@ -114,7 +112,6 @@ namespace Fluent
                 }
                 else
                 {
-#if !NET35
                     if (backstage.HideAnimationDuration.HasTimeSpan)
                     {
                         var timespan = backstage.HideAnimationDuration.TimeSpan;
@@ -130,9 +127,6 @@ namespace Fluent
                     {
                         backstage.Hide();
                     }
-#else
-                backstage.Hide();
-#endif
                 }
 
                 // Invoke the event

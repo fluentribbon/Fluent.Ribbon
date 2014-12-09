@@ -3,7 +3,6 @@
     using System;
     using System.Windows.Threading;
 
-#if !NET35
     internal static class DispatcherExtensions
     {
         public static void RunInDispatcherAsync(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
@@ -52,5 +51,4 @@
             }
         }
     }
-#endif
 }

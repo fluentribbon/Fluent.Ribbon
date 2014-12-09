@@ -31,7 +31,7 @@ namespace Fluent
     /// <summary>
     /// Represents custom Fluent UI TextBox
     /// </summary>
-    [TemplatePart(Name="PART_TextBox")]
+    [TemplatePart(Name = "PART_TextBox")]
     [ContentProperty("Text")]
     public class TextBox : RibbonControl
     {
@@ -92,7 +92,7 @@ namespace Fluent
 
 
         #endregion
-        
+
         #region Text
 
         /// <summary>
@@ -109,12 +109,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(TextBox), 
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
+            DependencyProperty.Register("Text", typeof(string), typeof(TextBox),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 null, null, true, UpdateSourceTrigger.LostFocus));
 
         #endregion
-        
+
         #region IsReadOnly
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Fluent
         #endregion
 
         #region CharacterCasing
-        
+
         /// <summary>
         /// Gets or sets how characters are cased
         /// </summary>
@@ -151,9 +151,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CharacterCasingProperty =
-            DependencyProperty.Register("CharacterCasing", typeof(CharacterCasing), typeof(TextBox), 
+            DependencyProperty.Register("CharacterCasing", typeof(CharacterCasing), typeof(TextBox),
             new UIPropertyMetadata(CharacterCasing.Normal));
-        
+
         #endregion
 
         #region MaxLength
@@ -173,7 +173,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxLengthProperty =
             DependencyProperty.Register("MaxLength", typeof(int), typeof(TextBox), new UIPropertyMetadata(Int32.MaxValue));
-        
+
         #endregion
 
         #region TextAlignment
@@ -192,9 +192,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextAlignmentProperty =
-            DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(TextBox), 
+            DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(TextBox),
             new UIPropertyMetadata(TextAlignment.Left));
-        
+
         #endregion
 
         #region TextDecorations
@@ -213,9 +213,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextDecorationsProperty =
-            DependencyProperty.Register("TextDecorations", typeof(TextDecorationCollection), typeof(TextBox), 
+            DependencyProperty.Register("TextDecorations", typeof(TextDecorationCollection), typeof(TextBox),
             new UIPropertyMetadata(new TextDecorationCollection()));
-        
+
         #endregion
 
         #region IsUndoEnabled
@@ -234,13 +234,13 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsUndoEnabledProperty =
-            DependencyProperty.Register("IsUndoEnabled", typeof(bool), typeof(TextBox), 
+            DependencyProperty.Register("IsUndoEnabled", typeof(bool), typeof(TextBox),
             new UIPropertyMetadata(true));
-        
+
         #endregion
 
         #region UndoLimit
-        
+
         /// <summary>
         /// Gets or sets the number of actions stored in undo queue
         /// </summary>
@@ -256,11 +256,11 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty UndoLimitProperty =
             DependencyProperty.Register("UndoLimit", typeof(int), typeof(TextBox), new UIPropertyMetadata(1000));
-        
+
         #endregion
 
         #region AutoWordSelection
-        
+
         /// <summary>
         /// Gets or sets whether auto word selection feature is enabled
         /// </summary>
@@ -280,7 +280,7 @@ namespace Fluent
         #endregion
 
         #region SelectionBrush
-        
+
         /// <summary>
         /// Gets or sets the brush that highlights the selected text
         /// </summary>
@@ -295,7 +295,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectionBrushProperty =
-            DependencyProperty.Register("SelectionBrush", typeof(Brush), typeof(TextBox), 
+            DependencyProperty.Register("SelectionBrush", typeof(Brush), typeof(TextBox),
             new UIPropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x99, 0xFF))));
 
         #endregion
@@ -317,11 +317,11 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectionOpacityProperty =
             DependencyProperty.Register("SelectionOpacity", typeof(double), typeof(TextBox), new UIPropertyMetadata(0.4d));
-        
+
         #endregion
 
         #region CaretBrush
-        
+
         /// <summary>
         /// Gets or sets the caret brush that is used 
         /// to paint the caret of the text box
@@ -337,11 +337,11 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CaretBrushProperty =
-            DependencyProperty.Register("CaretBrush", typeof(Brush), typeof(TextBox), 
+            DependencyProperty.Register("CaretBrush", typeof(Brush), typeof(TextBox),
             new UIPropertyMetadata(null));
 
         #endregion
-        
+
         #endregion
 
         #region Properties
@@ -356,9 +356,9 @@ namespace Fluent
             {
                 if (textBoxTemplated != null) textBoxTemplated.SelectionStart = value;
                 else textBox.SelectionStart = value;
-            } 
+            }
         }
-        
+
         /// <summary>
         /// Gets or sets a value that indicating the number of characters in the current selection
         /// </summary>
@@ -400,7 +400,7 @@ namespace Fluent
         {
             get { return textBoxTemplated == null ? false : textBoxTemplated.CanRedo; }
         }
-        
+
         #endregion
 
         #region Constructors
@@ -440,7 +440,7 @@ namespace Fluent
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
             textBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
-            
+
             Bind(textBox, this, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
             Bind(textBox, this, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
             Bind(textBox, this, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
@@ -448,15 +448,12 @@ namespace Fluent
             Bind(textBox, this, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
             Bind(textBox, this, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
             Bind(textBox, this, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
-#if NET35
-#else
             Bind(textBox, this, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
             Bind(textBox, this, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
             Bind(textBox, this, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
-#endif
             Bind(textBox, this, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
         }
-        
+
         #endregion
 
         #region Methods
@@ -477,7 +474,7 @@ namespace Fluent
         public void Copy()
         {
             if (textBoxTemplated != null) textBoxTemplated.Copy();
-            else textBox.Copy(); 
+            else textBox.Copy();
         }
 
         /// <summary>
@@ -524,7 +521,7 @@ namespace Fluent
         public void SelectAll()
         {
             if (textBoxTemplated != null) textBoxTemplated.SelectAll();
-            else textBox.SelectAll();   
+            else textBox.SelectAll();
         }
 
         /// <summary>
@@ -558,7 +555,7 @@ namespace Fluent
                 BindingOperations.ClearAllBindings(textBoxTemplated);
             }
             textBoxTemplated = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
-            
+
 
             // Check template
             if (!IsTemplateValid())
@@ -586,14 +583,10 @@ namespace Fluent
             Bind(this, textBoxTemplated, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
-#if NET35
-#else
             Bind(this, textBoxTemplated, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
             Bind(this, textBoxTemplated, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
-#endif
             Bind(this, textBoxTemplated, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
-
 
             textBoxTemplated.PreviewKeyDown += OnTextBoxTemplatedKeyDown;
             textBoxTemplated.SelectionChanged += OnTextBoxTemplatedSelectionChanged;
@@ -675,7 +668,7 @@ namespace Fluent
                 textBoxTemplated.Focusable = true;
             }
         }
-        
+
         #endregion
 
         #region Private methods
@@ -700,11 +693,11 @@ namespace Fluent
             TextBox textBox = new TextBox();
 
             BindQuickAccessItem(textBox);
-            
+
 
             return textBox;
         }
-        
+
 
         /// <summary>
         /// This method must be overridden to bind properties to use in quick access creating
@@ -714,7 +707,7 @@ namespace Fluent
         {
             RibbonControl.BindQuickAccessItem(this, element);
 
-            TextBox textBoxQAT = (TextBox)element;            
+            TextBox textBoxQAT = (TextBox)element;
 
             textBoxQAT.Width = Width;
             textBoxQAT.InputWidth = InputWidth;
@@ -733,7 +726,7 @@ namespace Fluent
             Bind(this, textBoxQAT, "CaretBrush", CaretBrushProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.TwoWay);
 
-            RibbonControl.BindQuickAccessItem(this,element);
+            RibbonControl.BindQuickAccessItem(this, element);
         }
 
         #endregion

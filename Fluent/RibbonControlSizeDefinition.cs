@@ -95,22 +95,11 @@
         /// </summary>
         public static RibbonControlSize ToRibbonControlSize(string ribbonControlSize)
         {
-#if NET35
-            try
-            {
-                return (RibbonControlSize)Enum.Parse(typeof(RibbonControlSize), ribbonControlSize); 
-            }
-            catch
-            {
-                return RibbonControlSize.Large;
-            }
-#else
             RibbonControlSize result;
 
             return Enum.TryParse(ribbonControlSize, true, out result) 
                 ? result 
                 : RibbonControlSize.Large;
-#endif
         }
 
         /// <summary>

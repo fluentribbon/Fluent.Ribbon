@@ -12,13 +12,12 @@ namespace Fluent
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Media;
     using Fluent.Internal;
     using Fluent.Metro.Native;
-#if NET35 || NET40
+#if NET40
     using Microsoft.Windows.Shell;
 #else
     using System.Windows.Shell;

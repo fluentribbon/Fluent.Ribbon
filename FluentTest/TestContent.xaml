@@ -2269,7 +2269,7 @@
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-                    <FluentTest:DatePicker />
+                    <DatePicker />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox x:Name="xxx"

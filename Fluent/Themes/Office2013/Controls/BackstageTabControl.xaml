@@ -107,7 +107,6 @@
         <Setter Property="Template" Value="{DynamicResource BackstageBackButtonTemplate}" />
     </Style>
 
-
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
         <Setter Property="Margin" Value="25,10,20,10"></Setter>
@@ -163,40 +162,40 @@
                 <Storyboard x:Key="OnIsOpenTrueStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
-                        <Fluent:EasingThicknessKeyFrame KeyTime="0"
+                        <EasingThicknessKeyFrame KeyTime="0"
                                                         Value="-30,0,0,0" />
-                        <Fluent:EasingThicknessKeyFrame KeyTime="0:0:0.2"
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
                                                         Value="0">
-                            <Fluent:EasingThicknessKeyFrame.EasingFunction>
-                                <Fluent:CubicEase EasingMode="EaseInOut" />
-                            </Fluent:EasingThicknessKeyFrame.EasingFunction>
-                        </Fluent:EasingThicknessKeyFrame>
+                            <EasingThicknessKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseInOut" />
+                            </EasingThicknessKeyFrame.EasingFunction>
+                        </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                    Storyboard.TargetName="grid">
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0"
+                        <EasingDoubleKeyFrame KeyTime="0"
                                                      Value="0" />
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
                                                      Value="1" />
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Key="OnIsOpenFalseStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
-                        <Fluent:EasingThicknessKeyFrame KeyTime="0"
+                        <EasingThicknessKeyFrame KeyTime="0"
                                                         Value="0" />
-                        <Fluent:EasingThicknessKeyFrame KeyTime="0:0:0.2"
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
                                                         Value="-30,0,0,0">
-                            <Fluent:EasingThicknessKeyFrame.EasingFunction>
-                                <Fluent:CubicEase EasingMode="EaseInOut" />
-                            </Fluent:EasingThicknessKeyFrame.EasingFunction>
-                        </Fluent:EasingThicknessKeyFrame>
+                            <EasingThicknessKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseInOut" />
+                            </EasingThicknessKeyFrame.EasingFunction>
+                        </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                    Storyboard.TargetName="grid">
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0"
+                        <EasingDoubleKeyFrame KeyTime="0"
                                                      Value="1" />
-                        <Fluent:EasingDoubleKeyFrame KeyTime="0:0:0.2"
+                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
                                                      Value="0" />
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>                
@@ -228,16 +227,6 @@
             </Grid>
             <Grid VerticalAlignment="Stretch"
                   Background="{DynamicResource RibbonThemeColorBrush}">
-                <Grid.Margin>
-                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
-                        <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonProperties.TitleBarHeight)"
-                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
-                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
-                    </MultiBinding>
-                </Grid.Margin>
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
@@ -277,7 +266,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Margin"
-                Value="0,-24,0,1" />
+                Value="0,0,0,1" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"

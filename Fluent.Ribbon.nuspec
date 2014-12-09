@@ -14,13 +14,6 @@
     <tags>ribbon fluent ribbonwindow office2010 office2013 backstage</tags>
   </metadata>
   <files>
-    <file src="build\bin\NET 3.5\$Configuration$\Fluent.dll" target="lib\net35" />
-    <file src="build\bin\NET 3.5\$Configuration$\Fluent.pdb" target="lib\net35" />
-    <file src="build\bin\NET 3.5\$Configuration$\Fluent.XML" target="lib\net35" />
-    <file src="build\bin\NET 3.5\$Configuration$\Microsoft.Windows.Shell.dll" target="lib\net35" />
-    <file src="build\bin\NET 3.5\$Configuration$\System.Windows.Interactivity.dll" target="lib\net35" />
-    <file src="build\bin\NET 3.5\$Configuration$\WPFToolkit.dll" target="lib\net35" />
-
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.pdb" target="lib\net40" />
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.XML" target="lib\net40" />

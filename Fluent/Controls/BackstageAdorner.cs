@@ -18,7 +18,7 @@ namespace Fluent
     /// <summary>
     /// Represents adorner for Backstage
     /// </summary>
-    internal class BackstageAdorner :Adorner
+    internal class BackstageAdorner : Adorner
     {
         #region Fields
 
@@ -39,7 +39,8 @@ namespace Fluent
         /// <param name="adornedElement">Adorned element</param>
         /// <param name="backstage">Backstage</param>
         /// <param name="topOffset">Adorner offset from top of window</param>
-        public BackstageAdorner(FrameworkElement adornedElement, UIElement backstage, double topOffset) : base(adornedElement)
+        public BackstageAdorner(FrameworkElement adornedElement, UIElement backstage, double topOffset)
+            : base(adornedElement)
         {
             KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
 
@@ -88,7 +89,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            backstage.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0,finalSize.Height - topOffset)));            
+            backstage.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0, finalSize.Height - topOffset)));
             return finalSize;
         }
 
@@ -102,7 +103,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            backstage.Measure(new Size(AdornedElement.RenderSize.Width,Math.Max(0, AdornedElement.RenderSize.Height - this.topOffset)));
+            backstage.Measure(new Size(AdornedElement.RenderSize.Width, Math.Max(0, AdornedElement.RenderSize.Height - this.topOffset)));
             return AdornedElement.RenderSize;
         }
 
