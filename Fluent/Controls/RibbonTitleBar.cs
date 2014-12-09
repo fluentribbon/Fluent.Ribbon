@@ -195,9 +195,6 @@ namespace Fluent
             this.headerHolder.Measure(this.headerRect.Size);
             this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
 
-            // We do not return resultsize anymore, instead we compute the real size required by the controls
-            //return resultSize;
-
             var maxHeight = Math.Max(Math.Max(this.itemsRect.Height, this.headerRect.Height), this.quickAccessToolbarRect.Height);
             var width = this.itemsRect.Width + this.headerRect.Width + this.quickAccessToolbarRect.Width;
 
