@@ -107,6 +107,7 @@
         <Setter Property="Template" Value="{DynamicResource BackstageBackButtonTemplate}" />
     </Style>
 
+
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
         <Setter Property="Margin" Value="25,10,20,10"></Setter>
@@ -227,6 +228,16 @@
             </Grid>
             <Grid VerticalAlignment="Stretch"
                   Background="{DynamicResource RibbonThemeColorBrush}">
+                <Grid.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding RelativeSource="{RelativeSource Self}"
+                                 Path="(Fluent:RibbonProperties.TitleBarHeight)"
+                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                        <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
+                    </MultiBinding>
+                </Grid.Margin>
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
@@ -266,7 +277,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Margin"
-                Value="0,0,0,1" />
+                Value="0,-24,0,1" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
