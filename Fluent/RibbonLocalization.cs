@@ -1323,9 +1323,9 @@ namespace Fluent
 
             // See right-top corner... (two different tooltips must be if you press it)
             _minimizeButtonScreenTipTitle = "功能区最小化 (Ctrl + F1)";
-            _minimizeButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+            _minimizeButtonScreenTipText = "仅显示功能区上的选项卡名称。单击选项卡可显示命令。";
             _expandButtonScreenTipTitle = "展开功能区 (Ctrl + F1)";
-            _expandButtonScreenTipText = "隐藏功能区时，仅显示选项卡名称";
+            _expandButtonScreenTipText = "始终显示功能区选项卡和命令。";
 
             // QAT tooltips and menu items         
             _quickAccessToolBarDropDownButtonTooltip = "自定义快速访问具栏";
