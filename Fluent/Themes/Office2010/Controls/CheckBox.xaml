@@ -36,7 +36,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Fluent:CheckBox}">
-          <BulletDecorator SnapsToDevicePixels="true" Background="Transparent" x:Name="bulletDecorator" Height="22">
+                    <BulletDecorator SnapsToDevicePixels="true" Background="Transparent" x:Name="bulletDecorator" Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}">
             <BulletDecorator.Bullet>
               <Grid Width="13" Height="13" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,4,0,0">
                 <Rectangle x:Name="rectangle" Fill="{DynamicResource CheckBoxOutterBackgroundBrush}" Stroke="{DynamicResource CheckBoxOutterBorderBrush}"/>
@@ -57,7 +57,7 @@
                 </Path>
               </Grid>
             </BulletDecorator.Bullet>
-            <TextBlock Text="{TemplateBinding Header}" Margin="8,3,4,0"/>
+            <TextBlock Text="{TemplateBinding Header}" Margin="8,0,4,0" VerticalAlignment="Center" />
           </BulletDecorator>
           <ControlTemplate.Triggers>
             <MultiTrigger>

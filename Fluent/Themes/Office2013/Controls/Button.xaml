@@ -61,21 +61,21 @@
   </ControlTemplate>
   <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
     <Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
-    <Setter Property="Height" Value="66"/>
+    <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
     <Setter Property="Width" Value="Auto"/>
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Setter Property="SnapsToDevicePixels" Value="False"/>
     <Style.Triggers>
       <Trigger Property="Size" Value="Large">
-        <Setter Property="Height" Value="66"/>
+        <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
       </Trigger>
       <Trigger Property="Size" Value="Middle">
-        <Setter Property="Height" Value="22"/>
+        <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
         <Setter Property="HorizontalAlignment" Value="Left"/>
       </Trigger>
       <Trigger Property="Size" Value="Small">
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="Width" Value="22"/>
+        <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Width" Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
         <Setter Property="HorizontalAlignment" Value="Left"/>
       </Trigger>
     </Style.Triggers>

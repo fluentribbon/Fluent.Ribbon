@@ -22,7 +22,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition/>
       </Grid.RowDefinitions>
-      <Grid Grid.Row="0" Height="21" x:Name="headerGrid" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
+      <Grid Grid.Row="0" Height="Auto" x:Name="headerGrid" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
         <TextBlock Margin="7,0" Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
       </Grid>
       <Image Grid.Row="1" Grid.Column="0" Stretch="None" Margin="4,0,4,0" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="iconImage">

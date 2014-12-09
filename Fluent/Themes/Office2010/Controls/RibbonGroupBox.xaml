@@ -18,7 +18,7 @@
   <Style x:Key="RibbonGroupBoxStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
     <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxControlTemplate}"/>
     <Setter Property="Width" Value="Auto"/>
-    <Setter Property="Height" Value="85"/>
+    <Setter Property="Height" Value="{Binding Path=(Fluent:RibbonProperties.TabContentHeight), RelativeSource={RelativeSource Self}}" />
     <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
     <Style.Triggers>
       <Trigger Property="State" Value="QuickAccess">
@@ -116,12 +116,12 @@
             </Rectangle.Fill>
           </Rectangle>
           <Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
-            <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="85">
+            <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="Auto">
               <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="17"/>
+                <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
-              <Grid x:Name="PART_DownGrid" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="17" MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}">
+              <Grid x:Name="PART_DownGrid" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="Auto" MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="Auto"/>
@@ -209,12 +209,12 @@
       </Grid>
       <ContentControl x:Name="border1"
                       Focusable="False">
-      <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="85">
+      <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="Auto">
             <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
-        <RowDefinition Height="17"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-        <Grid x:Name="PART_DownGrid" MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="17">
+        <Grid x:Name="PART_DownGrid" MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="Auto">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

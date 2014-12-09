@@ -450,7 +450,7 @@
                                             MaxItemsInRow="6"
                                             MinItemsInRow="2"
                                             ItemWidth="40"
-                                            ItemHeight="55"
+                                            ItemHeight="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}"
                                             MinItemsInDropDownRow="5">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
@@ -926,7 +926,7 @@
                         <Fluent:ToggleButton.Icon>
                             <Grid>
                                 <Image />
-                                <TextBlock Text="1" />
+                                <TextBlock Text="1" FontSize="12" />
                             </Grid>
                         </Fluent:ToggleButton.Icon>
                     </Fluent:ToggleButton>
@@ -935,7 +935,7 @@
                         <Fluent:SplitButton.Icon>
                             <Grid>
                                 <Image />
-                                <TextBlock Text="1" />
+                                <TextBlock Text="1" FontSize="12" />
                             </Grid>
                         </Fluent:SplitButton.Icon>
                     </Fluent:SplitButton>
@@ -1740,7 +1740,6 @@
 
                         <Fluent:ComboBox x:Name="comboBoxFontName"
                                          MinWidth="40"
-                                         Height="22"
                                          BorderBrush="Gainsboro"
                                          Foreground="#FF222222"
                                          GroupBy="Tag"
@@ -1771,7 +1770,6 @@
                         <Fluent:ComboBox x:Name="comboBoxFontSize"
                                          Width="49"
                                          HorizontalAlignment="Left"
-                                         Height="22"
                                          SelectedIndex="1"
                                          BorderBrush="Gainsboro"
                                          Foreground="#FF222222"

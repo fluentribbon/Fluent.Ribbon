@@ -330,7 +330,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition x:Name="rowDefinition"
-                                           Height="94" />
+                                           Height="{Binding Path=(Fluent:RibbonProperties.TabContentHeight), RelativeSource={RelativeSource Self}}" />
                             <RowDefinition x:Name="rowDefinition1"
                                            Height="{TemplateBinding ContentGapHeight}" />
                         </Grid.RowDefinitions>
@@ -443,7 +443,7 @@
                                   Height="Auto"
                                   Margin="0,20">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="94" />
+                                    <RowDefinition Height="{Binding Path=(Fluent:RibbonProperties.TabContentHeight), RelativeSource={RelativeSource Self}}" />
                                     <RowDefinition Height="1" />
                                 </Grid.RowDefinitions>
                                 <Border Height="Auto"

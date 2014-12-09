@@ -12,7 +12,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="68" />
+                Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
@@ -21,19 +21,19 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="68" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Height"
-                        Value="22" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Height"
-                        Value="22" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Width"
-                        Value="31" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -326,7 +326,7 @@
                                 ClipToBounds="True"
                                 Margin="0,0,0,0"
                                 x:Name="border"
-                                Height="60"
+                                Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightLarge), RelativeSource={RelativeSource Self}}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top">
                             <Grid Width="Auto"
@@ -342,7 +342,7 @@
                                                                     Margin="0,-1,-1,0">
                                                             <RepeatButton x:Name="upButton"
                                                                           Width="15"
-                                                                          Height="21"
+                                                                          Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}"
                                                                           Command="ScrollBar.PageUpCommand"
                                                                           Margin="0,0,0,0"
                                                                           Style="{DynamicResource InRibbonGalleryRepeatButton}">
@@ -355,7 +355,7 @@
                                                             </RepeatButton>
                                                             <RepeatButton x:Name="downButton"
                                                                           Width="15"
-                                                                          Height="21"
+                                                                          Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}"
                                                                           Command="ScrollBar.PageDownCommand"
                                                                           Margin="0,-1,0,0"
                                                                           Style="{DynamicResource InRibbonGalleryRepeatButton}">
@@ -396,7 +396,7 @@
                                                      HorizontalAlignment="Right"
                                                      VerticalAlignment="Bottom"
                                                      Width="15"
-                                                     Height="20"
+                                                     Height="{Binding Path=(Fluent:RibbonProperties.ControlHeightSmall), RelativeSource={RelativeSource Self}}"
                                                      x:Name="PART_ExpandButton"
                                                      Style="{DynamicResource InRibbonGalleryButton}"
                                                      Margin="0,0,-1,-1"
@@ -482,7 +482,7 @@
                                                                         x:Name="border_"
                                                                         BorderBrush="{x:Null}"
                                                                         BorderThickness="0"
-                                                                        Height="13"
+                                                                        Height="Auto"
                                                                         Background="{DynamicResource GalleryHeaderBackgroundBrush}">
                                                                     <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
                                                                                Style="{DynamicResource GalleryDropDownButtonStyle}"
