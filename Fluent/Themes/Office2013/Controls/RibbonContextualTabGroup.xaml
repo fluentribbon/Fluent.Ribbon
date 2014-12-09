@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters" xmlns:internal="clr-namespace:Fluent.Internal">
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:internal="clr-namespace:Fluent.Internal">
     <Style x:Key="RibbonContextualTabGroupStyle"
            TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Setter Property="Template"
@@ -13,37 +14,36 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
-        <Border x:Name="rootBorder" Visibility="{TemplateBinding InnerVisibility}"
-                Margin="1,0,1,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+    <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
+                     TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
+        <Border x:Name="rootBorder"
+                Visibility="{TemplateBinding InnerVisibility}"
+                Margin="1,0,1,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
                 Width="Auto"
-                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" 
                 BorderThickness="1,0">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="0,0" 
-                    VerticalAlignment="Top"
-                    Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
-                <Border.Margin>
-                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                        <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonProperties.TitleBarHeight)"
-                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
-                    </MultiBinding>                    
-                </Border.Margin>
+            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="0,0"
+                    VerticalAlignment="Stretch"
+                    Height="Auto">
                 <Grid Margin="0"
-                      VerticalAlignment="Top"
-                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
-                    <Rectangle Fill="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                               Width="Auto" Height="Auto" >
+                      VerticalAlignment="Stretch"
+                      Height="Auto">
+                    <Rectangle Fill="{TemplateBinding Background}"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Width="Auto"
+                               Height="Auto">
                         <Rectangle.OpacityMask>
-                            <SolidColorBrush Color="#14000000"/>
+                            <SolidColorBrush Color="#14000000" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <Rectangle Fill="{TemplateBinding BorderBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                               Width="Auto" Height="4" />
+                    <Rectangle Fill="{TemplateBinding BorderBrush}"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
+                               Width="Auto"
+                               Height="4" />
                     <Grid Margin="0,4,0,0">
                         <TextBlock Text="{TemplateBinding Header}"
                                    HorizontalAlignment="Center"
