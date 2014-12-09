@@ -324,6 +324,8 @@
                                     Value="Auto" />
                             <Setter Property="VerticalScrollBarVisibility"
                                     Value="Disabled" />
+                            <Setter Property="PanningMode"
+                                    Value="HorizontalOnly" />
                         </Style>
                     </ControlTemplate.Resources>
                     <Grid x:Name="ContentGrid"
