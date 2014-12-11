@@ -87,8 +87,8 @@ namespace Fluent
         // Adorner offset from top of window
         private double GetTopOffset()
         {
-            var topOffset = this.TranslatePoint(new Point(0, this.backstage.ActualHeight), this.AdornedElement).Y;
-
+            var topOffset = this.backstage.TranslatePoint(new Point(0, this.backstage.ActualHeight), this.AdornedElement).Y;
+            
             return topOffset;
         }
 
