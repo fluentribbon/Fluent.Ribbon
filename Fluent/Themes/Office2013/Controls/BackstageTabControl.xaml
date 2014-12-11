@@ -257,7 +257,8 @@
                          Value="True">
                 <DataTrigger.EnterActions>
                     <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
-                    <BeginStoryboard x:Name="IsOpenBeginStoryboard" Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
+                    <BeginStoryboard x:Name="IsOpenBeginStoryboard"
+                                     Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
                 </DataTrigger.EnterActions>
                 <DataTrigger.ExitActions>
                     <BeginStoryboard x:Name="IsClosedBeginStoryboard"
