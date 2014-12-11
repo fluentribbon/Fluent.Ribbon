@@ -515,7 +515,20 @@ namespace Fluent
         {
             if (this.ClosePopupOnMouseDown)
             {
-                this.IsDropDownOpen = false;
+                e.Handled = false;
+
+#if !NET35
+                // Ugly workaround, but use a timer to allow routed event to continue
+                System.Threading.Tasks.Task.Factory.StartNew(() =>
+                {
+                    Thread.Sleep(100);
+#endif
+
+                    this.Dispatcher.BeginInvoke(new Action(() => this.IsDropDownOpen = false));
+
+#if !NET35
+                });
+#endif
             }
         }
 
