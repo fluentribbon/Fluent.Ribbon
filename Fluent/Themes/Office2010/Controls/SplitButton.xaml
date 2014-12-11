@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template"

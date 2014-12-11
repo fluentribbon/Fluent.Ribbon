@@ -9,12 +9,16 @@
         <ResourceDictionary Source="/Fluent;component/Themes/Office2013/Controls/RibbonSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="RibbonToolBarStyle" TargetType="{x:Type Fluent:RibbonToolBar}">
-        <Setter Property="Focusable" Value="False" />
+    <Style x:Key="RibbonToolBarStyle"
+           TargetType="{x:Type Fluent:RibbonToolBar}">
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="SeparatorStyle">
             <Setter.Value>
-                <Style BasedOn="{StaticResource RibbonSeparatorStyle}" TargetType="{x:Type Separator}">
-                    <Setter Property="Margin" Value="4" />
+                <Style BasedOn="{StaticResource RibbonSeparatorStyle}"
+                       TargetType="{x:Type Separator}">
+                    <Setter Property="Margin"
+                            Value="4" />
                 </Style>
             </Setter.Value>
         </Setter>

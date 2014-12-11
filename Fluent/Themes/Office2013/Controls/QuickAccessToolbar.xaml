@@ -13,7 +13,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
     </Style>
-    
+
     <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <Grid>
@@ -77,7 +77,7 @@
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Top">     
+                      VerticalAlignment="Top">
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
                             SnapsToDevicePixels="True"
@@ -285,13 +285,13 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="QuickAccessToolbarStyle"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
         <Setter Property="Template"
                 Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
     </Style>
-    
+
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate"
                      TargetType="{x:Type Fluent:QuickAccessToolBar}">
         <DockPanel x:Name="PART_RootPanel">

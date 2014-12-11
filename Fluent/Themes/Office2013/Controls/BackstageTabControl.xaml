@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Internal="clr-namespace:Fluent.Internal"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">          
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid Background="#00000000">
@@ -45,7 +45,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="BackstageButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="FocusVisualStyle"
@@ -62,7 +62,8 @@
                 Value="{DynamicResource BackstageFontBrush}" />
     </Style>
 
-    <ControlTemplate x:Key="BackstageBackButtonTemplate" TargetType="Button">
+    <ControlTemplate x:Key="BackstageBackButtonTemplate"
+                     TargetType="Button">
         <Grid x:Name="ContentGrid"
               Fluent:FrameworkHelper.UseLayoutRounding="False">
             <Path x:Name="arrowpath"
@@ -100,17 +101,22 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
-    <Style x:Key="BackstageBackButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="35" />
-        <Setter Property="Width" Value="35" />
-        <Setter Property="Template" Value="{DynamicResource BackstageBackButtonTemplate}" />
+
+    <Style x:Key="BackstageBackButtonStyle"
+           TargetType="{x:Type Button}">
+        <Setter Property="Height"
+                Value="35" />
+        <Setter Property="Width"
+                Value="35" />
+        <Setter Property="Template"
+                Value="{DynamicResource BackstageBackButtonTemplate}" />
     </Style>
 
 
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
-        <Setter Property="Margin" Value="25,10,20,10"></Setter>
+        <Setter Property="Margin"
+                Value="25,10,20,10"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
@@ -124,7 +130,11 @@
                                    FontWeight="SemiBold"
                                    Foreground="{DynamicResource BackstageFontBrush}"
                                    Visibility="Visible" />
-                        <Line MinWidth="75" Height="1" X2="1" Stroke="#17FFFFFF" Stretch="Uniform" />
+                        <Line MinWidth="75"
+                              Height="1"
+                              X2="1"
+                              Stroke="#17FFFFFF"
+                              Stretch="Uniform" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasHeader"
@@ -164,9 +174,9 @@
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
-                                                        Value="-30,0,0,0" />
+                                                 Value="-30,0,0,0" />
                         <EasingThicknessKeyFrame KeyTime="0:0:0.2"
-                                                        Value="0">
+                                                 Value="0">
                             <EasingThicknessKeyFrame.EasingFunction>
                                 <CubicEase EasingMode="EaseInOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
@@ -175,18 +185,18 @@
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                    Storyboard.TargetName="grid">
                         <EasingDoubleKeyFrame KeyTime="0"
-                                                     Value="0" />
+                                              Value="0" />
                         <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                                     Value="1" />
+                                              Value="1" />
                     </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Key="OnIsOpenFalseStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
-                                                        Value="0" />
+                                                 Value="0" />
                         <EasingThicknessKeyFrame KeyTime="0:0:0.2"
-                                                        Value="-30,0,0,0">
+                                                 Value="-30,0,0,0">
                             <EasingThicknessKeyFrame.EasingFunction>
                                 <CubicEase EasingMode="EaseInOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
@@ -195,11 +205,11 @@
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
                                                    Storyboard.TargetName="grid">
                         <EasingDoubleKeyFrame KeyTime="0"
-                                                     Value="1" />
+                                              Value="1" />
                         <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                                     Value="0" />
+                                              Value="0" />
                     </DoubleAnimationUsingKeyFrames>
-                </Storyboard>                
+                </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid x:Name="grid"
@@ -233,7 +243,7 @@
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                         <Binding RelativeSource="{RelativeSource Self}"
                                  Path="(Fluent:RibbonProperties.TitleBarHeight)"
-                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />                        
+                                 Converter="{x:Static Converters:StaticConverters.InvertNumericConverter}" />
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                         <Binding Source="{x:Static Internal:DoubleUtil.Zero}" />
                     </MultiBinding>
@@ -242,12 +252,12 @@
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                         Width="35"
-                      Height="35"
-                      Margin="22,19,0,0"
-                      VerticalAlignment="Top"
+                        Height="35"
+                        Margin="22,19,0,0"
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Left">
                 </Button>
-                
+
                 <ItemsPresenter Margin="0,69,0,0"
                                 Height="Auto" />
             </Grid>

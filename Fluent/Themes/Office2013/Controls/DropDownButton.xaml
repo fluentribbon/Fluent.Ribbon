@@ -8,7 +8,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="RibbonDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template"
@@ -57,27 +57,27 @@
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
                 <Grid Height="Auto">
-                        <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Vertical"
-                                    d:LayoutOverrides="Width, Height">
-                            <ContentPresenter x:Name="iconImage"
-                                              HorizontalAlignment="Center"
-                                              Height="32"
-                                              VerticalAlignment="Center"
-                                              Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                              Width="32"
-                                              Margin="3,2"
-                                              SnapsToDevicePixels="True" />
-                            <Fluent:TwoLineLabel x:Name="controlLabel"
-                                                 Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Margin="2,0,2,2"
-                                                 HasGlyph="{TemplateBinding HasTriangle}" />
-                        </StackPanel>
-                    </Grid>
+                    <StackPanel x:Name="stackPanel"
+                                Width="Auto"
+                                Orientation="Vertical"
+                                d:LayoutOverrides="Width, Height">
+                        <ContentPresenter x:Name="iconImage"
+                                          HorizontalAlignment="Center"
+                                          Height="32"
+                                          VerticalAlignment="Center"
+                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                          Width="32"
+                                          Margin="3,2"
+                                          SnapsToDevicePixels="True" />
+                        <Fluent:TwoLineLabel x:Name="controlLabel"
+                                             Text="{TemplateBinding Header}"
+                                             Style="{DynamicResource TwoLineLabelStyle}"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             Margin="2,0,2,2"
+                                             HasGlyph="{TemplateBinding HasTriangle}" />
+                    </StackPanel>
+                </Grid>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -90,7 +90,7 @@
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Top">                 
+                      VerticalAlignment="Top">
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
                             SnapsToDevicePixels="True"

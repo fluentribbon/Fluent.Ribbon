@@ -101,7 +101,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="RibbonTabControlToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -113,13 +113,13 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
     </Style>
-    
+
     <Style x:Key="RibbonTabControlStyle"
            TargetType="{x:Type Fluent:RibbonTabControl}">
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />    
+                Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonTabControl}">
@@ -226,7 +226,7 @@
                                 </MultiTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
-                        
+
                         <Style x:Key="ScrollButtonStyle"
                                TargetType="{x:Type RepeatButton}">
                             <Setter Property="Template"
@@ -389,7 +389,7 @@
                             <ContentControl x:Name="mainContentControl"
                                             Margin="0,1,0,0"
                                             Focusable="False">
-                                <ContentPresenter ContentSource="SelectedContent"                                                  
+                                <ContentPresenter ContentSource="SelectedContent"
                                                   x:Name="contentPresenter"
                                                   HorizontalAlignment="Stretch"
                                                   Margin="0" />

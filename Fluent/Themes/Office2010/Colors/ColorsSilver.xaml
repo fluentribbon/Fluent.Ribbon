@@ -471,5 +471,5 @@
                      Color="#FFE6E9ED" />
 
     <Color x:Key="RibbonTabControlGradientColor">#D8FFFFFF</Color>
-    
+
 </ResourceDictionary>

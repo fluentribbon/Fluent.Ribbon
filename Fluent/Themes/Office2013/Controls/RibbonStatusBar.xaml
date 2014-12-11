@@ -9,13 +9,13 @@
                 Value="Auto" />
         <Setter Property="Margin"
                 Value="0,0,0,-1" />
-        <Setter Property="FontSize" 
+        <Setter Property="FontSize"
                 Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
-        <Setter Property="FontFamily" 
+        <Setter Property="FontFamily"
                 Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
-        <Setter Property="FontStyle" 
+        <Setter Property="FontStyle"
                 Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
-        <Setter Property="FontWeight" 
+        <Setter Property="FontWeight"
                 Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -23,7 +23,8 @@
                     <Border Height="Auto"
                             BorderThickness="0,1"
                             Background="{DynamicResource RibbonThemeColorBrush}">
-                        <ItemsPresenter x:Name="itemsPresenter" Height="Auto" />
+                        <ItemsPresenter x:Name="itemsPresenter"
+                                        Height="Auto" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsWindowMaximized"

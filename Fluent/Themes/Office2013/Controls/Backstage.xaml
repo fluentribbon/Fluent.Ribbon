@@ -4,51 +4,77 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:Backstage}">
-        <Border x:Name="border2" MinWidth="60" Height="Auto" Background="{TemplateBinding Background}" Margin="0,0,0,0">
+    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate"
+                     TargetType="{x:Type Fluent:Backstage}">
+        <Border x:Name="border2"
+                MinWidth="60"
+                Height="Auto"
+                Background="{TemplateBinding Background}"
+                Margin="0,0,0,0">
             <Grid>
                 <Rectangle x:Name="rectangle" />
                 <ContentPresenter x:Name="contentPresenter"
                                   ContentSource="Header"
-                                  Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                  Margin="10,0,10,0"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Fill" TargetName="rectangle" Value="#17FFFFFF" />
+                <Setter Property="Fill"
+                        TargetName="rectangle"
+                        Value="#17FFFFFF" />
             </MultiTrigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" TargetName="border2" Value="0.5" />
-                <Setter Property="Effect" TargetName="contentPresenter">
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="border2"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="contentPresenter">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="IsOpen" Value="True">
-                <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed" />
+            <Trigger Property="IsOpen"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" SourceName="border2" />
-                    <Condition Property="IsOpen" Value="True" />
+                    <Condition Property="IsMouseOver"
+                               Value="True"
+                               SourceName="border2" />
+                    <Condition Property="IsOpen"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Collapsed" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="RibbonBackstageStyle"
            TargetType="{x:Type Fluent:Backstage}">
-        <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
+        <Setter Property="Template"
+                Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
         <Setter Property="Background"
                 Value="{DynamicResource RibbonThemeColorBrush}" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
+        <Setter Property="Foreground"
+                Value="White" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
+                Value="True" />
         <Setter Property="Header"
                 Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText , Mode=OneWay}" />
         <Setter Property="Fluent:KeyTip.Keys"
@@ -59,5 +85,6 @@
                 Value="True" />
     </Style>
 
-    <Style TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource RibbonBackstageStyle}" />
+    <Style TargetType="{x:Type Fluent:Backstage}"
+           BasedOn="{StaticResource RibbonBackstageStyle}" />
 </ResourceDictionary>

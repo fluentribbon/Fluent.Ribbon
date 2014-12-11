@@ -4,12 +4,20 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}" x:Key="RibbonTabItemControlTemplate">
-        <Grid x:Name="grid" Background="#00000000" Height="Auto" VerticalAlignment="Top" Margin="0,7,0,0">
-            <Border x:Name="border3" Margin="0,0,0,1" Grid.ColumnSpan="2">
+    <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}"
+                     x:Key="RibbonTabItemControlTemplate">
+        <Grid x:Name="grid"
+              Background="#00000000"
+              Height="Auto"
+              VerticalAlignment="Top"
+              Margin="0,7,0,0">
+            <Border x:Name="border3"
+                    Margin="0,0,0,1"
+                    Grid.ColumnSpan="2">
                 <Border x:Name="border5"
                         Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                        BorderThickness="0,0,0,0" Margin="0">
+                        BorderThickness="0,0,0,0"
+                        Margin="0">
                     <Border.OpacityMask>
                         <LinearGradientBrush EndPoint="0.5,1"
                                              StartPoint="0.5,0">
@@ -25,10 +33,16 @@
                   Visibility="Collapsed"
                   Margin="0"
                   Grid.ColumnSpan="1">
-                <Rectangle x:Name="rectangle" Fill="{DynamicResource ActiveTabBackgroundBrush}" StrokeThickness="0"
-                           Margin="0" VerticalAlignment="Bottom" Height="1" />
-                <Rectangle x:Name="rectangle1" Fill="{DynamicResource ActiveTabBackgroundBrush}"
-                           StrokeThickness="0" Margin="1.8,0"
+                <Rectangle x:Name="rectangle"
+                           Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                           StrokeThickness="0"
+                           Margin="0"
+                           VerticalAlignment="Bottom"
+                           Height="1" />
+                <Rectangle x:Name="rectangle1"
+                           Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                           StrokeThickness="0"
+                           Margin="1.8,0"
                            VerticalAlignment="Bottom"
                            Height="1.2" />
                 <Rectangle x:Name="rectangle2"
@@ -37,9 +51,12 @@
                            Margin="2,0"
                            VerticalAlignment="Bottom"
                            Height="2" />
-                <Border x:Name="border" Margin="1,0,1,2" BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                <Border x:Name="border"
+                        Margin="1,0,1,2"
+                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
                         BorderThickness="1,1,1,0"
-                        VerticalAlignment="Stretch" Background="{DynamicResource ActiveTabBackgroundBrush}">
+                        VerticalAlignment="Stretch"
+                        Background="{DynamicResource ActiveTabBackgroundBrush}">
                     <Border x:Name="border_Copy3"
                             Margin="0"
                             BorderThickness="1,1,1,0"
@@ -50,12 +67,22 @@
                 </Border>
                 <!--<Border x:Name="border1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="2" Height="2"
                                     BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,1,1"/>-->
-                <Border x:Name="border1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="2"
+                <Border x:Name="border1"
+                        HorizontalAlignment="Left"
+                        Margin="0"
+                        VerticalAlignment="Bottom"
+                        Width="2"
                         Height="2"
-                        BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="0,0,1,1" />
-                <Border x:Name="border2" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Bottom" Width="2"
+                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                        BorderThickness="0,0,1,1" />
+                <Border x:Name="border2"
+                        HorizontalAlignment="Right"
+                        Margin="0"
+                        VerticalAlignment="Bottom"
+                        Width="2"
                         Height="2"
-                        BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="1,0,0,1" />
+                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                        BorderThickness="1,0,0,1" />
             </Grid>
             <Grid x:Name="focusedGrid"
                   Margin="0"
@@ -223,12 +250,12 @@
                     <Condition Property="IsMouseOver"
                                Value="True" />
                     <Condition Property="Group"
-                               Value="{x:Null}" />                    
+                               Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
                         Value="{DynamicResource RibbonThemeColorBrush}" />
-            </MultiTrigger>            
+            </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
@@ -255,7 +282,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
                         TargetName="selectedGrid"
-                        Value="Visible" />                
+                        Value="Visible" />
                 <Setter Property="Background"
                         TargetName="grid"
                         Value="#00000000" />

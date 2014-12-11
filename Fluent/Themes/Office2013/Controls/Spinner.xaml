@@ -4,9 +4,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    
+
     <!--Button in Spinner Control Style-->
-    <ControlTemplate x:Key="SpinnerButtonControlTemplate" TargetType="{x:Type RepeatButton}">
+    <ControlTemplate x:Key="SpinnerButtonControlTemplate"
+                     TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 BorderThickness="1"
                 Background="{DynamicResource TransparentBrush}"
@@ -15,8 +16,8 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
             <ContentPresenter x:Name="contentPresenter"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center" />
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"

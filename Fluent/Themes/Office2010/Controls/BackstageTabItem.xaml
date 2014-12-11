@@ -26,19 +26,28 @@
                     <Border BorderBrush="#7F000000"
                             BorderThickness="0,1">
                         <Border.Background>
-                            <RadialGradientBrush Center="0.5,0.972" GradientOrigin="0.5,0.972" RadiusX="0.662" RadiusY="1.193">
+                            <RadialGradientBrush Center="0.5,0.972"
+                                                 GradientOrigin="0.5,0.972"
+                                                 RadiusX="0.662"
+                                                 RadiusY="1.193">
                                 <RadialGradientBrush.RelativeTransform>
                                     <TransformGroup>
                                         <ScaleTransform CenterX="0.5"
                                                         CenterY="0.972"
                                                         ScaleX="1"
                                                         ScaleY="1" />
-                                        <SkewTransform AngleX="0" AngleY="0" CenterX="0.5" CenterY="0.972" />
-                                        <RotateTransform Angle="-0.659" CenterX="0.5" CenterY="0.972" />
+                                        <SkewTransform AngleX="0"
+                                                       AngleY="0"
+                                                       CenterX="0.5"
+                                                       CenterY="0.972" />
+                                        <RotateTransform Angle="-0.659"
+                                                         CenterX="0.5"
+                                                         CenterY="0.972" />
                                         <TranslateTransform />
                                     </TransformGroup>
                                 </RadialGradientBrush.RelativeTransform>
-                                <GradientStop Offset="0" Color="#A5FFFFFF" />
+                                <GradientStop Offset="0"
+                                              Color="#A5FFFFFF" />
                                 <GradientStop Offset="1" />
                             </RadialGradientBrush>
                         </Border.Background>

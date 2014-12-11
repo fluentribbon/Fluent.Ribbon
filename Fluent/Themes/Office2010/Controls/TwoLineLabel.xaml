@@ -1,33 +1,84 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Fluent="clr-namespace:Fluent">
-  <Style x:Key="TwoLineLabelStyle" TargetType="{x:Type Fluent:TwoLineLabel}" >
-  	<Setter Property="Template" Value="{DynamicResource TwoLineLabelControlTemplate}"/>
-  </Style>
-  <ControlTemplate x:Key="TwoLineLabelControlTemplate" TargetType="{x:Type Fluent:TwoLineLabel}">
-  	<StackPanel x:Name="stackPanel" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-      <AccessText TextWrapping="Wrap" x:Name="PART_TextRun" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <StackPanel x:Name="stackPanel1" Margin="0,-2,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <AccessText TextWrapping="Wrap" x:Name="PART_TextRun2" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-  			<Border x:Name="border" Height="Auto" Width="5" HorizontalAlignment="Center" Margin="0">
-  				<Path x:Name="path" Width="5" Height="3" StrokeThickness="0" Data="M0,0L5,0 2.5,3z" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,2,0,0" SnapsToDevicePixels="True" Fill="{TemplateBinding Foreground}"/>
-  			</Border>
-  		</StackPanel>
-  	</StackPanel>
-  	<ControlTemplate.Triggers>
-  		<Trigger Property="HasTwoLines" Value="False">
-  			<Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-  			<Setter Property="HorizontalAlignment" TargetName="stackPanel" Value="Left"/>
-  			<Setter Property="Margin" TargetName="border" Value="0"/>
-  			<Setter Property="VerticalAlignment" TargetName="stackPanel" Value="Center"/>
-  			<Setter Property="VerticalAlignment" TargetName="border" Value="Center"/>
-  			<Setter Property="Margin" TargetName="stackPanel1" Value="3,-2,0,0"/>
-  			<Setter Property="VerticalAlignment" TargetName="stackPanel1" Value="Center"/>
-  		</Trigger>
-  		<Trigger Property="HasGlyph" Value="False">
-  			<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
-  			<Setter Property="Width" TargetName="border" Value="0.1"/>
-  		</Trigger>
-  	</ControlTemplate.Triggers>
-  </ControlTemplate> 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <Style x:Key="TwoLineLabelStyle"
+           TargetType="{x:Type Fluent:TwoLineLabel}">
+        <Setter Property="Template"
+                Value="{DynamicResource TwoLineLabelControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="TwoLineLabelControlTemplate"
+                     TargetType="{x:Type Fluent:TwoLineLabel}">
+        <StackPanel x:Name="stackPanel"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <AccessText TextWrapping="Wrap"
+                        x:Name="PART_TextRun"
+                        TextAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+            <StackPanel x:Name="stackPanel1"
+                        Margin="0,-2,0,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <AccessText TextWrapping="Wrap"
+                            x:Name="PART_TextRun2"
+                            TextAlignment="Center"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                <Border x:Name="border"
+                        Height="Auto"
+                        Width="5"
+                        HorizontalAlignment="Center"
+                        Margin="0">
+                    <Path x:Name="path"
+                          Width="5"
+                          Height="3"
+                          StrokeThickness="0"
+                          Data="M0,0L5,0 2.5,3z"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Margin="0,2,0,0"
+                          SnapsToDevicePixels="True"
+                          Fill="{TemplateBinding Foreground}" />
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasTwoLines"
+                     Value="False">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="HorizontalAlignment"
+                        TargetName="stackPanel"
+                        Value="Left" />
+                <Setter Property="Margin"
+                        TargetName="border"
+                        Value="0" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="stackPanel"
+                        Value="Center" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="border"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        TargetName="stackPanel1"
+                        Value="3,-2,0,0" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="stackPanel1"
+                        Value="Center" />
+            </Trigger>
+            <Trigger Property="HasGlyph"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="path"
+                        Value="Collapsed" />
+                <Setter Property="Width"
+                        TargetName="border"
+                        Value="0.1" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

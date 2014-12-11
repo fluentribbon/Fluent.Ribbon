@@ -119,7 +119,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="RibbonTabControlToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -131,7 +131,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
     </Style>
-    
+
     <Style x:Key="RibbonTabControlStyle"
            TargetType="{x:Type Fluent:RibbonTabControl}">
         <Setter Property="VerticalAlignment"
@@ -139,9 +139,9 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Template"
-                Value="{DynamicResource RibbonTabControlControlTemplate}"/>
+                Value="{DynamicResource RibbonTabControlControlTemplate}" />
     </Style>
-    
+
     <!---->
     <ControlTemplate x:Key="RibbonTabControlControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
                     <ControlTemplate.Resources>
@@ -478,31 +478,31 @@
                                     TargetName="rowDefinition1"
                                     Value="0" />
                             <!-- Switch content to popup -->
-                            <Setter Property="Content"
-                                    TargetName="mainContentControl"
-                                    Value="{x:Null}" />
-                            <Setter Property="Content"
-                                    TargetName="popupContentControl"
-                                    Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
-                            <!-- Switch content to popup END -->
-                            <Setter Property="Visibility"
-                                    TargetName="image"
-                                    Value="Collapsed" />
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsDropDownOpen"
-                                           Value="True" />
-                                <Condition Property="IsMinimized"
-                                           Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Visibility"
-                                    TargetName="image"
-                                    Value="Visible" />
-                            <Setter Property="Opacity"
-                                    TargetName="PART_MinimizeButton"
-                                    Value="0" />
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
+    <Setter Property="Content"
+            TargetName="mainContentControl"
+            Value="{x:Null}" />
+    <Setter Property="Content"
+            TargetName="popupContentControl"
+            Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
+    <!-- Switch content to popup END -->
+    <Setter Property="Visibility"
+            TargetName="image"
+            Value="Collapsed" />
+    </Trigger>
+    <MultiTrigger>
+        <MultiTrigger.Conditions>
+            <Condition Property="IsDropDownOpen"
+                       Value="True" />
+            <Condition Property="IsMinimized"
+                       Value="True" />
+        </MultiTrigger.Conditions>
+        <Setter Property="Visibility"
+                TargetName="image"
+                Value="Visible" />
+        <Setter Property="Opacity"
+                TargetName="PART_MinimizeButton"
+                Value="0" />
+    </MultiTrigger>
+    </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

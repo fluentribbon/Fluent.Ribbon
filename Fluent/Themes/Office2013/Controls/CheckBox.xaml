@@ -3,7 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="{x:Type Fluent:CheckBox}">
+    <ControlTemplate x:Key="CheckBoxControlTemplate"
+                     TargetType="{x:Type Fluent:CheckBox}">
         <Grid>
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
@@ -27,7 +28,8 @@
                     <VisualState x:Name="Valid" />
                     <VisualState x:Name="InvalidUnfocused">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement"
+                                                           Storyboard.TargetProperty="Visibility">
                                 <DiscreteObjectKeyFrame KeyTime="0">
                                     <DiscreteObjectKeyFrame.Value>
                                         <Visibility>Visible</Visibility>
@@ -38,14 +40,16 @@
                     </VisualState>
                     <VisualState x:Name="InvalidFocused">
                         <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement"
+                                                           Storyboard.TargetProperty="Visibility">
                                 <DiscreteObjectKeyFrame KeyTime="0">
                                     <DiscreteObjectKeyFrame.Value>
                                         <Visibility>Visible</Visibility>
                                     </DiscreteObjectKeyFrame.Value>
                                 </DiscreteObjectKeyFrame>
                             </ObjectAnimationUsingKeyFrames>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip" Storyboard.TargetProperty="IsOpen">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip"
+                                                           Storyboard.TargetProperty="IsOpen">
                                 <DiscreteObjectKeyFrame KeyTime="0">
                                     <DiscreteObjectKeyFrame.Value>
                                         <System:Boolean>True</System:Boolean>
@@ -60,7 +64,8 @@
                 <ColumnDefinition Width="16" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
+            <Grid HorizontalAlignment="Left"
+                  VerticalAlignment="Center">
                 <Border x:Name="border"
                         Width="13"
                         Height="13"
@@ -114,9 +119,12 @@
                     </Grid>
                 </Border>
             </Grid>
-            <ContentControl Grid.Column="1" IsTabStop="False" Margin="2,0,0,0">
+            <ContentControl Grid.Column="1"
+                            IsTabStop="False"
+                            Margin="2,0,0,0">
                 <ContentControl.Foreground>
-                    <SolidColorBrush x:Name="ContentPresenterWrapperColor" Color="Black" />
+                    <SolidColorBrush x:Name="ContentPresenterWrapperColor"
+                                     Color="Black" />
                 </ContentControl.Foreground>
                 <ContentPresenter x:Name="contentPresenter"
                                   Margin="{TemplateBinding Padding}"
@@ -128,27 +136,56 @@
             </ContentControl>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource CheckBoxHoverBorderBrush}" />
-                <Setter TargetName="border" Property="Background" Value="{DynamicResource CheckBoxHoverBackgroundBrush}" />
-                <Setter TargetName="CheckIcon" Property="Stroke" Value="#FF333333" />
-                <Setter TargetName="IndeterminateIcon" Property="Fill" Value="#FF333333" />
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource CheckBoxHoverBorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource CheckBoxHoverBackgroundBrush}" />
+                <Setter TargetName="CheckIcon"
+                        Property="Stroke"
+                        Value="#FF333333" />
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Fill"
+                        Value="#FF333333" />
             </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource CheckBoxPressedBorderBrush}" />
-                <Setter TargetName="border" Property="Background" Value="{DynamicResource CheckBoxPressedBackgroundBrush}" />
-                <Setter TargetName="CheckIcon" Property="Stroke" Value="#FF000000" />
-                <Setter TargetName="IndeterminateIcon" Property="Fill" Value="#FF000000" />
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource CheckBoxPressedBorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource CheckBoxPressedBackgroundBrush}" />
+                <Setter TargetName="CheckIcon"
+                        Property="Stroke"
+                        Value="#FF000000" />
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Fill"
+                        Value="#FF000000" />
             </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value=".55" />
-                <Setter TargetName="DisabledVisualElement" Property="Opacity" Value=".55" />
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter TargetName="contentPresenter"
+                        Property="Opacity"
+                        Value=".55" />
+                <Setter TargetName="DisabledVisualElement"
+                        Property="Opacity"
+                        Value=".55" />
             </Trigger>
-            <Trigger Property="IsChecked" Value="True">
-                <Setter TargetName="CheckIcon" Property="Opacity" Value="1" />
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter TargetName="CheckIcon"
+                        Property="Opacity"
+                        Value="1" />
             </Trigger>
-            <Trigger Property="IsChecked" Value="{x:Null}">
-                <Setter TargetName="IndeterminateIcon" Property="Opacity" Value="1" />
+            <Trigger Property="IsChecked"
+                     Value="{x:Null}">
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Opacity"
+                        Value="1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -181,15 +218,24 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RibbonCheckBoxStyle" TargetType="{x:Type Fluent:CheckBox}">
-        <Setter Property="ToolTipService.ShowDuration" Value="30000" />
-        <Setter Property="Template" Value="{DynamicResource CheckBoxControlTemplate}" />
-        <Setter Property="Background" Value="#FFFDFDFD"/>
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#FFABABAB" />
-        <Setter Property="Margin" Value="2,2,2,2" />
+    <Style x:Key="RibbonCheckBoxStyle"
+           TargetType="{x:Type Fluent:CheckBox}">
+        <Setter Property="ToolTipService.ShowDuration"
+                Value="30000" />
+        <Setter Property="Template"
+                Value="{DynamicResource CheckBoxControlTemplate}" />
+        <Setter Property="Background"
+                Value="#FFFDFDFD" />
+        <Setter Property="Foreground"
+                Value="Black" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="BorderBrush"
+                Value="#FFABABAB" />
+        <Setter Property="Margin"
+                Value="2,2,2,2" />
     </Style>
 
-    <Style BasedOn="{StaticResource RibbonCheckBoxStyle}" TargetType="{x:Type Fluent:CheckBox}" />
+    <Style BasedOn="{StaticResource RibbonCheckBoxStyle}"
+           TargetType="{x:Type Fluent:CheckBox}" />
 </ResourceDictionary>

@@ -1,143 +1,344 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">
-    <Setter Property="SnapsToDevicePixels" Value="true"/>
-    <Setter Property="OverridesDefaultStyle" Value="true"/>
-    <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Focusable" Value="false"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type RepeatButton}">
-          <Border Background="Transparent" />
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Style x:Key="SliderButtonStyle"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="IsTabStop"
+                Value="false" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  <Style x:Key="SliderThumbStyle" TargetType="{x:Type Thumb}">
-    <Setter Property="SnapsToDevicePixels" Value="true"/>
-    <Setter Property="OverridesDefaultStyle" Value="true"/>
-    <Setter Property="Height" Value="14"/>
-    <Setter Property="Width" Value="14"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Thumb}">
-          <Grid Margin="2.5,0.5">
-            <Path x:Name="path1" Data="M0,0L9,0 9,9 4.5,13 0,9z" Fill="{DynamicResource RoundButtonBackgroundBrush}" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RoundButtonBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="9" Height="13" HorizontalAlignment="Center"/>
-            <Path x:Name="path" Data="M0,0L9,0 9,9 4.5,13 0,9z" Fill="{DynamicResource RoundButtonBackgroundBrush}" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RoundButtonBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="7" Height="11" HorizontalAlignment="Center" Visibility="Collapsed"/>
-          </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsDragging" Value="True">
-              <Setter Property="Visibility" TargetName="path" Value="Visible"/>
-              <Setter Property="Fill" TargetName="path1" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-              <Setter Property="Stroke" TargetName="path1" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-              <Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-              <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+    <Style x:Key="SliderThumbStyle"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="Height"
+                Value="14" />
+        <Setter Property="Width"
+                Value="14" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Grid Margin="2.5,0.5">
+                        <Path x:Name="path1"
+                              Data="M0,0L9,0 9,9 4.5,13 0,9z"
+                              Fill="{DynamicResource RoundButtonBackgroundBrush}"
+                              Margin="0"
+                              StrokeStartLineCap="Flat"
+                              Stretch="Fill"
+                              StrokeEndLineCap="Flat"
+                              Stroke="{DynamicResource RoundButtonBorderBrush}"
+                              StrokeThickness="1"
+                              StrokeMiterLimit="10"
+                              StrokeLineJoin="Miter"
+                              VerticalAlignment="Center"
+                              Width="9"
+                              Height="13"
+                              HorizontalAlignment="Center" />
+                        <Path x:Name="path"
+                              Data="M0,0L9,0 9,9 4.5,13 0,9z"
+                              Fill="{DynamicResource RoundButtonBackgroundBrush}"
+                              Margin="0"
+                              StrokeStartLineCap="Flat"
+                              Stretch="Fill"
+                              StrokeEndLineCap="Flat"
+                              Stroke="{DynamicResource RoundButtonBorderBrush}"
+                              StrokeThickness="1"
+                              StrokeMiterLimit="10"
+                              StrokeLineJoin="Miter"
+                              VerticalAlignment="Center"
+                              Width="7"
+                              Height="11"
+                              HorizontalAlignment="Center"
+                              Visibility="Collapsed" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="path"
+                                    Value="Visible" />
+                            <Setter Property="Fill"
+                                    TargetName="path1"
+                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                            <Setter Property="Stroke"
+                                    TargetName="path1"
+                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                            <Setter Property="Fill"
+                                    TargetName="path"
+                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                            <Setter Property="Stroke"
+                                    TargetName="path"
+                                    Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="Background"
+                                 Value="Red">
+                            <Setter Property="Visibility"
+                                    TargetName="path"
+                                    Value="Visible" />
+                            <Setter Property="Fill"
+                                    TargetName="path1"
+                                    Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                            <Setter Property="Stroke"
+                                    TargetName="path1"
+                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                            <Setter Property="Fill"
+                                    TargetName="path"
+                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                            <Setter Property="Stroke"
+                                    TargetName="path"
+                                    Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SliderRepeatButtonStyle"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="Width"
+                Value="16" />
+        <Setter Property="Height"
+                Value="16" />
+        <Setter Property="Template"
+                Value="{DynamicResource SliderRepeatButtonControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="SliderRepeatButtonControlTemplate"
+                     TargetType="{x:Type RepeatButton}">
+        <Grid>
+            <Ellipse x:Name="path1"
+                     Margin="0"
+                     Width="16"
+                     Height="16"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Stroke="{DynamicResource RoundButtonBorderBrush}"
+                     Fill="{DynamicResource RoundButtonBackgroundBrush}" />
+            <Ellipse x:Name="path"
+                     Fill="{x:Null}"
+                     Margin="0"
+                     Stroke="{DynamicResource ButtonBorderBrush}"
+                     Width="14"
+                     Height="14"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Visibility="Hidden" />
+            <ContentPresenter Margin="0"
+                              Width="14"
+                              Height="14"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="path"
+                        Value="Visible" />
+                <Setter Property="Fill"
+                        TargetName="path1"
+                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                <Setter Property="Stroke"
+                        TargetName="path1"
+                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                <Setter Property="Fill"
+                        TargetName="path"
+                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                <Setter Property="Stroke"
+                        TargetName="path"
+                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
-            <Trigger Property="Background" Value="Red">
-              <Setter Property="Visibility" TargetName="path" Value="Visible"/>
-              <Setter Property="Fill" TargetName="path1" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-              <Setter Property="Stroke" TargetName="path1" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-              <Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-              <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="path"
+                        Value="Visible" />
+                <Setter Property="Fill"
+                        TargetName="path1"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                <Setter Property="Stroke"
+                        TargetName="path1"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                <Setter Property="Fill"
+                        TargetName="path"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                <Setter Property="Stroke"
+                        TargetName="path"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
             </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style x:Key="SliderRepeatButtonStyle" TargetType="{x:Type RepeatButton}">
-    <Setter Property="Width" Value="16"/>
-    <Setter Property="Height" Value="16"/>
-    <Setter Property="Template" Value="{DynamicResource SliderRepeatButtonControlTemplate}"/>
-  </Style>
-  <ControlTemplate x:Key="SliderRepeatButtonControlTemplate" TargetType="{x:Type RepeatButton}">
-    <Grid>
-      <Ellipse x:Name="path1" Margin="0" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="{DynamicResource RoundButtonBorderBrush}" Fill="{DynamicResource RoundButtonBackgroundBrush}"/>
-      <Ellipse x:Name="path" Fill="{x:Null}" Margin="0" Stroke="{DynamicResource ButtonBorderBrush}" Width="14" Height="14" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden"/>
-      <ContentPresenter Margin="0" Width="14" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
-    <ControlTemplate.Triggers>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Visibility" TargetName="path" Value="Visible"/>
-        <Setter Property="Fill" TargetName="path1" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path1" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-      </Trigger>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Visibility" TargetName="path" Value="Visible"/>
-        <Setter Property="Fill" TargetName="path1" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path1" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-      </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
-  <Style x:Key="ZoomSliderStyle" TargetType="{x:Type Slider}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Slider}">
-          <Grid Height="16" Width="133">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="16"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="16"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Grid.ColumnSpan="1" Fill="{x:Null}" Margin="0,-1,0,0" Stroke="{DynamicResource SliderShadowBrush}" VerticalAlignment="Center" Height="1" Grid.Column="1"/>
-            <Rectangle Grid.ColumnSpan="1" Fill="{x:Null}" Margin="-1,-1,0,0" Stroke="{DynamicResource SliderShadowBrush}" VerticalAlignment="Center" Height="7" Grid.Column="1" Width="1" HorizontalAlignment="Center"/>
-            <Rectangle Grid.ColumnSpan="1" Fill="{x:Null}" Margin="0,1,0,0" Stroke="{DynamicResource SliderLightenBrush}" VerticalAlignment="Center" Height="1" Grid.Column="1"/>
-            <Rectangle Grid.ColumnSpan="1" Fill="{x:Null}" Margin="1,1,0,0" Stroke="{DynamicResource SliderLightenBrush}" VerticalAlignment="Center" Height="7" Grid.Column="1" Width="1" HorizontalAlignment="Center"/>
-            <Rectangle x:Name="rectangle" Grid.ColumnSpan="1" Margin="0" Stroke="{x:Null}" Grid.Column="1" StrokeThickness="0" Fill="#00000000"/>
-            <Track Grid.Row="0" x:Name="PART_Track" Height="16" Grid.ColumnSpan="1" Grid.Column="1">
-              <Track.DecreaseRepeatButton>
-                <RepeatButton
-                  Style="{DynamicResource SliderButtonStyle}"
-                  Command="Slider.DecreaseLarge" x:Name="leftButton"/>
-              </Track.DecreaseRepeatButton>
-              <Track.Thumb>
-                <Thumb x:Name="thumb" Style="{DynamicResource SliderThumbStyle}" />
-              </Track.Thumb>
-              <Track.IncreaseRepeatButton>
-                <RepeatButton
-                  Style="{DynamicResource SliderButtonStyle}"
-                  Command="Slider.IncreaseLarge" x:Name="rightButton"/>
-              </Track.IncreaseRepeatButton>
-            </Track>
-            <RepeatButton x:Name="repeatButton" d:LayoutOverrides="Width, Height" Style="{DynamicResource SliderRepeatButtonStyle}" Command="Slider.DecreaseLarge">
-              <Grid Margin="0">
-                <Path Data="M0,0L1,0" Fill="{x:Null}" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="{ DynamicResource RoundButtonForegroundBrush}"/>
-              </Grid>
-            </RepeatButton>
-            <RepeatButton x:Name="repeatButton_Copy" Style="{DynamicResource SliderRepeatButtonStyle}" Grid.Column="2" Command="Slider.IncreaseLarge">
-              <Grid Margin="0">
-                <Path Data="M0,0L0,1" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="2" VerticalAlignment="Center" Height="10" StrokeThickness="2" Stroke="{ DynamicResource RoundButtonForegroundBrush}"/>
-                <Path Data="M0,0L1,0" HorizontalAlignment="Center" Margin="0" Stretch="Fill" Width="10" VerticalAlignment="Center" Height="2" StrokeThickness="2" Stroke="{ DynamicResource RoundButtonForegroundBrush}"/>
-              </Grid>
-            </RepeatButton>
-          </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True" SourceName="leftButton">
-              <Setter Property="Background" TargetName="thumb" Value="Red"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True" SourceName="rightButton">
-              <Setter Property="Background" TargetName="thumb" Value="Red"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True" SourceName="thumb">
-              <Setter Property="Background" TargetName="thumb" Value="Red"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="Width" Value="133"/>
-    <Setter Property="Height" Value="16"/>
-    <Setter Property="Maximum" Value="500"/>
-    <Setter Property="Minimum" Value="10"/>
-    <Setter Property="SmallChange" Value="1"/>
-    <Setter Property="LargeChange" Value="10"/>
-    <Setter Property="Value" Value="100"/>
-  </Style>
+    <Style x:Key="ZoomSliderStyle"
+           TargetType="{x:Type Slider}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Slider}">
+                    <Grid Height="16"
+                          Width="133">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.ColumnSpan="1"
+                                   Fill="{x:Null}"
+                                   Margin="0,-1,0,0"
+                                   Stroke="{DynamicResource SliderShadowBrush}"
+                                   VerticalAlignment="Center"
+                                   Height="1"
+                                   Grid.Column="1" />
+                        <Rectangle Grid.ColumnSpan="1"
+                                   Fill="{x:Null}"
+                                   Margin="-1,-1,0,0"
+                                   Stroke="{DynamicResource SliderShadowBrush}"
+                                   VerticalAlignment="Center"
+                                   Height="7"
+                                   Grid.Column="1"
+                                   Width="1"
+                                   HorizontalAlignment="Center" />
+                        <Rectangle Grid.ColumnSpan="1"
+                                   Fill="{x:Null}"
+                                   Margin="0,1,0,0"
+                                   Stroke="{DynamicResource SliderLightenBrush}"
+                                   VerticalAlignment="Center"
+                                   Height="1"
+                                   Grid.Column="1" />
+                        <Rectangle Grid.ColumnSpan="1"
+                                   Fill="{x:Null}"
+                                   Margin="1,1,0,0"
+                                   Stroke="{DynamicResource SliderLightenBrush}"
+                                   VerticalAlignment="Center"
+                                   Height="7"
+                                   Grid.Column="1"
+                                   Width="1"
+                                   HorizontalAlignment="Center" />
+                        <Rectangle x:Name="rectangle"
+                                   Grid.ColumnSpan="1"
+                                   Margin="0"
+                                   Stroke="{x:Null}"
+                                   Grid.Column="1"
+                                   StrokeThickness="0"
+                                   Fill="#00000000" />
+                        <Track Grid.Row="0"
+                               x:Name="PART_Track"
+                               Height="16"
+                               Grid.ColumnSpan="1"
+                               Grid.Column="1">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Style="{DynamicResource SliderButtonStyle}"
+                                              Command="Slider.DecreaseLarge"
+                                              x:Name="leftButton" />
+                            </Track.DecreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb x:Name="thumb"
+                                       Style="{DynamicResource SliderThumbStyle}" />
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Style="{DynamicResource SliderButtonStyle}"
+                                              Command="Slider.IncreaseLarge"
+                                              x:Name="rightButton" />
+                            </Track.IncreaseRepeatButton>
+                        </Track>
+                        <RepeatButton x:Name="repeatButton"
+                                      d:LayoutOverrides="Width, Height"
+                                      Style="{DynamicResource SliderRepeatButtonStyle}"
+                                      Command="Slider.DecreaseLarge">
+                            <Grid Margin="0">
+                                <Path Data="M0,0L1,0"
+                                      Fill="{x:Null}"
+                                      HorizontalAlignment="Center"
+                                      Margin="0"
+                                      Stretch="Fill"
+                                      Width="10"
+                                      VerticalAlignment="Center"
+                                      Height="2"
+                                      StrokeThickness="2"
+                                      Stroke="{ DynamicResource RoundButtonForegroundBrush}" />
+                            </Grid>
+                        </RepeatButton>
+                        <RepeatButton x:Name="repeatButton_Copy"
+                                      Style="{DynamicResource SliderRepeatButtonStyle}"
+                                      Grid.Column="2"
+                                      Command="Slider.IncreaseLarge">
+                            <Grid Margin="0">
+                                <Path Data="M0,0L0,1"
+                                      HorizontalAlignment="Center"
+                                      Margin="0"
+                                      Stretch="Fill"
+                                      Width="2"
+                                      VerticalAlignment="Center"
+                                      Height="10"
+                                      StrokeThickness="2"
+                                      Stroke="{ DynamicResource RoundButtonForegroundBrush}" />
+                                <Path Data="M0,0L1,0"
+                                      HorizontalAlignment="Center"
+                                      Margin="0"
+                                      Stretch="Fill"
+                                      Width="10"
+                                      VerticalAlignment="Center"
+                                      Height="2"
+                                      StrokeThickness="2"
+                                      Stroke="{ DynamicResource RoundButtonForegroundBrush}" />
+                            </Grid>
+                        </RepeatButton>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="leftButton">
+                            <Setter Property="Background"
+                                    TargetName="thumb"
+                                    Value="Red" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="rightButton">
+                            <Setter Property="Background"
+                                    TargetName="thumb"
+                                    Value="Red" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="thumb">
+                            <Setter Property="Background"
+                                    TargetName="thumb"
+                                    Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Width"
+                Value="133" />
+        <Setter Property="Height"
+                Value="16" />
+        <Setter Property="Maximum"
+                Value="500" />
+        <Setter Property="Minimum"
+                Value="10" />
+        <Setter Property="SmallChange"
+                Value="1" />
+        <Setter Property="LargeChange"
+                Value="10" />
+        <Setter Property="Value"
+                Value="100" />
+    </Style>
 
 </ResourceDictionary>

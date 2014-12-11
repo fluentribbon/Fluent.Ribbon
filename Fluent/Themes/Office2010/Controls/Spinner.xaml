@@ -4,7 +4,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    
+
     <!--Button in Spinner Control Style-->
     <ControlTemplate x:Key="SpinnerButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">

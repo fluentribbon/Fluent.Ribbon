@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
 
-  <ControlTemplate x:Key="GalleryGroupContainerTemplate" TargetType="{x:Type Fluent:GalleryGroupContainer}">
-    <!--<Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
+    <ControlTemplate x:Key="GalleryGroupContainerTemplate"
+                     TargetType="{x:Type Fluent:GalleryGroupContainer}">
+        <!--<Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
       <StackPanel>
         <Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
           <TextBlock Text="{TemplateBinding Header}" />
@@ -13,69 +15,111 @@
                    ItemHeight="{TemplateBinding ItemHeight}"/>
       </StackPanel>
     </Border>-->
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition/>
-      </Grid.RowDefinitions>
-      <Grid Grid.Row="0" Height="21" x:Name="headerGrid" Background="#FFF0F2F5" Grid.ColumnSpan="2" VerticalAlignment="Top">
-        <TextBlock Margin="7,0" Text="{TemplateBinding Header}" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
-      </Grid>
-      <Image Grid.Row="1" Grid.Column="0" Stretch="None" Margin="4,0,4,0" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="iconImage">
-        <!--        <Image.Source>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                  Height="21"
+                  x:Name="headerGrid"
+                  Background="#FFF0F2F5"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Top">
+                <TextBlock Margin="7,0"
+                           Text="{TemplateBinding Header}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontWeight="Bold"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis" />
+            </Grid>
+            <Image Grid.Row="1"
+                   Grid.Column="0"
+                   Stretch="None"
+                   Margin="4,0,4,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   x:Name="iconImage">
+                <!--        <Image.Source>
           <MultiBinding Converter="{StaticResource GroupIconConverter}">
             <Binding Path="Items"/>
             <Binding ElementName="layoutRoot"/>
           </MultiBinding>
         </Image.Source>-->
-      </Image>
-      <Rectangle  Grid.Row="1" Fill="{x:Null}" Stretch="Fill" Stroke="#FFE2E4E7" HorizontalAlignment="Right" Width="1" Height="Auto" Visibility="Visible" x:Name="menuLine" Margin="0,0,0,0"/>
-      <ItemsPresenter Grid.Row="1"  Grid.Column="1" Margin="0,0,0,0"/>
-      <!--<WrapPanel Grid.Column="1" Margin="0,21,0,0"
+            </Image>
+            <Rectangle  Grid.Row="1"
+                        Fill="{x:Null}"
+                        Stretch="Fill"
+                        Stroke="#FFE2E4E7"
+                        HorizontalAlignment="Right"
+                        Width="1"
+                        Height="Auto"
+                        Visibility="Visible"
+                        x:Name="menuLine"
+                        Margin="0,0,0,0" />
+            <ItemsPresenter Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,0,0,0" />
+            <!--<WrapPanel Grid.Column="1" Margin="0,21,0,0"
                    IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
                    ItemWidth ="{TemplateBinding ItemWidth}"
                    ItemHeight="{TemplateBinding ItemHeight}"/>-->
-    </Grid>
-    <ControlTemplate.Triggers>
-      <Trigger SourceName="iconImage" Property="Source" Value="{x:Null}">
-        <Setter TargetName="menuLine" Property="Visibility" Value="Collapsed"/>
-        <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed"/>
-      </Trigger>
-      <Trigger Property="IsHeadered" Value="False">
-        <Setter TargetName="headerGrid" Property="Visibility" Value="Collapsed"/>
-      </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger SourceName="iconImage"
+                     Property="Source"
+                     Value="{x:Null}">
+                <Setter TargetName="menuLine"
+                        Property="Visibility"
+                        Value="Collapsed" />
+                <Setter TargetName="iconImage"
+                        Property="Visibility"
+                        Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsHeadered"
+                     Value="False">
+                <Setter TargetName="headerGrid"
+                        Property="Visibility"
+                        Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
-  <Style x:Key="GalleryGroupContainerStyle" TargetType="{x:Type Fluent:GalleryGroupContainer}">
+    <Style x:Key="GalleryGroupContainerStyle"
+           TargetType="{x:Type Fluent:GalleryGroupContainer}">
         <Setter Property="Template"
-                Value="{DynamicResource GalleryGroupContainerTemplate}"/>
-    <Setter Property="Focusable" Value="False"/>
-    <Setter Property="ItemsPanel">
-      <Setter.Value>
-        <ItemsPanelTemplate>
-          <WrapPanel HorizontalAlignment="Left"
-                     IsItemsHost="True" Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}"
-                     ItemWidth ="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                     ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
-        </ItemsPanelTemplate>
-      </Setter.Value>
-    </Setter>
-    <Style.Triggers>
-      <Trigger Property="Orientation" Value="Vertical">
+                Value="{DynamicResource GalleryGroupContainerTemplate}" />
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="ItemsPanel">
-          <Setter.Value>
-            <ItemsPanelTemplate>
-              <StackPanel IsItemsHost="True" Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}"/>
-            </ItemsPanelTemplate>
-          </Setter.Value>
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Left"
+                               IsItemsHost="True"
+                               Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}"
+                               ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
+                               ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
         </Setter>
-      </Trigger>
-    </Style.Triggers>
-  </Style>
+        <Style.Triggers>
+            <Trigger Property="Orientation"
+                     Value="Vertical">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <StackPanel IsItemsHost="True"
+                                        Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>

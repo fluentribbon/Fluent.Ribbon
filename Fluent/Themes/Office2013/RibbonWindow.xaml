@@ -79,7 +79,7 @@
                      Value="Maximized">
                 <Setter Property="Margin"
                         TargetName="root"
-                        Value="0,-2,0,0" />                
+                        Value="0,-2,0,0" />
                 <Setter Property="Margin"
                         TargetName="content"
                         Value="0" />
@@ -93,7 +93,7 @@
         </ControlTemplate.Triggers>
 
     </ControlTemplate>
-      
+
     <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Foreground"
                 Value="White" />
@@ -103,15 +103,21 @@
                     <ControlTemplate.Resources>
                         <ResourceDictionary>
                             <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="#02FFFFFF" />
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                                <Setter Property="Padding" Value="1" />
+                                <Setter Property="Background"
+                                        Value="#02FFFFFF" />
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="VerticalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="Padding"
+                                        Value="1" />
                                 <Setter Property="Template"
-                                        Value="{DynamicResource WindowCommandsControlTemplate}"/>
+                                        Value="{DynamicResource WindowCommandsControlTemplate}" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" Value="True">
-                                        <Setter Property="Foreground" Value="White" />
+                                    <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                 Value="True">
+                                        <Setter Property="Foreground"
+                                                Value="White" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -120,7 +126,7 @@
 
                     <StackPanel Orientation="Horizontal"
                                 VerticalAlignment="Top">
-                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"                                      
+                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                       ItemTemplate="{TemplateBinding ItemTemplate}"
                                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
@@ -188,7 +194,7 @@
                                      Value="NoResize">
                             <Setter Property="Visibility"
                                     TargetName="PART_Min"
-                                    Value="Collapsed" />                            
+                                    Value="Collapsed" />
                             <Setter Property="Visibility"
                                     TargetName="PART_Max"
                                     Value="Collapsed" />
@@ -198,9 +204,9 @@
                             <Setter Property="Visibility"
                                     TargetName="PART_Max"
                                     Value="Collapsed" />
-                        </DataTrigger>                        
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
-                </ControlTemplate>                
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
@@ -296,7 +302,7 @@
                      Value="Maximized">
                 <Setter Property="ResizeBorderThickness"
                         Value="0" />
-            </Trigger>            
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

@@ -1,369 +1,822 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml"/>
-    <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml"/>
-  </ResourceDictionary.MergedDictionaries>
-  
-  <Style TargetType="Separator" x:Key="GroupBoxSeparator">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="Separator">
-          <Border Width="3" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,5,2,10" BorderThickness="1,0" BorderBrush="{DynamicResource GroupBoxSeparatorBorderBrush}" Background="{DynamicResource GroupBoxSeparatorBackgroundBrush}"/>
-          
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style x:Key="RibbonGroupBoxStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
-    <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxControlTemplate}"/>
-    <Setter Property="Width" Value="Auto"/>
-    <Setter Property="Height" Value="85"/>
-    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Style.Triggers>
-      <Trigger Property="State" Value="QuickAccess">
-        <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="Width" Value="22"/>
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-        <Setter Property="SnapsToDevicePixels" Value="False"/>
-      </Trigger>
-    </Style.Triggers>
-  </Style>
-  <Style x:Key="RibbonGroupBoxQuickAccessStyle" TargetType="{x:Type Fluent:RibbonGroupBox}">
-    <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}"/>
-    <Setter Property="Height" Value="22"/>
-    <Setter Property="Width" Value="22"/>
-    <Setter Property="Focusable" Value="False"/>
-    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="SnapsToDevicePixels" Value="False"/>
-  </Style>
-  <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">
-    <Grid Width="22">
-      <Border x:Name="PART_ButtonBorder" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch" d:LayoutOverrides="Width, Height">
-        <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
-          <Grid Height="Auto">
-            <Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
-              <Rectangle.Fill>
-                <RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
-                  <GradientStop Color="#7FFFFFFF" Offset="0"/>
-                  <GradientStop Offset="1"/>
-                </RadialGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-              <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="16" VerticalAlignment="Center" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="16" Margin="1,1,0,0" SnapsToDevicePixels="True"/>
-              <Fluent:TwoLineLabel Visibility="Collapsed" x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,-2,2,2"/>
-            </StackPanel>
-          </Grid>
-        </Border>
-      </Border>
-      <Popup
-              x:Name="PART_Popup"
-              Placement="Bottom"
-              IsOpen="{TemplateBinding IsDropDownOpen}"
-              AllowsTransparency="True"
-              Focusable="False"
-              PopupAnimation="Fade" Margin="0,0,-4,0" VerticalAlignment="Top" Grid.ColumnSpan="2" >
-        <Grid Width="Auto" Height="Auto" Margin="0,20">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
-          </Grid.RowDefinitions>
-          <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="11,-1,1,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#7F000000" Offset="0"/>
-                <GradientStop Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,11,0,1" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-            <Rectangle.Fill>
-              <LinearGradientBrush EndPoint="1.002,0" MappingMode="RelativeToBoundingBox">
-                <GradientStop Color="#7F000000" Offset="0"/>
-                <GradientStop Offset="1"/>
-              </LinearGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="-0.003,0.011" GradientOrigin="-0.003,0.011" RadiusX="1.006" RadiusY="1">
-                <GradientStop Color="#7F000000" Offset="0.002"/>
-                <GradientStop Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,5,0,0" VerticalAlignment="Top" Height="6" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="-0.01,1.004" GradientOrigin="-0.01,1.004" RadiusX="1.006" RadiusY="1">
-                <GradientStop Color="#7F000000" Offset="0.002"/>
-                <GradientStop Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Left" Margin="5,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Width="6">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="1.003,-0.006" GradientOrigin="1.003,-0.006" RadiusX="1.006" RadiusY="1">
-                <GradientStop Color="#7F000000" Offset="0.002"/>
-                <GradientStop Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
-            <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="85">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="17"/>
-              </Grid.RowDefinitions>
-              <Grid x:Name="PART_DownGrid" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="17" MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
-                <Fluent:Button Margin="0,0,1,1" x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}" VerticalAlignment="Bottom" Icon="{TemplateBinding LauncherIcon}" Header="{TemplateBinding LauncherText}" Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}" ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"  IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"/>
-              </Grid>
-              <WrapPanel x:Name="PART_UpPanel" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,0,4,0" Orientation="Vertical" />
-            </Grid>
-          </Border>
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
-        </Grid>
-      </Popup>
-    </Grid>
-    <ControlTemplate.Triggers>
-       <Trigger Property="State" Value="Collapsed">
-        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
-        <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-        <Setter Property="Text" TargetName="controlLabel" Value=""/>
-        <Setter Property="Width" TargetName="iconImage" Value="16"/>
-        <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="1,0,0,0"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="-2,-1,2,1"/>
-        <Setter Property="Width" TargetName="controlLabel" Value="10"/>
-        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>
-      </Trigger>
-            <Trigger Property="IsDropDownOpen" Value="True">
-        <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-      </Trigger>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
-        <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
-        <Setter Property="Effect" TargetName="iconImage">
-          <Setter.Value>
-            <Fluent:GrayscaleEffect/>
-          </Setter.Value>
+    <Style TargetType="Separator"
+           x:Key="GroupBoxSeparator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Border Width="3"
+                            Height="55"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="2,5,2,10"
+                            BorderThickness="1,0"
+                            BorderBrush="{DynamicResource GroupBoxSeparatorBorderBrush}"
+                            Background="{DynamicResource GroupBoxSeparatorBackgroundBrush}" />
+
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
-      </Trigger>
-      <MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsDropDownOpen" Value="False"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="PART_ButtonBorder" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-      </MultiTrigger>
-            <Trigger Property="IsLauncherVisible" Value="False">
-                <Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>
+    </Style>
+    <Style x:Key="RibbonGroupBoxStyle"
+           TargetType="{x:Type Fluent:RibbonGroupBox}">
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonGroupBoxControlTemplate}" />
+        <Setter Property="Width"
+                Value="Auto" />
+        <Setter Property="Height"
+                Value="85" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Style.Triggers>
+            <Trigger Property="State"
+                     Value="QuickAccess">
+                <Setter Property="Template"
+                        Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}" />
+                <Setter Property="Height"
+                        Value="22" />
+                <Setter Property="Width"
+                        Value="22" />
+                <Setter Property="Focusable"
+                        Value="False" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource DefaultFontBrush}" />
+                <Setter Property="SnapsToDevicePixels"
+                        Value="False" />
             </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
-  <ControlTemplate x:Key="RibbonGroupBoxControlTemplate" TargetType="{x:Type Fluent:RibbonGroupBox}">
-    <ControlTemplate.Resources>
-      <ResourceDictionary>
-      <Storyboard x:Key="OnMouseEnter1">
-        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="hoverGrid" Storyboard.TargetProperty="(UIElement.Opacity)">
-          <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
-        </DoubleAnimationUsingKeyFrames>
-      </Storyboard>
-      <Storyboard x:Key="OnMouseLeave1">
-        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="hoverGrid" Storyboard.TargetProperty="(UIElement.Opacity)">
-          <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
-        </DoubleAnimationUsingKeyFrames>
-      </Storyboard>
-      <Style TargetType="Separator" BasedOn="{StaticResource GroupBoxSeparator}"/>
-        
-          <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ScrollBarWhite}"/>
-          <Style x:Key="{x:Type ScrollViewer}" TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerStyle}"/>
-        </ResourceDictionary>
-    </ControlTemplate.Resources>
-    <Grid x:Name="grid2" HorizontalAlignment="Stretch">
-    
-        <Grid Background="#00000000">
-
-      <Grid x:Name="hoverGrid" Background="{DynamicResource GroupHoverBrush}" HorizontalAlignment="Stretch" Margin="0,0,1,1" VerticalAlignment="Stretch" Width="Auto" Height="Auto" ClipToBounds="True" Opacity="0" Grid.RowSpan="2">
-        <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Fill="{DynamicResource GroupHighlightBrush}"/>
-      </Grid>
-      <ContentControl x:Name="border1"
-                      Focusable="False">
-      <Grid x:Name="PART_ParentPanel" Margin="0,1,0,2" Grid.RowSpan="2" Height="85">
-            <Grid.RowDefinitions>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="17"/>
-      </Grid.RowDefinitions>
-        <Grid x:Name="PART_DownGrid" MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}" Margin="0,-2,2,2" Grid.Row="1" VerticalAlignment="Bottom" Height="17">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-          </Grid.ColumnDefinitions>
-          <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{TemplateBinding Header}" TextWrapping="NoWrap" Grid.Row="1" Foreground="{DynamicResource GroupBoxFontBrush}" Margin="2,0" TextTrimming="CharacterEllipsis" TextAlignment="Center"/>
-          <Fluent:Button Margin="0,0,1,1" x:Name="PART_DialogLauncherButton" HorizontalAlignment="Stretch" Width="15" Height="14" Grid.Column="1" Focusable="False" IsTabStop="False" Template="{DynamicResource DialogLauncherButtonControlTemplate}" VerticalAlignment="Bottom" Icon="{TemplateBinding LauncherIcon}" Header="{TemplateBinding LauncherText}" Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}" ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"  IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"/>
-        </Grid>
-        <WrapPanel x:Name="PART_UpPanel" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="Auto" Height="Auto" IsItemsHost="True" Margin="2,0,4,0" Orientation="Vertical" />
-      </Grid>
-      </ContentControl>
-      <Grid x:Name="grid1" Margin="0" Width="Auto" Height="Auto" Background="#00000000" Visibility="Collapsed" Grid.RowSpan="2">			
-        <Fluent:TwoLineLabel HorizontalAlignment="Center" VerticalAlignment="Top" Text="{TemplateBinding Header}" Margin="5,38,5,0" HasGlyph="True" HasTwoLines="True" Style="{DynamicResource TwoLineLabelStyle}"/>
-        <Border HorizontalAlignment="Center" VerticalAlignment="Top" Width="31" Height="31" BorderBrush="#FFD0D4D9" BorderThickness="1" Margin="5,3,8,0" CornerRadius="3">
-          <ContentPresenter x:Name="iconImage" Height="16" Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="16" SnapsToDevicePixels="True"/>
-        </Border>
-        <Popup x:Name="PART_Popup" Width="Auto" Height="Auto" AllowsTransparency="True" PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}" StaysOpen="True" IsOpen="{TemplateBinding IsDropDownOpen}">
-          <Grid Width="Auto" Height="Auto" Margin="0,20">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="5"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="5"/>
-            </Grid.RowDefinitions>
-            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="11,-1,1,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1">
-              <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox">
-                  <GradientStop Color="#7F000000" Offset="0"/>
-                  <GradientStop Offset="1"/>
-                </LinearGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,11,0,1" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-              <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="1.002,0" MappingMode="RelativeToBoundingBox">
-                  <GradientStop Color="#7F000000" Offset="0"/>
-                  <GradientStop Offset="1"/>
-                </LinearGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1">
-              <Rectangle.Fill>
-                <RadialGradientBrush Center="-0.003,0.011" GradientOrigin="-0.003,0.011" RadiusX="1.006" RadiusY="1">
-                  <GradientStop Color="#7F000000" Offset="0.002"/>
-                  <GradientStop Offset="1"/>
-                </RadialGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Stretch" Margin="-1,5,0,0" VerticalAlignment="Top" Height="6" Grid.Column="1" Grid.Row="0" Grid.RowSpan="1">
-              <Rectangle.Fill>
-                <RadialGradientBrush Center="-0.01,1.004" GradientOrigin="-0.01,1.004" RadiusX="1.006" RadiusY="1">
-                  <GradientStop Color="#7F000000" Offset="0.002"/>
-                  <GradientStop Offset="1"/>
-                </RadialGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <Rectangle Stroke="{x:Null}" StrokeThickness="0" HorizontalAlignment="Left" Margin="5,-1,0,0" VerticalAlignment="Stretch" Height="Auto" Grid.Column="0" Grid.Row="1" Grid.RowSpan="1" Width="6">
-              <Rectangle.Fill>
-                <RadialGradientBrush Center="1.003,-0.006" GradientOrigin="1.003,-0.006" RadiusX="1.006" RadiusY="1">
-                  <GradientStop Color="#7F000000" Offset="0.002"/>
-                  <GradientStop Offset="1"/>
-                </RadialGradientBrush>
-              </Rectangle.Fill>
-            </Rectangle>
-            <Border x:Name="border" Height="Auto" Grid.RowSpan="1" Background="{DynamicResource RibbonBackgoundBrush}" BorderBrush="{DynamicResource RibbonTopBorderBrush}" BorderThickness="1" CornerRadius="1" d:LayoutOverrides="Width">
-              <ContentControl x:Name="popupContent"/>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="RibbonGroupBoxQuickAccessStyle"
+           TargetType="{x:Type Fluent:RibbonGroupBox}">
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}" />
+        <Setter Property="Height"
+                Value="22" />
+        <Setter Property="Width"
+                Value="22" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="False" />
+    </Style>
+    <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate"
+                     TargetType="{x:Type Fluent:RibbonGroupBox}">
+        <Grid Width="22">
+            <Border x:Name="PART_ButtonBorder"
+                    BorderThickness="1"
+                    CornerRadius="2"
+                    Background="{DynamicResource TransparentBrush}"
+                    BorderBrush="{DynamicResource TransparentBrush}"
+                    Height="Auto"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    d:LayoutOverrides="Width, Height">
+                <Border x:Name="border1"
+                        Height="Auto"
+                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2"
+                        Background="{DynamicResource TransparentBrush}">
+                    <Grid Height="Auto">
+                        <Rectangle x:Name="rectangle"
+                                   StrokeThickness="0"
+                                   Visibility="Collapsed">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="0.503,1"
+                                                     GradientOrigin="0.503,1"
+                                                     RadiusY="0.202">
+                                    <GradientStop Color="#7FFFFFFF"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel x:Name="stackPanel"
+                                    Width="Auto"
+                                    Orientation="Vertical"
+                                    d:LayoutOverrides="Width, Height">
+                            <ContentPresenter x:Name="iconImage"
+                                              HorizontalAlignment="Center"
+                                              Height="16"
+                                              VerticalAlignment="Center"
+                                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                              Width="16"
+                                              Margin="1,1,0,0"
+                                              SnapsToDevicePixels="True" />
+                            <Fluent:TwoLineLabel Visibility="Collapsed"
+                                                 x:Name="controlLabel"
+                                                 Text="{TemplateBinding Header}"
+                                                 Style="{DynamicResource TwoLineLabelStyle}"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 Margin="2,-2,2,2" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </Border>
+            <Popup x:Name="PART_Popup"
+                   Placement="Bottom"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   PopupAnimation="Fade"
+                   Margin="0,0,-4,0"
+                   VerticalAlignment="Top"
+                   Grid.ColumnSpan="2">
+                <Grid Width="Auto"
+                      Height="Auto"
+                      Margin="0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               Margin="11,-1,1,0"
+                               VerticalAlignment="Stretch"
+                               Height="Auto"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Grid.RowSpan="1">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                                 StartPoint="0.5,0"
+                                                 MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#7F000000"
+                                              Offset="0" />
+                                <GradientStop Offset="1" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               Margin="-1,11,0,1"
+                               VerticalAlignment="Stretch"
+                               Height="Auto"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               Grid.RowSpan="1">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="1.002,0"
+                                                 MappingMode="RelativeToBoundingBox">
+                                <GradientStop Color="#7F000000"
+                                              Offset="0" />
+                                <GradientStop Offset="1" />
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               Margin="-1,-1,0,0"
+                               VerticalAlignment="Stretch"
+                               Height="Auto"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               Grid.RowSpan="1">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="-0.003,0.011"
+                                                 GradientOrigin="-0.003,0.011"
+                                                 RadiusX="1.006"
+                                                 RadiusY="1">
+                                <GradientStop Color="#7F000000"
+                                              Offset="0.002" />
+                                <GradientStop Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               Margin="-1,5,0,0"
+                               VerticalAlignment="Top"
+                               Height="6"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               Grid.RowSpan="1">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="-0.01,1.004"
+                                                 GradientOrigin="-0.01,1.004"
+                                                 RadiusX="1.006"
+                                                 RadiusY="1">
+                                <GradientStop Color="#7F000000"
+                                              Offset="0.002" />
+                                <GradientStop Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Left"
+                               Margin="5,-1,0,0"
+                               VerticalAlignment="Stretch"
+                               Height="Auto"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Grid.RowSpan="1"
+                               Width="6">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="1.003,-0.006"
+                                                 GradientOrigin="1.003,-0.006"
+                                                 RadiusX="1.006"
+                                                 RadiusY="1">
+                                <GradientStop Color="#7F000000"
+                                              Offset="0.002" />
+                                <GradientStop Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Border x:Name="border"
+                            Height="Auto"
+                            Grid.RowSpan="1"
+                            Background="{DynamicResource RibbonBackgoundBrush}"
+                            BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="1"
+                            d:LayoutOverrides="Width">
+                        <Grid x:Name="PART_ParentPanel"
+                              Margin="0,1,0,2"
+                              Grid.RowSpan="2"
+                              Height="85">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="17" />
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="PART_DownGrid"
+                                  Margin="0,-2,2,2"
+                                  Grid.Row="1"
+                                  VerticalAlignment="Bottom"
+                                  Height="17"
+                                  MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Center"
+                                           Text="{TemplateBinding Header}"
+                                           TextWrapping="NoWrap"
+                                           Grid.Row="1"
+                                           Foreground="{DynamicResource GroupBoxFontBrush}"
+                                           Margin="2,0"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextAlignment="Center" />
+                                <Fluent:Button Margin="0,0,1,1"
+                                               x:Name="PART_DialogLauncherButton"
+                                               HorizontalAlignment="Stretch"
+                                               Width="15"
+                                               Height="14"
+                                               Grid.Column="1"
+                                               Focusable="False"
+                                               IsTabStop="False"
+                                               Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                               VerticalAlignment="Bottom"
+                                               Icon="{TemplateBinding LauncherIcon}"
+                                               Header="{TemplateBinding LauncherText}"
+                                               Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                               CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
+                                               CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
+                                               ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
+                                               IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Grid>
+                            <WrapPanel x:Name="PART_UpPanel"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Stretch"
+                                       Width="Auto"
+                                       Height="Auto"
+                                       IsItemsHost="True"
+                                       Margin="2,0,4,0"
+                                       Orientation="Vertical" />
+                        </Grid>
+                    </Border>
 
-          </Grid>
-        </Popup>
-      </Grid>
-      <Border x:Name="separator" BorderBrush="{DynamicResource GroupSeparatorBorderBrush}" Background="{DynamicResource GroupSeparatorBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Height="Auto" Grid.RowSpan="2" BorderThickness="1,0"/>
-    </Grid>
-      <Image x:Name="PART_SnappedImage" Visibility="Collapsed"/>
-    </Grid>
-    <ControlTemplate.Triggers>
-      <Trigger Property="State" Value="Collapsed">
-        <Setter Property="Visibility" TargetName="grid1" Value="Visible"/>
-        <Setter Property="UIElement.Visibility" TargetName="border1" Value="Collapsed"/>
-        <Setter Property="HorizontalAlignment" TargetName="grid2" Value="Left"/>							
-        <Setter Property="Content" TargetName="border1" Value="{x:Null}"/>							
-        <Setter Property="Content" TargetName="popupContent" Value="{Binding ElementName=PART_ParentPanel}"/>
-      </Trigger>
-        <Trigger Property="IsMouseOver" Value="True">
-            <Trigger.EnterActions>
-                <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
-            </Trigger.EnterActions>
-            <Trigger.ExitActions>
-                <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
-            </Trigger.ExitActions>
-        </Trigger>
-        <Trigger Property="IsDropDownOpen" Value="True">
-            <Trigger.EnterActions>
-                <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
-            </Trigger.EnterActions>
-            <Trigger.ExitActions>
-                <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
-            </Trigger.ExitActions>
-        </Trigger>
-        <Trigger Property="IsLauncherVisible" Value="False">
-            <Setter Property="Visibility" TargetName="PART_DialogLauncherButton" Value="Collapsed"/>
-        </Trigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
-  <ControlTemplate x:Key="DialogLauncherButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
-    <Border x:Name="border" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
-      <Border x:Name="border1" Width="Auto" Height="Auto" BorderThickness="1" CornerRadius="1,0,0,0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}">
-        <Image x:Name="image" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png" SnapsToDevicePixels="True" Stretch="None" RenderTransformOrigin="0.5,0.5">
-          <Image.RenderTransform>
-            <TransformGroup>
-              <ScaleTransform/>
-              <SkewTransform/>
-              <RotateTransform/>
-              <TranslateTransform/>
-            </TransformGroup>
-          </Image.RenderTransform>
-        </Image>
-      </Border>
-    </Border>
-    <ControlTemplate.Triggers>
-      <Trigger Property="FlowDirection" Value="RightToLeft">
-        <Setter Property="RenderTransform" TargetName="image">
-          <Setter.Value>
-            <TransformGroup>
-              <ScaleTransform ScaleX="-1"/>
-              <SkewTransform/>
-              <RotateTransform/>
-              <TranslateTransform/>
-            </TransformGroup>
-          </Setter.Value>
-        </Setter>
-      </Trigger>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-      </Trigger>
-      <MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsPressed" Value="False"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-      </MultiTrigger>			
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
+                </Grid>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="State"
+                     Value="Collapsed">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
+                <Setter Property="Text"
+                        TargetName="controlLabel"
+                        Value="" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,0,0,0" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="-2,-1,2,1" />
+                <Setter Property="Width"
+                        TargetName="controlLabel"
+                        Value="10" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="controlLabel"
+                        Value="Center" />
+            </Trigger>
+            <Trigger Property="IsDropDownOpen"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsDropDownOpen"
+                               Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="IsLauncherVisible"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RibbonGroupBoxControlTemplate"
+                     TargetType="{x:Type Fluent:RibbonGroupBox}">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Storyboard x:Key="OnMouseEnter1">
+                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                   Storyboard.TargetName="hoverGrid"
+                                                   Storyboard.TargetProperty="(UIElement.Opacity)">
+                        <SplineDoubleKeyFrame KeyTime="00:00:01"
+                                              Value="1" />
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:Key="OnMouseLeave1">
+                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                   Storyboard.TargetName="hoverGrid"
+                                                   Storyboard.TargetProperty="(UIElement.Opacity)">
+                        <SplineDoubleKeyFrame KeyTime="00:00:01"
+                                              Value="0" />
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Style TargetType="Separator"
+                       BasedOn="{StaticResource GroupBoxSeparator}" />
+
+                <Style x:Key="{x:Type ScrollBar}"
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
+                <Style x:Key="{x:Type ScrollViewer}"
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Grid x:Name="grid2"
+              HorizontalAlignment="Stretch">
+
+            <Grid Background="#00000000">
+
+                <Grid x:Name="hoverGrid"
+                      Background="{DynamicResource GroupHoverBrush}"
+                      HorizontalAlignment="Stretch"
+                      Margin="0,0,1,1"
+                      VerticalAlignment="Stretch"
+                      Width="Auto"
+                      Height="Auto"
+                      ClipToBounds="True"
+                      Opacity="0"
+                      Grid.RowSpan="2">
+                    <Rectangle Stroke="{x:Null}"
+                               StrokeThickness="0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Height="Auto"
+                               Fill="{DynamicResource GroupHighlightBrush}" />
+                </Grid>
+                <ContentControl x:Name="border1"
+                                Focusable="False">
+                    <Grid x:Name="PART_ParentPanel"
+                          Margin="0,1,0,2"
+                          Grid.RowSpan="2"
+                          Height="85">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="17" />
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="PART_DownGrid"
+                              MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
+                              Margin="0,-2,2,2"
+                              Grid.Row="1"
+                              VerticalAlignment="Bottom"
+                              Height="17">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       Text="{TemplateBinding Header}"
+                                       TextWrapping="NoWrap"
+                                       Grid.Row="1"
+                                       Foreground="{DynamicResource GroupBoxFontBrush}"
+                                       Margin="2,0"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextAlignment="Center" />
+                            <Fluent:Button Margin="0,0,1,1"
+                                           x:Name="PART_DialogLauncherButton"
+                                           HorizontalAlignment="Stretch"
+                                           Width="15"
+                                           Height="14"
+                                           Grid.Column="1"
+                                           Focusable="False"
+                                           IsTabStop="False"
+                                           Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           VerticalAlignment="Bottom"
+                                           Icon="{TemplateBinding LauncherIcon}"
+                                           Header="{TemplateBinding LauncherText}"
+                                           Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                           CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
+                                           CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
+                                           ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
+                                           IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid>
+                        <WrapPanel x:Name="PART_UpPanel"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Stretch"
+                                   Width="Auto"
+                                   Height="Auto"
+                                   IsItemsHost="True"
+                                   Margin="2,0,4,0"
+                                   Orientation="Vertical" />
+                    </Grid>
+                </ContentControl>
+                <Grid x:Name="grid1"
+                      Margin="0"
+                      Width="Auto"
+                      Height="Auto"
+                      Background="#00000000"
+                      Visibility="Collapsed"
+                      Grid.RowSpan="2">
+                    <Fluent:TwoLineLabel HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         Text="{TemplateBinding Header}"
+                                         Margin="5,38,5,0"
+                                         HasGlyph="True"
+                                         HasTwoLines="True"
+                                         Style="{DynamicResource TwoLineLabelStyle}" />
+                    <Border HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Width="31"
+                            Height="31"
+                            BorderBrush="#FFD0D4D9"
+                            BorderThickness="1"
+                            Margin="5,3,8,0"
+                            CornerRadius="3">
+                        <ContentPresenter x:Name="iconImage"
+                                          Height="16"
+                                          Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                          Width="16"
+                                          SnapsToDevicePixels="True" />
+                    </Border>
+                    <Popup x:Name="PART_Popup"
+                           Width="Auto"
+                           Height="Auto"
+                           AllowsTransparency="True"
+                           PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}"
+                           StaysOpen="True"
+                           IsOpen="{TemplateBinding IsDropDownOpen}">
+                        <Grid Width="Auto"
+                              Height="Auto"
+                              Margin="0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
+                            </Grid.RowDefinitions>
+                            <Rectangle Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="11,-1,1,0"
+                                       VerticalAlignment="Stretch"
+                                       Height="Auto"
+                                       Grid.Column="0"
+                                       Grid.Row="1"
+                                       Grid.RowSpan="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0"
+                                                         MappingMode="RelativeToBoundingBox">
+                                        <GradientStop Color="#7F000000"
+                                                      Offset="0" />
+                                        <GradientStop Offset="1" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="-1,11,0,1"
+                                       VerticalAlignment="Stretch"
+                                       Height="Auto"
+                                       Grid.Column="1"
+                                       Grid.Row="0"
+                                       Grid.RowSpan="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="1.002,0"
+                                                         MappingMode="RelativeToBoundingBox">
+                                        <GradientStop Color="#7F000000"
+                                                      Offset="0" />
+                                        <GradientStop Offset="1" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="-1,-1,0,0"
+                                       VerticalAlignment="Stretch"
+                                       Height="Auto"
+                                       Grid.Column="1"
+                                       Grid.Row="1"
+                                       Grid.RowSpan="1">
+                                <Rectangle.Fill>
+                                    <RadialGradientBrush Center="-0.003,0.011"
+                                                         GradientOrigin="-0.003,0.011"
+                                                         RadiusX="1.006"
+                                                         RadiusY="1">
+                                        <GradientStop Color="#7F000000"
+                                                      Offset="0.002" />
+                                        <GradientStop Offset="1" />
+                                    </RadialGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="-1,5,0,0"
+                                       VerticalAlignment="Top"
+                                       Height="6"
+                                       Grid.Column="1"
+                                       Grid.Row="0"
+                                       Grid.RowSpan="1">
+                                <Rectangle.Fill>
+                                    <RadialGradientBrush Center="-0.01,1.004"
+                                                         GradientOrigin="-0.01,1.004"
+                                                         RadiusX="1.006"
+                                                         RadiusY="1">
+                                        <GradientStop Color="#7F000000"
+                                                      Offset="0.002" />
+                                        <GradientStop Offset="1" />
+                                    </RadialGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       HorizontalAlignment="Left"
+                                       Margin="5,-1,0,0"
+                                       VerticalAlignment="Stretch"
+                                       Height="Auto"
+                                       Grid.Column="0"
+                                       Grid.Row="1"
+                                       Grid.RowSpan="1"
+                                       Width="6">
+                                <Rectangle.Fill>
+                                    <RadialGradientBrush Center="1.003,-0.006"
+                                                         GradientOrigin="1.003,-0.006"
+                                                         RadiusX="1.006"
+                                                         RadiusY="1">
+                                        <GradientStop Color="#7F000000"
+                                                      Offset="0.002" />
+                                        <GradientStop Offset="1" />
+                                    </RadialGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Border x:Name="border"
+                                    Height="Auto"
+                                    Grid.RowSpan="1"
+                                    Background="{DynamicResource RibbonBackgoundBrush}"
+                                    BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="1"
+                                    d:LayoutOverrides="Width">
+                                <ContentControl x:Name="popupContent" />
+                            </Border>
+
+                        </Grid>
+                    </Popup>
+                </Grid>
+                <Border x:Name="separator"
+                        BorderBrush="{DynamicResource GroupSeparatorBorderBrush}"
+                        Background="{DynamicResource GroupSeparatorBackgroundBrush}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Width="3"
+                        Height="Auto"
+                        Grid.RowSpan="2"
+                        BorderThickness="1,0" />
+            </Grid>
+            <Image x:Name="PART_SnappedImage"
+                   Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="State"
+                     Value="Collapsed">
+                <Setter Property="Visibility"
+                        TargetName="grid1"
+                        Value="Visible" />
+                <Setter Property="UIElement.Visibility"
+                        TargetName="border1"
+                        Value="Collapsed" />
+                <Setter Property="HorizontalAlignment"
+                        TargetName="grid2"
+                        Value="Left" />
+                <Setter Property="Content"
+                        TargetName="border1"
+                        Value="{x:Null}" />
+                <Setter Property="Content"
+                        TargetName="popupContent"
+                        Value="{Binding ElementName=PART_ParentPanel}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsDropDownOpen"
+                     Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsLauncherVisible"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
+                     TargetType="{x:Type Fluent:Button}">
+        <Border x:Name="border"
+                BorderThickness="1"
+                CornerRadius="1,0,0,0"
+                Background="{DynamicResource TransparentBrush}"
+                BorderBrush="{DynamicResource TransparentBrush}">
+            <Border x:Name="border1"
+                    Width="Auto"
+                    Height="Auto"
+                    BorderThickness="1"
+                    CornerRadius="1,0,0,0"
+                    Background="{DynamicResource TransparentBrush}"
+                    BorderBrush="{DynamicResource TransparentBrush}">
+                <Image x:Name="image"
+                       Height="Auto"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png"
+                       SnapsToDevicePixels="True"
+                       Stretch="None"
+                       RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Border>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="FlowDirection"
+                     Value="RightToLeft">
+                <Setter Property="RenderTransform"
+                        TargetName="image">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsPressed"
+                               Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

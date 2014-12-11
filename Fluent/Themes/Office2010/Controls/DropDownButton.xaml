@@ -3,12 +3,12 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                    
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="RibbonDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template"
@@ -111,7 +111,7 @@
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Top">                  
+                      VerticalAlignment="Top">
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
                             SnapsToDevicePixels="True"

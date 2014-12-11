@@ -5,7 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid Background="#00000000">

@@ -11,7 +11,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonToolBarControlGroupTemplate"
                      TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
         <StackPanel Orientation="Horizontal">

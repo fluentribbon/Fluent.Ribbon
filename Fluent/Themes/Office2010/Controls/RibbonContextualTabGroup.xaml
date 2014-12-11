@@ -14,7 +14,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"

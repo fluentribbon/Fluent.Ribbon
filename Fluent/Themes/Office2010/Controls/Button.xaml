@@ -1,99 +1,218 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:Fluent="clr-namespace:Fluent" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
-  
-  <ControlTemplate x:Key="RibbonButtonControlTemplate" TargetType="{x:Type Fluent:Button}">
-    <Border x:Name="border" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-      <Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}">
-        <Grid Height="Auto">
-          <Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
-            <Rectangle.Fill>
-              <RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
-                <GradientStop Color="#7FFFFFFF" Offset="0"/>
-                <GradientStop Offset="1"/>
-              </RadialGradientBrush>
-            </Rectangle.Fill>
-          </Rectangle>
-          <StackPanel x:Name="stackPanel" Width="Auto" Orientation="Vertical" d:LayoutOverrides="Width, Height">
-            <ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" Width="32" Margin="3,2,3,1" SnapsToDevicePixels="True">
-            </ContentPresenter>
-            <Fluent:TwoLineLabel x:Name="controlLabel" Text="{TemplateBinding Header}" Style="{DynamicResource TwoLineLabelStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="2,-1,2,2"/>
-          </StackPanel>
-        </Grid>
-      </Border>
-    </Border>
-    <ControlTemplate.Triggers>
-      <Trigger Property="Size" Value="Small">
-        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Visibility" TargetName="controlLabel" Value="Collapsed"/>
-        <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-        <Setter Property="Width" TargetName="iconImage" Value="16"/>
-        <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>				
-        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="2,-1,2,1"/>				
-      </Trigger>
-      <Trigger Property="Size" Value="Middle">
-        <Setter Property="Orientation" TargetName="stackPanel" Value="Horizontal"/>
-        <Setter Property="Width" TargetName="stackPanel" Value="Auto"/>
-        <Setter Property="VerticalAlignment" TargetName="iconImage" Value="Center"/>
-        <Setter Property="HasTwoLines" TargetName="controlLabel" Value="False"/>
-        <Setter Property="Margin" TargetName="controlLabel" Value="2,-1,2,1"/>
-        <Setter Property="VerticalAlignment" TargetName="border" Value="Stretch"/>
-        <Setter Property="Width" TargetName="iconImage" Value="16"/>
-        <Setter Property="Height" TargetName="iconImage" Value="16"/>
-        <Setter Property="Margin" TargetName="iconImage" Value="1,0,2,0"/>			
-        <Setter Property="Content" TargetName="iconImage" Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"/>
-        <Setter Property="VerticalAlignment" TargetName="controlLabel" Value="Center"/>				
-      </Trigger>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-      </Trigger>
-      <Trigger Property="IsEnabled" Value="False">
-        <Setter Property="Opacity" TargetName="iconImage" Value="0.5"/>
-        <Setter Property="Opacity" TargetName="controlLabel" Value="0.5"/>
-        <Setter Property="Effect" TargetName="iconImage">
-          <Setter.Value>
-            <Fluent:GrayscaleEffect/>
-          </Setter.Value>
-        </Setter>
-      </Trigger>
-      <MultiTrigger>
-        <MultiTrigger.Conditions>
-          <Condition Property="IsMouseOver" Value="True"/>
-          <Condition Property="IsPressed" Value="False"/>
-          <Condition Property="IsEnabled" Value="True"/>
-        </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
-        <Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
-      </MultiTrigger>
-    </ControlTemplate.Triggers>
-  </ControlTemplate>
-  <Style x:Key="RibbonButtonStyle" TargetType="{x:Type Fluent:Button}">
-    <Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}"/>
-    <Setter Property="Height" Value="68"/>
-    <Setter Property="Width" Value="Auto"/>
-    <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}"/>
-    <Setter Property="SnapsToDevicePixels" Value="False"/>
-    <Style.Triggers>
-      <Trigger Property="Size" Value="Large">
-        <Setter Property="Height" Value="68"/>
-      </Trigger>
-      <Trigger Property="Size" Value="Middle">
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-      </Trigger>
-      <Trigger Property="Size" Value="Small">
-        <Setter Property="Height" Value="22"/>
-        <Setter Property="Width" Value="22"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-      </Trigger>
-    </Style.Triggers>
-  </Style>    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+
+    <ControlTemplate x:Key="RibbonButtonControlTemplate"
+                     TargetType="{x:Type Fluent:Button}">
+        <Border x:Name="border"
+                BorderThickness="1"
+                CornerRadius="2"
+                Background="{DynamicResource TransparentBrush}"
+                BorderBrush="{DynamicResource TransparentBrush}"
+                Height="Auto"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch">
+            <Border x:Name="border1"
+                    Height="Auto"
+                    BorderBrush="{DynamicResource TransparentBrush}"
+                    BorderThickness="1"
+                    CornerRadius="2"
+                    Background="{DynamicResource TransparentBrush}">
+                <Grid Height="Auto">
+                    <Rectangle x:Name="rectangle"
+                               StrokeThickness="0"
+                               Visibility="Collapsed">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.503,1"
+                                                 GradientOrigin="0.503,1"
+                                                 RadiusY="0.202">
+                                <GradientStop Color="#7FFFFFFF"
+                                              Offset="0" />
+                                <GradientStop Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <StackPanel x:Name="stackPanel"
+                                Width="Auto"
+                                Orientation="Vertical"
+                                d:LayoutOverrides="Width, Height">
+                        <ContentPresenter x:Name="iconImage"
+                                          HorizontalAlignment="Center"
+                                          Height="32"
+                                          VerticalAlignment="Center"
+                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                          Width="32"
+                                          Margin="3,2,3,1"
+                                          SnapsToDevicePixels="True">
+                        </ContentPresenter>
+                        <Fluent:TwoLineLabel x:Name="controlLabel"
+                                             Text="{TemplateBinding Header}"
+                                             Style="{DynamicResource TwoLineLabelStyle}"
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Center"
+                                             Margin="2,-1,2,2" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="Visibility"
+                        TargetName="controlLabel"
+                        Value="Collapsed" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,0,2,0" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="2,-1,2,1" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="Width"
+                        TargetName="stackPanel"
+                        Value="Auto" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="iconImage"
+                        Value="Center" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="2,-1,2,1" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="border"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,0,2,0" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="controlLabel"
+                        Value="Center" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsPressed"
+                               Value="False" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border1"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="RibbonButtonStyle"
+           TargetType="{x:Type Fluent:Button}">
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonButtonControlTemplate}" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="Width"
+                Value="Auto" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="False" />
+        <Style.Triggers>
+            <Trigger Property="Size"
+                     Value="Large">
+                <Setter Property="Height"
+                        Value="68" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Height"
+                        Value="22" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Height"
+                        Value="22" />
+                <Setter Property="Width"
+                        Value="22" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

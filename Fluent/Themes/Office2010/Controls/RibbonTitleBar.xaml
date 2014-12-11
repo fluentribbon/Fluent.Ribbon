@@ -16,7 +16,7 @@
         <Setter Property="TextBlock.FontWeight"
                 Value="{DynamicResource {x:Static SystemFonts.CaptionFontWeightKey}}" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTitleBar}">
         <Grid Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
@@ -36,7 +36,7 @@
                         TargetName="PART_QuickAccessToolbarHolder" />
                 <Setter Property="Visibility"
                         Value="Collapsed"
-                        TargetName="PART_ItemsContainer" />                
+                        TargetName="PART_ItemsContainer" />
             </Trigger>
             <Trigger Property="HideContextTabs"
                      Value="True">
@@ -45,7 +45,7 @@
                         TargetName="PART_ItemsContainer" />
                 <Setter Property="Visibility"
                         Value="Collapsed"
-                        TargetName="PART_QuickAccessToolbarHolder" />                
+                        TargetName="PART_QuickAccessToolbarHolder" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

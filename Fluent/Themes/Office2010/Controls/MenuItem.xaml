@@ -7,7 +7,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
         <Grid Background="#00000000">
@@ -412,7 +412,7 @@
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Stretch">                  
+                      VerticalAlignment="Stretch">
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
@@ -724,7 +724,7 @@
                 <Grid x:Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Stretch">                 
+                      VerticalAlignment="Stretch">
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
