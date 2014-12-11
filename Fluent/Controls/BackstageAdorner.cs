@@ -23,10 +23,10 @@ namespace Fluent
         #region Fields
 
         // Backstage
-        private readonly UIElement backstage;
+        private readonly Backstage backstage;
 
-        // Adorner offset from top of window
-        private readonly double topOffset;
+        // Content of Backstage
+        private readonly UIElement backstageContent;
 
         // Collection of visual children
         private readonly VisualCollection visualChildren;
@@ -40,17 +40,17 @@ namespace Fluent
         /// </summary>
         /// <param name="adornedElement">Adorned element</param>
         /// <param name="backstage">Backstage</param>
-        /// <param name="topOffset">Adorner offset from top of window</param>
-        public BackstageAdorner(FrameworkElement adornedElement, UIElement backstage, double topOffset)
+        public BackstageAdorner(FrameworkElement adornedElement, Backstage backstage)
             : base(adornedElement)
         {
             KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
 
             this.backstage = backstage;
-            this.topOffset = topOffset;
+            this.backstageContent = this.backstage.Content;
+
             this.visualChildren = new VisualCollection(this) 
                 {
-                    this.backstage
+                    this.backstageContent
                 };
 
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
@@ -84,6 +84,14 @@ namespace Fluent
 
         #endregion
 
+        // Adorner offset from top of window
+        private double GetTopOffset()
+        {
+            var topOffset = this.TranslatePoint(new Point(0, this.backstage.ActualHeight), this.AdornedElement).Y;
+
+            return topOffset;
+        }
+
         #region Layout & Visual Children
 
         /// <summary>
@@ -96,7 +104,9 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.backstage.Arrange(new Rect(0, this.topOffset, finalSize.Width, Math.Max(0, finalSize.Height - this.topOffset)));
+            var topOffset = this.GetTopOffset();
+
+            this.backstageContent.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0, finalSize.Height - topOffset)));
             return finalSize;
         }
 
@@ -109,8 +119,10 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
+            var topOffset = this.GetTopOffset();
+
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            this.backstage.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height - this.topOffset)));
+            this.backstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height - topOffset)));
             return this.AdornedElement.RenderSize;
         }
 
