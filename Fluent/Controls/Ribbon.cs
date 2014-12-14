@@ -28,6 +28,10 @@ using System.Windows.Markup;
 
 namespace Fluent
 {
+    using System.ComponentModel;
+    using System.Windows.Media;
+    using Microsoft.Win32;
+
     // TODO: improve style parts naming & using
 
     /// <summary>
@@ -1447,6 +1451,8 @@ namespace Fluent
 
             if (this.TitleBar != null)
             {
+                this.UpdateTitleBarHeight();
+
                 foreach (var contextualTabGroup in this.ContextualGroups)
                 {
                     this.TitleBar.Items.Add(contextualTabGroup);
@@ -1705,6 +1711,8 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+
             this.keyTipService.Attach();
 
             this.AttachToWindow();
@@ -1726,6 +1734,8 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
+
             this.SaveState();
 
             keyTipService.Detach();
@@ -1870,6 +1880,12 @@ namespace Fluent
         /// </summary>
         public void LoadState()
         {
+            // Don't save or load state in design mode
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
             if (!this.AutomaticStateManagement)
             {
                 return;
@@ -1937,6 +1953,12 @@ namespace Fluent
         /// <param name="stream">Stream</param>
         public void SaveState(Stream stream)
         {
+            // Don't save or load state in design mode
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
             var builder = new StringBuilder();
 
             var isMinimizedSaveState = this.IsMinimized;
@@ -2134,18 +2156,50 @@ namespace Fluent
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
-            Ribbon ribbon = (Ribbon)d;
-            if (ribbon.suppressAutomaticStateManagement) return false;
+            var ribbon = (Ribbon)d;
+            if (ribbon.suppressAutomaticStateManagement)
+            {
+                return false;
+            }
             return basevalue;
         }
 
         static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Ribbon ribbon = (Ribbon)d;
-            if ((bool)e.NewValue) ribbon.InitialLoadState();
+            var ribbon = (Ribbon)d;
+            if ((bool)e.NewValue)
+            {
+                ribbon.InitialLoadState();
+            }
         }
 
         #endregion
+
+        #endregion
+
+        #region Size calculations
+
+        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            // When Window related settings are changed
+            if (e.Category == UserPreferenceCategory.Window)
+            {
+                this.UpdateTitleBarHeight();
+            }
+        }
+
+        private void UpdateTitleBarHeight()
+        {
+            var formattedText = new FormattedText(
+                RibbonProperties.HeightCalculationText,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(this.TitleBar.FontFamily, this.TitleBar.FontStyle, this.TitleBar.FontWeight, FontStretches.Normal),
+                this.TitleBar.FontSize,
+                Brushes.Black);
+
+            RibbonProperties.SetTitleBarHeight(this, Math.Max(formattedText.Height, RibbonProperties.MinTitleBarHeight));
+        }
 
         #endregion
     }

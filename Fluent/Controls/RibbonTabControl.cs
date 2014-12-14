@@ -7,23 +7,24 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-
 namespace Fluent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Linq;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media;
     using Fluent.Metro.Native;
+    using Microsoft.Win32;
 
     /// <summary>
     /// Represents ribbon tab control
@@ -200,6 +201,18 @@ namespace Fluent
         internal static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
+        internal GridLength CalculatedHeight
+        {
+            get { return (GridLength)GetValue(CalculatedHeightProperty); }
+            private set { SetValue(calculatedHeightPropertyKey, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CalculatedHeight.  This enables animation, styling, binding, etc...
+        private static readonly DependencyPropertyKey calculatedHeightPropertyKey =
+            DependencyProperty.RegisterReadOnly("CalculatedHeight", typeof(GridLength), typeof(RibbonTabControl), new PropertyMetadata(GridLength.Auto));
+
+        internal static readonly DependencyProperty CalculatedHeightProperty = calculatedHeightPropertyKey.DependencyProperty;
+
         /// <summary>
         /// Gets collection of ribbon toolbar items
         /// </summary>
@@ -319,6 +332,9 @@ namespace Fluent
             ContextMenuService.Coerce(this);
 
             this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
+
+            this.UpdateHeight();
         }
 
         #endregion
@@ -654,6 +670,12 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
         }
 
         // Handles GeneratorStatus changed
@@ -803,6 +825,35 @@ namespace Fluent
             {
                 handler(this, null);
             }
+        }
+
+        #endregion
+
+        #region Size calculations
+
+        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            // When Window related settings are changed
+            if (e.Category == UserPreferenceCategory.Window)
+            {
+                this.UpdateHeight();
+            }
+        }
+
+        private void UpdateHeight()
+        {
+            var formattedText = new FormattedText(
+                RibbonProperties.HeightCalculationText,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(this.FontFamily, this.FontStyle, this.FontWeight, FontStretches.Normal),
+                this.FontSize,
+                Brushes.Black);
+
+            // 9 (default Windows font size) = 12 (default WPF font size) = 15.96 (formatted height with default font size)
+            // 94 (default height) / 15.96 = 5.889724310776942 (factor)
+            var calculatedHeight = formattedText.Height * 5.889724310776942;
+            this.CalculatedHeight = new GridLength(Math.Max(calculatedHeight, 94));
         }
 
         #endregion

@@ -10,9 +10,17 @@
     /// </summary>
     public class RibbonProperties
     {
+        /// <summary>
+        /// Text which is used to calculate max height of <see cref="RibbonTitleBar"/> and <see cref="RibbonTabControl"/>
+        /// </summary>
+        public const string HeightCalculationText = "AgqÖ";
+
         #region TitleBarHeight Property
 
-        public const double MIN_TITLE_BAR_HEIGHT = 25;
+        /// <summary>
+        /// Defines the minimum height of the titlebar
+        /// </summary>
+        public const double MinTitleBarHeight = 25;
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for TitleBarHeight.  
@@ -20,7 +28,7 @@
         /// </summary>
         public static readonly DependencyProperty TitleBarHeightProperty =
             DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata(MIN_TITLE_BAR_HEIGHT, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
+                new FrameworkPropertyMetadata(MinTitleBarHeight, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Sets TitleBarHeight for element
