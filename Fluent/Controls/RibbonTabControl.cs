@@ -201,17 +201,19 @@ namespace Fluent
         internal static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
-        internal GridLength CalculatedHeight
+        public GridLength CalculatedHeight
         {
             get { return (GridLength)GetValue(CalculatedHeightProperty); }
             private set { SetValue(calculatedHeightPropertyKey, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CalculatedHeight.  This enables animation, styling, binding, etc...
         private static readonly DependencyPropertyKey calculatedHeightPropertyKey =
             DependencyProperty.RegisterReadOnly("CalculatedHeight", typeof(GridLength), typeof(RibbonTabControl), new PropertyMetadata(GridLength.Auto));
 
-        internal static readonly DependencyProperty CalculatedHeightProperty = calculatedHeightPropertyKey.DependencyProperty;
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CalculatedHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CalculatedHeightProperty = calculatedHeightPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets collection of ribbon toolbar items
