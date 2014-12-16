@@ -201,6 +201,9 @@ namespace Fluent
         internal static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the calculated height of this control based on <see cref="Control.FontSize"/>, <see cref="Control.FontWeight"/>, <see cref="Control.FontFamily"/> and <see cref="Control.FontStyle"/>.
+        /// </summary>
         public GridLength CalculatedHeight
         {
             get { return (GridLength)GetValue(CalculatedHeightProperty); }
