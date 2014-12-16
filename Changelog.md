@@ -1,5 +1,29 @@
 # Changelog for Fluent.Ribbon
 
+## 3.2.0
+- ### Features
+  - [#31](../../issues/31) "System wide font settings."
+  - [#38](../../issues/38) "A simple code to enable RibbonTabControl react to touch manipulation"
+
+- ### Misc
+  - Ribbon, RibbonTitleBar and RibbonStatusBar now use SystemFonts.MenuFont* as font settings
+
+- ### Bug fixes
+  - [#23](../../issues/23) "Drop support for ancient .NET 3.5"
+  - [#24](../../issues/24) "RibbonTitleBar.MeasureOverride should not return the constraint parameter value"
+  - [#25](../../issues/25) "Press Alt key without Backstage raises ArgumentNullException"
+  - [#28](../../issues/28) "Height and FontSize of MenuItem"
+  - [#30](../../issues/30) "Line break in _minimizeButtonScreenTipText"
+  - [#33](../../issues/33) "Fix Issue #24 : measureoverride"
+  - [#35](../../issues/35) "Quick Access Toolbar IsChecked never correctly set"
+  - [#36](../../issues/36) "Fix size of group box controls with large font."
+  - [#39](../../issues/39) "Application menu button has wrong height"
+  - [#40](../../issues/40) "Simplified Chinese translation may be wrong"
+  - [#41](../../issues/41) "Fix issue #30 - Line break in _minimizeButtonScreenTipText"
+  - [#42](../../issues/42) "Set correct height on backstage and application menu button"
+  - [#43](../../issues/43) "Added delay in ClosePopupOnMouseDown feature"
+  - [#44](../../issues/44) "Little Bug in Office2013 style"
+
 ## 3.1.0
 - ### Features
  - Added DropDownButton.ClosePopupOnMouseDown property which defaults to false. If true, it will close the drop down popup automatically when a mouse down event occurs.
