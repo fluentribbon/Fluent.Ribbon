@@ -4,7 +4,99 @@
     <SolidColorBrush x:Key="BackstageBackgroundBrush"
                      Color="White" />
 
+
     <LinearGradientBrush x:Key="BackstagePanelShadowBackgroundBrush"
+                         EndPoint="1.012,0">
+        <GradientStop Color="#00000000"
+                      Offset="0" />
+        <GradientStop Color="#19000000"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="BackstageTopBackgroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#3FFFFFFF"
+                      Offset="0.49" />
+        <GradientStop Color="#3F000000"
+                      Offset="0.5" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="BackstageTopOpacityBrush"
+                         EndPoint="1,0.5"
+                         StartPoint="0,0.5">
+        <GradientStop Color="Black"
+                      Offset="0" />
+        <GradientStop Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush"
+                     Color="#A4CEF9" />
+    <LinearGradientBrush x:Key="ButtonHoverOuterBorderBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#A4CEF9"
+                      Offset="0" />
+        <GradientStop Color="#A4CEF9"
+                      Offset="1" />
+        <GradientStop Color="#A4CEF9"
+                      Offset="0.75" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonHoverInnerBackgroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#E8EFF7"
+                      Offset="0" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="1" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="0.5" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="0.75" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonHoverInnerBorderBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#E8EFF7"
+                      Offset="0" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="1" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="0.75" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush"
+                     Color="#FFDCA351" />
+    <LinearGradientBrush x:Key="ButtonPressedOuterBorderBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#62A2E4"
+                      Offset="0" />
+        <GradientStop Color="#62A2E4"
+                      Offset="1" />
+        <GradientStop Color="#62A2E4"
+                      Offset="0.5" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonPressedInnerBackgroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#E8EFF7"
+                      Offset="0" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="1" />
+        <GradientStop Color="#E8EFF7"
+                      Offset="0.5" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="ButtonPressedInnerBorderBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#C9E0F7"
+                      Offset="0" />
+        <GradientStop Color="#C9E0F7"
+                      Offset="1" />
+        <GradientStop Color="#C9E0F7"
+                      Offset="0.5" />
+    </LinearGradientBrush>
+    
+    <!--<LinearGradientBrush x:Key="BackstagePanelShadowBackgroundBrush"
                          EndPoint="1.012,0">
         <GradientStop Color="#00000000"
                       Offset="0" />
@@ -93,7 +185,7 @@
                       Offset="1" />
         <GradientStop Color="#FFF8D172"
                       Offset="0.5" />
-    </LinearGradientBrush>
+    </LinearGradientBrush>-->
 
     <SolidColorBrush x:Key="TransparentBrush"
                      Color="#00000000" />
