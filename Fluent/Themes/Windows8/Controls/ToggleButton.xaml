@@ -41,7 +41,7 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="2"
+
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
@@ -51,7 +51,7 @@
                     Height="Auto"
                     BorderBrush="{DynamicResource TransparentBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="2"
+                
                     Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto">
                     <Rectangle x:Name="rectangle"
