@@ -412,22 +412,6 @@
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Storyboard x:Key="OnMouseEnter1">
-                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="hoverGrid"
-                                                   Storyboard.TargetProperty="(UIElement.Opacity)">
-                        <SplineDoubleKeyFrame KeyTime="00:00:01"
-                                              Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
-                <Storyboard x:Key="OnMouseLeave1">
-                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                   Storyboard.TargetName="hoverGrid"
-                                                   Storyboard.TargetProperty="(UIElement.Opacity)">
-                        <SplineDoubleKeyFrame KeyTime="00:00:01"
-                                              Value="0" />
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
                 <Style TargetType="Separator"
                        BasedOn="{StaticResource GroupBoxSeparator}" />
 
@@ -444,23 +428,6 @@
 
             <Grid Background="#00000000">
 
-                <Grid x:Name="hoverGrid"
-                      Background="{DynamicResource GroupHoverBrush}"
-                      HorizontalAlignment="Stretch"
-                      Margin="0,0,1,1"
-                      VerticalAlignment="Stretch"
-                      Width="Auto"
-                      Height="Auto"
-                      ClipToBounds="True"
-                      Opacity="0"
-                      Grid.RowSpan="2">
-                    <Rectangle Stroke="{x:Null}"
-                               StrokeThickness="0"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"
-                               Height="Auto"
-                               Fill="{DynamicResource GroupHighlightBrush}" />
-                </Grid>
                 <ContentControl x:Name="border1"
                                 Focusable="False">
                     <Grid x:Name="PART_ParentPanel"
@@ -708,24 +675,7 @@
                         TargetName="popupContent"
                         Value="{Binding ElementName=PART_ParentPanel}" />
             </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
-                </Trigger.ExitActions>
-            </Trigger>
-            <Trigger Property="IsDropDownOpen"
-                     Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}" />
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard Storyboard="{StaticResource OnMouseLeave1}" />
-                </Trigger.ExitActions>
-            </Trigger>
+            
             <Trigger Property="IsLauncherVisible"
                      Value="False">
                 <Setter Property="Visibility"

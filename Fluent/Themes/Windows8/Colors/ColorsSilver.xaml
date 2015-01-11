@@ -38,21 +38,7 @@
                      Color="#FF212121" />
     <SolidColorBrush x:Key="TabItemFontBrush"
                      Color="#FF212121" />
-    <LinearGradientBrush x:Key="GroupHoverBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFFEFEFE"
-                      Offset="0" />
-        <GradientStop Color="#FFE3E7EE"
-                      Offset="1" />
-    </LinearGradientBrush>
-
-    <RadialGradientBrush x:Key="GroupHighlightBrush"
-                         Center="0.505,1"
-                         GradientOrigin="0.505,1">
-        <GradientStop Color="#BFFFFFFF" />
-        <GradientStop Offset="1" />
-    </RadialGradientBrush>
+    
     <LinearGradientBrush x:Key="StatusBarBorderBrushBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">
