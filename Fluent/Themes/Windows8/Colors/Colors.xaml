@@ -391,9 +391,6 @@
                       Offset="1" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="RibbonWindowTitleTextGlowBackground"
-                     Color="#7FFFFFFF" />
-
     <SolidColorBrush x:Key="MenuItemBackground"
                      Color="#00000000" />
 </ResourceDictionary>
