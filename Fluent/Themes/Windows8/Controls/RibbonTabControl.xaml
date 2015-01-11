@@ -454,6 +454,9 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+                            
+                            <!-- Not sure if this the right way to set the back ground -->
+                            <Rectangle Fill="White" Grid.ColumnSpan="2" Margin="0,0,0,1"/>
 
                             <DockPanel LastChildFill="True">
                                 <ContentPresenter VerticalAlignment="Stretch"
