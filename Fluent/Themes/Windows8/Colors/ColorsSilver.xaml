@@ -1,17 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="RibbonTopBorderBrush"
-                     Color="#FFB6BABF" />
-    <LinearGradientBrush x:Key="RibbonBackgoundBrush"
+                     Color="#DADBDC" />
+    <SolidColorBrush x:Key="RibbonBackgoundBrush"
+                     Color="#F5F6F7" />
+    <!--<LinearGradientBrush x:Key="RibbonBackgoundBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">
-        <GradientStop Color="White"
+        <GradientStop Color="Yellow"
                       Offset="0.53" />
         <GradientStop Color="#FFE5E9EE"
                       Offset="1" />
-    </LinearGradientBrush>
+    </LinearGradientBrush>-->
     <SolidColorBrush x:Key="ActiveTabBackgroundBrush"
-                     Color="White" />
+                     Color="#F5F6F7" />
     <LinearGradientBrush x:Key="GroupSeparatorBackgroundBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">
