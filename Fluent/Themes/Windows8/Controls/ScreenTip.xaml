@@ -1,0 +1,447 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Style x:Key="ToolTipStyle"
+           TargetType="{x:Type ToolTip}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <!--<ControlTemplate TargetType="Label">-->
+                <ControlTemplate TargetType="{x:Type ToolTip}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5" />
+                        </Grid.RowDefinitions>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="11,-1,1,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0"
+                                                     MappingMode="RelativeToBoundingBox">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,11,0,1"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1.002,0"
+                                                     MappingMode="RelativeToBoundingBox">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,-1,0,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="-0.003,0.011"
+                                                     GradientOrigin="-0.003,0.011"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,5,0,0"
+                                   VerticalAlignment="Top"
+                                   Height="6"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="-0.01,1.004"
+                                                     GradientOrigin="-0.01,1.004"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Left"
+                                   Margin="5,-1,0,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1"
+                                   Width="6">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="1.003,-0.006"
+                                                     GradientOrigin="1.003,-0.006"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Border Grid.RowSpan="1"
+                                CornerRadius="2"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ScreenTipBorderBrush}"
+                                Background="{DynamicResource ScreenTipBackgroundBrush}">
+                            <ContentPresenter Margin="4,4,4,4" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ScreenTipStyle"
+           TargetType="{x:Type Fluent:ScreenTip}">
+        <!--<Style x:Key="FFF" TargetType="Label">-->
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Width"
+                Value="205" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <!--<ControlTemplate TargetType="Label">-->
+                <ControlTemplate TargetType="{x:Type Fluent:ScreenTip}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5" />
+                        </Grid.RowDefinitions>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="11,-1,1,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0"
+                                                     MappingMode="RelativeToBoundingBox">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,11,0,1"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1.002,0"
+                                                     MappingMode="RelativeToBoundingBox">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,-1,0,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="1"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="-0.003,0.011"
+                                                     GradientOrigin="-0.003,0.011"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="-1,5,0,0"
+                                   VerticalAlignment="Top"
+                                   Height="6"
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="1">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="-0.01,1.004"
+                                                     GradientOrigin="-0.01,1.004"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Rectangle Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Left"
+                                   Margin="5,-1,0,0"
+                                   VerticalAlignment="Stretch"
+                                   Height="Auto"
+                                   Grid.Column="0"
+                                   Grid.Row="1"
+                                   Grid.RowSpan="1"
+                                   Width="6">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush Center="1.003,-0.006"
+                                                     GradientOrigin="1.003,-0.006"
+                                                     RadiusX="1.006"
+                                                     RadiusY="1">
+                                    <GradientStop Color="#7F000000"
+                                                  Offset="0.002" />
+                                    <GradientStop Offset="1"
+                                                  Color="#00000000" />
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Border Grid.RowSpan="1"
+                                CornerRadius="2"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ScreenTipBorderBrush}"
+                                Background="{DynamicResource ScreenTipBackgroundBrush}">
+                            <Grid>
+                                <StackPanel x:Name="screenTipPanel">
+                                    <TextBlock x:Name="title"
+                                               TextWrapping="Wrap"
+                                               Margin="7,8,7,10"
+                                               FontWeight="Bold"
+                                               Text="{TemplateBinding Property=Title}" />
+                                    <Grid x:Name="imageAndTextSection">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Margin="7,5,3,7"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Source="{TemplateBinding Property=Image}"
+                                               MaxHeight="48" />
+                                        <TextBlock Text="{TemplateBinding Property=Text}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="8,0,8,6"
+                                                   Foreground="#FF414141"
+                                                   Grid.Column="1" />
+                                    </Grid>
+                                    <Border x:Name="separator"
+                                            Height="2"
+                                            Width="Auto"
+                                            HorizontalAlignment="Stretch"
+                                            Visibility="{Binding ElementName=disableReasonSection, Path=Visibility}"
+                                            BorderBrush="White"
+                                            Margin="5"
+                                            Background="#FF9199A4"
+                                            BorderThickness="0,0,0,1"
+                                            IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" />
+                                    <Grid x:Name="disableReasonSection">
+                                        <Image Width="16"
+                                               Height="16"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="5,0,0,0"
+                                               Source="{DynamicResource ScreenTipWarningImage}" />
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock x:Name="disableReasonHeader"
+                                                       x:Uid="disableReasonHeader"
+                                                       Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipDisableReasonHeader, Mode=OneWay}"
+                                                       TextWrapping="Wrap"
+                                                       Margin="28,0,5,2"
+                                                       Foreground="#FF414141"
+                                                       HorizontalAlignment="Stretch"
+                                                       Grid.Row="0"
+                                                       FontWeight="Bold" />
+                                            <TextBlock x:Name="disableReasonText"
+                                                       Text="{TemplateBinding Property=DisableReason}"
+                                                       TextWrapping="Wrap"
+                                                       Margin="28,0,5,6"
+                                                       Foreground="#FF414141"
+                                                       HorizontalAlignment="Stretch"
+                                                       Grid.Row="1" />
+                                            <TextBlock x:Name="helpText"
+                                                       TextWrapping="Wrap"
+                                                       Margin="28,0,5,6"
+                                                       Foreground="#FF414141"
+                                                       Grid.RowSpan="1"
+                                                       Grid.Row="2"
+                                                       HorizontalAlignment="Stretch"
+                                                       Text="{Binding Text, ElementName=textBlock, Mode=Default}" />
+                                        </Grid>
+                                    </Grid>
+                                    <Border x:Name="separator2"
+                                            Height="2"
+                                            Width="Auto"
+                                            HorizontalAlignment="Stretch"
+                                            Visibility="{TemplateBinding Property=HelpLabelVisibility}"
+                                            BorderBrush="White"
+                                            Margin="5"
+                                            Background="#FF9199A4"
+                                            BorderThickness="0,0,0,1" />
+                                    <Grid x:Name="helpSection"
+                                          Visibility="{TemplateBinding Property=HelpLabelVisibility}">
+                                        <Image Width="16"
+                                               Height="16"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Margin="5,0,0,0"
+                                               Source="{DynamicResource ScreenTipHelpImage}" />
+                                        <TextBlock x:Uid="HelpText"
+                                                   x:Name="textBlock"
+                                                   Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipF1LabelHeader, Mode=OneWay}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="28,0,6,6"
+                                                   Foreground="#FF414141"
+                                                   FontWeight="Bold"
+                                                   HorizontalAlignment="Stretch" />
+                                        <ContentControl x:Name="helpTopic"
+                                                        Content="{TemplateBinding Property=HelpTopic}"
+                                                        Visibility="Collapsed" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 SourceName="separator"
+                                 Value="False">
+                            <Setter Property="Visibility"
+                                    TargetName="disableReasonSection"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 SourceName="separator"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="disableReasonSection"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Content"
+                                           SourceName="helpTopic"
+                                           Value="{x:Null}" />
+                                <Condition Property="Text"
+                                           Value=""
+                                           SourceName="disableReasonText" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="separator"
+                                    Value="Collapsed" />
+                        </MultiTrigger>
+                        <Trigger Property="Text"
+                                 SourceName="disableReasonText"
+                                 Value="">
+                            <Setter Property="Visibility"
+                                    TargetName="disableReasonSection"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Content"
+                                 SourceName="helpTopic"
+                                 Value="{x:Null}">
+                            <Setter Property="Visibility"
+                                    TargetName="helpText"
+                                    Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="helpSection"
+                                    Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="separator2"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Visibility"
+                                 SourceName="disableReasonSection"
+                                 Value="Visible">
+                            <Setter Property="Visibility"
+                                    TargetName="helpText"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text"
+                                           Value="" />
+                                <Condition Property="Image"
+                                           Value="{x:Null}" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="imageAndTextSection"
+                                    Value="Collapsed" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

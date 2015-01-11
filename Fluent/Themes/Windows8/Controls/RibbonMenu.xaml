@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\MenuSeparator.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="Fluent:RibbonMenu">
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Fluent:RibbonMenu">
+                    <ControlTemplate.Resources>
+                        <Style BasedOn="{StaticResource MenuSeparatorStyle}"
+                               TargetType="{x:Type Separator}" />
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <Rectangle Fill="{x:Null}"
+                                   Stretch="Fill"
+                                   Stroke="#FFE2E4E7"
+                                   HorizontalAlignment="Left"
+                                   Margin="24,0,0,0"
+                                   Width="1"
+                                   Height="Auto"
+                                   Grid.RowSpan="2"
+                                   Visibility="Visible" />
+                        <StackPanel x:Name="menuPanel"
+                                    Orientation="Vertical"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Continue" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -87,7 +87,8 @@
         private enum Theme
         {
             Office2010,
-            Office2013
+            Office2013,
+			Windows8
         }
 
         private Theme? currentTheme;
@@ -111,6 +112,13 @@
         {
             this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
         }
+
+		private void OnWindows8Click(object sender, RoutedEventArgs e)
+		{
+			//this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Windows8/Silver.xaml");
+			this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
+		}
+
 
         private void ChangeTheme(Theme theme, string color)
         {
@@ -141,13 +149,17 @@
                     {
                         case Theme.Office2010:
                             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+							Application.Current.Resources.MergedDictionaries.RemoveAt(0);
                             break;
-                        case Theme.Office2013:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                    }
+						case Theme.Office2013:
+							Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
+							Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+							break;
+						case Theme.Windows8:
+							Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Windows8/Generic.xaml") });
+							Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+							break;
+					}
 
                     this.currentTheme = theme;
                     Application.Current.Resources.EndInit();
