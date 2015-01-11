@@ -426,44 +426,60 @@
   <ControlTemplate x:Key="BackstageToggleButtonControlTemplate" TargetType="{x:Type Fluent:Backstage}">
     <Grid Margin="0">
       <ContentControl x:Name="buttonContent" Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}" Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}" Margin="0">
-        <Border x:Name="PART_ButtonBorder" MinWidth="56" Height="24" CornerRadius="2,2,0,0" Background="{TemplateBinding Background}">
-          <Border x:Name="border1" BorderThickness="1,1,1,0" CornerRadius="2,2,0,0">
-            <Border.BorderBrush>
-              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#997C7C7C" Offset="0" />
-                <GradientStop Color="#7F848484" Offset="1" />
-              </LinearGradientBrush>
-            </Border.BorderBrush>
-            <Border x:Name="border" BorderThickness="1,1,1,0" CornerRadius="1,1,0,0">
-              <Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                  <GradientStop Color="#72FFFFFF" Offset="0" />
-                  <GradientStop Color="#4CFFFFFF" Offset="1" />
-                </LinearGradientBrush>
-              </Border.BorderBrush>
-              <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                  <GradientStop Color="#3FFFFFFF" Offset="0" />
-                  <GradientStop Offset="1" Color="#3FFFFFFF" />
-                  <GradientStop Offset="0.5" />
-                </LinearGradientBrush>
-              </Border.Background>
+        <Border x:Name="PART_ButtonBorder" MinWidth="56" Height="24" CornerRadius="0,0,0,0" Background="{TemplateBinding Background}">
+          <Border x:Name="border1" BorderThickness="0,0,0,0" CornerRadius="0,0,0,0">
+            <!--<Border.BorderBrush>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                                 StartPoint="0.5,0">
+                                <GradientStop Color="#997C7C7C"
+                                              Offset="0" />
+                                <GradientStop Color="#7F848484"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>-->
+            <Border x:Name="border" BorderThickness="1,1,1,0" CornerRadius="0,0,0,0">
+              <!--<Border.BorderBrush>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#72FFFFFF"
+                                                  Offset="0" />
+                                    <GradientStop Color="#4CFFFFFF"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>-->
+              <!--<Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#3FFFFFFF"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#3FFFFFFF" />
+                                    <GradientStop Offset="0.5" />
+                                </LinearGradientBrush>
+                            </Border.Background>-->
               <Grid>
                 <Rectangle x:Name="rectangle_Copy" StrokeThickness="0">
-                  <Rectangle.Fill>
-                    <RadialGradientBrush Center="0.5,0.0" GradientOrigin="0.5,0.0" RadiusX="0.501" RadiusY="0.319">
-                      <GradientStop Color="#59FFFFFF" />
-                      <GradientStop Offset="1" />
-                    </RadialGradientBrush>
-                  </Rectangle.Fill>
+                  <!--<Rectangle.Fill>
+                                        <RadialGradientBrush Center="0.5,0.0"
+                                                             GradientOrigin="0.5,0.0"
+                                                             RadiusX="0.501"
+                                                             RadiusY="0.319">
+                                            <GradientStop Color="#59FFFFFF" />
+                                            <GradientStop Offset="1" />
+                                        </RadialGradientBrush>
+                                    </Rectangle.Fill>-->
                 </Rectangle>
                 <Rectangle x:Name="rectangle" StrokeThickness="0">
-                  <Rectangle.Fill>
-                    <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.496" RadiusY="0.554">
-                      <GradientStop Color="#66FFFFFF" Offset="0.018" />
-                      <GradientStop Offset="1" />
-                    </RadialGradientBrush>
-                  </Rectangle.Fill>
+                  <!--<Rectangle.Fill>
+                                        <RadialGradientBrush Center="0.5,1.001"
+                                                             GradientOrigin="0.5,1.001"
+                                                             RadiusX="0.496"
+                                                             RadiusY="0.554">
+                                            <GradientStop Color="#66FFFFFF"
+                                                          Offset="0.018" />
+                                            <GradientStop Offset="1" />
+                                        </RadialGradientBrush>
+                                    </Rectangle.Fill>-->
                 </Rectangle>
                 <ContentPresenter x:Name="contentPresenter" ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center" />
               </Grid>
@@ -477,47 +493,70 @@
         <MultiTrigger.Conditions>
           <Condition Property="IsMouseOver" Value="True" />
         </MultiTrigger.Conditions>
-        <Setter Property="BorderBrush" TargetName="border1">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#A07C7C7C" Offset="0" />
-              <GradientStop Color="#84848484" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="Background" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#4CFFFFFF" Offset="0" />
-              <GradientStop Color="#25FFFFFF" Offset="1" />
-              <GradientStop Offset="0.5" Color="#19FFFFFF" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="BorderBrush" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#7FFFFFFF" Offset="0" />
-              <GradientStop Color="#59FFFFFF" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="Fill" TargetName="rectangle_Copy">
-          <Setter.Value>
-            <RadialGradientBrush Center="0.5,0" GradientOrigin="0.5,0" RadiusX="0.501" RadiusY="0.319">
-              <GradientStop Color="#66FFFFFF" />
-              <GradientStop Offset="1" />
-            </RadialGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="Fill" TargetName="rectangle">
-          <Setter.Value>
-            <RadialGradientBrush Center="0.5,1.001" GradientOrigin="0.5,1.001" RadiusX="0.496" RadiusY="0.554">
-              <GradientStop Color="#7FFFFFFF" Offset="0.018" />
-              <GradientStop Offset="1" />
-            </RadialGradientBrush>
-          </Setter.Value>
-        </Setter>
+        <Setter Property="Background" TargetName="PART_ButtonBorder" Value="#298CE1" />
+        <!--<Setter Property="BorderBrush"
+                        TargetName="border1">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#A07C7C7C"
+                                          Offset="0" />
+                            <GradientStop Color="#84848484"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#4CFFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#25FFFFFF"
+                                          Offset="1" />
+                            <GradientStop Offset="0.5"
+                                          Color="#19FFFFFF" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>-->
+        <!--<Setter Property="BorderBrush"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#59FFFFFF"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Fill"
+                        TargetName="rectangle_Copy">
+                    <Setter.Value>
+                        <RadialGradientBrush Center="0.5,0"
+                                             GradientOrigin="0.5,0"
+                                             RadiusX="0.501"
+                                             RadiusY="0.319">
+                            <GradientStop Color="#66FFFFFF" />
+                            <GradientStop Offset="1" />
+                        </RadialGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Fill"
+                        TargetName="rectangle">
+                    <Setter.Value>
+                        <RadialGradientBrush Center="0.5,1.001"
+                                             GradientOrigin="0.5,1.001"
+                                             RadiusX="0.496"
+                                             RadiusY="0.554">
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="0.018" />
+                            <GradientStop Offset="1" />
+                        </RadialGradientBrush>
+                    </Setter.Value>
+                </Setter>-->
       </MultiTrigger>
       <Trigger Property="IsEnabled" Value="False">
         <Setter Property="Opacity" TargetName="PART_ButtonBorder" Value="0.5" />
@@ -531,31 +570,45 @@
         <Setter Property="Margin" TargetName="PART_ButtonBorder" Value="0" />
         <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed" />
         <Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed" />
-        <Setter Property="BorderBrush" TargetName="border1">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#99959595" Offset="0" />
-              <GradientStop Color="#7F909090" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="BorderBrush" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#4CFFFFFF" Offset="0" />
-              <GradientStop Color="#72FFFFFF" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="Background" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#19FFFFFF" Offset="0" />
-              <GradientStop Color="#66FFFFFF" Offset="1" />
-              <GradientStop Offset="0.5" Color="#3FFFFFFF" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
+        <Setter Property="Background" TargetName="PART_ButtonBorder" Value="#298CE1" />
+        <!--<Setter Property="BorderBrush"
+                        TargetName="border1">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#99959595"
+                                          Offset="0" />
+                            <GradientStop Color="#7F909090"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#4CFFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#72FFFFFF"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#19FFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#66FFFFFF"
+                                          Offset="1" />
+                            <GradientStop Offset="0.5"
+                                          Color="#3FFFFFFF" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>-->
       </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
@@ -564,31 +617,44 @@
         </MultiTrigger.Conditions>
         <Setter Property="Visibility" TargetName="rectangle" Value="Collapsed" />
         <Setter Property="Visibility" TargetName="rectangle_Copy" Value="Collapsed" />
-        <Setter Property="BorderBrush" TargetName="border1">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#A0A1A1A1" Offset="0" />
-              <GradientStop Color="#879A9A9A" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="BorderBrush" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#59FFFFFF" Offset="0" />
-              <GradientStop Color="#7FFFFFFF" Offset="1" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
-        <Setter Property="Background" TargetName="border">
-          <Setter.Value>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-              <GradientStop Color="#26FFFFFF" Offset="0" />
-              <GradientStop Color="#7FFFFFFF" Offset="1" />
-              <GradientStop Offset="0.5" Color="#4CFFFFFF" />
-            </LinearGradientBrush>
-          </Setter.Value>
-        </Setter>
+        <!--<Setter Property="BorderBrush"
+                        TargetName="border1">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#A0A1A1A1"
+                                          Offset="0" />
+                            <GradientStop Color="#879A9A9A"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#59FFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background"
+                        TargetName="border">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                             StartPoint="0.5,0">
+                            <GradientStop Color="#26FFFFFF"
+                                          Offset="0" />
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="1" />
+                            <GradientStop Offset="0.5"
+                                          Color="#4CFFFFFF" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>-->
       </MultiTrigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
@@ -911,7 +977,7 @@
   </Style>
   <Style x:Key="RibbonBackstageStyle" TargetType="{x:Type Fluent:Backstage}">
     <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
-    <Setter Property="Background" Value="Green" />
+    <Setter Property="Background" Value="#1979CA" />
     <Setter Property="Foreground" Value="White" />
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
