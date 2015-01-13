@@ -50,7 +50,6 @@
         <Grid>
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Background="{DynamicResource TransparentBrush}"
                     BorderBrush="{DynamicResource TransparentBrush}"
                     Height="Auto"
@@ -61,7 +60,6 @@
                         Height="Auto"
                         BorderBrush="{DynamicResource TransparentBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Background="{DynamicResource TransparentBrush}">
                     <Grid Height="Auto">
                         <Rectangle x:Name="rectangle"
@@ -118,7 +116,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
@@ -131,7 +128,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                     />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -169,7 +166,7 @@
                                         BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
+                                        
                                         Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
