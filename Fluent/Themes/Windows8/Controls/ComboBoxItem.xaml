@@ -10,25 +10,21 @@
                         <Border x:Name="hoverBorder"
                                 BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
                                     BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1"
                                     Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
                                 BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
                                     BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1"
                                     Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <ContentPresenter x:Name="contentPresenter"
@@ -71,25 +67,21 @@
                         <Border x:Name="hoverBorder"
                                 BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
                                     BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1"
                                     Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
                                 BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
                                     BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1"
                                     Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <ContentPresenter x:Name="contentPresenter"
