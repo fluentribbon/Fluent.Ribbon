@@ -40,15 +40,6 @@
                                 Margin="2,0,0,1"
                                 BorderThickness="1,0"
                                 Grid.ColumnSpan="2">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                                     StartPoint="0.5,0">
-                                    <GradientStop Color="#CCFFFFFF"
-                                                  Offset="0" />
-                                    <GradientStop Offset="1"
-                                                  Color="#7FFFFFFF" />
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
                             <Border x:Name="border4"
                                     BorderBrush="{Binding Group.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                     BorderThickness="1,0">
@@ -61,7 +52,8 @@
                                                       Offset="0.981" />
                                     </LinearGradientBrush>
                                 </Border.OpacityMask>
-                                <Border Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                <Border x:Name="border5"
+                                        Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
                                         BorderThickness="0"
                                         Margin="0">
                                     <Border.OpacityMask>

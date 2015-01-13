@@ -9,7 +9,6 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                CornerRadius="2"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="22"
@@ -25,7 +24,6 @@
                     Height="Auto"
                     BorderBrush="{DynamicResource TransparentBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Background="{DynamicResource TransparentBrush}">
                 <Grid>
                     <Image x:Name="iconImage"
@@ -120,16 +118,18 @@
                 Value="Top" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Fluent:RibbonTabControl}">
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonTabControlControlTemplate}" />
+    </Style>
+
+    <!---->
+    <ControlTemplate x:Key="RibbonTabControlControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
                     <ControlTemplate.Resources>
                         <!--Button in Scroll Control Style-->
                         <ControlTemplate x:Key="ScrollButtonControlTemplate"
                                          TargetType="{x:Type RepeatButton}">
                             <Border x:Name="border"
                                     BorderThickness="1"
-                                    CornerRadius="2"
                                     BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}"
                                     Height="Auto"
                                     HorizontalAlignment="Stretch"
@@ -139,7 +139,6 @@
                                         Height="Auto"
                                         BorderBrush="{DynamicResource TransparentBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="2"
                                         Background="{DynamicResource TransparentBrush}">
                                     <Grid Height="Auto">
                                         <Rectangle x:Name="rectangle"
@@ -619,8 +618,6 @@
                                     Value="0" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    </ControlTemplate>
+    
 </ResourceDictionary>
