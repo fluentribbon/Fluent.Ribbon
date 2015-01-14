@@ -204,7 +204,7 @@
                         Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="Red" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />

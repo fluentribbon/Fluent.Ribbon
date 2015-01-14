@@ -28,6 +28,16 @@
         <GradientStop Offset="1" />
     </LinearGradientBrush>
 
+    <SolidColorBrush x:Key="ButtonHoverBorderBrush"
+                     Color="#A4CEF9" />
+    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush"
+                     Color="#E8EFF7" />
+    <SolidColorBrush x:Key="ButtonPressedBorderBrush"
+                     Color="#62A2E4" />
+    <SolidColorBrush x:Key="ButtonPressedBackgroundBrush"
+                     Color="#C9E0F7" />
+
+    <!-- TODO: Remove Button*Color definition when they are no longer used-->
     <SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush"
                      Color="#A4CEF9" />
     <LinearGradientBrush x:Key="ButtonHoverOuterBorderBrush"
