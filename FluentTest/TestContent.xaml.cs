@@ -115,8 +115,7 @@
 
 		private void OnWindows8Click(object sender, RoutedEventArgs e)
 		{
-			//this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Windows8/Silver.xaml");
-			this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
+			this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Windows8/Silver.xaml");
 		}
 
 
