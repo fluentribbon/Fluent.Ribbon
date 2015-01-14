@@ -56,47 +56,41 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
-                <Border x:Name="border1"
-                        Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
-                        BorderThickness="1"
-                        Background="{DynamicResource TransparentBrush}">
-                    <Grid Height="Auto">
-                        <Rectangle x:Name="rectangle"
-                                   StrokeThickness="0"
-                                   Visibility="Collapsed">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.503,1"
-                                                     GradientOrigin="0.503,1"
-                                                     RadiusY="0.202">
-                                    <GradientStop Color="#7FFFFFFF"
-                                                  Offset="0" />
-                                    <GradientStop Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Vertical"
-                                    d:LayoutOverrides="Width, Height">
-                            <ContentPresenter x:Name="iconImage"
-                                              HorizontalAlignment="Center"
-                                              Height="32"
-                                              VerticalAlignment="Center"
-                                              Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                              Width="32"
-                                              Margin="3,2"
-                                              SnapsToDevicePixels="True" />
-                            <Fluent:TwoLineLabel x:Name="controlLabel"
-                                                 Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Margin="2,-2,2,2"
-                                                 HasGlyph="{TemplateBinding HasTriangle}" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <Grid Height="Auto">
+                    <Rectangle x:Name="rectangle"
+                                StrokeThickness="0"
+                                Visibility="Collapsed">
+                        <Rectangle.Fill>
+                            <RadialGradientBrush Center="0.503,1"
+                                                    GradientOrigin="0.503,1"
+                                                    RadiusY="0.202">
+                                <GradientStop Color="#7FFFFFFF"
+                                                Offset="0" />
+                                <GradientStop Offset="1" />
+                            </RadialGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <StackPanel x:Name="stackPanel"
+                                Width="Auto"
+                                Orientation="Vertical"
+                                d:LayoutOverrides="Width, Height">
+                        <ContentPresenter x:Name="iconImage"
+                                            HorizontalAlignment="Center"
+                                            Height="32"
+                                            VerticalAlignment="Center"
+                                            Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                            Width="32"
+                                            Margin="3,2"
+                                            SnapsToDevicePixels="True" />
+                        <Fluent:TwoLineLabel x:Name="controlLabel"
+                                                Text="{TemplateBinding Header}"
+                                                Style="{DynamicResource TwoLineLabelStyle}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Margin="2,-2,2,2"
+                                                HasGlyph="{TemplateBinding HasTriangle}" />
+                    </StackPanel>
+                </Grid>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -297,16 +291,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -333,18 +321,12 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
