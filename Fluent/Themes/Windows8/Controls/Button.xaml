@@ -8,6 +8,7 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
@@ -34,8 +35,7 @@
                                             VerticalAlignment="Center"
                                             Margin="2,-1,2,0" />
                 </StackPanel>
-            </Grid>
-            
+            </Grid>            
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size"
@@ -105,10 +105,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -136,10 +136,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 
             </MultiTrigger>
         </ControlTemplate.Triggers>
@@ -156,6 +156,8 @@
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
+        <Setter Property="BorderThickness"
+                Value="1" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
