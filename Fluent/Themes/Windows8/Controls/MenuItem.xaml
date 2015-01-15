@@ -166,15 +166,11 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                         />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -196,17 +192,6 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       RadiusX="1"
-                       RadiusY="1"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -242,12 +227,6 @@
                 <Setter Property="Visibility"
                         TargetName="gestureTextBlock"
                         Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -323,15 +302,11 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -353,17 +328,6 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       RadiusX="1"
-                       RadiusY="1"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -427,8 +391,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -519,12 +482,6 @@
                         TargetName="resizeBorder"
                         Value="Visible" />
             </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Icon"
@@ -597,7 +554,6 @@
                        Margin="0,4,23,4"
                        Stroke="{DynamicResource WindowContentBorderBrush}"
                        Width="1" />
-
             <Grid  HorizontalAlignment="Stretch"
                    Margin="0"
                    Width="Auto"
@@ -610,28 +566,24 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
                         Margin="0,0,-1,0">
-                    <Border x:Name="border1"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            Grid.ColumnSpan="2" />
                 </Border>
                 <Border x:Name="border_Copy"
                         HorizontalAlignment="Stretch"
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
+                        
                         Grid.Column="1"
                         Background="{DynamicResource TransparentBrush}">
                     <Border x:Name="border1_Copy"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                            Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                            BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                             BorderThickness="1"
                             Grid.ColumnSpan="1"
                             d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
@@ -659,17 +611,6 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
-                       Grid.ColumnSpan="1"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="20"
-                       Height="20"
-                       RadiusX="1"
-                       RadiusY="1"
-                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -830,12 +771,6 @@
                         Value="Visible" />
                 <Setter Property="Visibility"
                         TargetName="resizeBorder"
-                        Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
                         Value="Visible" />
             </Trigger>
             <MultiTrigger>
