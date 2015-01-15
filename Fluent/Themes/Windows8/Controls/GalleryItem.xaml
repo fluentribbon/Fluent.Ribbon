@@ -12,47 +12,29 @@
                 <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}">
                     <Grid Background="{DynamicResource TransparentBrush}">
                         <Border x:Name="hoverBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 d:LayoutOverrides="Width, Height"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 d:LayoutOverrides="Width, Height"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <ContentPresenter x:Name="contentPresenter"
                                           Margin="1"
                                           Opacity="1" />
                         <Border x:Name="pressedBorder"
-                                BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="2"
                                 d:LayoutOverrides="Width, Height"
-                                Background="{DynamicResource ButtonPressedOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrush}"
                                 Visibility="Collapsed"
                                 Opacity="0.5">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1"
-                                    Background="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
