@@ -47,47 +47,40 @@
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
-                <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <StackPanel x:Name="stackPanel"
-                                Width="Auto"
-                                Orientation="Vertical">
-                        <ContentPresenter x:Name="iconImage"
-                                          HorizontalAlignment="Center"
-                                          Height="32"
-                                          VerticalAlignment="Center"
-                                          Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                          Width="32"
-                                          Margin="2"
-                                          SnapsToDevicePixels="True" />
-                        <Fluent:TwoLineLabel x:Name="controlLabel"
-                                             Text="{TemplateBinding Header}"
-                                             Style="{DynamicResource TwoLineLabelStyle}"
-                                             HorizontalAlignment="Center"
-                                             VerticalAlignment="Stretch"
-                                             Margin="2,-2,2,2"
-                                             HasGlyph="True" />
-                    </StackPanel>
-                </Grid>
-            </Border>
+            <Grid Height="Auto">
+                <Rectangle x:Name="rectangle"
+                           StrokeThickness="0"
+                           Visibility="Collapsed">
+                    <Rectangle.Fill>
+                        <RadialGradientBrush Center="0.503,1"
+                                             GradientOrigin="0.503,1"
+                                             RadiusY="0.202">
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="0" />
+                            <GradientStop Offset="1" />
+                        </RadialGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel x:Name="stackPanel"
+                            Width="Auto"
+                            Orientation="Vertical">
+                    <ContentPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      Height="32"
+                                      VerticalAlignment="Center"
+                                      Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                      Width="32"
+                                      Margin="2"
+                                      SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="controlLabel"
+                                         Text="{TemplateBinding Header}"
+                                         Style="{DynamicResource TwoLineLabelStyle}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Stretch"
+                                         Margin="2,-2,2,2"
+                                         HasGlyph="True" />
+                </StackPanel>
+            </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size"
@@ -160,16 +153,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -196,18 +183,12 @@
                     <Condition Property="IsChecked"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -223,30 +204,27 @@
                             BorderThickness="1,1,1,1"
                             x:Name="border"
                             Background="{DynamicResource ButtonBackgroundBrush}">
-                        <Border BorderThickness="1,1,1,1"
-                                x:Name="border1">
-                            <Grid x:Name="grid">
-                                <Path Margin="0,6,0,0"
-                                      VerticalAlignment="Top"
-                                      Height="1"
-                                      Fill="#FFFFFFFF"
-                                      Stretch="Fill"
-                                      Stroke="#FF000000"
-                                      Data="M0,0L1,0"
-                                      HorizontalAlignment="Center"
-                                      Width="7" />
-                                <Path Margin="0,8,0,0"
-                                      VerticalAlignment="Top"
-                                      Height="3"
-                                      Fill="#FF000000"
-                                      Stretch="Fill"
-                                      Stroke="#FF000000"
-                                      Data="M0,0L1,1 2,0z"
-                                      Width="5"
-                                      HorizontalAlignment="Center"
-                                      StrokeThickness="0" />
-                            </Grid>
-                        </Border>
+                        <Grid x:Name="grid">
+                            <Path Margin="0,6,0,0"
+                                    VerticalAlignment="Top"
+                                    Height="1"
+                                    Fill="#FFFFFFFF"
+                                    Stretch="Fill"
+                                    Stroke="#FF000000"
+                                    Data="M0,0L1,0"
+                                    HorizontalAlignment="Center"
+                                    Width="7" />
+                            <Path Margin="0,8,0,0"
+                                    VerticalAlignment="Top"
+                                    Height="3"
+                                    Fill="#FF000000"
+                                    Stretch="Fill"
+                                    Stroke="#FF000000"
+                                    Data="M0,0L1,1 2,0z"
+                                    Width="5"
+                                    HorizontalAlignment="Center"
+                                    StrokeThickness="0" />
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled"
@@ -273,28 +251,16 @@
                                     Value="{DynamicResource TransparentBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
                                     Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -310,10 +276,7 @@
                             BorderThickness="1,1,1,1"
                             x:Name="border"
                             Background="{DynamicResource ButtonBackgroundBrush}">
-                        <Border BorderThickness="1,1,1,1"
-                                x:Name="border1">
-                            <ContentPresenter x:Name="contentPresenter" />
-                        </Border>
+                        <ContentPresenter x:Name="contentPresenter" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled"
@@ -340,28 +303,16 @@
                                     Value="{DynamicResource TransparentBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
