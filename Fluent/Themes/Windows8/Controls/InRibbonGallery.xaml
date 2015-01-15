@@ -41,7 +41,6 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                CornerRadius="2"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
@@ -340,7 +339,6 @@
                           VerticalAlignment="Top">
                         <Border Width="Auto"
                                 BorderThickness="1,1,1,1"
-                                CornerRadius="0,1,1,0"
                                 BorderBrush="{DynamicResource InRibbonGalleryBorderBrush}"
                                 ClipToBounds="True"
                                 Margin="0,0,0,0"
@@ -449,7 +447,6 @@
                                                 Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                                                 BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                                                 BorderThickness="1"
-                                                CornerRadius="1"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Top">
                                             <Grid Width="Auto"
@@ -462,7 +459,7 @@
                                                         Height="Auto"
                                                         BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                                         BorderThickness="1"
-                                                        CornerRadius="1" />
+                                                        />
                                                 <Grid Margin="1"
                                                       HorizontalAlignment="Stretch"
                                                       VerticalAlignment="Top">
@@ -534,7 +531,6 @@
                                                             BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                                             BorderThickness="0,1,0,0"
                                                             Grid.Row="2"
-                                                            CornerRadius="0,0,1,1"
                                                             Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                                         <Grid>
                                                             <Thumb x:Name="PART_ResizeVerticalThumb"
