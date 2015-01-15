@@ -169,13 +169,12 @@
                     Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                     BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
                 <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                         BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="1" />
+                         />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -327,13 +326,12 @@
                     Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                     BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
                 <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                         BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="1" />
+                        />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -418,7 +416,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
@@ -431,7 +428,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                    />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -465,7 +462,6 @@
                                         BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
                                         Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -617,13 +613,11 @@
                         Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
                         BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Margin="0,0,-1,0">
                     <Border x:Name="border1"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             Grid.ColumnSpan="2" />
                 </Border>
                 <Border x:Name="border_Copy"
@@ -633,14 +627,12 @@
                         Visibility="Collapsed"
                         BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Grid.Column="1"
                         Background="{DynamicResource TransparentBrush}">
                     <Border x:Name="border1_Copy"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             Grid.ColumnSpan="1"
                             d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
                             Visibility="Collapsed" />
@@ -730,7 +722,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
@@ -743,7 +734,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                    />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -777,7 +768,6 @@
                                         BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
                                         Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"

@@ -39,7 +39,6 @@
                     Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                     BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
                     d:LayoutOverrides="Width, Height"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
@@ -52,7 +51,7 @@
                             Height="Auto"
                             BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderThickness="1"
-                            CornerRadius="1" />
+                             />
                     <Grid Margin="1"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
@@ -92,7 +91,6 @@
                                 BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                 BorderThickness="0,1,0,0"
                                 Grid.Row="1"
-                                CornerRadius="0,0,1,1"
                                 Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                             <Grid>
                                 <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -188,7 +186,6 @@
                     Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                     BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
                     d:LayoutOverrides="Width, Height"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
@@ -201,7 +198,7 @@
                             Height="Auto"
                             BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderThickness="1"
-                            CornerRadius="1" />
+                             />
                     <Grid Margin="1"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Top">
