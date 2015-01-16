@@ -32,71 +32,50 @@
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="0"
-                    Background="{DynamicResource TransparentBrush}">
-                <Grid Height="Auto"
-                      HorizontalAlignment="Right">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Path x:Name="path"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          Data="M0,0L2,0 1,1z"
-                          Fill="{DynamicResource DefaultFontBrush}"
-                          Margin="3,0,3,0"
-                          StrokeStartLineCap="Round"
-                          Stretch="Fill"
-                          StrokeEndLineCap="Round"
-                          Stroke="{DynamicResource DefaultFontBrush}"
-                          StrokeThickness="1"
-                          StrokeMiterLimit="10"
-                          StrokeLineJoin="Round"
-                          Width="5"
-                          Height="4"
-                          StrokeDashCap="Round"
-                          IsHitTestVisible="False" />
-                </Grid>
-            </Border>
+            <Grid Height="Auto"
+                    HorizontalAlignment="Right">
+                <Rectangle x:Name="rectangle"
+                           StrokeThickness="0"
+                           Visibility="Collapsed"
+                           Fill="{DynamicResource ButtonHoverBackgroundBrush}">
+                </Rectangle>
+                <Path x:Name="path"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Data="M0,0L2,0 1,1z"
+                        Fill="{DynamicResource DefaultFontBrush}"
+                        Margin="3,0,3,0"
+                        StrokeStartLineCap="Round"
+                        Stretch="Fill"
+                        StrokeEndLineCap="Round"
+                        Stroke="{DynamicResource DefaultFontBrush}"
+                        StrokeThickness="1"
+                        StrokeMiterLimit="10"
+                        StrokeLineJoin="Round"
+                        Width="5"
+                        Height="4"
+                        StrokeDashCap="Round"
+                        IsHitTestVisible="False" />
+            </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -113,15 +92,9 @@
                     <Condition Property="IsChecked"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
