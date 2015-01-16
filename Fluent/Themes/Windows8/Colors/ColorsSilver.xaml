@@ -243,7 +243,7 @@
     <SolidColorBrush x:Key="TextBoxDisabledBorderBrush"
                      Color="#FFE4E7EB" />
     <SolidColorBrush x:Key="InRibbonGalleryBorderBrush"
-                     Color="#FFC6CACD" />
+                     Color="#FFDBDCDD" />
     <SolidColorBrush x:Key="GalleryBackgroundBrush"
                      Color="White" />
 
@@ -261,7 +261,7 @@
     <SolidColorBrush x:Key="ButtonBackgroundBrush"
                      Color="#F5F6F7" />
     <SolidColorBrush x:Key="ButtonBorderBrush"
-                     Color="#FFC6CACD" />
+                     Color="#FFDBDCDD" />
     <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush"
                      Color="#DCDCDD" />
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
