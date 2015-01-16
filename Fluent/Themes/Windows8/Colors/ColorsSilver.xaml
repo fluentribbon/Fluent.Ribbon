@@ -263,7 +263,7 @@
     <SolidColorBrush x:Key="ButtonBorderBrush"
                      Color="#FFDBDCDD" />
     <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush"
-                     Color="#DCDCDD" />
+                     Color="#F5F6F7" />
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
                      Color="#DCDCDD" />
 

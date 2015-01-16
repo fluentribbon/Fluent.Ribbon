@@ -282,7 +282,7 @@
                                  Value="False">
                             <Setter Property="Opacity"
                                     TargetName="contentPresenter"
-                                    Value="0.5" />
+                                    Value="0.28" />
                             <Setter Property="Background"
                                     TargetName="border"
                                     Value="{DynamicResource ButtonDisabledBackgroundBrush}" />
