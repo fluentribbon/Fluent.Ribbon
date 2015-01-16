@@ -235,9 +235,9 @@
     <SolidColorBrush x:Key="TextBoxHoverBackgroundBrush"
                      Color="White" />
     <SolidColorBrush x:Key="TextBoxBorderBrush"
-                     Color="#FFD3D6D9" />
+                     Color="#FFAABBD2" />
     <SolidColorBrush x:Key="TextBoxHoverBorderBrush"
-                     Color="#FFBBBFC4" />
+                     Color="#FFAABBD2" />
     <SolidColorBrush x:Key="TextBoxDisabledBackgroundBrush"
                      Color="#FFFAFAFA" />
     <SolidColorBrush x:Key="TextBoxDisabledBorderBrush"

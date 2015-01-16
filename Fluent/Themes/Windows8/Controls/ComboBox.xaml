@@ -27,18 +27,20 @@
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="0"
-                Background="{DynamicResource ButtonBackgroundBrush}"
-                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                Background="White"
+                BorderBrush="{DynamicResource ComboBoxBorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
             <Grid Height="Auto"
                     HorizontalAlignment="Right">
-                <Rectangle x:Name="rectangle"
-                           StrokeThickness="0"
-                           Visibility="Collapsed"
-                           Fill="{DynamicResource ButtonHoverBackgroundBrush}">
-                </Rectangle>
+                <Border x:Name="rectangle"
+                        Margin="-1"
+                        Visibility="Collapsed"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource ComboBoxButtonHoverBorderBrush}"
+                        Background="{DynamicResource ComboBoxButtonHoverBackgroundBrush}">
+                </Border>
                 <Path x:Name="path"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -75,7 +77,16 @@
                         Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="rectangle"
+                        Value="{DynamicResource ComboBoxButtonPressedBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="rectangle"
+                        Value="{DynamicResource ComboBoxButtonPressedBackgroundBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">

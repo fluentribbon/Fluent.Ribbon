@@ -28,6 +28,18 @@
         <GradientStop Offset="1" />
     </LinearGradientBrush>
 
+
+    <SolidColorBrush x:Key="ComboBoxButtonHoverBorderBrush"
+                     Color="#A8D3FF" />
+    <SolidColorBrush x:Key="ComboBoxButtonHoverBackgroundBrush"
+                     Color="#EDF6FF" />
+    <SolidColorBrush x:Key="ComboBoxButtonPressedBorderBrush"
+                     Color="#7DB4EC" />
+    <SolidColorBrush x:Key="ComboBoxButtonPressedBackgroundBrush"
+                     Color="#DAECFF" />
+
+
+
     <SolidColorBrush x:Key="ButtonHoverBorderBrush"
                      Color="#A4CEF9" />
     <SolidColorBrush x:Key="ButtonHoverBackgroundBrush"
