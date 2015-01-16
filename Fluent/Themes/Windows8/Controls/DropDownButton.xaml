@@ -57,19 +57,6 @@
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
                 <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                                StrokeThickness="0"
-                                Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                    GradientOrigin="0.503,1"
-                                                    RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                                Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
                     <StackPanel x:Name="stackPanel"
                                 Width="Auto"
                                 Orientation="Vertical"
@@ -295,9 +282,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -327,9 +311,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
