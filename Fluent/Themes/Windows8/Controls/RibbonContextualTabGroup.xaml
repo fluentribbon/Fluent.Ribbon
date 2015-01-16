@@ -19,7 +19,7 @@
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
                 Visibility="{TemplateBinding InnerVisibility}"
-                Margin="2,0,0,0"
+                Margin="2,2,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Width="Auto"
@@ -50,7 +50,7 @@
                                Width="Auto"
                                Height="Auto"
                                StrokeThickness="0">
-                        <Rectangle.OpacityMask>
+                        <!--<Rectangle.OpacityMask>
                             <LinearGradientBrush EndPoint="0.5,1"
                                                  StartPoint="0.5,0">
                                 <GradientStop Color="Black"
@@ -62,7 +62,7 @@
                                 <GradientStop Color="#99000000"
                                               Offset="0.161" />
                             </LinearGradientBrush>
-                        </Rectangle.OpacityMask>
+                        </Rectangle.OpacityMask>-->
                     </Rectangle>
                     <Rectangle Stroke="{x:Null}"
                                HorizontalAlignment="Stretch"
@@ -84,7 +84,7 @@
                             </LinearGradientBrush>
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Text="{TemplateBinding Header}"
+                    <!--<TextBlock Text="{TemplateBinding Header}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Margin="5,0"
@@ -100,14 +100,14 @@
                         <TextBlock.Effect>
                             <BlurEffect Radius="2" />
                         </TextBlock.Effect>
-                    </TextBlock>
+                    </TextBlock>-->
                     <TextBlock Text="{TemplateBinding Header}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Margin="5,0"
+                               Margin="5,-1,5,0"
                                TextTrimming="CharacterEllipsis"
-                               Foreground="White"
-                               FontWeight="Bold" />
+                               Foreground="Black"
+                               FontWeight="Normal" />
                 </Grid>
             </Border>
         </Border>
