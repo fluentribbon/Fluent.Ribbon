@@ -5,27 +5,18 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-
                     <Grid Background="{DynamicResource TransparentBrush}">
                         <Border x:Name="hoverBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <ContentPresenter x:Name="contentPresenter"
                                           Margin="3"
@@ -65,24 +56,16 @@
 
                     <Grid Background="{DynamicResource TransparentBrush}">
                         <Border x:Name="hoverBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
-                            <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                    BorderThickness="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                         </Border>
                         <ContentPresenter x:Name="contentPresenter"
                                           Margin="3"
