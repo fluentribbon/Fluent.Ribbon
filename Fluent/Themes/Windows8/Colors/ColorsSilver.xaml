@@ -257,20 +257,15 @@
                       Offset="1" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="ButtonBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFFFFFFF"
-                      Offset="0" />
-        <GradientStop Color="#FFF1F3F4"
-                      Offset="1" />
-    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonBackgroundBrush"
+                     Color="#F5F6F7" />
     <SolidColorBrush x:Key="ButtonBorderBrush"
                      Color="#FFC6CACD" />
     <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush"
-                     Color="#FFFAFAFA" />
+                     Color="#DCDCDD" />
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
-                     Color="#FFE4E7EB" />
+                     Color="#DCDCDD" />
 
     <LinearGradientBrush x:Key="RibbonSeparatorBackgroundBrush"
                          EndPoint="0.5,1"
