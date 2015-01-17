@@ -56,7 +56,6 @@
                     Background="{DynamicResource TransparentBrush}">
                 <StackPanel Orientation="Vertical"
                             Name="stackPanel">
-                    <!-- TODO: Border should be removed when hovering over this button (now get two two borders) -->
                     <Fluent:ToggleButton x:Name="PART_Button"
                                          Command="{TemplateBinding Command}"
                                          CommandParameter="{TemplateBinding CommandParameter}"
@@ -332,7 +331,8 @@
     <ControlTemplate x:Key="InnerButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                BorderThickness="1"
+                BorderThickness="0,0,0,1"
+                Margin="0,0,0,-1"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
