@@ -36,12 +36,16 @@
                           Height="Auto"
                           VerticalAlignment="Top"
                           Margin="0,7,0,0">
+                        <!-- This is some margin for contextual tabs? -->
                         <Border x:Name="border3"
                                 Margin="2,0,0,1"
                                 BorderThickness="1,0"
                                 Grid.ColumnSpan="2">
+                            <!-- This is the gradient for contextual tabs thar are not selected
+                                 BorderBrush="{Binding Group.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            -->
                             <Border x:Name="border4"
-                                    BorderBrush="{Binding Group.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                                    BorderBrush="LightGray"
                                     BorderThickness="1,0">
                                 <Border.OpacityMask>
                                     <LinearGradientBrush EndPoint="0.5,1"
@@ -49,11 +53,11 @@
                                         <GradientStop Color="Black"
                                                       Offset="0" />
                                         <GradientStop Color="#00000000"
-                                                      Offset="0.981" />
+                                                      Offset="0.8" />
                                     </LinearGradientBrush>
                                 </Border.OpacityMask>
                                 <Border x:Name="border5"
-                                        Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Background="White"
                                         BorderThickness="0"
                                         Margin="0">
                                     <Border.OpacityMask>
@@ -85,34 +89,34 @@
                               Visibility="Collapsed"
                               Margin="0,0,0,0"
                               Grid.ColumnSpan="1">
-                            <Rectangle x:Name="rectangle"
+                            <!--<Rectangle x:Name="rectangle"
                                        Fill="{DynamicResource ActiveTabBackgroundBrush}"
                                        Stroke="{x:Null}"
                                        StrokeThickness="0"
                                        Margin="0"
                                        VerticalAlignment="Bottom"
-                                       Height="1" />
-                            <Rectangle x:Name="rectangle1"
-                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                                       Height="1" />-->
+                            <!--<Rectangle x:Name="rectangle1"
+                                       Fill="Red"
                                        Stroke="{x:Null}"
                                        StrokeThickness="0"
                                        Margin="1.8,0"
                                        VerticalAlignment="Bottom"
-                                       Height="1.2" />
-                            <Rectangle x:Name="rectangle2"
-                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                                       Height="1.2" />-->
+                            <!--<Rectangle x:Name="rectangle2"
+                                       Fill="Blue"
                                        Stroke="{x:Null}"
                                        StrokeThickness="0"
                                        Margin="2,0"
                                        VerticalAlignment="Bottom"
-                                       Height="2" />
+                                       Height="2" />-->
                             <Border x:Name="border"
                                     Margin="0,0,1,0"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1,1,1,0"
                                     VerticalAlignment="Stretch"
                                     Background="{DynamicResource ActiveTabBackgroundBrush}">
-                                <Border x:Name="border_Copy3"
+                                <!--<Border x:Name="border_Copy3"
                                         Margin="0"
                                         BorderThickness="1,1,1,0"
                                         VerticalAlignment="Stretch"
@@ -134,7 +138,7 @@
                                             </LinearGradientBrush>
                                         </Border.OpacityMask>
                                     </Border>
-                                </Border>
+                                </Border>-->
                             </Border>
                         </Grid>
                         <Grid x:Name="hoverGrid"
@@ -376,9 +380,9 @@
                             <Setter Property="Margin"
                                     TargetName="separatorGrid"
                                     Value="-1,0,0,1" />
-                            <Setter Property="Visibility"
+                            <!--<Setter Property="Visibility"
                                     TargetName="border_Copy3"
-                                    Value="Collapsed" />
+                                    Value="Collapsed" />-->
 
 
 

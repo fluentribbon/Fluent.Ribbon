@@ -26,15 +26,6 @@
                 Height="Auto"
                 BorderThickness="1,0"
                 Background="{DynamicResource TransparentBrush}">
-            <!--<Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#F2FFFFFF"
-                                  Offset="0" />
-                    <GradientStop Color="#CCFFFFFF"
-                                  Offset="1" />
-                </LinearGradientBrush>
-            </Border.BorderBrush>-->
             <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1,0"
                     Background="{x:Null}"
@@ -50,57 +41,7 @@
                                Width="Auto"
                                Height="Auto"
                                StrokeThickness="0">
-                        <!--<Rectangle.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0">
-                                <GradientStop Color="Black"
-                                              Offset="0" />
-                                <GradientStop Color="#59000000"
-                                              Offset="1" />
-                                <GradientStop Color="Black"
-                                              Offset="0.16" />
-                                <GradientStop Color="#99000000"
-                                              Offset="0.161" />
-                            </LinearGradientBrush>
-                        </Rectangle.OpacityMask>-->
                     </Rectangle>
-                    <!--<Rectangle Stroke="{x:Null}"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"
-                               Width="Auto"
-                               Height="Auto"
-                               Fill="#3FD2D2D2">
-                        <Rectangle.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0">
-                                <GradientStop Color="Black"
-                                              Offset="0" />
-                                <GradientStop Color="#7F000000"
-                                              Offset="1" />
-                                <GradientStop Color="Black"
-                                              Offset="0.16" />
-                                <GradientStop Color="#B2000000"
-                                              Offset="0.161" />
-                            </LinearGradientBrush>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>-->
-                    <!--<TextBlock Text="{TemplateBinding Header}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Margin="5,0"
-                               TextTrimming="None"
-                               Foreground="#00000000"
-                               FontWeight="Bold" />
-                    <TextBlock Text="{TemplateBinding Header}"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Margin="5,0"
-                               TextTrimming="CharacterEllipsis"
-                               FontWeight="Bold">
-                        <TextBlock.Effect>
-                            <BlurEffect Radius="2" />
-                        </TextBlock.Effect>
-                    </TextBlock>-->
                     <TextBlock Text="{TemplateBinding Header}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
