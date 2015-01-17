@@ -345,42 +345,7 @@
                                 Grid.Row="1"
                                 BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                 Background="{DynamicResource RibbonBackgoundBrush}" />
-                        <Rectangle Margin="0,-1,0,0"
-                                   Grid.Row="1"
-                                   Width="50"
-                                   Stroke="Black"
-                                   Height="1"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="1">
-                            <Rectangle.OpacityMask>
-                                <LinearGradientBrush EndPoint="1,0.5"
-                                                     StartPoint="0,0.5">
-                                    <GradientStop Color="#66000000"
-                                                  Offset="0" />
-                                    <GradientStop Color="Transparent"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                        <Rectangle Margin="0,-1,0,0"
-                                   Grid.Row="1"
-                                   Width="50"
-                                   Stroke="Black"
-                                   Height="1"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="1">
-                            <Rectangle.OpacityMask>
-                                <LinearGradientBrush EndPoint="0,0.5"
-                                                     StartPoint="1,0.5">
-                                    <GradientStop Color="#66000000"
-                                                  Offset="0" />
-                                    <GradientStop Color="Transparent"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
+
                         <Border HorizontalAlignment="Stretch"
                                 Margin="1,0,1,1"
                                 Grid.Row="1"
