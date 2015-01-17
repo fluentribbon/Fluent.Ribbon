@@ -19,7 +19,7 @@
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
                 Visibility="{TemplateBinding InnerVisibility}"
-                Margin="2,2,0,0"
+                Margin="0,3,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Width="Auto"
