@@ -37,19 +37,13 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -60,7 +54,6 @@
                        Visibility="Hidden"
                        HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -188,19 +181,13 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -211,7 +198,6 @@
                        Visibility="Hidden"
                        HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -267,11 +253,11 @@
                   Height="7"
                   Grid.Column="3">
                 <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1,0">
+                        <GradientStop Color="#6B83A3"
                                       Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
+                        <GradientStop Color="#4C607A" />
                     </LinearGradientBrush>
                 </Path.Fill>
             </Path>
@@ -399,7 +385,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
@@ -413,7 +398,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                     />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -541,33 +526,24 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Margin="0,0,-1,0">
-                    <Border x:Name="border1"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="2" />
                 </Border>
                 <Border x:Name="border_Copy"
                         HorizontalAlignment="Stretch"
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Grid.Column="1"
                         Background="{DynamicResource TransparentBrush}">
                     <Border x:Name="border1_Copy"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                            Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                            BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             Grid.ColumnSpan="1"
                             d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
                             Visibility="Collapsed" />
@@ -575,7 +551,6 @@
             </Grid>
 
             <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -586,7 +561,6 @@
                        Visibility="Hidden"
                        HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
-                       FontWeight="Bold"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
@@ -642,11 +616,11 @@
                   Height="7"
                   Grid.Column="3">
                 <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1,0">
+                        <GradientStop Color="#6B83A3"
                                       Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
+                        <GradientStop Color="#4C607A" />
                     </LinearGradientBrush>
                 </Path.Fill>
             </Path>
@@ -668,7 +642,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
@@ -681,7 +654,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                    />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -853,16 +826,11 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -991,16 +959,11 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{TemplateBinding Header}"
@@ -1058,11 +1021,11 @@
                   Height="7"
                   Grid.Column="3">
                 <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1,0">
+                        <GradientStop Color="#6B83A3"
                                       Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
+                        <GradientStop Color="#4C607A" />
                     </LinearGradientBrush>
                 </Path.Fill>
             </Path>
@@ -1193,7 +1156,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
@@ -1207,7 +1169,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                    />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -1287,6 +1249,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <!--Splited Menu Item Template-->
+    <!-- TODO: How to use this? -->
     <ControlTemplate x:Key="SplitedApplicationMenuItemTemplate"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
@@ -1307,11 +1270,11 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Rectangle Grid.Column="2"
+            <!--<Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
                        Stroke="{DynamicResource WindowContentBorderBrush}"
-                       Width="1" />
+                       Width="1" />-->
 
             <Grid  HorizontalAlignment="Stretch"
                    Margin="0"
@@ -1325,33 +1288,24 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Margin="0,0,-1,0">
-                    <Border x:Name="border1"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="2" />
                 </Border>
                 <Border x:Name="border_Copy"
                         HorizontalAlignment="Stretch"
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Grid.Column="1"
                         Background="{DynamicResource TransparentBrush}">
                     <Border x:Name="border1_Copy"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
+                            Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                            BorderBrush="Black"
+                            BorderThickness="0"
                             Grid.ColumnSpan="1"
                             d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
                             Visibility="Collapsed" />
@@ -1414,11 +1368,11 @@
                   Height="7"
                   Grid.Column="3">
                 <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
+                    <LinearGradientBrush EndPoint="0,0"
+                                         StartPoint="1,0">
+                        <GradientStop Color="#6B83A3"
                                       Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
+                        <GradientStop Color="#4C607A" />
                     </LinearGradientBrush>
                 </Path.Fill>
             </Path>
@@ -1549,7 +1503,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             Grid.ColumnSpan="1"
                             d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
@@ -1563,7 +1516,7 @@
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1" />
+                                    />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
