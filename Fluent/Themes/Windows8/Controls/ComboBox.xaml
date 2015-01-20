@@ -108,7 +108,7 @@
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />

@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--Button in Scroll Control Style-->
+    <!--TODO: Is this in use-->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
