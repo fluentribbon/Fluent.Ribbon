@@ -76,6 +76,7 @@
     </Style>
 
     <!--Menu Item Template-->
+    <!-- TODO: How to test this one? -->
     <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
                      TargetType="{x:Type Controls:StatusBarMenuItem}">
         <Grid Width="Auto"
@@ -91,16 +92,12 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource ButtonHoverBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
             </Border>
             <TextBlock x:Name="textBlock_Copy"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
