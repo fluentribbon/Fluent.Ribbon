@@ -13,7 +13,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="66" />
+                Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
@@ -26,7 +26,7 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="66" />
+                        Value="68" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -60,7 +60,7 @@
                                          Command="{TemplateBinding Command}"
                                          CommandParameter="{TemplateBinding CommandParameter}"
                                          CommandTarget="{TemplateBinding CommandTarget}"
-                                         Margin="0,0,0,0"
+                                         Margin="0,2,0,0"
                                          Height="Auto"
                                          Width="Auto"
                                          Style="{DynamicResource InnerButtonStyle}"
@@ -212,10 +212,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
