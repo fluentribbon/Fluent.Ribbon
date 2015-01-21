@@ -214,16 +214,7 @@
                                     Margin="1,0,1,1"
                                     BorderThickness="1,1,1,0"
                                     VerticalAlignment="Stretch"
-
-                                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}">
-                                <Border x:Name="border_Copy6"
-                                        Margin="0"
-                                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                                        BorderThickness="1,1,1,0"
-                                        VerticalAlignment="Stretch"
-
-                                        Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}">
                             </Border>
                         </Grid>
                         <Border x:Name="PART_ContentContainer"
