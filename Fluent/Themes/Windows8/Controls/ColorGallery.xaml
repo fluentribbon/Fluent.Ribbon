@@ -39,22 +39,18 @@
                                     <ContentPresenter Margin="2"
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            Margin="2" />
+
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
+                                            Margin="2" />
+
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver"
@@ -114,22 +110,18 @@
                                     <ContentPresenter Margin="2"
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            Margin="2" />
+
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
+                                            Margin="2" />
+
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver"
@@ -207,22 +199,18 @@
                                     <ContentPresenter Margin="2,0,2,0"
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
-                                            Margin="2,0,2,0">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            Margin="2,0,2,0" />
+
+                                    <Border BorderThickness="2"
+                                            BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
-                                            Margin="2,0,2,0">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
+                                            Margin="2,0,2,0" />
+
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver"
