@@ -259,7 +259,7 @@
                                     Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -70,6 +70,7 @@
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
     </Style>
+    <!-- TODO: Is this used? -->
     <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Grid Width="22">
@@ -348,16 +349,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -386,16 +387,16 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -736,16 +737,16 @@
                      Value="True">
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -756,16 +757,16 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
