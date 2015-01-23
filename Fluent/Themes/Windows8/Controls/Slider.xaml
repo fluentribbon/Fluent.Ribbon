@@ -76,16 +76,16 @@
                                     Value="Visible" />
                             <Setter Property="Fill"
                                     TargetName="path1"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="Stroke"
                                     TargetName="path1"
-                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                             <Setter Property="Fill"
                                     TargetName="path"
-                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="Stroke"
                                     TargetName="path"
-                                    Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                         </Trigger>
                         <Trigger Property="Background"
                                  Value="Red">
@@ -94,16 +94,16 @@
                                     Value="Visible" />
                             <Setter Property="Fill"
                                     TargetName="path1"
-                                    Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                             <Setter Property="Stroke"
                                     TargetName="path1"
-                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                             <Setter Property="Fill"
                                     TargetName="path"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                             <Setter Property="Stroke"
                                     TargetName="path"
-                                    Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -153,16 +153,16 @@
                         Value="Visible" />
                 <Setter Property="Fill"
                         TargetName="path1"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Stroke"
                         TargetName="path1"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Fill"
                         TargetName="path"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Stroke"
                         TargetName="path"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -171,16 +171,16 @@
                         Value="Visible" />
                 <Setter Property="Fill"
                         TargetName="path1"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Stroke"
                         TargetName="path1"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Fill"
                         TargetName="path"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Stroke"
                         TargetName="path"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
