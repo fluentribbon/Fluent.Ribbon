@@ -23,7 +23,7 @@
                 <Grid Width="Auto"
                       Margin="0"
                       HorizontalAlignment="Stretch">
-                    <Border BorderBrush="#7F000000"
+                    <!--<Border BorderBrush="#7F000000"
                             BorderThickness="0,1">
                         <Border.Background>
                             <RadialGradientBrush Center="0.5,0.972"
@@ -51,7 +51,7 @@
                                 <GradientStop Offset="1" />
                             </RadialGradientBrush>
                         </Border.Background>
-                    </Border>
+                    </Border>-->
                     <Path Width="8"
                           Height="15"
                           Margin="0,0,-1,0"
