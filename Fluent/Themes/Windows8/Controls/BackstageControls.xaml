@@ -16,6 +16,7 @@
         <Setter Property="Width"
                 Value="85" />
     </Style>
+    <!-- TODO: How to test this? -->
     <ControlTemplate x:Key="ButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid x:Name="grid"
@@ -191,6 +192,7 @@
         <Setter Property="Width"
                 Value="85" />
     </Style>
+    <!-- TODO: How to test this? -->
     <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Grid x:Name="grid"
@@ -323,16 +325,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderThickness"
                         TargetName="border1"
                         Value="1" />
@@ -344,31 +346,31 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -581,16 +583,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderThickness"
                         TargetName="border1"
                         Value="1" />
@@ -602,16 +604,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -626,16 +628,16 @@
 
                     <Grid Background="{DynamicResource TransparentBrush}">
                         <Border x:Name="hoverBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="2"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Background="{DynamicResource ButtonHoverBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
                                 BorderBrush="#FFF29536"
@@ -652,17 +654,17 @@
                                           Margin="1"
                                           Opacity="1" />
                         <Border x:Name="pressedBorder"
-                                BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="2"
-                                Background="{DynamicResource ButtonPressedOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrush}"
                                 Visibility="Collapsed"
                                 Opacity="0.5">
                             <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}"
+                                    BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
-                                    Background="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                                    Background="{DynamicResource ButtonPressedBackgroundBrush}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -704,16 +706,16 @@
                     <Grid Background="{DynamicResource TransparentBrush}"
                           HorizontalAlignment="Stretch">
                         <Border x:Name="hoverBorder"
-                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="2"
-                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonHoverBackgroundBrush}"
                                 Visibility="Collapsed">
                             <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
-                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Background="{DynamicResource ButtonHoverBackgroundBrush}" />
                         </Border>
                         <Border x:Name="selectedBorder"
                                 BorderBrush="#FFF29536"
@@ -730,17 +732,17 @@
                                           Margin="1"
                                           Opacity="1" />
                         <Border x:Name="pressedBorder"
-                                BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                 BorderThickness="1"
                                 CornerRadius="2"
-                                Background="{DynamicResource ButtonPressedOuterBackgroundBrush}"
+                                Background="{DynamicResource ButtonPressedBackgroundBrush}"
                                 Visibility="Collapsed"
                                 Opacity="0.5">
                             <Border Height="Auto"
-                                    BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}"
+                                    BorderBrush="{DynamicResource ButtonPressedBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
-                                    Background="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                                    Background="{DynamicResource ButtonPressedBackgroundBrush}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -1105,16 +1107,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -1131,16 +1133,16 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -1493,16 +1495,16 @@
                                     Value="Visible" />
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="border1"
-                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -1513,16 +1515,16 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="border1"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
 
