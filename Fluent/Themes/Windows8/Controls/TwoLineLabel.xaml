@@ -41,7 +41,7 @@
                           VerticalAlignment="Center"
                           Margin="0,2,0,0"
                           SnapsToDevicePixels="True"
-                          Fill="{TemplateBinding Foreground}" />
+                          Fill="{DynamicResource GlyphColor}" />
                 </Border>
             </StackPanel>
         </StackPanel>
