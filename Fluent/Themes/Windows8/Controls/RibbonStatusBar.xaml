@@ -18,17 +18,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:StatusBar}">
-                    <Border BorderThickness="0,1"
-                            BorderBrush="{DynamicResource StatusBarBorderBrushBrush}">
-                        <Border Height="Auto"
-                                BorderThickness="0,1"
-                                BorderBrush="{DynamicResource StatusBarInnerBorderBrush}"
-                                Background="{DynamicResource StatusBarInnerBackgroundBrush}">
-                            <Controls:StatusBarPanel IsItemsHost="True"
-                                                     x:Name="itemsPresenter"
-                                                     Height="Auto"
-                                                     Margin="0" />
-                        </Border>
+                    <Border Height="Auto"
+                            BorderThickness="0,1,0,0"
+                            BorderBrush="{DynamicResource StatusBarBorderBrush}"
+                            Background="{DynamicResource StatusBarBackgroundBrush}">
+                        <Controls:StatusBarPanel IsItemsHost="True"
+                                                    x:Name="itemsPresenter"
+                                                    Height="Auto"
+                                                    Margin="0" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsWindowMaximized"

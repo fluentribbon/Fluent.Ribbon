@@ -26,49 +26,12 @@
                      Color="#FF212121" />
     <SolidColorBrush x:Key="TabItemFontBrush"
                      Color="#FF212121" />
-    
-    <LinearGradientBrush x:Key="StatusBarBorderBrushBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FF939AA3"
-                      Offset="0" />
-        <GradientStop Color="#FFB7BCC1"
-                      Offset="1" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="StatusBarInnerBorderBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFF7FAFC"
-                      Offset="0" />
-        <GradientStop Color="#FFBFC3C8"
-                      Offset="1" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="StatusBarInnerBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFE6EAEE"
-                      Offset="0" />
-        <GradientStop Color="#FFC0C5CA"
-                      Offset="1" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="StatusBarSeparatorBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFC1C5C9"
-                      Offset="0" />
-        <GradientStop Color="#FFACAFB3"
-                      Offset="1" />
-        <GradientStop Color="#FF777B7F"
-                      Offset="0.5" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="StatusBarSeparatorBorderBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFEAEDF1"
-                      Offset="0" />
-        <GradientStop Color="#FFC5C8CD"
-                      Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="StatusBarBorderBrush"
+                     Color="#D7D7D7" />    
+    <SolidColorBrush x:Key="StatusBarBackgroundBrush"
+                     Color="#F0F0F0" />
+    <SolidColorBrush x:Key="StatusBarSeparatorBackgroundBrush"
+                     Color="#D7D7D7" />
 
     <LinearGradientBrush x:Key="WindowBackgroundBrush"
                          EndPoint="0.5,1"
