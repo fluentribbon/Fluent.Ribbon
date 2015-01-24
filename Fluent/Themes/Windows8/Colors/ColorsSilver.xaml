@@ -4,14 +4,6 @@
                      Color="#DADBDC" />
     <SolidColorBrush x:Key="RibbonBackgoundBrush"
                      Color="#F5F6F7" />
-    <!--<LinearGradientBrush x:Key="RibbonBackgoundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="Yellow"
-                      Offset="0.53" />
-        <GradientStop Color="#FFE5E9EE"
-                      Offset="1" />
-    </LinearGradientBrush>-->
     <SolidColorBrush x:Key="ActiveTabBackgroundBrush"
                      Color="#F5F6F7" />
     <SolidColorBrush x:Key="GroupSeparatorBackgroundBrush"
@@ -33,14 +25,8 @@
     <SolidColorBrush x:Key="StatusBarSeparatorBackgroundBrush"
                      Color="#D7D7D7" />
 
-    <LinearGradientBrush x:Key="WindowBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFEBEDF0"
-                      Offset="0" />
-        <GradientStop Color="#FFBABEC2"
-                      Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="WindowBackgroundBrush"
+                     Color="White" />
 
     <SolidColorBrush x:Key="ScrollOutterBorderBrush"
                      Color="#FF8A9199" />
@@ -216,31 +202,9 @@
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
                      Color="#DCDCDD" />
 
-    <LinearGradientBrush x:Key="RibbonSeparatorBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFAFB2B9"
-                      Offset="0.522" />
-        <GradientStop Color="#00C0C3C8" />
-        <GradientStop Color="#00C0C3C8"
-                      Offset="1" />
-        <GradientStop Color="#66AFB2B9"
-                      Offset="0.168" />
-        <GradientStop Color="#66A7ADB5"
-                      Offset="0.828" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="RibbonSeparatorBorderBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Offset="1"
-                      Color="#19FFFFFF" />
-        <GradientStop Color="#19EFEFEF" />
-        <GradientStop Color="#99F6F6F6"
-                      Offset="0.237" />
-        <GradientStop Color="#99FBFBFB"
-                      Offset="0.741" />
-    </LinearGradientBrush>
-
+    <SolidColorBrush x:Key="RibbonSeparatorBackgroundBrush"
+                     Color="#E2E3E4" />
+    
     <SolidColorBrush x:Key="WindowOutterBackgroundBrush"
                      Color="#FFEBEDF0" />
     <SolidColorBrush x:Key="WindowOutterBorderBrush"

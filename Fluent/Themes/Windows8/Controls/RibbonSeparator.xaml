@@ -12,12 +12,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Separator">
-                    <Border BorderThickness="1,0"
-                            Width="3"
+                    <Border Width="1"
                             Height="Auto"
                             VerticalAlignment="Stretch"
                             Background="{DynamicResource RibbonSeparatorBackgroundBrush}"
-                            BorderBrush="{DynamicResource RibbonSeparatorBorderBrush}" />
+                            />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
