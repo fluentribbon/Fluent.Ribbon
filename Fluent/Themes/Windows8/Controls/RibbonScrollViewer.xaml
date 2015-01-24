@@ -56,16 +56,16 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -77,16 +77,16 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
