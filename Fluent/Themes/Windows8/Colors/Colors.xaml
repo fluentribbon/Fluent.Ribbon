@@ -4,15 +4,6 @@
     <SolidColorBrush x:Key="BackstageBackgroundBrush"
                      Color="White" />
 
-
-    <LinearGradientBrush x:Key="BackstagePanelShadowBackgroundBrush"
-                         EndPoint="1.012,0">
-        <GradientStop Color="#00000000"
-                      Offset="0" />
-        <GradientStop Color="#19000000"
-                      Offset="1" />
-    </LinearGradientBrush>
-
     <SolidColorBrush x:Key="BackstageTopBackgroundBrush"
                      Color="#DADBDC" />
 
