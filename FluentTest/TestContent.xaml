@@ -2250,6 +2250,25 @@
                                    Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
+
+
+
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                        Header="Always middle"
+                                        Fluent:KeyTip.Keys="X4">
+                        <Fluent:SplitButton.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Small" />
+                        </Fluent:SplitButton.SizeDefinition>
+
+                        <Fluent:MenuItem Header="Menu 1" />
+                        <Fluent:MenuItem Header="Menu 2" />
+                        <Separator />
+                        <Fluent:MenuItem Header="Menu 3" />
+                        <Fluent:MenuItem Header="Menu 4" />
+                        
+                    </Fluent:SplitButton>
+
                 </Fluent:RibbonGroupBox>
 
                 <!--Additionally you have properties to arrange key tips as you wish.

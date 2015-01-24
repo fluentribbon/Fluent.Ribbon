@@ -257,6 +257,9 @@
                         Value="" />
                 <Setter Property="Margin"
                         TargetName="downBorder"
+                        Value="0,-1,0,0" />
+                <Setter Property="Margin"
+                        TargetName="PART_Button"
                         Value="0" />
             </Trigger>
 
