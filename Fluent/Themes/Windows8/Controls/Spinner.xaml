@@ -161,6 +161,7 @@
                                 <RepeatButton x:Name="PART_ButtonUp"
                                               Grid.Column="1"
                                               Grid.Row="0"
+                                              Margin="0,-1,-1,0"
                                               Style="{DynamicResource SpinnerButtonStyle}"
                                               RenderTransformOrigin="0,0.5"
                                               HorizontalAlignment="Stretch">
@@ -173,12 +174,13 @@
                                           HorizontalAlignment="Center"
                                           StrokeThickness="0"
                                           VerticalAlignment="Center"
-                                          Margin="1,2,0,1"
+                                          Margin="1,1,0,1"
                                           RenderOptions.EdgeMode="Aliased" />
                                 </RepeatButton>
                                 <RepeatButton x:Name="PART_ButtonDown"
                                               Grid.Column="1"
                                               Grid.Row="1"
+                                              Margin="0,0,-1,-1"
                                               Style="{DynamicResource SpinnerButtonStyle}">
                                     <Path Width="5"
                                           Height="3"
