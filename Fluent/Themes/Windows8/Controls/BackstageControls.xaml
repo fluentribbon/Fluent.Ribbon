@@ -170,16 +170,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -41,10 +41,10 @@
             <Trigger Property="IsMouseOver"
                      Value="False" />
             <!--<Trigger Property="IsPressed" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedBorderBrush}"/>
+        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedBackgroundBrush}"/>
+        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedBackgroundBrush}"/>
+        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedBorderBrush}"/>
       </Trigger>-->
             <Trigger Property="IsEnabled"
                      Value="False">
