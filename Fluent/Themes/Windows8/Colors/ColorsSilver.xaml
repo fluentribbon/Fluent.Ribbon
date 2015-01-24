@@ -14,22 +14,8 @@
     </LinearGradientBrush>-->
     <SolidColorBrush x:Key="ActiveTabBackgroundBrush"
                      Color="#F5F6F7" />
-    <LinearGradientBrush x:Key="GroupSeparatorBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFF6F7F8"
-                      Offset="0" />
-        <GradientStop Color="#FFB0B6BC"
-                      Offset="1" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="GroupSeparatorBorderBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFFDFDFD"
-                      Offset="0" />
-        <GradientStop Color="White"
-                      Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="GroupSeparatorBackgroundBrush"
+                     Color="#E2E3E4" />
     <SolidColorBrush x:Key="DefaultFontBrush"
                      Color="#FF3B3B3B" />
     <SolidColorBrush x:Key="BackstageFontBrush"
@@ -388,18 +374,8 @@
                      Color="#FFDFE3EA" />
     <SolidColorBrush x:Key="QuickAccessToolBarInnerBackgroundBrush"
                      Color="#FFD5D9DE" />
-    <SolidColorBrush x:Key="GroupBoxSeparatorBorderBrush"
-                     Color="White" />
-    <LinearGradientBrush x:Key="GroupBoxSeparatorBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#00C0C3C8"
-                      Offset="0" />
-        <GradientStop Color="#00C0C3C8"
-                      Offset="1" />
-        <GradientStop Color="#FFC0C3C8"
-                      Offset="0.5" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="GroupBoxSeparatorBackgroundBrush"
+                     Color="#E2E3E4" />
 
     <LinearGradientBrush x:Key="RoundButtonBackgroundBrush"
                          EndPoint="0.5,1"
