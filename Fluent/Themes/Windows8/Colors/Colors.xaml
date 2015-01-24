@@ -12,21 +12,9 @@
         <GradientStop Color="#19000000"
                       Offset="1" />
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="BackstageTopBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#3FFFFFFF"
-                      Offset="0.49" />
-        <GradientStop Color="#3F000000"
-                      Offset="0.5" />
-    </LinearGradientBrush>
-    <LinearGradientBrush x:Key="BackstageTopOpacityBrush"
-                         EndPoint="1,0.5"
-                         StartPoint="0,0.5">
-        <GradientStop Color="Black"
-                      Offset="0" />
-        <GradientStop Offset="1" />
-    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="BackstageTopBackgroundBrush"
+                     Color="#DADBDC" />
 
 
     <SolidColorBrush x:Key="ComboBoxButtonHoverBorderBrush"

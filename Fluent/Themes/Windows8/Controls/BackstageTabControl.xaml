@@ -221,10 +221,10 @@
             </Grid>
             <Border Margin="0"
                     VerticalAlignment="Top"
-                    Height="2"
+                    Height="1"
                     Grid.ColumnSpan="2"
                     Background="{TemplateBinding Background}"
-                    OpacityMask="{DynamicResource BackstageTopOpacityBrush}">
+                    >
                 <Rectangle Stroke="{x:Null}"
                            StrokeThickness="0"
                            Fill="{DynamicResource BackstageTopBackgroundBrush}" />
