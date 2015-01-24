@@ -202,6 +202,7 @@
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
                      Color="#DCDCDD" />
 
+    <!-- Is this used? -->
     <SolidColorBrush x:Key="RibbonSeparatorBackgroundBrush"
                      Color="#E2E3E4" />
     
@@ -331,7 +332,5 @@
                      Color="#FF9DA6B0" />
     <SolidColorBrush x:Key="ResizeGripBackBrush"
                      Color="#FFE6E9ED" />
-
-    <Color x:Key="RibbonTabControlGradientColor">#D8FFFFFF</Color>
 
 </ResourceDictionary>
