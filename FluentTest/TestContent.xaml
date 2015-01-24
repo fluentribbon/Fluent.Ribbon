@@ -2258,15 +2258,25 @@
                                         Fluent:KeyTip.Keys="X4">
                         <Fluent:SplitButton.SizeDefinition>
                             <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Middle" />
+                        </Fluent:SplitButton.SizeDefinition>
+
+                        <Fluent:MenuItem Header="Menu 1" />
+                        <Fluent:MenuItem Header="Menu 2" />
+                        
+                    </Fluent:SplitButton>
+
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                        Header="Always small"
+                                        Fluent:KeyTip.Keys="X4">
+                        <Fluent:SplitButton.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Small"
                                                                 Middle="Small" />
                         </Fluent:SplitButton.SizeDefinition>
 
                         <Fluent:MenuItem Header="Menu 1" />
                         <Fluent:MenuItem Header="Menu 2" />
-                        <Separator />
-                        <Fluent:MenuItem Header="Menu 3" />
-                        <Fluent:MenuItem Header="Menu 4" />
-                        
+
                     </Fluent:SplitButton>
 
                 </Fluent:RibbonGroupBox>
