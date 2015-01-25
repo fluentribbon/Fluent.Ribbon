@@ -118,29 +118,24 @@
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
-                                <Border x:Name="border1"
-                                        Height="Auto"
-                                        BorderBrush="{DynamicResource TransparentBrush}"
-                                        BorderThickness="1"
-                                        Background="{DynamicResource TransparentBrush}">
-                                    <Grid Height="Auto">
-                                        <Rectangle x:Name="rectangle"
-                                                   StrokeThickness="0"
-                                                   Visibility="Collapsed">
-                                            <Rectangle.Fill>
-                                                <RadialGradientBrush Center="0.503,1"
-                                                                     GradientOrigin="0.503,1"
-                                                                     RadiusY="0.202">
-                                                    <GradientStop Color="#7FFFFFFF"
-                                                                  Offset="0" />
-                                                    <GradientStop Offset="1" />
-                                                </RadialGradientBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center" />
-                                    </Grid>
-                                </Border>
+                                
+                                <Grid Height="Auto">
+                                    <Rectangle x:Name="rectangle"
+                                                StrokeThickness="0"
+                                                Visibility="Collapsed">
+                                        <Rectangle.Fill>
+                                            <RadialGradientBrush Center="0.503,1"
+                                                                    GradientOrigin="0.503,1"
+                                                                    RadiusY="0.202">
+                                                <GradientStop Color="#7FFFFFFF"
+                                                                Offset="0" />
+                                                <GradientStop Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center" />
+                                </Grid>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver"
@@ -153,12 +148,6 @@
                                     <Setter Property="Background"
                                             TargetName="border"
                                             Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                                    <Setter Property="Background"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                                    <Setter Property="BorderBrush"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonPressedBorderBrush}" />
                                 </Trigger>
                                 <Trigger Property="IsEnabled"
                                          Value="False">
@@ -170,12 +159,6 @@
                                         <Condition Property="IsPressed"
                                                    Value="False" />
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="BorderBrush"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonHoverBorderBrush}" />
-                                    <Setter Property="Background"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                                     <Setter Property="Background"
                                             TargetName="border"
                                             Value="{DynamicResource ButtonHoverBackgroundBrush}" />
@@ -193,12 +176,6 @@
                                         <Condition Property="IsPressed"
                                                    Value="False" />
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="BorderBrush"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonHoverBorderBrush}" />
-                                    <Setter Property="Background"
-                                            TargetName="border1"
-                                            Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                                     <Setter Property="Background"
                                             TargetName="border"
                                             Value="{DynamicResource ButtonHoverBackgroundBrush}" />

@@ -76,14 +76,8 @@
 
     <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush"
                      Color="#FF79848C" />
-    <LinearGradientBrush x:Key="ScrollViewerButtonBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="White"
-                      Offset="0" />
-        <GradientStop Color="#FFE8EBEF"
-                      Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ScrollViewerButtonBackgroundBrush"
+                     Color="#F5F6F7" />
 
     <SolidColorBrush x:Key="CaptionButtonCloseHoverOutterBorderBrush"
                      Color="#FF9B3D3D" />
