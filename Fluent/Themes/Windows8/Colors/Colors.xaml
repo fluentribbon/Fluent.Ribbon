@@ -114,7 +114,7 @@
                       Offset="1" />
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="ScrollWhiteOutterBorderBrush"
+    <!--<SolidColorBrush x:Key="ScrollWhiteOutterBorderBrush"
                      Color="#FF8A9199" />
     <SolidColorBrush x:Key="ScrollWhiteOutterBackgroundBrush"
                      Color="#FFD9DEE3" />
@@ -258,7 +258,7 @@
                       Offset="0.95" />
         <GradientStop Color="#FFEBEDEF"
                       Offset="1" />
-    </LinearGradientBrush>
+    </LinearGradientBrush>-->
     <LinearGradientBrush x:Key="ButtonBackstageOutterBorderBrush"
                          EndPoint="0.5,1"
                          StartPoint="0.5,0">

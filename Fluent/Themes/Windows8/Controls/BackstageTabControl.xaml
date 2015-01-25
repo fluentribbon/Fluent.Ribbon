@@ -141,7 +141,7 @@
                        BasedOn="{StaticResource BackstageButtonStyle}" />
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                        />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
                        TargetType="{x:Type Fluent:DropDownButton}"
                        BasedOn="{StaticResource DropDownButtonBackstageStyle}" />

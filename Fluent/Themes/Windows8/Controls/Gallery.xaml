@@ -111,7 +111,7 @@
                        BasedOn="{StaticResource ScrollViewerStyle}" />
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                        />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border BorderThickness="{TemplateBinding BorderThickness}"

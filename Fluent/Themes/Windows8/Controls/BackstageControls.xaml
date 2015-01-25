@@ -793,7 +793,7 @@
         <ControlTemplate.Resources>
             <Style x:Key="{x:Type ScrollBar}"
                    TargetType="{x:Type ScrollBar}"
-                   BasedOn="{StaticResource ScrollBarWhite}" />
+                   />
             <Style x:Key="{x:Type Fluent:ToggleButton}"
                    TargetType="{x:Type Fluent:ToggleButton}"
                    BasedOn="{StaticResource ToggleButtonBackstageStyle}" />
@@ -888,7 +888,7 @@
                     <ResourceDictionary>
                         <Style x:Key="{x:Type ScrollBar}"
                                TargetType="{x:Type ScrollBar}"
-                               BasedOn="{StaticResource ScrollBarWhite}" />
+                                />
                     </ResourceDictionary>
                 </Popup.Resources>
                 <Grid Name="DropDown"

@@ -416,7 +416,7 @@
 
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                        />
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource ScrollViewerStyle}" />

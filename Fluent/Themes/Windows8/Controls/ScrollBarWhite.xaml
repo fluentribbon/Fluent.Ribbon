@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Style x:Key="ScrollBarWhiteLineButton"
+    <!--<Style x:Key="ScrollBarWhiteLineButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
@@ -440,9 +440,9 @@
                    IsDirectionReversed="true"
                    ViewportSize="{TemplateBinding ViewportSize}">
                 <Track.Resources>
-                    <!-- Set the Thumb's minimum height to 50.
+                    --><!-- Set the Thumb's minimum height to 50.
                       The Thumb's minimum height is half the
-                      value of VerticalScrollBarButtonHeightKey. -->
+                      value of VerticalScrollBarButtonHeightKey. --><!--
                     <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
                         36
                     </sys:Double>
@@ -507,9 +507,9 @@
                    Margin="0,1,0,1"
                    ViewportSize="{TemplateBinding ViewportSize}">
                 <Track.Resources>
-                    <!-- Set the Thumb's minimum height to 50.
+                    --><!-- Set the Thumb's minimum height to 50.
                       The Thumb's minimum height is half the
-                      value of VerticalScrollBarButtonHeightKey. -->
+                      value of VerticalScrollBarButtonHeightKey. --><!--
                     <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
                         36
                     </sys:Double>
@@ -572,5 +572,5 @@
                         Value="17" />
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

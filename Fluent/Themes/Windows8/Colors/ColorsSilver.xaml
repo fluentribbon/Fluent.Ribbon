@@ -28,7 +28,7 @@
     <SolidColorBrush x:Key="WindowBackgroundBrush"
                      Color="White" />
 
-    <SolidColorBrush x:Key="ScrollOutterBorderBrush"
+    <!--<SolidColorBrush x:Key="ScrollOutterBorderBrush"
                      Color="#FF8A9199" />
     <SolidColorBrush x:Key="ScrollOutterBackgroundBrush"
                      Color="#FFD9DEE3" />
@@ -164,7 +164,7 @@
                       Offset="0" />
         <GradientStop Color="#FFDFE4EB"
                       Offset="1" />
-    </LinearGradientBrush>
+    </LinearGradientBrush>-->
     <SolidColorBrush x:Key="TextBoxBackgroundBrush"
                      Color="White" />
     <SolidColorBrush x:Key="TextBoxHoverBackgroundBrush"
