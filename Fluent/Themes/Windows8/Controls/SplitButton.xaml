@@ -303,6 +303,46 @@
                                SourceName="PART_Button" />
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
+                    <Condition Property="Size"
+                               Value="Middle" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderThickness"
+                        TargetName="downBorder"
+                        Value="1,1,0,0" />
+                <Setter Property="BorderBrush"
+                        TargetName="downBorder"
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True"
+                               SourceName="PART_Button" />
+                    <Condition Property="IsDropDownOpen"
+                               Value="False" />
+                    <Condition Property="Size"
+                               Value="Small" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderThickness"
+                        TargetName="downBorder"
+                        Value="1,1,0,0" />
+                <Setter Property="BorderBrush"
+                        TargetName="downBorder"
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True"
+                               SourceName="PART_Button" />
+                    <Condition Property="IsDropDownOpen"
+                               Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
