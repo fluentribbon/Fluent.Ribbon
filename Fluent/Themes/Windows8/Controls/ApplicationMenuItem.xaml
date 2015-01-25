@@ -1249,7 +1249,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <!--Splited Menu Item Template-->
-    <!-- TODO: How to use this? -->
     <ControlTemplate x:Key="SplitedApplicationMenuItemTemplate"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
