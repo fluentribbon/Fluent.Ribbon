@@ -293,7 +293,7 @@
                                        Height="22"
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
-                                       Icon="pack://application:,,,/Fluent;Component/Themes/Windows8/Images/QuickAccessToolBarDropDown.png"
+                                       Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"
@@ -319,7 +319,7 @@
                                    Fluent:KeyTip.Keys="00"
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
-                                   Icon="pack://application:,,,/Fluent;Component/Themes/Windows8/Images/QuickAccessToolBarExtender.png"
+                                   Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarExtender.png"
                                    ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
                 <Fluent:DropDownButton.ContextMenu>
                     <ContextMenu />

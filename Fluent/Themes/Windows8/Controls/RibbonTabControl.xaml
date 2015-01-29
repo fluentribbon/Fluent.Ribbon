@@ -27,7 +27,7 @@
                         Height="Auto"
                         Stretch="None"
                         VerticalAlignment="Center"
-                        Source="/Fluent;Component/Themes/Windows8/Images/RibbonCollapse.png"
+                       Source="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png"
                         Width="Auto"
                         Margin="2" />
                 <Image x:Name="iconImageChecked"
@@ -36,7 +36,7 @@
                         Height="Auto"
                         Stretch="None"
                         VerticalAlignment="Center"
-                        Source="/Fluent;Component/Themes/Windows8/Images/RibbonExpand.png"
+                       Source="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png"
                         Width="Auto"
                         Margin="2" />
             </Grid>
@@ -410,7 +410,7 @@
                                 <Grid Width="22"
                                       Height="22">
                                     <Image x:Name="image"
-                                           Source="/Fluent;Component/Themes/Windows8/Images/RibbonPin.png"
+                                           Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png"
                                            Stretch="None"
                                            Visibility="Collapsed" />
                                     <Fluent:ToggleButton x:Name="PART_MinimizeButton"

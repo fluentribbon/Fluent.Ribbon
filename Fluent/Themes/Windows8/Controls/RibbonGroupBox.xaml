@@ -700,7 +700,7 @@
                        Height="Auto"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Source="pack://application:,,,/Fluent;Component\Themes\Windows8\Images\DialogLauncher.png"
+                       Source="pack://application:,,,/Fluent;Component\Themes\Office2010\Images\DialogLauncher.png"
                        SnapsToDevicePixels="True"
                        Stretch="None"
                        RenderTransformOrigin="0.5,0.5">

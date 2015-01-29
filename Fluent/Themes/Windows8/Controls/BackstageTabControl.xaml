@@ -180,7 +180,7 @@
                         BorderThickness="0"
                         SnapsToDevicePixels="True">
                     <Image x:Name="image"
-                           Source="/Fluent;Component/Themes/Windows8/Images/BackstageCorner.png"
+                           Source="/Fluent;Component/Themes/Office2010/Images/BackstageCorner.png"
                            Stretch="None"
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
