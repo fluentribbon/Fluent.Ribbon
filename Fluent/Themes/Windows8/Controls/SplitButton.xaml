@@ -222,6 +222,9 @@
                 <Setter Property="Size"
                         TargetName="PART_Button"
                         Value="Small" />
+                <Setter Property="Height"
+                        TargetName="PART_Button"
+                        Value="20" />
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
                         Value="Horizontal" />
@@ -236,7 +239,10 @@
                         Value="" />
                 <Setter Property="Margin"
                         TargetName="downBorder"
-                        Value="2,-1,-2,0" />
+                        Value="0,-1,-2,0" />
+                <Setter Property="Width"
+                        TargetName="downBorder"
+                        Value="13" />
                 <Setter Property="BorderThickness"
                         TargetName="downBorder"
                         Value="1,1,0,0" />
@@ -249,6 +255,9 @@
                 <Setter Property="Size"
                         TargetName="PART_Button"
                         Value="Middle" />
+                <Setter Property="Height"
+                        TargetName="PART_Button"
+                        Value="20" />
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
                         Value="Horizontal" />
