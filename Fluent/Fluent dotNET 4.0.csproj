@@ -793,10 +793,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <None Include="Themes\Windows8\Images\Images.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Themes\Windows8\RibbonWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -850,26 +846,6 @@
   <ItemGroup>
     <None Include="Themes\Windows8\Effects\Grayscale.fx" />
     <None Include="Themes\Windows8\Generic.txt" />
-    <Resource Include="Themes\Windows8\Images\ApplicationMenu.png" />
-    <Resource Include="Themes\Windows8\Images\BackstageCorner.png" />
-    <Resource Include="Themes\Windows8\Images\CaptionButtonClose.png" />
-    <Resource Include="Themes\Windows8\Images\CaptionButtonMaximize.png" />
-    <Resource Include="Themes\Windows8\Images\CaptionButtonMinimize.png" />
-    <Resource Include="Themes\Windows8\Images\CaptionButtonNormalize.png" />
-    <Resource Include="Themes\Windows8\Images\Checked.png" />
-    <Resource Include="Themes\Windows8\Images\Copy.png" />
-    <Resource Include="Themes\Windows8\Images\Cut.png" />
-    <Resource Include="Themes\Windows8\Images\DialogLauncher.png" />
-    <Resource Include="Themes\Windows8\Images\Help.png" />
-    <Resource Include="Themes\Windows8\Images\MoreColors.png" />
-    <Resource Include="Themes\Windows8\Images\Paste.png" />
-    <Resource Include="Themes\Windows8\Images\QuickAccessToolbarDropDown.png" />
-    <Resource Include="Themes\Windows8\Images\QuickAccessToolbarExtender.png" />
-    <Resource Include="Themes\Windows8\Images\ResizeGrip.png" />
-    <Resource Include="Themes\Windows8\Images\RibbonCollapse.png" />
-    <Resource Include="Themes\Windows8\Images\RibbonExpand.png" />
-    <Resource Include="Themes\Windows8\Images\RibbonPin.png" />
-    <Resource Include="Themes\Windows8\Images\Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
