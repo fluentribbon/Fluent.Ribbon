@@ -767,6 +767,9 @@ namespace Fluent
                     LoadCatalan();
                     break;
 
+                case "et":
+                    this.LoadEstonian();
+                    break;
             }
 
             // Coerce all values
@@ -2070,6 +2073,51 @@ namespace Fluent
             _ribbonContextMenuShowAbove = "Mostra la barra d'eines d'accés ràpid sobre la cinta";
             _ribbonContextMenuCustomizeRibbon = "Personalitza la cinta...";
             _ribbonContextMenuMinimizeRibbon = "Minimitza la cinta";
+        }
+
+        #endregion
+
+        #region Estonian
+
+        private void LoadEstonian()
+        {
+            // Backstage button text & key tip
+            this._backstageButtonText = "Fail";
+            this._backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            this._minimizeButtonScreenTipTitle = "Ahenda menüülint (Ctrl+F1)";
+            this._minimizeButtonScreenTipText = "Kas vajate rohkem ruumi? Ahendage lint, siis kuvatakse \nainult menüünimed.";
+            this._expandButtonScreenTipTitle = "Kinnita lint (Ctrl+F1)";
+            this._expandButtonScreenTipText = "Kas soovite, et lint oleks kuvatud? Saate selle töötamise \najal avatuna hoida.";
+
+            // QAT tooltips and menu items            
+            this._quickAccessToolBarDropDownButtonTooltip = "Kohanda kiirpääsuriba";
+            this._quickAccessToolBarMoreControlsButtonTooltip = "Rohkem juhtelemente"; // When two arrows appear ">>"
+            this._quickAccessToolBarMenuHeader = "Kohanda kiirpääsuriba";
+            this._quickAccessToolBarMenuShowAbove = "Kuva lindi kohal";
+            this._quickAccessToolBarMenuShowBelow = "Kuva lindi all";
+
+            // Click on Ribbon to show context menu
+            this._ribbonContextMenuAddItem = "Lisa kiirpääsuribale"; // Button
+            this._ribbonContextMenuAddGroup = "Lisa rühm kiirpääsuribale"; // For ex., by collapsed group
+            this._ribbonContextMenuAddGallery = "Lisa galerii kiirpääsuribale"; // For ex., by opened font context menu
+            this._ribbonContextMenuAddMenu = "Lisa menüü kiirpääsuribale"; // By dashed splitter in context menu
+            this._ribbonContextMenuRemoveItem = "Eemalda kiirpääsuribalt"; // By item in QAT
+            this._ribbonContextMenuCustomizeQuickAccessToolbar = "Kohanda kiirpääsuriba...";
+            this._ribbonContextMenuShowBelow = "Kuva kiirpääsuriba lindi all";
+            this._ribbonContextMenuShowAbove = "Kuva kiirpääsuriba lindi kohal";
+            this._ribbonContextMenuCustomizeRibbon = "Kohanda linti...";
+            this._ribbonContextMenuMinimizeRibbon = "Ahenda menüülint";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            //Screentips
+            this._screenTipDisableReasonHeader = "See käsk on praegu keelatud.";
+            this._screenTipF1LabelHeader = "Spikri kuvamiseks vajutage klahvi F1";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            this._customizeStatusBar = "Kohanda olekuriba";
         }
 
         #endregion
