@@ -22,23 +22,27 @@
             </Border.ToolTip>
             
             <Grid>
-                <Image x:Name="iconImage"
-                        HorizontalAlignment="Center"
-                        Height="Auto"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                       Source="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png"
-                        Width="Auto"
-                        Margin="2" />
-                <Image x:Name="iconImageChecked"
-                        Visibility="Collapsed"
-                        HorizontalAlignment="Center"
-                        Height="Auto"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                       Source="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png"
-                        Width="Auto"
-                        Margin="2" />
+                <Path x:Name="iconImageChecked"
+                      Visibility="Collapsed"
+                      Data="M0,0 L4,4 8,0 8,3 4,7 0,3 z"
+                      Fill="#A1A1A1"
+                      Margin="6,7,0,0"
+                      HorizontalAlignment="Left"
+                      Height="7"
+                      Stretch="Fill"
+                      VerticalAlignment="Top"
+                      Width="8" />
+
+                <Path x:Name="iconImage"
+                      Visibility="Visible"
+                      Data="M0,7 L4,3 8,7 8,4 4,0 0,4 z"
+                      Fill="#A1A1A1"
+                      Margin="6,7,0,0"
+                      HorizontalAlignment="Left"
+                      Height="7"
+                      Stretch="Fill"
+                      VerticalAlignment="Top"
+                      Width="8" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
