@@ -1,6 +1,9 @@
 ﻿namespace FluentTest.ViewModels
 {
+    using System;
     using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
@@ -16,7 +19,7 @@
 
         public MainViewModel()
         {
-            this.Title = string.Format("Fluent Ribbon Control Suite {0}", typeof(Ribbon).Assembly.GetName().Version);
+            this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
 
             this.BoundSpinnerValue = 1;
 
@@ -26,6 +29,19 @@
 
             this.PreviewCommand = new RelayCommand<GalleryItem>(this.Preview);
             this.CancelPreviewCommand = new RelayCommand<GalleryItem>(this.CancelPreview);
+        }
+
+        private static string GetVersionText()
+        {
+            var version = typeof(Ribbon).Assembly.GetName().Version;
+
+            var attributes = typeof(Ribbon).Assembly
+                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
+                    as AssemblyInformationalVersionAttribute[];
+
+            var attrib = attributes.FirstOrDefault();
+
+            return string.Format("{0} ({1})", version, attrib.InformationalVersion);
         }
 
         private void Preview(GalleryItem galleryItem)
