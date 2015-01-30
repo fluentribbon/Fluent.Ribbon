@@ -7,15 +7,6 @@
                 Value="{DynamicResource RibbonTitleBarControlTemplate}" />
         <Setter Property="Focusable"
                 Value="False" />
-        <!-- Using MenuFont here, instead of CaptionFont, might seem wrong but Office uses MenuFont here too -->
-        <Setter Property="TextBlock.FontSize"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
-        <Setter Property="TextBlock.FontFamily"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
-        <Setter Property="TextBlock.FontStyle"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
-        <Setter Property="TextBlock.FontWeight"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
     </Style>
 
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"

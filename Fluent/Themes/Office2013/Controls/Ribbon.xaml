@@ -116,13 +116,5 @@
                 Value="False" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
-        <Setter Property="FontStyle"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
-        <Setter Property="FontWeight"
-                Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
     </Style>
 </ResourceDictionary>

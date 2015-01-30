@@ -202,23 +202,6 @@ namespace Fluent
             DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
 
         /// <summary>
-        /// Gets the calculated height of this control based on <see cref="Control.FontSize"/>, <see cref="Control.FontWeight"/>, <see cref="Control.FontFamily"/> and <see cref="Control.FontStyle"/>.
-        /// </summary>
-        public GridLength CalculatedHeight
-        {
-            get { return (GridLength)GetValue(CalculatedHeightProperty); }
-            private set { SetValue(calculatedHeightPropertyKey, value); }
-        }
-
-        private static readonly DependencyPropertyKey calculatedHeightPropertyKey =
-            DependencyProperty.RegisterReadOnly("CalculatedHeight", typeof(GridLength), typeof(RibbonTabControl), new PropertyMetadata(GridLength.Auto));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CalculatedHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CalculatedHeightProperty = calculatedHeightPropertyKey.DependencyProperty;
-
-        /// <summary>
         /// Gets collection of ribbon toolbar items
         /// </summary>
         public ObservableCollection<UIElement> ToolBarItems
@@ -338,8 +321,6 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
-
-            this.UpdateHeight();
         }
 
         #endregion
@@ -675,12 +656,10 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
         }
 
         // Handles GeneratorStatus changed
@@ -830,35 +809,6 @@ namespace Fluent
             {
                 handler(this, null);
             }
-        }
-
-        #endregion
-
-        #region Size calculations
-
-        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
-        {
-            // When Window related settings are changed
-            if (e.Category == UserPreferenceCategory.Window)
-            {
-                this.UpdateHeight();
-            }
-        }
-
-        private void UpdateHeight()
-        {
-            var formattedText = new FormattedText(
-                RibbonProperties.HeightCalculationText,
-                CultureInfo.CurrentUICulture,
-                FlowDirection.LeftToRight,
-                new Typeface(this.FontFamily, this.FontStyle, this.FontWeight, FontStretches.Normal),
-                this.FontSize,
-                Brushes.Black);
-
-            // 9 (default Windows font size) = 12 (default WPF font size) = 15.96 (formatted height with default font size)
-            // 94 (default height) / 15.96 = 5.889724310776942 (factor)
-            var calculatedHeight = formattedText.Height * 5.889724310776942;
-            this.CalculatedHeight = new GridLength(Math.Max(calculatedHeight, 94));
         }
 
         #endregion

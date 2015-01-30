@@ -29,8 +29,6 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using System.ComponentModel;
-    using System.Windows.Media;
-    using Microsoft.Win32;
 
     // TODO: improve style parts naming & using
 
@@ -1451,8 +1449,6 @@ namespace Fluent
 
             if (this.TitleBar != null)
             {
-                this.UpdateTitleBarHeight();
-
                 foreach (var contextualTabGroup in this.ContextualGroups)
                 {
                     this.TitleBar.Items.Add(contextualTabGroup);
@@ -1462,7 +1458,7 @@ namespace Fluent
             var selectedTab = this.SelectedTabItem;
             if (this.TabControl != null)
             {
-                this.TabControl.SelectionChanged -= OnTabControlSelectionChanged;
+                this.TabControl.SelectionChanged -= this.OnTabControlSelectionChanged;
                 selectedTab = this.TabControl.SelectedItem as RibbonTabItem;
 
                 foreach (var ribbonTabItem in this.Tabs)
@@ -1527,7 +1523,7 @@ namespace Fluent
                 }
             }
 
-            this.quickAccessToolBar = GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
+            this.quickAccessToolBar = this.GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
 
             if (this.quickAccessToolBar != null)
             {
@@ -1622,8 +1618,12 @@ namespace Fluent
         /// <returns>True if element in quick access toolbar</returns>
         public bool IsInQuickAccessToolBar(UIElement element)
         {
-            if (element == null) return false;
-            return quickAccessElements.ContainsKey(element);
+            if (element == null)
+            {
+                return false;
+            }
+
+            return this.quickAccessElements.ContainsKey(element);
         }
 
         /// <summary>
@@ -1632,35 +1632,48 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
-            if (element is Gallery) element = FindParentRibbonControl(element) as UIElement;
+            if (element is Gallery)
+            {
+                element = FindParentRibbonControl(element) as UIElement;
+            }
 
             // Do not add menu items without icon.
-            MenuItem menuItem = element as MenuItem;
+            var menuItem = element as MenuItem;
             if (menuItem != null && menuItem.Icon == null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }
 
-            if (!QuickAccessItemsProvider.IsSupported(element)) return;
-            if (!IsInQuickAccessToolBar(element))
+            if (!QuickAccessItemsProvider.IsSupported(element))
+            {
+                return;
+            }
+
+            if (!this.IsInQuickAccessToolBar(element))
             {
                 UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
-                quickAccessElements.Add(element, control);
-                quickAccessToolBar.Items.Add(control);
-                quickAccessToolBar.InvalidateMeasure();
+                this.quickAccessElements.Add(element, control);
+                this.quickAccessToolBar.Items.Add(control);
+                this.quickAccessToolBar.InvalidateMeasure();
             }
         }
 
         private static IRibbonControl FindParentRibbonControl(DependencyObject element)
         {
-            DependencyObject parent = LogicalTreeHelper.GetParent(element);
+            var parent = LogicalTreeHelper.GetParent(element);
+
             while (parent != null)
             {
-                IRibbonControl control = parent as IRibbonControl;
-                if (control != null) return control;
+                var control = parent as IRibbonControl;
+                if (control != null)
+                {
+                    return control;
+                }
+
                 parent = LogicalTreeHelper.GetParent(parent);
             }
+
             return null;
         }
 
@@ -1671,12 +1684,13 @@ namespace Fluent
         public void RemoveFromQuickAccessToolBar(UIElement element)
         {
             Debug.WriteLine(element);
-            if (IsInQuickAccessToolBar(element))
+
+            if (this.IsInQuickAccessToolBar(element))
             {
-                UIElement quickAccessItem = quickAccessElements[element];
-                quickAccessElements.Remove(element);
-                quickAccessToolBar.Items.Remove(quickAccessItem);
-                quickAccessToolBar.InvalidateMeasure();
+                var quickAccessItem = this.quickAccessElements[element];
+                this.quickAccessElements.Remove(element);
+                this.quickAccessToolBar.Items.Remove(quickAccessItem);
+                this.quickAccessToolBar.InvalidateMeasure();
             }
 
         }
@@ -1686,8 +1700,11 @@ namespace Fluent
         /// </summary>
         public void ClearQuickAccessToolBar()
         {
-            quickAccessElements.Clear();
-            if (quickAccessToolBar != null) quickAccessToolBar.Items.Clear();
+            this.quickAccessElements.Clear();
+            if (this.quickAccessToolBar != null)
+            {
+                this.quickAccessToolBar.Items.Clear();
+            }
         }
 
         #endregion
@@ -1711,8 +1728,6 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
-
             this.keyTipService.Attach();
 
             this.AttachToWindow();
@@ -1734,11 +1749,9 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
-
             this.SaveState();
 
-            keyTipService.Detach();
+            this.keyTipService.Detach();
 
             if (this.ownerWindow != null)
             {
@@ -1768,7 +1781,7 @@ namespace Fluent
         #region IsolatedStorageFileName
 
         // Name of the isolated storage file
-        string isolatedStorageFileName = null;
+        string isolatedStorageFileName;
 
         /// <summary>
         /// Gets name of the isolated storage file
@@ -1803,7 +1816,7 @@ namespace Fluent
                 }
 
                 this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
-                return isolatedStorageFileName;
+                return this.isolatedStorageFileName;
             }
         }
 
@@ -1894,7 +1907,7 @@ namespace Fluent
             try
             {
                 var storage = GetIsolatedStorageFile();
-                if (FileExists(storage, IsolatedStorageFileName))
+                if (FileExists(storage, this.IsolatedStorageFileName))
                 {
                     using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
                     {
@@ -2074,7 +2087,7 @@ namespace Fluent
             }
 
             // Sync QAT menu items
-            foreach (var menuItem in QuickAccessItems)
+            foreach (var menuItem in this.QuickAccessItems)
             {
                 menuItem.IsChecked = this.IsInQuickAccessToolBar(menuItem.Target);
             }
@@ -2143,8 +2156,8 @@ namespace Fluent
         /// </summary>
         public bool AutomaticStateManagement
         {
-            get { return (bool)GetValue(AutomaticStateManagementProperty); }
-            set { SetValue(AutomaticStateManagementProperty, value); }
+            get { return (bool)this.GetValue(AutomaticStateManagementProperty); }
+            set { this.SetValue(AutomaticStateManagementProperty, value); }
         }
 
         /// <summary>
@@ -2174,32 +2187,6 @@ namespace Fluent
         }
 
         #endregion
-
-        #endregion
-
-        #region Size calculations
-
-        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
-        {
-            // When Window related settings are changed
-            if (e.Category == UserPreferenceCategory.Window)
-            {
-                this.UpdateTitleBarHeight();
-            }
-        }
-
-        private void UpdateTitleBarHeight()
-        {
-            var formattedText = new FormattedText(
-                RibbonProperties.HeightCalculationText,
-                CultureInfo.CurrentUICulture,
-                FlowDirection.LeftToRight,
-                new Typeface(this.TitleBar.FontFamily, this.TitleBar.FontStyle, this.TitleBar.FontWeight, FontStretches.Normal),
-                this.TitleBar.FontSize,
-                Brushes.Black);
-
-            RibbonProperties.SetTitleBarHeight(this, Math.Max(formattedText.Height, RibbonProperties.MinTitleBarHeight));
-        }
 
         #endregion
     }
