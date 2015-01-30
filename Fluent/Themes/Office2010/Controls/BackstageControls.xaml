@@ -18,8 +18,7 @@
     </Style>
     <ControlTemplate x:Key="ButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
-        <Grid x:Name="grid"
-              MinHeight="85">
+        <Grid x:Name="grid">
             <Rectangle x:Name="rectangle"
                        Fill="{x:Null}"
                        Stroke="{DynamicResource ButtonBackstageShadowBrush}"
@@ -193,8 +192,7 @@
     </Style>
     <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
-        <Grid x:Name="grid"
-              MinHeight="85">
+        <Grid x:Name="grid">
             <Rectangle x:Name="rectangle"
                        Fill="{x:Null}"
                        Stroke="{DynamicResource ButtonBackstageShadowBrush}"
