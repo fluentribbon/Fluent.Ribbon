@@ -32,7 +32,7 @@
                                    Margin="8,0,0,0"
                                    Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
-                                   Stretch="UniformToFill" />
+                                   SnapsToDevicePixels="True" />
                         </Grid>
                         <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                           x:Name="PART_WindowCommands"
