@@ -16,3 +16,8 @@ assembly_info:
   assembly_version: "{version}"
   assembly_file_version: "{version}"
   assembly_informational_version: "{version}"
+
+artifacts:
+  - path: build/bin
+    name: Fluent.Ribbon {version}
+    type: zip
