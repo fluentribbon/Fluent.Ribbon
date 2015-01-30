@@ -1,0 +1,11 @@
+# http://www.appveyor.com/docs/appveyor-yml
+
+version: 3.3.{build}
+configuration: Release
+
+# Install scripts. (runs after repo cloning)
+install:
+  - nuget restore
+
+build:
+  verbosity: minimal
