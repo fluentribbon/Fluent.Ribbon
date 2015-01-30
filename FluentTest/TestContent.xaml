@@ -342,29 +342,29 @@
                                      Click="HandleDontUseDwmClick">Don't use DWM</Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
-				<Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        KeyTip="T13"
                                        Header="Themes (Office 2013)"
                                        CanAddToQuickAccessToolBar="False"
                                        IsLauncherVisible="False"
                                        MinWidth="150">
-					<Fluent:Button Click="OnOffice2013Click"
+                    <Fluent:Button Click="OnOffice2013Click"
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White</Fluent:Button>
-				</Fluent:RibbonGroupBox>
+                </Fluent:RibbonGroupBox>
 
-				<Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        KeyTip="T13"
                                        Header="Themes (Windows 8)"
                                        CanAddToQuickAccessToolBar="False"
                                        IsLauncherVisible="False"
                                        MinWidth="150">
-					<Fluent:Button Click="OnWindows8Click"
+                    <Fluent:Button Click="OnWindows8Click"
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White (Experimental)</Fluent:Button>
-				</Fluent:RibbonGroupBox>
-				
-				<Fluent:RibbonGroupBox Header="Menu">
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseBackstage"
                                          Size="Middle"
