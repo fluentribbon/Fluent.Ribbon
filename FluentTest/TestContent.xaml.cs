@@ -354,6 +354,11 @@
             var w = new Window();
             w.ShowDialog();
         }
+
+        private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            new MahMetroWindow().Show();
+        }
     }
 
     public class FooCommand1

@@ -2585,7 +2585,8 @@
                 <WrapPanel>
                     <Button x:Name="AddRibbonTab"
                             Click="AddRibbonTab_OnClick">Add tab</Button>
-                    <TextBox Width="200"></TextBox>
+                    <Button x:Name="OpenMahMetroWindow"
+                            Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                 </WrapPanel>
             </TabItem>
         </TabControl>
