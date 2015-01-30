@@ -1,0 +1,31 @@
+﻿<Metro:MetroWindow x:Class="FluentTest.MahMetroWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                   xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:fluentTest="clr-namespace:FluentTest"
+                   Fluent:RibbonProperties.TitleBarHeight="0"
+                   Style="{DynamicResource CleanWindowStyleKey}"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   ShowIconOnTitleBar="False"
+                   ShowTitleBar="True"
+                   WindowStartupLocation="CenterScreen"
+                   Title="{Binding DataContext.Title, ElementName=TestContent}"
+                   Height="768"
+                   Width="1024"
+                   x:Name="window"
+                   TitleCaps="False"
+                   WindowState="Normal">
+    <Metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Metro:MetroWindow.Resources>
+    <fluentTest:TestContent x:Name="TestContent" />
+</Metro:MetroWindow>
