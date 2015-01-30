@@ -1,5 +1,18 @@
 # Changelog for Fluent.Ribbon
 
+## 3.3.0
+- ### Reverted changes
+  - [#28](../../issues/28) "Height and FontSize of MenuItem"
+  - [#31](../../issues/31) "System wide font settings."
+
+- ### Features
+
+- ### Bug fixes
+  - [#45](../../issues/45) Little style Bug in Office2013 Style
+  - [#46](../../issues/46) Little Bug in Office2010 style
+  - [#49](../../issues/49) Fluent:RibbonProperties.TitleBarHeight="0" no longer works!
+  - [#50](../../issues/50) Blurred Window Icon in Office 2013 Style
+
 ## 3.2.0
 - ### Features
   - [#31](../../issues/31) "System wide font settings."
