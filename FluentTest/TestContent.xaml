@@ -234,8 +234,9 @@
                                 </StackPanel>
 
                                 <Fluent:MenuItem Header="File 1"
-                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
+                                                 Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
+                                                 IsDefinitive="True">
+                                </Fluent:MenuItem>
 
                                 <Fluent:MenuItem Header="File 2"
                                                     Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
@@ -248,7 +249,27 @@
                         </Fluent:ApplicationMenu.RightPaneContent>
 
                         <Fluent:MenuItem Header="New"
-                                            Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
+                                         Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png">
+
+                            <Fluent:MenuItem Header="Text document"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
+
+                            <Fluent:MenuItem Header="Spreadsheet"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/GreenLarge.png" />
+
+                        </Fluent:MenuItem>
+
+                        <Fluent:MenuItem Header="Save As" IsSplited="True"
+                                         Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png">
+
+                            <Fluent:MenuItem Header="Standard format"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png" />
+
+                            <Fluent:MenuItem Header="Export"
+                                             Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png" />
+
+                        </Fluent:MenuItem>
+                        
                         <Fluent:MenuItem Header="Open"
                                             Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
 
@@ -321,18 +342,29 @@
                                      Click="HandleDontUseDwmClick">Don't use DWM</Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+				<Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
                                        KeyTip="T13"
                                        Header="Themes (Office 2013)"
                                        CanAddToQuickAccessToolBar="False"
                                        IsLauncherVisible="False"
                                        MinWidth="150">
-                    <Fluent:Button Click="OnOffice2013Click"
+					<Fluent:Button Click="OnOffice2013Click"
                                    Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White</Fluent:Button>
-                </Fluent:RibbonGroupBox>
+				</Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="Menu">
+				<Fluent:RibbonGroupBox Icon="pack://application:,,,/FluentTest;component/Images/Default.png"
+                                       KeyTip="T13"
+                                       Header="Themes (Windows 8)"
+                                       CanAddToQuickAccessToolBar="False"
+                                       IsLauncherVisible="False"
+                                       MinWidth="150">
+					<Fluent:Button Click="OnWindows8Click"
+                                   Icon="pack://application:,,,/FluentTest;component/Images/SilverTheme.png"
+                                   SizeDefinition="Middle">White (Experimental)</Fluent:Button>
+				</Fluent:RibbonGroupBox>
+				
+				<Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseBackstage"
                                          Size="Middle"
@@ -2218,6 +2250,35 @@
                                    Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/FluentTest;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
+
+
+
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                        Header="Always middle"
+                                        Fluent:KeyTip.Keys="X4">
+                        <Fluent:SplitButton.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Middle" />
+                        </Fluent:SplitButton.SizeDefinition>
+
+                        <Fluent:MenuItem Header="Menu 1" />
+                        <Fluent:MenuItem Header="Menu 2" />
+                        
+                    </Fluent:SplitButton>
+
+                    <Fluent:SplitButton Icon="pack://application:,,,/FluentTest;component/Images/Gray.png"
+                                        Header="Always small"
+                                        Fluent:KeyTip.Keys="X4">
+                        <Fluent:SplitButton.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Small"
+                                                                Middle="Small" />
+                        </Fluent:SplitButton.SizeDefinition>
+
+                        <Fluent:MenuItem Header="Menu 1" />
+                        <Fluent:MenuItem Header="Menu 2" />
+
+                    </Fluent:SplitButton>
+
                 </Fluent:RibbonGroupBox>
 
                 <!--Additionally you have properties to arrange key tips as you wish.

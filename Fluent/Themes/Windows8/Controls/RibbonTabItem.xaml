@@ -1,0 +1,469 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <Style x:Key="RibbonTabItemStyle"
+           TargetType="{x:Type Fluent:RibbonTabItem}">
+        <Style.Triggers>
+            <Trigger Property="Group"
+                     Value="{x:Null}">
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource RibbonTopBorderBrush}" />
+            </Trigger>
+            <Trigger Property="Selector.IsSelected"
+                     Value="False">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource TabItemFontBrush}" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Height"
+                Value="Auto" />
+        <Setter Property="IsMinimized"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
+        <Setter Property="IsOpen"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">
+                    <Grid x:Name="grid"
+                          Background="#00000000"
+                          Height="Auto"
+                          VerticalAlignment="Top"
+                          Margin="0,7,0,0">
+                        <!-- This is some margin for contextual tabs? -->
+                        <Border x:Name="border3"
+                                Margin="0,0,0,1"
+                                BorderThickness="1,0"
+                                Grid.ColumnSpan="2">
+                            <!-- This is the gradient for contextual tabs thar are not selected
+                                 BorderBrush="{Binding Group.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            -->
+                            <Border x:Name="border4"
+                                    Margin="-1,0,0,0"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1,0">
+                                <Border.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="Black"
+                                                      Offset="0" />
+                                        <GradientStop Color="#00000000"
+                                                      Offset="0.8" />
+                                    </LinearGradientBrush>
+                                </Border.OpacityMask>
+                                <Border x:Name="border5"
+                                        Background="White"
+                                        BorderThickness="0"
+                                        Margin="0">
+                                    <Border.OpacityMask>
+                                        <LinearGradientBrush EndPoint="0.5,1"
+                                                             StartPoint="0.5,0">
+                                            <GradientStop Color="#59000000"
+                                                          Offset="0" />
+                                            <GradientStop Color="#00000000"
+                                                          Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.OpacityMask>
+                                    <Rectangle x:Name="rectangle4"
+                                               Fill="#3FD2D2D2"
+                                               StrokeThickness="0">
+                                        <Rectangle.OpacityMask>
+                                            <LinearGradientBrush EndPoint="0.5,1"
+                                                                 StartPoint="0.5,0">
+                                                <GradientStop Color="#7F000000"
+                                                              Offset="0" />
+                                                <GradientStop Color="#00000000"
+                                                              Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <Grid x:Name="selectedGrid"
+                              Visibility="Collapsed"
+                              Margin="0,0,0,0"
+                              Grid.ColumnSpan="1">
+                            <!--<Rectangle x:Name="rectangle"
+                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                                       Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       Margin="0"
+                                       VerticalAlignment="Bottom"
+                                       Height="1" />-->
+                            <!--<Rectangle x:Name="rectangle1"
+                                       Fill="Red"
+                                       Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       Margin="1.8,0"
+                                       VerticalAlignment="Bottom"
+                                       Height="1.2" />-->
+                            <!--<Rectangle x:Name="rectangle2"
+                                       Fill="Blue"
+                                       Stroke="{x:Null}"
+                                       StrokeThickness="0"
+                                       Margin="2,0"
+                                       VerticalAlignment="Bottom"
+                                       Height="2" />-->
+                            <Border x:Name="border"
+                                    Margin="0,0,1,0"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1,1,1,0"
+                                    VerticalAlignment="Stretch"
+                                    Background="{DynamicResource ActiveTabBackgroundBrush}">
+                                <!--<Border x:Name="border_Copy3"
+                                        Margin="0"
+                                        BorderThickness="1,1,1,0"
+                                        VerticalAlignment="Stretch"
+                                        Background="{x:Null}"
+                                        BorderBrush="{DynamicResource ActiveTabBackgroundBrush}">
+                                    <Border x:Name="border_Copy4"
+                                            Margin="0,0,-2,-1"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Stretch"
+                                            Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
+                                            BorderBrush="{x:Null}">
+                                        <Border.OpacityMask>
+                                            <LinearGradientBrush EndPoint="0.5,1"
+                                                                 StartPoint="0.5,0">
+                                                <GradientStop Color="#3F000000"
+                                                              Offset="0" />
+                                                <GradientStop Color="#00000000"
+                                                              Offset="0.59" />
+                                            </LinearGradientBrush>
+                                        </Border.OpacityMask>
+                                    </Border>
+                                </Border>-->
+                            </Border>
+                        </Grid>
+                        <Grid x:Name="hoverGrid"
+                              Margin="0,0,0,0"
+                              Visibility="Collapsed"
+                              Grid.ColumnSpan="1">
+                            <Border x:Name="border_Copy"
+                                    Margin="0,0,1,1"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1,1,1,0"
+                                    VerticalAlignment="Stretch"
+
+                                    Background="{x:Null}">
+                                <Border.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#CC000000"
+                                                      Offset="0" />
+                                        <GradientStop Color="#F7FFFFFF"
+                                                      Offset="0.985" />
+                                    </LinearGradientBrush>
+                                </Border.OpacityMask>
+                                <Border x:Name="border_Copy1"
+                                        Margin="0"
+                                        BorderBrush="{DynamicResource ActiveTabBackgroundBrush}"
+                                        BorderThickness="1,1,1,0"
+                                        VerticalAlignment="Stretch"
+
+                                        Background="{x:Null}">
+                                    <Border.OpacityMask>
+                                        <LinearGradientBrush EndPoint="0.5,1"
+                                                             StartPoint="0.5,0">
+                                            <GradientStop Color="#CCFFFFFF"
+                                                          Offset="0" />
+                                            <GradientStop Color="#F7FFFFFF"
+                                                          Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.OpacityMask>
+                                    <Border x:Name="border_Copy2"
+                                            Margin="0"
+                                            BorderBrush="{x:Null}"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Stretch"
+
+                                            Background="{DynamicResource ActiveTabBackgroundBrush}">
+                                        <Border.OpacityMask>
+                                            <LinearGradientBrush EndPoint="0.5,1"
+                                                                 StartPoint="0.5,0">
+                                                <GradientStop Color="#7FFFFFFF"
+                                                              Offset="0.004" />
+                                                <GradientStop Offset="0.5" />
+                                            </LinearGradientBrush>
+                                        </Border.OpacityMask>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Grid>
+                        <Grid x:Name="focusedGrid"
+                              Margin="2,0,0,0"
+                              Visibility="Collapsed"
+                              Grid.ColumnSpan="1">
+                            <Grid.OpacityMask>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="White"
+                                                  Offset="0" />
+                                    <GradientStop Offset="1"
+                                                  Color="#19FFFFFF" />
+                                </LinearGradientBrush>
+                            </Grid.OpacityMask>
+                            <Border x:Name="border_Copy5"
+                                    Margin="1,0,1,1"
+                                    BorderThickness="1,1,1,0"
+                                    VerticalAlignment="Stretch"
+                                    BorderBrush="{DynamicResource ButtonHoverBorderBrush}">
+                            </Border>
+                        </Grid>
+                        <Border x:Name="PART_ContentContainer"
+                                HorizontalAlignment="Stretch"
+                                Margin="6,2,4,0"
+                                VerticalAlignment="Stretch"
+                                Padding="15,0,0,0"
+                                Grid.ColumnSpan="1">
+                            <!--<ContentPresenter x:Name="contentPresenter" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>-->
+                            <Label x:Name="contentPresenter"
+                                   AutomationProperties.Name="{TemplateBinding Header}"
+                                   AutomationProperties.AutomationId="{TemplateBinding Name}"
+                                   Content="{TemplateBinding Header}"
+                                   Margin="0, -3, 0,0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Height="Auto" />
+                        </Border>
+                        <Grid x:Name="separatorGrid"
+                              Margin="0"
+                              Visibility="Collapsed"
+                              HorizontalAlignment="Right"
+                              Width="2"
+                              Grid.Column="1">
+                            <Rectangle x:Name="separatorRectangle1"
+                                       Fill="{DynamicResource RibbonTopBorderBrush}"
+                                       Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                       Margin="0,0,1,0"
+                                       HorizontalAlignment="Right"
+                                       Width="1"
+                                       Opacity="1"
+                                       Visibility="Visible">
+                                <Rectangle.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#00000000"
+                                                      Offset="0" />
+                                        <GradientStop Color="#E5FFFFFF"
+                                                      Offset="0.382" />
+                                    </LinearGradientBrush>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <Rectangle x:Name="separatorRectangle2"
+                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                                       Stroke="{DynamicResource ActiveTabBackgroundBrush}"
+                                       HorizontalAlignment="Right"
+                                       Margin="0"
+                                       Width="1"
+                                       Opacity="1"
+                                       Visibility="Visible">
+                                <Rectangle.OpacityMask>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#00000000"
+                                                      Offset="0" />
+                                        <GradientStop Color="#BFFFFFFF"
+                                                      Offset="0.329" />
+                                    </LinearGradientBrush>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Opacity"
+                                    TargetName="contentPresenter"
+                                    Value="0.5" />
+                        </Trigger>
+                        <!--<Trigger Property="IsKeyboardFocused" Value="True">
+              <Setter Property="Visibility" TargetName="focusedGrid" Value="Visible"/>
+            </Trigger>-->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="1,0,0,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="1,0,0,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="0,0,1,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="0,0,1,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="0,0,0,1" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="0,0,0,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="0,0,0,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="0,0,0,1" />
+                        </MultiTrigger>
+                        <!--<MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="True" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="1,0,1,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="1,0,1,0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="1,0,0,1" />
+                        </MultiTrigger>-->
+                        <Trigger Property="Group"
+                                 Value="{x:Null}">
+                            <Setter Property="Visibility"
+                                    TargetName="border3"
+                                    Value="Collapsed" />
+                            <Setter Property="Margin"
+                                    TargetName="separatorGrid"
+                                    Value="-1,0,0,1" />
+                            <!--<Setter Property="Visibility"
+                                    TargetName="border_Copy3"
+                                    Value="Collapsed" />-->
+
+
+
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelected"
+                                           Value="True" />
+                                <Condition Property="IsMinimized"
+                                           Value="False" />
+                                <Condition Property="Fluent:RibbonTabControl.HighlightSelectedItem"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="selectedGrid"
+                                    Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="Selector.IsSelected"
+                                           Value="False" />
+                                <Condition Property="IsMinimized"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="hoverGrid"
+                                    Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsMinimized"
+                                           Value="True" />
+                                <Condition Property="IsOpen"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="hoverGrid"
+                                    Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelected"
+                                           Value="True" />
+                                <Condition Property="IsMinimized"
+                                           Value="True" />
+                                <Condition Property="IsOpen"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility"
+                                    TargetName="hoverGrid"
+                                    Value="Visible" />
+                            <Setter Property="Background"
+                                    TargetName="grid"
+                                    Value="#00000000" />
+                        </MultiTrigger>
+                        <Trigger Property="IsSeparatorVisible"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="separatorGrid"
+                                    Value="Visible" />
+                            <Setter Property="Margin"
+                                    TargetName="PART_ContentContainer"
+                                    Value="6,2,6,0" />
+                            <Setter Property="Margin"
+                                    TargetName="hoverGrid"
+                                    Value="2,0" />
+                            <Setter Property="Margin"
+                                    TargetName="selectedGrid"
+                                    Value="0,0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="Indent"
+                Value="12" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TabItemSelectedFontBrush}" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="BorderBrush"
+                Value="{Binding Group.BorderBrush, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />
+    </Style>
+</ResourceDictionary>

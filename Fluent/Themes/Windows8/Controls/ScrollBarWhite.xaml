@@ -1,0 +1,576 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--<Style x:Key="ScrollBarWhiteLineButton"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Name="Border"
+                            Margin="0"
+                            CornerRadius="1"
+                            BorderThickness="1"
+                            BorderBrush="{DynamicResource ScrollWhiteOutterBorderBrush}"
+                            Background="{DynamicResource ScrollWhiteOutterBackgroundBrush}">
+                        <Border x:Name="border"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                CornerRadius="1"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ScrollWhiteInnerBorderBrush}"
+                                Background="{DynamicResource ScrollWhiteInnerBackgroundBrush}">
+                            <Path x:Name="path"
+                                  Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Width="Auto"
+                                  Height="Auto"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Fill="{TemplateBinding Foreground}" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsPressed"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBackgroundBrush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Panel.Background"
+                                           Value="White" />
+                                <Condition Property="IsEnabled"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBackgroundBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhitePressedOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhitePressedOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhitePressedInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhitePressedInnerBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="path"
+                                    Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#FF747576"
+                                  Offset="0" />
+                    <GradientStop Color="#FF454647"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ScrollBarWhitePageButton"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="IsTabStop"
+                Value="false" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ScrollBarWhiteThumb"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="IsTabStop"
+                Value="false" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border x:Name="border"
+                            CornerRadius="1"
+                            BorderThickness="1"
+                            Background="{DynamicResource ScrollWhiteOutterBackgroundBrush}"
+                            BorderBrush="{DynamicResource ScrollWhiteOutterBorderBrush}">
+                        <Border x:Name="border1"
+                                Width="Auto"
+                                BorderBrush="{DynamicResource ScrollWhiteInnerBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="1"
+                                Background="{DynamicResource ScrollWhiteInnerBackgroundBrush}"
+                                Padding="2"
+                                ClipToBounds="True">
+                            <StackPanel Width="Auto"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Height="7"
+                                        Visibility="Visible">
+                                <Rectangle Stroke="#FF8F9297"
+                                           Width="1"
+                                           Margin="1,0" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,1,0"
+                                           Width="1" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,1,0"
+                                           Width="1" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,1,0"
+                                           Width="1" />
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhitePressedOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhitePressedOutterBorderBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhitePressedInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhitePressedInnerBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBorderBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBackgroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="VerticalScrollBarWhiteLineButton"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Name="Border"
+                            Margin="0"
+                            CornerRadius="1"
+                            BorderThickness="1"
+                            BorderBrush="{DynamicResource ScrollWhiteVerticalOutterBorderBrush}"
+                            Background="{DynamicResource ScrollWhiteVerticalOutterBackgroundBrush}">
+                        <Border x:Name="border"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                CornerRadius="1"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ScrollWhiteVerticalInnerBorderBrush}"
+                                Background="{DynamicResource ScrollWhiteVerticalInnerBackgroundBrush}">
+                            <Path x:Name="path"
+                                  Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Width="Auto"
+                                  Height="Auto"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Fill="{TemplateBinding Foreground}" />
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsPressed"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverInnerBackgroundBrush}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Panel.Background"
+                                           Value="White" />
+                                <Condition Property="IsEnabled"
+                                           Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteOverInnerBackgroundBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed"
+                                 Value="true">
+                            <Setter Property="BorderBrush"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedOutterBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="Border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedInnerBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="false">
+                            <Setter Property="Opacity"
+                                    TargetName="path"
+                                    Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#FF747576"
+                                  Offset="0" />
+                    <GradientStop Color="#FF454647"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="VerticalScrollBarWhiteThumb"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="IsTabStop"
+                Value="false" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border x:Name="border"
+                            CornerRadius="1"
+                            BorderThickness="1"
+                            Background="{DynamicResource ScrollWhiteVerticalOutterBackgroundBrush}"
+                            BorderBrush="{DynamicResource ScrollWhiteVerticalOutterBorderBrush}">
+                        <Border x:Name="border1"
+                                Width="Auto"
+                                BorderBrush="{DynamicResource ScrollWhiteVerticalInnerBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="1"
+                                Background="{DynamicResource ScrollWhiteVerticalInnerBackgroundBrush}"
+                                Padding="2"
+                                ClipToBounds="True">
+                            <StackPanel Width="7"
+                                        Orientation="Vertical"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Height="Auto"
+                                        Visibility="Visible">
+                                <Rectangle Stroke="#FF8F9297"
+                                           Width="Auto"
+                                           Margin="0,1"
+                                           Height="1" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,0,1"
+                                           Width="Auto"
+                                           Height="1" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,0,1"
+                                           Width="Auto"
+                                           Height="1" />
+                                <Rectangle Stroke="#FF8F9297"
+                                           Margin="0,0,0,1"
+                                           Width="Auto"
+                                           Height="1" />
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedOutterBorderBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteVerticalPressedInnerBackgroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverOutterBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverOutterBorderBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverInnerBorderBrush}" />
+                            <Setter Property="Background"
+                                    TargetName="border1"
+                                    Value="{DynamicResource ScrollWhiteVerticalOverInnerBackgroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="VerticalScrollBarWhite"
+                     TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="18" />
+                <RowDefinition Height="0.00001*" />
+                <RowDefinition MaxHeight="18" />
+            </Grid.RowDefinitions>
+            <Border Grid.RowSpan="3"
+                    CornerRadius="0"
+                    Background="{DynamicResource ScrollWhiteVerticalBackgroundBrush}" />
+            <RepeatButton x:Name="repeatButton"
+                          Grid.Row="0"
+                          Style="{DynamicResource VerticalScrollBarWhiteLineButton}"
+                          Height="17"
+                          Command="ScrollBar.LineUpCommand"
+                          Content="M 0 4 L 8 4 L 4 0 Z"
+                          VerticalAlignment="Top"
+                          Margin="1,1,1,0" />
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   IsDirectionReversed="true"
+                   ViewportSize="{TemplateBinding ViewportSize}">
+                <Track.Resources>
+                    --><!-- Set the Thumb's minimum height to 50.
+                      The Thumb's minimum height is half the
+                      value of VerticalScrollBarButtonHeightKey. --><!--
+                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                        36
+                    </sys:Double>
+                </Track.Resources>
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource ScrollBarWhitePageButton}"
+                                  Command="ScrollBar.PageUpCommand" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{DynamicResource VerticalScrollBarWhiteThumb}"
+                           Margin="1,0,1,0"
+                           RenderTransformOrigin="0.5,0.5" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource ScrollBarWhitePageButton}"
+                                  Command="ScrollBar.PageDownCommand" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <RepeatButton x:Name="repeatButton1"
+                          Grid.Row="3"
+                          Style="{DynamicResource VerticalScrollBarWhiteLineButton}"
+                          Height="17"
+                          Command="ScrollBar.LineDownCommand"
+                          Content="M 0 0 L 4 4 L 8 0 Z"
+                          Margin="1,0,1,1" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="repeatButton"
+                        Value="White" />
+                <Setter Property="Background"
+                        TargetName="repeatButton1"
+                        Value="White" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HorizontalScrollBarWhite"
+                     TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="18" />
+                <ColumnDefinition Width="0.00001*" />
+                <ColumnDefinition MaxWidth="18" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="3"
+                    CornerRadius="0"
+                    Margin="0"
+                    Background="{DynamicResource ScrollWhiteBackgroundBrush}" />
+            <RepeatButton x:Name="repeatButton1"
+                          Grid.Column="0"
+                          Style="{DynamicResource ScrollBarWhiteLineButton}"
+                          Width="17"
+                          Command="ScrollBar.LineLeftCommand"
+                          Content="M 4 0 L 4 8 L 0 4 Z"
+                          Margin="1,1,0,1" />
+            <Track Name="PART_Track"
+                   Grid.Column="1"
+                   IsDirectionReversed="False"
+                   Margin="0,1,0,1"
+                   ViewportSize="{TemplateBinding ViewportSize}">
+                <Track.Resources>
+                    --><!-- Set the Thumb's minimum height to 50.
+                      The Thumb's minimum height is half the
+                      value of VerticalScrollBarButtonHeightKey. --><!--
+                    <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
+                        36
+                    </sys:Double>
+                </Track.Resources>
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource ScrollBarWhitePageButton}"
+                                  Command="ScrollBar.PageLeftCommand" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{DynamicResource ScrollBarWhiteThumb}"
+                           Margin="0,0,0,0" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource ScrollBarWhitePageButton}"
+                                  Command="ScrollBar.PageRightCommand" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <RepeatButton x:Name="repeatButton"
+                          Grid.Column="3"
+                          Style="{DynamicResource ScrollBarWhiteLineButton}"
+                          Width="17"
+                          Command="ScrollBar.LineRightCommand"
+                          Content="M 0 0 L 4 4 L 0 8 Z"
+                          Margin="0,1,1,1" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="repeatButton"
+                        Value="White" />
+                <Setter Property="Background"
+                        TargetName="repeatButton1"
+                        Value="White" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="ScrollBarWhite"
+           TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Style.Triggers>
+            <Trigger Property="Orientation"
+                     Value="Horizontal">
+                <Setter Property="Width"
+                        Value="Auto" />
+                <Setter Property="Template"
+                        Value="{DynamicResource HorizontalScrollBarWhite}" />
+                <Setter Property="Height"
+                        Value="17" />
+            </Trigger>
+            <Trigger Property="Orientation"
+                     Value="Vertical">
+                <Setter Property="Height"
+                        Value="Auto" />
+                <Setter Property="Template"
+                        Value="{DynamicResource VerticalScrollBarWhite}" />
+                <Setter Property="Width"
+                        Value="17" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+</ResourceDictionary>

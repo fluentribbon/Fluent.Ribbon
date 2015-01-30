@@ -1,0 +1,205 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+
+    <ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="GalleryDropDownButtonStyle"
+           TargetType="{x:Type Fluent:DropDownButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:DropDownButton}">
+                    <Grid>
+                        <Border x:Name="PART_ButtonBorder"
+                                Background="Transparent">
+                            <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                                 Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                                 HasTwoLines="False"
+                                                 HasGlyph="True"
+                                                 Foreground="White"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 Margin="6,-2,0,0" />
+                        </Border>
+                        <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Fade"
+                               Margin="0,0,-4,0"
+                               VerticalAlignment="Top"
+                               Grid.ColumnSpan="2">
+                            <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  Margin="0"
+                                  VerticalAlignment="Top">
+                                <Border x:Name="PART_DropDownBorder"
+                                        MinWidth="{TemplateBinding ActualWidth}"
+                                        SnapsToDevicePixels="True"
+                                        Background="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                        BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="1"
+                                        d:LayoutOverrides="Width, Height"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Top">
+                                    <Grid Width="Auto"
+                                          Height="Auto"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Top">
+                                        <Border VerticalAlignment="Top"
+                                                Width="Auto"
+                                                Height="Auto"
+                                                BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="1" />
+                                        <Grid Margin="1"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Top">
+                                            <Rectangle Fill="{x:Null}"
+                                                       Stretch="Fill"
+                                                       Stroke="#FFE2E4E7"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="24,0,0,0"
+                                                       Width="1"
+                                                       Height="Auto"
+                                                       Grid.RowSpan="2"
+                                                       Visibility="Visible"
+                                                       VerticalAlignment="Stretch" />
+                                            <ScrollViewer Margin="1"
+                                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                          SnapsToDevicePixels="True"
+                                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                                <StackPanel x:Name="PART_MenuPanel"
+                                                            Orientation="Vertical"
+                                                            IsItemsHost="True"
+                                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Foreground"
+                                    TargetName="twoLineLabel"
+                                    Value="#FFFFD232" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate TargetType="{x:Type Fluent:Gallery}"
+                     x:Key="GalleryControlTemplate">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Style x:Key="{x:Type ScrollViewer}"
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
+                <Style x:Key="{x:Type ScrollBar}"
+                       TargetType="{x:Type ScrollBar}"
+                        />
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Border BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{DynamicResource GalleryBorderBrush}"
+                x:Name="layoutRoot">
+            <Grid Width="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border x:Name="border"
+                        BorderBrush="{x:Null}"
+                        BorderThickness="0"
+                        Height="13"
+                        Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                    <Fluent:DropDownButton x:Name="PART_DropDownButton"
+                                           Style="{DynamicResource GalleryDropDownButtonStyle}"
+                                           Height="Auto"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Header="{TemplateBinding SelectedFilterTitle}" />
+                </Border>
+                <ScrollViewer x:Name="scrollViewer"
+                              Grid.RowSpan="1"
+                              Grid.Row="1"
+                              Margin="1"
+                              Focusable="False">
+                    <Fluent:GalleryPanel Background="White"
+                                         MinItemsInRow="{TemplateBinding MinItemsInRow}"
+                                         MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
+                                         Filter="{TemplateBinding SelectedFilterGroups}"
+                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
+                                         GroupBy="{TemplateBinding GroupBy}"
+                                         IsItemsHost="True"
+                                         ItemHeight="{TemplateBinding ItemHeight}"
+                                         ItemWidth="{TemplateBinding ItemWidth}"
+                                         Orientation="{TemplateBinding Orientation}" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasFilter"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="GalleryStyle"
+           TargetType="{x:Type Fluent:Gallery}">
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Hidden" />
+        <Setter Property="Template"
+                Value="{DynamicResource GalleryControlTemplate}" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0,0,0,1" />
+        <Style.Triggers>
+            <Trigger Property="IsLastItem"
+                     Value="True">
+                <Setter Property="BorderThickness"
+                        Value="0" />
+            </Trigger>
+            <Trigger Property="Orientation"
+                     Value="Vertical">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Orientation"
+                     Value="Horizontal">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

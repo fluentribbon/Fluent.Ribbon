@@ -1,0 +1,660 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\Gallery.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="InRibbonGalleryToggleButtonStyle"
+           TargetType="{x:Type Fluent:ToggleButton}">
+        <Setter Property="Template"
+                Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
+        <Setter Property="Height"
+                Value="68" />
+        <Setter Property="Width"
+                Value="Auto" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
+        <Style.Triggers>
+            <Trigger Property="Size"
+                     Value="Large">
+                <Setter Property="Height"
+                        Value="68" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Height"
+                        Value="22" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Height"
+                        Value="22" />
+                <Setter Property="Width"
+                        Value="31" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <ControlTemplate x:Key="InRibbonGalleryToggleButtonControlTemplate"
+                     TargetType="{x:Type Fluent:ToggleButton}">
+        <Border x:Name="border"
+                BorderThickness="1"
+                Background="{DynamicResource TransparentBrush}"
+                BorderBrush="{DynamicResource TransparentBrush}"
+                Height="Auto"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <Grid Height="Auto">
+                <Rectangle x:Name="rectangle"
+                           StrokeThickness="0"
+                           Visibility="Collapsed">
+                    <Rectangle.Fill>
+                        <RadialGradientBrush Center="0.503,1"
+                                             GradientOrigin="0.503,1"
+                                             RadiusY="0.202">
+                            <GradientStop Color="#7FFFFFFF"
+                                          Offset="0" />
+                            <GradientStop Offset="1" />
+                        </RadialGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel x:Name="stackPanel"
+                            Width="Auto"
+                            Orientation="Vertical">
+                    <ContentPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      Height="32"
+                                      VerticalAlignment="Center"
+                                      Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                      Width="32"
+                                      Margin="2"
+                                      SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="controlLabel"
+                                         Text="{TemplateBinding Header}"
+                                         Style="{DynamicResource TwoLineLabelStyle}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Stretch"
+                                         Margin="2,-2,2,2"
+                                         HasGlyph="True" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
+                <Setter Property="Text"
+                        TargetName="controlLabel"
+                        Value="" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,2,0,2" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="-2,0,2,2" />
+                <Setter Property="Width"
+                        TargetName="controlLabel"
+                        Value="10" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Orientation"
+                        TargetName="stackPanel"
+                        Value="Horizontal" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                <Setter Property="Width"
+                        TargetName="stackPanel"
+                        Value="Auto" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="iconImage"
+                        Value="Center" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="2,-2,2,2" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="border"
+                        Value="Stretch" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,2,2,2" />
+                <Setter Property="VerticalAlignment"
+                        TargetName="controlLabel"
+                        Value="Top" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedBorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsChecked"
+                               Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="InRibbonGalleryButton"
+           TargetType="{x:Type Fluent:ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:ToggleButton}">
+                    <Border BorderBrush="{DynamicResource ButtonBorderBrush}"
+                            BorderThickness="1,1,1,1"
+                            x:Name="border"
+                            Background="{DynamicResource ButtonBackgroundBrush}">
+                        <Grid x:Name="grid">
+                            <Path Margin="0,6,0,0"
+                                    VerticalAlignment="Top"
+                                    Height="1"
+                                    Fill="#FFFFFFFF"
+                                    Stretch="Fill"
+                                    Stroke="#FF000000"
+                                    Data="M0,0L1,0"
+                                    HorizontalAlignment="Center"
+                                    Width="7" />
+                            <Path Margin="0,8,0,0"
+                                    VerticalAlignment="Top"
+                                    Height="3"
+                                    Fill="#FF000000"
+                                    Stretch="Fill"
+                                    Stroke="#FF000000"
+                                    Data="M0,0L1,1 2,0z"
+                                    Width="5"
+                                    HorizontalAlignment="Center"
+                                    StrokeThickness="0" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Opacity"
+                                    TargetName="grid"
+                                    Value="0.5" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonDisabledBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonDisabledBorderBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsPressed"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource TransparentBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="InRibbonGalleryRepeatButton"
+           TargetType="{x:Type RepeatButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border BorderBrush="{DynamicResource ButtonBorderBrush}"
+                            BorderThickness="1,1,1,1"
+                            x:Name="border"
+                            Background="{DynamicResource ButtonBackgroundBrush}">
+                        <ContentPresenter x:Name="contentPresenter" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Opacity"
+                                    TargetName="contentPresenter"
+                                    Value="0.28" />
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonDisabledBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonDisabledBorderBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsPressed"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource TransparentBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonPressedBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource ButtonPressedBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="{x:Type Fluent:InRibbonGallery}"
+           TargetType="{x:Type Fluent:InRibbonGallery}">
+        <Style.Triggers>
+            <Trigger Property="IsCollapsed"
+                     Value="True">
+                <Setter Property="Margin"
+                        Value="0" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:InRibbonGallery}">
+                    <Grid Width="Auto"
+                          Height="Auto"
+                          x:Name="PART_LayoutRoot"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top">
+                        <Border Width="Auto"
+                                BorderThickness="1,1,1,1"
+                                BorderBrush="{DynamicResource InRibbonGalleryBorderBrush}"
+                                ClipToBounds="True"
+                                Margin="0,0,0,0"
+                                x:Name="border"
+                                Height="60"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+                            <Grid Width="Auto"
+                                  Height="Auto">
+                                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Visible">
+                                    <ScrollViewer.Resources>
+                                        <Style TargetType="{x:Type ScrollBar}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                                        <StackPanel HorizontalAlignment="Right"
+                                                                    Margin="0,-1,-1,0">
+                                                            <RepeatButton x:Name="upButton"
+                                                                          Width="15"
+                                                                          Height="21"
+                                                                          Command="ScrollBar.PageUpCommand"
+                                                                          Margin="0,0,0,0"
+                                                                          Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                <Path RenderOptions.EdgeMode="Aliased"
+                                                                      Data="M0,0 L1,-1 2,0z"
+                                                                      Fill="Black"
+                                                                      Width="5"
+                                                                      Height="3"
+                                                                      Stretch="Fill" />
+                                                            </RepeatButton>
+                                                            <RepeatButton x:Name="downButton"
+                                                                          Width="15"
+                                                                          Height="21"
+                                                                          Command="ScrollBar.PageDownCommand"
+                                                                          Margin="0,-1,0,0"
+                                                                          Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                <Path RenderOptions.EdgeMode="Aliased"
+                                                                      Data="M0,0 L1,1 2,0z"
+                                                                      Fill="Black"
+                                                                      Width="5"
+                                                                      Height="3"
+                                                                      Stretch="Fill" />
+                                                            </RepeatButton>
+                                                        </StackPanel>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="ContextMenu"
+                                                    Value="{x:Null}" />
+                                        </Style>
+                                    </ScrollViewer.Resources>
+                                    <Grid>
+                                        <ContentControl x:Name="PART_ContentPresenter"
+                                                        Focusable="False">
+                                            <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
+                                                                 Background="White"
+                                                                 ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 IsItemsHost="True"
+                                                                 ItemHeight="{TemplateBinding ItemHeight}"
+                                                                 ItemWidth="{TemplateBinding ItemWidth}"
+                                                                 Orientation="{TemplateBinding Orientation}"
+                                                                 Filter="{TemplateBinding SelectedFilterGroups}"
+                                                                 GroupBy="{TemplateBinding GroupBy}"
+                                                                 IsGrouped="False" />
+                                        </ContentControl>
+                                        <Image x:Name="PART_FakeImage"
+                                               Visibility="Collapsed" />
+                                    </Grid>
+                                </ScrollViewer>
+                                <Fluent:ToggleButton IsDefinitive="False"
+                                                     HorizontalAlignment="Right"
+                                                     VerticalAlignment="Bottom"
+                                                     Width="15"
+                                                     Height="20"
+                                                     x:Name="PART_ExpandButton"
+                                                     Style="{DynamicResource InRibbonGalleryButton}"
+                                                     Margin="0,0,-1,-1"
+                                                     ClickMode="Press"
+                                                     CanAddToQuickAccessToolBar="False"
+                                                     IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}" />
+                                <Popup x:Name="PART_Popup"
+                                       Placement="Relative"
+                                       PlacementTarget="{Binding ElementName=PART_LayoutRoot}"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Fade"
+                                       Margin="0,0,-4,0"
+                                       VerticalAlignment="Top"
+                                       Grid.ColumnSpan="2">
+                                    <Popup.Resources>
+                                        <ResourceDictionary>
+                                            <Style x:Key="{x:Type ScrollBar}"
+                                                   TargetType="{x:Type ScrollBar}"
+                                                    />
+                                        </ResourceDictionary>
+                                    </Popup.Resources>
+                                    <Grid Name="DropDown"
+                                          SnapsToDevicePixels="True"
+                                          Margin="0"
+                                          VerticalAlignment="Top">
+                                        <Border x:Name="PART_DropDownBorder"
+                                                MinWidth="{Binding ActualWidth, ElementName=PART_LayoutRoot}"
+                                                SnapsToDevicePixels="True"
+                                                Background="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                                BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                                                BorderThickness="1"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Top">
+                                            <Grid Width="Auto"
+                                                  Height="Auto"
+                                                  HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Top"
+                                                  KeyboardNavigation.DirectionalNavigation="Cycle">
+                                                <Border VerticalAlignment="Stretch"
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                                        BorderThickness="1"
+                                                        />
+                                                <Grid Margin="1"
+                                                      HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Top">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Rectangle Fill="{x:Null}"
+                                                               Stretch="Fill"
+                                                               Stroke="#FFE2E4E7"
+                                                               HorizontalAlignment="Left"
+                                                               Margin="24,0,0,0"
+                                                               Width="1"
+                                                               Height="Auto"
+                                                               Grid.RowSpan="2"
+                                                               Visibility="Visible"
+                                                               VerticalAlignment="Stretch" />
+                                                    <Grid x:Name="PART_MenuPanel"
+                                                          MinWidth="{Binding MinWidth, ElementName=PART_DropDownBorder}"
+                                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                          VerticalAlignment="Top">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="Auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Border BorderThickness="{TemplateBinding BorderThickness}"
+                                                                BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                                x:Name="layoutRoot">
+                                                            <Grid Width="Auto">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto" />
+                                                                    <RowDefinition Height="*" />
+                                                                </Grid.RowDefinitions>
+                                                                <Border Grid.Row="0"
+                                                                        x:Name="border_"
+                                                                        BorderBrush="{x:Null}"
+                                                                        BorderThickness="0"
+                                                                        Height="13"
+                                                                        Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                                                                    <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
+                                                                                           Style="{DynamicResource GalleryDropDownButtonStyle}"
+                                                                                           Height="Auto"
+                                                                                           HorizontalAlignment="Left"
+                                                                                           VerticalAlignment="Top"
+                                                                                           Header="{TemplateBinding SelectedFilterTitle}" />
+                                                                </Border>
+                                                                <ScrollViewer x:Name="PART_ScrollViewer"
+                                                                              Grid.Row="1"
+                                                                              MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}"
+                                                                              BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                                              BorderThickness="0,0,0,1"
+                                                                              Margin="1">
+                                                                    <ContentControl x:Name="PART_PopupContentPresenter"
+                                                                                    Content="{x:Null}" />
+                                                                </ScrollViewer>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ContentPresenter x:Name="menuPresenter"
+                                                                          ContentSource="Menu"
+                                                                          Grid.Row="1"
+                                                                          KeyboardNavigation.DirectionalNavigation="None"
+                                                                          VerticalAlignment="Top" />
+                                                    </Grid>
+                                                    <Border x:Name="resizeBorder"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Top"
+                                                            Height="11"
+                                                            BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
+                                                            BorderThickness="0,1,0,0"
+                                                            Grid.Row="2"
+                                                            Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
+                                                        <Grid>
+                                                            <Thumb x:Name="PART_ResizeVerticalThumb"
+                                                                   HorizontalAlignment="Stretch"
+                                                                   Margin="0,0,0,-90"
+                                                                   Width="Auto"
+                                                                   Height="10"
+                                                                   VerticalAlignment="Top"
+                                                                   Cursor="SizeNS"
+                                                                   Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                                            <Thumb x:Name="PART_ResizeBothThumb"
+                                                                   HorizontalAlignment="Right"
+                                                                   Margin="0,0,0,-90"
+                                                                   Width="10"
+                                                                   Height="10"
+                                                                   VerticalAlignment="Top"
+                                                                   Cursor="SizeNWSE"
+                                                                   Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <Fluent:ToggleButton IsDefinitive="False"
+                                             Margin="0,0,0,0"
+                                             Visibility="Collapsed"
+                                             x:Name="PART_DropDownButton"
+                                             Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                             LargeIcon="{Binding Path=LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                             Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                             Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
+                                             SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
+                                             Style="{DynamicResource InRibbonGalleryToggleButtonStyle}"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             ClickMode="Press"
+                                             CanAddToQuickAccessToolBar="False" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasFilter"
+                                 Value="False">
+                            <Setter Property="Visibility"
+                                    TargetName="border_"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="IsEnabled"
+                                    TargetName="PART_DropDownButton"
+                                    Value="False" />
+                            <Setter Property="IsEnabled"
+                                    TargetName="PART_ExpandButton"
+                                    Value="False" />
+                        </Trigger>
+                        <Trigger Property="IsCollapsed"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="border"
+                                    Value="Collapsed" />
+                            <Setter Property="Placement"
+                                    TargetName="PART_Popup"
+                                    Value="Bottom" />
+                            <Setter Property="Visibility"
+                                    TargetName="PART_DropDownButton"
+                                    Value="Visible" />
+                            <Setter Property="VerticalAlignment"
+                                    TargetName="PART_LayoutRoot"
+                                    Value="Top" />
+                            <Setter Property="HorizontalAlignment"
+                                    TargetName="PART_LayoutRoot"
+                                    Value="Left" />
+                        </Trigger>
+                        <Trigger Property="IsDropDownOpen"
+                                 Value="True">
+                            <!--<Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
+              <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
+              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              -->
+                            <!--<Setter Property="IsHitTestVisible" TargetName="PART_DropDownButton" Value="False"/>-->
+                        </Trigger>
+                        <Trigger Property="ResizeMode"
+                                 Value="None">
+                            <Setter Property="Visibility"
+                                    TargetName="resizeBorder"
+                                    Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode"
+                                 Value="Both">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_ResizeVerticalThumb"
+                                    Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="PART_ResizeBothThumb"
+                                    Value="Visible" />
+                            <Setter Property="Visibility"
+                                    TargetName="resizeBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ResizeMode"
+                                 Value="Vertical">
+                            <Setter Property="Visibility"
+                                    TargetName="PART_ResizeBothThumb"
+                                    Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="PART_ResizeVerticalThumb"
+                                    Value="Visible" />
+                            <Setter Property="Visibility"
+                                    TargetName="resizeBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="Menu"
+                                 Value="{x:Null}">
+                            <Setter Property="BorderThickness"
+                                    TargetName="PART_ScrollViewer"
+                                    Value="0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin"
+                Value="2,3,3,0" />
+    </Style>
+</ResourceDictionary>
