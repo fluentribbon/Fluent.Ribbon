@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent;
     using FluentTest.ViewModels;
@@ -72,11 +73,15 @@
 
         public Button CreateRibbonButton()
         {
-            var button = new Button();
             var fooCommand1 = new FooCommand1();
-            button.Command = fooCommand1.ItemCommand;
 
-            button.Header = "Foo";
+            var button = new Button
+            {
+                Command = fooCommand1.ItemCommand,
+                Header = "Foo",
+                Icon = new BitmapImage(new Uri(@"Images\Green.png", UriKind.Relative)),
+                LargeIcon = new BitmapImage(new Uri(@"Images\GreenLarge.png", UriKind.Relative)),
+            };
 
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
             return button;
@@ -343,7 +348,11 @@
             };
 
             var group = new RibbonGroupBox();
-            group.Items.Add(this.CreateRibbonButton());
+            for (var i = 0; i < 20; i++)
+            {
+                group.Items.Add(this.CreateRibbonButton());
+            }
+
             tab.Groups.Add(group);
 
             this.ribbon.Tabs.Add(tab);
