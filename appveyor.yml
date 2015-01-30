@@ -1,6 +1,6 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 3.3.{build}
+version: 3.3.0.{build}
 configuration: Release
 
 # Install scripts. (runs after repo cloning)
@@ -9,3 +9,10 @@ install:
 
 build:
   verbosity: minimal
+
+assembly_info:
+  patch: true
+  file: GlobalAssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
