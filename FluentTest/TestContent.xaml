@@ -13,7 +13,12 @@
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.Resources>
@@ -950,6 +955,37 @@
                         <MenuItem Header="25" />
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Vector images">
+                    <Fluent:SplitButton Header="Large"
+                                        SizeDefinition="Large"
+                                        LargeIcon="{StaticResource MyImage}" />
+
+                    <Fluent:SplitButton Header="Middle"
+                                        SizeDefinition="Middle"
+                                        Icon="{StaticResource MyImage}" />
+
+                    <Fluent:SplitButton Header="Small"
+                                        SizeDefinition="Small"
+                                        Icon="{StaticResource MyImage}" />
+
+                    <Fluent:SplitButton Header="Large"
+                                        SizeDefinition="Large"
+                                        IsButtonEnabled="False"
+                                        LargeIcon="{StaticResource MyImage}" />
+
+                    <Fluent:SplitButton Header="Middle"
+                                        SizeDefinition="Middle"
+                                        IsButtonEnabled="False"
+                                        Icon="{StaticResource MyImage}" />
+
+                    <Fluent:SplitButton Header="Small"
+                                        SizeDefinition="Small"
+                                        IsButtonEnabled="False"
+                                        Icon="{StaticResource MyImage}" />
+
+                </Fluent:RibbonGroupBox>
+
 
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
