@@ -45,11 +45,9 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M0,0L1,1 2,0z"
-                      Fill="#FF000000"
+                      Fill="{DynamicResource DefaultFontBrush}"
                       Margin="3,0,3,0"
                       Stretch="Fill"
-                      Stroke="#FF000000"
-                      StrokeThickness="0"
                       Width="5"
                       Height="3"
                       IsHitTestVisible="False" />
