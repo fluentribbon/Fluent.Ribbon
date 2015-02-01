@@ -200,8 +200,6 @@
                        VerticalAlignment="Center"
                        Width="20"
                        Height="20"
-                       RadiusX="1"
-                       RadiusY="1"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
