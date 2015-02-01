@@ -2297,7 +2297,10 @@
                                                                 Middle="Middle" />
                         </Fluent:SplitButton.SizeDefinition>
 
-                        <Fluent:MenuItem Header="Menu 1" />
+                        <Fluent:MenuItem Header="Menu 1"
+                                         IsChecked="True"
+                                         IsCheckable="True" />
+
                         <Fluent:MenuItem Header="Menu 2" />
                         
                     </Fluent:SplitButton>

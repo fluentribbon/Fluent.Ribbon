@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <BitmapImage x:Key="MenuCutIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2010/Images/Cut.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuCopyIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2010/Images/Copy.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuPasteIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2010/Images/Paste.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MoreColorsIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2010/Images/MoreColors.png" />
+    <BitmapImage x:Key="ScreenTipHelpImage"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2010/Images/Help.png" />
+    <BitmapImage x:Key="MenuCheckedImageOld"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;Component/Themes/Office2010/Images/Checked.png" />
+    <BitmapImage x:Key="ScreenTipWarningImage"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;Component/Themes/Office2010/Images/Warning.png" />
+
+    <!--<Image x:Key="MenuCheckedImage"
+           Width="32"
+           Height="32"
+           PresentationOptions:Freeze="True">
+        <Image.Source>-->
+            <DrawingImage x:Key="MenuCheckedImage">
+                <DrawingImage.Drawing>
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing Brush="#00FFFFFF"
+                                             Geometry="M 0,0L 16,0L 16,16L 0,16L 0,0 Z " />
+                            <!--<GeometryDrawing Brush="#FF808080"
+                                             Geometry="M 8,0.664519L 5.8018,5.74887L 0.287017,6.26833L 4.44324,9.9301L 3.23312,15.3355L 8,12.5142L 12.7669,15.3355L 11.5568,9.9301L 15.713,6.26833L 10.1982,5.74887L 8,0.664519 Z " />-->
+                    <GeometryDrawing Brush="#FF000000"
+                                     Geometry="F1 M 12.4149,6.06221L 6.9984,12.9911L 3.58507,9.57775L 3.58507,6.52442L 6.9984,9.93775L 12.4149,3.00889L 12.4149,6.06221 Z " />
+                </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingImage.Drawing>
+            </DrawingImage>
+        <!--</Image.Source>
+    </Image>-->
+    
+</ResourceDictionary>
