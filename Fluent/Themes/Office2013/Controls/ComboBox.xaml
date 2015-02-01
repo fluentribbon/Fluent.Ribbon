@@ -45,19 +45,12 @@
                 <Path x:Name="path"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Data="M0,0L2,0 1,1z"
+                      Data="M0,0L1,1 2,0z"
                       Fill="{DynamicResource DefaultFontBrush}"
                       Margin="3,0,3,0"
-                      StrokeStartLineCap="Round"
                       Stretch="Fill"
-                      StrokeEndLineCap="Round"
-                      Stroke="{DynamicResource DefaultFontBrush}"
-                      StrokeThickness="1"
-                      StrokeMiterLimit="10"
-                      StrokeLineJoin="Round"
                       Width="5"
-                      Height="4"
-                      StrokeDashCap="Round"
+                      Height="3"
                       IsHitTestVisible="False" />
             </Grid>
         </Border>
