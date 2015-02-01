@@ -2301,7 +2301,8 @@
                                          IsChecked="True"
                                          IsCheckable="True" />
 
-                        <Fluent:MenuItem Header="Menu 2" />
+                        <Fluent:MenuItem Header="Menu 2" 
+                                         IsCheckable="True" />
                         
                     </Fluent:SplitButton>
 

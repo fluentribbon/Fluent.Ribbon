@@ -192,6 +192,17 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
+            <Rectangle x:Name="rectangle"
+                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
+                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Grid.ColumnSpan="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Width="20"
+                       Height="20"
+                       RadiusX="1"
+                       RadiusY="1"
+                       Visibility="Collapsed" />
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -227,6 +238,12 @@
                 <Setter Property="Visibility"
                         TargetName="gestureTextBlock"
                         Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="rectangle"
+                        Value="Visible" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
