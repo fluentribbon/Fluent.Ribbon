@@ -3,8 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type Fluent:Button}"
@@ -16,11 +16,10 @@
         <Setter Property="Width"
                 Value="85" />
     </Style>
-    <!-- TODO: How to test this? -->
+    
     <ControlTemplate x:Key="ButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
-        <Grid x:Name="grid"
-              MinHeight="85">
+        <Grid x:Name="grid">
             <Rectangle x:Name="rectangle"
                        Fill="{x:Null}"
                        Stroke="{DynamicResource ButtonBackstageShadowBrush}"
@@ -192,11 +191,10 @@
         <Setter Property="Width"
                 Value="85" />
     </Style>
-    <!-- TODO: How to test this? -->
+
     <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
-        <Grid x:Name="grid"
-              MinHeight="85">
+        <Grid x:Name="grid">
             <Rectangle x:Name="rectangle"
                        Fill="{x:Null}"
                        Stroke="{DynamicResource ButtonBackstageShadowBrush}"
