@@ -19,5 +19,5 @@ assembly_info:
 
 artifacts:
   - path: build/bin
-    name: Fluent.Ribbon $(version)
+    name: Fluent.Ribbon $(appveyor_build_version)
     type: zip
