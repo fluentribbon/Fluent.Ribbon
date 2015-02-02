@@ -6,12 +6,18 @@
   - [#31](../../issues/31) "System wide font settings."
 
 - ### Features
+  - [#14](../../issues/14) Ribbon Button: when passing the same icon file to the properties Icon and LargeIcon, the control doesn't seem to take the good icon frame
+  - [#52](../../issues/52) Windows 8 theme
 
 - ### Bug fixes
   - [#45](../../issues/45) Little style Bug in Office2013 Style
   - [#46](../../issues/46) Little Bug in Office2010 style
   - [#49](../../issues/49) Fluent:RibbonProperties.TitleBarHeight="0" no longer works!
   - [#50](../../issues/50) Blurred Window Icon in Office 2013 Style
+  - [#55](../../issues/55) Changing menu font size in Windows mess ups ribbon 
+  - [#57](../../issues/57) Slimmer arrow on combo box
+  - [#58](../../issues/58) ColorGallery SelectedColor
+  - [#59](../../issues/59) Little style bug in Windows 8 theme
 
 ## 3.2.0
 - ### Features
