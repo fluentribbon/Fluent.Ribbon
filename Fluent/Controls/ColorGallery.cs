@@ -223,9 +223,9 @@ namespace Fluent
 
         private List<ListBox> listBoxes = new List<ListBox>();
 
-        private bool isSelectionChanged;
+        private bool isSelectionChanging;
 
-        bool templateApplyed;
+        bool isTemplateApplied;
 
 
         #endregion
@@ -481,54 +481,70 @@ namespace Fluent
         // Handles selected color changed
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ColorGallery gallery = d as ColorGallery;
+            var gallery = d as ColorGallery;
+
+            if (gallery == null)
+            {
+                return;
+            }
+
             // Raise event
-            gallery.RaiseEvent(new RoutedEventArgs(ColorGallery.SelectedColorChangedEvent));
+            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
+
             // Set color in gallery
-            Color? color = (Color?)e.NewValue;
+            var color = (Color?)e.NewValue;
             gallery.UpdateSelectedColor(color);
         }
 
         private void UpdateSelectedColor(Color? color)
         {
-            if (!isSelectionChanged && IsLoaded && templateApplyed)
+            if (this.isSelectionChanging
+                || this.isTemplateApplied == false)
             {
-                isSelectionChanged = true;
-                bool isSetted = false;
+                return;
+            }
 
-                // Check menu items
-                if (!color.HasValue)
+            this.isSelectionChanging = true;
+            var isSetted = false;
+
+            // Check menu items
+            if (color.HasValue == false)
+            {
+                isSetted = true;
+                this.automaticButton.IsChecked = true;
+                this.noColorButton.IsChecked = false;
+            }
+            else if (color.Value == Colors.Transparent)
+            {
+                isSetted = true;
+                this.automaticButton.IsChecked = false;
+                this.noColorButton.IsChecked = true;
+            }
+            else
+            {
+                this.automaticButton.IsChecked = false;
+                this.noColorButton.IsChecked = false;
+            }
+
+            // Remove selection from others
+            for (var i = 0; i < this.listBoxes.Count; i++)
+            {
+                if (isSetted == false
+                    && this.listBoxes[i].Visibility == Visibility.Visible)
                 {
-                    isSetted = true;
-                    automaticButton.IsChecked = true;
-                    noColorButton.IsChecked = false;
-                }
-                else if (color.Value == Colors.Transparent)
-                {
-                    isSetted = true;
-                    automaticButton.IsChecked = false;
-                    noColorButton.IsChecked = true;
+                    if (this.listBoxes[i].Items.Contains(color.Value))
+                    {
+                        this.listBoxes[i].SelectedItem = color.Value;
+                        isSetted = true;
+                    }
                 }
                 else
                 {
-                    automaticButton.IsChecked = false;
-                    noColorButton.IsChecked = false;
+                    this.listBoxes[i].SelectedItem = null;
                 }
-                // Remove selection from others
-                for (int i = 0; i < listBoxes.Count; i++)
-                {
-                    if (!isSetted && listBoxes[i].Visibility == Visibility.Visible)
-                    {
-                        if (listBoxes[i].Items.Contains(color.Value))
-                        {
-                            listBoxes[i].SelectedItem = color.Value;
-                            isSetted = true;
-                        }
-                    }
-                    else listBoxes[i].SelectedItem = null;
-                }
-                isSelectionChanged = false;
             }
+
+            this.isSelectionChanging = false;
         }
 
         #endregion
@@ -752,7 +768,7 @@ namespace Fluent
             if (recentColorsListBox != null) recentColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
 
             base.OnApplyTemplate();
-            templateApplyed = true;
+            this.isTemplateApplied = true;
 
             UpdateSelectedColor(SelectedColor);
         }
@@ -811,7 +827,7 @@ namespace Fluent
 
         private void OnAutomaticClick(object sender, RoutedEventArgs e)
         {
-            isSelectionChanged = true;
+            this.isSelectionChanging = true;
             noColorButton.IsChecked = false;
             automaticButton.IsChecked = true;
             // Remove selection from listboxes
@@ -821,12 +837,12 @@ namespace Fluent
             }
 
             SelectedColor = null;
-            isSelectionChanged = false;
+            this.isSelectionChanging = false;
         }
 
         private void OnNoColorClick(object sender, RoutedEventArgs e)
         {
-            isSelectionChanged = true;
+            this.isSelectionChanging = true;
             noColorButton.IsChecked = true;
             automaticButton.IsChecked = false;
             // Remove selection from listboxes
@@ -836,13 +852,13 @@ namespace Fluent
             }
 
             SelectedColor = Colors.Transparent;
-            isSelectionChanged = false;
+            this.isSelectionChanging = false;
         }
 
         private void OnListBoxSelectedChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (isSelectionChanged) return;
-            isSelectionChanged = true;
+            if (this.isSelectionChanging) return;
+            this.isSelectionChanging = true;
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
@@ -855,7 +871,7 @@ namespace Fluent
                 SelectedColor = (Color)e.AddedItems[0];
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
-            isSelectionChanged = false;
+            this.isSelectionChanging = false;
         }
 
         private void UpdateGradients()
