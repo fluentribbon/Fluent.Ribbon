@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B3EE3E
 		Changelog.md = Changelog.md
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 		License.txt = License.txt
+		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent dotNET 4.0", "Fluent\Fluent dotNET 4.0.csproj", "{281095D8-D8B3-4A7F-8896-646483FB685C}"
@@ -22,9 +23,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentTest dotNET 4.0", "FluentTest\FluentTest dotNET 4.0.csproj", "{2A893D50-BBC4-4482-ADAA-D52B517E8632}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{1318E3D3-5156-45FE-9828-464A2D0235E0}"
+	ProjectSection(SolutionItems) = preProject
+		Doc\Fluent Ribbon Control Suite Walkthrough.pdf = Doc\Fluent Ribbon Control Suite Walkthrough.pdf
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905-C104-421D-9502-C4DF042EC048}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		Build.cmd = Build.cmd
+		BuildForSample.cmd = BuildForSample.cmd
 		Fluent.Ribbon.msbuild = Fluent.Ribbon.msbuild
 		Fluent.Ribbon.nuspec = Fluent.Ribbon.nuspec
 	EndProjectSection
