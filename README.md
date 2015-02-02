@@ -119,26 +119,37 @@ If you feel lack of some important features feel free to use [discussions](https
 
 ## Localizations
 
+*   Arabic
+*   Azerbaijani
+*   Catalan
+*   Chinese
+*   Czech
+*   Danish
+*   Dutch
 *   English
+*   Estonian
+*   Finnish
+*   French
+*   German
+*   Greek
+*   Hebrew
+*   Hungarian
+*   Italian
+*   Japanese
+*   Korea
+*   Norwegia
 *   Russian
 *   Persian
-*   German
-*   Hungarian
-*   Czech
-*   French
 *   Polish
-*   Japanese
-*   Dutch
-*   Portuguese
-*   Spanish
-*   Chinese
-*   Swedish
-*   Slovak
-*   Ukrainian
+*   Portuguese (including brazilian)
 *   Romanian
-*   Italian
-*   Arabic
-*   Danish
-*   Azerbaijani
+*   Sinhala
+*   Slovak
+*   Slovenian
+*   Spanish
+*   Swedish
+*   Turkish
+*   Ukrainian
+*   Vietnamese
 
 _* Fluent is a trademark of Microsoft Corporation and the Fluent user interface is licensed from Microsoft Corporation_
