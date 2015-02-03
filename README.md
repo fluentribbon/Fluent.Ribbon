@@ -8,7 +8,7 @@ Fluent.Ribbon or "Fluent Ribbon Control Suite"
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
-Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft&reg; Office Fluent&trade; user interface) for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010 and Office 2013&nbsp;styles.
+Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft&reg; Office Fluent&trade; user interface) for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010, Office 2013 and Windows 8 styles.
 
 ![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
 
@@ -20,11 +20,20 @@ If you wish to contact me (batzen) directly please use twitter https://twitter.c
 
 ### Contributing
 
+#### What you can do to help us
 *   We accepting pull requests, so you are very welcome to create one.
 *   [Fix some bugs](https://github.com/fluentribbon/Fluent.Ribbon/issues)
 *   Help us translating
 *   Help us updating the documentation and walkthrough
 *   Help us writing a changelog/release notes for the next version
+
+### Settings that should be used
+*   Visual Studio settings which should be used
+  *  All languages
+    * Indentation: 4 spaces (please don't use tabs)
+  * XAML
+    * Position each attribute on a separate line
+      * Position first attribute on same line as start tag
 
 ## Documentation
 
@@ -110,26 +119,37 @@ If you feel lack of some important features feel free to use [discussions](https
 
 ## Localizations
 
+*   Arabic
+*   Azerbaijani
+*   Catalan
+*   Chinese
+*   Czech
+*   Danish
+*   Dutch
 *   English
+*   Estonian
+*   Finnish
+*   French
+*   German
+*   Greek
+*   Hebrew
+*   Hungarian
+*   Italian
+*   Japanese
+*   Korea
+*   Norwegia
 *   Russian
 *   Persian
-*   German
-*   Hungarian
-*   Czech
-*   French
 *   Polish
-*   Japanese
-*   Dutch
-*   Portuguese
-*   Spanish
-*   Chinese
-*   Swedish
-*   Slovak
-*   Ukrainian
+*   Portuguese (including brazilian)
 *   Romanian
-*   Italian
-*   Arabic
-*   Danish
-*   Azerbaijani
+*   Sinhala
+*   Slovak
+*   Slovenian
+*   Spanish
+*   Swedish
+*   Turkish
+*   Ukrainian
+*   Vietnamese
 
 _* Fluent is a trademark of Microsoft Corporation and the Fluent user interface is licensed from Microsoft Corporation_

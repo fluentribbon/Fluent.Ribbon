@@ -841,14 +841,12 @@
   <ItemGroup>
     <None Include="Themes\Generic.txt" />
     <None Include="Themes\Office2013\Generic.txt" />
-    <Resource Include="Themes\Windows8\Effects\Grayscale.ps" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Metro\Converters\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Themes\Windows8\Effects\Grayscale.fx" />
     <None Include="Themes\Windows8\Generic.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
