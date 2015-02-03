@@ -384,41 +384,27 @@
     <ControlTemplate x:Key="DropDownButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <Grid>
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    CornerRadius="3"
                     Margin="0,0,0,1"
-                    BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
-                <Border x:Name="border1"
-                        BorderBrush="Black"
-                        BorderThickness="0"
-                        CornerRadius="2"
-                        Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
-                    <StackPanel x:Name="stackPanel"
-                                Margin="2">
-                        <ContentPresenter x:Name="iconImage"
-                                          HorizontalAlignment="Center"
-                                          Height="32"
-                                          VerticalAlignment="Center"
-                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                          Width="32"
-                                          Margin="7,7,7,0"
-                                          SnapsToDevicePixels="True" />
-                        <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                             Margin="5,5,5,3"
-                                             VerticalAlignment="Center"
-                                             HasGlyph="True"
-                                             Text="{TemplateBinding Header}" />
-                    </StackPanel>
-                </Border>
+                    Background="{DynamicResource ButtonBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}">
+                <StackPanel x:Name="stackPanel"
+                            Margin="2">
+                    <ContentPresenter x:Name="iconImage"
+                                        HorizontalAlignment="Center"
+                                        Height="32"
+                                        VerticalAlignment="Center"
+                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                        Width="32"
+                                        Margin="7,7,7,0"
+                                        SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                            Margin="5,5,5,3"
+                                            VerticalAlignment="Center"
+                                            HasGlyph="True"
+                                            Text="{TemplateBinding Header}" />
+                </StackPanel>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -450,8 +436,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1" />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -486,7 +471,6 @@
                                         BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
                                         Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -561,9 +545,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder">
                     <Setter.Value>
@@ -585,18 +566,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderThickness"
-                        TargetName="border1"
-                        Value="1" />
-                <Setter Property="Margin"
-                        TargetName="stackPanel"
-                        Value="1" />
             </Trigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
@@ -606,12 +575,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
