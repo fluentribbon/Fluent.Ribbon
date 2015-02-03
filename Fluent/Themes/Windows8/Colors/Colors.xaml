@@ -61,9 +61,9 @@
     <SolidColorBrush x:Key="KeyTipBorderBrush"
                      Color="#FF767676" />
     <SolidColorBrush x:Key="MenuItemCheckBoxBackgroundBrush"
-                     Color="#FFFCF1C2" />
+                     Color="#FFCEE5FC" />
     <SolidColorBrush x:Key="MenuItemCheckBoxBorderBrush"
-                     Color="#FFF29536" />
+                     Color="#FF64A5E6" />
     <SolidColorBrush x:Key="ContextMenuBarBackgroundBrush"
                      Color="White" />
     <SolidColorBrush x:Key="ContextMenuBarBorderBrush"

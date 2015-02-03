@@ -793,6 +793,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Windows8\Images\Images.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Windows8\Silver.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

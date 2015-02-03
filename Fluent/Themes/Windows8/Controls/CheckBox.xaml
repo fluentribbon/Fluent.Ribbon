@@ -74,18 +74,16 @@
                         BorderThickness="{TemplateBinding BorderThickness}">
                     <Grid>
                         <Path x:Name="CheckIcon"
-                              Width="7.5"
-                              Height="6.9"
+                              Width="9.25"
+                              Height="7.63433"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
-                              Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
+                              Data="F1 M 12.474,6.89842L 6.9984,12.9911L 3.22396,9.56509L 4.64062,7.85676L 6.9984,9.93775L 11.0156,5.35676L 12.474,6.89842 Z"
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Opacity="0"
                               Stretch="Fill"
-                              Stroke="Black"
-                              StrokeEndLineCap="Triangle"
-                              StrokeStartLineCap="Triangle"
-                              StrokeThickness="1.5" />
+                              Fill="Black"
+                              />
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
@@ -145,7 +143,7 @@
                         Property="Background"
                         Value="{DynamicResource CheckBoxHoverBackgroundBrush}" />
                 <Setter TargetName="CheckIcon"
-                        Property="Stroke"
+                        Property="Fill"
                         Value="#FF333333" />
                 <Setter TargetName="IndeterminateIcon"
                         Property="Fill"
@@ -160,7 +158,7 @@
                         Property="Background"
                         Value="{DynamicResource CheckBoxPressedBackgroundBrush}" />
                 <Setter TargetName="CheckIcon"
-                        Property="Stroke"
+                        Property="Fill"
                         Value="#FF000000" />
                 <Setter TargetName="IndeterminateIcon"
                         Property="Fill"
