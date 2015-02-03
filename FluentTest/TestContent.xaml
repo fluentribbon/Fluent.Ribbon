@@ -959,30 +959,30 @@
                 <Fluent:RibbonGroupBox Header="Vector images">
                     <Fluent:SplitButton Header="Large"
                                         SizeDefinition="Large"
-                                        LargeIcon="{StaticResource MyImage}" />
+                                        LargeIcon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Middle"
                                         SizeDefinition="Middle"
-                                        Icon="{StaticResource MyImage}" />
+                                        Icon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Small"
                                         SizeDefinition="Small"
-                                        Icon="{StaticResource MyImage}" />
+                                        Icon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Large"
                                         SizeDefinition="Large"
                                         IsButtonEnabled="False"
-                                        LargeIcon="{StaticResource MyImage}" />
+                                        LargeIcon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Middle"
                                         SizeDefinition="Middle"
                                         IsButtonEnabled="False"
-                                        Icon="{StaticResource MyImage}" />
+                                        Icon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Small"
                                         SizeDefinition="Small"
                                         IsButtonEnabled="False"
-                                        Icon="{StaticResource MyImage}" />
+                                        Icon="{StaticResource VectorImageSample}" />
 
                 </Fluent:RibbonGroupBox>
 
