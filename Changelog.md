@@ -8,6 +8,7 @@
 - ### Features
   - [#14](../../issues/14) Ribbon Button: when passing the same icon file to the properties Icon and LargeIcon, the control doesn't seem to take the good icon frame
   - [#52](../../issues/52) Windows 8 theme
+  - [#60](../../issues/60) First vector images for Windows 8 theme
 
 - ### Bug fixes
   - [#45](../../issues/45) Little style Bug in Office2013 Style
