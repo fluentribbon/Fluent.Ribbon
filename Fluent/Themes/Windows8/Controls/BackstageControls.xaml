@@ -718,14 +718,6 @@
                    TargetType="{x:Type ComboBoxItem}" />
         </ControlTemplate.Resources>
         <Grid>
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border Height="Auto"
                     x:Name="PART_ContentBorder"
                     HorizontalAlignment="Stretch">
@@ -815,7 +807,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -951,9 +942,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="PART_ContentBorder"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
 
             </Trigger>
         </ControlTemplate.Triggers>
@@ -964,18 +952,11 @@
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                CornerRadius="2"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto">
                     <Rectangle x:Name="rectangle"
                                StrokeThickness="0"
@@ -994,7 +975,6 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
                 </Grid>
-            </Border>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Border.BorderThickness"
@@ -1002,18 +982,12 @@
                 <Setter Property="CornerRadius"
                         TargetName="border"
                         Value="0,2,0,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,1,0,0" />
             </Trigger>
             <Trigger Property="Border.BorderThickness"
                      Value="0,0,1,0">
                 <Setter Property="CornerRadius"
                         TargetName="border"
                         Value="0,0,3,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,0,2,0" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="False" />
@@ -1025,12 +999,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -1045,12 +1013,6 @@
                     <Condition Property="IsPressed"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
@@ -1113,17 +1075,7 @@
                                 Background="{DynamicResource TextBoxBackgroundBrush}"
                                 Grid.ColumnSpan="1"
                                 Grid.Column="1"
-                                Width="{TemplateBinding InputWidth}"
-                                CornerRadius="2">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                                     StartPoint="0.5,0">
-                                    <GradientStop Color="#FFABAFB2"
-                                                  Offset="0" />
-                                    <GradientStop Color="#FFE1E6EC"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                                Width="{TemplateBinding InputWidth}">
                             <Grid Grid.ColumnSpan="1"
                                   Grid.Column="1">
                                 <Grid.ColumnDefinitions>
@@ -1149,7 +1101,6 @@
                                         Grid.RowSpan="1"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
-                                        CornerRadius="0,2,0,0"
                                         Grid.Column="1"
                                         Visibility="Collapsed">
                                     <Border.Background>
@@ -1171,7 +1122,6 @@
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         Width="18"
-                                        CornerRadius="0,0,2,0"
                                         Grid.Column="1"
                                         Grid.Row="1"
                                         Visibility="Collapsed">
