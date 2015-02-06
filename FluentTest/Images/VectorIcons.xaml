@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<!-- 
+  
+    *** How to create XAML vector images
+
+    Probably the best application to create XAML vector images is Microsoft Expression Design. 
+    It's a free tool that could be downloaded from http://www.microsoft.com/expression/eng/ 
+
+    When you have installed Expression Design, launch it and select Edit -> Options -> 
+    Clipboards (XAML). Change "Clipboard format" to "XAML WPF Resource Dictionary". Also 
+    change "Group By" to "Document" (otherwise each layer will be an image).
+
+    Edit your image in Expression Design. When you are done, select everything and open the 
+    Edit menu and then "Copy XAML".  Then paste the content into a file like this. Remove the 
+    outer ResourceDictionary tag. Change the root tag from DrawingImage to DrawingBrush.
+
+    When you are drawing the image set the document size to the size you want in your WPF-
+    application (like 32x32 size). It not necessary but make the work easier. Before copy the 
+    image to XAML you probably want to make a transparent rectangle that has the same size as 
+    the document (otherwise the margins could be wrong). Or you could add this manually in the 
+    drawing group children:
+
+    <GeometryDrawing Brush="#00FFFFFF" Geometry="M 0,0L 32,0L 32,32L 0,32L 0,0 Z " />
+
+
+
+    *** If you are using Inkscape
+
+    Inkscape has support to generate XAML-files. However - this is probably not the format you 
+    want! WPF has two different ways to handle graphics in XAML - shapes and geometries. You can 
+    find more details about this here: http://www.intertech.com/Blog/WPF-Shapes-vs-WPF-Geometries/.
+    But in short shapes has support for inputs, while geometries is just pure drawing and therefor
+    more lightweight.
+
+    Inkscape generate files in shape-format, which is good for some cases but not for images that 
+    should be used in buttons and similar. So what you want is to get your images into Expression 
+    Design. You could do that by saving your image as a PDF-file, change the file extension to AI 
+    and then in Expression Design use "File", "Import Adobe Illustrator File". Using EPS is another 
+    option.
+
+    Most things could be imported to Expression Design. But it might be some issues with borders 
+    for instance. When you have got what you want to Expression Design it's probably better to do 
+    all the work in there. If needed you could export your images to SVG which could be used in 
+    Inkscape, that normally works without any problems.
+   
+ -->
+
+    <DrawingImage x:Key="VectorImageSample">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Geometry="F1 M 0,-3.8147e-006L 32,-3.8147e-006L 32,19.1563L 20.0625,19.0938L 20,32L 0,32L 0,-3.8147e-006 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen LineJoin="Round"
+                                 Brush="#FF000000" />
+                        </GeometryDrawing.Pen>
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="-0.015625,0.5"
+                                                 EndPoint="1.01562,0.5">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#FFC01000"
+                                                  Offset="0" />
+                                    <GradientStop Color="#FFC4C245"
+                                                  Offset="0.297674" />
+                                    <GradientStop Color="#FF43B240"
+                                                  Offset="0.553488" />
+                                    <GradientStop Color="#FF35A8B9"
+                                                  Offset="0.744186" />
+                                    <GradientStop Color="#FF0A13B2"
+                                                  Offset="1" />
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#D0C80FA0"
+                                     Geometry="F1 M 17.3404,9.61637L 1.5,18.869L 17.4332,27.9608L 17.3404,9.61637 Z " />
+                    <GeometryDrawing Brush="#FFFFFFFF"
+                                     Geometry="F1 M 17.2034,18.2831L 14.3995,19.9076L 13.575,18.4845L 13.537,18.5065C 13.5276,19.9491 12.9028,21.0298 11.6624,21.7484C 10.7473,22.2786 9.87606,22.4347 9.0488,22.2166C 8.22155,21.9985 7.55555,21.4539 7.05082,20.5827C 5.98488,18.7429 6.45311,17.053 8.45551,15.513L 10.8182,13.6858C 10.2674,12.7351 9.43411,12.5829 8.31839,13.2293C 7.19488,13.8803 6.31124,14.8173 5.66747,16.0404L 4.3676,13.7968C 4.6501,13.3462 5.098,12.8344 5.7113,12.2612C 6.3246,11.688 6.92138,11.2333 7.50163,10.8971C 10.2082,9.32905 12.3451,9.8975 13.9123,12.6025L 17.2034,18.2831 Z M 12.1751,16.0279L 11.8139,15.4043L 10.1934,16.634C 9.29679,17.3129 9.05647,18.0114 9.47247,18.7294C 9.66031,19.0536 9.93175,19.2517 10.2868,19.3236C 10.6419,19.3955 11.0199,19.3152 11.4211,19.0828C 11.9799,18.7591 12.3274,18.3107 12.4635,17.7377C 12.5997,17.1646 12.5035,16.5947 12.1751,16.0279 Z " />
+                    <GeometryDrawing Brush="#FFFFFFFF"
+                                     Geometry="F1 M 27.6854,12.2101L 19.2737,17.0836L 18.6082,15.935L 19.685,6.89886L 15.52,9.31194L 14.3031,7.21157L 22.1541,2.66294L 22.9544,4.04429L 21.9911,12.7038L 26.4685,10.1097L 27.6854,12.2101 Z " />
+                </DrawingGroup.Children>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

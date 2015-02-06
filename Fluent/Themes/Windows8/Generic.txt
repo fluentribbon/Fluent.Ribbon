@@ -1,6 +1,6 @@
 Windows8\Colors\Colors.xaml
 Windows8\Colors\ColorsSilver.xaml
-Office2010\Images\Images.xaml
+Windows8\Images\Images.xaml
 Office2010\Controls\EmptyFocusStyle.xaml
 Windows8\Controls\ApplicationMenuItem.xaml
 Windows8\Controls\ApplicationMenu.xaml
