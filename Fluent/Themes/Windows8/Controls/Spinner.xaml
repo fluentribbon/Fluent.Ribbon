@@ -15,13 +15,11 @@
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            
                 <Grid Height="Auto">
                     <ContentPresenter x:Name="contentPresenter"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
                 </Grid>
-
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"

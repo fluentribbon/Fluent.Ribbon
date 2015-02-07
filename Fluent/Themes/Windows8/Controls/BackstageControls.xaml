@@ -905,37 +905,12 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
                 <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
                     <ContentPresenter x:Name="contentPresenter"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
                 </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,1,0,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,2,0,0" />
-            </Trigger>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,0,1,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,0,3,0" />
-            </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="False" />
             <Trigger Property="IsPressed"
@@ -966,9 +941,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -1187,17 +1159,8 @@
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
+                                    TargetName="border"
+                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Visibility"
                                     TargetName="border1"
                                     Value="Visible" />
