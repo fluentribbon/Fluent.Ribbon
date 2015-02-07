@@ -1158,21 +1158,12 @@
                             <Setter Property="Background"
                                     TargetName="border"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
                             <Setter Property="Visibility"
                                     TargetName="border1"
                                     Value="Visible" />
