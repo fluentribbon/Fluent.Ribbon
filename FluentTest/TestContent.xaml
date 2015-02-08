@@ -170,6 +170,11 @@
                                                    Click="OnOffice2010BlueClick"
                                                    Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
                                                    LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png">123</Fluent:Button>
+                                    <Fluent:ToggleButton   Header="Toggle"
+                                                           HorizontalAlignment="Center"
+                                                           Style="{DynamicResource ToggleButtonBackstageStyle}"
+                                                           Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"
+                                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/PasteLarge.png" />
                                     <Fluent:DropDownButton Header="123"
                                                            HorizontalAlignment="Right"
                                                            Icon="pack://application:,,,/FluentTest;component/Images/Paste.png"

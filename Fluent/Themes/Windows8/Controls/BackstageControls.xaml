@@ -20,40 +20,26 @@
     <ControlTemplate x:Key="ButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid x:Name="grid">
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border x:Name="border"
                     BorderThickness="1"
-                    CornerRadius="3"
                     Margin="0,0,0,1"
-                    BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
-                <Border x:Name="border1"
-                        BorderBrush="Black"
-                        BorderThickness="0"
-                        CornerRadius="2"
-                        Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
-                    <StackPanel Margin="2"
-                                x:Name="stackPanel">
-                        <ContentPresenter x:Name="iconImage"
-                                          HorizontalAlignment="Center"
-                                          Height="32"
-                                          VerticalAlignment="Center"
-                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                          Width="32"
-                                          Margin="9,9,9,0"
-                                          SnapsToDevicePixels="True" />
-                        <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                             Margin="7,7,7,5"
-                                             VerticalAlignment="Center"
-                                             Text="{TemplateBinding Header}" />
-                    </StackPanel>
-                </Border>
+                    Background="{DynamicResource ButtonBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}">
+                <StackPanel Margin="2"
+                            x:Name="stackPanel">
+                    <ContentPresenter x:Name="iconImage"
+                                        HorizontalAlignment="Center"
+                                        Height="32"
+                                        VerticalAlignment="Center"
+                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                        Width="32"
+                                        Margin="9,9,9,0"
+                                        SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                            Margin="7,7,7,5"
+                                            VerticalAlignment="Center"
+                                            Text="{TemplateBinding Header}" />
+                </StackPanel>
             </Border>
         </Grid>
         <ControlTemplate.Triggers>
@@ -128,21 +114,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
-                <Setter Property="Background"
-                        TargetName="border1">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1"
-                                             StartPoint="0.5,0">
-                            <GradientStop Color="White"
-                                          Offset="0.009" />
-                            <GradientStop Color="#FFFBFBFB"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -152,18 +123,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderThickness"
-                        TargetName="border1"
-                        Value="1" />
-                <Setter Property="Margin"
-                        TargetName="stackPanel"
-                        Value="1" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
@@ -173,12 +132,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -195,40 +148,26 @@
     <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Grid x:Name="grid">
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border x:Name="border"
                     BorderThickness="1"
-                    CornerRadius="3"
                     Margin="0,0,0,1"
-                    BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
-                <Border x:Name="border1"
-                        BorderBrush="Black"
-                        BorderThickness="0"
-                        CornerRadius="2"
-                        Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
-                    <StackPanel Margin="2"
-                                x:Name="stackPanel">
-                        <ContentPresenter x:Name="iconImage"
-                                          HorizontalAlignment="Center"
-                                          Height="32"
-                                          VerticalAlignment="Center"
-                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                          Width="32"
-                                          Margin="9,9,9,0"
-                                          SnapsToDevicePixels="True" />
-                        <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                             Margin="7,7,7,5"
-                                             VerticalAlignment="Center"
-                                             Text="{TemplateBinding Header}" />
-                    </StackPanel>
-                </Border>
+                    Background="{DynamicResource ButtonBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}">
+                <StackPanel Margin="2"
+                            x:Name="stackPanel">
+                    <ContentPresenter x:Name="iconImage"
+                                        HorizontalAlignment="Center"
+                                        Height="32"
+                                        VerticalAlignment="Center"
+                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                        Width="32"
+                                        Margin="9,9,9,0"
+                                        SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                            Margin="7,7,7,5"
+                                            VerticalAlignment="Center"
+                                            Text="{TemplateBinding Header}" />
+                </StackPanel>
             </Border>
         </Grid>
         <ControlTemplate.Triggers>
@@ -303,21 +242,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
-                <Setter Property="Background"
-                        TargetName="border1">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1"
-                                             StartPoint="0.5,0">
-                            <GradientStop Color="White"
-                                          Offset="0.009" />
-                            <GradientStop Color="#FFFBFBFB"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -327,18 +251,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderThickness"
-                        TargetName="border1"
-                        Value="1" />
-                <Setter Property="Margin"
-                        TargetName="stackPanel"
-                        Value="1" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
@@ -348,12 +260,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
@@ -363,12 +269,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -384,41 +284,27 @@
     <ControlTemplate x:Key="DropDownButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <Grid>
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    CornerRadius="3"
                     Margin="0,0,0,1"
-                    BorderBrush="{DynamicResource ButtonBackstageOutterBorderBrush}">
-                <Border x:Name="border1"
-                        BorderBrush="Black"
-                        BorderThickness="0"
-                        CornerRadius="2"
-                        Background="{DynamicResource ButtonBackstageInnerBackgroundBrush}">
-                    <StackPanel x:Name="stackPanel"
-                                Margin="2">
-                        <ContentPresenter x:Name="iconImage"
-                                          HorizontalAlignment="Center"
-                                          Height="32"
-                                          VerticalAlignment="Center"
-                                          Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                          Width="32"
-                                          Margin="7,7,7,0"
-                                          SnapsToDevicePixels="True" />
-                        <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                             Margin="5,5,5,3"
-                                             VerticalAlignment="Center"
-                                             HasGlyph="True"
-                                             Text="{TemplateBinding Header}" />
-                    </StackPanel>
-                </Border>
+                    Background="{DynamicResource ButtonBackgroundBrush}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}">
+                <StackPanel x:Name="stackPanel"
+                            Margin="2">
+                    <ContentPresenter x:Name="iconImage"
+                                        HorizontalAlignment="Center"
+                                        Height="32"
+                                        VerticalAlignment="Center"
+                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                        Width="32"
+                                        Margin="7,7,7,0"
+                                        SnapsToDevicePixels="True" />
+                    <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                            Margin="5,5,5,3"
+                                            VerticalAlignment="Center"
+                                            HasGlyph="True"
+                                            Text="{TemplateBinding Header}" />
+                </StackPanel>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -450,8 +336,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1" />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -486,7 +371,6 @@
                                         BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
                                         Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -561,9 +445,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder">
                     <Setter.Value>
@@ -585,18 +466,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
-                <Setter Property="BorderThickness"
-                        TargetName="border1"
-                        Value="1" />
-                <Setter Property="Margin"
-                        TargetName="stackPanel"
-                        Value="1" />
             </Trigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
@@ -606,12 +475,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -802,14 +665,6 @@
                    TargetType="{x:Type ComboBoxItem}" />
         </ControlTemplate.Resources>
         <Grid>
-            <Rectangle x:Name="rectangle"
-                       Fill="{x:Null}"
-                       Stroke="{DynamicResource ButtonBackstageShadowBrush}"
-                       Height="2"
-                       VerticalAlignment="Bottom"
-                       RadiusX="2"
-                       RadiusY="2"
-                       Margin="3,0" />
             <Border Height="Auto"
                     x:Name="PART_ContentBorder"
                     HorizontalAlignment="Stretch">
@@ -899,7 +754,6 @@
                             Background="{DynamicResource ContextMenuBarBackgroundBrush}"
                             BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -1035,9 +889,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="PART_ContentBorder"
                         Value="#FFC8C8C9" />
-                <Setter Property="Opacity"
-                        TargetName="rectangle"
-                        Value="0" />
 
             </Trigger>
         </ControlTemplate.Triggers>
@@ -1048,57 +899,18 @@
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                CornerRadius="2"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
                     <ContentPresenter x:Name="contentPresenter"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
                 </Grid>
-            </Border>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,1,0,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,2,0,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,1,0,0" />
-            </Trigger>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,0,1,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,0,3,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,0,2,0" />
-            </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="False" />
             <Trigger Property="IsPressed"
@@ -1109,12 +921,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -1129,21 +935,12 @@
                     <Condition Property="IsPressed"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -1197,17 +994,7 @@
                                 Background="{DynamicResource TextBoxBackgroundBrush}"
                                 Grid.ColumnSpan="1"
                                 Grid.Column="1"
-                                Width="{TemplateBinding InputWidth}"
-                                CornerRadius="2">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                                     StartPoint="0.5,0">
-                                    <GradientStop Color="#FFABAFB2"
-                                                  Offset="0" />
-                                    <GradientStop Color="#FFE1E6EC"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                                Width="{TemplateBinding InputWidth}">
                             <Grid Grid.ColumnSpan="1"
                                   Grid.Column="1">
                                 <Grid.ColumnDefinitions>
@@ -1233,7 +1020,6 @@
                                         Grid.RowSpan="1"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
-                                        CornerRadius="0,2,0,0"
                                         Grid.Column="1"
                                         Visibility="Collapsed">
                                     <Border.Background>
@@ -1255,7 +1041,6 @@
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         Width="18"
-                                        CornerRadius="0,0,2,0"
                                         Grid.Column="1"
                                         Grid.Row="1"
                                         Visibility="Collapsed">
@@ -1345,21 +1130,12 @@
                             <Setter Property="Background"
                                     TargetName="border"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
                             <Setter Property="Visibility"
                                     TargetName="border1"
                                     Value="Visible" />
@@ -1383,17 +1159,8 @@
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
+                                    TargetName="border"
+                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Visibility"
                                     TargetName="border1"
                                     Value="Visible" />
