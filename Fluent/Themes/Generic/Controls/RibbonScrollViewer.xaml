@@ -1,10 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--Button in Scroll Control Style-->
-    <!--TODO: Is this in use? -->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
-        <Border x:Name="border"
+        <Border x:Name="OuterBorder"
                 BorderThickness="1"
                 CornerRadius="2"
                 BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}"
@@ -12,7 +11,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
-            <Border x:Name="border1"
+            <Border x:Name="InnerBorder"
                     Height="Auto"
                     BorderBrush="{DynamicResource TransparentBrush}"
                     BorderThickness="1"
@@ -31,17 +30,17 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        TargetName="InnerBorder"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                        TargetName="InnerBorder"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                        TargetName="OuterBorder"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        TargetName="OuterBorder"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -49,20 +48,21 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        TargetName="InnerBorder"
+                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                        TargetName="InnerBorder"
+                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverBackgroundBrush}" />
+                        TargetName="OuterBorder"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
+                        TargetName="OuterBorder"
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="ScrollButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
@@ -72,7 +72,9 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
+    
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
+    
     <Style x:Key="RibbonScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="Template">
@@ -162,10 +164,11 @@
         <Setter Property="HorizontalScrollBarVisibility"
                 Value="Auto" />
         <Setter Property="VerticalScrollBarVisibility"
-                Value="Auto" />
+                Value="Disabled" />
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
+    
     <Style x:Key="RibbonTabScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle"
@@ -269,112 +272,8 @@
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                    <Grid x:Name="Grid"
-                          Background="{TemplateBinding Background}"
-                          IsHitTestVisible="True">
-                        <ScrollContentPresenter  Margin="{TemplateBinding Padding}"
-                                                 x:Name="PART_ScrollContentPresenter"
-                                                 Content="{TemplateBinding Content}"
-                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
-                                                 IsHitTestVisible="True" />
-                        <RepeatButton ClickMode="Hover"
-                                      Command="{x:Static ScrollBar.LineUpCommand}"
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      HorizontalAlignment="Stretch"
-                                      Width="Auto"
-                                      Height="12"
-                                      VerticalAlignment="Top"
-                                      Style="{DynamicResource ScrollButtonStyle}">
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="0">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedVerticalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="VerticalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentHeight" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportHeight" />
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            <Path Stretch="Fill"
-                                  Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="5"
-                                  Height="3"
-                                  Data="M0,0L1,-1 2,0z">
-                                <Path.Fill>
-                                    <LinearGradientBrush  EndPoint="0.5,1"
-                                                          StartPoint="0.5,0">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop Color="#FF1A52AD"
-                                                          Offset="0" />
-                                            <GradientStop Color="#FF0F3168"
-                                                          Offset="1" />
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Path.Fill>
-                            </Path>
-                        </RepeatButton>
-                        <RepeatButton ClickMode="Hover"
-                                      Command="{x:Static ScrollBar.LineDownCommand}"
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      HorizontalAlignment="Stretch"
-                                      Width="Auto"
-                                      Height="12"
-                                      VerticalAlignment="Bottom"
-                                      Style="{DynamicResource ScrollButtonStyle}">
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="100">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedVerticalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="VerticalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentHeight" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportHeight" />
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            <Path Stretch="Fill"
-                                  Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="5"
-                                  Height="3"
-                                  Data="M0,0L1,1 2,0z">
-                                <Path.Fill>
-                                    <LinearGradientBrush  EndPoint="0.5,1"
-                                                          StartPoint="0.5,0">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop Color="#FF1A52AD"
-                                                          Offset="0" />
-                                            <GradientStop Color="#FF0F3168"
-                                                          Offset="1" />
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Path.Fill>
-                            </Path>
-                        </RepeatButton>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template"
+                Value="{StaticResource MenuScrollViewerControlTemplate}" />
         <Setter Property="CanContentScroll"
                 Value="False" />
         <Setter Property="HorizontalScrollBarVisibility"
@@ -384,6 +283,110 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
+    
+    <ControlTemplate TargetType="{x:Type ScrollViewer}"
+                     x:Key="MenuScrollViewerControlTemplate">
+        <Grid x:Name="Grid"
+              Background="{TemplateBinding Background}"
+              IsHitTestVisible="True">
+            <ScrollContentPresenter  Margin="{TemplateBinding Padding}"
+                                     x:Name="PART_ScrollContentPresenter"
+                                     Content="{TemplateBinding Content}"
+                                     ContentTemplate="{TemplateBinding ContentTemplate}"
+                                     CanContentScroll="{TemplateBinding CanContentScroll}"
+                                     IsHitTestVisible="True" />
+            <RepeatButton ClickMode="Hover"
+                          Command="{x:Static ScrollBar.LineUpCommand}"
+                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                          Focusable="false"
+                          HorizontalAlignment="Stretch"
+                          Width="Auto"
+                          Height="12"
+                          VerticalAlignment="Top"
+                          Style="{DynamicResource ScrollButtonStyle}">
+                <RepeatButton.Visibility>
+                    <MultiBinding FallbackValue="Visibility.Collapsed"
+                                  Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                  ConverterParameter="0">
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedVerticalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="VerticalOffset" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ExtentHeight" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ViewportHeight" />
+                    </MultiBinding>
+                </RepeatButton.Visibility>
+                <Path Stretch="Fill"
+                      Stroke="{x:Null}"
+                      StrokeThickness="0"
+                      HorizontalAlignment="Center"
+                      Margin="0"
+                      VerticalAlignment="Center"
+                      Width="5"
+                      Height="3"
+                      Data="M0,0L1,-1 2,0z">
+                    <Path.Fill>
+                        <LinearGradientBrush  EndPoint="0.5,1"
+                                              StartPoint="0.5,0">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#FF1A52AD"
+                                              Offset="0" />
+                                <GradientStop Color="#FF0F3168"
+                                              Offset="1" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+            </RepeatButton>
+            <RepeatButton ClickMode="Hover"
+                          Command="{x:Static ScrollBar.LineDownCommand}"
+                          CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                          Focusable="false"
+                          HorizontalAlignment="Stretch"
+                          Width="Auto"
+                          Height="12"
+                          VerticalAlignment="Bottom"
+                          Style="{DynamicResource ScrollButtonStyle}">
+                <RepeatButton.Visibility>
+                    <MultiBinding FallbackValue="Visibility.Collapsed"
+                                  Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                  ConverterParameter="100">
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ComputedVerticalScrollBarVisibility" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="VerticalOffset" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ExtentHeight" />
+                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                 Path="ViewportHeight" />
+                    </MultiBinding>
+                </RepeatButton.Visibility>
+                <Path Stretch="Fill"
+                      Stroke="{x:Null}"
+                      StrokeThickness="0"
+                      HorizontalAlignment="Center"
+                      Margin="0"
+                      VerticalAlignment="Center"
+                      Width="5"
+                      Height="3"
+                      Data="M0,0L1,1 2,0z">
+                    <Path.Fill>
+                        <LinearGradientBrush  EndPoint="0.5,1"
+                                              StartPoint="0.5,0">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#FF1A52AD"
+                                              Offset="0" />
+                                <GradientStop Color="#FF0F3168"
+                                              Offset="1" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+            </RepeatButton>
+        </Grid>
+    </ControlTemplate>
 
     <Style x:Key="ScrollViewerStyle"
            TargetType="{x:Type ScrollViewer}">
@@ -397,6 +400,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource ScrollViewerControlTemplate}" />
     </Style>
+    
     <ControlTemplate x:Key="ScrollViewerControlTemplate"
                      TargetType="{x:Type ScrollViewer}">
         <Border BorderBrush="{TemplateBinding BorderBrush}"

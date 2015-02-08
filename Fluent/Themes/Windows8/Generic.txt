@@ -1,3 +1,4 @@
+Office2010\Colors\Colors.xaml
 Windows8\Colors\Colors.xaml
 Windows8\Colors\ColorsSilver.xaml
 Windows8\Images\Images.xaml
@@ -17,7 +18,7 @@ Windows8\Controls\SplitButton.xaml
 Windows8\Controls\CheckBox.xaml
 Office2010\Controls\RadioButton.xaml
 Office2010\Controls\GalleryGroupContainer.xaml
-Windows8\Controls\RibbonScrollViewer.xaml
+Generic\Controls\RibbonScrollViewer.xaml
 Windows8\Controls\RibbonContextualTabGroup.xaml
 Office2010\Controls\RibbonTitleBar.xaml
 Office2010\Controls\KeyTip.xaml

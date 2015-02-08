@@ -17,7 +17,7 @@ Office2010\Controls\SplitButton.xaml
 Office2010\Controls\CheckBox.xaml
 Office2010\Controls\RadioButton.xaml
 Office2010\Controls\GalleryGroupContainer.xaml
-Office2010\Controls\RibbonScrollViewer.xaml
+Generic\Controls\RibbonScrollViewer.xaml
 Office2010\Controls\RibbonContextualTabGroup.xaml
 Office2010\Controls\RibbonTitleBar.xaml
 Office2010\Controls\KeyTip.xaml
