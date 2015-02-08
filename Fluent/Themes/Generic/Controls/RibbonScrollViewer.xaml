@@ -3,24 +3,26 @@
     <!--Button in Scroll Control Style-->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
-        <Border x:Name="OuterBorder"
-                BorderThickness="1"
-                CornerRadius="2"
-                BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}"
-                Height="Auto"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
-            <Border x:Name="InnerBorder"
-                    Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+        <Border Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
+            <Border x:Name="OuterBorder"
                     BorderThickness="1"
                     CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
-                <Grid Height="Auto">
-                    <ContentPresenter HorizontalAlignment="Center"
-                                      VerticalAlignment="Center" />
-                </Grid>
+                    BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}"
+                    Height="Auto"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
+                <Border x:Name="InnerBorder"
+                        Height="Auto"
+                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderThickness="1"
+                        CornerRadius="2"
+                        Background="{DynamicResource TransparentBrush}">
+                    <Grid Height="Auto">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
             </Border>
         </Border>
         <ControlTemplate.Triggers>

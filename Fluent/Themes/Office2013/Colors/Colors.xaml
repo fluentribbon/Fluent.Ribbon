@@ -69,13 +69,13 @@
                      Opacity="0.12" />
     <SolidColorBrush x:Key="ButtonHoverOuterBorderBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.12" />
+                     Opacity="0.3" />
     <SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.12" />
     <SolidColorBrush x:Key="ButtonHoverInnerBorderBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.12" />
+                     Opacity="0.3" />
 
     <SolidColorBrush x:Key="ButtonPressedOuterBackgroundBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
