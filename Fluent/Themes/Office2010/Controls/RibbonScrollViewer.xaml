@@ -18,36 +18,12 @@
                     CornerRadius="2"
                     Background="{DynamicResource TransparentBrush}">
                 <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
                     <ContentPresenter HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />
                 </Grid>
             </Border>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="False" />
-            <!--<Trigger Property="IsPressed" Value="True">
-        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
-        <Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
-        <Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
-      </Trigger>-->
-            <Trigger Property="IsEnabled"
-                     Value="False">
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
@@ -65,9 +41,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="border"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
