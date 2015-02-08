@@ -293,7 +293,7 @@
                                        Height="22"
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
-                                       Icon="pack://application:,,,/Fluent;Component/Themes/Office2010/Images/QuickAccessToolBarDropDown.png"
+                                       Icon="{DynamicResource QuickAccessToolbarDropDownImage}"
                                        Size="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"

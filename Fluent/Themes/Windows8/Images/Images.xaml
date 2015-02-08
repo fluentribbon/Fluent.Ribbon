@@ -40,6 +40,21 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-       
-    
+
+    <DrawingImage x:Key="QuickAccessToolbarDropDownImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF"
+                                     Geometry="M 0,0L 8,0L 8,8L 0,8L 0,0 Z " />
+                    <GeometryDrawing Brush="#FF000000"
+                                     Geometry="F1 M 1,1L 8,1L 8,2L 1,2L 1,1 Z " />
+                    <GeometryDrawing Brush="#FF000000"
+                                     Geometry="F1 M 2,4L 7,4L 4.5,6.5L 2,4 Z " />
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+
 </ResourceDictionary>
