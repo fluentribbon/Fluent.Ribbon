@@ -65,7 +65,6 @@
     </Style>
 
     <!--Menu Item Template-->
-    <!-- TODO: How to test this one? -->
     <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
                      TargetType="{x:Type Controls:StatusBarMenuItem}">
         <Grid Width="Auto"

@@ -4,10 +4,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\MenuSeparator.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="Template"
@@ -418,7 +414,6 @@
                                       Content="{TemplateBinding LargeIcon}"
                                       Width="32"
                                       SnapsToDevicePixels="True" />
-                    <!-- TODO: InnerButtonControlTemplate is in use, but this TwoLineLabel is not I think. Should this be removed?  -->
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                          Text="{TemplateBinding Header}"
                                          Style="{DynamicResource TwoLineLabelStyle}"

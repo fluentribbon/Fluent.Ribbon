@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- TODO: Is this in use? -->
     <Style x:Key="{x:Type StatusBar}"
            TargetType="{x:Type StatusBar}">
         <Setter Property="OverridesDefaultStyle"
