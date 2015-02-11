@@ -4,12 +4,6 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\MenuItem.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\MenuSeparator.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
-
     <Style TargetType="{x:Type Fluent:ContextMenu}">
         <Setter Property="Template"
                 Value="{DynamicResource FluentPopupMenuControlTemplate}" />
@@ -24,8 +18,8 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
     </Style>
-    <!-- TODO: Is this used anywhere??? -->
-    <ControlTemplate x:Key="FluentPopupMenuControlTemplateXxx"
+
+    <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"
@@ -172,8 +166,8 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
     </Style>
-    <!-- TODO: Is this used anywhere??? -->
-    <ControlTemplate x:Key="PopupMenuControlTemplateXxx"
+
+    <ControlTemplate x:Key="PopupMenuControlTemplate"
                      TargetType="{x:Type ContextMenu}">
         <ControlTemplate.Resources>
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"

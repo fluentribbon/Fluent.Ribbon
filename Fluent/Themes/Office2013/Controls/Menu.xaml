@@ -4,12 +4,6 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Metro\Controls\MenuItem.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
-
     <Style TargetType="{x:Type Fluent:ContextMenu}">
         <Setter Property="Template"
                 Value="{DynamicResource FluentPopupMenuControlTemplate}" />
@@ -24,6 +18,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
     </Style>
+    
     <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
