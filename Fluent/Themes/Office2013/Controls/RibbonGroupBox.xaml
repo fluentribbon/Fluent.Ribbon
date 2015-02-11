@@ -4,11 +4,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="Separator"
            x:Key="GroupBoxSeparator">
         <Setter Property="Template">
@@ -27,6 +22,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="RibbonGroupBoxStyle"
            TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Setter Property="Template"
@@ -55,21 +51,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="RibbonGroupBoxQuickAccessStyle"
-           TargetType="{x:Type Fluent:RibbonGroupBox}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}" />
-        <Setter Property="Height"
-                Value="22" />
-        <Setter Property="Width"
-                Value="22" />
-        <Setter Property="Focusable"
-                Value="False" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="False" />
-    </Style>
+
     <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Grid Width="22">
