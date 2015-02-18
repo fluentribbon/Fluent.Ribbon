@@ -15,6 +15,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Media;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
 #if NET40
@@ -363,7 +364,7 @@ namespace Fluent
 
             if (this.iconImage != null)
             {
-                this.iconImage.MouseUp -= this.HandleIconMouseUp;
+                this.iconImage.MouseDown -= this.HandleIconMouseDown;
             }
 
             if (this.WindowCommands == null)
@@ -377,7 +378,7 @@ namespace Fluent
             {
                 WindowChrome.SetIsHitTestVisibleInChrome(this.iconImage, true);
 
-                this.iconImage.MouseUp += this.HandleIconMouseUp;
+                this.iconImage.MouseDown += this.HandleIconMouseDown;
             }
 
             var partContentPresenter = this.GetTemplateChild(PART_ContentPresenter) as UIElement;
@@ -416,18 +417,32 @@ namespace Fluent
             base.OnStateChanged(e);
         }
 
-        private static Point GetCorrectPosition(Visual relativeTo)
+        private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
         {
-            POINT w32Mouse;
-            UnsafeNativeMethods.GetCursorPos(out w32Mouse);
-            return relativeTo.PointFromScreen(new Point(w32Mouse.X, w32Mouse.Y));
-        }
-
-        private void HandleIconMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 1)
+            if (e.ChangedButton == MouseButton.Left)
             {
-                ShowSystemMenuPhysicalCoordinates(this, PointToScreen(GetCorrectPosition(this)));
+                if (e.ClickCount == 1)
+                {
+                    e.Handled = true;
+
+                    ShowSystemMenuPhysicalCoordinates(this, this.PointToScreen(new Point(0, RibbonProperties.GetTitleBarHeight(this))));
+                }
+                else if (e.ClickCount == 2)
+                {
+                    e.Handled = true;
+
+                    this.Close();
+                }
+            }
+            else if (e.ChangedButton == MouseButton.Right)
+            {
+                e.Handled = true;
+
+                this.RunInDispatcherAsync(() =>
+                {
+                    var mousePosition = e.GetPosition(this);
+                    ShowSystemMenuPhysicalCoordinates(this, this.PointToScreen(mousePosition));
+                });
             }
         }
 
