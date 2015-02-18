@@ -330,7 +330,7 @@
                     <Grid Width="22"
                           Height="22">
                         <Image x:Name="image"
-                               Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png"
+                               Source="{StaticResource RibbonPin}"
                                Stretch="None"
                                Visibility="Collapsed" />
                         <Fluent:ToggleButton x:Name="PART_MinimizeButton"
