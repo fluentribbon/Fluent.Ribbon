@@ -367,11 +367,6 @@ namespace Fluent
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
             if (this.DropDownPopup != null)
             {
-                /*Binding binding = new Binding("IsOpen");
-                binding.Mode = BindingMode.TwoWay;
-                binding.Source = this;
-                popup.SetBinding(Popup.IsOpenProperty, binding);
-                */
                 this.DropDownPopup.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
             }
 
@@ -731,54 +726,56 @@ namespace Fluent
         /// <returns></returns>
         private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
-            if (this.DropDownPopup != null
-                && this.SelectedTabItem != null)
+            if (this.DropDownPopup == null
+                || this.SelectedTabItem == null)
             {
-                // Get current workarea                
-                var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
-                var tabItemRect = new RECT
-                                      {
-                                          left = (int)tabItemPos.X,
-                                          top = (int)tabItemPos.Y,
-                                          right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
-                                          bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
-                                      };
-
-                const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-
-                var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
-                if (monitor != IntPtr.Zero)
-                {
-                    var monitorInfo = new MONITORINFO();
-                    monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-                    UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
-
-                    var startPoint = this.PointToScreen(new Point(0, 0));
-                    if (this.FlowDirection == FlowDirection.RightToLeft)
-                    {
-                        startPoint.X -= this.ActualWidth;
-                    }
-
-                    var inWindowRibbonWidth = monitorInfo.rcWork.right - Math.Max(monitorInfo.rcWork.left, startPoint.X);
-
-                    var actualWidth = this.ActualWidth;
-                    if (startPoint.X < monitorInfo.rcWork.left)
-                    {
-                        actualWidth -= monitorInfo.rcWork.left - startPoint.X;
-                        startPoint.X = monitorInfo.rcWork.left;
-                    }
-
-                    // Set width and prevent negative values
-                    this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
-                    return new[]
-                               {
-                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, this.SelectedTabItem.ActualHeight - ((FrameworkElement)this.DropDownPopup.Child).Margin.Top), PopupPrimaryAxis.None),
-                                   new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X, -((ScrollViewer)this.SelectedContent).ActualHeight - ((FrameworkElement)this.DropDownPopup.Child).Margin.Bottom), PopupPrimaryAxis.None)
-                               };
-                }
+                return null;
             }
 
-            return null;
+            // Get current workarea                
+            var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
+            var tabItemRect = new RECT
+            {
+                left = (int)tabItemPos.X,
+                top = (int)tabItemPos.Y,
+                right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
+                bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
+            };
+
+            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
+
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            if (monitor == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            var monitorInfo = new MONITORINFO();
+            monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
+            UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+
+            var startPoint = this.PointToScreen(new Point(0, 0));
+            if (this.FlowDirection == FlowDirection.RightToLeft)
+            {
+                startPoint.X -= this.ActualWidth;
+            }
+
+            var inWindowRibbonWidth = monitorInfo.rcWork.right - Math.Max(monitorInfo.rcWork.left, startPoint.X);
+
+            var actualWidth = this.ActualWidth;
+            if (startPoint.X < monitorInfo.rcWork.left)
+            {
+                actualWidth -= monitorInfo.rcWork.left - startPoint.X;
+                startPoint.X = monitorInfo.rcWork.left;
+            }
+
+            // Set width and prevent negative values
+            this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+            return new[]
+            {
+                new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X + offset.X, targetsize.Height + offset.Y), PopupPrimaryAxis.Vertical),
+                new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X + offset.X, -1 * (targetsize.Height + offset.Y + ((ScrollViewer)this.SelectedContent).ActualHeight)), PopupPrimaryAxis.Vertical)
+            };
         }
 
         // Handles IsDropDownOpen property changed

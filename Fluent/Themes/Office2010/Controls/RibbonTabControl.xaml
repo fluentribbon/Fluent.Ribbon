@@ -501,16 +501,15 @@
                         </Grid>
                         <Popup x:Name="PART_Popup"
                                PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                               Placement="Custom"
                                StaysOpen="True"
                                AllowsTransparency="True"
                                PopupAnimation="Fade"
                                VerticalOffset="-1"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
-                               HorizontalOffset="0"
-                               Placement="Custom">
+                               HorizontalOffset="0">
                             <Grid Width="Auto"
-                                  Height="Auto"
-                                  Margin="0,20">
+                                  Height="Auto">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="94" />
                                     <RowDefinition Height="5" />
