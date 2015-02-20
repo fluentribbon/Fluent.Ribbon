@@ -74,7 +74,7 @@
 
         public Button CreateRibbonButton()
         {
-            var fooCommand1 = new FooCommand1();
+            var fooCommand1 = new TestRoutedCommand();
 
             var button = new Button
             {
@@ -372,29 +372,22 @@
 
         private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (e.NewValue > 1.0)
-            {
-                TextOptions.SetTextFormattingMode(this, TextFormattingMode.Ideal);
-            }
-            else
-            {
-                TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);
-            }
+            TextOptions.SetTextFormattingMode(this, e.NewValue > 1.0 ? TextFormattingMode.Ideal : TextFormattingMode.Display);
         }
     }
 
-    public class FooCommand1
+    public class TestRoutedCommand
     {
-        public static RoutedCommand TestPresnterCommand = new RoutedCommand("TestPresnterCommand", typeof(FooCommand1));
+        public static RoutedCommand TestPresenterCommand = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
 
         public ICommand ItemCommand
         {
-            get { return TestPresnterCommand; }
+            get { return TestPresenterCommand; }
         }
 
         public CommandBinding ItemCommandBinding
         {
-            get { return new CommandBinding(TestPresnterCommand, this.OnTestCommandExecuted, this.CanExecuteTestCommand); }
+            get { return new CommandBinding(TestPresenterCommand, this.OnTestCommandExecuted, this.CanExecuteTestCommand); }
         }
 
         private void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
@@ -404,7 +397,7 @@
 
         private void OnTestCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MessageBox.Show("Test Module Command");
+            MessageBox.Show("TestPresenterCommand");
         }
     }
 }
