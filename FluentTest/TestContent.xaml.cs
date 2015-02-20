@@ -15,23 +15,31 @@
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
-    /// <summary>
-    /// Interaction logic for TestContent.xaml
-    /// </summary>
     public partial class TestContent
     {
+        private Theme? currentTheme;
+        private MainViewModel viewModel;
+
         public TestContent()
         {
             this.InitializeComponent();
 
-            this.Loaded += this.HandleTestContentLoaded;
-
             //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
+
+            this.HookEvents();
+
+            this.viewModel = new MainViewModel();
+            this.DataContext = this.viewModel;
+        }
+
+        private void HookEvents()
+        {
+            this.Loaded += this.HandleTestContentLoaded;
 
             this.buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
-            this.DataContext = new MainViewModel();
+            this.PreviewMouseWheel += OnPreviewMouseWheel;
         }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
@@ -96,8 +104,6 @@
             Office2013,
             Windows8
         }
-
-        private Theme? currentTheme;
 
         private void OnOffice2013Click(object sender, RoutedEventArgs e)
         {
@@ -373,6 +379,19 @@
         private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             TextOptions.SetTextFormattingMode(this, e.NewValue > 1.0 ? TextFormattingMode.Ideal : TextFormattingMode.Display);
+        }
+
+        private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) == false
+                && Keyboard.IsKeyDown(Key.RightCtrl) == false)
+            {
+                return;
+            }
+
+            this.zoomSlider.Value += e.Delta > 0 ? 0.1 : -0.1;
+
+            e.Handled = true;
         }
     }
 
