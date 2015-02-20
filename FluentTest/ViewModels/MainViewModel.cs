@@ -20,6 +20,7 @@
         public MainViewModel()
         {
             this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
+            this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
 
@@ -54,7 +55,18 @@
             Trace.WriteLine(string.Format("CancelPreview: {0}", galleryItem));
         }
 
-        public string Title { get; set; }
+        public string Title { get; private set; }
+
+        public double Zoom
+        {
+            get { return this.zoom; }
+            set
+            {
+                if (value.Equals(this.zoom)) return;
+                this.zoom = value;
+                this.OnPropertyChanged("Zoom");
+            }
+        }
 
         public ColorViewModel ColorViewModel
         {
@@ -127,6 +139,7 @@
         #region Exit
 
         private RelayCommand exitCommand;
+        private double zoom;
 
         /// <summary>
         /// Exit from the application

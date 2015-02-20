@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Fluent="urn:fluent-ribbon"
-             xmlns:FluentTest="clr-namespace:FluentTest"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
              mc:Ignorable="d"
@@ -20,6 +19,10 @@
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
+    <UserControl.LayoutTransform>
+        <ScaleTransform ScaleX="{Binding Zoom}" 
+                        ScaleY="{Binding Zoom}" />
+    </UserControl.LayoutTransform>
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="middleDataItemTemplate"
@@ -2653,15 +2656,17 @@
             <Separator HorizontalAlignment="Left" />
             <Fluent:StatusBarItem Title="Zoom"
                                   HorizontalAlignment="Right"
-                                  Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:0}\%}" />
+                                  Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:P}}" />
             <Fluent:StatusBarItem Title="Zoom Slider"
                                   HorizontalAlignment="Right">
                 <Slider x:Name="zoomSlider"
-                        Minimum="20"
-                        Maximum="500"
+                        Minimum="0.5"
+                        Maximum="2.0"
                         IsDirectionReversed="False"
                         Style="{DynamicResource ZoomSliderStyle}"
-                        Value="100" />
+                        Value="{Binding Zoom}"
+                        SmallChange="0.1"
+                        LargeChange="0.2" />
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>
