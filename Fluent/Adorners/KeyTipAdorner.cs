@@ -1098,7 +1098,7 @@ namespace Fluent
         [Conditional("DEBUG")]
         private void Log(string format, params object[] args)
         {
-            Trace.WriteLine("[" + AdornedElement.GetType().Name + "] " + string.Format(format, args));
+            Debug.WriteLine("[" + this.AdornedElement.GetType().Name + "] " + string.Format(format, args));
         }
 
         #endregion
