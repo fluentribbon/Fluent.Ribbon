@@ -21,7 +21,7 @@ If you wish to contact me (batzen) directly please use twitter https://twitter.c
 ### Contributing
 
 #### What you can do to help us
-*   We accepting pull requests, so you are very welcome to create one.
+*   We are accepting pull requests, so you are very welcome to create one.
 *   [Fix some bugs](https://github.com/fluentribbon/Fluent.Ribbon/issues)
 *   Help us translating
 *   Help us updating the documentation and walkthrough
@@ -38,12 +38,11 @@ If you wish to contact me (batzen) directly please use twitter https://twitter.c
 ## Documentation
 
 Please, [download walkthrough](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/Doc/Fluent%20Ribbon%20Control%20Suite%20Walkthrough.pdf?raw=true)
-This document covers the main features of this framework and highlights how to use it. 
-It is a good document to make fast inside in ribbon development. 
-To get more practice download samples.
+This document covers the main features of this framework and highlights how to use it, but is pretty outdated right now.
+Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
-We highly recommend to license your Fluent UI based application and learn full guidelines, see [Fluent UI licensing page](http://msdn2.microsoft.com/en-us/office/aa973809.aspx).
+~~We highly recommend to license your Fluent UI based application and learn full guidelines, see [Fluent UI licensing page](http://msdn2.microsoft.com/en-us/office/aa973809.aspx).~~
 
 ## History &amp; Roadmap
 A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
@@ -115,7 +114,7 @@ The (rough) roadmap is done by [milestones](../../milestones).
 | Disable Reason Text |  Full Support |
 | Image in ScreenTip |  Full Support |
 
-If you feel lack of some important features feel free to use [discussions](https://github.com/fluentribbon/Fluent.Ribbon/issues) page.
+If you feel lack of some important features feel free to use [issues](https://github.com/fluentribbon/Fluent.Ribbon/issues) to create an issue/feature request.
 
 ## Localizations
 
