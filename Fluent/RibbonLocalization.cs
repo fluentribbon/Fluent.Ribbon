@@ -1077,7 +1077,12 @@ namespace Fluent
             this.ribbonContextMenuCustomizeRibbon = "Přizpůsobit pás karet...";
             this.ribbonContextMenuMinimizeRibbon = "Skrýt pás karet";
 
+            //Screentips
             this.screenTipDisableReasonHeader = "Tento příkaz je aktuálně zakázán.";
+            this.screenTipF1LabelHeader = "Stiskni F1 pro nápovědu";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            this.customizeStatusBar = "Přizpůsobit Status Bar";
         }
 
         #endregion
