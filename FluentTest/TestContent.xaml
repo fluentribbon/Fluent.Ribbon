@@ -2665,8 +2665,11 @@
                         IsDirectionReversed="False"
                         Style="{DynamicResource ZoomSliderStyle}"
                         Value="{Binding Zoom}"
+                        IsSnapToTickEnabled="True"
+                        TickFrequency="0.1"
                         SmallChange="0.1"
-                        LargeChange="0.2" />
+                        LargeChange="0.1"
+                        ValueChanged="ZoomSlider_OnValueChanged"/>
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>

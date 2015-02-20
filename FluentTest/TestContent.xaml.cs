@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent;
@@ -367,6 +368,18 @@
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
             new MahMetroWindow().Show();
+        }
+
+        private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (e.NewValue > 1.0)
+            {
+                TextOptions.SetTextFormattingMode(this, TextFormattingMode.Ideal);
+            }
+            else
+            {
+                TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);
+            }
         }
     }
 
