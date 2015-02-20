@@ -1884,7 +1884,7 @@ namespace Fluent
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex.Message));
+                Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
             }
         }
 
@@ -1917,7 +1917,7 @@ namespace Fluent
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex.Message));
+                Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
             }
 
             // Now we can save states
