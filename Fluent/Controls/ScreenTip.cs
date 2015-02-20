@@ -7,17 +7,17 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-
 namespace Fluent
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Media;
+    using System.Windows.Controls;
+    using System.Windows.Documents;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+
     /// <summary>
     /// ScreenTips display the name of the control, 
     /// the keyboard shortcut for the control, and a brief description 
@@ -37,15 +37,18 @@ namespace Fluent
         static ScreenTip()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
-            StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-         }
+            StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, OnCoerceStyle));
+        }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ScreenTip));
+                var frameworkElement = d as FrameworkElement;
+                if (frameworkElement != null)
+                {
+                    basevalue = frameworkElement.TryFindResource(typeof(ScreenTip));
+                }
             }
 
             return basevalue;
@@ -56,11 +59,11 @@ namespace Fluent
         /// </summary>
         public ScreenTip()
         {
-            Opened += OnToolTipOpened;
-            Closed += OnToolTipClosed;
-            CustomPopupPlacementCallback = CustomPopupPlacementMethod;
-            Placement = PlacementMode.Custom;
-            HelpLabelVisibility = Visibility.Visible;
+            this.Opened += this.OnToolTipOpened;
+            this.Closed += this.OnToolTipClosed;
+            this.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
+            this.Placement = PlacementMode.Custom;
+            this.HelpLabelVisibility = Visibility.Visible;
         }
 
         #endregion
@@ -70,95 +73,130 @@ namespace Fluent
         // Calculate two variants: below and upper ribbon
         CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
         {
-            if (PlacementTarget == null) return new CustomPopupPlacement[] {};
+            if (this.PlacementTarget == null)
+            {
+                return new CustomPopupPlacement[] { };
+            }
 
             Ribbon ribbon = null;
             UIElement topLevelElement = null;
-            FindControls(PlacementTarget, ref ribbon, ref topLevelElement);
+            FindControls(this.PlacementTarget, ref ribbon, ref topLevelElement);
 
             // Exclude QAT items
-            bool notQuickAccessItem = !IsQuickAccessItem(PlacementTarget);
-            bool notContextMenuChild = !IsContextMenuChild(PlacementTarget);
-            double rightToLeftOffset = FlowDirection == FlowDirection.RightToLeft
+            var notQuickAccessItem = !IsQuickAccessItem(this.PlacementTarget);
+            var notContextMenuChild = !IsContextMenuChild(this.PlacementTarget);
+            var rightToLeftOffset = this.FlowDirection == FlowDirection.RightToLeft
                                            ? -popupSize.Width
                                            : 0;
 
-            UIElement decoratorChild = GetDecoratorChild(topLevelElement);
+            var decoratorChild = GetDecoratorChild(topLevelElement);
 
-            if (notQuickAccessItem && IsRibbonAligned && (ribbon != null))
+            if (notQuickAccessItem
+                && this.IsRibbonAligned
+                && ribbon != null)
             {
-                double belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), PlacementTarget).Y;
-                double aboveY = ribbon.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
-                return new CustomPopupPlacement[] { below, above };
+                var belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), this.PlacementTarget).Y;
+                var aboveY = ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
+                var below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
+                var above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
+                return new[] { below, above };
             }
-            else if (notQuickAccessItem && IsRibbonAligned && notContextMenuChild && (!(topLevelElement is Window)) && (decoratorChild != null))
+
+            if (notQuickAccessItem
+                && this.IsRibbonAligned
+                && notContextMenuChild
+                && topLevelElement is Window == false
+                && decoratorChild != null)
             {
                 // Placed on Popup?                
-                double belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), PlacementTarget).Y;
-                double aboveY = decoratorChild.TranslatePoint(new Point(0, 0), PlacementTarget).Y - popupSize.Height;
-                CustomPopupPlacement below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
-                CustomPopupPlacement above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
-                return new CustomPopupPlacement[] { below, above };
+                var belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), this.PlacementTarget).Y;
+                var aboveY = decoratorChild.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
+                var below = new CustomPopupPlacement(new Point(rightToLeftOffset, belowY + 1), PopupPrimaryAxis.Horizontal);
+                var above = new CustomPopupPlacement(new Point(rightToLeftOffset, aboveY - 1), PopupPrimaryAxis.Horizontal);
+                return new[] { below, above };
             }
-            else
-            {
-                return new CustomPopupPlacement[] { 
-                    new CustomPopupPlacement(new Point(rightToLeftOffset, PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
-                    new CustomPopupPlacement(new Point(rightToLeftOffset, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
-            }
+
+            return new[] { 
+                new CustomPopupPlacement(new Point(rightToLeftOffset, this.PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
+                new CustomPopupPlacement(new Point(rightToLeftOffset, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
         }
 
-        static bool IsContextMenuChild(UIElement element)
+        private static bool IsContextMenuChild(UIElement element)
         {
-            UIElement parent = null;
             do
             {
-                parent = VisualTreeHelper.GetParent(element) as UIElement;
+                var parent = VisualTreeHelper.GetParent(element) as UIElement;
                 //if (parent is ContextMenuBar) return true;
+                element = parent;
+            } while (element != null);
+
+            return false;
+        }
+
+        private static bool IsQuickAccessItem(UIElement element)
+        {
+            do
+            {
+                var parent = VisualTreeHelper.GetParent(element) as UIElement;
+                if (parent is QuickAccessToolBar)
+                {
+                    return true;
+                }
+
                 element = parent;
             }
             while (element != null);
+
             return false;
         }
 
-        static bool IsQuickAccessItem(UIElement element)
+        private static UIElement GetDecoratorChild(UIElement popupRoot)
         {
-            UIElement parent = null;
-            do
+            if (popupRoot == null)
             {
-                parent = VisualTreeHelper.GetParent(element) as UIElement;
-                if (parent is QuickAccessToolBar) return true;
-                element = parent;
+                return null;
             }
-            while (element != null); 
-            return false;
-        }
 
-        UIElement GetDecoratorChild(UIElement popupRoot)
-        {
-            if (popupRoot == null) return null;
-            AdornerDecorator decorator = popupRoot as AdornerDecorator;
-            if (decorator!=null) return decorator.Child;
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
+            var decorator = popupRoot as AdornerDecorator;
+            if (decorator != null)
             {
-                UIElement element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
-                if (element != null) return element;
+                return decorator.Child;
             }
+
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
+            {
+                var element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
+                if (element != null)
+                {
+                    return element;
+                }
+            }
+
             return null;
         }
 
-        void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
+        private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
         {
-            if (obj == null) return;
-            Ribbon objRibbon = obj as Ribbon;
-            if (objRibbon!=null) ribbon = objRibbon;
+            if (obj == null)
+            {
+                return;
+            }
 
-            UIElement parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
-            if (parentVisual == null) topLevelElement = obj;
-            else FindControls(parentVisual, ref ribbon, ref topLevelElement);            
+            var objRibbon = obj as Ribbon;
+            if (objRibbon != null)
+            {
+                ribbon = objRibbon;
+            }
+
+            var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
+            if (parentVisual == null)
+            {
+                topLevelElement = obj;
+            }
+            else
+            {
+                FindControls(parentVisual, ref ribbon, ref topLevelElement);
+            }
         }
 
         #endregion
@@ -187,7 +225,7 @@ namespace Fluent
         #endregion
 
         #region Text Property
-        
+
         /// <summary>
         /// Gets or sets text of the screen tip
         /// </summary>
@@ -210,7 +248,7 @@ namespace Fluent
         #endregion
 
         #region DisableReason Property
-        
+
         /// <summary>
         /// Gets or sets disable reason of the associated screen tip's control
         /// </summary>
@@ -233,7 +271,7 @@ namespace Fluent
         #endregion
 
         #region HelpTopic Property
-        
+
         /// <summary>
         /// Gets or sets help topic of the ScreenTip
         /// </summary>
@@ -242,8 +280,8 @@ namespace Fluent
         System.ComponentModel.Description("Help topic (it will be used to execute help)")]
         public object HelpTopic
         {
-            get { return (object)GetValue(HelpTopicProperty); }
-            set { SetValue(HelpTopicProperty, value); }
+            get { return (object)this.GetValue(HelpTopicProperty); }
+            set { this.SetValue(HelpTopicProperty, value); }
         }
 
         /// <summary>
@@ -309,7 +347,7 @@ namespace Fluent
         #endregion
 
         #region IsRibbonAligned
-        
+
         /// <summary>
         /// Gets or set whether ScreenTip should positioned below Ribbon
         /// </summary>
@@ -323,53 +361,59 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for BelowRibbon.  
         /// This enables animation, styling, binding, etc...
         /// </summary> 
-        public static readonly DependencyProperty IsRibbonAlignedProperty = 
-            DependencyProperty.Register("BelowRibbon", typeof(bool), typeof(ScreenTip), 
+        public static readonly DependencyProperty IsRibbonAlignedProperty =
+            DependencyProperty.Register("BelowRibbon", typeof(bool), typeof(ScreenTip),
             new UIPropertyMetadata(true));
-        
+
 
         #endregion
 
         #region F1 Help Handling
 
         // Currently focused element
-        IInputElement focusedElement;
+        private IInputElement focusedElement;
 
-        void OnToolTipClosed(object sender, RoutedEventArgs e)
-        {        
-            if (focusedElement != null)
+        private void OnToolTipClosed(object sender, RoutedEventArgs e)
+        {
+            if (this.focusedElement == null)
             {
-                focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
-                focusedElement = null;
+                return;
             }
+
+            this.focusedElement.PreviewKeyDown -= this.OnFocusedElementPreviewKeyDown;
+            this.focusedElement = null;
         }
 
-        void OnToolTipOpened(object sender, RoutedEventArgs e)
+        private void OnToolTipOpened(object sender, RoutedEventArgs e)
         {
-           
-
-            if (HelpTopic != null)
+            if (this.HelpTopic == null)
             {
-                focusedElement = Keyboard.FocusedElement;
-                if (focusedElement != null)
-                {
-                    focusedElement.PreviewKeyDown += new KeyEventHandler(OnFocusedElementPreviewKeyDown);
-                }
+                return;
+            }
+
+            this.focusedElement = Keyboard.FocusedElement;
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
             }
         }
 
         void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1)
+            if (e.Key != Key.F1)
             {
-                e.Handled = true;
-                if (HelpPressed != null) HelpPressed(null, new ScreenTipHelpEventArgs(HelpTopic));
+                return;
+            }
+
+            e.Handled = true;
+
+            if (HelpPressed != null)
+            {
+                HelpPressed(null, new ScreenTipHelpEventArgs(this.HelpTopic));
             }
         }
 
         #endregion
-
-
     }
 
     /// <summary>
@@ -388,7 +432,7 @@ namespace Fluent
         /// <param name="helpTopic">Help topic</param>
         public ScreenTipHelpEventArgs(object helpTopic)
         {
-            HelpTopic = helpTopic;
+            this.HelpTopic = helpTopic;
         }
     }
 }
