@@ -596,16 +596,9 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (popup != null) popup.CustomPopupPlacementCallback -= CustomPopupPlacementMethod;
-            popup = GetTemplateChild("PART_Popup") as Popup;
-            if (popup != null)
-            {
-                popup.Placement = PlacementMode.Custom;
-                popup.CustomPopupPlacementCallback += CustomPopupPlacementMethod;
-            }
+            this.popup = this.GetTemplateChild("PART_Popup") as Popup;
 
-
-            editableTextBox = GetTemplateChild("PART_EditableTextBox") as System.Windows.Controls.TextBox;
+            this.editableTextBox = this.GetTemplateChild("PART_EditableTextBox") as System.Windows.Controls.TextBox;
 
             if (resizeVerticalThumb != null)
             {
@@ -959,14 +952,14 @@ namespace Fluent
                 var delta = this.PointToScreen(new Point()).Y - dropDownBorder.ActualHeight - e.VerticalChange - monitorTop;
                 if (delta > 0)
                 {
-                    scrollViewer.Height = Math.Max(0, 
+                    scrollViewer.Height = Math.Max(0,
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange),
                                  MaxDropDownHeight));
                 }
                 else
                 {
                     delta = this.PointToScreen(new Point()).Y - dropDownBorder.ActualHeight - monitorTop;
-                    scrollViewer.Height = Math.Max(0, 
+                    scrollViewer.Height = Math.Max(0,
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + delta),
                                  MaxDropDownHeight));
                 }
@@ -978,51 +971,18 @@ namespace Fluent
                 var delta = monitorBottom - this.PointToScreen(new Point()).Y - ActualHeight - popupChild.ActualHeight - e.VerticalChange;
                 if (delta > 0)
                 {
-                    scrollViewer.Height = Math.Max(0, 
+                    scrollViewer.Height = Math.Max(0,
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + e.VerticalChange),
                                  MaxDropDownHeight));
                 }
                 else
                 {
                     delta = monitorBottom - this.PointToScreen(new Point()).Y - ActualHeight - popupChild.ActualHeight;
-                    scrollViewer.Height = Math.Max(0, 
+                    scrollViewer.Height = Math.Max(0,
                         Math.Min(Math.Max(galleryPanel.GetItemSize().Height, scrollViewer.Height + delta),
                                  MaxDropDownHeight));
                 }
             }
-        }
-
-        /// <summary>
-        /// Implements custom placement for ribbon popup
-        /// </summary>
-        /// <param name="popupsize"></param>
-        /// <param name="targetsize"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
-        CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
-        {
-            if (popup != null)
-            {
-                Rect monitorRect = RibbonControl.GetControlMonitor(this);
-                Point pos = PointToScreen(new Point());
-
-                if (ShowPopupOnTop)
-                {
-                    return new CustomPopupPlacement[]
-                               {
-                                   new CustomPopupPlacement(new Point(0, -dropDownBorder.ActualHeight), PopupPrimaryAxis.Horizontal),                
-                               };
-                }
-                else
-                {
-
-                    return new CustomPopupPlacement[]
-                               {
-                                   new CustomPopupPlacement(new Point(0, ActualHeight), PopupPrimaryAxis.Horizontal),                
-                               };
-                }
-            }
-            return null;
         }
 
         #endregion
