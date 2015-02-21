@@ -137,12 +137,15 @@ namespace Fluent
         /// </summary>
         public void Detach()
         {
-            if (!this.attached)
+            if (this.attached == false)
             {
                 return;
             }
 
             this.attached = false;
+
+            // prevent delay show
+            this.timer.Stop();
 
             if (this.window != null)
             {
@@ -342,9 +345,11 @@ namespace Fluent
 
         private void Show()
         {
-            // Check whether the window is still active
-            // (it prevent keytips showing during Alt-Tab'ing)
-            if (this.window.IsActive == false)
+            // Check whether the window is 
+            // - still present (prevents exceptions when window is closed by system commands)
+            // - still active (prevents keytips showing during Alt-Tab'ing)
+            if (this.window == null
+                || this.window.IsActive == false)
             {
                 this.RestoreFocuses();
                 return;
