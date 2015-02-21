@@ -12,7 +12,7 @@ build:
 
 assembly_info:
   patch: true
-  file: Shared/GlobalAssemblyInfo.*
+  file: Shared\GlobalAssemblyInfo.*
   assembly_version: "{version}"
   assembly_file_version: "{version}"
   assembly_informational_version: "{version}"
