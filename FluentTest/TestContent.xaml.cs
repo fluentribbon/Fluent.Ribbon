@@ -18,7 +18,7 @@
     public partial class TestContent
     {
         private Theme? currentTheme;
-        private MainViewModel viewModel;
+        private readonly MainViewModel viewModel;
 
         public TestContent()
         {
