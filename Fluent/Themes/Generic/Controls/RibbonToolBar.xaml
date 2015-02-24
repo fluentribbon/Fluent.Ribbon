@@ -6,7 +6,7 @@
                     mc:Ignorable="d">
 
     <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonSeparator.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="RibbonToolBarStyle"

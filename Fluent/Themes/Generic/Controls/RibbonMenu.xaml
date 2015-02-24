@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\MenuSeparator.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="Fluent:RibbonMenu">
         <Setter Property="Focusable"

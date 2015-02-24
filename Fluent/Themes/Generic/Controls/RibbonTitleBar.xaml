@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <Style x:Key="RibbonTitleBarStyle"
+           TargetType="{x:Type Fluent:RibbonTitleBar}">
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonTitleBarControlTemplate}" />
+        <Setter Property="Focusable"
+                Value="False" />
+    </Style>
+
+    <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
+                     TargetType="{x:Type Fluent:RibbonTitleBar}">
+        <Grid Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+            <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
+                              ContentSource="QuickAccessToolBar" />
+            <ContentPresenter x:Name="PART_HeaderHolder"
+                              ContentSource="Header"
+                              IsHitTestVisible="False" />
+            <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"
+                                                    IsItemsHost="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsCollapsed"
+                     Value="True">
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_QuickAccessToolbarHolder" />
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_ItemsContainer" />
+            </Trigger>
+            <Trigger Property="HideContextTabs"
+                     Value="True">
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_ItemsContainer" />
+                <Setter Property="Visibility"
+                        Value="Collapsed"
+                        TargetName="PART_QuickAccessToolbarHolder" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>

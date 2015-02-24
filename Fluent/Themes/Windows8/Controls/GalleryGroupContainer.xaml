@@ -1,6 +1,0 @@
-﻿<!--
-    This file is the same as in the Office 2010 theme. If any Windows 8 theme changes should be done,
-    the content should be copied from the Office 2010 file and pasted here and Generic.txt should be updated
-    to point to this file.
- -->
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />

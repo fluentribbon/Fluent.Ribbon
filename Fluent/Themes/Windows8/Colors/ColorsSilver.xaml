@@ -332,7 +332,4 @@
                      Color="#FF9DA6B0" />
     <SolidColorBrush x:Key="ResizeGripBackBrush"
                      Color="#FFE6E9ED" />
-    <SolidColorBrush x:Key="GlyphColor"
-                     Color="#212121" />
-
 </ResourceDictionary>
