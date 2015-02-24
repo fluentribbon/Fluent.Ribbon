@@ -23,6 +23,7 @@ namespace Fluent
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Threading;
     using Fluent.Extensions;
 
     /// <summary>
@@ -249,7 +250,13 @@ namespace Fluent
         // Opens backstage on an Adorner layer
         private void Show()
         {
-            if (!this.IsLoaded)
+            // don't open the backstage while in design mode
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
+            if (this.IsLoaded == false)
             {
                 this.Loaded += this.OnDelayedShow;
                 return;
@@ -390,7 +397,10 @@ namespace Fluent
         private void OnDelayedShow(object sender, EventArgs args)
         {
             this.Loaded -= this.OnDelayedShow;
-            this.Show();
+
+            // Delaying show so everthing can load properly.
+            // If we don't run this in the background setting IsOpen=true on application start we don't have access to the Bastage from the BackstageTabControl.
+            this.RunInDispatcherAsync(this.Show, DispatcherPriority.Background);
         }
 
         // Hide backstage
