@@ -94,7 +94,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsCollapsed"/>
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false));
+            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private bool isAtLeastOneRequiredControlPresent;
 
