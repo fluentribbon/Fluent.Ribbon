@@ -56,7 +56,8 @@
                         BorderBrush="{DynamicResource RibbonTopBorderBrush}"
                         BorderThickness="1,1,1,0"
                         VerticalAlignment="Stretch"
-                        Background="{DynamicResource ActiveTabBackgroundBrush}">
+                        Background="{DynamicResource ActiveTabBackgroundBrush}"
+                        Height="{TemplateBinding ActualHeight}">
                     <Border x:Name="border_Copy3"
                             Margin="0"
                             BorderThickness="1,1,1,0"
