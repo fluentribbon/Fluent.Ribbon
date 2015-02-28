@@ -325,6 +325,25 @@ namespace Fluent
 
         #endregion
 
+        #region ClosePopupOnMouseDownDelay
+
+        /// <summary>
+        /// Gets or sets the delay in milliseconds to close the popup on mouse down.
+        /// </summary>
+        public int ClosePopupOnMouseDownDelay
+        {
+            get { return (int)GetValue(ClosePopupOnMouseDownDelayProperty); }
+            set { SetValue(ClosePopupOnMouseDownDelayProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDownDelay.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ClosePopupOnMouseDownDelayProperty =
+            DependencyProperty.Register("ClosePopupOnMouseDownDelay", typeof(int), typeof(DropDownButton), new PropertyMetadata(100));
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -519,10 +538,13 @@ namespace Fluent
                 e.Handled = false;
 
 #if !NET35
+                // Note: get outside thread to prevent exceptions (it's a dependency property after all)
+                var closePopupOnMouseDownDelay = this.ClosePopupOnMouseDownDelay;
+
                 // Ugly workaround, but use a timer to allow routed event to continue
                 System.Threading.Tasks.Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(closePopupOnMouseDownDelay);
 #endif
 
                     this.Dispatcher.BeginInvoke(new Action(() => this.IsDropDownOpen = false));
