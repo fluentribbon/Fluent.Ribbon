@@ -8,7 +8,7 @@ Fluent.Ribbon or "Fluent Ribbon Control Suite"
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
-Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft&reg; Office Fluent&trade; user interface) for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010, Office 2013 and Windows 8 styles.
+Fluent Ribbon Control Suite is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010, Office 2013 and Windows 8 styles.
 
 ![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
 
@@ -42,7 +42,6 @@ This document covers the main features of this framework and highlights how to u
 Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
-~~We highly recommend to license your Fluent UI based application and learn full guidelines, see [Fluent UI licensing page](http://msdn2.microsoft.com/en-us/office/aa973809.aspx).~~
 
 ## History &amp; Roadmap
 A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
@@ -150,5 +149,3 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Turkish
 *   Ukrainian
 *   Vietnamese
-
-_* Fluent is a trademark of Microsoft Corporation and the Fluent user interface is licensed from Microsoft Corporation_
