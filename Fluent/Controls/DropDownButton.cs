@@ -537,7 +537,6 @@ namespace Fluent
             {
                 e.Handled = false;
 
-#if !NET35
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
                 var closePopupOnMouseDownDelay = this.ClosePopupOnMouseDownDelay;
 
@@ -545,13 +544,9 @@ namespace Fluent
                 System.Threading.Tasks.Task.Factory.StartNew(() =>
                 {
                     Thread.Sleep(closePopupOnMouseDownDelay);
-#endif
 
                     this.Dispatcher.BeginInvoke(new Action(() => this.IsDropDownOpen = false));
-
-#if !NET35
                 });
-#endif
             }
         }
 
