@@ -340,7 +340,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDownDelay.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownDelayProperty =
-            DependencyProperty.Register("ClosePopupOnMouseDownDelay", typeof(int), typeof(DropDownButton), new PropertyMetadata(100));
+            DependencyProperty.Register("ClosePopupOnMouseDownDelay", typeof(int), typeof(DropDownButton), new PropertyMetadata(150));
 
         #endregion
 
