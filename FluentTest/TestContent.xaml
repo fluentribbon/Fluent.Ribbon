@@ -935,7 +935,7 @@
                                            ResizeMode="Both"
                                            Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                            LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
-                                           ClosePopupOnMouseDown="True">
+                                           ClosePopupOnMouseDown="True" ClosePopupOnMouseDownDelay="250">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
