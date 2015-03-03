@@ -7,30 +7,29 @@
 // The license is available online http://fluent.codeplex.com/license
 #endregion
 
-using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Threading;
-using System.Windows.Media;
-
 namespace Fluent
 {
+    using System;
+    using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Text;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
+    using System.Windows.Threading;
+    using Fluent.Internal;
+
     /// <summary>
     /// Represents spinner control
     /// </summary>
     [ContentProperty("Value")]
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
-    [TemplatePart(Name = "PART_ButtonUp", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
-    [TemplatePart(Name = "PART_ButtonDown", Type = typeof(System.Windows.Controls.Primitives.RepeatButton))]
+    [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
+    [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
     public class Spinner : RibbonControl
     {
         #region Events
@@ -45,9 +44,9 @@ namespace Fluent
         #region Fields
 
         // Parts of the control (must be in control template)
-        System.Windows.Controls.TextBox textBox;
-        System.Windows.Controls.Primitives.RepeatButton buttonUp;
-        System.Windows.Controls.Primitives.RepeatButton buttonDown;
+        private System.Windows.Controls.TextBox textBox;
+        private RepeatButton buttonUp;
+        private RepeatButton buttonDown;
 
         #endregion
 
@@ -61,8 +60,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Naming", "CA1721")]
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (double)this.GetValue(ValueProperty); }
+            set { this.SetValue(ValueProperty, value); }
         }
 
         /// <summary>
@@ -73,8 +72,8 @@ namespace Fluent
 
         private static object CoerceValue(DependencyObject d, object basevalue)
         {
-            Spinner spinner = (Spinner)d;
-            double value = (double)basevalue;
+            var spinner = (Spinner)d;
+            var value = (double)basevalue;
             value = GetLimitedValue(spinner, value);
             return value;
         }
@@ -88,18 +87,21 @@ namespace Fluent
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Spinner spinner = (Spinner)d;
+            var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
 
-            if (spinner.ValueChanged != null) spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
+            if (spinner.ValueChanged != null)
+            {
+                spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
+            }
         }
 
         private void ValueToTextBoxText()
         {
-            if (IsTemplateValid())
+            if (this.IsTemplateValid())
             {
-                textBox.Text = Value.ToString(Format, CultureInfo.CurrentCulture);
-                Text = textBox.Text;
+                this.textBox.Text = this.Value.ToString(this.Format, CultureInfo.CurrentCulture);
+                this.Text = this.textBox.Text;
             }
         }
 
@@ -112,19 +114,17 @@ namespace Fluent
         /// </summary>
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            private set { SetValue(TextPropertyKey, value); }
+            get { return (string)this.GetValue(TextProperty); }
+            private set { this.SetValue(textPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey TextPropertyKey =
-            DependencyProperty.RegisterReadOnly("Text", typeof(string),
-            typeof(Spinner), new UIPropertyMetadata(null));
+        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly("Text", typeof(string), typeof(Spinner), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TextProperty = textPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -135,8 +135,8 @@ namespace Fluent
         /// </summary>
         public double Increment
         {
-            get { return (double)GetValue(IncrementProperty); }
-            set { SetValue(IncrementProperty, value); }
+            get { return (double)this.GetValue(IncrementProperty); }
+            set { this.SetValue(IncrementProperty, value); }
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace Fluent
         /// </summary>
         public double Minimum
         {
-            get { return (double)GetValue(MinimumProperty); }
-            set { SetValue(MinimumProperty, value); }
+            get { return (double)this.GetValue(MinimumProperty); }
+            set { this.SetValue(MinimumProperty, value); }
         }
 
         /// <summary>
@@ -167,17 +167,26 @@ namespace Fluent
 
         static object CoerceMinimum(DependencyObject d, object basevalue)
         {
-            Spinner spinner = (Spinner)d;
-            double value = (double)basevalue;
-            if (spinner.Maximum < value) return spinner.Maximum;
+            var spinner = (Spinner)d;
+            var value = (double)basevalue;
+
+            if (spinner.Maximum < value)
+            {
+                return spinner.Maximum;
+            }
+
             return value;
         }
 
         static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Spinner spinner = (Spinner)d;
-            double value = (double)CoerceValue(d, spinner.Value);
-            if (value != spinner.Value) spinner.Value = value;
+            var spinner = (Spinner)d;
+            var value = (double)CoerceValue(d, spinner.Value);
+
+            if (DoubleUtil.AreClose(value, spinner.Value) == false)
+            {
+                spinner.Value = value;
+            }
         }
 
         #endregion
@@ -189,8 +198,8 @@ namespace Fluent
         /// </summary>
         public double Maximum
         {
-            get { return (double)GetValue(MaximumProperty); }
-            set { SetValue(MaximumProperty, value); }
+            get { return (double)this.GetValue(MaximumProperty); }
+            set { this.SetValue(MaximumProperty, value); }
         }
 
         /// <summary>
@@ -201,17 +210,26 @@ namespace Fluent
 
         static object CoerceMaximum(DependencyObject d, object basevalue)
         {
-            Spinner spinner = (Spinner)d;
-            double value = (double)basevalue;
-            if (spinner.Minimum > value) return spinner.Minimum;
+            var spinner = (Spinner)d;
+            var value = (double)basevalue;
+
+            if (spinner.Minimum > value)
+            {
+                return spinner.Minimum;
+            }
+
             return value;
         }
 
         static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Spinner spinner = (Spinner)d;
-            double value = (double)CoerceValue(d, spinner.Value);
-            if (value != spinner.Value) spinner.Value = value;
+            var spinner = (Spinner)d;
+            var value = (double)CoerceValue(d, spinner.Value);
+
+            if (DoubleUtil.AreClose(value, spinner.Value) == false)
+            {
+                spinner.Value = value;
+            }
         }
 
         #endregion
@@ -223,8 +241,8 @@ namespace Fluent
         /// </summary>
         public string Format
         {
-            get { return (string)GetValue(FormatProperty); }
-            set { SetValue(FormatProperty, value); }
+            get { return (string)this.GetValue(FormatProperty); }
+            set { this.SetValue(FormatProperty, value); }
         }
 
         /// <summary>
@@ -236,7 +254,7 @@ namespace Fluent
 
         static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Spinner spinner = (Spinner)d;
+            var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
         }
 
@@ -251,8 +269,8 @@ namespace Fluent
         /// </summary>
         public int Delay
         {
-            get { return (int)GetValue(DelayProperty); }
-            set { SetValue(DelayProperty, value); }
+            get { return (int)this.GetValue(DelayProperty); }
+            set { this.SetValue(DelayProperty, value); }
         }
 
         /// <summary>
@@ -274,8 +292,8 @@ namespace Fluent
         /// </summary>
         public int Interval
         {
-            get { return (int)GetValue(IntervalProperty); }
-            set { SetValue(IntervalProperty, value); }
+            get { return (int)this.GetValue(IntervalProperty); }
+            set { this.SetValue(IntervalProperty, value); }
         }
 
         /// <summary>
@@ -294,8 +312,8 @@ namespace Fluent
         /// </summary>               
         public double InputWidth
         {
-            get { return (double)GetValue(InputWidthProperty); }
-            set { SetValue(InputWidthProperty, value); }
+            get { return (double)this.GetValue(InputWidthProperty); }
+            set { this.SetValue(InputWidthProperty, value); }
         }
 
         /// <summary>
@@ -332,45 +350,47 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (IsTemplateValid())
+            if (this.IsTemplateValid())
             {
-                buttonUp.Click -= OnButtonUpClick;
-                buttonDown.Click -= OnButtonDownClick;
-                BindingOperations.ClearAllBindings(buttonDown);
-                BindingOperations.ClearAllBindings(buttonUp);
+                this.buttonUp.Click -= this.OnButtonUpClick;
+                this.buttonDown.Click -= this.OnButtonDownClick;
+                BindingOperations.ClearAllBindings(this.buttonDown);
+                BindingOperations.ClearAllBindings(this.buttonUp);
             }
 
             // Get template childs
-            textBox = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
-            buttonUp = GetTemplateChild("PART_ButtonUp") as System.Windows.Controls.Primitives.RepeatButton;
-            buttonDown = GetTemplateChild("PART_ButtonDown") as System.Windows.Controls.Primitives.RepeatButton;
+            this.textBox = this.GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
+            this.buttonUp = this.GetTemplateChild("PART_ButtonUp") as RepeatButton;
+            this.buttonDown = this.GetTemplateChild("PART_ButtonDown") as RepeatButton;
 
             // Check template
-            if (!IsTemplateValid())
+            if (this.IsTemplateValid() == false)
             {
                 Debug.WriteLine("Template for Spinner control is invalid");
                 return;
             }
 
             // Bindings
-            Bind(this, buttonUp, "Delay", System.Windows.Controls.Primitives.RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, buttonDown, "Delay", System.Windows.Controls.Primitives.RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, buttonUp, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
-            Bind(this, buttonDown, "Interval", System.Windows.Controls.Primitives.RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, this.buttonUp, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonUp, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
 
 
             // Events subscribing
-            buttonUp.Click += OnButtonUpClick;
-            buttonDown.Click += OnButtonDownClick;
-            textBox.LostKeyboardFocus += OnTextBoxLostKeyboardFocus;
-            textBox.PreviewKeyDown += OnTextBoxPreviewKeyDown;
+            this.buttonUp.Click += this.OnButtonUpClick;
+            this.buttonDown.Click += this.OnButtonDownClick;
+            this.textBox.LostKeyboardFocus += this.OnTextBoxLostKeyboardFocus;
+            this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
 
-            ValueToTextBoxText();
+            this.ValueToTextBoxText();
         }
 
         bool IsTemplateValid()
         {
-            return textBox != null && buttonUp != null && buttonDown != null;
+            return this.textBox != null
+                && this.buttonUp != null
+                && this.buttonDown != null;
         }
 
         #endregion
@@ -382,15 +402,18 @@ namespace Fluent
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            if (!IsTemplateValid()) return;
+            if (this.IsTemplateValid() == false)
+            {
+                return;
+            }
 
             // Use dispatcher to avoid focus moving to backup'ed element 
             // (focused element before keytips processing)
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
                 (ThreadStart)(() =>
                 {
-                    textBox.SelectAll();
-                    textBox.Focus();
+                    this.textBox.SelectAll();
+                    this.textBox.Focus();
                 }));
             base.OnKeyTipPressed();
         }
@@ -403,7 +426,12 @@ namespace Fluent
         protected override void OnKeyUp(KeyEventArgs e)
         {
             // Avoid Click invocation (from RibbonControl)
-            if (e.Key == Key.Enter || e.Key == Key.Space) return;
+            if (e.Key == Key.Enter
+                || e.Key == Key.Space)
+            {
+                return;
+            }
+
             base.OnKeyUp(e);
         }
 
@@ -419,45 +447,45 @@ namespace Fluent
 
         private void OnTextBoxLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            TextBoxTextToValue();
+            this.TextBoxTextToValue();
         }
 
         private void OnTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                TextBoxTextToValue();
+                this.TextBoxTextToValue();
             }
 
             if (e.Key == Key.Escape)
             {
-                ValueToTextBoxText();
+                this.ValueToTextBoxText();
             }
 
             if (e.Key == Key.Enter
                 || e.Key == Key.Escape)
             {
                 // Move Focus
-                textBox.Focusable = false;
-                Focus();
-                textBox.Focusable = true;
+                this.textBox.Focusable = false;
+                this.Focus();
+                this.textBox.Focusable = true;
                 e.Handled = true;
             }
 
             if (e.Key == Key.Up)
             {
-                buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                this.buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
 
             if (e.Key == Key.Down)
             {
-                buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
+                this.buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
         }
 
         private void TextBoxTextToValue()
         {
-            var text = textBox.Text;
+            var text = this.textBox.Text;
 
             // Remove all except digits, signs and commas
             var stringBuilder = new StringBuilder();
@@ -479,10 +507,10 @@ namespace Fluent
 
             if (Double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
             {
-                Value = GetLimitedValue(this, value);
+                this.Value = GetLimitedValue(this, value);
             }
 
-            ValueToTextBoxText();
+            this.ValueToTextBoxText();
         }
 
         #endregion
@@ -497,8 +525,8 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            Spinner spinner = new Spinner();
-            BindQuickAccessItem(spinner);
+            var spinner = new Spinner();
+            this.BindQuickAccessItem(spinner);
             return spinner;
         }
 
@@ -508,12 +536,12 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected void BindQuickAccessItem(FrameworkElement element)
         {
-            Spinner spinner = (Spinner)element;
+            var spinner = (Spinner)element;
 
-            RibbonControl.BindQuickAccessItem(this, element);
+            BindQuickAccessItem(this, element);
 
-            spinner.Width = Width;
-            spinner.InputWidth = InputWidth;
+            spinner.Width = this.Width;
+            spinner.InputWidth = this.InputWidth;
 
             Bind(this, spinner, "Value", ValueProperty, BindingMode.TwoWay);
             Bind(this, spinner, "Increment", IncrementProperty, BindingMode.OneWay);
@@ -523,7 +551,7 @@ namespace Fluent
             Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
 
-            RibbonControl.BindQuickAccessItem(this, element);
+            BindQuickAccessItem(this, element);
         }
 
         #endregion
