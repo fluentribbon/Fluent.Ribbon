@@ -1,5 +1,25 @@
 # Changelog for Fluent.Ribbon
 
+## 3.4.0
+- ### Features
+  - [#74](../../issues/74) "Added DropDownButton.ClosePopupOnMouseDownDelay to allow the end-developer to tweak the delay (sometimes 100 ms is too fast)"
+
+- ### Enhancements
+  - [#67](../../issues/67) "Make pin image vector based"
+  - [#76](../../issues/76) "Tabbing between spinners goes via spinner buttons"
+
+- ### Bug fixes
+  - [#34](../../issues/34) "A bug in the Menu of DropdownButton"
+  - [#45](../../issues/45) "Little style Bug in Office2013 Style"
+  - [#61](../../issues/61) "Fix for backstage controls in Windows 8 theme"
+  - [#62](../../issues/62) "Review TODO:s in Windows 8 theme"
+  - [#63](../../issues/63) "Office2013 Icon fixing"
+  - [#65](../../issues/65) "Problems when layout is scaled"
+  - [#66](../../issues/66) "RibbonWindow not closed when system menu icon is double clicked"
+  - [#68](../../issues/68) "NullReferenceException is thrown on closing by Alt+Space and C"
+  - [#69](../../issues/69) "Ribbon Title not update its position"
+  - [#71](../../issues/71) "Starting application with backstage menu open causes problems"
+
 ## 3.3.0
 - ### Reverted changes
   - [#28](../../issues/28) "Height and FontSize of MenuItem"
