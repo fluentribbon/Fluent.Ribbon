@@ -371,6 +371,11 @@
             w.ShowDialog();
         }
 
+        private void OpenRegularWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RegularWindow().Show();
+        }
+
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
             new MahMetroWindow().Show();

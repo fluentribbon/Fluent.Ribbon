@@ -2633,6 +2633,8 @@
                 <WrapPanel>
                     <Button x:Name="AddRibbonTab"
                             Click="AddRibbonTab_OnClick">Add tab</Button>
+                    <Button x:Name="OpenRegularWindow"
+                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>                    
                     <Button x:Name="OpenMahMetroWindow"
                             Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                 </WrapPanel>

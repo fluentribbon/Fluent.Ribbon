@@ -1,0 +1,17 @@
+﻿<Window x:Class="FluentTest.RegularWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="urn:fluent-ribbon"
+        xmlns:fluentTest="clr-namespace:FluentTest"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="{Binding DataContext.Title, ElementName=TestContent}"        
+        Height="768"
+        Width="1024"
+        MinWidth="80"
+        MinHeight="60"
+        mc:Ignorable="d"
+        WindowState="Normal"
+        Fluent:RibbonProperties.TitleBarHeight="0">
+    <fluentTest:TestContent x:Name="TestContent" />
+</Window>
