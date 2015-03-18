@@ -171,7 +171,8 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
+                //basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
+                basevalue = (d as FrameworkElement).TryFindResource(typeof(RadioButton));
             }
 
             return basevalue;
