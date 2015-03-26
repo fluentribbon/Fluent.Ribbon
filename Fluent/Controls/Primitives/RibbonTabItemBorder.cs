@@ -306,7 +306,7 @@ namespace Fluent.Controls.Primitives
                 child.Arrange(childRect);
             }
 
-
+            this.InvalidateGeometries();
 
             return arrangeSize;
         }
@@ -384,6 +384,8 @@ namespace Fluent.Controls.Primitives
             private Geometry _cachedInnerBorderGeometry;
             private Geometry _cachedBackgroundGeometry;
 
+            private const double BOTTOM_PADDING = 1.0;
+
             #endregion
 
             #region "Constructors"
@@ -447,31 +449,37 @@ namespace Fluent.Controls.Primitives
                     ht + cr,
                     ht,
                     rs.Width - ((ht * 2) + (cr * 2)),
-                    rs.Height - ht);
+                    rs.Height - ht - BOTTOM_PADDING);
                 _cachedOuterBorderGeometry = this.ConstructGeometry(rect, cr, false);
             }
 
             private void EnsureBackgroundGeometry(Size rs /*render size*/, double t /* thickness*/, double cr /* corner radius */)
             {
+                if (_cachedBackgroundGeometry != null)
+                    return;
+
                 var ht = t * 0.5;
                 // render the background
                 var bgRect = new Rect(
                     ht + cr + t + ht,
                     ht + t + ht,
                     Math.Max(0.0, rs.Width - ((ht * 2) + (cr * 2) + ((t + ht) * 2))),
-                    Math.Max(0.0, rs.Height - (ht * 2) - t));
+                    Math.Max(0.0, rs.Height - (ht * 2) - t - BOTTOM_PADDING));
 
                 _cachedBackgroundGeometry = this.ConstructGeometry(bgRect, GetInnerBorderRadius(cr, t), true);
             }
 
             private void EnsureInnerBorderGeometry(Size rs, double t, double cr)
             {
+                if (_cachedInnerBorderGeometry != null)
+                    return;
+
                 double ht = t * 0.5;
                 var innerBorderRect = new Rect(
                     ht + cr + t,
                     ht + t,
                     Math.Max(0.0, rs.Width - ((ht * 2) + (cr * 2) + (t * 2))),
-                    Math.Max(0.0, rs.Height - ht - t));
+                    Math.Max(0.0, rs.Height - ht - t - BOTTOM_PADDING));
 
                 _cachedInnerBorderGeometry = this.ConstructGeometry(innerBorderRect, cr, true);
             }
