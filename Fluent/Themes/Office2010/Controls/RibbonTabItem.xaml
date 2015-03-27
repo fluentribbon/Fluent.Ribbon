@@ -174,8 +174,6 @@
                             <Setter Property="Margin" TargetName="rectangle4" Value="0" />
                             <Setter Property="Margin" TargetName="border3" Value="0" />
                         </MultiTrigger>
-
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
@@ -208,6 +206,14 @@
                             <Setter Property="Visibility" TargetName="border_Copy3" Value="Collapsed" />
                             <Setter Property="Visibility" TargetName="rectangle3" Value="Collapsed" />-->
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsMinimized" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border" Property="RenderInnerBorder" Value="True" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
+                        </MultiTrigger>
                         <Trigger Property="IsSeparatorVisible" Value="True">
                             <Setter Property="Visibility"
                                     TargetName="separatorGrid"
