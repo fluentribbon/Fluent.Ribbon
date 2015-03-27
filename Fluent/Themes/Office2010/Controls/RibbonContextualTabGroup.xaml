@@ -5,21 +5,16 @@
                     xmlns:internal="clr-namespace:Fluent.Internal">
     <Style x:Key="RibbonContextualTabGroupStyle"
            TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonContextualTabGroupControlTemplate}" />
-        <Setter Property="Width"
-                Value="Auto" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="Template" Value="{DynamicResource RibbonContextualTabGroupControlTemplate}" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Focusable" Value="False" />
     </Style>
 
-    <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
-                     TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
+    <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate" TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
                 Visibility="{TemplateBinding InnerVisibility}"
-                Margin="2,0,0,0"
+                Margin="1,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Width="Auto"
@@ -27,12 +22,9 @@
                 BorderThickness="1,0"
                 Background="{DynamicResource TransparentBrush}">
             <Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#F2FFFFFF"
-                                  Offset="0" />
-                    <GradientStop Color="#CCFFFFFF"
-                                  Offset="1" />
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#F2FFFFFF" Offset="0" />
+                    <GradientStop Color="#CCFFFFFF" Offset="1" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <Border BorderBrush="{TemplateBinding BorderBrush}"
@@ -51,16 +43,11 @@
                                Height="Auto"
                                StrokeThickness="0">
                         <Rectangle.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0">
-                                <GradientStop Color="Black"
-                                              Offset="0" />
-                                <GradientStop Color="#59000000"
-                                              Offset="1" />
-                                <GradientStop Color="Black"
-                                              Offset="0.16" />
-                                <GradientStop Color="#99000000"
-                                              Offset="0.161" />
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0" />
+                                <GradientStop Color="#59000000" Offset="1" />
+                                <GradientStop Color="Black" Offset="0.16" />
+                                <GradientStop Color="#99000000" Offset="0.161" />
                             </LinearGradientBrush>
                         </Rectangle.OpacityMask>
                     </Rectangle>
@@ -71,16 +58,11 @@
                                Height="Auto"
                                Fill="#3FD2D2D2">
                         <Rectangle.OpacityMask>
-                            <LinearGradientBrush EndPoint="0.5,1"
-                                                 StartPoint="0.5,0">
-                                <GradientStop Color="Black"
-                                              Offset="0" />
-                                <GradientStop Color="#7F000000"
-                                              Offset="1" />
-                                <GradientStop Color="Black"
-                                              Offset="0.16" />
-                                <GradientStop Color="#B2000000"
-                                              Offset="0.161" />
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="0" />
+                                <GradientStop Color="#7F000000" Offset="1" />
+                                <GradientStop Color="Black" Offset="0.16" />
+                                <GradientStop Color="#B2000000" Offset="0.161" />
                             </LinearGradientBrush>
                         </Rectangle.OpacityMask>
                     </Rectangle>
@@ -111,13 +93,5 @@
                 </Grid>
             </Border>
         </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsWindowMaximized"
-                     Value="True">
-                <Setter Property="Margin"
-                        TargetName="rootBorder"
-                        Value="2,0,0,-0.1" />
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
