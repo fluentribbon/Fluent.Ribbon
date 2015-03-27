@@ -37,8 +37,7 @@
                                     HorizontalAlignment="Stretch"
                                     Margin="6,2,4,0"
                                     VerticalAlignment="Stretch"
-                                    Padding="15,0,0,0"
-                                    Grid.ColumnSpan="1">
+                                    Padding="15,0,0,0">
                                 <ContentPresenter x:Name="contentPresenter"
                                                   AutomationProperties.Name="{TemplateBinding Header}"
                                                   AutomationProperties.AutomationId="{TemplateBinding Name}"
@@ -87,8 +86,8 @@
                         </Grid>
 
                         <Border x:Name="border3"
-                                Margin="1,0"
                                 BorderThickness="1,0"
+                                Margin="1,0,1,1"
                                 Grid.ColumnSpan="2">
                             <Border.BorderBrush>
                                 <LinearGradientBrush EndPoint="0.5,1"
@@ -108,9 +107,7 @@
                                         <GradientStop Color="#00000000" Offset="0.981" />
                                     </LinearGradientBrush>
                                 </Border.OpacityMask>
-                                <Border Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}"
-                                        BorderThickness="0"
-                                        Margin="0">
+                                <Border Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Border.OpacityMask>
                                         <LinearGradientBrush EndPoint="0.5,1"
                                                              StartPoint="0.5,0">
@@ -121,8 +118,7 @@
                                         </LinearGradientBrush>
                                     </Border.OpacityMask>
                                     <Rectangle x:Name="rectangle4"
-                                               Fill="#3FD2D2D2"
-                                               StrokeThickness="0">
+                                               Fill="#3FD2D2D2">
                                         <Rectangle.OpacityMask>
                                             <LinearGradientBrush EndPoint="0.5,1"
                                                                  StartPoint="0.5,0">
@@ -142,8 +138,8 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.5" />
                         </Trigger>
-
-
+                        
+                        <!-- Contextual Tabs Triggers -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="HasRightGroupBorder" Value="False" />
@@ -152,7 +148,7 @@
                             <Setter Property="BorderThickness" TargetName="border3" Value="1,0,0,0" />
                             <Setter Property="BorderThickness" TargetName="border4" Value="1,0,0,0" />
                             <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="1,0,0,0" />
+                            <Setter Property="Margin" TargetName="border3" Value="1,0,0,1" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -162,7 +158,7 @@
                             <Setter Property="BorderThickness" TargetName="border4" Value="0,0,1,0" />
                             <Setter Property="BorderThickness" TargetName="border3" Value="0,0,1,0" />
                             <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="0,0,1,0" />
+                            <Setter Property="Margin" TargetName="border3" Value="0,0,1,1" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -172,8 +168,9 @@
                             <Setter Property="BorderThickness" TargetName="border4" Value="0,0,0,0" />
                             <Setter Property="BorderThickness" TargetName="border3" Value="0,0,0,0" />
                             <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="0" />
+                            <Setter Property="Margin" TargetName="border3" Value="0,0,0,1" />
                         </MultiTrigger>
+                        
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
@@ -214,6 +211,24 @@
                             <Setter TargetName="Border" Property="RenderInnerBorder" Value="True" />
                             <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
                         </MultiTrigger>
+                        <!--<MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Selector.IsSelected" Value="True" />
+                                <Condition Property="IsMinimized" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border"
+                                    Property="RenderInnerBorder"
+                                    Value="True" />
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource ActiveTabBackgroundBrush}" />
+                            <Setter TargetName="Border"
+                                    Property="RenderInnerBorder"
+                                    Value="True" />
+                        </MultiTrigger>-->
                         <Trigger Property="IsSeparatorVisible" Value="True">
                             <Setter Property="Visibility"
                                     TargetName="separatorGrid"
