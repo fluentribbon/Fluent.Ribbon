@@ -468,7 +468,6 @@
                     </Fluent:ComboBox>
 
                     <Fluent:ComboBox Name="FilterComboBox"
-									 IsEnabled="False"
                                      IsReadOnly="True"
                                      KeyTip="H"
                                      SelectedIndex="0">
