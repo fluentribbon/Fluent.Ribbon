@@ -198,10 +198,7 @@
                                     Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
                         </MultiTrigger>
                         <Trigger Property="Group" Value="{x:Null}">
-                            <!--<Setter Property="Visibility" TargetName="border3" Value="Collapsed" />
-                            <Setter Property="Margin" TargetName="separatorGrid" Value="-1,0,0,1" />
-                            <Setter Property="Visibility" TargetName="border_Copy3" Value="Collapsed" />
-                            <Setter Property="Visibility" TargetName="rectangle3" Value="Collapsed" />-->
+                            <Setter Property="Visibility" TargetName="border3" Value="Collapsed" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -211,24 +208,6 @@
                             <Setter TargetName="Border" Property="RenderInnerBorder" Value="True" />
                             <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
                         </MultiTrigger>
-                        <!--<MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelected" Value="True" />
-                                <Condition Property="IsMinimized" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Border"
-                                    Property="RenderInnerBorder"
-                                    Value="True" />
-                            <Setter TargetName="Border"
-                                    Property="BorderBrush"
-                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
-                            <Setter TargetName="Border"
-                                    Property="Background"
-                                    Value="{DynamicResource ActiveTabBackgroundBrush}" />
-                            <Setter TargetName="Border"
-                                    Property="RenderInnerBorder"
-                                    Value="True" />
-                        </MultiTrigger>-->
                         <Trigger Property="IsSeparatorVisible" Value="True">
                             <Setter Property="Visibility"
                                     TargetName="separatorGrid"
