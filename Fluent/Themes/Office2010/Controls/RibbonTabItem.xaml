@@ -5,6 +5,50 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
+    
+    <Style x:Key="RibbonTabItemSeparatorStyle" TargetType="Separator">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Width" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <pr:SingleCellGrid>
+                        <Rectangle x:Name="separatorRectangle1"
+                                       Fill="{DynamicResource RibbonTopBorderBrush}"
+                                       Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                       Margin="0,0,1,0"
+                                       HorizontalAlignment="Right"
+                                       Width="1"
+                                       Opacity="1"
+                                       Visibility="Visible">
+                            <Rectangle.OpacityMask>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#00000000" Offset="0" />
+                                    <GradientStop Color="#E5FFFFFF" Offset="0.382" />
+                                </LinearGradientBrush>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <Rectangle x:Name="separatorRectangle2"
+                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                                       Stroke="{DynamicResource ActiveTabBackgroundBrush}"
+                                       HorizontalAlignment="Right"
+                                       Margin="0"
+                                       Width="1"
+                                       Opacity="1"
+                                       Visibility="Visible">
+                            <Rectangle.OpacityMask>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#00000000" Offset="0" />
+                                    <GradientStop Color="#BFFFFFFF" Offset="0.329" />
+                                </LinearGradientBrush>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </pr:SingleCellGrid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="RibbonTabItemStyle"
            TargetType="{x:Type Fluent:RibbonTabItem}">
         <Style.Triggers>
@@ -26,7 +70,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">
-                    <Grid Margin="0,7,0,0">
+                    <pr:SingleCellGrid Margin="0,7,0,0">
                         <pr:RibbonTabItemBorder x:Name="Border"
                                                 Background="Transparent"
                                                 BorderThickness="1"
@@ -48,42 +92,11 @@
                                                   Height="Auto" />
                             </Border>
                         </pr:RibbonTabItemBorder>
-                        <Grid x:Name="separatorGrid"
-                              Visibility="Collapsed"
-                              HorizontalAlignment="Right"
-                              Margin="0,0,-1,0"
-                              Width="2">
-                            <Rectangle x:Name="separatorRectangle1"
-                                       Fill="{DynamicResource RibbonTopBorderBrush}"
-                                       Stroke="{DynamicResource RibbonTopBorderBrush}"
-                                       Margin="0,0,1,0"
-                                       HorizontalAlignment="Right"
-                                       Width="1"
-                                       Opacity="1"
-                                       Visibility="Visible">
-                                <Rectangle.OpacityMask>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#00000000" Offset="0" />
-                                        <GradientStop Color="#E5FFFFFF" Offset="0.382" />
-                                    </LinearGradientBrush>
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
-                            <Rectangle x:Name="separatorRectangle2"
-                                       Fill="{DynamicResource ActiveTabBackgroundBrush}"
-                                       Stroke="{DynamicResource ActiveTabBackgroundBrush}"
-                                       HorizontalAlignment="Right"
-                                       Margin="0"
-                                       Width="1"
-                                       Opacity="1"
-                                       Visibility="Visible">
-                                <Rectangle.OpacityMask>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#00000000" Offset="0" />
-                                        <GradientStop Color="#BFFFFFFF" Offset="0.329" />
-                                    </LinearGradientBrush>
-                                </Rectangle.OpacityMask>
-                            </Rectangle>
-                        </Grid>
+                        <Separator x:Name="separatorGrid"
+                                   Visibility="Collapsed"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource RibbonTabItemSeparatorStyle}"
+                                   Margin="0,0,-1,0" />
 
                         <Border x:Name="border3"
                                 BorderThickness="1,0"
@@ -132,7 +145,7 @@
                                 </Border>
                             </Border>
                         </Border>
-                    </Grid>
+                    </pr:SingleCellGrid>
                     
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">

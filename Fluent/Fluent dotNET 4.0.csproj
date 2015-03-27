@@ -86,6 +86,7 @@
     <Compile Include="Controls\ComboBox.cs" />
     <Compile Include="Controls\ContextMenu.cs" />
     <Compile Include="Controls\Primitives\RibbonTabItemBorder.cs" />
+    <Compile Include="Controls\Primitives\SingleCellGrid.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
