@@ -49,7 +49,7 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    BorderThickness="1"
+                    BorderThickness="0"
                     Background="{DynamicResource TransparentBrush}"
                     BorderBrush="{DynamicResource TransparentBrush}"
                     Height="Auto"
@@ -67,14 +67,14 @@
                                           VerticalAlignment="Center"
                                           Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                           Width="32"
-                                          Margin="3,2"
+                                          Margin="3,2,3,1"
                                           SnapsToDevicePixels="True" />
                         <Fluent:TwoLineLabel x:Name="controlLabel"
                                              Text="{TemplateBinding Header}"
                                              Style="{DynamicResource TwoLineLabelStyle}"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             Margin="2,0,2,2"
+                                             Margin="2,-1,2,2"
                                              HasGlyph="{TemplateBinding HasTriangle}" />
                     </StackPanel>
                 </Grid>
