@@ -79,7 +79,7 @@
                                                 CornerRadius="2">
                             <Border x:Name="PART_ContentContainer"
                                     HorizontalAlignment="Stretch"
-                                    Margin="6,2,4,0"
+                                    Margin="6,2,6,0"
                                     VerticalAlignment="Stretch"
                                     Padding="15,0,0,0">
                                 <ContentPresenter x:Name="contentPresenter"
