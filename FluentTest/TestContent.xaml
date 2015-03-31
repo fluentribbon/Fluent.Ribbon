@@ -467,7 +467,6 @@
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
 
-
                     <Fluent:ComboBox Name="FilterComboBox"
                                      IsReadOnly="True"
                                      KeyTip="H"
@@ -1136,6 +1135,10 @@
                                          Header="Pink" />
                     </Fluent:DropDownButton>
 
+					<Fluent:Button Header="TEST"
+								   Icon="Images\Green.png"
+								   LargeIcon="Images\GreenLarge.png"/>
+					
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
                                            Icon="Images\Pink.png"
