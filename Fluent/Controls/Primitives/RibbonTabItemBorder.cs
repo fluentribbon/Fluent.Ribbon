@@ -10,6 +10,10 @@ namespace Fluent.Controls.Primitives
     /// A custom border element for use in the <see cref="RibbonTabItem"/> control
     /// template.
     /// </summary>
+    /// <remarks>
+    /// The border will render a different geometry based on the value of <see cref="RenderInnerBorder"/> property
+    /// being true or false.
+    /// </remarks>
     public class RibbonTabItemBorder : Decorator
     {
         #region "Fields"
@@ -53,11 +57,8 @@ namespace Fluent.Controls.Primitives
                 }));
 
         /// <summary>
-        /// Gets or sets the CornerRadius property. This is a dependency property.
+        /// Gets or sets a value that indicates the roundness of corners. This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public double CornerRadius
         {
@@ -83,9 +84,6 @@ namespace Fluent.Controls.Primitives
         /// <summary>
         /// Gets or sets the RenderInnerBorder property. This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public bool RenderInnerBorder
         {
@@ -114,11 +112,9 @@ namespace Fluent.Controls.Primitives
                 }));
 
         /// <summary>
-        /// Gets or sets the BorderBrush property. This is a dependency property.
+        /// Gets or sets the <see cref="Brush"/> used to fill the outer border region. 
+        /// This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public Brush BorderBrush
         {
@@ -147,11 +143,8 @@ namespace Fluent.Controls.Primitives
                 }));
 
         /// <summary>
-        /// Gets or sets the InnerBorderBrush property. This is a dependency property.
+        /// Gets or sets the <see cref="Brush"/> used to fill the inner border region. This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public Brush InnerBorderBrush
         {
@@ -189,11 +182,9 @@ namespace Fluent.Controls.Primitives
             });
 
         /// <summary>
-        /// Gets or sets the BorderThickness property. This is a dependency property.
+        /// Gets or sets a value that indicates how thick the outer and inner borders are.
+        /// This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public double BorderThickness
         {
@@ -219,9 +210,6 @@ namespace Fluent.Controls.Primitives
         /// <summary>
         /// Gets or sets the Padding property. This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public Thickness Padding
         {
@@ -245,11 +233,9 @@ namespace Fluent.Controls.Primitives
                 FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
-        /// Gets or sets the Background property. This is a dependency property.
+        /// Gets or sets <see cref="Brush"/> used to fill the area within the border. 
+        /// This is a dependency property.
         /// </summary>
-        /// <value>
-        ///
-        /// </value>
         [Bindable(true)]
         public Brush Background
         {
@@ -311,6 +297,9 @@ namespace Fluent.Controls.Primitives
             return arrangeSize;
         }
 
+        /// <summary>
+        /// Will ensure that the caches geometries are invalidated during the next render pass.
+        /// </summary>
         private void InvalidateGeometries()
         {
             EnsureRenderers();
@@ -318,6 +307,9 @@ namespace Fluent.Controls.Primitives
             _mouserOverRenderer.InvalidateCache();
         }
 
+        /// <summary>
+        /// Ensures that the <see cref="IRenderer"/> instances are created.
+        /// </summary>
         private void EnsureRenderers()
         {
             if (_normalRenderer == null)
@@ -384,6 +376,12 @@ namespace Fluent.Controls.Primitives
             private Geometry _cachedInnerBorderGeometry;
             private Geometry _cachedBackgroundGeometry;
 
+            /// <summary>
+            /// when the tab item is not selected and the mouse is over it,
+            /// if we don't exclude the following value from the rendering rect
+            /// our border will overlap with the horizontal border of the ribbon
+            /// tab control
+            /// </summary>
             private const double BOTTOM_PADDING = 1.0;
 
             #endregion
@@ -440,7 +438,7 @@ namespace Fluent.Controls.Primitives
                 }
             }
 
-            private void EnsureOuterBorderGeometry(Size rs, double ht, double cr)
+            private void EnsureOuterBorderGeometry(Size rs /* render size */, double ht /* half thickness */, double cr /* corner radius*/)
             {
                 if (_cachedOuterBorderGeometry != null)
                     return;
@@ -503,7 +501,6 @@ namespace Fluent.Controls.Primitives
 
                         if (isInnerBorder)
                         {
-                            //var actualOuterCornerRadius = corner radius + (border thickness / 2);
                             radius = Math.Max(0.0, cornerRadius - (t / 2) - (t / 2));
 
                             var p2 = new Point(rect.Left, rect.Top + radius);
@@ -747,9 +744,9 @@ namespace Fluent.Controls.Primitives
 
                 // I found it very hard to construct a background geometry
                 // that doesn't overlap the border geometry, the issue was
-                // always the bottom left/right corner radius.
+                // always the bottom left & right corner radius.
                 // so what I am doing is constructing the background geometry based
-                // on the border geometry and stretching to fill the remaining
+                // on the border geometry and stretching it to fill the remaining
                 // bottom space.
                 return isBackground ? ApplyTransform(geometry, bt, renderSize) : geometry;
             }
@@ -760,7 +757,6 @@ namespace Fluent.Controls.Primitives
                 pathGeometry.AddGeometry(geometry);
 
                 var hbt = bt * 0.5;
-                //var scaleY = ((hbt * 100) / renderSize.Height) / 100;
                 var scaleY = hbt / renderSize.Height;
                 pathGeometry.Transform = new ScaleTransform(1, scaleY + 1, renderSize.Width * 0.5, 0);
                 pathGeometry.Freeze();

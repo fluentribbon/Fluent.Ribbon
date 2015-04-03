@@ -6,9 +6,12 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
     
-    <Style x:Key="RibbonTabItemSeparatorStyle" TargetType="Separator">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Width" Value="2" />
+    <Style x:Key="RibbonTabItemSeparatorStyle"
+           TargetType="Separator">
+        <Setter Property="OverridesDefaultStyle"
+                Value="True" />
+        <Setter Property="Width"
+                Value="2" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Separator">
@@ -22,9 +25,12 @@
                                        Opacity="1"
                                        Visibility="Visible">
                             <Rectangle.OpacityMask>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#00000000" Offset="0" />
-                                    <GradientStop Color="#E5FFFFFF" Offset="0.382" />
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#00000000"
+                                                  Offset="0" />
+                                    <GradientStop Color="#E5FFFFFF"
+                                                  Offset="0.382" />
                                 </LinearGradientBrush>
                             </Rectangle.OpacityMask>
                         </Rectangle>
@@ -38,8 +44,10 @@
                                        Visibility="Visible">
                             <Rectangle.OpacityMask>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#00000000" Offset="0" />
-                                    <GradientStop Color="#BFFFFFFF" Offset="0.329" />
+                                    <GradientStop Color="#00000000"
+                                                  Offset="0" />
+                                    <GradientStop Color="#BFFFFFFF"
+                                                  Offset="0.329" />
                                 </LinearGradientBrush>
                             </Rectangle.OpacityMask>
                         </Rectangle>
@@ -53,20 +61,30 @@
            TargetType="{x:Type Fluent:RibbonTabItem}">
         <Style.Triggers>
             <Trigger Property="Group" Value="{x:Null}">
-                <Setter Property="BorderBrush" Value="{DynamicResource RibbonTopBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource RibbonTopBorderBrush}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource TabItemFontBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource TabItemFontBrush}" />
             </Trigger>
         </Style.Triggers>
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Indent" Value="12" />
-        <Setter Property="Foreground" Value="{DynamicResource TabItemSelectedFontBrush}" />
-        <Setter Property="BorderBrush" Value="{Binding Group.BorderBrush, RelativeSource={RelativeSource Self}}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
-        <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="Indent"
+                Value="12" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TabItemSelectedFontBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{Binding Group.BorderBrush, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="IsMinimized"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
+        <Setter Property="IsOpen"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}">
@@ -115,9 +133,12 @@
                                     BorderBrush="{Binding Group.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                                     BorderThickness="1,0">
                                 <Border.OpacityMask>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Black" Offset="0" />
-                                        <GradientStop Color="#00000000" Offset="0.981" />
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="Black"
+                                                      Offset="0" />
+                                        <GradientStop Color="#00000000"
+                                                      Offset="0.981" />
                                     </LinearGradientBrush>
                                 </Border.OpacityMask>
                                 <Border Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}}">
@@ -148,47 +169,82 @@
                     </pr:SingleCellGrid>
                     
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.5" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Opacity"
+                                    Value="0.5" />
                         </Trigger>
                         
                         <!-- Contextual Tabs Triggers -->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="HasRightGroupBorder" Value="False" />
-                                <Condition Property="HasLeftGroupBorder" Value="True" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderThickness" TargetName="border3" Value="1,0,0,0" />
-                            <Setter Property="BorderThickness" TargetName="border4" Value="1,0,0,0" />
-                            <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="1,0,0,1" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="1,0,0,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="1,0,0,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="1,0,0,1" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="HasLeftGroupBorder" Value="False" />
-                                <Condition Property="HasRightGroupBorder" Value="True" />
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderThickness" TargetName="border4" Value="0,0,1,0" />
-                            <Setter Property="BorderThickness" TargetName="border3" Value="0,0,1,0" />
-                            <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="0,0,1,1" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="0,0,1,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="0,0,1,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="0,0,1,1" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="HasLeftGroupBorder" Value="False" />
-                                <Condition Property="HasRightGroupBorder" Value="False" />
+                                <Condition Property="HasLeftGroupBorder"
+                                           Value="False" />
+                                <Condition Property="HasRightGroupBorder"
+                                           Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="BorderThickness" TargetName="border4" Value="0,0,0,0" />
-                            <Setter Property="BorderThickness" TargetName="border3" Value="0,0,0,0" />
-                            <Setter Property="Margin" TargetName="rectangle4" Value="0" />
-                            <Setter Property="Margin" TargetName="border3" Value="0,0,0,1" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border4"
+                                    Value="0,0,0,0" />
+                            <Setter Property="BorderThickness"
+                                    TargetName="border3"
+                                    Value="0,0,0,0" />
+                            <Setter Property="Margin"
+                                    TargetName="rectangle4"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    TargetName="border3"
+                                    Value="0,0,0,1" />
                         </MultiTrigger>
                         
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="Selector.IsSelected" Value="False" />
-                                <Condition Property="IsMinimized" Value="False" />
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="Selector.IsSelected"
+                                           Value="False" />
+                                <Condition Property="IsMinimized"
+                                           Value="False" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border"
                                     Property="RenderInnerBorder"
@@ -199,9 +255,12 @@
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelected" Value="True" />
-                                <Condition Property="IsMinimized" Value="False" />
-                                <Condition Property="Fluent:RibbonTabControl.HighlightSelectedItem" Value="True" />
+                                <Condition Property="Selector.IsSelected"
+                                           Value="True" />
+                                <Condition Property="IsMinimized"
+                                           Value="False" />
+                                <Condition Property="Fluent:RibbonTabControl.HighlightSelectedItem"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border"
                                     Property="Background"
@@ -211,17 +270,26 @@
                                     Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
                         </MultiTrigger>
                         <Trigger Property="Group" Value="{x:Null}">
-                            <Setter Property="Visibility" TargetName="border3" Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="border3"
+                                    Value="Collapsed" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="IsMinimized" Value="True" />
+                                <Condition Property="IsMouseOver"
+                                           Value="True" />
+                                <Condition Property="IsMinimized"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="RenderInnerBorder" Value="True" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
+                            <Setter TargetName="Border"
+                                    Property="RenderInnerBorder"
+                                    Value="True" />
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}" />
                         </MultiTrigger>
-                        <Trigger Property="IsSeparatorVisible" Value="True">
+                        <Trigger Property="IsSeparatorVisible"
+                                 Value="True">
                             <Setter Property="Visibility"
                                     TargetName="separatorGrid"
                                     Value="Visible" />
