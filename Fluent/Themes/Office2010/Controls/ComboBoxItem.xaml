@@ -51,7 +51,7 @@
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Visibility"
-                                    TargetName="selectedBorder"
+                                    TargetName="hoverBorder"
                                     Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -102,6 +102,18 @@
                             <Setter Property="Opacity"
                                     TargetName="contentPresenter"
                                     Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="selectedBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="hoverBorder"
+                                    Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
 
