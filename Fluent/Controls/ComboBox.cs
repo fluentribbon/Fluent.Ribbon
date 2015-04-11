@@ -647,7 +647,7 @@ namespace Fluent
             Mouse.Capture(this, CaptureMode.SubTree);
             if (SelectedItem != null) Keyboard.Focus(ItemContainerGenerator.ContainerFromItem(SelectedItem) as IInputElement);
             focusedElement = Keyboard.FocusedElement;
-            focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
+            if (focusedElement!=null) focusedElement.LostKeyboardFocus += OnFocusedElementLostKeyboardFocus;
 
             canSizeY = true;
 
