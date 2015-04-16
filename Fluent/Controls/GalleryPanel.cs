@@ -13,7 +13,9 @@ using System.Windows.Threading;
 
 namespace Fluent
 {
-    /// <summary>
+	using System.Collections;
+
+	/// <summary>
     /// Represents panel for Gallery, InRibbonGallery, ComboBox 
     /// with grouping and filtering capabilities
     /// </summary>
@@ -585,5 +587,24 @@ namespace Fluent
         }
 
         #endregion
+
+		/// <summary>
+		/// Gets an enumerator that can iterate the logical child elements of this <see cref="T:System.Windows.Controls.Panel"/> element. 
+		/// </summary>
+		/// <returns>
+		/// An <see cref="T:System.Collections.IEnumerator"/>. This property has no default value.
+		/// </returns>
+		protected override IEnumerator LogicalChildren
+		{
+			get
+			{
+				var count = this.VisualChildrenCount;
+
+				for (var i = 0; i < count; i++)
+				{
+					yield return this.GetVisualChild(i);
+				}
+			}
+		}
     }
 }

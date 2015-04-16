@@ -10,6 +10,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Diagnostics;
@@ -1031,11 +1032,12 @@ namespace Fluent
                 }
             }
 
-            galleryPanel = GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
-            if (galleryPanel != null)
+			this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
+
+            if (this.galleryPanel != null)
             {
-                galleryPanel.MinItemsInRow = MaxItemsInRow;
-                galleryPanel.MaxItemsInRow = MaxItemsInRow;
+				this.galleryPanel.MinItemsInRow = this.MaxItemsInRow;
+				this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
             }
 
             snappedImage = GetTemplateChild("PART_FakeImage") as Image;
@@ -1515,6 +1517,23 @@ namespace Fluent
             InvalidateMeasure();*/
         }
 
-        #endregion
-    }
+		#endregion
+
+		/// <summary>
+		/// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
+		/// </summary>
+		/// <returns>
+		/// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
+		/// </returns>
+		protected override IEnumerator LogicalChildren
+		{
+			get
+			{
+				if (this.galleryPanel != null)
+				{
+					yield return this.galleryPanel;
+				}
+			}
+		}
+	}
 }
