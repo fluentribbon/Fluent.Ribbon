@@ -32,7 +32,7 @@ namespace Fluent
     [ContentProperty("Groups")]
     [DefaultProperty("Groups")]
     [DefaultEvent("IsSelectedChanged")]
-    public class RibbonTabItem : Control, IKeyTipedControl
+    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl
     {
         #region Fields
 

@@ -3,7 +3,7 @@
     /// <summary>
     /// Base interface for Fluent controls
     /// </summary>
-    public interface IRibbonControl : IKeyTipedControl
+    public interface IRibbonControl : IHeaderedControl, IKeyTipedControl
     {
         /// <summary>
         /// Gets or sets Size for the element
@@ -16,14 +16,8 @@
         RibbonControlSizeDefinition SizeDefinition { get; set; }
 
         /// <summary>
-        /// Gets or sets element Text
-        /// </summary>
-        object Header { get; set; }
-
-        /// <summary>
         /// Gets or sets Icon for the element
         /// </summary>
         object Icon { get; set; }
-
     }
 }

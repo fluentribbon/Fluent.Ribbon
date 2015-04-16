@@ -222,12 +222,15 @@
                 return "NULL";
             }
 
-            var header = element is IRibbonControl
-                           ? (element as IRibbonControl).Header
+	        var ribbonControl = element as IHeaderedControl;
+
+	        var header = ribbonControl != null
+                           ? ribbonControl.Header
                            : string.Empty;
 
-            var name = element is FrameworkElement
-                           ? (element as FrameworkElement).Name
+	        var frameworkElement = element as FrameworkElement;
+	        var name = frameworkElement != null
+                           ? frameworkElement.Name
                            : string.Empty;
 
             return string.Format("[{0}] (Header: {1} || Name: {2})", element, header, name);
