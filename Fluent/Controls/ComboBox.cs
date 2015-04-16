@@ -20,9 +20,9 @@ namespace Fluent
 	using System.Windows.Input;
 	using System.Windows.Media;
 	using System.Windows.Media.Imaging;
-	using System.Windows.Threading;	
+	using System.Windows.Threading;
 
-    /// <summary>
+	/// <summary>
     /// Represents custom Fluent UI ComboBox
     /// </summary>
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
@@ -36,9 +36,7 @@ namespace Fluent
         // Thumb to resize vertical
         Thumb resizeVerticalThumb;
 
-        private Popup popup;
-
-        private IInputElement focusedElement;
+	    private IInputElement focusedElement;
 
 	    private Panel menuPanel;
 
@@ -123,12 +121,9 @@ namespace Fluent
         /// <summary>
         /// Gets drop down popup
         /// </summary>
-        public Popup DropDownPopup
-        {
-            get { return this.popup; }
-        }
+        public Popup DropDownPopup { get; private set; }
 
-        /// <summary>
+	    /// <summary>
         /// Gets a value indicating whether context menu is opened
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
@@ -594,7 +589,7 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            this.popup = this.GetTemplateChild("PART_Popup") as Popup;
+            this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
             if (this.resizeVerticalThumb != null)
             {
@@ -650,10 +645,10 @@ namespace Fluent
 	        this.galleryPanel.Width = double.NaN;
 	        this.scrollViewer.Height = double.NaN;
 
-            var popupChild = this.popup.Child as FrameworkElement;
+            var popupChild = this.DropDownPopup.Child as FrameworkElement;
 	        this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             popupChild.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-	        this.popup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+	        this.DropDownPopup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
             var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
@@ -900,14 +895,14 @@ namespace Fluent
 	        this.SetDragHeight(e);
 
             // Set width
-	        this.menuPanel.Width = Double.NaN;
-            if (Double.IsNaN(this.galleryPanel.Width))
+	        this.menuPanel.Width = double.NaN;
+            if (double.IsNaN(this.galleryPanel.Width))
             {
 	            this.galleryPanel.Width = this.galleryPanel.ActualWidth;
             }
 
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
-            var popupChild = this.popup.Child as FrameworkElement;
+            var popupChild = this.DropDownPopup.Child as FrameworkElement;
             var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
             var deltaX = popupChild.ActualWidth - this.galleryPanel.ActualWidth;
             var deltaBorders = this.dropDownBorder.ActualWidth - this.galleryPanel.ActualWidth;
@@ -961,7 +956,7 @@ namespace Fluent
             else
             {
                 var monitorBottom = RibbonControl.GetControlMonitor(this).Bottom;
-                var popupChild = this.popup.Child as FrameworkElement;
+                var popupChild = this.DropDownPopup.Child as FrameworkElement;
                 var delta = monitorBottom - this.PointToScreen(new Point()).Y - this.ActualHeight - popupChild.ActualHeight - e.VerticalChange;
                 if (delta > 0)
                 {
