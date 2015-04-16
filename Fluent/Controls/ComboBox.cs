@@ -170,10 +170,10 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ComboBox element = d as ComboBox;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            var element = d as ComboBox;
+            var oldElement = e.OldValue as FrameworkElement;
             if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            var newElement = e.NewValue as FrameworkElement;
             if (newElement != null) element.AddLogicalChild(newElement);
         }
 
@@ -297,7 +297,7 @@ namespace Fluent
                 {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)this.contentSite.ActualWidth + (int)this.contentSite.Margin.Left + (int)this.contentSite.Margin.Right,
+                    var renderTargetBitmap = new RenderTargetBitmap((int)this.contentSite.ActualWidth + (int)this.contentSite.Margin.Left + (int)this.contentSite.Margin.Right,
                                                                                    (int)this.contentSite.ActualHeight + (int)this.contentSite.Margin.Top + (int)this.contentSite.Margin.Bottom, 96, 96,
                                                                                    PixelFormats.Pbgra32);
                     renderTargetBitmap.Render(this.contentSite);
@@ -372,7 +372,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ComboBox()
         {
-            Type type = typeof(ComboBox);
+            var type = typeof(ComboBox);
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
@@ -382,13 +382,13 @@ namespace Fluent
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ComboBox combo = d as ComboBox;
+            var combo = d as ComboBox;
             if (!combo.isQuickAccessOpened && !combo.isQuickAccessFocused && (combo.quickAccessCombo != null)) combo.UpdateQuickAccessCombo();
         }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            ComboBox combo = d as ComboBox;
+            var combo = d as ComboBox;
             if (combo.isQuickAccessOpened || combo.isQuickAccessFocused) return combo.selectedItem;
             return basevalue;
         }
@@ -413,7 +413,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            ComboBox combo = new ComboBox();
+            var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
             RibbonControl.Bind(this, combo, "GroupBy", GroupByProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "ActualWidth", WidthProperty, BindingMode.OneWay);
@@ -494,9 +494,9 @@ namespace Fluent
             }
             else
             {
-                for (int i = 0; i < this.Items.Count; i++)
+                for (var i = 0; i < this.Items.Count; i++)
                 {
-                    object item = this.Items[0];
+                    var item = this.Items[0];
 	                this.Items.Remove(item);
 	                this.quickAccessCombo.Items.Add(item);
                     i--;
@@ -511,7 +511,7 @@ namespace Fluent
 
         private void Unfreeze()
         {
-            string text = this.quickAccessCombo.Text;
+            var text = this.quickAccessCombo.Text;
 	        this.selectedItem = this.quickAccessCombo.SelectedItem;
 	        this.quickAccessCombo.IsSnapped = true;
             if (this.quickAccessCombo.ItemsSource != null)
@@ -521,9 +521,9 @@ namespace Fluent
             }
             else
             {
-                for (int i = 0; i < this.quickAccessCombo.Items.Count; i++)
+                for (var i = 0; i < this.quickAccessCombo.Items.Count; i++)
                 {
-                    object item = this.quickAccessCombo.Items[0];
+                    var item = this.quickAccessCombo.Items[0];
 	                this.quickAccessCombo.Items.Remove(item);
 	                this.Items.Add(item);
                     i--;
@@ -650,13 +650,13 @@ namespace Fluent
 	        this.galleryPanel.Width = double.NaN;
 	        this.scrollViewer.Height = double.NaN;
 
-            FrameworkElement popupChild = this.popup.Child as FrameworkElement;
+            var popupChild = this.popup.Child as FrameworkElement;
 	        this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             popupChild.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 	        this.popup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            double heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
+            var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
-            double initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
+            var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
             if (!double.IsNaN(this.DropDownHeight)) initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
             if (this.scrollViewer.DesiredSize.Height > initialHeight)
             {
@@ -664,12 +664,12 @@ namespace Fluent
             }
             else initialHeight = this.scrollViewer.DesiredSize.Height;
 
-            Rect monitor = RibbonControl.GetControlMonitor(this);
-            double delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
+            var monitor = RibbonControl.GetControlMonitor(this);
+            var delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
             if (delta >= 0) this.ShowPopupOnTop = false;
             else
             {
-                double deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
+                var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
                 if (deltaTop > delta) this.ShowPopupOnTop = true;
                 else this.ShowPopupOnTop = false;
 
@@ -748,7 +748,7 @@ namespace Fluent
                 Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
                 if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
-                    int indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
                     if (indexOfMSelectedItem != this.Menu.Items.Count - 1)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem + 1) as IInputElement);
@@ -764,7 +764,7 @@ namespace Fluent
                 }
                 else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
-                    int indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
                     if (indexOfSelectedItem != this.Items.Count - 1)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem + 1) as IInputElement);
@@ -788,7 +788,7 @@ namespace Fluent
                 Debug.WriteLine("Up pressed. FocusedElement - " + Keyboard.FocusedElement);
                 if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
-                    int indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
                     if (indexOfMSelectedItem != 0)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem - 1) as IInputElement);
@@ -804,7 +804,7 @@ namespace Fluent
                 }
                 else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
-                    int indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
                     if (indexOfSelectedItem != 0)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem - 1) as IInputElement);
