@@ -319,6 +319,7 @@
                 <!--Use Content or Target Property to set QAT item-->
                 <Fluent:QuickAccessMenuItem IsChecked="true">
                     <Fluent:Button Header="Pink"
+								   Command="{Binding TestCommand}"
                                    Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"

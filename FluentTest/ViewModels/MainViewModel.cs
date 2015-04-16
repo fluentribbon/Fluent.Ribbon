@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
+    using System.Windows;
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
@@ -17,7 +18,11 @@
 
         private GallerySampleDataItemViewModel[] dataItems;
 
-        public MainViewModel()
+		private RelayCommand exitCommand;
+		private double zoom;
+		private ICommand testCommand;
+
+		public MainViewModel()
         {
             this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
             this.Zoom = 1.0;
@@ -138,10 +143,7 @@
 
         #region Exit
 
-        private RelayCommand exitCommand;
-        private double zoom;
-
-        /// <summary>
+	    /// <summary>
         /// Exit from the application
         /// </summary>
         public ICommand ExitCommand
@@ -158,5 +160,18 @@
         }
 
         #endregion
+
+	    public ICommand TestCommand
+	    {
+		    get
+			{
+				if (this.testCommand == null)
+				{
+					this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
+				}
+
+				return this.testCommand;
+			}
+	    }
     }
 }
