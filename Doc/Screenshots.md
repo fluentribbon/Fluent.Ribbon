@@ -3,15 +3,35 @@
 ### DWM
 #### Silver
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Silver.png)
+#### Backstage
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Siver%20-%20Backstage.png)
 #### Black
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Black.png)
+#### Backstage
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Black%20-%20Backstage.png)
 #### Blue
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Blue.png)
+#### Backstage
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Blue%20-%20Backstage.png)
 ### Non DWM
 #### Silver
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Silver%20-%20Non%20DWM.png)
 #### Black
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Black%20-%20Non%20DWM.png)
+
+## Office 2013
+### DWM
+#### White
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202013%20-%20White.png)
+##### Backstage
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202013%20-%20White%20-%20Backstage.png)
+
+## Windows 8
+### DWM
+#### White
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Windows%208%20-%20White.png)
+##### Backstage
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Windows%208%20-%20White%20-%20Backstage.png)
 
 # Controls
 ## Backstage
