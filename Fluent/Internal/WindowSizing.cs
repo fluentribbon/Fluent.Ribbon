@@ -13,7 +13,7 @@
     public class WindowSizing
     {
         private readonly RibbonWindow window;
-        private IntPtr hwnd;
+        private IntPtr windowHwnd;
         private bool fixingNastyWindowChromeBug;
 
         /// <summary>
@@ -34,8 +34,8 @@
             var hwndSource = PresentationSource.FromVisual(this.window) as HwndSource;
             if (hwndSource != null)
             {
-                this.hwnd = hwndSource.Handle;
-                hwndSource.AddHook(HwndHook);
+                this.windowHwnd = hwndSource.Handle;
+                hwndSource.AddHook(this.HwndHook);
 
                 this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
             }
@@ -56,15 +56,16 @@
 
             this.fixingNastyWindowChromeBug = true;
 
-            var mmi = GetMinMaxInfo(hwnd, new MINMAXINFO());
+            var mmi = this.GetMinMaxInfo(this.windowHwnd, new MINMAXINFO());
             if (NativeMethods.IsDwmEnabled())
             {
-                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
-                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+                UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X + 10, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+                UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
             }
             else
             {
-                UnsafeNativeMethods.MoveWindow(this.hwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y + 1, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+                UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y + 1, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
+                UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
             }
 
             this.fixingNastyWindowChromeBug = false;
@@ -79,12 +80,12 @@
                 case Constants.WM_GETMINMAXINFO:
 
                     WINDOWPLACEMENT windowPlacement;
-                    UnsafeNativeMethods.GetWindowPlacement(hwnd, out windowPlacement);
+                    UnsafeNativeMethods.GetWindowPlacement(this.windowHwnd, out windowPlacement);
 
                     if (windowPlacement.showCmd == 3)
                     {
                         /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
-                        WmGetMinMaxInfo(hWnd, lParam);
+                        this.WmGetMinMaxInfo(hWnd, lParam);
 
                         handled = true;
                     }
@@ -108,7 +109,7 @@
         {
             var mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
-            mmi = GetMinMaxInfo(hwnd, mmi);
+            mmi = this.GetMinMaxInfo(hwnd, mmi);
 
             Marshal.StructureToPtr(mmi, lParam, true);
         }
