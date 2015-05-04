@@ -16,8 +16,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        </ResourceDictionary>
+			<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+		</ResourceDictionary>
     </UserControl.Resources>
     <UserControl.LayoutTransform>
         <ScaleTransform ScaleX="{Binding Zoom}" 
@@ -211,9 +211,9 @@
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
 
-                    <Fluent:ApplicationMenu Header="File"
+					<Fluent:ApplicationMenu Header="File"
                                             Visibility="{Binding IsChecked, ElementName=UseApplicationMenu, Converter={StaticResource boolToVisibilityConverter}}">
-                        <Fluent:ApplicationMenu.RightPaneContent>
+						<Fluent:ApplicationMenu.RightPaneContent>
                             <StackPanel HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         Orientation="Vertical">
@@ -399,6 +399,10 @@
                     <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
                         IsIconVisible
                     </Fluent:CheckBox>
+                    <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
+									 IsChecked="True">
+                        IsStatusBarVisible
+                    </Fluent:CheckBox>					
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Ribbon options">
@@ -2646,7 +2650,8 @@
         </TabControl>
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
-                          VerticalAlignment="Bottom"
+                          VerticalAlignment="Bottom"						  
+						  Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}"
                           Grid.Row="2">
             <Fluent:StatusBarItem Title="Words Width"
                                   Value="150"
