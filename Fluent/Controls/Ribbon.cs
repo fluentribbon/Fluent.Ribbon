@@ -72,7 +72,7 @@ namespace Fluent
 
         #region ContextMenu
 
-        private static Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
+        private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
 
         /// <summary>
         /// Context menu for ribbon in current thread
@@ -278,7 +278,7 @@ namespace Fluent
 
             // Hide customize quick access menu item
             customizeQuickAccessToolbarMenuItem.Visibility = Visibility.Collapsed;
-            secondSeparator.Visibility = Visibility.Visible;
+            secondSeparator.Visibility = Visibility.Collapsed;
 
             // Set minimize the ribbon menu item state
             minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
