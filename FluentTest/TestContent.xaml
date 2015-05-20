@@ -16,8 +16,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-			<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-		</ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.LayoutTransform>
         <ScaleTransform ScaleX="{Binding Zoom}" 
@@ -211,9 +211,9 @@
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
 
-					<Fluent:ApplicationMenu Header="File"
+                    <Fluent:ApplicationMenu Header="File"
                                             Visibility="{Binding IsChecked, ElementName=UseApplicationMenu, Converter={StaticResource boolToVisibilityConverter}}">
-						<Fluent:ApplicationMenu.RightPaneContent>
+                        <Fluent:ApplicationMenu.RightPaneContent>
                             <StackPanel HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
                                         Orientation="Vertical">
@@ -319,7 +319,7 @@
                 <!--Use Content or Target Property to set QAT item-->
                 <Fluent:QuickAccessMenuItem IsChecked="true">
                     <Fluent:Button Header="Pink"
-								   Command="{Binding TestCommand}"
+                                   Command="{Binding TestCommand}"
                                    Icon="pack://application:,,,/FluentTest;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
@@ -400,7 +400,7 @@
                         IsIconVisible
                     </Fluent:CheckBox>
                     <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
-									 IsChecked="True">
+                                     IsChecked="True">
                         IsStatusBarVisible
                     </Fluent:CheckBox>					
                 </Fluent:RibbonGroupBox>
@@ -1140,10 +1140,10 @@
                                          Header="Pink" />
                     </Fluent:DropDownButton>
 
-					<Fluent:Button Header="TEST"
-								   Icon="Images\Green.png"
-								   LargeIcon="Images\GreenLarge.png"/>
-					
+                    <Fluent:Button Header="TEST"
+                                   Icon="Images\Green.png"
+                                   LargeIcon="Images\GreenLarge.png"/>
+                    
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
                                            Icon="Images\Pink.png"
@@ -2651,7 +2651,7 @@
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"						  
-						  Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}"
+                          Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}"
                           Grid.Row="2">
             <Fluent:StatusBarItem Title="Words Width"
                                   Value="150"
