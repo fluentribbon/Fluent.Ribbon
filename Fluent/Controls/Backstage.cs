@@ -23,6 +23,7 @@ namespace Fluent
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Controls;
     using System.Windows.Threading;
     using Fluent.Extensions;
 
@@ -351,7 +352,7 @@ namespace Fluent
                 return;
             }
 
-            FrameworkElement topLevelElement;
+            FrameworkElement topLevelElement = null;
 
             if (DesignerProperties.GetIsInDesignMode(this))
             {
@@ -366,7 +367,26 @@ namespace Fluent
                     return;
                 }
 
-                topLevelElement = (FrameworkElement)mainWindow.Content;
+                var content = mainWindow.Content;
+
+                var fe = content as FrameworkElement; // Content may be an arbitrary .NET object when set using a databinding and using data templates.
+
+                if (fe != null)
+                {
+                    topLevelElement = fe;
+                }
+                else
+                {
+                    // If Content is not a FrameworkElement we try to find the ContentPresenter 
+                    // containing the template to display the content.
+                    var contentPresenter = this.FindVisualChild<ContentPresenter>(mainWindow);
+
+                    if (contentPresenter != null && contentPresenter.Content == content)
+                    {
+                        // set the root element of the template as the top level element.
+                        topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild(contentPresenter, 0);
+                    }
+                }
             }
 
             if (topLevelElement == null)
@@ -378,6 +398,33 @@ namespace Fluent
 
             var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Add(this.adorner);
+
+            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage,
+                (sender, args) =>
+                {
+                    this.IsOpen = !this.IsOpen;
+                }));
+        }
+
+        /// <summary>
+        /// Gets the first visual child of type TChildItem by walking down the visual tree.
+        /// </summary>
+        /// <typeparam name="TChildItem">The type of visual child to find.</typeparam>
+        /// <param name="obj">The parent element whose visual tree shall be walked down.</param>
+        /// <returns>The first element of type TChildItem found in the visual tree is returned. If none is found, null is returned.</returns>
+        private TChildItem FindVisualChild<TChildItem>(DependencyObject obj) where TChildItem : DependencyObject
+        {
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                var item = child as TChildItem;
+                if (item != null)
+                    return item;
+                var childOfChild = this.FindVisualChild<TChildItem>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
         }
 
         private void DestroyAdorner()
