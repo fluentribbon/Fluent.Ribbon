@@ -1571,16 +1571,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer Margin="1"
                                               x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
