@@ -4,7 +4,7 @@
 #### Silver
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Silver.png)
 #### Backstage
-![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Siver%20-%20Backstage.png)
+![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Silver%20-%20Backstage.png)
 #### Black
 ![](https://github.com/fluentribbon/Fluent.Ribbon/raw/master/Images/Screenshots/Office%202010%20-%20Black.png)
 #### Backstage
