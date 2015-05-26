@@ -246,14 +246,16 @@
 
                                 </StackPanel>
 
-                                <Fluent:MenuItem Header="File 1"
+                                <Fluent:MenuItem Header="File 1 (with Tooltip)"
                                                  Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                 IsDefinitive="True">
+                                                 IsDefinitive="True" SizeDefinition="Small"
+                                                 ToolTip="C:\\File1WithTooltip.doc">
                                 </Fluent:MenuItem>
 
-                                <Fluent:MenuItem Header="File 2"
+                                <Fluent:MenuItem Header="File 2 (with description)"
                                                     Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
+                                                    IsDefinitive="True"
+                                                    Description="C:\\File2.txt" />
 
                                 <Fluent:MenuItem Header="File 3"
                                                     Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
@@ -286,6 +288,11 @@
                         <Fluent:MenuItem Header="Open"
                                             Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
 
+                        <Separator />
+                        <Fluent:MenuItem Header="Close"
+                                            Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" 
+                                            Description="Ctrl+E" 
+                                            Width="150"/>
                         <Separator />
 
                         <Fluent:MenuItem Header="Exit"
