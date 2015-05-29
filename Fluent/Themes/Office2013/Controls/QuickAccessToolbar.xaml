@@ -317,10 +317,18 @@
                     <Separator x:Name="menuSeparator"
                                Style="{DynamicResource MenuSeparatorStyle}" />
                     <Fluent:MenuItem x:Name="PART_ShowBelow"
-                                     Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
+                                     Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}" >
+                        <Fluent:MenuItem.ContextMenu>
+                            <ContextMenu Visibility="Hidden"/>
+                        </Fluent:MenuItem.ContextMenu>
+                    </Fluent:MenuItem>
                     <Fluent:MenuItem x:Name="PART_ShowAbove"
                                      Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
-                                     Visibility="Collapsed" />
+                                     Visibility="Collapsed" >
+                        <Fluent:MenuItem.ContextMenu>
+                            <ContextMenu Visibility="Hidden"/>
+                        </Fluent:MenuItem.ContextMenu>
+                    </Fluent:MenuItem>
                 </Fluent:DropDownButton>
             </ContentControl>
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"

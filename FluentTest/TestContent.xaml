@@ -285,14 +285,14 @@
 
                         </Fluent:MenuItem>
                         
-                        <Fluent:MenuItem Header="Open"
-                                            Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" />
+                        <Fluent:MenuItem Header="Open (Has CanAddToQuickAccessToolBar set to False)"                                         
+                                         Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" 
+                                         CanAddToQuickAccessToolBar="False"/>
 
                         <Separator />
                         <Fluent:MenuItem Header="Close"
                                             Icon="pack://application:,,,/FluentTest;component/Images/YellowLarge.png" 
                                             Description="Ctrl+E" 
-                                            Width="150"/>
                         <Separator />
 
                         <Fluent:MenuItem Header="Exit"
