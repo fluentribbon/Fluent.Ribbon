@@ -32,5 +32,29 @@
 
             return null;
         }
+
+        /// <summary>
+        /// Gets the first visual child of type TChildItem by walking down the visual tree.
+        /// </summary>
+        /// <typeparam name="TChildItem">The type of visual child to find.</typeparam>
+        /// <param name="obj">The parent element whose visual tree shall be walked down.</param>
+        /// <returns>The first element of type TChildItem found in the visual tree is returned. If none is found, null is returned.</returns>
+        public static TChildItem FindVisualChild<TChildItem>(DependencyObject obj) where TChildItem : DependencyObject
+        {
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+                var item = child as TChildItem;
+
+                if (item != null)
+                    return item;
+                
+                var childOfChild = FindVisualChild<TChildItem>(child);
+                if (childOfChild != null)
+                    return childOfChild;
+            }
+            return null;
+        }
+
     }
 }

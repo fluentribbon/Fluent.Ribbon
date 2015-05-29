@@ -23,8 +23,10 @@ namespace Fluent
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Controls;
     using System.Windows.Threading;
     using Fluent.Extensions;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents backstage button
@@ -217,8 +219,6 @@ namespace Fluent
         {
             this.Loaded += this.OnBackstageLoaded;
             this.Unloaded += this.OnBackstageUnloaded;
-
-            this.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, (sender, args) => this.IsOpen = !this.IsOpen));
         }
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
@@ -351,7 +351,7 @@ namespace Fluent
                 return;
             }
 
-            FrameworkElement topLevelElement;
+            FrameworkElement topLevelElement = null;
 
             if (DesignerProperties.GetIsInDesignMode(this))
             {
@@ -366,7 +366,26 @@ namespace Fluent
                     return;
                 }
 
-                topLevelElement = (FrameworkElement)mainWindow.Content;
+                var content = mainWindow.Content;
+
+                var fe = content as FrameworkElement; // Content may be an arbitrary .NET object when set using a databinding and using data templates.
+
+                if (fe != null)
+                {
+                    topLevelElement = fe;
+                }
+                else
+                {
+                    // If Content is not a FrameworkElement we try to find the ContentPresenter 
+                    // containing the template to display the content.
+                    var contentPresenter = UIHelper.FindVisualChild<ContentPresenter>(mainWindow);
+
+                    if (contentPresenter != null && contentPresenter.Content == content)
+                    {
+                        // set the root element of the template as the top level element.
+                        topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild(contentPresenter, 0);
+                    }
+                }
             }
 
             if (topLevelElement == null)
@@ -378,8 +397,15 @@ namespace Fluent
 
             var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Add(this.adorner);
+
+            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage,
+                (sender, args) =>
+                {
+                    this.IsOpen = !this.IsOpen;
+                }));
         }
 
+        
         private void DestroyAdorner()
         {
             if (this.adorner == null)
