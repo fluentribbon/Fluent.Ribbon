@@ -33,7 +33,11 @@
                            VerticalAlignment="Center"
                            Source="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png"
                            Width="Auto"
-                           Margin="2" />
+                           Margin="2" >
+                        <Image.ContextMenu>
+                            <ContextMenu Visibility="Hidden"/>
+                        </Image.ContextMenu>
+                    </Image>
                     <Image x:Name="iconImageChecked"
                            Visibility="Collapsed"
                            HorizontalAlignment="Center"
@@ -42,7 +46,11 @@
                            VerticalAlignment="Center"
                            Source="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png"
                            Width="Auto"
-                           Margin="2" />
+                           Margin="2" >
+                        <Image.ContextMenu>
+                            <ContextMenu Visibility="Hidden"/>
+                        </Image.ContextMenu>
+                    </Image>
                 </Grid>
             </Border>
         </Border>

@@ -875,14 +875,25 @@
                        Visibility="Hidden"
                        HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
-                       Text="{TemplateBinding Header}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,3,3,3"
                        VerticalAlignment="Center"
                        Grid.Column="1"
                        d:LayoutOverrides="Width"
-                       TextTrimming="CharacterEllipsis" />
+                       TextTrimming="CharacterEllipsis"
+                       ToolTip="{TemplateBinding ToolTip}">
+                            <InlineUIContainer>
+                                <Grid Width="{Binding RelativeSource={RelativeSource AncestorType=TextBlock},Path=ActualWidth}">
+                                    <TextBlock Text="{TemplateBinding Header}"/>
+                                    <TextBlock Text="{TemplateBinding Description}" TextAlignment="Right" />
+                                </Grid>
+                            </InlineUIContainer>
+            </TextBlock>
+            <Rectangle Grid.Column="2"
+                       HorizontalAlignment="Right"
+                       Margin="0,4,23,4"
+                       Width="0" />
             <Rectangle x:Name="rectangle"
                        Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
                        Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
@@ -1571,16 +1582,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer Margin="1"
                                               x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
