@@ -2147,17 +2147,17 @@ namespace Fluent
             this.backstageButtonKeyTip = "F";
 
             // See right-top corner... (two different tooltips must be if you press it)
-            this.minimizeButtonScreenTipTitle = "功能表最小化 (Ctrl + F1)";
-            this.minimizeButtonScreenTipText = "僅顯示功能表上的選項名稱，點擊選項後可顯示命令。";
-            this.expandButtonScreenTipTitle = "展開功能表 (Ctrl + F1)";
-            this.expandButtonScreenTipText = "始終顯示功能表選項及命令。";
+            this.minimizeButtonScreenTipTitle = "功能區最小化 (Ctrl + F1)";
+            this.minimizeButtonScreenTipText = "僅顯示功能區上的選項名稱，點擊選項後可顯示命令。";
+            this.expandButtonScreenTipTitle = "展開功能區 (Ctrl + F1)";
+            this.expandButtonScreenTipText = "始終顯示功能區選項及命令。";
 
             // QAT tooltips and menu items         
             this.quickAccessToolBarDropDownButtonTooltip = "自訂快速存取工具列";
             this.quickAccessToolBarMoreControlsButtonTooltip = "其他命令"; // When two arrows appear ">>"
             this.quickAccessToolBarMenuHeader = "自訂快速存取工具列";
-            this.quickAccessToolBarMenuShowAbove = "在功能表上方顯示";
-            this.quickAccessToolBarMenuShowBelow = "在功能表下方顯示";
+            this.quickAccessToolBarMenuShowAbove = "在功能區上方顯示";
+            this.quickAccessToolBarMenuShowBelow = "在功能區下方顯示";
 
             // Click on Ribbon to show context menu
             this.ribbonContextMenuAddItem = "新增到快速存取工具列"; // Button
@@ -2168,8 +2168,8 @@ namespace Fluent
             this.ribbonContextMenuCustomizeQuickAccessToolbar = "自訂快速存取工具列...";
             this.ribbonContextMenuShowBelow = "在功能表下方顯示快速存取工具列";
             this.ribbonContextMenuShowAbove = "在功能表上方顯示快速存取工具列";
-            this.ribbonContextMenuCustomizeRibbon = "自訂功能表...";
-            this.ribbonContextMenuMinimizeRibbon = "功能表最小化";
+            this.ribbonContextMenuCustomizeRibbon = "自訂功能區...";
+            this.ribbonContextMenuMinimizeRibbon = "功能區最小化";
 
             // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
             // (This prop was introduced after v1.3) 
