@@ -129,7 +129,8 @@
                                          Background="{DynamicResource TextBoxBackgroundBrush}"
                                          Foreground="{TemplateBinding Foreground}"
                                          Padding="2,0,2,0"
-                                         Margin="0" />
+                                         Margin="0"
+                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                                 <Path Visibility="Collapsed"
                                       HorizontalAlignment="Left"
                                       Margin="0,-1,0,-1"
