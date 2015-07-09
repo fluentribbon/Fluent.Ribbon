@@ -340,6 +340,7 @@ namespace Fluent
                     {
                         firstSeparator.Visibility = Visibility.Visible;
 
+                        // Check for value because remove is only possible in the context menu of items in QA which represent the value for QA-items
                         if (ribbon.quickAccessElements.ContainsValue(control))
                         {
                             // Control is on quick access
@@ -1313,15 +1314,16 @@ namespace Fluent
             var ribbon = sender as Ribbon;
 
             if (ribbon != null
-                && ribbon.IsQuickAccessToolBarVisible)
+                && ribbon.IsQuickAccessToolBarVisible
+                && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement))
             {
                 if (e.Parameter is Gallery)
                 {
-                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement);
+                    e.CanExecute = ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement) == false;
                 }
                 else
                 {
-                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement);
+                    e.CanExecute = ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false;
                 }
             }
             else
@@ -1632,6 +1634,11 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
+            if (element == null)
+            {
+                return;
+            }
+
             if (element is Gallery)
             {
                 element = FindParentRibbonControl(element) as UIElement;
@@ -1644,18 +1651,22 @@ namespace Fluent
                 element = FindParentRibbonControl(element) as UIElement;
             }
 
-            if (!QuickAccessItemsProvider.IsSupported(element))
+            if (element == null)
             {
                 return;
             }
 
-            if (!this.IsInQuickAccessToolBar(element))
+            if (QuickAccessItemsProvider.IsSupported(element) == false)
             {
-                UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
+                return;
+            }
+
+            if (this.IsInQuickAccessToolBar(element) == false)
+            {
+                var control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
                 this.quickAccessElements.Add(element, control);
                 this.quickAccessToolBar.Items.Add(control);
-                this.quickAccessToolBar.InvalidateMeasure();
             }
         }
 
@@ -1690,7 +1701,6 @@ namespace Fluent
                 var quickAccessItem = this.quickAccessElements[element];
                 this.quickAccessElements.Remove(element);
                 this.quickAccessToolBar.Items.Remove(quickAccessItem);
-                this.quickAccessToolBar.InvalidateMeasure();
             }
 
         }
