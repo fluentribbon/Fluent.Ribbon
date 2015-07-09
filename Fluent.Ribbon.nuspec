@@ -11,7 +11,7 @@
     <licenseUrl>https://github.com/fluentribbon/Fluent.Ribbon/blob/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/fluentribbon/Fluent.Ribbon</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <tags>ribbon fluent ribbonwindow office2010 office2013 backstage</tags>
+    <tags>ribbon fluent ribbonwindow office2010 office2013 windows8 backstage</tags>
   </metadata>
   <files>
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
