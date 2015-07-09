@@ -405,7 +405,7 @@ namespace Fluent
                 }));
         }
 
-        
+
         private void DestroyAdorner()
         {
             if (this.adorner == null)
@@ -457,6 +457,7 @@ namespace Fluent
                 if (ribbon.QuickAccessToolBar != null)
                 {
                     ribbon.QuickAccessToolBar.IsEnabled = true;
+                    ribbon.QuickAccessToolBar.Refresh();
                 }
 
                 if (ribbon.TitleBar != null)

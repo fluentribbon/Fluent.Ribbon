@@ -554,6 +554,12 @@ namespace Fluent
 
         #region Methods
 
+        public void Refresh()
+        {
+            this.InvalidateMeasure();
+            this.InvalidateMeasureOfParentRibbon();
+        }
+
         private void InvalidateMeasureOfParentRibbon()
         {
             var parentRibbon = this.Parent as Ribbon;
