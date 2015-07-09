@@ -1,6 +1,9 @@
 # Changelog for Fluent.Ribbon
 
 ## 3.4.1
+- ### Features
+    - No new features
+
 - ### Bug fixes
   - [#78](../../issues/78) "Minimized but visible ribbon lacks top border in theme 2013"
   - [#81](../../issues/81) "Invalid typeof in style resolution of RadioButton"
