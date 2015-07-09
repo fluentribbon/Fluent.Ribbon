@@ -1,5 +1,20 @@
 # Changelog for Fluent.Ribbon
 
+## 3.4.1
+- ### Bug fixes
+  - [#78](../../issues/78) "Minimized but visible ribbon lacks top border in theme 2013"
+  - [#81](../../issues/81) "Invalid typeof in style resolution of RadioButton"
+  - [#83](../../issues/83) "Aligned vertical alignment of dropdownbutton and button."
+  - [#85](../../issues/85) "ComboBox Items don t get a overlay color when mouse over items"
+  - [#95](../../issues/95) "repair nullref combobox combined with focus on winforms control"
+  - [#97](../../issues/97) "Fixed possible InvalidCastException when creating a QAT item of a CheckBox"
+  - [#102](../../issues/102) "Redundant separator in context menu if quick access is hidden"
+  - [#104](../../issues/104) "Non-DWM fullscreen window is not fullscreen"
+  - [#106](../../issues/106) "BackStage should be 1 px higher"
+  - [#115](../../issues/115) "MenuItem: IsSplited="True" gray line issue"
+  - [#117](../../issues/117) "Backstage not shown when Window Content is not a FrameworkElement"
+  - [#124](../../issues/124) "The text in fluent:Spinner cannot be centered vertically."
+
 ## 3.4.0
 - ### Features
   - [#74](../../issues/74) "Added DropDownButton.ClosePopupOnMouseDownDelay to allow the end-developer to tweak the delay (sometimes 100 ms is too fast)"
