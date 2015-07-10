@@ -619,7 +619,7 @@ namespace Fluent
             if (this.IsDefinitive
                 && (!this.HasItems || this.IsSplited))
             {
-                PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
 
             base.OnClick();
