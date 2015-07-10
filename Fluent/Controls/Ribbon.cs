@@ -351,7 +351,8 @@ namespace Fluent
                             // Control is menu item
                             addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         }
-                        else if ((control is Gallery) || (control is InRibbonGallery))
+                        else if ((control is Gallery) ||
+                                 (control is InRibbonGallery))
                         {
                             // Control is gallery
                             addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
@@ -1315,7 +1316,8 @@ namespace Fluent
 
             if (ribbon != null
                 && ribbon.IsQuickAccessToolBarVisible
-                && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement))
+                && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement)
+                && ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false)
             {
                 if (e.Parameter is Gallery)
                 {
