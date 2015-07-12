@@ -693,9 +693,18 @@ namespace Fluent
                 case "es":
                     this.LoadSpanish();
                     break;
-
+                    
+                //edit by gamegear.tw
+                //note: add TradChinese
                 case "zh":
-                    this.LoadChinese();
+                    if(culture.Name=="zh-tw")
+                    {
+                        this.LoadTradChinese();
+                    }else
+                    {
+                        this.LoadChinese();    
+                    }
+                    
                     break;
 
                 case "sv":
@@ -2127,5 +2136,50 @@ namespace Fluent
         }
 
         #endregion
+        
+        //Add by gamegear.tw
+        //Note: Adding Tradchinese 
+        #region TradChinese
+        private void LoadTradChinese()
+        {
+            // Backstage button text & key tip
+            this.backstageButtonText = "檔案";
+            this.backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            this.minimizeButtonScreenTipTitle = "功能區最小化 (Ctrl + F1)";
+            this.minimizeButtonScreenTipText = "僅顯示功能區上的選項名稱，點擊選項後可顯示命令。";
+            this.expandButtonScreenTipTitle = "展開功能區 (Ctrl + F1)";
+            this.expandButtonScreenTipText = "始終顯示功能區選項及命令。";
+
+            // QAT tooltips and menu items         
+            this.quickAccessToolBarDropDownButtonTooltip = "自訂快速存取工具列";
+            this.quickAccessToolBarMoreControlsButtonTooltip = "其他命令"; // When two arrows appear ">>"
+            this.quickAccessToolBarMenuHeader = "自訂快速存取工具列";
+            this.quickAccessToolBarMenuShowAbove = "在功能區上方顯示";
+            this.quickAccessToolBarMenuShowBelow = "在功能區下方顯示";
+
+            // Click on Ribbon to show context menu
+            this.ribbonContextMenuAddItem = "新增到快速存取工具列"; // Button
+            this.ribbonContextMenuAddGroup = "將群組新增到快速存取工具列"; // For ex., by collapsed group
+            this.ribbonContextMenuAddGallery = "將樣式新增到快速存取工具列"; // For ex., by opened font context menu
+            this.ribbonContextMenuAddMenu = "將選單新增到快速存取工具列"; // By dashed splitter in context menu
+            this.ribbonContextMenuRemoveItem = "將選單從快速存取工具列中移除"; // By item in QAT
+            this.ribbonContextMenuCustomizeQuickAccessToolbar = "自訂快速存取工具列...";
+            this.ribbonContextMenuShowBelow = "在功能表下方顯示快速存取工具列";
+            this.ribbonContextMenuShowAbove = "在功能表上方顯示快速存取工具列";
+            this.ribbonContextMenuCustomizeRibbon = "自訂功能區...";
+            this.ribbonContextMenuMinimizeRibbon = "功能區最小化";
+
+            // To see it in Word: open *.doc (not *.docx) and see Insert->Screenshot
+            // (This prop was introduced after v1.3) 
+            this.screenTipDisableReasonHeader = "命令已被禁用。";
+
+            // Right-click on status bar to see it. NEW! from v2.0
+            this.customizeStatusBar = "自訂狀態工具列";
+        }
+        #endregion
+
+        
     }
 }
