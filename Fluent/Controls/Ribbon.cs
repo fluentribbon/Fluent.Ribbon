@@ -29,6 +29,8 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using System.ComponentModel;
+    using System.Windows.Threading;
+    using Fluent.Extensions;
 
     // TODO: improve style parts naming & using
 
@@ -42,6 +44,8 @@ namespace Fluent
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control
     {
+        private readonly RibbonState ribbonState;
+
         #region Localization
 
         // Localizable properties
@@ -433,9 +437,6 @@ namespace Fluent
         // Currently added in QAT items
         private readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
-        // Stream to save quickaccesselements on aplytemplate
-        MemoryStream quickAccessStream;
-
         private Window ownerWindow;
 
         #endregion
@@ -638,7 +639,7 @@ namespace Fluent
                 ribbon.TitleBar.InvalidateMeasure();
             }
 
-            ribbon.SaveState();
+            ribbon.ribbonState.SaveStateToMemoryStream();
         }
 
         /// <summary>
@@ -1370,6 +1371,8 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+
+            this.ribbonState = new RibbonState(this);
         }
 
         #endregion
@@ -1509,12 +1512,10 @@ namespace Fluent
 
             if (this.quickAccessToolBar != null)
             {
-                this.quickAccessStream = new MemoryStream();
-
-                if (!this.AutomaticStateManagement
-                    || this.IsStateLoaded)
+                if (this.AutomaticStateManagement == false
+                    || this.ribbonState.IsStateLoaded)
                 {
-                    this.SaveState(this.quickAccessStream);
+                    this.ribbonState.SaveStateToMemoryStream();
                 }
 
                 this.ClearQuickAccessToolBar();
@@ -1587,7 +1588,7 @@ namespace Fluent
         {
             if (this.ownerWindow != null)
             {
-                this.SaveState();
+                this.ribbonState.SaveStateToIsolatedStorage();
 
                 this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
                 this.ownerWindow.SizeChanged -= this.OnSizeChanged;
@@ -1602,13 +1603,8 @@ namespace Fluent
         private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
         {
             this.quickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
-            if (this.quickAccessStream != null)
-            {
-                this.quickAccessStream.Position = 0;
-                this.LoadState(this.quickAccessStream);
-                this.quickAccessStream.Close();
-                this.quickAccessStream = null;
-            }
+
+            this.ribbonState.LoadStateFromMemoryStream();
         }
 
         #endregion
@@ -1639,7 +1635,7 @@ namespace Fluent
             if (element == null)
             {
                 return;
-            }
+            }            
 
             if (element is Gallery)
             {
@@ -1665,6 +1661,8 @@ namespace Fluent
 
             if (this.IsInQuickAccessToolBar(element) == false)
             {
+                Debug.WriteLine("Adding \"{0}\" to QuickAccessToolBar.", element);
+
                 var control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
                 this.quickAccessElements.Add(element, control);
@@ -1696,7 +1694,7 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void RemoveFromQuickAccessToolBar(UIElement element)
         {
-            Debug.WriteLine(element);
+            Debug.WriteLine("Removing \"{0}\" from QuickAccessToolBar.", element);
 
             if (this.IsInQuickAccessToolBar(element))
             {
@@ -1744,7 +1742,7 @@ namespace Fluent
 
             this.AttachToWindow();
 
-            this.InitialLoadState();
+            this.LoadInitialState();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -1761,7 +1759,7 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            this.SaveState();
+            this.ribbonState.SaveStateToIsolatedStorage();
 
             this.keyTipService.Detach();
 
@@ -1790,241 +1788,27 @@ namespace Fluent
 
         #region State Management
 
-        #region IsolatedStorageFileName
-
-        // Name of the isolated storage file
-        string isolatedStorageFileName;
-
-        /// <summary>
-        /// Gets name of the isolated storage file
-        /// </summary>
-        string IsolatedStorageFileName
+        private void LoadInitialState()
         {
-            get
+            if (this.ribbonState.IsStateLoaded)
             {
-                if (this.isolatedStorageFileName != null)
-                {
-                    return this.isolatedStorageFileName;
-                }
-
-                var stringForHash = "";
-                var window = Window.GetWindow(this);
-
-                if (window != null)
-                {
-                    stringForHash += "." + window.GetType().FullName;
-
-                    if (!String.IsNullOrEmpty(window.Name)
-                        && window.Name.Trim().Length > 0)
-                    {
-                        stringForHash += "." + window.Name;
-                    }
-                }
-
-                if (!String.IsNullOrEmpty(this.Name)
-                    && this.Name.Trim().Length > 0)
-                {
-                    stringForHash += "." + this.Name;
-                }
-
-                this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
-                return this.isolatedStorageFileName;
-            }
-        }
-
-        #endregion
-
-        #region Initial State Loading
-
-        // Initial state loading
-        private void InitialLoadState()
-        {
-            this.LayoutUpdated += this.OnJustLayoutUpdated;
-        }
-
-        private void OnJustLayoutUpdated(object sender, EventArgs e)
-        {
-            this.LayoutUpdated -= this.OnJustLayoutUpdated;
-
-            if (this.QuickAccessToolBar != null
-                && !this.QuickAccessToolBar.IsLoaded)
-            {
-                this.InitialLoadState();
                 return;
             }
 
-            if (!this.IsStateLoaded)
-            {
-                this.LoadState();
+            this.ribbonState.LoadStateFromIsolatedStorage();
 
-                if (this.TabControl != null
-                    && this.TabControl.SelectedIndex == -1
-                    && !this.TabControl.IsMinimized)
-                {
-                    this.TabControl.SelectedIndex = 0;
-                }
+            if (this.TabControl != null
+                && this.TabControl.SelectedIndex == -1
+                && this.TabControl.IsMinimized == false)
+            {
+                this.TabControl.SelectedIndex = 0;
             }
         }
-
-        #endregion
-
-        #region Load / Save to Isolated Storage
 
         // Handles items changing in QAT
         private void OnQuickAccessItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.SaveState();
-        }
-
-        // Saves to Isolated Storage (in user store for domain)
-        private void SaveState()
-        {
-            // Check whether automatic save is valid now
-            if (!this.AutomaticStateManagement
-                || !this.IsStateLoaded)
-            {
-                return;
-            }
-
-            try
-            {
-                var storage = GetIsolatedStorageFile();
-                using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
-                {
-                    this.SaveState(stream);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
-            }
-        }
-
-        /// <summary>
-        /// Loads the State from Isolated Storage (in user store for domain)
-        /// </summary>
-        public void LoadState()
-        {
-            // Don't save or load state in design mode
-            if (DesignerProperties.GetIsInDesignMode(this))
-            {
-                return;
-            }
-
-            if (!this.AutomaticStateManagement)
-            {
-                return;
-            }
-
-            try
-            {
-                var storage = GetIsolatedStorageFile();
-                if (FileExists(storage, this.IsolatedStorageFileName))
-                {
-                    using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
-                    {
-                        this.LoadState(stream);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
-            }
-
-            // Now we can save states
-            this.IsStateLoaded = true;
-        }
-
-        // Gets a proper isolated storage file
-        private static IsolatedStorageFile GetIsolatedStorageFile()
-        {
-            try
-            {
-                return IsolatedStorageFile.GetUserStoreForDomain();
-            }
-            catch
-            {
-                return IsolatedStorageFile.GetUserStoreForAssembly();
-            }
-        }
-
-        /// <summary>
-        /// Resets automatically saved state
-        /// </summary>
-        public static void ResetState()
-        {
-            var storage = GetIsolatedStorageFile();
-            foreach (var filename in storage.GetFileNames("*Fluent.Ribbon.State*"))
-            {
-                storage.DeleteFile(filename);
-            }
-        }
-
-        // Determinates whether the given file exists in the given storage
-        private static bool FileExists(IsolatedStorageFile storage, string fileName)
-        {
-            var files = storage.GetFileNames(fileName);
-            return files.Length != 0;
-        }
-
-        #endregion
-
-        #region Save to Stream
-
-        /// <summary>
-        /// Saves state to the given stream
-        /// </summary>
-        /// <param name="stream">Stream</param>
-        public void SaveState(Stream stream)
-        {
-            // Don't save or load state in design mode
-            if (DesignerProperties.GetIsInDesignMode(this))
-            {
-                return;
-            }
-
-            var builder = new StringBuilder();
-
-            var isMinimizedSaveState = this.IsMinimized;
-
-            // Save Ribbon State
-            builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
-            builder.Append(',');
-            builder.Append(ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
-            builder.Append('|');
-
-            // Save QAT items
-            var paths = new Dictionary<FrameworkElement, string>();
-            this.TraverseLogicalTree(this, "", paths);
-
-            // Foreach items and see whether path is found for the item
-            foreach (var element in quickAccessElements)
-            {
-                string path;
-                var control = element.Key as FrameworkElement;
-
-                if (control != null
-                    && paths.TryGetValue(control, out path))
-                {
-                    builder.Append(path);
-                    builder.Append(';');
-                }
-                else
-                {
-                    // Item is not found in logical tree, output to debug console
-                    var controlName = (control != null && !String.IsNullOrEmpty(control.Name))
-                        ? String.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
-                        : string.Empty;
-
-                    Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
-                }
-            }
-
-            var writer = new StreamWriter(stream);
-            writer.Write(builder.ToString());
-
-            writer.Flush();
+            this.ribbonState.SaveStateToMemoryStream();
         }
 
         // Traverse logical tree and find QAT items, remember paths
@@ -2058,62 +1842,14 @@ namespace Fluent
 
         #region Load from Stream
 
-        /// <summary>
-        /// Loads state from the given stream
-        /// </summary>
-        /// <param name="stream">Stream</param>
-        public void LoadState(Stream stream)
-        {
-            this.suppressAutomaticStateManagement = true;
-
-            var reader = new StreamReader(stream);
-            var splitted = reader.ReadToEnd().Split('|');
-
-            if (splitted.Length != 2)
-            {
-                return;
-            }
-
-            // Load Ribbon State
-            var ribbonProperties = splitted[0].Split(',');
-
-            var isMinimized = Boolean.Parse(ribbonProperties[0]);
-
-            this.IsMinimized = isMinimized;
-
-            this.ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
-
-            // Load items
-            var items = splitted[1].Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (this.quickAccessToolBar != null)
-            {
-                this.quickAccessToolBar.Items.Clear();
-            }
-
-            this.quickAccessElements.Clear();
-
-            for (var i = 0; i < items.Length; i++)
-            {
-                this.ParseAndAddToQuickAccessToolBar(items[i]);
-            }
-
-            // Sync QAT menu items
-            foreach (var menuItem in this.QuickAccessItems)
-            {
-                menuItem.IsChecked = this.IsInQuickAccessToolBar(menuItem.Target);
-            }
-
-            this.suppressAutomaticStateManagement = false;
-        }
-
         // Loads item and add to QAT
         private void ParseAndAddToQuickAccessToolBar(string data)
         {
             var indices = data.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => Int32.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+                .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToArray();
 
             DependencyObject current = this;
+
             for (var i = 0; i < indices.Length; i++)
             {
                 var children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToArray();
@@ -2121,18 +1857,20 @@ namespace Fluent
                 var item = indexIsInvalid
                     ? null
                     : children[indices[i]] as DependencyObject;
+
                 if (item == null)
                 {
                     // Path is incorrect
                     Debug.WriteLine("Error while QAT items loading: one of the paths is invalid");
                     return;
                 }
+
                 current = item;
             }
 
             var result = current as UIElement;
-            if ((result == null)
-                || (!QuickAccessItemsProvider.IsSupported(result)))
+            if (result == null
+                || QuickAccessItemsProvider.IsSupported(result) == false)
             {
                 // Item is invalid
                 Debug.WriteLine("Error while QAT items loading: an item is not be able to be added to QAT");
@@ -2144,23 +1882,10 @@ namespace Fluent
 
         #endregion
 
-        #region IsStateLoaded
-
-        /// <summary>
-        /// Gets or sets whether state is loaded
-        /// </summary>
-        bool IsStateLoaded
-        {
-            get;
-            set;
-        }
-
-        #endregion
-
         #region AutomaticStateManagement Property
 
         // To temporary suppress automatic management
-        bool suppressAutomaticStateManagement;
+        private bool suppressAutomaticStateManagement;
 
         /// <summary>
         /// Gets or sets whether Quick Access ToolBar can 
@@ -2177,7 +1902,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));        
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
@@ -2186,20 +1911,323 @@ namespace Fluent
             {
                 return false;
             }
+
             return basevalue;
         }
 
-        static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
             if ((bool)e.NewValue)
             {
-                ribbon.InitialLoadState();
+                ribbon.LoadInitialState();
             }
         }
 
         #endregion
 
-        #endregion
+        private class RibbonState
+        {
+            private readonly Ribbon ribbon;
+
+            // Name of the isolated storage file
+            private string isolatedStorageFileName;
+            private readonly Stream memoryStream;
+
+            public RibbonState(Ribbon ribbon)
+            {
+                this.ribbon = ribbon;
+                this.memoryStream = new MemoryStream();
+            }
+
+            /// <summary>
+            /// Gets or sets whether state is loaded
+            /// </summary>
+            public bool IsStateLoaded { get; private set; }
+
+            /// <summary>
+            /// Gets name of the isolated storage file
+            /// </summary>
+            private string IsolatedStorageFileName
+            {
+                get
+                {
+                    if (this.isolatedStorageFileName != null)
+                    {
+                        return this.isolatedStorageFileName;
+                    }
+
+                    var stringForHash = "";
+                    var window = Window.GetWindow(this.ribbon);
+
+                    if (window != null)
+                    {
+                        stringForHash += "." + window.GetType().FullName;
+
+                        if (string.IsNullOrEmpty(window.Name) == false
+                            && window.Name.Trim().Length > 0)
+                        {
+                            stringForHash += "." + window.Name;
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(this.ribbon.Name) == false
+                        && this.ribbon.Name.Trim().Length > 0)
+                    {
+                        stringForHash += "." + this.ribbon.Name;
+                    }
+
+                    this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
+                    return this.isolatedStorageFileName;
+                }
+            }
+
+            public void SaveStateToMemoryStream()
+            {
+                Trace.WriteLine(string.Format("Saving state to memory stream..."));
+
+                this.memoryStream.Position = 0;
+                this.SaveState(this.memoryStream);
+
+                Trace.WriteLine(string.Format("State saved to memory stream."));
+            }
+
+            // Saves to Isolated Storage (in user store for domain)
+            public void SaveStateToIsolatedStorage()
+            {
+                Trace.WriteLine(string.Format("Saving state to isolated storage..."));
+
+                // Check whether automatic save is valid now
+                if (this.ribbon.AutomaticStateManagement == false)
+                {
+                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because automatic state management is disabled."));
+                    return;
+                }
+
+                if (this.IsStateLoaded == false)
+                {
+                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because state was not loaded before."));
+                    return;
+                }
+
+                try
+                {
+                    var storage = GetIsolatedStorageFile();
+
+                    using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
+                    {
+                        this.SaveState(stream);
+                    }
+
+                    Trace.WriteLine(string.Format("State saved to isolated storage."));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
+                }
+            }
+
+            /// <summary>
+            /// Saves state to the given stream
+            /// </summary>
+            /// <param name="stream">Stream</param>
+            private void SaveState(Stream stream)
+            {
+                // Don't save or load state in design mode
+                if (DesignerProperties.GetIsInDesignMode(this.ribbon))
+                {
+                    return;
+                }
+
+                var builder = new StringBuilder();
+
+                var isMinimizedSaveState = this.ribbon.IsMinimized;
+
+                // Save Ribbon State
+                builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
+                builder.Append(',');
+                builder.Append(this.ribbon.ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
+                builder.Append('|');
+
+                // Save QAT items
+                var paths = new Dictionary<FrameworkElement, string>();
+                this.ribbon.TraverseLogicalTree(this.ribbon, "", paths);
+
+                // Foreach items and see whether path is found for the item
+                foreach (var element in this.ribbon.quickAccessElements)
+                {
+                    string path;
+                    var control = element.Key as FrameworkElement;
+
+                    if (control != null
+                        && paths.TryGetValue(control, out path))
+                    {
+                        builder.Append(path);
+                        builder.Append(';');
+                    }
+                    else
+                    {
+                        // Item is not found in logical tree, output to debug console
+                        var controlName = (control != null && string.IsNullOrEmpty(control.Name) == false)
+                            ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
+                            : string.Empty;
+
+                        Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
+                    }
+                }
+
+                var writer = new StreamWriter(stream);
+                writer.Write(builder.ToString());
+
+                writer.Flush();
+            }
+
+            public void LoadStateFromMemoryStream()
+            {
+                Trace.WriteLine(string.Format("Loading state from memory stream..."));
+
+                this.memoryStream.Position = 0;
+                this.LoadState(this.memoryStream);
+
+                Trace.WriteLine(string.Format("State loaded from memory stream."));
+            }
+
+            /// <summary>
+            /// Loads the State from Isolated Storage (in user store for domain)
+            /// </summary>
+            /// <remarks>
+            /// Sets <see cref="IsStateLoaded"/> after it's finished to prevent a race condition with saving the state to the MemoryStream.
+            /// </remarks>
+            public void LoadStateFromIsolatedStorage()
+            {
+                Trace.WriteLine(string.Format("Loading state from isolated storage..."));
+
+                // Don't save or load state in design mode
+                if (DesignerProperties.GetIsInDesignMode(this.ribbon))
+                {
+                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because we are in design mode."));
+                    this.IsStateLoaded = true;
+                    return;
+                }
+
+                if (this.ribbon.AutomaticStateManagement == false)
+                {
+                    this.IsStateLoaded = true;
+                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because automatic state management is disabled."));
+                    return;
+                }
+
+                try
+                {
+                    var storage = GetIsolatedStorageFile();
+                    if (FileExists(storage, this.IsolatedStorageFileName))
+                    {
+                        using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
+                        {
+                            this.LoadState(stream);
+
+                            // Copy loaded state to MemoryStream for temporary storage.
+                            // Temporary storage is used for style changes etc. so we can apply the current state again.
+                            stream.Position = 0;
+                            this.memoryStream.Position = 0;
+                            stream.CopyTo(this.memoryStream);
+                        }
+
+                        Trace.WriteLine(string.Format("State loaded from isolated storage."));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
+                }
+
+                this.IsStateLoaded = true;
+            }
+
+            /// <summary>
+            /// Loads state from the given stream
+            /// </summary>
+            /// <param name="stream">Stream</param>
+            private void LoadState(Stream stream)
+            {
+                this.ribbon.suppressAutomaticStateManagement = true;
+
+                var reader = new StreamReader(stream);
+                var splitted = reader.ReadToEnd().Split('|');
+
+                if (splitted.Length != 2)
+                {
+                    return;
+                }
+
+                // Load Ribbon State
+                var ribbonProperties = splitted[0].Split(',');
+
+                var isMinimized = bool.Parse(ribbonProperties[0]);
+
+                this.ribbon.IsMinimized = isMinimized;
+
+                this.ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonProperties[1]);
+
+                // Load items
+                var items = splitted[1].Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (this.ribbon.quickAccessToolBar != null)
+                {
+                    this.ribbon.quickAccessToolBar.Items.Clear();
+                }
+
+                this.ribbon.quickAccessElements.Clear();
+
+                for (var i = 0; i < items.Length; i++)
+                {
+                    this.ribbon.ParseAndAddToQuickAccessToolBar(items[i]);
+                }
+
+                // Since application is not fully loaded we have to delay the refresh
+                this.ribbon.RunInDispatcherAsync(this.ribbon.QuickAccessToolBar.Refresh, DispatcherPriority.Background);
+
+                // Sync QAT menu items
+                foreach (var menuItem in this.ribbon.QuickAccessItems)
+                {
+                    menuItem.IsChecked = this.ribbon.IsInQuickAccessToolBar(menuItem.Target);
+                }
+
+                this.ribbon.suppressAutomaticStateManagement = false;
+            }
+
+            // Determinates whether the given file exists in the given storage
+            private static bool FileExists(IsolatedStorageFile storage, string fileName)
+            {
+                var files = storage.GetFileNames(fileName);
+                return files.Length != 0;
+            }
+
+            // Gets a proper isolated storage file
+            private static IsolatedStorageFile GetIsolatedStorageFile()
+            {
+                try
+                {
+                    return IsolatedStorageFile.GetUserStoreForDomain();
+                }
+                catch
+                {
+                    return IsolatedStorageFile.GetUserStoreForAssembly();                  
+                }
+            }
+
+            /// <summary>
+            /// Resets automatically saved state
+            /// </summary>
+            public static void ResetState()
+            {
+                var storage = GetIsolatedStorageFile();
+
+                foreach (var filename in storage.GetFileNames("*Fluent.Ribbon.State*"))
+                {
+                    storage.DeleteFile(filename);
+                }
+            }
+        }
     }
 }
