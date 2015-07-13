@@ -554,6 +554,9 @@ namespace Fluent
 
         #region Methods
 
+        /// <summary>
+        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfParentRibbon"/>
+        /// </summary>
         public void Refresh()
         {
             this.InvalidateMeasure();
