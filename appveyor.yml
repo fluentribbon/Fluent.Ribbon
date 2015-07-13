@@ -12,7 +12,7 @@ build:
 
 after_build:
   - cmd: c:\projects\Fluent.Ribbon\Tools\GitLink.exe c:\projects\Fluent.Ribbon -u https://github.com/fluentribbon/Fluent.Ribbon
-  - cmd: nuget pack Fluent.Ribbon.nuspec
+  - cmd: nuget pack Fluent.Ribbon.nuspec -Version %appveyor_build_version% -Properties Configuration=%configuration%
   - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
 assembly_info:
