@@ -1926,13 +1926,13 @@ namespace Fluent
 
         #endregion
 
-        private class RibbonState
+        private class RibbonState : IDisposable
         {
             private readonly Ribbon ribbon;
 
             // Name of the isolated storage file
             private string isolatedStorageFileName;
-            private readonly Stream memoryStream;
+            private Stream memoryStream;
 
             public RibbonState(Ribbon ribbon)
             {
@@ -2227,6 +2227,27 @@ namespace Fluent
                 {
                     storage.DeleteFile(filename);
                 }
+            }
+
+            private void Dispose(bool disposing)
+            {
+                if (disposing == false)
+                {
+                    return;
+                }
+
+                if (this.memoryStream != null)
+                {
+                    this.memoryStream.Dispose();
+                }
+
+                this.memoryStream = Stream.Null;
+            }
+
+            public void Dispose()
+            {
+                this.Dispose(true);
+                GC.SuppressFinalize(this);
             }
         }
     }
