@@ -182,13 +182,6 @@
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                   Storyboard.TargetName="grid">
-                        <EasingDoubleKeyFrame KeyTime="0"
-                                              Value="0" />
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                              Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Key="OnIsOpenFalseStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
@@ -202,13 +195,6 @@
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                   Storyboard.TargetName="grid">
-                        <EasingDoubleKeyFrame KeyTime="0"
-                                              Value="1" />
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.2"
-                                              Value="0" />
-                    </DoubleAnimationUsingKeyFrames>
                 </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
@@ -266,16 +252,23 @@
             <DataTrigger Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
                          Value="True">
                 <DataTrigger.EnterActions>
-                    <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
                     <BeginStoryboard x:Name="IsOpenBeginStoryboard"
                                      Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
                 </DataTrigger.EnterActions>
                 <DataTrigger.ExitActions>
-                    <BeginStoryboard x:Name="IsClosedBeginStoryboard"
-                                     Storyboard="{StaticResource OnIsOpenFalseStoryboard}" />
                     <RemoveStoryboard BeginStoryboardName="IsOpenBeginStoryboard" />
                 </DataTrigger.ExitActions>
             </DataTrigger>
+            <DataTrigger Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                         Value="False">
+                <DataTrigger.EnterActions>                    
+                    <BeginStoryboard x:Name="IsClosedBeginStoryboard"
+                                     Storyboard="{StaticResource OnIsOpenFalseStoryboard}" />
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
+                </DataTrigger.ExitActions>
+            </DataTrigger>            
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
