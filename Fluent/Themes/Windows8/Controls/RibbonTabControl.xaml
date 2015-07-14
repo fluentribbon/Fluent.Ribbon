@@ -97,6 +97,8 @@
                 Value="22" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="CanAddToQuickAccessToolBar"
+                Value="False" />        
     </Style>
 
     <Style x:Key="RibbonTabControlStyle"
