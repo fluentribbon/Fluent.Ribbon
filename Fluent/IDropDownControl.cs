@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls.Primitives;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System.Windows.Controls.Primitives;
+
     /// <summary>
     /// Represents control that have drop down popup
     /// </summary>
