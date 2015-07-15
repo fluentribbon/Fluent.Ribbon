@@ -14,7 +14,7 @@ namespace Fluent
 {
     using Fluent.Metro.Native;
 
-    static internal class NativeMethods
+    internal static class NativeMethods
     {
         /// <summary>
         /// Causes the dialog box to display all available colors in the set of basic colors. 
