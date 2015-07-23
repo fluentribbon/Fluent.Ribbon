@@ -378,7 +378,10 @@
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
             {
                 var element = VisualTreeHelper.GetChild(visual, i) as UIElement;
-                if (element != null) InvalidateMeasureRecursive(element);
+                if (element != null)
+                {
+                    InvalidateMeasureRecursive(element);
+                }
             }
         }
 
@@ -395,11 +398,12 @@
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
             {
                 var size = galleryGroupContainer.GetItemSize();
-                if (!size.IsEmpty)
+                if (size.IsEmpty == false)
                 {
                     return size;
                 }
             }
+
             return Size.Empty;
         }
 
@@ -409,7 +413,10 @@
 
         private void Invalidate()
         {
-            if (this.haveToBeRefreshed) return;
+            if (this.haveToBeRefreshed)
+            {
+                return;
+            }
 
             this.haveToBeRefreshed = true;
             this.Dispatcher.BeginInvoke((Action)this.RefreshDispatchered, DispatcherPriority.Send);
@@ -417,7 +424,11 @@
 
         private void RefreshDispatchered()
         {
-            if (!this.haveToBeRefreshed) return;
+            if (this.haveToBeRefreshed == false)
+            {
+                return;
+            }
+
             this.Refresh();
             this.haveToBeRefreshed = false;
         }
