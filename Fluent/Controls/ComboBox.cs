@@ -634,12 +634,22 @@ namespace Fluent
 		protected override void OnDropDownOpened(EventArgs e)
 		{
 			base.OnDropDownOpened(e);
-			Mouse.Capture(this, CaptureMode.SubTree);
-			if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
-			this.focusedElement = Keyboard.FocusedElement;
-			if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
 
-			this.canSizeY = true;
+            Mouse.Capture(this, CaptureMode.SubTree);
+
+		    if (this.SelectedItem != null)
+		    {
+		        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+		    }
+
+		    this.focusedElement = Keyboard.FocusedElement;
+
+		    if (this.focusedElement != null)
+		    {
+		        this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
+		    }
+
+		    this.canSizeY = true;
 
 			this.galleryPanel.Width = double.NaN;
 			this.scrollViewer.Height = double.NaN;
@@ -650,38 +660,59 @@ namespace Fluent
 			this.DropDownPopup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 			var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
-			var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height*2/3, this.MaxDropDownHeight);
-			if (!double.IsNaN(this.DropDownHeight)) initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
-			if (this.scrollViewer.DesiredSize.Height > initialHeight)
-			{
-				this.scrollViewer.Height = initialHeight;
-			}
-			else initialHeight = this.scrollViewer.DesiredSize.Height;
+			var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
-			var monitor = RibbonControl.GetControlMonitor(this);
+		    if (double.IsNaN(this.DropDownHeight) == false)
+		    {
+		        initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
+		    }
+
+		    if (this.scrollViewer.DesiredSize.Height > initialHeight)
+		    {
+		        this.scrollViewer.Height = initialHeight;
+		    }
+		    else
+		    {
+		        initialHeight = this.scrollViewer.DesiredSize.Height;
+		    }
+
+		    var monitor = RibbonControl.GetControlMonitor(this);
 			var delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
-			if (delta >= 0) this.ShowPopupOnTop = false;
-			else
-			{
-				var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
-				if (deltaTop > delta) this.ShowPopupOnTop = true;
-				else this.ShowPopupOnTop = false;
 
-				if (deltaTop < 0)
-				{
-					delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
-					if (delta > this.galleryPanel.GetItemSize().Height)
-					{
-						this.scrollViewer.Height = delta;
-					}
-					else
-					{
-						this.canSizeY = false;
-						this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
-					}
-				}
-			}
-			popupChild.UpdateLayout();
+		    if (delta >= 0)
+		    {
+		        this.ShowPopupOnTop = false;
+		    }
+		    else
+		    {
+		        var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
+
+		        if (deltaTop > delta)
+		        {
+		            this.ShowPopupOnTop = true;
+		        }
+		        else
+		        {
+		            this.ShowPopupOnTop = false;
+		        }
+
+		        if (deltaTop < 0)
+		        {
+		            delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
+
+		            if (delta > this.galleryPanel.GetItemSize().Height)
+		            {
+		                this.scrollViewer.Height = delta;
+		            }
+		            else
+		            {
+		                this.canSizeY = false;
+		                this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
+		            }
+		        }
+		    }
+
+		    popupChild.UpdateLayout();
 		}
 
 		/// <summary>
