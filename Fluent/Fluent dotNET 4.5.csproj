@@ -764,8 +764,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
+    <PreBuildEvent>SET tmpError=0
+"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
+SET tmpError=%25tmpError%25 + %25ERRORLEVEL%25
 "$(ProjectDir)Themes\XamlCombine.exe" Office2013\Generic.txt Office2013\Generic.xaml
-"$(ProjectDir)Themes\XamlCombine.exe" Windows8\Generic.txt Windows8\Generic.xaml</PreBuildEvent>
+SET tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+"$(ProjectDir)Themes\XamlCombine.exe" Windows8\Generic.txt Windows8\Generic.xaml
+SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
   </PropertyGroup>
 </Project>
