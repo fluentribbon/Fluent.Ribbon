@@ -1115,11 +1115,11 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="ToggleButton">
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 1"
                                          GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 2"
                                          GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 3"
                                          GroupName="Group1" />
                 </Fluent:RibbonGroupBox>
 
@@ -1140,6 +1140,7 @@
                             </ItemsPanelTemplate>
                         </Fluent:ComboBox.ItemsPanel>
                     </Fluent:ComboBox>
+                    
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
