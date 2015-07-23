@@ -1131,13 +1131,27 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="TestOne">
-                    <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                    <Fluent:ComboBox Header="Many items"
+                                     InputWidth="120"
+                                     ItemsSource="{Binding Path=ManyItems}">
+                        <Fluent:ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Fluent:ComboBox.ItemsPanel>
+                    </Fluent:ComboBox>
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
                                      InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}">
+                        <Fluent:ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Fluent:ComboBox.ItemsPanel>
+                        <ComboBoxItem>Test</ComboBoxItem>
+                    </Fluent:ComboBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>
@@ -2698,7 +2712,7 @@
                     <Button x:Name="AddRibbonTab"
                             Click="AddRibbonTab_OnClick">Add tab</Button>
                     <Button x:Name="OpenRegularWindow"
-                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>                    
+                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
                     <Button x:Name="OpenMahMetroWindow"
                             Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                 </WrapPanel>

@@ -21,8 +21,9 @@
 		private RelayCommand exitCommand;
 		private double zoom;
 		private ICommand testCommand;
+        private string[] manyItems;
 
-		public MainViewModel()
+        public MainViewModel()
         {
             this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
             this.Zoom = 1.0;
@@ -125,6 +126,16 @@
                     GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
                 });
             }
+        }
+
+        public string[] ManyItems
+        {
+            get { return this.manyItems ?? (this.manyItems = this.GenerateStrings(5000)); }
+        }
+
+        private string[] GenerateStrings(int count)
+        {
+            return Enumerable.Repeat("Test", count).ToArray();
         }
 
         public ICommand PreviewCommand { get; private set; }
