@@ -655,9 +655,6 @@ namespace Fluent
 			this.scrollViewer.Height = double.NaN;
 
 			var popupChild = this.DropDownPopup.Child as FrameworkElement;
-			this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-			popupChild.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-			this.DropDownPopup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 			var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
 			var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);

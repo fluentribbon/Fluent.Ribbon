@@ -15,7 +15,7 @@
     /// Represents panel for Gallery, InRibbonGallery, ComboBox 
     /// with grouping and filtering capabilities
     /// </summary>
-    public class GalleryPanel : Panel
+    public class GalleryPanel : VirtualizingStackPanel
     {
         #region Fields
 
@@ -101,55 +101,6 @@
                 this.groupByAdvanced = value;
                 this.Invalidate();
             }
-        }
-
-        #endregion
-
-        #region Orientation
-
-        /// <summary>
-        /// Gets or sets panel orientation
-        /// </summary>
-        public Orientation Orientation
-        {
-            get { return (Orientation)this.GetValue(OrientationProperty); }
-            set { this.SetValue(OrientationProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), 
-            typeof(GalleryPanel), new UIPropertyMetadata(Orientation.Horizontal));
-                
-        #endregion
-
-        #region ItemContainerGenerator
-
-        /// <summary>
-        /// Gets or sets ItemContainerGenerator which generates the 
-        /// user interface (UI) on behalf of its host, such as an  ItemsControl. 
-        /// </summary>
-        public ItemContainerGenerator ItemContainerGenerator
-        {
-            get { return (ItemContainerGenerator)this.GetValue(ItemContainerGeneratorProperty); }
-            set { this.SetValue(ItemContainerGeneratorProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemContainerGenerator.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemContainerGeneratorProperty =
-            DependencyProperty.Register("ItemContainerGenerator", typeof(ItemContainerGenerator), 
-            typeof(GalleryPanel), new UIPropertyMetadata(null, OnItemContainerGeneratorChanged));
-
-        private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var galleryPanel = (GalleryPanel) d;
-            galleryPanel.Invalidate();
         }
 
         #endregion
@@ -304,7 +255,7 @@
 
         #region Visual Tree
 
-        readonly VisualCollection visualCollection = null;
+        readonly VisualCollection visualCollection;
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
@@ -459,26 +410,26 @@
                 }
 
                 // Resolve group name
-                string propertyValue;
+                string propertyValue = null;
 
                 if (this.GroupByAdvanced == null)
                 {
                     propertyValue = (this.ItemContainerGenerator == null)
                                         ? this.GetPropertyValueAsString(item)
-                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
+                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
                 }
                 else
                 {
                     propertyValue = (this.ItemContainerGenerator == null)
                                         ? this.GroupByAdvanced(item)
-                                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainer(item));
+                                        : this.GroupByAdvanced(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
                 }
 
                 if (propertyValue == null)
                 {
                     propertyValue = "Undefined";
                 }
-
+                
                 // Make invisible if it is not in filter (or is not grouped)
                 if (this.IsGrouped == false 
                     || (filter != null && filter.Contains(propertyValue) == false))
@@ -531,28 +482,6 @@
             this.InvalidateMeasure();
         }
 
-        /// <summary>
-        /// Invoked when the VisualCollection of a visual object is modified.
-        /// </summary>
-        /// <param name="visualAdded">The Visual that was added to the collection.</param>
-        /// <param name="visualRemoved">The Visual that was removed from the collection.</param>
-        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
-        {
-            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
-
-            if (visualRemoved is GalleryGroupContainer)
-            {
-                return;
-            }
-
-            if (visualAdded is GalleryGroupContainer)
-            {
-                return;
-            }
-
-            this.Invalidate();
-        }
-
         #endregion
 
         #region Layout Overrides
@@ -571,6 +500,13 @@
         /// the element will size to whatever content is available.</param>
         protected override Size MeasureOverride(Size availableSize)
         {
+            var baseSize = base.MeasureOverride(availableSize);
+
+            if (this.galleryGroupContainers.Count == 0)
+            {
+                return baseSize;
+            }
+
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -591,7 +527,14 @@
         /// <param name="finalSize">The final area within the parent that this 
         /// element should use to arrange itself and its children.</param>
         protected override Size ArrangeOverride(Size finalSize)
-        {           
+        {
+            var baseSize = base.ArrangeOverride(finalSize);
+
+            if (this.galleryGroupContainers.Count == 0)
+            {
+                return baseSize;
+            }
+
             var finalRect = new Rect(finalSize);
 
             foreach (var item in this.galleryGroupContainers)
@@ -601,7 +544,7 @@
 
                 // Arrange a container to arrange placeholders
                 item.Arrange(finalRect);
-                
+
                 finalRect.Y += item.DesiredSize.Height;
 
                 // Now arrange our actual items using arranged size of placeholders
@@ -613,7 +556,7 @@
                         placeholder.ArrangedSize.Width,
                         placeholder.ArrangedSize.Height));
                 }
-            }            
+            }
 
             return finalSize;
         }

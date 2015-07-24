@@ -396,7 +396,6 @@
                                                         Focusable="False">
                                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
                                                                  Background="White"
-                                                                 ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                                                  IsItemsHost="True"
                                                                  ItemHeight="{TemplateBinding ItemHeight}"
                                                                  ItemWidth="{TemplateBinding ItemWidth}"

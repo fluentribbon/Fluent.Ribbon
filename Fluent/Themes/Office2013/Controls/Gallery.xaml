@@ -144,7 +144,6 @@
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
-                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          IsItemsHost="True"
                                          ItemHeight="{TemplateBinding ItemHeight}"

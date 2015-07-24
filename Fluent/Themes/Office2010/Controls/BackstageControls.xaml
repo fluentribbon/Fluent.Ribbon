@@ -781,8 +781,6 @@
                 Value="True" />
         <Setter Property="IsEditable"
                 Value="False" />
-        <Setter Property="MaxDropDownHeight"
-                Value="{x:Static System:Double.PositiveInfinity}" />
     </Style>
     <ControlTemplate x:Key="ComboBoxBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ComboBox}">
@@ -947,13 +945,11 @@
                                                   BorderThickness="0,0,0,1">
                                         <Fluent:GalleryPanel Background="White"
                                                              x:Name="PART_GalleryPanel"
-                                                             ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                                              GroupBy="{TemplateBinding GroupBy}"
                                                              IsItemsHost="True"
                                                              KeyboardNavigation.DirectionalNavigation="None"
                                                              ItemHeight="{TemplateBinding ItemHeight}"
                                                              Orientation="Vertical" />
-                                        <!--<StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" Orientation="Vertical"/>-->
                                     </ScrollViewer>
 
                                     <ContentPresenter Grid.Row="1"
