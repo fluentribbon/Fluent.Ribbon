@@ -761,6 +761,10 @@ namespace Fluent
                     this.LoadKorean();
                     break;
 
+                case "lt":
+                    this.LoadLithuanian();
+                    break;
+
                 case "vi":
                     this.LoadVietnamese();
                     break;
@@ -1922,6 +1926,43 @@ namespace Fluent
 
             // Right-click on status bar to see it. NEW! from v2.0
             this.customizeStatusBar = "상태 표시줄 사용자 지정";
+        }
+
+        #endregion
+
+        #region Lithuanian
+
+        private void LoadLithuanian()
+        {
+            // Backstage button text & key tip
+            this.backstageButtonText = "Failas";
+            this.backstageButtonKeyTip = "F";
+
+            // See right-top corner... (two different tooltips must be if you press it)
+            this.minimizeButtonScreenTipTitle = "Minimizuoti juostelę (Ctrl + F1)";
+            this.minimizeButtonScreenTipText = "Juostelėje rodyti tik skirtukų pavadinimus.";
+            this.expandButtonScreenTipTitle = "Išplėsti juostelę (Ctrl + F1)";
+            this.expandButtonScreenTipText = "Rodyti juostelę taip, kad visada butų išskleista net ir spustelėjus komandą.";
+
+            // QAT tooltips and menu items
+
+            this.quickAccessToolBarDropDownButtonTooltip = "Tinkinti sparčiosios prieigos įrankių juostą";
+            this.quickAccessToolBarMoreControlsButtonTooltip = "Daugiau valdiklių"; // When two arrows appear ">>"
+            this.quickAccessToolBarMenuHeader = "Tinkinti sparčiosios prieigos įrankių juostą";
+            this.quickAccessToolBarMenuShowAbove = "Rodyti virš juostelės";
+            this.quickAccessToolBarMenuShowBelow = "Rodyti po juostele";
+
+            // Click on Ribbon to show context menu
+            this.ribbonContextMenuAddItem = "Pridėti į sparčiosios prieigos įrankių juostą"; // Button
+            this.ribbonContextMenuAddGroup = "Pridėti į sparčiosios prieigos įrankių juostą";
+            this.ribbonContextMenuAddGallery = "Įtraukti galeriją į sparčiosios prieigos įrankių juostą"; // For ex., by opened font context menu
+            this.ribbonContextMenuAddMenu = "Pridėti į sparčiosios prieigos įrankių juostą";
+            this.ribbonContextMenuRemoveItem = "Šalinti iš sparčiosios prieigos įrankių juostos"; // By item in QAT
+            this.ribbonContextMenuCustomizeQuickAccessToolbar = "Tinkinti sparčiosios prieigos įrankių juostą...";
+            this.ribbonContextMenuShowBelow = "Rodyti po juostele";
+            this.ribbonContextMenuShowAbove = "Rodyti virš juostelės";
+            this.ribbonContextMenuCustomizeRibbon = "Tinkinti juostelę:";
+            this.ribbonContextMenuMinimizeRibbon = "Minimizuoti juostelę";
         }
 
         #endregion

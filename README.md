@@ -121,6 +121,7 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Azerbaijani
 *   Catalan
 *   Chinese
+*   Chinese (Traditional)
 *   Czech
 *   Danish
 *   Dutch
@@ -134,12 +135,14 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Hungarian
 *   Italian
 *   Japanese
-*   Korea
+*   Korean
+*   Lithuanian
 *   Norwegia
 *   Russian
 *   Persian
 *   Polish
-*   Portuguese (including brazilian)
+*   Portuguese
+*   Portuguese (Brazilian)
 *   Romanian
 *   Sinhala
 *   Slovak
