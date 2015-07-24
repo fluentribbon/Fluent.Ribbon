@@ -207,7 +207,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MaxItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInDropDownRowProperty =
-            DependencyProperty.Register("MaxItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(Int32.MaxValue));
+            DependencyProperty.Register("MaxItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -1082,7 +1082,7 @@ namespace Fluent
         // Handles drop down opened
         void OnDropDownClosed(object sender, EventArgs e)
         {
-            this.galleryPanel.Width = Double.NaN;
+            this.galleryPanel.Width = double.NaN;
             this.galleryPanel.IsGrouped = false;
             this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
@@ -1282,9 +1282,9 @@ namespace Fluent
 
             this.scrollViewer.Height = Math.Max(0, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
 
-            this.menuPanel.Width = Double.NaN;
+            this.menuPanel.Width = double.NaN;
 
-            if (Double.IsNaN(this.galleryPanel.Width))
+            if (double.IsNaN(this.galleryPanel.Width))
             {
                 this.galleryPanel.Width = this.galleryPanel.ActualWidth;
             }

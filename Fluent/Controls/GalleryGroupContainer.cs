@@ -82,7 +82,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register("ItemWidth", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Double.NaN));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -104,7 +104,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register("ItemHeight", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Double.NaN));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
 
         #endregion
         
@@ -152,7 +152,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Int32.MaxValue, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
 
 
         #endregion
@@ -207,7 +207,7 @@ namespace Fluent
             {
                 // Min/Max is used for Horizontal layout only
                 itemsPanel.MinWidth = 0;
-                itemsPanel.MaxWidth = Double.PositiveInfinity;
+                itemsPanel.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -228,12 +228,12 @@ namespace Fluent
         /// <returns></returns>
         public Size GetItemSize()
         {
-            if (!Double.IsNaN(this.ItemWidth) && !Double.IsNaN(this.ItemHeight)) return new Size(this.ItemWidth, this.ItemHeight);
+            if (!double.IsNaN(this.ItemWidth) && !double.IsNaN(this.ItemHeight)) return new Size(this.ItemWidth, this.ItemHeight);
             if (this.Items.Count == 0) return Size.Empty;
 
             UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(this.Items[0]) as UIElement;
             if (anItem == null) return Size.Empty;
-            anItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            anItem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             Size result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
             return result;

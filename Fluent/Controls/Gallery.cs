@@ -76,7 +76,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(Gallery), new UIPropertyMetadata(Int32.MaxValue));
+            typeof(Gallery), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 

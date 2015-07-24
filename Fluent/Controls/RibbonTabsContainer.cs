@@ -672,7 +672,7 @@ namespace Fluent
         {
             bool isValid = true;
 
-            if (Double.IsInfinity(viewportWidth))
+            if (double.IsInfinity(viewportWidth))
             {
                 viewportWidth = extentWidth;
             }

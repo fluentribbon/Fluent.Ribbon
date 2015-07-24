@@ -310,7 +310,7 @@ namespace Fluent
         Size WrapPanelLayuot(Size availableSize, bool measure)
         {
             bool arrange = !measure;
-            double availableHeight = Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
+            double availableHeight = double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
 
             double currentheight = 0;
             double columnWidth = 0;
@@ -318,7 +318,7 @@ namespace Fluent
             double resultWidth = 0;
             double resultHeight = 0;
 
-            Size infinity = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
+            Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (FrameworkElement child in this.children)
             {
                 // Measuring
@@ -392,7 +392,7 @@ namespace Fluent
         Size CustomLayout(RibbonToolBarLayoutDefinition layoutDefinition, Size availableSize, bool measure, bool addchildren)
         {
             bool arrange = !measure;
-            double availableHeight = Double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
+            double availableHeight = double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
 
             // Clear separator cahce
             if (addchildren)
@@ -551,7 +551,7 @@ namespace Fluent
                         control = this.GetControlGroup(controlGroupDefinition);
 
                     if (control == null) return defaultRowHeight;
-                    control.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    control.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                     return control.DesiredSize.Height;
                 }
             }

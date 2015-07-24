@@ -158,7 +158,7 @@ namespace Fluent
                     groupBox.State = groupBox.StateIntermediate;
                     groupBox.Scale = groupBox.ScaleIntermediate;
                     groupBox.InvalidateLayout();
-                    groupBox.Measure(new Size(Double.PositiveInfinity, availableSize.Height));
+                    groupBox.Measure(new Size(double.PositiveInfinity, availableSize.Height));
                     groupBox.SuppressCacheReseting = false;
                 }
 
@@ -565,7 +565,7 @@ namespace Fluent
         {
             bool isValid = true;
 
-            if (Double.IsInfinity(viewportWidth))
+            if (double.IsInfinity(viewportWidth))
             {
                 viewportWidth = extentWidth;
             }

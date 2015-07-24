@@ -174,7 +174,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxLengthProperty =
-            DependencyProperty.Register("MaxLength", typeof(int), typeof(TextBox), new UIPropertyMetadata(Int32.MaxValue));
+            DependencyProperty.Register("MaxLength", typeof(int), typeof(TextBox), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 

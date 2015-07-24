@@ -753,7 +753,7 @@ namespace Fluent
         {
             this.Log("MeasureOverride");
 
-            var infinitySize = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
+            var infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (var tip in this.keyTips)
             {
                 tip.Measure(infinitySize);
