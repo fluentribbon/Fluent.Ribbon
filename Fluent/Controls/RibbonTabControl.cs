@@ -63,8 +63,8 @@ namespace Fluent
         /// </summary>
         public UIElement Menu
         {
-            get { return (UIElement)GetValue(MenuProperty); }
-            set { SetValue(MenuProperty, value); }
+            get { return (UIElement)this.GetValue(MenuProperty); }
+            set { this.SetValue(MenuProperty, value); }
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace Fluent
         /// </summary>
         public bool IsMinimized
         {
-            get { return (bool)GetValue(IsMinimizedProperty); }
-            set { SetValue(IsMinimizedProperty, value); }
+            get { return (bool)this.GetValue(IsMinimizedProperty); }
+            set { this.SetValue(IsMinimizedProperty, value); }
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace Fluent
         /// </summary>
         public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsDropDownOpenProperty); }
-            set { SetValue(IsDropDownOpenProperty, value); }
+            get { return (bool)this.GetValue(IsDropDownOpenProperty); }
+            set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
@@ -161,8 +161,8 @@ namespace Fluent
         /// </summary>
         public bool HighlightSelectedItem
         {
-            get { return (bool)GetValue(HighlightSelectedItemProperty); }
-            set { SetValue(HighlightSelectedItemProperty, value); }
+            get { return (bool)this.GetValue(HighlightSelectedItemProperty); }
+            set { this.SetValue(HighlightSelectedItemProperty, value); }
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace Fluent
         {
             get
             {
-                var scrollInfo = GetTemplateChild("PART_TabsContainer") as IScrollInfo;
+                var scrollInfo = this.GetTemplateChild("PART_TabsContainer") as IScrollInfo;
                 if (scrollInfo != null)
                 {
                     return scrollInfo.ExtentWidth > scrollInfo.ViewportWidth;
@@ -193,8 +193,8 @@ namespace Fluent
         /// </summary>
         internal RibbonTabItem SelectedTabItem
         {
-            get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
-            private set { SetValue(SelectedTabItemProperty, value); }
+            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            private set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
@@ -220,7 +220,7 @@ namespace Fluent
 
         internal Panel ToolbarPanel
         {
-            get { return toolbarPanel; }
+            get { return this.toolbarPanel; }
         }
 
         // Handle toolbar iitems changes
@@ -243,7 +243,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var obj3 in e.OldItems.OfType<UIElement>())
                     {
-                        ToolbarPanel.Children.Remove(obj3);
+                        this.ToolbarPanel.Children.Remove(obj3);
                     }
                     break;
 
@@ -274,8 +274,8 @@ namespace Fluent
         /// </summary>
         public double ContentGapHeight
         {
-            get { return (double)GetValue(ContentGapHeightProperty); }
-            set { SetValue(ContentGapHeightProperty, value); }
+            get { return (double)this.GetValue(ContentGapHeightProperty); }
+            set { this.SetValue(ContentGapHeightProperty, value); }
         }
 
         /// <summary>
@@ -468,7 +468,7 @@ namespace Fluent
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
             //base.OnPreviewMouseWheel(e);
-            ProcessMouseWheel(e);
+            this.ProcessMouseWheel(e);
         }
 
         /// <summary>
@@ -477,7 +477,7 @@ namespace Fluent
         /// <param name="e">Information about the event.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            base.OnKeyUp(e);
+            this.OnKeyUp(e);
 
             if (e.Handled)
             {

@@ -27,8 +27,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace Fluent
         /// </summary>
         public int RowCount
         {
-            get { return (int)GetValue(RowCountProperty); }
-            set { SetValue(RowCountProperty, value); }
+            get { return (int)this.GetValue(RowCountProperty); }
+            set { this.SetValue(RowCountProperty, value); }
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonToolBarRow> Rows
         {
-            get { return rows; }
+            get { return this.rows; }
         }
 
         #endregion

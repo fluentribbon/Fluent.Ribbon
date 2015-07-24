@@ -36,8 +36,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return (string)this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -108,11 +108,11 @@ namespace Fluent
         {
             get
             {
-                return (ICommand)GetValue(CommandProperty);
+                return (ICommand)this.GetValue(CommandProperty);
             }
             set
             {
-                SetValue(CommandProperty, value);
+                this.SetValue(CommandProperty, value);
             }
         }
 
@@ -124,11 +124,11 @@ namespace Fluent
         {
             get
             {
-                return GetValue(CommandParameterProperty);
+                return this.GetValue(CommandParameterProperty);
             }
             set
             {
-                SetValue(CommandParameterProperty, value);
+                this.SetValue(CommandParameterProperty, value);
             }
         }
 
@@ -140,11 +140,11 @@ namespace Fluent
         {
             get
             {
-                return (IInputElement)GetValue(CommandTargetProperty);
+                return (IInputElement)this.GetValue(CommandTargetProperty);
             }
             set
             {
-                SetValue(CommandTargetProperty, value);
+                this.SetValue(CommandTargetProperty, value);
             }
         }
 
@@ -204,7 +204,7 @@ namespace Fluent
         /// <param name="e"></param>
         private void OnCommandCanExecuteChanged(object sender, EventArgs e)
         {
-            UpdateCanExecute();
+            this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
@@ -212,10 +212,10 @@ namespace Fluent
             var canExecute = this.Command != null 
                 && this.CanExecuteCommand();
 
-            if (currentCanExecute != canExecute)
+            if (this.currentCanExecute != canExecute)
             {
-                currentCanExecute = canExecute;
-                CoerceValue(IsEnabledProperty);
+                this.currentCanExecute = canExecute;
+                this.CoerceValue(IsEnabledProperty);
             }
         }
 
@@ -251,7 +251,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (currentCanExecute || Command == null));
+                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
             }
         }
 
@@ -264,8 +264,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -283,8 +283,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -402,8 +402,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>

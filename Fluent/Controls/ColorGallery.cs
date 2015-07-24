@@ -239,8 +239,8 @@ namespace Fluent
         /// </summary>
         public ColorGalleryMode Mode
         {
-            get { return (ColorGalleryMode)GetValue(ModeProperty); }
-            set { SetValue(ModeProperty, value); }
+            get { return (ColorGalleryMode)this.GetValue(ModeProperty); }
+            set { this.SetValue(ModeProperty, value); }
         }
 
         /// <summary>
@@ -263,8 +263,8 @@ namespace Fluent
         /// </summary>
         public double ChipWidth
         {
-            get { return (double)GetValue(ChipWidthProperty); }
-            set { SetValue(ChipWidthProperty, value); }
+            get { return (double)this.GetValue(ChipWidthProperty); }
+            set { this.SetValue(ChipWidthProperty, value); }
         }
 
         /// <summary>
@@ -285,8 +285,8 @@ namespace Fluent
         /// </summary>
         public double ChipHeight
         {
-            get { return (double)GetValue(ChipHeightProperty); }
-            set { SetValue(ChipHeightProperty, value); }
+            get { return (double)this.GetValue(ChipHeightProperty); }
+            set { this.SetValue(ChipHeightProperty, value); }
         }
 
         /// <summary>
@@ -304,8 +304,8 @@ namespace Fluent
         /// </summary>
         public bool IsAutomaticColorButtonVisible
         {
-            get { return (bool)GetValue(IsAutomaticColorButtonVisibleProperty); }
-            set { SetValue(IsAutomaticColorButtonVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsAutomaticColorButtonVisibleProperty); }
+            set { this.SetValue(IsAutomaticColorButtonVisibleProperty, value); }
         }
 
         /// <summary>
@@ -323,8 +323,8 @@ namespace Fluent
         /// </summary>
         public bool IsNoColorButtonVisible
         {
-            get { return (bool)GetValue(IsNoColorButtonVisibleProperty); }
-            set { SetValue(IsNoColorButtonVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsNoColorButtonVisibleProperty); }
+            set { this.SetValue(IsNoColorButtonVisibleProperty, value); }
         }
 
         /// <summary>
@@ -342,8 +342,8 @@ namespace Fluent
         /// </summary>
         public bool IsMoreColorsButtonVisible
         {
-            get { return (bool)GetValue(IsMoreColorsButtonVisibleProperty); }
-            set { SetValue(IsMoreColorsButtonVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsMoreColorsButtonVisibleProperty); }
+            set { this.SetValue(IsMoreColorsButtonVisibleProperty, value); }
         }
 
         /// <summary>
@@ -361,8 +361,8 @@ namespace Fluent
         /// </summary>
         public bool IsRecentColorsVisible
         {
-            get { return (bool)GetValue(IsRecentColorsVisibleProperty); }
-            set { SetValue(IsRecentColorsVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsRecentColorsVisibleProperty); }
+            set { this.SetValue(IsRecentColorsVisibleProperty, value); }
         }
 
         /// <summary>
@@ -382,8 +382,8 @@ namespace Fluent
         /// </summary>
         public int Columns
         {
-            get { return (int)GetValue(ColumnsProperty); }
-            set { SetValue(ColumnsProperty, value); }
+            get { return (int)this.GetValue(ColumnsProperty); }
+            set { this.SetValue(ColumnsProperty, value); }
         }
 
         /// <summary>
@@ -413,8 +413,8 @@ namespace Fluent
         /// </summary>
         public int StandardColorGridRows
         {
-            get { return (int)GetValue(StandardColorGridRowsProperty); }
-            set { SetValue(StandardColorGridRowsProperty, value); }
+            get { return (int)this.GetValue(StandardColorGridRowsProperty); }
+            set { this.SetValue(StandardColorGridRowsProperty, value); }
         }
 
         /// <summary>
@@ -444,8 +444,8 @@ namespace Fluent
         /// </summary>
         public int ThemeColorGridRows
         {
-            get { return (int)GetValue(ThemeColorGridRowsProperty); }
-            set { SetValue(ThemeColorGridRowsProperty, value); }
+            get { return (int)this.GetValue(ThemeColorGridRowsProperty); }
+            set { this.SetValue(ThemeColorGridRowsProperty, value); }
         }
 
         /// <summary>
@@ -468,8 +468,8 @@ namespace Fluent
         /// </summary>
         public Color? SelectedColor
         {
-            get { return (Color?)GetValue(SelectedColorProperty); }
-            set { SetValue(SelectedColorProperty, value); }
+            get { return (Color?)this.GetValue(SelectedColorProperty); }
+            set { this.SetValue(SelectedColorProperty, value); }
         }
 
         /// <summary>
@@ -560,18 +560,18 @@ namespace Fluent
         {
             get
             {
-                if (themeColors == null)
+                if (this.themeColors == null)
                 {
-                    themeColors = new ObservableCollection<Color>();
-                    themeColors.CollectionChanged += OnThemeColorsChanged;
+                    this.themeColors = new ObservableCollection<Color>();
+                    this.themeColors.CollectionChanged += this.OnThemeColorsChanged;
                 }
-                return themeColors;
+                return this.themeColors;
             }
         }
 
         private void OnThemeColorsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            UpdateGradients();
+            this.UpdateGradients();
         }
 
         /// <summary>
@@ -579,8 +579,8 @@ namespace Fluent
         /// </summary>
         public IEnumerable<Color> ThemeColorsSource
         {
-            get { return (IEnumerable<Color>)GetValue(ThemeColorsSourceProperty); }
-            set { SetValue(ThemeColorsSourceProperty, value); }
+            get { return (IEnumerable<Color>)this.GetValue(ThemeColorsSourceProperty); }
+            set { this.SetValue(ThemeColorsSourceProperty, value); }
         }
 
         /// <summary>
@@ -611,8 +611,8 @@ namespace Fluent
         /// </summary>
         public Color[] ThemeGradients
         {
-            get { return (Color[])GetValue(ThemeGradientsProperty); }
-            private set { SetValue(ThemeGradientsPropertyKey, value); }
+            get { return (Color[])this.GetValue(ThemeGradientsProperty); }
+            private set { this.SetValue(ThemeGradientsPropertyKey, value); }
         }
 
         // 
@@ -633,8 +633,8 @@ namespace Fluent
         /// </summary>
         public Color[] StandardGradients
         {
-            get { return (Color[])GetValue(StandardGradientsProperty); }
-            private set { SetValue(StandardGradientsPropertyKey, value); }
+            get { return (Color[])this.GetValue(StandardGradientsProperty); }
+            private set { this.SetValue(StandardGradientsPropertyKey, value); }
         }
 
 
@@ -659,11 +659,11 @@ namespace Fluent
         {
             add
             {
-                AddHandler(SelectedColorChangedEvent, value);
+                this.AddHandler(SelectedColorChangedEvent, value);
             }
             remove
             {
-                RemoveHandler(SelectedColorChangedEvent, value);
+                this.RemoveHandler(SelectedColorChangedEvent, value);
             }
         }
         /// <summary>
@@ -676,7 +676,7 @@ namespace Fluent
         /// </summary>
         public void RaiseSelectedColorChanged()
         {
-            RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent, this));
         }
 
         /// <summary>
@@ -727,50 +727,66 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (moreColorsButton != null) moreColorsButton.Click += OnMoreColorsClick;
-            moreColorsButton = GetTemplateChild("PART_MoreColors") as MenuItem;
-            if (moreColorsButton != null) moreColorsButton.Click += OnMoreColorsClick;
+            if (this.moreColorsButton != null)
+                this.moreColorsButton.Click += this.OnMoreColorsClick;
+            this.moreColorsButton = this.GetTemplateChild("PART_MoreColors") as MenuItem;
+            if (this.moreColorsButton != null)
+                this.moreColorsButton.Click += this.OnMoreColorsClick;
 
-            if (noColorButton != null) noColorButton.Click -= OnNoColorClick;
-            noColorButton = GetTemplateChild("PART_NoColor") as MenuItem;
-            if (noColorButton != null) noColorButton.Click += OnNoColorClick;
+            if (this.noColorButton != null)
+                this.noColorButton.Click -= this.OnNoColorClick;
+            this.noColorButton = this.GetTemplateChild("PART_NoColor") as MenuItem;
+            if (this.noColorButton != null)
+                this.noColorButton.Click += this.OnNoColorClick;
 
-            if (automaticButton != null) automaticButton.Click -= OnAutomaticClick;
-            automaticButton = GetTemplateChild("PART_AutomaticColor") as MenuItem;
-            if (automaticButton != null) automaticButton.Click += OnAutomaticClick;
+            if (this.automaticButton != null)
+                this.automaticButton.Click -= this.OnAutomaticClick;
+            this.automaticButton = this.GetTemplateChild("PART_AutomaticColor") as MenuItem;
+            if (this.automaticButton != null)
+                this.automaticButton.Click += this.OnAutomaticClick;
 
             // List boxes
-            listBoxes.Clear();
+            this.listBoxes.Clear();
 
-            if (themeColorsListBox != null) themeColorsListBox.SelectionChanged -= OnListBoxSelectedChanged;
-            themeColorsListBox = GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
-            listBoxes.Add(themeColorsListBox);
-            if (themeColorsListBox != null) themeColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
+            if (this.themeColorsListBox != null)
+                this.themeColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            this.themeColorsListBox = this.GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
+            this.listBoxes.Add(this.themeColorsListBox);
+            if (this.themeColorsListBox != null)
+                this.themeColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
 
-            if (themeGradientsListBox != null) themeGradientsListBox.SelectionChanged -= OnListBoxSelectedChanged;
-            themeGradientsListBox = GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
-            listBoxes.Add(themeGradientsListBox);
-            if (themeGradientsListBox != null) themeGradientsListBox.SelectionChanged += OnListBoxSelectedChanged;
+            if (this.themeGradientsListBox != null)
+                this.themeGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            this.themeGradientsListBox = this.GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
+            this.listBoxes.Add(this.themeGradientsListBox);
+            if (this.themeGradientsListBox != null)
+                this.themeGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
 
-            if (standardColorsListBox != null) standardColorsListBox.SelectionChanged -= OnListBoxSelectedChanged;
-            standardColorsListBox = GetTemplateChild("PART_StandardColorsListBox") as ListBox;
-            listBoxes.Add(standardColorsListBox);
-            if (standardColorsListBox != null) standardColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
+            if (this.standardColorsListBox != null)
+                this.standardColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            this.standardColorsListBox = this.GetTemplateChild("PART_StandardColorsListBox") as ListBox;
+            this.listBoxes.Add(this.standardColorsListBox);
+            if (this.standardColorsListBox != null)
+                this.standardColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
 
-            if (standardGradientsListBox != null) standardGradientsListBox.SelectionChanged -= OnListBoxSelectedChanged;
-            standardGradientsListBox = GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
-            listBoxes.Add(standardGradientsListBox);
-            if (standardGradientsListBox != null) standardGradientsListBox.SelectionChanged += OnListBoxSelectedChanged;
+            if (this.standardGradientsListBox != null)
+                this.standardGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            this.standardGradientsListBox = this.GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
+            this.listBoxes.Add(this.standardGradientsListBox);
+            if (this.standardGradientsListBox != null)
+                this.standardGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
 
-            if (recentColorsListBox != null) recentColorsListBox.SelectionChanged -= OnListBoxSelectedChanged;
-            recentColorsListBox = GetTemplateChild("PART_RecentColorsListBox") as ListBox;
-            listBoxes.Add(recentColorsListBox);
-            if (recentColorsListBox != null) recentColorsListBox.SelectionChanged += OnListBoxSelectedChanged;
+            if (this.recentColorsListBox != null)
+                this.recentColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            this.recentColorsListBox = this.GetTemplateChild("PART_RecentColorsListBox") as ListBox;
+            this.listBoxes.Add(this.recentColorsListBox);
+            if (this.recentColorsListBox != null)
+                this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
 
             base.OnApplyTemplate();
             this.isTemplateApplied = true;
 
-            UpdateSelectedColor(SelectedColor);
+            this.UpdateSelectedColor(this.SelectedColor);
         }
 
         #endregion
@@ -782,16 +798,16 @@ namespace Fluent
 
         private void OnMoreColorsClick(object sender, RoutedEventArgs e)
         {
-            if (MoreColorsExecuting != null)
+            if (this.MoreColorsExecuting != null)
             {
                 MoreColorsExecutingEventArgs args = new MoreColorsExecutingEventArgs();
-                MoreColorsExecuting(this, args);
+                this.MoreColorsExecuting(this, args);
                 if (!args.Canceled)
                 {
                     Color color = args.Color;
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
-                    recentColorsListBox.SelectedIndex = 0;
+                    this.recentColorsListBox.SelectedIndex = 0;
                 }
             }
             else
@@ -803,8 +819,9 @@ namespace Fluent
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
-                    for (int i = 0; i < colorsArray.Length; i++) colorsArray[i] = 0x00FFFFFF;
-                    customColors = GCHandle.Alloc(colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
+                    for (int i = 0; i < this.colorsArray.Length; i++)
+                        this.colorsArray[i] = 0x00FFFFFF;
+                    customColors = GCHandle.Alloc(this.colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
                 }
                 chooseColor.lpCustColors = customColors;
                 if (NativeMethods.ChooseColor(chooseColor))
@@ -812,7 +829,7 @@ namespace Fluent
                     Color color = ConvertFromWin32Color(chooseColor.rgbResult);
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
-                    recentColorsListBox.SelectedIndex = 0;
+                    this.recentColorsListBox.SelectedIndex = 0;
                 }
             }
         }
@@ -828,30 +845,30 @@ namespace Fluent
         private void OnAutomaticClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            noColorButton.IsChecked = false;
-            automaticButton.IsChecked = true;
+            this.noColorButton.IsChecked = false;
+            this.automaticButton.IsChecked = true;
             // Remove selection from listboxes
-            for (int i = 0; i < listBoxes.Count; i++)
+            for (int i = 0; i < this.listBoxes.Count; i++)
             {
-                listBoxes[i].SelectedItem = null;
+                this.listBoxes[i].SelectedItem = null;
             }
 
-            SelectedColor = null;
+            this.SelectedColor = null;
             this.isSelectionChanging = false;
         }
 
         private void OnNoColorClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            noColorButton.IsChecked = true;
-            automaticButton.IsChecked = false;
+            this.noColorButton.IsChecked = true;
+            this.automaticButton.IsChecked = false;
             // Remove selection from listboxes
-            for (int i = 0; i < listBoxes.Count; i++)
+            for (int i = 0; i < this.listBoxes.Count; i++)
             {
-                listBoxes[i].SelectedItem = null;
+                this.listBoxes[i].SelectedItem = null;
             }
 
-            SelectedColor = Colors.Transparent;
+            this.SelectedColor = Colors.Transparent;
             this.isSelectionChanging = false;
         }
 
@@ -862,13 +879,14 @@ namespace Fluent
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
-                noColorButton.IsChecked = false;
-                automaticButton.IsChecked = false;
-                for (int i = 0; i < listBoxes.Count; i++)
+                this.noColorButton.IsChecked = false;
+                this.automaticButton.IsChecked = false;
+                for (int i = 0; i < this.listBoxes.Count; i++)
                 {
-                    if (listBoxes[i] != sender) listBoxes[i].SelectedItem = null;
+                    if (this.listBoxes[i] != sender)
+                        this.listBoxes[i].SelectedItem = null;
                 }
-                SelectedColor = (Color)e.AddedItems[0];
+                this.SelectedColor = (Color)e.AddedItems[0];
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
             this.isSelectionChanging = false;
@@ -876,37 +894,39 @@ namespace Fluent
 
         private void UpdateGradients()
         {
-            if ((Mode == ColorGalleryMode.ThemeColors) && (Columns > 0))
+            if ((this.Mode == ColorGalleryMode.ThemeColors) && (this.Columns > 0))
             {
-                if (ThemeColorGridRows > 0)
+                if (this.ThemeColorGridRows > 0)
                 {
-                    ThemeGradients = GenerateThemeGradients();
+                    this.ThemeGradients = this.GenerateThemeGradients();
                 }
-                else ThemeGradients = null;
+                else
+                    this.ThemeGradients = null;
 
-                if (StandardColorGridRows > 0)
+                if (this.StandardColorGridRows > 0)
                 {
-                    StandardGradients = GenerateStandardGradients();
+                    this.StandardGradients = this.GenerateStandardGradients();
                 }
-                else StandardGradients = null;
+                else
+                    this.StandardGradients = null;
             }
             else
             {
-                StandardGradients = null;
-                ThemeGradients = null;
+                this.StandardGradients = null;
+                this.ThemeGradients = null;
             }
         }
 
         private Color[] GenerateStandardGradients()
         {
-            int count = Math.Min(Columns, StandardThemeColors.Length);
-            Color[] result = new Color[Columns * StandardColorGridRows];
+            int count = Math.Min(this.Columns, StandardThemeColors.Length);
+            Color[] result = new Color[this.Columns *this.StandardColorGridRows];
             for (int i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(StandardThemeColors[i], StandardColorGridRows);
-                for (int j = 0; j < StandardColorGridRows; j++)
+                Color[] colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
+                for (int j = 0; j < this.StandardColorGridRows; j++)
                 {
-                    result[i + j * Columns] = colors[j];
+                    result[i + j *this.Columns] = colors[j];
                 }
             }
             return result;
@@ -914,14 +934,14 @@ namespace Fluent
 
         private Color[] GenerateThemeGradients()
         {
-            int count = Math.Min(Columns, ThemeColors.Count);
-            Color[] result = new Color[Columns * ThemeColorGridRows];
+            int count = Math.Min(this.Columns, this.ThemeColors.Count);
+            Color[] result = new Color[this.Columns *this.ThemeColorGridRows];
             for (int i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(ThemeColors[i], ThemeColorGridRows);
-                for (int j = 0; j < ThemeColorGridRows; j++)
+                Color[] colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
+                for (int j = 0; j < this.ThemeColorGridRows; j++)
                 {
-                    result[i + j * Columns] = colors[j];
+                    result[i + j *this.Columns] = colors[j];
                 }
             }
             return result;

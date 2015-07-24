@@ -38,8 +38,8 @@ namespace Fluent
         /// </summary>
         public string Header
         {
-            get { return (string)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return (string)this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Fluent
         /// </summary>
         public List<RibbonTabItem> Items
         {
-            get { return items; }
+            get { return this.items; }
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace Fluent
         /// </summary>
         public bool IsWindowMaximized
         {
-            get { return (bool)GetValue(IsWindowMaximizedProperty); }
-            set { SetValue(IsWindowMaximizedProperty, value); }
+            get { return (bool)this.GetValue(IsWindowMaximizedProperty); }
+            set { this.SetValue(IsWindowMaximizedProperty, value); }
         }
 
         /// <summary>
@@ -87,8 +87,8 @@ namespace Fluent
         /// </summary>
         public Visibility InnerVisibility
         {
-            get { return (Visibility)GetValue(InnerVisibilityProperty); }
-            private set { SetValue(InnerVisibilityPropertyKey, value); }
+            get { return (Visibility)this.GetValue(InnerVisibilityProperty); }
+            private set { this.SetValue(InnerVisibilityPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
@@ -182,14 +182,14 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            parentWidow = Window.GetWindow(this);
+            this.parentWidow = Window.GetWindow(this);
 
             this.SubscribeEvents();
             this.UpdateInnerVisibility();
 
-            if (parentWidow != null)
+            if (this.parentWidow != null)
             {
-                IsWindowMaximized = parentWidow.WindowState == WindowState.Maximized;
+                this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
             }
         }
 

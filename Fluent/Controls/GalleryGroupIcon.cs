@@ -22,8 +22,8 @@ namespace Fluent
         /// </summary>
         public string GroupName
         {
-            get { return (string)GetValue(GroupNameProperty); }
-            set { SetValue(GroupNameProperty, value); }
+            get { return (string)this.GetValue(GroupNameProperty); }
+            set { this.SetValue(GroupNameProperty, value); }
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Fluent
         /// </summary>
         public ImageSource Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return (ImageSource)this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>

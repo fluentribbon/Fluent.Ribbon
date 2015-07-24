@@ -55,8 +55,8 @@ namespace Fluent
         /// </summary>
         public ContextMenuResizeMode ResizeMode
         {
-            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
-            set { SetValue(ResizeModeProperty, value); }
+            get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
+            set { this.SetValue(ResizeModeProperty, value); }
         }
 
         /// <summary>
@@ -97,24 +97,24 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb != null)
             {
-                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
-            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (resizeVerticalThumb != null)
+            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (this.resizeVerticalThumb != null)
             {
-                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
+                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (resizeBothThumb != null)
+            if (this.resizeBothThumb != null)
             {
-                resizeBothThumb.DragDelta -= OnResizeBothDelta;
+                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
-            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (resizeBothThumb != null)
+            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (this.resizeBothThumb != null)
             {
-                resizeBothThumb.DragDelta += OnResizeBothDelta;
+                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
         }
 
@@ -144,17 +144,20 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(Width)) Width = ActualWidth;
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Width = Math.Max(MinWidth, Width + e.HorizontalChange);
-            Height = Math.Max(MinHeight, Height + e.VerticalChange);
+            if (double.IsNaN(this.Width))
+                this.Width = this.ActualWidth;
+            if (double.IsNaN(this.Height))
+                this.Height = this.ActualHeight;
+            this.Width = Math.Max(this.MinWidth, this.Width + e.HorizontalChange);
+            this.Height = Math.Max(this.MinHeight, this.Height + e.VerticalChange);
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(Height)) Height = ActualHeight;
-            Height = Math.Max(MinHeight, Height + e.VerticalChange);
+            if (double.IsNaN(this.Height))
+                this.Height = this.ActualHeight;
+            this.Height = Math.Max(this.MinHeight, this.Height + e.VerticalChange);
         }
 
         #endregion

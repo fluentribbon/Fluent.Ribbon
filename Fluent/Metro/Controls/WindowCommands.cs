@@ -94,7 +94,7 @@
             get
             {
                 if (string.IsNullOrEmpty(minimize))
-                    minimize = GetCaption(900);
+                    minimize = this.GetCaption(900);
                 return minimize;
             }
         }
@@ -107,7 +107,7 @@
             get
             {
                 if (string.IsNullOrEmpty(maximize))
-                    maximize = GetCaption(901);
+                    maximize = this.GetCaption(901);
                 return maximize;
             }
         }
@@ -120,7 +120,7 @@
             get
             {
                 if (string.IsNullOrEmpty(closeText))
-                    closeText = GetCaption(905);
+                    closeText = this.GetCaption(905);
                 return closeText;
             }
         }
@@ -134,7 +134,7 @@
             {
                 if (string.IsNullOrEmpty(restore))
                 {
-                    restore = GetCaption(903);
+                    restore = this.GetCaption(903);
                 }
 
                 return restore;
@@ -146,8 +146,8 @@
         /// </summary>
         public Brush ButtonBrush
         {
-            get { return (Brush)GetValue(ButtonBrushProperty); }
-            set { SetValue(ButtonBrushProperty, value); }
+            get { return (Brush)this.GetValue(ButtonBrushProperty); }
+            set { this.SetValue(ButtonBrushProperty, value); }
         }
 
         /// <summary>
@@ -173,31 +173,31 @@
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            close = GetTemplateChild("PART_Close") as System.Windows.Controls.Button;//Template.FindName("PART_Close", this) as Button;
-            if (close != null)
-                close.Click += CloseClick;
+            this.close = this.GetTemplateChild("PART_Close") as System.Windows.Controls.Button;//Template.FindName("PART_Close", this) as Button;
+            if (this.close != null)
+                this.close.Click += this.CloseClick;
 
-            max = Template.FindName("PART_Max", this) as System.Windows.Controls.Button;
-            if (max != null)
-                max.Click += MaximiseClick;
+            this.max = this.Template.FindName("PART_Max", this) as System.Windows.Controls.Button;
+            if (this.max != null)
+                this.max.Click += this.MaximiseClick;
 
-            min = Template.FindName("PART_Min", this) as System.Windows.Controls.Button;
-            if (min != null)
-                min.Click += MinimiseClick;
+            this.min = this.Template.FindName("PART_Min", this) as System.Windows.Controls.Button;
+            if (this.min != null)
+                this.min.Click += this.MinimiseClick;
 
             this.RefreshMaximizeIconState();
         }
 
         private void MinimiseClick(object sender, RoutedEventArgs e)
         {
-            var parentWindow = GetParentWindow();
+            var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
                 parentWindow.WindowState = WindowState.Minimized;
         }
 
         private void MaximiseClick(object sender, RoutedEventArgs e)
         {
-            var parentWindow = GetParentWindow();
+            var parentWindow = this.GetParentWindow();
             if (parentWindow == null)
                 return;
 
@@ -210,7 +210,7 @@
         /// </summary>
         public void RefreshMaximizeIconState()
         {
-            this.RefreshMaximizeIconState(GetParentWindow());
+            this.RefreshMaximizeIconState(this.GetParentWindow());
         }
 
         private void RefreshMaximizeIconState(Window parentWindow)
@@ -220,40 +220,40 @@
 
             if (parentWindow.WindowState == WindowState.Normal)
             {
-                var maxpath = (UIElement)max.FindName("PART_MaximizeButtonContent");
+                var maxpath = (UIElement)this.max.FindName("PART_MaximizeButtonContent");
                 if (maxpath != null)
                 {
                     maxpath.Visibility = Visibility.Visible;
                 }
 
-                var restorepath = (UIElement)max.FindName("PART_RestoreButtonContent");
+                var restorepath = (UIElement)this.max.FindName("PART_RestoreButtonContent");
                 if (restorepath != null)
                 {
                     restorepath.Visibility = Visibility.Collapsed;
                 }
 
-                max.ToolTip = Maximize;
+                this.max.ToolTip = this.Maximize;
             }
             else
             {
-                var restorepath = (UIElement)max.FindName("PART_RestoreButtonContent");
+                var restorepath = (UIElement)this.max.FindName("PART_RestoreButtonContent");
                 if (restorepath != null)
                 {
                     restorepath.Visibility = Visibility.Visible;
                 }
 
-                var maxpath = (UIElement)max.FindName("PART_MaximizeButtonContent");
+                var maxpath = (UIElement)this.max.FindName("PART_MaximizeButtonContent");
                 if (maxpath != null)
                 {
                     maxpath.Visibility = Visibility.Collapsed;
                 }
-                max.ToolTip = Restore;
+                this.max.ToolTip = this.Restore;
             }
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
-            var parentWindow = GetParentWindow();
+            var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
             {
                 parentWindow.Close();

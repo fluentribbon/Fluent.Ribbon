@@ -43,10 +43,10 @@ namespace Fluent
 
             foreach (UIElement item in this.InternalChildren)
             {
-                finalRect.Width = sizes[index].Width;//item.DesiredSize.Width;
-                finalRect.Height = Math.Max(finalSize.Height, sizes[index].Height);//Math.Max(finalSize.Height, item.DesiredSize.Height);
+                finalRect.Width = this.sizes[index].Width;//item.DesiredSize.Width;
+                finalRect.Height = Math.Max(finalSize.Height, this.sizes[index].Height);//Math.Max(finalSize.Height, item.DesiredSize.Height);
                 item.Arrange(finalRect);
-                finalRect.X += sizes[index].Width;// item.DesiredSize.Width;
+                finalRect.X += this.sizes[index].Width;// item.DesiredSize.Width;
                 index++;
             }
             return finalSize;
@@ -62,7 +62,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size availableSize)
         {
             var x = 0D;
-            sizes.Clear();
+            this.sizes.Clear();
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
             foreach (RibbonContextualTabGroup contextualGroup in this.InternalChildren)
@@ -139,7 +139,7 @@ namespace Fluent
                 }
 
                 contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
-                sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
+                this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
             }
 
             var height = availableSize.Height;

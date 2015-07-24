@@ -37,7 +37,7 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonToolBarControlDefinition> Children
         {
-            get { return children; }
+            get { return this.children; }
         }
 
         #endregion
@@ -49,12 +49,13 @@ namespace Fluent
         /// </summary>
         public RibbonToolBarControlGroupDefinition()
         {
-            children.CollectionChanged += OnChildrenCollectionChanged;
+            this.children.CollectionChanged += this.OnChildrenCollectionChanged;
         }
 
         void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (ChildrenChanged != null) ChildrenChanged(sender, e);
+            if (this.ChildrenChanged != null)
+                this.ChildrenChanged(sender, e);
         }
 
         #endregion

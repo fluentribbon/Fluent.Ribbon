@@ -61,7 +61,7 @@ namespace Fluent.Metro.Controls
         /// </summary>
         public WindowSettings(Window window)
         {
-            _window = window;
+            this._window = window;
         }
 
         private static void OnSaveInvalidated(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -81,21 +81,21 @@ namespace Fluent.Metro.Controls
         /// </summary>
         protected virtual void LoadWindowState()
         {
-            Settings.Reload();
+            this.Settings.Reload();
 
-            if (Settings.Placement == null)
+            if (this.Settings.Placement == null)
             {
                 return;
             }
 
             try
             {
-                var wp = Settings.Placement.Value;
+                var wp = this.Settings.Placement.Value;
 
                 wp.length = Marshal.SizeOf(typeof(WINDOWPLACEMENT));
                 wp.flags = 0;
                 wp.showCmd = (wp.showCmd == Constants.SW_SHOWMINIMIZED ? Constants.SW_SHOWNORMAL : wp.showCmd);
-                var hwnd = new WindowInteropHelper(_window).Handle;
+                var hwnd = new WindowInteropHelper(this._window).Handle;
                 UnsafeNativeMethods.SetWindowPlacement(hwnd, ref wp);
             }
             catch (Exception ex)
@@ -110,30 +110,30 @@ namespace Fluent.Metro.Controls
         protected virtual void SaveWindowState()
         {
             WINDOWPLACEMENT wp;
-            var hwnd = new WindowInteropHelper(_window).Handle;
+            var hwnd = new WindowInteropHelper(this._window).Handle;
             UnsafeNativeMethods.GetWindowPlacement(hwnd, out wp);
-            Settings.Placement = wp;
-            Settings.Save();
+            this.Settings.Placement = wp;
+            this.Settings.Save();
         }
 
         private void Attach()
         {
-            if (_window == null) return;
-            _window.Closing += WindowClosing;
-            _window.SourceInitialized += WindowSourceInitialized;
+            if (this._window == null) return;
+            this._window.Closing += this.WindowClosing;
+            this._window.SourceInitialized += this.WindowSourceInitialized;
         }
 
         private void WindowSourceInitialized(object sender, EventArgs e)
         {
-            LoadWindowState();
+            this.LoadWindowState();
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            SaveWindowState();
-            _window.Closing -= WindowClosing;
-            _window.SourceInitialized -= WindowSourceInitialized;
-            _window = null;
+            this.SaveWindowState();
+            this._window.Closing -= this.WindowClosing;
+            this._window.SourceInitialized -= this.WindowSourceInitialized;
+            this._window = null;
         }
 
         private WindowApplicationSettings _windowApplicationSettings;
@@ -146,7 +146,7 @@ namespace Fluent.Metro.Controls
         [Browsable(false)]
         internal WindowApplicationSettings Settings
         {
-            get { return _windowApplicationSettings ?? (_windowApplicationSettings = CreateWindowApplicationSettingsInstance()); }
+            get { return this._windowApplicationSettings ?? (this._windowApplicationSettings = this.CreateWindowApplicationSettingsInstance()); }
         }
     }
 }

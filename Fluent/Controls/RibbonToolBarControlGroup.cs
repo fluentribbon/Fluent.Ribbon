@@ -22,8 +22,8 @@ namespace Fluent
         /// </summary>
         public bool IsFirstInRow
         {
-            get { return (bool)GetValue(IsFirstInRowProperty); }
-            set { SetValue(IsFirstInRowProperty, value); }
+            get { return (bool)this.GetValue(IsFirstInRowProperty); }
+            set { this.SetValue(IsFirstInRowProperty, value); }
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace Fluent
         /// </summary>
         public bool IsLastInRow
         {
-            get { return (bool)GetValue(IsLastInRowProperty); }
-            set { SetValue(IsLastInRowProperty, value); }
+            get { return (bool)this.GetValue(IsLastInRowProperty); }
+            set { this.SetValue(IsLastInRowProperty, value); }
         }
 
         /// <summary>

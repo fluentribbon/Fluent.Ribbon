@@ -61,8 +61,8 @@ namespace Fluent
         /// </summary>
         public bool IsOpen
         {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
+            get { return (bool)this.GetValue(IsOpenProperty); }
+            set { this.SetValue(IsOpenProperty, value); }
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Fluent
         /// </summary>
         public Duration HideAnimationDuration
         {
-            get { return (Duration)GetValue(HideAnimationDurationProperty); }
-            set { SetValue(HideAnimationDurationProperty, value); }
+            get { return (Duration)this.GetValue(HideAnimationDurationProperty); }
+            set { this.SetValue(HideAnimationDurationProperty, value); }
         }
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace Fluent
         /// </summary>
         public bool HideContextTabsOnOpen
         {
-            get { return (bool)GetValue(HideContextTabsOnOpenProperty); }
-            set { SetValue(HideContextTabsOnOpenProperty, value); }
+            get { return (bool)this.GetValue(HideContextTabsOnOpenProperty); }
+            set { this.SetValue(HideContextTabsOnOpenProperty, value); }
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace Fluent
         /// </summary>
         public UIElement Content
         {
-            get { return (UIElement)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return (UIElement)this.GetValue(ContentProperty); }
+            set { this.SetValue(ContentProperty, value); }
         }
 
         /// <summary>
@@ -565,7 +565,7 @@ namespace Fluent
                 if ((parent is HwndHost) &&
                     frameworkElement.Visibility != Visibility.Collapsed)
                 {
-                    collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
+                    this.collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
                     frameworkElement.Visibility = Visibility.Collapsed;
                     return;
                 }
@@ -574,7 +574,7 @@ namespace Fluent
             // Traverse visual tree
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
-                CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
+                this.CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
             }
         }
 

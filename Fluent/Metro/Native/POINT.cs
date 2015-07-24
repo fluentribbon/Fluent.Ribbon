@@ -13,20 +13,20 @@ namespace Fluent.Metro.Native
 
         public POINT(int x, int y)
         {
-            _x = x;
-            _y = y;
+            this._x = x;
+            this._y = y;
         }
 
         public int X
         {
-            get { return _x; }
-            set { _x = value; }
+            get { return this._x; }
+            set { this._x = value; }
         }
 
         public int Y
         {
-            get { return _y; }
-            set { _y = value; }
+            get { return this._y; }
+            set { this._y = value; }
         }
 
         public override bool Equals(object obj)
@@ -35,13 +35,13 @@ namespace Fluent.Metro.Native
             {
                 var point = (POINT)obj;
 
-                return point._x == _x && point._y == _y;
+                return point._x == this._x && point._y == this._y;
             }
             return base.Equals(obj);
         }
         public override int GetHashCode()
         {
-            return _x.GetHashCode() ^ _y.GetHashCode();
+            return this._x.GetHashCode() ^ this._y.GetHashCode();
         }
 
         public static bool operator ==(POINT a, POINT b)
@@ -56,7 +56,7 @@ namespace Fluent.Metro.Native
 
         public override string ToString()
         {
-            return "POINT { x: " + _x + " / y : " + _y + " }";
+            return "POINT { x: " + this._x + " / y : " + this._y + " }";
         }
     }
 }

@@ -44,7 +44,8 @@ namespace Fluent
 
         void RaiseTextChanged(TextChangedEventArgs args)
         {
-            if (TextChanged != null) TextChanged(this, args);
+            if (this.TextChanged != null)
+                this.TextChanged(this, args);
         }
 
         /// <summary>
@@ -54,7 +55,8 @@ namespace Fluent
 
         void RaiseSelectionChanged()
         {
-            if (SelectionChanged != null) SelectionChanged(this, EventArgs.Empty);
+            if (this.SelectionChanged != null)
+                this.SelectionChanged(this, EventArgs.Empty);
         }
 
         #endregion
@@ -79,8 +81,8 @@ namespace Fluent
         /// </summary>               
         public double InputWidth
         {
-            get { return (double)GetValue(InputWidthProperty); }
-            set { SetValue(InputWidthProperty, value); }
+            get { return (double)this.GetValue(InputWidthProperty); }
+            set { this.SetValue(InputWidthProperty, value); }
         }
 
         /// <summary>
@@ -100,8 +102,8 @@ namespace Fluent
         /// </summary>
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (string)this.GetValue(TextProperty); }
+            set { this.SetValue(TextProperty, value); }
         }
 
         /// <summary>
@@ -122,8 +124,8 @@ namespace Fluent
         /// </summary>
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get { return (bool)this.GetValue(IsReadOnlyProperty); }
+            set { this.SetValue(IsReadOnlyProperty, value); }
         }
 
         /// <summary>
@@ -142,8 +144,8 @@ namespace Fluent
         /// </summary>
         public CharacterCasing CharacterCasing
         {
-            get { return (CharacterCasing)GetValue(CharacterCasingProperty); }
-            set { SetValue(CharacterCasingProperty, value); }
+            get { return (CharacterCasing)this.GetValue(CharacterCasingProperty); }
+            set { this.SetValue(CharacterCasingProperty, value); }
         }
 
         /// <summary>
@@ -163,8 +165,8 @@ namespace Fluent
         /// </summary>
         public int MaxLength
         {
-            get { return (int)GetValue(MaxLengthProperty); }
-            set { SetValue(MaxLengthProperty, value); }
+            get { return (int)this.GetValue(MaxLengthProperty); }
+            set { this.SetValue(MaxLengthProperty, value); }
         }
 
         /// <summary>
@@ -183,8 +185,8 @@ namespace Fluent
         /// </summary>
         public TextAlignment TextAlignment
         {
-            get { return (TextAlignment)GetValue(TextAlignmentProperty); }
-            set { SetValue(TextAlignmentProperty, value); }
+            get { return (TextAlignment)this.GetValue(TextAlignmentProperty); }
+            set { this.SetValue(TextAlignmentProperty, value); }
         }
 
         /// <summary>
@@ -204,8 +206,8 @@ namespace Fluent
         /// </summary>
         public TextDecorationCollection TextDecorations
         {
-            get { return (TextDecorationCollection)GetValue(TextDecorationsProperty); }
-            set { SetValue(TextDecorationsProperty, value); }
+            get { return (TextDecorationCollection)this.GetValue(TextDecorationsProperty); }
+            set { this.SetValue(TextDecorationsProperty, value); }
         }
 
         /// <summary>
@@ -225,8 +227,8 @@ namespace Fluent
         /// </summary>
         public bool IsUndoEnabled
         {
-            get { return (bool)GetValue(IsUndoEnabledProperty); }
-            set { SetValue(IsUndoEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsUndoEnabledProperty); }
+            set { this.SetValue(IsUndoEnabledProperty, value); }
         }
 
         /// <summary>
@@ -246,8 +248,8 @@ namespace Fluent
         /// </summary>
         public int UndoLimit
         {
-            get { return (int)GetValue(UndoLimitProperty); }
-            set { SetValue(UndoLimitProperty, value); }
+            get { return (int)this.GetValue(UndoLimitProperty); }
+            set { this.SetValue(UndoLimitProperty, value); }
         }
 
         /// <summary>
@@ -266,8 +268,8 @@ namespace Fluent
         /// </summary>
         public bool AutoWordSelection
         {
-            get { return (bool)GetValue(AutoWordSelectionProperty); }
-            set { SetValue(AutoWordSelectionProperty, value); }
+            get { return (bool)this.GetValue(AutoWordSelectionProperty); }
+            set { this.SetValue(AutoWordSelectionProperty, value); }
         }
 
         /// <summary>
@@ -286,8 +288,8 @@ namespace Fluent
         /// </summary>
         public Brush SelectionBrush
         {
-            get { return (Brush)GetValue(SelectionBrushProperty); }
-            set { SetValue(SelectionBrushProperty, value); }
+            get { return (Brush)this.GetValue(SelectionBrushProperty); }
+            set { this.SetValue(SelectionBrushProperty, value); }
         }
 
         /// <summary>
@@ -307,8 +309,8 @@ namespace Fluent
         /// </summary>
         public double SelectionOpacity
         {
-            get { return (double)GetValue(SelectionOpacityProperty); }
-            set { SetValue(SelectionOpacityProperty, value); }
+            get { return (double)this.GetValue(SelectionOpacityProperty); }
+            set { this.SetValue(SelectionOpacityProperty, value); }
         }
 
         /// <summary>
@@ -328,8 +330,8 @@ namespace Fluent
         /// </summary>
         public Brush CaretBrush
         {
-            get { return (Brush)GetValue(CaretBrushProperty); }
-            set { SetValue(CaretBrushProperty, value); }
+            get { return (Brush)this.GetValue(CaretBrushProperty); }
+            set { this.SetValue(CaretBrushProperty, value); }
         }
 
         /// <summary>
@@ -351,11 +353,13 @@ namespace Fluent
         /// </summary>
         public int SelectionStart
         {
-            get { return textBox.SelectionStart; }
+            get { return this.textBox.SelectionStart; }
             set
             {
-                if (textBoxTemplated != null) textBoxTemplated.SelectionStart = value;
-                else textBox.SelectionStart = value;
+                if (this.textBoxTemplated != null)
+                    this.textBoxTemplated.SelectionStart = value;
+                else
+                    this.textBox.SelectionStart = value;
             }
         }
 
@@ -364,11 +368,13 @@ namespace Fluent
         /// </summary>
         public int SelectionLength
         {
-            get { return textBox.SelectionLength; }
+            get { return this.textBox.SelectionLength; }
             set
             {
-                if (textBoxTemplated != null) textBoxTemplated.SelectionLength = value;
-                else textBox.SelectionLength = value;
+                if (this.textBoxTemplated != null)
+                    this.textBoxTemplated.SelectionLength = value;
+                else
+                    this.textBox.SelectionLength = value;
             }
         }
 
@@ -377,11 +383,13 @@ namespace Fluent
         /// </summary>
         public string SelectedText
         {
-            get { return textBox.SelectedText; }
+            get { return this.textBox.SelectedText; }
             set
             {
-                if (textBoxTemplated != null) textBoxTemplated.SelectedText = value;
-                else textBox.SelectedText = value;
+                if (this.textBoxTemplated != null)
+                    this.textBoxTemplated.SelectedText = value;
+                else
+                    this.textBox.SelectedText = value;
             }
         }
 
@@ -390,7 +398,7 @@ namespace Fluent
         /// </summary>
         public bool CanUndo
         {
-            get { return textBoxTemplated == null ? false : textBoxTemplated.CanUndo; }
+            get { return this.textBoxTemplated == null ? false : this.textBoxTemplated.CanUndo; }
         }
 
         /// <summary>
@@ -398,7 +406,7 @@ namespace Fluent
         /// </summary>
         public bool CanRedo
         {
-            get { return textBoxTemplated == null ? false : textBoxTemplated.CanRedo; }
+            get { return this.textBoxTemplated == null ? false : this.textBoxTemplated.CanRedo; }
         }
 
         #endregion
@@ -431,27 +439,27 @@ namespace Fluent
         /// </summary>
         public TextBox()
         {
-            Focusable = true;
-            textBox.SelectionChanged += (s, e) => RaiseSelectionChanged();
-            textBox.TextChanged += (s, e) => RaiseTextChanged(e);
+            this.Focusable = true;
+            this.textBox.SelectionChanged += (s, e) => this.RaiseSelectionChanged();
+            this.textBox.TextChanged += (s, e) => this.RaiseTextChanged(e);
 
             Binding binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
-            textBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
+            this.textBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
 
-            Bind(textBox, this, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
-            Bind(textBox, this, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "IsUndoEnabled", TextBoxBase.IsUndoEnabledProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "UndoLimit", TextBoxBase.UndoLimitProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "AutoWordSelection", TextBoxBase.AutoWordSelectionProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "SelectionBrush", TextBoxBase.SelectionBrushProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "SelectionOpacity", TextBoxBase.SelectionOpacityProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "CaretBrush", TextBoxBase.CaretBrushProperty, BindingMode.TwoWay);
+            Bind(this.textBox, this, "IsReadOnly", TextBoxBase.IsReadOnlyProperty, BindingMode.TwoWay);
         }
 
         #endregion
@@ -464,8 +472,10 @@ namespace Fluent
         /// <param name="text">Text</param>
         public void AppendText(string text)
         {
-            if (textBoxTemplated != null) textBoxTemplated.AppendText(text);
-            else textBox.AppendText(text);
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.AppendText(text);
+            else
+                this.textBox.AppendText(text);
         }
 
         /// <summary>
@@ -473,8 +483,10 @@ namespace Fluent
         /// </summary>
         public void Copy()
         {
-            if (textBoxTemplated != null) textBoxTemplated.Copy();
-            else textBox.Copy();
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.Copy();
+            else
+                this.textBox.Copy();
         }
 
         /// <summary>
@@ -482,8 +494,10 @@ namespace Fluent
         /// </summary>
         public void Cut()
         {
-            if (textBoxTemplated != null) textBoxTemplated.Cut();
-            else textBox.Cut();
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.Cut();
+            else
+                this.textBox.Cut();
         }
 
         /// <summary>
@@ -491,8 +505,10 @@ namespace Fluent
         /// </summary>
         public void Paste()
         {
-            if (textBoxTemplated != null) textBoxTemplated.Paste();
-            else textBox.Paste();
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.Paste();
+            else
+                this.textBox.Paste();
         }
 
         /// <summary>
@@ -501,7 +517,7 @@ namespace Fluent
         /// <returns></returns>
         public bool Undo()
         {
-            if (textBoxTemplated != null) return textBoxTemplated.Undo();
+            if (this.textBoxTemplated != null) return this.textBoxTemplated.Undo();
             return false;
         }
 
@@ -511,7 +527,7 @@ namespace Fluent
         /// <returns></returns>
         public bool Redo()
         {
-            if (textBoxTemplated != null) return textBoxTemplated.Redo();
+            if (this.textBoxTemplated != null) return this.textBoxTemplated.Redo();
             return false;
         }
 
@@ -520,8 +536,10 @@ namespace Fluent
         /// </summary>
         public void SelectAll()
         {
-            if (textBoxTemplated != null) textBoxTemplated.SelectAll();
-            else textBox.SelectAll();
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.SelectAll();
+            else
+                this.textBox.SelectAll();
         }
 
         /// <summary>
@@ -531,8 +549,10 @@ namespace Fluent
         /// <param name="length">Length</param>
         public void Select(int start, int length)
         {
-            if (textBoxTemplated != null) textBoxTemplated.Select(start, length);
-            else textBox.Select(start, length);
+            if (this.textBoxTemplated != null)
+                this.textBoxTemplated.Select(start, length);
+            else
+                this.textBox.Select(start, length);
         }
 
         #endregion
@@ -545,74 +565,75 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (textBoxTemplated != null)
+            if (this.textBoxTemplated != null)
             {
-                textBoxTemplated.PreviewKeyDown -= OnTextBoxTemplatedKeyDown;
-                textBoxTemplated.SelectionChanged -= OnTextBoxTemplatedSelectionChanged;
-                textBoxTemplated.LostFocus -= OnTextBoxTemplatedLostFocus;
-                textBoxTemplated.GotKeyboardFocus -= OnTextBoxTemplatedGotKeyboardFocus;
-                textBoxTemplated.TextChanged -= OnTextBoxTemplatedTextChanged;
-                BindingOperations.ClearAllBindings(textBoxTemplated);
+                this.textBoxTemplated.PreviewKeyDown -= this.OnTextBoxTemplatedKeyDown;
+                this.textBoxTemplated.SelectionChanged -= this.OnTextBoxTemplatedSelectionChanged;
+                this.textBoxTemplated.LostFocus -= this.OnTextBoxTemplatedLostFocus;
+                this.textBoxTemplated.GotKeyboardFocus -= this.OnTextBoxTemplatedGotKeyboardFocus;
+                this.textBoxTemplated.TextChanged -= this.OnTextBoxTemplatedTextChanged;
+                BindingOperations.ClearAllBindings(this.textBoxTemplated);
             }
-            textBoxTemplated = GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
+            this.textBoxTemplated = this.GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
 
 
             // Check template
-            if (!IsTemplateValid())
+            if (!this.IsTemplateValid())
             {
                 Debug.WriteLine("Template for TextBox control is invalid");
                 return;
             }
 
-            textBoxTemplated.Text = Text;
-            textBoxTemplated.Select(textBox.SelectionStart, textBox.SelectionLength);
+            this.textBoxTemplated.Text = this.Text;
+            this.textBoxTemplated.Select(this.textBox.SelectionStart, this.textBox.SelectionLength);
 
             // Bindings
-            BindingOperations.ClearAllBindings(textBox);
+            BindingOperations.ClearAllBindings(this.textBox);
 
             Binding binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
-            textBoxTemplated.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
+            this.textBoxTemplated.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
 
-            Bind(this, textBoxTemplated, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "IsUndoEnabled", System.Windows.Controls.TextBox.IsUndoEnabledProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "UndoLimit", System.Windows.Controls.TextBox.UndoLimitProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "AutoWordSelection", System.Windows.Controls.TextBox.AutoWordSelectionProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "SelectionBrush", System.Windows.Controls.TextBox.SelectionBrushProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "SelectionOpacity", System.Windows.Controls.TextBox.SelectionOpacityProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "CaretBrush", System.Windows.Controls.TextBox.CaretBrushProperty, BindingMode.TwoWay);
-            Bind(this, textBoxTemplated, "IsReadOnly", System.Windows.Controls.TextBox.IsReadOnlyProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "IsUndoEnabled", TextBoxBase.IsUndoEnabledProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "UndoLimit", TextBoxBase.UndoLimitProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "AutoWordSelection", TextBoxBase.AutoWordSelectionProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "SelectionBrush", TextBoxBase.SelectionBrushProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "SelectionOpacity", TextBoxBase.SelectionOpacityProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "CaretBrush", TextBoxBase.CaretBrushProperty, BindingMode.TwoWay);
+            Bind(this, this.textBoxTemplated, "IsReadOnly", TextBoxBase.IsReadOnlyProperty, BindingMode.TwoWay);
 
-            textBoxTemplated.PreviewKeyDown += OnTextBoxTemplatedKeyDown;
-            textBoxTemplated.SelectionChanged += OnTextBoxTemplatedSelectionChanged;
-            textBoxTemplated.LostFocus += OnTextBoxTemplatedLostFocus;
-            textBoxTemplated.GotKeyboardFocus += OnTextBoxTemplatedGotKeyboardFocus;
-            textBoxTemplated.TextChanged += OnTextBoxTemplatedTextChanged;
+            this.textBoxTemplated.PreviewKeyDown += this.OnTextBoxTemplatedKeyDown;
+            this.textBoxTemplated.SelectionChanged += this.OnTextBoxTemplatedSelectionChanged;
+            this.textBoxTemplated.LostFocus += this.OnTextBoxTemplatedLostFocus;
+            this.textBoxTemplated.GotKeyboardFocus += this.OnTextBoxTemplatedGotKeyboardFocus;
+            this.textBoxTemplated.TextChanged += this.OnTextBoxTemplatedTextChanged;
         }
 
         void OnTextBoxTemplatedTextChanged(object sender, TextChangedEventArgs e)
         {
-            RaiseTextChanged(e);
+            this.RaiseTextChanged(e);
         }
 
         void OnTextBoxTemplatedGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            textBoxContentWhenGotFocus = textBoxTemplated.Text;
+            this.textBoxContentWhenGotFocus = this.textBoxTemplated.Text;
         }
 
         void OnTextBoxTemplatedLostFocus(object sender, RoutedEventArgs e)
         {
-            if (textBoxContentWhenGotFocus != textBoxTemplated.Text) ExecuteCommand();
+            if (this.textBoxContentWhenGotFocus != this.textBoxTemplated.Text)
+                this.ExecuteCommand();
         }
 
         void OnTextBoxTemplatedSelectionChanged(object sender, RoutedEventArgs e)
         {
-            textBox.Select(textBoxTemplated.SelectionStart, textBoxTemplated.SelectionLength);
+            this.textBox.Select(this.textBoxTemplated.SelectionStart, this.textBoxTemplated.SelectionLength);
         }
 
         /// <summary>
@@ -620,15 +641,15 @@ namespace Fluent
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            if (!IsTemplateValid()) return;
+            if (!this.IsTemplateValid()) return;
 
             // Use dispatcher to avoid focus moving to backup'ed element 
             // (focused element before keytips processing)
-            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
                 (ThreadStart)(() =>
                 {
-                    textBoxTemplated.SelectAll();
-                    textBoxTemplated.Focus();
+                    this.textBoxTemplated.SelectAll();
+                    this.textBoxTemplated.Focus();
                 }));
         }
 
@@ -663,9 +684,9 @@ namespace Fluent
             if (e.Key == Key.Enter)
             {
                 // Move Focus
-                textBoxTemplated.Focusable = false;
-                Focus();
-                textBoxTemplated.Focusable = true;
+                this.textBoxTemplated.Focusable = false;
+                this.Focus();
+                this.textBoxTemplated.Focusable = true;
             }
         }
 
@@ -675,7 +696,7 @@ namespace Fluent
 
         bool IsTemplateValid()
         {
-            return textBoxTemplated != null;
+            return this.textBoxTemplated != null;
         }
 
         #endregion
@@ -692,7 +713,7 @@ namespace Fluent
         {
             TextBox textBox = new TextBox();
 
-            BindQuickAccessItem(textBox);
+            this.BindQuickAccessItem(textBox);
 
 
             return textBox;
@@ -709,8 +730,8 @@ namespace Fluent
 
             TextBox textBoxQAT = (TextBox)element;
 
-            textBoxQAT.Width = Width;
-            textBoxQAT.InputWidth = InputWidth;
+            textBoxQAT.Width = this.Width;
+            textBoxQAT.InputWidth = this.InputWidth;
 
             Bind(this, textBoxQAT, "Text", TextProperty, BindingMode.TwoWay);
             Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);

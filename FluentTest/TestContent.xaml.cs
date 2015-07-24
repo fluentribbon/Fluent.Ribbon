@@ -39,7 +39,7 @@
             this.buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
-            this.PreviewMouseWheel += OnPreviewMouseWheel;
+            this.PreviewMouseWheel += this.OnPreviewMouseWheel;
         }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)

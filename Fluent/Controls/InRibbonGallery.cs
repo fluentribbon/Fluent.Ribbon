@@ -86,8 +86,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -143,8 +143,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -162,8 +162,8 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -180,8 +180,8 @@ namespace Fluent
         /// </summary>
         public int MinItemsInDropDownRow
         {
-            get { return (int)GetValue(MinItemsInDropDownRowProperty); }
-            set { SetValue(MinItemsInDropDownRowProperty, value); }
+            get { return (int)this.GetValue(MinItemsInDropDownRowProperty); }
+            set { this.SetValue(MinItemsInDropDownRowProperty, value); }
         }
 
         /// <summary>
@@ -199,8 +199,8 @@ namespace Fluent
         /// </summary>
         public int MaxItemsInDropDownRow
         {
-            get { return (int)GetValue(MaxItemsInDropDownRowProperty); }
-            set { SetValue(MaxItemsInDropDownRowProperty, value); }
+            get { return (int)this.GetValue(MaxItemsInDropDownRowProperty); }
+            set { this.SetValue(MaxItemsInDropDownRowProperty, value); }
         }
 
         /// <summary>
@@ -218,8 +218,8 @@ namespace Fluent
         /// </summary>
         public double ItemWidth
         {
-            get { return (double)GetValue(ItemWidthProperty); }
-            set { SetValue(ItemWidthProperty, value); }
+            get { return (double)this.GetValue(ItemWidthProperty); }
+            set { this.SetValue(ItemWidthProperty, value); }
         }
 
         /// <summary>
@@ -233,8 +233,8 @@ namespace Fluent
         /// </summary>
         public double ItemHeight
         {
-            get { return (double)GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
+            get { return (double)this.GetValue(ItemHeightProperty); }
+            set { this.SetValue(ItemHeightProperty, value); }
         }
 
         /// <summary>
@@ -253,8 +253,8 @@ namespace Fluent
         /// </summary>
         public string GroupBy
         {
-            get { return (string)GetValue(GroupByProperty); }
-            set { SetValue(GroupByProperty, value); }
+            get { return (string)this.GetValue(GroupByProperty); }
+            set { this.SetValue(GroupByProperty, value); }
         }
 
         /// <summary>
@@ -274,8 +274,8 @@ namespace Fluent
         /// </summary>
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get { return (Orientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
         }
 
         /// <summary>
@@ -295,45 +295,45 @@ namespace Fluent
         {
             get
             {
-                if (filters == null)
+                if (this.filters == null)
                 {
-                    filters = new ObservableCollection<GalleryGroupFilter>();
-                    filters.CollectionChanged += OnFilterCollectionChanged;
+                    this.filters = new ObservableCollection<GalleryGroupFilter>();
+                    this.filters.CollectionChanged += this.OnFilterCollectionChanged;
                 }
-                return filters;
+                return this.filters;
             }
         }
 
         // Handle toolbar items changes
         private void OnFilterCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            HasFilter = Filters.Count > 0;
-            InvalidateProperty(SelectedFilterProperty);
+            this.HasFilter = this.Filters.Count > 0;
+            this.InvalidateProperty(SelectedFilterProperty);
 
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
                             GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
                             menuItem.IsDefinitive = false;
-                            if (filter == SelectedFilter) menuItem.IsChecked = true;
-                            menuItem.Click += OnFilterMenuItemClick;
-                            groupsMenuButton.Items.Add(menuItem);
+                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            menuItem.Click += this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
+                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item));
                         }
                     }
                     break;
@@ -341,31 +341,31 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item));
+                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item));
                         }
                     }
                     foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
                             GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
                             menuItem.IsDefinitive = false;
-                            if (filter == SelectedFilter) menuItem.IsChecked = true;
-                            menuItem.Click += OnFilterMenuItemClick;
-                            groupsMenuButton.Items.Add(menuItem);
+                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            menuItem.Click += this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
                     break;
                 case NotifyCollectionChangedAction.Reset:
 
-                    if (groupsMenuButton != null)
+                    if (this.groupsMenuButton != null)
                     {
-                        groupsMenuButton.Items.Clear();
+                        this.groupsMenuButton.Items.Clear();
                     }
 
                     break;
@@ -377,8 +377,8 @@ namespace Fluent
         /// </summary>               
         public GalleryGroupFilter SelectedFilter
         {
-            get { return (GalleryGroupFilter)GetValue(SelectedFilterProperty); }
-            set { SetValue(SelectedFilterProperty, value); }
+            get { return (GalleryGroupFilter)this.GetValue(SelectedFilterProperty); }
+            set { this.SetValue(SelectedFilterProperty, value); }
         }
 
         /// <summary>
@@ -428,8 +428,8 @@ namespace Fluent
         /// </summary>
         public string SelectedFilterTitle
         {
-            get { return (string)GetValue(SelectedFilterTitleProperty); }
-            private set { SetValue(SelectedFilterTitlePropertyKey, value); }
+            get { return (string)this.GetValue(SelectedFilterTitleProperty); }
+            private set { this.SetValue(SelectedFilterTitlePropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
@@ -447,8 +447,8 @@ namespace Fluent
         /// </summary>
         public string SelectedFilterGroups
         {
-            get { return (string)GetValue(SelectedFilterGroupsProperty); }
-            private set { SetValue(SelectedFilterGroupsPropertyKey, value); }
+            get { return (string)this.GetValue(SelectedFilterGroupsProperty); }
+            private set { this.SetValue(SelectedFilterGroupsPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
@@ -466,8 +466,8 @@ namespace Fluent
         /// </summary>       
         public bool HasFilter
         {
-            get { return (bool)GetValue(HasFilterProperty); }
-            private set { SetValue(HasFilterPropertyKey, value); }
+            get { return (bool)this.GetValue(HasFilterProperty); }
+            private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly("HasFilter", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
@@ -481,19 +481,19 @@ namespace Fluent
         void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
         {
             MenuItem senderItem = (MenuItem)sender;
-            MenuItem item = GetFilterMenuItem(SelectedFilter);
+            MenuItem item = this.GetFilterMenuItem(this.SelectedFilter);
             item.IsChecked = false;
             senderItem.IsChecked = true;
-            SelectedFilter = senderItem.Tag as GalleryGroupFilter;
-            groupsMenuButton.IsDropDownOpen = false;
+            this.SelectedFilter = senderItem.Tag as GalleryGroupFilter;
+            this.groupsMenuButton.IsDropDownOpen = false;
             e.Handled = true;
         }
 
         MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
         {
             if (filter == null) return null;
-            if (groupsMenuButton == null) return null;
-            return groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
+            if (this.groupsMenuButton == null) return null;
+            return this.groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
         }
 
         #endregion
@@ -505,8 +505,8 @@ namespace Fluent
         /// </summary>
         public bool Selectable
         {
-            get { return (bool)GetValue(SelectableProperty); }
-            set { SetValue(SelectableProperty, value); }
+            get { return (bool)this.GetValue(SelectableProperty); }
+            set { this.SetValue(SelectableProperty, value); }
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace Fluent
         /// </summary>
         public Popup DropDownPopup
         {
-            get { return popup; }
+            get { return this.popup; }
         }
 
         /// <summary>
@@ -544,8 +544,8 @@ namespace Fluent
         /// </summary>
         public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsDropDownOpenProperty); }
-            set { SetValue(IsDropDownOpenProperty, value); }
+            get { return (bool)this.GetValue(IsDropDownOpenProperty); }
+            set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
@@ -565,8 +565,8 @@ namespace Fluent
         /// </summary>
         public ContextMenuResizeMode ResizeMode
         {
-            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
-            set { SetValue(ResizeModeProperty, value); }
+            get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
+            set { this.SetValue(ResizeModeProperty, value); }
         }
 
         /// <summary>
@@ -584,8 +584,8 @@ namespace Fluent
         /// </summary>
         public bool CanCollapseToButton
         {
-            get { return (bool)GetValue(CanCollapseToButtonProperty); }
-            set { SetValue(CanCollapseToButtonProperty, value); }
+            get { return (bool)this.GetValue(CanCollapseToButtonProperty); }
+            set { this.SetValue(CanCollapseToButtonProperty, value); }
         }
 
         /// <summary>
@@ -603,8 +603,8 @@ namespace Fluent
         /// </summary>
         public bool IsCollapsed
         {
-            get { return (bool)GetValue(IsCollapsedProperty); }
-            set { SetValue(IsCollapsedProperty, value); }
+            get { return (bool)this.GetValue(IsCollapsedProperty); }
+            set { this.SetValue(IsCollapsedProperty, value); }
         }
 
         /// <summary>
@@ -622,8 +622,8 @@ namespace Fluent
         /// </summary>
         public ImageSource LargeIcon
         {
-            get { return (ImageSource)GetValue(LargeIconProperty); }
-            set { SetValue(LargeIconProperty, value); }
+            get { return (ImageSource)this.GetValue(LargeIconProperty); }
+            set { this.SetValue(LargeIconProperty, value); }
         }
 
         /// <summary>
@@ -644,39 +644,39 @@ namespace Fluent
         {
             get
             {
-                return isSnapped;
+                return this.isSnapped;
             }
             set
             {
-                if (value == isSnapped) return;
-                if (IsCollapsed) return;
+                if (value == this.isSnapped) return;
+                if (this.IsCollapsed) return;
 
-                if (!IsVisible) return;
+                if (!this.IsVisible) return;
 
-                if ((value) && (((int)ActualWidth > 0) && ((int)ActualHeight > 0)))
+                if ((value) && (((int)this.ActualWidth > 0) && ((int)this.ActualHeight > 0)))
                 {
 
                     // Render the freezed image
-                    RenderOptions.SetBitmapScalingMode(snappedImage, BitmapScalingMode.NearestNeighbor);
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)galleryPanel.ActualWidth,
-                                                                                   (int)galleryPanel.ActualHeight, 96, 96,
+                    RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
+                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)this.galleryPanel.ActualWidth,
+                                                                                   (int)this.galleryPanel.ActualHeight, 96, 96,
                                                                                    PixelFormats.Pbgra32);
-                    renderTargetBitmap.Render(galleryPanel);
-                    snappedImage.Source = renderTargetBitmap;
-                    snappedImage.FlowDirection = FlowDirection;
-                    snappedImage.Width = galleryPanel.ActualWidth;
-                    snappedImage.Height = galleryPanel.ActualHeight;
-                    snappedImage.Visibility = Visibility.Visible;
-                    isSnapped = value;
+                    renderTargetBitmap.Render(this.galleryPanel);
+                    this.snappedImage.Source = renderTargetBitmap;
+                    this.snappedImage.FlowDirection = this.FlowDirection;
+                    this.snappedImage.Width = this.galleryPanel.ActualWidth;
+                    this.snappedImage.Height = this.galleryPanel.ActualHeight;
+                    this.snappedImage.Visibility = Visibility.Visible;
+                    this.isSnapped = value;
                 }
                 else
                 {
-                    snappedImage.Visibility = Visibility.Collapsed;
-                    isSnapped = value;
-                    InvalidateVisual();
+                    this.snappedImage.Visibility = Visibility.Collapsed;
+                    this.isSnapped = value;
+                    this.InvalidateVisual();
                 }
 
-                InvalidateVisual();
+                this.InvalidateVisual();
             }
         }
 
@@ -689,8 +689,8 @@ namespace Fluent
         /// </summary>
         public RibbonMenu Menu
         {
-            get { return (RibbonMenu)GetValue(MenuProperty); }
-            set { SetValue(MenuProperty, value); }
+            get { return (RibbonMenu)this.GetValue(MenuProperty); }
+            set { this.SetValue(MenuProperty, value); }
         }
 
         /// <summary>
@@ -708,8 +708,8 @@ namespace Fluent
         /// </summary>
         public int MaxItemsInRow
         {
-            get { return (int)GetValue(MaxItemsInRowProperty); }
-            set { SetValue(MaxItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MaxItemsInRowProperty); }
+            set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -724,8 +724,8 @@ namespace Fluent
         /// </summary>
         public int MinItemsInRow
         {
-            get { return (int)GetValue(MinItemsInRowProperty); }
-            set { SetValue(MinItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MinItemsInRowProperty); }
+            set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -755,8 +755,8 @@ namespace Fluent
         /// </summary>
         public double MaxDropDownHeight
         {
-            get { return (double)GetValue(MaxDropDownHeightProperty); }
-            set { SetValue(MaxDropDownHeightProperty, value); }
+            get { return (double)this.GetValue(MaxDropDownHeightProperty); }
+            set { this.SetValue(MaxDropDownHeightProperty, value); }
         }
 
         /// <summary>
@@ -774,8 +774,8 @@ namespace Fluent
         /// </summary>
         public double MaxDropDownWidth
         {
-            get { return (double)GetValue(MaxDropDownWidthProperty); }
-            set { SetValue(MaxDropDownWidthProperty, value); }
+            get { return (double)this.GetValue(MaxDropDownWidthProperty); }
+            set { this.SetValue(MaxDropDownWidthProperty, value); }
         }
 
         /// <summary>
@@ -793,8 +793,8 @@ namespace Fluent
         /// </summary>
         public double DropDownHeight
         {
-            get { return (double)GetValue(DropDownHeightProperty); }
-            set { SetValue(DropDownHeightProperty, value); }
+            get { return (double)this.GetValue(DropDownHeightProperty); }
+            set { this.SetValue(DropDownHeightProperty, value); }
         }
 
         /// <summary>
@@ -812,8 +812,8 @@ namespace Fluent
         /// </summary>
         public double DropDownWidth
         {
-            get { return (double)GetValue(DropDownWidthProperty); }
-            set { SetValue(DropDownWidthProperty, value); }
+            get { return (double)this.GetValue(DropDownWidthProperty); }
+            set { this.SetValue(DropDownWidthProperty, value); }
         }
 
         /// <summary>
@@ -831,8 +831,8 @@ namespace Fluent
         /// </summary>
         public bool ShowPopupOnTop
         {
-            get { return (bool)GetValue(ShowPopupOnTopProperty); }
-            private set { SetValue(ShowPopupOnTopPropertyKey, value); }
+            get { return (bool)this.GetValue(ShowPopupOnTopProperty); }
+            private set { this.SetValue(ShowPopupOnTopPropertyKey, value); }
         }
 
         // 
@@ -924,7 +924,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            IsDropDownOpen = true;
+            this.IsDropDownOpen = true;
         }
 
         /// <summary>
@@ -943,13 +943,13 @@ namespace Fluent
         {
             foreach (var item in e.RemovedItems)
             {
-                GalleryItem itemContainer = (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
+                GalleryItem itemContainer = (this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
                 if (itemContainer != null) itemContainer.IsSelected = false;
             }
 
             foreach (var item in e.AddedItems)
             {
-                GalleryItem itemContainer = (ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
+                GalleryItem itemContainer = (this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
                 if (itemContainer != null) itemContainer.IsSelected = true;
             }
             //if (IsDropDownOpen) IsDropDownOpen = false;
@@ -962,73 +962,78 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (expandButton != null) expandButton.Click -= OnExpandClick;
-            expandButton = GetTemplateChild("PART_ExpandButton") as ToggleButton;
-            if (expandButton != null) expandButton.Click += OnExpandClick;
+            if (this.expandButton != null)
+                this.expandButton.Click -= this.OnExpandClick;
+            this.expandButton = this.GetTemplateChild("PART_ExpandButton") as ToggleButton;
+            if (this.expandButton != null)
+                this.expandButton.Click += this.OnExpandClick;
 
-            if (dropDownButton != null) dropDownButton.Click -= OnDropDownClick;
-            dropDownButton = GetTemplateChild("PART_DropDownButton") as ToggleButton;
-            if (dropDownButton != null) dropDownButton.Click += OnDropDownClick;
+            if (this.dropDownButton != null)
+                this.dropDownButton.Click -= this.OnDropDownClick;
+            this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
+            if (this.dropDownButton != null)
+                this.dropDownButton.Click += this.OnDropDownClick;
 
-            if (popup != null)
+            if (this.popup != null)
             {
-                popup.Opened -= OnDropDownOpened;
-                popup.Closed -= OnDropDownClosed;
+                this.popup.Opened -= this.OnDropDownOpened;
+                this.popup.Closed -= this.OnDropDownClosed;
 
-                popup.PreviewMouseLeftButtonUp -= OnPopupPreviewMouseUp;
-                popup.PreviewMouseLeftButtonDown -= OnPopupPreviewMouseDown;
+                this.popup.PreviewMouseLeftButtonUp -= this.OnPopupPreviewMouseUp;
+                this.popup.PreviewMouseLeftButtonDown -= this.OnPopupPreviewMouseDown;
             }
 
-            popup = GetTemplateChild("PART_Popup") as Popup;
+            this.popup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (popup != null)
+            if (this.popup != null)
             {
-                popup.Opened += OnDropDownOpened;
-                popup.Closed += OnDropDownClosed;
+                this.popup.Opened += this.OnDropDownOpened;
+                this.popup.Closed += this.OnDropDownClosed;
 
-                popup.PreviewMouseLeftButtonUp += OnPopupPreviewMouseUp;
-                popup.PreviewMouseLeftButtonDown += OnPopupPreviewMouseDown;
+                this.popup.PreviewMouseLeftButtonUp += this.OnPopupPreviewMouseUp;
+                this.popup.PreviewMouseLeftButtonDown += this.OnPopupPreviewMouseDown;
 
-                KeyboardNavigation.SetControlTabNavigation(popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetDirectionalNavigation(popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetTabNavigation(popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetControlTabNavigation(this.popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetDirectionalNavigation(this.popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(this.popup, KeyboardNavigationMode.Cycle);
             }
 
-            if (resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb != null)
             {
-                resizeVerticalThumb.DragDelta -= OnResizeVerticalDelta;
+                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
-            resizeVerticalThumb = GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (resizeVerticalThumb != null)
+            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+            if (this.resizeVerticalThumb != null)
             {
-                resizeVerticalThumb.DragDelta += OnResizeVerticalDelta;
-            }
-
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta -= OnResizeBothDelta;
-            }
-            resizeBothThumb = GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (resizeBothThumb != null)
-            {
-                resizeBothThumb.DragDelta += OnResizeBothDelta;
+                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            menuPanel = GetTemplateChild("PART_MenuPanel") as Panel;
-
-            if (groupsMenuButton != null) groupsMenuButton.Items.Clear();
-            groupsMenuButton = GetTemplateChild("PART_FilterDropDownButton") as DropDownButton;
-            if (groupsMenuButton != null)
+            if (this.resizeBothThumb != null)
             {
-                for (int i = 0; i < Filters.Count; i++)
+                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
+            }
+            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+            if (this.resizeBothThumb != null)
+            {
+                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
+            }
+
+            this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
+
+            if (this.groupsMenuButton != null)
+                this.groupsMenuButton.Items.Clear();
+            this.groupsMenuButton = this.GetTemplateChild("PART_FilterDropDownButton") as DropDownButton;
+            if (this.groupsMenuButton != null)
+            {
+                for (int i = 0; i < this.Filters.Count; i++)
                 {
                     MenuItem item = new MenuItem();
-                    item.Header = Filters[i].Title;
-                    item.Tag = Filters[i];
+                    item.Header = this.Filters[i].Title;
+                    item.Tag = this.Filters[i];
                     item.IsDefinitive = false;
-                    if (Filters[i] == SelectedFilter) item.IsChecked = true;
-                    item.Click += OnFilterMenuItemClick;
-                    groupsMenuButton.Items.Add(item);
+                    if (this.Filters[i] == this.SelectedFilter) item.IsChecked = true;
+                    item.Click += this.OnFilterMenuItemClick;
+                    this.groupsMenuButton.Items.Add(item);
                 }
             }
 
@@ -1040,69 +1045,71 @@ namespace Fluent
 				this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
             }
 
-            snappedImage = GetTemplateChild("PART_FakeImage") as Image;
+            this.snappedImage = this.GetTemplateChild("PART_FakeImage") as Image;
 
-            controlPresenter = GetTemplateChild("PART_ContentPresenter") as ContentControl;
-            popupControlPresenter = GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
+            this.controlPresenter = this.GetTemplateChild("PART_ContentPresenter") as ContentControl;
+            this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
-            scrollViewer = GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+            this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             // Ignore mouse up when mouse donw is on expand button
-            if (isButtonClicked)
+            if (this.isButtonClicked)
             {
-                isButtonClicked = false;
+                this.isButtonClicked = false;
                 e.Handled = true;
             }
         }
 
         private void OnPopupPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            isButtonClicked = false;
+            this.isButtonClicked = false;
         }
 
         private void OnExpandClick(object sender, RoutedEventArgs e)
         {
-            isButtonClicked = true;
+            this.isButtonClicked = true;
         }
 
         private void OnDropDownClick(object sender, RoutedEventArgs e)
         {
-            if (canOpenDropDown) IsDropDownOpen = true;
+            if (this.canOpenDropDown)
+                this.IsDropDownOpen = true;
         }
 
         // Handles drop down opened
         void OnDropDownClosed(object sender, EventArgs e)
         {
-            galleryPanel.Width = Double.NaN;
-            galleryPanel.IsGrouped = false;
-            galleryPanel.MinItemsInRow = this.MinItemsInRow;
-            galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-            galleryPanel.UpdateMinAndMaxWidth();
-            
-            popupControlPresenter.Content = null;
-            controlPresenter.Content = galleryPanel;
-            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+            this.galleryPanel.Width = Double.NaN;
+            this.galleryPanel.IsGrouped = false;
+            this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+            this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            this.galleryPanel.UpdateMinAndMaxWidth();
+
+            this.popupControlPresenter.Content = null;
+            this.controlPresenter.Content = this.galleryPanel;
+            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
             {
-                if ((quickAccessGallery == null) || ((quickAccessGallery != null) && (!quickAccessGallery.IsDropDownOpen)))
+                if ((this.quickAccessGallery == null) || ((this.quickAccessGallery != null) && (!this.quickAccessGallery.IsDropDownOpen)))
                 {
-                    IsSnapped = false;
+                    this.IsSnapped = false;
                 }
             }));
 
             //snappedImage.Visibility = Visibility.Collapsed;            
-            if (DropDownClosed != null) DropDownClosed(this, e);
+            if (this.DropDownClosed != null)
+                this.DropDownClosed(this, e);
             if (Mouse.Captured == this) Mouse.Capture(null);
-            Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
                                                                                {
-                                                                                   GalleryItem selectedContainer = ItemContainerGenerator.ContainerFromItem(SelectedItem) as GalleryItem;
+                                                                                   GalleryItem selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
                                                                                    if (selectedContainer != null) selectedContainer.BringIntoView();
 
                                                                                }));
-            dropDownButton.IsChecked = false;
-            canOpenDropDown = true;
+            this.dropDownButton.IsChecked = false;
+            this.canOpenDropDown = true;
         }
 
         // Handles drop down closed
@@ -1257,8 +1264,8 @@ namespace Fluent
 
         private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            focusedElement.LostKeyboardFocus -= OnFocusedElementLostKeyboardFocus;
-            focusedElement.PreviewKeyDown -= OnFocusedElementPreviewKeyDown;
+            this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            this.focusedElement.PreviewKeyDown -= this.OnFocusedElementPreviewKeyDown;
         }
 
         #endregion
@@ -1311,12 +1318,12 @@ namespace Fluent
         {
             var gallery = new InRibbonGallery();
             RibbonControl.BindQuickAccessItem(this, gallery);
-            RibbonControl.Bind(this, gallery, "GroupBy", InRibbonGallery.GroupByProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, gallery, "ItemHeight", InRibbonGallery.ItemHeightProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, gallery, "ItemWidth", InRibbonGallery.ItemWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, gallery, "ResizeMode", InRibbonGallery.ResizeModeProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, gallery, "MinItemsInDropDownRow", InRibbonGallery.MinItemsInDropDownRowProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, gallery, "MaxItemsInDropDownRow", InRibbonGallery.MaxItemsInDropDownRowProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "GroupBy", GroupByProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemHeight", ItemHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ItemWidth", ItemWidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "ResizeMode", ResizeModeProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "MinItemsInDropDownRow", MinItemsInDropDownRowProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, gallery, "MaxItemsInDropDownRow", MaxItemsInDropDownRowProperty, BindingMode.OneWay);
 
             RibbonControl.Bind(this, gallery, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
@@ -1328,12 +1335,12 @@ namespace Fluent
             RibbonControl.Bind(this, gallery, "MaxDropDownWidth", MaxDropDownWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
-            gallery.DropDownOpened += OnQuickAccessOpened;
-            if (DropDownClosed != null) gallery.DropDownClosed += DropDownClosed;
-            if (DropDownOpened != null) gallery.DropDownOpened += DropDownOpened;
+            gallery.DropDownOpened += this.OnQuickAccessOpened;
+            if (this.DropDownClosed != null) gallery.DropDownClosed += this.DropDownClosed;
+            if (this.DropDownOpened != null) gallery.DropDownOpened += this.DropDownOpened;
 
             RibbonProperties.SetSize(gallery, RibbonControlSize.Small);
-            quickAccessGallery = gallery;
+            this.quickAccessGallery = gallery;
             return gallery;
         }
 
@@ -1343,57 +1350,58 @@ namespace Fluent
         void OnQuickAccessOpened(object sender, EventArgs e)
         {
 
-            for (int i = 0; i < Filters.Count; i++) quickAccessGallery.Filters.Add(Filters[i]);
-            quickAccessGallery.SelectedFilter = SelectedFilter;
-            quickAccessGallery.DropDownClosed += OnQuickAccessMenuClosed;
-            UpdateLayout();
-            Dispatcher.BeginInvoke(DispatcherPriority.Render, ((ThreadStart)(() =>
+            for (int i = 0; i < this.Filters.Count; i++)
+                this.quickAccessGallery.Filters.Add(this.Filters[i]);
+            this.quickAccessGallery.SelectedFilter = this.SelectedFilter;
+            this.quickAccessGallery.DropDownClosed += this.OnQuickAccessMenuClosed;
+            this.UpdateLayout();
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, ((ThreadStart)(() =>
                {
-                   Freeze();
+                   this.Freeze();
                }
                )));
         }
 
         void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
-            quickAccessGallery.DropDownClosed -= OnQuickAccessMenuClosed;
-            SelectedFilter = quickAccessGallery.SelectedFilter;
-            quickAccessGallery.Filters.Clear();
-            Unfreeze();
+            this.quickAccessGallery.DropDownClosed -= this.OnQuickAccessMenuClosed;
+            this.SelectedFilter = this.quickAccessGallery.SelectedFilter;
+            this.quickAccessGallery.Filters.Clear();
+            this.Unfreeze();
 
         }
 
         private void Freeze()
         {
-            IsSnapped = true;
-            selectedItem = SelectedItem;
-            SelectedItem = null;
-            if (ItemsSource != null)
+            this.IsSnapped = true;
+            this.selectedItem = this.SelectedItem;
+            this.SelectedItem = null;
+            if (this.ItemsSource != null)
             {
-                quickAccessGallery.ItemsSource = ItemsSource;
-                ItemsSource = null;
+                this.quickAccessGallery.ItemsSource = this.ItemsSource;
+                this.ItemsSource = null;
             }
             else
             {
 
-                for (int i = 0; i < Items.Count; i++)
+                for (int i = 0; i < this.Items.Count; i++)
                 {
-                    object item = Items[0];
-                    Items.Remove(item);
-                    quickAccessGallery.Items.Add(item);
+                    object item = this.Items[0];
+                    this.Items.Remove(item);
+                    this.quickAccessGallery.Items.Add(item);
                     i--;
                 }
 
             }
-            quickAccessGallery.SelectedItem = selectedItem;
-            quickAccessGallery.Menu = Menu;
-            Menu = null;
+            this.quickAccessGallery.SelectedItem = this.selectedItem;
+            this.quickAccessGallery.Menu = this.Menu;
+            this.Menu = null;
             //quickAccessGallery.IsSnapped = false;
         }
 
         private void Unfreeze()
         {
-            this.selectedItem = quickAccessGallery.SelectedItem;
+            this.selectedItem = this.quickAccessGallery.SelectedItem;
             //quickAccessGallery.IsSnapped = true;
             this.quickAccessGallery.SelectedItem = null;
 
@@ -1462,8 +1470,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>
@@ -1485,16 +1493,18 @@ namespace Fluent
             if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
 
             InvalidateMeasure();*/
-            if (IsCollapsed && (RibbonProperties.GetSize(this) == RibbonControlSize.Large)) IsCollapsed = false;
-            else if (galleryPanel.MinItemsInRow < MaxItemsInRow)
+            if (this.IsCollapsed && (RibbonProperties.GetSize(this) == RibbonControlSize.Large))
+                this.IsCollapsed = false;
+            else if (this.galleryPanel.MinItemsInRow < this.MaxItemsInRow)
             {
-                galleryPanel.MinItemsInRow++;
-                galleryPanel.MaxItemsInRow = galleryPanel.MinItemsInRow;
+                this.galleryPanel.MinItemsInRow++;
+                this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
             }
             else return;
-            InvalidateMeasure();
+            this.InvalidateMeasure();
             //UpdateLayout();
-            if (Scaled != null) Scaled(this, EventArgs.Empty);
+            if (this.Scaled != null)
+                this.Scaled(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -1502,15 +1512,17 @@ namespace Fluent
         /// </summary>
         public void Reduce()
         {
-            if (galleryPanel.MinItemsInRow > MinItemsInRow)
+            if (this.galleryPanel.MinItemsInRow > this.MinItemsInRow)
             {
-                galleryPanel.MinItemsInRow--;
-                galleryPanel.MaxItemsInRow = galleryPanel.MinItemsInRow;
+                this.galleryPanel.MinItemsInRow--;
+                this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
             }
-            else if (CanCollapseToButton && !IsCollapsed) IsCollapsed = true;
+            else if (this.CanCollapseToButton && !this.IsCollapsed)
+                this.IsCollapsed = true;
             else return;
-            InvalidateMeasure();
-            if (Scaled != null) Scaled(this, EventArgs.Empty);
+            this.InvalidateMeasure();
+            if (this.Scaled != null)
+                this.Scaled(this, EventArgs.Empty);
             /*currentItemsInRow--;
             if ((CanCollapseToButton) && (CurrentItemsInRow < MinItemsInRow)) IsCollapsed = true;
 

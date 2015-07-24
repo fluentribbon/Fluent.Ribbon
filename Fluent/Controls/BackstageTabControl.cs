@@ -42,11 +42,11 @@ namespace Fluent
         {
             get
             {
-                return base.GetValue(SelectedContentProperty);
+                return this.GetValue(SelectedContentProperty);
             }
             internal set
             {
-                base.SetValue(SelectedContentPropertyKey, value);
+                this.SetValue(SelectedContentPropertyKey, value);
             }
         }
 
@@ -93,11 +93,11 @@ namespace Fluent
         {
             get
             {
-                return (string)base.GetValue(ContentStringFormatProperty);
+                return (string)this.GetValue(ContentStringFormatProperty);
             }
             set
             {
-                base.SetValue(ContentStringFormatProperty, value);
+                this.SetValue(ContentStringFormatProperty, value);
             }
         }
 
@@ -108,11 +108,11 @@ namespace Fluent
         {
             get
             {
-                return (DataTemplate)base.GetValue(ContentTemplateProperty);
+                return (DataTemplate)this.GetValue(ContentTemplateProperty);
             }
             set
             {
-                base.SetValue(ContentTemplateProperty, value);
+                this.SetValue(ContentTemplateProperty, value);
             }
         }
 
@@ -123,11 +123,11 @@ namespace Fluent
         {
             get
             {
-                return (DataTemplateSelector)base.GetValue(ContentTemplateSelectorProperty);
+                return (DataTemplateSelector)this.GetValue(ContentTemplateSelectorProperty);
             }
             set
             {
-                base.SetValue(ContentTemplateSelectorProperty, value);
+                this.SetValue(ContentTemplateSelectorProperty, value);
             }
         }
 
@@ -138,11 +138,11 @@ namespace Fluent
         {
             get
             {
-                return (string)base.GetValue(SelectedContentStringFormatProperty);
+                return (string)this.GetValue(SelectedContentStringFormatProperty);
             }
             internal set
             {
-                base.SetValue(SelectedContentStringFormatPropertyKey, value);
+                this.SetValue(SelectedContentStringFormatPropertyKey, value);
             }
         }
 
@@ -154,11 +154,11 @@ namespace Fluent
         {
             get
             {
-                return (DataTemplate)base.GetValue(SelectedContentTemplateProperty);
+                return (DataTemplate)this.GetValue(SelectedContentTemplateProperty);
             }
             internal set
             {
-                base.SetValue(SelectedContentTemplatePropertyKey, value);
+                this.SetValue(SelectedContentTemplatePropertyKey, value);
             }
         }
 
@@ -170,11 +170,11 @@ namespace Fluent
         {
             get
             {
-                return (DataTemplateSelector)base.GetValue(SelectedContentTemplateSelectorProperty);
+                return (DataTemplateSelector)this.GetValue(SelectedContentTemplateSelectorProperty);
             }
             internal set
             {
-                base.SetValue(SelectedContentTemplateSelectorPropertyKey, value);
+                this.SetValue(SelectedContentTemplateSelectorPropertyKey, value);
             }
         }
 
@@ -185,8 +185,8 @@ namespace Fluent
         /// </summary>
         public Brush ItemsPanelBackground
         {
-            get { return (Brush)GetValue(ItemsPanelBackgroundProperty); }
-            set { SetValue(ItemsPanelBackgroundProperty, value); }
+            get { return (Brush)this.GetValue(ItemsPanelBackgroundProperty); }
+            set { this.SetValue(ItemsPanelBackgroundProperty, value); }
         }
 
         /// <summary>
@@ -232,13 +232,13 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             // Fixed incoreect menu showing
-            ContextMenu = new ContextMenu
+            this.ContextMenu = new ContextMenu
             {
                 Width = 0,
                 Height = 0,
                 HasDropShadow = false
             };
-            ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
+            this.ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
         }
 
         #endregion
@@ -254,7 +254,7 @@ namespace Fluent
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            base.ItemContainerGenerator.StatusChanged += OnGeneratorStatusChanged;
+            this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Fluent
             base.OnSelectionChanged(e);
             if (e.AddedItems.Count > 0)
             {
-                UpdateSelectedContent();
+                this.UpdateSelectedContent();
             }
             e.Handled = true;
         }
@@ -336,7 +336,7 @@ namespace Fluent
         // Gets selected ribbon tab item
         BackstageTabItem GetSelectedTabItem()
         {
-            object selectedItem = base.SelectedItem;
+            object selectedItem = this.SelectedItem;
             if (selectedItem == null)
             {
                 return null;
@@ -344,8 +344,8 @@ namespace Fluent
             BackstageTabItem item = selectedItem as BackstageTabItem;
             if (item == null)
             {
-                item = FindNextTabItem(base.SelectedIndex, 1);
-                base.SelectedItem = item;
+                item = this.FindNextTabItem(this.SelectedIndex, 1);
+                this.SelectedItem = item;
             }
             return item;
         }
@@ -356,18 +356,18 @@ namespace Fluent
             if (direction != 0)
             {
                 int index = startIndex;
-                for (int i = 0; i < base.Items.Count; i++)
+                for (int i = 0; i < this.Items.Count; i++)
                 {
                     index += direction;
-                    if (index >= base.Items.Count)
+                    if (index >= this.Items.Count)
                     {
                         index = 0;
                     }
                     else if (index < 0)
                     {
-                        index = base.Items.Count - 1;
+                        index = this.Items.Count - 1;
                     }
-                    BackstageTabItem item2 = base.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
+                    BackstageTabItem item2 = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
                     if (((item2 != null) && item2.IsEnabled) && (item2.Visibility == Visibility.Visible))
                     {
                         return item2;
@@ -380,7 +380,7 @@ namespace Fluent
         // Updates selected content
         private void UpdateSelectedContent()
         {
-            if (base.SelectedIndex < 0)
+            if (this.SelectedIndex < 0)
             {
 
                 this.SelectedContent = null;
@@ -404,7 +404,7 @@ namespace Fluent
                         this.SelectedContentStringFormat = this.ContentStringFormat;
                     }
 
-                    UpdateLayout();
+                    this.UpdateLayout();
                 }
             }
         }
@@ -416,11 +416,11 @@ namespace Fluent
         // Handles GeneratorStatusChange
         private void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
-            if (base.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {
-                if (base.HasItems && (base.SelectedIndex == -1))
+                if (this.HasItems && (this.SelectedIndex == -1))
                 {
-                    base.SelectedIndex = 0;
+                    this.SelectedIndex = 0;
                 }
                 this.UpdateSelectedContent();
             }
@@ -438,12 +438,12 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
+            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)OnPopupDismiss);
+            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
         }
 
         #endregion

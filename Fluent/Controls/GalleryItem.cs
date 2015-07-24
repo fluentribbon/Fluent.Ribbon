@@ -38,8 +38,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -56,8 +56,8 @@ namespace Fluent
         /// </summary>
         public bool IsPressed
         {
-            get { return (bool)GetValue(IsPressedProperty); }
-            private set { SetValue(IsPressedPropertyKey, value); }
+            get { return (bool)this.GetValue(IsPressedProperty); }
+            private set { this.SetValue(IsPressedPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
@@ -75,8 +75,8 @@ namespace Fluent
         /// </summary>
         public string Group
         {
-            get { return (string)GetValue(GroupProperty); }
-            set { SetValue(GroupProperty, value); }
+            get { return (string)this.GetValue(GroupProperty); }
+            set { this.SetValue(GroupProperty, value); }
         }
 
         /// <summary>
@@ -100,11 +100,11 @@ namespace Fluent
         {
             get
             {
-                return (ICommand)GetValue(CommandProperty);
+                return (ICommand)this.GetValue(CommandProperty);
             }
             set
             {
-                SetValue(CommandProperty, value);
+                this.SetValue(CommandProperty, value);
             }
         }
 
@@ -116,11 +116,11 @@ namespace Fluent
         {
             get
             {
-                return GetValue(CommandParameterProperty);
+                return this.GetValue(CommandParameterProperty);
             }
             set
             {
-                SetValue(CommandParameterProperty, value);
+                this.SetValue(CommandParameterProperty, value);
             }
         }
 
@@ -132,11 +132,11 @@ namespace Fluent
         {
             get
             {
-                return (IInputElement)GetValue(CommandTargetProperty);
+                return (IInputElement)this.GetValue(CommandTargetProperty);
             }
             set
             {
-                SetValue(CommandTargetProperty, value);
+                this.SetValue(CommandTargetProperty, value);
             }
         }
 
@@ -162,8 +162,8 @@ namespace Fluent
         [Bindable(true), Category("Action")]
         public ICommand PreviewCommand
         {
-            get { return (ICommand)GetValue(PreviewCommandProperty); }
-            set { SetValue(PreviewCommandProperty, value); }
+            get { return (ICommand)this.GetValue(PreviewCommandProperty); }
+            set { this.SetValue(PreviewCommandProperty, value); }
         }
 
         /// <summary>
@@ -179,8 +179,8 @@ namespace Fluent
         [Bindable(true), Category("Action")]
         public ICommand CancelPreviewCommand
         {
-            get { return (ICommand)GetValue(CancelPreviewCommandProperty); }
-            set { SetValue(CancelPreviewCommandProperty, value); }
+            get { return (ICommand)this.GetValue(CancelPreviewCommandProperty); }
+            set { this.SetValue(CancelPreviewCommandProperty, value); }
         }
 
         /// <summary>
@@ -223,17 +223,17 @@ namespace Fluent
         /// <param name="e"></param>
         private void OnCommandCanExecuteChanged(object sender, EventArgs e)
         {
-            UpdateCanExecute();
+            this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
         {
             var canExecute = this.Command != null 
                 && this.CanExecuteCommand();
-            if (currentCanExecute != canExecute)
+            if (this.currentCanExecute != canExecute)
             {
-                currentCanExecute = canExecute;
-                CoerceValue(IsEnabledProperty);
+                this.currentCanExecute = canExecute;
+                this.CoerceValue(IsEnabledProperty);
             }
         }
 
@@ -269,7 +269,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (currentCanExecute || Command == null));
+                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
             }
         }
 
@@ -289,11 +289,11 @@ namespace Fluent
         {
             add
             {
-                AddHandler(ClickEvent, value);
+                this.AddHandler(ClickEvent, value);
             }
             remove
             {
-                RemoveHandler(ClickEvent, value);
+                this.RemoveHandler(ClickEvent, value);
             }
         }
         /// <summary>
@@ -307,7 +307,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Design", "CA1030")]
         public void RaiseClick()
         {
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion
@@ -363,7 +363,7 @@ namespace Fluent
         /// </summary>
         public GalleryItem()
         {
-            Click += OnClick;
+            this.Click += this.OnClick;
         }
 
         #endregion
@@ -466,7 +466,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            RaiseClick();
+            this.RaiseClick();
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace Fluent.Metro.Native
 
         public override string ToString()
         {
-            return "MINMAXINFO { ptMaxPosition : " + ptMaxPosition + " / ptMaxSize : " + ptMaxSize + " }";
+            return "MINMAXINFO { ptMaxPosition : " + this.ptMaxPosition + " / ptMaxSize : " + this.ptMaxSize + " }";
         }
     };
 }

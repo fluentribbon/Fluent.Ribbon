@@ -162,72 +162,72 @@ namespace Fluent
             RibbonContextMenu.Opened += OnContextMenuOpened;
 
             // Add to quick access toolbar
-            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addToQuickAccessMenuItem, "RibbonContextMenuAddItem", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addToQuickAccessMenuItem, "RibbonContextMenuAddItem", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add group to quick access toolbar
-            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addGroupToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addGroupToQuickAccessMenuItem, "RibbonContextMenuAddGroup", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addGroupToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addGroupToQuickAccessMenuItem, "RibbonContextMenuAddGroup", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGroupToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add menu item to quick access toolbar
-            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addMenuToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addMenuToQuickAccessMenuItem, "RibbonContextMenuAddMenu", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addMenuToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addMenuToQuickAccessMenuItem, "RibbonContextMenuAddMenu", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addMenuToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add gallery to quick access toolbar
-            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addGalleryToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addGalleryToQuickAccessMenuItem, "RibbonContextMenuAddGallery", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addGalleryToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addGalleryToQuickAccessMenuItem, "RibbonContextMenuAddGallery", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGalleryToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Remove from quick access toolbar
-            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.RemoveFromQuickAccessCommand });
+            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = RemoveFromQuickAccessCommand });
             RibbonContextMenu.Items.Add(removeFromQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, removeFromQuickAccessMenuItem, "RibbonContextMenuRemoveItem", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, removeFromQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, removeFromQuickAccessMenuItem, "RibbonContextMenuRemoveItem", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, removeFromQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Separator
             firstSeparatorDictionary.Add(Thread.CurrentThread.ManagedThreadId, new Separator());
             RibbonContextMenu.Items.Add(firstSeparator);
 
             // Customize quick access toolbar
-            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeQuickAccessToolbarCommand });
+            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeQuickAccessToolbarCommand });
             RibbonContextMenu.Items.Add(customizeQuickAccessToolbarMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, customizeQuickAccessToolbarMenuItem, "RibbonContextMenuCustomizeQuickAccessToolBar", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, customizeQuickAccessToolbarMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, customizeQuickAccessToolbarMenuItem, "RibbonContextMenuCustomizeQuickAccessToolBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeQuickAccessToolbarMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access below the ribbon
-            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessBelowCommand });
+            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessBelowCommand });
             RibbonContextMenu.Items.Add(showQuickAccessToolbarBelowTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarBelowTheRibbonMenuItem, "RibbonContextMenuShowBelow", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarBelowTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, showQuickAccessToolbarBelowTheRibbonMenuItem, "RibbonContextMenuShowBelow", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarBelowTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access above the ribbon
-            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessAboveCommand });
+            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessAboveCommand });
             RibbonContextMenu.Items.Add(showQuickAccessToolbarAboveTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarAboveTheRibbonMenuItem, "RibbonContextMenuShowAbove", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarAboveTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, showQuickAccessToolbarAboveTheRibbonMenuItem, "RibbonContextMenuShowAbove", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarAboveTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Separator
             secondSeparatorDictionary.Add(Thread.CurrentThread.ManagedThreadId, new Separator());
             RibbonContextMenu.Items.Add(secondSeparator);
 
             // Customize the ribbon
-            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeTheRibbonCommand });
+            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeTheRibbonCommand });
             RibbonContextMenu.Items.Add(customizeTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, customizeTheRibbonMenuItem, "RibbonContextMenuCustomizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, customizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, customizeTheRibbonMenuItem, "RibbonContextMenuCustomizeRibbon", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Minimize the ribbon
-            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ToggleMinimizeTheRibbonCommand });
+            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ToggleMinimizeTheRibbonCommand });
             RibbonContextMenu.Items.Add(minimizeTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, minimizeTheRibbonMenuItem, "RibbonContextMenuMinimizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, minimizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, minimizeTheRibbonMenuItem, "RibbonContextMenuMinimizeRibbon", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, minimizeTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
         }
 
         /// <summary>
@@ -450,8 +450,8 @@ namespace Fluent
         /// </summary>
         public UIElement Menu
         {
-            get { return (UIElement)GetValue(MenuProperty); }
-            set { SetValue(MenuProperty, value); }
+            get { return (UIElement)this.GetValue(MenuProperty); }
+            set { this.SetValue(MenuProperty, value); }
         }
 
         /// <summary>
@@ -475,8 +475,8 @@ namespace Fluent
         /// </summary>
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         /// <summary>
@@ -501,8 +501,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem SelectedTabItem
         {
-            get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
-            set { SetValue(SelectedTabItemProperty, value); }
+            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
         /// <summary>
@@ -537,8 +537,8 @@ namespace Fluent
         /// </summary>
         public int SelectedTabIndex
         {
-            get { return (int)GetValue(SelectedTabIndexProperty); }
-            set { SetValue(SelectedTabIndexProperty, value); }
+            get { return (int)this.GetValue(SelectedTabIndexProperty); }
+            set { this.SetValue(SelectedTabIndexProperty, value); }
         }
 
         /// <summary>
@@ -616,8 +616,8 @@ namespace Fluent
         /// </summary>
         public bool ShowQuickAccessToolBarAboveRibbon
         {
-            get { return (bool)GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
-            set { SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
+            get { return (bool)this.GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
+            set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
         }
 
         /// <summary>
@@ -723,7 +723,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (TabControl == null)
+            if (this.TabControl == null)
             {
                 return;
             }
@@ -733,31 +733,31 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        this.TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        TabControl.Items.Remove(item);
+                        this.TabControl.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        TabControl.Items.Remove(item);
+                        this.TabControl.Items.Remove(item);
                     }
 
                     foreach (var item in e.NewItems)
                     {
-                        TabControl.Items.Add(item);
+                        this.TabControl.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    TabControl.Items.Clear();
+                    this.TabControl.Items.Clear();
                     break;
             }
         }
@@ -791,25 +791,29 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Add(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Add(item as UIElement);
                     }
                     break;
             }
@@ -821,7 +825,7 @@ namespace Fluent
         /// </summary>
         internal QuickAccessToolBar QuickAccessToolBar
         {
-            get { return quickAccessToolBar; }
+            get { return this.quickAccessToolBar; }
         }
 
         /// <summary>
@@ -832,25 +836,26 @@ namespace Fluent
             get
             {
                 var list = new ArrayList();
-                if (layoutRoot != null)
+                if (this.layoutRoot != null)
                 {
-                    list.Add(layoutRoot);
+                    list.Add(this.layoutRoot);
                 }
 
-                if (Menu != null)
+                if (this.Menu != null)
                 {
-                    list.Add(Menu);
+                    list.Add(this.Menu);
                 }
 
-                if (quickAccessToolBar != null)
+                if (this.quickAccessToolBar != null)
                 {
-                    list.Add(quickAccessToolBar);
+                    list.Add(this.quickAccessToolBar);
                 }
 
-                if (TabControl != null
-                    && TabControl.ToolbarPanel != null)
+                if (this.TabControl != null
+                    &&
+                    this.TabControl.ToolbarPanel != null)
                 {
-                    list.Add(TabControl.ToolbarPanel);
+                    list.Add(this.TabControl.ToolbarPanel);
                 }
 
                 return list.GetEnumerator();
@@ -887,9 +892,9 @@ namespace Fluent
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -899,9 +904,9 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
@@ -911,18 +916,18 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Add(menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -935,8 +940,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanCustomizeQuickAccessToolBarProperty); }
-            set { SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarProperty); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>
@@ -952,8 +957,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeQuickAccessToolBarItems
         {
-            get { return (bool)GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
-            set { SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
         }
 
         /// <summary>
@@ -968,8 +973,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeRibbon
         {
-            get { return (bool)GetValue(CanCustomizeRibbonProperty); }
-            set { SetValue(CanCustomizeRibbonProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeRibbonProperty); }
+            set { this.SetValue(CanCustomizeRibbonProperty, value); }
         }
 
         /// <summary>
@@ -986,8 +991,8 @@ namespace Fluent
         /// </summary>
         public bool IsMinimized
         {
-            get { return (bool)GetValue(IsMinimizedProperty); }
-            set { SetValue(IsMinimizedProperty, value); }
+            get { return (bool)this.GetValue(IsMinimizedProperty); }
+            set { this.SetValue(IsMinimizedProperty, value); }
         }
 
         /// <summary>
@@ -1013,8 +1018,8 @@ namespace Fluent
         /// </summary>
         public double ContentGapHeight
         {
-            get { return (double)GetValue(ContentGapHeightProperty); }
-            set { SetValue(ContentGapHeightProperty, value); }
+            get { return (double)this.GetValue(ContentGapHeightProperty); }
+            set { this.SetValue(ContentGapHeightProperty, value); }
         }
 
         /// <summary>
@@ -1029,8 +1034,8 @@ namespace Fluent
         /// </summary>
         public bool IsCollapsed
         {
-            get { return (bool)GetValue(IsCollapsedProperty); }
-            set { SetValue(IsCollapsedProperty, value); }
+            get { return (bool)this.GetValue(IsCollapsedProperty); }
+            set { this.SetValue(IsCollapsedProperty, value); }
         }
 
         /// <summary>
@@ -1054,8 +1059,8 @@ namespace Fluent
         /// </summary>
         public bool IsAutomaticCollapseEnabled
         {
-            get { return (bool)GetValue(IsAutomaticCollapseEnabledProperty); }
-            set { SetValue(IsAutomaticCollapseEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
+            set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
         }
 
         /// <summary>
@@ -1070,8 +1075,8 @@ namespace Fluent
         /// </summary>
         public bool IsQuickAccessToolBarVisible
         {
-            get { return (bool)GetValue(IsQuickAccessToolBarVisibleProperty); }
-            set { SetValue(IsQuickAccessToolBarVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsQuickAccessToolBarVisibleProperty); }
+            set { this.SetValue(IsQuickAccessToolBarVisibleProperty, value); }
         }
 
         /// <summary>
@@ -1086,8 +1091,8 @@ namespace Fluent
         /// </summary>
         public bool CanQuickAccessLocationChanging
         {
-            get { return (bool)GetValue(CanQuickAccessLocationChangingProperty); }
-            set { SetValue(CanQuickAccessLocationChangingProperty, value); }
+            get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
+            set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
         }
 
         /// <summary>
@@ -1104,9 +1109,9 @@ namespace Fluent
         {
             get
             {
-                if (keyTipService != null)
+                if (this.keyTipService != null)
                 {
-                    return keyTipService.AreAnyKeyTipsVisible;
+                    return this.keyTipService.AreAnyKeyTipsVisible;
                 }
 
                 return false;
@@ -1348,13 +1353,13 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
 
             // Subscribe to menu commands
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.AddToQuickAccessCommand, OnAddToQuickAccessCommandExecuted, OnAddToQuickAccessCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.RemoveFromQuickAccessCommand, OnRemoveFromQuickAccessCommandExecuted, OnRemoveFromQuickAccessCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessAboveCommand, OnShowQuickAccessAboveCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessBelowCommand, OnShowQuickAccessBelowCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(AddToQuickAccessCommand, OnAddToQuickAccessCommandExecuted, OnAddToQuickAccessCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(RemoveFromQuickAccessCommand, OnRemoveFromQuickAccessCommandExecuted, OnRemoveFromQuickAccessCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ShowQuickAccessAboveCommand, OnShowQuickAccessAboveCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ShowQuickAccessBelowCommand, OnShowQuickAccessBelowCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
 
             InitRibbonContextMenu();
         }

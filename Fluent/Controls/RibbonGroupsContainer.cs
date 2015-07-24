@@ -36,8 +36,8 @@ namespace Fluent
         /// </summary>
         public string ReduceOrder
         {
-            get { return (string)GetValue(ReduceOrderProperty); }
-            set { SetValue(ReduceOrderProperty, value); }
+            get { return (string)this.GetValue(ReduceOrderProperty); }
+            set { this.SetValue(ReduceOrderProperty, value); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Fluent
         public RibbonGroupsContainer()
             : base()
         {
-            Focusable = false;
+            this.Focusable = false;
         }
 
         #endregion
@@ -102,7 +102,7 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size availableSize)
         {          
-            var desiredSize = GetChildrenDesiredSizeIntermediate();
+            var desiredSize = this.GetChildrenDesiredSizeIntermediate();
 
             if (this.reduceOrder.Length == 0)
             {
@@ -221,7 +221,7 @@ namespace Fluent
         // Decrease size of the item
         private void DecreaseGroupBoxSize(string name)
         {
-            var groupBox = FindGroup(name);
+            var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
             if (groupBox == null)
             {
@@ -288,8 +288,8 @@ namespace Fluent
         /// </summary>
         public ScrollViewer ScrollOwner
         {
-            get { return ScrollData.ScrollOwner; }
-            set { ScrollData.ScrollOwner = value; }
+            get { return this.ScrollData.ScrollOwner; }
+            set { this.ScrollData.ScrollOwner = value; }
         }
 
         /// <summary>
@@ -299,9 +299,9 @@ namespace Fluent
         public void SetHorizontalOffset(double offset)
         {
             var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
-            if (DoubleUtil.AreClose(ScrollData.OffsetX, newValue) == false)
+            if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
-                scrollData.OffsetX = newValue;
+                this.scrollData.OffsetX = newValue;
                 this.InvalidateArrange();
             }
         }
@@ -310,7 +310,7 @@ namespace Fluent
         /// </summary>
         public double ExtentWidth
         {
-            get { return ScrollData.ExtentWidth; }
+            get { return this.ScrollData.ExtentWidth; }
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Fluent
         /// </summary>
         public double HorizontalOffset
         {
-            get { return ScrollData.OffsetX; }
+            get { return this.ScrollData.OffsetX; }
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace Fluent
         /// </summary>
         public double ViewportWidth
         {
-            get { return ScrollData.ViewportWidth; }
+            get { return this.ScrollData.ViewportWidth; }
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace Fluent
         /// </summary>
         public void LineLeft()
         {
-            SetHorizontalOffset(HorizontalOffset - 16.0);
+            this.SetHorizontalOffset(this.HorizontalOffset - 16.0);
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace Fluent
         /// </summary>
         public void LineRight()
         {
-            SetHorizontalOffset(HorizontalOffset + 16.0);
+            this.SetHorizontalOffset(this.HorizontalOffset + 16.0);
         }
 
         /// <summary>
@@ -370,14 +370,14 @@ namespace Fluent
             rectangle = childTransform.TransformBounds(rectangle);
 
             // Initialize the viewport
-            Rect viewport = new Rect(HorizontalOffset, rectangle.Top, ViewportWidth, rectangle.Height);
+            Rect viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
             rectangle.X += viewport.X;
 
             // Compute the offsets required to minimally scroll the child maximally into view.
             double minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
 
             // We have computed the scrolling offsets; scroll to them.
-            SetHorizontalOffset(minX);
+            this.SetHorizontalOffset(minX);
 
             // Compute the visible rectangle of the child relative to the viewport.
             viewport.X = minX;
@@ -539,7 +539,7 @@ namespace Fluent
         {
             get
             {
-                return scrollData ?? (scrollData = new ScrollData());
+                return this.scrollData ?? (this.scrollData = new ScrollData());
             }
         }
 
@@ -570,21 +570,21 @@ namespace Fluent
                 viewportWidth = extentWidth;
             }
 
-            double offsetX = CoerceOffset(ScrollData.OffsetX, extentWidth, viewportWidth);
+            double offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
 
-            isValid &= DoubleUtil.AreClose(viewportWidth, ScrollData.ViewportWidth);
-            isValid &= DoubleUtil.AreClose(extentWidth, ScrollData.ExtentWidth);
-            isValid &= DoubleUtil.AreClose(ScrollData.OffsetX, offsetX);
+            isValid &= DoubleUtil.AreClose(viewportWidth, this.ScrollData.ViewportWidth);
+            isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
+            isValid &= DoubleUtil.AreClose(this.ScrollData.OffsetX, offsetX);
 
-            ScrollData.ViewportWidth = viewportWidth;
-            ScrollData.ExtentWidth = extentWidth;
-            ScrollData.OffsetX = offsetX;
+            this.ScrollData.ViewportWidth = viewportWidth;
+            this.ScrollData.ExtentWidth = extentWidth;
+            this.ScrollData.OffsetX = offsetX;
 
             if (!isValid)
             {
-                if (ScrollOwner != null)
+                if (this.ScrollOwner != null)
                 {
-                    ScrollOwner.InvalidateScrollInfo();
+                    this.ScrollOwner.InvalidateScrollInfo();
                 }
             }
         }

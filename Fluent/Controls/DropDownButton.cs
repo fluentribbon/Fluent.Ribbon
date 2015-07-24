@@ -1,4 +1,4 @@
-#region Copyright and License Information
+﻿#region Copyright and License Information
 // Fluent Ribbon Control Suite
 // http://fluent.codeplex.com/
 // Copyright � Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
@@ -59,8 +59,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Fluent
         public object Header
         {
             get { return this.GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -153,8 +153,8 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -191,8 +191,8 @@ namespace Fluent
         /// </summary>
         public object LargeIcon
         {
-            get { return GetValue(LargeIconProperty); }
-            set { SetValue(LargeIconProperty, value); }
+            get { return this.GetValue(LargeIconProperty); }
+            set { this.SetValue(LargeIconProperty, value); }
         }
 
         /// <summary>
@@ -212,8 +212,8 @@ namespace Fluent
         /// </summary>
         public bool HasTriangle
         {
-            get { return (bool)GetValue(HasTriangleProperty); }
-            set { SetValue(HasTriangleProperty, value); }
+            get { return (bool)this.GetValue(HasTriangleProperty); }
+            set { this.SetValue(HasTriangleProperty, value); }
         }
 
         /// <summary>
@@ -233,8 +233,8 @@ namespace Fluent
         /// </summary>
         public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsDropDownOpenProperty); }
-            set { SetValue(IsDropDownOpenProperty, value); }
+            get { return (bool)this.GetValue(IsDropDownOpenProperty); }
+            set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
@@ -254,8 +254,8 @@ namespace Fluent
         /// </summary>
         public ContextMenuResizeMode ResizeMode
         {
-            get { return (ContextMenuResizeMode)GetValue(ResizeModeProperty); }
-            set { SetValue(ResizeModeProperty, value); }
+            get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
+            set { this.SetValue(ResizeModeProperty, value); }
         }
 
         /// <summary>
@@ -275,8 +275,8 @@ namespace Fluent
         /// </summary>
         public double MaxDropDownHeight
         {
-            get { return (double)GetValue(MaxDropDownHeightProperty); }
-            set { SetValue(MaxDropDownHeightProperty, value); }
+            get { return (double)this.GetValue(MaxDropDownHeightProperty); }
+            set { this.SetValue(MaxDropDownHeightProperty, value); }
         }
 
         /// <summary>
@@ -294,8 +294,8 @@ namespace Fluent
         /// </summary>
         public double DropDownHeight
         {
-            get { return (double)GetValue(DropDownHeightProperty); }
-            set { SetValue(DropDownHeightProperty, value); }
+            get { return (double)this.GetValue(DropDownHeightProperty); }
+            set { this.SetValue(DropDownHeightProperty, value); }
         }
 
         /// <summary>
@@ -313,8 +313,8 @@ namespace Fluent
         /// </summary>
         public bool ClosePopupOnMouseDown
         {
-            get { return (bool)GetValue(ClosePopupOnMouseDownProperty); }
-            set { SetValue(ClosePopupOnMouseDownProperty, value); }
+            get { return (bool)this.GetValue(ClosePopupOnMouseDownProperty); }
+            set { this.SetValue(ClosePopupOnMouseDownProperty, value); }
         }
 
         /// <summary>
@@ -332,8 +332,8 @@ namespace Fluent
         /// </summary>
         public int ClosePopupOnMouseDownDelay
         {
-            get { return (int)GetValue(ClosePopupOnMouseDownDelayProperty); }
-            set { SetValue(ClosePopupOnMouseDownDelayProperty, value); }
+            get { return (int)this.GetValue(ClosePopupOnMouseDownDelayProperty); }
+            set { this.SetValue(ClosePopupOnMouseDownDelayProperty, value); }
         }
 
         /// <summary>
@@ -579,7 +579,7 @@ namespace Fluent
                     {
                         this.IsDropDownOpen = true;
 
-                        var container = ItemContainerGenerator.ContainerFromIndex(0);
+                        var container = this.ItemContainerGenerator.ContainerFromIndex(0);
 
                         NavigateToContainer(container);
 
@@ -593,7 +593,7 @@ namespace Fluent
                     {
                         this.IsDropDownOpen = true;
 
-                        var container = ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1);
+                        var container = this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1);
 
                         NavigateToContainer(container);
 
@@ -810,7 +810,7 @@ namespace Fluent
                     Size = RibbonControlSize.Small
                 };
 
-            BindQuickAccessItem(button);
+            this.BindQuickAccessItem(button);
             RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
@@ -820,9 +820,9 @@ namespace Fluent
 
             RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
-            BindQuickAccessItemDropDownEvents(button);
+            this.BindQuickAccessItemDropDownEvents(button);
 
-            button.DropDownOpened += OnQuickAccessOpened;
+            button.DropDownOpened += this.OnQuickAccessOpened;
             return button;
         }
 
@@ -910,8 +910,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>

@@ -79,8 +79,8 @@ namespace Fluent
         /// </summary>
         public Control Target
         {
-            get { return (Control)GetValue(TargetProperty); }
-            set { SetValue(TargetProperty, value); }
+            get { return (Control)this.GetValue(TargetProperty); }
+            set { this.SetValue(TargetProperty, value); }
         }
 
         /// <summary>
