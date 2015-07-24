@@ -1133,6 +1133,7 @@
                 <Fluent:RibbonGroupBox Header="TestOne">
                     <Fluent:ComboBox Header="Many items"
                                      InputWidth="120"
+                                     ResizeMode="Both"
                                      ItemsSource="{Binding Path=ManyItems}">
                         <Fluent:ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
