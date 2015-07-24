@@ -47,7 +47,7 @@ namespace Fluent
         private Panel menuPanel;
 
         // Freezed image (created during snapping)
-        Image snappedImage;
+        private Image snappedImage;
 
         // Is visual currently snapped
         private bool isSnapped;
@@ -55,11 +55,12 @@ namespace Fluent
         private Popup popup;
 
         // Thumb to resize in both directions
-        Thumb resizeBothThumb;
-        // Thumb to resize vertical
-        Thumb resizeVerticalThumb;
+        private Thumb resizeBothThumb;
 
-        DropDownButton groupsMenuButton;
+        // Thumb to resize vertical
+        private Thumb resizeVerticalThumb;
+
+        private DropDownButton groupsMenuButton;
 
         private GalleryPanel galleryPanel;
 
@@ -74,6 +75,8 @@ namespace Fluent
         private IInputElement focusedElement;
 
         private bool isButtonClicked;
+
+        private FrameworkElement layoutRoot;
 
         #endregion
 
@@ -962,6 +965,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as FrameworkElement;
+
             if (this.expandButton != null)
                 this.expandButton.Click -= this.OnExpandClick;
             this.expandButton = this.GetTemplateChild("PART_ExpandButton") as ToggleButton;
@@ -1275,12 +1280,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(this.scrollViewer.Height))
-            {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
-            }
-
-            this.scrollViewer.Height = Math.Max(0, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
+            this.OnResizeVerticalDelta(sender, e);
 
             this.menuPanel.Width = double.NaN;
 
@@ -1289,7 +1289,7 @@ namespace Fluent
                 this.galleryPanel.Width = this.galleryPanel.ActualWidth;
             }
 
-            this.galleryPanel.Width = Math.Max(0, this.galleryPanel.Width + e.HorizontalChange);
+            this.galleryPanel.Width = Math.Max(this.layoutRoot.ActualWidth, this.galleryPanel.Width + e.HorizontalChange);
 
         }
 
@@ -1301,7 +1301,7 @@ namespace Fluent
                 this.scrollViewer.Height = this.scrollViewer.ActualHeight;
             }
 
-            this.scrollViewer.Height = Math.Max(0, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
+            this.scrollViewer.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
         }
 
         #endregion
