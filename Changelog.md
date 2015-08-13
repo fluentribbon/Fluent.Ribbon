@@ -1,5 +1,14 @@
 # Changelog for Fluent.Ribbon
 
+## 3.5.0
+
+- ### Bug fixes
+  - [#143](../../issues/143) "Resizing InRibbonGallery causes content to be narrower than container"
+
+- ### Enhancements
+  - [#141](../../issues/141) "Add Lithuanian (lt) language support"
+  - [#142](../../issues/142) "GalleryPanel should inherit from VirtualizingStackPanel instead of Panel"
+
 ## 3.4.2
 
 - ### Bug fixes
