@@ -84,6 +84,9 @@
     <Compile Include="RegularWindow.xaml.cs">
       <DependentUpon>RegularWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RibbonWindowWithoutVisibileRibbon.xaml.cs">
+      <DependentUpon>RibbonWindowWithoutVisibileRibbon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TestContent.xaml.cs">
       <DependentUpon>TestContent.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegularWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RibbonWindowWithoutVisibileRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

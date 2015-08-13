@@ -222,14 +222,14 @@
                 return "NULL";
             }
 
-	        var ribbonControl = element as IHeaderedControl;
+            var ribbonControl = element as IHeaderedControl;
 
-	        var header = ribbonControl != null
+            var header = ribbonControl != null
                            ? ribbonControl.Header
                            : string.Empty;
 
-	        var frameworkElement = element as FrameworkElement;
-	        var name = frameworkElement != null
+            var frameworkElement = element as FrameworkElement;
+            var name = frameworkElement != null
                            ? frameworkElement.Name
                            : string.Empty;
 
@@ -382,6 +382,11 @@
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
             new MahMetroWindow().Show();
+        }
+
+        private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowWithoutRibbon().Show();
         }
 
         private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

@@ -2717,6 +2717,8 @@
                             Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
                     <Button x:Name="OpenMahMetroWindow"
                             Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
+                    <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
+                            Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>                    
                 </WrapPanel>
             </TabItem>
         </TabControl>
