@@ -179,8 +179,9 @@
                                       HorizontalAlignment="Stretch">
                                     <TextBlock HorizontalAlignment="Left"
                                                MinWidth="0"
-                                               TextWrapping="Wrap"
-                                               Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
+                                               TextWrapping="Wrap">
+                                        This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text
+                                    </TextBlock>
                                     <Fluent:Button IsDefinitive="True"
                                                    IsEnabled="True"
                                                    Style="{DynamicResource ButtonBackstageStyle}"
