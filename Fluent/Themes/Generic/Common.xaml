@@ -25,12 +25,17 @@
            BasedOn="{StaticResource SeparatorTabItemStyle}" />
     <!--<Style x:Key="{x:Type Fluent:MenuItem}" TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>
     <Style x:Key="{x:Type Fluent:QuickAccessMenuItem}" TargetType="{x:Type Fluent:QuickAccessMenuItem}" BasedOn="{StaticResource ContextMenuItemStyle}"/>-->
+
+    <Style x:Key="{x:Type Fluent:Backstage}"
+           TargetType="{x:Type Fluent:Backstage}"
+           BasedOn="{StaticResource RibbonBackstageStyle}" />
     <Style x:Key="{x:Type Fluent:BackstageTabControl}"
            TargetType="{x:Type Fluent:BackstageTabControl}"
            BasedOn="{StaticResource BackstageStyle}" />
     <Style x:Key="{x:Type Fluent:BackstageTabItem}"
            TargetType="{x:Type Fluent:BackstageTabItem}"
            BasedOn="{StaticResource BackstageTabItemStyle}" />
+    
     <Style x:Key="{x:Type Fluent:Button}"
            TargetType="{x:Type Fluent:Button}"
            BasedOn="{StaticResource RibbonButtonStyle}" />
