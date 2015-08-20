@@ -27,6 +27,7 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Extensibility;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents the In-Ribbon Gallery, a gallery-based control that exposes 
@@ -1344,31 +1345,33 @@ namespace Fluent
             return gallery;
         }
 
-
         private object selectedItem;
         private InRibbonGallery quickAccessGallery;
-        void OnQuickAccessOpened(object sender, EventArgs e)
-        {
 
-            for (int i = 0; i < this.Filters.Count; i++)
+        private void OnQuickAccessOpened(object sender, EventArgs e)
+        {
+            for (var i = 0; i < this.Filters.Count; i++)
+            {
                 this.quickAccessGallery.Filters.Add(this.Filters[i]);
+            }
+
             this.quickAccessGallery.SelectedFilter = this.SelectedFilter;
-            this.quickAccessGallery.DropDownClosed += this.OnQuickAccessMenuClosed;
+
+            this.quickAccessGallery.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
+            this.quickAccessGallery.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
+
             this.UpdateLayout();
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, ((ThreadStart)(() =>
-               {
-                   this.Freeze();
-               }
-               )));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, ((Action)(this.Freeze)));
         }
 
-        void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        private void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
         {
-            this.quickAccessGallery.DropDownClosed -= this.OnQuickAccessMenuClosed;
+            this.quickAccessGallery.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
+            this.quickAccessGallery.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
+
             this.SelectedFilter = this.quickAccessGallery.SelectedFilter;
             this.quickAccessGallery.Filters.Clear();
             this.Unfreeze();
-
         }
 
         private void Freeze()
@@ -1376,23 +1379,9 @@ namespace Fluent
             this.IsSnapped = true;
             this.selectedItem = this.SelectedItem;
             this.SelectedItem = null;
-            if (this.ItemsSource != null)
-            {
-                this.quickAccessGallery.ItemsSource = this.ItemsSource;
-                this.ItemsSource = null;
-            }
-            else
-            {
 
-                for (int i = 0; i < this.Items.Count; i++)
-                {
-                    object item = this.Items[0];
-                    this.Items.Remove(item);
-                    this.quickAccessGallery.Items.Add(item);
-                    i--;
-                }
+            ItemsControlHelper.MoveItemsToDifferentControl(this, this.quickAccessGallery);
 
-            }
             this.quickAccessGallery.SelectedItem = this.selectedItem;
             this.quickAccessGallery.Menu = this.Menu;
             this.Menu = null;
@@ -1405,21 +1394,7 @@ namespace Fluent
             //quickAccessGallery.IsSnapped = true;
             this.quickAccessGallery.SelectedItem = null;
 
-            if (this.quickAccessGallery.ItemsSource != null)
-            {
-                this.ItemsSource = this.quickAccessGallery.ItemsSource;
-                this.quickAccessGallery.ItemsSource = null;
-            }
-            else
-            {
-                for (var i = 0; i < this.quickAccessGallery.Items.Count; i++)
-                {
-                    var item = this.quickAccessGallery.Items[0];
-                    this.quickAccessGallery.Items.Remove(item);
-                    this.Items.Add(item);
-                    i--;
-                }
-            }
+            ItemsControlHelper.MoveItemsToDifferentControl(this.quickAccessGallery, this);
 
             this.SelectedItem = this.selectedItem;
             this.Menu = this.quickAccessGallery.Menu;

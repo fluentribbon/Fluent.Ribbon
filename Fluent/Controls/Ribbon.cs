@@ -1707,7 +1707,6 @@ namespace Fluent
                 this.quickAccessElements.Remove(element);
                 this.quickAccessToolBar.Items.Remove(quickAccessItem);
             }
-
         }
 
         /// <summary>

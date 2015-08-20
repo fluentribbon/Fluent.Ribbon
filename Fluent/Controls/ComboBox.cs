@@ -23,8 +23,9 @@ namespace Fluent
 	using System.Windows.Media;
 	using System.Windows.Media.Imaging;
 	using System.Windows.Threading;
+	using Fluent.Internal;
 
-	/// <summary>
+    /// <summary>
 	///     Represents custom Fluent UI ComboBox
 	/// </summary>
 	[TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
@@ -480,22 +481,10 @@ namespace Fluent
 		{
 			this.IsSnapped = true;
 			this.selectedItem = this.SelectedItem;
-			if (this.ItemsSource != null)
-			{
-				this.quickAccessCombo.ItemsSource = this.ItemsSource;
-				this.ItemsSource = null;
-			}
-			else
-			{
-				for (var i = 0; i < this.Items.Count; i++)
-				{
-					var item = this.Items[0];
-					this.Items.Remove(item);
-					this.quickAccessCombo.Items.Add(item);
-					i--;
-				}
-			}
-			this.SelectedItem = null;
+
+            ItemsControlHelper.MoveItemsToDifferentControl(this, this.quickAccessCombo);
+
+            this.SelectedItem = null;
 			this.quickAccessCombo.SelectedItem = this.selectedItem;
 			this.quickAccessCombo.Menu = this.Menu;
 			this.Menu = null;
@@ -507,21 +496,9 @@ namespace Fluent
 			var text = this.quickAccessCombo.Text;
 			this.selectedItem = this.quickAccessCombo.SelectedItem;
 			this.quickAccessCombo.IsSnapped = true;
-			if (this.quickAccessCombo.ItemsSource != null)
-			{
-				this.ItemsSource = this.quickAccessCombo.ItemsSource;
-				this.quickAccessCombo.ItemsSource = null;
-			}
-			else
-			{
-				for (var i = 0; i < this.quickAccessCombo.Items.Count; i++)
-				{
-					var item = this.quickAccessCombo.Items[0];
-					this.quickAccessCombo.Items.Remove(item);
-					this.Items.Add(item);
-					i--;
-				}
-			}
+
+            ItemsControlHelper.MoveItemsToDifferentControl(this.quickAccessCombo, this);
+
 			this.quickAccessCombo.SelectedItem = null;
 			this.SelectedItem = this.selectedItem;
 			this.Menu = this.quickAccessCombo.Menu;
@@ -533,28 +510,30 @@ namespace Fluent
 
 		private void UpdateQuickAccessCombo()
 		{
-			if (!this.IsLoaded) this.Loaded += this.OnFirstLoaded;
-			if (!this.IsEditable)
-				this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-				{
-					this.quickAccessCombo.IsSnapped = true;
-					this.IsSnapped = true;
-					if (this.snappedImage != null && this.quickAccessCombo.snappedImage != null)
-					{
-						this.quickAccessCombo.snappedImage.
-							Source
-							= this.snappedImage.Source;
-						this.quickAccessCombo.
-							snappedImage.
-							Visibility =
-							Visibility.Visible;
-						if (!this.quickAccessCombo.IsSnapped)
-						{
-							this.quickAccessCombo.isSnapped = true;
-						}
-					}
-					this.IsSnapped = false;
-				}));
+		    if (this.IsLoaded == false)
+		    {
+		        this.Loaded += this.OnFirstLoaded;
+		    }
+
+		    if (this.IsEditable == false)
+		    {
+		        this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+		                                                                                      {
+		                                                                                          this.quickAccessCombo.IsSnapped = true;
+		                                                                                          this.IsSnapped = true;
+		                                                                                          if (this.snappedImage != null &&
+		                                                                                              this.quickAccessCombo.snappedImage != null)
+		                                                                                          {
+		                                                                                              this.quickAccessCombo.snappedImage.Source = this.snappedImage.Source;
+		                                                                                              this.quickAccessCombo.snappedImage.Visibility = Visibility.Visible;
+		                                                                                              if (this.quickAccessCombo.IsSnapped == false)
+		                                                                                              {
+		                                                                                                  this.quickAccessCombo.isSnapped = true;
+		                                                                                              }
+		                                                                                          }
+		                                                                                          this.IsSnapped = false;
+		                                                                                      }));
+		    }
 		}
 
 		private void OnFirstLoaded(object sender, RoutedEventArgs e)

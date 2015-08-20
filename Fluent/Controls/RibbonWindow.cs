@@ -14,7 +14,6 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
@@ -23,8 +22,6 @@ namespace Fluent
 #else
     using System.Windows.Shell;
 #endif
-    using Microsoft.Win32;
-    using System.Globalization;
 
     /// <summary>
     /// Represents basic window for ribbon

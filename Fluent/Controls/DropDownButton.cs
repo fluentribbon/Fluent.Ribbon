@@ -13,6 +13,7 @@ namespace Fluent
     using System.Collections;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -21,6 +22,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents drop down button
@@ -833,25 +835,12 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            var button = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton)sender;            
 
-            if (this.ItemsSource != null)
-            {
-                button.ItemsSource = this.ItemsSource;
-                this.ItemsSource = null;
-            }
-            else
-            {
-                for (var i = 0; i < this.Items.Count; i++)
-                {
-                    var item = this.Items[0];
-                    this.Items.Remove(item);
-                    button.Items.Add(item);
-                    i--;
-                }
-            }
+            buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
+            buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            button.DropDownClosed += this.OnQuickAccessMenuClosed;
+            ItemsControlHelper.MoveItemsToDifferentControl(this, buttonInQuickAccess);
         }
 
         /// <summary>
@@ -859,27 +848,14 @@ namespace Fluent
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
         {
-            var button = (DropDownButton)sender;
-            button.DropDownClosed -= this.OnQuickAccessMenuClosed;
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (ThreadStart)(() =>
+            var buttonInQuickAccess = (DropDownButton)sender;
+            buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
+            buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Action)(() =>
                                                                                {
-                                                                                   if (button.ItemsSource != null)
-                                                                                   {
-                                                                                       this.ItemsSource = button.ItemsSource;
-                                                                                       button.ItemsSource = null;
-                                                                                   }
-                                                                                   else
-                                                                                   {
-                                                                                       for (var i = 0; i < button.Items.Count; i++)
-                                                                                       {
-                                                                                           var item = button.Items[0];
-                                                                                           button.Items.Remove(item);
-                                                                                           this.Items.Add(item);
-                                                                                           i--;
-                                                                                       }
-                                                                                   }
+                                                                                   ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
                                                                                }));
         }
 
