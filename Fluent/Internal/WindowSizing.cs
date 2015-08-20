@@ -48,14 +48,29 @@
 
         private void FixNastyWindowChromeBug()
         {
-            if (this.fixingNastyWindowChromeBug
-                || this.window.WindowState != WindowState.Maximized)
+            if (this.fixingNastyWindowChromeBug)
             {
                 return;
             }
 
             this.fixingNastyWindowChromeBug = true;
 
+            if (this.window.WindowState == WindowState.Maximized)
+            {
+                this.FixNastyWindowChromeBugForMaximizedWindow();
+            }
+            else if (this.window.SizeToContent == SizeToContent.WidthAndHeight)
+            {
+                // SizeToContent is reset to manual as soon as the window is resized anyway.
+                // By changing it to manual early on we avoid black areas by refreshing the window.
+                this.window.SizeToContent = SizeToContent.Manual;
+            }
+
+            this.fixingNastyWindowChromeBug = false;
+        }
+
+        private void FixNastyWindowChromeBugForMaximizedWindow()
+        {
             var mmi = this.GetMinMaxInfo(this.windowHwnd, new MINMAXINFO());
             if (NativeMethods.IsDwmEnabled())
             {
@@ -67,8 +82,6 @@
                 UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y + 1, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
                 UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
             }
-
-            this.fixingNastyWindowChromeBug = false;
         }
 
         private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
