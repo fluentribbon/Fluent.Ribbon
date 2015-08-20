@@ -180,6 +180,10 @@
                         owner.Style = null;
                         owner.Style = owner.FindResource("RibbonWindowStyle") as Style;
                         owner.Style = null;
+
+                        // Resize Window to work around alignment issues caused by theme change
+                        ++owner.Width;
+                        --owner.Width;
                     }
                 }
             }));
