@@ -36,4 +36,5 @@ publish/
 
 # Generated files
 Fluent/Themes/**/Generic.xaml
+!Fluent/Themes/Generic.xaml
 packages/
