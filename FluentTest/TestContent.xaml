@@ -262,18 +262,17 @@
 
                                 </StackPanel>
 
-                                <Fluent:MenuItem Header="File 1"
-                                                 Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                 IsDefinitive="True">
-                                </Fluent:MenuItem>
-
-                                <Fluent:MenuItem Header="File 2"
-                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
-
-                                <Fluent:MenuItem Header="File 3"
-                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
+                                <ItemsControl ItemsSource="{Binding GalleryViewModel.Items}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Fluent:MenuItem Header="{Binding Text}"  
+                                                             ToolTip="{Binding Text}" 
+                                                             Description="{Binding Group}"
+                                                             IsDefinitive="True"
+                                                             Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </Fluent:ApplicationMenu.RightPaneContent>
 

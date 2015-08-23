@@ -402,8 +402,7 @@ namespace Fluent
         public MenuItem()
         {
             ContextMenuService.Coerce(this);
-            this.ToolTip = new ToolTip();
-            ((ToolTip)this.ToolTip).Template = null;
+
             this.MouseWheel += this.OnMenuItemMouseWheel;
         }
 
