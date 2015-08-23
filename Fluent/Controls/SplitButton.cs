@@ -40,10 +40,20 @@ namespace Fluent
         {
             get
             {
-                ArrayList list = new ArrayList();
-                if (this.Items != null) list.AddRange(this.Items);
-                if (this.button != null) list.Add(this.button);
-                return list.GetEnumerator();
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.button != null)
+                {
+                    yield return this.button;
+                }
+
+                foreach (var item in this.Items)
+                {
+                    yield return item;
+                }
             }
         }
 
