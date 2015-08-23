@@ -136,7 +136,7 @@ namespace Fluent
                 if (this.Target != null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
-                    if (parent == this)
+                    if (ReferenceEquals(parent, this))
                     {
                         var list = new ArrayList { this.Target };
                         return list.GetEnumerator();
