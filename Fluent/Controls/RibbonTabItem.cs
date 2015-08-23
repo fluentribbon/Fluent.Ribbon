@@ -149,13 +149,7 @@ namespace Fluent
         {
             get
             {
-                var array = new ArrayList
-                                {
-                                    this.groupsContainer
-                                };
-                return array.GetEnumerator();
-                /*if (Groups != null) return Groups.GetEnumerator();
-                else return (new ArrayList()).GetEnumerator();*/
+                yield return this.groupsContainer;
             }
         }
 

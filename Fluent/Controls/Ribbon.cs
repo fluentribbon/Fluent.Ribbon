@@ -835,30 +835,26 @@ namespace Fluent
         {
             get
             {
-                var list = new ArrayList();
                 if (this.layoutRoot != null)
                 {
-                    list.Add(this.layoutRoot);
+                    yield return this.layoutRoot;
                 }
 
                 if (this.Menu != null)
                 {
-                    list.Add(this.Menu);
+                    yield return this.Menu;
                 }
 
                 if (this.quickAccessToolBar != null)
                 {
-                    list.Add(this.quickAccessToolBar);
+                    yield return this.quickAccessToolBar;
                 }
 
                 if (this.TabControl != null
-                    &&
-                    this.TabControl.ToolbarPanel != null)
+                    && this.TabControl.ToolbarPanel != null)
                 {
-                    list.Add(this.TabControl.ToolbarPanel);
+                    yield return this.TabControl.ToolbarPanel;
                 }
-
-                return list.GetEnumerator();
             }
         }
 

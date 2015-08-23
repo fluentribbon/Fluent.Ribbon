@@ -498,12 +498,15 @@ namespace Fluent
         {
             get
             {
-                ArrayList array = new ArrayList();
-                //if (parentPanel != null) array.Add(parentPanel);
+                foreach (var item in this.Items)
+                {
+                    yield return item;
+                }
 
-                array.AddRange(this.Items);
-                if (this.LauncherButton != null) array.Add(this.LauncherButton);
-                return array.GetEnumerator();
+                if (this.LauncherButton != null)
+                {
+                    yield return this.LauncherButton;
+                }
             }
         }
 
