@@ -2710,16 +2710,29 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Tests">
-                <WrapPanel>
-                    <Button x:Name="AddRibbonTab"
-                            Click="AddRibbonTab_OnClick">Add tab</Button>
-                    <Button x:Name="OpenRegularWindow"
-                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
-                    <Button x:Name="OpenMahMetroWindow"
-                            Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
-                    <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
-                            Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>                    
-                </WrapPanel>
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Header="Tabs and Window">
+                        <WrapPanel>
+                            <Button x:Name="AddRibbonTab"
+                                    Click="AddRibbonTab_OnClick">Add tab</Button>
+                            <Button x:Name="OpenRegularWindow"
+                                    Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
+                            <Button x:Name="OpenMahMetroWindow"
+                                    Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
+                            <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
+                                    Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
+                            <Button x:Name="OpenModalRibbonWindow"
+                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>                            
+
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Issue repros">
+                        <WrapPanel>
+                            <Button x:Name="SleepButton"
+                                    Click="SleepButton_OnClick">Sleep for issues #80 and #159</Button>
+                        </WrapPanel>
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
         </TabControl>
 

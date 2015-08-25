@@ -410,6 +410,16 @@
 
             e.Handled = true;
         }
+
+        private void SleepButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep(TimeSpan.FromSeconds(10));
+        }
+
+        private void OpenModalRibbonWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            new TestWindow().ShowDialog();
+        }
     }
 
     public class TestRoutedCommand
