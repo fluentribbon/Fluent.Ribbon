@@ -14,7 +14,7 @@
     {
         private readonly RibbonWindow window;
         private IntPtr windowHwnd;
-        private bool fixingNastyWindowChromeBug;
+        private bool fixingWindowChromeBug;
 
         /// <summary>
         /// Creates a new instance and binds it to <paramref name="window"/>
@@ -37,27 +37,27 @@
                 this.windowHwnd = hwndSource.Handle;
                 hwndSource.AddHook(this.HwndHook);
 
-                this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
+                this.window.Dispatcher.BeginInvoke((Action)(this.FixWindowChromeBug));
             }
         }
 
         private void HandleWindowStateChanged(object sender, EventArgs e)
         {
-            this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
+            this.window.Dispatcher.BeginInvoke((Action)(this.FixWindowChromeBug));
         }
 
-        private void FixNastyWindowChromeBug()
+        private void FixWindowChromeBug()
         {
-            if (this.fixingNastyWindowChromeBug)
+            if (this.fixingWindowChromeBug)
             {
                 return;
             }
 
-            this.fixingNastyWindowChromeBug = true;
+            this.fixingWindowChromeBug = true;
 
             if (this.window.WindowState == WindowState.Maximized)
             {
-                this.FixNastyWindowChromeBugForMaximizedWindow();
+                this.FixWindowChromeBugForMaximizedWindow();
             }
             else if (this.window.SizeToContent == SizeToContent.WidthAndHeight)
             {
@@ -66,10 +66,59 @@
                 this.window.SizeToContent = SizeToContent.Manual;
             }
 
-            this.fixingNastyWindowChromeBug = false;
+            this.fixingWindowChromeBug = false;
         }
 
-        private void FixNastyWindowChromeBugForMaximizedWindow()
+        private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            var returnval = IntPtr.Zero;
+
+            switch (message)
+            {
+                case Constants.WM_STYLECHANGED:
+                    this.FixWindowChromeBugForFreezedMaximizedWindow();
+                    break;
+
+                case Constants.WM_GETMINMAXINFO:
+                    this.FixMinMaxInfo(hWnd, lParam, out handled);
+                    break;
+            }
+
+            return returnval;
+        }
+
+        private WINDOWPLACEMENT GetWindowPlacement()
+        {
+            WINDOWPLACEMENT windowPlacement;
+            UnsafeNativeMethods.GetWindowPlacement(this.windowHwnd, out windowPlacement);
+            return windowPlacement;
+        }
+
+        #region Fixes
+
+        private void FixWindowChromeBugForFreezedMaximizedWindow()
+        {
+            if (this.GetWindowPlacement().showCmd == 3)
+            {
+                this.FixWindowChromeBugForMaximizedWindow();
+            }
+        }
+
+        private void FixMinMaxInfo(IntPtr hWnd, IntPtr lParam, out bool handled)
+        {
+            if (this.GetWindowPlacement().showCmd == 3)
+            {
+                /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
+                this.WmGetMinMaxInfo(hWnd, lParam);
+
+                handled = true;
+                return;
+            }
+
+            handled = false;
+        }
+
+        private void FixWindowChromeBugForMaximizedWindow()
         {
             var mmi = this.GetMinMaxInfo(this.windowHwnd, new MINMAXINFO());
             if (NativeMethods.IsDwmEnabled())
@@ -84,29 +133,7 @@
             }
         }
 
-        private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            var returnval = IntPtr.Zero;
-
-            switch (message)
-            {
-                case Constants.WM_GETMINMAXINFO:
-
-                    WINDOWPLACEMENT windowPlacement;
-                    UnsafeNativeMethods.GetWindowPlacement(this.windowHwnd, out windowPlacement);
-
-                    if (windowPlacement.showCmd == 3)
-                    {
-                        /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
-                        this.WmGetMinMaxInfo(hWnd, lParam);
-
-                        handled = true;
-                    }
-                    break;
-            }
-
-            return returnval;
-        }
+        #endregion
 
         #region WindowSize
 
