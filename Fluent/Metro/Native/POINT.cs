@@ -6,27 +6,27 @@ namespace Fluent.Metro.Native
 #pragma warning disable 1591
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
-    public struct POINT
+    internal struct POINT
     {
-        private int _x;
-        private int _y;
+        private int x;
+        private int y;
 
         public POINT(int x, int y)
         {
-            this._x = x;
-            this._y = y;
+            this.x = x;
+            this.y = y;
         }
 
         public int X
         {
-            get { return this._x; }
-            set { this._x = value; }
+            get { return this.x; }
+            set { this.x = value; }
         }
 
         public int Y
         {
-            get { return this._y; }
-            set { this._y = value; }
+            get { return this.y; }
+            set { this.y = value; }
         }
 
         public override bool Equals(object obj)
@@ -35,18 +35,19 @@ namespace Fluent.Metro.Native
             {
                 var point = (POINT)obj;
 
-                return point._x == this._x && point._y == this._y;
+                return point.x == this.x && point.y == this.y;
             }
+
             return base.Equals(obj);
         }
         public override int GetHashCode()
         {
-            return this._x.GetHashCode() ^ this._y.GetHashCode();
+            return this.x.GetHashCode() ^ this.y.GetHashCode();
         }
 
         public static bool operator ==(POINT a, POINT b)
         {
-            return a._x == b._x && a._y == b._y;
+            return a.x == b.x && a.y == b.y;
         }
 
         public static bool operator !=(POINT a, POINT b)
@@ -56,7 +57,7 @@ namespace Fluent.Metro.Native
 
         public override string ToString()
         {
-            return "POINT { x: " + this._x + " / y : " + this._y + " }";
+            return string.Format("POINT {{ x: {0} / y: {1} }}", this.X, this.Y);
         }
     }
 }

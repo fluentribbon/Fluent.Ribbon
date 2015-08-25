@@ -7,14 +7,14 @@ namespace Fluent.Metro.Native
 #pragma warning disable 1591
     [Serializable]
     [StructLayout(LayoutKind.Sequential, Pack = 0)]    
-    public struct RECT
+    internal struct RECT
     {
         public int left;
         public int top;
         public int right;
         public int bottom;
 
-        public static readonly RECT Empty = new RECT();
+        public static readonly RECT Empty;
 
         public int Width
         {
@@ -53,15 +53,22 @@ namespace Fluent.Metro.Native
 
         public override string ToString()
         {
-            if (this == Empty) 
+            if (this == Empty)
+            {
                 return "RECT {Empty}";
-            return "RECT { left : " + this.left + " / top : " + this.top + " / right : " + this.right + " / bottom : " + this.bottom + " }";
+            }
+
+            return string.Format("RECT {{ left: {0} / top: {1} / right: {2} / bottom: {3} }}", this.left, this.top, this.right, this.bottom);
         }
 
         /// <summary> Determine if 2 RECT are equal (deep compare) </summary>
         public override bool Equals(object obj)
         {
-            if (!(obj is Rect)) { return false; }
+            if (!(obj is Rect))
+            {
+                return false;
+            }
+
             return (this == (RECT)obj);
         }
 

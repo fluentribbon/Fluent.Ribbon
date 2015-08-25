@@ -4,7 +4,7 @@ namespace Fluent.Metro.Native
 {
 #pragma warning disable 1591
     [StructLayout(LayoutKind.Sequential)]
-    public struct MINMAXINFO
+    internal struct MINMAXINFO
     {
         public POINT ptReserved;
         public POINT ptMaxSize;
@@ -14,7 +14,7 @@ namespace Fluent.Metro.Native
 
         public override string ToString()
         {
-            return "MINMAXINFO { ptMaxPosition : " + this.ptMaxPosition + " / ptMaxSize : " + this.ptMaxSize + " }";
+            return string.Format("MINMAXINFO {{ ptMaxPosition : {0} / ptMaxSize : {1} }}", this.ptMaxPosition, this.ptMaxSize);
         }
     };
 }
