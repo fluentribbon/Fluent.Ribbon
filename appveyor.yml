@@ -1,6 +1,6 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 3.5.0.{build}
+version: 3.5.1.{build}
 configuration: Release
 
 # Install scripts. (runs after repo cloning)

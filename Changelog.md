@@ -1,5 +1,22 @@
 # Changelog for Fluent.Ribbon
 
+## 3.5.1
+
+- ### Bug fixes
+
+  - [#161](../../issues/161) - Window not maximized correctly when MaxHeight and/or MaxWidth are set
+  - [#160](../../issues/160) - Invisible first tab is selected when selected tab becomes invisible
+  - [#159](../../issues/159) - Maximized RibbonWindow state error after long IO operation.
+  - [#158](../../issues/158) - Treat all themes equally by generating their Generic.xaml in the specific theme folder
+  - [#154](../../issues/154) - Removing item (that has DropDown ) from QAT removes items in Ribbon Toolbar
+  - [#153](../../issues/153) - Incorrect rendering with SizeToContent="WidthAndHeight"
+  - [#151](../../issues/151) - RibbonToolBarLayoutDefinition is not compatible with some bindings?
+  - [#150](../../issues/150) - Menu Item Tool tip not appearing when in a datatemplate
+  - [#147](../../issues/147) - Foreground colour backstage items
+  - [#80](../../issues/80) - Window "Not Responding" cut Title
+
+Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
+
 ## 3.5.0
 
 - ### Bug fixes
