@@ -185,8 +185,11 @@
             var maxWidth = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
             var maxHeight = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
 
-            mmi.ptMaxSize.X = Math.Min(maxWidth, (int)this.window.MaxWidth);
-            mmi.ptMaxSize.Y = Math.Min(maxHeight, (int)this.window.MaxHeight);
+            var maxWindowWidth = double.IsPositiveInfinity(this.window.MaxWidth) ? maxWidth : (int)this.window.MaxWidth;
+            var maxWindowHeight = double.IsPositiveInfinity(this.window.MaxHeight) ? maxHeight : (int)this.window.MaxHeight;
+
+            mmi.ptMaxSize.X = Math.Min(maxWidth, maxWindowWidth);
+            mmi.ptMaxSize.Y = Math.Min(maxHeight, maxWindowHeight);
 
             if (!ignoreTaskBar)
             {
