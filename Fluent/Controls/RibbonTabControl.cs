@@ -810,7 +810,7 @@ namespace Fluent
 
         public object GetFirstVisibleItem()
         {
-            foreach (var item in this.ItemContainerGenerator.Items)
+            foreach (var item in this.Items)
             {
                 var ribbonTab = this.ItemContainerGenerator.ContainerFromItem(item) as RibbonTabItem;
 
