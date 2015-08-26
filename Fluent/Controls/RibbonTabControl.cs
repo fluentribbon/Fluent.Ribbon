@@ -808,6 +808,9 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>
+        /// Gets the first visible item
+        /// </summary>
         public object GetFirstVisibleItem()
         {
             foreach (var item in this.Items)
