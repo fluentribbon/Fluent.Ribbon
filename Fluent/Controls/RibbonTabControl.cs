@@ -15,7 +15,6 @@ namespace Fluent
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Windows;
@@ -24,7 +23,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Metro.Native;
-    using Microsoft.Win32;
 
     /// <summary>
     /// Represents ribbon tab control
@@ -809,5 +807,21 @@ namespace Fluent
         }
 
         #endregion
+
+        public object GetFirstVisibleItem()
+        {
+            foreach (var item in this.ItemContainerGenerator.Items)
+            {
+                var ribbonTab = this.ItemContainerGenerator.ContainerFromItem(item) as RibbonTabItem;
+
+                if (ribbonTab != null
+                    && ribbonTab.Visibility == Visibility.Visible)
+                {
+                    return ribbonTab;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -261,9 +261,11 @@ namespace Fluent
         internal double DesiredWidth
         {
             get { return this.desiredWidth; }
-            set {
+            set
+            {
                 this.desiredWidth = value;
-                this.InvalidateMeasure(); }
+                this.InvalidateMeasure();
+            }
         }
 
         /// <summary>
@@ -404,28 +406,35 @@ namespace Fluent
         /// <returns></returns>
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
-            RibbonTabItem control = (d as RibbonTabItem);
+            var control = d as RibbonTabItem;
             if (control != null)
             {
-                Ribbon ribbon = control.FindParentRibbon();
+                var ribbon = control.FindParentRibbon();
                 if (ribbon != null)
                 {
-                    return ((bool)basevalue) && ribbon.Focusable;
+                    return ((bool)basevalue)
+                        && ribbon.Focusable;
                 }
             }
+
             return basevalue;
         }
 
         // Find parent ribbon
         private Ribbon FindParentRibbon()
         {
-            DependencyObject element = this.Parent;
+            var element = this.Parent;
             while (element != null)
             {
-                Ribbon ribbon = element as Ribbon;
-                if (ribbon != null) return ribbon;
+                var ribbon = element as Ribbon;
+                if (ribbon != null)
+                {
+                    return ribbon;
+                }
+
                 element = VisualTreeHelper.GetParent(element);
             }
+
             return null;
         }
 
@@ -485,7 +494,7 @@ namespace Fluent
                     }
                     else
                     {
-                        item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                        item.TabControlParent.SelectedItem = item.TabControlParent.GetFirstVisibleItem();
                     }
                 }
             }
