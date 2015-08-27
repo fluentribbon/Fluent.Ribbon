@@ -1873,7 +1873,7 @@ namespace Fluent
                 || QuickAccessItemsProvider.IsSupported(result) == false)
             {
                 // Item is invalid
-                Debug.WriteLine("Error while QAT items loading: an item is not be able to be added to QAT");
+                Debug.WriteLine("Error while QAT items loading. Could not add \"{0}\" to QAT.", current);
                 return;
             }
 
