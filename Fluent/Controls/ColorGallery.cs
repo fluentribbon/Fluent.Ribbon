@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
-using Microsoft.Win32;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Runtime.InteropServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Interop;
+    using System.Windows.Markup;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+
     /// <summary>
     /// Represents color gallery modes
     /// </summary>
@@ -50,32 +49,53 @@ namespace Fluent
         /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if (item == null)
+            {
+                return null;
+            }
+
             ListBox listBox = null;
-            DependencyObject parent = container;
+            var parent = container;
             while (parent != null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 listBox = parent as ListBox;
-                if (listBox != null) break;
+                if (listBox != null)
+                {
+                    break;
+                }
             }
-            if (listBox != null)
+
+            if (listBox == null)
             {
-                ColorGallery colorGallery = null;
-                while (parent != null)
-                {
-                    parent = VisualTreeHelper.GetParent(parent);
-                    colorGallery = parent as ColorGallery;
-                    if (colorGallery != null) break;
-                }
-                if (colorGallery != null)
-                {
-                    int index = listBox.Items.IndexOf(item);
-                    if (index < colorGallery.Columns) return (listBox.TryFindResource("GradientColorTopDataTemplate") as DataTemplate);
-                    else if (index >= listBox.Items.Count - colorGallery.Columns) return (listBox.TryFindResource("GradientColorBottomDataTemplate") as DataTemplate);
-                    else return (listBox.TryFindResource("GradientColorCenterDataTemplate") as DataTemplate);
-                }
+                return null;
             }
-            return null;
+
+            ColorGallery colorGallery = null;
+            while (parent != null)
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+                colorGallery = parent as ColorGallery;
+                if (colorGallery != null) break;
+            }
+
+            if (colorGallery == null)
+            {
+                return null;
+            }
+
+            var index = listBox.Items.IndexOf(item);
+            if (index < colorGallery.Columns)
+            {
+                return listBox.TryFindResource("GradientColorTopDataTemplate") as DataTemplate;
+            }
+
+            if (index >= listBox.Items.Count - colorGallery.Columns)
+            {
+                return listBox.TryFindResource("GradientColorBottomDataTemplate") as DataTemplate;
+            }
+
+            return listBox.TryFindResource("GradientColorCenterDataTemplate") as DataTemplate;
         }
 
     }
@@ -221,11 +241,11 @@ namespace Fluent
         private ListBox standardGradientsListBox;
         private ListBox recentColorsListBox;
 
-        private List<ListBox> listBoxes = new List<ListBox>();
+        private readonly List<ListBox> listBoxes = new List<ListBox>();
 
         private bool isSelectionChanging;
 
-        bool isTemplateApplied;
+        private bool isTemplateApplied;
 
 
         #endregion
@@ -700,7 +720,7 @@ namespace Fluent
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -715,7 +735,6 @@ namespace Fluent
         /// </summary>
         public ColorGallery()
         {
-
         }
 
         #endregion
@@ -727,6 +746,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
+
             if (this.moreColorsButton != null)
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
             this.moreColorsButton = this.GetTemplateChild("PART_MoreColors") as MenuItem;
@@ -782,8 +803,7 @@ namespace Fluent
             this.listBoxes.Add(this.recentColorsListBox);
             if (this.recentColorsListBox != null)
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
-
-            base.OnApplyTemplate();
+            
             this.isTemplateApplied = true;
 
             this.UpdateSelectedColor(this.SelectedColor);
@@ -794,7 +814,7 @@ namespace Fluent
         #region Private Methods
 
         private static IntPtr customColors = IntPtr.Zero;
-        int[] colorsArray = new int[16];
+        private readonly int[] colorsArray = new int[16];
 
         private void OnMoreColorsClick(object sender, RoutedEventArgs e)
         {
