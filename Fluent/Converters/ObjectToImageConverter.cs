@@ -47,6 +47,12 @@
                 return CreateImage(imagePath, desiredSize);
             }
 
+            var imageUri = value as Uri;
+            if (imageUri != null)
+            {
+                return CreateImage(imageUri, desiredSize);
+            }
+
             var imageSource = value as ImageSource;
 
             if (imageSource == null)
@@ -88,15 +94,39 @@
             }
 
             return new Image
+            {
+                Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
+            };
+        }
+        private static Image CreateImage(Uri imageUri, double desiredSize)
+        {
+            if (double.IsNaN(desiredSize) == false
+                && imageUri.AbsolutePath.EndsWith(".ico"))
+            {
+                return new Image
                 {
-                    Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
+                    Source = ExtractImageFromIcoFile(imageUri, desiredSize)
                 };
+            }
+
+            return new Image
+            {
+                Source = new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
+            };
         }
 
         private static ImageSource ExtractImageFromIcoFile(string imagePath, double desiredSize)
         {
-            var decoder = BitmapDecoder.Create(
+            return ExtractImageFromIcoFile(
                 new Uri("pack://application:,,," + imagePath, UriKind.RelativeOrAbsolute),
+                desiredSize
+                );
+        }
+
+        private static ImageSource ExtractImageFromIcoFile(Uri imageUri, double desiredSize)
+        {
+            var decoder = BitmapDecoder.Create(
+                imageUri,
                 BitmapCreateOptions.DelayCreation | BitmapCreateOptions.IgnoreImageCache,
                 BitmapCacheOption.None
                 );
