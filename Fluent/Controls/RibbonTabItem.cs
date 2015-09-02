@@ -246,7 +246,9 @@ namespace Fluent
 
             if (e.NewValue != null)
             {
-                ((RibbonContextualTabGroup)e.NewValue).AppendTabItem(tab);
+                var tabGroup = (RibbonContextualTabGroup)e.NewValue;
+                tab.Visibility = tabGroup.Visibility;
+                tabGroup.AppendTabItem(tab);
                 tab.IsContextual = true;
             }
             else
