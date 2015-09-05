@@ -1,5 +1,59 @@
 # Changelog for Fluent.Ribbon
 
+## 3.5.1
+
+- ### Bug fixes
+
+  - [#161](../../issues/161) - Window not maximized correctly when MaxHeight and/or MaxWidth are set
+  - [#160](../../issues/160) - Invisible first tab is selected when selected tab becomes invisible
+  - [#159](../../issues/159) - Maximized RibbonWindow state error after long IO operation.
+  - [#158](../../issues/158) - Treat all themes equally by generating their Generic.xaml in the specific theme folder
+  - [#154](../../issues/154) - Removing item (that has DropDown ) from QAT removes items in Ribbon Toolbar
+  - [#153](../../issues/153) - Incorrect rendering with SizeToContent="WidthAndHeight"
+  - [#151](../../issues/151) - RibbonToolBarLayoutDefinition is not compatible with some bindings?
+  - [#150](../../issues/150) - Menu Item Tool tip not appearing when in a datatemplate
+  - [#147](../../issues/147) - Foreground colour backstage items
+  - [#80](../../issues/80) - Window "Not Responding" cut Title
+
+Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
+
+## 3.5.0
+
+- ### Bug fixes
+  - [#143](../../issues/143) "Resizing InRibbonGallery causes content to be narrower than container"
+
+- ### Enhancements
+  - [#141](../../issues/141) "Add Lithuanian (lt) language support"
+  - [#142](../../issues/142) "GalleryPanel should inherit from VirtualizingStackPanel instead of Panel"
+
+## 3.4.2
+
+- ### Bug fixes
+  - [#113](../../issues/113) "Ribbon starts with no active tab selected"
+  - [#122](../../issues/122) "The CanAddToQuickAccessToolBar="False" property not work correctly for "MenuItem""
+  - [#135](../../issues/135) "Null pointer exception when trying to bring back QuickAccessItem"
+  - [#136](../../issues/136) "Add translation for TradChinese(Taiwan)"
+  - When backstage was open while items were added to quick access the items were not immediately visible after closing backstage
+  - Show above/below can't be added to quick access from now on
+  - Fixing warning that was caused by an not applied storyboard being removed
+  - Removed opacity animation from backstage in Office 2013 theme to align with Office 2013
+
+## 3.4.1
+
+- ### Bug fixes
+  - [#78](../../issues/78) "Minimized but visible ribbon lacks top border in theme 2013"
+  - [#81](../../issues/81) "Invalid typeof in style resolution of RadioButton"
+  - [#83](../../issues/83) "Aligned vertical alignment of dropdownbutton and button."
+  - [#85](../../issues/85) "ComboBox Items don t get a overlay color when mouse over items"
+  - [#95](../../issues/95) "repair nullref combobox combined with focus on winforms control"
+  - [#97](../../issues/97) "Fixed possible InvalidCastException when creating a QAT item of a CheckBox"
+  - [#102](../../issues/102) "Redundant separator in context menu if quick access is hidden"
+  - [#104](../../issues/104) "Non-DWM fullscreen window is not fullscreen"
+  - [#106](../../issues/106) "BackStage should be 1 px higher"
+  - [#115](../../issues/115) "MenuItem: IsSplited="True" gray line issue"
+  - [#117](../../issues/117) "Backstage not shown when Window Content is not a FrameworkElement"
+  - [#124](../../issues/124) "The text in fluent:Spinner cannot be centered vertically."
+
 ## 3.4.0
 - ### Features
   - [#74](../../issues/74) "Added DropDownButton.ClosePopupOnMouseDownDelay to allow the end-developer to tweak the delay (sometimes 100 ms is too fast)"
@@ -66,20 +120,20 @@
 
 ## 3.1.0
 - ### Features
- - Added DropDownButton.ClosePopupOnMouseDown property which defaults to false. If true, it will close the drop down popup automatically when a mouse down event occurs.
- - [#3](../../issues/3)     "Consider using GitLink to allow users to step through Fluent source code"
+  - Added DropDownButton.ClosePopupOnMouseDown property which defaults to false. If true, it will close the drop down popup automatically when a mouse down event occurs.
+  - [#3](../../issues/3)   "Consider using GitLink to allow users to step through Fluent source code"
 
 - ### Misc
- - Renaming InnerBackstageTabCotrolItem to InnerBackstageTabControlItem
+  - Renaming InnerBackstageTabCotrolItem to InnerBackstageTabControlItem
 
 - ### Bug fixes
- - Fixed: [#11](../../issues/11)   "ContextMenu and Popup has 10px space at bottom and right side"
- - Fixed: [#13](../../issues/13)   "Backstage does not open at application start anymore"
- - Fixed: [#17](../../issues/17)   "Problem with Mouse Capture on SplitButton"
- - Fixed: [#18](../../issues/18)   "Tabs are disabled when using datatemplate for viewmodel in window content"
- - Fixed: [#19](../../issues/19)   "Vertical Scrollbar will not hide in Fluent:Combobox"
- - Fixed: 22521 "RibbonWindow is activated when focus is lost after Alt+Tab"
- - Fixed: 22523 "Typo in Generic.xaml"
+  - Fixed: [#11](../../issues/11)   "ContextMenu and Popup has 10px space at bottom and right side"
+  - Fixed: [#13](../../issues/13)   "Backstage does not open at application start anymore"
+  - Fixed: [#17](../../issues/17)   "Problem with Mouse Capture on SplitButton"
+  - Fixed: [#18](../../issues/18)   "Tabs are disabled when using datatemplate for viewmodel in window content"
+  - Fixed: [#19](../../issues/19)   "Vertical Scrollbar will not hide in Fluent:Combobox"
+  - Fixed: 22521 "RibbonWindow is activated when focus is lost after Alt+Tab"
+  - Fixed: 22523 "Typo in Generic.xaml"
 
 ## 3.0.3
 - Fixed: 22519 "Normalize button closes application) Thanks to GeertvanHorrik for finding out that the version of Microsoft.Windows.Shell for .NET 4.0 that was used is buggy."

@@ -21,8 +21,8 @@ namespace Fluent
         /// </summary>
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Fluent
         /// </summary>
         public string Value
         {
-            get { return (string)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (string)this.GetValue(ValueProperty); }
+            set { this.SetValue(ValueProperty, value); }
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace Fluent
         /// </summary>
         public bool IsChecked
         {
-            get { return (bool)GetValue(IsCheckedProperty); }
-            set { SetValue(IsCheckedProperty, value); }
+            get { return (bool)this.GetValue(IsCheckedProperty); }
+            set { this.SetValue(IsCheckedProperty, value); }
         }
 
         /// <summary>
@@ -105,13 +105,15 @@ namespace Fluent
         // Raises checked event
         private void RaiseChecked()
         {
-            if (Checked != null) Checked(this, new RoutedEventArgs());
+            if (this.Checked != null)
+                this.Checked(this, new RoutedEventArgs());
         }
 
         // Raises unchecked event
         private void RaiseUnchecked()
         {
-            if (Unchecked != null) Unchecked(this, new RoutedEventArgs());
+            if (this.Unchecked != null)
+                this.Unchecked(this, new RoutedEventArgs());
         }
 
         #endregion

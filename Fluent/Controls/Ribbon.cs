@@ -29,6 +29,8 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using System.ComponentModel;
+    using System.Windows.Threading;
+    using Fluent.Extensions;
 
     // TODO: improve style parts naming & using
 
@@ -42,6 +44,8 @@ namespace Fluent
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control
     {
+        private readonly RibbonState ribbonState;
+
         #region Localization
 
         // Localizable properties
@@ -158,72 +162,72 @@ namespace Fluent
             RibbonContextMenu.Opened += OnContextMenuOpened;
 
             // Add to quick access toolbar
-            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addToQuickAccessMenuItem, "RibbonContextMenuAddItem", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addToQuickAccessMenuItem, "RibbonContextMenuAddItem", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add group to quick access toolbar
-            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addGroupToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addGroupToQuickAccessMenuItem, "RibbonContextMenuAddGroup", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addGroupToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addGroupToQuickAccessMenuItem, "RibbonContextMenuAddGroup", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGroupToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add menu item to quick access toolbar
-            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addMenuToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addMenuToQuickAccessMenuItem, "RibbonContextMenuAddMenu", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addMenuToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addMenuToQuickAccessMenuItem, "RibbonContextMenuAddMenu", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addMenuToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add gallery to quick access toolbar
-            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.AddToQuickAccessCommand });
+            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
             RibbonContextMenu.Items.Add(addGalleryToQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, addGalleryToQuickAccessMenuItem, "RibbonContextMenuAddGallery", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, addGalleryToQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, addGalleryToQuickAccessMenuItem, "RibbonContextMenuAddGallery", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, addGalleryToQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Remove from quick access toolbar
-            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.RemoveFromQuickAccessCommand });
+            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = RemoveFromQuickAccessCommand });
             RibbonContextMenu.Items.Add(removeFromQuickAccessMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, removeFromQuickAccessMenuItem, "RibbonContextMenuRemoveItem", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, removeFromQuickAccessMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, removeFromQuickAccessMenuItem, "RibbonContextMenuRemoveItem", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, removeFromQuickAccessMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Separator
             firstSeparatorDictionary.Add(Thread.CurrentThread.ManagedThreadId, new Separator());
             RibbonContextMenu.Items.Add(firstSeparator);
 
             // Customize quick access toolbar
-            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeQuickAccessToolbarCommand });
+            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeQuickAccessToolbarCommand });
             RibbonContextMenu.Items.Add(customizeQuickAccessToolbarMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, customizeQuickAccessToolbarMenuItem, "RibbonContextMenuCustomizeQuickAccessToolBar", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, customizeQuickAccessToolbarMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, customizeQuickAccessToolbarMenuItem, "RibbonContextMenuCustomizeQuickAccessToolBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeQuickAccessToolbarMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access below the ribbon
-            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessBelowCommand });
+            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessBelowCommand });
             RibbonContextMenu.Items.Add(showQuickAccessToolbarBelowTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarBelowTheRibbonMenuItem, "RibbonContextMenuShowBelow", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarBelowTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, showQuickAccessToolbarBelowTheRibbonMenuItem, "RibbonContextMenuShowBelow", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarBelowTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access above the ribbon
-            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ShowQuickAccessAboveCommand });
+            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessAboveCommand });
             RibbonContextMenu.Items.Add(showQuickAccessToolbarAboveTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, showQuickAccessToolbarAboveTheRibbonMenuItem, "RibbonContextMenuShowAbove", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarAboveTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, showQuickAccessToolbarAboveTheRibbonMenuItem, "RibbonContextMenuShowAbove", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, showQuickAccessToolbarAboveTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Separator
             secondSeparatorDictionary.Add(Thread.CurrentThread.ManagedThreadId, new Separator());
             RibbonContextMenu.Items.Add(secondSeparator);
 
             // Customize the ribbon
-            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.CustomizeTheRibbonCommand });
+            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeTheRibbonCommand });
             RibbonContextMenu.Items.Add(customizeTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, customizeTheRibbonMenuItem, "RibbonContextMenuCustomizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, customizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, customizeTheRibbonMenuItem, "RibbonContextMenuCustomizeRibbon", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, customizeTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Minimize the ribbon
-            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = Ribbon.ToggleMinimizeTheRibbonCommand });
+            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ToggleMinimizeTheRibbonCommand });
             RibbonContextMenu.Items.Add(minimizeTheRibbonMenuItem);
-            RibbonControl.Bind(Ribbon.Localization, minimizeTheRibbonMenuItem, "RibbonContextMenuMinimizeRibbon", MenuItem.HeaderProperty, BindingMode.OneWay);
-            RibbonControl.Bind(RibbonContextMenu, minimizeTheRibbonMenuItem, "PlacementTarget", MenuItem.CommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(Localization, minimizeTheRibbonMenuItem, "RibbonContextMenuMinimizeRibbon", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonContextMenu, minimizeTheRibbonMenuItem, "PlacementTarget", System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
         }
 
         /// <summary>
@@ -340,6 +344,7 @@ namespace Fluent
                     {
                         firstSeparator.Visibility = Visibility.Visible;
 
+                        // Check for value because remove is only possible in the context menu of items in QA which represent the value for QA-items
                         if (ribbon.quickAccessElements.ContainsValue(control))
                         {
                             // Control is on quick access
@@ -350,7 +355,8 @@ namespace Fluent
                             // Control is menu item
                             addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         }
-                        else if ((control is Gallery) || (control is InRibbonGallery))
+                        else if ((control is Gallery) ||
+                                 (control is InRibbonGallery))
                         {
                             // Control is gallery
                             addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
@@ -431,9 +437,6 @@ namespace Fluent
         // Currently added in QAT items
         private readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
-        // Stream to save quickaccesselements on aplytemplate
-        MemoryStream quickAccessStream;
-
         private Window ownerWindow;
 
         #endregion
@@ -447,8 +450,8 @@ namespace Fluent
         /// </summary>
         public UIElement Menu
         {
-            get { return (UIElement)GetValue(MenuProperty); }
-            set { SetValue(MenuProperty, value); }
+            get { return (UIElement)this.GetValue(MenuProperty); }
+            set { this.SetValue(MenuProperty, value); }
         }
 
         /// <summary>
@@ -472,8 +475,8 @@ namespace Fluent
         /// </summary>
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         /// <summary>
@@ -498,8 +501,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem SelectedTabItem
         {
-            get { return (RibbonTabItem)GetValue(SelectedTabItemProperty); }
-            set { SetValue(SelectedTabItemProperty, value); }
+            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
         /// <summary>
@@ -534,8 +537,8 @@ namespace Fluent
         /// </summary>
         public int SelectedTabIndex
         {
-            get { return (int)GetValue(SelectedTabIndexProperty); }
-            set { SetValue(SelectedTabIndexProperty, value); }
+            get { return (int)this.GetValue(SelectedTabIndexProperty); }
+            set { this.SetValue(SelectedTabIndexProperty, value); }
         }
 
         /// <summary>
@@ -613,8 +616,8 @@ namespace Fluent
         /// </summary>
         public bool ShowQuickAccessToolBarAboveRibbon
         {
-            get { return (bool)GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
-            set { SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
+            get { return (bool)this.GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
+            set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
         }
 
         /// <summary>
@@ -636,7 +639,7 @@ namespace Fluent
                 ribbon.TitleBar.InvalidateMeasure();
             }
 
-            ribbon.SaveState();
+            ribbon.ribbonState.SaveStateToMemoryStream();
         }
 
         /// <summary>
@@ -720,7 +723,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (TabControl == null)
+            if (this.TabControl == null)
             {
                 return;
             }
@@ -730,31 +733,31 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        this.TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        TabControl.Items.Remove(item);
+                        this.TabControl.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        TabControl.Items.Remove(item);
+                        this.TabControl.Items.Remove(item);
                     }
 
                     foreach (var item in e.NewItems)
                     {
-                        TabControl.Items.Add(item);
+                        this.TabControl.Items.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    TabControl.Items.Clear();
+                    this.TabControl.Items.Clear();
                     break;
             }
         }
@@ -788,25 +791,29 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Remove(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Remove(item as UIElement);
                     }
                     foreach (object item in e.NewItems)
                     {
-                        if (TabControl != null) TabControl.ToolBarItems.Add(item as UIElement);
+                        if (this.TabControl != null)
+                            this.TabControl.ToolBarItems.Add(item as UIElement);
                     }
                     break;
             }
@@ -818,7 +825,7 @@ namespace Fluent
         /// </summary>
         internal QuickAccessToolBar QuickAccessToolBar
         {
-            get { return quickAccessToolBar; }
+            get { return this.quickAccessToolBar; }
         }
 
         /// <summary>
@@ -828,29 +835,26 @@ namespace Fluent
         {
             get
             {
-                var list = new ArrayList();
-                if (layoutRoot != null)
+                if (this.layoutRoot != null)
                 {
-                    list.Add(layoutRoot);
+                    yield return this.layoutRoot;
                 }
 
-                if (Menu != null)
+                if (this.Menu != null)
                 {
-                    list.Add(Menu);
+                    yield return this.Menu;
                 }
 
-                if (quickAccessToolBar != null)
+                if (this.quickAccessToolBar != null)
                 {
-                    list.Add(quickAccessToolBar);
+                    yield return this.quickAccessToolBar;
                 }
 
-                if (TabControl != null
-                    && TabControl.ToolbarPanel != null)
+                if (this.TabControl != null
+                    && this.TabControl.ToolbarPanel != null)
                 {
-                    list.Add(TabControl.ToolbarPanel);
+                    yield return this.TabControl.ToolbarPanel;
                 }
-
-                return list.GetEnumerator();
             }
         }
 
@@ -884,9 +888,9 @@ namespace Fluent
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -896,9 +900,9 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
@@ -908,18 +912,18 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (quickAccessToolBar != null)
+                        if (this.quickAccessToolBar != null)
                         {
-                            quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                            this.quickAccessToolBar.QuickAccessItems.Add(menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -932,8 +936,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanCustomizeQuickAccessToolBarProperty); }
-            set { SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarProperty); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>
@@ -949,8 +953,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeQuickAccessToolBarItems
         {
-            get { return (bool)GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
-            set { SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
         }
 
         /// <summary>
@@ -965,8 +969,8 @@ namespace Fluent
         /// </summary>
         public bool CanCustomizeRibbon
         {
-            get { return (bool)GetValue(CanCustomizeRibbonProperty); }
-            set { SetValue(CanCustomizeRibbonProperty, value); }
+            get { return (bool)this.GetValue(CanCustomizeRibbonProperty); }
+            set { this.SetValue(CanCustomizeRibbonProperty, value); }
         }
 
         /// <summary>
@@ -983,8 +987,8 @@ namespace Fluent
         /// </summary>
         public bool IsMinimized
         {
-            get { return (bool)GetValue(IsMinimizedProperty); }
-            set { SetValue(IsMinimizedProperty, value); }
+            get { return (bool)this.GetValue(IsMinimizedProperty); }
+            set { this.SetValue(IsMinimizedProperty, value); }
         }
 
         /// <summary>
@@ -1010,8 +1014,8 @@ namespace Fluent
         /// </summary>
         public double ContentGapHeight
         {
-            get { return (double)GetValue(ContentGapHeightProperty); }
-            set { SetValue(ContentGapHeightProperty, value); }
+            get { return (double)this.GetValue(ContentGapHeightProperty); }
+            set { this.SetValue(ContentGapHeightProperty, value); }
         }
 
         /// <summary>
@@ -1026,8 +1030,8 @@ namespace Fluent
         /// </summary>
         public bool IsCollapsed
         {
-            get { return (bool)GetValue(IsCollapsedProperty); }
-            set { SetValue(IsCollapsedProperty, value); }
+            get { return (bool)this.GetValue(IsCollapsedProperty); }
+            set { this.SetValue(IsCollapsedProperty, value); }
         }
 
         /// <summary>
@@ -1051,8 +1055,8 @@ namespace Fluent
         /// </summary>
         public bool IsAutomaticCollapseEnabled
         {
-            get { return (bool)GetValue(IsAutomaticCollapseEnabledProperty); }
-            set { SetValue(IsAutomaticCollapseEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
+            set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
         }
 
         /// <summary>
@@ -1067,8 +1071,8 @@ namespace Fluent
         /// </summary>
         public bool IsQuickAccessToolBarVisible
         {
-            get { return (bool)GetValue(IsQuickAccessToolBarVisibleProperty); }
-            set { SetValue(IsQuickAccessToolBarVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsQuickAccessToolBarVisibleProperty); }
+            set { this.SetValue(IsQuickAccessToolBarVisibleProperty, value); }
         }
 
         /// <summary>
@@ -1083,8 +1087,8 @@ namespace Fluent
         /// </summary>
         public bool CanQuickAccessLocationChanging
         {
-            get { return (bool)GetValue(CanQuickAccessLocationChangingProperty); }
-            set { SetValue(CanQuickAccessLocationChangingProperty, value); }
+            get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
+            set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
         }
 
         /// <summary>
@@ -1101,9 +1105,9 @@ namespace Fluent
         {
             get
             {
-                if (keyTipService != null)
+                if (this.keyTipService != null)
                 {
-                    return keyTipService.AreAnyKeyTipsVisible;
+                    return this.keyTipService.AreAnyKeyTipsVisible;
                 }
 
                 return false;
@@ -1313,15 +1317,17 @@ namespace Fluent
             var ribbon = sender as Ribbon;
 
             if (ribbon != null
-                && ribbon.IsQuickAccessToolBarVisible)
+                && ribbon.IsQuickAccessToolBarVisible
+                && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement)
+                && ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false)
             {
                 if (e.Parameter is Gallery)
                 {
-                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement);
+                    e.CanExecute = ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(e.Parameter as DependencyObject) as UIElement) == false;
                 }
                 else
                 {
-                    e.CanExecute = !ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement);
+                    e.CanExecute = ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false;
                 }
             }
             else
@@ -1343,13 +1349,13 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
 
             // Subscribe to menu commands
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.AddToQuickAccessCommand, OnAddToQuickAccessCommandExecuted, OnAddToQuickAccessCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.RemoveFromQuickAccessCommand, OnRemoveFromQuickAccessCommandExecuted, OnRemoveFromQuickAccessCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessAboveCommand, OnShowQuickAccessAboveCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ShowQuickAccessBelowCommand, OnShowQuickAccessBelowCommandExecuted));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
-            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(Ribbon.CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(AddToQuickAccessCommand, OnAddToQuickAccessCommandExecuted, OnAddToQuickAccessCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(RemoveFromQuickAccessCommand, OnRemoveFromQuickAccessCommandExecuted, OnRemoveFromQuickAccessCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ShowQuickAccessAboveCommand, OnShowQuickAccessAboveCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ShowQuickAccessBelowCommand, OnShowQuickAccessBelowCommandExecuted));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
+            CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
 
             InitRibbonContextMenu();
         }
@@ -1366,6 +1372,8 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+
+            this.ribbonState = new RibbonState(this);
         }
 
         #endregion
@@ -1505,12 +1513,10 @@ namespace Fluent
 
             if (this.quickAccessToolBar != null)
             {
-                this.quickAccessStream = new MemoryStream();
-
-                if (!this.AutomaticStateManagement
-                    || this.IsStateLoaded)
+                if (this.AutomaticStateManagement == false
+                    || this.ribbonState.IsStateLoaded)
                 {
-                    this.SaveState(this.quickAccessStream);
+                    this.ribbonState.SaveStateToMemoryStream();
                 }
 
                 this.ClearQuickAccessToolBar();
@@ -1583,7 +1589,7 @@ namespace Fluent
         {
             if (this.ownerWindow != null)
             {
-                this.SaveState();
+                this.ribbonState.SaveStateToIsolatedStorage();
 
                 this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
                 this.ownerWindow.SizeChanged -= this.OnSizeChanged;
@@ -1598,13 +1604,8 @@ namespace Fluent
         private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
         {
             this.quickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
-            if (this.quickAccessStream != null)
-            {
-                this.quickAccessStream.Position = 0;
-                this.LoadState(this.quickAccessStream);
-                this.quickAccessStream.Close();
-                this.quickAccessStream = null;
-            }
+
+            this.ribbonState.LoadStateFromMemoryStream();
         }
 
         #endregion
@@ -1632,6 +1633,11 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
+            if (element == null)
+            {
+                return;
+            }            
+
             if (element is Gallery)
             {
                 element = FindParentRibbonControl(element) as UIElement;
@@ -1644,18 +1650,24 @@ namespace Fluent
                 element = FindParentRibbonControl(element) as UIElement;
             }
 
-            if (!QuickAccessItemsProvider.IsSupported(element))
+            if (element == null)
             {
                 return;
             }
 
-            if (!this.IsInQuickAccessToolBar(element))
+            if (QuickAccessItemsProvider.IsSupported(element) == false)
             {
-                UIElement control = QuickAccessItemsProvider.GetQuickAccessItem(element);
+                return;
+            }
+
+            if (this.IsInQuickAccessToolBar(element) == false)
+            {
+                Debug.WriteLine("Adding \"{0}\" to QuickAccessToolBar.", element);
+
+                var control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
                 this.quickAccessElements.Add(element, control);
                 this.quickAccessToolBar.Items.Add(control);
-                this.quickAccessToolBar.InvalidateMeasure();
             }
         }
 
@@ -1683,16 +1695,14 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void RemoveFromQuickAccessToolBar(UIElement element)
         {
-            Debug.WriteLine(element);
+            Debug.WriteLine("Removing \"{0}\" from QuickAccessToolBar.", element);
 
             if (this.IsInQuickAccessToolBar(element))
             {
                 var quickAccessItem = this.quickAccessElements[element];
                 this.quickAccessElements.Remove(element);
                 this.quickAccessToolBar.Items.Remove(quickAccessItem);
-                this.quickAccessToolBar.InvalidateMeasure();
             }
-
         }
 
         /// <summary>
@@ -1732,7 +1742,7 @@ namespace Fluent
 
             this.AttachToWindow();
 
-            this.InitialLoadState();
+            this.LoadInitialState();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -1749,7 +1759,7 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            this.SaveState();
+            this.ribbonState.SaveStateToIsolatedStorage();
 
             this.keyTipService.Detach();
 
@@ -1778,241 +1788,27 @@ namespace Fluent
 
         #region State Management
 
-        #region IsolatedStorageFileName
-
-        // Name of the isolated storage file
-        string isolatedStorageFileName;
-
-        /// <summary>
-        /// Gets name of the isolated storage file
-        /// </summary>
-        string IsolatedStorageFileName
+        private void LoadInitialState()
         {
-            get
+            if (this.ribbonState.IsStateLoaded)
             {
-                if (this.isolatedStorageFileName != null)
-                {
-                    return this.isolatedStorageFileName;
-                }
-
-                var stringForHash = "";
-                var window = Window.GetWindow(this);
-
-                if (window != null)
-                {
-                    stringForHash += "." + window.GetType().FullName;
-
-                    if (!String.IsNullOrEmpty(window.Name)
-                        && window.Name.Trim().Length > 0)
-                    {
-                        stringForHash += "." + window.Name;
-                    }
-                }
-
-                if (!String.IsNullOrEmpty(this.Name)
-                    && this.Name.Trim().Length > 0)
-                {
-                    stringForHash += "." + this.Name;
-                }
-
-                this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
-                return this.isolatedStorageFileName;
-            }
-        }
-
-        #endregion
-
-        #region Initial State Loading
-
-        // Initial state loading
-        private void InitialLoadState()
-        {
-            this.LayoutUpdated += this.OnJustLayoutUpdated;
-        }
-
-        private void OnJustLayoutUpdated(object sender, EventArgs e)
-        {
-            this.LayoutUpdated -= this.OnJustLayoutUpdated;
-
-            if (this.QuickAccessToolBar != null
-                && !this.QuickAccessToolBar.IsLoaded)
-            {
-                this.InitialLoadState();
                 return;
             }
 
-            if (!this.IsStateLoaded)
-            {
-                this.LoadState();
+            this.ribbonState.LoadStateFromIsolatedStorage();
 
-                if (this.TabControl != null
-                    && this.TabControl.SelectedIndex == -1
-                    && !this.TabControl.IsMinimized)
-                {
-                    this.TabControl.SelectedIndex = 0;
-                }
+            if (this.TabControl != null
+                && this.TabControl.SelectedIndex == -1
+                && this.TabControl.IsMinimized == false)
+            {
+                this.TabControl.SelectedIndex = 0;
             }
         }
-
-        #endregion
-
-        #region Load / Save to Isolated Storage
 
         // Handles items changing in QAT
         private void OnQuickAccessItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.SaveState();
-        }
-
-        // Saves to Isolated Storage (in user store for domain)
-        private void SaveState()
-        {
-            // Check whether automatic save is valid now
-            if (!this.AutomaticStateManagement
-                || !this.IsStateLoaded)
-            {
-                return;
-            }
-
-            try
-            {
-                var storage = GetIsolatedStorageFile();
-                using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
-                {
-                    this.SaveState(stream);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
-            }
-        }
-
-        /// <summary>
-        /// Loads the State from Isolated Storage (in user store for domain)
-        /// </summary>
-        public void LoadState()
-        {
-            // Don't save or load state in design mode
-            if (DesignerProperties.GetIsInDesignMode(this))
-            {
-                return;
-            }
-
-            if (!this.AutomaticStateManagement)
-            {
-                return;
-            }
-
-            try
-            {
-                var storage = GetIsolatedStorageFile();
-                if (FileExists(storage, this.IsolatedStorageFileName))
-                {
-                    using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
-                    {
-                        this.LoadState(stream);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
-            }
-
-            // Now we can save states
-            this.IsStateLoaded = true;
-        }
-
-        // Gets a proper isolated storage file
-        private static IsolatedStorageFile GetIsolatedStorageFile()
-        {
-            try
-            {
-                return IsolatedStorageFile.GetUserStoreForDomain();
-            }
-            catch
-            {
-                return IsolatedStorageFile.GetUserStoreForAssembly();
-            }
-        }
-
-        /// <summary>
-        /// Resets automatically saved state
-        /// </summary>
-        public static void ResetState()
-        {
-            var storage = GetIsolatedStorageFile();
-            foreach (var filename in storage.GetFileNames("*Fluent.Ribbon.State*"))
-            {
-                storage.DeleteFile(filename);
-            }
-        }
-
-        // Determinates whether the given file exists in the given storage
-        private static bool FileExists(IsolatedStorageFile storage, string fileName)
-        {
-            var files = storage.GetFileNames(fileName);
-            return files.Length != 0;
-        }
-
-        #endregion
-
-        #region Save to Stream
-
-        /// <summary>
-        /// Saves state to the given stream
-        /// </summary>
-        /// <param name="stream">Stream</param>
-        public void SaveState(Stream stream)
-        {
-            // Don't save or load state in design mode
-            if (DesignerProperties.GetIsInDesignMode(this))
-            {
-                return;
-            }
-
-            var builder = new StringBuilder();
-
-            var isMinimizedSaveState = this.IsMinimized;
-
-            // Save Ribbon State
-            builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
-            builder.Append(',');
-            builder.Append(ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
-            builder.Append('|');
-
-            // Save QAT items
-            var paths = new Dictionary<FrameworkElement, string>();
-            this.TraverseLogicalTree(this, "", paths);
-
-            // Foreach items and see whether path is found for the item
-            foreach (var element in quickAccessElements)
-            {
-                string path;
-                var control = element.Key as FrameworkElement;
-
-                if (control != null
-                    && paths.TryGetValue(control, out path))
-                {
-                    builder.Append(path);
-                    builder.Append(';');
-                }
-                else
-                {
-                    // Item is not found in logical tree, output to debug console
-                    var controlName = (control != null && !String.IsNullOrEmpty(control.Name))
-                        ? String.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
-                        : string.Empty;
-
-                    Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
-                }
-            }
-
-            var writer = new StreamWriter(stream);
-            writer.Write(builder.ToString());
-
-            writer.Flush();
+            this.ribbonState.SaveStateToMemoryStream();
         }
 
         // Traverse logical tree and find QAT items, remember paths
@@ -2046,62 +1842,14 @@ namespace Fluent
 
         #region Load from Stream
 
-        /// <summary>
-        /// Loads state from the given stream
-        /// </summary>
-        /// <param name="stream">Stream</param>
-        public void LoadState(Stream stream)
-        {
-            this.suppressAutomaticStateManagement = true;
-
-            var reader = new StreamReader(stream);
-            var splitted = reader.ReadToEnd().Split('|');
-
-            if (splitted.Length != 2)
-            {
-                return;
-            }
-
-            // Load Ribbon State
-            var ribbonProperties = splitted[0].Split(',');
-
-            var isMinimized = Boolean.Parse(ribbonProperties[0]);
-
-            this.IsMinimized = isMinimized;
-
-            this.ShowQuickAccessToolBarAboveRibbon = Boolean.Parse(ribbonProperties[1]);
-
-            // Load items
-            var items = splitted[1].Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (this.quickAccessToolBar != null)
-            {
-                this.quickAccessToolBar.Items.Clear();
-            }
-
-            this.quickAccessElements.Clear();
-
-            for (var i = 0; i < items.Length; i++)
-            {
-                this.ParseAndAddToQuickAccessToolBar(items[i]);
-            }
-
-            // Sync QAT menu items
-            foreach (var menuItem in this.QuickAccessItems)
-            {
-                menuItem.IsChecked = this.IsInQuickAccessToolBar(menuItem.Target);
-            }
-
-            this.suppressAutomaticStateManagement = false;
-        }
-
         // Loads item and add to QAT
         private void ParseAndAddToQuickAccessToolBar(string data)
         {
             var indices = data.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => Int32.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+                .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToArray();
 
             DependencyObject current = this;
+
             for (var i = 0; i < indices.Length; i++)
             {
                 var children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToArray();
@@ -2109,21 +1857,23 @@ namespace Fluent
                 var item = indexIsInvalid
                     ? null
                     : children[indices[i]] as DependencyObject;
+
                 if (item == null)
                 {
                     // Path is incorrect
                     Debug.WriteLine("Error while QAT items loading: one of the paths is invalid");
                     return;
                 }
+
                 current = item;
             }
 
             var result = current as UIElement;
-            if ((result == null)
-                || (!QuickAccessItemsProvider.IsSupported(result)))
+            if (result == null
+                || QuickAccessItemsProvider.IsSupported(result) == false)
             {
                 // Item is invalid
-                Debug.WriteLine("Error while QAT items loading: an item is not be able to be added to QAT");
+                Debug.WriteLine("Error while QAT items loading. Could not add \"{0}\" to QAT.", current);
                 return;
             }
 
@@ -2132,23 +1882,10 @@ namespace Fluent
 
         #endregion
 
-        #region IsStateLoaded
-
-        /// <summary>
-        /// Gets or sets whether state is loaded
-        /// </summary>
-        bool IsStateLoaded
-        {
-            get;
-            set;
-        }
-
-        #endregion
-
         #region AutomaticStateManagement Property
 
         // To temporary suppress automatic management
-        bool suppressAutomaticStateManagement;
+        private bool suppressAutomaticStateManagement;
 
         /// <summary>
         /// Gets or sets whether Quick Access ToolBar can 
@@ -2165,7 +1902,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));        
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
@@ -2174,20 +1911,344 @@ namespace Fluent
             {
                 return false;
             }
+
             return basevalue;
         }
 
-        static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
             if ((bool)e.NewValue)
             {
-                ribbon.InitialLoadState();
+                ribbon.LoadInitialState();
             }
         }
 
         #endregion
 
-        #endregion
+        private class RibbonState : IDisposable
+        {
+            private readonly Ribbon ribbon;
+
+            // Name of the isolated storage file
+            private string isolatedStorageFileName;
+            private Stream memoryStream;
+
+            public RibbonState(Ribbon ribbon)
+            {
+                this.ribbon = ribbon;
+                this.memoryStream = new MemoryStream();
+            }
+
+            /// <summary>
+            /// Gets or sets whether state is loaded
+            /// </summary>
+            public bool IsStateLoaded { get; private set; }
+
+            /// <summary>
+            /// Gets name of the isolated storage file
+            /// </summary>
+            private string IsolatedStorageFileName
+            {
+                get
+                {
+                    if (this.isolatedStorageFileName != null)
+                    {
+                        return this.isolatedStorageFileName;
+                    }
+
+                    var stringForHash = "";
+                    var window = Window.GetWindow(this.ribbon);
+
+                    if (window != null)
+                    {
+                        stringForHash += "." + window.GetType().FullName;
+
+                        if (string.IsNullOrEmpty(window.Name) == false
+                            && window.Name.Trim().Length > 0)
+                        {
+                            stringForHash += "." + window.Name;
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(this.ribbon.Name) == false
+                        && this.ribbon.Name.Trim().Length > 0)
+                    {
+                        stringForHash += "." + this.ribbon.Name;
+                    }
+
+                    this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
+                    return this.isolatedStorageFileName;
+                }
+            }
+
+            public void SaveStateToMemoryStream()
+            {
+                Trace.WriteLine(string.Format("Saving state to memory stream..."));
+
+                this.memoryStream.Position = 0;
+                this.SaveState(this.memoryStream);
+
+                Trace.WriteLine(string.Format("State saved to memory stream."));
+            }
+
+            // Saves to Isolated Storage (in user store for domain)
+            public void SaveStateToIsolatedStorage()
+            {
+                Trace.WriteLine(string.Format("Saving state to isolated storage..."));
+
+                // Check whether automatic save is valid now
+                if (this.ribbon.AutomaticStateManagement == false)
+                {
+                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because automatic state management is disabled."));
+                    return;
+                }
+
+                if (this.IsStateLoaded == false)
+                {
+                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because state was not loaded before."));
+                    return;
+                }
+
+                try
+                {
+                    var storage = GetIsolatedStorageFile();
+
+                    using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Create, FileAccess.Write, storage))
+                    {
+                        this.SaveState(stream);
+                    }
+
+                    Trace.WriteLine(string.Format("State saved to isolated storage."));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
+                }
+            }
+
+            /// <summary>
+            /// Saves state to the given stream
+            /// </summary>
+            /// <param name="stream">Stream</param>
+            private void SaveState(Stream stream)
+            {
+                // Don't save or load state in design mode
+                if (DesignerProperties.GetIsInDesignMode(this.ribbon))
+                {
+                    return;
+                }
+
+                var builder = new StringBuilder();
+
+                var isMinimizedSaveState = this.ribbon.IsMinimized;
+
+                // Save Ribbon State
+                builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
+                builder.Append(',');
+                builder.Append(this.ribbon.ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
+                builder.Append('|');
+
+                // Save QAT items
+                var paths = new Dictionary<FrameworkElement, string>();
+                this.ribbon.TraverseLogicalTree(this.ribbon, "", paths);
+
+                // Foreach items and see whether path is found for the item
+                foreach (var element in this.ribbon.quickAccessElements)
+                {
+                    string path;
+                    var control = element.Key as FrameworkElement;
+
+                    if (control != null
+                        && paths.TryGetValue(control, out path))
+                    {
+                        builder.Append(path);
+                        builder.Append(';');
+                    }
+                    else
+                    {
+                        // Item is not found in logical tree, output to debug console
+                        var controlName = (control != null && string.IsNullOrEmpty(control.Name) == false)
+                            ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
+                            : string.Empty;
+
+                        Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
+                    }
+                }
+
+                var writer = new StreamWriter(stream);
+                writer.Write(builder.ToString());
+
+                writer.Flush();
+            }
+
+            public void LoadStateFromMemoryStream()
+            {
+                Trace.WriteLine(string.Format("Loading state from memory stream..."));
+
+                this.memoryStream.Position = 0;
+                this.LoadState(this.memoryStream);
+
+                Trace.WriteLine(string.Format("State loaded from memory stream."));
+            }
+
+            /// <summary>
+            /// Loads the State from Isolated Storage (in user store for domain)
+            /// </summary>
+            /// <remarks>
+            /// Sets <see cref="IsStateLoaded"/> after it's finished to prevent a race condition with saving the state to the MemoryStream.
+            /// </remarks>
+            public void LoadStateFromIsolatedStorage()
+            {
+                Trace.WriteLine(string.Format("Loading state from isolated storage..."));
+
+                // Don't save or load state in design mode
+                if (DesignerProperties.GetIsInDesignMode(this.ribbon))
+                {
+                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because we are in design mode."));
+                    this.IsStateLoaded = true;
+                    return;
+                }
+
+                if (this.ribbon.AutomaticStateManagement == false)
+                {
+                    this.IsStateLoaded = true;
+                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because automatic state management is disabled."));
+                    return;
+                }
+
+                try
+                {
+                    var storage = GetIsolatedStorageFile();
+                    if (FileExists(storage, this.IsolatedStorageFileName))
+                    {
+                        using (var stream = new IsolatedStorageFileStream(this.IsolatedStorageFileName, FileMode.Open, FileAccess.Read, storage))
+                        {
+                            this.LoadState(stream);
+
+                            // Copy loaded state to MemoryStream for temporary storage.
+                            // Temporary storage is used for style changes etc. so we can apply the current state again.
+                            stream.Position = 0;
+                            this.memoryStream.Position = 0;
+                            stream.CopyTo(this.memoryStream);
+                        }
+
+                        Trace.WriteLine(string.Format("State loaded from isolated storage."));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
+                }
+
+                this.IsStateLoaded = true;
+            }
+
+            /// <summary>
+            /// Loads state from the given stream
+            /// </summary>
+            /// <param name="stream">Stream</param>
+            private void LoadState(Stream stream)
+            {
+                this.ribbon.suppressAutomaticStateManagement = true;
+
+                var reader = new StreamReader(stream);
+                var splitted = reader.ReadToEnd().Split('|');
+
+                if (splitted.Length != 2)
+                {
+                    return;
+                }
+
+                // Load Ribbon State
+                var ribbonProperties = splitted[0].Split(',');
+
+                var isMinimized = bool.Parse(ribbonProperties[0]);
+
+                this.ribbon.IsMinimized = isMinimized;
+
+                this.ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonProperties[1]);
+
+                // Load items
+                var items = splitted[1].Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (this.ribbon.quickAccessToolBar != null)
+                {
+                    this.ribbon.quickAccessToolBar.Items.Clear();
+                }
+
+                this.ribbon.quickAccessElements.Clear();
+
+                for (var i = 0; i < items.Length; i++)
+                {
+                    this.ribbon.ParseAndAddToQuickAccessToolBar(items[i]);
+                }
+
+                // Since application is not fully loaded we have to delay the refresh
+                this.ribbon.RunInDispatcherAsync(this.ribbon.QuickAccessToolBar.Refresh, DispatcherPriority.Background);
+
+                // Sync QAT menu items
+                foreach (var menuItem in this.ribbon.QuickAccessItems)
+                {
+                    menuItem.IsChecked = this.ribbon.IsInQuickAccessToolBar(menuItem.Target);
+                }
+
+                this.ribbon.suppressAutomaticStateManagement = false;
+            }
+
+            // Determinates whether the given file exists in the given storage
+            private static bool FileExists(IsolatedStorageFile storage, string fileName)
+            {
+                var files = storage.GetFileNames(fileName);
+                return files.Length != 0;
+            }
+
+            // Gets a proper isolated storage file
+            private static IsolatedStorageFile GetIsolatedStorageFile()
+            {
+                try
+                {
+                    return IsolatedStorageFile.GetUserStoreForDomain();
+                }
+                catch
+                {
+                    return IsolatedStorageFile.GetUserStoreForAssembly();                  
+                }
+            }
+
+            /// <summary>
+            /// Resets automatically saved state
+            /// </summary>
+            public static void ResetState()
+            {
+                var storage = GetIsolatedStorageFile();
+
+                foreach (var filename in storage.GetFileNames("*Fluent.Ribbon.State*"))
+                {
+                    storage.DeleteFile(filename);
+                }
+            }
+
+            private void Dispose(bool disposing)
+            {
+                if (disposing == false)
+                {
+                    return;
+                }
+
+                if (this.memoryStream != null)
+                {
+                    this.memoryStream.Dispose();
+                }
+
+                this.memoryStream = Stream.Null;
+            }
+
+            public void Dispose()
+            {
+                this.Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+        }
     }
 }

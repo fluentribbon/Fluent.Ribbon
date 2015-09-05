@@ -151,8 +151,8 @@ namespace Fluent
         /// </summary>
         public bool HasOverflowItems
         {
-            get { return (bool)GetValue(HasOverflowItemsProperty); }
-            private set { SetValue(HasOverflowItemsPropertyKey, value); }
+            get { return (bool)this.GetValue(HasOverflowItemsProperty); }
+            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
@@ -261,8 +261,8 @@ namespace Fluent
         /// </summary>
         public bool ShowAboveRibbon
         {
-            get { return (bool)GetValue(ShowAboveRibbonProperty); }
-            set { SetValue(ShowAboveRibbonProperty, value); }
+            get { return (bool)this.GetValue(ShowAboveRibbonProperty); }
+            set { this.SetValue(ShowAboveRibbonProperty, value); }
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Fluent
         {
             get
             {
-                yield return rootPanel;
+                yield return this.rootPanel;
             }
         }
 
@@ -297,8 +297,8 @@ namespace Fluent
         /// </summary>
         public bool CanQuickAccessLocationChanging
         {
-            get { return (bool)GetValue(CanQuickAccessLocationChangingProperty); }
-            set { SetValue(CanQuickAccessLocationChangingProperty, value); }
+            get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
+            set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
         }
 
         /// <summary>
@@ -554,6 +554,15 @@ namespace Fluent
 
         #region Methods
 
+        /// <summary>
+        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfParentRibbon"/>
+        /// </summary>
+        public void Refresh()
+        {
+            this.InvalidateMeasure();
+            this.InvalidateMeasureOfParentRibbon();
+        }
+
         private void InvalidateMeasureOfParentRibbon()
         {
             var parentRibbon = this.Parent as Ribbon;
@@ -567,23 +576,23 @@ namespace Fluent
         // Updates keys for keytip access
         private void UpdateKeyTips()
         {
-            for (var i = 0; i < Math.Min(9, Items.Count); i++)
+            for (var i = 0; i < Math.Min(9, this.Items.Count); i++)
             {
                 // 1, 2, 3, ... , 9
-                KeyTip.SetKeys(Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(this.Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
             }
 
-            for (var i = 9; i < Math.Min(18, Items.Count); i++)
+            for (var i = 9; i < Math.Min(18, this.Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
-                KeyTip.SetKeys(Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(this.Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
 
             var startChar = 'A';
-            for (var i = 18; i < Math.Min(9 + 9 + 26, Items.Count); i++)
+            for (var i = 18; i < Math.Min(9 + 9 + 26, this.Items.Count); i++)
             {
                 // 0A, 0B, 0C, ... , 0Z
-                KeyTip.SetKeys(Items[i], "0" + startChar++);
+                KeyTip.SetKeys(this.Items[i], "0" + startChar++);
             }
         }
 
@@ -598,12 +607,12 @@ namespace Fluent
             }
 
             var currentWidth = 0D;
-            for (var i = 0; i < Items.Count; i++)
+            for (var i = 0; i < this.Items.Count; i++)
             {
                 this.Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 currentWidth += this.Items[i].DesiredSize.Width;
 
-                if (currentWidth + cachedDeltaWidth > width)
+                if (currentWidth + this.cachedDeltaWidth > width)
                 {
                     return i;
                 }

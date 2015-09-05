@@ -7,23 +7,23 @@ namespace Fluent.Metro.Native
 #pragma warning disable 1591
     [Serializable]
     [StructLayout(LayoutKind.Sequential, Pack = 0)]    
-    public struct RECT
+    internal struct RECT
     {
         public int left;
         public int top;
         public int right;
         public int bottom;
 
-        public static readonly RECT Empty = new RECT();
+        public static readonly RECT Empty;
 
         public int Width
         {
-            get { return Math.Abs(right - left); }  // Abs needed for BIDI OS
+            get { return Math.Abs(this.right - this.left); }  // Abs needed for BIDI OS
         }
 
         public int Height
         {
-            get { return bottom - top; }
+            get { return this.bottom - this.top; }
         }
 
         public RECT(int left, int top, int right, int bottom)
@@ -36,10 +36,10 @@ namespace Fluent.Metro.Native
 
         public RECT(RECT rcSrc)
         {
-            left = rcSrc.left;
-            top = rcSrc.top;
-            right = rcSrc.right;
-            bottom = rcSrc.bottom;
+            this.left = rcSrc.left;
+            this.top = rcSrc.top;
+            this.right = rcSrc.right;
+            this.bottom = rcSrc.bottom;
         }
 
         public bool IsEmpty
@@ -47,28 +47,35 @@ namespace Fluent.Metro.Native
             get
             {
                 // BUGBUG : On Bidi OS (hebrew arabic) left > right
-                return left >= right || top >= bottom;
+                return this.left >= this.right || this.top >= this.bottom;
             }
         }
 
         public override string ToString()
         {
-            if (this == Empty) 
+            if (this == Empty)
+            {
                 return "RECT {Empty}";
-            return "RECT { left : " + left + " / top : " + top + " / right : " + right + " / bottom : " + bottom + " }";
+            }
+
+            return string.Format("RECT {{ left: {0} / top: {1} / right: {2} / bottom: {3} }}", this.left, this.top, this.right, this.bottom);
         }
 
         /// <summary> Determine if 2 RECT are equal (deep compare) </summary>
         public override bool Equals(object obj)
         {
-            if (!(obj is Rect)) { return false; }
+            if (!(obj is Rect))
+            {
+                return false;
+            }
+
             return (this == (RECT)obj);
         }
 
         /// <summary>Return the HashCode for this struct (not garanteed to be unique)</summary>
         public override int GetHashCode()
         {
-            return left.GetHashCode() + top.GetHashCode() + right.GetHashCode() + bottom.GetHashCode();
+            return this.left.GetHashCode() + this.top.GetHashCode() + this.right.GetHashCode() + this.bottom.GetHashCode();
         }
 
         public static bool operator ==(RECT rect1, RECT rect2)

@@ -5,6 +5,7 @@ Fluent.Ribbon or "Fluent Ribbon Control Suite"
 [![Issues](https://img.shields.io/github/issues/fluentribbon/fluent.ribbon.svg?style=flat-square)](https://github.com/fluentribbon/Fluent.Ribbon/issues)
 [![Downloads](https://img.shields.io/nuget/dt/Fluent.Ribbon.svg?style=flat-square)](http://www.nuget.org/packages/Fluent.Ribbon/)
 [![Nuget](https://img.shields.io/nuget/vpre/Fluent.Ribbon.svg?style=flat-square)](http://nuget.org/packages/Fluent.Ribbon)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/License.txt)
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
@@ -121,6 +122,7 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Azerbaijani
 *   Catalan
 *   Chinese
+*   Chinese (Traditional)
 *   Czech
 *   Danish
 *   Dutch
@@ -134,12 +136,14 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Hungarian
 *   Italian
 *   Japanese
-*   Korea
+*   Korean
+*   Lithuanian
 *   Norwegia
 *   Russian
 *   Persian
 *   Polish
-*   Portuguese (including brazilian)
+*   Portuguese
+*   Portuguese (Brazilian)
 *   Romanian
 *   Sinhala
 *   Slovak

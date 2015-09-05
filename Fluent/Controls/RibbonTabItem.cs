@@ -63,8 +63,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Fluent
         /// </summary>
         public ScrollViewer GroupsContainer
         {
-            get { return groupsContainer; }
+            get { return this.groupsContainer; }
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Fluent
         /// </summary>
         public bool IsMinimized
         {
-            get { return (bool)GetValue(IsMinimizedProperty); }
-            set { SetValue(IsMinimizedProperty, value); }
+            get { return (bool)this.GetValue(IsMinimizedProperty); }
+            set { this.SetValue(IsMinimizedProperty, value); }
         }
 
         /// <summary>
@@ -103,8 +103,8 @@ namespace Fluent
         /// </summary>
         public bool IsOpen
         {
-            get { return (bool)GetValue(IsOpenProperty); }
-            set { SetValue(IsOpenProperty, value); }
+            get { return (bool)this.GetValue(IsOpenProperty); }
+            set { this.SetValue(IsOpenProperty, value); }
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace Fluent
         /// </summary>
         public string ReduceOrder
         {
-            get { return groupsInnerContainer.ReduceOrder; }
-            set { groupsInnerContainer.ReduceOrder = value; }
+            get { return this.groupsInnerContainer.ReduceOrder; }
+            set { this.groupsInnerContainer.ReduceOrder = value; }
         }
 
         #region IsContextual
@@ -129,8 +129,8 @@ namespace Fluent
         /// </summary>
         public bool IsContextual
         {
-            get { return (bool)GetValue(IsContextualProperty); }
-            private set { SetValue(IsContextualPropertyKey, value); }
+            get { return (bool)this.GetValue(IsContextualProperty); }
+            private set { this.SetValue(IsContextualPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey IsContextualPropertyKey =
@@ -149,13 +149,7 @@ namespace Fluent
         {
             get
             {
-                var array = new ArrayList
-                                {
-                                    this.groupsContainer
-                                };
-                return array.GetEnumerator();
-                /*if (Groups != null) return Groups.GetEnumerator();
-                else return (new ArrayList()).GetEnumerator();*/
+                yield return this.groupsContainer;
             }
         }
 
@@ -169,11 +163,11 @@ namespace Fluent
         {
             get
             {
-                return (bool)base.GetValue(IsSelectedProperty);
+                return (bool)this.GetValue(IsSelectedProperty);
             }
             set
             {
-                base.SetValue(IsSelectedProperty, value);
+                this.SetValue(IsSelectedProperty, value);
             }
         }
 
@@ -181,7 +175,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSelected.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(RibbonTabItem.OnIsSelectedChanged)));
+        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(OnIsSelectedChanged)));
 
         /// <summary>
         /// Gets ribbon tab control parent
@@ -200,8 +194,8 @@ namespace Fluent
         /// </summary>
         public double Indent
         {
-            get { return (double)GetValue(IndentProperty); }
-            set { SetValue(IndentProperty, value); }
+            get { return (double)this.GetValue(IndentProperty); }
+            set { this.SetValue(IndentProperty, value); }
         }
 
         /// <summary>
@@ -215,8 +209,8 @@ namespace Fluent
         /// </summary>
         public bool IsSeparatorVisible
         {
-            get { return (bool)GetValue(IsSeparatorVisibleProperty); }
-            set { SetValue(IsSeparatorVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
+            set { this.SetValue(IsSeparatorVisibleProperty, value); }
         }
 
         /// <summary>
@@ -230,8 +224,8 @@ namespace Fluent
         /// </summary>
         public RibbonContextualTabGroup Group
         {
-            get { return (RibbonContextualTabGroup)GetValue(GroupProperty); }
-            set { SetValue(GroupProperty, value); }
+            get { return (RibbonContextualTabGroup)this.GetValue(GroupProperty); }
+            set { this.SetValue(GroupProperty, value); }
         }
 
         /// <summary>
@@ -266,8 +260,12 @@ namespace Fluent
         /// </summary>
         internal double DesiredWidth
         {
-            get { return desiredWidth; }
-            set { desiredWidth = value; InvalidateMeasure(); }
+            get { return this.desiredWidth; }
+            set
+            {
+                this.desiredWidth = value;
+                this.InvalidateMeasure();
+            }
         }
 
         /// <summary>
@@ -275,8 +273,8 @@ namespace Fluent
         /// </summary>
         public bool HasLeftGroupBorder
         {
-            get { return (bool)GetValue(HasLeftGroupBorderProperty); }
-            set { SetValue(HasLeftGroupBorderProperty, value); }
+            get { return (bool)this.GetValue(HasLeftGroupBorderProperty); }
+            set { this.SetValue(HasLeftGroupBorderProperty, value); }
         }
 
         /// <summary>
@@ -290,8 +288,8 @@ namespace Fluent
         /// </summary>
         public bool HasRightGroupBorder
         {
-            get { return (bool)GetValue(HasRightGroupBorderProperty); }
-            set { SetValue(HasRightGroupBorderProperty, value); }
+            get { return (bool)this.GetValue(HasRightGroupBorderProperty); }
+            set { this.SetValue(HasRightGroupBorderProperty, value); }
         }
 
         /// <summary>
@@ -319,7 +317,7 @@ namespace Fluent
         // handles ribbon groups collection changes
         private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (groupsInnerContainer == null)
+            if (this.groupsInnerContainer == null)
             {
                 return;
             }
@@ -329,34 +327,34 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item);
+                        this.groupsInnerContainer.Children.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Remove(item);
+                        this.groupsInnerContainer.Children.Remove(item);
                     }
                     foreach (var item in e.NewItems.OfType<UIElement>())
                     {
-                        groupsInnerContainer.Children.Add(item);
+                        this.groupsInnerContainer.Children.Add(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    groupsInnerContainer.Children.Clear();
+                    this.groupsInnerContainer.Children.Clear();
 
                     foreach (var group in this.groups)
                     {
-                        groupsInnerContainer.Children.Add(group);
+                        this.groupsInnerContainer.Children.Add(group);
                     }
                     break;
             }
@@ -370,8 +368,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (object)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return (object)this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -408,28 +406,35 @@ namespace Fluent
         /// <returns></returns>
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
-            RibbonTabItem control = (d as RibbonTabItem);
+            var control = d as RibbonTabItem;
             if (control != null)
             {
-                Ribbon ribbon = control.FindParentRibbon();
+                var ribbon = control.FindParentRibbon();
                 if (ribbon != null)
                 {
-                    return ((bool)basevalue) && ribbon.Focusable;
+                    return ((bool)basevalue)
+                        && ribbon.Focusable;
                 }
             }
+
             return basevalue;
         }
 
         // Find parent ribbon
         private Ribbon FindParentRibbon()
         {
-            DependencyObject element = this.Parent;
+            var element = this.Parent;
             while (element != null)
             {
-                Ribbon ribbon = element as Ribbon;
-                if (ribbon != null) return ribbon;
+                var ribbon = element as Ribbon;
+                if (ribbon != null)
+                {
+                    return ribbon;
+                }
+
                 element = VisualTreeHelper.GetParent(element);
             }
+
             return null;
         }
 
@@ -489,7 +494,7 @@ namespace Fluent
                     }
                     else
                     {
-                        item.TabControlParent.SelectedItem = item.TabControlParent.Items[0];
+                        item.TabControlParent.SelectedItem = item.TabControlParent.GetFirstVisibleItem();
                     }
                 }
             }
@@ -539,7 +544,7 @@ namespace Fluent
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            if (contentContainer == null)
+            if (this.contentContainer == null)
             {
                 return base.MeasureOverride(constraint);
             }
@@ -549,32 +554,31 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            contentContainer.Padding = new Thickness(Indent, contentContainer.Padding.Top, Indent, contentContainer.Padding.Bottom);
+            this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
             Size baseConstraint = base.MeasureOverride(constraint);
-            double totalWidth = contentContainer.DesiredSize.Width - contentContainer.Margin.Left - contentContainer.Margin.Right;
-            (contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            double headerWidth = contentContainer.Child.DesiredSize.Width;
-            if (totalWidth < headerWidth + Indent * 2)
+            double totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
+            (this.contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            double headerWidth = this.contentContainer.Child.DesiredSize.Width;
+            if (totalWidth < headerWidth + this.Indent * 2)
             {
                 double newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
-                contentContainer.Padding = new Thickness(newPaddings, contentContainer.Padding.Top, newPaddings, contentContainer.Padding.Bottom);
+                this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
             }
             else
             {
-                if (desiredWidth != 0)
+                if (this.desiredWidth != 0)
                 {
                     // If header width is larger then tab increase tab width
-                    if ((constraint.Width > desiredWidth) && (desiredWidth > totalWidth)) baseConstraint.Width = desiredWidth;
+                    if ((constraint.Width > this.desiredWidth) && (this.desiredWidth > totalWidth)) baseConstraint.Width = this.desiredWidth;
                     else
-                        baseConstraint.Width = headerWidth + Indent * 2 + contentContainer.Margin.Left +
-                                               contentContainer.Margin.Right;
+                        baseConstraint.Width = headerWidth + this.Indent * 2 + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
                 }
             }
 
-            if ((cachedWidth != baseConstraint.Width) && (IsContextual) && (Group != null))
+            if ((this.cachedWidth != baseConstraint.Width) && (this.IsContextual) && (this.Group != null))
             {
-                cachedWidth = baseConstraint.Width;
-                FrameworkElement parent = (VisualTreeHelper.GetParent(Group) as FrameworkElement);
+                this.cachedWidth = baseConstraint.Width;
+                FrameworkElement parent = (VisualTreeHelper.GetParent(this.Group) as FrameworkElement);
                 if (parent != null) parent.InvalidateMeasure();
             }
 
@@ -586,7 +590,7 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            contentContainer = GetTemplateChild("PART_ContentContainer") as Border;
+            this.contentContainer = this.GetTemplateChild("PART_ContentContainer") as Border;
         }
 
         /// <summary>
@@ -682,7 +686,7 @@ namespace Fluent
         // Handles IsSelected property changes
         private void HandleIsSelectedChanged(RoutedEventArgs e)
         {
-            base.RaiseEvent(e);
+            this.RaiseEvent(e);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

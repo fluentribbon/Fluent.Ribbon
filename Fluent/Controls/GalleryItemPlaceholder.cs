@@ -27,7 +27,7 @@ namespace Fluent
         /// </summary>
         public UIElement Target
         {
-            get { return target; }
+            get { return this.target; }
         }
 
         public Size ArrangedSize { get; private set; }
@@ -62,8 +62,8 @@ namespace Fluent
         /// indicate that the element will size to whatever content is available.</param>
         protected override Size MeasureCore(Size availableSize)
         {
-            target.Measure(availableSize);           
-            return target.DesiredSize;
+            this.target.Measure(availableSize);           
+            return this.target.DesiredSize;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Fluent
 
             // Remember arranged size to arrange 
             // targets in GalleryPanel lately
-            ArrangedSize = finalRect.Size;
+            this.ArrangedSize = finalRect.Size;
         }
         
         #endregion

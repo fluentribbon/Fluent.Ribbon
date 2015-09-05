@@ -18,7 +18,7 @@
         /// </summary>
         protected override void OnAttached()
         {
-            if (PresentationSource.FromVisual(AssociatedObject) != null)
+            if (PresentationSource.FromVisual(this.AssociatedObject) != null)
             {
                 this.AddHwndHook();
             }
@@ -43,7 +43,7 @@
 
         private void AddHwndHook()
         {
-            this.hwndSource = PresentationSource.FromVisual(AssociatedObject) as HwndSource;
+            this.hwndSource = PresentationSource.FromVisual(this.AssociatedObject) as HwndSource;
             if (this.hwndSource != null)
             {
                 this.hwndSource.AddHook(this.HwndHook);

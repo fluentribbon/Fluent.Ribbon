@@ -61,8 +61,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBoxState State
         {
-            get { return (RibbonGroupBoxState)GetValue(StateProperty); }
-            set { SetValue(StateProperty, value); }
+            get { return (RibbonGroupBoxState)this.GetValue(StateProperty); }
+            set { this.SetValue(StateProperty, value); }
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Fluent
         // Finds and increase size of all scalable elements in the given group box
         private void IncreaseScalableElement()
         {
-            foreach (var item in Items)
+            foreach (var item in this.Items)
             {
                 var scalableRibbonControl = item as IScalableRibbonControl;
                 if (scalableRibbonControl == null)
@@ -198,7 +198,7 @@ namespace Fluent
         // Finds and decrease size of all scalable elements in the given group box
         private void DecreaseScalableElement()
         {
-            foreach (object item in Items)
+            foreach (object item in this.Items)
             {
                 IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
                 if (scalableRibbonControl == null) continue;
@@ -208,19 +208,19 @@ namespace Fluent
 
         private void UpdateScalableControlSubscribing()
         {
-            UpdateScalableControlSubscribing(true);
+            this.UpdateScalableControlSubscribing(true);
         }
 
         private void UpdateScalableControlSubscribing(bool registerEvents)
         {
-            foreach (var scalableRibbonControl in Items.OfType<IScalableRibbonControl>())
+            foreach (var scalableRibbonControl in this.Items.OfType<IScalableRibbonControl>())
             {
                 // Always unregister first to ensure that we don't subscribe twice
-                scalableRibbonControl.Scaled -= OnScalableControlScaled;
+                scalableRibbonControl.Scaled -= this.OnScalableControlScaled;
 
                 if (registerEvents)
                 {
-                    scalableRibbonControl.Scaled += OnScalableControlScaled;
+                    scalableRibbonControl.Scaled += this.OnScalableControlScaled;
                 }
             }
         }
@@ -234,8 +234,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -253,8 +253,8 @@ namespace Fluent
         /// </summary>
         public bool IsLauncherVisible
         {
-            get { return (bool)GetValue(IsLauncherVisibleProperty); }
-            set { SetValue(IsLauncherVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsLauncherVisibleProperty); }
+            set { this.SetValue(IsLauncherVisibleProperty, value); }
         }
 
         /// <summary>
@@ -275,8 +275,8 @@ namespace Fluent
         Description("Key tip keys for dialog launcher button")]
         public string LauncherKeys
         {
-            get { return (string)GetValue(DialogLauncherButtonKeyTipKeysProperty); }
-            set { SetValue(DialogLauncherButtonKeyTipKeysProperty, value); }
+            get { return (string)this.GetValue(DialogLauncherButtonKeyTipKeysProperty); }
+            set { this.SetValue(DialogLauncherButtonKeyTipKeysProperty, value); }
         }
 
         /// <summary>
@@ -305,8 +305,8 @@ namespace Fluent
         /// </summary>
         public object LauncherIcon
         {
-            get { return (ImageSource)GetValue(LauncherIconProperty); }
-            set { SetValue(LauncherIconProperty, value); }
+            get { return (ImageSource)this.GetValue(LauncherIconProperty); }
+            set { this.SetValue(LauncherIconProperty, value); }
         }
 
         /// <summary>
@@ -324,8 +324,8 @@ namespace Fluent
         /// </summary>
         public string LauncherText
         {
-            get { return (string)GetValue(LauncherTextProperty); }
-            set { SetValue(LauncherTextProperty, value); }
+            get { return (string)this.GetValue(LauncherTextProperty); }
+            set { this.SetValue(LauncherTextProperty, value); }
         }
 
         /// <summary>
@@ -346,11 +346,11 @@ namespace Fluent
         {
             get
             {
-                return (ICommand)GetValue(LauncherCommandProperty);
+                return (ICommand)this.GetValue(LauncherCommandProperty);
             }
             set
             {
-                SetValue(LauncherCommandProperty, value);
+                this.SetValue(LauncherCommandProperty, value);
             }
         }
 
@@ -362,11 +362,11 @@ namespace Fluent
         {
             get
             {
-                return GetValue(LauncherCommandParameterProperty);
+                return this.GetValue(LauncherCommandParameterProperty);
             }
             set
             {
-                SetValue(LauncherCommandParameterProperty, value);
+                this.SetValue(LauncherCommandParameterProperty, value);
             }
         }
 
@@ -378,11 +378,11 @@ namespace Fluent
         {
             get
             {
-                return (IInputElement)GetValue(LauncherCommandTargetProperty);
+                return (IInputElement)this.GetValue(LauncherCommandTargetProperty);
             }
             set
             {
-                SetValue(LauncherCommandTargetProperty, value);
+                this.SetValue(LauncherCommandTargetProperty, value);
             }
         }
 
@@ -409,8 +409,8 @@ namespace Fluent
         /// </summary>
         public object LauncherToolTip
         {
-            get { return (object)GetValue(LauncherToolTipProperty); }
-            set { SetValue(LauncherToolTipProperty, value); }
+            get { return (object)this.GetValue(LauncherToolTipProperty); }
+            set { this.SetValue(LauncherToolTipProperty, value); }
         }
 
         /// <summary>
@@ -430,8 +430,8 @@ namespace Fluent
         /// </summary>
         public bool IsLauncherEnabled
         {
-            get { return (bool)GetValue(IsLauncherEnabledProperty); }
-            set { SetValue(IsLauncherEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsLauncherEnabledProperty); }
+            set { this.SetValue(IsLauncherEnabledProperty, value); }
         }
 
         /// <summary>
@@ -449,8 +449,8 @@ namespace Fluent
         /// </summary>
         public Button LauncherButton
         {
-            get { return (Button)GetValue(LauncherButtonProperty); }
-            private set { SetValue(LauncherButtonPropertyKey, value); }
+            get { return (Button)this.GetValue(LauncherButtonProperty); }
+            private set { this.SetValue(LauncherButtonPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
@@ -470,8 +470,8 @@ namespace Fluent
         /// </summary>
         public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsDropDownOpenProperty); }
-            set { SetValue(IsDropDownOpenProperty, value); }
+            get { return (bool)this.GetValue(IsDropDownOpenProperty); }
+            set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
         /// <summary>
@@ -494,16 +494,19 @@ namespace Fluent
         /// Gets an enumerator for the logical child objects of 
         /// the System.Windows.Controls.ItemsControl object.
         /// </summary>
-        protected override System.Collections.IEnumerator LogicalChildren
+        protected override IEnumerator LogicalChildren
         {
             get
             {
-                ArrayList array = new ArrayList();
-                //if (parentPanel != null) array.Add(parentPanel);
+                foreach (var item in this.Items)
+                {
+                    yield return item;
+                }
 
-                array.AddRange(Items);
-                if (LauncherButton != null) array.Add(LauncherButton);
-                return array.GetEnumerator();
+                if (this.LauncherButton != null)
+                {
+                    yield return this.LauncherButton;
+                }
             }
         }
 
@@ -517,8 +520,8 @@ namespace Fluent
         public object Icon
         //public ImageSource Icon
         {
-            get { return GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -664,13 +667,13 @@ namespace Fluent
         /// Gets a panel with items
         /// </summary>
         /// <returns></returns>
-        internal Panel GetPanel() { return upPanel; }
+        internal Panel GetPanel() { return this.upPanel; }
 
         /// <summary>
         /// Gets cmmon layout root for popup and groupbox
         /// </summary>
         /// <returns></returns>
-        internal Panel GetLayoutRoot() { return parentPanel; }
+        internal Panel GetLayoutRoot() { return this.parentPanel; }
 
         #endregion
 
@@ -698,7 +701,7 @@ namespace Fluent
                     if (this.IsVisible)
                     {
                         // Render the freezed image                        
-                        var renderTargetBitmap = new RenderTargetBitmap((int)ActualWidth, (int)ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                        var renderTargetBitmap = new RenderTargetBitmap((int)this.ActualWidth, (int)this.ActualHeight, 96, 96, PixelFormats.Pbgra32);
                         renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                         this.snappedImage.FlowDirection = this.FlowDirection;
                         this.snappedImage.Source = renderTargetBitmap;
@@ -761,18 +764,18 @@ namespace Fluent
                 Size result;
                 var stateScale = this.GetCurrentIntermediateStateScale();
 
-                if (cachedMeasures.TryGetValue(stateScale, out result) == false)
+                if (this.cachedMeasures.TryGetValue(stateScale, out result) == false)
                 {
                     this.SuppressCacheReseting = true;
                     this.UpdateScalableControlSubscribing();
 
                     // Get desired size for these values
-                    var backupState = State;
-                    var backupScale = Scale;
+                    var backupState = this.State;
+                    var backupScale = this.Scale;
                     this.State = this.StateIntermediate;
                     this.Scale = this.ScaleIntermediate;
                     this.InvalidateLayout();
-                    this.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                     this.cachedMeasures.Add(stateScale, this.DesiredSize);
                     result = this.DesiredSize;
 
@@ -780,7 +783,7 @@ namespace Fluent
                     this.State = backupState;
                     this.Scale = backupScale;
                     this.InvalidateLayout();
-                    this.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
                     this.SuppressCacheReseting = false;
                 }
@@ -1082,8 +1085,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>

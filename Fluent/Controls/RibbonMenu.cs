@@ -68,7 +68,7 @@ namespace Fluent
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             //base.OnGotKeyboardFocus(e);
-            IInputElement element = GetRootDropDownControl() as IInputElement;
+            IInputElement element = this.GetRootDropDownControl() as IInputElement;
             if (element != null) Keyboard.Focus(element);
         }
 

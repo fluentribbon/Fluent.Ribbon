@@ -14,7 +14,6 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
@@ -23,8 +22,6 @@ namespace Fluent
 #else
     using System.Windows.Shell;
 #endif
-    using Microsoft.Win32;
-    using System.Globalization;
 
     /// <summary>
     /// Represents basic window for ribbon
@@ -53,8 +50,8 @@ namespace Fluent
         /// </summary>
         public WindowCommands WindowCommands
         {
-            get { return (WindowCommands)GetValue(WindowCommandsProperty); }
-            set { SetValue(WindowCommandsProperty, value); }
+            get { return (WindowCommands)this.GetValue(WindowCommandsProperty); }
+            set { this.SetValue(WindowCommandsProperty, value); }
         }
 
         /// <summary>
@@ -67,8 +64,8 @@ namespace Fluent
         /// </summary>
         public bool SaveWindowPosition
         {
-            get { return (bool)GetValue(SavePositionProperty); }
-            set { SetValue(SavePositionProperty, value); }
+            get { return (bool)this.GetValue(SavePositionProperty); }
+            set { this.SetValue(SavePositionProperty, value); }
         }
 
         /// <summary>
@@ -76,8 +73,8 @@ namespace Fluent
         /// </summary>
         public Thickness ResizeBorderThickness
         {
-            get { return (Thickness)GetValue(ResizeBorderThicknessProperty); }
-            set { SetValue(ResizeBorderThicknessProperty, value); }
+            get { return (Thickness)this.GetValue(ResizeBorderThicknessProperty); }
+            set { this.SetValue(ResizeBorderThicknessProperty, value); }
         }
 
         /// <summary>
@@ -91,8 +88,8 @@ namespace Fluent
         /// </summary>
         public Thickness GlassBorderThickness
         {
-            get { return (Thickness)GetValue(GlassBorderThicknessProperty); }
-            set { SetValue(GlassBorderThicknessProperty, value); }
+            get { return (Thickness)this.GetValue(GlassBorderThicknessProperty); }
+            set { this.SetValue(GlassBorderThicknessProperty, value); }
         }
 
         /// <summary>
@@ -106,8 +103,8 @@ namespace Fluent
         /// </summary>
         public CornerRadius CornerRadius
         {
-            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get { return (CornerRadius)this.GetValue(CornerRadiusProperty); }
+            set { this.SetValue(CornerRadiusProperty, value); }
         }
 
         /// <summary>
@@ -127,8 +124,8 @@ namespace Fluent
         /// </summary>
         public bool DontUseDwm
         {
-            get { return (bool)GetValue(DontUseDwmProperty); }
-            set { SetValue(DontUseDwmProperty, value); }
+            get { return (bool)this.GetValue(DontUseDwmProperty); }
+            set { this.SetValue(DontUseDwmProperty, value); }
         }
 
         /// <summary>
@@ -136,8 +133,8 @@ namespace Fluent
         /// </summary>
         public bool CanUseDwm
         {
-            get { return (bool)GetValue(CanUseDwmProperty); }
-            private set { SetValue(CanUseDwmPropertyKey, value); }
+            get { return (bool)this.GetValue(CanUseDwmProperty); }
+            private set { this.SetValue(CanUseDwmPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey CanUseDwmPropertyKey = DependencyProperty.RegisterReadOnly("CanUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
@@ -152,8 +149,8 @@ namespace Fluent
         /// </summary>
         public bool IsIconVisible
         {
-            get { return (bool)GetValue(IsIconVisibleProperty); }
-            set { SetValue(IsIconVisibleProperty, value); }
+            get { return (bool)this.GetValue(IsIconVisibleProperty); }
+            set { this.SetValue(IsIconVisibleProperty, value); }
         }
 
         /// <summary>
@@ -167,8 +164,8 @@ namespace Fluent
         /// </summary>              
         public bool IsCollapsed
         {
-            get { return (bool)GetValue(IsCollapsedProperty); }
-            set { SetValue(IsCollapsedProperty, value); }
+            get { return (bool)this.GetValue(IsCollapsedProperty); }
+            set { this.SetValue(IsCollapsedProperty, value); }
         }
 
         /// <summary>
@@ -184,8 +181,8 @@ namespace Fluent
         /// </summary>
         public bool IsAutomaticCollapseEnabled
         {
-            get { return (bool)GetValue(IsAutomaticCollapseEnabledProperty); }
-            set { SetValue(IsAutomaticCollapseEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
+            set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
         }
 
         /// <summary>

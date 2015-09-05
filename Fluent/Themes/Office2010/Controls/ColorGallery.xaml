@@ -8,11 +8,8 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}">
-                        <Rectangle.Fill>
-                            <SolidColorBrush Color="{Binding}" />
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                               Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -84,11 +81,8 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}">
-                        <Rectangle.Fill>
-                            <SolidColorBrush Color="{Binding}" />
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                               Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -156,27 +150,18 @@
     <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
         <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
-                BorderThickness="1,0,1,0">
-            <Border.Background>
-                <SolidColorBrush Color="{Binding}" />
-            </Border.Background>
-        </Border>
+                BorderThickness="1,0,1,0"
+                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
     <DataTemplate x:Key="GradientColorTopDataTemplate">
         <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
-                BorderThickness="1,1,1,0">
-            <Border.Background>
-                <SolidColorBrush Color="{Binding}" />
-            </Border.Background>
-        </Border>
+                BorderThickness="1,1,1,0"
+                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
         <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
-                BorderThickness="1,0,1,1">
-            <Border.Background>
-                <SolidColorBrush Color="{Binding}" />
-            </Border.Background>
-        </Border>
+                BorderThickness="1,0,1,1"
+                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <Style x:Key="ColorGalleryGradientListBox"

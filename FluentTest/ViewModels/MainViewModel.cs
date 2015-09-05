@@ -21,8 +21,9 @@
 		private RelayCommand exitCommand;
 		private double zoom;
 		private ICommand testCommand;
+        private string[] manyItems;
 
-		public MainViewModel()
+        public MainViewModel()
         {
             this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
             this.Zoom = 1.0;
@@ -127,6 +128,16 @@
             }
         }
 
+        public string[] ManyItems
+        {
+            get { return this.manyItems ?? (this.manyItems = this.GenerateStrings(5000)); }
+        }
+
+        private string[] GenerateStrings(int count)
+        {
+            return Enumerable.Repeat("Test", count).ToArray();
+        }
+
         public ICommand PreviewCommand { get; private set; }
 
         public ICommand CancelPreviewCommand { get; private set; }
@@ -152,7 +163,7 @@
             {
                 if (this.exitCommand == null)
                 {
-                    this.exitCommand = new RelayCommand(System.Windows.Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
+                    this.exitCommand = new RelayCommand(Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
                 }
 
                 return this.exitCommand;

@@ -27,8 +27,8 @@ namespace Fluent
         /// </summary>
         public double RightPaneWidth
         {
-            get { return (double)GetValue(RightPaneWidthProperty); }
-            set { SetValue(RightPaneWidthProperty, value); }
+            get { return (double)this.GetValue(RightPaneWidthProperty); }
+            set { this.SetValue(RightPaneWidthProperty, value); }
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Fluent
         public object RightPaneContent
         {
             get { return this.GetValue(RightPaneContentProperty); }
-            set { SetValue(RightPaneContentProperty, value); }
+            set { this.SetValue(RightPaneContentProperty, value); }
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Fluent
         public object FooterPaneContent
         {
             get { return this.GetValue(FooterPaneContentProperty); }
-            set { SetValue(FooterPaneContentProperty, value); }
+            set { this.SetValue(FooterPaneContentProperty, value); }
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Fluent
         /// </summary>
         public ApplicationMenu()
         {
-            CoerceValue(KeyTipProperty);
+            this.CoerceValue(KeyTipProperty);
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace Fluent
     /// <summary>
     /// Represents menu item in ribbon status bar menu
     /// </summary>
-    public class StatusBarMenuItem : Fluent.MenuItem
+    public class StatusBarMenuItem : MenuItem
     {
         #region Properties
 
@@ -19,8 +19,8 @@ namespace Fluent
         /// </summary>
         public StatusBarItem StatusBarItem
         {
-            get { return (StatusBarItem)GetValue(StatusBarItemProperty); }
-            set { SetValue(StatusBarItemProperty, value); }
+            get { return (StatusBarItem)this.GetValue(StatusBarItemProperty); }
+            set { this.SetValue(StatusBarItemProperty, value); }
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Fluent
         /// <param name="item">Ribbon Status Bar menu item</param>
         public StatusBarMenuItem(StatusBarItem item)
         {
-            StatusBarItem = item;
+            this.StatusBarItem = item;
         }
 
         #endregion

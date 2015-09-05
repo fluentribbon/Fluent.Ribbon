@@ -29,7 +29,7 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<DependencyObject> Children
         {
-            get { return children; }
+            get { return this.children; }
         }
 
         #endregion

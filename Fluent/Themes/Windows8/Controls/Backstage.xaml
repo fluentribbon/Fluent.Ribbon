@@ -70,24 +70,21 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 
-	<Style x:Key="RibbonBackstageStyle"
+    <Style x:Key="RibbonBackstageStyle"
            TargetType="{x:Type Fluent:Backstage}">
-		<Setter Property="Template"
+        <Setter Property="Template"
                 Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
-		<Setter Property="Background"
+        <Setter Property="Background"
                 Value="#1979CA" />
-		<Setter Property="Foreground"
+        <Setter Property="Foreground"
                 Value="White" />
-		<Setter Property="SnapsToDevicePixels"
+        <Setter Property="SnapsToDevicePixels"
                 Value="True" />
-		<Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
-		<Setter Property="Header"
+        <Setter Property="Header"
                 Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText , Mode=OneWay}" />
-		<Setter Property="Fluent:KeyTip.Keys"
+        <Setter Property="Fluent:KeyTip.Keys"
                 Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip , Mode=OneWay}" />
-	</Style>
-
-	<Style TargetType="{x:Type Fluent:Backstage}"
-           BasedOn="{StaticResource RibbonBackstageStyle}" />
+    </Style>
 </ResourceDictionary>

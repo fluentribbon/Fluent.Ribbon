@@ -383,13 +383,11 @@
                                                       BorderThickness="0,0,0,1">
                                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
                                                                  Background="White"
-                                                                 ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                                                  GroupBy="{TemplateBinding GroupBy}"
                                                                  IsItemsHost="True"
                                                                  KeyboardNavigation.DirectionalNavigation="None"
                                                                  ItemHeight="{TemplateBinding ItemHeight}"
                                                                  Orientation="Vertical" />
-                                            <!--<StackPanel Background="White" IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="None" Orientation="Vertical"/>-->
                                         </ScrollViewer>
                                         <ContentPresenter x:Name="menuPresenter"
                                                           ContentSource="Menu"
@@ -610,17 +608,13 @@
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Disabled" />
-        <Setter Property="MaxDropDownHeight"
-                Value="{x:Static System:Double.PositiveInfinity}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="IsEditable"
                 Value="True" />
-        <!--<Setter Property="ItemContainerStyle" Value="{DynamicResource EditableComboBoxItemStyle}"/>-->
+        <Setter Property="ScrollViewer.CanContentScroll" 
+                Value="true"/>
         <Style.Triggers>
-            <!--<Trigger Property="IsEditable" Value="False">
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource NonEditableComboBoxItemStyle}"/>
-      </Trigger>-->
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ItemContainerStyleSelector"

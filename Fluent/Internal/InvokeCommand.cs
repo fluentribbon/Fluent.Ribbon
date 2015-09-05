@@ -33,8 +33,8 @@
         /// </summary>
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get { return (ICommand)this.GetValue(CommandProperty); }
+            set { this.SetValue(CommandProperty, value); }
         }
 
         /// <summary>
@@ -42,8 +42,8 @@
         /// </summary>
         public object CommandParameter
         {
-            get { return GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get { return this.GetValue(CommandParameterProperty); }
+            set { this.SetValue(CommandParameterProperty, value); }
         }
 
         /// <summary>
@@ -53,7 +53,7 @@
         protected override void Invoke(object parameter)
         {
             var commandParameter = BindingOperations.IsDataBound(this, CommandParameterProperty)
-                ? CommandParameter
+                ? this.CommandParameter
                 : parameter;
             var command = this.Command;
 

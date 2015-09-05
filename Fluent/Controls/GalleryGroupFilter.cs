@@ -23,8 +23,8 @@ namespace Fluent
         /// </summary>
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Fluent
         /// </summary>
         public string Groups
         {
-            get { return (string)GetValue(GroupsProperty); }
-            set { SetValue(GroupsProperty, value); }
+            get { return (string)this.GetValue(GroupsProperty); }
+            set { this.SetValue(GroupsProperty, value); }
         }
 
         /// <summary>

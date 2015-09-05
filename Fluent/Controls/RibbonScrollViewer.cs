@@ -27,9 +27,9 @@ namespace Fluent
         /// <param name="hitTestParameters">The parameters for hit testing within a visual object</param>
         protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
         {
-            if (VisualChildrenCount > 0)
+            if (this.VisualChildrenCount > 0)
             {
-                return VisualTreeHelper.HitTest(GetVisualChild(0), hitTestParameters.HitPoint);
+                return VisualTreeHelper.HitTest(this.GetVisualChild(0), hitTestParameters.HitPoint);
             }
             return base.HitTestCore(hitTestParameters);
         }

@@ -45,8 +45,8 @@ namespace Fluent
         /// </summary>
         public int MinItemsInRow
         {
-            get { return (int)GetValue(MinItemsInRowProperty); }
-            set { SetValue(MinItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MinItemsInRowProperty); }
+            set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace Fluent
         /// </summary>
         public int MaxItemsInRow
         {
-            get { return (int)GetValue(MaxItemsInRowProperty); }
-            set { SetValue(MaxItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MaxItemsInRowProperty); }
+            set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(Gallery), new UIPropertyMetadata(Int32.MaxValue));
+            typeof(Gallery), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -88,8 +88,8 @@ namespace Fluent
         /// </summary>
         public string GroupBy
         {
-            get { return (string)GetValue(GroupByProperty); }
-            set { SetValue(GroupByProperty, value); }
+            get { return (string)this.GetValue(GroupByProperty); }
+            set { this.SetValue(GroupByProperty, value); }
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace Fluent
         /// </summary>
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get { return (Orientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace Fluent
         /// </summary>
         public double ItemWidth
         {
-            get { return (double)GetValue(ItemWidthProperty); }
-            set { SetValue(ItemWidthProperty, value); }
+            get { return (double)this.GetValue(ItemWidthProperty); }
+            set { this.SetValue(ItemWidthProperty, value); }
         }
 
         /// <summary>
@@ -145,8 +145,8 @@ namespace Fluent
         /// </summary>
         public double ItemHeight
         {
-            get { return (double)GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
+            get { return (double)this.GetValue(ItemHeightProperty); }
+            set { this.SetValue(ItemHeightProperty, value); }
         }
 
         /// <summary>
@@ -166,44 +166,44 @@ namespace Fluent
         {
             get
             {
-                if (filters == null)
+                if (this.filters == null)
                 {
-                    filters = new ObservableCollection<GalleryGroupFilter>();
-                    filters.CollectionChanged += OnFilterCollectionChanged;
+                    this.filters = new ObservableCollection<GalleryGroupFilter>();
+                    this.filters.CollectionChanged += this.OnFilterCollectionChanged;
                 }
-                return filters;
+                return this.filters;
             }
         }
 
         // Handle toolbar items changes
         void OnFilterCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            HasFilter = Filters.Count > 0;
-            InvalidateProperty(SelectedFilterProperty);
+            this.HasFilter = this.Filters.Count > 0;
+            this.InvalidateProperty(SelectedFilterProperty);
 
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
                             GalleryGroupFilter filter = (GalleryGroupFilter)e.NewItems[i];
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
-                            if (filter == SelectedFilter) menuItem.IsChecked = true;
-                            menuItem.Click += OnFilterMenuItemClick;
-                            groupsMenuButton.Items.Insert(e.NewStartingIndex + i, menuItem);
+                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            menuItem.Click += this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Insert(e.NewStartingIndex + i, menuItem);
                         }
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (object item in e.OldItems)
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
                         }
                     }
                     break;
@@ -211,22 +211,22 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (object item in e.OldItems)
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
-                            groupsMenuButton.Items.Remove(GetFilterMenuItem(item as GalleryGroupFilter));
+                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
                         }
                     }
                     foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
-                        if (groupsMenuButton != null)
+                        if (this.groupsMenuButton != null)
                         {
                             GalleryGroupFilter filter = item;
                             MenuItem menuItem = new MenuItem();
                             menuItem.Header = filter.Title;
                             menuItem.Tag = filter;
-                            if (filter == SelectedFilter) menuItem.IsChecked = true;
-                            menuItem.Click += OnFilterMenuItemClick;
-                            groupsMenuButton.Items.Add(menuItem);
+                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            menuItem.Click += this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
                     break;
@@ -238,8 +238,8 @@ namespace Fluent
         /// </summary>               
         public GalleryGroupFilter SelectedFilter
         {
-            get { return (GalleryGroupFilter)GetValue(SelectedFilterProperty); }
-            set { SetValue(SelectedFilterProperty, value); }
+            get { return (GalleryGroupFilter)this.GetValue(SelectedFilterProperty); }
+            set { this.SetValue(SelectedFilterProperty, value); }
         }
 
         /// <summary>
@@ -281,8 +281,8 @@ namespace Fluent
         /// </summary>
         public string SelectedFilterTitle
         {
-            get { return (string)GetValue(SelectedFilterTitleProperty); }
-            private set { SetValue(SelectedFilterTitlePropertyKey, value); }
+            get { return (string)this.GetValue(SelectedFilterTitleProperty); }
+            private set { this.SetValue(SelectedFilterTitlePropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
@@ -300,8 +300,8 @@ namespace Fluent
         /// </summary>
         public string SelectedFilterGroups
         {
-            get { return (string)GetValue(SelectedFilterGroupsProperty); }
-            private set { SetValue(SelectedFilterGroupsPropertyKey, value); }
+            get { return (string)this.GetValue(SelectedFilterGroupsProperty); }
+            private set { this.SetValue(SelectedFilterGroupsPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
@@ -319,8 +319,8 @@ namespace Fluent
         /// </summary>       
         public bool HasFilter
         {
-            get { return (bool)GetValue(HasFilterProperty); }
-            private set { SetValue(HasFilterPropertyKey, value); }
+            get { return (bool)this.GetValue(HasFilterProperty); }
+            private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly("HasFilter", typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
@@ -334,18 +334,18 @@ namespace Fluent
         void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
         {
             MenuItem senderItem = (MenuItem)sender;
-            MenuItem item = GetFilterMenuItem(SelectedFilter);
+            MenuItem item = this.GetFilterMenuItem(this.SelectedFilter);
             item.IsChecked = false;
             senderItem.IsChecked = true;
-            SelectedFilter = senderItem.Tag as GalleryGroupFilter;
-            groupsMenuButton.IsDropDownOpen = false;
+            this.SelectedFilter = senderItem.Tag as GalleryGroupFilter;
+            this.groupsMenuButton.IsDropDownOpen = false;
             e.Handled = true;
         }
 
         MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
         {
             if (filter == null) return null;
-            return groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
+            return this.groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
             /*foreach (MenuItem item in groupsMenuButton.Items)
             {
                 if ((item!=null)&&(item.Header == filter.Title)) return item;
@@ -362,8 +362,8 @@ namespace Fluent
         /// </summary>
         public bool Selectable
         {
-            get { return (bool)GetValue(SelectableProperty); }
-            set { SetValue(SelectableProperty, value); }
+            get { return (bool)this.GetValue(SelectableProperty); }
+            set { this.SetValue(SelectableProperty, value); }
         }
 
         /// <summary>
@@ -388,8 +388,8 @@ namespace Fluent
         /// </summary>
         public bool IsLastItem
         {
-            get { return (bool)GetValue(IsLastItemProperty); }
-            private set { SetValue(IsLastItemPropertyKey, value); }
+            get { return (bool)this.GetValue(IsLastItemProperty); }
+            private set { this.SetValue(IsLastItemPropertyKey, value); }
         }
 
         /// <summary>

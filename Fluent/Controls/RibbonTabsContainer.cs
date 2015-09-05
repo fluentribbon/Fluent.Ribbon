@@ -37,7 +37,7 @@ namespace Fluent
         /// </summary>
         public RibbonTabsContainer()
         {
-            Focusable = false;
+            this.Focusable = false;
         }
 
         #endregion
@@ -55,9 +55,9 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (InternalChildren.Count == 0) return base.MeasureOverride(availableSize);
+            if (this.InternalChildren.Count == 0) return base.MeasureOverride(availableSize);
 
-            Size desiredSize = MeasureChildrenDesiredSize(availableSize);
+            Size desiredSize = this.MeasureChildrenDesiredSize(availableSize);
 
             // Performs steps as described in "2007 MICROSOFT® OFFICE FLUENT™ 
             // USER INTERFACE DESIGN GUIDELINES"
@@ -67,8 +67,8 @@ namespace Fluent
             if (availableSize.Width > desiredSize.Width)
             {
                 // Hide separator lines between tabs
-                UpdateSeparators(false, false);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(false, false);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -76,24 +76,23 @@ namespace Fluent
             // of all the tabs until the minimum padding required for displaying 
             // the tab selection and hover states is reached (regular tabs)
             double overflowWidth = desiredSize.Width - availableSize.Width;
-            double whitespace = (InternalChildren[0] as RibbonTabItem).Indent;
-            RibbonTabItem[] contextualTabs = InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
+            double whitespace = (this.InternalChildren[0] as RibbonTabItem).Indent;
+            RibbonTabItem[] contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
             double contextualTabsCount = contextualTabs.Length;
-            var regularTabs =
-                InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
+            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
             double regularTabsCount = regularTabs.Count();//InternalChildren.Count - contextualTabsCount;
             double childrenCount = contextualTabsCount + regularTabsCount;
             if (overflowWidth < regularTabsCount * whitespace * 2)
             {
                 double decreaseValue = overflowWidth / (double)regularTabsCount;
                 foreach (RibbonTabItem tab in regularTabs) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(false, false);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(false, false);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -125,13 +124,13 @@ namespace Fluent
                         if (overflowWidth < 0) break;
                     }
                 }
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(true, false);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(true, false);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -160,13 +159,13 @@ namespace Fluent
                     overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
                     if (overflowWidth < 0)
                     {
-                        desiredSize = GetChildrenDesiredSize();
+                        desiredSize = this.GetChildrenDesiredSize();
                         if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                         // Add separator lines between 
                         // tabs to assist readability
-                        UpdateSeparators(true, false);
-                        VerifyScrollData(availableSize.Width, desiredSize.Width);
+                        this.UpdateSeparators(true, false);
+                        this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                         return desiredSize;
                     }
                 }
@@ -200,13 +199,13 @@ namespace Fluent
                     sortedRegularTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
                 }
 
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(true, true);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(true, true);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -223,13 +222,13 @@ namespace Fluent
                 {
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
                 }
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
                 //if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(true, true);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(true, true);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
 
@@ -271,13 +270,13 @@ namespace Fluent
                     sortedContextualTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
                 }
 
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(true, true);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(true, true);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
             else
@@ -289,12 +288,12 @@ namespace Fluent
                 {
                     sortedContextualTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
                 }
-                desiredSize = GetChildrenDesiredSize();
+                desiredSize = this.GetChildrenDesiredSize();
 
                 // Add separator lines between 
                 // tabs to assist readability
-                UpdateSeparators(true, true);
-                VerifyScrollData(availableSize.Width, desiredSize.Width);
+                this.UpdateSeparators(true, true);
+                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }
         }
@@ -372,7 +371,7 @@ namespace Fluent
         /// <param name="contextualTabs">If this parameter true, contextual tabs will have separators</param>
         private void UpdateSeparators(bool regularTabs, bool contextualTabs)
         {
-            foreach (RibbonTabItem tab in Children)
+            foreach (RibbonTabItem tab in this.Children)
             {
                 if (tab.IsContextual)
                 {
@@ -394,8 +393,8 @@ namespace Fluent
         /// </summary>
         public ScrollViewer ScrollOwner
         {
-            get { return ScrollData.ScrollOwner; }
-            set { ScrollData.ScrollOwner = value; }
+            get { return this.ScrollData.ScrollOwner; }
+            set { this.ScrollData.ScrollOwner = value; }
         }
 
         /// <summary>
@@ -404,11 +403,11 @@ namespace Fluent
         /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
         public void SetHorizontalOffset(double offset)
         {
-            double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), scrollData.ExtentWidth, scrollData.ViewportWidth);
-            if (DoubleUtil.AreClose(ScrollData.OffsetX, newValue) == false)
+            double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
-                scrollData.OffsetX = newValue;
-                InvalidateArrange();
+                this.scrollData.OffsetX = newValue;
+                this.InvalidateArrange();
             }
         }
 
@@ -417,7 +416,7 @@ namespace Fluent
         /// </summary>
         public double ExtentWidth
         {
-            get { return ScrollData.ExtentWidth; }
+            get { return this.ScrollData.ExtentWidth; }
         }
 
         /// <summary>
@@ -425,7 +424,7 @@ namespace Fluent
         /// </summary>
         public double HorizontalOffset
         {
-            get { return ScrollData.OffsetX; }
+            get { return this.ScrollData.OffsetX; }
         }
 
         /// <summary>
@@ -433,7 +432,7 @@ namespace Fluent
         /// </summary>
         public double ViewportWidth
         {
-            get { return ScrollData.ViewportWidth; }
+            get { return this.ScrollData.ViewportWidth; }
         }
 
         /// <summary>
@@ -441,7 +440,7 @@ namespace Fluent
         /// </summary>
         public void LineLeft()
         {
-            SetHorizontalOffset(HorizontalOffset - 16.0);
+            this.SetHorizontalOffset(this.HorizontalOffset - 16.0);
         }
 
         /// <summary>
@@ -449,7 +448,7 @@ namespace Fluent
         /// </summary>
         public void LineRight()
         {
-            SetHorizontalOffset(HorizontalOffset + 16.0);
+            this.SetHorizontalOffset(this.HorizontalOffset + 16.0);
         }
 
         /// <summary>
@@ -477,14 +476,14 @@ namespace Fluent
             rectangle = childTransform.TransformBounds(rectangle);
 
             // Initialize the viewport
-            Rect viewport = new Rect(HorizontalOffset, rectangle.Top, ViewportWidth, rectangle.Height);
+            Rect viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
             rectangle.X += viewport.X;
 
             // Compute the offsets required to minimally scroll the child maximally into view.
             double minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
 
             // We have computed the scrolling offsets; scroll to them.
-            SetHorizontalOffset(minX);
+            this.SetHorizontalOffset(minX);
 
             // Compute the visible rectangle of the child relative to the viewport.
             viewport.X = minX;
@@ -646,7 +645,7 @@ namespace Fluent
         {
             get
             {
-                return scrollData ?? (scrollData = new ScrollData());
+                return this.scrollData ?? (this.scrollData = new ScrollData());
             }
         }
 
@@ -673,18 +672,18 @@ namespace Fluent
         {
             bool isValid = true;
 
-            if (Double.IsInfinity(viewportWidth))
+            if (double.IsInfinity(viewportWidth))
             {
                 viewportWidth = extentWidth;
             }
 
-            double offsetX = CoerceOffset(ScrollData.OffsetX, extentWidth, viewportWidth);
+            double offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
 
-            isValid &= DoubleUtil.AreClose(viewportWidth, ScrollData.ViewportWidth);
-            isValid &= DoubleUtil.AreClose(extentWidth, ScrollData.ExtentWidth);
-            isValid &= DoubleUtil.AreClose(ScrollData.OffsetX, offsetX);
+            isValid &= DoubleUtil.AreClose(viewportWidth, this.ScrollData.ViewportWidth);
+            isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
+            isValid &= DoubleUtil.AreClose(this.ScrollData.OffsetX, offsetX);
 
-            ScrollData.ViewportWidth = viewportWidth;
+            this.ScrollData.ViewportWidth = viewportWidth;
 
             // newExtentWidth is neccessary to fix 20762 (Tab scroll button appears randomly when resizing)
             // To fix 20762 we are manipulating the extentWidth by checking if all regular (non contextual) tabs are at their minimum width.
@@ -704,20 +703,20 @@ namespace Fluent
                     newExtentWidth = newExtentWidth + 1;
                 }
 
-                ScrollData.ExtentWidth = newExtentWidth;
+                this.ScrollData.ExtentWidth = newExtentWidth;
             }
             else
             {
-                ScrollData.ExtentWidth = ScrollData.ViewportWidth;
+                this.ScrollData.ExtentWidth = this.ScrollData.ViewportWidth;
             }
 
-            ScrollData.OffsetX = offsetX;
+            this.ScrollData.OffsetX = offsetX;
 
             if (!isValid)
             {
-                if (ScrollOwner != null)
+                if (this.ScrollOwner != null)
                 {
-                    ScrollOwner.InvalidateScrollInfo();
+                    this.ScrollOwner.InvalidateScrollInfo();
                 }
             }
         }

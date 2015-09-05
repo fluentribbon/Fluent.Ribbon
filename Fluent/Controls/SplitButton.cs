@@ -40,10 +40,20 @@ namespace Fluent
         {
             get
             {
-                ArrayList list = new ArrayList();
-                if (Items != null) list.AddRange(Items);
-                if (button != null) list.Add(button);
-                return list.GetEnumerator();
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.button != null)
+                {
+                    yield return this.button;
+                }
+
+                foreach (var item in this.Items)
+                {
+                    yield return item;
+                }
             }
         }
 
@@ -57,11 +67,11 @@ namespace Fluent
         {
             get
             {
-                return (ICommand)GetValue(CommandProperty);
+                return (ICommand)this.GetValue(CommandProperty);
             }
             set
             {
-                SetValue(CommandProperty, value);
+                this.SetValue(CommandProperty, value);
             }
         }
 
@@ -73,11 +83,11 @@ namespace Fluent
         {
             get
             {
-                return GetValue(CommandParameterProperty);
+                return this.GetValue(CommandParameterProperty);
             }
             set
             {
-                SetValue(CommandParameterProperty, value);
+                this.SetValue(CommandParameterProperty, value);
             }
         }
 
@@ -89,11 +99,11 @@ namespace Fluent
         {
             get
             {
-                return (IInputElement)GetValue(CommandTargetProperty);
+                return (IInputElement)this.GetValue(CommandTargetProperty);
             }
             set
             {
-                SetValue(CommandTargetProperty, value);
+                this.SetValue(CommandTargetProperty, value);
             }
         }
 
@@ -125,8 +135,8 @@ namespace Fluent
         /// </summary>
         public string GroupName
         {
-            get { return (string)GetValue(GroupNameProperty); }
-            set { SetValue(GroupNameProperty, value); }
+            get { return (string)this.GetValue(GroupNameProperty); }
+            set { this.SetValue(GroupNameProperty, value); }
         }
 
         /// <summary>
@@ -146,8 +156,8 @@ namespace Fluent
         /// </summary>
         public bool? IsChecked
         {
-            get { return (bool)GetValue(IsCheckedProperty); }
-            set { SetValue(IsCheckedProperty, value); }
+            get { return (bool)this.GetValue(IsCheckedProperty); }
+            set { this.SetValue(IsCheckedProperty, value); }
         }
 
         /// <summary>
@@ -186,8 +196,8 @@ namespace Fluent
         /// </summary>
         public bool IsCheckable
         {
-            get { return (bool)GetValue(IsCheckableProperty); }
-            set { SetValue(IsCheckableProperty, value); }
+            get { return (bool)this.GetValue(IsCheckableProperty); }
+            set { this.SetValue(IsCheckableProperty, value); }
         }
 
         /// <summary>
@@ -205,8 +215,8 @@ namespace Fluent
         /// </summary>
         public object DropDownToolTip
         {
-            get { return GetValue(DropDownToolTipProperty); }
-            set { SetValue(DropDownToolTipProperty, value); }
+            get { return this.GetValue(DropDownToolTipProperty); }
+            set { this.SetValue(DropDownToolTipProperty, value); }
         }
 
         /// <summary>
@@ -224,8 +234,8 @@ namespace Fluent
         /// </summary>
         public bool IsButtonEnabled
         {
-            get { return (bool)GetValue(IsButtonEnabledProperty); }
-            set { SetValue(IsButtonEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsButtonEnabledProperty); }
+            set { this.SetValue(IsButtonEnabledProperty, value); }
         }
 
         /// <summary>
@@ -243,8 +253,8 @@ namespace Fluent
         /// </summary>
         public bool IsDefinitive
         {
-            get { return (bool)GetValue(IsDefinitiveProperty); }
-            set { SetValue(IsDefinitiveProperty, value); }
+            get { return (bool)this.GetValue(IsDefinitiveProperty); }
+            set { this.SetValue(IsDefinitiveProperty, value); }
         }
 
         /// <summary>
@@ -271,19 +281,19 @@ namespace Fluent
         {
             add
             {
-                AddHandler(ClickEvent, value);
+                this.AddHandler(ClickEvent, value);
             }
 
             remove
             {
-                RemoveHandler(ClickEvent, value);
+                this.RemoveHandler(ClickEvent, value);
             }
         }
 
         /// <summary>
         /// Occurs when button is checked
         /// </summary>
-        public static readonly RoutedEvent CheckedEvent = ToggleButton.CheckedEvent.AddOwner(typeof(SplitButton));
+        public static readonly RoutedEvent CheckedEvent = System.Windows.Controls.Primitives.ToggleButton.CheckedEvent.AddOwner(typeof(SplitButton));
 
         /// <summary>
         /// Occurs when button is checked
@@ -292,19 +302,19 @@ namespace Fluent
         {
             add
             {
-                AddHandler(CheckedEvent, value);
+                this.AddHandler(CheckedEvent, value);
             }
 
             remove
             {
-                RemoveHandler(CheckedEvent, value);
+                this.RemoveHandler(CheckedEvent, value);
             }
         }
 
         /// <summary>
         /// Occurs when button is unchecked
         /// </summary>
-        public static readonly RoutedEvent UncheckedEvent = ToggleButton.UncheckedEvent.AddOwner(typeof(SplitButton));
+        public static readonly RoutedEvent UncheckedEvent = System.Windows.Controls.Primitives.ToggleButton.UncheckedEvent.AddOwner(typeof(SplitButton));
 
         /// <summary>
         /// Occurs when button is unchecked
@@ -313,12 +323,12 @@ namespace Fluent
         {
             add
             {
-                AddHandler(UncheckedEvent, value);
+                this.AddHandler(UncheckedEvent, value);
             }
 
             remove
             {
-                RemoveHandler(UncheckedEvent, value);
+                this.RemoveHandler(UncheckedEvent, value);
             }
         }
 
@@ -351,7 +361,7 @@ namespace Fluent
         public SplitButton()
         {
             ContextMenuService.Coerce(this);
-            Click += OnClick;
+            this.Click += this.OnClick;
             //            AddHandler(ClickEvent, OnClick);
 
             this.Loaded += this.OnLoaded;
@@ -407,7 +417,7 @@ namespace Fluent
         {
             this.UnSubscribeEvents();
 
-            button = GetTemplateChild("PART_Button") as ToggleButton;
+            this.button = this.GetTemplateChild("PART_Button") as ToggleButton;
 
             base.OnApplyTemplate();
 
@@ -422,7 +432,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (!PopupService.IsMousePhysicallyOver(button))
+            if (!PopupService.IsMousePhysicallyOver(this.button))
             {
                 base.OnPreviewMouseLeftButtonDown(e);
             }
@@ -453,7 +463,7 @@ namespace Fluent
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
             e.Handled = true;
-            RaiseEvent(new RoutedEventArgs(ClickEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(ClickEvent, this));
         }
 
         #endregion
@@ -469,12 +479,12 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             SplitButton button = new SplitButton();
-            button.Click += ((sender, e) => RaiseEvent(e));
+            button.Click += ((sender, e) => this.RaiseEvent(e));
             RibbonProperties.SetSize(button, RibbonControlSize.Small);
             button.CanAddButtonToQuickAccessToolBar = false;
-            BindQuickAccessItem(button);
-            BindQuickAccessItemDropDownEvents(button);
-            button.DropDownOpened += OnQuickAccessOpened;
+            this.BindQuickAccessItem(button);
+            this.BindQuickAccessItemDropDownEvents(button);
+            button.DropDownOpened += this.OnQuickAccessOpened;
             this._quickAccessButton = button;
             return button;
         }
@@ -508,8 +518,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddButtonToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddButtonToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddButtonToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddButtonToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>

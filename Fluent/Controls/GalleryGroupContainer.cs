@@ -29,8 +29,8 @@ namespace Fluent
         /// </summary>
         public bool IsHeadered
         {
-            get { return (bool)GetValue(IsHeaderedProperty); }
-            set { SetValue(IsHeaderedProperty, value); }
+            get { return (bool)this.GetValue(IsHeaderedProperty); }
+            set { this.SetValue(IsHeaderedProperty, value); }
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Fluent
         /// </summary>
         public Orientation Orientation
         {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get { return (Orientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace Fluent
         /// </summary>
         public double ItemWidth
         {
-            get { return (double)GetValue(ItemWidthProperty); }
-            set { SetValue(ItemWidthProperty, value); }
+            get { return (double)this.GetValue(ItemWidthProperty); }
+            set { this.SetValue(ItemWidthProperty, value); }
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register("ItemWidth", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Double.NaN));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -94,8 +94,8 @@ namespace Fluent
         /// </summary>
         public double ItemHeight
         {
-            get { return (double)GetValue(ItemHeightProperty); }
-            set { SetValue(ItemHeightProperty, value); }
+            get { return (double)this.GetValue(ItemHeightProperty); }
+            set { this.SetValue(ItemHeightProperty, value); }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register("ItemHeight", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Double.NaN));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
 
         #endregion
         
@@ -115,8 +115,8 @@ namespace Fluent
         /// </summary>
         public int MinItemsInRow
         {
-            get { return (int)GetValue(MinItemsInRowProperty); }
-            set { SetValue(MinItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MinItemsInRowProperty); }
+            set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -142,8 +142,8 @@ namespace Fluent
         /// </summary>
         public int MaxItemsInRow
         {
-            get { return (int)GetValue(MaxItemsInRowProperty); }
-            set { SetValue(MaxItemsInRowProperty, value); }
+            get { return (int)this.GetValue(MaxItemsInRowProperty); }
+            set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Int32.MaxValue, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new UIPropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
 
 
         #endregion
@@ -199,7 +199,7 @@ namespace Fluent
                     Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct or haven't attached yet)");
                 }
 
-                this.Dispatcher.BeginInvoke((Action) InvalidateMeasure, DispatcherPriority.ContextIdle);
+                this.Dispatcher.BeginInvoke((Action)this.InvalidateMeasure, DispatcherPriority.ContextIdle);
                 return;
             }
 
@@ -207,7 +207,7 @@ namespace Fluent
             {
                 // Min/Max is used for Horizontal layout only
                 itemsPanel.MinWidth = 0;
-                itemsPanel.MaxWidth = Double.PositiveInfinity;
+                itemsPanel.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -228,12 +228,12 @@ namespace Fluent
         /// <returns></returns>
         public Size GetItemSize()
         {
-            if (!Double.IsNaN(ItemWidth) && !Double.IsNaN(ItemHeight)) return new Size(ItemWidth, ItemHeight);
-            if (Items.Count == 0) return Size.Empty;
+            if (!double.IsNaN(this.ItemWidth) && !double.IsNaN(this.ItemHeight)) return new Size(this.ItemWidth, this.ItemHeight);
+            if (this.Items.Count == 0) return Size.Empty;
 
-            UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(Items[0]) as UIElement;
+            UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(this.Items[0]) as UIElement;
             if (anItem == null) return Size.Empty;
-            anItem.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            anItem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             Size result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
             return result;
@@ -242,7 +242,7 @@ namespace Fluent
         // Determinates item's width (return Double.NaN in case of it is not possible)
         double GetItemWidth()
         {
-            return GetItemSize().Width;
+            return this.GetItemSize().Width;
         }
 
         // Finds panel with IsItemsHost, or null if such panel is not found
@@ -272,11 +272,13 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             var panel = FindItemsPanel(this);
-            if (panel != previousItemsPanel || previousItemsCount != Items.Count || maxMinWidthNeedsToBeUpdated)
+            if (panel != this.previousItemsPanel ||
+                this.previousItemsCount != this.Items.Count ||
+                this.maxMinWidthNeedsToBeUpdated)
             {
                 // Track ItemsPanel changing
-                previousItemsPanel = panel;
-                previousItemsCount = Items.Count;
+                this.previousItemsPanel = panel;
+                this.previousItemsCount = this.Items.Count;
                 this.UpdateMinAndMaxWidth();
             }
             return base.MeasureOverride(constraint);

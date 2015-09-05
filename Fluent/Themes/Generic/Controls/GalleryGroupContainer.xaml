@@ -4,17 +4,6 @@
 
     <ControlTemplate x:Key="GalleryGroupContainerTemplate"
                      TargetType="{x:Type Fluent:GalleryGroupContainer}">
-        <!--<Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
-      <StackPanel>
-        <Border BorderThickness="1" BorderBrush="DarkGray" Margin="1">
-          <TextBlock Text="{TemplateBinding Header}" />
-        </Border>
-        <WrapPanel HorizontalAlignment="Left"
-                   IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
-                   ItemWidth ="{TemplateBinding ItemWidth}"
-                   ItemHeight="{TemplateBinding ItemHeight}"/>
-      </StackPanel>
-    </Border>-->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -45,12 +34,6 @@
                    VerticalAlignment="Top"
                    HorizontalAlignment="Center"
                    x:Name="iconImage">
-                <!--        <Image.Source>
-          <MultiBinding Converter="{StaticResource GroupIconConverter}">
-            <Binding Path="Items"/>
-            <Binding ElementName="layoutRoot"/>
-          </MultiBinding>
-        </Image.Source>-->
             </Image>
             <Rectangle  Grid.Row="1"
                         Fill="{x:Null}"
@@ -65,10 +48,6 @@
             <ItemsPresenter Grid.Row="1"
                             Grid.Column="1"
                             Margin="0,0,0,0" />
-            <!--<WrapPanel Grid.Column="1" Margin="0,21,0,0"
-                   IsItemsHost="True" Orientation="{TemplateBinding Orientation}"
-                   ItemWidth ="{TemplateBinding ItemWidth}"
-                   ItemHeight="{TemplateBinding ItemHeight}"/>-->
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger SourceName="iconImage"

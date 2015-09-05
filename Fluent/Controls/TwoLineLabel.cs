@@ -41,8 +41,8 @@ namespace Fluent
         /// </summary>
         public bool HasTwoLines
         {
-            get { return (bool)GetValue(HasTwoLinesProperty); }
-            set { SetValue(HasTwoLinesProperty, value); }
+            get { return (bool)this.GetValue(HasTwoLinesProperty); }
+            set { this.SetValue(HasTwoLinesProperty, value); }
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace Fluent
         /// </summary>
         public bool HasGlyph
         {
-            get { return (bool)GetValue(HasGlyphProperty); }
-            set { SetValue(HasGlyphProperty, value); }
+            get { return (bool)this.GetValue(HasGlyphProperty); }
+            set { this.SetValue(HasGlyphProperty, value); }
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace Fluent
         /// </summary>
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (string)this.GetValue(TextProperty); }
+            set { this.SetValue(TextProperty, value); }
         }
 
         /// <summary>
@@ -145,9 +145,9 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            textRun = GetTemplateChild("PART_TextRun") as AccessText;
-            textRun2 = GetTemplateChild("PART_TextRun2") as AccessText;
-            UpdateTextRun();
+            this.textRun = this.GetTemplateChild("PART_TextRun") as AccessText;
+            this.textRun2 = this.GetTemplateChild("PART_TextRun2") as AccessText;
+            this.UpdateTextRun();
         }
 
         #endregion
@@ -174,23 +174,23 @@ namespace Fluent
         /// </summary>
         void UpdateTextRun()
         {
-            if ((textRun != null)&&(textRun2 != null)&&(Text != null))
+            if ((this.textRun != null)&&(this.textRun2 != null)&&(this.Text != null))
             {
-                textRun.Text = Text;
-                textRun2.Text = "";
-                string text = Text.Trim();
-                if (HasTwoLines)
+                this.textRun.Text = this.Text;
+                this.textRun2.Text = "";
+                string text = this.Text.Trim();
+                if (this.HasTwoLines)
                 {
                     // Find soft hyphen, break at its position and display a normal hyphen.
                     int hyphenIndex = text.IndexOf((char)173);
                     if (hyphenIndex >= 0)
                     {
-                        textRun.Text = text.Substring(0, hyphenIndex) + "-";
-                        textRun2.Text = text.Substring(hyphenIndex) + " ";
+                        this.textRun.Text = text.Substring(0, hyphenIndex) + "-";
+                        this.textRun2.Text = text.Substring(hyphenIndex) + " ";
                     }
                     else
                     {
-                        int centerIndex = Text.Length / 2;
+                        int centerIndex = this.Text.Length / 2;
                         // Find spaces nearest to center from left and right
                         int leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex);
                         int rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
@@ -202,27 +202,27 @@ namespace Fluent
                         else if (leftSpaceIndex == -1)
                         {
                             // Finds only space from right. New line adds on it
-                            textRun.Text = text.Substring(0, rightSpaceIndex);
-                            textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+                            this.textRun.Text = text.Substring(0, rightSpaceIndex);
+                            this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
                         }
                         else if (rightSpaceIndex == -1)
                         {
                             // Finds only space from left. New line adds on it
-                            textRun.Text = text.Substring(0, leftSpaceIndex);
-                            textRun2.Text = text.Substring(leftSpaceIndex) + " ";
+                            this.textRun.Text = text.Substring(0, leftSpaceIndex);
+                            this.textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                         }
                         else
                         {
                             // Find nearest to center space and add new line on it
                             if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
                             {
-                                textRun.Text = text.Substring(0, leftSpaceIndex);
-                                textRun2.Text = text.Substring(leftSpaceIndex) + " ";
+                                this.textRun.Text = text.Substring(0, leftSpaceIndex);
+                                this.textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                             }
                             else
                             {
-                                textRun.Text = text.Substring(0, rightSpaceIndex);
-                                textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+                                this.textRun.Text = text.Substring(0, rightSpaceIndex);
+                                this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
                             }
                         }
                     }

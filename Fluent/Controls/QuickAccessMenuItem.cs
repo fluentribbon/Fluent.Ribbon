@@ -36,7 +36,6 @@ namespace Fluent
         /// Gets or sets whether control can be added to quick access toolbar
         /// </summary>
         bool CanAddToQuickAccessToolBar { get; set; }
-
     }
     
     /// <summary>
@@ -79,8 +78,8 @@ namespace Fluent
         /// </summary>
         public Control Target
         {
-            get { return (Control)GetValue(TargetProperty); }
-            set { SetValue(TargetProperty, value); }
+            get { return (Control)this.GetValue(TargetProperty); }
+            set { this.SetValue(TargetProperty, value); }
         }
 
         /// <summary>
@@ -137,7 +136,7 @@ namespace Fluent
                 if (this.Target != null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
-                    if (parent == this)
+                    if (ReferenceEquals(parent, this))
                     {
                         var list = new ArrayList { this.Target };
                         return list.GetEnumerator();

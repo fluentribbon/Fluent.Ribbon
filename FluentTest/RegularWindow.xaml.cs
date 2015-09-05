@@ -21,7 +21,7 @@ namespace FluentTest
     {
         public RegularWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

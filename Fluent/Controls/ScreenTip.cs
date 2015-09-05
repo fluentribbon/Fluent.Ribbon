@@ -211,8 +211,8 @@ namespace Fluent
         System.ComponentModel.Description("Title of the screen tip")]
         public string Title
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
+            get { return (string)this.GetValue(TitleProperty); }
+            set { this.SetValue(TitleProperty, value); }
         }
 
         /// <summary>
@@ -234,8 +234,8 @@ namespace Fluent
         System.ComponentModel.Description("Main text of the screen tip")]
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (string)this.GetValue(TextProperty); }
+            set { this.SetValue(TextProperty, value); }
         }
 
         /// <summary>
@@ -257,8 +257,8 @@ namespace Fluent
         System.ComponentModel.Description("Describe here what would cause disable of the control")]
         public string DisableReason
         {
-            get { return (string)GetValue(DisableReasonProperty); }
-            set { SetValue(DisableReasonProperty, value); }
+            get { return (string)this.GetValue(DisableReasonProperty); }
+            set { this.SetValue(DisableReasonProperty, value); }
         }
 
         /// <summary>
@@ -303,8 +303,8 @@ namespace Fluent
         System.ComponentModel.Description("Image of the screen tip")]
         public ImageSource Image
         {
-            get { return (ImageSource)GetValue(ImageProperty); }
-            set { SetValue(ImageProperty, value); }
+            get { return (ImageSource)this.GetValue(ImageProperty); }
+            set { this.SetValue(ImageProperty, value); }
         }
 
         /// <summary>
@@ -325,8 +325,8 @@ namespace Fluent
         System.ComponentModel.Description("Sets the visibility of the F1 Help Label")]
         public Visibility HelpLabelVisibility
         {
-            get { return (Visibility)GetValue(HelpLabelVisibilityProperty); }
-            set { SetValue(HelpLabelVisibilityProperty, value); }
+            get { return (Visibility)this.GetValue(HelpLabelVisibilityProperty); }
+            set { this.SetValue(HelpLabelVisibilityProperty, value); }
         }
 
         /// <summary>
@@ -353,8 +353,8 @@ namespace Fluent
         /// </summary>
         public bool IsRibbonAligned
         {
-            get { return (bool)GetValue(IsRibbonAlignedProperty); }
-            set { SetValue(IsRibbonAlignedProperty, value); }
+            get { return (bool)this.GetValue(IsRibbonAlignedProperty); }
+            set { this.SetValue(IsRibbonAlignedProperty, value); }
         }
 
         /// <summary>

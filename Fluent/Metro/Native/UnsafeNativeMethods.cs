@@ -162,8 +162,8 @@ namespace Fluent.Metro.Native
         [StructLayout(LayoutKind.Sequential)]
         internal struct Win32Point
         {
-            public readonly Int32 X;
-            public readonly Int32 Y;
+            public readonly int X;
+            public readonly int Y;
         };
 
         // See: http://stackoverflow.com/questions/7913325/win-api-in-c-get-hi-and-low-word-from-intptr/7913393#7913393

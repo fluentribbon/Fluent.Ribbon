@@ -30,8 +30,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -61,11 +61,11 @@ namespace Fluent
         {
             get
             {
-                return (bool)base.GetValue(IsSelectedProperty);
+                return (bool)this.GetValue(IsSelectedProperty);
             }
             set
             {
-                base.SetValue(IsSelectedProperty, value);
+                this.SetValue(IsSelectedProperty, value);
             }
         }
 
@@ -85,8 +85,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -141,9 +141,10 @@ namespace Fluent
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
-            if (IsSelected && TabControlParent != null)
+            if (this.IsSelected &&
+                this.TabControlParent != null)
             {
-                TabControlParent.SelectedContent = newContent;
+                this.TabControlParent.SelectedContent = newContent;
             }
         }
 
@@ -155,12 +156,13 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) || !IsSelected))
+            if (((e.Source == this) || !this.IsSelected))
             {
-                if (TabControlParent != null && TabControlParent.SelectedItem is BackstageTabItem)
-                    ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
+                if (this.TabControlParent != null &&
+                    this.TabControlParent.SelectedItem is BackstageTabItem)
+                    ((BackstageTabItem)this.TabControlParent.SelectedItem).IsSelected = false;
 
-                IsSelected = true;
+                this.IsSelected = true;
             }
             e.Handled = true;
         }
@@ -197,7 +199,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected virtual void OnSelected(RoutedEventArgs e)
         {
-            HandleIsSelectedChanged(e);
+            this.HandleIsSelectedChanged(e);
         }
 
         /// <summary>
@@ -206,7 +208,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         protected virtual void OnUnselected(RoutedEventArgs e)
         {
-            HandleIsSelectedChanged(e);
+            this.HandleIsSelectedChanged(e);
         }
 
         #endregion
@@ -219,7 +221,7 @@ namespace Fluent
         /// <param name="e">The event data.</param>
         private void HandleIsSelectedChanged(RoutedEventArgs e)
         {
-            RaiseEvent(e);
+            this.RaiseEvent(e);
         }
 
         #endregion
@@ -229,10 +231,11 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if (TabControlParent != null && TabControlParent.SelectedItem is RibbonTabItem)
-                ((BackstageTabItem)TabControlParent.SelectedItem).IsSelected = false;
+            if (this.TabControlParent != null &&
+                this.TabControlParent.SelectedItem is RibbonTabItem)
+                ((BackstageTabItem)this.TabControlParent.SelectedItem).IsSelected = false;
 
-            IsSelected = true;
+            this.IsSelected = true;
         }
 
         /// <summary>

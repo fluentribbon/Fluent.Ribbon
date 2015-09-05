@@ -17,6 +17,20 @@
                 <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+
+            <Canvas x:Key="AppbarUndoIcon"
+                    Width="76"
+                    Height="76"
+                    Background="Transparent"
+                    Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
+                <Path Width="38.3892"
+                      Height="39.458"
+                      Canvas.Left="19"
+                      Canvas.Top="21.474"
+                      Stretch="Fill"
+                      Fill="{DynamicResource BlackBrush}"
+                      Data="F1 M 52.7514,25.076C 53.4111,25.7534 54.0258,26.4933 54.5953,27.296C 55.1649,28.0987 55.6564,28.9607 56.0698,29.8821C 56.4832,30.8035 56.8065,31.7766 57.0396,32.8014C 57.2727,33.8262 57.3892,34.8883 57.3892,35.9878C 57.3892,37.0566 57.276,38.1517 57.0495,39.2733C 56.823,40.3948 56.4491,41.5394 55.928,42.7071C 55.4068,43.8748 54.713,45.07 53.8465,46.2927C 52.9801,47.5154 51.9069,48.7601 50.6271,50.0267C 50.2137,50.4358 49.7431,50.902 49.2153,51.4253C 48.6875,51.9487 48.1278,52.5029 47.5363,53.0878C 46.9447,53.6728 46.34,54.2742 45.722,54.8922C 45.1041,55.5101 44.4983,56.1072 43.9045,56.6833C 42.5323,58.0424 41.1029,59.4586 39.6163,60.9319L 35.3545,56.6239C 36.8235,55.1638 38.2441,53.7542 39.6163,52.3951C 40.1969,51.819 40.7994,51.2252 41.424,50.6139C 42.0485,50.0025 42.6565,49.4011 43.2481,48.8095C 43.8396,48.218 44.3993,47.6605 44.9271,47.1371C 45.4549,46.6138 45.9255,46.1476 46.3389,45.7385C 48.0146,44.0584 49.2758,42.3904 50.1224,40.7345C 50.969,39.0786 51.3924,37.4678 51.3924,35.9021C 51.3924,34.719 51.1516,33.5777 50.67,32.4781C 50.1884,31.3786 49.4528,30.3406 48.4632,29.3642C 48.2169,29.1179 47.9112,28.8848 47.5462,28.6649C 47.1811,28.445 46.7688,28.2526 46.3092,28.0877C 45.8496,27.9227 45.3482,27.7886 44.805,27.6852C 44.2619,27.5819 43.6868,27.5302 43.0799,27.5302C 42.4641,27.5302 41.8198,27.5929 41.1469,27.7182C 40.474,27.8436 39.7933,28.0503 39.105,28.3384C 38.4167,28.6264 37.7218,29.0036 37.0203,29.4698C 36.3188,29.936 35.6316,30.5056 34.9587,31.1785L 30.466,35.6976L 37.4986,42.75L 19,42.75L 19,24.5417L 25.9931,31.4094L 30.5056,26.8705C 31.5083,25.7446 32.5463,24.8275 33.6194,24.1194C 34.6926,23.4113 35.7646,22.8616 36.8356,22.4701C 37.9065,22.0787 38.972,21.8148 40.0319,21.6785C 41.0919,21.5421 42.1079,21.474 43.0799,21.474C 44.087,21.474 45.0579,21.563 45.9925,21.7411C 46.9271,21.9193 47.8068,22.17 48.6314,22.4932C 49.4561,22.8165 50.2148,23.198 50.9075,23.6378C 51.6002,24.0777 52.2148,24.5571 52.7514,25.076 Z " />
+            </Canvas>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.LayoutTransform>
@@ -88,6 +102,7 @@
                             <Fluent:Button Header="Save As"
                                            Icon="pack://application:,,,/FluentTest;component/Images/Save.png"
                                            KeyTip="A"
+                                           CanAddToQuickAccessToolBar="False"
                                            Click="HandleSaveAsClick" />
                             <Fluent:BackstageTabItem Header="TEST"
                                                      Content="Hello">
@@ -164,8 +179,9 @@
                                       HorizontalAlignment="Stretch">
                                     <TextBlock HorizontalAlignment="Left"
                                                MinWidth="0"
-                                               TextWrapping="Wrap"
-                                               Foreground="Black">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text</TextBlock>
+                                               TextWrapping="Wrap">
+                                        This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text
+                                    </TextBlock>
                                     <Fluent:Button IsDefinitive="True"
                                                    IsEnabled="True"
                                                    Style="{DynamicResource ButtonBackstageStyle}"
@@ -246,18 +262,17 @@
 
                                 </StackPanel>
 
-                                <Fluent:MenuItem Header="File 1"
-                                                 Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                 IsDefinitive="True">
-                                </Fluent:MenuItem>
-
-                                <Fluent:MenuItem Header="File 2"
-                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
-
-                                <Fluent:MenuItem Header="File 3"
-                                                    Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png"
-                                                    IsDefinitive="True" />
+                                <ItemsControl ItemsSource="{Binding GalleryViewModel.Items}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Fluent:MenuItem Header="{Binding Text}"  
+                                                             ToolTip="{Binding Text}" 
+                                                             Description="{Binding Group}"
+                                                             IsDefinitive="True"
+                                                             Icon="pack://application:,,,/FluentTest;component/Images/BlueLarge.png" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </Fluent:ApplicationMenu.RightPaneContent>
 
@@ -331,6 +346,10 @@
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem Target="{Binding ElementName=gallerySampleInRibbonGallery}"
                                             IsChecked="True" />
+                <Fluent:QuickAccessMenuItem IsChecked="True"
+                                            Target="{Binding ElementName=UndoButton}" />
+                <Fluent:QuickAccessMenuItem IsChecked="True"
+                                            Target="{Binding ElementName=RedoButton}" />
             </Fluent:Ribbon.QuickAccessItems>
 
             <Fluent:RibbonTabItem   x:Name="homeTabItem"
@@ -891,6 +910,43 @@
                     <Fluent:Button Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                    LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
                                    Header="Cmd" />
+
+                    <Fluent:Button Header="Button with rectangle as icon">
+                        <Fluent:Button.Icon>
+                            <Rectangle Fill="Green" Height="16" Width="16" />
+                        </Fluent:Button.Icon>
+                        <Fluent:Button.LargeIcon>
+                            <Rectangle Fill="Blue" Height="32" Width="32" />
+                        </Fluent:Button.LargeIcon>
+                    </Fluent:Button>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Test">
+                    <StackPanel Orientation="Horizontal">
+                        <Fluent:SplitButton x:Name="UndoButton"
+                                            KeyTip="Ctrl+Z"
+                                            Header="Undo"
+                                            Icon="{DynamicResource AppbarUndoIcon}"
+                                            SizeDefinition="Middle,Small"
+                                            Command="ApplicationCommands.Undo"
+                                            FocusManager.IsFocusScope="True"
+                                            CanAddButtonToQuickAccessToolBar="True"
+                                            ClosePopupOnMouseDown="True">
+                            <Fluent:MenuItem Header="Begin" />
+                            <Fluent:MenuItem Header="Undo something" />
+                            <Fluent:MenuItem Header="Undo another thing" />
+                        </Fluent:SplitButton>
+
+                        <Fluent:SplitButton x:Name="RedoButton"
+                                            KeyTip="Ctrl+Y"
+                                            Header="Redo"
+                                            Icon="{DynamicResource appbar_redo}"
+                                            SizeDefinition="Middle,Small"
+                                            Command="ApplicationCommands.Redo"
+                                            CanAddButtonToQuickAccessToolBar="True"
+                                            FocusManager.IsFocusScope="True">
+                        </Fluent:SplitButton>
+                    </StackPanel>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -1059,11 +1115,11 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="ToggleButton">
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 1"
                                          GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 2"
                                          GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
+                    <Fluent:ToggleButton Header="Toggle 3"
                                          GroupName="Group1" />
                 </Fluent:RibbonGroupBox>
 
@@ -1075,13 +1131,29 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="TestOne">
-                    <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                    <Fluent:ComboBox Header="Many items"
+                                     InputWidth="120"
+                                     ResizeMode="Both"
+                                     ItemsSource="{Binding Path=ManyItems}">
+                        <Fluent:ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Fluent:ComboBox.ItemsPanel>
+                    </Fluent:ComboBox>
+                    
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
                                      InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}">
+                        <Fluent:ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Fluent:ComboBox.ItemsPanel>
+                        <ComboBoxItem>Test</ComboBoxItem>
+                    </Fluent:ComboBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>
@@ -2638,14 +2710,29 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Tests">
-                <WrapPanel>
-                    <Button x:Name="AddRibbonTab"
-                            Click="AddRibbonTab_OnClick">Add tab</Button>
-                    <Button x:Name="OpenRegularWindow"
-                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>                    
-                    <Button x:Name="OpenMahMetroWindow"
-                            Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
-                </WrapPanel>
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Header="Tabs and Window">
+                        <WrapPanel>
+                            <Button x:Name="AddRibbonTab"
+                                    Click="AddRibbonTab_OnClick">Add tab</Button>
+                            <Button x:Name="OpenRegularWindow"
+                                    Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
+                            <Button x:Name="OpenMahMetroWindow"
+                                    Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
+                            <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
+                                    Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
+                            <Button x:Name="OpenModalRibbonWindow"
+                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>                            
+
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Issue repros">
+                        <WrapPanel>
+                            <Button x:Name="SleepButton"
+                                    Click="SleepButton_OnClick">Sleep for issues #80 and #159</Button>
+                        </WrapPanel>
+                    </GroupBox>
+                </StackPanel>
             </TabItem>
         </TabControl>
 

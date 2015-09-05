@@ -302,8 +302,10 @@
                     <Separator x:Name="menuSeparator"
                                Style="{DynamicResource MenuSeparatorStyle}" />
                     <Fluent:MenuItem x:Name="PART_ShowBelow"
+                                     CanAddToQuickAccessToolBar="False"
                                      Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
                     <Fluent:MenuItem x:Name="PART_ShowAbove"
+                                     CanAddToQuickAccessToolBar="False"
                                      Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>

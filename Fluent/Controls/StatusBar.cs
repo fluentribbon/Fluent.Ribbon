@@ -29,8 +29,8 @@ namespace Fluent
         /// </summary>
         public bool IsWindowMaximized
         {
-            get { return (bool)GetValue(IsWindowMaximizedProperty); }
-            set { SetValue(IsWindowMaximizedProperty, value); }
+            get { return (bool)this.GetValue(IsWindowMaximizedProperty); }
+            set { this.SetValue(IsWindowMaximizedProperty, value); }
         }
 
         /// <summary>
@@ -60,54 +60,54 @@ namespace Fluent
         /// </summary>
         public StatusBar()
         {
-            RecreateMenu();
-            ContextMenu = contextMenu;
+            this.RecreateMenu();
+            this.ContextMenu = this.contextMenu;
 
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
+            this.Loaded += this.OnLoaded;
+            this.Unloaded += this.OnUnloaded;
 
-            this.ItemContainerGenerator.StatusChanged += HandleItemContainerGeneratorStatusChanged;
+            this.ItemContainerGenerator.StatusChanged += this.HandleItemContainerGeneratorStatusChanged;
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (ownerWindow != null)
+            if (this.ownerWindow != null)
             {
-                ownerWindow.StateChanged -= OnWindowStateChanged;
-                ownerWindow = null;
+                this.ownerWindow.StateChanged -= this.OnWindowStateChanged;
+                this.ownerWindow = null;
             }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (ownerWindow == null)
+            if (this.ownerWindow == null)
             {
-                ownerWindow = Window.GetWindow(this);
+                this.ownerWindow = Window.GetWindow(this);
             }
 
-            if (ownerWindow != null)
+            if (this.ownerWindow != null)
             {
-                ownerWindow.StateChanged += OnWindowStateChanged;
-                if ((ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (ownerWindow.WindowState == WindowState.Maximized))
+                this.ownerWindow.StateChanged += this.OnWindowStateChanged;
+                if ((this.ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (this.ownerWindow.WindowState == WindowState.Maximized))
                 {
-                    IsWindowMaximized = true;
+                    this.IsWindowMaximized = true;
                 }
                 else
                 {
-                    IsWindowMaximized = false;
+                    this.IsWindowMaximized = false;
                 }
             }
         }
 
         private void OnWindowStateChanged(object sender, EventArgs e)
         {
-            if ((ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (ownerWindow.WindowState == WindowState.Maximized))
+            if ((this.ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (this.ownerWindow.WindowState == WindowState.Maximized))
             {
-                IsWindowMaximized = true;
+                this.IsWindowMaximized = true;
             }
             else
             {
-                IsWindowMaximized = false;
+                this.IsWindowMaximized = false;
             }
         }
 
@@ -171,7 +171,7 @@ namespace Fluent
                 return;
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Delegate)new Action(RecreateMenu));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Delegate)new Action(this.RecreateMenu));
         }
 
         /// <summary>
@@ -198,13 +198,13 @@ namespace Fluent
 
                             if (item != null)
                             {
-                                item.Checked += OnItemChecked;
-                                item.Unchecked += OnItemUnchecked;
-                                contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new StatusBarMenuItem(item));
+                                item.Checked += this.OnItemChecked;
+                                item.Unchecked += this.OnItemUnchecked;
+                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new StatusBarMenuItem(item));
                             }
                             else
                             {
-                                contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new Separator());
+                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new Separator());
                             }
                         }
                         break;
@@ -214,9 +214,9 @@ namespace Fluent
                     {
                         for (var i = 0; i < e.NewItems.Count; i++)
                         {
-                            var menuItem = contextMenu.Items[e.OldStartingIndex + 1];
-                            contextMenu.Items.Remove(e.OldStartingIndex + 1);
-                            contextMenu.Items.Insert(e.NewStartingIndex + i + 1, menuItem);
+                            var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1];
+                            this.contextMenu.Items.Remove(e.OldStartingIndex + 1);
+                            this.contextMenu.Items.Insert(e.NewStartingIndex + i + 1, menuItem);
                         }
                         break;
                     }
@@ -224,13 +224,13 @@ namespace Fluent
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
                         {
-                            var menuItem = contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
+                            var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
                             if (menuItem != null)
                             {
-                                menuItem.StatusBarItem.Checked += OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked += OnItemUnchecked;
+                                menuItem.StatusBarItem.Checked += this.OnItemChecked;
+                                menuItem.StatusBarItem.Unchecked += this.OnItemUnchecked;
                             }
-                            contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
+                            this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
                         }
                         break;
                     }
@@ -238,14 +238,14 @@ namespace Fluent
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
                         {
-                            var menuItem = contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
+                            var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
                             if (menuItem != null)
                             {
-                                menuItem.StatusBarItem.Checked += OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked += OnItemUnchecked;
+                                menuItem.StatusBarItem.Checked += this.OnItemChecked;
+                                menuItem.StatusBarItem.Unchecked += this.OnItemUnchecked;
                             }
 
-                            contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
+                            this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
                         }
 
                         for (var i = 0; i < e.NewItems.Count; i++)
@@ -253,20 +253,20 @@ namespace Fluent
                             var item = this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]) as StatusBarItem;
                             if (item != null)
                             {
-                                item.Checked += OnItemChecked;
-                                item.Unchecked += OnItemUnchecked;
-                                contextMenu.Items.Insert(e.NewStartingIndex + i + 1, new StatusBarMenuItem(item));
+                                item.Checked += this.OnItemChecked;
+                                item.Unchecked += this.OnItemUnchecked;
+                                this.contextMenu.Items.Insert(e.NewStartingIndex + i + 1, new StatusBarMenuItem(item));
                             }
                             else
                             {
-                                contextMenu.Items.Insert(e.NewStartingIndex + i + 1, new Separator());
+                                this.contextMenu.Items.Insert(e.NewStartingIndex + i + 1, new Separator());
                             }
                         }
                         break;
                     }
                 case NotifyCollectionChangedAction.Reset:
                     {
-                        RecreateMenu();
+                        this.RecreateMenu();
                         break;
                     }
             }
@@ -274,12 +274,12 @@ namespace Fluent
 
         private void OnItemUnchecked(object sender, RoutedEventArgs e)
         {
-            UpdateSeparartorsVisibility();
+            this.UpdateSeparartorsVisibility();
         }
 
         private void OnItemChecked(object sender, RoutedEventArgs e)
         {
-            UpdateSeparartorsVisibility();
+            this.UpdateSeparartorsVisibility();
         }
 
         #endregion
@@ -289,28 +289,28 @@ namespace Fluent
         // Creates menu
         private void RecreateMenu()
         {
-            contextMenu.Items.Clear();
+            this.contextMenu.Items.Clear();
 
             // Adding header separator
-            contextMenu.Items.Add(new GroupSeparatorMenuItem());
-            RibbonControl.Bind(Ribbon.Localization, contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            this.contextMenu.Items.Add(new GroupSeparatorMenuItem());
+            RibbonControl.Bind(Ribbon.Localization, this.contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
 
             for (var i = 0; i < this.Items.Count; i++)
             {
                 var item = this.ItemContainerGenerator.ContainerFromItem(this.Items[i]) as StatusBarItem;
                 if (item != null)
                 {
-                    item.Checked += OnItemChecked;
-                    item.Unchecked += OnItemUnchecked;
-                    contextMenu.Items.Add(new StatusBarMenuItem(item));
+                    item.Checked += this.OnItemChecked;
+                    item.Unchecked += this.OnItemUnchecked;
+                    this.contextMenu.Items.Add(new StatusBarMenuItem(item));
                 }
                 else
                 {
-                    contextMenu.Items.Add(new Separator());
+                    this.contextMenu.Items.Add(new Separator());
                 }
             }
 
-            UpdateSeparartorsVisibility();
+            this.UpdateSeparartorsVisibility();
         }
 
         // Updates separators visibility, to not duplicate

@@ -14,7 +14,7 @@
     {
         private readonly RibbonWindow window;
         private IntPtr windowHwnd;
-        private bool fixingNastyWindowChromeBug;
+        private bool fixingWindowChromeBug;
 
         /// <summary>
         /// Creates a new instance and binds it to <paramref name="window"/>
@@ -37,25 +37,89 @@
                 this.windowHwnd = hwndSource.Handle;
                 hwndSource.AddHook(this.HwndHook);
 
-                this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
+                this.window.Dispatcher.BeginInvoke((Action)(this.FixWindowChromeBug));
             }
         }
 
         private void HandleWindowStateChanged(object sender, EventArgs e)
         {
-            this.window.Dispatcher.BeginInvoke((Action)(this.FixNastyWindowChromeBug));
+            this.window.Dispatcher.BeginInvoke((Action)(this.FixWindowChromeBug));
         }
 
-        private void FixNastyWindowChromeBug()
+        private void FixWindowChromeBug()
         {
-            if (this.fixingNastyWindowChromeBug
-                || this.window.WindowState != WindowState.Maximized)
+            if (this.fixingWindowChromeBug)
             {
                 return;
             }
 
-            this.fixingNastyWindowChromeBug = true;
+            this.fixingWindowChromeBug = true;
 
+            if (this.window.WindowState == WindowState.Maximized)
+            {
+                this.FixWindowChromeBugForMaximizedWindow();
+            }
+            else if (this.window.SizeToContent == SizeToContent.WidthAndHeight)
+            {
+                // SizeToContent is reset to manual as soon as the window is resized anyway.
+                // By changing it to manual early on we avoid black areas by refreshing the window.
+                this.window.SizeToContent = SizeToContent.Manual;
+            }
+
+            this.fixingWindowChromeBug = false;
+        }
+
+        private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            var returnval = IntPtr.Zero;
+
+            switch (message)
+            {
+                case Constants.WM_STYLECHANGED:
+                    this.FixWindowChromeBugForFreezedMaximizedWindow();
+                    break;
+
+                case Constants.WM_GETMINMAXINFO:
+                    this.FixMinMaxInfo(hWnd, lParam, out handled);
+                    break;
+            }
+
+            return returnval;
+        }
+
+        private WINDOWPLACEMENT GetWindowPlacement()
+        {
+            WINDOWPLACEMENT windowPlacement;
+            UnsafeNativeMethods.GetWindowPlacement(this.windowHwnd, out windowPlacement);
+            return windowPlacement;
+        }
+
+        #region Fixes
+
+        private void FixWindowChromeBugForFreezedMaximizedWindow()
+        {
+            if (this.GetWindowPlacement().showCmd == 3)
+            {
+                this.FixWindowChromeBugForMaximizedWindow();
+            }
+        }
+
+        private void FixMinMaxInfo(IntPtr hWnd, IntPtr lParam, out bool handled)
+        {
+            if (this.GetWindowPlacement().showCmd == 3)
+            {
+                /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
+                this.WmGetMinMaxInfo(hWnd, lParam);
+
+                handled = true;
+                return;
+            }
+
+            handled = false;
+        }
+
+        private void FixWindowChromeBugForMaximizedWindow()
+        {
             var mmi = this.GetMinMaxInfo(this.windowHwnd, new MINMAXINFO());
             if (NativeMethods.IsDwmEnabled())
             {
@@ -67,33 +131,9 @@
                 UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y + 1, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
                 UnsafeNativeMethods.MoveWindow(this.windowHwnd, mmi.ptMaxPosition.X, mmi.ptMaxPosition.Y, mmi.ptMaxSize.X, mmi.ptMaxSize.Y, true);
             }
-
-            this.fixingNastyWindowChromeBug = false;
         }
 
-        private IntPtr HwndHook(IntPtr hWnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            var returnval = IntPtr.Zero;
-
-            switch (message)
-            {
-                case Constants.WM_GETMINMAXINFO:
-
-                    WINDOWPLACEMENT windowPlacement;
-                    UnsafeNativeMethods.GetWindowPlacement(this.windowHwnd, out windowPlacement);
-
-                    if (windowPlacement.showCmd == 3)
-                    {
-                        /* http://blogs.msdn.com/b/llobo/archive/2006/08/01/maximizing-window-_2800_with-windowstyle_3d00_none_2900_-considering-taskbar.aspx */
-                        this.WmGetMinMaxInfo(hWnd, lParam);
-
-                        handled = true;
-                    }
-                    break;
-            }
-
-            return returnval;
-        }
+        #endregion
 
         #region WindowSize
 
@@ -142,8 +182,14 @@
 
             var x = ignoreTaskBar ? monitorInfo.rcMonitor.left : monitorInfo.rcWork.left;
             var y = ignoreTaskBar ? monitorInfo.rcMonitor.top : monitorInfo.rcWork.top;
-            mmi.ptMaxSize.X = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
-            mmi.ptMaxSize.Y = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
+            var maxWidth = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.right - x) : Math.Abs(monitorInfo.rcWork.right - x);
+            var maxHeight = ignoreTaskBar ? Math.Abs(monitorInfo.rcMonitor.bottom - y) : Math.Abs(monitorInfo.rcWork.bottom - y);
+
+            var maxWindowWidth = double.IsPositiveInfinity(this.window.MaxWidth) ? maxWidth : (int)this.window.MaxWidth;
+            var maxWindowHeight = double.IsPositiveInfinity(this.window.MaxHeight) ? maxHeight : (int)this.window.MaxHeight;
+
+            mmi.ptMaxSize.X = Math.Min(maxWidth, maxWindowWidth);
+            mmi.ptMaxSize.Y = Math.Min(maxHeight, maxWindowHeight);
 
             if (!ignoreTaskBar)
             {

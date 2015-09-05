@@ -494,7 +494,7 @@ namespace Fluent
 
             foreach (var symbol in text)
             {
-                if (Char.IsDigit(symbol)
+                if (char.IsDigit(symbol)
                     || symbol == ','
                     || symbol == '.'
                     || (symbol == '-' && stringBuilder.Length == 0))
@@ -507,7 +507,7 @@ namespace Fluent
 
             double value;
 
-            if (Double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+            if (double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
             {
                 this.Value = GetLimitedValue(this, value);
             }

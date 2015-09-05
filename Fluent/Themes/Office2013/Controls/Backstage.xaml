@@ -84,7 +84,4 @@
         <Setter Property="HideContextTabsOnOpen"
                 Value="True" />
     </Style>
-
-    <Style TargetType="{x:Type Fluent:Backstage}"
-           BasedOn="{StaticResource RibbonBackstageStyle}" />
 </ResourceDictionary>

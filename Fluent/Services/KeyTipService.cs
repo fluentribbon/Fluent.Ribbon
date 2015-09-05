@@ -54,9 +54,9 @@ namespace Fluent
         {
             get
             {
-                if (activeAdornerChain != null)
+                if (this.activeAdornerChain != null)
                 {
-                    return activeAdornerChain.AreAnyKeyTipsVisible;
+                    return this.activeAdornerChain.AreAnyKeyTipsVisible;
                 }
 
                 return false;

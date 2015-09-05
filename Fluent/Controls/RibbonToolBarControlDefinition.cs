@@ -26,8 +26,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -64,8 +64,8 @@ namespace Fluent
         /// </summary>
         public string Target
         {
-            get { return (string)GetValue(TargetProperty); }
-            set { SetValue(TargetProperty, value); }
+            get { return (string)this.GetValue(TargetProperty); }
+            set { this.SetValue(TargetProperty, value); }
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace Fluent
         /// </summary>
         public double Width
         {
-            get { return (double)GetValue(WidthProperty); }
-            set { SetValue(WidthProperty, value); }
+            get { return (double)this.GetValue(WidthProperty); }
+            set { this.SetValue(WidthProperty, value); }
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register("Width", typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(Double.NaN, OnWidthPropertyChanged));
+            DependencyProperty.Register("Width", typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(double.NaN, OnWidthPropertyChanged));
 
         static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -119,7 +119,8 @@ namespace Fluent
 
         private void Invalidate(string propertyName)
         {
-            if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

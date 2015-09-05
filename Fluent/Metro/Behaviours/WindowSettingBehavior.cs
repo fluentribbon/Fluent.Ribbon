@@ -13,7 +13,7 @@
         /// </summary>
         protected override void OnAttached()
         {
-            WindowSettings.SetSave(AssociatedObject, AssociatedObject.SaveWindowPosition);
+            WindowSettings.SetSave(this.AssociatedObject, this.AssociatedObject.SaveWindowPosition);
         }
     }
 }

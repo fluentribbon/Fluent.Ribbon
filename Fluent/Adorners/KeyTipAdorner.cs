@@ -81,20 +81,20 @@ namespace Fluent
         /// </summary>
         public bool IsAdornerChainAlive
         {
-            get { return attached || (childAdorner != null && childAdorner.IsAdornerChainAlive); }
+            get { return this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
         }
 
         public bool AreAnyKeyTipsVisible
         {
-            get { return this.keyTips.Any(x => x.IsVisible) || (childAdorner != null && childAdorner.AreAnyKeyTipsVisible); }
+            get { return this.keyTips.Any(x => x.IsVisible) || (this.childAdorner != null && this.childAdorner.AreAnyKeyTipsVisible); }
         }
 
         public KeyTipAdorner ActiveKeyTipAdorner
         {
             get
             {
-                return childAdorner != null && childAdorner.IsAdornerChainAlive
-                           ? childAdorner.ActiveKeyTipAdorner
+                return this.childAdorner != null && this.childAdorner.IsAdornerChainAlive
+                           ? this.childAdorner.ActiveKeyTipAdorner
                            : this;
             }
         }
@@ -118,9 +118,8 @@ namespace Fluent
 
             // Try to find supported elements
             this.FindKeyTips(this.keyTipElementContainer, false);
-            this.oneOfAssociatedElements = (FrameworkElement)(
-                associatedElements.Count != 0
-                    ? associatedElements[0]
+            this.oneOfAssociatedElements = (FrameworkElement)(this.associatedElements.Count != 0
+                    ? this.associatedElements[0]
                     : adornedElement // Maybe here is bug, coz we need keytipped item here...
                 );
 
@@ -315,7 +314,7 @@ namespace Fluent
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             // Check whether window is deactivated (wParam == 0)
-            if ((msg == 6) && (wParam == IntPtr.Zero) && (attached))
+            if ((msg == 6) && (wParam == IntPtr.Zero) && (this.attached))
             {
                 this.Log("The host window is deactivated, keytips will be terminated");
                 this.Terminate();
@@ -366,7 +365,7 @@ namespace Fluent
                 this.focusedElement = null;
             }
 
-            GetTopLevelElement(oneOfAssociatedElements).PreviewMouseDown -= this.OnInputActionOccured;
+            GetTopLevelElement(this.oneOfAssociatedElements).PreviewMouseDown -= this.OnInputActionOccured;
 
             // Show this adorner
             this.adornerLayer.Remove(this);
@@ -431,7 +430,7 @@ namespace Fluent
                 return;
             }
 
-            if ((!(AdornedElement is ContextMenu)) &&
+            if ((!(this.AdornedElement is ContextMenu)) &&
                 ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) ||
                 (e.Key == Key.Enter) || (e.Key == Key.Tab)))
             {
@@ -452,15 +451,15 @@ namespace Fluent
             {
                 this.enteredKeys += e.Text;
 
-                var element = TryGetElement(enteredKeys);
+                var element = this.TryGetElement(this.enteredKeys);
 
                 if (element != null)
                 {
-                    Forward(element);
+                    this.Forward(element);
                 }
                 else
                 {
-                    FilterKeyTips();
+                    this.FilterKeyTips();
                 }
 
                 e.Handled = true;
@@ -586,18 +585,19 @@ namespace Fluent
         {
             this.Log("Trying to forward {0}", keys);
 
-            var element = TryGetElement(keys);
+            var element = this.TryGetElement(keys);
             if (element == null)
             {
                 return false;
             }
 
-            Forward(element, click);
+            this.Forward(element, click);
             return true;
         }
 
         // Forward to the next element
-        private void Forward(UIElement element) { Forward(element, true); }
+        private void Forward(UIElement element) {
+            this.Forward(element, true); }
 
         // Forward to the next element
         private void Forward(UIElement element, bool click)
@@ -647,19 +647,20 @@ namespace Fluent
         /// <returns>Element</returns>
         private UIElement TryGetElement(string keys)
         {
-            for (var i = 0; i < keyTips.Count; i++)
+            for (var i = 0; i < this.keyTips.Count; i++)
             {
-                if (!keyTips[i].IsEnabled
-                    || keyTips[i].Visibility != Visibility.Visible)
+                if (!this.keyTips[i].IsEnabled
+                    ||
+                    this.keyTips[i].Visibility != Visibility.Visible)
                 {
                     continue;
                 }
 
-                var content = (string)keyTips[i].Content;
+                var content = (string)this.keyTips[i].Content;
 
                 if (keys.Equals(content, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    return associatedElements[i];
+                    return this.associatedElements[i];
                 }
             }
 
@@ -694,7 +695,7 @@ namespace Fluent
             // Backup current visibility of key tips
             for (var i = 0; i < this.backupedVisibilities.Length; i++)
             {
-                this.backupedVisibilities[i] = keyTips[i].Visibility;
+                this.backupedVisibilities[i] = this.keyTips[i].Visibility;
             }
 
             // Hide / unhide keytips relative matching to entered keys
@@ -708,7 +709,7 @@ namespace Fluent
                 }
                 else
                 {
-                    this.keyTips[i].Visibility = content.StartsWith(enteredKeys, StringComparison.CurrentCultureIgnoreCase)
+                    this.keyTips[i].Visibility = content.StartsWith(this.enteredKeys, StringComparison.CurrentCultureIgnoreCase)
                         ? this.backupedVisibilities[i]
                         : Visibility.Collapsed;
                 }
@@ -752,8 +753,8 @@ namespace Fluent
         {
             this.Log("MeasureOverride");
 
-            var infinitySize = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
-            foreach (var tip in keyTips)
+            var infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
+            foreach (var tip in this.keyTips)
             {
                 tip.Measure(infinitySize);
             }
@@ -822,10 +823,10 @@ namespace Fluent
                     var height = groupBox.GetLayoutRoot().DesiredSize.Height;
                     rows = new[]
                         {
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), AdornedElement).Y                            
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y                            
                         };
                 }
             }
@@ -839,21 +840,21 @@ namespace Fluent
                 }
 
                 // Update KeyTip Visibility
-                var associatedElementIsVisible = associatedElements[i].IsVisible;
-                var associatedElementInVisualTree = VisualTreeHelper.GetParent(associatedElements[i]) != null;
+                var associatedElementIsVisible = this.associatedElements[i].IsVisible;
+                var associatedElementInVisualTree = VisualTreeHelper.GetParent(this.associatedElements[i]) != null;
                 this.keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
-                if (!KeyTip.GetAutoPlacement(associatedElements[i]))
+                if (!KeyTip.GetAutoPlacement(this.associatedElements[i]))
                 {
                     #region Custom Placement
 
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].RenderSize;
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].RenderSize;
 
                     double x = 0, y = 0;
-                    var margin = KeyTip.GetMargin(associatedElements[i]);
+                    var margin = KeyTip.GetMargin(this.associatedElements[i]);
 
-                    switch (KeyTip.GetHorizontalAlignment(associatedElements[i]))
+                    switch (KeyTip.GetHorizontalAlignment(this.associatedElements[i]))
                     {
                         case HorizontalAlignment.Left:
                             x = margin.Left;
@@ -867,7 +868,7 @@ namespace Fluent
                             break;
                     }
 
-                    switch (KeyTip.GetVerticalAlignment(associatedElements[i]))
+                    switch (KeyTip.GetVerticalAlignment(this.associatedElements[i]))
                     {
                         case VerticalAlignment.Top:
                             y = margin.Top;
@@ -881,105 +882,103 @@ namespace Fluent
                             break;
                     }
 
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(x, y), AdornedElement);
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(new Point(x, y), this.AdornedElement);
 
                     #endregion
                 }
-                else if (((FrameworkElement)associatedElements[i]).Name == "PART_DialogLauncherButton")
+                else if (((FrameworkElement)this.associatedElements[i]).Name == "PART_DialogLauncherButton")
                 {
                     // Dialog Launcher Button Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].RenderSize;
+                    var elementSize = this.associatedElements[i].RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(new Point(
                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                        0), AdornedElement);
-                    keyTipPositions[i].Y = rows[3];
+                        0), this.AdornedElement);
+                    this.keyTipPositions[i].Y = rows[3];
                 }
-                else if ((associatedElements[i] is InRibbonGallery && !((InRibbonGallery)associatedElements[i]).IsCollapsed))
+                else if ((this.associatedElements[i] is InRibbonGallery && !((InRibbonGallery)this.associatedElements[i]).IsCollapsed))
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].RenderSize;
+                    var elementSize = this.associatedElements[i].RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(new Point(
                         elementSize.Width - keyTipSize.Width / 2.0,
-                        0), AdornedElement);
-                    keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
+                        0), this.AdornedElement);
+                    this.keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
-                else if ((associatedElements[i] is RibbonTabItem) || (associatedElements[i] is Backstage))
+                else if ((this.associatedElements[i] is RibbonTabItem) || (this.associatedElements[i] is Backstage))
                 {
                     // Ribbon Tab Item Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].RenderSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].RenderSize;
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(new Point(
                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                        elementSize.Height - keyTipSize.Height / 2.0), AdornedElement);
+                        elementSize.Height - keyTipSize.Height / 2.0), this.AdornedElement);
                 }
-                else if (associatedElements[i] is RibbonGroupBox)
+                else if (this.associatedElements[i] is RibbonGroupBox)
                 {
                     // Ribbon Group Box Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].DesiredSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(new Point(
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].DesiredSize;
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(new Point(
                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                        elementSize.Height + 1), AdornedElement);
+                        elementSize.Height + 1), this.AdornedElement);
                 }
-                else if (IsWithinQuickAccessToolbar(associatedElements[i]))
+                else if (IsWithinQuickAccessToolbar(this.associatedElements[i]))
                 {
-                    var translatedPoint = associatedElements[i].TranslatePoint(new Point(
-                        associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
-                        associatedElements[i].DesiredSize.Height - keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
-                    keyTipPositions[i] = translatedPoint;
+                    var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.associatedElements[i].DesiredSize.Width / 2.0 - this.keyTips[i].DesiredSize.Width / 2.0, this.associatedElements[i].DesiredSize.Height - this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);
+                    this.keyTipPositions[i] = translatedPoint;
                 }
-                else if (associatedElements[i] is MenuItem)
+                else if (this.associatedElements[i] is MenuItem)
                 {
                     // MenuItem Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].DesiredSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].DesiredSize;
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
                             elementSize.Height / 2.0 + 2,
-                            elementSize.Height / 2.0 + 2), AdornedElement);
+                            elementSize.Height / 2.0 + 2), this.AdornedElement);
                 }
-                else if (associatedElements[i] is BackstageTabItem)
+                else if (this.associatedElements[i] is BackstageTabItem)
                 {
                     // BackstageButton Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].DesiredSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].DesiredSize;
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
                             5,
-                            elementSize.Height / 2.0 - keyTipSize.Height), AdornedElement);
+                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
                 }
-                else if (((FrameworkElement)associatedElements[i]).Parent is BackstageTabControl)
+                else if (((FrameworkElement)this.associatedElements[i]).Parent is BackstageTabControl)
                 {
                     // Backstage Items Exclusive Placement
-                    var keyTipSize = keyTips[i].DesiredSize;
-                    var elementSize = associatedElements[i].DesiredSize;
-                    keyTipPositions[i] = associatedElements[i].TranslatePoint(
+                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    var elementSize = this.associatedElements[i].DesiredSize;
+                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
                             20,
-                            elementSize.Height / 2.0 - keyTipSize.Height), AdornedElement);
+                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
                 }
                 else
                 {
-                    if ((RibbonProperties.GetSize(associatedElements[i]) != RibbonControlSize.Large)
-                        || (associatedElements[i] is Spinner)
-                        || (associatedElements[i] is ComboBox)
-                        || (associatedElements[i] is TextBox)
-                        || (associatedElements[i] is CheckBox))
+                    if ((RibbonProperties.GetSize(this.associatedElements[i]) != RibbonControlSize.Large)
+                        || (this.associatedElements[i] is Spinner)
+                        || (this.associatedElements[i] is ComboBox)
+                        || (this.associatedElements[i] is TextBox)
+                        || (this.associatedElements[i] is CheckBox))
                     {
-                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(associatedElements[i]);
-                        var translatedPoint = associatedElements[i].TranslatePoint(new Point(keyTips[i].DesiredSize.Width / 2.0, keyTips[i].DesiredSize.Height / 2.0), AdornedElement);
+                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(this.associatedElements[i]);
+                        var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.keyTips[i].DesiredSize.Width / 2.0, this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);
 
                         // Snapping to rows if it present
                         if (rows != null)
@@ -1001,22 +1000,20 @@ namespace Fluent
                                 }
                             }
 
-                            translatedPoint.Y = rows[index] - keyTips[i].DesiredSize.Height / 2.0;
+                            translatedPoint.Y = rows[index] - this.keyTips[i].DesiredSize.Height / 2.0;
                         }
 
-                        keyTipPositions[i] = translatedPoint;
+                        this.keyTipPositions[i] = translatedPoint;
                     }
                     else
                     {
-                        var translatedPoint = associatedElements[i].TranslatePoint(new Point(
-                            associatedElements[i].DesiredSize.Width / 2.0 - keyTips[i].DesiredSize.Width / 2.0,
-                            associatedElements[i].DesiredSize.Height - 8), AdornedElement);
+                        var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.associatedElements[i].DesiredSize.Width / 2.0 - this.keyTips[i].DesiredSize.Width / 2.0, this.associatedElements[i].DesiredSize.Height - 8), this.AdornedElement);
                         if (rows != null)
                         {
-                            translatedPoint.Y = rows[2] - keyTips[i].DesiredSize.Height / 2.0;
+                            translatedPoint.Y = rows[2] - this.keyTips[i].DesiredSize.Height / 2.0;
                         }
 
-                        keyTipPositions[i] = translatedPoint;
+                        this.keyTipPositions[i] = translatedPoint;
                     }
                 }
             }

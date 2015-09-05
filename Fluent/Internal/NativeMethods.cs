@@ -14,7 +14,7 @@ namespace Fluent
 {
     using Fluent.Metro.Native;
 
-    static internal class NativeMethods
+    internal static class NativeMethods
     {
         /// <summary>
         /// Causes the dialog box to display all available colors in the set of basic colors. 
@@ -68,7 +68,7 @@ namespace Fluent
             /// <summary>
             /// The length, in bytes, of the structure. 
             /// </summary>
-            public int lStructSize = Marshal.SizeOf(typeof(NativeMethods.CHOOSECOLOR));
+            public int lStructSize = Marshal.SizeOf(typeof(CHOOSECOLOR));
             /// <summary>
             /// A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be NULL if the dialog box has no owner. 
             /// </summary>

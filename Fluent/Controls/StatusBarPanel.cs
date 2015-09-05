@@ -32,25 +32,28 @@ namespace Fluent
         /// The size that this element determines it needs during layout, based on its calculations of child element sizes.
         /// </returns>
         /// <param name="availableSize">The available size that this element can give to child elements. Infinity can be specified as a value to indicate that the element will size to whatever content is available.</param>
-        protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
+        protected override Size MeasureOverride(Size availableSize)
         {
             // Sort children
-            leftChildren.Clear();
-            rightChildren.Clear();
-            otherChildren.Clear();
-            for (int i = 0; i < InternalChildren.Count; i++)
+            this.leftChildren.Clear();
+            this.rightChildren.Clear();
+            this.otherChildren.Clear();
+            for (int i = 0; i < this.InternalChildren.Count; i++)
             {
-                FrameworkElement child = InternalChildren[i] as FrameworkElement;
+                FrameworkElement child = this.InternalChildren[i] as FrameworkElement;
                 if (child != null)
                 {
-                    if (child.HorizontalAlignment == HorizontalAlignment.Left) leftChildren.Add(child);
-                    else if (child.HorizontalAlignment == HorizontalAlignment.Right) rightChildren.Add(child);
-                    else otherChildren.Add(child);
+                    if (child.HorizontalAlignment == HorizontalAlignment.Left)
+                        this.leftChildren.Add(child);
+                    else if (child.HorizontalAlignment == HorizontalAlignment.Right)
+                        this.rightChildren.Add(child);
+                    else
+                        this.otherChildren.Add(child);
                 }
             }
 
-            lastRightIndex = rightChildren.Count;
-            lastLeftIndex = leftChildren.Count;
+            this.lastRightIndex = this.rightChildren.Count;
+            this.lastLeftIndex = this.leftChildren.Count;
 
             // Measure children
             Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
@@ -59,59 +62,59 @@ namespace Fluent
             double height = 0;
             bool canAdd = true;
             // Right children
-            for (int i = 0; i < rightChildren.Count; i++)
+            for (int i = 0; i < this.rightChildren.Count; i++)
             {
                 if (canAdd)
                 {
-                    rightChildren[i].Measure(infinity);
-                    height = Math.Max(rightChildren[i].DesiredSize.Height, height);
-                    if (width + rightChildren[i].DesiredSize.Width <= availableSize.Width)
+                    this.rightChildren[i].Measure(infinity);
+                    height = Math.Max(this.rightChildren[i].DesiredSize.Height, height);
+                    if (width + this.rightChildren[i].DesiredSize.Width <= availableSize.Width)
                     {
-                        width += rightChildren[i].DesiredSize.Width;
+                        width += this.rightChildren[i].DesiredSize.Width;
                     }
                     else
                     {
                         canAdd = false;
-                        rightChildren[i].Measure(zero);
-                        lastRightIndex = i;
-                        lastLeftIndex = 0;
+                        this.rightChildren[i].Measure(zero);
+                        this.lastRightIndex = i;
+                        this.lastLeftIndex = 0;
                     }
                 }
                 else
                 {
-                    rightChildren[i].Measure(zero);
+                    this.rightChildren[i].Measure(zero);
                 }
             }
 
             // Left children
-            for (int i = 0; i < leftChildren.Count; i++)
+            for (int i = 0; i < this.leftChildren.Count; i++)
             {
                 if (canAdd)
                 {
-                    leftChildren[i].Measure(infinity);
-                    height = Math.Max(leftChildren[i].DesiredSize.Height, height);
-                    if (width + leftChildren[i].DesiredSize.Width <= availableSize.Width)
+                    this.leftChildren[i].Measure(infinity);
+                    height = Math.Max(this.leftChildren[i].DesiredSize.Height, height);
+                    if (width + this.leftChildren[i].DesiredSize.Width <= availableSize.Width)
                     {
-                        width += leftChildren[i].DesiredSize.Width;
+                        width += this.leftChildren[i].DesiredSize.Width;
                     }
                     else
                     {
                         canAdd = false;
-                        leftChildren[i].Measure(zero);
-                        lastLeftIndex = i;
+                        this.leftChildren[i].Measure(zero);
+                        this.lastLeftIndex = i;
                         
                     }
                 }
                 else
                 {
-                    leftChildren[i].Measure(zero);
+                    this.leftChildren[i].Measure(zero);
                 }
             }
 
             // Collapse other children
-            for (int i = 0; i < otherChildren.Count; i++)
+            for (int i = 0; i < this.otherChildren.Count; i++)
             {
-                otherChildren[i].Measure(zero);
+                this.otherChildren[i].Measure(zero);
             }
 
             return new Size(width, height);
@@ -124,40 +127,42 @@ namespace Fluent
         /// The actual size used.
         /// </returns>
         /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
-        protected override System.Windows.Size ArrangeOverride(System.Windows.Size finalSize)
+        protected override Size ArrangeOverride(Size finalSize)
         {
             Rect zero = new Rect(0, 0, 0, 0);
 
             // Right shift
             double rightShift = 0;           
             // Arrange right
-            for (int i = rightChildren.Count - 1; i >= 0; i--)
+            for (int i = this.rightChildren.Count - 1; i >= 0; i--)
             {
-                if (lastRightIndex > i)
+                if (this.lastRightIndex > i)
                 {
-                    rightShift += rightChildren[i].DesiredSize.Width;
-                    rightChildren[i].Arrange(new Rect(finalSize.Width - rightShift, 0, rightChildren[i].DesiredSize.Width, finalSize.Height));
+                    rightShift += this.rightChildren[i].DesiredSize.Width;
+                    this.rightChildren[i].Arrange(new Rect(finalSize.Width - rightShift, 0, this.rightChildren[i].DesiredSize.Width, finalSize.Height));
                 }
-                else rightChildren[i].Arrange(zero);
+                else
+                    this.rightChildren[i].Arrange(zero);
             }
             
             // Left shift
             double leftShift = 0;
             // Arrange left
-            for (int i = 0; i < leftChildren.Count; i++)
+            for (int i = 0; i < this.leftChildren.Count; i++)
             {
-                if (i < lastLeftIndex)
+                if (i < this.lastLeftIndex)
                 {
-                    leftChildren[i].Arrange(new Rect(leftShift, 0, leftChildren[i].DesiredSize.Width, finalSize.Height));
-                    leftShift += leftChildren[i].DesiredSize.Width;
+                    this.leftChildren[i].Arrange(new Rect(leftShift, 0, this.leftChildren[i].DesiredSize.Width, finalSize.Height));
+                    leftShift += this.leftChildren[i].DesiredSize.Width;
                 }
-                else leftChildren[i].Arrange(zero);
+                else
+                    this.leftChildren[i].Arrange(zero);
             }
 
             // Arrange other
-            for (int i = 0; i < otherChildren.Count; i++)
+            for (int i = 0; i < this.otherChildren.Count; i++)
             {
-                otherChildren[i].Arrange(zero);
+                this.otherChildren[i].Arrange(zero);
             }
             
             return finalSize;

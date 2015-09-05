@@ -4,7 +4,7 @@ namespace Fluent.Metro.Native
 {
 #pragma warning disable 1591
     [StructLayout(LayoutKind.Sequential)]
-    public struct MARGINS
+    internal struct MARGINS
     {
         public int leftWidth;
         public int rightWidth;

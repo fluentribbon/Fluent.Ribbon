@@ -112,11 +112,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
     <Style x:Key="BackstageTabItemStyle"
            TargetType="{x:Type Fluent:BackstageTabItem}">
-        <Setter Property="Foreground"
-                Value="{DynamicResource BackstageFontBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource BackstageTabItemControlTemplate}" />
         <Setter Property="FocusVisualStyle"

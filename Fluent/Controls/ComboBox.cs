@@ -23,8 +23,9 @@ namespace Fluent
 	using System.Windows.Media;
 	using System.Windows.Media.Imaging;
 	using System.Windows.Threading;
+	using Fluent.Internal;
 
-	/// <summary>
+    /// <summary>
 	///     Represents custom Fluent UI ComboBox
 	/// </summary>
 	[TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
@@ -480,22 +481,10 @@ namespace Fluent
 		{
 			this.IsSnapped = true;
 			this.selectedItem = this.SelectedItem;
-			if (this.ItemsSource != null)
-			{
-				this.quickAccessCombo.ItemsSource = this.ItemsSource;
-				this.ItemsSource = null;
-			}
-			else
-			{
-				for (var i = 0; i < this.Items.Count; i++)
-				{
-					var item = this.Items[0];
-					this.Items.Remove(item);
-					this.quickAccessCombo.Items.Add(item);
-					i--;
-				}
-			}
-			this.SelectedItem = null;
+
+            ItemsControlHelper.MoveItemsToDifferentControl(this, this.quickAccessCombo);
+
+            this.SelectedItem = null;
 			this.quickAccessCombo.SelectedItem = this.selectedItem;
 			this.quickAccessCombo.Menu = this.Menu;
 			this.Menu = null;
@@ -507,21 +496,9 @@ namespace Fluent
 			var text = this.quickAccessCombo.Text;
 			this.selectedItem = this.quickAccessCombo.SelectedItem;
 			this.quickAccessCombo.IsSnapped = true;
-			if (this.quickAccessCombo.ItemsSource != null)
-			{
-				this.ItemsSource = this.quickAccessCombo.ItemsSource;
-				this.quickAccessCombo.ItemsSource = null;
-			}
-			else
-			{
-				for (var i = 0; i < this.quickAccessCombo.Items.Count; i++)
-				{
-					var item = this.quickAccessCombo.Items[0];
-					this.quickAccessCombo.Items.Remove(item);
-					this.Items.Add(item);
-					i--;
-				}
-			}
+
+            ItemsControlHelper.MoveItemsToDifferentControl(this.quickAccessCombo, this);
+
 			this.quickAccessCombo.SelectedItem = null;
 			this.SelectedItem = this.selectedItem;
 			this.Menu = this.quickAccessCombo.Menu;
@@ -533,28 +510,30 @@ namespace Fluent
 
 		private void UpdateQuickAccessCombo()
 		{
-			if (!this.IsLoaded) this.Loaded += this.OnFirstLoaded;
-			if (!this.IsEditable)
-				this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-				{
-					this.quickAccessCombo.IsSnapped = true;
-					this.IsSnapped = true;
-					if (this.snappedImage != null && this.quickAccessCombo.snappedImage != null)
-					{
-						this.quickAccessCombo.snappedImage.
-							Source
-							= this.snappedImage.Source;
-						this.quickAccessCombo.
-							snappedImage.
-							Visibility =
-							Visibility.Visible;
-						if (!this.quickAccessCombo.IsSnapped)
-						{
-							this.quickAccessCombo.isSnapped = true;
-						}
-					}
-					this.IsSnapped = false;
-				}));
+		    if (this.IsLoaded == false)
+		    {
+		        this.Loaded += this.OnFirstLoaded;
+		    }
+
+		    if (this.IsEditable == false)
+		    {
+		        this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
+		                                                                                      {
+		                                                                                          this.quickAccessCombo.IsSnapped = true;
+		                                                                                          this.IsSnapped = true;
+		                                                                                          if (this.snappedImage != null &&
+		                                                                                              this.quickAccessCombo.snappedImage != null)
+		                                                                                          {
+		                                                                                              this.quickAccessCombo.snappedImage.Source = this.snappedImage.Source;
+		                                                                                              this.quickAccessCombo.snappedImage.Visibility = Visibility.Visible;
+		                                                                                              if (this.quickAccessCombo.IsSnapped == false)
+		                                                                                              {
+		                                                                                                  this.quickAccessCombo.isSnapped = true;
+		                                                                                              }
+		                                                                                          }
+		                                                                                          this.IsSnapped = false;
+		                                                                                      }));
+		    }
 		}
 
 		private void OnFirstLoaded(object sender, RoutedEventArgs e)
@@ -634,54 +613,82 @@ namespace Fluent
 		protected override void OnDropDownOpened(EventArgs e)
 		{
 			base.OnDropDownOpened(e);
-			Mouse.Capture(this, CaptureMode.SubTree);
-			if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
-			this.focusedElement = Keyboard.FocusedElement;
-			if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
 
-			this.canSizeY = true;
+            Mouse.Capture(this, CaptureMode.SubTree);
+
+		    if (this.SelectedItem != null)
+		    {
+		        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+		    }
+
+		    this.focusedElement = Keyboard.FocusedElement;
+
+		    if (this.focusedElement != null)
+		    {
+		        this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
+		    }
+
+		    this.canSizeY = true;
 
 			this.galleryPanel.Width = double.NaN;
 			this.scrollViewer.Height = double.NaN;
 
 			var popupChild = this.DropDownPopup.Child as FrameworkElement;
-			this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-			popupChild.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-			this.DropDownPopup.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 			var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
-			var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height*2/3, this.MaxDropDownHeight);
-			if (!double.IsNaN(this.DropDownHeight)) initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
-			if (this.scrollViewer.DesiredSize.Height > initialHeight)
-			{
-				this.scrollViewer.Height = initialHeight;
-			}
-			else initialHeight = this.scrollViewer.DesiredSize.Height;
+			var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
-			var monitor = RibbonControl.GetControlMonitor(this);
+		    if (double.IsNaN(this.DropDownHeight) == false)
+		    {
+		        initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
+		    }
+
+		    if (this.scrollViewer.DesiredSize.Height > initialHeight)
+		    {
+		        this.scrollViewer.Height = initialHeight;
+		    }
+		    else
+		    {
+		        initialHeight = this.scrollViewer.DesiredSize.Height;
+		    }
+
+		    var monitor = RibbonControl.GetControlMonitor(this);
 			var delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
-			if (delta >= 0) this.ShowPopupOnTop = false;
-			else
-			{
-				var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
-				if (deltaTop > delta) this.ShowPopupOnTop = true;
-				else this.ShowPopupOnTop = false;
 
-				if (deltaTop < 0)
-				{
-					delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
-					if (delta > this.galleryPanel.GetItemSize().Height)
-					{
-						this.scrollViewer.Height = delta;
-					}
-					else
-					{
-						this.canSizeY = false;
-						this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
-					}
-				}
-			}
-			popupChild.UpdateLayout();
+		    if (delta >= 0)
+		    {
+		        this.ShowPopupOnTop = false;
+		    }
+		    else
+		    {
+		        var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
+
+		        if (deltaTop > delta)
+		        {
+		            this.ShowPopupOnTop = true;
+		        }
+		        else
+		        {
+		            this.ShowPopupOnTop = false;
+		        }
+
+		        if (deltaTop < 0)
+		        {
+		            delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
+
+		            if (delta > this.galleryPanel.GetItemSize().Height)
+		            {
+		                this.scrollViewer.Height = delta;
+		            }
+		            else
+		            {
+		                this.canSizeY = false;
+		                this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
+		            }
+		        }
+		    }
+
+		    popupChild.UpdateLayout();
 		}
 
 		/// <summary>

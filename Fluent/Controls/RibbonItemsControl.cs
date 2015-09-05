@@ -29,8 +29,8 @@ namespace Fluent
         /// </summary>
         public string KeyTip
         {
-            get { return (string)GetValue(KeyTipProperty); }
-            set { SetValue(KeyTipProperty, value); }
+            get { return (string)this.GetValue(KeyTipProperty); }
+            set { this.SetValue(KeyTipProperty, value); }
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)GetValue(SizeProperty); }
-            set { SetValue(SizeProperty, value); }
+            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
+            set { this.SetValue(SizeProperty, value); }
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)GetValue(SizeDefinitionProperty); }
-            set { SetValue(SizeDefinitionProperty, value); }
+            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
+            set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (string)GetValue(HeaderProperty); }
-            set { SetValue(HeaderProperty, value); }
+            get { return (string)this.GetValue(HeaderProperty); }
+            set { this.SetValue(HeaderProperty, value); }
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return (ImageSource)this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -154,8 +154,8 @@ namespace Fluent
         /// </summary>
         public bool CanAddToQuickAccessToolBar
         {
-            get { return (bool)GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
         /// <summary>

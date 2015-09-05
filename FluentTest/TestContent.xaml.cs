@@ -39,7 +39,7 @@
             this.buttonBold.Checked += (s, e) => Debug.WriteLine("Checked");
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
-            this.PreviewMouseWheel += OnPreviewMouseWheel;
+            this.PreviewMouseWheel += this.OnPreviewMouseWheel;
         }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
@@ -180,6 +180,10 @@
                         owner.Style = null;
                         owner.Style = owner.FindResource("RibbonWindowStyle") as Style;
                         owner.Style = null;
+
+                        // Resize Window to work around alignment issues caused by theme change
+                        ++owner.Width;
+                        --owner.Width;
                     }
                 }
             }));
@@ -222,14 +226,14 @@
                 return "NULL";
             }
 
-	        var ribbonControl = element as IHeaderedControl;
+            var ribbonControl = element as IHeaderedControl;
 
-	        var header = ribbonControl != null
+            var header = ribbonControl != null
                            ? ribbonControl.Header
                            : string.Empty;
 
-	        var frameworkElement = element as FrameworkElement;
-	        var name = frameworkElement != null
+            var frameworkElement = element as FrameworkElement;
+            var name = frameworkElement != null
                            ? frameworkElement.Name
                            : string.Empty;
 
@@ -384,6 +388,11 @@
             new MahMetroWindow().Show();
         }
 
+        private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowWithoutRibbon().Show();
+        }
+
         private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             TextOptions.SetTextFormattingMode(this, e.NewValue > 1.0 ? TextFormattingMode.Ideal : TextFormattingMode.Display);
@@ -400,6 +409,16 @@
             this.zoomSlider.Value += e.Delta > 0 ? 0.1 : -0.1;
 
             e.Handled = true;
+        }
+
+        private void SleepButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep(TimeSpan.FromSeconds(10));
+        }
+
+        private void OpenModalRibbonWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            new TestWindow().ShowDialog();
         }
     }
 
