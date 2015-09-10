@@ -49,21 +49,22 @@
                 return basevalue;
             }
 
-            var baseIsChecked = (bool)basevalue;
+            var baseIsChecked = (bool?)basevalue;
 
-            if (!baseIsChecked)
+            if (baseIsChecked.HasValue == false
+                || baseIsChecked.Value == false)
             {
                 var buttons = GetButtonsInGroup(toggleButton.GroupName);
 
-                // We can not allow that there are no one button checked
+                // We can not allow that there is no button checked
                 foreach (var item in buttons)
                 {
                     // It's Ok, atleast one checked button exists
                     // and it's not the current button
-                    if (item != toggleButton
+                    if (ReferenceEquals(item, toggleButton) == false
                         && item.IsChecked == true)
                     {
-                        return false;
+                        return basevalue;
                     }
                 }
 
