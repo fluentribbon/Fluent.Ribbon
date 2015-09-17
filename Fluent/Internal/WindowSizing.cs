@@ -75,8 +75,13 @@
 
             switch (message)
             {
-                case Constants.WM_STYLECHANGED:
-                    this.FixWindowChromeBugForFreezedMaximizedWindow();
+                case Constants.WM_SIZE:
+                    // When window is maximized and was not responding, windows issues another WM_SIZE when window is responding again so we need to shift the window position back and forth
+                    // Fixes #80, #159 and #170
+                    if (this.GetWindowPlacement().showCmd == 3)
+                    {
+                        this.FixWindowChromeBugForMaximizedWindow();
+                    }
                     break;
 
                 case Constants.WM_GETMINMAXINFO:
@@ -95,14 +100,6 @@
         }
 
         #region Fixes
-
-        private void FixWindowChromeBugForFreezedMaximizedWindow()
-        {
-            if (this.GetWindowPlacement().showCmd == 3)
-            {
-                this.FixWindowChromeBugForMaximizedWindow();
-            }
-        }
 
         private void FixMinMaxInfo(IntPtr hWnd, IntPtr lParam, out bool handled)
         {

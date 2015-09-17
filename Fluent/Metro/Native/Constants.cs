@@ -13,6 +13,7 @@
         public const int WM_STYLECHANGED = 0x7d;
         public const int WM_CREATE = 0x0001;
         public const int WM_NCHITTEST = 0x84;
+        public const int WM_SIZE = 0x0005;
 
         public const long WS_MAXIMIZE = 0x01000000;
 
