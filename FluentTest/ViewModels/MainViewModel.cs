@@ -22,6 +22,7 @@
 		private double zoom;
 		private ICommand testCommand;
         private string[] manyItems;
+        private bool? isCheckedToggleButton3;
 
         public MainViewModel()
         {
@@ -131,6 +132,19 @@
         public string[] ManyItems
         {
             get { return this.manyItems ?? (this.manyItems = this.GenerateStrings(5000)); }
+        }
+
+        public bool? IsCheckedToggleButton3
+        {
+            get { return this.isCheckedToggleButton3; }
+            set
+            {
+                if (this.isCheckedToggleButton3 != value)
+                {
+                    this.isCheckedToggleButton3 = value;
+                    this.OnPropertyChanged("ToggleButton3IsChecked");
+                }
+            }
         }
 
         private string[] GenerateStrings(int count)
