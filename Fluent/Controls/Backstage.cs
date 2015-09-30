@@ -103,6 +103,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty HideContextTabsOnOpenProperty = DependencyProperty.Register("HideContextTabsOnOpen", typeof(bool), typeof(Backstage), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Gets or sets whether to close the backstage when Esc is pressed
+        /// </summary>
+        public bool CloseOnEsc
+        {
+            get { return (bool)this.GetValue(CloseOnEscProperty); }
+            set { this.SetValue(CloseOnEscProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CloseOnEsc.
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CloseOnEscProperty = DependencyProperty.Register("CloseOnEsc", typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var backstage = (Backstage)d;
@@ -607,7 +622,7 @@ namespace Fluent
         // Handles backstage Esc key keydown
         private void HandleWindowKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            if (this.CloseOnEsc && e.Key == Key.Escape)
             {
                 // only handle ESC when the backstage is open
                 e.Handled = this.IsOpen;
