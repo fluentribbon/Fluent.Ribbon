@@ -24,11 +24,6 @@ namespace Fluent
     /// </summary>
     public class GalleryItem : ListBoxItem, IKeyTipedControl
     {
-        #region Fields
-
-
-        #endregion
-
         #region Properties
 
         #region KeyTip
@@ -296,6 +291,7 @@ namespace Fluent
                 this.RemoveHandler(ClickEvent, value);
             }
         }
+
         /// <summary>
         /// Identifies the RibbonControl.Click routed event.
         /// </summary>
