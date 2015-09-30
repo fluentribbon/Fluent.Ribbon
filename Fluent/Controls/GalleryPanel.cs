@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Media;
     using System.Windows.Threading;
@@ -607,5 +608,12 @@
 				}
 			}
 		}
+
+        protected override void OnItemsChanged(object sender, ItemsChangedEventArgs args)
+        {
+            base.OnItemsChanged(sender, args);
+
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)(this.Refresh));
+        }
     }
 }
