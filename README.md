@@ -1,7 +1,9 @@
 Fluent.Ribbon or "Fluent Ribbon Control Suite"
 =============
 
-[![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Twitter](https://img.shields.io/badge/twitter-%40batzendev-blue.svg?style=flat-square)](https://twitter.com/batzendev)
+
 [![Build status](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon.svg?style=flat-square)](https://ci.appveyor.com/project/batzen/fluent-ribbon)
 [![Release](https://img.shields.io/github/release/fluentribbon/fluent.ribbon.svg?style=flat-square)](https://github.com/fluentribbon/Fluent.Ribbon/releases/latest)
 [![Issues](https://img.shields.io/github/issues/fluentribbon/fluent.ribbon.svg?style=flat-square)](https://github.com/fluentribbon/Fluent.Ribbon/issues)
