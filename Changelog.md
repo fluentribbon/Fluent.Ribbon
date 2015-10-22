@@ -1,5 +1,20 @@
 # Changelog for Fluent.Ribbon
 
+## 3.6.0
+
+- ### Bug fixes
+  - [#163](../../issues/163) - ColorGallery produces Binding errors because of Binding of Color on SolidColorBrush in Fill/Background
+  - [#166](../../issues/166) - Type is mismatch for IsCheckedProperty of ToggleButton
+  - [#170](../../issues/170) - Black RibbonWindow title bar
+  - [#173](../../issues/173) - Binding Observable Collection to InRibbonGallery causes Layout Error
+  - [#178](../../issues/178) - Ribbonwindow crashes
+
+- ### Enhancements
+  - [#172](../../issues/172) - ToggleButtonHelper.OnIsCheckedChanged() accepts type of "bool?". contributed by ([nishy2000](https://github.com/nishy2000))
+  - [#175](../../issues/175) - Add "CloseOnEsc" property to Backstage to disable closing the backstage when ESC is pressed. contributed by Christoph Fink ([chrfin](https://github.com/chrfin))
+
+Commits: [c7151027f5...97001b17e9](../../compare/c7151027f5...97001b17e9)
+
 ## 3.5.1
 
 - ### Bug fixes
