@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:ControlzBehaviors="clr-namespace:Controlz.Behaviours;assembly=Controlz"
                     xmlns:internal="clr-namespace:Fluent.Internal"
                     xmlns:Converters="clr-namespace:Fluent.Converters">
 
@@ -268,7 +269,7 @@
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="ResizeBorderThickness"
-                Value="8" />
+                Value="8" />        
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="CornerRadius"
@@ -291,7 +292,11 @@
         <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
             <Setter.Value>
                 <Behaviours:StylizedBehaviorCollection>
-                    <Behaviours:BorderlessWindowBehavior />
+                    <ControlzBehaviors:WindowChromeBehavior CaptionHeight="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                ResizeBorderThickness="{Binding ResizeBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                GlassFrameThickness="{Binding GlassBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                UseAeroCaptionButtons="{Binding CanUseDwm, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" />
                     <Behaviours:WindowsSettingBehavior />
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>

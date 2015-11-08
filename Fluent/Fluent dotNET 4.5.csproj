@@ -52,6 +52,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Controlz">
+      <HintPath>..\..\..\Controlz\src\bin\Debug\NET45\Controlz.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -104,7 +107,6 @@
     <Compile Include="IKeyTipedControl.cs" />
     <Compile Include="Internal\CommandHelper.cs" />
     <Compile Include="Internal\ItemContainerGeneratorAction.cs" />
-    <Compile Include="Internal\WindowSizing.cs" />
     <Compile Include="IRibbonControl.cs" />
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
@@ -114,11 +116,9 @@
     <Compile Include="Metro\Native\ABMsg.cs" />
     <Compile Include="Metro\Native\APPBARDATA.cs" />
     <Compile Include="RibbonCommands.cs" />
-    <Compile Include="Metro\Behaviours\BorderlessWindowBehaviour.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
     <Compile Include="Metro\Behaviours\WindowSettingBehavior.cs" />
-    <Compile Include="Metro\Controls\MetroWindow.cs" />
     <Compile Include="Metro\Controls\WindowSettings.cs" />
     <Compile Include="Metro\Native\Constants.cs" />
     <Compile Include="Metro\Native\CREATESTRUCT.cs" />
