@@ -1984,19 +1984,13 @@ namespace Fluent
 
             public void SaveStateToMemoryStream()
             {
-                Trace.WriteLine(string.Format("Saving state to memory stream..."));
-
                 this.memoryStream.Position = 0;
                 this.SaveState(this.memoryStream);
-
-                Trace.WriteLine(string.Format("State saved to memory stream."));
             }
 
             // Saves to Isolated Storage (in user store for domain)
             public void SaveStateToIsolatedStorage()
             {
-                Trace.WriteLine(string.Format("Saving state to isolated storage..."));
-
                 // Check whether automatic save is valid now
                 if (this.ribbon.AutomaticStateManagement == false)
                 {
@@ -2018,8 +2012,6 @@ namespace Fluent
                     {
                         this.SaveState(stream);
                     }
-
-                    Trace.WriteLine(string.Format("State saved to isolated storage."));
                 }
                 catch (Exception ex)
                 {
@@ -2084,12 +2076,8 @@ namespace Fluent
 
             public void LoadStateFromMemoryStream()
             {
-                Trace.WriteLine(string.Format("Loading state from memory stream..."));
-
                 this.memoryStream.Position = 0;
                 this.LoadState(this.memoryStream);
-
-                Trace.WriteLine(string.Format("State loaded from memory stream."));
             }
 
             /// <summary>
@@ -2100,8 +2088,6 @@ namespace Fluent
             /// </remarks>
             public void LoadStateFromIsolatedStorage()
             {
-                Trace.WriteLine(string.Format("Loading state from isolated storage..."));
-
                 // Don't save or load state in design mode
                 if (DesignerProperties.GetIsInDesignMode(this.ribbon))
                 {
@@ -2132,8 +2118,6 @@ namespace Fluent
                             this.memoryStream.Position = 0;
                             stream.CopyTo(this.memoryStream);
                         }
-
-                        Trace.WriteLine(string.Format("State loaded from isolated storage."));
                     }
                 }
                 catch (Exception ex)

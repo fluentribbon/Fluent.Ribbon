@@ -1,7 +1,8 @@
 ﻿namespace FluentTest.ViewModels
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Windows.Input;
+    using FluentTest.Commanding;
 
     public class GalleryViewModel : ViewModel
     {
@@ -9,22 +10,10 @@
 
         public GalleryViewModel()
         {
-            this.Items = new ObservableCollection<GalleryItemViewModel> 
-                {
-                    new GalleryItemViewModel("Group 1", "1"),
-                    new GalleryItemViewModel("Group 1", "2"),
-                    new GalleryItemViewModel("Group 1", "3"),
-                    new GalleryItemViewModel("Group 1", "4"),
-                    new GalleryItemViewModel("Group 1", "5"),
-                    new GalleryItemViewModel("Group 1", "6"),
+            this.Items = new ObservableCollection<GalleryItemViewModel>();
+            this.RefreshCommand = new RelayCommand(this.Refresh);
 
-                    new GalleryItemViewModel("Group 2", "10"),
-                    new GalleryItemViewModel("Group 2", "20"),
-                    new GalleryItemViewModel("Group 2", "30"),
-                    new GalleryItemViewModel("Group 2", "40"),
-                    new GalleryItemViewModel("Group 2", "50"),
-                    new GalleryItemViewModel("Group 2", "60"),
-                };
+            this.Refresh();
         }
 
         public ObservableCollection<GalleryItemViewModel> Items
@@ -36,6 +25,26 @@
                 this.items = value;
                 this.OnPropertyChanged("Items");
             }
+        }
+
+        public ICommand RefreshCommand { get; private set; }
+
+        public void Refresh()
+        {
+            this.Items.Clear();
+
+            this.Items.Add(new GalleryItemViewModel("Group 1", "1"));
+            this.Items.Add(new GalleryItemViewModel("Group 1", "2"));
+            this.Items.Add(new GalleryItemViewModel("Group 1", "3"));
+            this.Items.Add(new GalleryItemViewModel("Group 1", "4"));
+            this.Items.Add(new GalleryItemViewModel("Group 1", "5"));
+            this.Items.Add(new GalleryItemViewModel("Group 1", "6"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "10"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "20"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "30"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "40"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "50"));
+            this.Items.Add(new GalleryItemViewModel("Group 2", "60"));
         }
     }
 }

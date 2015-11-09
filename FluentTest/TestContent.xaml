@@ -1212,9 +1212,10 @@
                                          Header="Pink" />
                     </Fluent:DropDownButton>
 
-                    <Fluent:Button Header="TEST"
+                    <Fluent:Button Header="Refresh (Galleries)"
                                    Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png"/>
+                                   LargeIcon="Images\GreenLarge.png"
+                                   Command="{Binding GalleryViewModel.RefreshCommand}" />
                     
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
