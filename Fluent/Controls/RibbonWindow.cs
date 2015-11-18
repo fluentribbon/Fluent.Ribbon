@@ -98,7 +98,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassBorderThicknessProperty =
-            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8, 50, 8, 8), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -113,7 +113,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(15), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
