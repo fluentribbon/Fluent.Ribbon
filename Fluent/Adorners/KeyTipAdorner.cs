@@ -1095,7 +1095,14 @@ namespace Fluent
         [Conditional("DEBUG")]
         private void Log(string format, params object[] args)
         {
-            Debug.WriteLine("[" + this.AdornedElement.GetType().Name + "] " + string.Format(format, args));
+            var name = this.AdornedElement.GetType().Name;
+
+            if (this.AdornedElement is IHeaderedControl)
+            {
+                name += string.Format(" ({0})", ((IHeaderedControl)this.AdornedElement).Header);
+            }
+
+            Debug.WriteLine("[" + name + "] " + string.Format(format, args), "KeyTipAdorner");
         }
 
         #endregion
