@@ -64,8 +64,20 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Source="{TemplateBinding Property=Image}"
-                                   MaxHeight="48" />
-                            <TextBlock Text="{TemplateBinding Property=Text}"
+								   MaxHeight="48">
+								<Image.Style>
+									<Style TargetType="Image">
+										<Style.Triggers>
+											<Trigger Property="Source"
+													 Value="{x:Null}">
+												<Setter Property="Visibility"
+														Value="Collapsed" />
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</Image.Style>
+							</Image>
+							<TextBlock Text="{TemplateBinding Property=Text}"
                                        TextWrapping="Wrap"
                                        Margin="8,0,8,6"
                                        Foreground="#FF414141"
