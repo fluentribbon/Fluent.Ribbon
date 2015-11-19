@@ -109,7 +109,8 @@
                                 <Fluent:BackstageTabItem.ContentTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBox Text="{Binding Mode=OneWay}" />
+                                            <TextBox Text="{Binding Mode=OneWay}"
+                                                     Width="6000" />
                                         </Grid>
                                     </DataTemplate>
                                 </Fluent:BackstageTabItem.ContentTemplate>
