@@ -31,11 +31,9 @@
             }
 
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) &lt; DBL_EPSILON
-            double eps = (Math.Abs(value1) + Math.Abs(value2) + 10.0) * DBL_EPSILON;
-            double delta = value1 - value2;
+            var eps = (Math.Abs(value1) + Math.Abs(value2) + 10.0) * DBL_EPSILON;
+            var delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
-
-        public static readonly double Zero = 0D;
     }
 }
