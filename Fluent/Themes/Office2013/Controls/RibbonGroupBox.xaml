@@ -33,6 +33,10 @@
                 Value="85" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Background"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource TransparentBrush}" />        
         <Style.Triggers>
             <Trigger Property="State"
                      Value="QuickAccess">
@@ -58,18 +62,18 @@
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
                     CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
                     Height="Auto"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
                 <Border x:Name="border1"
                         Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderBrush="{TemplateBinding Background}"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="{TemplateBinding BorderBrush}">
                     <Grid Height="Auto">
                         <Rectangle x:Name="rectangle"
                                    StrokeThickness="0"
@@ -269,6 +273,8 @@
                                                Focusable="False"
                                                IsTabStop="False"
                                                Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                               Background="{DynamicResource TransparentBrush}"
+                                               BorderBrush="{DynamicResource TransparentBrush}"
                                                VerticalAlignment="Bottom"
                                                Icon="{TemplateBinding LauncherIcon}"
                                                Header="{TemplateBinding LauncherText}"
@@ -384,6 +390,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <ControlTemplate x:Key="RibbonGroupBoxControlTemplate"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
@@ -401,9 +408,10 @@
         </ControlTemplate.Resources>
         <Grid x:Name="grid2"
               HorizontalAlignment="Stretch">
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}" />            
 
-            <Grid Background="#00000000">
-
+            <Grid>
                 <Grid x:Name="hoverGrid"
                       Background="{DynamicResource GroupHoverBrush}"
                       HorizontalAlignment="Stretch"
@@ -462,6 +470,8 @@
                                            Focusable="False"
                                            IsTabStop="False"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           Background="{DynamicResource TransparentBrush}"
+                                           BorderBrush="{DynamicResource TransparentBrush}"
                                            VerticalAlignment="Bottom"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            Header="{TemplateBinding LauncherText}"
@@ -485,7 +495,6 @@
                       Margin="0"
                       Width="Auto"
                       Height="Auto"
-                      Background="#00000000"
                       Visibility="Collapsed"
                       Grid.RowSpan="2">
                     <Fluent:TwoLineLabel HorizontalAlignment="Center"
@@ -695,20 +704,21 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
-        <Border x:Name="border"
+        <Border x:Name="outerBorder"
                 BorderThickness="1"
                 CornerRadius="1,0,0,0"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}">
-            <Border x:Name="border1"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}">
+            <Border x:Name="innerBorder"
                     Width="Auto"
                     Height="Auto"
                     BorderThickness="1"
                     CornerRadius="1,0,0,0"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}">
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
                 <Image x:Name="image"
                        Height="Auto"
                        HorizontalAlignment="Center"
@@ -746,16 +756,16 @@
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="Background"
-                        TargetName="border"
+                        TargetName="outerBorder"
                         Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border"
+                        TargetName="outerBorder"
                         Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
+                        TargetName="innerBorder"
                         Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
                 <Setter Property="Background"
-                        TargetName="border1"
+                        TargetName="innerBorder"
                         Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
             </Trigger>
             <MultiTrigger>
@@ -766,16 +776,16 @@
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
-                        TargetName="border"
+                        TargetName="outerBorder"
                         Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
                 <Setter Property="Background"
-                        TargetName="border1"
+                        TargetName="innerBorder"
                         Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border1"
+                        TargetName="innerBorder"
                         Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="BorderBrush"
-                        TargetName="border"
+                        TargetName="outerBorder"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
