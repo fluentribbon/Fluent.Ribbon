@@ -52,8 +52,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Controlz">
-      <HintPath>..\..\..\Controlz\src\bin\Debug\NET45\Controlz.dll</HintPath>
+    <Reference Include="ControlzEx">
+      <HintPath>..\..\..\ControlzEx\src\bin\Debug\NET45\ControlzEx.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

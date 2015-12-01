@@ -16,14 +16,14 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interactivity;
     using System.Windows.Interop;
-    using Controlz.Behaviours;
+    using ControlzEx.Behaviours;
     
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
 
     //using WindowChrome = System.Windows.Shell.WindowChrome;
-    using WindowChrome = Controlz.Microsoft.Windows.Shell.WindowChrome;
+    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents basic window for ribbon

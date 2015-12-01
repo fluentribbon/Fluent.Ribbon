@@ -7,7 +7,7 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
-                    xmlns:ControlzBehaviors="clr-namespace:Controlz.Behaviours;assembly=Controlz">
+                    xmlns:ControlzBehaviors="clr-namespace:ControlzEx.Behaviours;assembly=ControlzEx">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
     <BitmapImage x:Key="ImageCaptionButtonClose"
