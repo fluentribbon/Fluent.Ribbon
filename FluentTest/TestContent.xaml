@@ -2636,6 +2636,7 @@
                      Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
                     <Viewbox Stretch="Uniform"
+                             TextOptions.TextFormattingMode="Ideal"
                              Width="768"
                              Height="576">
                         <Canvas Width="6"
