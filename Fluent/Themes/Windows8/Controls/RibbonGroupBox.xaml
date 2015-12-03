@@ -29,6 +29,8 @@
                 Value="Auto" />
         <Setter Property="Height"
                 Value="85" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Background"
@@ -283,7 +285,7 @@
                                                IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                             <WrapPanel x:Name="PART_UpPanel"
-                                       HorizontalAlignment="Left"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Stretch"
                                        Width="Auto"
                                        Height="Auto"
@@ -467,7 +469,7 @@
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Grid>
                         <WrapPanel x:Name="PART_UpPanel"
-                                   HorizontalAlignment="Left"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                    VerticalAlignment="Stretch"
                                    Width="Auto"
                                    Height="Auto"
