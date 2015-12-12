@@ -464,10 +464,9 @@
                                   IsSeparatorVisible="true"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
                 <Fluent:RibbonGroupBox KeyTip="FG"
-                                       Header=""
+                                       Header="{Binding Path=Zoom, StringFormat='{}{0} Zoom'}"
                                        IsLauncherVisible="False"
                                        x:Name="groupLL">
-
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
                                      Header="Test"
@@ -994,8 +993,8 @@
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click)"
                                            ResizeMode="Both"
-                                           Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
-                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                           Icon="pack://application:,,,/FluentTest;component/Icons/App.ico"
+                                           LargeIcon="pack://application:,,,/FluentTest;component/Icons/App.ico"
                                            ClosePopupOnMouseDown="True" ClosePopupOnMouseDownDelay="250">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
