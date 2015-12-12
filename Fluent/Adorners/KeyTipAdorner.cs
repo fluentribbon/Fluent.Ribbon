@@ -1097,9 +1097,10 @@ namespace Fluent
         {
             var name = this.AdornedElement.GetType().Name;
 
-            if (this.AdornedElement is IHeaderedControl)
+            var headeredControl = this.AdornedElement as IHeaderedControl;
+            if (headeredControl != null)
             {
-                name += string.Format(" ({0})", ((IHeaderedControl)this.AdornedElement).Header);
+                name += string.Format(" ({0})", headeredControl.Header);
             }
 
             Debug.WriteLine("[" + name + "] " + string.Format(format, args), "KeyTipAdorner");
