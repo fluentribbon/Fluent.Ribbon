@@ -157,7 +157,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fluent\Fluent.Ribbon.NET 4.5.csproj">
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.5.csproj">
       <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
       <Name>Fluent.Ribbon.NET 4.5</Name>
     </ProjectReference>
