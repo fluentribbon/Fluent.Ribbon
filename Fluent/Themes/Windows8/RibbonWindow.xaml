@@ -142,7 +142,7 @@
 
                     <Grid x:Name="grid"
                           Background="{TemplateBinding Background}"
-                          Margin="{TemplateBinding GlassBorderThickness}" />
+                          Margin="{TemplateBinding GlassFrameThickness}" />
                     
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
@@ -647,7 +647,7 @@
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
-        <Setter Property="GlassBorderThickness">
+        <Setter Property="GlassFrameThickness">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                     <Binding RelativeSource="{RelativeSource Self}"
@@ -672,7 +672,7 @@
                     <Condition Property="CanUseDwm"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="GlassBorderThickness">
+                <Setter Property="GlassFrameThickness">
                     <Setter.Value>
                         <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                             <Binding RelativeSource="{RelativeSource Self}"
@@ -693,15 +693,15 @@
                     <Condition Property="CanUseDwm"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="GlassBorderThickness"
+                <Setter Property="GlassFrameThickness"
                         Value="0,50,0,0" />
             </MultiTrigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
-                <!-- Cheat with GlassBorderThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
-                <Setter Property="GlassBorderThickness"
+                <!-- Cheat with GlassFrameThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
+                <Setter Property="GlassFrameThickness"
                         Value="0,0,0,1" />
             </Trigger>
             <Trigger Property="CanUseDwm"

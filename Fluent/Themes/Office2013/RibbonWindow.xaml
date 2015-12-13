@@ -280,8 +280,8 @@
                 Value="True" />           
         <Setter Property="BorderThickness"
                 Value="0" />
-        <!-- Cheat with GlassBorderThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
-        <Setter Property="GlassBorderThickness"
+        <!-- Cheat with GlassFrameThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
+        <Setter Property="GlassFrameThickness"
                 Value="0,0,0,1" />
         <Setter Property="DontUseDwm"
                 Value="True" />

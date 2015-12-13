@@ -78,17 +78,17 @@
         /// <summary>
         /// Gets or sets glass border thickness
         /// </summary>
-        public Thickness GlassBorderThickness
+        public Thickness GlassFrameThickness
         {
-            get { return (Thickness)this.GetValue(GlassBorderThicknessProperty); }
-            set { this.SetValue(GlassBorderThicknessProperty, value); }
+            get { return (Thickness)this.GetValue(GlassFrameThicknessProperty); }
+            set { this.SetValue(GlassFrameThicknessProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for GlassFrameThickness.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GlassBorderThicknessProperty =
-            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D), OnWindowChromeRelevantPropertyChanged));
+        public static readonly DependencyProperty GlassFrameThicknessProperty =
+            DependencyProperty.Register("GlassFrameThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -247,7 +247,7 @@
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(RibbonProperties.TitleBarHeightProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassBorderThicknessProperty), Source = this });
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(CanUseDwmProperty), Source = this });
             Interaction.GetBehaviors(this).Add(behavior);
         }
