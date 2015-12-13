@@ -423,6 +423,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="CaptionButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Width"
@@ -434,6 +435,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
+    
     <ControlTemplate x:Key="CaptionButtonControlTemplate"
                      TargetType="{x:Type Button}">
         <Grid Background="Transparent">

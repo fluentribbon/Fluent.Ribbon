@@ -22,6 +22,7 @@
     <BitmapImage x:Key="ImageCaptionButtonMaximize"
                  UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png"
                  PresentationOptions:Freeze="True" />
+    
     <Style TargetType="{x:Type ResizeGrip}">
         <Setter Property="Template">
             <Setter.Value>
@@ -124,6 +125,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <ControlTemplate x:Key="DwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
@@ -380,6 +382,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="CaptionButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Width"
@@ -391,6 +394,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
+    
     <ControlTemplate x:Key="CaptionButtonControlTemplate"
                      TargetType="{x:Type Button}">
         <Grid Background="Transparent">
