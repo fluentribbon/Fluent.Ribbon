@@ -36,5 +36,8 @@ publish/
 
 # Generated files
 Fluent.Ribbon/Themes/**/Generic.xaml
-!Fluent.Ribbon/Themes/Generic.xaml
 packages/
+
+# Allowed files
+!Fluent.Ribbon/Themes/Generic.xaml
+!Fluent.Ribbon/Themes/XamlCombine.exe
