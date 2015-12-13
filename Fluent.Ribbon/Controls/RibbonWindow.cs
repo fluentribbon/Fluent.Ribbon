@@ -227,6 +227,9 @@
             this.InitializeWindowChromeBehavior();
         }
 
+        /// <summary>
+        /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome
+        /// </summary>
         protected virtual void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
