@@ -20,4 +20,3 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent")]
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Converters")]
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Behaviours")]
-[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Controls")]

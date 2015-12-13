@@ -6,7 +6,7 @@
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     xmlns:ControlzBehaviors="clr-namespace:ControlzEx.Behaviours;assembly=ControlzEx">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
@@ -673,18 +673,6 @@
                 Value="#FF000000" />
         <Setter Property="Background"
                 Value="{DynamicResource WindowBackgroundBrush}" />
-        <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
-            <Setter.Value>
-                <Behaviours:StylizedBehaviorCollection>
-                    <ControlzBehaviors:WindowChromeBehavior CaptionHeight="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                                                ResizeBorderThickness="{Binding ResizeBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                                                GlassFrameThickness="{Binding GlassBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                                                UseAeroCaptionButtons="{Binding CanUseDwm, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" />                    
-                    <Behaviours:WindowsSettingBehavior />
-                </Behaviours:StylizedBehaviorCollection>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
