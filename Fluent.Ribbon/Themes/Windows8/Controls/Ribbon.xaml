@@ -5,6 +5,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     xmlns:internal="clr-namespace:Fluent.Internal"
+                    xmlns:ControlzEx="urn:controlzex"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
@@ -18,10 +19,18 @@
             <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
                                    Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                    Style="{DynamicResource RibbonTitleBarStyle}"
-                                   Margin="20,0,113,0"
                                    VerticalAlignment="Top"
                                    HorizontalAlignment="Left"
                                    IsCollapsed="{TemplateBinding IsCollapsed}">
+                <Fluent:RibbonTitleBar.Margin>
+                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                        <Binding Source="20" />
+                        <Binding Source="0" />
+                        <Binding Source="{x:Static ControlzEx:SystemParameters2.Current}"
+                                 Path="WindowCaptionButtonsLocation.Width" />                        
+                        <Binding Source="0" />
+                    </MultiBinding>
+                </Fluent:RibbonTitleBar.Margin>
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
                         <TextBlock x:Name="PART_Title"

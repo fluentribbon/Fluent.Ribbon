@@ -6,8 +6,7 @@
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
-                    xmlns:ControlzBehaviors="clr-namespace:ControlzEx.Behaviours;assembly=ControlzEx">
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
     <BitmapImage x:Key="ImageCaptionButtonClose"
