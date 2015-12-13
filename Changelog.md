@@ -1,5 +1,20 @@
 # Changelog for Fluent.Ribbon
 
+## 3.6.1
+
+- ### Bug fixes
+  - [#29](../../issues/29) - Backstage flicker
+  - [#112](../../issues/112) - Backstage flicker
+  - [#192](../../issues/192) - Background of RibbonGroupBox can't be set/changed
+  - [#197](../../issues/197) - Some adaptions to better align with Office 2013
+  - [#200](../../issues/200) - KeyTips in SplitButton no longer work
+  - [#201](../../issues/201) - Cannot change Fluent.Button Icon Dynamically
+  - [#202](../../issues/202) - Center the button labels in Office 2013 theme
+  - [#206](../../issues/206) - Center alignment button inside RIbbonGroupBox
+  - [#214](../../issues/214) - Assign a StringFormat binding to a RibbonGroupBox Header
+
+Commits: [v3.6.0...v3.6.1](../../compare/v3.6.0...v3.6.1)
+
 ## 3.6.0
 
 - ### Bug fixes
