@@ -194,7 +194,7 @@
                         </StackPanel.Margin>                        
                         <Image x:Name="PART_Icon"
                                Height="16"
-                               Margin="-2"
+                               Margin="0"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Top"
                                Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}"
@@ -319,7 +319,7 @@
                                 </StackPanel.Margin>
                                 <Image x:Name="PART_Icon"
                                        Height="16"
-                                       Margin="0,-1,0,0"
+                                       Margin="0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}"
@@ -703,8 +703,6 @@
                 </MultiBinding>
             </Setter.Value>
         </Setter>
-        <Setter Property="ResizeBorderThickness"
-                Value="8" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="CornerRadius"
