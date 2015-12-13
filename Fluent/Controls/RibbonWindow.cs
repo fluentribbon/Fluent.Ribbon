@@ -12,16 +12,18 @@ namespace Fluent
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Input;
+    using System.Windows.Interactivity;
     using System.Windows.Interop;
+    using ControlzEx.Behaviours;
+    
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
-#if NET40
-    using Microsoft.Windows.Shell;
-#else
-    using System.Windows.Shell;
-#endif
+
+    //using WindowChrome = System.Windows.Shell.WindowChrome;
+    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents basic window for ribbon
@@ -81,7 +83,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue, OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -96,7 +98,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GlassBorderThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassBorderThicknessProperty =
-            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8, 50, 8, 8), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("GlassBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -111,7 +113,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(15), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D), OnWindowChromeRelevantPropertyChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
@@ -192,8 +194,6 @@ namespace Fluent
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
             DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
 
-        private readonly WindowSizing windowSizing;
-
         #endregion
 
         #region Constructors
@@ -232,8 +232,6 @@ namespace Fluent
         public RibbonWindow()
         {
             this.SizeChanged += this.OnSizeChanged;
-
-            this.windowSizing = new WindowSizing(this);
         }
 
         #endregion
@@ -250,9 +248,18 @@ namespace Fluent
 
             this.UpdateCanUseDwm();
 
-            this.UpdateWindowChrome();
+            this.InitializeWindowChromeBehavior();
+        }
 
-            this.windowSizing.WindowInitialized();
+        protected virtual void InitializeWindowChromeBehavior()
+        {
+            //var behavior = new WindowChromeBehavior();
+            //BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(RibbonProperties.TitleBarHeightProperty), Source = this });
+            //BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
+            //BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
+            //BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassBorderThicknessProperty), Source = this });
+            //BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(CanUseDwmProperty), Source = this });
+            //Interaction.GetBehaviors(this).Add(behavior);
         }
 
         /// <summary>
@@ -281,8 +288,6 @@ namespace Fluent
             {
                 return;
             }
-
-            window.UpdateWindowChrome();
         }
 
         private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -319,25 +324,6 @@ namespace Fluent
             {
                 this.IsCollapsed = false;
             }
-        }
-
-        private void UpdateWindowChrome()
-        {
-            var windowChrome = WindowChrome.GetWindowChrome(this);
-
-            if (windowChrome == null)
-            {
-                windowChrome = new WindowChrome();
-                WindowChrome.SetWindowChrome(this, windowChrome);
-            }
-
-            windowChrome.CaptionHeight = RibbonProperties.GetTitleBarHeight(this);
-            windowChrome.CornerRadius = this.CornerRadius;
-            windowChrome.GlassFrameThickness = this.GlassBorderThickness;
-            windowChrome.ResizeBorderThickness = this.ResizeBorderThickness;
-#if NET45
-            windowChrome.UseAeroCaptionButtons = this.CanUseDwm;
-#endif
         }
 
         private void UpdateCanUseDwm()
@@ -388,13 +374,6 @@ namespace Fluent
             if (partWindowCommands != null)
             {
                 WindowChrome.SetIsHitTestVisibleInChrome(partWindowCommands, true);
-            }
-
-            // This has to be done when the theme is changed. Otherwise maximized windows have the wrong size.
-            if (this.WindowState == WindowState.Maximized)
-            {
-                this.WindowState = WindowState.Normal;
-                this.WindowState = WindowState.Maximized;
             }
         }
 

@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:ControlzBehaviors="clr-namespace:ControlzEx.Behaviours;assembly=ControlzEx"
                     xmlns:internal="clr-namespace:Fluent.Internal"
                     xmlns:Converters="clr-namespace:Fluent.Converters">
 
@@ -30,10 +31,19 @@
                             <Image x:Name="PART_Icon"
                                    Height="16"
                                    Width="16"
-                                   Margin="8,1,0,0"
                                    Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                                    Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
-                                   SnapsToDevicePixels="True" />
+                                   SnapsToDevicePixels="True">
+                                <Image.Margin>
+                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Left" />
+                                        <Binding Source="1" />
+                                        <Binding Source="0" />
+                                        <Binding Source="0" />
+                                    </MultiBinding>
+                                </Image.Margin>
+                            </Image>
                         </Grid>
                         <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                           x:Name="PART_WindowCommands"
@@ -267,11 +277,9 @@
 
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="ResizeBorderThickness"
-                Value="8" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="True" />           
         <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="CornerRadius"
                 Value="0" />
         <!-- Cheat with GlassBorderThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
         <Setter Property="GlassBorderThickness"
@@ -291,7 +299,11 @@
         <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
             <Setter.Value>
                 <Behaviours:StylizedBehaviorCollection>
-                    <Behaviours:BorderlessWindowBehavior />
+                    <ControlzBehaviors:WindowChromeBehavior CaptionHeight="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                ResizeBorderThickness="{Binding ResizeBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                GlassFrameThickness="{Binding GlassBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                UseAeroCaptionButtons="{Binding CanUseDwm, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" />
                     <Behaviours:WindowsSettingBehavior />
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>

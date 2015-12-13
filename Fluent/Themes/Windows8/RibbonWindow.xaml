@@ -6,7 +6,8 @@
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours">
+                    xmlns:Behaviours="clr-namespace:Fluent.Metro.Behaviours"
+                    xmlns:ControlzBehaviors="clr-namespace:ControlzEx.Behaviours;assembly=ControlzEx">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
     <BitmapImage x:Key="ImageCaptionButtonClose"
@@ -138,16 +139,36 @@
                           Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                           Background="{DynamicResource TransparentBrush}"
                           IsHitTestVisible="True" />
-                    
+
                     <Grid x:Name="grid"
-                          Background="{TemplateBinding Background}"
-                          Margin="{TemplateBinding GlassBorderThickness}" />
+                          Background="{TemplateBinding Background}">
+                        <Grid.Margin>
+                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                <Binding Source="0" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="GlassBorderThickness.Top" />
+                                <Binding Source="0" />
+                                <Binding Source="0" />
+                            </MultiBinding>
+                        </Grid.Margin>                        
+                    </Grid>
+                    
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
-                                Margin="8,7,8,8"
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top">
+                        <StackPanel.Margin>
+                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="ResizeBorderThickness.Left" />
+                                <!-- Top was 7 before -->
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="ResizeBorderThickness.Top" />
+                                <Binding Source="0" />
+                                <Binding Source="0" />
+                            </MultiBinding>
+                        </StackPanel.Margin>
                         <Image x:Name="PART_Icon"
                                Height="16"
                                HorizontalAlignment="Left"
@@ -157,8 +178,19 @@
                                SnapsToDevicePixels="True"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </StackPanel>
-                    <ContentPresenter Margin="8,1,8,8"
-                                      x:Name="PART_ContentPresenter" />
+                    <ContentPresenter x:Name="PART_ContentPresenter">
+                        <ContentPresenter.Margin>
+                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="ResizeBorderThickness.Left" />
+                                <Binding Source="0" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="ResizeBorderThickness.Right" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                         Path="ResizeBorderThickness.Bottom" />
+                            </MultiBinding>
+                        </ContentPresenter.Margin>
+                    </ContentPresenter>
                     <ResizeGrip x:Name="PART_ResizeGrip"
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -193,11 +225,11 @@
                         Value="0" />
                 <Setter Property="Margin"
                         TargetName="PART_ContentPresenter"
-                        Value="0,0,0,0" />
-                
+                        Value="0,0,0,0" />                
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
@@ -236,12 +268,23 @@
                                   Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                   Background="#00FFFFFF"
                                   IsHitTestVisible="True" />
+
                             <StackPanel Background="Transparent"
                                         x:Name="PART_IconImage"
-                                        Margin="8,7,0,0"
                                         Orientation="Horizontal"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top">
+                                <StackPanel.Margin>
+                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Left" />
+                                        <!-- Top was 7 before -->
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Top" />
+                                        <Binding Source="0" />
+                                        <Binding Source="0" />
+                                    </MultiBinding>
+                                </StackPanel.Margin>                                
                                 <Image x:Name="PART_Icon"
                                        Height="16"
                                        HorizontalAlignment="Left"
@@ -254,25 +297,34 @@
                             </StackPanel>
                             <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                               x:Name="PART_WindowCommands"
-                                              Margin="0,2,8,0"
                                               Panel.ZIndex="1"
                                               Grid.RowSpan="2"
                                               VerticalAlignment="Top"
                                               HorizontalAlignment="Right"
-                                              Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
-                            <Border x:Name="border4"
-                                    Margin="8,50,8,8">
-                                <Border x:Name="border1"
-                                        Height="Auto"
-                                        BorderThickness="1,1,1,1"
-                                        BorderBrush="{DynamicResource WindowContentBorderBrush}"
-                                        Margin="-1">
-                                    <Grid x:Name="grid"
-                                          Background="{TemplateBinding Background}" />
-                                </Border>
-                            </Border>
-                            <ContentPresenter Margin="8,1,8,8"
-                                              x:Name="PART_ContentPresenter" />
+                                              Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                                <ContentPresenter.Margin>
+                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                        <Binding Source="0" />
+                                        <Binding Source="2" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Right" />
+                                        <Binding Source="0" />
+                                    </MultiBinding>
+                                </ContentPresenter.Margin>
+                            </ContentPresenter>
+                            <ContentPresenter x:Name="PART_ContentPresenter">
+                                <ContentPresenter.Margin>
+                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Left" />
+                                        <Binding Source="1" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Right" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                                 Path="ResizeBorderThickness.Bottom" />
+                                    </MultiBinding>
+                                </ContentPresenter.Margin>
+                            </ContentPresenter>
                             <ResizeGrip x:Name="PART_ResizeGrip"
                                         Grid.Row="1"
                                         Grid.Column="0"
@@ -334,15 +386,6 @@
                 <Setter Property="Height"
                         TargetName="border2"
                         Value="54" />
-                <Setter Property="Margin"
-                        TargetName="border4"
-                        Value="0,50,0,0" />
-            </Trigger>
-            <Trigger Property="IsCollapsed"
-                     Value="True">
-                <Setter Property="Margin"
-                        TargetName="border4"
-                        Value="8,30,8,8" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -611,14 +654,21 @@
 
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="GlassBorderThickness"
-                Value="8,50,8,8" />
-        <Setter Property="ResizeBorderThickness"
-                Value="8" />
-        <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="CornerRadius"
-                Value="15" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="True" />
+        <Setter Property="GlassBorderThickness">
+            <Setter.Value>
+                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="ResizeBorderThickness.Left" />
+                    <Binding Source="50" />
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="ResizeBorderThickness.Right" />
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="ResizeBorderThickness.Bottom" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Foreground"
                 Value="#FF000000" />
         <Setter Property="Background"
@@ -626,6 +676,11 @@
         <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
             <Setter.Value>
                 <Behaviours:StylizedBehaviorCollection>
+                    <ControlzBehaviors:WindowChromeBehavior CaptionHeight="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                ResizeBorderThickness="{Binding ResizeBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                GlassFrameThickness="{Binding GlassBorderThickness, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                                                UseAeroCaptionButtons="{Binding CanUseDwm, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" />                    
                     <Behaviours:WindowsSettingBehavior />
                 </Behaviours:StylizedBehaviorCollection>
             </Setter.Value>
@@ -638,8 +693,19 @@
                     <Condition Property="CanUseDwm"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="GlassBorderThickness"
-                        Value="8,30,8,8" />
+                <Setter Property="GlassBorderThickness">
+                    <Setter.Value>
+                        <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="ResizeBorderThickness.Left" />
+                            <Binding Source="30" />
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="ResizeBorderThickness.Right" />
+                            <Binding RelativeSource="{RelativeSource Self}"
+                                     Path="ResizeBorderThickness.Bottom" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
