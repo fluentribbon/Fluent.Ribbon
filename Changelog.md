@@ -3,6 +3,7 @@
 ## 3.6.1
 
 - ### Bug fixes
+
   - [#29](../../issues/29) - Backstage flicker
   - [#112](../../issues/112) - Backstage flicker
   - [#192](../../issues/192) - Background of RibbonGroupBox can't be set/changed
