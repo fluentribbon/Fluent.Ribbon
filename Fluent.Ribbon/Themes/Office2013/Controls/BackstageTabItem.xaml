@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent">
+    <ControlTemplate x:Key="BackstageTabItemControlTemplate"
+                     TargetType="{x:Type Fluent:BackstageTabItem}">
+        <Grid Background="#00000000">
+            <Border x:Name="hoverBorder"
+                    Margin="0,0,0,0"
+                    Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="Black"
+                                     Opacity="0.2" />
+                </Border.Background>
+            </Border>
+            <Border x:Name="selectedBorder"
+                    Margin="0"
+                    Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="White"
+                                     Opacity="0.2" />
+                </Border.Background>
+                <Grid Width="Auto"
+                      Margin="0"
+                      HorizontalAlignment="Stretch">
+                </Grid>
+            </Border>
+            <ContentControl x:Name="PART_Header"
+                            Foreground="{DynamicResource BackstageFontBrush}"
+                            Margin="25,0,15,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Header}">
+                <ContentControl.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping"
+                                Value="NoWrap" />
+                        <Setter Property="TextTrimming"
+                                Value="CharacterEllipsis" />
+                    </Style>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="Selector.IsSelected"
+                               Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="hoverBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+                <Setter TargetName="selectedBorder"
+                        Property="Visibility"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter TargetName="hoverBorder"
+                        Property="Visibility"
+                        Value="Hidden" />
+                <Setter TargetName="PART_Header"
+                        Property="Opacity"
+                        Value="0.5" />
+            </Trigger>
+            <Trigger Property="Selector.IsSelected"
+                     Value="True">
+                <Setter TargetName="selectedBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="BackstageTabItemStyle"
+           TargetType="{x:Type Fluent:BackstageTabItem}">
+        <Setter Property="Template"
+                Value="{DynamicResource BackstageTabItemControlTemplate}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="Height"
+                Value="38" />
+        <Setter Property="Background"
+                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+        <Setter Property="Margin"
+                Value="0" />
+    </Style>
+</ResourceDictionary>

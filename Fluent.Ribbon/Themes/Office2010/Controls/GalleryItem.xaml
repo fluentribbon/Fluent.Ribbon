@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d"
+                    xmlns:Diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase">
+    <Style x:Key="GalleryItemStyle"
+           TargetType="{x:Type Fluent:GalleryItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}">
+                    <Grid Background="{DynamicResource TransparentBrush}">
+                        <Border x:Name="hoverBorder"
+                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                d:LayoutOverrides="Width, Height"
+                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Visibility="Collapsed">
+                            <Border Height="Auto"
+                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="1"
+                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        </Border>
+                        <Border x:Name="selectedBorder"
+                                BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                d:LayoutOverrides="Width, Height"
+                                Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
+                                Visibility="Collapsed">
+                            <Border Height="Auto"
+                                    BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="1"
+                                    Background="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                        </Border>
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Margin="1"
+                                          Opacity="1" />
+                        <Border x:Name="pressedBorder"
+                                BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="2"
+                                d:LayoutOverrides="Width, Height"
+                                Background="{DynamicResource ButtonPressedOuterBackgroundBrush}"
+                                Visibility="Collapsed"
+                                Opacity="0.5">
+                            <Border Height="Auto"
+                                    BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="1"
+                                    Background="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Opacity"
+                                    TargetName="contentPresenter"
+                                    Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="selectedBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="selectedBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="pressedBorder"
+                                    Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
