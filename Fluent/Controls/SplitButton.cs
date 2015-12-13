@@ -40,19 +40,15 @@ namespace Fluent
         {
             get
             {
-                if (this.Icon != null)
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator.MoveNext())
                 {
-                    yield return this.Icon;
+                    yield return baseEnumerator.Current;
                 }
 
                 if (this.button != null)
                 {
                     yield return this.button;
-                }
-
-                foreach (var item in this.Items)
-                {
-                    yield return item;
                 }
             }
         }

@@ -164,6 +164,25 @@ namespace Fluent
 
         #endregion
 
+        #region CornerRadius
+
+        /// <summary>
+        /// Gets or sets the CornerRadius for the element
+        /// </summary>
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)this.GetValue(CornerRadiusProperty); }
+            set { this.SetValue(CornerRadiusProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Button), new PropertyMetadata(default(CornerRadius)));
+
+        #endregion CornerRadius
+
         #endregion
 
         #region Constructors

@@ -5,10 +5,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuSeparator.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="RibbonDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template"
@@ -37,7 +33,7 @@
                 <Setter Property="Height"
                         Value="22" />
                 <Setter Property="Width"
-                        Value="31" />
+                        Value="32" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -74,7 +70,7 @@
                                              Style="{DynamicResource TwoLineLabelStyle}"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             Margin="2,-1,2,2"
+                                             Margin="2,0,2,2"
                                              HasGlyph="{TemplateBinding HasTriangle}" />
                     </StackPanel>
                 </Grid>
@@ -221,7 +217,7 @@
                         Value="1,0,0,0" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="-2,-1,2,1" />
+                        Value="-2,0,2,1" />
                 <Setter Property="Width"
                         TargetName="controlLabel"
                         Value="10" />
@@ -248,7 +244,7 @@
                         Value="False" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="2,-1,2,1" />
+                        Value="2,0,2,1" />
                 <Setter Property="VerticalAlignment"
                         TargetName="PART_ButtonBorder"
                         Value="Stretch" />

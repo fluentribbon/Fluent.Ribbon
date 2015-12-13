@@ -20,8 +20,6 @@ namespace Fluent
     /// </summary>
     internal class BackstageAdorner : Adorner
     {
-        #region Fields
-
         // Backstage
         private readonly Backstage backstage;
 
@@ -30,10 +28,6 @@ namespace Fluent
 
         // Collection of visual children
         private readonly VisualCollection visualChildren;
-
-        #endregion
-
-        #region Constructors
 
         /// <summary>
         /// Constructor
@@ -82,16 +76,6 @@ namespace Fluent
             this.visualChildren.Clear();
         }
 
-        #endregion
-
-        // Adorner offset from top of window
-        private double GetTopOffset()
-        {
-            var topOffset = this.backstage.TranslatePoint(new Point(0, this.backstage.ActualHeight), this.AdornedElement).Y;
-            
-            return topOffset;
-        }
-
         #region Layout & Visual Children
 
         /// <summary>
@@ -104,9 +88,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var topOffset = this.GetTopOffset();
-
-            this.backstageContent.Arrange(new Rect(0, topOffset, finalSize.Width, Math.Max(0, finalSize.Height - topOffset)));
+            this.backstageContent.Arrange(new Rect(0, 0, finalSize.Width, Math.Max(0, finalSize.Height)));
             return finalSize;
         }
 
@@ -119,10 +101,8 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            var topOffset = this.GetTopOffset();
-
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            this.backstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height - topOffset)));
+            this.backstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height)));
             return this.AdornedElement.RenderSize;
         }
 

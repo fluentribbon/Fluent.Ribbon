@@ -232,9 +232,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets group box header
         /// </summary>
-        public object Header
+        public string Header
         {
-            get { return this.GetValue(HeaderProperty); }
+            get { return (string)this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
@@ -242,7 +242,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            RibbonControl.HeaderProperty.AddOwner(typeof(RibbonGroupBox));
+            DependencyProperty.Register("Header", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata());
+
+        object IHeaderedControl.Header
+        {
+            get { return this.Header; }
+
+            set { this.Header = (string)value; }
+        }
 
         #endregion
 

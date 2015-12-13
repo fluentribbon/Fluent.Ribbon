@@ -42,11 +42,11 @@
                                      ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}">
                 <Fluent:RibbonTabControl.Margin>
                     <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding Source="0" />
                         <Binding RelativeSource="{RelativeSource Self}"
                                  Path="(Fluent:RibbonProperties.TitleBarHeight)" />
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
-                        <Binding Source="{x:Static internal:DoubleUtil.Zero}" />
+                        <Binding Source="0" />
+                        <Binding Source="0" />
                     </MultiBinding>
                 </Fluent:RibbonTabControl.Margin>
             </Fluent:RibbonTabControl>

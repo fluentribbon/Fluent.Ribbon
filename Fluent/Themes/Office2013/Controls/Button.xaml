@@ -8,8 +8,10 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+				CornerRadius="{TemplateBinding CornerRadius}"
+				BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch">
@@ -31,7 +33,7 @@
                                          Style="{DynamicResource TwoLineLabelStyle}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
-                                         Margin="2,-1,2,0" />
+                                         Margin="2,0,2,0" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -61,7 +63,7 @@
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="2,-1,2,1" />
+                        Value="2,0,2,0" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -79,7 +81,7 @@
                         Value="False" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="2,-1,2,1" />
+                        Value="2,0,2,0" />
                 <Setter Property="VerticalAlignment"
                         TargetName="border"
                         Value="Stretch" />
@@ -141,6 +143,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="RibbonButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Template"
@@ -151,8 +154,16 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Background"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource TransparentBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="CornerRadius"
+                Value="0" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
@@ -177,9 +188,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style TargetType="{x:Type Fluent:Button}"
-           BasedOn="{StaticResource RibbonButtonStyle}" />
 
     <Style x:Key="IronicallyNamedChromelessButtonStyle"
            TargetType="{x:Type Button}">

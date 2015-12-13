@@ -8,19 +8,19 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                BorderThickness="1"
-                CornerRadius="2"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+				CornerRadius="{TemplateBinding CornerRadius}"
+				BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch">
             <Border x:Name="border1"
                     Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
+				    CornerRadius="{TemplateBinding CornerRadius}"
+				    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}">
                 <Grid Height="Auto">
                     <Rectangle x:Name="rectangle"
                                StrokeThickness="0"
@@ -46,8 +46,7 @@
                                           Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                           Width="32"
                                           Margin="3,2,3,1"
-                                          SnapsToDevicePixels="True">
-                        </ContentPresenter>
+                                      SnapsToDevicePixels="True" />
                         <Fluent:TwoLineLabel x:Name="controlLabel"
                                              Text="{TemplateBinding Header}"
                                              Style="{DynamicResource TwoLineLabelStyle}"
@@ -179,6 +178,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="RibbonButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Template"
@@ -189,8 +189,16 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Background"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource TransparentBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="CornerRadius"
+                Value="2" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
