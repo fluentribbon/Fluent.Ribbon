@@ -413,9 +413,6 @@
                 </Fluent:RibbonGroupBox>
                 
                 <Fluent:RibbonGroupBox Header="Window options">
-                    <Fluent:CheckBox IsChecked="{Binding SaveWindowPosition, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
-                        SaveWindowPosition
-                    </Fluent:CheckBox>
                     <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
                         IsIconVisible
                     </Fluent:CheckBox>

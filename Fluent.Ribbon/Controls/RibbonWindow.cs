@@ -47,20 +47,6 @@
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SaveWindowPosition.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty SavePositionProperty = DependencyProperty.Register("SaveWindowPosition", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false));
-
-        /// <summary>
-        ///  Gets or sets whether window position will be saved and loaded.
-        /// </summary>
-        public bool SaveWindowPosition
-        {
-            get { return (bool)this.GetValue(SavePositionProperty); }
-            set { this.SetValue(SavePositionProperty, value); }
-        }
-
-        /// <summary>
         /// Gets or sets resize border thickness
         /// </summary>
         public Thickness ResizeBorderThickness
