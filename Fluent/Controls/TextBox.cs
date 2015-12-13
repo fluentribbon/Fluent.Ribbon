@@ -1,20 +1,6 @@
-﻿#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +9,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Fluent
@@ -42,7 +27,7 @@ namespace Fluent
         /// </summary>
         public event TextChangedEventHandler TextChanged;
 
-        void RaiseTextChanged(TextChangedEventArgs args)
+        private void RaiseTextChanged(TextChangedEventArgs args)
         {
             if (this.TextChanged != null)
                 this.TextChanged(this, args);
@@ -53,7 +38,7 @@ namespace Fluent
         /// </summary>
         public event EventHandler SelectionChanged;
 
-        void RaiseSelectionChanged()
+        private void RaiseSelectionChanged()
         {
             if (this.SelectionChanged != null)
                 this.SelectionChanged(this, EventArgs.Empty);
@@ -64,11 +49,11 @@ namespace Fluent
         #region Fields
 
         // TextBox in template
-        System.Windows.Controls.TextBox textBoxTemplated;
+        private System.Windows.Controls.TextBox textBoxTemplated;
         // Local TextBox
-        System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
+        private System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
         // Content when the textbox got focus
-        string textBoxContentWhenGotFocus = null;
+        private string textBoxContentWhenGotFocus = null;
 
         #endregion
 
@@ -91,7 +76,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
             DependencyProperty.Register("InputWidth", typeof(double), typeof(TextBox), new UIPropertyMetadata(double.NaN));
-
 
         #endregion
 
@@ -424,7 +408,7 @@ namespace Fluent
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -615,23 +599,23 @@ namespace Fluent
             this.textBoxTemplated.TextChanged += this.OnTextBoxTemplatedTextChanged;
         }
 
-        void OnTextBoxTemplatedTextChanged(object sender, TextChangedEventArgs e)
+        private void OnTextBoxTemplatedTextChanged(object sender, TextChangedEventArgs e)
         {
             this.RaiseTextChanged(e);
         }
 
-        void OnTextBoxTemplatedGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void OnTextBoxTemplatedGotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             this.textBoxContentWhenGotFocus = this.textBoxTemplated.Text;
         }
 
-        void OnTextBoxTemplatedLostFocus(object sender, RoutedEventArgs e)
+        private void OnTextBoxTemplatedLostFocus(object sender, RoutedEventArgs e)
         {
             if (this.textBoxContentWhenGotFocus != this.textBoxTemplated.Text)
                 this.ExecuteCommand();
         }
 
-        void OnTextBoxTemplatedSelectionChanged(object sender, RoutedEventArgs e)
+        private void OnTextBoxTemplatedSelectionChanged(object sender, RoutedEventArgs e)
         {
             this.textBox.Select(this.textBoxTemplated.SelectionStart, this.textBoxTemplated.SelectionLength);
         }
@@ -679,7 +663,7 @@ namespace Fluent
             base.OnKeyUp(e);
         }
 
-        void OnTextBoxTemplatedKeyDown(object sender, KeyEventArgs e)
+        private void OnTextBoxTemplatedKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -694,7 +678,7 @@ namespace Fluent
 
         #region Private methods
 
-        bool IsTemplateValid()
+        private bool IsTemplateValid()
         {
             return this.textBoxTemplated != null;
         }
@@ -718,7 +702,6 @@ namespace Fluent
 
             return textBox;
         }
-
 
         /// <summary>
         /// This method must be overridden to bind properties to use in quick access creating

@@ -1,13 +1,4 @@
-﻿#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright (c) Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
-using System.Windows;
+﻿using System.Windows;
 
 namespace Fluent
 {
@@ -16,8 +7,6 @@ namespace Fluent
     /// </summary>
     public class GalleryGroupFilter : DependencyObject
     {
-        #region Properties
-
         /// <summary>
         /// Gets or sets title of filter
         /// </summary>
@@ -50,8 +39,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
             DependencyProperty.Register("ContextualGroups", typeof(string), 
-            typeof(GalleryGroupFilter), new UIPropertyMetadata(""));
-
-        #endregion
+            typeof(GalleryGroupFilter), new UIPropertyMetadata(string.Empty));
     }
 }

@@ -1,11 +1,3 @@
-#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -24,14 +16,6 @@ namespace Fluent
     /// </summary>
     public class RibbonTabsContainer : Panel, IScrollInfo
     {
-        #region Fields
-
-
-
-        #endregion
-
-        #region Initialization
-
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -39,8 +23,6 @@ namespace Fluent
         {
             this.Focusable = false;
         }
-
-        #endregion
 
         #region Layout Overridings
 

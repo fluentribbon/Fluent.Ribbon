@@ -1,13 +1,4 @@
-﻿#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
-namespace Fluent
+﻿namespace Fluent
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -19,7 +10,6 @@ namespace Fluent
     using ControlzEx.Behaviours;
     
     using Fluent.Extensions;
-    using Fluent.Internal;
     using Fluent.Metro.Native;
 
     //using WindowChrome = System.Windows.Shell.WindowChrome;

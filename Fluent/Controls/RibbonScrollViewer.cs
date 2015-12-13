@@ -1,13 +1,4 @@
-﻿#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Fluent
@@ -17,8 +8,6 @@ namespace Fluent
     /// </summary>
     public class RibbonScrollViewer : ScrollViewer
     {
-        #region Overrides
-
         /// <summary>
         /// Performs a hit test to determine whether the specified 
         /// points are within the bounds of this ScrollViewer
@@ -31,9 +20,8 @@ namespace Fluent
             {
                 return VisualTreeHelper.HitTest(this.GetVisualChild(0), hitTestParameters.HitPoint);
             }
+
             return base.HitTestCore(hitTestParameters);
         }
-
-        #endregion
     }
 }

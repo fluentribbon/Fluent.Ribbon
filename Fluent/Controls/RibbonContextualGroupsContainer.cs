@@ -1,12 +1,3 @@
-#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
 namespace Fluent
 {
     using System;
@@ -21,13 +12,7 @@ namespace Fluent
     /// </summary>
     public class RibbonContextualGroupsContainer : Panel
     {
-        #region Fields
-
         private readonly List<Size> sizes = new List<Size>();
-
-        #endregion
-
-        #region Overrides
 
         /// <summary>
         /// When overridden in a derived class, positions child elements and determines a size for
@@ -150,7 +135,5 @@ namespace Fluent
 
             return new Size(x, height);
         }
-
-        #endregion
     }
 }
