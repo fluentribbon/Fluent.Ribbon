@@ -176,6 +176,7 @@
                     <Grid x:Name="grid"
                           Background="{TemplateBinding Background}"
                           Margin="{TemplateBinding GlassBorderThickness}" />
+                    
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
                                 Orientation="Horizontal"

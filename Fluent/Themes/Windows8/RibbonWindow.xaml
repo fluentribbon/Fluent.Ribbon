@@ -141,17 +141,8 @@
                           IsHitTestVisible="True" />
 
                     <Grid x:Name="grid"
-                          Background="{TemplateBinding Background}">
-                        <Grid.Margin>
-                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                <Binding Source="0" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="GlassBorderThickness.Top" />
-                                <Binding Source="0" />
-                                <Binding Source="0" />
-                            </MultiBinding>
-                        </Grid.Margin>                        
-                    </Grid>
+                          Background="{TemplateBinding Background}"
+                          Margin="{TemplateBinding GlassBorderThickness}" />
                     
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
@@ -705,11 +696,6 @@
                 <Setter Property="GlassBorderThickness"
                         Value="0,50,0,0" />
             </MultiTrigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
