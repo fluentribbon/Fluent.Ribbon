@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Media;
 
     /// <summary>
     /// Helper-Class for switching states in ToggleButton-Groups
@@ -11,7 +12,13 @@
     public class ToggleButtonHelper
     {
         // Grouped buttons
-        private static readonly Dictionary<string, List<WeakReference>> groupedButtons = new Dictionary<string, List<WeakReference>>();
+        [ThreadStatic]
+        private static Dictionary<string, List<WeakReference>> groupedButtons;
+
+        private static Dictionary<string, List<WeakReference>> GroupedButtons
+        {
+            get { return groupedButtons ?? (groupedButtons = new Dictionary<string, List<WeakReference>>()); }
+        }
 
         /// <summary>
         /// Handles changes to <see cref="IToggleButton.GroupName"/>
@@ -54,7 +61,7 @@
             if (baseIsChecked.HasValue == false
                 || baseIsChecked.Value == false)
             {
-                var buttons = GetButtonsInGroup(toggleButton.GroupName);
+                var buttons = GetButtonsInGroup(toggleButton);
 
                 // We can not allow that there is no button checked
                 foreach (var item in buttons)
@@ -84,16 +91,44 @@
             var button = (IToggleButton)d;
 
             // Uncheck other toggle buttons
-            if (!newValue.HasValue || !newValue.Value || button.GroupName == null)
+            if (newValue.HasValue == false 
+                || newValue.Value == false 
+                || button.GroupName == null)
             {
                 return;
             }
 
-            var buttons = GetButtonsInGroup(button.GroupName);
+            List<WeakReference> buttons;
 
-            foreach (var item in buttons.Where(item => item != button))
+            if (GroupedButtons.TryGetValue(button.GroupName, out buttons) == false)
             {
-                item.IsChecked = false;
+                return;
+            }
+
+            var rootScope = PresentationSource.FromVisual((Visual)button);
+
+            // Get all elements bound to this key and remove this element
+            for (var i = 0; i < buttons.Count;)
+            {
+                var weakReference = buttons[i];
+                var currentButton = weakReference.Target as IToggleButton;
+                if (currentButton == null)
+                {
+                    // Remove dead instances
+                    buttons.RemoveAt(i);
+                }
+                else
+                {
+                    // Uncheck all checked RadioButtons different from the current one
+                    if (currentButton != button 
+                        && currentButton.IsChecked == true 
+                        && rootScope == PresentationSource.FromVisual((Visual)currentButton))
+                    {
+                        currentButton.IsChecked = false;
+                    }
+                    
+                    i++;
+                }
             }
         }
 
@@ -104,12 +139,17 @@
         {
             List<WeakReference> buttons;
 
-            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            if (GroupedButtons.TryGetValue(groupName, out buttons) == false)
             {
                 return;
             }
 
-            buttons.RemoveAt(buttons.FindIndex(x => (x.IsAlive && ((IToggleButton)x.Target) == toggleButton)));
+            PurgeDead(buttons, toggleButton);
+
+            if (buttons.Count == 0)
+            {
+                GroupedButtons.Remove(groupName);
+            }
         }
 
         /// <summary>
@@ -119,10 +159,14 @@
         {
             List<WeakReference> buttons;
 
-            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            if (GroupedButtons.TryGetValue(groupName, out buttons) == false)
             {
                 buttons = new List<WeakReference>();
-                groupedButtons.Add(groupName, buttons);
+                GroupedButtons.Add(groupName, buttons);
+            }
+            else
+            {
+                PurgeDead(buttons, null);
             }
 
             buttons.Add(new WeakReference(toggleButton));
@@ -131,16 +175,41 @@
         /// <summary>
         /// Gets all buttons in the given group
         /// </summary>
-        private static IEnumerable<IToggleButton> GetButtonsInGroup(string groupName)
+        private static IEnumerable<IToggleButton> GetButtonsInGroup(IToggleButton button)
         {
             List<WeakReference> buttons;
 
-            if (!groupedButtons.TryGetValue(groupName, out buttons))
+            if (GroupedButtons.TryGetValue(button.GroupName, out buttons) == false)
             {
-                return new List<IToggleButton>();
+                return Enumerable.Empty<IToggleButton>();
             }
 
-            return buttons.Where(x => x.IsAlive).Select(x => (IToggleButton)x.Target).ToList();
+            PurgeDead(buttons, null);
+
+            var rootScope = PresentationSource.FromVisual((Visual)button);
+
+            return buttons
+                .Where(x => rootScope == PresentationSource.FromVisual((Visual)x.Target))
+                .Select(x => (IToggleButton)x.Target).ToList();
+        }
+
+        private static void PurgeDead(List<WeakReference> elements, object elementToRemove)
+        {
+            for (var i = 0; i < elements.Count;)
+            {
+                var weakReference = elements[i];
+                var element = weakReference.Target;
+
+                if (element == null 
+                    || element == elementToRemove)
+                {
+                    elements.RemoveAt(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
         }
     }
 }
