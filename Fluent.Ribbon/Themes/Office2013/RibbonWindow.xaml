@@ -282,7 +282,7 @@
                 Value="0" />
         <!-- Cheat with GlassFrameThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
         <Setter Property="GlassFrameThickness"
-                Value="0,0,0,1" />
+                Value="0" />
         <Setter Property="DontUseDwm"
                 Value="True" />
         <Setter Property="Foreground">

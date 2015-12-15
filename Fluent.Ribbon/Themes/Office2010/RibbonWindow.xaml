@@ -757,9 +757,8 @@
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
-                <!-- Cheat with GlassFrameThickness. We have to set something else than 0 to avoid some bugs in the WindowChrome class. -->
                 <Setter Property="GlassFrameThickness"
-                        Value="0,0,0,1" />
+                        Value="0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">
