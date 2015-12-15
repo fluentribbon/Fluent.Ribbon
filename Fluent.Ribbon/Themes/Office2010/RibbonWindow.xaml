@@ -174,8 +174,11 @@
 
                     <Grid x:Name="grid"
                           Background="{TemplateBinding Background}"
-                          Margin="{TemplateBinding GlassFrameThickness}" />
-                    
+                          Margin="{TemplateBinding GlassFrameThickness}">
+                        <Border Background="{TemplateBinding Background}"
+                                Margin="0,-2,0,0" />
+                    </Grid>
+
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
                                 Orientation="Horizontal"
@@ -743,7 +746,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="GlassFrameThickness"
-                        Value="0,50,0,0" />
+                        Value="0,57,0,0" />
             </MultiTrigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
@@ -758,6 +761,11 @@
                 <Setter Property="Template"
                         Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
+            <Trigger Property="WindowState"
+                     Value="Maximized">
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
+            </Trigger>            
         </Style.Triggers>
     </Style>
 </ResourceDictionary>
