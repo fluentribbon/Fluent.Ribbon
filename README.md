@@ -21,7 +21,7 @@ Fluent Ribbon Control Suite is a library that implements an Office-like user int
 
 ### Contact
 
-If you wish to contact me (batzen) directly please use twitter https://twitter.com/batzendev.
+If you wish to contact me (batzen) directly please use [twitter](https://twitter.com/batzendev) or [gitter](https://gitter.im/batzen).
 
 ### Contributing
 
@@ -31,6 +31,11 @@ If you wish to contact me (batzen) directly please use twitter https://twitter.c
 *   Help us translating
 *   Help us updating the documentation and walkthrough
 *   Help us writing a changelog/release notes for the next version
+
+### Development requirements
+* Visual Studio 2015
+* Optional but recommended
+  * Editorconfig extension for Visual Studio 2015
 
 ### Settings that should be used
 *   Visual Studio settings which should be used
