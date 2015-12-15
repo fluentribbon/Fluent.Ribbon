@@ -4,17 +4,18 @@ root = true
 [*]
 end_of_line = CRLF
 
-; 4-column tab indentation
 [*.cs]
 indent_style = space
 indent_size = 4
 
-; 4-column tab indentation
 [*.xaml]
 indent_style = space
 indent_size = 4
 
-; 4-column tab indentation
 [*.xml]
 indent_style = space
 indent_size = 4
+
+[*.md]
+indent_style = space
+indent_size = 2
