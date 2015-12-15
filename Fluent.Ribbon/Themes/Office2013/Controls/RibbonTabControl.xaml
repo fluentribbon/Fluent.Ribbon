@@ -362,7 +362,7 @@
                     <Border Height="Auto"
                             BorderBrush="Transparent"
                             Background="{DynamicResource RibbonBackgoundBrush}"
-                            BorderThickness="0,1,0,0">
+                            BorderThickness="0">
                         <ContentControl x:Name="popupContentControl"
                                         Margin="0" />
                     </Border>
