@@ -748,6 +748,11 @@
                 <Setter Property="GlassFrameThickness"
                         Value="0,57,0,0" />
             </MultiTrigger>
+            <Trigger Property="WindowState"
+                     Value="Maximized">
+                <Setter Property="CornerRadius"
+                        Value="0" />
+            </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
