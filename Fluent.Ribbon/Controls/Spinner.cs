@@ -12,6 +12,7 @@
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
+    using Fluent.Converters;
     using Fluent.Internal;
 
     /// <summary>
@@ -23,23 +24,15 @@
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
     public class Spinner : RibbonControl
     {
-        #region Events
-
         /// <summary>
         /// Occurs when value has been changed
         /// </summary>
         public event RoutedPropertyChangedEventHandler<double> ValueChanged;
 
-        #endregion
-
-        #region Fields
-
         // Parts of the control (must be in control template)
         private System.Windows.Controls.TextBox textBox;
         private RepeatButton buttonUp;
         private RepeatButton buttonDown;
-
-        #endregion
 
         #region Properties
 
@@ -91,8 +84,9 @@
         {
             if (this.IsTemplateValid())
             {
-                this.textBox.Text = this.Value.ToString(this.Format, CultureInfo.CurrentCulture);
-                this.Text = this.textBox.Text;
+                var newText = (string)this.TextToValueConverter.ConvertBack(this.Value, typeof(string), this.Format, CultureInfo.CurrentCulture);
+                this.textBox.Text = newText;
+                this.Text = newText;
             }
         }
 
@@ -315,6 +309,25 @@
 
         #endregion
 
+        #region TextToValueConverter
+
+        /// <summary>
+        /// Gets or sets a converter which is used to convert from text to double and from double to text.
+        /// </summary>
+        public IValueConverter TextToValueConverter
+        {
+            get { return (IValueConverter)this.GetValue(TextToValueConverterProperty); }
+            set { this.SetValue(TextToValueConverterProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for TextToValueConverter.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty TextToValueConverterProperty =
+            DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(new SpinnerTextToValueConverter()));
+
+        #endregion TextToValueConverter
+
         #endregion
 
         #region Constructors
@@ -478,30 +491,9 @@
 
         private void TextBoxTextToValue()
         {
-            var text = this.textBox.Text;
+            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), this.Value, CultureInfo.CurrentCulture);
 
-            // Remove all except digits, signs and commas
-            var stringBuilder = new StringBuilder();
-
-            foreach (var symbol in text)
-            {
-                if (char.IsDigit(symbol)
-                    || symbol == ','
-                    || symbol == '.'
-                    || (symbol == '-' && stringBuilder.Length == 0))
-                {
-                    stringBuilder.Append(symbol);
-                }
-            }
-
-            text = stringBuilder.ToString();
-
-            double value;
-
-            if (double.TryParse(text, NumberStyles.Any, CultureInfo.CurrentCulture, out value))
-            {
-                this.Value = GetLimitedValue(this, value);
-            }
+            this.Value = GetLimitedValue(this, newValue);
 
             this.ValueToTextBoxText();
         }
