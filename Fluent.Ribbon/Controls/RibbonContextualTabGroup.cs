@@ -128,7 +128,7 @@ namespace Fluent
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -304,14 +304,11 @@ namespace Fluent
             if (e.ClickCount == 1
                 && firstVisibleItem != null)
             {
-                if (firstVisibleItem.TabControlParent != null)
-                {
-                    var currentSelectedItem = firstVisibleItem.TabControlParent.SelectedItem as RibbonTabItem;
+                var currentSelectedItem = firstVisibleItem.TabControlParent?.SelectedItem as RibbonTabItem;
 
-                    if (currentSelectedItem != null)
-                    {
-                        currentSelectedItem.IsSelected = false;
-                    }
+                if (currentSelectedItem != null)
+                {
+                    currentSelectedItem.IsSelected = false;
                 }
 
                 e.Handled = true;
@@ -339,6 +336,11 @@ namespace Fluent
             base.OnMouseDoubleClick(e);
 
             if (this.parentWidow == null)
+            {
+                return;
+            }
+
+            if (this.parentWidow.ResizeMode == ResizeMode.NoResize)
             {
                 return;
             }
