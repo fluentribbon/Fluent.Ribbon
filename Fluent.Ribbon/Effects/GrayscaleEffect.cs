@@ -16,13 +16,13 @@ namespace Fluent
         /// Dependency property for Input
         /// </summary>
         public static readonly DependencyProperty InputProperty =
-            RegisterPixelShaderSamplerProperty("Input", typeof(GrayscaleEffect), 0);
+            RegisterPixelShaderSamplerProperty(nameof(Input), typeof(GrayscaleEffect), 0);
 
         /// <summary>
         /// Dependency property for FilterColor
         /// </summary>
         public static readonly DependencyProperty FilterColorProperty =
-            DependencyProperty.Register("FilterColor", typeof(Color), typeof(GrayscaleEffect),
+            DependencyProperty.Register(nameof(FilterColor), typeof(Color), typeof(GrayscaleEffect),
             new UIPropertyMetadata(Color.FromArgb(255, 255, 255, 255), PixelShaderConstantCallback(0)));
 
         /// <summary>
@@ -30,19 +30,22 @@ namespace Fluent
         /// </summary>
         public GrayscaleEffect()
         {
-            var pixelShader = new PixelShader();
-            var prop = DesignerProperties.IsInDesignModeProperty;
+            this.PixelShader = this.CreatePixelShader();
 
-            var isInDesignMode = (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
-            if (!isInDesignMode)
+            this.UpdateShaderValue(InputProperty);
+            this.UpdateShaderValue(FilterColorProperty);
+        }
+
+        private PixelShader CreatePixelShader()
+        {
+            var pixelShader = new PixelShader();
+
+            if (DesignerProperties.GetIsInDesignMode(this) == false)
             {
                 pixelShader.UriSource = new Uri("/Fluent;component/Themes/Office2010/Effects/Grayscale.ps", UriKind.Relative);
             }
 
-            this.PixelShader = pixelShader;
-
-            this.UpdateShaderValue(InputProperty);
-            this.UpdateShaderValue(FilterColorProperty);
+            return pixelShader;
         }
 
         /// <summary>
@@ -52,7 +55,7 @@ namespace Fluent
         {
             get
             {
-                return ((Brush)(this.GetValue(InputProperty)));
+                return (Brush)this.GetValue(InputProperty);
             }
             set
             {
@@ -67,7 +70,7 @@ namespace Fluent
         {
             get
             {
-                return ((Color)(this.GetValue(FilterColorProperty)));
+                return (Color)this.GetValue(FilterColorProperty);
             }
             set
             {
