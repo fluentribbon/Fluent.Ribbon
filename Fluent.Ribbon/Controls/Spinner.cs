@@ -491,7 +491,8 @@
 
         private void TextBoxTextToValue()
         {
-            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), this.Value, CultureInfo.CurrentCulture);
+            var converterParam = new Tuple<string, double>(this.Format, this.Value);
+            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
 
             this.Value = GetLimitedValue(this, newValue);
 

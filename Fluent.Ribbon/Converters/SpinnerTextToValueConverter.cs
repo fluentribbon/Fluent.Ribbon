@@ -9,7 +9,11 @@
     {
         public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return this.TextToDouble((string)value, (double)parameter, culture);
+            var converterParam = (Tuple<string, double>)parameter;
+            var format = converterParam.Item1;
+            var previousValue = converterParam.Item2;
+
+            return this.TextToDouble((string)value, format, previousValue, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -17,7 +21,7 @@
             return this.DoubleToText((double)value, (string)parameter, culture);
         }
 
-        public virtual double TextToDouble(string text, double previousValue, CultureInfo culture)
+        public virtual double TextToDouble(string text, string format, double previousValue, CultureInfo culture)
         {
             // Remove all except digits, signs and commas
             var stringBuilder = new StringBuilder();
