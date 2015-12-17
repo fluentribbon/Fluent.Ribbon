@@ -4,11 +4,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ApplicationMenuItem.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
         <ControlTemplate.Resources>
@@ -158,8 +153,17 @@
                                         BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
                                         Width="{TemplateBinding RightPaneWidth}"
                                         Background="{DynamicResource GalleryBackgroundBrush}">
-                                    <ContentPresenter ContentSource="RightPaneContent"
-                                                      x:Name="PART_RightContentPresenter" />
+                                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Style="{DynamicResource MenuScrollViewer}"
+                                                  IsTabStop="False"
+                                                  Margin="1"
+                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                  SnapsToDevicePixels="True"
+                                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                        <ContentPresenter ContentSource="RightPaneContent"
+                                                          x:Name="PART_RightContentPresenter" />
+                                    </ScrollViewer>
                                 </Border>
                                 <Border Grid.Row="2"
                                         Grid.ColumnSpan="2"
