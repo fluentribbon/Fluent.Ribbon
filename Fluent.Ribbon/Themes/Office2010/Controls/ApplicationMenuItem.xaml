@@ -5,11 +5,6 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\MenuItem.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Converters:ApplicationMenuRightContentExtractorConverter x:Key="ApplicationMenuRightContentExtractorConvert" />
 
     <!-- Second level-->
@@ -25,7 +20,8 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="53"
+              MinHeight="53"
+              Height="Auto"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -176,7 +172,8 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="53"
+              MinHeight="53"
+              Height="Auto"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -436,6 +433,7 @@
                                               Margin="1"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
+                                                MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -515,7 +513,8 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
-              Height="53"
+              MinHeight="53"
+              Height="Auto"
               Background="#00000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
@@ -704,6 +703,7 @@
                                               Style="{DynamicResource MenuScrollViewer}"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
+                                                MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -1221,6 +1221,7 @@
                                               Margin="1"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
+                                                MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -1586,6 +1587,7 @@
                                               Style="{DynamicResource MenuScrollViewer}"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
+                                                MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
