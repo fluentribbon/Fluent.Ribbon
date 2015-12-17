@@ -883,6 +883,16 @@
                        Grid.Column="1"
                        d:LayoutOverrides="Width"
                        TextTrimming="CharacterEllipsis" />
+            <TextBlock x:Name="textBlockDesc"
+                       Text="{TemplateBinding Description}"
+                       Width="Auto"
+                       HorizontalAlignment="Right"
+                       Height="Auto"
+                       Margin="0,3,3,3"
+                       VerticalAlignment="Center"
+                       Grid.Column="2"
+                       d:LayoutOverrides="Width"
+                       TextWrapping="NoWrap" />            
             <Rectangle x:Name="rectangle"
                        Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
                        Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"

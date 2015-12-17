@@ -39,12 +39,27 @@
             this.Items.Add(new GalleryItemViewModel("Group 1", "4"));
             this.Items.Add(new GalleryItemViewModel("Group 1", "5"));
             this.Items.Add(new GalleryItemViewModel("Group 1", "6"));
+
             this.Items.Add(new GalleryItemViewModel("Group 2", "10"));
             this.Items.Add(new GalleryItemViewModel("Group 2", "20"));
             this.Items.Add(new GalleryItemViewModel("Group 2", "30"));
             this.Items.Add(new GalleryItemViewModel("Group 2", "40"));
             this.Items.Add(new GalleryItemViewModel("Group 2", "50"));
             this.Items.Add(new GalleryItemViewModel("Group 2", "60"));
+
+            this.Items.Add(new GalleryItemViewModel("Group 3", "100"));
+            this.Items.Add(new GalleryItemViewModel("Group 3", "200"));
+            this.Items.Add(new GalleryItemViewModel("Group 3", "300"));
+            this.Items.Add(new GalleryItemViewModel("Group 3", "400"));
+            this.Items.Add(new GalleryItemViewModel("Group 3", "500"));
+            this.Items.Add(new GalleryItemViewModel("Group 3", "600"));
+
+            this.Items.Add(new GalleryItemViewModel("Group 4", "1000"));
+            this.Items.Add(new GalleryItemViewModel("Group 4", "2000"));
+            this.Items.Add(new GalleryItemViewModel("Group 4", "3000"));
+            this.Items.Add(new GalleryItemViewModel("Group 4", "4000"));
+            this.Items.Add(new GalleryItemViewModel("Group 4", "5000"));
+            this.Items.Add(new GalleryItemViewModel("Group 4", "6000"));
         }
     }
 }

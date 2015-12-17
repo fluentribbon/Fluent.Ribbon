@@ -279,29 +279,30 @@
 
                         <Fluent:MenuItem Header="New"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png">
-
                             <Fluent:MenuItem Header="Text document"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
 
                             <Fluent:MenuItem Header="Spreadsheet"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
-
                         </Fluent:MenuItem>
 
-                        <Fluent:MenuItem Header="Save As" IsSplited="True"
+                        <Fluent:MenuItem Header="Save As"
+                                         IsSplited="True"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png">
-
-                            <Fluent:MenuItem Header="Standard format"
+                            <Fluent:MenuItem Header="Standard format"                                             
                                              Description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
+                                             ToolTip="Save something in standard format"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
 
                             <Fluent:MenuItem Header="Export"
+                                             ToolTip="Export something"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
-
                         </Fluent:MenuItem>
                         
                         <Fluent:MenuItem Header="Open"
-                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
+                                         Description="CTRL + O"
+                                         ToolTip="Open object"
+                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
 
                         <Separator />
 
