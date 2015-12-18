@@ -113,7 +113,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="CanAddToQuickAccessToolBar"
-                Value="False" />        
+                Value="False" />
     </Style>
 
     <Style x:Key="RibbonTabControlStyle"
@@ -456,6 +456,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+
+                            <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="2" />
 
                             <DockPanel LastChildFill="True">
                                 <ContentPresenter VerticalAlignment="Stretch"

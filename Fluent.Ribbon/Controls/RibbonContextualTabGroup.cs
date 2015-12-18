@@ -8,6 +8,8 @@ using System.Windows.Input;
 
 namespace Fluent
 {
+    using Fluent.Helpers;
+
     /// <summary>
     /// Represents contextual tab group
     /// </summary>
@@ -331,23 +333,11 @@ namespace Fluent
         /// Raises the MouseDoubleClick routed event
         /// </summary>
         /// <param name="e">The event data</param>
-        protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnMouseDoubleClick(e);
+            base.OnMouseLeftButtonDown(e);
 
-            if (this.parentWidow == null)
-            {
-                return;
-            }
-
-            if (this.parentWidow.ResizeMode == ResizeMode.NoResize)
-            {
-                return;
-            }
-
-            this.parentWidow.WindowState = this.parentWidow.WindowState == WindowState.Maximized
-                ? WindowState.Normal
-                : WindowState.Maximized;
+            WindowSteeringHelper.HandleMouseLeftButtonDown(e, false, true);
         }
 
         #endregion

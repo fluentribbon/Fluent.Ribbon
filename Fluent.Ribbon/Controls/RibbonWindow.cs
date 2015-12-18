@@ -6,11 +6,10 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Interactivity;
-    using System.Windows.Interop;
     using ControlzEx.Behaviours;
     
     using Fluent.Extensions;
-    using Fluent.Metro.Native;
+    using Fluent.Helpers;
 
     //using WindowChrome = System.Windows.Shell.WindowChrome;
     using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
@@ -59,7 +58,7 @@
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue, OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -74,7 +73,7 @@
         /// Using a DependencyProperty as the backing store for GlassFrameThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register("GlassFrameThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("GlassFrameThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D)));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -89,7 +88,7 @@
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D), OnWindowChromeRelevantPropertyChanged));
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D)));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
@@ -181,8 +180,6 @@
         {
             StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-
-            RibbonProperties.TitleBarHeightProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnWindowChromeRelevantPropertyChanged));
         }
 
         // Coerce object style
@@ -259,26 +256,11 @@
 
         #endregion
 
-        private static void OnWindowChromeRelevantPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = d as RibbonWindow;
-
-            if (window == null)
-            {
-                return;
-            }
-        }
-
         private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var window = d as RibbonWindow;
 
-            if (window == null)
-            {
-                return;
-            }
-
-            window.UpdateCanUseDwm();
+            window?.UpdateCanUseDwm();
         }
 
         // Size change to collapse ribbon
@@ -362,62 +344,38 @@
         /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
         protected override void OnStateChanged(EventArgs e)
         {
-            if (this.WindowCommands != null)
-            {
-                this.WindowCommands.RefreshMaximizeIconState();
-            }
+            this.WindowCommands?.RefreshMaximizeIconState();
 
             base.OnStateChanged(e);
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            switch (e.ChangedButton)
             {
-                if (e.ClickCount == 1)
-                {
+                case MouseButton.Left:
+                    if (e.ClickCount == 1)
+                    {
+                        e.Handled = true;
+
+                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, RibbonProperties.GetTitleBarHeight(this))));
+                    }
+                    else if (e.ClickCount == 2)
+                    {
+                        e.Handled = true;
+
+                        this.Close();
+                    }
+                    break;
+
+                case MouseButton.Right:
                     e.Handled = true;
 
-                    ShowSystemMenuPhysicalCoordinates(this, this.PointToScreen(new Point(0, RibbonProperties.GetTitleBarHeight(this))));
-                }
-                else if (e.ClickCount == 2)
-                {
-                    e.Handled = true;
-
-                    this.Close();
-                }
-            }
-            else if (e.ChangedButton == MouseButton.Right)
-            {
-                e.Handled = true;
-
-                this.RunInDispatcherAsync(() =>
-                {
-                    var mousePosition = e.GetPosition(this);
-                    ShowSystemMenuPhysicalCoordinates(this, this.PointToScreen(mousePosition));
-                });
-            }
-        }
-
-        private static void ShowSystemMenuPhysicalCoordinates(Window window, Point physicalScreenLocation)
-        {
-            if (window == null)
-            {
-                return;
-            }
-
-            var hwnd = new WindowInteropHelper(window).Handle;
-            if (hwnd == IntPtr.Zero || !UnsafeNativeMethods.IsWindow(hwnd))
-            {
-                return;
-            }
-
-            var hmenu = UnsafeNativeMethods.GetSystemMenu(hwnd, false);
-
-            var cmd = UnsafeNativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
-            if (0 != cmd)
-            {
-                UnsafeNativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
+                    this.RunInDispatcherAsync(() =>
+                                              {
+                                                  WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+                                              });
+                    break;
             }
         }
 

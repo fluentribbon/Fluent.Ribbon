@@ -295,33 +295,36 @@
                   Width="Auto"
                   Grid.RowSpan="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <DockPanel LastChildFill="True">
-                    <ContentPresenter VerticalAlignment="Stretch"
-                                      ContentSource="Menu"
-                                      DockPanel.Dock="Left" />
-                    <Fluent:RibbonScrollViewer x:Name="scrollViewer"
-                                               DockPanel.Dock="Right"
-                                               HorizontalAlignment="Left"
-                                               Margin="0,-7,1,0"
-                                               Width="Auto"
-                                               Style="{DynamicResource RibbonTabScrollViewer}"
-                                               HorizontalScrollBarVisibility="Auto"
-                                               VerticalScrollBarVisibility="Disabled"
-                                               IsHitTestVisible="True">
-                        <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
-                                                    IsItemsHost="True"
-                                                    Height="Auto"
-                                                    HorizontalAlignment="Stretch"
-                                                    Margin="0" />
-                    </Fluent:RibbonScrollViewer>
-                </DockPanel>
+                <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
+
+                <ContentPresenter Grid.Column="0"  
+                                  VerticalAlignment="Stretch"
+                                  ContentSource="Menu" />
+
+                <Fluent:RibbonScrollViewer Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,-7,1,0"
+                                           Width="Auto"
+                                           Style="{DynamicResource RibbonTabScrollViewer}"
+                                           HorizontalScrollBarVisibility="Auto"
+                                           VerticalScrollBarVisibility="Disabled"
+                                           IsHitTestVisible="True">
+                    <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
+                                                IsItemsHost="True"
+                                                Height="Auto"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="0" />
+                </Fluent:RibbonScrollViewer>
+
                 <StackPanel x:Name="toolbarPlaceholder"
-                            HorizontalAlignment="Left"
-                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Grid.Column="3"
                             Orientation="Horizontal"
                             Margin="0,0,0,1">
                     <Grid Width="22"

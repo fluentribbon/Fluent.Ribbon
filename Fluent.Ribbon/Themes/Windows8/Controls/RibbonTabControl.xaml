@@ -304,6 +304,8 @@
                            Grid.ColumnSpan="2"
                            Margin="0,0,0,1" />
 
+                <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="2" />
+
                 <DockPanel LastChildFill="True">
                     <ContentPresenter VerticalAlignment="Stretch"
                                       ContentSource="Menu"

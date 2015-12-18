@@ -85,8 +85,10 @@
     <Compile Include="Controls\ColorGallery.cs" />
     <Compile Include="Controls\ComboBox.cs" />
     <Compile Include="Controls\ContextMenu.cs" />
+    <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="IHeaderedControl.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\UIHelper.cs" />
