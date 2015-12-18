@@ -22,7 +22,7 @@ namespace Fluent
     /// <summary>
     /// Represents backstage button
     /// </summary>
-    [ContentProperty("Content")]
+    [ContentProperty( "Content" )]
     public class Backstage : RibbonControl
     {
         private static readonly object syncIsOpen = new object();
@@ -52,8 +52,8 @@ namespace Fluent
         /// </summary>
         public bool IsOpen
         {
-            get { return (bool)this.GetValue(IsOpenProperty); }
-            set { this.SetValue(IsOpenProperty, value); }
+            get { return (bool)this.GetValue( IsOpenProperty ); }
+            set { this.SetValue( IsOpenProperty, value ); }
         }
 
         /// <summary>
@@ -61,76 +61,76 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool),
-            typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register( "IsOpen", typeof( bool ),
+            typeof( Backstage ), new UIPropertyMetadata( false, OnIsOpenChanged ) );
 
         /// <summary>
         /// Gets or sets the duration for the hide animation
         /// </summary>
         public Duration HideAnimationDuration
         {
-            get { return (Duration)this.GetValue(HideAnimationDurationProperty); }
-            set { this.SetValue(HideAnimationDurationProperty, value); }
+            get { return (Duration)this.GetValue( HideAnimationDurationProperty ); }
+            set { this.SetValue( HideAnimationDurationProperty, value ); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HideAnimationDuration.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideAnimationDurationProperty = DependencyProperty.Register("HideAnimationDuration", typeof(Duration), typeof(Backstage), new PropertyMetadata(null));
+        public static readonly DependencyProperty HideAnimationDurationProperty = DependencyProperty.Register( "HideAnimationDuration", typeof( Duration ), typeof( Backstage ), new PropertyMetadata( null ) );
 
         /// <summary>
         /// Gets or sets whether context tabs on the titlebar should be hidden when backstage is open
         /// </summary>
         public bool HideContextTabsOnOpen
         {
-            get { return (bool)this.GetValue(HideContextTabsOnOpenProperty); }
-            set { this.SetValue(HideContextTabsOnOpenProperty, value); }
+            get { return (bool)this.GetValue( HideContextTabsOnOpenProperty ); }
+            set { this.SetValue( HideContextTabsOnOpenProperty, value ); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideContextTabsOnOpenProperty = DependencyProperty.Register("HideContextTabsOnOpen", typeof(bool), typeof(Backstage), new PropertyMetadata(false));
+        public static readonly DependencyProperty HideContextTabsOnOpenProperty = DependencyProperty.Register( "HideContextTabsOnOpen", typeof( bool ), typeof( Backstage ), new PropertyMetadata( false ) );
 
         /// <summary>
         /// Gets or sets whether to close the backstage when Esc is pressed
         /// </summary>
         public bool CloseOnEsc
         {
-            get { return (bool)this.GetValue(CloseOnEscProperty); }
-            set { this.SetValue(CloseOnEscProperty, value); }
+            get { return (bool)this.GetValue( CloseOnEscProperty ); }
+            set { this.SetValue( CloseOnEscProperty, value ); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for CloseOnEsc.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CloseOnEscProperty = DependencyProperty.Register("CloseOnEsc", typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+        public static readonly DependencyProperty CloseOnEscProperty = DependencyProperty.Register( "CloseOnEsc", typeof( bool ), typeof( Backstage ), new PropertyMetadata( true ) );
 
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsOpenChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
         {
             var backstage = (Backstage)d;
 
-            lock (syncIsOpen)
+            lock( syncIsOpen )
             {
-                if ((bool)e.NewValue)
+                if( (bool)e.NewValue )
                 {
                     backstage.Show();
                 }
                 else
                 {
-                    if (backstage.HideAnimationDuration.HasTimeSpan)
+                    if( backstage.HideAnimationDuration.HasTimeSpan )
                     {
                         var timespan = backstage.HideAnimationDuration.TimeSpan;
 
-                        Task.Factory.StartNew(() =>
+                        Task.Factory.StartNew( () =>
                         {
-                            Thread.Sleep(timespan);
+                            Thread.Sleep( timespan );
 
-                            backstage.Dispatcher.RunInDispatcher(backstage.Hide);
-                        });
+                            backstage.Dispatcher.RunInDispatcher( backstage.Hide );
+                        } );
                     }
                     else
                     {
@@ -139,9 +139,9 @@ namespace Fluent
                 }
 
                 // Invoke the event
-                if (backstage.IsOpenChanged != null)
+                if( backstage.IsOpenChanged != null )
                 {
-                    backstage.IsOpenChanged(backstage, e);
+                    backstage.IsOpenChanged( backstage, e );
                 }
             }
         }
@@ -155,8 +155,8 @@ namespace Fluent
         /// </summary>
         public UIElement Content
         {
-            get { return (UIElement)this.GetValue(ContentProperty); }
-            set { this.SetValue(ContentProperty, value); }
+            get { return (UIElement)this.GetValue( ContentProperty ); }
+            set { this.SetValue( ContentProperty, value ); }
         }
 
         /// <summary>
@@ -164,20 +164,20 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(UIElement), typeof(Backstage),
-            new UIPropertyMetadata(null, OnContentChanged));
+            DependencyProperty.Register( "Content", typeof( UIElement ), typeof( Backstage ),
+            new UIPropertyMetadata( null, OnContentChanged ) );
 
-        static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        static void OnContentChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
         {
             var backstage = (Backstage)d;
-            if (e.OldValue != null)
+            if( e.OldValue != null )
             {
-                backstage.RemoveLogicalChild(e.OldValue);
+                backstage.RemoveLogicalChild( e.OldValue );
             }
 
-            if (e.NewValue != null)
+            if( e.NewValue != null )
             {
-                backstage.AddLogicalChild(e.NewValue);
+                backstage.AddLogicalChild( e.NewValue );
             }
         }
 
@@ -192,7 +192,7 @@ namespace Fluent
         {
             get
             {
-                if (this.Content != null)
+                if( this.Content != null )
                 {
                     yield return this.Content;
                 }
@@ -208,14 +208,14 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
+        [SuppressMessage( "Microsoft.Performance", "CA1810" )]
         static Backstage()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( Backstage ), new FrameworkPropertyMetadata( typeof( Backstage ) ) );
             // Disable QAT for this control
-            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(false));
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata( typeof( Backstage ), new FrameworkPropertyMetadata( false ) );
 
-            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata( typeof( Backstage ), new FrameworkPropertyMetadata( KeyboardNavigationMode.Cycle ) );
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Fluent
             this.Unloaded += this.OnBackstageUnloaded;
         }
 
-        private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
+        private void OnPopupDismiss( object sender, DismissPopupEventArgs e )
         {
             this.IsOpen = false;
         }
@@ -254,23 +254,23 @@ namespace Fluent
         private double savedWindowHeight = double.NaN;
 
         // Opens backstage on an Adorner layer
-        private void Show()
+        protected virtual bool Show()
         {
             // don't open the backstage while in design mode
-            if (DesignerProperties.GetIsInDesignMode(this))
+            if( DesignerProperties.GetIsInDesignMode( this ) )
             {
-                return;
+                return false;
             }
 
-            if (this.IsLoaded == false)
+            if( this.IsLoaded == false )
             {
                 this.Loaded += this.OnDelayedShow;
-                return;
+                return false;
             }
 
-            if (this.Content == null)
+            if( this.Content == null )
             {
-                return;
+                return false;
             }
 
             this.CreateAndAttachBackstageAdorner();
@@ -278,41 +278,41 @@ namespace Fluent
             this.ShowAdorner();
 
             var ribbon = this.FindRibbon();
-            if (ribbon != null)
+            if( ribbon != null )
             {
                 ribbon.TabControl.IsDropDownOpen = false;
                 ribbon.TabControl.HighlightSelectedItem = false;
                 ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
 
                 // Disable QAT & title bar
-                if (ribbon.QuickAccessToolBar != null)
+                if( ribbon.QuickAccessToolBar != null )
                 {
                     ribbon.QuickAccessToolBar.IsEnabled = false;
                 }
 
-                if (ribbon.TitleBar != null)
+                if( ribbon.TitleBar != null )
                 {
                     ribbon.TitleBar.IsEnabled = false;
                     ribbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
             }
 
-            var window = Window.GetWindow(this);
+            var window = Window.GetWindow( this );
 
-            this.SaveWindowSize(window);
-            this.SaveWindowMinSize(window);
+            this.SaveWindowSize( window );
+            this.SaveWindowMinSize( window );
 
-            if (window != null)
+            if( window != null )
             {
                 window.KeyDown += this.HandleWindowKeyDown;
 
 
-                if (this.savedWindowMinWidth < 500)
+                if( this.savedWindowMinWidth < 500 )
                 {
                     window.MinWidth = 500;
                 }
 
-                if (this.savedWindowMinHeight < 400)
+                if( this.savedWindowMinHeight < 400 )
                 {
                     window.MinHeight = 400;
                 }
@@ -320,19 +320,21 @@ namespace Fluent
                 window.SizeChanged += this.OnWindowSizeChanged;
 
                 // We have to collapse WindowsFormsHost while Backstage is open
-                this.CollapseWindowsFormsHosts(window);
+                this.CollapseWindowsFormsHosts( window );
             }
 
             var content = this.Content as IInputElement;
-            if (content != null)
+            if( content != null )
             {
                 content.Focus();
             }
+
+            return true;
         }
 
         private void ShowAdorner()
         {
-            if (this.adorner == null)
+            if( this.adorner == null )
             {
                 return;
             }
@@ -342,7 +344,7 @@ namespace Fluent
 
         private void HideAdorner()
         {
-            if (this.adorner == null)
+            if( this.adorner == null )
             {
                 return;
             }
@@ -352,22 +354,22 @@ namespace Fluent
 
         private void CreateAndAttachBackstageAdorner()
         {
-            if (this.adorner != null)
+            if( this.adorner != null )
             {
                 return;
             }
 
             FrameworkElement topLevelElement = null;
 
-            if (DesignerProperties.GetIsInDesignMode(this))
+            if( DesignerProperties.GetIsInDesignMode( this ) )
             {
                 // TODO: in design mode it is required to use design time adorner
-                topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent( this );
             }
             else
             {
-                var mainWindow = Window.GetWindow(this);
-                if (mainWindow == null)
+                var mainWindow = Window.GetWindow( this );
+                if( mainWindow == null )
                 {
                     return;
                 }
@@ -376,7 +378,7 @@ namespace Fluent
 
                 var fe = content as FrameworkElement; // Content may be an arbitrary .NET object when set using a databinding and using data templates.
 
-                if (fe != null)
+                if( fe != null )
                 {
                     topLevelElement = fe;
                 }
@@ -384,55 +386,56 @@ namespace Fluent
                 {
                     // If Content is not a FrameworkElement we try to find the ContentPresenter 
                     // containing the template to display the content.
-                    var contentPresenter = UIHelper.FindVisualChild<ContentPresenter>(mainWindow);
+                    var contentPresenter = UIHelper.FindVisualChild<ContentPresenter>( mainWindow );
 
-                    if (contentPresenter != null && contentPresenter.Content == content)
+                    if( contentPresenter != null && contentPresenter.Content == content )
                     {
                         // set the root element of the template as the top level element.
-                        topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild(contentPresenter, 0);
+                        topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild( contentPresenter, 0 );
                     }
                 }
             }
 
-            if (topLevelElement == null)
+            if( topLevelElement == null )
             {
                 return;
             }
 
-            this.adorner = new BackstageAdorner(topLevelElement, this);
+            this.adorner = new BackstageAdorner( topLevelElement, this );
 
-            var layer = AdornerLayer.GetAdornerLayer(this);
-            layer.Add(this.adorner);
+            var layer = AdornerLayer.GetAdornerLayer( this );
+            layer.Add( this.adorner );
 
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage,
-                (sender, args) =>
-                {
-                    this.IsOpen = !this.IsOpen;
-                }));
+            layer.CommandBindings.Add( new CommandBinding( RibbonCommands.OpenBackstage,
+                 ( sender, args ) =>
+                 {
+                     var target = ( (BackstageAdorner)args.Source ).Backstage;
+                     target.IsOpen = !target.IsOpen;
+                 } ) );
         }
 
 
         private void DestroyAdorner()
         {
-            if (this.adorner == null)
+            if( this.adorner == null )
             {
                 return;
             }
 
-            var layer = AdornerLayer.GetAdornerLayer(this);
-            layer.Remove(this.adorner);
+            var layer = AdornerLayer.GetAdornerLayer( this );
+            layer.Remove( this.adorner );
 
             this.adorner.Clear();
             this.adorner = null;
         }
 
-        private void OnDelayedShow(object sender, EventArgs args)
+        private void OnDelayedShow( object sender, EventArgs args )
         {
             this.Loaded -= this.OnDelayedShow;
 
             // Delaying show so everthing can load properly.
             // If we don't run this in the background setting IsOpen=true on application start we don't have access to the Bastage from the BackstageTabControl.
-            this.RunInDispatcherAsync(this.Show, DispatcherPriority.Background);
+            this.RunInDispatcherAsync( new Action( () => this.Show() ), DispatcherPriority.Background );
         }
 
         // Hide backstage
@@ -440,13 +443,13 @@ namespace Fluent
         {
             this.Loaded -= this.OnDelayedShow;
 
-            if (this.Content == null)
+            if( this.Content == null )
             {
                 return;
             }
 
-            if (!this.IsLoaded
-                || this.adorner == null)
+            if( !this.IsLoaded
+                || this.adorner == null )
             {
                 return;
             }
@@ -454,40 +457,40 @@ namespace Fluent
             this.HideAdorner();
 
             var ribbon = this.FindRibbon();
-            if (ribbon != null)
+            if( ribbon != null )
             {
                 ribbon.TabControl.HighlightSelectedItem = true;
                 ribbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
 
                 // Restore enable under QAT & title bar
-                if (ribbon.QuickAccessToolBar != null)
+                if( ribbon.QuickAccessToolBar != null )
                 {
                     ribbon.QuickAccessToolBar.IsEnabled = true;
                     ribbon.QuickAccessToolBar.Refresh();
                 }
 
-                if (ribbon.TitleBar != null)
+                if( ribbon.TitleBar != null )
                 {
                     ribbon.TitleBar.IsEnabled = true;
                     ribbon.TitleBar.HideContextTabs = false;
                 }
             }
 
-            var window = Window.GetWindow(this);
-            if (window != null)
+            var window = Window.GetWindow( this );
+            if( window != null )
             {
                 window.PreviewKeyDown -= this.HandleWindowKeyDown;
                 window.SizeChanged -= this.OnWindowSizeChanged;
 
-                if (double.IsNaN(this.savedWindowMinWidth) == false
-                    && double.IsNaN(this.savedWindowMinHeight) == false)
+                if( double.IsNaN( this.savedWindowMinWidth ) == false
+                    && double.IsNaN( this.savedWindowMinHeight ) == false )
                 {
                     window.MinWidth = this.savedWindowMinWidth;
                     window.MinHeight = this.savedWindowMinHeight;
                 }
 
-                if (double.IsNaN(this.savedWindowWidth) == false
-                    && double.IsNaN(this.savedWindowHeight) == false)
+                if( double.IsNaN( this.savedWindowWidth ) == false
+                    && double.IsNaN( this.savedWindowHeight ) == false )
                 {
                     window.Width = this.savedWindowWidth;
                     window.Height = this.savedWindowHeight;
@@ -495,7 +498,7 @@ namespace Fluent
             }
 
             // Uncollapse elements
-            foreach (var element in this.collapsedElements)
+            foreach( var element in this.collapsedElements )
             {
                 element.Key.Visibility = element.Value;
             }
@@ -508,18 +511,18 @@ namespace Fluent
         {
             DependencyObject item = this;
 
-            while (item != null
-                && !(item is Ribbon))
+            while( item != null
+                && !( item is Ribbon ) )
             {
-                item = VisualTreeHelper.GetParent(item);
+                item = VisualTreeHelper.GetParent( item );
             }
 
             return (Ribbon)item;
         }
 
-        private void SaveWindowMinSize(Window window)
+        private void SaveWindowMinSize( Window window )
         {
-            if (window == null)
+            if( window == null )
             {
                 this.savedWindowMinWidth = double.NaN;
                 this.savedWindowMinHeight = double.NaN;
@@ -530,9 +533,9 @@ namespace Fluent
             this.savedWindowMinHeight = window.MinHeight;
         }
 
-        private void SaveWindowSize(Window window)
+        private void SaveWindowSize( Window window )
         {
-            if (window == null)
+            if( window == null )
             {
                 this.savedWindowWidth = double.NaN;
                 this.savedWindowHeight = double.NaN;
@@ -543,20 +546,20 @@ namespace Fluent
             this.savedWindowHeight = window.ActualHeight;
         }
 
-        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnWindowSizeChanged( object sender, SizeChangedEventArgs e )
         {
-            this.SaveWindowSize(Window.GetWindow(this));
+            this.SaveWindowSize( Window.GetWindow( this ) );
         }
 
-        private void OnTabControlRequestBackstageClose(object sender, EventArgs e)
+        private void OnTabControlRequestBackstageClose( object sender, EventArgs e )
         {
             this.IsOpen = false;
         }
 
         // We have to collapse WindowsFormsHost while Backstage is open
-        private void CollapseWindowsFormsHosts(DependencyObject parent)
+        private void CollapseWindowsFormsHosts( DependencyObject parent )
         {
-            if (parent == null)
+            if( parent == null )
             {
                 return;
             }
@@ -564,23 +567,23 @@ namespace Fluent
             var frameworkElement = parent as FrameworkElement;
 
             // Do not hide contents in the backstage area
-            if (parent is BackstageAdorner) return;
+            if( parent is BackstageAdorner ) return;
 
-            if (frameworkElement != null)
+            if( frameworkElement != null )
             {
-                if ((parent is HwndHost) &&
-                    frameworkElement.Visibility != Visibility.Collapsed)
+                if( ( parent is HwndHost ) &&
+                    frameworkElement.Visibility != Visibility.Collapsed )
                 {
-                    this.collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
+                    this.collapsedElements.Add( frameworkElement, frameworkElement.Visibility );
                     frameworkElement.Visibility = Visibility.Collapsed;
                     return;
                 }
             }
 
             // Traverse visual tree
-            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            for( var i = 0; i < VisualTreeHelper.GetChildrenCount( parent ); i++ )
             {
-                this.CollapseWindowsFormsHosts(VisualTreeHelper.GetChild(parent, i));
+                this.CollapseWindowsFormsHosts( VisualTreeHelper.GetChild( parent, i ) );
             }
         }
 
@@ -588,18 +591,18 @@ namespace Fluent
         /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.KeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs"/> that contains the event data.</param>
-        protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnKeyDown( KeyEventArgs e )
         {
-            if (e.Handled)
+            if( e.Handled )
             {
                 return;
             }
 
-            switch (e.Key)
+            switch( e.Key )
             {
                 case Key.Enter:
                 case Key.Space:
-                    if (this.IsFocused)
+                    if( this.IsFocused )
                     {
                         this.IsOpen = !this.IsOpen;
                         e.Handled = true;
@@ -607,13 +610,13 @@ namespace Fluent
                     break;
             }
 
-            base.OnKeyDown(e);
+            base.OnKeyDown( e );
         }
 
         // Handles backstage Esc key keydown
-        private void HandleWindowKeyDown(object sender, KeyEventArgs e)
+        private void HandleWindowKeyDown( object sender, KeyEventArgs e )
         {
-            if (this.CloseOnEsc && e.Key == Key.Escape)
+            if( this.CloseOnEsc && e.Key == Key.Escape )
             {
                 // only handle ESC when the backstage is open
                 e.Handled = this.IsOpen;
@@ -622,14 +625,14 @@ namespace Fluent
             }
         }
 
-        private void OnBackstageLoaded(object sender, RoutedEventArgs e)
+        private void OnBackstageLoaded( object sender, RoutedEventArgs e )
         {
-            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.AddHandler( PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss );
         }
 
-        private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
+        private void OnBackstageUnloaded( object sender, RoutedEventArgs e )
         {
-            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.RemoveHandler( PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss );
         }
 
         #endregion
@@ -644,7 +647,7 @@ namespace Fluent
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         ///  The event data reports that the left mouse button was pressed.</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown( MouseButtonEventArgs e )
         {
             this.Click();
         }
@@ -674,14 +677,14 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            if (this.IsOpen)
+            if( this.IsOpen )
             {
                 this.Hide();
             }
 
             this.DestroyAdorner();
 
-            if (this.IsOpen)
+            if( this.IsOpen )
             {
                 this.Show();
             }

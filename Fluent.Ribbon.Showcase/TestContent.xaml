@@ -228,6 +228,26 @@
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
 
+                    <Fluent:Frontstage IsOpen="True">
+                        <Fluent:FrontstageTabControl>
+                            <Fluent:FrontstageTabControl.LeftContent>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="{Binding AppTitle}" FontSize="48" Foreground="White" />
+                                </StackPanel>
+                            </Fluent:FrontstageTabControl.LeftContent>
+
+                            <Fluent:FrontstageTabControl.RightContent>
+                                <DockPanel>
+                                    <TextBox DockPanel.Dock="Top" Text="Search"/>
+                                    <Grid DockPanel.Dock="Top">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">CONTENT</TextBlock>
+                                    </Grid>
+                                </DockPanel>
+                            </Fluent:FrontstageTabControl.RightContent>
+
+                        </Fluent:FrontstageTabControl>
+                    </Fluent:Frontstage>
+
                     <Fluent:ApplicationMenu Header="File"
                                             Visibility="{Binding IsChecked, ElementName=UseApplicationMenu, Converter={StaticResource boolToVisibilityConverter}}">
                         <Fluent:ApplicationMenu.RightPaneContent>

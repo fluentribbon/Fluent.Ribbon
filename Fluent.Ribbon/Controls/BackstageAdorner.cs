@@ -12,10 +12,10 @@ namespace Fluent
     internal class BackstageAdorner : Adorner
     {
         // Backstage
-        private readonly Backstage backstage;
+        public readonly Backstage Backstage;
 
         // Content of Backstage
-        private readonly UIElement backstageContent;
+        public readonly UIElement BackstageContent;
 
         // Collection of visual children
         private readonly VisualCollection visualChildren;
@@ -30,12 +30,12 @@ namespace Fluent
         {
             KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
 
-            this.backstage = backstage;
-            this.backstageContent = this.backstage.Content;
+            this.Backstage = backstage;
+            this.BackstageContent = this.Backstage.Content;
 
             this.visualChildren = new VisualCollection(this) 
                 {
-                    this.backstageContent
+                    this.BackstageContent
                 };
 
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
@@ -79,7 +79,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.backstageContent.Arrange(new Rect(0, 0, finalSize.Width, Math.Max(0, finalSize.Height)));
+            this.BackstageContent.Arrange(new Rect(0, 0, finalSize.Width, Math.Max(0, finalSize.Height)));
             return finalSize;
         }
 
@@ -93,7 +93,7 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            this.backstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height)));
+            this.BackstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height)));
             return this.AdornedElement.RenderSize;
         }
 
