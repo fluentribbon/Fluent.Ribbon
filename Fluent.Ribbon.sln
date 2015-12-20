@@ -22,8 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905-C104-421D-9502-C4DF042EC048}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
-		Build.cmd = Build.cmd
-		BuildForPublish.cmd = BuildForPublish.cmd
+		Build.ps1 = Build.ps1
 		Fluent.Ribbon.msbuild = Fluent.Ribbon.msbuild
 		Fluent.Ribbon.nuspec = Fluent.Ribbon.nuspec
 	EndProjectSection
