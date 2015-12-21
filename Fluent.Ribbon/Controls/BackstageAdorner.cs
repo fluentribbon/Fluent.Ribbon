@@ -12,7 +12,7 @@ namespace Fluent
     internal class BackstageAdorner : Adorner
     {
         // Backstage
-        private readonly Backstage backstage;
+        public readonly Backstage Backstage;
 
         // Content of Backstage
         private readonly UIElement backstageContent;
@@ -30,8 +30,8 @@ namespace Fluent
         {
             KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
 
-            this.backstage = backstage;
-            this.backstageContent = this.backstage.Content;
+            this.Backstage = backstage;
+            this.backstageContent = this.Backstage.Content;
 
             this.visualChildren = new VisualCollection(this) 
                 {

@@ -52,7 +52,7 @@
                     </StackPanel>
                 </Border>
             </DataTemplate>
-            
+
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
                 <Border ToolTip="{Binding Text}">
@@ -93,6 +93,26 @@
 
             <Fluent:Ribbon.Menu>
                 <Grid>
+                    <Fluent:Frontstage IsOpen="True">
+                        <Fluent:FrontstageTabControl>
+                            <Fluent:FrontstageTabControl.LeftContent>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Fluent.Ribbon" FontSize="48" Foreground="White" />
+                                </StackPanel>
+                            </Fluent:FrontstageTabControl.LeftContent>
+
+                            <Fluent:FrontstageTabControl.RightContent>
+                                <DockPanel>
+                                    <TextBox DockPanel.Dock="Top" />
+                                    <Grid DockPanel.Dock="Top">
+                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">CONTENT</TextBlock>
+                                    </Grid>
+                                </DockPanel>
+                            </Fluent:FrontstageTabControl.RightContent>
+
+                        </Fluent:FrontstageTabControl>
+                    </Fluent:Frontstage>
+
                     <!--Backstage items can be keytipped-->
                     <Fluent:Backstage Visibility="{Binding IsChecked, ElementName=UseBackstage, Converter={StaticResource boolToVisibilityConverter}}">
                         <Fluent:BackstageTabControl>
@@ -298,7 +318,7 @@
                                              ToolTip="Export something"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
                         </Fluent:MenuItem>
-                        
+
                         <Fluent:MenuItem Header="Open"
                                          Description="CTRL + O"
                                          ToolTip="Open object"
@@ -399,7 +419,7 @@
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White (Experimental)</Fluent:Button>
                 </Fluent:RibbonGroupBox>
-                
+
                 <Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseBackstage"
@@ -411,9 +431,9 @@
                                          Name="UseApplicationMenu"
                                          Size="Middle">
                         Use application menu
-                    </Fluent:ToggleButton>                    
+                    </Fluent:ToggleButton>
                 </Fluent:RibbonGroupBox>
-                
+
                 <Fluent:RibbonGroupBox Header="Window options">
                     <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
                         IsIconVisible
@@ -421,7 +441,7 @@
                     <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
                                      IsChecked="True">
                         IsStatusBarVisible
-                    </Fluent:CheckBox>					
+                    </Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Ribbon options">
@@ -1140,7 +1160,7 @@
                             </ItemsPanelTemplate>
                         </Fluent:ComboBox.ItemsPanel>
                     </Fluent:ComboBox>
-                    
+
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
@@ -1215,7 +1235,7 @@
                                    Icon="Images\Green.png"
                                    LargeIcon="Images\GreenLarge.png"
                                    Command="{Binding GalleryViewModel.RefreshCommand}" />
-                    
+
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
                                            Icon="Images\Pink.png"
@@ -2391,7 +2411,7 @@
 
                         <Fluent:MenuItem Header="Menu 2" 
                                          IsCheckable="True" />
-                        
+
                     </Fluent:SplitButton>
 
                     <Fluent:SplitButton Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
@@ -2723,7 +2743,7 @@
                             <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                     Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
                             <Button x:Name="OpenModalRibbonWindow"
-                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>                            
+                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
 
                         </WrapPanel>
                     </GroupBox>
