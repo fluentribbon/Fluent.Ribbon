@@ -83,5 +83,14 @@
                 Value="0:0:0.2" />
         <Setter Property="HideContextTabsOnOpen"
                 Value="True" />
+        <Setter Property="IsOpenAnimationEnabled"
+                Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />        
+        <Style.Triggers>
+            <Trigger Property="IsOpenAnimationEnabled"
+                     Value="False">
+                <Setter Property="HideAnimationDuration"
+                        Value="0" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

@@ -89,6 +89,21 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Gets or sets wether opening or closing should be animated.
+        /// </summary>
+        public bool IsOpenAnimationEnabled
+        {
+            get { return (bool)this.GetValue(IsOpenAnimationEnabledProperty); }
+            set { this.SetValue(IsOpenAnimationEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IsOpenAnimationEnabled.  This enables animation, styling, binding, etc...
+        /// </summary>        
+        public static readonly DependencyProperty IsOpenAnimationEnabledProperty =
+            DependencyProperty.Register("IsOpenAnimationEnabled", typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+
+        /// <summary>
         /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>

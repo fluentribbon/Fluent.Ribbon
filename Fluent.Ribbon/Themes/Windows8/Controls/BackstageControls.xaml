@@ -311,7 +311,7 @@
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
-                   PopupAnimation="Fade"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimation}}"
                    Margin="0,0,-4,0"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">
@@ -731,7 +731,7 @@
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
-                   PopupAnimation="Fade"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimation}}"
                    Margin="0,0,-4,0"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">

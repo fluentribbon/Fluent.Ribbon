@@ -245,26 +245,36 @@
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
-                         Value="True">
-                <DataTrigger.EnterActions>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                               Value="True" />
+                    <Condition Binding="{Binding IsOpenAnimationEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                               Value="True" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>
                     <BeginStoryboard x:Name="IsOpenBeginStoryboard"
                                      Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
-                </DataTrigger.EnterActions>
-                <DataTrigger.ExitActions>
+                </MultiDataTrigger.EnterActions>
+                <MultiDataTrigger.ExitActions>
                     <RemoveStoryboard BeginStoryboardName="IsOpenBeginStoryboard" />
-                </DataTrigger.ExitActions>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
-                         Value="False">
-                <DataTrigger.EnterActions>                    
+                </MultiDataTrigger.ExitActions>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                         Value="False" />
+                    <Condition Binding="{Binding IsOpenAnimationEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                               Value="True" />                    
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>                    
                     <BeginStoryboard x:Name="IsClosedBeginStoryboard"
                                      Storyboard="{StaticResource OnIsOpenFalseStoryboard}" />
-                </DataTrigger.EnterActions>
-                <DataTrigger.ExitActions>
+                </MultiDataTrigger.EnterActions>
+                <MultiDataTrigger.ExitActions>
                     <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
-                </DataTrigger.ExitActions>
-            </DataTrigger>            
+                </MultiDataTrigger.ExitActions>
+            </MultiDataTrigger>            
         </ControlTemplate.Triggers>
     </ControlTemplate>
 

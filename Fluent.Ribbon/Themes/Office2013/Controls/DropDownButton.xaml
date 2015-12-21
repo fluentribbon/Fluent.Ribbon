@@ -79,7 +79,7 @@
                    Placement="Bottom"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
-                   PopupAnimation="Slide"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimation}}"
                    Margin="0,0,-4,0"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">
