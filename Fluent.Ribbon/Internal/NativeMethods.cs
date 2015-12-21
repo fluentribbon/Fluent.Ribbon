@@ -3,6 +3,10 @@ using System.Runtime.InteropServices;
 
 namespace Fluent
 {
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Security;
+    using System.Text;
     using Fluent.Metro.Native;
 
     internal static class NativeMethods
@@ -113,7 +117,7 @@ namespace Fluent
 
             try
             {
-                return UnsafeNativeMethods.DwmIsCompositionEnabled();
+                return DwmIsCompositionEnabled();
             }
             catch (DllNotFoundException)
             {
@@ -121,6 +125,11 @@ namespace Fluent
                 return false;
             }
         }
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/aa969518%28v=vs.85%29.aspx</devdoc>
+        [DllImport("dwmapi", PreserveSig = false, CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool DwmIsCompositionEnabled();
 
         /// <summary>
         /// Sends a message to the message window and waits until the WndProc method has processed the message. 
@@ -132,5 +141,145 @@ namespace Fluent
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/dd144901%28v=VS.85%29.aspx</devdoc>
+        [DllImport("user32", EntryPoint = "GetMonitorInfoW", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetMonitorInfo([In] IntPtr hMonitor, [Out] MONITORINFO lpmi);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms633528(v=vs.85).aspx</devdoc>
+        [DllImport("user32", CharSet = CharSet.Auto, ExactSpelling = true)]
+        internal static extern bool IsWindow([In] [Optional] IntPtr hWnd);
+
+        internal static IntPtr GetClassLong(IntPtr hWnd, int nIndex)
+        {
+            if (IntPtr.Size == 4)
+            {
+                return new IntPtr(GetClassLong32(hWnd, nIndex));
+            }
+
+            return GetClassLong64(hWnd, nIndex);
+        }
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLong")]
+        private static extern uint GetClassLong32(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
+        private static extern IntPtr GetClassLong64(IntPtr hWnd, int nIndex);
+
+        internal static void PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam)
+        {
+            if (!_PostMessage(hWnd, Msg, wParam, lParam))
+            {
+                throw new Win32Exception();
+            }
+        }
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms644944(v=vs.85).aspx</devdoc>
+        [DllImport("user32", EntryPoint = "PostMessage", SetLastError = true)]
+        private static extern bool _PostMessage([In] [Optional] IntPtr hWnd, [In] uint Msg, [In] IntPtr wParam, [In] IntPtr lParam);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms647985(v=vs.85).aspx</devdoc>
+        [DllImport("user32")]
+        internal static extern IntPtr GetSystemMenu([In] IntPtr hWnd, [In] bool bRevert);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms648003(v=vs.85).aspx</devdoc>
+        [DllImport("user32")]
+        internal static extern uint TrackPopupMenuEx([In] IntPtr hmenu, [In] uint fuFlags, [In] int x, [In] int y, [In] IntPtr hwnd, [In] [Optional] IntPtr lptpm);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx</devdoc>
+        [DllImport("kernel32", CharSet = CharSet.Unicode, ExactSpelling = true, EntryPoint = "LoadLibraryW", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        internal static extern IntPtr LoadLibrary([In] [MarshalAs(UnmanagedType.LPWStr)] string lpFileName);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms683152%28v=vs.85%29.aspx</devdoc>
+        [DllImport("kernel32", CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool FreeLibrary([In] IntPtr hModule);
+
+        /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms647486%28v=vs.85%29.aspx</devdoc>
+        [DllImport("user32", CharSet = CharSet.Unicode, ExactSpelling = true, EntryPoint = "LoadStringW", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        internal static extern int LoadString([In] [Optional] IntPtr hInstance, [In] uint uID, [Out] StringBuilder lpBuffer, [In] int nBufferMax);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern WS GetWindowLong(IntPtr hWnd, GWL nIndex);
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, WS dwNewLong);
+
+        /// <summary>Add and remove a native WindowStyle from the HWND.</summary>
+        /// <param name="_hwnd">A HWND for a window.</param>
+        /// <param name="removeStyle">The styles to be removed.  These can be bitwise combined.</param>
+        /// <param name="addStyle">The styles to be added.  These can be bitwise combined.</param>
+        /// <returns>Whether the styles of the HWND were modified as a result of this call.</returns>
+        /// <SecurityNote>
+        ///   Critical : Calls critical methods
+        /// </SecurityNote>
+        [SecurityCritical]
+        public static bool _ModifyStyle(this IntPtr _hwnd, WS removeStyle, WS addStyle)
+        {
+            var dwStyle = GetWindowLong(_hwnd, GWL.STYLE);
+
+            var dwNewStyle = (dwStyle & ~removeStyle) | addStyle;
+            if (dwStyle == dwNewStyle)
+            {
+                return false;
+            }
+
+            SetWindowLong(_hwnd, GWL.STYLE, dwNewStyle);
+            return true;
+        }
+
+        /// <summary>
+        /// GetWindowLong values, GWL_*
+        /// </summary>
+        internal enum GWL : int
+        {
+            WNDPROC = (-4),
+            HINSTANCE = (-6),
+            HWNDPARENT = (-8),
+            STYLE = (-16),
+            EXSTYLE = (-20),
+            USERDATA = (-21),
+            ID = (-12)
+        }
+
+        /// <summary>
+        /// WindowStyle values, WS_*
+        /// </summary>
+        [Flags]
+        internal enum WS : uint
+        {
+            OVERLAPPED = 0x00000000,
+            POPUP = 0x80000000,
+            CHILD = 0x40000000,
+            MINIMIZE = 0x20000000,
+            VISIBLE = 0x10000000,
+            DISABLED = 0x08000000,
+            CLIPSIBLINGS = 0x04000000,
+            CLIPCHILDREN = 0x02000000,
+            MAXIMIZE = 0x01000000,
+            BORDER = 0x00800000,
+            DLGFRAME = 0x00400000,
+            VSCROLL = 0x00200000,
+            HSCROLL = 0x00100000,
+            SYSMENU = 0x00080000,
+            THICKFRAME = 0x00040000,
+            GROUP = 0x00020000,
+            TABSTOP = 0x00010000,
+
+            MINIMIZEBOX = 0x00020000,
+            MAXIMIZEBOX = 0x00010000,
+
+            CAPTION = BORDER | DLGFRAME,
+            TILED = OVERLAPPED,
+            ICONIC = MINIMIZE,
+            SIZEBOX = THICKFRAME,
+            TILEDWINDOW = OVERLAPPEDWINDOW,
+
+            OVERLAPPEDWINDOW = OVERLAPPED | CAPTION | SYSMENU | THICKFRAME | MINIMIZEBOX | MAXIMIZEBOX,
+            POPUPWINDOW = POPUP | BORDER | SYSMENU,
+            CHILDWINDOW = CHILD,
+        }
     }
 }

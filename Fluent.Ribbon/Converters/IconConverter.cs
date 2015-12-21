@@ -100,7 +100,7 @@ namespace Fluent
 
                     if (zero == IntPtr.Zero)
                     {
-                        zero = UnsafeNativeMethods.GetClassLong(hwnd, -34);
+                        zero = NativeMethods.GetClassLong(hwnd, -34);
                     }
 
                     if (zero == IntPtr.Zero)

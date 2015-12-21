@@ -100,19 +100,19 @@
         {
             var hwnd = new WindowInteropHelper(window).Handle;
             if (hwnd == IntPtr.Zero
-                || UnsafeNativeMethods.IsWindow(hwnd) == false)
+                || NativeMethods.IsWindow(hwnd) == false)
             {
                 return;
             }
 
             e.Handled = true;
 
-            var hmenu = UnsafeNativeMethods.GetSystemMenu(hwnd, false);
+            var hmenu = NativeMethods.GetSystemMenu(hwnd, false);
 
-            var cmd = UnsafeNativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
+            var cmd = NativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
             if (0 != cmd)
             {                
-                UnsafeNativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);                
+                NativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);                
             }            
         }
     }

@@ -78,7 +78,7 @@
             // only the following code is executed.
             if (this.user32 != IntPtr.Zero)
             {
-                UnsafeNativeMethods.FreeLibrary(this.user32);
+                NativeMethods.FreeLibrary(this.user32);
                 this.user32 = IntPtr.Zero;
             }
 
@@ -159,11 +159,11 @@
         {
             if (this.user32 == IntPtr.Zero)
             {
-                this.user32 = UnsafeNativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
+                this.user32 = NativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
             }
 
             var sb = new StringBuilder(256);
-            UnsafeNativeMethods.LoadString(this.user32, (uint)id, sb, sb.Capacity);
+            NativeMethods.LoadString(this.user32, (uint)id, sb, sb.Capacity);
             return sb.ToString().Replace("&", "");
         }
 

@@ -741,7 +741,7 @@
 
             var monitorInfo = new MONITORINFO();
             monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-            UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+            NativeMethods.GetMonitorInfo(monitor, monitorInfo);
 
             var startPoint = this.PointToScreen(new Point(0, 0));
             if (this.FlowDirection == FlowDirection.RightToLeft)

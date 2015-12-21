@@ -474,7 +474,7 @@ namespace Fluent
             {
                 var monitorInfo = new MONITORINFO();
                 monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-                UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
                 return new Rect(monitorInfo.rcWork.left, monitorInfo.rcWork.top, monitorInfo.rcWork.right - monitorInfo.rcWork.left, monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
             }
             return new Rect();
@@ -499,7 +499,7 @@ namespace Fluent
             {
                 var monitorInfo = new MONITORINFO();
                 monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-                UnsafeNativeMethods.GetMonitorInfo(monitor, monitorInfo);
+                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
                 return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
             }
             return new Rect();
