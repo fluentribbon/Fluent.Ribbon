@@ -6,7 +6,7 @@
     only:
       - develop
 
-  version: 4.0.0-dev
+  version: 4.0.0-dev{build}
   configuration: Release
 
   init:
