@@ -269,23 +269,23 @@ namespace Fluent
         private double savedWindowHeight = double.NaN;
 
         // Opens backstage on an Adorner layer
-        private void Show()
+        protected virtual bool Show()
         {
             // don't open the backstage while in design mode
             if (DesignerProperties.GetIsInDesignMode(this))
             {
-                return;
+                return false;
             }
 
             if (this.IsLoaded == false)
             {
                 this.Loaded += this.OnDelayedShow;
-                return;
+                return false;
             }
 
             if (this.Content == null)
             {
-                return;
+                return false;
             }
 
             this.CreateAndAttachBackstageAdorner();
@@ -343,6 +343,8 @@ namespace Fluent
             {
                 content.Focus();
             }
+
+            return true;
         }
 
         private void ShowAdorner()
@@ -419,11 +421,12 @@ namespace Fluent
             var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Add(this.adorner);
 
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage,
-                (sender, args) =>
-                {
-                    this.IsOpen = !this.IsOpen;
-                }));
+            layer.CommandBindings.Add( new CommandBinding( RibbonCommands.OpenBackstage,
+                 ( sender, args ) =>
+                 {
+                     var target = ((BackstageAdorner)args.Source).Backstage;
+                     target.IsOpen = !target.IsOpen;
+                 } ) );
         }
 
 
@@ -447,7 +450,7 @@ namespace Fluent
 
             // Delaying show so everthing can load properly.
             // If we don't run this in the background setting IsOpen=true on application start we don't have access to the Bastage from the BackstageTabControl.
-            this.RunInDispatcherAsync(this.Show, DispatcherPriority.Background);
+            this.RunInDispatcherAsync(new Action( () =>this.Show()), DispatcherPriority.Background);
         }
 
         // Hide backstage
