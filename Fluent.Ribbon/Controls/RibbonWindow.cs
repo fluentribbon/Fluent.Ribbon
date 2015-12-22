@@ -6,7 +6,7 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Interactivity;
-    using ControlzEx.Behaviours;
+    using ControlzEx.Behaviors;
     
     using Fluent.Extensions;
     using Fluent.Helpers;
