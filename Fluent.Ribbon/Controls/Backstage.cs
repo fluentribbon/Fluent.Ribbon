@@ -39,7 +39,7 @@ namespace Fluent
         #region Fields
 
         // Adorner for backstage
-        BackstageAdorner adorner;
+        private BackstageAdorner adorner;
 
         #endregion
 
@@ -154,10 +154,7 @@ namespace Fluent
                 }
 
                 // Invoke the event
-                if (backstage.IsOpenChanged != null)
-                {
-                    backstage.IsOpenChanged(backstage, e);
-                }
+                backstage.IsOpenChanged?.Invoke(backstage, e);
             }
         }
 
@@ -339,10 +336,7 @@ namespace Fluent
             }
 
             var content = this.Content as IInputElement;
-            if (content != null)
-            {
-                content.Focus();
-            }
+            content?.Focus();
         }
 
         private void ShowAdorner()
@@ -367,6 +361,14 @@ namespace Fluent
 
         private void CreateAndAttachBackstageAdorner()
         {
+            // It's possible that we created an adorner but it's parent AdornerLayer got destroyed.
+            // If that's the case we have to destroy our adorner.
+            // This fixes #228 Backstage disappears when changing DontUseDwm
+            if (this.adorner?.Parent == null)
+            {
+                this.DestroyAdorner();
+            }
+
             if (this.adorner != null)
             {
                 return;
@@ -435,7 +437,7 @@ namespace Fluent
             }
 
             var layer = AdornerLayer.GetAdornerLayer(this);
-            layer.Remove(this.adorner);
+            layer?.Remove(this.adorner);
 
             this.adorner.Clear();
             this.adorner = null;
