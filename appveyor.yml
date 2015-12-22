@@ -6,11 +6,11 @@
     only:
       - develop
 
-  version: 4.0.0-dev
+  version: 4.0.0-dev{build}
   configuration: Release
 
   init:
-    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version)$($env:appveyor_build_number.PadLeft(3, '0'))"
+    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version.Remove($env:appveyor_build_version.IndexOf("-dev") + "-dev".Length))$($env:appveyor_build_number.PadLeft(4, '0'))"
 
   # Install scripts. (runs after repo cloning)
   install:
