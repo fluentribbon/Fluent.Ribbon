@@ -1,5 +1,40 @@
 # Changelog for Fluent.Ribbon
 
+## 4.0.0 (preview)
+
+- ### Breaking changes
+  - New nuget dependency: [ControlzEx](https://www.nuget.org/packages/ControlzEx)
+  - BorderlessWindowBehavior was replaced by WindowChromeBehavior from [ControlzEx](https://github.com/ControlzEx/ControlzEx).
+    This also removes the dependency Microsoft.Windows.Shell as ControlzEx contains everything we need to use WindowChrome.
+    This behavior is initialized in code behind (InitializeWindowChromeBehavior) and shows which properties of RibbonWindow can be used to control the behavior.
+  - SaveWindowPosition and WindowSettingBehavior were removed [#196](../../issues/196)
+  - GlassBorderThickness was renamed to GlassFrameThickness to be consitent with WindowChrome and WindowChromeBehavior [#209](../../issues/209)
+  - FluentTest project was renamed to Fluent.Showcase [#212](../../issues/212)
+
+- ### Development/Contributing changes
+  - We switched to Visual Studio 2015 so we can use nameof etc. [#219](../../issues/219)
+
+- ### Bug fixes
+  - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly 
+  - [#90](../../issues/90) - Window chrome turning black during window resize.
+  - [#116](../../issues/116) - MenuItem: When the description is long the MenuItem does not expands in Width or Height, does not wrap text
+  - [#129](../../issues/129) - DontUseDwm="True" case the window corner unpainted
+  - [#146](../../issues/146) - Rendering of Office 2010 theme incorrect on Windows 10
+  - [#191](../../issues/191) - Windows 8 Theme - Blue/black margin around the window in windows 10
+  - [#210](../../issues/210) - Fix wrong dimensions assumed for WindowCaptionButtons on Windows 10 in Office2010 and Windows 8 themes
+  - [#218](../../issues/218) - Not displaying properly when maximized
+  - [#221](../../issues/221) - Office2013 theme undesired space between tabItem and its content when showing unpinned
+  - [#223](../../issues/223) - RibbonContextualTabGroup ignores Window.ResizeMode
+  - [#226](../../issues/226) - Maximising a ribbon window on Win7 "Non-Aero" Mode causes rendering issues
+  - [#228](../../issues/228) - Backstage disappears when changing DontUseDwm
+
+- ### Enhancements
+  - [#120](../../issues/120) - Adding short-cuts or additional information to Application Menu Item (How to improve)
+  - [#185](../../issues/185) - Major refactoring of how WindowChrome is used
+  - [#194](../../issues/194) - There should be an option to disable animations in the whole control
+  - [#205](../../issues/205) - Fluent Spinner handles Format="P0" incorrectly.
+  - [#207](../../issues/207) - Enable DragMove on unused RibbonTabControl space like in Office 2013
+
 ## 3.6.1
 
 - ### Bug fixes
