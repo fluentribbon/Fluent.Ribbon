@@ -121,6 +121,16 @@
         /// </summary>
         public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
 
+        public bool UseAeroCaptionButtons
+        {
+            get { return (bool)this.GetValue(UseAeroCaptionButtonsProperty); }
+            set { this.SetValue(UseAeroCaptionButtonsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for UseAeroCaptionButtons.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UseAeroCaptionButtonsProperty =
+            DependencyProperty.Register("UseAeroCaptionButtons", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+
         /// <summary>
         /// Gets or sets whether icon is visible
         /// </summary>
@@ -234,7 +244,7 @@
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(CanUseDwmProperty), Source = this });
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(UseAeroCaptionButtonsProperty), Source = this });
             Interaction.GetBehaviors(this).Add(behavior);
         }
 

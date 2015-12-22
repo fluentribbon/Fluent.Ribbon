@@ -757,8 +757,12 @@
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
+                <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
+                <!-- But we can't use it here because we are also using a CornerRadius which is painted black if we use a the glass frame -->
                 <Setter Property="GlassFrameThickness"
                         Value="0" />
+                <Setter Property="UseAeroCaptionButtons"
+                        Value="False" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="True">
