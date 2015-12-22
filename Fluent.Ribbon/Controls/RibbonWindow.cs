@@ -121,13 +121,18 @@
         /// </summary>
         public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
 
+        /// <summary>
+        /// Defines if the default window buttons should be used
+        /// </summary>
         public bool UseAeroCaptionButtons
         {
             get { return (bool)this.GetValue(UseAeroCaptionButtonsProperty); }
             set { this.SetValue(UseAeroCaptionButtonsProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for UseAeroCaptionButtons.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for UseAeroCaptionButtons.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty UseAeroCaptionButtonsProperty =
             DependencyProperty.Register("UseAeroCaptionButtons", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
 
