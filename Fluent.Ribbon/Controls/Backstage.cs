@@ -421,13 +421,14 @@ namespace Fluent
             var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Add(this.adorner);
 
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage,
-                (sender, args) =>
-                {
-                    this.IsOpen = !this.IsOpen;
-                }));
+            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted));
         }
 
+        private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)
+        {
+            var target = ((BackstageAdorner)args.Source).Backstage;
+            target.IsOpen = !target.IsOpen;
+        }
 
         private void DestroyAdorner()
         {
@@ -436,7 +437,8 @@ namespace Fluent
                 return;
             }
 
-            var layer = AdornerLayer.GetAdornerLayer(this);
+            var layer = AdornerLayer.GetAdornerLayer(this.adorner);
+            layer?.CommandBindings.Clear();
             layer?.Remove(this.adorner);
 
             this.adorner.Clear();
