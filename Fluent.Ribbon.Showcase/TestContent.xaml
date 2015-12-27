@@ -93,7 +93,7 @@
 
             <Fluent:Ribbon.Menu>
                 <Grid>
-                    <Fluent:Frontstage IsOpen="True">
+                    <Fluent:Frontstage IsOpen="{Binding ElementName=ShowFrontstage, Path=IsChecked}">
                         <Fluent:FrontstageTabControl>
                             <Fluent:FrontstageTabControl.LeftContent>
                                 <StackPanel Orientation="Vertical">
@@ -425,6 +425,12 @@
                                          Name="UseBackstage"
                                          Size="Middle"
                                          IsChecked="True">
+                        Use backstage
+                    </Fluent:ToggleButton>
+                    <Fluent:ToggleButton GroupName="Menu"
+                                         Name="ShowFrontstage"
+                                         Size="Middle"
+                                         IsChecked="True" >
                         Use backstage
                     </Fluent:ToggleButton>
                     <Fluent:ToggleButton GroupName="Menu"

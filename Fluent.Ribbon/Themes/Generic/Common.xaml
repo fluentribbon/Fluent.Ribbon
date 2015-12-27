@@ -23,6 +23,9 @@
            BasedOn="{StaticResource BackstageStyle}" />
     <Style TargetType="{x:Type Fluent:BackstageTabItem}"
            BasedOn="{StaticResource BackstageTabItemStyle}" />
+
+    <Style TargetType="{x:Type Fluent:FrontstageTabControl}"
+           BasedOn="{StaticResource FrontstageStyle}" />
     
     <Style TargetType="{x:Type Fluent:Button}"
            BasedOn="{StaticResource RibbonButtonStyle}" />

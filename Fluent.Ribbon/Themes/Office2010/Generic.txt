@@ -5,6 +5,7 @@ Generic\Controls\EmptyFocusStyle.xaml
 Office2010\Controls\ApplicationMenuItem.xaml
 Office2010\Controls\ApplicationMenu.xaml
 Office2010\Controls\Backstage.xaml
+Office2013\Controls\FrontstageTabControl.xaml
 Office2010\Controls\RibbonTabControl.xaml
 Office2010\Controls\RibbonTabItem.xaml
 Office2010\Controls\RibbonGroupBox.xaml

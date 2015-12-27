@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,18 +34,24 @@ namespace Fluent
 
         #endregion
 
-        public FrontstageTabControl()
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        [SuppressMessage( "Microsoft.Performance", "CA1810" )]
+        static FrontstageTabControl()
         {
-            this.Loaded += FrontStage_Loaded;
+            DefaultStyleKeyProperty.OverrideMetadata( typeof( FrontstageTabControl ), new FrameworkPropertyMetadata( typeof( FrontstageTabControl ) ) );
+            StyleProperty.OverrideMetadata( typeof( FrontstageTabControl ), new FrameworkPropertyMetadata( null, new CoerceValueCallback( OnCoerceStyle ) ) );
         }
 
-        void FrontStage_Loaded( object sender, RoutedEventArgs e )
+        static object OnCoerceStyle( DependencyObject d, object basevalue )
         {
-            var template = Application.Current.
-                FindResource( "FrontstageControlTemplate" ) as ControlTemplate;
+            if( basevalue == null )
+            {
+                basevalue = (d as FrameworkElement).TryFindResource( typeof( FrontstageTabControl ) );
+            }
 
-            if( template != null )
-                this.Template = template;
+            return basevalue;
         }
     }
 }

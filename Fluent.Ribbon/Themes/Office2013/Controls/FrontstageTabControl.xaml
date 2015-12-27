@@ -92,13 +92,9 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!--<Style x:Key="BackstageStyle" TargetType="{x:Type customControls:FrontstageTabControl}">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="Template" Value="{DynamicResource BackstageControlTemplate}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
-        <Setter Property="ItemsPanelBackground" Value="{DynamicResource BackstagePanelBackgroundBrush}" />
-    </Style>-->
+    <Style x:Key="FrontstageStyle" TargetType="{x:Type Fluent:FrontstageTabControl}" BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
+
+        <Setter Property="Template" Value="{DynamicResource FrontstageControlTemplate}" />
+
+    </Style>
 </ResourceDictionary>
