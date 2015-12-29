@@ -263,9 +263,9 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
-                         Value="False" />
+                               Value="False" />
                     <Condition Binding="{Binding IsOpenAnimationEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
-                               Value="True" />                    
+                               Value="True" />
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>                    
                     <BeginStoryboard x:Name="IsClosedBeginStoryboard"

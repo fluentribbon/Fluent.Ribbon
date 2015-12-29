@@ -1,47 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Markup;
-using System.Windows.Media;
-
 namespace Fluent
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Interop;
+    using System.Windows.Markup;
+    using System.Windows.Media;
     using System.Windows.Threading;
+    using System.Threading;
+    using System.Threading.Tasks;      
     using Fluent.Extensions;
     using Fluent.Internal;
 
     /// <summary>
     /// Represents backstage button
     /// </summary>
-    [ContentProperty("Content")]
+    [ContentProperty(nameof(Content))]
     public class Backstage : RibbonControl
     {
         private static readonly object syncIsOpen = new object();
-
-        #region Events
 
         /// <summary>
         /// Occurs when IsOpen has been changed
         /// </summary>
         public event DependencyPropertyChangedEventHandler IsOpenChanged;
 
-        #endregion
-
-        #region Fields
-
         // Adorner for backstage
         private BackstageAdorner adorner;
-
-        #endregion
 
         #region Properties
 
@@ -61,8 +52,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool),
-            typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new UIPropertyMetadata(false, OnIsOpenChanged));
 
         /// <summary>
         /// Gets or sets the duration for the hide animation
@@ -77,7 +67,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HideAnimationDuration.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideAnimationDurationProperty = DependencyProperty.Register("HideAnimationDuration", typeof(Duration), typeof(Backstage), new PropertyMetadata(null));
+        public static readonly DependencyProperty HideAnimationDurationProperty = 
+            DependencyProperty.Register(nameof(HideAnimationDuration), typeof(Duration), typeof(Backstage), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets whether context tabs on the titlebar should be hidden when backstage is open
@@ -101,13 +92,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpenAnimationEnabled.  This enables animation, styling, binding, etc...
         /// </summary>        
         public static readonly DependencyProperty IsOpenAnimationEnabledProperty =
-            DependencyProperty.Register("IsOpenAnimationEnabled", typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsOpenAnimationEnabled), typeof(bool), typeof(Backstage), new UIPropertyMetadata(true));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideContextTabsOnOpenProperty = DependencyProperty.Register("HideContextTabsOnOpen", typeof(bool), typeof(Backstage), new PropertyMetadata(false));
+        public static readonly DependencyProperty HideContextTabsOnOpenProperty = 
+            DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets whether to close the backstage when Esc is pressed
@@ -122,7 +114,8 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CloseOnEsc.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CloseOnEscProperty = DependencyProperty.Register("CloseOnEsc", typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+        public static readonly DependencyProperty CloseOnEscProperty = 
+            DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(true));
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -176,10 +169,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(UIElement), typeof(Backstage),
-            new UIPropertyMetadata(null, OnContentChanged));
+            DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Backstage), new UIPropertyMetadata(null, OnContentChanged));
 
-        static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var backstage = (Backstage)d;
             if (e.OldValue != null)
@@ -403,7 +395,8 @@ namespace Fluent
                     // containing the template to display the content.
                     var contentPresenter = UIHelper.FindVisualChild<ContentPresenter>(mainWindow);
 
-                    if (contentPresenter != null && contentPresenter.Content == content)
+                    if (contentPresenter != null 
+                        && ReferenceEquals(contentPresenter.Content, content))
                     {
                         // set the root element of the template as the top level element.
                         topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild(contentPresenter, 0);
@@ -528,7 +521,7 @@ namespace Fluent
             DependencyObject item = this;
 
             while (item != null
-                && !(item is Ribbon))
+                && item is Ribbon == false)
             {
                 item = VisualTreeHelper.GetParent(item);
             }
@@ -583,12 +576,15 @@ namespace Fluent
             var frameworkElement = parent as FrameworkElement;
 
             // Do not hide contents in the backstage area
-            if (parent is BackstageAdorner) return;
+            if (parent is BackstageAdorner)
+            {
+                return;
+            }
 
             if (frameworkElement != null)
             {
-                if ((parent is HwndHost) &&
-                    frameworkElement.Visibility != Visibility.Collapsed)
+                if (parent is HwndHost 
+                    && frameworkElement.Visibility != Visibility.Collapsed)
                 {
                     this.collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
                     frameworkElement.Visibility = Visibility.Collapsed;
@@ -614,16 +610,14 @@ namespace Fluent
                 return;
             }
 
-            switch (e.Key)
+            if (e.Key == Key.Enter 
+                || e.Key == Key.Space)
             {
-                case Key.Enter:
-                case Key.Space:
-                    if (this.IsFocused)
-                    {
-                        this.IsOpen = !this.IsOpen;
-                        e.Handled = true;
-                    }
-                    break;
+                if (this.IsFocused)
+                {
+                    this.IsOpen = !this.IsOpen;
+                    e.Handled = true;
+                }
             }
 
             base.OnKeyDown(e);
@@ -632,13 +626,15 @@ namespace Fluent
         // Handles backstage Esc key keydown
         private void HandleWindowKeyDown(object sender, KeyEventArgs e)
         {
-            if (this.CloseOnEsc && e.Key == Key.Escape)
+            if (this.CloseOnEsc == false
+                || e.Key != Key.Escape)
             {
-                // only handle ESC when the backstage is open
-                e.Handled = this.IsOpen;
-
-                this.IsOpen = false;
+                return;
             }
+            // only handle ESC when the backstage is open
+            e.Handled = this.IsOpen;
+
+            this.IsOpen = false;
         }
 
         private void OnBackstageLoaded(object sender, RoutedEventArgs e)
