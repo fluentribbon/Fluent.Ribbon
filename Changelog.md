@@ -27,6 +27,9 @@
   - [#223](../../issues/223) - RibbonContextualTabGroup ignores Window.ResizeMode
   - [#226](../../issues/226) - Maximising a ribbon window on Win7 "Non-Aero" Mode causes rendering issues
   - [#228](../../issues/228) - Backstage disappears when changing DontUseDwm
+  - [#234](../../issues/234) - Disable KeyTips when Ribbon isn't Enabled
+  - [#235](../../issues/235) - Items of invisble tab are shown
+  - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
   - [#120](../../issues/120) - Adding short-cuts or additional information to Application Menu Item (How to improve)
