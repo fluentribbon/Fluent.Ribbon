@@ -248,7 +248,8 @@ namespace Fluent
 
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
-            if (this.ribbon.IsCollapsed)
+            if (this.ribbon.IsCollapsed
+                || this.ribbon.IsEnabled == false)
             {
                 return;
             }
