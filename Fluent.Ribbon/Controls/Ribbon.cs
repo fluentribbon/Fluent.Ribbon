@@ -1792,7 +1792,7 @@ namespace Fluent
                 && this.TabControl.SelectedIndex == -1
                 && this.TabControl.IsMinimized == false)
             {
-                this.TabControl.SelectedIndex = 0;
+                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleItem();
             }
         }
 
