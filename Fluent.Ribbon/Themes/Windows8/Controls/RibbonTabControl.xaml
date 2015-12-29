@@ -355,7 +355,7 @@
                    Placement="Custom"
                    StaysOpen="True"
                    AllowsTransparency="True"
-                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimation}}"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                    VerticalOffset="-1"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    HorizontalOffset="0">

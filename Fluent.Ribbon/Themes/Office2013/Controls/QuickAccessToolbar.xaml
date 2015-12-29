@@ -70,7 +70,7 @@
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
-                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimation}}"
+                   PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                    Margin="0,0,-4,0"
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">
