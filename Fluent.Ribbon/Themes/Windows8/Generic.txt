@@ -9,6 +9,7 @@ Windows8\Controls\Backstage.xaml
 Windows8\Controls\RibbonTabControl.xaml
 Windows8\Controls\RibbonTabItem.xaml
 Windows8\Controls\RibbonGroupBox.xaml
+Windows8\Controls\FrontstageTabControl.xaml
 Office2010\Controls\ScreenTip.xaml
 Generic\Controls\TwoLineLabel.xaml
 Windows8\Controls\Button.xaml

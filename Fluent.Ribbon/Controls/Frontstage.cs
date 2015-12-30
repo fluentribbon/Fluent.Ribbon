@@ -23,8 +23,10 @@ namespace Fluent
 
         protected override bool Show()
         {
-            if( this.Shown ) return false;
-            return this.Shown = base.Show();
+            //if( this.Shown ) return false;
+            //return this.Shown = base.Show();
+
+            return base.Show();
         }
     }
 }

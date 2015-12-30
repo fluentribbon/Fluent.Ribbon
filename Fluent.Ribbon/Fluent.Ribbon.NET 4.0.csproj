@@ -35,6 +35,7 @@
     </CodeAnalysisRules>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.0.0-dev9\lib\net40\ControlzEx.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.2.0.0-dev021\lib\net40\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -61,7 +62,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.0.0-dev9\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.2.0.0-dev021\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -94,6 +95,15 @@
     <Compile Include="IHeaderedControl.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\UIHelper.cs" />
+    <Compile Include="Metro\Native\ABEdge.cs" />
+    <Compile Include="Metro\Native\ABMsg.cs" />
+    <Compile Include="Metro\Native\APPBARDATA.cs" />
+    <Compile Include="Metro\Native\CREATESTRUCT.cs" />
+    <Compile Include="Metro\Native\MARGINS.cs" />
+    <Compile Include="Metro\Native\MINMAXINFO.cs" />
+    <Compile Include="Metro\Native\POINT.cs" />
+    <Compile Include="Metro\Native\UnsafeNativeMethods.cs" />
+    <Compile Include="Metro\Native\WINDOWPLACEMENT.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
@@ -118,21 +128,12 @@
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
     <Compile Include="Metro\MetroColors.cs" />
-    <Compile Include="Metro\Native\ABEdge.cs" />
-    <Compile Include="Metro\Native\ABMsg.cs" />
-    <Compile Include="Metro\Native\APPBARDATA.cs" />
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
     <Compile Include="Metro\Native\Constants.cs" />
-    <Compile Include="Metro\Native\CREATESTRUCT.cs" />
-    <Compile Include="Metro\Native\MARGINS.cs" />
-    <Compile Include="Metro\Native\MINMAXINFO.cs" />
     <Compile Include="Metro\Native\MONITORINFO.cs" />
-    <Compile Include="Metro\Native\POINT.cs" />
     <Compile Include="Metro\Native\RECT.cs" />
-    <Compile Include="Metro\Native\UnsafeNativeMethods.cs" />
-    <Compile Include="Metro\Native\WINDOWPLACEMENT.cs" />
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
@@ -204,6 +205,10 @@
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2010\Controls\FrontstageTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Office2010\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -717,6 +722,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Windows8\Controls\FrontstageTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Windows8\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
