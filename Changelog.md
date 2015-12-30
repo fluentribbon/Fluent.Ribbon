@@ -29,6 +29,7 @@
   - [#228](../../issues/228) - Backstage disappears when changing DontUseDwm
   - [#234](../../issues/234) - Disable KeyTips when Ribbon isn't Enabled
   - [#235](../../issues/235) - Items of invisble tab are shown
+  - [#236](../../issues/236) - Window size is wrong when window is maximized, backstage is closed and window should be restored to normal size
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements

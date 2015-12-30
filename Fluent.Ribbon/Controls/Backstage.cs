@@ -544,7 +544,8 @@ namespace Fluent
 
         private void SaveWindowSize(Window window)
         {
-            if (window == null)
+            if (window == null
+                || window.WindowState == WindowState.Maximized)
             {
                 this.savedWindowWidth = double.NaN;
                 this.savedWindowHeight = double.NaN;
