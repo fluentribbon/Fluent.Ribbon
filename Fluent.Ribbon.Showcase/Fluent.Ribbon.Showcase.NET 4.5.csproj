@@ -77,6 +77,8 @@
     </Compile>
     <Compile Include="Commanding\IRelayCommand.cs" />
     <Compile Include="Commanding\RelayCommand.cs" />
+    <Compile Include="Converters\BoolInverter.cs" />
+    <Compile Include="Converters\ConfigurableBoolConverter.cs" />
     <Compile Include="MahMetroWindow.xaml.cs">
       <DependentUpon>MahMetroWindow.xaml</DependentUpon>
     </Compile>

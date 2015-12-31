@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Fluent="urn:fluent-ribbon"
+             xmlns:converters="clr-namespace:FluentTest.Converters"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
              mc:Ignorable="d"
@@ -93,7 +94,7 @@
 
             <Fluent:Ribbon.Menu>
                 <Grid>
-                    <Fluent:Frontstage IsOpen="{Binding ElementName=ShowFrontstage, Path=IsChecked}">
+                    <Fluent:Frontstage x:Name="frontstage" IsOpen="{Binding ElementName=ShowFrontstage, Path=IsChecked}">
                         <Fluent:FrontstageTabControl>
                             <Fluent:FrontstageTabControl.LeftContent>
                                 <StackPanel Orientation="Vertical">
@@ -430,8 +431,9 @@
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="ShowFrontstage"
                                          Size="Middle"
-                                         IsChecked="True" >
-                        Use backstage
+                                         
+                                         IsChecked="{Binding ElementName=frontstage, Path=Shown, Mode=TwoWay, Converter={converters:BoolInverter}}" >
+                        Show frontstage
                     </Fluent:ToggleButton>
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseApplicationMenu"

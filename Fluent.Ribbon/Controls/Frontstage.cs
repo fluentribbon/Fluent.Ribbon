@@ -21,7 +21,7 @@ namespace Fluent
         }
 
         public static readonly DependencyProperty ShownProperty =
-            DependencyProperty.Register( "Shown", typeof( bool ), typeof( Frontstage ), new PropertyMetadata( false ) );
+            DependencyProperty.Register( "Shown", typeof( bool ), typeof( Frontstage ), new FrameworkPropertyMetadata( false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null ) );
         #endregion
 
         protected override bool Show()
@@ -29,9 +29,8 @@ namespace Fluent
             var ribbon = base.FindRibbon();
             ribbon.TitleBar.IsCollapsed = true;
 
-            //if( this.Shown ) return false;
-            //return this.Shown = base.Show();
-            return base.Show();
+            if( this.Shown ) return false;
+            return this.Shown = base.Show();
         }
     }
 }
