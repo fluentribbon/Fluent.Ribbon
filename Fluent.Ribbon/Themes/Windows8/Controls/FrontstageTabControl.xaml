@@ -45,7 +45,7 @@
                 <ColumnDefinition MinWidth="342" Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch" Background="{DynamicResource RibbonThemeColorBrush}">
+            <Grid VerticalAlignment="Stretch" Background="{DynamicResource BackstagePanelBackgroundBrush}">
                 <Border Padding="15,25">
                     <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto"
                             Content="{TemplateBinding LeftContent}"></ContentPresenter>

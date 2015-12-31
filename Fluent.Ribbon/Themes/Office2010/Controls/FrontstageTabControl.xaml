@@ -45,7 +45,7 @@
                 <ColumnDefinition MinWidth="342" Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch" Background="{DynamicResource Background}">
+            <Grid VerticalAlignment="Stretch" Background="{DynamicResource BackstagePanelBackgroundBrush}">
                 <Border Padding="15,25">
                     <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto"
                             Content="{TemplateBinding LeftContent}"></ContentPresenter>
@@ -93,11 +93,14 @@
     </ControlTemplate>
 
     <Style x:Key="FrontstageStyle" TargetType="{x:Type Fluent:FrontstageTabControl}" BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
-
+        <Setter  Property="Margin" Value="0"></Setter>
         <Setter Property="Template" Value="{DynamicResource FrontstageControlTemplate}" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Frontstage}}, FallbackValue=Green}" />
         <Setter Property="ItemsPanelBackground"
                 Value="{DynamicResource BackstagePanelBackgroundBrush}" />
+
+        <Setter Property="Foreground"
+                Value="{DynamicResource DefaultFontBrush}" />
     </Style>
 </ResourceDictionary>

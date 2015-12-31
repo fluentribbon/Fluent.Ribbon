@@ -507,7 +507,7 @@ namespace Fluent
         }
 
         // Finds underlying ribbon control
-        private Ribbon FindRibbon()
+        protected Ribbon FindRibbon()
         {
             DependencyObject item = this;
 

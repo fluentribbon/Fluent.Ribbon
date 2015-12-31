@@ -12,6 +12,9 @@ namespace Fluent
     public class FrontstageTabControl : BackstageTabControl
     {
         #region LeftContent
+        /// <summary>
+        /// Left side panel content of the frontstage
+        /// </summary>
         public object LeftContent
         {
             get { return (object)GetValue( LeftContentProperty ); }
@@ -23,6 +26,9 @@ namespace Fluent
         #endregion
 
         #region RightContent
+        /// <summary>
+        /// Right side panel content of the fronstage
+        /// </summary>
         public object RightContent
         {
             get { return (object)GetValue( RightContentProperty ); }

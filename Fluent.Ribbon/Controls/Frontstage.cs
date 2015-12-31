@@ -11,6 +11,9 @@ namespace Fluent
     public class Frontstage : Backstage
     {
         #region Shown
+        /// <summary>
+        /// Indicates whether the Frontstage has aleaady been shown or not
+        /// </summary>
         public bool Shown
         {
             get { return (bool)GetValue( ShownProperty ); }
@@ -23,8 +26,12 @@ namespace Fluent
 
         protected override bool Show()
         {
-            if( this.Shown ) return false;
-            return this.Shown = base.Show();
+            var ribbon = base.FindRibbon();
+            ribbon.TitleBar.IsCollapsed = true;
+
+            //if( this.Shown ) return false;
+            //return this.Shown = base.Show();
+            return base.Show();
         }
     }
 }
