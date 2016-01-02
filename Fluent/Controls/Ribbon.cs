@@ -981,6 +981,14 @@ namespace Fluent
             DependencyProperty.Register("CanCustomizeRibbon", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
+        /// <summary>
+        /// Gets or sets whether ribbon can be minimized
+        /// </summary>
+        public bool CanMinimize
+        {
+            get { return (bool)this.GetValue(CanMinimizeProperty); }
+            set { this.SetValue(CanMinimizeProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
@@ -998,6 +1006,13 @@ namespace Fluent
         public static readonly DependencyProperty IsMinimizedProperty =
             DependencyProperty.Register("IsMinimized", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanMinimizeProperty =
+            DependencyProperty.Register("CanMinimize", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
