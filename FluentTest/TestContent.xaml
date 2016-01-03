@@ -441,6 +441,9 @@
                     <Fluent:CheckBox IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         IsMinimized
                     </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding CanMinimize, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        CanMinimize
+                    </Fluent:CheckBox>
                     <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         IsCollapsed
                     </Fluent:CheckBox>

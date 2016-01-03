@@ -287,6 +287,16 @@ namespace Fluent
             // Set minimize the ribbon menu item state
             minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
 
+            // Set minimize the ribbon menu item visibility
+            if (ribbon.CanMinimize)
+            {
+                minimizeTheRibbonMenuItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                minimizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            }
+
             // Set customize the ribbon menu item visibility
             if (ribbon.CanCustomizeRibbon)
             {
@@ -1175,7 +1185,7 @@ namespace Fluent
             if (ribbon != null
                 && ribbon.TabControl != null)
             {
-                e.CanExecute = true;
+                e.CanExecute = ribbon.CanMinimize;
             }
         }
 
