@@ -1518,6 +1518,7 @@ namespace Fluent
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
                 this.TabControl.IsMinimized = this.IsMinimized;
+                this.TabControl.CanMinimize = this.CanMinimize;
                 this.TabControl.ContentGapHeight = this.ContentGapHeight;
 
                 this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
