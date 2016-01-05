@@ -94,7 +94,7 @@
                                                  Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="2,-2,2,2"
+                                                 Margin="2,-4,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
                         </StackPanel>
                     </Grid>

@@ -10,7 +10,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource RibbonDropDownButtonControlTemplate}" />
         <Setter Property="Height"
-                Value="66" />
+                Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
@@ -21,7 +21,7 @@
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
-                        Value="66" />
+                        Value="68" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">

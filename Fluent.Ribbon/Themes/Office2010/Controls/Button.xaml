@@ -52,7 +52,7 @@
                                              Style="{DynamicResource TwoLineLabelStyle}"
                                              HorizontalAlignment="Stretch"
                                              VerticalAlignment="Center"
-                                             Margin="2,-1,2,2" />
+                                             Margin="2,-3,2,2" />
                     </StackPanel>
                 </Grid>
             </Border>

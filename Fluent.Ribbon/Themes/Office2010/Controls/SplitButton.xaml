@@ -77,17 +77,33 @@
                         </Rectangle>
                         <Border x:Name="downRect"
                                 VerticalAlignment="Bottom"
-                                Height="28"
+                                Height="29"
                                 Background="{DynamicResource TransparentBrush}"
                                 BorderThickness="0,1,0,0"
                                 Margin="-1,0" />
                         <Border x:Name="downRect_Copy"
                                 VerticalAlignment="Bottom"
-                                Height="27"
+                                Height="28"
                                 Background="{DynamicResource TransparentBrush}"
                                 BorderThickness="1"
                                 Margin="-1,1,-1,0"
                                 IsHitTestVisible="False" />
+                        <Fluent:ToggleButton x:Name="PART_Button"
+                                             Command="{TemplateBinding Command}"
+                                             CommandParameter="{TemplateBinding CommandParameter}"
+                                             CommandTarget="{TemplateBinding CommandTarget}"
+                                             Margin="-2,-2,-2,28"
+                                             Height="Auto"
+                                             Width="Auto"
+                                             Style="{DynamicResource InnerButtonStyle}"
+                                             LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                             Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                             IsEnabled="{TemplateBinding IsButtonEnabled}"
+                                             Header="{TemplateBinding Header}"
+                                             ToolTip="{TemplateBinding ToolTip}"
+                                             IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                             IsDefinitive="{TemplateBinding IsDefinitive}"
+                                             CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
                         <StackPanel x:Name="stackPanel"
                                     Width="Auto"
                                     Orientation="Vertical"
@@ -109,25 +125,9 @@
                                                  Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="2,0,2,2"
+                                                 Margin="2,-4,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
-                        </StackPanel>
-                        <Fluent:ToggleButton x:Name="PART_Button"
-                                             Command="{TemplateBinding Command}"
-                                             CommandParameter="{TemplateBinding CommandParameter}"
-                                             CommandTarget="{TemplateBinding CommandTarget}"
-                                             Margin="-2,-2,-2,26"
-                                             Height="Auto"
-                                             Width="Auto"
-                                             Style="{DynamicResource InnerButtonStyle}"
-                                             LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                             Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                             IsEnabled="{TemplateBinding IsButtonEnabled}"
-                                             Header="{TemplateBinding Header}"
-                                             ToolTip="{TemplateBinding ToolTip}"
-                                             IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                             IsDefinitive="{TemplateBinding IsDefinitive}"
-                                             CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
+                        </StackPanel>                        
                     </Grid>
                 </Border>
             </Border>
@@ -382,9 +382,6 @@
                 <Setter Property="Height"
                         TargetName="downRect"
                         Value="Auto" />
-                <Setter Property="Style"
-                        TargetName="PART_Button"
-                        Value="{DynamicResource InnerButtonStyle}" />
                 <Setter Property="Margin"
                         TargetName="downRect"
                         Value="-1,-2,-1,-1" />

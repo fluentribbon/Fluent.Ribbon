@@ -73,18 +73,13 @@
                             BorderBrush="{DynamicResource TransparentBrush}"
                             Background="{DynamicResource TransparentBrush}"
                             Margin="0,0,0,0">
-                        <Grid>
-                            <Fluent:TwoLineLabel x:Name="controlLabel"
-                                                 Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Margin="2,-1,2,0"
-                                                 HasGlyph="{TemplateBinding HasTriangle}" />
-                            <!--<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" MinWidth="10" Margin="3,2" SnapsToDevicePixels="True"
-                                                IsHitTestVisible="false" Visibility="Hidden" />-->
-                        </Grid>
+                        <Fluent:TwoLineLabel x:Name="controlLabel"
+                                             Text="{TemplateBinding Header}"
+                                             Style="{DynamicResource TwoLineLabelStyle}"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             Margin="2,-3,2,0"
+                                             HasGlyph="{TemplateBinding HasTriangle}" />
                     </Border>
                 </StackPanel>
             </Border>
