@@ -123,19 +123,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
 
-        /// <summary>
-        /// Gets or sets whether ribbon can be minimized
-        /// </summary>
         public bool CanMinimize
         {
             get { return (bool)this.GetValue(CanMinimizeProperty); }
             set { this.SetValue(CanMinimizeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(true, OnCanMinimizeChanged));
 
 
         /// <summary>
@@ -679,15 +673,29 @@ namespace Fluent
             }
         }
 
+        // Handles CanMinimizeChanges
+        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var tab = (RibbonTabControl)d;
+            var toggleButton = tab.Template.FindName("PART_MinimizeButton", tab) as Fluent.ToggleButton;
+            if (toggleButton != null)
+            {
+                if (tab.CanMinimize)
+                {
+
+                    toggleButton.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    toggleButton.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         // Handles IsMinimized changed
         private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tab = (RibbonTabControl)d;
-
-            if(tab.CanMinimize == false)
-            {
-                return;
-            }
 
             if (!tab.IsMinimized)
             {

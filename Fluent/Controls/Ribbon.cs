@@ -1021,7 +1021,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register("CanMinimize", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+            DependencyProperty.Register("CanMinimize", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnCanMinimizeChanged));
 
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1032,6 +1032,13 @@ namespace Fluent
             {
                 ribbon.IsMinimizedChanged(ribbon, e);
             }
+        }
+
+        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
         }
 
         /// <summary>
@@ -1517,8 +1524,8 @@ namespace Fluent
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
-                this.TabControl.IsMinimized = this.IsMinimized;
                 this.TabControl.CanMinimize = this.CanMinimize;
+                this.TabControl.IsMinimized = this.IsMinimized;
                 this.TabControl.ContentGapHeight = this.ContentGapHeight;
 
                 this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
@@ -1778,7 +1785,10 @@ namespace Fluent
             {
                 if (this.TabControl.HasItems)
                 {
-                    this.IsMinimized = !this.IsMinimized;
+                    if(this.CanMinimize)
+                    {
+                        this.IsMinimized = !this.IsMinimized;
+                    }
                 }
             }
         }

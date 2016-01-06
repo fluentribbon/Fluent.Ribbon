@@ -609,7 +609,11 @@ namespace Fluent
 
                 if (this.TabControlParent != null)
                 {
-                    this.TabControlParent.IsMinimized = !this.TabControlParent.IsMinimized;
+                    var canMinimize = this.FindParentRibbon().CanMinimize;
+                    if (canMinimize)
+                    {
+                        this.TabControlParent.IsMinimized = !this.TabControlParent.IsMinimized;
+                    }
                 }
             }
             else if (e.Source == this
