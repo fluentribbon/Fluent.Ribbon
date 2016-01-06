@@ -31,6 +31,7 @@
   - [#235](../../issues/235) - Items of invisble tab are shown
   - [#236](../../issues/236) - Window size is wrong when window is maximized, backstage is closed and window should be restored to normal size
   - [#237](../../issues/237) - Ribbon Buttons with large text cut off a few pixels
+  - [#238](../../issues/238) - New WindowChrome does not work correctly on Windows 7
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
