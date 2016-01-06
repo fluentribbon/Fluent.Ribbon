@@ -123,12 +123,18 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
 
+        /// <summary>
+        /// Gets or sets whether ribbon can be minimized
+        /// </summary>
         public bool CanMinimize
         {
             get { return (bool)this.GetValue(CanMinimizeProperty); }
             set { this.SetValue(CanMinimizeProperty, value); }
         }
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
+        /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(true, OnCanMinimizeChanged));
 
 
