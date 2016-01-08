@@ -233,6 +233,13 @@ namespace Fluent
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
         {
+            // Only close backstage when popups should always be closed.
+            // "Always" applies to controls marked with IsDefinitive for example.
+            if (e.DismissMode != DismissPopupMode.Always)
+            {
+                return;
+            }
+
             this.IsOpen = false;
         }
 

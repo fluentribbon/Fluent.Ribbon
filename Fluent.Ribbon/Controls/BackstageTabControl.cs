@@ -219,17 +219,14 @@ namespace Fluent
         /// </summary>
         public BackstageTabControl()
         {
-            this.Loaded += this.OnLoaded;
-            this.Unloaded += this.OnUnloaded;
-
-            // Fixed incoreect menu showing
+            // Fixed incorect menu showing
             this.ContextMenu = new ContextMenu
             {
                 Width = 0,
                 Height = 0,
                 HasDropShadow = false
             };
-            this.ContextMenu.Opened += delegate { ContextMenu.IsOpen = false; };
+            this.ContextMenu.Opened += delegate { this.ContextMenu.IsOpen = false; };
         }
 
         #endregion
@@ -415,26 +412,6 @@ namespace Fluent
                 }
                 this.UpdateSelectedContent();
             }
-        }
-
-        private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
-        {
-            var backstage = LogicalTreeHelper.GetParent(this);
-
-            if (backstage != null)
-            {
-                PopupService.RaiseDismissPopupEvent(backstage, DismissPopupMode.Always);
-            }
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
         }
 
         #endregion
