@@ -6,27 +6,29 @@ namespace FluentTest
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
 
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fa");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("de");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("hu");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("cs");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ja");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("nl");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-PT");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt-br");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("sv");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("sk");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("uk");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("it");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ar");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("da");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("az");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fa");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("hu");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pl");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ja");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("nl");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pt-PT");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pt-br");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sv");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sk");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ro");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("it");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("da");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("az");
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
         }
     }
 }
