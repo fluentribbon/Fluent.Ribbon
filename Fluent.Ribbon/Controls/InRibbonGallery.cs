@@ -18,6 +18,7 @@
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Extensibility;
+    using Fluent.Extensions;
     using Fluent.Internal;
 
     /// <summary>
@@ -1034,20 +1035,39 @@
                 }
             }
 
-			this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
+            this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
 
             if (this.galleryPanel != null)
             {
-				this.galleryPanel.MinItemsInRow = this.MaxItemsInRow;
-				this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                this.galleryPanel.MinItemsInRow = this.MaxItemsInRow;
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
             }
 
             this.snappedImage = this.GetTemplateChild("PART_FakeImage") as Image;
 
             this.controlPresenter = this.GetTemplateChild("PART_ContentPresenter") as ContentControl;
+
             this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+
+            this.RunInDispatcherAsync(this.ForceContentRefreshToFixLayout, DispatcherPriority.ContextIdle);
+        }
+
+        /// <summary>
+        /// Hack: This fixes weird layout bugs. If someone ever finds out why the layout gets messed up without this, please notify me.
+        /// For example #123 (https://github.com/fluentribbon/Fluent.Ribbon/issues/123) gets fixed by this hack.
+        /// </summary>
+        private void ForceContentRefreshToFixLayout()
+        {
+            if (this.controlPresenter == null
+                && this.galleryPanel != null)
+            {
+                return;
+            }
+
+            this.controlPresenter.Content = null;
+            this.controlPresenter.Content = this.galleryPanel;
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -1112,7 +1132,7 @@
         // Handles drop down closed
         private void OnDropDownOpened(object sender, EventArgs e)
         {
-            this.IsSnapped = true;            
+            this.IsSnapped = true;
 
             this.controlPresenter.Content = null;
             this.popupControlPresenter.Content = this.galleryPanel;
@@ -1147,7 +1167,7 @@
             {
                 this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
-                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);                
+                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
 
                 if (!double.IsNaN(this.DropDownHeight))
                 {
@@ -1495,23 +1515,23 @@
             InvalidateMeasure();*/
         }
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
-		/// </summary>
-		/// <returns>
-		/// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
-		/// </returns>
-		protected override IEnumerator LogicalChildren
-		{
-			get
-			{
-				if (this.galleryPanel != null)
-				{
-					yield return this.galleryPanel;
-				}
-			}
-		}
-	}
+        /// <summary>
+        /// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
+        /// </summary>
+        /// <returns>
+        /// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
+        /// </returns>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                if (this.galleryPanel != null)
+                {
+                    yield return this.galleryPanel;
+                }
+            }
+        }
+    }
 }
