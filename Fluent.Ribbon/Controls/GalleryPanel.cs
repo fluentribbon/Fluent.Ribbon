@@ -50,8 +50,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
-            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel),
-            new UIPropertyMetadata(true, OnIsGroupedChanged));
+            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel), new UIPropertyMetadata(true, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -77,8 +76,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel),
-            new UIPropertyMetadata(null, OnGroupByChanged));
+            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel), new UIPropertyMetadata(null, OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -122,8 +120,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style),
-            typeof(GalleryPanel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupHeaderStyle", typeof(Style), typeof(GalleryPanel), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -144,8 +141,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double),
-            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register("ItemWidth", typeof(double), typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -166,8 +162,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double),
-            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register("ItemHeight", typeof(double), typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -187,8 +182,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
-            DependencyProperty.Register("Filter", typeof(string),
-            typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
+            DependencyProperty.Register("Filter", typeof(string), typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -214,8 +208,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int),
-            typeof(GalleryPanel), new UIPropertyMetadata((int)1));
+            DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata((int)1));
 
         #endregion
 
@@ -235,8 +228,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
+            DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -256,7 +248,7 @@
 
         #region Visual Tree
 
-        readonly VisualCollection visualCollection;
+        private readonly VisualCollection visualCollection;
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
@@ -392,14 +384,13 @@
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
             {
                 BindingOperations.ClearAllBindings(galleryGroupContainer);
-                //RemoveVisualChild(galleryGroupContainer);
                 this.visualCollection.Remove(galleryGroupContainer);
             }
 
             this.galleryGroupContainers.Clear();
 
             // Gets filters
-            var filter = this.Filter == null ? null : this.Filter.Split(',');
+            var filter = this.Filter?.Split(',');
 
             var dictionary = new Dictionary<string, GalleryGroupContainer>();
 
@@ -415,13 +406,13 @@
 
                 if (this.GroupByAdvanced == null)
                 {
-                    propertyValue = (this.ItemContainerGenerator == null)
+                    propertyValue = this.ItemContainerGenerator == null
                                         ? this.GetPropertyValueAsString(item)
                                         : this.GetPropertyValueAsString(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
                 }
                 else
                 {
-                    propertyValue = (this.ItemContainerGenerator == null)
+                    propertyValue = this.ItemContainerGenerator == null
                                         ? this.GroupByAdvanced(item)
                                         : this.GroupByAdvanced(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
                 }
@@ -440,8 +431,8 @@
                 }
 
                 // Skip if it is not in filter
-                if (filter != null &&
-                    filter.Contains(propertyValue) == false)
+                if (filter != null
+                    && filter.Contains(propertyValue) == false)
                 {
                     continue;
                 }
@@ -458,6 +449,7 @@
                     {
                         Header = propertyValue
                     };
+
                     RibbonControl.Bind(this, galleryGroupContainer, "GroupStyle", GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
@@ -510,6 +502,7 @@
 
             double width = 0;
             double height = 0;
+
             foreach (var child in this.galleryGroupContainers)
             {
                 child.Measure(availableSize);
@@ -575,16 +568,13 @@
             }
 
             var property = item.GetType().GetProperty(this.GroupBy, BindingFlags.Public | BindingFlags.Instance);
-            if (property == null)
-            {
-                return "Undefined";
-            }
 
-            var result = property.GetValue(item, null);
+            var result = property?.GetValue(item, null);
             if (result == null)
             {
                 return "Undefined";
             }
+
             return result.ToString();
         }
 

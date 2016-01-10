@@ -258,8 +258,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string),
-            typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupBy", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -296,6 +295,7 @@
                     this.filters = new ObservableCollection<GalleryGroupFilter>();
                     this.filters.CollectionChanged += this.OnFilterCollectionChanged;
                 }
+
                 return this.filters;
             }
         }
@@ -313,12 +313,19 @@
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = item;
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = filter.Title;
-                            menuItem.Tag = filter;
-                            menuItem.IsDefinitive = false;
-                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            var filter = item;
+                            var menuItem = new MenuItem
+                            {
+                                Header = filter.Title,
+                                Tag = filter,
+                                IsDefinitive = false
+                            };
+
+                            if (ReferenceEquals(filter, this.SelectedFilter))
+                            {
+                                menuItem.IsChecked = true;
+                            }
+
                             menuItem.Click += this.OnFilterMenuItemClick;
                             this.groupsMenuButton.Items.Add(menuItem);
                         }
@@ -327,43 +334,40 @@
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
-                        {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item));
-                        }
+                        this.groupsMenuButton?.Items.Remove(this.GetFilterMenuItem(item));
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
-                        {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item));
-                        }
+                        this.groupsMenuButton?.Items.Remove(this.GetFilterMenuItem(item));
                     }
+
                     foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            GalleryGroupFilter filter = item;
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = filter.Title;
-                            menuItem.Tag = filter;
-                            menuItem.IsDefinitive = false;
-                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            var filter = item;
+                            var menuItem = new MenuItem
+                            {
+                                Header = filter.Title,
+                                Tag = filter,
+                                IsDefinitive = false
+                            };
+
+                            if (ReferenceEquals(filter, this.SelectedFilter))
+                            {
+                                menuItem.IsChecked = true;
+                            }
+
                             menuItem.Click += this.OnFilterMenuItemClick;
                             this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
                     break;
                 case NotifyCollectionChangedAction.Reset:
-
-                    if (this.groupsMenuButton != null)
-                    {
-                        this.groupsMenuButton.Items.Clear();
-                    }
-
+                    this.groupsMenuButton?.Items.Clear();
                     break;
             }
         }
@@ -382,40 +386,56 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter),
-            typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         static object CoerceSelectedFilter(DependencyObject d, object basevalue)
         {
-            InRibbonGallery gallery = (InRibbonGallery)d;
-            if ((basevalue == null) && (gallery.Filters.Count > 0)) return gallery.Filters[0];
+            var gallery = (InRibbonGallery)d;
+            if (basevalue == null
+                && gallery.Filters.Count > 0)
+            {
+                return gallery.Filters[0];
+            }
+
             return basevalue;
         }
 
         // Handles filter property changed
-        static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            InRibbonGallery gallery = (InRibbonGallery)d;
-            GalleryGroupFilter oldFilter = e.OldValue as GalleryGroupFilter;
+            var gallery = (InRibbonGallery)d;
+            var oldFilter = e.OldValue as GalleryGroupFilter;
+
             if (oldFilter != null)
             {
                 System.Windows.Controls.MenuItem menuItem = gallery.GetFilterMenuItem(oldFilter);
-                if (menuItem != null) menuItem.IsChecked = false;
+
+                if (menuItem != null)
+                {
+                    menuItem.IsChecked = false;
+                }
             }
-            GalleryGroupFilter filter = e.NewValue as GalleryGroupFilter;
+
+            var filter = e.NewValue as GalleryGroupFilter;
+
             if (filter != null)
             {
                 gallery.SelectedFilterTitle = filter.Title;
                 gallery.SelectedFilterGroups = filter.Groups;
                 System.Windows.Controls.MenuItem menuItem = gallery.GetFilterMenuItem(filter);
-                if (menuItem != null) menuItem.IsChecked = true;
+
+                if (menuItem != null)
+                {
+                    menuItem.IsChecked = true;
+                }
             }
             else
             {
                 gallery.SelectedFilterTitle = "";
                 gallery.SelectedFilterGroups = null;
             }
+
             gallery.UpdateLayout();
         }
 
@@ -429,8 +449,7 @@
         }
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterTitle", typeof(string),
-            typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly("SelectedFilterTitle", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterTitle. 
@@ -448,8 +467,7 @@
         }
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterGroups", typeof(string),
-            typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly("SelectedFilterGroups", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterGroups. 
@@ -474,10 +492,10 @@
         /// </summary>
         public static readonly DependencyProperty HasFilterProperty = HasFilterPropertyKey.DependencyProperty;
 
-        void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
+        private void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
         {
-            MenuItem senderItem = (MenuItem)sender;
-            MenuItem item = this.GetFilterMenuItem(this.SelectedFilter);
+            var senderItem = (MenuItem)sender;
+            var item = this.GetFilterMenuItem(this.SelectedFilter);
             item.IsChecked = false;
             senderItem.IsChecked = true;
             this.SelectedFilter = senderItem.Tag as GalleryGroupFilter;
@@ -485,11 +503,15 @@
             e.Handled = true;
         }
 
-        MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
+        private MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
         {
-            if (filter == null) return null;
-            if (this.groupsMenuButton == null) return null;
-            return this.groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
+            if (filter == null)
+            {
+                return null;
+            }
+
+            return this.groupsMenuButton?.Items.Cast<MenuItem>()
+                .FirstOrDefault(item => item != null && item.Header.ToString() == filter.Title);
         }
 
         #endregion
@@ -549,8 +571,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool),
-            typeof(InRibbonGallery), new UIPropertyMetadata(false));
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -644,17 +665,28 @@
             }
             set
             {
-                if (value == this.isSnapped) return;
-                if (this.IsCollapsed) return;
-
-                if (!this.IsVisible) return;
-
-                if ((value) && (((int)this.ActualWidth > 0) && ((int)this.ActualHeight > 0)))
+                if (value == this.isSnapped)
                 {
+                    return;
+                }
 
+                if (this.IsCollapsed)
+                {
+                    return;
+                }
+
+                if (this.IsVisible == false)
+                {
+                    return;
+                }
+
+                if (value
+                    && (int)this.ActualWidth > 0
+                    && (int)this.ActualHeight > 0)
+                {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
-                    RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap((int)this.galleryPanel.ActualWidth,
+                    var renderTargetBitmap = new RenderTargetBitmap((int)this.galleryPanel.ActualWidth,
                                                                                    (int)this.galleryPanel.ActualHeight, 96, 96,
                                                                                    PixelFormats.Pbgra32);
                     renderTargetBitmap.Render(this.galleryPanel);
@@ -663,14 +695,13 @@
                     this.snappedImage.Width = this.galleryPanel.ActualWidth;
                     this.snappedImage.Height = this.galleryPanel.ActualHeight;
                     this.snappedImage.Visibility = Visibility.Visible;
-                    this.isSnapped = value;
                 }
                 else
                 {
                     this.snappedImage.Visibility = Visibility.Collapsed;
-                    this.isSnapped = value;
-                    this.InvalidateVisual();
                 }
+
+                this.isSnapped = value;
 
                 this.InvalidateVisual();
             }
@@ -733,9 +764,12 @@
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            InRibbonGallery gal = d as InRibbonGallery;
-            int minItemsInRow = (int)e.NewValue;
-            if (!gal.IsDropDownOpen && (gal.galleryPanel != null) && (gal.galleryPanel.MinItemsInRow < minItemsInRow))
+            var gal = (InRibbonGallery)d;
+            var minItemsInRow = (int)e.NewValue;
+
+            if (gal.IsDropDownOpen == false
+                && gal.galleryPanel != null
+                && gal.galleryPanel.MinItemsInRow < minItemsInRow)
             {
                 gal.galleryPanel.MinItemsInRow = minItemsInRow;
                 gal.galleryPanel.MaxItemsInRow = minItemsInRow;
@@ -870,21 +904,21 @@
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static InRibbonGallery()
         {
-            Type type = typeof(InRibbonGallery);
+            var type = typeof(InRibbonGallery);
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, OnCoerceStyle));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(InRibbonGallery));
+                basevalue = ((FrameworkElement)d).TryFindResource(typeof(InRibbonGallery));
             }
 
             return basevalue;
@@ -893,13 +927,20 @@
         // Coerce selected item
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            InRibbonGallery gallery = (InRibbonGallery)d;
-            if (!gallery.Selectable)
+            var gallery = (InRibbonGallery)d;
+
+            if (gallery.Selectable == false)
             {
-                GalleryItem galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
-                if (basevalue != null && galleryItem != null) galleryItem.IsSelected = false;
+                var galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
+                if (basevalue != null
+                    && galleryItem != null)
+                {
+                    galleryItem.IsSelected = false;
+                }
+
                 return null;
             }
+
             return basevalue;
         }
 
@@ -939,16 +980,22 @@
         {
             foreach (var item in e.RemovedItems)
             {
-                GalleryItem itemContainer = (this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
-                if (itemContainer != null) itemContainer.IsSelected = false;
+                var itemContainer = this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem;
+                if (itemContainer != null)
+                {
+                    itemContainer.IsSelected = false;
+                }
             }
 
             foreach (var item in e.AddedItems)
             {
-                GalleryItem itemContainer = (this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem);
-                if (itemContainer != null) itemContainer.IsSelected = true;
+                var itemContainer = this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem;
+                if (itemContainer != null)
+                {
+                    itemContainer.IsSelected = true;
+                }
             }
-            //if (IsDropDownOpen) IsDropDownOpen = false;
+
             base.OnSelectionChanged(e);
         }
 
@@ -961,16 +1008,28 @@
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as FrameworkElement;
 
             if (this.expandButton != null)
+            {
                 this.expandButton.Click -= this.OnExpandClick;
+            }
+
             this.expandButton = this.GetTemplateChild("PART_ExpandButton") as ToggleButton;
+
             if (this.expandButton != null)
+            {
                 this.expandButton.Click += this.OnExpandClick;
+            }
 
             if (this.dropDownButton != null)
+            {
                 this.dropDownButton.Click -= this.OnDropDownClick;
+            }
+
             this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
+
             if (this.dropDownButton != null)
+            {
                 this.dropDownButton.Click += this.OnDropDownClick;
+            }
 
             if (this.popup != null)
             {
@@ -1000,7 +1059,9 @@
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
+
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
+
             if (this.resizeVerticalThumb != null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
@@ -1010,7 +1071,9 @@
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
+
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
+
             if (this.resizeBothThumb != null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
@@ -1018,18 +1081,26 @@
 
             this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
 
-            if (this.groupsMenuButton != null)
-                this.groupsMenuButton.Items.Clear();
+            this.groupsMenuButton?.Items.Clear();
+
             this.groupsMenuButton = this.GetTemplateChild("PART_FilterDropDownButton") as DropDownButton;
+
             if (this.groupsMenuButton != null)
             {
-                for (int i = 0; i < this.Filters.Count; i++)
+                foreach (var currentFilter in this.Filters)
                 {
-                    MenuItem item = new MenuItem();
-                    item.Header = this.Filters[i].Title;
-                    item.Tag = this.Filters[i];
-                    item.IsDefinitive = false;
-                    if (this.Filters[i] == this.SelectedFilter) item.IsChecked = true;
+                    var item = new MenuItem
+                    {
+                        Header = currentFilter.Title,
+                        Tag = currentFilter,
+                        IsDefinitive = false
+                    };
+
+                    if (ReferenceEquals(currentFilter, this.SelectedFilter))
+                    {
+                        item.IsChecked = true;
+                    }
+
                     item.Click += this.OnFilterMenuItemClick;
                     this.groupsMenuButton.Items.Add(item);
                 }
@@ -1349,6 +1420,7 @@
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
             gallery.DropDownOpened += this.OnQuickAccessOpened;
+
             if (this.DropDownClosed != null)
             {
                 gallery.DropDownClosed += this.DropDownClosed;
@@ -1361,6 +1433,7 @@
 
             RibbonProperties.SetSize(gallery, RibbonControlSize.Small);
             this.quickAccessGallery = gallery;
+
             return gallery;
         }
 
