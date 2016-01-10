@@ -77,7 +77,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel), 
+            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel),
             new UIPropertyMetadata(null, OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -97,7 +97,7 @@
         public Func<object, string> GroupByAdvanced
         {
             get { return this.groupByAdvanced; }
-            set 
+            set
             {
                 this.groupByAdvanced = value;
                 this.Invalidate();
@@ -122,13 +122,13 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style), 
+            DependencyProperty.Register("GroupHeaderStyle", typeof(Style),
             typeof(GalleryPanel), new UIPropertyMetadata(null));
-        
+
         #endregion
 
         #region ItemWidth
-        
+
         /// <summary>
         /// Gets or sets a value that specifies the width of 
         /// all items that are contained within
@@ -144,7 +144,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), 
+            DependencyProperty.Register("ItemWidth", typeof(double),
             typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
@@ -168,11 +168,11 @@
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register("ItemHeight", typeof(double),
             typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
-        
+
         #endregion
 
         #region Filter
-        
+
         /// <summary>
         /// Gets or sets groups names separated by comma which must be shown
         /// </summary>
@@ -187,7 +187,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
-            DependencyProperty.Register("Filter", typeof(string), 
+            DependencyProperty.Register("Filter", typeof(string),
             typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -216,7 +216,7 @@
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register("MinItemsInRow", typeof(int),
             typeof(GalleryPanel), new UIPropertyMetadata((int)1));
-        
+
         #endregion
 
         #region MaxItemsInRow
@@ -385,7 +385,7 @@
             this.haveToBeRefreshed = false;
         }
 
-        private void Refresh()
+        public void Refresh()
         {
             // Clear currently used group containers 
             // and supply with new generated ones
@@ -397,13 +397,13 @@
             }
 
             this.galleryGroupContainers.Clear();
-            
+
             // Gets filters
             var filter = this.Filter == null ? null : this.Filter.Split(',');
 
             var dictionary = new Dictionary<string, GalleryGroupContainer>();
 
-            foreach(UIElement item in this.InternalChildren)
+            foreach (UIElement item in this.InternalChildren)
             {
                 if (item == null)
                 {
@@ -430,13 +430,13 @@
                 {
                     propertyValue = "Undefined";
                 }
-                
+
                 // Make invisible if it is not in filter (or is not grouped)
-                if (this.IsGrouped == false 
+                if (this.IsGrouped == false
                     || (filter != null && filter.Contains(propertyValue) == false))
                 {
-                    item.Measure(new Size(0,0));
-                    item.Arrange(new Rect(0,0,0,0));
+                    item.Measure(new Size(0, 0));
+                    item.Arrange(new Rect(0, 0, 0, 0));
                 }
 
                 // Skip if it is not in filter
@@ -455,16 +455,16 @@
                 if (dictionary.ContainsKey(propertyValue) == false)
                 {
                     var galleryGroupContainer = new GalleryGroupContainer
-                                                {
-                                                    Header = propertyValue
-                                                };
+                    {
+                        Header = propertyValue
+                    };
                     RibbonControl.Bind(this, galleryGroupContainer, "GroupStyle", GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemHeight", GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "MaxItemsInRow", GalleryGroupContainer.MaxItemsInRowProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "MinItemsInRow", GalleryGroupContainer.MinItemsInRowProperty, BindingMode.OneWay);
-                    dictionary.Add(propertyValue,galleryGroupContainer);
+                    dictionary.Add(propertyValue, galleryGroupContainer);
                     this.galleryGroupContainers.Add(galleryGroupContainer);
 
                     this.visualCollection.Add(galleryGroupContainer);
@@ -473,7 +473,7 @@
                 dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
             }
 
-            if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null)) 
+            if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
                 && this.galleryGroupContainers.Count != 0)
             {
                 // Make it without headers
@@ -590,24 +590,24 @@
 
         #endregion
 
-		/// <summary>
-		/// Gets an enumerator that can iterate the logical child elements of this <see cref="T:System.Windows.Controls.Panel"/> element. 
-		/// </summary>
-		/// <returns>
-		/// An <see cref="T:System.Collections.IEnumerator"/>. This property has no default value.
-		/// </returns>
-		protected override IEnumerator LogicalChildren
-		{
-			get
-			{
-				var count = this.VisualChildrenCount;
+        /// <summary>
+        /// Gets an enumerator that can iterate the logical child elements of this <see cref="T:System.Windows.Controls.Panel"/> element. 
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator"/>. This property has no default value.
+        /// </returns>
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var count = this.VisualChildrenCount;
 
-				for (var i = 0; i < count; i++)
-				{
-					yield return this.GetVisualChild(i);
-				}
-			}
-		}
+                for (var i = 0; i < count; i++)
+                {
+                    yield return this.GetVisualChild(i);
+                }
+            }
+        }
 
         /// <summary>
         /// Called when the <see cref="P:System.Windows.Controls.ItemsControl.Items"/> collection that is associated with the <see cref="T:System.Windows.Controls.ItemsControl"/> for this <see cref="T:System.Windows.Controls.Panel"/> changes.

@@ -1061,7 +1061,7 @@
         private void ForceContentRefreshToFixLayout()
         {
             if (this.controlPresenter == null
-                && this.galleryPanel != null)
+                || this.galleryPanel == null)
             {
                 return;
             }
@@ -1093,11 +1093,13 @@
         private void OnDropDownClick(object sender, RoutedEventArgs e)
         {
             if (this.canOpenDropDown)
+            {
                 this.IsDropDownOpen = true;
+            }
         }
 
         // Handles drop down opened
-        void OnDropDownClosed(object sender, EventArgs e)
+        private void OnDropDownClosed(object sender, EventArgs e)
         {
             this.galleryPanel.Width = double.NaN;
             this.galleryPanel.IsGrouped = false;
@@ -1109,21 +1111,24 @@
             this.controlPresenter.Content = this.galleryPanel;
             this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
             {
-                if ((this.quickAccessGallery == null) || ((this.quickAccessGallery != null) && (!this.quickAccessGallery.IsDropDownOpen)))
+                if (this.quickAccessGallery == null
+                    || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false))
                 {
                     this.IsSnapped = false;
                 }
             }));
 
-            //snappedImage.Visibility = Visibility.Collapsed;            
-            if (this.DropDownClosed != null)
-                this.DropDownClosed(this, e);
-            if (Mouse.Captured == this) Mouse.Capture(null);
+            this.DropDownClosed?.Invoke(this, e);
+
+            if (ReferenceEquals(Mouse.Captured, this))
+            {
+                Mouse.Capture(null);
+            }
+
             this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
                                                                                {
-                                                                                   GalleryItem selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
-                                                                                   if (selectedContainer != null) selectedContainer.BringIntoView();
-
+                                                                                   var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                                                                   selectedContainer?.BringIntoView();
                                                                                }));
             this.dropDownButton.IsChecked = false;
             this.canOpenDropDown = true;
@@ -1139,10 +1144,7 @@
             this.galleryPanel.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
 
-            if (this.DropDownOpened != null)
-            {
-                this.DropDownOpened(this, e);
-            }
+            this.DropDownOpened?.Invoke(this, e);
 
             this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
@@ -1169,14 +1171,14 @@
 
                 var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
 
-                if (!double.IsNaN(this.DropDownHeight))
+                if (double.IsNaN(this.DropDownHeight) == false)
                 {
                     initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
                 }
 
                 var initialWidth = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownWidth);
 
-                if (!double.IsNaN(this.DropDownWidth))
+                if (double.IsNaN(this.DropDownWidth) == false)
                 {
                     initialWidth = Math.Min(this.DropDownWidth, this.MaxDropDownWidth);
                 }
@@ -1302,7 +1304,6 @@
             }
 
             this.galleryPanel.Width = Math.Max(this.layoutRoot.ActualWidth, this.galleryPanel.Width + e.HorizontalChange);
-
         }
 
         // Handles resize vertical drag
@@ -1348,8 +1349,15 @@
             RibbonControl.Bind(this, gallery, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
 
             gallery.DropDownOpened += this.OnQuickAccessOpened;
-            if (this.DropDownClosed != null) gallery.DropDownClosed += this.DropDownClosed;
-            if (this.DropDownOpened != null) gallery.DropDownOpened += this.DropDownOpened;
+            if (this.DropDownClosed != null)
+            {
+                gallery.DropDownClosed += this.DropDownClosed;
+            }
+
+            if (this.DropDownOpened != null)
+            {
+                gallery.DropDownOpened += this.DropDownOpened;
+            }
 
             RibbonProperties.SetSize(gallery, RibbonControlSize.Small);
             this.quickAccessGallery = gallery;
@@ -1372,7 +1380,7 @@
             this.quickAccessGallery.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
             this.UpdateLayout();
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, ((Action)(this.Freeze)));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, (Action)this.Freeze);
         }
 
         private void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
@@ -1396,13 +1404,11 @@
             this.quickAccessGallery.SelectedItem = this.selectedItem;
             this.quickAccessGallery.Menu = this.Menu;
             this.Menu = null;
-            //quickAccessGallery.IsSnapped = false;
         }
 
         private void Unfreeze()
         {
             this.selectedItem = this.quickAccessGallery.SelectedItem;
-            //quickAccessGallery.IsSnapped = true;
             this.quickAccessGallery.SelectedItem = null;
 
             ItemsControlHelper.MoveItemsToDifferentControl(this.quickAccessGallery, this);
@@ -1411,7 +1417,7 @@
             this.Menu = this.quickAccessGallery.Menu;
             this.quickAccessGallery.Menu = null;
 
-            if (!this.IsDropDownOpen)
+            if (this.IsDropDownOpen == false)
             {
                 if (this.controlPresenter != null)
                 {
@@ -1440,15 +1446,16 @@
                 }
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, ((ThreadStart)(() =>
-                                                                                  {
-                                                                                      if (!this.IsDropDownOpen)
-                                                                                      {
-                                                                                          this.IsSnapped = false;
-                                                                                      }
-                                                                                      var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
-                                                                                      if (selectedContainer != null) selectedContainer.BringIntoView();
-                                                                                  })));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
+                                                                                     {
+                                                                                         if (this.IsDropDownOpen == false)
+                                                                                         {
+                                                                                             this.IsSnapped = false;
+                                                                                         }
+
+                                                                                         var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                                                                         selectedContainer?.BringIntoView();
+                                                                                     }));
         }
 
         /// <summary>
@@ -1474,23 +1481,24 @@
         /// </summary>
         public void Enlarge()
         {
-            /*currentItemsInRow++;
-
-            if ((CanCollapseToButton) && (CurrentItemsInRow >= MinItemsInRow) && (Size == RibbonControlSize.Large)) IsCollapsed = false;
-
-            InvalidateMeasure();*/
-            if (this.IsCollapsed && (RibbonProperties.GetSize(this) == RibbonControlSize.Large))
+            if (this.IsCollapsed
+                && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
+            {
                 this.IsCollapsed = false;
+            }
             else if (this.galleryPanel.MinItemsInRow < this.MaxItemsInRow)
             {
                 this.galleryPanel.MinItemsInRow++;
                 this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
             }
-            else return;
+            else
+            {
+                return;
+            }
+
             this.InvalidateMeasure();
-            //UpdateLayout();
-            if (this.Scaled != null)
-                this.Scaled(this, EventArgs.Empty);
+
+            this.Scaled?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -1503,16 +1511,18 @@
                 this.galleryPanel.MinItemsInRow--;
                 this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
             }
-            else if (this.CanCollapseToButton && !this.IsCollapsed)
+            else if (this.CanCollapseToButton
+                     && this.IsCollapsed == false)
+            {
                 this.IsCollapsed = true;
-            else return;
+            }
+            else
+            {
+                return;
+            }
             this.InvalidateMeasure();
-            if (this.Scaled != null)
-                this.Scaled(this, EventArgs.Empty);
-            /*currentItemsInRow--;
-            if ((CanCollapseToButton) && (CurrentItemsInRow < MinItemsInRow)) IsCollapsed = true;
 
-            InvalidateMeasure();*/
+            this.Scaled?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
