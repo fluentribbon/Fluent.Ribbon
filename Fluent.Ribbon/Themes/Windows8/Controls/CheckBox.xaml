@@ -82,8 +82,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Opacity="0"
                               Stretch="Fill"
-                              Fill="Black"
-                              />
+                              Fill="Black" />
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
@@ -184,6 +183,15 @@
                 <Setter TargetName="IndeterminateIcon"
                         Property="Opacity"
                         Value="1" />
+            </Trigger>
+            <Trigger Property="FlowDirection"
+                     Value="RightToLeft">
+                <Setter TargetName="CheckIcon"
+                        Property="LayoutTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="-1" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

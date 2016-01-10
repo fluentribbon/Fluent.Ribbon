@@ -89,7 +89,8 @@
                                         </RadialGradientBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <Path Margin="3,3,3,3"
+                                <Path x:Name="CheckIcon"
+                                      Margin="3,3,3,3"
                                       VerticalAlignment="Stretch"
                                       Stretch="Fill"
                                       Data="M2.0594839,6.6033333 L5.8330001,9.4978325 10.00636,1.7586203"
@@ -98,8 +99,7 @@
                                       StrokeEndLineCap="Triangle"
                                       StrokeDashCap="Square"
                                       StrokeThickness="2"
-                                      StrokeStartLineCap="Triangle"
-                                      x:Name="path">
+                                      StrokeStartLineCap="Triangle">
                                     <Path.BitmapEffect>
                                         <OuterGlowBitmapEffect GlowColor="#BFFFFFFF"
                                                                GlowSize="1"
@@ -135,7 +135,7 @@
                                     TargetName="defaultRect"
                                     Value="{DynamicResource CheckBoxHoverInnerBackgroundBrush}" />
                             <Setter Property="Stroke"
-                                    TargetName="path"
+                                    TargetName="CheckIcon"
                                     Value="Black" />
                             <Setter Property="Opacity"
                                     TargetName="rectangle2"
@@ -159,7 +159,7 @@
                                     TargetName="defaultRect"
                                     Value="{DynamicResource CheckBoxPressedInnerBackgroundBrush}" />
                             <Setter Property="Stroke"
-                                    TargetName="path"
+                                    TargetName="CheckIcon"
                                     Value="Black" />
                             <Setter Property="Opacity"
                                     TargetName="rectangle2"
@@ -168,7 +168,7 @@
                         <Trigger Property="IsChecked"
                                  Value="False">
                             <Setter Property="Visibility"
-                                    TargetName="path"
+                                    TargetName="CheckIcon"
                                     Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
@@ -176,6 +176,15 @@
                             <Setter Property="Opacity"
                                     TargetName="bulletDecorator"
                                     Value="0.3" />
+                        </Trigger>
+                        <Trigger Property="FlowDirection"
+                                 Value="RightToLeft">
+                            <Setter TargetName="CheckIcon"
+                                    Property="LayoutTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="-1" />
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

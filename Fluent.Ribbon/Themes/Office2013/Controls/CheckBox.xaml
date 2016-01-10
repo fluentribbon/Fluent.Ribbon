@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <ControlTemplate x:Key="CheckBoxControlTemplate"
@@ -186,6 +187,15 @@
                 <Setter TargetName="IndeterminateIcon"
                         Property="Opacity"
                         Value="1" />
+            </Trigger>
+            <Trigger Property="FlowDirection"
+                     Value="RightToLeft">
+                <Setter TargetName="CheckIcon"
+                        Property="LayoutTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="-1" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
