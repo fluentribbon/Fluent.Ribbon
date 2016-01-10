@@ -91,6 +91,30 @@
                                                  Visibility="Visible" />
             </Fluent:Ribbon.ContextualGroups>
 
+            <Fluent:Ribbon.StartScreen>
+                <Fluent:StartScreen x:Name="startScreen">
+                    <Fluent:StartScreenTabControl>
+                        <Fluent:StartScreenTabControl.LeftContent>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Fluent.Ribbon"
+                                       FontSize="48"
+                                       Foreground="{DynamicResource BackstageFontBrush}" />
+                            </StackPanel>
+                        </Fluent:StartScreenTabControl.LeftContent>
+
+                        <Fluent:StartScreenTabControl.RightContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock VerticalAlignment="Center"
+                                           HorizontalAlignment="Center">You can close the start screen by either clicking the button below or by pressing ESC</TextBlock>
+                                <Fluent:Button HorizontalAlignment="Center"
+                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Exit.png"
+                                               IsDefinitive="True">Close start screen</Fluent:Button>
+                            </StackPanel>
+                        </Fluent:StartScreenTabControl.RightContent>
+                    </Fluent:StartScreenTabControl>
+                </Fluent:StartScreen>
+            </Fluent:Ribbon.StartScreen>
+            
             <Fluent:Ribbon.Menu>
                 <Grid>
                     <!--Backstage items can be keytipped-->
@@ -355,10 +379,10 @@
                                             Target="{Binding ElementName=RedoButton}" />
             </Fluent:Ribbon.QuickAccessItems>
 
-            <Fluent:RibbonTabItem   x:Name="homeTabItem"
-                                    Header="Home"
-                                    KeyTip="H"
-                                    ToolTip="Regular Tool Tip">
+            <Fluent:RibbonTabItem x:Name="homeTabItem"
+                                  Header="Home"
+                                  KeyTip="H"
+                                  ToolTip="Regular Tool Tip">
                 <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
                                        KeyTip="T10"
                                        x:Name="C"
@@ -411,7 +435,12 @@
                                          Name="UseApplicationMenu"
                                          Size="Middle">
                         Use application menu
-                    </Fluent:ToggleButton>                    
+                    </Fluent:ToggleButton>
+                    <Fluent:Button Name="ShowStartScreen"
+                                   Size="Middle"
+                                   Click="ShowStartScreen_OnClick">
+                        Show start screen
+                    </Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 
                 <Fluent:RibbonGroupBox Header="Window options">

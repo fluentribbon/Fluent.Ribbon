@@ -139,14 +139,9 @@
         <GradientStop Color="#D8FFFFFF"
                       Offset="1" />
     </LinearGradientBrush>
-    <LinearGradientBrush x:Key="BackstagePanelBackgroundBrush"
-                         EndPoint="0.5,1"
-                         StartPoint="0.5,0">
-        <GradientStop Color="#FFFBFCFD"
-                      Offset="0" />
-        <GradientStop Color="#FFE0E3E7"
-                      Offset="1" />
-    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="BackstagePanelBackgroundBrush"
+                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" />
 
     <LinearGradientBrush x:Key="ButtonBackgroundBrush"
                          EndPoint="0.5,1"

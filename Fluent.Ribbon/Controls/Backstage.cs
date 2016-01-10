@@ -36,8 +36,6 @@ namespace Fluent
 
         #region Properties
 
-        #region IsOpen
-
         /// <summary>
         /// Gets or sets whether backstage is shown
         /// </summary>
@@ -151,8 +149,6 @@ namespace Fluent
             }
         }
 
-        #endregion
-
         #region Content
 
         /// <summary>
@@ -264,31 +260,33 @@ namespace Fluent
         private double savedWindowWidth = double.NaN;
         private double savedWindowHeight = double.NaN;
 
-        // Opens backstage on an Adorner layer
-        private void Show()
+        /// <summary>
+        /// Shows the <see cref="Backstage"/>
+        /// </summary>
+        protected virtual bool Show()
         {
             // don't open the backstage while in design mode
             if (DesignerProperties.GetIsInDesignMode(this))
             {
-                return;
+                return false;
             }
 
             if (this.IsLoaded == false)
             {
                 this.Loaded += this.OnDelayedShow;
-                return;
+                return false;
             }
 
             if (this.Content == null)
             {
-                return;
+                return false;
             }
 
             this.CreateAndAttachBackstageAdorner();
 
             this.ShowAdorner();
 
-            var ribbon = this.FindRibbon();
+            var ribbon = this.GetParentRibbon();
             if (ribbon != null)
             {
                 ribbon.TabControl.IsDropDownOpen = false;
@@ -336,6 +334,8 @@ namespace Fluent
 
             var content = this.Content as IInputElement;
             content?.Focus();
+
+            return true;
         }
 
         private void ShowAdorner()
@@ -414,14 +414,36 @@ namespace Fluent
             if (topLevelElement == null)
             {
                 return;
-            }
+            }            
+
+            var layer = this.GetAdornerLayer();
 
             this.adorner = new BackstageAdorner(topLevelElement, this);
-
-            var layer = AdornerLayer.GetAdornerLayer(this);
             layer.Add(this.adorner);
 
             layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted));
+        }
+
+        private AdornerLayer GetAdornerLayer()
+        {
+            var layer = AdornerLayer.GetAdornerLayer(this);
+
+            if (layer == null)
+            {
+                var parentVisual = this.Parent as Visual ?? this.GetParentRibbon();
+
+                if (parentVisual != null)
+                {
+                    layer = AdornerLayer.GetAdornerLayer(parentVisual);
+                }
+            }
+
+            if (layer == null)
+            {
+                throw new Exception($"AdornerLayer could not be found for {this}.");
+            }
+
+            return layer;
         }
 
         private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)
@@ -451,11 +473,13 @@ namespace Fluent
 
             // Delaying show so everthing can load properly.
             // If we don't run this in the background setting IsOpen=true on application start we don't have access to the Bastage from the BackstageTabControl.
-            this.RunInDispatcherAsync(this.Show, DispatcherPriority.Background);
+            this.RunInDispatcherAsync(() => this.Show(), DispatcherPriority.Background);
         }
 
-        // Hide backstage
-        private void Hide()
+        /// <summary>
+        /// Hides the <see cref="Backstage"/>
+        /// </summary>
+        protected virtual void Hide()
         {
             this.Loaded -= this.OnDelayedShow;
 
@@ -472,7 +496,7 @@ namespace Fluent
 
             this.HideAdorner();
 
-            var ribbon = this.FindRibbon();
+            var ribbon = this.GetParentRibbon();
             if (ribbon != null)
             {
                 ribbon.TabControl.HighlightSelectedItem = true;
@@ -522,8 +546,11 @@ namespace Fluent
             this.collapsedElements.Clear();
         }
 
-        // Finds underlying ribbon control
-        private Ribbon FindRibbon()
+        /// <summary>
+        /// Get the parent <see cref="Ribbon"/>.
+        /// </summary>
+        /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
+        protected Ribbon GetParentRibbon()
         {
             DependencyObject item = this;
 
@@ -531,6 +558,17 @@ namespace Fluent
                 && item is Ribbon == false)
             {
                 item = VisualTreeHelper.GetParent(item);
+            }
+
+            if (item == null)
+            {
+                item = this;
+
+                while (item != null &&
+                       item is Ribbon == false)
+                {
+                    item = LogicalTreeHelper.GetParent(item);
+                }
             }
 
             return (Ribbon)item;

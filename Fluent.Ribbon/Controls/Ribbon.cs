@@ -450,16 +450,19 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, OnApplicationMenuChanged));
-
-        static void OnApplicationMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Ribbon ribbon = (Ribbon)d;
-            if (e.OldValue != null) ribbon.RemoveLogicalChild(e.OldValue);
-            if (e.NewValue != null) ribbon.AddLogicalChild(e.NewValue);
-        }
+            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         #endregion
+
+        public UIElement StartScreen
+        {
+            get { return (UIElement)this.GetValue(StartScreenProperty); }
+            set { this.SetValue(StartScreenProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StartScreen.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StartScreenProperty =
+            DependencyProperty.Register(nameof(StartScreen), typeof(UIElement), typeof(UIElement), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         /// <summary>
         /// Window title
@@ -474,17 +477,13 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(Ribbon), new UIPropertyMetadata("", OnTitleChanged));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(Ribbon), new UIPropertyMetadata(string.Empty, OnTitleChanged));
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ribbon = d as Ribbon;
+            var ribbon = (Ribbon)d;
 
-            if (ribbon != null
-                && ribbon.TitleBar != null)
-            {
-                ribbon.TitleBar.InvalidateMeasure();
-            }
+            ribbon?.TitleBar?.InvalidateMeasure();
         }
 
         /// <summary>
@@ -556,6 +555,20 @@ namespace Fluent
             else
             {
                 ribbon.SelectedTabItem = null;
+            }
+        }
+
+        private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+            if (e.OldValue != null)
+            {
+                ribbon.RemoveLogicalChild(e.OldValue);
+            }
+
+            if (e.NewValue != null)
+            {
+                ribbon.AddLogicalChild(e.NewValue);
             }
         }
 
@@ -834,6 +847,11 @@ namespace Fluent
                 if (this.Menu != null)
                 {
                     yield return this.Menu;
+                }
+
+                if (this.StartScreen != null)
+                {
+                    yield return this.StartScreen;
                 }
 
                 if (this.quickAccessToolBar != null)

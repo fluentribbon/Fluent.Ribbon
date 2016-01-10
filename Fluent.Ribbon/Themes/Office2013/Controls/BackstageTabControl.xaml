@@ -203,12 +203,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid VerticalAlignment="Stretch"
-                  Background="{DynamicResource RibbonThemeColorBrush}">
+                  Background="{TemplateBinding ItemsPanelBackground}">
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
-                        Width="35"
-                        Height="35"
                         Margin="22,19,0,0"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left">

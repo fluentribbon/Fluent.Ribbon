@@ -421,6 +421,12 @@
         {
             new TestWindow().ShowDialog();
         }
+
+        private void ShowStartScreen_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.startScreen.Shown = false;
+            this.startScreen.IsOpen = true;
+        }
     }
 
     public class TestRoutedCommand

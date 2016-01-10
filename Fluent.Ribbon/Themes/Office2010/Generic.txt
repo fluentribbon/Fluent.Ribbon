@@ -33,6 +33,8 @@ Office2010\Controls\InRibbonGallery.xaml
 Office2010\Controls\BackstageTabItem.xaml
 Office2010\Controls\BackstageControls.xaml
 Office2010\Controls\BackstageTabControl.xaml
+Generic\Controls\StartScreen.xaml
+Generic\Controls\StartScreenTabControl.xaml
 Office2010\Controls\RibbonSeparator.xaml
 Generic\Controls\RibbonToolBar.xaml
 Generic\Controls\RibbonToolBarControlGroup.xaml

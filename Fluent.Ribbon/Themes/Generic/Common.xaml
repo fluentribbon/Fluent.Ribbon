@@ -23,7 +23,12 @@
            BasedOn="{StaticResource BackstageStyle}" />
     <Style TargetType="{x:Type Fluent:BackstageTabItem}"
            BasedOn="{StaticResource BackstageTabItemStyle}" />
-    
+
+    <Style TargetType="{x:Type Fluent:StartScreen}"
+           BasedOn="{StaticResource RibbonStartScreenStyle}" />
+    <Style TargetType="{x:Type Fluent:StartScreenTabControl}"
+           BasedOn="{StaticResource StartScreenTabControlStyle}" />
+
     <Style TargetType="{x:Type Fluent:Button}"
            BasedOn="{StaticResource RibbonButtonStyle}" />
     <Style TargetType="{x:Type Fluent:DropDownButton}"

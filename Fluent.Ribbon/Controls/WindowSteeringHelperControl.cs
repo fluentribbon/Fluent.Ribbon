@@ -12,14 +12,14 @@
     public class WindowSteeringHelperControl : Border
     {
         /// <summary>
-        /// Creates a new instance
+        /// Static constructor
         /// </summary>
-        public WindowSteeringHelperControl()
+        static WindowSteeringHelperControl()
         {
-            this.Background = Brushes.Transparent;
-            this.IsHitTestVisible = true;
-            this.HorizontalAlignment = HorizontalAlignment.Stretch;
-            this.VerticalAlignment = VerticalAlignment.Stretch;
+            BackgroundProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(Brushes.Transparent));
+            IsHitTestVisibleProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new UIPropertyMetadata(true));
+            HorizontalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(HorizontalAlignment.Stretch));
+            VerticalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(VerticalAlignment.Stretch));
         }
 
         /// <summary>
