@@ -185,6 +185,18 @@ namespace Fluent
                 return;
             }
 
+            // Keytips should be cancelled if Alt+Num0 is pressed #241.
+            // This allows entering special keys via numpad.
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Alt
+                && e.SystemKey >= Key.NumPad0
+                && e.SystemKey <= Key.NumPad9)
+            {
+                this.activeAdornerChain?.Terminate();
+                this.activeAdornerChain = null;
+                this.ClearUserInput();
+                return;
+            }
+
             if (IsShowOrHideKey(e))
             {
                 if (this.activeAdornerChain == null
