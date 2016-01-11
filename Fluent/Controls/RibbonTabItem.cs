@@ -609,7 +609,7 @@ namespace Fluent
 
                 if (this.TabControlParent != null)
                 {
-                    var canMinimize = this.FindParentRibbon().CanMinimize;
+                    var canMinimize = this.TabControlParent.CanMinimize;
                     if (canMinimize)
                     {
                         this.TabControlParent.IsMinimized = !this.TabControlParent.IsMinimized;
