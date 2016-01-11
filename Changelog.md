@@ -41,6 +41,8 @@
   - [#194](../../issues/194) - There should be an option to disable animations in the whole control
   - [#205](../../issues/205) - Fluent Spinner handles Format="P0" incorrectly.
   - [#207](../../issues/207) - Enable DragMove on unused RibbonTabControl space like in Office 2013
+  - [#230](../../issues/230) - Option to disable the "Minimize"-Ribbon Button & Behavior
+  - [#242](../../issues/242) - Add start screen like in office 2013 and upwards
 
 ## 3.6.1
 
