@@ -14,7 +14,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
@@ -35,7 +34,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.LayoutTransform>
-        <ScaleTransform ScaleX="{Binding Zoom}" 
+        <ScaleTransform ScaleX="{Binding Zoom}"
                         ScaleY="{Binding Zoom}" />
     </UserControl.LayoutTransform>
     <Grid>
@@ -53,7 +52,7 @@
                     </StackPanel>
                 </Border>
             </DataTemplate>
-            
+
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
                 <Border ToolTip="{Binding Text}">
@@ -115,7 +114,7 @@
                     </Fluent:StartScreenTabControl>
                 </Fluent:StartScreen>
             </Fluent:Ribbon.StartScreen>
-            
+
             <Fluent:Ribbon.Menu>
                 <Grid>
                     <!--Backstage items can be keytipped-->
@@ -291,8 +290,8 @@
                                 <ItemsControl ItemsSource="{Binding GalleryViewModel.Items}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Fluent:MenuItem Header="{Binding Text}"  
-                                                             ToolTip="{Binding Text}" 
+                                            <Fluent:MenuItem Header="{Binding Text}"
+                                                             ToolTip="{Binding Text}"
                                                              Description="{Binding Group}"
                                                              IsDefinitive="True"
                                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
@@ -314,7 +313,7 @@
                         <Fluent:MenuItem Header="Save As"
                                          IsSplited="True"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png">
-                            <Fluent:MenuItem Header="Standard format"                                             
+                            <Fluent:MenuItem Header="Standard format"
                                              Description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
                                              ToolTip="Save something in standard format"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
@@ -323,7 +322,7 @@
                                              ToolTip="Export something"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png" />
                         </Fluent:MenuItem>
-                        
+
                         <Fluent:MenuItem Header="Open"
                                          Description="CTRL + O"
                                          ToolTip="Open object"
@@ -332,9 +331,9 @@
                         <Separator />
 
                         <Fluent:MenuItem Header="Exit"
-                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                            KeyTip="X"
-                                            Command="{Binding ExitCommand}" />
+                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                         KeyTip="X"
+                                         Command="{Binding ExitCommand}" />
                     </Fluent:ApplicationMenu>
                 </Grid>
             </Fluent:Ribbon.Menu>
@@ -399,7 +398,7 @@
                     <Fluent:Button Click="OnOffice2010BlueClick"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueTheme.png"
                                    SizeDefinition="Middle">Blue</Fluent:Button>
-                    <Fluent:CheckBox Name="DontUseDwm" 
+                    <Fluent:CheckBox Name="DontUseDwm"
                                      Click="HandleDontUseDwmClick">Don't use DWM</Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
@@ -424,7 +423,7 @@
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
                                    SizeDefinition="Middle">White (Experimental)</Fluent:Button>
                 </Fluent:RibbonGroupBox>
-                
+
                 <Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseBackstage"
@@ -443,7 +442,7 @@
                         Show start screen
                     </Fluent:Button>
                 </Fluent:RibbonGroupBox>
-                
+
                 <Fluent:RibbonGroupBox Header="Window options">
                     <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}}">
                         IsIconVisible
@@ -451,7 +450,7 @@
                     <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
                                      IsChecked="True">
                         IsStatusBarVisible
-                    </Fluent:CheckBox>					
+                    </Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Ribbon options">
@@ -945,10 +944,14 @@
 
                     <Fluent:Button Header="Button with rectangle as icon">
                         <Fluent:Button.Icon>
-                            <Rectangle Fill="Green" Height="16" Width="16" />
+                            <Rectangle Fill="Green"
+                                       Height="16"
+                                       Width="16" />
                         </Fluent:Button.Icon>
                         <Fluent:Button.LargeIcon>
-                            <Rectangle Fill="Blue" Height="32" Width="32" />
+                            <Rectangle Fill="Blue"
+                                       Height="32"
+                                       Width="32" />
                         </Fluent:Button.LargeIcon>
                     </Fluent:Button>
                 </Fluent:RibbonGroupBox>
@@ -1027,7 +1030,8 @@
                                            ResizeMode="Both"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
-                                           ClosePopupOnMouseDown="True" ClosePopupOnMouseDownDelay="250">
+                                           ClosePopupOnMouseDown="True"
+                                           ClosePopupOnMouseDownDelay="250">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
                         <MenuItem Header="3" />
@@ -1085,7 +1089,6 @@
                                         Icon="{StaticResource VectorImageSample}" />
 
                 </Fluent:RibbonGroupBox>
-
 
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -1152,7 +1155,8 @@
                     <Fluent:ToggleButton Header="Toggle 2"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Toggle 3"
-                                         GroupName="Group1" IsChecked="{Binding Path=IsCheckedToggleButton3}"/>
+                                         GroupName="Group1"
+                                         IsChecked="{Binding Path=IsCheckedToggleButton3}" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>
@@ -1173,7 +1177,7 @@
                             </ItemsPanelTemplate>
                         </Fluent:ComboBox.ItemsPanel>
                     </Fluent:ComboBox>
-                    
+
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
@@ -1248,7 +1252,7 @@
                                    Icon="Images\Green.png"
                                    LargeIcon="Images\GreenLarge.png"
                                    Command="{Binding GalleryViewModel.RefreshCommand}" />
-                    
+
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
                                            Icon="Images\Pink.png"
@@ -2138,7 +2142,6 @@
                                 </Fluent:RibbonToolBarRow>
                             </Fluent:RibbonToolBarLayoutDefinition>
 
-
                             <!--Large Size of the RibbonToolBar-->
                             <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
                                 <Fluent:RibbonToolBarRow>
@@ -2408,8 +2411,6 @@
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
 
-
-
                     <Fluent:SplitButton Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                         Header="Always middle"
                                         Fluent:KeyTip.Keys="X4">
@@ -2422,9 +2423,9 @@
                                          IsChecked="True"
                                          IsCheckable="True" />
 
-                        <Fluent:MenuItem Header="Menu 2" 
+                        <Fluent:MenuItem Header="Menu 2"
                                          IsCheckable="True" />
-                        
+
                     </Fluent:SplitButton>
 
                     <Fluent:SplitButton Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
@@ -2563,7 +2564,8 @@
             <TabItem Header="Home">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap">
-                        <Run FontWeight="ExtraBold" FontSize="18">Fluent Ribbon Control Suite</Run>
+                        <Run FontWeight="ExtraBold"
+                             FontSize="18">Fluent Ribbon Control Suite</Run>
                         <LineBreak />
                         Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft® Office Fluent™ user interface) for the Windows Presentation Foundation (WPF).
                         <LineBreak />
@@ -2756,7 +2758,7 @@
                             <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                     Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
                             <Button x:Name="OpenModalRibbonWindow"
-                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>                            
+                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
 
                         </WrapPanel>
                     </GroupBox>
@@ -2771,7 +2773,7 @@
         </TabControl>
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
-                          VerticalAlignment="Bottom"						  
+                          VerticalAlignment="Bottom"
                           Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}"
                           Grid.Row="2">
             <Fluent:StatusBarItem Title="Words Width"
@@ -2801,7 +2803,7 @@
                         TickFrequency="0.1"
                         SmallChange="0.1"
                         LargeChange="0.1"
-                        ValueChanged="ZoomSlider_OnValueChanged"/>
+                        ValueChanged="ZoomSlider_OnValueChanged" />
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>
