@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FluentTest;component/Images/VectorIcons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
@@ -468,6 +469,9 @@
                     </Fluent:CheckBox>
                     <Fluent:CheckBox IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         IsMinimized
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding CanMinimize, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        CanMinimize
                     </Fluent:CheckBox>
                     <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         IsCollapsed

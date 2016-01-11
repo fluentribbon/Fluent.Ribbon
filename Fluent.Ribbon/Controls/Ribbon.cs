@@ -1,4 +1,13 @@
-﻿using System;
+﻿#region Copyright and License Information
+// Fluent Ribbon Control Suite
+// http://fluent.codeplex.com/
+// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
+// 
+// Distributed under the terms of the Microsoft Public License (Ms-PL). 
+// The license is available online http://fluent.codeplex.com/license
+#endregion
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -277,6 +286,16 @@ namespace Fluent
 
             // Set minimize the ribbon menu item state
             minimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
+
+            // Set minimize the ribbon menu item visibility
+            if (ribbon.CanMinimize)
+            {
+                minimizeTheRibbonMenuItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                minimizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
+            }
 
             // Set customize the ribbon menu item visibility
             if (ribbon.CanCustomizeRibbon)
@@ -990,6 +1009,14 @@ namespace Fluent
             DependencyProperty.Register("CanCustomizeRibbon", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
+        /// <summary>
+        /// Gets or sets whether ribbon can be minimized
+        /// </summary>
+        public bool CanMinimize
+        {
+            get { return (bool)this.GetValue(CanMinimizeProperty); }
+            set { this.SetValue(CanMinimizeProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
@@ -1008,6 +1035,13 @@ namespace Fluent
             DependencyProperty.Register("IsMinimized", typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
 
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty CanMinimizeProperty =
+            DependencyProperty.Register("CanMinimize", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnCanMinimizeChanged));
+
+
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
@@ -1016,6 +1050,13 @@ namespace Fluent
             {
                 ribbon.IsMinimizedChanged(ribbon, e);
             }
+        }
+
+        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
         }
 
         /// <summary>
@@ -1169,7 +1210,7 @@ namespace Fluent
             if (ribbon != null
                 && ribbon.TabControl != null)
             {
-                e.CanExecute = true;
+                e.CanExecute = ribbon.CanMinimize;
             }
         }
 
@@ -1501,6 +1542,7 @@ namespace Fluent
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
+                this.TabControl.CanMinimize = this.CanMinimize;
                 this.TabControl.IsMinimized = this.IsMinimized;
                 this.TabControl.ContentGapHeight = this.ContentGapHeight;
 
@@ -1761,7 +1803,10 @@ namespace Fluent
             {
                 if (this.TabControl.HasItems)
                 {
-                    this.IsMinimized = !this.IsMinimized;
+                    if(this.CanMinimize)
+                    {
+                        this.IsMinimized = !this.IsMinimized;
+                    }
                 }
             }
         }
