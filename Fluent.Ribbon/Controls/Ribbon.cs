@@ -1,13 +1,4 @@
-﻿#region Copyright and License Information
-// Fluent Ribbon Control Suite
-// http://fluent.codeplex.com/
-// Copyright © Degtyarev Daniel, Rikker Serg. 2009-2010.  All rights reserved.
-// 
-// Distributed under the terms of the Microsoft Public License (Ms-PL). 
-// The license is available online http://fluent.codeplex.com/license
-#endregion
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -1592,10 +1583,10 @@ namespace Fluent
                 this.quickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
 
                 var binding = new Binding("CanQuickAccessLocationChanging")
-                              {
-                                  Source = this,
-                                  Mode = BindingMode.OneWay
-                              };
+                {
+                    Source = this,
+                    Mode = BindingMode.OneWay
+                };
                 this.quickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
 
                 if (this.quickAccessToolBar.Parent == null)
@@ -1628,10 +1619,10 @@ namespace Fluent
                 this.ownerWindow.KeyDown += this.OnKeyDown;
 
                 var binding = new Binding("Title")
-                    {
-                        Mode = BindingMode.OneWay,
-                        Source = this.ownerWindow
-                    };
+                {
+                    Mode = BindingMode.OneWay,
+                    Source = this.ownerWindow
+                };
                 this.SetBinding(TitleProperty, binding);
             }
         }
@@ -1687,7 +1678,7 @@ namespace Fluent
             if (element == null)
             {
                 return;
-            }            
+            }
 
             if (element is Gallery)
             {
@@ -1803,7 +1794,7 @@ namespace Fluent
             {
                 if (this.TabControl.HasItems)
                 {
-                    if(this.CanMinimize)
+                    if (this.CanMinimize)
                     {
                         this.IsMinimized = !this.IsMinimized;
                     }
@@ -1956,7 +1947,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));        
+            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
@@ -2250,7 +2241,7 @@ namespace Fluent
                 }
                 catch
                 {
-                    return IsolatedStorageFile.GetUserStoreForAssembly();                  
+                    return IsolatedStorageFile.GetUserStoreForAssembly();
                 }
             }
 
