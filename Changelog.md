@@ -33,6 +33,7 @@
   - [#237](../../issues/237) - Ribbon Buttons with large text cut off a few pixels
   - [#238](../../issues/238) - New WindowChrome does not work correctly on Windows 7
   - [#240](../../issues/240) - Backstage closes when popup is dismissed inside backstage
+  - [#241](../../issues/241) - Keytips should be cancelled if Alt+Num0 is pressed
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
