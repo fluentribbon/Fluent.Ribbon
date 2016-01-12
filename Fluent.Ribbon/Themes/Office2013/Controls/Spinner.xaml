@@ -3,6 +3,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <!--Button in Spinner Control Style-->
@@ -60,7 +61,6 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
     </Style>
-
 
     <!--Spinner Style-->
     <Style x:Key="SpinnerStyle"
@@ -127,8 +127,8 @@
                                          Background="{DynamicResource TextBoxBackgroundBrush}"
                                          Foreground="{TemplateBinding Foreground}"
                                          Padding="2,0,2,0"
-                                         Margin="0" 
-                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                         Margin="0"
+                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                                 <Path Visibility="Collapsed"
                                       HorizontalAlignment="Left"
                                       Margin="0,-1,0,-1"

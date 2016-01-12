@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <Style x:Key="RibbonToggleButtonStyle"

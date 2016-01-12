@@ -3,6 +3,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <!--Button in Spinner Control Style-->
@@ -98,7 +99,6 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
     </Style>
-
 
     <!--Spinner Style-->
     <Style x:Key="SpinnerStyle"

@@ -1,10 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\Gallery.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\ScrollBarWhite.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\Gallery.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Windows8\Controls\RibbonScrollViewer.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="InRibbonGalleryToggleButtonStyle"
@@ -205,24 +206,24 @@
                             Background="{DynamicResource ButtonBackgroundBrush}">
                         <Grid x:Name="grid">
                             <Path Margin="0,6,0,0"
-                                    VerticalAlignment="Top"
-                                    Height="1"
-                                    Fill="#FFFFFFFF"
-                                    Stretch="Fill"
-                                    Stroke="#FF000000"
-                                    Data="M0,0L1,0"
-                                    HorizontalAlignment="Center"
-                                    Width="7" />
+                                  VerticalAlignment="Top"
+                                  Height="1"
+                                  Fill="#FFFFFFFF"
+                                  Stretch="Fill"
+                                  Stroke="#FF000000"
+                                  Data="M0,0L1,0"
+                                  HorizontalAlignment="Center"
+                                  Width="7" />
                             <Path Margin="0,8,0,0"
-                                    VerticalAlignment="Top"
-                                    Height="3"
-                                    Fill="#FF000000"
-                                    Stretch="Fill"
-                                    Stroke="#FF000000"
-                                    Data="M0,0L1,1 2,0z"
-                                    Width="5"
-                                    HorizontalAlignment="Center"
-                                    StrokeThickness="0" />
+                                  VerticalAlignment="Top"
+                                  Height="3"
+                                  Fill="#FF000000"
+                                  Stretch="Fill"
+                                  Stroke="#FF000000"
+                                  Data="M0,0L1,1 2,0z"
+                                  Width="5"
+                                  HorizontalAlignment="Center"
+                                  StrokeThickness="0" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -432,8 +433,7 @@
                                     <Popup.Resources>
                                         <ResourceDictionary>
                                             <Style x:Key="{x:Type ScrollBar}"
-                                                   TargetType="{x:Type ScrollBar}"
-                                                    />
+                                                   TargetType="{x:Type ScrollBar}" />
                                         </ResourceDictionary>
                                     </Popup.Resources>
                                     <Grid Name="DropDown"
@@ -457,8 +457,7 @@
                                                         Width="Auto"
                                                         Height="Auto"
                                                         BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                                        BorderThickness="1"
-                                                        />
+                                                        BorderThickness="1" />
                                                 <Grid Margin="1"
                                                       HorizontalAlignment="Stretch"
                                                       VerticalAlignment="Top">

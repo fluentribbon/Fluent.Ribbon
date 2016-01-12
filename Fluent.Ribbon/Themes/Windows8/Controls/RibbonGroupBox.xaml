@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style TargetType="Separator"
            x:Key="GroupBoxSeparator">
@@ -20,7 +21,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="RibbonGroupBoxStyle"
            TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Setter Property="Template"
@@ -36,7 +37,7 @@
         <Setter Property="Background"
                 Value="{DynamicResource TransparentBrush}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TransparentBrush}" />        
+                Value="{DynamicResource TransparentBrush}" />
         <Style.Triggers>
             <Trigger Property="State"
                      Value="QuickAccess">
@@ -396,7 +397,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="RibbonGroupBoxControlTemplate"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
@@ -405,8 +406,7 @@
                        BasedOn="{StaticResource GroupBoxSeparator}" />
 
                 <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                        />
+                       TargetType="{x:Type ScrollBar}" />
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource ScrollViewerStyle}" />
@@ -415,7 +415,7 @@
         <Grid x:Name="grid2"
               HorizontalAlignment="Stretch">
             <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}" />  
+                    BorderBrush="{TemplateBinding BorderBrush}" />
 
             <Grid>
 
@@ -641,8 +641,7 @@
                         VerticalAlignment="Stretch"
                         Width="1"
                         Height="Auto"
-                        Grid.RowSpan="2"
-                        />
+                        Grid.RowSpan="2" />
             </Grid>
             <Image x:Name="PART_SnappedImage"
                    Visibility="Collapsed" />
@@ -666,7 +665,7 @@
                         TargetName="popupContent"
                         Value="{Binding ElementName=PART_ParentPanel}" />
             </Trigger>
-            
+
             <Trigger Property="IsLauncherVisible"
                      Value="False">
                 <Setter Property="Visibility"
@@ -675,7 +674,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="outerBorder"

@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <Style x:Key="RibbonToggleButtonStyle"
@@ -52,19 +53,19 @@
                             Orientation="Vertical"
                             d:LayoutOverrides="Width, Height">
                     <ContentPresenter x:Name="iconImage"
-                                        HorizontalAlignment="Center"
-                                        Height="32"
-                                        VerticalAlignment="Center"
-                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                        Width="32"
-                                        Margin="2"
-                                        SnapsToDevicePixels="True" />
+                                      HorizontalAlignment="Center"
+                                      Height="32"
+                                      VerticalAlignment="Center"
+                                      Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                      Width="32"
+                                      Margin="2"
+                                      SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
-                                            Text="{TemplateBinding Header}"
-                                            Style="{DynamicResource TwoLineLabelStyle}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            Margin="2,-2,2,0" />
+                                         Text="{TemplateBinding Header}"
+                                         Style="{DynamicResource TwoLineLabelStyle}"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         Margin="2,-2,2,0" />
                 </StackPanel>
             </Grid>
         </Border>

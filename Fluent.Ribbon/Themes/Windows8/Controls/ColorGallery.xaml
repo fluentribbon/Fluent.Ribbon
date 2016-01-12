@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <Style x:Key="ColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
@@ -148,7 +149,7 @@
     <DataTemplate x:Key="GradientColorTopDataTemplate">
         <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
                 BorderThickness="1,1,1,0"
-                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />       
+                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
         <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"

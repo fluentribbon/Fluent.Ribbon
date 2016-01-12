@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
@@ -127,7 +128,7 @@
                                                  VerticalAlignment="Center"
                                                  Margin="2,-4,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
-                        </StackPanel>                        
+                        </StackPanel>
                     </Grid>
                 </Border>
             </Border>
@@ -528,7 +529,6 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
 
     <!--Inner Button Style (Button in SplitButton)-->
     <Style x:Key="InnerButtonStyle"

@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style TargetType="Separator"
            x:Key="GroupBoxSeparator">
@@ -22,7 +23,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="RibbonGroupBoxStyle"
            TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Setter Property="Template"
@@ -32,13 +33,13 @@
         <Setter Property="Height"
                 Value="85" />
         <Setter Property="HorizontalContentAlignment"
-                Value="Left" />        
+                Value="Left" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Background"
                 Value="{DynamicResource TransparentBrush}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TransparentBrush}" />        
+                Value="{DynamicResource TransparentBrush}" />
         <Style.Triggers>
             <Trigger Property="State"
                      Value="QuickAccess">
@@ -432,7 +433,7 @@
         <Grid x:Name="grid2"
               HorizontalAlignment="Stretch">
             <Border Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}" />            
+                    BorderBrush="{TemplateBinding BorderBrush}" />
 
             <Grid>
                 <Grid x:Name="hoverGrid"
@@ -726,7 +727,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="outerBorder"
