@@ -21,7 +21,7 @@
     <BitmapImage x:Key="ImageCaptionButtonMaximize"
                  UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png"
                  PresentationOptions:Freeze="True" />
-    
+
     <Style TargetType="{x:Type ResizeGrip}">
         <Setter Property="Template">
             <Setter.Value>
@@ -124,7 +124,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <ControlTemplate x:Key="DwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
@@ -144,7 +144,7 @@
                     <Grid x:Name="grid"
                           Background="{TemplateBinding Background}"
                           Margin="{TemplateBinding GlassFrameThickness}" />
-                    
+
                     <StackPanel Background="Transparent"
                                 x:Name="PART_IconImage"
                                 Orientation="Horizontal"
@@ -217,11 +217,11 @@
                         Value="0" />
                 <Setter Property="Margin"
                         TargetName="PART_ContentPresenter"
-                        Value="0,0,0,0" />                
+                        Value="0,0,0,0" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
@@ -276,7 +276,7 @@
                                         <Binding Source="0" />
                                         <Binding Source="0" />
                                     </MultiBinding>
-                                </StackPanel.Margin>                                
+                                </StackPanel.Margin>
                                 <Image x:Name="PART_Icon"
                                        Height="16"
                                        HorizontalAlignment="Left"
@@ -381,7 +381,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="CaptionButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Width"
@@ -393,7 +393,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <ControlTemplate x:Key="CaptionButtonControlTemplate"
                      TargetType="{x:Type Button}">
         <Grid Background="Transparent">
@@ -699,6 +699,11 @@
                 <Setter Property="GlassFrameThickness"
                         Value="0,50,0,0" />
             </MultiTrigger>
+            <Trigger Property="WindowState"
+                     Value="Maximized">
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
+            </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
@@ -715,11 +720,6 @@
                 <Setter Property="Template"
                         Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>            
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

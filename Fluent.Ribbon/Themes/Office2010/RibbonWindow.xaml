@@ -194,7 +194,7 @@
                                 <Binding Source="0" />
                                 <Binding Source="0" />
                             </MultiBinding>
-                        </StackPanel.Margin>                        
+                        </StackPanel.Margin>
                         <Image x:Name="PART_Icon"
                                Height="16"
                                Margin="0"
@@ -216,7 +216,7 @@
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}"
                                          Path="ResizeBorderThickness.Bottom" />
                             </MultiBinding>
-                        </ContentPresenter.Margin>                        
+                        </ContentPresenter.Margin>
                     </ContentPresenter>
                     <ResizeGrip x:Name="PART_ResizeGrip"
                                 Grid.Row="1"
@@ -265,7 +265,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
@@ -425,7 +425,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="CaptionButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Width"
@@ -437,7 +437,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <ControlTemplate x:Key="CaptionButtonControlTemplate"
                      TargetType="{x:Type Button}">
         <Grid Background="Transparent">
@@ -752,6 +752,8 @@
                      Value="Maximized">
                 <Setter Property="CornerRadius"
                         Value="0" />
+                <Setter Property="ResizeBorderThickness"
+                        Value="0" />
             </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
@@ -769,11 +771,6 @@
                 <Setter Property="Template"
                         Value="{DynamicResource DwmRibbonWindowControlTemplate}" />
             </Trigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>            
         </Style.Triggers>
     </Style>
 </ResourceDictionary>
