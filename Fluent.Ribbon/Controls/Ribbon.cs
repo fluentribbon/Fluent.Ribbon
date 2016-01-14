@@ -464,15 +464,20 @@ namespace Fluent
 
         #endregion
 
-        public UIElement StartScreen
+        /// <summary>
+        /// Property for defining the start screen.
+        /// </summary>
+        public StartScreen StartScreen
         {
-            get { return (UIElement)this.GetValue(StartScreenProperty); }
+            get { return (StartScreen)this.GetValue(StartScreenProperty); }
             set { this.SetValue(StartScreenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for StartScreen.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
+        /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(UIElement), typeof(UIElement), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         /// <summary>
         /// Window title

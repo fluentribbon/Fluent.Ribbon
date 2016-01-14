@@ -377,7 +377,7 @@
             this.haveToBeRefreshed = false;
         }
 
-        public void Refresh()
+        private void Refresh()
         {
             // Clear currently used group containers 
             // and supply with new generated ones

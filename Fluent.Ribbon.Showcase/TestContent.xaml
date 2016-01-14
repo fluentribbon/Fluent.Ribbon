@@ -421,7 +421,7 @@
                                        MinWidth="150">
                     <Fluent:Button Click="OnWindows8Click"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
-                                   SizeDefinition="Middle">White (Experimental)</Fluent:Button>
+                                   SizeDefinition="Middle">White</Fluent:Button>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Menu">
