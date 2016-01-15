@@ -515,9 +515,9 @@ namespace Fluent
 
             // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
             this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding("DataContext")
-                                                                          {
-                                                                              Source = this
-                                                                          });
+            {
+                Source = this
+            });
 
             ContextMenuService.Coerce(this);
 
@@ -732,6 +732,9 @@ namespace Fluent
             }
 
             this.IsSelected = true;
+
+            // This way keytips for delay loaded elements work correctly. Partially fixes #244.
+            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
         }
 
         /// <summary>

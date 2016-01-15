@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Fluent="urn:fluent-ribbon"
+             xmlns:TemplateSelectors="clr-namespace:FluentTest.TemplateSelectors"
+             xmlns:Helpers="clr-namespace:FluentTest.Helpers"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
              mc:Ignorable="d"
@@ -2345,6 +2347,24 @@
                     <Fluent:RadioButton Header="Test-Radio 2"
                                         GroupName="Test-Radio"
                                         IsChecked="False" />
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="KeyTips on templated items">
+                    <Fluent:RibbonGroupBox.Resources>
+                        <TemplateSelectors:DynamicTemplateSelector x:Key="DynamicTemplateSelector" />
+                        <System:Int32 x:Key="TemplateTestContent">0</System:Int32>
+                    </Fluent:RibbonGroupBox.Resources>
+                    <ContentPresenter ContentTemplateSelector="{StaticResource DynamicTemplateSelector}"
+                                      Content="{StaticResource TemplateTestContent}">
+                        <TemplateSelectors:DynamicTemplateSelector.TemplatesCollection>
+                            <Helpers:TemplateCollection>
+                                <DataTemplate DataType="{x:Type System:Int32}">
+                                    <Fluent:Button Header="Template test"
+                                                   KeyTip="B" />
+                                </DataTemplate>
+                            </Helpers:TemplateCollection>
+                        </TemplateSelectors:DynamicTemplateSelector.TemplatesCollection>
+                    </ContentPresenter>
                 </Fluent:RibbonGroupBox>
 
                 <!--It is enough to set attached property Fluent:KeyTip.Keys and

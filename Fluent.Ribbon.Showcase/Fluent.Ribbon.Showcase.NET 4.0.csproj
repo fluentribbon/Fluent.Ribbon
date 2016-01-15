@@ -82,6 +82,8 @@
     <Compile Include="RibbonWindowWithoutVisibileRibbon.xaml.cs">
       <DependentUpon>RibbonWindowWithoutVisibileRibbon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TemplateSelectors\DynamicTemplateSelector.cs" />
+    <Compile Include="Helpers\TemplateCollection.cs" />
     <Compile Include="TestContent.xaml.cs">
       <DependentUpon>TestContent.xaml</DependentUpon>
     </Compile>

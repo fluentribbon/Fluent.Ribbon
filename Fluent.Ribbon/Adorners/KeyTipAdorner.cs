@@ -13,6 +13,8 @@ using System.Windows.Threading;
 namespace Fluent
 {
     using System.Diagnostics;
+    using System.Windows.Controls;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents adorner for KeyTips. 
@@ -124,17 +126,10 @@ namespace Fluent
         {
             this.Log("FindKeyTips");
 
-            var children = LogicalTreeHelper.GetChildren(element);
-            foreach (var item in children)
+            var children = GetVisibleChildren(element);
+
+            foreach (var child in children)
             {
-                var child = item as UIElement;
-
-                if (child == null
-                    || child.Visibility != Visibility.Visible)
-                {
-                    continue;
-                }
-
                 var groupBox = child as RibbonGroupBox;
 
                 var keys = KeyTip.GetKeys(child);
@@ -193,6 +188,29 @@ namespace Fluent
             }
         }
 
+        private static UIElement[] GetVisibleChildren(UIElement element)
+        {
+            var logicalChildren = LogicalTreeHelper.GetChildren(element)
+                .OfType<UIElement>();
+
+            var children = logicalChildren;
+
+            // Always using the visual tree is very expensive, so we only search through it when you got specific control types.
+            // Using the visual tree here, in addition to the logical, partially fixes #244.
+            if (element is ContentPresenter
+                || element is ContentControl)
+            {
+                children = children
+                    .Concat(UIHelper.GetVisualChildren(element))
+                    .OfType<UIElement>();
+            }
+
+            return children
+                .Where(x => x.Visibility == Visibility.Visible)
+                .Distinct()
+                .ToArray();
+        }
+
         #endregion
 
         #region Attach & Detach
@@ -211,7 +229,7 @@ namespace Fluent
 
             this.Log("Attach begin {0}", this.Visibility);
 
-            if (!this.oneOfAssociatedElements.IsLoaded)
+            if (this.oneOfAssociatedElements.IsLoaded == false)
             {
                 // Delay attaching
                 this.Log("Delaying attach");
@@ -588,8 +606,10 @@ namespace Fluent
         }
 
         // Forward to the next element
-        private void Forward(UIElement element) {
-            this.Forward(element, true); }
+        private void Forward(UIElement element)
+        {
+            this.Forward(element, true);
+        }
 
         // Forward to the next element
         private void Forward(UIElement element, bool click)
@@ -608,9 +628,7 @@ namespace Fluent
                 }
             }
 
-            var children = LogicalTreeHelper.GetChildren(element)
-                .OfType<UIElement>()
-                .ToArray();
+            var children = GetVisibleChildren(element);
 
             if (children.Length == 0)
             {
@@ -623,7 +641,7 @@ namespace Fluent
                 : new KeyTipAdorner(element, element, this);
 
             // Stop if no further KeyTips can be displayed.
-            if (!this.childAdorner.keyTips.Any())
+            if (this.childAdorner.keyTips.Any() == false)
             {
                 this.Terminate();
                 return;
@@ -818,7 +836,7 @@ namespace Fluent
                             groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
                             groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
                             groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y                            
+                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
                         };
                 }
             }
