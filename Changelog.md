@@ -34,6 +34,8 @@
   - [#238](../../issues/238) - New WindowChrome does not work correctly on Windows 7
   - [#240](../../issues/240) - Backstage closes when popup is dismissed inside backstage
   - [#241](../../issues/241) - Keytips should be cancelled if Alt+Num0 is pressed
+  - [#244](../../issues/244) - KeyTip not working for childs of ContentPresenter
+  - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
