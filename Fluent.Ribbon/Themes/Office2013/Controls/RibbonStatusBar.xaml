@@ -9,11 +9,12 @@
                 Value="Auto" />
         <Setter Property="Margin"
                 Value="0,0,0,-1" />
+        <Setter Property="Height" 
+                Value="23"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Controls:StatusBar}">
-                    <Border Height="Auto"
-                            BorderThickness="0,1"
+                    <Border BorderThickness="0,0"
                             Background="{DynamicResource RibbonThemeColorBrush}">
                         <ItemsPresenter x:Name="itemsPresenter"
                                         Height="Auto" />
