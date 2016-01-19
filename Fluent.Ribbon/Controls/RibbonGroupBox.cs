@@ -992,6 +992,8 @@ namespace Fluent
         {
             var groupBox = new RibbonGroupBox();
 
+            RibbonControl.BindQuickAccessItem(this, groupBox);
+
             groupBox.DropDownOpened += this.OnQuickAccessOpened;
             groupBox.DropDownClosed += this.OnQuickAccessClosed;
             
@@ -1010,6 +1012,12 @@ namespace Fluent
             RibbonControl.Bind(this, groupBox, "IsLauncherVisible", IsLauncherVisibleProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, "DialogLauncherButtonKeyTipKeys", DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
             groupBox.LauncherClick += this.LauncherClick;
+
+            var toolTip = this.ToolTip as ToolTip;
+            if ((toolTip == null || toolTip.ToolTip == null) && this.Header != null)
+            {
+                RibbonControl.Bind(this, groupBox, "Header", ToolTipProperty, BindingMode.OneWay);
+            }
 
             if (this.Icon != null)
             {
