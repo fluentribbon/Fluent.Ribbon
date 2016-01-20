@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
-                    xmlns:AttachedProperties="clr-namespace:Fluent.AttachedProperties">
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
 
     <ControlTemplate x:Key="StartScreenTabControlTemplate"
                      TargetType="{x:Type Fluent:StartScreenTabControl}">
@@ -30,23 +29,16 @@
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch" 
-                  Background="{DynamicResource WindowInnerBackgroundBrush}">
-                <Grid.Margin>
-                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                        <Binding Source="0" />
-                        <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonProperties.TitleBarHeight)" />
-                        <Binding Source="0" />
-                        <Binding Source="0" />
-                    </MultiBinding>
-                </Grid.Margin>
+            <Grid VerticalAlignment="Stretch"
+                  Background="{TemplateBinding ItemsPanelBackground}">
                 <Border Padding="15,25">
                     <ContentPresenter HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
                                       Height="Auto"
                                       Content="{TemplateBinding LeftContent}" />
                 </Border>
+                <Fluent:WindowSteeringHelperControl Height="{Binding (Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                                                    VerticalAlignment="Top" />
             </Grid>
             <Grid Height="Auto"
                   Grid.Column="1"
