@@ -180,7 +180,8 @@ namespace Fluent
                 return;
             }
 
-            if (this.ribbon.IsCollapsed)
+            if (this.ribbon.IsCollapsed
+                || this.ribbon.IsEnabled == false)
             {
                 return;
             }
