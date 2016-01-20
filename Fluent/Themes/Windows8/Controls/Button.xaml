@@ -8,9 +8,10 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
+				CornerRadius="{TemplateBinding CornerRadius}"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch">
@@ -26,8 +27,7 @@
                                         Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                         Width="32"
                                         Margin="3,2"
-                                        SnapsToDevicePixels="True">
-                    </ContentPresenter>
+                                        SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                             Text="{TemplateBinding Header}"
                                             Style="{DynamicResource TwoLineLabelStyle}"
@@ -139,11 +139,11 @@
                         Value="{DynamicResource ButtonHoverBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverBorderBrush}" />
-                
+                        Value="{DynamicResource ButtonHoverBorderBrush}" />    
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
     <Style x:Key="RibbonButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Template"
@@ -154,10 +154,16 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
+        <Setter Property="Background"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource TransparentBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
         <Setter Property="BorderThickness"
                 Value="1" />
+        <Setter Property="CornerRadius"
+                Value="0" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">

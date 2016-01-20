@@ -31,6 +31,9 @@
         /// <summary>
         /// Gets TitleBarHeight for element
         /// </summary>
+        [AttachedPropertyBrowsableForType(typeof(Ribbon))]
+        [AttachedPropertyBrowsableForType(typeof(RibbonTitleBar))]
+        [AttachedPropertyBrowsableForType(typeof(RibbonWindow))]
         public static double GetTitleBarHeight(UIElement element)
         {
             return (double)element.GetValue(TitleBarHeightProperty);

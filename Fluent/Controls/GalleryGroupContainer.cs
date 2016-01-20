@@ -14,8 +14,11 @@ namespace Fluent
     {
         #region Fields
 
+        private Panel previousItemsPanel;
+        private int previousItemsCount;
+
         // Whether MaxWidth of the ItemsPanel needs to be updated
-        bool maxMinWidthNeedsToBeUpdated;
+        private bool maxMinWidthNeedsToBeUpdated;
 
         #endregion
 
@@ -154,7 +157,6 @@ namespace Fluent
             DependencyProperty.Register("MaxItemsInRow", typeof(int),
             typeof(GalleryGroupContainer), new UIPropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
 
-
         #endregion
 
         #endregion
@@ -175,7 +177,7 @@ namespace Fluent
         {
             if (basevalue == null)
             {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(GalleryGroupContainer));
+                basevalue = ((FrameworkElement)d).TryFindResource(typeof(GalleryGroupContainer));
             }
 
             return basevalue;
@@ -228,41 +230,58 @@ namespace Fluent
         /// <returns></returns>
         public Size GetItemSize()
         {
-            if (!double.IsNaN(this.ItemWidth) && !double.IsNaN(this.ItemHeight)) return new Size(this.ItemWidth, this.ItemHeight);
-            if (this.Items.Count == 0) return Size.Empty;
+            if (!double.IsNaN(this.ItemWidth) 
+                && !double.IsNaN(this.ItemHeight))
+            {
+                return new Size(this.ItemWidth, this.ItemHeight);
+            }
 
-            UIElement anItem = this.ItemContainerGenerator.ContainerFromItem(this.Items[0]) as UIElement;
-            if (anItem == null) return Size.Empty;
+            if (this.Items.Count == 0)
+            {
+                return Size.Empty;
+            }
+
+            var anItem = this.ItemContainerGenerator.ContainerFromItem(this.Items[0]) as UIElement;
+            if (anItem == null)
+            {
+                return Size.Empty;
+            }
+
             anItem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            Size result = anItem.DesiredSize;
+            var result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
             return result;
         }
 
         // Determinates item's width (return Double.NaN in case of it is not possible)
-        double GetItemWidth()
+        private double GetItemWidth()
         {
             return this.GetItemSize().Width;
         }
 
         // Finds panel with IsItemsHost, or null if such panel is not found
-        static Panel FindItemsPanel(DependencyObject obj)
+        private static Panel FindItemsPanel(DependencyObject obj)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
-                Panel panel = obj as Panel;
-                if (panel != null && panel.IsItemsHost) return panel;
+                var panel = obj as Panel;
+                if (panel != null &&
+                    panel.IsItemsHost)
+                {
+                    return panel;
+                }
+
                 panel = FindItemsPanel(VisualTreeHelper.GetChild(obj, i));
-                if (panel != null) return panel;
+                if (panel != null)
+                {
+                    return panel;
+                }
             }
 
             return null;
         }
 
         #endregion
-
-        Panel previousItemsPanel = null;
-        int previousItemsCount = 0;
 
         /// <summary>
         /// Called to remeasure a control. 
@@ -272,9 +291,9 @@ namespace Fluent
         protected override Size MeasureOverride(Size constraint)
         {
             var panel = FindItemsPanel(this);
-            if (panel != this.previousItemsPanel ||
-                this.previousItemsCount != this.Items.Count ||
-                this.maxMinWidthNeedsToBeUpdated)
+            if (panel != this.previousItemsPanel 
+                || this.previousItemsCount != this.Items.Count 
+                || this.maxMinWidthNeedsToBeUpdated)
             {
                 // Track ItemsPanel changing
                 this.previousItemsPanel = panel;

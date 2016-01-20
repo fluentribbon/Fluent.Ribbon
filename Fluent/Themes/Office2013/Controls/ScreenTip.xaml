@@ -59,7 +59,8 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Image Margin="7,5,3,7"
+                            <Image x:Name="image" 
+                                   Margin="7,5,3,7"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Source="{TemplateBinding Property=Image}"
@@ -216,6 +217,12 @@
                         TargetName="imageAndTextSection"
                         Value="Collapsed" />
             </MultiTrigger>
+            <Trigger Property="Image"
+                     Value="{x:Null}">
+                <Setter Property="Visibility"
+                        TargetName="image"
+                        Value="Collapsed" />
+            </Trigger>            
         </ControlTemplate.Triggers>
     </ControlTemplate>
 

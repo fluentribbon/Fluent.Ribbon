@@ -357,8 +357,6 @@ namespace Fluent
 
             this.UpdateCanUseDwm();
 
-            this.UpdateWindowChrome();
-
             if (this.iconImage != null)
             {
                 this.iconImage.MouseDown -= this.HandleIconMouseDown;

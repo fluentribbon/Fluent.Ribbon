@@ -1,11 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\BackstageControls.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
+                    xmlns:Fluent="clr-namespace:Fluent"                    
+                    xmlns:Converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid Background="#00000000">
@@ -75,6 +71,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="BackstageButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="FocusVisualStyle"
@@ -90,6 +87,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource BackstageFontBrush}" />
     </Style>
+    
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
         <Setter Property="Template">
@@ -155,8 +153,16 @@
                        BasedOn="{StaticResource BackstageSeparatorTabItemStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Margin="0"
-              Background="{DynamicResource BackstageBackgroundBrush}">
+        <Grid Background="{DynamicResource BackstageBackgroundBrush}">
+            <Grid.Margin>
+                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                    <Binding Source="0" />
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="(Fluent:RibbonProperties.TitleBarHeight)" />
+                    <Binding Source="0" />
+                    <Binding Source="0" />
+                </MultiBinding>
+            </Grid.Margin>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="107"
                                   Width="Auto" />
@@ -247,8 +253,11 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="BackstageStyle"
            TargetType="{x:Type Fluent:BackstageTabControl}">
+        <Setter Property="OverridesDefaultStyle"
+                Value="True" />        
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Template"
@@ -259,5 +268,17 @@
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
                 Value="{DynamicResource BackstagePanelBackgroundBrush}" />
+        <Setter Property="Margin">
+            <Setter.Value>
+                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}"
+                              ConverterParameter="0 0 0 0">
+                    <Binding Source="0" />
+                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}"
+                             Path="ActualHeight" />
+                    <Binding Source="0" />
+                    <Binding Source="0" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

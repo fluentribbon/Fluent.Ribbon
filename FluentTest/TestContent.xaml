@@ -109,7 +109,8 @@
                                 <Fluent:BackstageTabItem.ContentTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBox Text="{Binding Mode=OneWay}" />
+                                            <TextBox Text="{Binding Mode=OneWay}"
+                                                     Width="6000" />
                                         </Grid>
                                     </DataTemplate>
                                 </Fluent:BackstageTabItem.ContentTemplate>
@@ -463,10 +464,9 @@
                                   IsSeparatorVisible="true"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
                 <Fluent:RibbonGroupBox KeyTip="FG"
-                                       Header=""
+                                       Header="{Binding Path=Zoom, StringFormat='{}{0} Zoom'}"
                                        IsLauncherVisible="False"
                                        x:Name="groupLL">
-
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
                                      Header="Test"
@@ -993,8 +993,8 @@
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click)"
                                            ResizeMode="Both"
-                                           Icon="pack://application:,,,/FluentTest;component/Images/Box.png"
-                                           LargeIcon="pack://application:,,,/FluentTest;component/Images/Box.png"
+                                           Icon="pack://application:,,,/FluentTest;component/Icons/App.ico"
+                                           LargeIcon="pack://application:,,,/FluentTest;component/Icons/App.ico"
                                            ClosePopupOnMouseDown="True" ClosePopupOnMouseDownDelay="250">
                         <MenuItem Header="1" />
                         <MenuItem Header="2" />
@@ -1212,9 +1212,10 @@
                                          Header="Pink" />
                     </Fluent:DropDownButton>
 
-                    <Fluent:Button Header="TEST"
+                    <Fluent:Button Header="Refresh (Galleries)"
                                    Icon="Images\Green.png"
-                                   LargeIcon="Images\GreenLarge.png"/>
+                                   LargeIcon="Images\GreenLarge.png"
+                                   Command="{Binding GalleryViewModel.RefreshCommand}" />
                     
                     <!--Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
@@ -2634,6 +2635,7 @@
                      Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
                     <Viewbox Stretch="Uniform"
+                             TextOptions.TextFormattingMode="Ideal"
                              Width="768"
                              Height="576">
                         <Canvas Width="6"

@@ -15,7 +15,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="SnapsToDevicePixels"
-                Value="True" />
+                Value="False" />
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Style.Triggers>
@@ -34,7 +34,7 @@
                 <Setter Property="Height"
                         Value="22" />
                 <Setter Property="Width"
-                        Value="34" />
+                        Value="32" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -49,7 +49,8 @@
             <Border BorderThickness="1"
                     Name="PART_ButtonBorder"
                     BorderBrush="{DynamicResource TransparentBrush}"
-                    Background="{DynamicResource TransparentBrush}">
+                    Background="{DynamicResource TransparentBrush}"
+                    VerticalAlignment="Stretch">
                 <StackPanel Orientation="Vertical"
                             Name="stackPanel">
                     <Fluent:ToggleButton x:Name="PART_Button"
@@ -68,7 +69,7 @@
                                          IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsDefinitive="{TemplateBinding IsDefinitive}"
                                          CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
-                    <Border BorderThickness="0,1,0,0"
+                    <Border BorderThickness="0,0,0,0"
                             Name="downBorder"
                             BorderBrush="{DynamicResource TransparentBrush}"
                             Background="{DynamicResource TransparentBrush}"
@@ -79,11 +80,8 @@
                                                  Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
-                                                 Margin="2,0,2,0"
+                                                 Margin="2,1,2,2"
                                                  HasGlyph="{TemplateBinding HasTriangle}" />
-                            <!--<ContentPresenter x:Name="iconImage" HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" MinWidth="10" Margin="3,2" SnapsToDevicePixels="True"
-                                                IsHitTestVisible="false" Visibility="Hidden" />-->
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -230,9 +228,9 @@
                 <Setter Property="Text"
                         TargetName="controlLabel"
                         Value="" />
-                <Setter Property="Margin"
+                <Setter Property="Padding"
                         TargetName="downBorder"
-                        Value="0" />
+                        Value="1,0,0,0" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -251,9 +249,6 @@
                 <Setter Property="Text"
                         TargetName="controlLabel"
                         Value="" />
-                <Setter Property="Margin"
-                        TargetName="downBorder"
-                        Value="0" />
             </Trigger>
 
             <Trigger Property="IsButtonEnabled"
@@ -302,7 +297,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
+                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
                 <Setter Property="Background"
                         TargetName="downBorder"
                         Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
@@ -327,7 +322,7 @@
     <ControlTemplate x:Key="InnerButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                BorderThickness="1"
+                BorderThickness="0"
                 Background="{DynamicResource TransparentBrush}"
                 BorderBrush="{DynamicResource TransparentBrush}"
                 Height="Auto"
@@ -346,6 +341,7 @@
                             HorizontalAlignment="Stretch"
                             SnapsToDevicePixels="True">
                     <ContentPresenter x:Name="iconImage"
+                                      Margin="0,1,0,0"
                                       HorizontalAlignment="Center"
                                       Height="32"
                                       VerticalAlignment="Center"
@@ -428,7 +424,7 @@
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="2,-1,2,1" />
+                        Value="2,0,2,1" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -446,7 +442,7 @@
                         Value="False" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
-                        Value="2,-1,-1,1" />
+                        Value="2,0,-1,1" />
                 <Setter Property="VerticalAlignment"
                         TargetName="border"
                         Value="Stretch" />

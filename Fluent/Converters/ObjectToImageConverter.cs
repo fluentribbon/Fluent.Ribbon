@@ -62,7 +62,9 @@
 
             var image = new Image
             {
-                Source = ExtractImage(imageSource, desiredSize)
+                // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
+                // In case of BitmapImage it even gets worse when using the same Uri...
+                Source = (ImageSource)ExtractImage(imageSource, desiredSize).GetAsFrozen()
             };
 
             return image;

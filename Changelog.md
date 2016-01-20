@@ -1,5 +1,36 @@
 # Changelog for Fluent.Ribbon
 
+## 3.6.1
+
+- ### Bug fixes
+
+  - [#29](../../issues/29) - Backstage flicker
+  - [#112](../../issues/112) - Backstage flicker
+  - [#192](../../issues/192) - Background of RibbonGroupBox can't be set/changed
+  - [#197](../../issues/197) - Some adaptions to better align with Office 2013
+  - [#200](../../issues/200) - KeyTips in SplitButton no longer work
+  - [#201](../../issues/201) - Cannot change Fluent.Button Icon Dynamically
+  - [#202](../../issues/202) - Center the button labels in Office 2013 theme
+  - [#206](../../issues/206) - Center alignment button inside RIbbonGroupBox
+  - [#214](../../issues/214) - Assign a StringFormat binding to a RibbonGroupBox Header
+
+Commits: [v3.6.0...v3.6.1](../../compare/v3.6.0...v3.6.1)
+
+## 3.6.0
+
+- ### Bug fixes
+  - [#163](../../issues/163) - ColorGallery produces Binding errors because of Binding of Color on SolidColorBrush in Fill/Background
+  - [#166](../../issues/166) - Type is mismatch for IsCheckedProperty of ToggleButton
+  - [#170](../../issues/170) - Black RibbonWindow title bar
+  - [#173](../../issues/173) - Binding Observable Collection to InRibbonGallery causes Layout Error
+  - [#178](../../issues/178) - Ribbonwindow crashes
+
+- ### Enhancements
+  - [#172](../../issues/172) - ToggleButtonHelper.OnIsCheckedChanged() accepts type of "bool?". contributed by ([nishy2000](https://github.com/nishy2000))
+  - [#175](../../issues/175) - Add "CloseOnEsc" property to Backstage to disable closing the backstage when ESC is pressed. contributed by Christoph Fink ([chrfin](https://github.com/chrfin))
+
+Commits: [c7151027f5...97001b17e9](../../compare/c7151027f5...97001b17e9)
+
 ## 3.5.1
 
 - ### Bug fixes
