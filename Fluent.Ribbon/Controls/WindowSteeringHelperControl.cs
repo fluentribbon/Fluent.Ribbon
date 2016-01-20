@@ -30,7 +30,10 @@
         {
             base.OnMouseLeftButtonDown(e);
 
-            WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
+            if (this.IsEnabled)
+            {
+                WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
+            }
         }
 
         /// <summary>
@@ -41,7 +44,10 @@
         {
             base.OnMouseRightButtonUp(e);
 
-            WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+            if (this.IsEnabled)
+            {
+                WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+            }
         }
     }
 }
