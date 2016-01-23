@@ -1,4 +1,4 @@
 ﻿using System.Reflection;
 
 [assembly: AssemblyTitle("Fluent.Ribbon.Showcase")]
-[assembly: AssemblyDescription("Showcase of Fluent Ribbon Control Suite")]
+[assembly: AssemblyDescription("Showcase application for Fluent.Ribbon")]

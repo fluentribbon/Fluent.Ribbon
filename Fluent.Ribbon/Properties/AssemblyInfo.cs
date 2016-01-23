@@ -2,8 +2,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
-[assembly: AssemblyTitle("Fluent")]
-[assembly: AssemblyDescription("Fluent Ribbon Control Suite")]
+[assembly: AssemblyTitle("Fluent.Ribbon")]
+[assembly: AssemblyDescription("Fluent.Ribbon")]
 
 [assembly: Guid("d849f751-e8f4-480d-acc0-6148eafcaafc")]
 

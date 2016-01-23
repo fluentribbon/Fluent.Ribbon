@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 [assembly: AssemblyCompany("https://github.com/fluentribbon/Fluent.Ribbon")]
-[assembly: AssemblyProduct("Fluent Ribbon Control Suite")]
+[assembly: AssemblyProduct("Fluent.Ribbon")]
 [assembly: AssemblyCopyright("Copyright © 2012 - 2016 Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -18,15 +18,15 @@
 
         private GallerySampleDataItemViewModel[] dataItems;
 
-		private RelayCommand exitCommand;
-		private double zoom;
-		private ICommand testCommand;
+        private RelayCommand exitCommand;
+        private double zoom;
+        private ICommand testCommand;
         private string[] manyItems;
         private bool? isCheckedToggleButton3;
 
         public MainViewModel()
         {
-            this.Title = string.Format("Fluent Ribbon Control Suite {0}", GetVersionText());
+            this.Title = string.Format("Fluent.Ribbon {0}", GetVersionText());
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
@@ -168,7 +168,7 @@
 
         #region Exit
 
-	    /// <summary>
+        /// <summary>
         /// Exit from the application
         /// </summary>
         public ICommand ExitCommand
@@ -186,17 +186,17 @@
 
         #endregion
 
-	    public ICommand TestCommand
-	    {
-		    get
-			{
-				if (this.testCommand == null)
-				{
-					this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
-				}
+        public ICommand TestCommand
+        {
+            get
+            {
+                if (this.testCommand == null)
+                {
+                    this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
+                }
 
-				return this.testCommand;
-			}
-	    }
+                return this.testCommand;
+            }
+        }
     }
 }

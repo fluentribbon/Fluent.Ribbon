@@ -1,4 +1,4 @@
-Fluent.Ribbon or "Fluent Ribbon Control Suite"
+Fluent.Ribbon
 =============
 
 [![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -13,7 +13,7 @@ Fluent.Ribbon or "Fluent Ribbon Control Suite"
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
-Fluent Ribbon Control Suite is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with Office 2010, Office 2013 and Windows 8 themes.
+Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with Office 2010, Office 2013 and Windows 8 themes.
 
 ![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
 

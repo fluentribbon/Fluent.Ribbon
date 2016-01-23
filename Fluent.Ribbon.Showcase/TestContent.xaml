@@ -2585,13 +2585,12 @@
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap">
                         <Run FontWeight="ExtraBold"
-                             FontSize="18">Fluent Ribbon Control Suite</Run>
+                             FontSize="18">Fluent.Ribbon</Run>
+                        Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF).
                         <LineBreak />
-                        Fluent Ribbon Control Suite is a library that implements an Office-like (Microsoft® Office Fluent™ user interface) for the Windows Presentation Foundation (WPF).
+                        It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. 
                         <LineBreak />
-                        It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. 
-                        <LineBreak />
-                        It is bundled with the most up-to-date Office 2010 and Office 2013 styles.
+                        It is bundled with Office 2010, Office 2013 and Windows 8 themes.
                     </TextBlock>
                 </StackPanel>
             </TabItem>
