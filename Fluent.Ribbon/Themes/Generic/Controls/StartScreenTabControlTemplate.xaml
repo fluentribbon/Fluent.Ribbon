@@ -30,7 +30,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid VerticalAlignment="Stretch"
-                  Background="{TemplateBinding ItemsPanelBackground}">
+                  Background="{TemplateBinding ItemsPanelBackground}"
+                  Margin="{TemplateBinding LeftContentMargin}">
                 <Border Padding="15,25">
                     <ContentPresenter HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
@@ -38,7 +39,8 @@
                                       Content="{TemplateBinding LeftContent}" />
                 </Border>
                 <Fluent:WindowSteeringHelperControl Height="{Binding (Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
-                                                    VerticalAlignment="Top" />
+                                                    VerticalAlignment="Top"
+                                                    IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
             </Grid>
             <Grid Height="Auto"
                   Grid.Column="1"
@@ -63,15 +65,4 @@
             </Grid>
         </Grid>
     </ControlTemplate>
-
-    <Style x:Key="StartScreenTabControlStyle"
-           TargetType="{x:Type Fluent:StartScreenTabControl}"
-           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
-        <Setter Property="Template"
-                Value="{DynamicResource StartScreenTabControlTemplate}" />
-        <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
-        <Setter Property="Margin"
-                Value="0" />
-    </Style>
 </ResourceDictionary>

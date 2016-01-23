@@ -35,7 +35,8 @@ Windows8\Controls\BackstageTabItem.xaml
 Windows8\Controls\BackstageControls.xaml
 Windows8\Controls\BackstageTabControl.xaml
 Generic\Controls\StartScreen.xaml
-Generic\Controls\StartScreenTabControl.xaml
+Generic\Controls\StartScreenTabControlTemplate.xaml
+Office2010\Controls\StartScreenTabControl.xaml
 Windows8\Controls\RibbonSeparator.xaml
 Generic\Controls\RibbonToolBar.xaml
 Generic\Controls\RibbonToolBarControlGroup.xaml

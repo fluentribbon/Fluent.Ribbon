@@ -196,13 +196,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="Themes\Generic\Controls\StartScreenTabControl.xaml">
+    <None Include="Themes\Generic\Controls\StartScreenTabControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
     <None Include="Themes\Generic\Controls\StartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Themes\Office2010\Controls\StartScreenTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </None>
     <Page Include="Themes\Office2010\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -339,6 +343,10 @@
     <None Include="Themes\Office2013\Controls\ApplicationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Themes\Office2013\Controls\StartScreenTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </None>
     <Page Include="Themes\Office2013\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>

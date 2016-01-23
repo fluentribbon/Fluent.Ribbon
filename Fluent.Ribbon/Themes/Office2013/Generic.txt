@@ -34,7 +34,8 @@ Office2013\Controls\BackstageTabItem.xaml
 Office2013\Controls\BackstageControls.xaml
 Office2013\Controls\BackstageTabControl.xaml
 Generic\Controls\StartScreen.xaml
-Generic\Controls\StartScreenTabControl.xaml
+Generic\Controls\StartScreenTabControlTemplate.xaml
+Office2013\Controls\StartScreenTabControl.xaml
 Office2013\Controls\RibbonSeparator.xaml
 Generic\Controls\RibbonToolBar.xaml
 Generic\Controls\RibbonToolBarControlGroup.xaml

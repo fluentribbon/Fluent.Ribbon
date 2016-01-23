@@ -196,13 +196,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Include="Themes\Generic\Controls\StartScreenTabControl.xaml">
+    <None Include="Themes\Generic\Controls\StartScreenTabControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
     <None Include="Themes\Generic\Controls\StartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Themes\Office2010\Controls\StartScreenTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </None>
     <Page Include="Themes\Office2010\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -340,6 +344,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
+    <None Include="Themes\Office2013\Controls\StartScreenTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
     <Page Include="Themes\Office2013\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -372,202 +380,202 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Office2010\Controls\ApplicationMenuItem.xaml">
+    <None Include="Themes\Office2010\Controls\ApplicationMenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\BackstageTabControl.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\BackstageTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\BackstageControls.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\BackstageControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\BackstageTabItem.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\BackstageTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Button.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\CheckBox.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\CheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ColorGallery.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ColorGallery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ComboBox.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ComboBoxItem.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ComboBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ApplicationMenu.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ApplicationMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Backstage.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Backstage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\MenuItem.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\MenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic\Controls\MenuSeparator.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\MenuSeparator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonStatusBar.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonStatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\SeparatorTabItem.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\SeparatorTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\GalleryGroupContainer.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\GalleryGroupContainer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RadioButton.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonMenu.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RibbonMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonTextBox.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RibbonTextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ScrollBarWhite.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ScrollBarWhite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\InRibbonGallery.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\InRibbonGallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ScrollBar.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Slider.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Spinner.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Spinner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonSeparator.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonToolBar.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RibbonToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonToolBarControlGroup.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RibbonToolBarControlGroup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Gallery.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Gallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\GalleryItem.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\GalleryItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\SplitButton.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\SplitButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\StatusBar.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\TextBox.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\TwoLineLabel.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\TwoLineLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ToggleButton.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\EmptyFocusStyle.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\EmptyFocusStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\KeyTip.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\KeyTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\DropDownButton.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\DropDownButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Menu.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\QuickAccessToolbar.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\QuickAccessToolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\Ribbon.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\Ribbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonContextualTabGroup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonTitleBar.xaml">
+    </None>
+    <None Include="Themes\Generic\Controls\RibbonTitleBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\ScreenTip.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\ScreenTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <Page Include="Themes\Office2010\Colors\ColorsBlack.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Office2010\RibbonWindow.xaml">
+    <None Include="Themes\Office2010\RibbonWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonGroupBox.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonGroupBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonTabControl.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2010\Controls\RibbonTabItem.xaml">
+    </None>
+    <None Include="Themes\Office2010\Controls\RibbonTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Common.xaml">
+    </None>
+    <None Include="Themes\Generic\Common.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <Page Include="Themes\Office2010\Blue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -580,146 +588,146 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Windows8\Colors\Colors.xaml">
+    <None Include="Themes\Windows8\Colors\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <Page Include="Themes\Windows8\Colors\ColorsSilver.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Windows8\Controls\ApplicationMenu.xaml">
+    <None Include="Themes\Windows8\Controls\ApplicationMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ApplicationMenuItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ApplicationMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Backstage.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Backstage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\BackstageControls.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\BackstageControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\BackstageTabControl.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\BackstageTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\BackstageTabItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\BackstageTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Button.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\CheckBox.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\CheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ColorGallery.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ColorGallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ComboBox.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ComboBoxItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ComboBoxItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\DropDownButton.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\DropDownButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Gallery.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Gallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\GalleryItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\GalleryItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\InRibbonGallery.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\InRibbonGallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Menu.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\MenuItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\MenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\QuickAccessToolbar.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\QuickAccessToolbar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Ribbon.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Ribbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonContextualTabGroup.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonContextualTabGroup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonGroupBox.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonGroupBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonSeparator.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonSeparator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonStatusBar.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonStatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonTabControl.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\RibbonTabItem.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\RibbonTabItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ScrollBar.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Slider.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Slider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\Spinner.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\Spinner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\SplitButton.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\SplitButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\StatusBar.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\StatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Windows8\Controls\ToggleButton.xaml">
+    </None>
+    <None Include="Themes\Windows8\Controls\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <Page Include="Themes\Windows8\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Windows8\RibbonWindow.xaml">
+    <None Include="Themes\Windows8\RibbonWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <Page Include="Themes\Windows8\Images\Images.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
