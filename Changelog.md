@@ -37,6 +37,7 @@
   - [#244](../../issues/244) - KeyTip not working for childs of ContentPresenter
   - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar
   - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush
+  - [#254](../../issues/254) - Basic fix for KeyTips not working when focus is inside a WinForms control
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
