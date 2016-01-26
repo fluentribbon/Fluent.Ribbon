@@ -413,7 +413,8 @@
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
                                               Margin="1"
-                                              SnapsToDevicePixels="True">
+                                              SnapsToDevicePixels="True"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 Orientation="Vertical"
                                                 IsItemsHost="True"
