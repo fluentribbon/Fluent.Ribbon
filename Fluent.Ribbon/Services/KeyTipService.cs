@@ -230,9 +230,9 @@ namespace Fluent
             else
             {
                 // Should we show the keytips and immediately react to key?
-                if (e.Key != Key.System
+                if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
-                    || e.KeyboardDevice.Modifiers != ModifierKeys.Alt)
+                    || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
                 {
                     return;
                 }
@@ -249,11 +249,23 @@ namespace Fluent
                     return;
                 }
 
-                this.currentUserInput += keyConverter.ConvertToString(e.SystemKey);
+                string previousInput = this.currentUserInput;
+                this.currentUserInput += keyConverter.ConvertToString(e.Key == Key.System ? e.SystemKey : e.Key);
 
                 if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
+                    e.Handled = true;
+                }
+                else
+                {
+                    // If no key tips match the current input, continue with the previously entered and still correct keys.
+                    if (!this.activeAdornerChain.ActiveKeyTipAdorner.IsElementsStartWith(this.currentUserInput))
+                    {
+                        this.currentUserInput = previousInput;
+                    }
+
+                    this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
                     e.Handled = true;
                 }
             }
@@ -311,6 +323,7 @@ namespace Fluent
 
         private void OnAdornerChainTerminated(object sender, EventArgs e)
         {
+            this.activeAdornerChain = null;
             this.RestoreFocuses();
             ((KeyTipAdorner)sender).Terminated -= this.OnAdornerChainTerminated;
         }

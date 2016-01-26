@@ -265,7 +265,7 @@ namespace Fluent
 
             // Clears previous user input
             this.enteredKeys = "";
-            this.FilterKeyTips();
+            this.FilterKeyTips(this.enteredKeys);
 
             // Show this adorner
             this.adornerLayer.Add(this);
@@ -440,7 +440,7 @@ namespace Fluent
                 return;
             }
 
-            if ((!(this.AdornedElement is ContextMenu)) &&
+            if ((!(this.AdornedElement is ContextMenu) && (!(this.AdornedElement is MenuItem))) &&
                 ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) ||
                 (e.Key == Key.Enter) || (e.Key == Key.Tab)))
             {
@@ -469,7 +469,7 @@ namespace Fluent
                 }
                 else
                 {
-                    this.FilterKeyTips();
+                    this.FilterKeyTips(this.enteredKeys);
                 }
 
                 e.Handled = true;
@@ -682,7 +682,7 @@ namespace Fluent
         /// </summary>
         /// <param name="keys"></param>
         /// <returns></returns>
-        private bool IsElementsStartWith(string keys)
+        public bool IsElementsStartWith(string keys)
         {
             foreach (var keyTip in this.keyTips.Where(x => x.IsEnabled))
             {
@@ -698,7 +698,7 @@ namespace Fluent
         }
 
         // Hide / unhide keytips relative matching to entered keys
-        private void FilterKeyTips()
+        internal void FilterKeyTips(string currentlyEnteredKeys)
         {
             this.Log("FilterKeyTips");
 
@@ -713,13 +713,13 @@ namespace Fluent
             {
                 var content = (string)this.keyTips[i].Content;
 
-                if (string.IsNullOrEmpty(this.enteredKeys))
+                if (string.IsNullOrEmpty(currentlyEnteredKeys))
                 {
                     this.keyTips[i].Visibility = this.backupedVisibilities[i];
                 }
                 else
                 {
-                    this.keyTips[i].Visibility = content.StartsWith(this.enteredKeys, StringComparison.CurrentCultureIgnoreCase)
+                    this.keyTips[i].Visibility = content.StartsWith(currentlyEnteredKeys, StringComparison.CurrentCultureIgnoreCase)
                         ? this.backupedVisibilities[i]
                         : Visibility.Collapsed;
                 }

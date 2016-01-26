@@ -8,6 +8,7 @@
              xmlns:Helpers="clr-namespace:FluentTest.Helpers"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
+             xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -2592,6 +2593,12 @@
                         <LineBreak />
                         It is bundled with Office 2010, Office 2013 and Windows 8 themes.
                     </TextBlock>
+
+                    <WindowsFormsHost>
+                        <forms:TextBox Height="30" Text="Test WinFormsHost" />
+                    </WindowsFormsHost>
+
+                    <TextBox>Test WPF TextBox</TextBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Developer">
