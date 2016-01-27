@@ -33,6 +33,20 @@
                 </Fluent:RibbonTitleBar.Margin>
                 <Fluent:RibbonTitleBar.Header>
                     <Grid>
+                        <Rectangle x:Name="rectangle"
+                                   Fill="{DynamicResource RibbonWindowTitleTextGlowBackground}"
+                                   Stroke="{x:Null}"
+                                   StrokeThickness="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Width="{Binding ActualWidth, ElementName=PART_Title, Mode=Default}"
+                                   Height="{Binding ActualHeight, ElementName=PART_Title, Mode=Default}"
+                                   RadiusX="2"
+                                   RadiusY="2">
+                            <Rectangle.Effect>
+                                <BlurEffect Radius="10" />
+                            </Rectangle.Effect>
+                        </Rectangle>
                         <TextBlock x:Name="PART_Title"
                                    Padding="4,0,4,0"
                                    VerticalAlignment="Center"
