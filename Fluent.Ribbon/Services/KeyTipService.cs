@@ -112,7 +112,7 @@ namespace Fluent
                 return;
             }
 
-            this.window.PreviewKeyDown += this.OnWindowKeyDown;
+            this.window.PreviewKeyDown += this.OnWindowPreviewKeyDown;
             this.window.KeyUp += this.OnWindowKeyUp;
 
             // Hookup non client area messages
@@ -140,7 +140,7 @@ namespace Fluent
 
             if (this.window != null)
             {
-                this.window.PreviewKeyDown -= this.OnWindowKeyDown;
+                this.window.PreviewKeyDown -= this.OnWindowPreviewKeyDown;
                 this.window.KeyUp -= this.OnWindowKeyUp;
 
                 this.window = null;
@@ -157,23 +157,25 @@ namespace Fluent
         // Window's messages hook up
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // We must terminate the keytip's adorner chain if:
-            // - mouse clicks in non client area
-            // - the window is deactivated
-            if (((msg >= 161) && (msg <= 173)) || msg == Constants.WM_NCACTIVATE)
+            // We must terminate the keytip's adorner chain if:                        
+            if (msg == Constants.WM_NCACTIVATE // mouse clicks in non client area
+                || (msg == Constants.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+                                                                           // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
+                || (msg >= 161 && msg <= 173) // mouse click (non client area)
+                || (msg >= 513 && msg <= 521) // mouse click
+                )
             {
                 if (this.activeAdornerChain != null
                     && this.activeAdornerChain.IsAdornerChainAlive)
                 {
                     this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
                 }
             }
 
             return IntPtr.Zero;
         }
 
-        private void OnWindowKeyDown(object sender, KeyEventArgs e)
+        private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.IsRepeat)
             {
@@ -193,7 +195,6 @@ namespace Fluent
                 && e.SystemKey <= Key.NumPad9)
             {
                 this.activeAdornerChain?.Terminate();
-                this.activeAdornerChain = null;
                 this.ClearUserInput();
                 return;
             }
@@ -215,7 +216,6 @@ namespace Fluent
                     //this.ribbon.Focus();
 
                     this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
                 }
                 else
                 {
@@ -226,10 +226,11 @@ namespace Fluent
                 && this.activeAdornerChain != null)
             {
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
+                this.ClearUserInput();
+                e.Handled = true;
             }
             else
             {
-                // Should we show the keytips and immediately react to key?
                 if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
                     || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
@@ -237,6 +238,7 @@ namespace Fluent
                     return;
                 }
 
+                // Should we show the keytips and immediately react to key?
                 if (this.activeAdornerChain == null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
                     || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
@@ -250,21 +252,22 @@ namespace Fluent
                 }
 
                 string previousInput = this.currentUserInput;
+
                 this.currentUserInput += keyConverter.ConvertToString(e.Key == Key.System ? e.SystemKey : e.Key);
 
-                if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
+                // If no key tips match the current input, continue with the previously entered and still correct keys.
+                if (this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
+                {
+                    this.currentUserInput = previousInput;
+                    System.Media.SystemSounds.Beep.Play();
+                }
+                else if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
                     e.Handled = true;
                 }
                 else
                 {
-                    // If no key tips match the current input, continue with the previously entered and still correct keys.
-                    if (!this.activeAdornerChain.ActiveKeyTipAdorner.IsElementsStartWith(this.currentUserInput))
-                    {
-                        this.currentUserInput = previousInput;
-                    }
-
                     this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
                     e.Handled = true;
                 }
@@ -310,7 +313,7 @@ namespace Fluent
             this.currentUserInput = string.Empty;
         }
 
-        private void RestoreFocuses()
+        private void RestoreFocus()
         {
             if (this.backUpFocusedElement != null)
             {
@@ -323,9 +326,9 @@ namespace Fluent
 
         private void OnAdornerChainTerminated(object sender, EventArgs e)
         {
+            this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
-            this.RestoreFocuses();
-            ((KeyTipAdorner)sender).Terminated -= this.OnAdornerChainTerminated;
+            this.RestoreFocus();
         }
 
         private void OnDelayedShow(object sender, EventArgs e)
@@ -357,7 +360,6 @@ namespace Fluent
                 this.activeAdornerChain.Terminate();
             }
 
-            this.activeAdornerChain = null;
             this.timer.Start();
         }
 
@@ -369,7 +371,7 @@ namespace Fluent
             if (this.window == null
                 || this.window.IsActive == false)
             {
-                this.RestoreFocuses();
+                this.RestoreFocus();
                 return;
             }
 

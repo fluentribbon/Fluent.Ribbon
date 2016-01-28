@@ -46,23 +46,14 @@ namespace Fluent
         private readonly KeyTipAdorner parentAdorner;
         KeyTipAdorner childAdorner;
 
-        // Focused element
-        private IInputElement focusedElement;
-
         private readonly Visibility[] backupedVisibilities;
         private readonly UIElement keyTipElementContainer;
 
         // Is this adorner attached to the adorned element?
         private bool attached;
-        private HwndSource attachedHwndSource;
-
-        // Current entered chars
-        string enteredKeys = "";
 
         // Designate that this adorner is terminated
         private bool terminated;
-
-        private DispatcherTimer timerFocusTracking;
 
         private AdornerLayer adornerLayer;
 
@@ -245,92 +236,14 @@ namespace Fluent
                 return;
             }
 
-            // Focus current adorned element
-            // Keyboard.Focus(adornedElement);
-            this.focusedElement = Keyboard.FocusedElement;
-
-            if (this.focusedElement != null)
-            {
-                this.Log("Focus Attached to {0}", this.focusedElement);
-                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
-                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
-                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
-            }
-            else
-            {
-                this.Log("[!] Focus Setup Failed");
-            }
-
-            GetTopLevelElement(this.oneOfAssociatedElements).PreviewMouseDown += this.OnInputActionOccured;
-
-            // Clears previous user input
-            this.enteredKeys = "";
-            this.FilterKeyTips(this.enteredKeys);
+            this.FilterKeyTips(string.Empty);
 
             // Show this adorner
             this.adornerLayer.Add(this);
 
-            // Hookup window activation
-            this.attachedHwndSource = ((HwndSource)PresentationSource.FromVisual(this.oneOfAssociatedElements));
-            if (this.attachedHwndSource != null)
-            {
-                this.attachedHwndSource.AddHook(this.WindowProc);
-            }
-
-            // Start timer to track focus changing
-            if (this.timerFocusTracking == null)
-            {
-                this.timerFocusTracking = new DispatcherTimer(DispatcherPriority.ApplicationIdle, Dispatcher.CurrentDispatcher)
-                {
-                    Interval = TimeSpan.FromMilliseconds(50)
-                };
-                this.timerFocusTracking.Tick += this.OnTimerFocusTrackingTick;
-            }
-
-            this.timerFocusTracking.Start();
-
             this.attached = true;
 
             this.Log("Attach end");
-        }
-
-        private void OnTimerFocusTrackingTick(object sender, EventArgs e)
-        {
-            if (this.focusedElement == Keyboard.FocusedElement)
-            {
-                return;
-            }
-
-            this.Log("Focus is changed, but focus lost is not occured");
-
-            if (this.focusedElement != null)
-            {
-                this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
-                this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
-                this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-            }
-
-            this.focusedElement = Keyboard.FocusedElement;
-
-            if (this.focusedElement != null)
-            {
-                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
-                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
-                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
-            }
-        }
-
-        // Window's messages hook up
-        private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            // Check whether window is deactivated (wParam == 0)
-            if ((msg == 6) && (wParam == IntPtr.Zero) && (this.attached))
-            {
-                this.Log("The host window is deactivated, keytips will be terminated");
-                this.Terminate();
-            }
-
-            return IntPtr.Zero;
         }
 
         private void OnDelayAttach(object sender, EventArgs args)
@@ -357,34 +270,13 @@ namespace Fluent
 
             this.Log("Detach Begin");
 
-            // Remove window hookup
-            if ((this.attachedHwndSource != null) && (!this.attachedHwndSource.IsDisposed))
-            {
-                // Crashes in a few time if invoke immediately ???
-                this.AdornedElement.Dispatcher.BeginInvoke((System.Threading.ThreadStart)(() => this.attachedHwndSource.RemoveHook(this.WindowProc)));
-            }
-
             // Maybe adorner awaiting attaching, cancel it
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
 
-            if (this.focusedElement != null)
-            {
-                this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
-                this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
-                this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-                this.focusedElement = null;
-            }
-
-            GetTopLevelElement(this.oneOfAssociatedElements).PreviewMouseDown -= this.OnInputActionOccured;
-
             // Show this adorner
             this.adornerLayer.Remove(this);
-            // Clears previous user input
-            this.enteredKeys = "";
-            this.attached = false;
 
-            // Stop timer to track focus changing
-            this.timerFocusTracking.Stop();
+            this.attached = false;
 
             this.Log("Detach End");
         }
@@ -429,95 +321,33 @@ namespace Fluent
 
         #region Event Handlers
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            this.Log("Key Down {0} ({1})", e.Key, e.OriginalSource);
+        //[SuppressMessage("Microsoft.Maintainability", "CA1502")]
+        //private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    this.Log("Key Down {0} ({1})", e.Key, e.OriginalSource);
 
-            if (e.IsRepeat
-                || this.Visibility == Visibility.Hidden)
-            {
-                return;
-            }
+        //    if (e.IsRepeat
+        //        || this.Visibility == Visibility.Hidden)
+        //    {
+        //        return;
+        //    }
 
-            if ((!(this.AdornedElement is ContextMenu) && (!(this.AdornedElement is MenuItem))) &&
-                ((e.Key == Key.Left) || (e.Key == Key.Right) || (e.Key == Key.Up) || (e.Key == Key.Down) ||
-                (e.Key == Key.Enter) || (e.Key == Key.Tab)))
-            {
-                this.Visibility = Visibility.Hidden;
-            }
-            else if (e.Key == Key.Escape)
-            {
-                this.Back();
-                e.Handled = true;
-            }
-        }
-
-        private void OnFocusedElementPreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            var keyToSearch = this.enteredKeys + e.Text;
-
-            if (this.IsElementsStartWith(keyToSearch))
-            {
-                this.enteredKeys += e.Text;
-
-                var element = this.TryGetElement(this.enteredKeys);
-
-                if (element != null)
-                {
-                    this.Forward(element);
-                }
-                else
-                {
-                    this.FilterKeyTips(this.enteredKeys);
-                }
-
-                e.Handled = true;
-            }
-            else
-            {
-                System.Media.SystemSounds.Beep.Play();
-            }
-        }
-
-        private void OnInputActionOccured(object sender, RoutedEventArgs e)
-        {
-            if (!this.attached)
-            {
-                return;
-            }
-
-            this.Log("Input Action, Keystips will be terminated");
-            this.Terminate();
-        }
-
-        private void OnFocusLost(object sender, RoutedEventArgs e)
-        {
-            if (!this.attached)
-            {
-                return;
-            }
-
-            this.Log("Focus Lost");
-
-            var previousFocusedElementElement = this.focusedElement;
-            this.focusedElement.LostKeyboardFocus -= this.OnFocusLost;
-            this.focusedElement.PreviewKeyDown -= this.OnPreviewKeyDown;
-            this.focusedElement.PreviewTextInput -= this.OnFocusedElementPreviewTextInput;
-            this.focusedElement = Keyboard.FocusedElement;
-
-            if (this.focusedElement != null)
-            {
-                this.Log("Focus Changed from {0} to {1}", previousFocusedElementElement, this.focusedElement);
-                this.focusedElement.LostKeyboardFocus += this.OnFocusLost;
-                this.focusedElement.PreviewKeyDown += this.OnPreviewKeyDown;
-                this.focusedElement.PreviewTextInput += this.OnFocusedElementPreviewTextInput;
-            }
-            else
-            {
-                this.Log("Focus Not Restored");
-            }
-        }
+        //    if ((this.AdornedElement is ContextMenu == false && this.AdornedElement is MenuItem == false)
+        //        && ((e.Key == Key.Left)
+        //            || (e.Key == Key.Right)
+        //            || (e.Key == Key.Up)
+        //            || (e.Key == Key.Down)
+        //            || (e.Key == Key.Enter)
+        //            || (e.Key == Key.Tab)))
+        //    {
+        //        this.Visibility = Visibility.Hidden;
+        //    }
+        //    else if (e.Key == Key.Escape)
+        //    {
+        //        this.Back();
+        //        e.Handled = true;
+        //    }
+        //}
 
         #endregion
 
@@ -678,11 +508,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Is one of the elements starts with the given chars
+        /// Determines if an of the keytips contained in this adorner start with <paramref name="keys"/>
         /// </summary>
-        /// <param name="keys"></param>
-        /// <returns></returns>
-        public bool IsElementsStartWith(string keys)
+        /// <returns><c>true</c> if any keytip start with <paramref name="keys"/>. Otherwise <c>false</c>.</returns>
+        public bool ContainsKeyTipStartingWith(string keys)
         {
             foreach (var keyTip in this.keyTips.Where(x => x.IsEnabled))
             {
@@ -698,7 +527,7 @@ namespace Fluent
         }
 
         // Hide / unhide keytips relative matching to entered keys
-        internal void FilterKeyTips(string currentlyEnteredKeys)
+        internal void FilterKeyTips(string keys)
         {
             this.Log("FilterKeyTips");
 
@@ -713,13 +542,13 @@ namespace Fluent
             {
                 var content = (string)this.keyTips[i].Content;
 
-                if (string.IsNullOrEmpty(currentlyEnteredKeys))
+                if (string.IsNullOrEmpty(keys))
                 {
                     this.keyTips[i].Visibility = this.backupedVisibilities[i];
                 }
                 else
                 {
-                    this.keyTips[i].Visibility = content.StartsWith(currentlyEnteredKeys, StringComparison.CurrentCultureIgnoreCase)
+                    this.keyTips[i].Visibility = content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase)
                         ? this.backupedVisibilities[i]
                         : Visibility.Collapsed;
                 }
