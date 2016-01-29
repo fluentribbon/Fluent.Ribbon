@@ -1,10 +1,12 @@
-﻿namespace FluentTest.ViewModels
+﻿using System.Collections.ObjectModel;
+
+namespace FluentTest.ViewModels
 {
     public class FontsViewModel : ViewModel
     {
-        private readonly string[] data = { "Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol" };
+        private readonly ObservableCollection<string> data = new ObservableCollection<string> { "Tahoma", "Segoe UI", "Arial", "Courier New", "Symbol" };
 
-        public string[] FontsData
+        public ObservableCollection<string> FontsData
         {
             get { return this.data; }
         }

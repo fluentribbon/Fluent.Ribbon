@@ -503,7 +503,7 @@
                                        x:Name="groupLL">
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
-                                     Header="Test"
+                                     Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
                         <Fluent:ComboBox.ItemTemplate>
@@ -513,9 +513,10 @@
                             </DataTemplate>
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
+
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
-                                     Header="Test"
+                                     Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -524,6 +525,9 @@
                             </DataTemplate>
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
+
+                    <Fluent:Button Header="Add item to fonts"
+                                   Click="HandleAddItemToFontsClick" />
 
                     <Fluent:ComboBox Name="FilterComboBox"
                                      IsReadOnly="True"
