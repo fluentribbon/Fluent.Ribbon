@@ -57,10 +57,10 @@
             var groupBox = (RibbonGroupBox)sender;
 
             var wnd = new Window
-                {
-                    Content = string.Format("Launcher-Window for: {0}", groupBox.Header),
-                    Owner = Window.GetWindow(this)
-                };
+            {
+                Content = string.Format("Launcher-Window for: {0}", groupBox.Header),
+                Owner = Window.GetWindow(this)
+            };
 
             wnd.Show();
         }
@@ -338,9 +338,9 @@
         private void OnMenuItemClick(object sender, RoutedEventArgs e)
         {
             var wnd = new TestWindow
-                      {
-                          Owner = Window.GetWindow(this)
-                      };
+            {
+                Owner = Window.GetWindow(this)
+            };
             wnd.Show();
         }
 
@@ -426,6 +426,11 @@
         {
             this.startScreen.Shown = false;
             this.startScreen.IsOpen = true;
+        }
+
+        private void HandleAddItemToFontsClick(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.FontsViewModel.FontsData.Add($"Added item {this.viewModel.FontsViewModel.FontsData.Count}");
         }
     }
 
