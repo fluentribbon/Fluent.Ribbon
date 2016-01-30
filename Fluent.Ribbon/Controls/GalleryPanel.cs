@@ -11,6 +11,7 @@
     using System.Windows.Data;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents panel for Gallery, InRibbonGallery, ComboBox 
@@ -249,6 +250,7 @@
         #region Visual Tree
 
         private readonly VisualCollection visualCollection;
+        private ItemContainerGeneratorAction itemContainerGeneratorAction;
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
@@ -379,6 +381,11 @@
 
         private void Refresh()
         {
+            if (this.itemContainerGeneratorAction == null)
+            {
+                this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Refresh);
+            }
+
             // Clear currently used group containers 
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -605,9 +612,12 @@
         /// <param name="sender">The <see cref="T:System.Object"/> that raised the event.</param><param name="args">Provides data for the <see cref="E:System.Windows.Controls.ItemContainerGenerator.ItemsChanged"/> event.</param>
         protected override void OnItemsChanged(object sender, ItemsChangedEventArgs args)
         {
-            base.OnItemsChanged(sender, args);
+            if (this.itemContainerGeneratorAction?.IsWaitingForGenerator == false)
+            {
+                this.itemContainerGeneratorAction?.QueueAction();
+            }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)(this.Refresh));
+            base.OnItemsChanged(sender, args);
         }
     }
 }

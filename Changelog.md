@@ -36,6 +36,9 @@
   - [#241](../../issues/241) - Keytips should be cancelled if Alt+Num0 is pressed
   - [#244](../../issues/244) - KeyTip not working for childs of ContentPresenter
   - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar
+  - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush
+  - [#254](../../issues/254) - Basic fix for KeyTips not working when focus is inside a WinForms control
+  - [#256](../../issues/256) - ComboBox items don't update properly on ItemsSource binding source collection changes
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements

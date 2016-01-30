@@ -503,7 +503,7 @@
                                        x:Name="groupLL">
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
-                                     Header="Test"
+                                     Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
                         <Fluent:ComboBox.ItemTemplate>
@@ -513,9 +513,10 @@
                             </DataTemplate>
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
+
                     <Fluent:ComboBox IsEditable="False"
                                      InputWidth="150"
-                                     Header="Test"
+                                     Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -524,6 +525,9 @@
                             </DataTemplate>
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
+
+                    <Fluent:Button Header="Add item to fonts"
+                                   Click="HandleAddItemToFontsClick" />
 
                     <Fluent:ComboBox Name="FilterComboBox"
                                      IsReadOnly="True"
@@ -2587,18 +2591,13 @@
                     <TextBlock TextWrapping="Wrap">
                         <Run FontWeight="ExtraBold"
                              FontSize="18">Fluent.Ribbon</Run>
+                        <LineBreak />
                         Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF).
                         <LineBreak />
                         It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. 
                         <LineBreak />
                         It is bundled with Office 2010, Office 2013 and Windows 8 themes.
                     </TextBlock>
-
-                    <WindowsFormsHost>
-                        <forms:TextBox Height="30" Text="Test WinFormsHost" />
-                    </WindowsFormsHost>
-
-                    <TextBox>Test WPF TextBox</TextBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Developer">
@@ -2791,7 +2790,18 @@
                     <GroupBox Header="Issue repros">
                         <WrapPanel>
                             <Button x:Name="SleepButton"
+                                    VerticalAlignment="Top"
                                     Click="SleepButton_OnClick">Sleep for issues #80 and #159</Button>
+                            <GroupBox Header="KeyTip issues #254">
+                                <StackPanel Orientation="Vertical">
+                                    <WindowsFormsHost>
+                                        <forms:TextBox Height="30"
+                                                       Text="Test Windows.Forms.TextBox" />
+                                    </WindowsFormsHost>
+
+                                    <TextBox>Test System.Windows.Controls.TextBox</TextBox>
+                                </StackPanel>
+                            </GroupBox>
                         </WrapPanel>
                     </GroupBox>
                 </StackPanel>

@@ -38,7 +38,7 @@
                                       Height="Auto"
                                       Content="{TemplateBinding LeftContent}" />
                 </Border>
-                <Fluent:WindowSteeringHelperControl Height="{Binding (Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                <Fluent:WindowSteeringHelperControl Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                                     VerticalAlignment="Top"
                                                     IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
             </Grid>

@@ -64,7 +64,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="ScrollButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
@@ -74,9 +74,9 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
-    
+
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
-    
+
     <Style x:Key="RibbonScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="Template">
@@ -170,7 +170,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <Style x:Key="RibbonTabScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="OverridesDefaultStyle"
@@ -285,7 +285,7 @@
         <Setter Property="Focusable"
                 Value="False" />
     </Style>
-    
+
     <ControlTemplate TargetType="{x:Type ScrollViewer}"
                      x:Key="MenuScrollViewerControlTemplate">
         <Grid x:Name="Grid"
@@ -402,7 +402,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource ScrollViewerControlTemplate}" />
     </Style>
-    
+
     <ControlTemplate x:Key="ScrollViewerControlTemplate"
                      TargetType="{x:Type ScrollViewer}">
         <Border BorderBrush="{TemplateBinding BorderBrush}"
