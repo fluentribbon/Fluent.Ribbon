@@ -6,6 +6,7 @@
     {
         public const int MONITOR_DEFAULTTONEAREST = 0x00000002;
 
+        public const int WM_ACTIVATE = 0x0006;
         public const int WM_NCCALCSIZE = 0x83;
         public const int WM_NCPAINT = 0x85;
         public const int WM_NCACTIVATE = 0x86;
@@ -17,7 +18,7 @@
 
         public const long WS_MAXIMIZE = 0x01000000;
 
-        public const int GCLP_HBRBACKGROUND = -0x0A;        
+        public const int GCLP_HBRBACKGROUND = -0x0A;
 
         public const int HTLEFT = 0x0A;
         public const int HTRIGHT = 0x0B;
