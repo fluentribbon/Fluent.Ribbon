@@ -653,6 +653,15 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Allows KeyTipService to control menu items.
+        /// </summary>
+        /// <param name="e"></param>
+        internal void HandleKeyDown(KeyEventArgs e)
+        {
+            this.OnKeyDown(e);
+        }
+
+        /// <summary>
         /// Responds to the <see cref="E:System.Windows.UIElement.KeyDown"/> event. 
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
