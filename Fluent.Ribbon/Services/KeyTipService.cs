@@ -238,12 +238,18 @@ namespace Fluent
                     return;
                 }
 
-                // Should we show the keytips and immediately react to key?
-                if (this.activeAdornerChain == null
-                    || this.activeAdornerChain.IsAdornerChainAlive == false
-                    || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
+                Key actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
+                bool isLetterKey = ((actualKey >= Key.A && actualKey <= Key.Z) || (actualKey >= Key.D0 && actualKey <= Key.D9) || (actualKey >= Key.NumPad0 && actualKey <= Key.NumPad9));
+
+                if (isLetterKey)
                 {
-                    this.ShowImmediatly();
+                    // Should we show the keytips and immediately react to key?
+                    if (this.activeAdornerChain == null
+                        || this.activeAdornerChain.IsAdornerChainAlive == false
+                        || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
+                    {
+                        this.ShowImmediatly();
+                    }
                 }
 
                 if (this.activeAdornerChain == null)
@@ -253,11 +259,21 @@ namespace Fluent
 
                 string previousInput = this.currentUserInput;
 
-                this.currentUserInput += keyConverter.ConvertToString(e.Key == Key.System ? e.SystemKey : e.Key);
+                if (isLetterKey)
+                {
+                    this.currentUserInput += keyConverter.ConvertToString(actualKey);
+                }
 
                 // If no key tips match the current input, continue with the previously entered and still correct keys.
-                if (this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
+                if (!isLetterKey || this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
                 {
+                    MenuItem item = Keyboard.FocusedElement as MenuItem;
+                    if (item != null && !isLetterKey)
+                    {
+                        item.HandleKeyDown(e);
+                        return;
+                    }
+
                     this.currentUserInput = previousInput;
                     System.Media.SystemSounds.Beep.Play();
                 }
