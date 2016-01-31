@@ -39,6 +39,7 @@
   - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush
   - [#254](../../issues/254) - Basic fix for KeyTips not working when focus is inside a WinForms control
   - [#256](../../issues/256) - ComboBox items don't update properly on ItemsSource binding source collection changes
+  - [#257](../../issues/257) - Windows8 RibbonWindowTitleTextGlowBackground was missing
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
