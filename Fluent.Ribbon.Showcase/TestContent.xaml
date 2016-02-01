@@ -978,16 +978,6 @@
                             <Fluent:MenuItem Header="Undo something" />
                             <Fluent:MenuItem Header="Undo another thing" />
                         </Fluent:SplitButton>
-
-                        <Fluent:SplitButton x:Name="RedoButton"
-                                            KeyTip="Ctrl+Y"
-                                            Header="Redo"
-                                            Icon="{DynamicResource appbar_redo}"
-                                            SizeDefinition="Middle,Small"
-                                            Command="ApplicationCommands.Redo"
-                                            CanAddButtonToQuickAccessToolBar="True"
-                                            FocusManager.IsFocusScope="True">
-                        </Fluent:SplitButton>
                     </StackPanel>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
