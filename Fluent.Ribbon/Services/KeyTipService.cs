@@ -25,7 +25,8 @@ namespace Fluent
         // Is KeyTips Actived now
         private KeyTipAdorner activeAdornerChain;
         // This element must be remembered to restore it
-        IInputElement backUpFocusedElement;
+        FocusWrapper backUpFocusedControl;
+
         // Window where we attached
         private Window window;
 
@@ -117,10 +118,7 @@ namespace Fluent
 
             // Hookup non client area messages
             this.attachedHwndSource = (HwndSource)PresentationSource.FromVisual(this.window);
-            if (this.attachedHwndSource != null)
-            {
-                this.attachedHwndSource.AddHook(this.WindowProc);
-            }
+            this.attachedHwndSource?.AddHook(this.WindowProc);
         }
 
         /// <summary>
@@ -146,12 +144,8 @@ namespace Fluent
                 this.window = null;
             }
 
-            // Hookup non client area messages
-            if (this.attachedHwndSource != null
-                && this.attachedHwndSource.IsDisposed == false)
-            {
-                this.attachedHwndSource.RemoveHook(this.WindowProc);
-            }
+            // Unhook non client area messages
+            this.attachedHwndSource?.RemoveHook(this.WindowProc);
         }
 
         // Window's messages hook up
@@ -210,11 +204,6 @@ namespace Fluent
                 else if (this.activeAdornerChain != null
                     && this.activeAdornerChain.IsAdornerChainAlive)
                 {
-                    // Focus ribbon
-                    this.backUpFocusedElement = Keyboard.FocusedElement;
-                    this.ribbon.Focusable = true;
-                    //this.ribbon.Focus();
-
                     this.activeAdornerChain.Terminate();
                 }
                 else
@@ -228,12 +217,22 @@ namespace Fluent
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 this.ClearUserInput();
                 e.Handled = true;
+                return;
             }
             else
             {
                 if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
                     || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
+                {
+                    return;
+                }
+
+                var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
+                var isKeyRealInput = ((actualKey >= Key.A && actualKey <= Key.Z) || (actualKey >= Key.D0 && actualKey <= Key.D9) || (actualKey >= Key.NumPad0 && actualKey <= Key.NumPad9));
+
+                // Don't do anything and let WPF handle the rest
+                if (isKeyRealInput == false)
                 {
                     return;
                 }
@@ -251,25 +250,28 @@ namespace Fluent
                     return;
                 }
 
-                string previousInput = this.currentUserInput;
-
-                this.currentUserInput += keyConverter.ConvertToString(e.Key == Key.System ? e.SystemKey : e.Key);
+                var previousInput = this.currentUserInput;
+                this.currentUserInput += keyConverter.ConvertToString(actualKey);
 
                 // If no key tips match the current input, continue with the previously entered and still correct keys.
                 if (this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
                 {
                     this.currentUserInput = previousInput;
                     System.Media.SystemSounds.Beep.Play();
+                    e.Handled = true;
+                    return;
                 }
                 else if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
                     e.Handled = true;
+                    return;
                 }
                 else
                 {
                     this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
                     e.Handled = true;
+                    return;
                 }
             }
         }
@@ -315,13 +317,8 @@ namespace Fluent
 
         private void RestoreFocus()
         {
-            if (this.backUpFocusedElement != null)
-            {
-                this.backUpFocusedElement.Focus();
-                this.backUpFocusedElement = null; // Release the reference, so GC can work
-            }
-
-            this.ribbon.Focusable = false;
+            this.backUpFocusedControl?.Focus();
+            this.backUpFocusedControl = null;
         }
 
         private void OnAdornerChainTerminated(object sender, EventArgs e)
@@ -343,28 +340,20 @@ namespace Fluent
 
         private void ShowImmediatly()
         {
-            this.timer.Stop();
-            this.backUpFocusedElement = Keyboard.FocusedElement;
-
-            // Focus ribbon
-            this.ribbon.Focusable = true;
-            //this.ribbon.Focus();
-
             this.Show();
         }
 
         private void ShowDelayed()
         {
-            if (this.activeAdornerChain != null)
-            {
-                this.activeAdornerChain.Terminate();
-            }
+            this.activeAdornerChain?.Terminate();
 
             this.timer.Start();
         }
 
         private void Show()
         {
+            this.timer.Stop();
+
             // Check whether the window is 
             // - still present (prevents exceptions when window is closed by system commands)
             // - still active (prevents keytips showing during Alt-Tab'ing)
@@ -374,6 +363,11 @@ namespace Fluent
                 this.RestoreFocus();
                 return;
             }
+
+            this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
+
+            // Focus ribbon
+            this.ribbon.Focus();
 
             this.ClearUserInput();
 
@@ -435,9 +429,10 @@ namespace Fluent
         private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
         {
             var keys = KeyTip.GetKeys(specialControl);
+
             if (string.IsNullOrEmpty(keys) == false)
             {
-                this.activeAdornerChain.Forward(KeyTip.GetKeys(specialControl), false);
+                this.activeAdornerChain.Forward(keys, false);
             }
             else
             {

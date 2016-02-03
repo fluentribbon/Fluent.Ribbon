@@ -91,6 +91,7 @@
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="IHeaderedControl.cs" />
+    <Compile Include="Internal\FocusWrapper.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />

@@ -207,6 +207,12 @@ namespace Fluent
         [DllImport("user32.dll")]
         internal static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, WS dwNewLong);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetFocus();
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetFocus(IntPtr hWnd);
+
         /// <summary>Add and remove a native WindowStyle from the HWND.</summary>
         /// <param name="_hwnd">A HWND for a window.</param>
         /// <param name="removeStyle">The styles to be removed.  These can be bitwise combined.</param>
