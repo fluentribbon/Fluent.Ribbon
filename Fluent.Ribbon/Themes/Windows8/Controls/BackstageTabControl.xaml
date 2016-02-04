@@ -71,7 +71,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="BackstageButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="FocusVisualStyle"
@@ -87,7 +87,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource BackstageFontBrush}" />
     </Style>
-    
+
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="BackstageSeparatorTabItemStyle">
         <Setter Property="Template">
@@ -138,8 +138,7 @@
                        TargetType="{x:Type Fluent:Button}"
                        BasedOn="{StaticResource BackstageButtonStyle}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                        />
+                       TargetType="{x:Type ScrollBar}" />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
                        TargetType="{x:Type Fluent:DropDownButton}"
                        BasedOn="{StaticResource DropDownButtonBackstageStyle}" />
@@ -251,11 +250,11 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="BackstageStyle"
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="OverridesDefaultStyle"
-                Value="True" />        
+                Value="True" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Template"
@@ -263,7 +262,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
+                Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
                 Value="{DynamicResource BackstagePanelBackgroundBrush}" />
         <Setter Property="Margin">
@@ -271,11 +270,11 @@
                 <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}"
                               ConverterParameter="0 0 0 0">
                     <Binding Source="0" />
-                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}"
-                             Path="ActualHeight" />
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="ParentBackstage.ActualHeight" />
                     <Binding Source="0" />
                     <Binding Source="0" />
-                </MultiBinding>                
+                </MultiBinding>
             </Setter.Value>
         </Setter>
     </Style>

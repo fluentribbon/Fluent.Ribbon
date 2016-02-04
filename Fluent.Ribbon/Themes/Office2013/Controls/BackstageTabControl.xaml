@@ -245,9 +245,9 @@
         <ControlTemplate.Triggers>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                    <Condition Binding="{Binding ParentBackstage.IsOpen, RelativeSource={RelativeSource Self}}"
                                Value="True" />
-                    <Condition Binding="{Binding IsOpenAnimationEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                    <Condition Binding="{Binding ParentBackstage.IsOpenAnimationEnabled, RelativeSource={RelativeSource Self}}"
                                Value="True" />
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -260,19 +260,19 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                    <Condition Binding="{Binding ParentBackstage.IsOpen, RelativeSource={RelativeSource Self}}"
                                Value="False" />
-                    <Condition Binding="{Binding IsOpenAnimationEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Backstage}}}"
+                    <Condition Binding="{Binding ParentBackstage.IsOpenAnimationEnabled, RelativeSource={RelativeSource Self}}"
                                Value="True" />
                 </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.EnterActions>                    
+                <MultiDataTrigger.EnterActions>
                     <BeginStoryboard x:Name="IsClosedBeginStoryboard"
                                      Storyboard="{StaticResource OnIsOpenFalseStoryboard}" />
                 </MultiDataTrigger.EnterActions>
                 <MultiDataTrigger.ExitActions>
                     <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
                 </MultiDataTrigger.ExitActions>
-            </MultiDataTrigger>            
+            </MultiDataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -287,7 +287,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Backstage}}, FallbackValue=Red}" />
+                Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
                 Value="{DynamicResource BackstagePanelBackgroundBrush}" />
     </Style>

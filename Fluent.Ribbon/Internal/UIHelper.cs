@@ -60,6 +60,10 @@
             return null;
         }
 
+        /// <summary>
+        /// Gets all visual children of <paramref name="parent"/>.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<DependencyObject> GetVisualChildren(DependencyObject parent)
         {
             var visualChildrenCount = VisualTreeHelper.GetChildrenCount(parent);
@@ -73,6 +77,36 @@
                     yield return child;
                 }
             }
+        }
+
+        /// <summary>
+        /// Finds the parent control of type <typeparamref name="T"/>.
+        /// First looks at the visual tree and then at the logical tree to find the parent.
+        /// </summary>
+        /// <returns>The found visual/logical parent or null.</returns>
+        public static T GetParent<T>(DependencyObject element)
+            where T : DependencyObject
+        {
+            var item = element;
+
+            while (item != null
+                && item is T == false)
+            {
+                item = VisualTreeHelper.GetParent(item);
+            }
+
+            if (item == null)
+            {
+                item = element;
+
+                while (item != null &&
+                       item is T == false)
+                {
+                    item = LogicalTreeHelper.GetParent(item);
+                }
+            }
+
+            return (T)item;
         }
     }
 }
