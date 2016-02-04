@@ -143,6 +143,47 @@
                                 </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
 
+                            <Fluent:BackstageTabItem Header="Change theme with fluent controls"
+                                                     Content="Hello">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010SilverClick">Office 2010 Silver</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010BlackClick">Office 2010 Black</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010BlueClick">Office 2010 Blue</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2013Click">Office 2013 White</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnWindows8Click">Windows8 White</Fluent:Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
+                            </Fluent:BackstageTabItem>
+
+                            <Fluent:BackstageTabItem Header="Change theme with standard controls"
+                                                     Content="Hello">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, Path=ParentBackstage.ActualHeight}" />
+                                            <Button Click="OnOffice2010SilverClick">Office 2010 Silver</Button>
+                                            <Button Click="OnOffice2010BlackClick">Office 2010 Black</Button>
+                                            <Button Click="OnOffice2010BlueClick">Office 2010 Blue</Button>
+                                            <Button Click="OnOffice2013Click">Office 2013 White</Button>
+                                            <Button Click="OnWindows8Click">Windows8 White</Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
+                            </Fluent:BackstageTabItem>
+
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
@@ -199,6 +240,7 @@
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem />
+
                             <Fluent:BackstageTabItem Header="New"
                                                      KeyTip="N">
                                 <Grid Margin="50"
@@ -242,12 +284,14 @@
                                                     ValueChanged="OnSpinnerValueChanged" />
                                 </Grid>
                             </Fluent:BackstageTabItem>
+
                             <Fluent:BackstageTabItem Header="Print"
                                                      KeyTip="P">
                                 <Grid Background="Yellow"
                                       Opacity="0.3"
                                       Margin="50" />
                             </Fluent:BackstageTabItem>
+
                             <Fluent:Button Header="Exit"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Exit.png"
                                            KeyTip="X"
@@ -378,8 +422,6 @@
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem IsChecked="True"
                                             Target="{Binding ElementName=UndoButton}" />
-                <Fluent:QuickAccessMenuItem IsChecked="True"
-                                            Target="{Binding ElementName=RedoButton}" />
             </Fluent:Ribbon.QuickAccessItems>
 
             <Fluent:RibbonTabItem x:Name="homeTabItem"
