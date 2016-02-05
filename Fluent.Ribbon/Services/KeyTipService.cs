@@ -24,8 +24,8 @@ namespace Fluent
 
         // Is KeyTips Actived now
         private KeyTipAdorner activeAdornerChain;
-        // This element must be remembered to restore it
-        FocusWrapper backUpFocusedControl;
+        // This element must be remembered to restore focus
+        private FocusWrapper backUpFocusedControl;
 
         // Window where we attached
         private Window window;
