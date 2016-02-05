@@ -788,25 +788,17 @@ namespace Fluent
                             elementSize.Height / 2.0 + 2,
                             elementSize.Height / 2.0 + 2), this.AdornedElement);
                 }
-                else if (this.associatedElements[i] is BackstageTabItem)
-                {
-                    // BackstageButton Exclusive Placement
-                    var keyTipSize = this.keyTips[i].DesiredSize;
-                    var elementSize = this.associatedElements[i].DesiredSize;
-                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
-                        new Point(
-                            5,
-                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
-                }
                 else if (((FrameworkElement)this.associatedElements[i]).Parent is BackstageTabControl)
                 {
                     // Backstage Items Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
                     var elementSize = this.associatedElements[i].DesiredSize;
-                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
+                    var parent = (UIElement)((FrameworkElement)this.associatedElements[i]).Parent;
+                    var positionInParent = this.associatedElements[i].TranslatePoint(default(Point), parent);
+                    this.keyTipPositions[i] = parent.TranslatePoint(
                         new Point(
-                            20,
-                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
+                            5,
+                            positionInParent.Y + (elementSize.Height / 2.0 - keyTipSize.Height)), this.AdornedElement);
                 }
                 else
                 {
