@@ -189,7 +189,6 @@ namespace Fluent
                 && e.SystemKey <= Key.NumPad9)
             {
                 this.activeAdornerChain?.Terminate();
-                this.ClearUserInput();
                 return;
             }
 
@@ -201,14 +200,10 @@ namespace Fluent
                 {
                     this.ShowDelayed();
                 }
-                else if (this.activeAdornerChain != null
-                    && this.activeAdornerChain.IsAdornerChainAlive)
-                {
-                    this.activeAdornerChain.Terminate();
-                }
                 else
                 {
-                    this.ClearUserInput();
+                    this.activeAdornerChain?.Terminate();
+                    return;
                 }
             }
             else if (e.Key == Key.Escape
@@ -325,6 +320,7 @@ namespace Fluent
         {
             this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
+            this.ClearUserInput();
             this.RestoreFocus();
         }
 
