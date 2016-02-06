@@ -35,23 +35,24 @@
   - [#240](../../issues/240) - Backstage closes when popup is dismissed inside backstage
   - [#241](../../issues/241) - Keytips should be cancelled if Alt+Num0 is pressed
   - [#244](../../issues/244) - KeyTip not working for childs of ContentPresenter
-  - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar
-  - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush
+  - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar (thanks to @nishy2000)
+  - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush (thanks to @maurosampietro)
   - [#254](../../issues/254) - Basic fix for KeyTips not working when focus is inside a WinForms control
   - [#256](../../issues/256) - ComboBox items don't update properly on ItemsSource binding source collection changes
-  - [#257](../../issues/257) - Windows8 RibbonWindowTitleTextGlowBackground was missing
+  - [#255](../../issues/255) - Submenus don't show scroll viewer if items exceed the available space on screen (thanks to @floele-sp)
+  - [#257](../../issues/257) - Windows8 RibbonWindowTitleTextGlowBackground was missing (thanks to @maurosampietro)
   - [#263](../../issues/263) - Changing theme from backstage is broken
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
-  - [#120](../../issues/120) - Adding short-cuts or additional information to Application Menu Item (How to improve)
+  - [#120](../../issues/120) - Adding short-cuts or additional information to Application Menu Item
   - [#185](../../issues/185) - Major refactoring of how WindowChrome is used
   - [#194](../../issues/194) - There should be an option to disable animations in the whole control
   - [#205](../../issues/205) - Fluent Spinner handles Format="P0" incorrectly.
   - [#207](../../issues/207) - Enable DragMove on unused RibbonTabControl space like in Office 2013
-  - [#230](../../issues/230) - Option to disable the "Minimize"-Ribbon Button & Behavior
+  - [#230](../../issues/230) - Option to disable the "Minimize"-Ribbon Button & Behavior (thanks to @robertmuehsig)
   - [#242](../../issues/242) - Add start screen like in office 2013 and upwards
-  - [#258](../../issues/258) - Refactoring of KeyTipService and KeyTipAdorner                               
+  - [#258](../../issues/258) - Refactoring of KeyTipService and KeyTipAdorner (merged with [#264](../../issues/264))
 
 ## 3.6.1
 
