@@ -229,6 +229,14 @@ namespace Fluent
                 // Don't do anything and let WPF handle the rest
                 if (isKeyRealInput == false)
                 {
+                    // This block is a "temporary" fix for keyboard navigation not matching the office behavior.
+                    // If someone finds a way to implement it properly, here is your starting point.
+                    // In office: If you navigate by keyboard (in menus) and keytips are shown they are shown or hidden based on the menu you are in.
+                    // Implementing navigation the way office does would require complex focus/state tracking etc. so i decided to just terminate keytips and not restore focus.
+                    {
+                        this.backUpFocusedControl = null;
+                        this.activeAdornerChain?.Terminate();
+                    }
                     return;
                 }
 
