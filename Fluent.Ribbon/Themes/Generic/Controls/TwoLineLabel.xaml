@@ -17,6 +17,7 @@
                         TextAlignment="Center"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
+
             <StackPanel x:Name="stackPanel1"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
@@ -26,6 +27,7 @@
                             TextAlignment="Center"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />
+
                 <Border x:Name="border"
                         Height="Auto"
                         Width="5"
