@@ -295,20 +295,11 @@
 
             this.Detach();
 
-            if (this.parentAdorner != null)
-            {
-                this.parentAdorner.Terminate();
-            }
+            this.parentAdorner?.Terminate();
 
-            if (this.childAdorner != null)
-            {
-                this.childAdorner.Terminate();
-            }
+            this.childAdorner?.Terminate();
 
-            if (this.Terminated != null)
-            {
-                this.Terminated(this, EventArgs.Empty);
-            }
+            this.Terminated?.Invoke(this, EventArgs.Empty);
 
             this.Log("Termination");
         }
@@ -362,10 +353,7 @@
         public void Back()
         {
             var control = this.keyTipElementContainer as IKeyTipedControl;
-            if (control != null)
-            {
-                control.OnKeyTipBack();
-            }
+            control?.OnKeyTipBack();
 
             if (this.parentAdorner != null)
             {
