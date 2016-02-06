@@ -51,6 +51,7 @@
   - [#207](../../issues/207) - Enable DragMove on unused RibbonTabControl space like in Office 2013
   - [#230](../../issues/230) - Option to disable the "Minimize"-Ribbon Button & Behavior
   - [#242](../../issues/242) - Add start screen like in office 2013 and upwards
+  - [#258](../../issues/258) - Refactoring of KeyTipService and KeyTipAdorner                               
 
 ## 3.6.1
 

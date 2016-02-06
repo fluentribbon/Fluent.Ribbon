@@ -24,8 +24,9 @@ namespace Fluent
 
         // Is KeyTips Actived now
         private KeyTipAdorner activeAdornerChain;
-        // This element must be remembered to restore it
-        IInputElement backUpFocusedElement;
+        // This element must be remembered to restore focus
+        private FocusWrapper backUpFocusedControl;
+
         // Window where we attached
         private Window window;
 
@@ -112,15 +113,12 @@ namespace Fluent
                 return;
             }
 
-            this.window.PreviewKeyDown += this.OnWindowKeyDown;
+            this.window.PreviewKeyDown += this.OnWindowPreviewKeyDown;
             this.window.KeyUp += this.OnWindowKeyUp;
 
             // Hookup non client area messages
             this.attachedHwndSource = (HwndSource)PresentationSource.FromVisual(this.window);
-            if (this.attachedHwndSource != null)
-            {
-                this.attachedHwndSource.AddHook(this.WindowProc);
-            }
+            this.attachedHwndSource?.AddHook(this.WindowProc);
         }
 
         /// <summary>
@@ -140,40 +138,38 @@ namespace Fluent
 
             if (this.window != null)
             {
-                this.window.PreviewKeyDown -= this.OnWindowKeyDown;
+                this.window.PreviewKeyDown -= this.OnWindowPreviewKeyDown;
                 this.window.KeyUp -= this.OnWindowKeyUp;
 
                 this.window = null;
             }
 
-            // Hookup non client area messages
-            if (this.attachedHwndSource != null
-                && this.attachedHwndSource.IsDisposed == false)
-            {
-                this.attachedHwndSource.RemoveHook(this.WindowProc);
-            }
+            // Unhook non client area messages
+            this.attachedHwndSource?.RemoveHook(this.WindowProc);
         }
 
         // Window's messages hook up
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            // We must terminate the keytip's adorner chain if:
-            // - mouse clicks in non client area
-            // - the window is deactivated
-            if (((msg >= 161) && (msg <= 173)) || msg == Constants.WM_NCACTIVATE)
+            // We must terminate the keytip's adorner chain if:                        
+            if (msg == Constants.WM_NCACTIVATE // mouse clicks in non client area
+                || (msg == Constants.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+                                                                           // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
+                || (msg >= 161 && msg <= 173) // mouse click (non client area)
+                || (msg >= 513 && msg <= 521) // mouse click
+                )
             {
                 if (this.activeAdornerChain != null
                     && this.activeAdornerChain.IsAdornerChainAlive)
                 {
                     this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
                 }
             }
 
             return IntPtr.Zero;
         }
 
-        private void OnWindowKeyDown(object sender, KeyEventArgs e)
+        private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.IsRepeat)
             {
@@ -193,8 +189,6 @@ namespace Fluent
                 && e.SystemKey <= Key.NumPad9)
             {
                 this.activeAdornerChain?.Terminate();
-                this.activeAdornerChain = null;
-                this.ClearUserInput();
                 return;
             }
 
@@ -206,30 +200,22 @@ namespace Fluent
                 {
                     this.ShowDelayed();
                 }
-                else if (this.activeAdornerChain != null
-                    && this.activeAdornerChain.IsAdornerChainAlive)
-                {
-                    // Focus ribbon
-                    this.backUpFocusedElement = Keyboard.FocusedElement;
-                    this.ribbon.Focusable = true;
-                    //this.ribbon.Focus();
-
-                    this.activeAdornerChain.Terminate();
-                    this.activeAdornerChain = null;
-                }
                 else
                 {
-                    this.ClearUserInput();
+                    this.activeAdornerChain?.Terminate();
+                    return;
                 }
             }
             else if (e.Key == Key.Escape
                 && this.activeAdornerChain != null)
             {
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
+                this.ClearUserInput();
+                e.Handled = true;
+                return;
             }
             else
             {
-                // Should we show the keytips and immediately react to key?
                 if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
                     || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
@@ -237,6 +223,24 @@ namespace Fluent
                     return;
                 }
 
+                var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
+                var isKeyRealInput = ((actualKey >= Key.A && actualKey <= Key.Z) || (actualKey >= Key.D0 && actualKey <= Key.D9) || (actualKey >= Key.NumPad0 && actualKey <= Key.NumPad9));
+
+                // Don't do anything and let WPF handle the rest
+                if (isKeyRealInput == false)
+                {
+                    // This block is a "temporary" fix for keyboard navigation not matching the office behavior.
+                    // If someone finds a way to implement it properly, here is your starting point.
+                    // In office: If you navigate by keyboard (in menus) and keytips are shown they are shown or hidden based on the menu you are in.
+                    // Implementing navigation the way office does would require complex focus/state tracking etc. so i decided to just terminate keytips and not restore focus.
+                    {
+                        this.backUpFocusedControl = null;
+                        this.activeAdornerChain?.Terminate();
+                    }
+                    return;
+                }
+
+                // Should we show the keytips and immediately react to key?
                 if (this.activeAdornerChain == null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
                     || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
@@ -249,24 +253,28 @@ namespace Fluent
                     return;
                 }
 
-                string previousInput = this.currentUserInput;
-                this.currentUserInput += keyConverter.ConvertToString(e.Key == Key.System ? e.SystemKey : e.Key);
+                var previousInput = this.currentUserInput;
+                this.currentUserInput += keyConverter.ConvertToString(actualKey);
 
-                if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
+                // If no key tips match the current input, continue with the previously entered and still correct keys.
+                if (this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
+                {
+                    this.currentUserInput = previousInput;
+                    System.Media.SystemSounds.Beep.Play();
+                    e.Handled = true;
+                    return;
+                }
+                else if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
                     e.Handled = true;
+                    return;
                 }
                 else
                 {
-                    // If no key tips match the current input, continue with the previously entered and still correct keys.
-                    if (!this.activeAdornerChain.ActiveKeyTipAdorner.IsElementsStartWith(this.currentUserInput))
-                    {
-                        this.currentUserInput = previousInput;
-                    }
-
                     this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
                     e.Handled = true;
+                    return;
                 }
             }
         }
@@ -310,22 +318,18 @@ namespace Fluent
             this.currentUserInput = string.Empty;
         }
 
-        private void RestoreFocuses()
+        private void RestoreFocus()
         {
-            if (this.backUpFocusedElement != null)
-            {
-                this.backUpFocusedElement.Focus();
-                this.backUpFocusedElement = null; // Release the reference, so GC can work
-            }
-
-            this.ribbon.Focusable = false;
+            this.backUpFocusedControl?.Focus();
+            this.backUpFocusedControl = null;
         }
 
         private void OnAdornerChainTerminated(object sender, EventArgs e)
         {
+            this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
-            this.RestoreFocuses();
-            ((KeyTipAdorner)sender).Terminated -= this.OnAdornerChainTerminated;
+            this.ClearUserInput();
+            this.RestoreFocus();
         }
 
         private void OnDelayedShow(object sender, EventArgs e)
@@ -340,38 +344,34 @@ namespace Fluent
 
         private void ShowImmediatly()
         {
-            this.timer.Stop();
-            this.backUpFocusedElement = Keyboard.FocusedElement;
-
-            // Focus ribbon
-            this.ribbon.Focusable = true;
-            //this.ribbon.Focus();
-
             this.Show();
         }
 
         private void ShowDelayed()
         {
-            if (this.activeAdornerChain != null)
-            {
-                this.activeAdornerChain.Terminate();
-            }
+            this.activeAdornerChain?.Terminate();
 
-            this.activeAdornerChain = null;
             this.timer.Start();
         }
 
         private void Show()
         {
+            this.timer.Stop();
+
             // Check whether the window is 
             // - still present (prevents exceptions when window is closed by system commands)
             // - still active (prevents keytips showing during Alt-Tab'ing)
             if (this.window == null
                 || this.window.IsActive == false)
             {
-                this.RestoreFocuses();
+                this.RestoreFocus();
                 return;
             }
+
+            this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
+
+            // Focus ribbon
+            this.ribbon.Focus();
 
             this.ClearUserInput();
 
@@ -433,9 +433,10 @@ namespace Fluent
         private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
         {
             var keys = KeyTip.GetKeys(specialControl);
+
             if (string.IsNullOrEmpty(keys) == false)
             {
-                this.activeAdornerChain.Forward(KeyTip.GetKeys(specialControl), false);
+                this.activeAdornerChain.Forward(keys, false);
             }
             else
             {
