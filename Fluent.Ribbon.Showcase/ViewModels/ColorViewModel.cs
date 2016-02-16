@@ -1,5 +1,6 @@
 ﻿namespace FluentTest.ViewModels
 {
+    using System.Windows;
     using System.Windows.Media;
 
     public class ColorViewModel : ViewModel
@@ -14,7 +15,6 @@
         {
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
-            this.ThemeColor = Colors.Blue;
         }
 
         public Color StandardColor
@@ -44,10 +44,10 @@
 
         public Color ThemeColor
         {
-            get { return this.themeColor; }
+            get { return ((SolidColorBrush)Application.Current.Resources["RibbonThemeColorBrush"]).Color; }
             set
             {
-                this.themeColor = value;
+                Application.Current.Resources["RibbonThemeColorBrush"] = new SolidColorBrush(value);
                 this.OnPropertyChanged("ThemeColor");
             }
         }

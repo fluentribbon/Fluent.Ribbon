@@ -289,6 +289,6 @@
         <Setter Property="Background"
                 Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
         <Setter Property="ItemsPanelBackground"
-                Value="{DynamicResource BackstagePanelBackgroundBrush}" />
+                Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
     </Style>
 </ResourceDictionary>
