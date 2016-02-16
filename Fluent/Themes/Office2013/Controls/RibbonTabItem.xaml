@@ -125,7 +125,7 @@
                     Padding="15,0,0,0"
                     Grid.ColumnSpan="1">
                 <!--<ContentPresenter x:Name="contentPresenter" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto"/>-->
-                <Label x:Name="contentPresenter"
+                <ContentControl x:Name="contentPresenter"
                        AutomationProperties.Name="{TemplateBinding Header}"
                        AutomationProperties.AutomationId="{TemplateBinding Name}"
                        Content="{TemplateBinding Header}"
