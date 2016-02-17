@@ -42,6 +42,7 @@
   - [#255](../../issues/255) - Submenus don't show scroll viewer if items exceed the available space on screen (thanks to @floele-sp)
   - [#257](../../issues/257) - Windows8 RibbonWindowTitleTextGlowBackground was missing (thanks to @maurosampietro)
   - [#263](../../issues/263) - Changing theme from backstage is broken
+  - [#272](../../issues/272) - Changing RibbonThemeColorBrush does not change background of ItemsPanel in Backstage
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements
