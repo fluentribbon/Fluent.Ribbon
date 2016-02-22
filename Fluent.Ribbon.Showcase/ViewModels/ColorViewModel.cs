@@ -44,7 +44,7 @@
 
         public Color ThemeColor
         {
-            get { return ((SolidColorBrush)Application.Current.Resources["RibbonThemeColorBrush"]).Color; }
+            get { return ((SolidColorBrush)Application.Current.Resources["RibbonThemeColorBrush"])?.Color ?? Colors.Pink; }
             set
             {
                 Application.Current.Resources["RibbonThemeColorBrush"] = new SolidColorBrush(value);
