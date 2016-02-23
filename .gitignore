@@ -37,6 +37,7 @@ publish/
 # Generated files
 Fluent.Ribbon/Themes/**/Generic.xaml
 packages/
+.tmp
 
 # Allowed files
 !Fluent.Ribbon/Themes/Generic.xaml
