@@ -1051,8 +1051,10 @@ namespace Fluent
         private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-
-            ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
+            if (ribbon.TabControl != null)
+            {
+                ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
+            }
         }
 
         /// <summary>
