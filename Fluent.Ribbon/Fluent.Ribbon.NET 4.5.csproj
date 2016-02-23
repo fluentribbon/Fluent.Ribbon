@@ -89,6 +89,7 @@
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="IHeaderedControl.cs" />
     <Compile Include="Internal\FocusWrapper.cs" />

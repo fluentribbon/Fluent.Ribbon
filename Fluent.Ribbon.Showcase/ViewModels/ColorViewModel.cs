@@ -8,9 +8,6 @@
         private Color standardColor;
         private Color highlightColor;
 
-        private readonly Color[] themeColors = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
-        private Color themeColor;
-
         public ColorViewModel()
         {
             this.StandardColor = Colors.Black;
@@ -23,7 +20,7 @@
             set
             {
                 this.standardColor = value;
-                this.OnPropertyChanged("StandardColor");
+                this.OnPropertyChanged(nameof(this.StandardColor));
             }
         }
 
@@ -33,14 +30,11 @@
             set
             {
                 this.highlightColor = value;
-                this.OnPropertyChanged("HighlightColor");
+                this.OnPropertyChanged(nameof(this.HighlightColor));
             }
         }
 
-        public Color[] ThemeColors
-        {
-            get { return this.themeColors; }
-        }
+        public Color[] ThemeColors { get; } = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
 
         public Color ThemeColor
         {
@@ -48,7 +42,7 @@
             set
             {
                 Application.Current.Resources["RibbonThemeColorBrush"] = new SolidColorBrush(value);
-                this.OnPropertyChanged("ThemeColor");
+                this.OnPropertyChanged(nameof(this.ThemeColor));
             }
         }
     }

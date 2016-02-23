@@ -3,6 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Converters:ApplicationMenuRightContentExtractorConverter x:Key="ApplicationMenuRightContentExtractorConvert" />
@@ -892,7 +893,7 @@
                        VerticalAlignment="Center"
                        Grid.Column="2"
                        d:LayoutOverrides="Width"
-                       TextWrapping="NoWrap" />            
+                       TextWrapping="NoWrap" />
             <Rectangle x:Name="rectangle"
                        Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
                        Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
@@ -1077,7 +1078,8 @@
                 </Path.Fill>
             </Path>
             <Popup x:Name="PART_Popup"
-                   Placement="Relative"
+                   Placement="Custom"
+                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
                    PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
@@ -1434,7 +1436,8 @@
                 </Path.Fill>
             </Path>
             <Popup x:Name="PART_Popup"
-                   Placement="Relative"
+                   Placement="Custom"
+                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
                    PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
