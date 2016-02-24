@@ -94,6 +94,7 @@
     <Compile Include="IHeaderedControl.cs" />
     <Compile Include="Internal\FocusWrapper.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
+    <Compile Include="Internal\KeyEventUtility.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />

@@ -36,7 +36,6 @@ namespace Fluent
         // Attached HWND source
         private HwndSource attachedHwndSource;
 
-        private static readonly KeyConverter keyConverter = new KeyConverter();
         private string currentUserInput;
 
         /// <summary>
@@ -171,13 +170,15 @@ namespace Fluent
 
         private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.IsRepeat)
+            if (e.IsRepeat
+                || e.Handled)
             {
                 return;
             }
 
             if (this.ribbon.IsCollapsed
-                || this.ribbon.IsEnabled == false)
+                || this.ribbon.IsEnabled == false
+                || this.window.IsActive == false)
             {
                 return;
             }
@@ -224,7 +225,9 @@ namespace Fluent
                 }
 
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
-                var isKeyRealInput = ((actualKey >= Key.A && actualKey <= Key.Z) || (actualKey >= Key.D0 && actualKey <= Key.D9) || (actualKey >= Key.NumPad0 && actualKey <= Key.NumPad9));
+                // we need to get the real string input for the key because of keys like ä,ö,ü #258
+                var key = KeyEventUtility.GetStringFromKey(actualKey);
+                var isKeyRealInput = string.IsNullOrEmpty(key) == false;
 
                 // Don't do anything and let WPF handle the rest
                 if (isKeyRealInput == false)
@@ -240,12 +243,15 @@ namespace Fluent
                     return;
                 }
 
+                var shownImmediately = false;
+
                 // Should we show the keytips and immediately react to key?
                 if (this.activeAdornerChain == null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
                     || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
                 {
                     this.ShowImmediatly();
+                    shownImmediately = true;
                 }
 
                 if (this.activeAdornerChain == null)
@@ -254,11 +260,18 @@ namespace Fluent
                 }
 
                 var previousInput = this.currentUserInput;
-                this.currentUserInput += keyConverter.ConvertToString(actualKey);
+                this.currentUserInput += key;
 
-                // If no key tips match the current input, continue with the previously entered and still correct keys.
                 if (this.activeAdornerChain.ActiveKeyTipAdorner.ContainsKeyTipStartingWith(this.currentUserInput) == false)
                 {
+                    // Handles access-keys #258
+                    if (shownImmediately)
+                    {
+                        this.activeAdornerChain?.Terminate();
+                        return;
+                    }
+
+                    // If no key tips match the current input, continue with the previously entered and still correct keys.
                     this.currentUserInput = previousInput;
                     System.Media.SystemSounds.Beep.Play();
                     e.Handled = true;
@@ -282,8 +295,10 @@ namespace Fluent
         private void OnWindowKeyUp(object sender, KeyEventArgs e)
         {
             if (this.ribbon.IsCollapsed
-                || this.ribbon.IsEnabled == false)
+                || this.ribbon.IsEnabled == false
+                || this.window.IsActive == false)
             {
+                this.activeAdornerChain?.Terminate();
                 return;
             }
 
