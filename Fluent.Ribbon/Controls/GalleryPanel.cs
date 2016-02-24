@@ -25,7 +25,7 @@
         private readonly List<GalleryGroupContainer> galleryGroupContainers = new List<GalleryGroupContainer>();
 
         // Designate that gallery panel must be refreshed its groups
-        private bool haveToBeRefreshed;
+        private bool needsRefresh = true;
 
         // Group name resolver
         private Func<object, string> groupByAdvanced;
@@ -209,7 +209,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata((int)1));
+            DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata(1));
 
         #endregion
 
@@ -359,28 +359,24 @@
 
         private void Invalidate()
         {
-            if (this.haveToBeRefreshed)
+            if (this.needsRefresh)
             {
                 return;
             }
 
-            this.haveToBeRefreshed = true;
-            this.Dispatcher.BeginInvoke((Action)this.RefreshDispatchered, DispatcherPriority.Send);
-        }
-
-        private void RefreshDispatchered()
-        {
-            if (this.haveToBeRefreshed == false)
-            {
-                return;
-            }
-
-            this.Refresh();
-            this.haveToBeRefreshed = false;
+            this.needsRefresh = true;
+            this.Dispatcher.BeginInvoke((Action)this.Refresh, DispatcherPriority.Send);
         }
 
         private void Refresh()
         {
+            if (this.needsRefresh == false)
+            {
+                return;
+            }
+
+            this.needsRefresh = false;
+
             if (this.itemContainerGeneratorAction == null)
             {
                 this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Refresh);
@@ -429,20 +425,17 @@
                     propertyValue = "Undefined";
                 }
 
-                // Make invisible if it is not in filter (or is not grouped)
-                if (this.IsGrouped == false
-                    || (filter != null && filter.Contains(propertyValue) == false))
-                {
-                    item.Measure(new Size(0, 0));
-                    item.Arrange(new Rect(0, 0, 0, 0));
-                }
-
-                // Skip if it is not in filter
-                if (filter != null
+                // Make invisible if it is not in filter
+                if (this.IsGrouped
+                    && filter != null
                     && filter.Contains(propertyValue) == false)
                 {
+                    item.Visibility = Visibility.Collapsed;
                     continue;
                 }
+
+                // Make all not filtered items visible
+                item.Visibility = Visibility.Visible;
 
                 // To put all items in one group in case of IsGrouped = False
                 if (this.IsGrouped == false)
@@ -502,6 +495,8 @@
         {
             var baseSize = base.MeasureOverride(availableSize);
 
+            this.Refresh();
+
             if (this.galleryGroupContainers.Count == 0)
             {
                 return baseSize;
@@ -530,6 +525,8 @@
         protected override Size ArrangeOverride(Size finalSize)
         {
             var baseSize = base.ArrangeOverride(finalSize);
+
+            this.Refresh();
 
             if (this.galleryGroupContainers.Count == 0)
             {

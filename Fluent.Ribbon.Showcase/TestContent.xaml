@@ -1308,7 +1308,7 @@
 
                     <!--InRibbonGallery-->
                     <Fluent:InRibbonGallery MinItemsInRow="3"
-                                            MaxItemsInRow="8"
+                                            MaxItemsInRow="5"
                                             Icon="Images\Gray.png"
                                             Header="InRibbonGallery"
                                             ItemWidth="40"
@@ -2831,7 +2831,10 @@
                                                        Text="Test Windows.Forms.TextBox" />
                                     </WindowsFormsHost>
 
-                                    <TextBox>Test System.Windows.Controls.TextBox</TextBox>
+                                    <StackPanel>
+                                        <Label Target="{Binding ElementName=targetTextBox}">Label with _Access Key A</Label>
+                                        <TextBox x:Name="targetTextBox">Test System.Windows.Controls.TextBox</TextBox>
+                                    </StackPanel>
                                 </StackPanel>
                             </GroupBox>
                         </WrapPanel>
