@@ -44,6 +44,7 @@
   - [#263](../../issues/263) - Changing theme from backstage is broken
   - [#269](../../issues/269) - Show underscore of header text on RibbonTabItem
   - [#272](../../issues/272) - Changing RibbonThemeColorBrush does not change background of ItemsPanel in Backstage
+  - [#274](../../issues/274) - RadioButton Icon and LargeIcon
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements

@@ -73,16 +73,23 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null, OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonControl element = d as RibbonControl;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            var element = (RibbonControl)d;
+
+            var oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            var newElement = e.NewValue as FrameworkElement;
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
@@ -179,7 +186,7 @@ namespace Fluent
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
 
                 var routedUiCommand = e.NewValue as RoutedUICommand;
-                if (routedUiCommand != null 
+                if (routedUiCommand != null
                     && control.Header == null)
                 {
                     control.Header = routedUiCommand.Text;
@@ -200,7 +207,7 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null 
+            var canExecute = this.Command != null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -371,7 +378,7 @@ namespace Fluent
                         rect.Width = 16;
                         rect.Height = 16;
                         rect.Fill = new VisualBrush(iconVisual);
-                        ((IRibbonControl) element).Icon = rect;
+                        ((IRibbonControl)element).Icon = rect;
                     }
                     else
                     {

@@ -123,9 +123,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)this.GetValue(LargeIconProperty); }
+            get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
         }
 
@@ -133,9 +133,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
-            typeof(CheckBox), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register("LargeIcon", typeof(object), typeof(CheckBox), new UIPropertyMetadata(null));
 
         #endregion
 

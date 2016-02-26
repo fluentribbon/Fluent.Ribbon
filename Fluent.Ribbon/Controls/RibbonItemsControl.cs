@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -96,7 +95,7 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)this.GetValue(IconProperty); }
+            get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
         }
 
