@@ -153,7 +153,7 @@ namespace Fluent
 
         #endregion
 
-        public Panel RealItemsPanel
+        private Panel RealItemsPanel
         {
             get
             {
@@ -179,6 +179,10 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
         }
 
+        /// <summary>
+        /// Invoked when the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property changes.
+        /// </summary>
+        /// <param name="oldItemsPanel">Old value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param><param name="newItemsPanel">New value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param>
         protected override void OnItemsPanelChanged(ItemsPanelTemplate oldItemsPanel, ItemsPanelTemplate newItemsPanel)
         {
             base.OnItemsPanelChanged(oldItemsPanel, newItemsPanel);
