@@ -138,7 +138,6 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\Gallery.cs" />
     <Compile Include="Controls\GalleryGroupFilter.cs" />
-    <Compile Include="Controls\GalleryGroupIcon.cs" />
     <Compile Include="Controls\GalleryItem.cs" />
     <Compile Include="Effects\GrayscaleEffect.cs" />
     <Compile Include="Converters\IconConverter.cs" />
