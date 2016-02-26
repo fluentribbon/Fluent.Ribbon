@@ -126,7 +126,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(true, OnCanMinimizeChanged));
+        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(true));
 
 
         /// <summary>
@@ -667,25 +667,6 @@
             if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {
                 this.UpdateSelectedContent();
-            }
-        }
-
-        // Handles CanMinimizeChanges
-        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var tab = (RibbonTabControl)d;
-            var toggleButton = tab.Template.FindName("PART_MinimizeButton", tab) as Fluent.ToggleButton;
-            if (toggleButton != null)
-            {
-                if (tab.CanMinimize)
-                {
-
-                    toggleButton.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    toggleButton.Visibility = Visibility.Collapsed;
-                }
             }
         }
 

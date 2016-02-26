@@ -497,7 +497,7 @@
                                                          Size="Small"
                                                          Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
                                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                         Visibility="{TemplateBinding HasItems, Converter={StaticResource boolToVisibilityConverter}}" />
+                                                         Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
                                 </Grid>
                                 <StackPanel x:Name="PART_ToolbarPanel"
                                             Orientation="Horizontal" />
