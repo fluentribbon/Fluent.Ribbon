@@ -213,6 +213,8 @@ namespace Fluent
                 }
                 else
                 {
+                    // Prevent duplicate registration
+                    this.Loaded -= this.HandleLoaded;
                     this.Loaded += this.HandleLoaded;
                 }
 
