@@ -1,3 +1,5 @@
+Generic\Controls\Button.xaml
+Generic\Controls\WindowCommands.xaml
 Office2010\Colors\Colors.xaml
 Windows8\Colors\Colors.xaml
 Windows8\Colors\ColorsSilver.xaml

@@ -7,7 +7,7 @@
     using System.Windows.Input;
     using System.Windows.Interactivity;
     using ControlzEx.Behaviors;
-    
+
     using Fluent.Extensions;
     using Fluent.Helpers;
 
@@ -58,7 +58,7 @@
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue));
+            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8D)));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -253,22 +253,6 @@
             Interaction.GetBehaviors(this).Add(behavior);
         }
 
-        /// <summary>
-        /// Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">A reference to the root of the old content tree.</param><param name="newContent">A reference to the root of the new content tree.</param>
-        protected override void OnContentChanged(object oldContent, object newContent)
-        {
-            base.OnContentChanged(oldContent, newContent);
-
-            var content = newContent as IInputElement;
-
-            if (content != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(content, true);
-            }
-        }
-
         #endregion
 
         private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -308,8 +292,6 @@
                           && this.DontUseDwm == false;
         }
 
-        #region Metro
-
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
         /// </summary>
@@ -329,28 +311,15 @@
                 this.WindowCommands = new WindowCommands();
             }
 
-            this.iconImage = this.GetTemplateChild(PART_Icon) as FrameworkElement;
+            this.iconImage = this.GetPart<FrameworkElement>(PART_Icon);
 
             if (this.iconImage != null)
             {
-                WindowChrome.SetIsHitTestVisibleInChrome(this.iconImage, true);
-
                 this.iconImage.MouseDown += this.HandleIconMouseDown;
             }
 
-            var partContentPresenter = this.GetTemplateChild(PART_ContentPresenter) as UIElement;
-
-            if (partContentPresenter != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(partContentPresenter, true);
-            }
-
-            var partWindowCommands = this.GetTemplateChild(PART_WindowCommands) as UIElement;
-
-            if (partWindowCommands != null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(partWindowCommands, true);
-            }
+            this.GetPart<UIElement>(PART_Icon)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+            this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
         }
 
         /// <summary>
@@ -394,6 +363,15 @@
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Gets the template child with the given name.
+        /// </summary>
+        /// <typeparam name="T">The interface type inheirted from DependencyObject.</typeparam>
+        /// <param name="name">The name of the template child.</param>
+        internal T GetPart<T>(string name)
+            where T : DependencyObject
+        {
+            return this.GetTemplateChild(name) as T;
+        }
     }
 }
