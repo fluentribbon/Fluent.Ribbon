@@ -94,6 +94,7 @@
                    Placement="Custom"
                    CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
                    PlacementTarget="{Binding ElementName=buttonContent}"
+                   VerticalOffset="{Binding ElementName=buttonContent, Path=ActualHeight}"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
@@ -121,7 +122,6 @@
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto"
                                                    MinHeight="17" />
@@ -131,25 +131,15 @@
                                                       MinWidth="100" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.Row="0"
-                                        Grid.ColumnSpan="2"
-                                        BorderThickness="0,0,0,1"
-                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
-                                        Margin="0"
-                                        Background="{DynamicResource RibbonBackgoundBrush}">
-                                    <ContentControl x:Name="buttonOnPopupContent"
-                                                    HorizontalAlignment="Left"
-                                                    Margin="-1,-1,0,0" />
-                                </Border>
 
                                 <StackPanel Orientation="Vertical"
                                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                            Grid.Row="1"
+                                            Grid.Row="0"
                                             Grid.Column="0"
                                             x:Name="PART_MenuPanel"
                                             IsItemsHost="True"
                                             KeyboardNavigation.DirectionalNavigation="Cycle" />
-                                <Border Grid.Row="1"
+                                <Border Grid.Row="0"
                                         Grid.Column="1"
                                         BorderThickness="1,0,0,0"
                                         BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
@@ -167,7 +157,7 @@
                                                           x:Name="PART_RightContentPresenter" />
                                     </ScrollViewer>
                                 </Border>
-                                <Border Grid.Row="2"
+                                <Border Grid.Row="1"
                                         Grid.ColumnSpan="2"
                                         BorderThickness="0,1,0,0"
                                         BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
@@ -278,13 +268,6 @@
             </MultiTrigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
-                <Setter Property="Content"
-                        TargetName="buttonContent"
-                        Value="{x:Null}" />
-                <Setter Property="Content"
-                        TargetName="buttonOnPopupContent"
-                        Value="{Binding ElementName=PART_ButtonBorder}" />
-
                 <Setter Property="CornerRadius"
                         TargetName="PART_ButtonBorder"
                         Value="0" />

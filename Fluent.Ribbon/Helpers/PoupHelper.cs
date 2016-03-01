@@ -18,12 +18,28 @@
         /// </summary>
         public static CustomPopupPlacement[] GetSimplePlacement(Size popupSize, Size targetSize, Point offset)
         {
+            // Create placements which should never cover the target
             return new[]
                    {
                        new CustomPopupPlacement
                        {
                            Point = new Point(0, 0),
                            PrimaryAxis = PopupPrimaryAxis.None
+                       },
+                       new CustomPopupPlacement
+                       {
+                           Point = new Point(0, -popupSize.Height - targetSize.Height),
+                           PrimaryAxis = PopupPrimaryAxis.Vertical
+                       },
+                       new CustomPopupPlacement
+                       {
+                           Point = new Point(-popupSize.Width, -popupSize.Height),
+                           PrimaryAxis = PopupPrimaryAxis.Vertical
+                       },
+                       new CustomPopupPlacement
+                       {
+                           Point = new Point(targetSize.Width, -popupSize.Height),
+                           PrimaryAxis = PopupPrimaryAxis.Horizontal
                        }
                    };
         }
