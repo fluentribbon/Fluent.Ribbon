@@ -11,7 +11,8 @@
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
-            <AdornerDecorator>
+            <AdornerDecorator x:Name="Adorner"
+                              Margin="0 1 0 0">
                 <Grid Background="{TemplateBinding Background}">
                     <DockPanel x:Name="PART_TitleBar"
                                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
@@ -78,6 +79,9 @@
             <Trigger Property="WindowState"
                      Value="Maximized">
                 <Setter Property="Margin"
+                        TargetName="Adorner"
+                        Value="0" />
+                <Setter Property="Margin"
                         TargetName="PART_Icon"
                         Value="0" />
                 <Setter Property="Visibility"
@@ -96,15 +100,11 @@
                 Value="True" />
         <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
         <Setter Property="GlassFrameThickness"
-                Value="1" />
+                Value="0 27 0 0" />
         <Setter Property="DontUseDwm"
                 Value="True" />
         <Setter Property="UseAeroCaptionButtons"
                 Value="False" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonThemeColorBrush}" />
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource BlackColor}" />
