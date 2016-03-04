@@ -395,7 +395,8 @@ namespace Fluent
 
             // Special behavior for backstage
             var specialControl = this.GetBackstage()
-                ?? (DependencyObject)this.GetApplicationMenu();
+                ?? this.GetApplicationMenu()
+                ?? this.GetStartScreen();
 
             if (specialControl != null)
             {
@@ -407,14 +408,14 @@ namespace Fluent
             }
         }
 
-        private Backstage GetBackstage()
+        private DependencyObject GetBackstage()
         {
             if (this.ribbon.Menu == null)
             {
                 return null;
             }
 
-            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible && obj.IsOpen);
+            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
 
             if (control == null)
             {
@@ -426,7 +427,7 @@ namespace Fluent
                 : null;
         }
 
-        private ApplicationMenu GetApplicationMenu()
+        private DependencyObject GetApplicationMenu()
         {
             if (this.ribbon.Menu == null)
             {
@@ -441,6 +442,20 @@ namespace Fluent
             }
 
             return control.IsDropDownOpen
+                ? control
+                : null;
+        }
+
+        private DependencyObject GetStartScreen()
+        {
+            var control = this.ribbon.StartScreen;
+
+            if (control == null)
+            {
+                return null;
+            }
+
+            return control.IsOpen
                 ? control
                 : null;
         }
