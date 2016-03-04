@@ -28,6 +28,11 @@
                        },
                        new CustomPopupPlacement
                        {
+                           Point = new Point(-popupSize.Width, 0),
+                           PrimaryAxis = PopupPrimaryAxis.Horizontal
+                       },
+                       new CustomPopupPlacement
+                       {
                            Point = new Point(0, -popupSize.Height - targetSize.Height),
                            PrimaryAxis = PopupPrimaryAxis.Vertical
                        },
