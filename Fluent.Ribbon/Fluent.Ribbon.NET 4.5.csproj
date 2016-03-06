@@ -97,7 +97,7 @@
     <Compile Include="Internal\KeyEventUtility.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
-    <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
+    <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
     <Compile Include="Converters\ObjectToImageConverter.cs" />
     <Compile Include="Converters\SizeDefinitionConverter.cs" />

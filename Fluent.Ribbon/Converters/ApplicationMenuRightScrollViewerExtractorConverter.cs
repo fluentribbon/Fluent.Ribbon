@@ -2,13 +2,13 @@
 {
     using System;
     using System.Globalization;
-    using System.Windows.Controls;
+    using System.Windows;
     using System.Windows.Data;
 
     /// <summary>
     /// Extracts right content presenter of application menu converter
     /// </summary>
-    public class ApplicationMenuRightContentExtractorConverter : IValueConverter
+    public class ApplicationMenuRightScrollViewerExtractorConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
@@ -24,7 +24,7 @@
             var menu = value as ApplicationMenu;
             if (menu != null)
             {
-                return menu.Template.FindName("PART_RightContentPresenter", menu) as ContentPresenter;
+                return menu.Template.FindName("PART_ScrollViewer", menu) as UIElement;
             }
 
             return value;

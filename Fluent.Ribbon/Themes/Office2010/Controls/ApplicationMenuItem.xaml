@@ -6,7 +6,7 @@
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
-    <Converters:ApplicationMenuRightContentExtractorConverter x:Key="ApplicationMenuRightContentExtractorConvert" />
+    <Converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
 
     <!-- Second level-->
 
@@ -1080,7 +1080,7 @@
             <Popup x:Name="PART_Popup"
                    Placement="Custom"
                    CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
-                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightScrollViewerExtractorConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
@@ -1438,7 +1438,7 @@
             <Popup x:Name="PART_Popup"
                    Placement="Custom"
                    CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
-                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightScrollViewerExtractorConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
