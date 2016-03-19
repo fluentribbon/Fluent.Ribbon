@@ -42,6 +42,17 @@
     </UserControl.LayoutTransform>
     <Grid>
         <Grid.Resources>
+            <Style x:Key="GalleryItemStyleWithCustomContextMenu"
+                   TargetType="{x:Type Fluent:GalleryItem}">
+                <Setter Property="ContextMenu">
+                    <Setter.Value>
+                        <Fluent:ContextMenu>
+                            <Fluent:MenuItem Header="Custom ContextMenu" />
+                        </Fluent:ContextMenu>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <DataTemplate x:Key="middleDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
                 <Border>
@@ -1281,6 +1292,7 @@
                                            Icon="Images\Green.png"
                                            LargeIcon="Images\GreenLarge.png">
                         <Fluent:Gallery ItemsSource="{Binding DataItems}"
+                                        ItemContainerStyle="{DynamicResource GalleryItemStyleWithCustomContextMenu}"
                                         ItemTemplate="{DynamicResource middleDataItemTemplate}"
                                         MaxItemsInRow="3" />
                         <Fluent:MenuItem Icon="Images\Pink.png"
