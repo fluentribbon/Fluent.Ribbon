@@ -2,6 +2,9 @@
 
 ## 4.0.0 (preview)
 
+- ### Notices
+  - **As of now the Office 2010 and Windows 8 themes will be removed in version 5.0. You can vote for this at [Future direction of this library](../../issues/282).**
+
 - ### Breaking changes
   - New nuget dependency: [ControlzEx](https://www.nuget.org/packages/ControlzEx)
   - BorderlessWindowBehavior was replaced by WindowChromeBehavior from [ControlzEx](https://github.com/ControlzEx/ControlzEx).
@@ -42,6 +45,7 @@
   - [#255](../../issues/255) - Submenus don't show scroll viewer if items exceed the available space on screen (thanks to @floele-sp)
   - [#257](../../issues/257) - Windows8 RibbonWindowTitleTextGlowBackground was missing (thanks to @maurosampietro)
   - [#263](../../issues/263) - Changing theme from backstage is broken
+  - [#267](../../issues/267) - maximizing in Win 10
   - [#269](../../issues/269) - Show underscore of header text on RibbonTabItem
   - [#272](../../issues/272) - Changing RibbonThemeColorBrush does not change background of ItemsPanel in Backstage
   - [#274](../../issues/274) - RadioButton Icon and LargeIcon
