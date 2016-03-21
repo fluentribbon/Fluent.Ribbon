@@ -220,6 +220,9 @@
         public RibbonWindow()
         {
             this.SizeChanged += this.OnSizeChanged;
+
+            // WindowChrome initialization has to occur in constructor. Otherwise the load event is fired early.
+            this.InitializeWindowChromeBehavior();
         }
 
         #endregion
@@ -235,14 +238,12 @@
             base.OnSourceInitialized(e);
 
             this.UpdateCanUseDwm();
-
-            this.InitializeWindowChromeBehavior();
         }
 
         /// <summary>
         /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome
         /// </summary>
-        protected virtual void InitializeWindowChromeBehavior()
+        private void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(RibbonProperties.TitleBarHeightProperty), Source = this });
