@@ -22,10 +22,10 @@
                         d:LayoutOverrides="Width, Height">
                 <ContentPresenter x:Name="iconImage"
                                   HorizontalAlignment="Center"
-                                  Height="32"
+                                  Height="{Binding IconHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                   VerticalAlignment="Center"
                                   Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                  Width="32"
+                                  Width="{Binding IconWidth, RelativeSource={RelativeSource TemplatedParent}}"
                                   Margin="3,2,3,1"
                                   SnapsToDevicePixels="True" />
                 <Fluent:TwoLineLabel x:Name="controlLabel"

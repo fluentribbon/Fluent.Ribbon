@@ -115,6 +115,44 @@ namespace Fluent
         }
         #endregion
 
+        #region IconHeight
+
+        /// <summary>
+        /// Gets or sets icon height
+        /// </summary>
+        public int IconHeight
+        {
+            get { return (int)this.GetValue(IconHeightProperty); }
+            set { this.SetValue(IconHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IconHeight.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconHeightProperty =
+            DependencyProperty.Register("IconHeight", typeof(int), typeof(Button), new UIPropertyMetadata(32));
+
+        #endregion
+
+        #region IconWidth
+
+        /// <summary>
+        /// Gets or sets icon width
+        /// </summary>
+        public int IconWidth
+        {
+            get { return (int)this.GetValue(IconWidthProperty); }
+            set { this.SetValue(IconWidthProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for IconWidth.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty IconWidthProperty =
+            DependencyProperty.Register("IconWidth", typeof(int), typeof(Button), new UIPropertyMetadata(32));
+
+        #endregion
+
         #region LargeIcon
 
         /// <summary>
