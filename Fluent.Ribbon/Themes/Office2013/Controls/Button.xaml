@@ -13,9 +13,9 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
-                Height="Auto"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch">
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                Height="Auto">
             <StackPanel x:Name="stackPanel"
                         Width="Auto"
                         Orientation="Vertical"
