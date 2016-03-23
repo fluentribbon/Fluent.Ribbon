@@ -12,7 +12,7 @@
     This behavior is initialized in code behind (InitializeWindowChromeBehavior) and shows which properties of RibbonWindow can be used to control the behavior.
   - SaveWindowPosition and WindowSettingBehavior were removed [#196](../../issues/196)
   - GlassBorderThickness was renamed to GlassFrameThickness to be consitent with WindowChrome and WindowChromeBehavior [#209](../../issues/209)
-  - FluentTest project was renamed to Fluent.Showcase [#212](../../issues/212)
+  - FluentTest project was renamed to Fluent.Ribbon.Showcase [#212](../../issues/212)
 
 - ### Development/Contributing changes
   - We switched to Visual Studio 2015 so we can use nameof etc. [#219](../../issues/219)
