@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.0.0-dev025\lib\net45\ControlzEx.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.2.0.0-dev038\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -61,7 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.0.0-dev025\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.2.0.0-dev038\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -89,12 +89,15 @@
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="IHeaderedControl.cs" />
+    <Compile Include="Internal\FocusWrapper.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
+    <Compile Include="Internal\KeyEventUtility.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
-    <Compile Include="Converters\ApplicationMenuRightContentExtractorConverter.cs" />
+    <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
     <Compile Include="Converters\ObjectToImageConverter.cs" />
     <Compile Include="Converters\SizeDefinitionConverter.cs" />
@@ -135,7 +138,6 @@
     <Compile Include="Controls\TextBox.cs" />
     <Compile Include="Controls\Gallery.cs" />
     <Compile Include="Controls\GalleryGroupFilter.cs" />
-    <Compile Include="Controls\GalleryGroupIcon.cs" />
     <Compile Include="Controls\GalleryItem.cs" />
     <Compile Include="Effects\GrayscaleEffect.cs" />
     <Compile Include="Converters\IconConverter.cs" />
@@ -207,6 +209,14 @@
     <None Include="Themes\Office2010\Controls\StartScreenTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\Generic\Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Themes\Generic\Controls\WindowCommands.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </None>
     <Page Include="Themes\Office2010\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>

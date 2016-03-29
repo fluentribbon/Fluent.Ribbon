@@ -1,3 +1,5 @@
+Generic\Controls\Button.xaml
+Generic\Controls\WindowCommands.xaml
 Office2013\Colors\Colors.xaml
 Office2013\Colors\ColorsWhite.xaml
 Office2013\Images\Images.xaml

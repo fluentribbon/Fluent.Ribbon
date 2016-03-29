@@ -25,7 +25,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl
-	{
+    {
         #region Fields
 
         // up part
@@ -35,7 +35,7 @@ namespace Fluent
 
         // Freezed image (created during snapping)
         private Image snappedImage;
-        
+
         // Is visual currently snapped
         private bool isSnapped;
 
@@ -303,7 +303,7 @@ namespace Fluent
         /// </summary>
         public object LauncherIcon
         {
-            get { return (ImageSource)this.GetValue(LauncherIconProperty); }
+            get { return this.GetValue(LauncherIconProperty); }
             set { this.SetValue(LauncherIconProperty, value); }
         }
 
@@ -516,7 +516,6 @@ namespace Fluent
         /// Gets or sets icon
         /// </summary>
         public object Icon
-        //public ImageSource Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -525,8 +524,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty =
-            RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
 
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -917,11 +915,11 @@ namespace Fluent
 
         private StateScale GetCurrentIntermediateStateScale()
         {
-            var stateScale = new StateScale 
-                {
-                    Scale = this.ScaleIntermediate, 
-                    State = this.StateIntermediate
-                };
+            var stateScale = new StateScale
+            {
+                Scale = this.ScaleIntermediate,
+                State = this.StateIntermediate
+            };
             return stateScale;
         }
 
@@ -996,7 +994,7 @@ namespace Fluent
 
             groupBox.DropDownOpened += this.OnQuickAccessOpened;
             groupBox.DropDownClosed += this.OnQuickAccessClosed;
-            
+
             groupBox.State = RibbonGroupBoxState.QuickAccess;
 
             RibbonControl.Bind(this, groupBox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.OneWay);
@@ -1099,7 +1097,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));        
+            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

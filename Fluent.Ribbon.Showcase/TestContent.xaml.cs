@@ -88,8 +88,8 @@
             {
                 Command = fooCommand1.ItemCommand,
                 Header = "Foo",
-                Icon = new BitmapImage(new Uri(@"Images\Green.png", UriKind.Relative)),
-                LargeIcon = new BitmapImage(new Uri(@"Images\GreenLarge.png", UriKind.Relative)),
+                Icon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
+                LargeIcon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
             };
 
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);

@@ -746,6 +746,19 @@
         public static readonly DependencyProperty MaxItemsInRowProperty =
                 DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8, OnMaxItemsInRowChanged));
 
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var gal = (InRibbonGallery)d;
+            var maxItemsInRow = (int)e.NewValue;
+
+            if (gal.IsDropDownOpen == false
+                && gal.galleryPanel != null
+                && gal.galleryPanel.MaxItemsInRow < maxItemsInRow)
+            {
+                gal.galleryPanel.MaxItemsInRow = maxItemsInRow;
+            }
+        }
+
         /// <summary>
         /// Gets or sets min count of items in row
         /// </summary>
@@ -760,19 +773,18 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
+                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1, OnMinItemsInRowChanged));
 
-        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var gal = (InRibbonGallery)d;
             var minItemsInRow = (int)e.NewValue;
 
             if (gal.IsDropDownOpen == false
                 && gal.galleryPanel != null
-                && gal.galleryPanel.MinItemsInRow < minItemsInRow)
+                && gal.galleryPanel.MinItemsInRow > minItemsInRow)
             {
                 gal.galleryPanel.MinItemsInRow = minItemsInRow;
-                gal.galleryPanel.MaxItemsInRow = minItemsInRow;
             }
         }
 
@@ -1110,8 +1122,9 @@
 
             if (this.galleryPanel != null)
             {
-                this.galleryPanel.MinItemsInRow = this.MaxItemsInRow;
+                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                 this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                this.galleryPanel.UpdateMinAndMaxWidth();
             }
 
             this.snappedImage = this.GetTemplateChild("PART_FakeImage") as Image;
@@ -1139,6 +1152,8 @@
 
             this.controlPresenter.Content = null;
             this.controlPresenter.Content = this.galleryPanel;
+
+            this.galleryPanel.UpdateMinAndMaxWidth();
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -1172,14 +1187,15 @@
         // Handles drop down opened
         private void OnDropDownClosed(object sender, EventArgs e)
         {
-            this.galleryPanel.Width = double.NaN;
+            this.popupControlPresenter.Content = null;
+            this.controlPresenter.Content = this.galleryPanel;
+
             this.galleryPanel.IsGrouped = false;
             this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            this.galleryPanel.Width = double.NaN;
             this.galleryPanel.UpdateMinAndMaxWidth();
 
-            this.popupControlPresenter.Content = null;
-            this.controlPresenter.Content = this.galleryPanel;
             this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
             {
                 if (this.quickAccessGallery == null
@@ -1212,16 +1228,15 @@
 
             this.controlPresenter.Content = null;
             this.popupControlPresenter.Content = this.galleryPanel;
+
+            this.galleryPanel.IsGrouped = true;
+            this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
+            this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
             this.galleryPanel.Width = double.NaN;
-            this.scrollViewer.Height = double.NaN;
+            this.galleryPanel.UpdateMinAndMaxWidth();
 
             this.DropDownOpened?.Invoke(this, e);
 
-            this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
-            this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-            this.galleryPanel.UpdateMinAndMaxWidth();
-
-            this.galleryPanel.IsGrouped = true;
             this.dropDownButton.IsChecked = true;
             this.canOpenDropDown = false;
 

@@ -3,9 +3,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
-    <Converters:ApplicationMenuRightContentExtractorConverter x:Key="ApplicationMenuRightContentExtractorConvert" />
+    <Converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
 
     <!-- Second level-->
 
@@ -398,8 +399,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                     />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -658,8 +658,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -866,7 +865,7 @@
                        VerticalAlignment="Center"
                        Grid.Column="2"
                        d:LayoutOverrides="Width"
-                       TextWrapping="NoWrap" />            
+                       TextWrapping="NoWrap" />
             <Rectangle x:Name="rectangle"
                        Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
                        Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
@@ -1046,8 +1045,9 @@
                 </Path.Fill>
             </Path>
             <Popup x:Name="PART_Popup"
-                   Placement="Relative"
-                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+                   Placement="Custom"
+                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
+                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightScrollViewerExtractorConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
@@ -1184,8 +1184,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -1393,8 +1392,9 @@
                 </Path.Fill>
             </Path>
             <Popup x:Name="PART_Popup"
-                   Placement="Relative"
-                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightContentExtractorConvert}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
+                   Placement="Custom"
+                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
+                   PlacementTarget="{Binding Converter={StaticResource ApplicationMenuRightScrollViewerExtractorConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    AllowsTransparency="True"
                    Focusable="False"
@@ -1531,8 +1531,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                    BorderThickness="1"
-                                    />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">

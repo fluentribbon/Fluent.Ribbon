@@ -98,7 +98,7 @@ namespace Fluent
         /// </summary>
         public object Icon
         {
-            get { return (ImageSource)this.GetValue(IconProperty); }
+            get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
         }
 
@@ -109,11 +109,19 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RadioButton element = d as RadioButton;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            var element = (RadioButton)d;
+
+            var oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            var newElement = e.NewValue as FrameworkElement;
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
@@ -123,9 +131,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)this.GetValue(LargeIconProperty); }
+            get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
         }
 
@@ -133,9 +141,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource),
-            typeof(RadioButton), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register("LargeIcon", typeof(object), typeof(RadioButton), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -149,23 +155,10 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RadioButton()
         {
-            Type type = typeof(RadioButton);
+            var type = typeof(RadioButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                //basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RadioButton));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -188,7 +181,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            RadioButton button = new RadioButton();
+            var button = new RadioButton();
 
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => this.RaiseEvent(e));

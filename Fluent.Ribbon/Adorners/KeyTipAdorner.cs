@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Documents;
+    using System.Windows.Media;
     using Fluent.Internal;
 
     /// <summary>
@@ -299,55 +295,14 @@ namespace Fluent
 
             this.Detach();
 
-            if (this.parentAdorner != null)
-            {
-                this.parentAdorner.Terminate();
-            }
+            this.parentAdorner?.Terminate();
 
-            if (this.childAdorner != null)
-            {
-                this.childAdorner.Terminate();
-            }
+            this.childAdorner?.Terminate();
 
-            if (this.Terminated != null)
-            {
-                this.Terminated(this, EventArgs.Empty);
-            }
+            this.Terminated?.Invoke(this, EventArgs.Empty);
 
             this.Log("Termination");
         }
-
-        #endregion
-
-        #region Event Handlers
-
-        //[SuppressMessage("Microsoft.Maintainability", "CA1502")]
-        //private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    this.Log("Key Down {0} ({1})", e.Key, e.OriginalSource);
-
-        //    if (e.IsRepeat
-        //        || this.Visibility == Visibility.Hidden)
-        //    {
-        //        return;
-        //    }
-
-        //    if ((this.AdornedElement is ContextMenu == false && this.AdornedElement is MenuItem == false)
-        //        && ((e.Key == Key.Left)
-        //            || (e.Key == Key.Right)
-        //            || (e.Key == Key.Up)
-        //            || (e.Key == Key.Down)
-        //            || (e.Key == Key.Enter)
-        //            || (e.Key == Key.Tab)))
-        //    {
-        //        this.Visibility = Visibility.Hidden;
-        //    }
-        //    else if (e.Key == Key.Escape)
-        //    {
-        //        this.Back();
-        //        e.Handled = true;
-        //    }
-        //}
 
         #endregion
 
@@ -398,10 +353,7 @@ namespace Fluent
         public void Back()
         {
             var control = this.keyTipElementContainer as IKeyTipedControl;
-            if (control != null)
-            {
-                control.OnKeyTipBack();
-            }
+            control?.OnKeyTipBack();
 
             if (this.parentAdorner != null)
             {
@@ -436,15 +388,9 @@ namespace Fluent
         }
 
         // Forward to the next element
-        private void Forward(UIElement element)
-        {
-            this.Forward(element, true);
-        }
-
-        // Forward to the next element
         private void Forward(UIElement element, bool click)
         {
-            this.Log("Forwarding");
+            this.Log("Forwarding to {0}", element);
 
             this.Detach();
 
@@ -529,7 +475,7 @@ namespace Fluent
         // Hide / unhide keytips relative matching to entered keys
         internal void FilterKeyTips(string keys)
         {
-            this.Log("FilterKeyTips");
+            this.Log("FilterKeyTips with {0}", keys);
 
             // Backup current visibility of key tips
             for (var i = 0; i < this.backupedVisibilities.Length; i++)
@@ -788,25 +734,17 @@ namespace Fluent
                             elementSize.Height / 2.0 + 2,
                             elementSize.Height / 2.0 + 2), this.AdornedElement);
                 }
-                else if (this.associatedElements[i] is BackstageTabItem)
-                {
-                    // BackstageButton Exclusive Placement
-                    var keyTipSize = this.keyTips[i].DesiredSize;
-                    var elementSize = this.associatedElements[i].DesiredSize;
-                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
-                        new Point(
-                            5,
-                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
-                }
                 else if (((FrameworkElement)this.associatedElements[i]).Parent is BackstageTabControl)
                 {
                     // Backstage Items Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
                     var elementSize = this.associatedElements[i].DesiredSize;
-                    this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
+                    var parent = (UIElement)((FrameworkElement)this.associatedElements[i]).Parent;
+                    var positionInParent = this.associatedElements[i].TranslatePoint(default(Point), parent);
+                    this.keyTipPositions[i] = parent.TranslatePoint(
                         new Point(
-                            20,
-                            elementSize.Height / 2.0 - keyTipSize.Height), this.AdornedElement);
+                            5,
+                            positionInParent.Y + (elementSize.Height / 2.0 - keyTipSize.Height)), this.AdornedElement);
                 }
                 else
                 {
@@ -939,10 +877,11 @@ namespace Fluent
             var headeredControl = this.AdornedElement as IHeaderedControl;
             if (headeredControl != null)
             {
-                name += string.Format(" ({0})", headeredControl.Header);
+                name += $" ({headeredControl.Header})";
             }
 
-            Debug.WriteLine("[" + name + "] " + string.Format(format, args), "KeyTipAdorner");
+            var formatted = string.Format(format, args);
+            Debug.WriteLine($"{$"[{name}] "}{formatted}", "KeyTipAdorner");
         }
 
         #endregion

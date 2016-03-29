@@ -14,11 +14,11 @@ namespace Fluent
     {
         #region Fields
 
-        private Panel previousItemsPanel;
         private int previousItemsCount;
 
-        // Whether MaxWidth of the ItemsPanel needs to be updated
-        private bool maxMinWidthNeedsToBeUpdated;
+        // Whether MinWidth/MaxWidth of the ItemsPanel needs to be updated
+        private bool minMaxWidthNeedsToBeUpdated = true;
+        private Panel itemsPanel;
 
         #endregion
 
@@ -41,9 +41,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
-            DependencyProperty.Register("IsHeadered", typeof(bool), 
+            DependencyProperty.Register("IsHeadered", typeof(bool),
             typeof(GalleryGroupContainer), new UIPropertyMetadata(true));
-        
+
         #endregion
 
         #region Orientation
@@ -66,7 +66,7 @@ namespace Fluent
             typeof(GalleryGroupContainer), new UIPropertyMetadata(Orientation.Horizontal));
 
         #endregion
-        
+
         #region ItemWidth
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace Fluent
             typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
 
         #endregion
-        
+
         #region MinItemsInRow
-        
+
         /// <summary>
         /// Gets or sets minimum items quantity in row
         /// </summary>
@@ -130,14 +130,8 @@ namespace Fluent
             DependencyProperty.Register("MinItemsInRow", typeof(int),
             typeof(GalleryGroupContainer), new UIPropertyMetadata(0, OnMaxMinItemsInRowChanged));
 
-        static void OnMaxMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            GalleryGroupContainer galleryGroupContainer = (GalleryGroupContainer) d;
-            galleryGroupContainer.maxMinWidthNeedsToBeUpdated = true;
-        }
-
         #endregion
-        
+
         #region MaxItemsInRow
 
         /// <summary>
@@ -159,6 +153,20 @@ namespace Fluent
 
         #endregion
 
+        private Panel RealItemsPanel
+        {
+            get
+            {
+                return this.itemsPanel ?? (this.itemsPanel = FindItemsPanel(this));
+            }
+        }
+
+        private static void OnMaxMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryGroupContainer = (GalleryGroupContainer)d;
+            galleryGroupContainer.minMaxWidthNeedsToBeUpdated = true;
+        }
+
         #endregion
 
         #region Initialization
@@ -169,47 +177,57 @@ namespace Fluent
         static GalleryGroupContainer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
-            StyleProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        /// <summary>
+        /// Invoked when the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property changes.
+        /// </summary>
+        /// <param name="oldItemsPanel">Old value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param><param name="newItemsPanel">New value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param>
+        protected override void OnItemsPanelChanged(ItemsPanelTemplate oldItemsPanel, ItemsPanelTemplate newItemsPanel)
         {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement)d).TryFindResource(typeof(GalleryGroupContainer));
-            }
+            base.OnItemsPanelChanged(oldItemsPanel, newItemsPanel);
 
-            return basevalue;
+            this.itemsPanel = null;
+            this.minMaxWidthNeedsToBeUpdated = true;
+            this.InvalidateMeasure();
         }
-         
+
         #endregion
 
         #region MaxWidth Updating
-        
+
         // Sets MaxWidth of the items panel based of ItemsInRow property
         private void UpdateMinAndMaxWidth()
         {
-            this.maxMinWidthNeedsToBeUpdated = false;
+            if (this.minMaxWidthNeedsToBeUpdated == false)
+            {
+                return;
+            }
 
-            var itemsPanel = FindItemsPanel(this);
-            if (itemsPanel == null)
+            if (this.RealItemsPanel == null)
             {
                 // Item's panel is not ready now
                 if (this.IsLoaded)
                 {
                     Debug.WriteLine("Panel with IsItemsHost = true is not found in GalleryGroupContainer (probably the style is not correct or haven't attached yet)");
                 }
+                else
+                {
+                    // Prevent duplicate registration
+                    this.Loaded -= this.HandleLoaded;
+                    this.Loaded += this.HandleLoaded;
+                }
 
-                this.Dispatcher.BeginInvoke((Action)this.InvalidateMeasure, DispatcherPriority.ContextIdle);
                 return;
             }
+
+            this.minMaxWidthNeedsToBeUpdated = false;
 
             if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
-                itemsPanel.MinWidth = 0;
-                itemsPanel.MaxWidth = double.PositiveInfinity;
+                this.RealItemsPanel.MinWidth = 0;
+                this.RealItemsPanel.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -220,17 +238,29 @@ namespace Fluent
                 return;
             }
 
-            itemsPanel.MinWidth = Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth + 0.1;
-            itemsPanel.MaxWidth = Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth + 0.1;
+            this.RealItemsPanel.MinWidth = Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth + 0.1;
+            this.RealItemsPanel.MaxWidth = Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth + 0.1;
         }
-        
+
+        private void HandleLoaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= this.HandleLoaded;
+
+            if (this.minMaxWidthNeedsToBeUpdated == false)
+            {
+                return;
+            }
+
+            this.InvalidateMeasure();
+        }
+
         /// <summary>
         /// Determinates item's size (return Size.Empty in case of it is not possible)
         /// </summary>
         /// <returns></returns>
         public Size GetItemSize()
         {
-            if (!double.IsNaN(this.ItemWidth) 
+            if (!double.IsNaN(this.ItemWidth)
                 && !double.IsNaN(this.ItemHeight))
             {
                 return new Size(this.ItemWidth, this.ItemHeight);
@@ -290,16 +320,14 @@ namespace Fluent
         /// <param name="constraint">The maximum size that the method can return.</param>
         protected override Size MeasureOverride(Size constraint)
         {
-            var panel = FindItemsPanel(this);
-            if (panel != this.previousItemsPanel 
-                || this.previousItemsCount != this.Items.Count 
-                || this.maxMinWidthNeedsToBeUpdated)
+            if (this.previousItemsCount != this.Items.Count
+                || this.minMaxWidthNeedsToBeUpdated)
             {
                 // Track ItemsPanel changing
-                this.previousItemsPanel = panel;
                 this.previousItemsCount = this.Items.Count;
                 this.UpdateMinAndMaxWidth();
             }
+
             return base.MeasureOverride(constraint);
         }
     }

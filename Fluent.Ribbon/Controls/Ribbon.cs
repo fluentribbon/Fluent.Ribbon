@@ -21,6 +21,7 @@ namespace Fluent
 {
     using System.ComponentModel;
     using System.Windows.Threading;
+    using ControlzEx.Microsoft.Windows.Shell;
     using Fluent.Extensions;
 
     // TODO: improve style parts naming & using
@@ -1051,8 +1052,10 @@ namespace Fluent
         private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-
-            ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
+            if (ribbon.TabControl != null)
+            {
+                ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
+            }
         }
 
         /// <summary>
@@ -1413,6 +1416,8 @@ namespace Fluent
         {
             this.VerticalAlignment = VerticalAlignment.Top;
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
+
+            WindowChrome.SetIsHitTestVisibleInChrome(this, true);
 
             this.keyTipService = new KeyTipService(this);
 

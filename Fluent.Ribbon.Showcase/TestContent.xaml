@@ -42,6 +42,17 @@
     </UserControl.LayoutTransform>
     <Grid>
         <Grid.Resources>
+            <Style x:Key="GalleryItemStyleWithCustomContextMenu"
+                   TargetType="{x:Type Fluent:GalleryItem}">
+                <Setter Property="ContextMenu">
+                    <Setter.Value>
+                        <Fluent:ContextMenu>
+                            <Fluent:MenuItem Header="Custom ContextMenu" />
+                        </Fluent:ContextMenu>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <DataTemplate x:Key="middleDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
                 <Border>
@@ -143,6 +154,47 @@
                                 </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
 
+                            <Fluent:BackstageTabItem Header="Change theme with fluent controls"
+                                                     Content="Hello">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010SilverClick">Office 2010 Silver</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010BlackClick">Office 2010 Black</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2010BlueClick">Office 2010 Blue</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnOffice2013Click">Office 2013 White</Fluent:Button>
+                                            <Fluent:Button Background="Blue"
+                                                           Foreground="Black"
+                                                           Click="OnWindows8Click">Windows8 White</Fluent:Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
+                            </Fluent:BackstageTabItem>
+
+                            <Fluent:BackstageTabItem Header="Change theme with standard controls"
+                                                     Content="Hello">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, Path=ParentBackstage.ActualHeight}" />
+                                            <Button Click="OnOffice2010SilverClick">Office 2010 Silver</Button>
+                                            <Button Click="OnOffice2010BlackClick">Office 2010 Black</Button>
+                                            <Button Click="OnOffice2010BlueClick">Office 2010 Blue</Button>
+                                            <Button Click="OnOffice2013Click">Office 2013 White</Button>
+                                            <Button Click="OnWindows8Click">Windows8 White</Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
+                            </Fluent:BackstageTabItem>
+
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
@@ -199,6 +251,7 @@
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem />
+
                             <Fluent:BackstageTabItem Header="New"
                                                      KeyTip="N">
                                 <Grid Margin="50"
@@ -242,12 +295,14 @@
                                                     ValueChanged="OnSpinnerValueChanged" />
                                 </Grid>
                             </Fluent:BackstageTabItem>
+
                             <Fluent:BackstageTabItem Header="Print"
                                                      KeyTip="P">
                                 <Grid Background="Yellow"
                                       Opacity="0.3"
                                       Margin="50" />
                             </Fluent:BackstageTabItem>
+
                             <Fluent:Button Header="Exit"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Exit.png"
                                            KeyTip="X"
@@ -378,8 +433,6 @@
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem IsChecked="True"
                                             Target="{Binding ElementName=UndoButton}" />
-                <Fluent:QuickAccessMenuItem IsChecked="True"
-                                            Target="{Binding ElementName=RedoButton}" />
             </Fluent:Ribbon.QuickAccessItems>
 
             <Fluent:RibbonTabItem x:Name="homeTabItem"
@@ -978,16 +1031,6 @@
                             <Fluent:MenuItem Header="Undo something" />
                             <Fluent:MenuItem Header="Undo another thing" />
                         </Fluent:SplitButton>
-
-                        <Fluent:SplitButton x:Name="RedoButton"
-                                            KeyTip="Ctrl+Y"
-                                            Header="Redo"
-                                            Icon="{DynamicResource appbar_redo}"
-                                            SizeDefinition="Middle,Small"
-                                            Command="ApplicationCommands.Redo"
-                                            CanAddButtonToQuickAccessToolBar="True"
-                                            FocusManager.IsFocusScope="True">
-                        </Fluent:SplitButton>
                     </StackPanel>
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
@@ -1249,6 +1292,7 @@
                                            Icon="Images\Green.png"
                                            LargeIcon="Images\GreenLarge.png">
                         <Fluent:Gallery ItemsSource="{Binding DataItems}"
+                                        ItemContainerStyle="{DynamicResource GalleryItemStyleWithCustomContextMenu}"
                                         ItemTemplate="{DynamicResource middleDataItemTemplate}"
                                         MaxItemsInRow="3" />
                         <Fluent:MenuItem Icon="Images\Pink.png"
@@ -1276,7 +1320,7 @@
 
                     <!--InRibbonGallery-->
                     <Fluent:InRibbonGallery MinItemsInRow="3"
-                                            MaxItemsInRow="8"
+                                            MaxItemsInRow="5"
                                             Icon="Images\Gray.png"
                                             Header="InRibbonGallery"
                                             ItemWidth="40"
@@ -2799,7 +2843,10 @@
                                                        Text="Test Windows.Forms.TextBox" />
                                     </WindowsFormsHost>
 
-                                    <TextBox>Test System.Windows.Controls.TextBox</TextBox>
+                                    <StackPanel>
+                                        <Label Target="{Binding ElementName=targetTextBox}">Label with _Access Key A</Label>
+                                        <TextBox x:Name="targetTextBox">Test System.Windows.Controls.TextBox</TextBox>
+                                    </StackPanel>
                                 </StackPanel>
                             </GroupBox>
                         </WrapPanel>

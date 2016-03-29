@@ -10,6 +10,8 @@ using System.Windows.Media;
 
 namespace Fluent
 {
+    using Fluent.Internal;
+
     /// <summary>
     /// Represents Backstage tab control.
     /// </summary>
@@ -189,6 +191,23 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>
+        /// Gets or sets the <see cref="ParentBackstage"/>
+        /// </summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Backstage ParentBackstage
+        {
+            get { return (Backstage)this.GetValue(ParentBackstageProperty); }
+            set { this.SetValue(ParentBackstageProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ParentBackstage"/>
+        /// </summary>
+        public static readonly DependencyProperty ParentBackstageProperty =
+            DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata(null));
+
         #endregion
 
         #region Constructors
@@ -200,11 +219,11 @@ namespace Fluent
         static BackstageTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(typeof(BackstageTabControl)));
-            StyleProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            StyleProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
         // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
+        private static object OnCoerceStyle(DependencyObject d, object basevalue)
         {
             if (basevalue == null)
             {
@@ -227,6 +246,19 @@ namespace Fluent
                 HasDropShadow = false
             };
             this.ContextMenu.Opened += delegate { this.ContextMenu.IsOpen = false; };
+
+            this.Loaded += this.HandleLoaded;
+            this.Unloaded += this.HandleUnloaded;
+        }
+
+        private void HandleLoaded(object sender, RoutedEventArgs e)
+        {
+            this.ParentBackstage = UIHelper.GetParent<Backstage>(this);
+        }
+
+        private void HandleUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.ParentBackstage = null;
         }
 
         #endregion

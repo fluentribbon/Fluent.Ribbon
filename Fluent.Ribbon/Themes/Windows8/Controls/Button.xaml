@@ -13,30 +13,28 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
-                Height="Auto"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch">
-            <Grid Height="Auto">
-                <StackPanel x:Name="stackPanel"
-                            Width="Auto"
-                            Orientation="Vertical"
-                            d:LayoutOverrides="Width, Height">
-                    <ContentPresenter x:Name="iconImage"
-                                      HorizontalAlignment="Center"
-                                      Height="32"
-                                      VerticalAlignment="Center"
-                                      Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                      Width="32"
-                                      Margin="3,2,3,1"
-                                      SnapsToDevicePixels="True" />
-                    <Fluent:TwoLineLabel x:Name="controlLabel"
-                                         Text="{TemplateBinding Header}"
-                                         Style="{DynamicResource TwoLineLabelStyle}"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Center"
-                                         Margin="2,-1,2,0" />
-                </StackPanel>
-            </Grid>
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                Height="Auto">
+            <StackPanel x:Name="stackPanel"
+                        Width="Auto"
+                        Orientation="Vertical"
+                        d:LayoutOverrides="Width, Height">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="32"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="32"
+                                  Margin="3,2,3,1"
+                                  SnapsToDevicePixels="True" />
+                <Fluent:TwoLineLabel x:Name="controlLabel"
+                                     Text="{TemplateBinding Header}"
+                                     Style="{DynamicResource TwoLineLabelStyle}"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Margin="2,-1,2,0" />
+            </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size"

@@ -9,18 +9,6 @@
                     xmlns:Converters="clr-namespace:Fluent.Converters">
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
-    <BitmapImage x:Key="ImageCaptionButtonClose"
-                 UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonClose.png"
-                 PresentationOptions:Freeze="True" />
-    <BitmapImage x:Key="ImageCaptionButtonMinimize"
-                 UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMinimize.png"
-                 PresentationOptions:Freeze="True" />
-    <BitmapImage x:Key="ImageCaptionButtonNormalize"
-                 UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonNormalize.png"
-                 PresentationOptions:Freeze="True" />
-    <BitmapImage x:Key="ImageCaptionButtonMaximize"
-                 UriSource="pack://application:,,,/Fluent;component/Themes/Office2010/Images/CaptionButtonMaximize.png"
-                 PresentationOptions:Freeze="True" />
 
     <Style TargetType="{x:Type ResizeGrip}">
         <Setter Property="Template">
@@ -128,61 +116,46 @@
     <ControlTemplate x:Key="DwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
-            <AdornerDecorator x:Name="adornerDecorator"
-                              Margin="0">
+            <AdornerDecorator>
                 <Grid x:Name="PART_MainGrid"
-                      Margin="0"
                       Background="{DynamicResource TransparentBrush}"
                       VerticalAlignment="Stretch">
                     <Grid x:Name="PART_TitleBar"
-                          Margin="{TemplateBinding ResizeBorderThickness}"
                           VerticalAlignment="Top"
-                          Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                          Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource TemplatedParent}}"
                           Background="{DynamicResource TransparentBrush}"
                           IsHitTestVisible="True" />
 
-                    <Grid x:Name="grid"
-                          Background="{TemplateBinding Background}"
-                          Margin="{TemplateBinding GlassFrameThickness}" />
+                    <!--Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"-->
 
-                    <StackPanel Background="Transparent"
-                                x:Name="PART_IconImage"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                        <StackPanel.Margin>
+                    <Grid x:Name="grid"
+                          Background="{TemplateBinding Background}">
+                        <Grid.Margin>
                             <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="ResizeBorderThickness.Left" />
-                                <!-- Top was 7 before -->
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="ResizeBorderThickness.Top" />
+                                <Binding Source="0" />
+                                <Binding ElementName="PART_TitleBar"
+                                         Path="Height" />
                                 <Binding Source="0" />
                                 <Binding Source="0" />
                             </MultiBinding>
-                        </StackPanel.Margin>
+                        </Grid.Margin>
+                    </Grid>
+
+                    <DockPanel Background="Transparent"
+                               x:Name="PART_IconImage"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top">
                         <Image x:Name="PART_Icon"
                                Height="16"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}"
                                Width="16"
-                               SnapsToDevicePixels="True"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                    </StackPanel>
-                    <ContentPresenter x:Name="PART_ContentPresenter">
-                        <ContentPresenter.Margin>
-                            <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="ResizeBorderThickness.Left" />
-                                <Binding Source="0" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="ResizeBorderThickness.Right" />
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                         Path="ResizeBorderThickness.Bottom" />
-                            </MultiBinding>
-                        </ContentPresenter.Margin>
-                    </ContentPresenter>
+                               Margin="4,4,0,0"
+                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
+                               SnapsToDevicePixels="True" />
+                    </DockPanel>
+
+                    <ContentPresenter x:Name="PART_ContentPresenter" />
+
                     <ResizeGrip x:Name="PART_ResizeGrip"
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -210,11 +183,8 @@
             <Trigger Property="WindowState"
                      Value="Maximized">
                 <Setter Property="Margin"
-                        TargetName="PART_IconImage"
+                        TargetName="PART_Icon"
                         Value="0,4,0,0" />
-                <Setter Property="Margin"
-                        TargetName="adornerDecorator"
-                        Value="0" />
                 <Setter Property="Margin"
                         TargetName="PART_ContentPresenter"
                         Value="0,0,0,0" />
@@ -225,121 +195,56 @@
     <ControlTemplate x:Key="NonDwmRibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
         <Grid>
-            <Grid>
-                <AdornerDecorator x:Name="adornerDecorator"
-                                  VerticalAlignment="Stretch">
-                    <Grid>
-                        <Border x:Name="PART_SizeBorder"
-                                BorderBrush="{DynamicResource WindowOutterBorderBrush}"
-                                BorderThickness="1,1,1,1"
-                                CornerRadius="8.5"
-                                Opacity="1"
-                                Background="{DynamicResource WindowOutterBackgroundBrush}">
-                            <Border x:Name="border2"
-                                    BorderBrush="{DynamicResource WindowInnerBorderBrush}"
-                                    BorderThickness="1,1,1,1"
-                                    CornerRadius="7,7,7,7"
-                                    Background="{x:Null}"
-                                    Opacity="1">
-                                <Border x:Name="border3"
-                                        BorderBrush="{x:Null}"
-                                        BorderThickness="0,0,0,0"
-                                        Opacity="1"
-                                        CornerRadius="6"
-                                        VerticalAlignment="Top"
-                                        Height="50"
-                                        Background="{DynamicResource WindowInnerBackgroundBrush}" />
-                            </Border>
-                        </Border>
-                        <Grid x:Name="PART_MainGrid"
-                              Margin="0"
-                              Background="#00FFFFFF">
-                            <Grid x:Name="PART_TitleBar"
-                                  Margin="{TemplateBinding ResizeBorderThickness}"
-                                  VerticalAlignment="Top"
-                                  Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
-                                  Background="#00FFFFFF"
-                                  IsHitTestVisible="True" />
+            <AdornerDecorator x:Name="Adorner"
+                              Margin="0 1 0 0">
+                <Grid Background="{TemplateBinding Background}">
+                    <DockPanel x:Name="PART_TitleBar"
+                               Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Left"
+                               Background="Transparent">
+                        <Image x:Name="PART_Icon"
+                               Height="16"
+                               Width="16"
+                               Margin="4,0,0,0"
+                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
+                               SnapsToDevicePixels="True" />
+                    </DockPanel>
 
-                            <StackPanel Background="Transparent"
-                                        x:Name="PART_IconImage"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top">
-                                <StackPanel.Margin>
-                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Left" />
-                                        <!-- Top was 7 before -->
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Top" />
-                                        <Binding Source="0" />
-                                        <Binding Source="0" />
-                                    </MultiBinding>
-                                </StackPanel.Margin>
-                                <Image x:Name="PART_Icon"
-                                       Height="16"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Source="{Binding Icon, Converter={StaticResource IconConvert}, RelativeSource={RelativeSource TemplatedParent}}"
-                                       Width="16"
-                                       SnapsToDevicePixels="True"
-                                       Stretch="Uniform"
-                                       Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                            </StackPanel>
-                            <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                              x:Name="PART_WindowCommands"
-                                              Panel.ZIndex="1"
-                                              Grid.RowSpan="2"
-                                              VerticalAlignment="Top"
-                                              HorizontalAlignment="Right"
-                                              Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
-                                <ContentPresenter.Margin>
-                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                        <Binding Source="0" />
-                                        <Binding Source="2" />
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Right" />
-                                        <Binding Source="0" />
-                                    </MultiBinding>
-                                </ContentPresenter.Margin>
-                            </ContentPresenter>
-                            <ContentPresenter x:Name="PART_ContentPresenter">
-                                <ContentPresenter.Margin>
-                                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Left" />
-                                        <Binding Source="1" />
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Right" />
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                                 Path="ResizeBorderThickness.Bottom" />
-                                    </MultiBinding>
-                                </ContentPresenter.Margin>
-                            </ContentPresenter>
-                            <ResizeGrip x:Name="PART_ResizeGrip"
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom"
-                                        Focusable="False"
-                                        Margin="0,0,5.5,5.5"
-                                        Cursor="SizeNWSE"
-                                        Visibility="Collapsed" />
-                        </Grid>
-                    </Grid>
-                </AdornerDecorator>
-            </Grid>
+                    <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                                      x:Name="PART_WindowCommands"
+                                      Panel.ZIndex="1"
+                                      Grid.RowSpan="2"
+                                      VerticalAlignment="Top"
+                                      HorizontalAlignment="Right"
+                                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+
+                    <ContentPresenter x:Name="PART_ContentPresenter" />
+                </Grid>
+            </AdornerDecorator>
+
+            <Border x:Name="PART_Border"
+                    Background="{x:Null}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    UseLayoutRounding="True"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" />
+
+            <ResizeGrip x:Name="WindowResizeGrip"
+                        HorizontalAlignment="Right"
+                        IsTabStop="false"
+                        Visibility="Collapsed"
+                        VerticalAlignment="Bottom" />
         </Grid>
+
         <ControlTemplate.Triggers>
             <Trigger Property="IsActive"
                      Value="False">
-                <Setter Property="Background"
-                        TargetName="PART_SizeBorder"
-                        Value="{DynamicResource WindowInactiveOutterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border3"
-                        Value="{DynamicResource WindowInactiveInnerBackgroundBrush}" />
+                <Setter Property="Opacity"
+                        TargetName="PART_WindowCommands"
+                        Value="0.5" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -349,300 +254,27 @@
                                Value="Normal" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="PART_ResizeGrip"
+                        TargetName="PART_Border"
+                        Value="Visible" />
+                <Setter Property="Visibility"
+                        TargetName="WindowResizeGrip"
                         Value="Visible" />
             </MultiTrigger>
             <Trigger Property="WindowState"
                      Value="Maximized">
                 <Setter Property="Margin"
-                        TargetName="PART_IconImage"
-                        Value="0,4,0,0" />
-                <Setter Property="BorderThickness"
-                        TargetName="PART_SizeBorder"
-                        Value="0,0,0,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="PART_SizeBorder"
-                        Value="0,0,0,0" />
-                <Setter Property="BorderThickness"
-                        TargetName="border2"
-                        Value="0,0,0,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border2"
-                        Value="0,0,0,0" />
+                        TargetName="Adorner"
+                        Value="0" />
                 <Setter Property="Margin"
-                        TargetName="PART_WindowCommands"
-                        Value="0,0,0,0" />
-                <Setter Property="Margin"
-                        TargetName="PART_ContentPresenter"
-                        Value="0,0,0,0" />
-                <Setter Property="Height"
-                        TargetName="border2"
-                        Value="54" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <Style x:Key="CaptionButtonStyle"
-           TargetType="{x:Type Button}">
-        <Setter Property="Width"
-                Value="35" />
-        <Setter Property="Height"
-                Value="19" />
-        <Setter Property="Template"
-                Value="{DynamicResource CaptionButtonControlTemplate}" />
-        <Setter Property="Focusable"
-                Value="False" />
-    </Style>
-
-    <ControlTemplate x:Key="CaptionButtonControlTemplate"
-                     TargetType="{x:Type Button}">
-        <Grid Background="Transparent">
-            <Border x:Name="hoverBorder"
-                    Margin="0"
-                    BorderBrush="{DynamicResource CaptionButtonHoverOutterBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Visibility="Collapsed">
-                <Border x:Name="hoverBorderInner"
-                        BorderBrush="{DynamicResource CaptionButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1"
-                        Background="{DynamicResource CaptionButtonHoverInnerBackgroundBrush}" />
-            </Border>
-            <Border x:Name="pressedBorder"
-                    Margin="0"
-                    BorderBrush="{DynamicResource CaptionButtonPressedOutterBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Visibility="Collapsed">
-                <Border x:Name="pressedBorderInner"
-                        BorderBrush="{DynamicResource CaptionButtonPressedInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1"
-                        Background="{DynamicResource CaptionButtonPressedInnerBackgroundBrush}" />
-            </Border>
-            <ContentPresenter Margin="0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center" />
-        </Grid>
-        <ControlTemplate.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsPressed"
-                               Value="False" />
-                </MultiTrigger.Conditions>
+                        TargetName="PART_Icon"
+                        Value="0" />
                 <Setter Property="Visibility"
-                        TargetName="hoverBorder"
-                        Value="Visible" />
-            </MultiTrigger>
-            <Trigger Property="IsPressed"
-                     Value="True">
+                        TargetName="PART_Border"
+                        Value="Collapsed" />
                 <Setter Property="Visibility"
-                        TargetName="pressedBorder"
-                        Value="Visible" />
+                        TargetName="WindowResizeGrip"
+                        Value="Collapsed" />
             </Trigger>
-            <Trigger Property="Background"
-                     Value="Red">
-                <Setter Property="BorderBrush"
-                        TargetName="hoverBorder"
-                        Value="{DynamicResource CaptionButtonCloseHoverOutterBorderBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="hoverBorderInner"
-                        Value="{DynamicResource CaptionButtonCloseHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="hoverBorderInner"
-                        Value="{DynamicResource CaptionButtonCloseHoverInnerBackgroundBrush}" />
-
-                <Setter Property="BorderBrush"
-                        TargetName="pressedBorder"
-                        Value="{DynamicResource CaptionButtonClosePressedOutterBorderBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="pressedBorderInner"
-                        Value="{DynamicResource CaptionButtonClosePressedInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="pressedBorderInner"
-                        Value="{DynamicResource CaptionButtonClosePressedInnerBackgroundBrush}" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-    <Style TargetType="{x:Type Fluent:WindowCommands}">
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Fluent:WindowCommands">
-                    <ControlTemplate.Resources>
-                        <ResourceDictionary>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background"
-                                        Value="#02FFFFFF" />
-                                <Setter Property="HorizontalContentAlignment"
-                                        Value="Center" />
-                                <Setter Property="VerticalContentAlignment"
-                                        Value="Center" />
-                                <Setter Property="Padding"
-                                        Value="1" />
-                                <Setter Property="Template"
-                                        Value="{DynamicResource WindowCommandsControlTemplate}" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShowTitleBar, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
-                                                 Value="True">
-                                        <Setter Property="Foreground"
-                                                Value="White" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ResourceDictionary>
-                    </ControlTemplate.Resources>
-
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Top">
-                        <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                      ItemTemplate="{TemplateBinding ItemTemplate}"
-                                      ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                      ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
-                                      ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                        <Button x:Name="PART_Min"
-                                Style="{DynamicResource CaptionButtonStyle}"
-                                Width="35"
-                                Height="19"
-                                BorderThickness="1,0,0,1"
-                                ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Image Width="Auto"
-                                   Height="Auto"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Stretch="None"
-                                   Source="{DynamicResource ImageCaptionButtonMinimize}"
-                                   SnapsToDevicePixels="True" />
-                        </Button>
-                        <Button x:Name="PART_Max"
-                                Margin="-1,0,0,0"
-                                Style="{DynamicResource CaptionButtonStyle}"
-                                Width="35"
-                                Height="19"
-                                BorderThickness="0,0,0,1"
-                                ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Grid>
-                                <Image x:Name="PART_MaximizeButtonContent"
-                                       Width="Auto"
-                                       Height="Auto"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Stretch="None"
-                                       Source="{DynamicResource ImageCaptionButtonMaximize}"
-                                       SnapsToDevicePixels="True" />
-                                <Image x:Name="PART_RestoreButtonContent"
-                                       Width="Auto"
-                                       Height="Auto"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Stretch="None"
-                                       Source="{DynamicResource ImageCaptionButtonNormalize}"
-                                       SnapsToDevicePixels="True" />
-                            </Grid>
-                        </Button>
-                        <Button x:Name="PART_Close"
-                                Margin="-1,0,0,0"
-                                Style="{DynamicResource CaptionButtonStyle}"
-                                Width="35"
-                                Height="19"
-                                BorderThickness="0,0,1,1"
-                                Background="Red"
-                                ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                                Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Image Width="Auto"
-                                   Height="Auto"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Stretch="None"
-                                   Source="{DynamicResource ImageCaptionButtonClose}"
-                                   SnapsToDevicePixels="True" />
-                        </Button>
-                    </StackPanel>
-                    <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                     Value="NoResize">
-                            <Setter Property="Visibility"
-                                    TargetName="PART_Min"
-                                    Value="Collapsed" />
-                            <Setter Property="Visibility"
-                                    TargetName="PART_Max"
-                                    Value="Collapsed" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                                     Value="CanMinimize">
-                            <Setter Property="Visibility"
-                                    TargetName="PART_Max"
-                                    Value="Collapsed" />
-                        </DataTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <ControlTemplate TargetType="{x:Type Button}"
-                     x:Key="WindowCommandsControlTemplate">
-        <Grid Background="{TemplateBinding Background}">
-            <ContentPresenter x:Name="contentPresenter"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                              RecognizesAccessKey="True"
-                              Opacity="0.75"
-                              Margin="11,1,11,1" />
-
-            <Rectangle x:Name="border"
-                       SnapsToDevicePixels="True"
-                       IsHitTestVisible="False"
-                       Opacity="0.25"
-                       Width="0"
-                       Height="15"
-                       VerticalAlignment="Stretch"
-                       HorizontalAlignment="Right"
-                       Fill="{TemplateBinding Foreground}"
-                       Margin="10,0,0,0" />
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter TargetName="contentPresenter"
-                        Property="Opacity"
-                        Value="1" />
-            </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="False">
-                <Setter TargetName="contentPresenter"
-                        Property="Opacity"
-                        Value=".5" />
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused"
-                     Value="true" />
-            <Trigger Property="ToggleButton.IsChecked"
-                     Value="true" />
-            <Trigger Property="IsEnabled"
-                     Value="false">
-                <Setter Property="Foreground"
-                        Value="#ADADAD" />
-            </Trigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
-                         Value="{x:Null}">
-                <Setter TargetName="border"
-                        Property="Rectangle.Width"
-                        Value="1" />
-            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -650,19 +282,8 @@
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
-        <Setter Property="GlassFrameThickness">
-            <Setter.Value>
-                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                    <Binding RelativeSource="{RelativeSource Self}"
-                             Path="ResizeBorderThickness.Left" />
-                    <Binding Source="50" />
-                    <Binding RelativeSource="{RelativeSource Self}"
-                             Path="ResizeBorderThickness.Right" />
-                    <Binding RelativeSource="{RelativeSource Self}"
-                             Path="ResizeBorderThickness.Bottom" />
-                </MultiBinding>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="GlassFrameThickness"
+                Value="0 27 0 0" />
         <Setter Property="Foreground"
                 Value="#FF000000" />
         <Setter Property="Background"
@@ -675,19 +296,8 @@
                     <Condition Property="CanUseDwm"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="GlassFrameThickness">
-                    <Setter.Value>
-                        <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                            <Binding RelativeSource="{RelativeSource Self}"
-                                     Path="ResizeBorderThickness.Left" />
-                            <Binding Source="30" />
-                            <Binding RelativeSource="{RelativeSource Self}"
-                                     Path="ResizeBorderThickness.Right" />
-                            <Binding RelativeSource="{RelativeSource Self}"
-                                     Path="ResizeBorderThickness.Bottom" />
-                        </MultiBinding>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="GlassFrameThickness"
+                        Value="0 27 0 0" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -697,21 +307,13 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="GlassFrameThickness"
-                        Value="0,50,0,0" />
+                        Value="0 35 0 0" />
             </MultiTrigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>
             <Trigger Property="CanUseDwm"
                      Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource NonDwmRibbonWindowControlTemplate}" />
                 <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
-                <!-- But we can't use it here because we are also using a CornerRadius which is painted black if we use a the glass frame -->
-                <Setter Property="GlassFrameThickness"
-                        Value="0" />
                 <Setter Property="UseAeroCaptionButtons"
                         Value="False" />
             </Trigger>

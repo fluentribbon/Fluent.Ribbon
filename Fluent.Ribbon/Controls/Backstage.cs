@@ -14,7 +14,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Threading;
     using System.Threading;
-    using System.Threading.Tasks;      
+    using System.Threading.Tasks;
     using Fluent.Extensions;
     using Fluent.Internal;
 
@@ -65,7 +65,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HideAnimationDuration.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideAnimationDurationProperty = 
+        public static readonly DependencyProperty HideAnimationDurationProperty =
             DependencyProperty.Register(nameof(HideAnimationDuration), typeof(Duration), typeof(Backstage), new PropertyMetadata(null));
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HideContextTabsOnOpenProperty = 
+        public static readonly DependencyProperty HideContextTabsOnOpenProperty =
             DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(false));
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CloseOnEsc.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CloseOnEscProperty = 
+        public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(true));
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -373,77 +373,34 @@ namespace Fluent
                 return;
             }
 
-            FrameworkElement topLevelElement = null;
+            FrameworkElement elementToAdorn;
 
             if (DesignerProperties.GetIsInDesignMode(this))
             {
                 // TODO: in design mode it is required to use design time adorner
-                topLevelElement = (FrameworkElement)VisualTreeHelper.GetParent(this);
+                elementToAdorn = (FrameworkElement)VisualTreeHelper.GetParent(this);
             }
             else
             {
-                var mainWindow = Window.GetWindow(this);
-                if (mainWindow == null)
-                {
-                    return;
-                }
-
-                var content = mainWindow.Content;
-
-                var fe = content as FrameworkElement; // Content may be an arbitrary .NET object when set using a databinding and using data templates.
-
-                if (fe != null)
-                {
-                    topLevelElement = fe;
-                }
-                else
-                {
-                    // If Content is not a FrameworkElement we try to find the ContentPresenter 
-                    // containing the template to display the content.
-                    var contentPresenter = UIHelper.FindVisualChild<ContentPresenter>(mainWindow);
-
-                    if (contentPresenter != null 
-                        && ReferenceEquals(contentPresenter.Content, content))
-                    {
-                        // set the root element of the template as the top level element.
-                        topLevelElement = (FrameworkElement)VisualTreeHelper.GetChild(contentPresenter, 0);
-                    }
-                }
+                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this);
             }
 
-            if (topLevelElement == null)
+            if (elementToAdorn == null)
             {
                 return;
-            }            
-
-            var layer = this.GetAdornerLayer();
-
-            this.adorner = new BackstageAdorner(topLevelElement, this);
-            layer.Add(this.adorner);
-
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted));
-        }
-
-        private AdornerLayer GetAdornerLayer()
-        {
-            var layer = AdornerLayer.GetAdornerLayer(this);
-
-            if (layer == null)
-            {
-                var parentVisual = this.Parent as Visual ?? this.GetParentRibbon();
-
-                if (parentVisual != null)
-                {
-                    layer = AdornerLayer.GetAdornerLayer(parentVisual);
-                }
             }
+
+            var layer = AdornerLayer.GetAdornerLayer(this);
 
             if (layer == null)
             {
                 throw new Exception($"AdornerLayer could not be found for {this}.");
             }
 
-            return layer;
+            this.adorner = new BackstageAdorner(elementToAdorn, this);
+            layer.Add(this.adorner);
+
+            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted));
         }
 
         private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)
@@ -629,7 +586,7 @@ namespace Fluent
 
             if (frameworkElement != null)
             {
-                if (parent is HwndHost 
+                if (parent is HwndHost
                     && frameworkElement.Visibility != Visibility.Collapsed)
                 {
                     this.collapsedElements.Add(frameworkElement, frameworkElement.Visibility);
@@ -656,7 +613,7 @@ namespace Fluent
                 return;
             }
 
-            if (e.Key == Key.Enter 
+            if (e.Key == Key.Enter
                 || e.Key == Key.Space)
             {
                 if (this.IsFocused)
@@ -677,6 +634,7 @@ namespace Fluent
             {
                 return;
             }
+
             // only handle ESC when the backstage is open
             e.Handled = this.IsOpen;
 

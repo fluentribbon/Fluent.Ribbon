@@ -14,7 +14,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>ribbon fluent ribbon ribbonwindow office2010 office2013 windows8 backstage</tags>
     <dependencies>
-      <dependency id="ControlzEx" version="2.0.0-dev025" />
+      <dependency id="ControlzEx" version="2.0.0-dev035" />
     </dependencies>
   </metadata>
   <files>

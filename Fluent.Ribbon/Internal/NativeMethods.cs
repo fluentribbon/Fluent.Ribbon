@@ -207,6 +207,12 @@ namespace Fluent
         [DllImport("user32.dll")]
         internal static extern int SetWindowLong(IntPtr hWnd, GWL nIndex, WS dwNewLong);
 
+        [DllImport("user32.dll")]
+        internal static extern IntPtr GetFocus();
+
+        [DllImport("user32.dll")]
+        internal static extern IntPtr SetFocus(IntPtr hWnd);
+
         /// <summary>Add and remove a native WindowStyle from the HWND.</summary>
         /// <param name="_hwnd">A HWND for a window.</param>
         /// <param name="removeStyle">The styles to be removed.  These can be bitwise combined.</param>
@@ -229,6 +235,25 @@ namespace Fluent
             SetWindowLong(_hwnd, GWL.STYLE, dwNewStyle);
             return true;
         }
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        internal static extern int ToUnicode(uint virtualKey, uint scanCode, byte[] keyStates, [MarshalAs(UnmanagedType.LPArray)] [Out] char[] chars, int charMaxCount, uint flags);
+
+        [DllImport("user32.dll")]
+        internal static extern bool GetKeyboardState(byte[] lpKeyState);
+
+        [DllImport("user32.dll")]
+        internal static extern uint MapVirtualKey(uint uCode, MapType uMapType);
+
+        // ReSharper disable InconsistentNaming
+        internal enum MapType : uint
+        {
+            MAPVK_VK_TO_VSC = 0x0,
+            MAPVK_VSC_TO_VK = 0x1,
+            MAPVK_VK_TO_CHAR = 0x2,
+            MAPVK_VSC_TO_VK_EX = 0x3,
+        }
+        // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// GetWindowLong values, GWL_*

@@ -18,7 +18,7 @@
         /// </summary>
         public static readonly DependencyProperty TitleBarHeightProperty =
             DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata(25D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
+                new FrameworkPropertyMetadata(27D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Sets TitleBarHeight for element
