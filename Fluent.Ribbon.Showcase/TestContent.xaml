@@ -143,6 +143,7 @@
                                            CanAddToQuickAccessToolBar="False"
                                            Click="HandleSaveAsClick" />
                             <Fluent:BackstageTabItem Header="TEST"
+                                                     KeyTip="T"
                                                      Content="Hello">
                                 <Fluent:BackstageTabItem.ContentTemplate>
                                     <DataTemplate>
@@ -198,7 +199,7 @@
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
-                                                     KeyTip="E"
+                                                     KeyTip="I"
                                                      IsEnabled="False">
                                 <ScrollViewer>
                                     <Grid Height="400"

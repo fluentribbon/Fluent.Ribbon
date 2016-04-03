@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Media;
     using Fluent.Internal;
 
     /// <summary>
@@ -20,10 +18,10 @@ namespace Fluent
         #region Properties
 
         // Dependency property key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property SelectedContent
+        /// Dependency property for <see cref="SelectedContent"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
 
@@ -44,38 +42,38 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Dependency property ContentStringFormat
+        /// Dependency property for <see cref="ContentStringFormat"/>
         /// </summary>
-        public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register("ContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register(nameof(ContentStringFormat), typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property ContentTemplate
+        /// Dependency property for <see cref="ContentTemplate"/>
         /// </summary>
-        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property ContentTemplateSelector
+        /// Dependency property for <see cref="ContentTemplateSelector"/>
         /// </summary>
-        public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register("ContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
-        private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentStringFormat", typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentStringFormat), typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property SelectedContentStringFormat
+        /// Dependency property for <see cref="SelectedContentStringFormat"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentStringFormatProperty = SelectedContentStringFormatPropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplate", typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property SelectedContentTemplate
+        /// Dependency property for <see cref="SelectedContentTemplate"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateProperty = SelectedContentTemplatePropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContentTemplateSelector", typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Dependency property SelectedContentTemplateSelector
+        /// Dependency property for <see cref="SelectedContentTemplateSelector"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateSelectorProperty = SelectedContentTemplateSelectorPropertyKey.DependencyProperty;
 
@@ -183,11 +181,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Foreground.
-        /// This enables animation, styling, binding, etc...
+        /// Dependency property for <see cref="ItemsPanelBackground"/>
         /// </summary>
         public static DependencyProperty ItemsPanelBackgroundProperty =
-            DependencyProperty.Register("ItemsPanelBackground", typeof(Brush), typeof(BackstageTabControl));
+            DependencyProperty.Register(nameof(ItemsPanelBackground), typeof(Brush), typeof(BackstageTabControl));
 
         #endregion
 
@@ -219,18 +216,6 @@ namespace Fluent
         static BackstageTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(typeof(BackstageTabControl)));
-            StyleProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(BackstageTabControl));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -274,6 +259,7 @@ namespace Fluent
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
+
             this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
         }
 
@@ -307,7 +293,8 @@ namespace Fluent
         {
             base.OnItemsChanged(e);
 
-            if ((e.Action == NotifyCollectionChangedAction.Remove) && (this.SelectedIndex == -1))
+            if (e.Action == NotifyCollectionChangedAction.Remove
+                && this.SelectedIndex == -1)
             {
                 var startIndex = e.OldStartingIndex + 1;
                 if (startIndex > this.Items.Count)
@@ -330,23 +317,11 @@ namespace Fluent
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
+
             if (e.AddedItems.Count > 0)
             {
                 this.UpdateSelectedContent();
             }
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled MouseLeftButtonDown routed event 
-        /// is raised on this element. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was pressed</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-            e.Handled = true;
         }
 
         #endregion
@@ -354,46 +329,50 @@ namespace Fluent
         #region Private methods
 
         // Gets selected ribbon tab item
-        BackstageTabItem GetSelectedTabItem()
+        private BackstageTabItem GetSelectedTabItem()
         {
-            object selectedItem = this.SelectedItem;
-            if (selectedItem == null)
+            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
+            if (container == null)
             {
-                return null;
+                container = this.FindNextTabItem(this.SelectedIndex, 1);
+                this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(container);
             }
-            BackstageTabItem item = selectedItem as BackstageTabItem;
-            if (item == null)
-            {
-                item = this.FindNextTabItem(this.SelectedIndex, 1);
-                this.SelectedItem = item;
-            }
-            return item;
+
+            return container;
         }
 
         // Finds next tab item
         private BackstageTabItem FindNextTabItem(int startIndex, int direction)
         {
-            if (direction != 0)
+            if (direction == 0)
             {
-                int index = startIndex;
-                for (int i = 0; i < this.Items.Count; i++)
+                return null;
+            }
+
+            var index = startIndex;
+            for (var i = 0; i < this.Items.Count; i++)
+            {
+                index += direction;
+
+                if (index >= this.Items.Count)
                 {
-                    index += direction;
-                    if (index >= this.Items.Count)
-                    {
-                        index = 0;
-                    }
-                    else if (index < 0)
-                    {
-                        index = this.Items.Count - 1;
-                    }
-                    BackstageTabItem item2 = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
-                    if (((item2 != null) && item2.IsEnabled) && (item2.Visibility == Visibility.Visible))
-                    {
-                        return item2;
-                    }
+                    index = 0;
+                }
+                else if (index < 0)
+                {
+                    index = this.Items.Count - 1;
+                }
+
+                var container = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
+
+                if (container != null
+                    && container.IsEnabled
+                    && container.Visibility == Visibility.Visible)
+                {
+                    return container;
                 }
             }
+
             return null;
         }
 
@@ -402,30 +381,33 @@ namespace Fluent
         {
             if (this.SelectedIndex < 0)
             {
-
                 this.SelectedContent = null;
             }
             else
             {
-                BackstageTabItem selectedTabItem = this.GetSelectedTabItem();
-                if (selectedTabItem != null)
+                var selectedTabItem = this.GetSelectedTabItem();
+                if (selectedTabItem == null)
                 {
-                    this.SelectedContent = selectedTabItem.Content;
-                    if (((selectedTabItem.ContentTemplate != null) || (selectedTabItem.ContentTemplateSelector != null)) || (selectedTabItem.ContentStringFormat != null))
-                    {
-                        this.SelectedContentTemplate = selectedTabItem.ContentTemplate;
-                        this.SelectedContentTemplateSelector = selectedTabItem.ContentTemplateSelector;
-                        this.SelectedContentStringFormat = selectedTabItem.ContentStringFormat;
-                    }
-                    else
-                    {
-                        this.SelectedContentTemplate = this.ContentTemplate;
-                        this.SelectedContentTemplateSelector = this.ContentTemplateSelector;
-                        this.SelectedContentStringFormat = this.ContentStringFormat;
-                    }
-
-                    this.UpdateLayout();
+                    return;
                 }
+
+                this.SelectedContent = selectedTabItem.Content;
+                if (selectedTabItem.ContentTemplate != null
+                    || selectedTabItem.ContentTemplateSelector != null
+                    || selectedTabItem.ContentStringFormat != null)
+                {
+                    this.SelectedContentTemplate = selectedTabItem.ContentTemplate;
+                    this.SelectedContentTemplateSelector = selectedTabItem.ContentTemplateSelector;
+                    this.SelectedContentStringFormat = selectedTabItem.ContentStringFormat;
+                }
+                else
+                {
+                    this.SelectedContentTemplate = this.ContentTemplate;
+                    this.SelectedContentTemplateSelector = this.ContentTemplateSelector;
+                    this.SelectedContentStringFormat = this.ContentStringFormat;
+                }
+
+                this.UpdateLayout();
             }
         }
 
@@ -436,14 +418,18 @@ namespace Fluent
         // Handles GeneratorStatusChange
         private void OnGeneratorStatusChanged(object sender, EventArgs e)
         {
-            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
-                if (this.HasItems && (this.SelectedIndex == -1))
-                {
-                    this.SelectedIndex = 0;
-                }
-                this.UpdateSelectedContent();
+                return;
             }
+
+            if (this.HasItems
+                && this.SelectedIndex == -1)
+            {
+                this.SelectedIndex = 0;
+            }
+
+            this.UpdateSelectedContent();
         }
 
         #endregion

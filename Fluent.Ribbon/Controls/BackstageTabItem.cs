@@ -1,21 +1,17 @@
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-
 namespace Fluent
 {
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
     public class BackstageTabItem : ContentControl, IKeyTipedControl
     {
-        #region Properties
-
-        #region KeyTip
-
         /// <summary>
         /// Gets or sets KeyTip for element.
         /// </summary>
@@ -26,28 +22,15 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
-        /// This enables animation, styling, binding, etc...
+        /// Dependency property for <see cref="KeyTip"/>
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(BackstageTabItem));
-
-        #endregion
-
-        /// <summary>
-        /// Dependency property for isSelected
-        /// </summary>
-        public static readonly DependencyProperty IsSelectedProperty =
-            Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem),
-            new FrameworkPropertyMetadata(false,
-                FrameworkPropertyMetadataOptions.Journal |
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault |
-                FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                OnIsSelectedChanged));
 
         /// <summary>
         /// Gets or sets whether the tab is selected
         /// </summary>
-        [Bindable(true), Category("Appearance")]
+        [Bindable(true)]
+        [Category("Appearance")]
         public bool IsSelected
         {
             get
@@ -61,13 +44,24 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Dependency property for <see cref="IsSelected"/>
+        /// </summary>
+        public static readonly DependencyProperty IsSelectedProperty =
+            Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem),
+            new FrameworkPropertyMetadata(false,
+                FrameworkPropertyMetadataOptions.Journal |
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault |
+                FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+                OnIsSelectedChanged));
+
+        /// <summary>
         /// Gets parent tab control
         /// </summary>
         internal BackstageTabControl TabControlParent
         {
             get
             {
-                return (ItemsControl.ItemsControlFromItemContainer(this) as BackstageTabControl);
+                return ItemsControl.ItemsControlFromItemContainer(this) as BackstageTabControl;
             }
         }
 
@@ -84,11 +78,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(BackstageTabItem), new PropertyMetadata(null));
-
-        #endregion
-
-        #region Constructors
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Static constructor
@@ -96,31 +86,8 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageTabItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem),
-                new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
-            StyleProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
         }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(BackstageTabItem));
-            }
-
-            return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public BackstageTabItem()
-        {
-
-        }
-
-        #endregion
 
         #region Overrides
 
@@ -132,8 +99,9 @@ namespace Fluent
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
-            if (this.IsSelected &&
-                this.TabControlParent != null)
+
+            if (this.IsSelected
+                && this.TabControlParent != null)
             {
                 this.TabControlParent.SelectedContent = newContent;
             }
@@ -147,15 +115,11 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (((e.Source == this) || !this.IsSelected))
+            if (ReferenceEquals(e.Source, this)
+                || this.IsSelected == false)
             {
-                if (this.TabControlParent != null &&
-                    this.TabControlParent.SelectedItem is BackstageTabItem)
-                    ((BackstageTabItem)this.TabControlParent.SelectedItem).IsSelected = false;
-
                 this.IsSelected = true;
             }
-            e.Handled = true;
         }
 
         #endregion
@@ -165,17 +129,21 @@ namespace Fluent
         // Handles IsSelected changed
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            BackstageTabItem container = (BackstageTabItem)d;
-            bool newValue = (bool)e.NewValue;
+            var container = (BackstageTabItem)d;
+            var newValue = (bool)e.NewValue;
+
+            var backstageTabControl = container.Parent as BackstageTabControl;
 
             if (newValue)
             {
-                BackstageTabControl backstage = container.Parent as BackstageTabControl;
-                if ((backstage != null) && (backstage.SelectedItem != container))
+                if (backstageTabControl != null
+                    && ReferenceEquals(backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem), container) == false)
                 {
-                    if (backstage.SelectedItem is BackstageTabItem) (backstage.SelectedItem as BackstageTabItem).IsSelected = false;
-                    backstage.SelectedItem = container;
+                    UnselectSelectedItem(backstageTabControl);
+
+                    backstageTabControl.SelectedItem = backstageTabControl.ItemContainerGenerator.ItemFromContainer(container);
                 }
+
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else
@@ -183,6 +151,23 @@ namespace Fluent
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
             }
         }
+
+        private static void UnselectSelectedItem(BackstageTabControl backstageTabControl)
+        {
+            if (backstageTabControl?.SelectedItem == null)
+            {
+                return;
+            }
+
+            var backstageTabItem = backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) as BackstageTabItem;
+
+            if (backstageTabItem != null)
+            {
+                backstageTabItem.IsSelected = false;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Handles selected event
@@ -202,8 +187,6 @@ namespace Fluent
             this.HandleIsSelectedChanged(e);
         }
 
-        #endregion
-
         #region Event handling
 
         /// <summary>
@@ -222,9 +205,7 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if (this.TabControlParent != null &&
-                this.TabControlParent.SelectedItem is RibbonTabItem)
-                ((BackstageTabItem)this.TabControlParent.SelectedItem).IsSelected = false;
+            UnselectSelectedItem(this.TabControlParent);
 
             this.IsSelected = true;
         }

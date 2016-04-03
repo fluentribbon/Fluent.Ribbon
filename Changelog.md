@@ -52,6 +52,7 @@
   - [#280](../../issues/280) - Keytips of the Ribbon overlay StartScreen
   - [#284](../../issues/284) - Overriding width of button does not work as it should
   - [#285](../../issues/285) - MaterialDesign DialogHost issue with FluentRibbon
+  - [#291](../../issues/291) - BackStageTabItem leftmousedown event not firing
   - OpenBackstage command was not acting on the correct backstage in a multiple backstage scenario (thanks to @maurosampietro)
 
 - ### Enhancements

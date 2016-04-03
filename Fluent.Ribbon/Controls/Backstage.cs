@@ -665,6 +665,13 @@ namespace Fluent
         ///  The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            base.OnMouseLeftButtonDown(e);
+
+            if (ReferenceEquals(e.Source, this) == false)
+            {
+                return;
+            }
+
             this.Click();
         }
 
