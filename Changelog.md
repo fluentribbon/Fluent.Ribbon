@@ -6,7 +6,7 @@
   - **As of now the Office 2010 and Windows 8 themes will be removed in version 5.0. You can vote for this at [Future direction of this library](../../issues/282).**
 
 - ### Breaking changes
-  - New nuget dependency: [ControlzEx](https://www.nuget.org/packages/ControlzEx)
+  - New nuget dependency: [ControlzEx](https://www.nuget.org/packages/ControlzEx). So don't forget to add ControlzEx.dll to your distribution/setup.
   - BorderlessWindowBehavior was replaced by WindowChromeBehavior from [ControlzEx](https://github.com/ControlzEx/ControlzEx).
     This also removes the dependency Microsoft.Windows.Shell as ControlzEx contains everything we need to use WindowChrome.
     This behavior is initialized in code behind (InitializeWindowChromeBehavior) and shows which properties of RibbonWindow can be used to control the behavior.
