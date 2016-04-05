@@ -40,6 +40,7 @@
   - [#244](../../issues/244) - KeyTip not working for childs of ContentPresenter
   - [#246](../../issues/246) - Bind RibbonGroupBox.DataContext on QuickAccessToolBar (thanks to @nishy2000)
   - [#251](../../issues/251) - Changing RibbonStatusBar height to 23 and RibbonStatusBarItem foreground to BackstageFontBrush (thanks to @maurosampietro)
+  - [#253](../../issues/253) - Icons of buttons not aligned correctly in Office 2013 theme (thanks to @floele-sp)
   - [#254](../../issues/254) - Basic fix for KeyTips not working when focus is inside a WinForms control
   - [#256](../../issues/256) - ComboBox items don't update properly on ItemsSource binding source collection changes
   - [#255](../../issues/255) - Submenus don't show scroll viewer if items exceed the available space on screen (thanks to @floele-sp)
