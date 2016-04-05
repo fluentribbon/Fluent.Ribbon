@@ -56,7 +56,7 @@
                         Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
-                        Value="1,0,2,0" />
+                        Value="2,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
@@ -92,7 +92,7 @@
                         Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
-                        Value="1,0,2,0" />
+                        Value="2,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />

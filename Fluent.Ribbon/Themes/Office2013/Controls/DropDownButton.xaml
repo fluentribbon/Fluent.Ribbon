@@ -214,7 +214,7 @@
                         Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
-                        Value="1,0,0,0" />
+                        Value="2,0,0,0" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="-2,0,2,1" />
@@ -256,7 +256,7 @@
                         Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
-                        Value="1,0,2,0" />
+                        Value="2,0,2,0" />
                 <Setter Property="VerticalAlignment"
                         TargetName="controlLabel"
                         Value="Center" />
