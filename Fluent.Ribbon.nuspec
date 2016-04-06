@@ -14,18 +14,16 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>ribbon fluent ribbon ribbonwindow office2010 office2013 windows8 backstage</tags>
     <dependencies>
-      <dependency id="ControlzEx" version="2.0.0-dev035" />
+      <dependency id="ControlzEx" version="2.0.0.54" />
     </dependencies>
   </metadata>
   <files>
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.pdb" target="lib\net40" />
     <file src="build\bin\NET 4.0\$Configuration$\Fluent.XML" target="lib\net40" />
-    <file src="build\bin\NET 4.0\$Configuration$\System.Windows.Interactivity.dll" target="lib\net40" />
 
     <file src="build\bin\NET 4.5\$Configuration$\Fluent.dll" target="lib\net45" />
     <file src="build\bin\NET 4.5\$Configuration$\Fluent.pdb" target="lib\net45" />
     <file src="build\bin\NET 4.5\$Configuration$\Fluent.XML" target="lib\net45" />
-    <file src="build\bin\NET 4.5\$Configuration$\System.Windows.Interactivity.dll" target="lib\net45" />
   </files>
 </package>
