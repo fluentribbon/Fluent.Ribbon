@@ -43,13 +43,13 @@
       on_build_failure: true
       on_build_status_changed: false
 
-# configuration for develop/CI branch
+# configuration for master/CI branch
 -
   branches:
     only:
       - master
 
-  version: 3.6.1.{build}
+  version: 4.0.0.{build}
   configuration: Release
 
   # Install scripts. (runs after repo cloning)
