@@ -1,35 +1,84 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 3.6.1.{build}
-configuration: Release
+# configuration for develop/CI branch
+-
+  branches:
+    only:
+      - develop
 
-# Install scripts. (runs after repo cloning)
-install:
-  - nuget restore
+  version: 4.0.0-dev{build}
+  configuration: Release
 
-build:
-  verbosity: minimal
+  init:
+    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version.Remove($env:appveyor_build_version.IndexOf("-dev") + "-dev".Length))$($env:appveyor_build_number.PadLeft(4, '0'))"
 
-after_build:
-  - cmd: Tools\GitLink.exe . -u https://github.com/fluentribbon/Fluent.Ribbon
-  - cmd: nuget pack Fluent.Ribbon.nuspec -Version %appveyor_build_version% -Properties Configuration=%configuration%
-  - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  # Install scripts. (runs after repo cloning)
+  install:
+    - nuget restore
 
-assembly_info:
-  patch: true
-  file: Shared\GlobalAssemblyInfo.*
-  assembly_version: "{version}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
+  build:
+    verbosity: minimal
 
-artifacts:
-  - path: build/bin
-    name: Fluent.Ribbon.$(appveyor_build_version)
-    type: zip
+  after_build:
+    - cmd: Tools\GitLink.exe . -u https://github.com/fluentribbon/Fluent.Ribbon
+    - cmd: nuget pack Fluent.Ribbon.nuspec -Version %appveyor_build_version% -Properties Configuration=%configuration%
+    - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
-notifications:
-  - provider: Webhook
-    url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
-    on_build_success: true
-    on_build_failure: true
-    on_build_status_changed: false
+  assembly_info:
+    patch: true
+    file: Shared\GlobalAssemblyInfo.*
+    assembly_version: "{version}"
+    assembly_file_version: "{version}"
+    assembly_informational_version: "{version}"
+
+  artifacts:
+    - path: build/bin
+      name: Fluent.Ribbon.$(appveyor_build_version)
+      type: zip
+
+  notifications:
+    - provider: Webhook
+      url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
+      on_build_success: true
+      on_build_failure: true
+      on_build_status_changed: false
+
+# configuration for master/CI branch
+-
+  branches:
+    only:
+      - master
+
+  version: 4.0.0.{build}
+  configuration: Release
+
+  # Install scripts. (runs after repo cloning)
+  install:
+    - nuget restore
+
+  build:
+    verbosity: minimal
+
+  after_build:
+    - cmd: Tools\GitLink.exe . -u https://github.com/fluentribbon/Fluent.Ribbon
+    - cmd: nuget pack Fluent.Ribbon.nuspec -Version %appveyor_build_version% -Properties Configuration=%configuration%
+    - ps: Get-ChildItem .\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+
+  assembly_info:
+    patch: true
+    file: Shared\GlobalAssemblyInfo.*
+    assembly_version: "{version}"
+    assembly_file_version: "{version}"
+    assembly_informational_version: "{version}"
+
+  artifacts:
+    - path: build/bin
+      name: Fluent.Ribbon.$(appveyor_build_version)
+      type: zip
+
+  notifications:
+    - provider: Webhook
+      url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
+      on_build_success: true
+      on_build_failure: true
+      on_build_status_changed: false

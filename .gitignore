@@ -35,6 +35,10 @@ publish/
 *.nupkg
 
 # Generated files
-Fluent/Themes/**/Generic.xaml
-!Fluent/Themes/Generic.xaml
+Fluent.Ribbon/Themes/**/Generic.xaml
 packages/
+.tmp
+
+# Allowed files
+!Fluent.Ribbon/Themes/Generic.xaml
+!Fluent.Ribbon/Themes/XamlCombine.exe

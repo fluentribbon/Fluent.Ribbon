@@ -1,4 +1,4 @@
-Fluent.Ribbon or "Fluent Ribbon Control Suite"
+Fluent.Ribbon
 =============
 
 [![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -13,7 +13,7 @@ Fluent.Ribbon or "Fluent Ribbon Control Suite"
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
-Fluent Ribbon Control Suite is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides well-customized controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with the most up-to-date Office 2010, Office 2013 and Windows 8 styles.
+Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with Office 2010, Office 2013 and Windows 8 themes.
 
 ![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
 
@@ -21,16 +21,20 @@ Fluent Ribbon Control Suite is a library that implements an Office-like user int
 
 ### Contact
 
-If you wish to contact me (batzen) directly please use twitter https://twitter.com/batzendev.
+If you wish to contact me (batzen) directly please use [twitter](https://twitter.com/batzendev) or [gitter](https://gitter.im/batzen).
 
 ### Contributing
 
 #### What you can do to help us
-*   We are accepting pull requests, so you are very welcome to create one.
+*   We are accepting pull requests, so you are very welcome to create one
 *   [Fix some bugs](https://github.com/fluentribbon/Fluent.Ribbon/issues)
 *   Help us translating
 *   Help us updating the documentation and walkthrough
-*   Help us writing a changelog/release notes for the next version
+
+### Development requirements
+* Visual Studio 2015
+* Optional but recommended
+  * Editorconfig extension for Visual Studio 2015
 
 ### Settings that should be used
 *   Visual Studio settings which should be used
@@ -46,11 +50,11 @@ Please, [download walkthrough](https://github.com/fluentribbon/Fluent.Ribbon/blo
 This document covers the main features of this framework and highlights how to use it, but is pretty outdated right now.
 Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
 
-To be more familiar with Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
+To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
 
-## History &amp; Roadmap
+## History &amp; roadmap
 A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
-The (rough) roadmap is done by [milestones](../../milestones).
+The roadmap is done by [milestones](../../milestones).
 
 ## Feature List
 | Office UI Element |  Status |
