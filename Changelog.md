@@ -1,6 +1,11 @@
 # Changelog for Fluent.Ribbon
 
-## 4.0.0 (preview)
+## 4.0.1
+
+- ### Bug fixes
+  - [#293](../../issues/293) - ArgumentNullException in BackstageTabControl while trying to find the selected tab
+
+## 4.0.0
 
 - ### Notices
   - **As of now the Office 2010 and Windows 8 themes will be removed in version 5.0. You can vote for this at [Future direction of this library](../../issues/282).**
