@@ -328,14 +328,22 @@
 
         #region Private methods
 
-        // Gets selected ribbon tab item
+        /// <summary>
+        /// Gets selected <see cref="BackstageTabItem"/>.
+        /// If there is no item selected, the first found item is selected and it's container (<see cref="BackstageTabItem"/>) is returned.
+        /// </summary>
+        /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
         private BackstageTabItem GetSelectedTabItem()
         {
             var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
             if (container == null)
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
-                this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(container);
+
+                if (container != null)
+                {
+                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(container);
+                }
             }
 
             return container;

@@ -256,8 +256,6 @@
 
     <Style x:Key="BackstageStyle"
            TargetType="{x:Type Fluent:BackstageTabControl}">
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Template"

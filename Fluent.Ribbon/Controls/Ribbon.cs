@@ -2224,7 +2224,10 @@ namespace Fluent
                 }
 
                 // Since application is not fully loaded we have to delay the refresh
-                this.ribbon.RunInDispatcherAsync(this.ribbon.QuickAccessToolBar.Refresh, DispatcherPriority.Background);
+                if (this.ribbon.QuickAccessToolBar != null)
+                {
+                    this.ribbon.RunInDispatcherAsync(this.ribbon.QuickAccessToolBar.Refresh, DispatcherPriority.Background);
+                }
 
                 // Sync QAT menu items
                 foreach (var menuItem in this.ribbon.QuickAccessItems)

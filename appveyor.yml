@@ -6,7 +6,7 @@
     only:
       - develop
 
-  version: 4.0.0-dev{build}
+  version: 4.0.2-dev{build}
   configuration: Release
 
   init:
@@ -49,7 +49,7 @@
     only:
       - master
 
-  version: 4.0.0.{build}
+  version: 4.0.2.{build}
   configuration: Release
 
   # Install scripts. (runs after repo cloning)
