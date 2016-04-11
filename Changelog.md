@@ -1,5 +1,10 @@
 # Changelog for Fluent.Ribbon
 
+## 4.0.2
+
+- ### Bug fixes
+  - [#294](../../issues/294) - Issues with default style and OverridesDefaultStyle
+
 ## 4.0.1
 
 - ### Bug fixes
