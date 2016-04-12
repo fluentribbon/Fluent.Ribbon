@@ -1,5 +1,10 @@
 # Changelog for Fluent.Ribbon
 
+## 4.0.3
+
+- ### Bug fixes
+  - Fixes issues with window border on Windows 7 and Windows 8
+
 ## 4.0.2
 
 - ### Bug fixes

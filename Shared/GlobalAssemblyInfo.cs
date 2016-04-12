@@ -11,12 +11,12 @@ using System.Windows;
 #endif
 [assembly: AssemblyCompany("https://github.com/fluentribbon/Fluent.Ribbon")]
 [assembly: AssemblyProduct("Fluent.Ribbon")]
-[assembly: AssemblyCopyright("Copyright © 2012 - 2016 Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
+[assembly: AssemblyCopyright("Copyright ï¿½ 2012 - 2016 Bastian Schmidt; Copyright ï¿½ 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("4.0.2.0")]
-[assembly: AssemblyFileVersion("4.0.2.0")]
+[assembly: AssemblyVersion("4.0.3.0")]
+[assembly: AssemblyFileVersion("4.0.3.0")]
 [assembly: AssemblyInformationalVersion("SRC")]
 
 [assembly: ComVisible(false)]
