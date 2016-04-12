@@ -2630,7 +2630,8 @@
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1"
+                    BorderThickness="0">
             <TabItem Header="Home">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap">
