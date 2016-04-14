@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Documents;
     using System.Windows.Media;
 
     /// <summary>
@@ -107,6 +109,33 @@
             }
 
             return (T)item;
+        }
+
+        /// <summary>
+        /// First checks if <paramref name="visual"/> is either a <see cref="AdornerDecorator"/> or <see cref="ScrollContentPresenter"/> and if it is returns it's <see cref="AdornerLayer"/>.
+        /// If those checks yield no result <see cref="AdornerLayer.GetAdornerLayer"/> is called.
+        /// </summary>
+        /// <param name="visual">The visual element for which to find an adorner layer.</param>
+        /// <returns>An adorner layer for the specified visual, or null if no adorner layer can be found.</returns>
+        /// <exception cref="T:System.ArgumentNullException">Raised when visual is null.</exception>
+        public static AdornerLayer GetAdornerLayer(Visual visual)
+        {
+            if (visual == null)
+            {
+                throw new ArgumentNullException(nameof(visual));
+            }
+
+            if (visual is AdornerDecorator)
+            {
+                return ((AdornerDecorator)visual).AdornerLayer;
+            }
+
+            if (visual is ScrollContentPresenter)
+            {
+                return ((ScrollContentPresenter)visual).AdornerLayer;
+            }
+
+            return AdornerLayer.GetAdornerLayer(visual);
         }
     }
 }
