@@ -5,8 +5,6 @@
     <Style x:Key="StartScreenTabControlStyle"
            TargetType="{x:Type Fluent:StartScreenTabControl}"
            BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
         <Setter Property="Template"
                 Value="{DynamicResource StartScreenTabControlTemplate}" />
         <Setter Property="Background"
