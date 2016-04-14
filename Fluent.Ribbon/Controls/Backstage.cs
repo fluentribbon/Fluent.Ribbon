@@ -383,6 +383,11 @@ namespace Fluent
             else
             {
                 elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this);
+
+                if (elementToAdorn == null)
+                {
+                    elementToAdorn = UIHelper.GetParent<AdornerDecorator>(LogicalTreeHelper.GetParent(this));
+                }
             }
 
             if (elementToAdorn == null)
@@ -390,7 +395,7 @@ namespace Fluent
                 return;
             }
 
-            var layer = AdornerLayer.GetAdornerLayer(this);
+            var layer = UIHelper.GetAdornerLayer(elementToAdorn);
 
             if (layer == null)
             {
