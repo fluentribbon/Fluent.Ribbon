@@ -105,32 +105,6 @@
             Windows8
         }
 
-        private void OnOffice2013Click(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2013, "pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml");
-        }
-
-        private void OnOffice2010SilverClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
-        }
-
-        private void OnOffice2010BlackClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
-        }
-
-        private void OnOffice2010BlueClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
-        }
-
-        private void OnWindows8Click(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Windows8/Silver.xaml");
-        }
-
-
         private void ChangeTheme(Theme theme, string color)
         {
             this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
@@ -187,25 +161,6 @@
                     }
                 }
             }));
-        }
-
-        private void HandleDontUseDwmClick(object sender, RoutedEventArgs e)
-        {
-            var control = sender as UIElement;
-
-            if (control == null)
-            {
-                return;
-            }
-
-            var window = Window.GetWindow(control) as RibbonWindow;
-
-            if (window == null)
-            {
-                return;
-            }
-
-            window.DontUseDwm = this.DontUseDwm.IsChecked.GetValueOrDefault();
         }
 
         #endregion Theming

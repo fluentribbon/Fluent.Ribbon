@@ -13,7 +13,7 @@ Fluent.Ribbon
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
-Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with Office 2010, Office 2013 and Windows 8 themes.
+Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
 ![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
 

@@ -3,12 +3,6 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:Converters="clr-namespace:Fluent.Converters">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\Gallery.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="InRibbonGalleryToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -39,6 +33,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
     <ControlTemplate x:Key="InRibbonGalleryToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"

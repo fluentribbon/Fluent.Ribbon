@@ -42,7 +42,7 @@ namespace Fluent
 
             if (DesignerProperties.GetIsInDesignMode(this) == false)
             {
-                pixelShader.UriSource = new Uri("/Fluent;component/Themes/Office2010/Effects/Grayscale.ps", UriKind.Relative);
+                pixelShader.UriSource = new Uri("/Fluent;component/Themes/Effects/Grayscale.ps", UriKind.Relative);
             }
 
             return pixelShader;

@@ -129,7 +129,7 @@
                 <Setter Property="Content"
                         TargetName="contentPresenter">
                     <Setter.Value>
-                        <Image Source="pack://application:,,,/Fluent;component\Themes\Office2010\Images\ApplicationMenu.png"
+                        <Image Source="pack://application:,,,/Fluent;component\Themes\Images\ApplicationMenu.png"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Stretch="None" />

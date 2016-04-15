@@ -31,7 +31,7 @@
                            Height="Auto"
                            Stretch="None"
                            VerticalAlignment="Center"
-                           Source="/Fluent;Component/Themes/Office2010/Images/RibbonCollapse.png"
+                           Source="/Fluent;Component/Themes/Images/RibbonCollapse.png"
                            Width="Auto"
                            Margin="2" />
                     <Image x:Name="iconImageChecked"
@@ -40,7 +40,7 @@
                            Height="Auto"
                            Stretch="None"
                            VerticalAlignment="Center"
-                           Source="/Fluent;Component/Themes/Office2010/Images/RibbonExpand.png"
+                           Source="/Fluent;Component/Themes/Images/RibbonExpand.png"
                            Width="Auto"
                            Margin="2" />
                 </Grid>
@@ -303,7 +303,7 @@
 
                 <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
 
-                <ContentPresenter Grid.Column="0"  
+                <ContentPresenter Grid.Column="0"
                                   VerticalAlignment="Stretch"
                                   ContentSource="Menu" />
 
@@ -330,7 +330,7 @@
                     <Grid Width="22"
                           Height="22">
                         <Image x:Name="image"
-                               Source="/Fluent;Component/Themes/Office2010/Images/RibbonPin.png"
+                               Source="/Fluent;Component/Themes/Images/RibbonPin.png"
                                Stretch="None"
                                Visibility="Collapsed" />
                         <Fluent:ToggleButton x:Name="PART_MinimizeButton"
@@ -347,7 +347,7 @@
                                 Orientation="Horizontal" />
                 </StackPanel>
             </Grid>
-			
+
             <Popup x:Name="PART_Popup"
                    PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                    Placement="Custom"

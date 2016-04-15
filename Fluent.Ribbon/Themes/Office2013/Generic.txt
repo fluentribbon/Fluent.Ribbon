@@ -4,7 +4,7 @@ Office2013\Colors\Colors.xaml
 Office2013\Colors\ColorsWhite.xaml
 Office2013\Images\Images.xaml
 Generic\Controls\EmptyFocusStyle.xaml
-Office2010\Controls\ApplicationMenuItem.xaml
+Generic\Controls\ApplicationMenuItem.xaml
 Office2013\Controls\ApplicationMenu.xaml
 Office2013\Controls\Backstage.xaml
 Office2013\Controls\RibbonTabItem.xaml
@@ -48,7 +48,7 @@ Generic\Controls\TextBox.xaml
 Office2013\Controls\Spinner.xaml
 Office2013\Controls\ComboBox.xaml
 Office2013\Controls\Ribbon.xaml
-Office2010\Controls\ColorGallery.xaml
+Generic\Controls\ColorGallery.xaml
 Generic\Controls\SeparatorTabItem.xaml
 Office2013\Controls\RibbonStatusBar.xaml
 Office2013\Controls\Slider.xaml

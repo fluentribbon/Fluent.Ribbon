@@ -99,8 +99,6 @@
                 Value="1" />
         <Setter Property="BorderBrush"
                 Value="{DynamicResource RibbonThemeColorBrush}" />
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
         <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
         <Setter Property="GlassFrameThickness"
                 Value="1" />

@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 5.0.0 (preview)
+
+- ### Breaking changes
+  - Office 2010 and Windows 8 themes got removed. This was a [community voted decision](../../issues/282).
+  - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
+
 ## 4.0.3
 
 - ### Bug fixes

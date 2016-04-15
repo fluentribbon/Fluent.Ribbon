@@ -4,12 +4,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\ScrollBarWhite.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;component\Themes\Office2010\Controls\RibbonScrollViewer.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-
     <Style x:Key="GalleryDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template">

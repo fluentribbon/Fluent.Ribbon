@@ -155,47 +155,6 @@
                                 </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
 
-                            <Fluent:BackstageTabItem Header="Change theme with fluent controls"
-                                                     Content="Hello">
-                                <Fluent:BackstageTabItem.ContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <Fluent:Button Background="Blue"
-                                                           Foreground="Black"
-                                                           Click="OnOffice2010SilverClick">Office 2010 Silver</Fluent:Button>
-                                            <Fluent:Button Background="Blue"
-                                                           Foreground="Black"
-                                                           Click="OnOffice2010BlackClick">Office 2010 Black</Fluent:Button>
-                                            <Fluent:Button Background="Blue"
-                                                           Foreground="Black"
-                                                           Click="OnOffice2010BlueClick">Office 2010 Blue</Fluent:Button>
-                                            <Fluent:Button Background="Blue"
-                                                           Foreground="Black"
-                                                           Click="OnOffice2013Click">Office 2013 White</Fluent:Button>
-                                            <Fluent:Button Background="Blue"
-                                                           Foreground="Black"
-                                                           Click="OnWindows8Click">Windows8 White</Fluent:Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Fluent:BackstageTabItem.ContentTemplate>
-                            </Fluent:BackstageTabItem>
-
-                            <Fluent:BackstageTabItem Header="Change theme with standard controls"
-                                                     Content="Hello">
-                                <Fluent:BackstageTabItem.ContentTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, Path=ParentBackstage.ActualHeight}" />
-                                            <Button Click="OnOffice2010SilverClick">Office 2010 Silver</Button>
-                                            <Button Click="OnOffice2010BlackClick">Office 2010 Black</Button>
-                                            <Button Click="OnOffice2010BlueClick">Office 2010 Blue</Button>
-                                            <Button Click="OnOffice2013Click">Office 2013 White</Button>
-                                            <Button Click="OnWindows8Click">Windows8 White</Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </Fluent:BackstageTabItem.ContentTemplate>
-                            </Fluent:BackstageTabItem>
-
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
@@ -268,7 +227,6 @@
                                                    IsEnabled="True"
                                                    Style="{DynamicResource ButtonBackstageStyle}"
                                                    HorizontalAlignment="Left"
-                                                   Click="OnOffice2010BlueClick"
                                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png">123</Fluent:Button>
                                     <Fluent:ToggleButton   Header="Toggle"
@@ -440,47 +398,6 @@
                                   Header="Home"
                                   KeyTip="H"
                                   ToolTip="Regular Tool Tip">
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
-                                       KeyTip="T10"
-                                       x:Name="C"
-                                       Header="Themes (Office 2010)"
-                                       CanAddToQuickAccessToolBar="False"
-                                       IsLauncherVisible="False">
-                    <Fluent:Button Click="OnOffice2010SilverClick"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
-                                   SizeDefinition="Middle">Silver</Fluent:Button>
-                    <Fluent:Button Click="OnOffice2010BlackClick"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlackTheme.png"
-                                   SizeDefinition="Middle">Black</Fluent:Button>
-                    <Fluent:Button Click="OnOffice2010BlueClick"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueTheme.png"
-                                   SizeDefinition="Middle">Blue</Fluent:Button>
-                    <Fluent:CheckBox Name="DontUseDwm"
-                                     Click="HandleDontUseDwmClick">Don't use DWM</Fluent:CheckBox>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
-                                       KeyTip="T13"
-                                       Header="Themes (Office 2013)"
-                                       CanAddToQuickAccessToolBar="False"
-                                       IsLauncherVisible="False"
-                                       MinWidth="150">
-                    <Fluent:Button Click="OnOffice2013Click"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
-                                   SizeDefinition="Middle">White</Fluent:Button>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
-                                       KeyTip="T13"
-                                       Header="Themes (Windows 8)"
-                                       CanAddToQuickAccessToolBar="False"
-                                       IsLauncherVisible="False"
-                                       MinWidth="150">
-                    <Fluent:Button Click="OnWindows8Click"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/SilverTheme.png"
-                                   SizeDefinition="Middle">White</Fluent:Button>
-                </Fluent:RibbonGroupBox>
-
                 <Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
                                          Name="UseBackstage"
@@ -602,7 +519,7 @@
 
                 <Fluent:RibbonGroupBox Header="Gallery">
                     <Fluent:InRibbonGallery x:Name="InRibbonGallery"
-                                            Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
+                                            Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png"
                                             Header="Split"
                                             KeyTip="S"
                                             GroupBy="Tag"
@@ -2259,19 +2176,19 @@
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png"
                                     IsEnabled="False" />
                     <Fluent:Spinner KeyTip="KB"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png" />
                     <Fluent:Spinner KeyTip="KC"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2010/Images/Warning.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2640,9 +2557,7 @@
                         <LineBreak />
                         Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF).
                         <LineBreak />
-                        It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. 
-                        <LineBreak />
-                        It is bundled with Office 2010, Office 2013 and Windows 8 themes.
+                        It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
                     </TextBlock>
                 </StackPanel>
             </TabItem>
