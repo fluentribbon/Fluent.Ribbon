@@ -519,7 +519,7 @@
 
                 <Fluent:RibbonGroupBox Header="Gallery">
                     <Fluent:InRibbonGallery x:Name="InRibbonGallery"
-                                            Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png"
+                                            Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
                                             Header="Split"
                                             KeyTip="S"
                                             GroupBy="Tag"
@@ -2176,19 +2176,19 @@
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
                                     IsEnabled="False" />
                     <Fluent:Spinner KeyTip="KB"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
                     <Fluent:Spinner KeyTip="KC"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Office2013/Images/Warning.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 

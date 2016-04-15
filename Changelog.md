@@ -5,6 +5,7 @@
 - ### Breaking changes
   - Office 2010 and Windows 8 themes got removed. This was a [community voted decision](../../issues/282).
   - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
+  - [#302](../../issues/302) - Rename Office 2013 theme to Generic
 
 ## 4.0.3
 
