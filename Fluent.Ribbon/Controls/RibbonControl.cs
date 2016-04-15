@@ -301,7 +301,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            Type type = typeof(RibbonControl);
+            var type = typeof(RibbonControl);
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
         }

@@ -5,7 +5,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-    using Fluent.Metro.Native;
 
     /// <summary>
     /// Contains commands for <see cref="RibbonWindow"/>

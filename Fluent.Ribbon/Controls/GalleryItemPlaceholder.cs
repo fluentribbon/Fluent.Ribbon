@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows;
 
 namespace Fluent
 {
@@ -12,11 +6,11 @@ namespace Fluent
     /// Represents internal class to use it in 
     /// GalleryPanel as placeholder for GalleryItems
     /// </summary>
-    class GalleryItemPlaceholder : UIElement
+    internal class GalleryItemPlaceholder : UIElement
     {
         #region Fields
 
-        UIElement target;
+        private UIElement target;
 
         #endregion
 
@@ -62,7 +56,7 @@ namespace Fluent
         /// indicate that the element will size to whatever content is available.</param>
         protected override Size MeasureCore(Size availableSize)
         {
-            this.target.Measure(availableSize);           
+            this.target.Measure(availableSize);
             return this.target.DesiredSize;
         }
 
@@ -80,7 +74,7 @@ namespace Fluent
             // targets in GalleryPanel lately
             this.ArrangedSize = finalRect.Size;
         }
-        
+
         #endregion
 
         #region Debug

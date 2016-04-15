@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -204,23 +203,11 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ToggleButton()
         {
-            Type type = typeof(ToggleButton);
+            var type = typeof(ToggleButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ToggleButton));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -269,7 +256,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            ToggleButton button = new ToggleButton();
+            var button = new ToggleButton();
 
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => this.RaiseEvent(e));

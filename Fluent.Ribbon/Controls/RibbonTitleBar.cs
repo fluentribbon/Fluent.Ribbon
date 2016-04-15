@@ -146,6 +146,8 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
+
             this.quickAccessToolbarHolder = this.GetTemplateChild("PART_QuickAccessToolbarHolder") as FrameworkElement;
             this.headerHolder = this.GetTemplateChild("PART_HeaderHolder") as FrameworkElement;
             this.itemsContainer = this.GetTemplateChild("PART_ItemsContainer") as Panel;

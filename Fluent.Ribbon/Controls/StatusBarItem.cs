@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 
 namespace Fluent
 {
@@ -30,7 +25,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(StatusBarItem), new UIPropertyMetadata(null));
-        
+
         #endregion
 
         #region Value
@@ -49,12 +44,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(string), typeof(StatusBarItem), 
+            DependencyProperty.Register("Value", typeof(string), typeof(StatusBarItem),
             new UIPropertyMetadata(null, OnValueChanged));
 
-        static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            StatusBarItem item = (StatusBarItem)d;
+            var item = (StatusBarItem)d;
             item.CoerceValue(ContentProperty);
         }
 
@@ -81,10 +76,10 @@ namespace Fluent
         // Handles IsChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            StatusBarItem item = d as StatusBarItem;
+            var item = d as StatusBarItem;
             item.CoerceValue(VisibilityProperty);
-            if((bool)e.NewValue) item.RaiseChecked();
-            else item.RaiseUnchecked();            
+            if ((bool)e.NewValue) item.RaiseChecked();
+            else item.RaiseUnchecked();
         }
 
         #endregion
@@ -126,28 +121,28 @@ namespace Fluent
         static StatusBarItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBarItem), new FrameworkPropertyMetadata(typeof(StatusBarItem)));
-            VisibilityProperty.AddOwner(typeof(StatusBarItem),new FrameworkPropertyMetadata(null, CoerceVisibility));
-            ContentProperty.AddOwner(typeof (StatusBarItem), new FrameworkPropertyMetadata(null, OnContentChanged, CoerceContent));
+            VisibilityProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, CoerceVisibility));
+            ContentProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, OnContentChanged, CoerceContent));
         }
 
         // Content changing handler
-        static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            StatusBarItem item = (StatusBarItem)d;
+            var item = (StatusBarItem)d;
             item.CoerceValue(ValueProperty);
         }
 
         // Coerce content
-        static object CoerceContent(DependencyObject d, object basevalue)
+        private static object CoerceContent(DependencyObject d, object basevalue)
         {
-            StatusBarItem item = (StatusBarItem)d;
+            var item = (StatusBarItem)d;
             // if content is null returns value
             if ((basevalue == null) && (item.Value != null)) return item.Value;
             return basevalue;
         }
 
         // Coerce visibility
-        static object CoerceVisibility(DependencyObject d, object basevalue)
+        private static object CoerceVisibility(DependencyObject d, object basevalue)
         {
             // If unchecked when not visible in status bar
             if (!(d as StatusBarItem).IsChecked) return Visibility.Collapsed;

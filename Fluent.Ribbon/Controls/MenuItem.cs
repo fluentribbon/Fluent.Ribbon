@@ -26,9 +26,9 @@ namespace Fluent
         private Popup popup;
 
         // Thumb to resize in both directions
-        Thumb resizeBothThumb;
+        private Thumb resizeBothThumb;
         // Thumb to resize vertical
-        Thumb resizeVerticalThumb;
+        private Thumb resizeVerticalThumb;
 
         private Panel menuPanel;
 
@@ -245,11 +245,11 @@ namespace Fluent
             new UIPropertyMetadata(null, OnGroupNameChanged));
 
         // Group name changed
-        static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            MenuItem toggleButton = (MenuItem)d;
-            string currentGroupName = (string)e.NewValue;
-            string previousGroupName = (string)e.OldValue;
+            var toggleButton = (MenuItem)d;
+            var currentGroupName = (string)e.NewValue;
+            var previousGroupName = (string)e.OldValue;
 
             if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
             if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
@@ -258,14 +258,14 @@ namespace Fluent
         #region Grouped Items Methods
 
         // Grouped buttons (thread id / group name / weak ref to a control)
-        static readonly Dictionary<int, Dictionary<string, List<WeakReference>>> groupedButtons =
+        private static readonly Dictionary<int, Dictionary<string, List<WeakReference>>> groupedButtons =
             new Dictionary<int, Dictionary<string, List<WeakReference>>>();
 
         // Remove from group
-        static void RemoveFromGroup(string groupName, MenuItem button)
+        private static void RemoveFromGroup(string groupName, MenuItem button)
         {
             List<WeakReference> buttons = null;
-            int threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) return;
             if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return;
 
@@ -273,9 +273,9 @@ namespace Fluent
         }
 
         // Remove from group
-        static void AddToGroup(string groupName, MenuItem button)
+        private static void AddToGroup(string groupName, MenuItem button)
         {
-            int threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) groupedButtons.Add(threadId, new Dictionary<string, List<WeakReference>>());
 
             List<WeakReference> buttons = null;
@@ -289,9 +289,9 @@ namespace Fluent
         }
 
         // Gets all buttons in the given group
-        static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
+        private static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
         {
-            int threadId = Thread.CurrentThread.ManagedThreadId;
+            var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) return new List<MenuItem>();
 
             List<WeakReference> buttons = null;
@@ -304,16 +304,16 @@ namespace Fluent
         #region IsChecked
 
         // Coerce IsChecked
-        static object CoerceIsChecked(DependencyObject d, object basevalue)
+        private static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            MenuItem toggleButton = (MenuItem)d;
+            var toggleButton = (MenuItem)d;
             if (toggleButton.GroupName == null) return basevalue;
 
-            bool baseIsChecked = (bool)basevalue;
+            var baseIsChecked = (bool)basevalue;
             if (!baseIsChecked)
             {
                 // We can not allow that there are no one button checked
-                foreach (MenuItem item in GetItemsInGroup(toggleButton.GroupName))
+                foreach (var item in GetItemsInGroup(toggleButton.GroupName))
                 {
                     // It's Ok, atleast one checked button exists
                     if (item.IsChecked) return false;
@@ -328,14 +328,14 @@ namespace Fluent
         // Handles isChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            bool newValue = (bool)e.NewValue;
-            bool oldValue = (bool)e.OldValue;
-            MenuItem button = (MenuItem)d;
+            var newValue = (bool)e.NewValue;
+            var oldValue = (bool)e.OldValue;
+            var button = (MenuItem)d;
 
             // Uncheck other toggle buttons
             if (newValue && button.GroupName != null)
             {
-                foreach (MenuItem item in GetItemsInGroup(button.GroupName))
+                foreach (var item in GetItemsInGroup(button.GroupName))
                     if (item != button) item.IsChecked = false;
             }
         }
@@ -368,23 +368,12 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static MenuItem()
         {
-            Type type = typeof(MenuItem);
+            var type = typeof(MenuItem);
             ToolTipService.Attach(type);
             //PopupService.Attach(type);            
             ContextMenuService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, OnIsCheckedChanged, CoerceIsChecked));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(MenuItem));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -400,10 +389,7 @@ namespace Fluent
         // Fix to raise MouseWhele event
         private void OnMenuItemMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (((MenuItem)sender).Parent as ListBox != null)
-            {
-                ((ListBox)((MenuItem)sender).Parent).RaiseEvent(e);
-            }
+            (((MenuItem)sender).Parent as ListBox)?.RaiseEvent(e);
         }
 
         #endregion
@@ -422,7 +408,7 @@ namespace Fluent
             {
                 if (this.IsSplited)
                 {
-                    SplitButton button = new SplitButton();
+                    var button = new SplitButton();
                     RibbonControl.BindQuickAccessItem(this, button);
                     RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
                     RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
@@ -437,7 +423,7 @@ namespace Fluent
                 }
                 else
                 {
-                    DropDownButton button = new DropDownButton();
+                    var button = new DropDownButton();
                     RibbonControl.BindQuickAccessItem(this, button);
                     RibbonControl.Bind(this, button, "ResizeMode", ResizeModeProperty, BindingMode.Default);
                     RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
@@ -453,7 +439,7 @@ namespace Fluent
             }
             else
             {
-                Button button = new Button();
+                var button = new Button();
                 RibbonControl.BindQuickAccessItem(this, button);
                 return button;
             }
@@ -481,7 +467,7 @@ namespace Fluent
         /// <param name="e"></param>
         protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;            
+            var buttonInQuickAccess = (DropDownButton)sender;
 
             buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
@@ -564,7 +550,7 @@ namespace Fluent
             {
                 if (this.IsSplited)
                 {
-                    Border buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
+                    var buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
                     if ((buttonBorder != null) && (PopupService.IsMousePhysicallyOver(buttonBorder)))
                     {
                         /*if (Command != null)
@@ -664,10 +650,10 @@ namespace Fluent
                     this.IsSubmenuOpen = false;
                 else
                 {
-                    DependencyObject parent = this.FindParentDropDownOrMenuItem();
+                    var parent = this.FindParentDropDownOrMenuItem();
                     if (parent != null)
                     {
-                        IDropDownControl dropDown = parent as IDropDownControl;
+                        var dropDown = parent as IDropDownControl;
                         if (dropDown != null) dropDown.IsDropDownOpen = false;
                         else (parent as System.Windows.Controls.MenuItem).IsSubmenuOpen = false;
                     }
@@ -679,12 +665,12 @@ namespace Fluent
 
         private DependencyObject FindParentDropDownOrMenuItem()
         {
-            DependencyObject parent = this.Parent;
+            var parent = this.Parent;
             while (parent != null)
             {
-                IDropDownControl dropDown = parent as IDropDownControl;
+                var dropDown = parent as IDropDownControl;
                 if (dropDown != null) return parent;
-                System.Windows.Controls.MenuItem menuItem = parent as System.Windows.Controls.MenuItem;
+                var menuItem = parent as System.Windows.Controls.MenuItem;
                 if (menuItem != null) return parent;
                 parent = LogicalTreeHelper.GetParent(parent);
             }

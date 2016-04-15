@@ -97,7 +97,7 @@ namespace Fluent
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
             ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
@@ -189,9 +189,9 @@ namespace Fluent
         // Finds and decrease size of all scalable elements in the given group box
         private void DecreaseScalableElement()
         {
-            foreach (object item in this.Items)
+            foreach (var item in this.Items)
             {
-                IScalableRibbonControl scalableRibbonControl = item as IScalableRibbonControl;
+                var scalableRibbonControl = item as IScalableRibbonControl;
                 if (scalableRibbonControl == null) continue;
                 scalableRibbonControl.Reduce();
             }
@@ -285,9 +285,9 @@ namespace Fluent
             DependencyProperty.Register("LauncherKeys",
             typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnDialogLauncherButtonKeyTipKeysChanged));
 
-        static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox ribbonGroupBox = (RibbonGroupBox)d;
+            var ribbonGroupBox = (RibbonGroupBox)d;
             if (ribbonGroupBox.LauncherButton != null)
             {
                 ribbonGroupBox.LauncherButton.KeyTip = (string)e.NewValue;
@@ -479,7 +479,7 @@ namespace Fluent
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
-            RibbonGroupBox box = d as RibbonGroupBox;
+            var box = d as RibbonGroupBox;
             if ((box.State != RibbonGroupBoxState.Collapsed) && (box.State != RibbonGroupBoxState.QuickAccess)) return false;
             return basevalue;
         }
@@ -526,13 +526,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
 
-
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBox element = d as RibbonGroupBox;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            var element = d as RibbonGroupBox;
+            var oldElement = e.OldValue as FrameworkElement;
             if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            var newElement = e.NewValue as FrameworkElement;
             if (newElement != null) element.AddLogicalChild(newElement);
         }
 
@@ -571,27 +570,15 @@ namespace Fluent
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnVisibilityChanged));
 
             PopupService.Attach(typeof(RibbonGroupBox));
-            StyleProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null, OnCoerceStyle));
 
             ContextMenuService.Attach(typeof(RibbonGroupBox));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonGroupBox));
-            }
-
-            return basevalue;
         }
 
         // Handles visibility changed
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (d as RibbonGroupBox);
-            if (box != null) box.ClearCache();
+            var box = d as RibbonGroupBox;
+            box?.ClearCache();
         }
 
         /// <summary>
@@ -723,14 +710,14 @@ namespace Fluent
         #region Caching
 
         // Pair of chached states
-        struct StateScale
+        private struct StateScale
         {
             public RibbonGroupBoxState State;
             public int Scale;
         }
 
         // Cache
-        readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
+        private readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
 
         /// <summary>
         /// Gets or sets intermediate state of the group box

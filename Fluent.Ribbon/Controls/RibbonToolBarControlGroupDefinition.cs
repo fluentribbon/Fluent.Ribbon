@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
@@ -25,7 +24,7 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        readonly ObservableCollection<RibbonToolBarControlDefinition> children = new ObservableCollection<RibbonToolBarControlDefinition>();
+        private readonly ObservableCollection<RibbonToolBarControlDefinition> children = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
 
@@ -52,7 +51,7 @@ namespace Fluent
             this.children.CollectionChanged += this.OnChildrenCollectionChanged;
         }
 
-        void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (this.ChildrenChanged != null)
                 this.ChildrenChanged(sender, e);

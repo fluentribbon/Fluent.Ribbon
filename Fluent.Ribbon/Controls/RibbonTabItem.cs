@@ -317,7 +317,7 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
@@ -371,9 +371,9 @@ namespace Fluent
             DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnHeaderChanged));
 
         // Header changed handler
-        static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem tabItem = (RibbonTabItem)d;
+            var tabItem = (RibbonTabItem)d;
             tabItem.CoerceValue(ToolTipProperty);
         }
 
@@ -446,18 +446,6 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
-            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonTabItem));
-            }
-
-            return basevalue;
         }
 
         // Handles visibility changes
@@ -547,13 +535,13 @@ namespace Fluent
             }
 
             this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
-            Size baseConstraint = base.MeasureOverride(constraint);
-            double totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
+            var baseConstraint = base.MeasureOverride(constraint);
+            var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
             (this.contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            double headerWidth = this.contentContainer.Child.DesiredSize.Width;
+            var headerWidth = this.contentContainer.Child.DesiredSize.Width;
             if (totalWidth < headerWidth + this.Indent * 2)
             {
-                double newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
+                var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
                 this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
             }
             else
@@ -570,7 +558,7 @@ namespace Fluent
             if ((this.cachedWidth != baseConstraint.Width) && (this.IsContextual) && (this.Group != null))
             {
                 this.cachedWidth = baseConstraint.Width;
-                FrameworkElement parent = (VisualTreeHelper.GetParent(this.Group) as FrameworkElement);
+                var parent = (VisualTreeHelper.GetParent(this.Group) as FrameworkElement);
                 if (parent != null) parent.InvalidateMeasure();
             }
 
@@ -644,8 +632,8 @@ namespace Fluent
         // Handles IsSelected property changes
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem container = d as RibbonTabItem;
-            bool newValue = (bool)e.NewValue;
+            var container = d as RibbonTabItem;
+            var newValue = (bool)e.NewValue;
             if (newValue)
             {
                 if ((container.TabControlParent != null) && (container.TabControlParent.SelectedItem is RibbonTabItem) && (container.TabControlParent.SelectedItem != container))

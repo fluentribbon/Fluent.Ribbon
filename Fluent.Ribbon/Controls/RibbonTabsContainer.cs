@@ -39,7 +39,7 @@ namespace Fluent
         {
             if (this.InternalChildren.Count == 0) return base.MeasureOverride(availableSize);
 
-            Size desiredSize = this.MeasureChildrenDesiredSize(availableSize);
+            var desiredSize = this.MeasureChildrenDesiredSize(availableSize);
 
             // Performs steps as described in "2007 MICROSOFT® OFFICE FLUENT™ 
             // USER INTERFACE DESIGN GUIDELINES"
@@ -57,17 +57,17 @@ namespace Fluent
             // Step 2. Gradually and uniformly remove the padding from both sides 
             // of all the tabs until the minimum padding required for displaying 
             // the tab selection and hover states is reached (regular tabs)
-            double overflowWidth = desiredSize.Width - availableSize.Width;
-            double whitespace = (this.InternalChildren[0] as RibbonTabItem).Indent;
-            RibbonTabItem[] contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
+            var overflowWidth = desiredSize.Width - availableSize.Width;
+            var whitespace = (this.InternalChildren[0] as RibbonTabItem).Indent;
+            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
             double contextualTabsCount = contextualTabs.Length;
             var regularTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
             double regularTabsCount = regularTabs.Count();//InternalChildren.Count - contextualTabsCount;
-            double childrenCount = contextualTabsCount + regularTabsCount;
+            var childrenCount = contextualTabsCount + regularTabsCount;
             if (overflowWidth < regularTabsCount * whitespace * 2)
             {
-                double decreaseValue = overflowWidth / (double)regularTabsCount;
-                foreach (RibbonTabItem tab in regularTabs) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
+                var decreaseValue = overflowWidth / (double)regularTabsCount;
+                foreach (var tab in regularTabs) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
                 desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
@@ -83,22 +83,22 @@ namespace Fluent
             // the tab selection and hover states is reached (contextual tabs)
             if (overflowWidth < childrenCount * whitespace * 2)
             {
-                double regularTabsWhitespace = (double)regularTabsCount * whitespace * 2.0;
-                double decreaseValue = (overflowWidth - regularTabsWhitespace) / (double)contextualTabsCount;
-                foreach (RibbonTabItem tab in regularTabs)
+                var regularTabsWhitespace = (double)regularTabsCount * whitespace * 2.0;
+                var decreaseValue = (overflowWidth - regularTabsWhitespace) / (double)contextualTabsCount;
+                foreach (var tab in regularTabs)
                 {
                     //if (!tab.IsContextual)
                     {
-                        double widthBeforeMeasure = tab.DesiredSize.Width;
+                        var widthBeforeMeasure = tab.DesiredSize.Width;
                         tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
                         overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
                     }
                 }
-                foreach (RibbonTabItem tab in contextualTabs.Reverse())
+                foreach (var tab in contextualTabs.Reverse())
                 {
                     //if (tab.IsContextual)
                     {
-                        double widthBeforeMeasure = tab.DesiredSize.Width;
+                        var widthBeforeMeasure = tab.DesiredSize.Width;
                         tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
 
                         // Contextual tabs may overreduce, so check that
@@ -121,20 +121,20 @@ namespace Fluent
             // truncating the text label. Continue reducing the width of the largest 
             // tab (or tabs in the case of ties) until all tabs are the same width. 
             // (Regular tabs)
-            foreach (RibbonTabItem tab in regularTabs)
+            foreach (var tab in regularTabs)
             {
                 //if (!tab.IsContextual)
                 {
-                    double widthBeforeMeasure = tab.DesiredSize.Width;
+                    var widthBeforeMeasure = tab.DesiredSize.Width;
                     tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
                     overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
                 }
             }
-            foreach (RibbonTabItem tab in contextualTabs.Reverse())
+            foreach (var tab in contextualTabs.Reverse())
             {
                 //if (tab.IsContextual)
                 {
-                    double widthBeforeMeasure = tab.DesiredSize.Width;
+                    var widthBeforeMeasure = tab.DesiredSize.Width;
                     tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - whitespace * 2.0), tab.DesiredSize.Height));
 
                     // Contextual tabs may overreduce, so check that
@@ -154,16 +154,16 @@ namespace Fluent
             }
 
             // Sort regular tabs by descending
-            RibbonTabItem[] sortedRegularTabItems = regularTabs
+            var sortedRegularTabItems = regularTabs
                 .OrderByDescending(x => x.DesiredSize.Width)
                 .ToArray();
 
             // Find how many regular tabs we have to reduce
             double reducedLength = 0;
-            int reduceCount = 0;
-            for (int i = 0; i < sortedRegularTabItems.Length - 1; i++)
+            var reduceCount = 0;
+            for (var i = 0; i < sortedRegularTabItems.Length - 1; i++)
             {
-                double temp =
+                var temp =
                     sortedRegularTabItems[i].DesiredSize.Width -
                     sortedRegularTabItems[i + 1].DesiredSize.Width;
                 reducedLength += temp * (i + 1);
@@ -174,9 +174,9 @@ namespace Fluent
             if (reducedLength > overflowWidth)
             {
                 // Reduce regular tabs
-                double requiredWidth = sortedRegularTabItems[reduceCount].DesiredSize.Width;
+                var requiredWidth = sortedRegularTabItems[reduceCount].DesiredSize.Width;
                 if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / (double)reduceCount;
-                for (int i = 0; i < reduceCount; i++)
+                for (var i = 0; i < reduceCount; i++)
                 {
                     sortedRegularTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
                 }
@@ -194,13 +194,13 @@ namespace Fluent
 
             // Step 5. Reduce the width of all regular tabs equally 
             // down to a minimum of about three characters.
-            double regularTabsWidth = sortedRegularTabItems.Sum(x => x.DesiredSize.Width);
-            double minimumRegularTabsWidth = MinimumRegularTabWidth * sortedRegularTabItems.Length;
+            var regularTabsWidth = sortedRegularTabItems.Sum(x => x.DesiredSize.Width);
+            var minimumRegularTabsWidth = MinimumRegularTabWidth * sortedRegularTabItems.Length;
 
             if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
             {
-                double settedWidth = (regularTabsWidth - overflowWidth) / (double)regularTabsCount;
-                for (int i = 0; i < regularTabsCount; i++)
+                var settedWidth = (regularTabsWidth - overflowWidth) / (double)regularTabsCount;
+                for (var i = 0; i < regularTabsCount; i++)
                 {
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
                 }
@@ -218,23 +218,23 @@ namespace Fluent
             // truncating the text label. Continue reducing the width of the largest 
             // tab (or tabs in the case of ties) until all tabs are the same width. 
             // (Contextual tabs)
-            for (int i = 0; i < regularTabsCount; i++)
+            for (var i = 0; i < regularTabsCount; i++)
             {
                 sortedRegularTabItems[i].Measure(new Size(MinimumRegularTabWidth, availableSize.Height));
             }
             overflowWidth -= regularTabsWidth - minimumRegularTabsWidth;
 
             // Sort contextual tabs by descending
-            RibbonTabItem[] sortedContextualTabItems = contextualTabs
+            var sortedContextualTabItems = contextualTabs
                 .OrderByDescending(x => x.DesiredSize.Width)
                 .ToArray();
 
             // Find how many contextual tabs we have to reduce
             reducedLength = 0;
             reduceCount = 0;
-            for (int i = 0; i < sortedContextualTabItems.Length - 1; i++)
+            for (var i = 0; i < sortedContextualTabItems.Length - 1; i++)
             {
-                double temp =
+                var temp =
                     sortedContextualTabItems[i].DesiredSize.Width -
                     sortedContextualTabItems[i + 1].DesiredSize.Width;
                 reducedLength += temp * (i + 1);
@@ -245,9 +245,9 @@ namespace Fluent
             if (reducedLength > overflowWidth)
             {
                 // Reduce regular tabs
-                double requiredWidth = sortedContextualTabItems[reduceCount].DesiredSize.Width;
+                var requiredWidth = sortedContextualTabItems[reduceCount].DesiredSize.Width;
                 if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / (double)reduceCount;
-                for (int i = 0; i < reduceCount; i++)
+                for (var i = 0; i < reduceCount; i++)
                 {
                     sortedContextualTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
                 }
@@ -263,10 +263,10 @@ namespace Fluent
             }
             else
             {
-                double contextualTabsWidth = sortedContextualTabItems.Sum(x => x.DesiredSize.Width);
+                var contextualTabsWidth = sortedContextualTabItems.Sum(x => x.DesiredSize.Width);
 
-                double settedWidth = Math.Max(MinimumRegularTabWidth, (contextualTabsWidth - overflowWidth) / (double)contextualTabsCount);
-                for (int i = 0; i < sortedContextualTabItems.Length; i++)
+                var settedWidth = Math.Max(MinimumRegularTabWidth, (contextualTabsWidth - overflowWidth) / (double)contextualTabsCount);
+                for (var i = 0; i < sortedContextualTabItems.Length; i++)
                 {
                     sortedContextualTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
                 }
@@ -316,9 +316,9 @@ namespace Fluent
         protected override Size ArrangeOverride(Size finalSize)
         {
             var finalRect = new Rect(finalSize)
-                                {
-                                    X = -this.HorizontalOffset
-                                };
+            {
+                X = -this.HorizontalOffset
+            };
 
             var orderedChildren = this.InternalChildren.OfType<RibbonTabItem>()
                                       .OrderBy(x => x.Group != null);
@@ -385,7 +385,7 @@ namespace Fluent
         /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
         public void SetHorizontalOffset(double offset)
         {
-            double newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
                 this.scrollData.OffsetX = newValue;
@@ -453,16 +453,16 @@ namespace Fluent
             }
 
             // Compute the child's rect relative to (0,0) in our coordinate space.
-            GeneralTransform childTransform = visual.TransformToAncestor(this);
+            var childTransform = visual.TransformToAncestor(this);
 
             rectangle = childTransform.TransformBounds(rectangle);
 
             // Initialize the viewport
-            Rect viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
+            var viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
             rectangle.X += viewport.X;
 
             // Compute the offsets required to minimally scroll the child maximally into view.
-            double minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
+            var minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
 
             // We have computed the scrolling offsets; scroll to them.
             this.SetHorizontalOffset(minX);
@@ -477,7 +477,7 @@ namespace Fluent
             return rectangle;
         }
 
-        static double ComputeScrollOffsetWithMinimalScroll(
+        private static double ComputeScrollOffsetWithMinimalScroll(
             double topView,
             double bottomView,
             double topChild,
@@ -496,9 +496,9 @@ namespace Fluent
             // These child thus may overlap with the viewport, but will scroll the same direction
             /*bool fAbove = DoubleUtil.LessThan(topChild, topView) && DoubleUtil.LessThan(bottomChild, bottomView);
             bool fBelow = DoubleUtil.GreaterThan(bottomChild, bottomView) && DoubleUtil.GreaterThan(topChild, topView);*/
-            bool fAbove = (topChild < topView) && (bottomChild < bottomView);
-            bool fBelow = (bottomChild > bottomView) && (topChild > topView);
-            bool fLarger = (bottomChild - topChild) > (bottomView - topView);
+            var fAbove = (topChild < topView) && (bottomChild < bottomView);
+            var fBelow = (bottomChild > bottomView) && (topChild > topView);
+            var fLarger = (bottomChild - topChild) > (bottomView - topView);
 
             // Handle Cases:  1 & 4 above
             if ((fAbove && !fLarger)
@@ -607,8 +607,8 @@ namespace Fluent
         {
             get { return 0.0; }
         }/// <summary>
-        /// Not implemented
-        /// </summary>
+         /// Not implemented
+         /// </summary>
 
         public double VerticalOffset
         {
@@ -636,7 +636,7 @@ namespace Fluent
         private const double MinimumRegularTabWidth = 30D;
 
         // Validates input offset
-        static double ValidateInputOffset(double offset, string parameterName)
+        private static double ValidateInputOffset(double offset, string parameterName)
         {
             if (double.IsNaN(offset))
             {
@@ -652,14 +652,14 @@ namespace Fluent
         //   cachces are updated and InvalidateScrollInfo() is called.
         private void VerifyScrollData(double viewportWidth, double extentWidth)
         {
-            bool isValid = true;
+            var isValid = true;
 
             if (double.IsInfinity(viewportWidth))
             {
                 viewportWidth = extentWidth;
             }
 
-            double offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
+            var offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
 
             isValid &= DoubleUtil.AreClose(viewportWidth, this.ScrollData.ViewportWidth);
             isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
@@ -704,7 +704,7 @@ namespace Fluent
         }
 
         // Returns an offset coerced into the [0, Extent - Viewport] range.
-        static double CoerceOffset(double offset, double extent, double viewport)
+        private static double CoerceOffset(double offset, double extent, double viewport)
         {
             if (offset > extent - viewport)
             {

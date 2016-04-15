@@ -193,25 +193,7 @@
         /// </summary>
         static RibbonWindow()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue != null)
-            {
-                return basevalue;
-            }
-
-            var frameworkElement = d as FrameworkElement;
-            if (frameworkElement != null)
-            {
-                basevalue = frameworkElement.TryFindResource(typeof(RibbonWindow));
-            }
-
-            return basevalue;
         }
 
         /// <summary>

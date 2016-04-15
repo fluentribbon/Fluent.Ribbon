@@ -41,7 +41,7 @@ namespace Fluent
         #region Localization
 
         // Localizable properties
-        static readonly RibbonLocalization localization = new RibbonLocalization();
+        private static readonly RibbonLocalization localization = new RibbonLocalization();
 
         /// <summary>
         /// Gets localizable properties
@@ -431,7 +431,7 @@ namespace Fluent
         private Panel layoutRoot;
 
         // Handles F10, Alt and so on
-        readonly KeyTipService keyTipService;
+        private readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
@@ -689,25 +689,25 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         if (this.TitleBar != null) this.TitleBar.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
                         if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
                         if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems)
                     {
                         if (this.TitleBar != null) this.TitleBar.Items.Add(item);
                     }
@@ -809,7 +809,7 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         if (this.TabControl != null)
                             this.TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
@@ -817,7 +817,7 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
                         if (this.TabControl != null)
                             this.TabControl.ToolBarItems.Remove(item as UIElement);
@@ -825,12 +825,12 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (object item in e.OldItems)
+                    foreach (var item in e.OldItems)
                     {
                         if (this.TabControl != null)
                             this.TabControl.ToolBarItems.Remove(item as UIElement);
                     }
-                    foreach (object item in e.NewItems)
+                    foreach (var item in e.NewItems)
                     {
                         if (this.TabControl != null)
                             this.TabControl.ToolBarItems.Add(item as UIElement);

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace Fluent
 {
@@ -109,10 +107,10 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CheckBox element = d as CheckBox;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            var element = d as CheckBox;
+            var oldElement = e.OldValue as FrameworkElement;
             if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            var newElement = e.NewValue as FrameworkElement;
             if (newElement != null) element.AddLogicalChild(newElement);
         }
 
@@ -147,22 +145,10 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static CheckBox()
         {
-            Type type = typeof(CheckBox);
+            var type = typeof(CheckBox);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(typeof(CheckBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(CheckBox));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -185,7 +171,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            CheckBox button = new CheckBox();
+            var button = new CheckBox();
 
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
             button.Click += ((sender, e) => this.RaiseEvent(e));

@@ -389,7 +389,7 @@
             DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
-        static object CoerceSelectedFilter(DependencyObject d, object basevalue)
+        private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
         {
             var gallery = (InRibbonGallery)d;
             if (basevalue == null
@@ -921,19 +921,7 @@
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, OnCoerceStyle));
             SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement)d).TryFindResource(typeof(InRibbonGallery));
-            }
-
-            return basevalue;
         }
 
         // Coerce selected item

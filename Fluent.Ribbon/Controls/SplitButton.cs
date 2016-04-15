@@ -18,7 +18,7 @@ namespace Fluent
         #region Fields
 
         // Inner button
-        ToggleButton button;
+        private ToggleButton button;
 
         #endregion
 
@@ -155,7 +155,7 @@ namespace Fluent
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SplitButton button = d as SplitButton;
+            var button = d as SplitButton;
             if (button.IsCheckable)
             {
                 if ((bool)e.NewValue) button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
@@ -167,7 +167,7 @@ namespace Fluent
 
         private static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            SplitButton button = d as SplitButton;
+            var button = d as SplitButton;
 
             if (!button.IsCheckable) return false;
 
@@ -328,18 +328,6 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(typeof(SplitButton)));
             FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null));
-            StyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(SplitButton));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -349,8 +337,6 @@ namespace Fluent
         {
             ContextMenuService.Coerce(this);
             this.Click += this.OnClick;
-            //            AddHandler(ClickEvent, OnClick);
-
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
         }
@@ -465,7 +451,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            SplitButton button = new SplitButton();
+            var button = new SplitButton();
             button.Click += ((sender, e) => this.RaiseEvent(e));
             RibbonProperties.SetSize(button, RibbonControlSize.Small);
             button.CanAddButtonToQuickAccessToolBar = false;

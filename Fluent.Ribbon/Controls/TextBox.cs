@@ -404,18 +404,6 @@ namespace Fluent
         static TextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBox), new FrameworkPropertyMetadata(typeof(TextBox)));
-            StyleProperty.OverrideMetadata(typeof(TextBox), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(TextBox));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -427,7 +415,7 @@ namespace Fluent
             this.textBox.SelectionChanged += (s, e) => this.RaiseSelectionChanged();
             this.textBox.TextChanged += (s, e) => this.RaiseTextChanged(e);
 
-            Binding binding = new Binding("Text");
+            var binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
@@ -574,7 +562,7 @@ namespace Fluent
             // Bindings
             BindingOperations.ClearAllBindings(this.textBox);
 
-            Binding binding = new Binding("Text");
+            var binding = new Binding("Text");
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
             binding.Source = this;
             binding.Mode = BindingMode.TwoWay;
@@ -695,7 +683,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            TextBox textBox = new TextBox();
+            var textBox = new TextBox();
 
             this.BindQuickAccessItem(textBox);
 
@@ -711,7 +699,7 @@ namespace Fluent
         {
             RibbonControl.BindQuickAccessItem(this, element);
 
-            TextBox textBoxQAT = (TextBox)element;
+            var textBoxQAT = (TextBox)element;
 
             textBoxQAT.Width = this.Width;
             textBoxQAT.InputWidth = this.InputWidth;

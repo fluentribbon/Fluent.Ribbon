@@ -22,9 +22,9 @@ namespace Fluent
           new FrameworkPropertyMetadata(null, KeysPropertyChanged)
         );
 
-        static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Fluent
         #endregion
 
         #region VerticalAlignment Attached Property
-        
+
         /// <summary>
         /// Gets vertical alignment of the key tip
         /// </summary>
@@ -162,10 +162,10 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static new readonly DependencyProperty VerticalAlignmentProperty =
-            DependencyProperty.RegisterAttached("VerticalAlignment", 
-            typeof(VerticalAlignment), typeof(KeyTip), 
+            DependencyProperty.RegisterAttached("VerticalAlignment",
+            typeof(VerticalAlignment), typeof(KeyTip),
             new UIPropertyMetadata(VerticalAlignment.Center));
-        
+
         #endregion
 
         #region Margin Attached Property
@@ -203,36 +203,11 @@ namespace Fluent
 
         #endregion
 
-        #region Initialization
-
-        // Static constructor
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static KeyTip()
         {
             // Override metadata to allow slyling
-            //StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
-            StyleProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(KeyTip));
-            }
-
-            return basevalue;
-        }
-        
-        /// <summary>
-        /// Default constrctor
-        /// </summary>
-        public KeyTip()
-        {
-        }
-
-        #endregion
     }
 }

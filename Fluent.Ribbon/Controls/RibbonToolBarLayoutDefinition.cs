@@ -14,7 +14,7 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        ObservableCollection<RibbonToolBarRow> rows = new ObservableCollection<RibbonToolBarRow>();
+        private ObservableCollection<RibbonToolBarRow> rows = new ObservableCollection<RibbonToolBarRow>();
 
         #endregion
 

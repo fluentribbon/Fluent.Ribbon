@@ -33,9 +33,9 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        Thumb resizeBothThumb;
+        private Thumb resizeBothThumb;
         // Thumb to resize vertical
-        Thumb resizeVerticalThumb;
+        private Thumb resizeVerticalThumb;
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace Fluent
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
             typeof(ContextMenu), new UIPropertyMetadata(ContextMenuResizeMode.None));
-        
+
         #endregion
 
         #region Constructor
@@ -127,11 +127,11 @@ namespace Fluent
         {
             return (item is FrameworkElement);
         }
-        
+
         #endregion
 
         #region Private methods
-        
+
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {

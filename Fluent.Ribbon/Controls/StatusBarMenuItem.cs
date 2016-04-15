@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using Fluent;
+﻿using System.Windows;
 
 namespace Fluent
 {
@@ -29,7 +24,7 @@ namespace Fluent
         public static readonly DependencyProperty StatusBarItemProperty =
             DependencyProperty.Register("StatusBarItem", typeof(StatusBarItem), typeof(StatusBarMenuItem), new UIPropertyMetadata(null));
 
-        
+
         #endregion
 
         #region Constructors

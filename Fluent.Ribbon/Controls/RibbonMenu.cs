@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -23,18 +18,6 @@ namespace Fluent
         static RibbonMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonMenu), new FrameworkPropertyMetadata(typeof(RibbonMenu)));
-            StyleProperty.OverrideMetadata(typeof(RibbonMenu), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonMenu));
-            }
-
-            return basevalue;
         }
 
         #endregion
@@ -57,7 +40,7 @@ namespace Fluent
         /// <returns></returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return item is System.Windows.Controls.MenuItem 
+            return item is System.Windows.Controls.MenuItem
                 || item is Separator;
         }
 
@@ -68,7 +51,7 @@ namespace Fluent
         protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             //base.OnGotKeyboardFocus(e);
-            IInputElement element = this.GetRootDropDownControl() as IInputElement;
+            var element = this.GetRootDropDownControl() as IInputElement;
             if (element != null) Keyboard.Focus(element);
         }
 
@@ -83,9 +66,9 @@ namespace Fluent
             DependencyObject element = this;
             while (element != null)
             {
-                IDropDownControl popup = element as IDropDownControl;
+                var popup = element as IDropDownControl;
                 if (popup != null) return popup;
-                DependencyObject elementParent = VisualTreeHelper.GetParent(element);
+                var elementParent = VisualTreeHelper.GetParent(element);
                 if (elementParent == null) element = LogicalTreeHelper.GetParent(element);
                 else element = elementParent;
             }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,10 +8,10 @@ namespace Fluent
     /// <summary>
     /// Represents panel for status bar
     /// </summary>
-    public class StatusBarPanel: Panel
+    public class StatusBarPanel : Panel
     {
         #region Attributes
-        
+
         private List<UIElement> leftChildren = new List<UIElement>();
         private List<UIElement> rightChildren = new List<UIElement>();
         private List<UIElement> otherChildren = new List<UIElement>();
@@ -38,9 +36,9 @@ namespace Fluent
             this.leftChildren.Clear();
             this.rightChildren.Clear();
             this.otherChildren.Clear();
-            for (int i = 0; i < this.InternalChildren.Count; i++)
+            for (var i = 0; i < this.InternalChildren.Count; i++)
             {
-                FrameworkElement child = this.InternalChildren[i] as FrameworkElement;
+                var child = this.InternalChildren[i] as FrameworkElement;
                 if (child != null)
                 {
                     if (child.HorizontalAlignment == HorizontalAlignment.Left)
@@ -56,13 +54,13 @@ namespace Fluent
             this.lastLeftIndex = this.leftChildren.Count;
 
             // Measure children
-            Size infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-            Size zero = new Size(0, 0);
+            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+            var zero = new Size(0, 0);
             double width = 0;
             double height = 0;
-            bool canAdd = true;
+            var canAdd = true;
             // Right children
-            for (int i = 0; i < this.rightChildren.Count; i++)
+            for (var i = 0; i < this.rightChildren.Count; i++)
             {
                 if (canAdd)
                 {
@@ -87,7 +85,7 @@ namespace Fluent
             }
 
             // Left children
-            for (int i = 0; i < this.leftChildren.Count; i++)
+            for (var i = 0; i < this.leftChildren.Count; i++)
             {
                 if (canAdd)
                 {
@@ -102,7 +100,7 @@ namespace Fluent
                         canAdd = false;
                         this.leftChildren[i].Measure(zero);
                         this.lastLeftIndex = i;
-                        
+
                     }
                 }
                 else
@@ -112,7 +110,7 @@ namespace Fluent
             }
 
             // Collapse other children
-            for (int i = 0; i < this.otherChildren.Count; i++)
+            for (var i = 0; i < this.otherChildren.Count; i++)
             {
                 this.otherChildren[i].Measure(zero);
             }
@@ -129,12 +127,12 @@ namespace Fluent
         /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            Rect zero = new Rect(0, 0, 0, 0);
+            var zero = new Rect(0, 0, 0, 0);
 
             // Right shift
-            double rightShift = 0;           
+            double rightShift = 0;
             // Arrange right
-            for (int i = this.rightChildren.Count - 1; i >= 0; i--)
+            for (var i = this.rightChildren.Count - 1; i >= 0; i--)
             {
                 if (this.lastRightIndex > i)
                 {
@@ -144,11 +142,11 @@ namespace Fluent
                 else
                     this.rightChildren[i].Arrange(zero);
             }
-            
+
             // Left shift
             double leftShift = 0;
             // Arrange left
-            for (int i = 0; i < this.leftChildren.Count; i++)
+            for (var i = 0; i < this.leftChildren.Count; i++)
             {
                 if (i < this.lastLeftIndex)
                 {
@@ -160,13 +158,13 @@ namespace Fluent
             }
 
             // Arrange other
-            for (int i = 0; i < this.otherChildren.Count; i++)
+            for (var i = 0; i < this.otherChildren.Count; i++)
             {
                 this.otherChildren[i].Arrange(zero);
             }
-            
+
             return finalSize;
-        }        
+        }
 
         #endregion
     }

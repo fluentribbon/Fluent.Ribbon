@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace Fluent
@@ -58,7 +57,7 @@ namespace Fluent
         #endregion
 
         #region Target Property
-        
+
         /// <summary>
         /// Gets or sets name of the target control
         /// </summary>
@@ -76,16 +75,16 @@ namespace Fluent
             DependencyProperty.Register("Target", typeof(string),
             typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(null, OnTargetPropertyChanged));
 
-        static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonToolBarControlDefinition definition = (RibbonToolBarControlDefinition) d;
+            var definition = (RibbonToolBarControlDefinition)d;
             definition.Invalidate("Target");
         }
 
         #endregion
 
         #region Width Property
-        
+
         /// <summary>
         /// Gets or sets width of the target control
         /// </summary>
@@ -102,9 +101,9 @@ namespace Fluent
         public static readonly DependencyProperty WidthProperty =
             DependencyProperty.Register("Width", typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(double.NaN, OnWidthPropertyChanged));
 
-        static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonToolBarControlDefinition definition = (RibbonToolBarControlDefinition) d;
+            var definition = (RibbonToolBarControlDefinition)d;
             definition.Invalidate("Width");
         }
 

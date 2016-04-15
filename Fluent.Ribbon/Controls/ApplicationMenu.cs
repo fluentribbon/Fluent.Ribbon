@@ -24,7 +24,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RightPaneWidthProperty =
-            DependencyProperty.Register("RightPaneWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));        
+            DependencyProperty.Register("RightPaneWidth", typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
 
         /// <summary>
         /// Gets or sets application menu right pane content
@@ -55,7 +55,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty FooterPaneContentProperty =
             DependencyProperty.Register("FooterPaneContent", typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
-        
+
         #endregion
 
         #region Initialization
@@ -66,7 +66,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ApplicationMenu()
         {
-            var type = typeof (ApplicationMenu);
+            var type = typeof(ApplicationMenu);
 
             // Override style metadata
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
@@ -74,21 +74,9 @@ namespace Fluent
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
             // Make default KeyTip
             KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
-            StyleProperty.OverrideMetadata(typeof(ApplicationMenu), new FrameworkPropertyMetadata(null, OnCoerceStyle));
         }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement) d).TryFindResource(typeof(ApplicationMenu));
-            }
-
-            return basevalue;
-        }
-        
-        static object CoerceKeyTipKeys(DependencyObject d, object basevalue)
+        private static object CoerceKeyTipKeys(DependencyObject d, object basevalue)
         {
             return basevalue ?? Ribbon.Localization.BackstageButtonKeyTip;
         }
@@ -102,7 +90,7 @@ namespace Fluent
         }
 
         #endregion
-       
+
         #region Quick Access Toolbar
 
         /// <summary>

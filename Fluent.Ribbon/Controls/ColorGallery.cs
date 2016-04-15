@@ -1,18 +1,15 @@
 ﻿namespace Fluent
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Represents color gallery modes
@@ -126,8 +123,8 @@
         /// <summary>
         /// Hightlight colors array
         /// </summary>
-        public static readonly Color[] HighlightColors = new Color[] 
-        { 
+        public static readonly Color[] HighlightColors = new Color[]
+        {
             Color.FromRgb(0xFF ,0xFF ,0x00),
             Color.FromRgb(0x00 ,0xFF ,0x00),
             Color.FromRgb(0x00 ,0xFF ,0xFF),
@@ -295,7 +292,7 @@
 
         private static object CoerceChipSize(DependencyObject d, object basevalue)
         {
-            double value = (double)basevalue;
+            var value = (double)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
@@ -414,7 +411,7 @@
 
         private static object CoerceColumns(DependencyObject d, object basevalue)
         {
-            int value = (int)basevalue;
+            var value = (int)basevalue;
             if (value < 1) return 1;
             return basevalue;
         }
@@ -445,7 +442,7 @@
 
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
-            int value = (int)basevalue;
+            var value = (int)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
@@ -611,11 +608,11 @@
 
         private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ColorGallery gal = d as ColorGallery;
+            var gal = d as ColorGallery;
             gal.ThemeColors.Clear();
             if (e.NewValue != null)
             {
-                foreach (Color color in (e.NewValue as IEnumerable<Color>))
+                foreach (var color in (e.NewValue as IEnumerable<Color>))
                 {
                     gal.ThemeColors.Add(color);
                 }
@@ -713,28 +710,9 @@
         /// </summary>
         static ColorGallery()
         {
-            Type type = typeof(ColorGallery);
+            var type = typeof(ColorGallery);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ColorGallery));
-            }
-
-            return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ColorGallery()
-        {
         }
 
         #endregion
@@ -803,7 +781,7 @@
             this.listBoxes.Add(this.recentColorsListBox);
             if (this.recentColorsListBox != null)
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
-            
+
             this.isTemplateApplied = true;
 
             this.UpdateSelectedColor(this.SelectedColor);
@@ -820,11 +798,11 @@
         {
             if (this.MoreColorsExecuting != null)
             {
-                MoreColorsExecutingEventArgs args = new MoreColorsExecutingEventArgs();
+                var args = new MoreColorsExecutingEventArgs();
                 this.MoreColorsExecuting(this, args);
                 if (!args.Canceled)
                 {
-                    Color color = args.Color;
+                    var color = args.Color;
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
@@ -832,21 +810,21 @@
             }
             else
             {
-                NativeMethods.CHOOSECOLOR chooseColor = new NativeMethods.CHOOSECOLOR();
-                Window wnd = Window.GetWindow(this);
+                var chooseColor = new NativeMethods.CHOOSECOLOR();
+                var wnd = Window.GetWindow(this);
                 if (wnd != null) chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
                 chooseColor.Flags = NativeMethods.CC_ANYCOLOR;
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
-                    for (int i = 0; i < this.colorsArray.Length; i++)
+                    for (var i = 0; i < this.colorsArray.Length; i++)
                         this.colorsArray[i] = 0x00FFFFFF;
                     customColors = GCHandle.Alloc(this.colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
                 }
                 chooseColor.lpCustColors = customColors;
                 if (NativeMethods.ChooseColor(chooseColor))
                 {
-                    Color color = ConvertFromWin32Color(chooseColor.rgbResult);
+                    var color = ConvertFromWin32Color(chooseColor.rgbResult);
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
@@ -856,9 +834,9 @@
 
         private static Color ConvertFromWin32Color(int color)
         {
-            int r = color & 0x000000FF;
-            int g = (color & 0x0000FF00) >> 8;
-            int b = (color & 0x00FF0000) >> 16;
+            var r = color & 0x000000FF;
+            var g = (color & 0x0000FF00) >> 8;
+            var b = (color & 0x00FF0000) >> 16;
             return Color.FromArgb(255, (byte)r, (byte)g, (byte)b);
         }
 
@@ -868,7 +846,7 @@
             this.noColorButton.IsChecked = false;
             this.automaticButton.IsChecked = true;
             // Remove selection from listboxes
-            for (int i = 0; i < this.listBoxes.Count; i++)
+            for (var i = 0; i < this.listBoxes.Count; i++)
             {
                 this.listBoxes[i].SelectedItem = null;
             }
@@ -883,7 +861,7 @@
             this.noColorButton.IsChecked = true;
             this.automaticButton.IsChecked = false;
             // Remove selection from listboxes
-            for (int i = 0; i < this.listBoxes.Count; i++)
+            for (var i = 0; i < this.listBoxes.Count; i++)
             {
                 this.listBoxes[i].SelectedItem = null;
             }
@@ -901,7 +879,7 @@
                 // Remove selection from others
                 this.noColorButton.IsChecked = false;
                 this.automaticButton.IsChecked = false;
-                for (int i = 0; i < this.listBoxes.Count; i++)
+                for (var i = 0; i < this.listBoxes.Count; i++)
                 {
                     if (this.listBoxes[i] != sender)
                         this.listBoxes[i].SelectedItem = null;
@@ -939,14 +917,14 @@
 
         private Color[] GenerateStandardGradients()
         {
-            int count = Math.Min(this.Columns, StandardThemeColors.Length);
-            Color[] result = new Color[this.Columns *this.StandardColorGridRows];
-            for (int i = 0; i < count; i++)
+            var count = Math.Min(this.Columns, StandardThemeColors.Length);
+            var result = new Color[this.Columns * this.StandardColorGridRows];
+            for (var i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
-                for (int j = 0; j < this.StandardColorGridRows; j++)
+                var colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
+                for (var j = 0; j < this.StandardColorGridRows; j++)
                 {
-                    result[i + j *this.Columns] = colors[j];
+                    result[i + j * this.Columns] = colors[j];
                 }
             }
             return result;
@@ -954,14 +932,14 @@
 
         private Color[] GenerateThemeGradients()
         {
-            int count = Math.Min(this.Columns, this.ThemeColors.Count);
-            Color[] result = new Color[this.Columns *this.ThemeColorGridRows];
-            for (int i = 0; i < count; i++)
+            var count = Math.Min(this.Columns, this.ThemeColors.Count);
+            var result = new Color[this.Columns * this.ThemeColorGridRows];
+            for (var i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
-                for (int j = 0; j < this.ThemeColorGridRows; j++)
+                var colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
+                for (var j = 0; j < this.ThemeColorGridRows; j++)
                 {
-                    result[i + j *this.Columns] = colors[j];
+                    result[i + j * this.Columns] = colors[j];
                 }
             }
             return result;
@@ -976,16 +954,16 @@
         /// </summary>
         /// <param name="color">Color</param>
         /// <returns>Brightness of the given color from 0..1</returns>
-        static double GetBrightness(Color color)
+        private static double GetBrightness(Color color)
         {
-            double summ = ((double)color.R) + ((double)color.G) + ((double)color.B);
+            var summ = ((double)color.R) + ((double)color.G) + ((double)color.B);
             return summ / (255.0 * 3.0);
         }
 
         // Makes the given color lighter 
-        static Color Lighter(Color color, double power)
+        private static Color Lighter(Color color, double power)
         {
-            double totalAvailability = 255.0 * 3.0 - (double)color.R + (double)color.G + (double)color.B;
+            var totalAvailability = 255.0 * 3.0 - (double)color.R + (double)color.G + (double)color.B;
             double redAvailability;
             double greenAvailability;
             double blueAvailability;
@@ -1007,7 +985,7 @@
             }
 
 
-            Color result = Color.FromRgb(
+            var result = Color.FromRgb(
                 (byte)(color.R + ((byte)(redAvailability * needToBeAdded))),
                 (byte)(color.G + ((byte)(greenAvailability * needToBeAdded))),
                 (byte)(color.B + ((byte)(blueAvailability * needToBeAdded))));
@@ -1016,17 +994,17 @@
         }
 
         // Makes the given color darker 
-        static Color Darker(Color color, double power)
+        private static Color Darker(Color color, double power)
         {
-            double totalAvailability = (double)color.R + (double)color.G + (double)color.B;
-            double redAvailability = ((double)color.R) / totalAvailability;
-            double greenAvailability = ((double)color.G) / totalAvailability;
-            double blueAvailability = ((double)color.B) / totalAvailability;
+            var totalAvailability = (double)color.R + (double)color.G + (double)color.B;
+            var redAvailability = ((double)color.R) / totalAvailability;
+            var greenAvailability = ((double)color.G) / totalAvailability;
+            var blueAvailability = ((double)color.B) / totalAvailability;
 
-            double needToBeAdded = ((double)color.R + (double)color.G + (double)color.B);
+            var needToBeAdded = ((double)color.R + (double)color.G + (double)color.B);
             needToBeAdded = needToBeAdded - needToBeAdded * power;
 
-            Color result = Color.FromRgb(
+            var result = Color.FromRgb(
                 (byte)(color.R - ((byte)(redAvailability * needToBeAdded))),
                 (byte)(color.G - ((byte)(greenAvailability * needToBeAdded))),
                 (byte)(color.B - ((byte)(blueAvailability * needToBeAdded))));
@@ -1035,10 +1013,10 @@
         }
 
         // Makes a new color from the given with new brightness
-        static Color Rebright(Color color, double newBrightness)
+        private static Color Rebright(Color color, double newBrightness)
         {
-            double currentBrightness = GetBrightness(color);
-            double power = currentBrightness != 0.0 ? newBrightness / currentBrightness : (1.0 + newBrightness);
+            var currentBrightness = GetBrightness(color);
+            var power = currentBrightness != 0.0 ? newBrightness / currentBrightness : (1.0 + newBrightness);
 
             // TODO: round power to make nice numbers
             // ...
@@ -1053,15 +1031,15 @@
         /// <param name="color">Base color</param>
         /// <param name="count">Count of items in the gradient</param>
         /// <returns>Colors from lighter to darker</returns>
-        static Color[] GetGradient(Color color, int count)
+        private static Color[] GetGradient(Color color, int count)
         {
             const double lowBrightness = 0.15;
             const double highBrightness = 0.85;
-            Color[] result = new Color[count];
+            var result = new Color[count];
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                double brightness = lowBrightness + ((double)i) * (highBrightness - lowBrightness) / (double)count;
+                var brightness = lowBrightness + ((double)i) * (highBrightness - lowBrightness) / (double)count;
                 result[count - i - 1] = Rebright(color, brightness);
             }
 

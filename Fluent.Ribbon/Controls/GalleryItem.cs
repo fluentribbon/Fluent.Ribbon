@@ -187,7 +187,7 @@ namespace Fluent
             {
                 return;
             }
-            
+
             var oldCommand = e.OldValue as ICommand;
             if (oldCommand != null)
             {
@@ -214,7 +214,7 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null 
+            var canExecute = this.Command != null
                 && this.CanExecuteCommand();
             if (this.currentCanExecute != canExecute)
             {
@@ -311,21 +311,9 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
             IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
-            StyleProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(GalleryItem));
-            }
-
-            return basevalue;
-        }
-
-        static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
             {
@@ -442,7 +430,7 @@ namespace Fluent
             PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
 
             this.ExecuteCommand();
-            this.IsSelected = true;            
+            this.IsSelected = true;
             e.Handled = true;
         }
 

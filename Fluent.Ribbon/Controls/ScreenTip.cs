@@ -28,21 +28,6 @@
         static ScreenTip()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
-            StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                var frameworkElement = d as FrameworkElement;
-                if (frameworkElement != null)
-                {
-                    basevalue = frameworkElement.TryFindResource(typeof(ScreenTip));
-                }
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -62,7 +47,7 @@
         #region Popup Custom Placement
 
         // Calculate two variants: below and upper ribbon
-        CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
+        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
         {
             if (this.PlacementTarget == null)
             {
@@ -107,7 +92,7 @@
                 return new[] { below, above };
             }
 
-            return new[] { 
+            return new[] {
                 new CustomPopupPlacement(new Point(rightToLeftOffset, this.PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
                 new CustomPopupPlacement(new Point(rightToLeftOffset, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
         }
@@ -389,7 +374,7 @@
             }
         }
 
-        void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.F1)
             {

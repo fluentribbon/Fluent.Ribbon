@@ -10,8 +10,6 @@ using System.Windows.Media.Imaging;
 
 namespace Fluent
 {
-    using Fluent.Metro.Native;
-
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
@@ -69,7 +67,7 @@ namespace Fluent
         /// </summary>
         /// <param name="frame"></param>
         /// <returns></returns>
-        static BitmapSource GetThumbnail(BitmapSource frame)
+        private static BitmapSource GetThumbnail(BitmapSource frame)
         {
             try
             {
@@ -90,7 +88,7 @@ namespace Fluent
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031")]
-        static ImageSource GetDefaultIcon(IntPtr hwnd)
+        private static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {

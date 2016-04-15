@@ -311,18 +311,6 @@
         static QuickAccessToolBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
-            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
-            }
-
-            return basevalue;
         }
 
         #endregion

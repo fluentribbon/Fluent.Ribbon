@@ -4,7 +4,6 @@
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Text;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -150,7 +149,7 @@
         /// </summary>
         public static readonly DependencyProperty MinimumProperty;
 
-        static object CoerceMinimum(DependencyObject d, object basevalue)
+        private static object CoerceMinimum(DependencyObject d, object basevalue)
         {
             var spinner = (Spinner)d;
             var value = (double)basevalue;
@@ -163,7 +162,7 @@
             return value;
         }
 
-        static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             var value = (double)CoerceValue(d, spinner.Value);
@@ -193,7 +192,7 @@
         /// </summary>
         public static readonly DependencyProperty MaximumProperty;
 
-        static object CoerceMaximum(DependencyObject d, object basevalue)
+        private static object CoerceMaximum(DependencyObject d, object basevalue)
         {
             var spinner = (Spinner)d;
             var value = (double)basevalue;
@@ -206,7 +205,7 @@
             return value;
         }
 
-        static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             var value = (double)CoerceValue(d, spinner.Value);
@@ -237,7 +236,7 @@
         public static readonly DependencyProperty FormatProperty =
             DependencyProperty.Register("Format", typeof(string), typeof(Spinner), new UIPropertyMetadata("F1", OnFormatChanged));
 
-        static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
@@ -392,7 +391,7 @@
             this.ValueToTextBoxText();
         }
 
-        bool IsTemplateValid()
+        private bool IsTemplateValid()
         {
             return this.textBox != null
                 && this.buttonUp != null

@@ -40,7 +40,7 @@
 
         // Parent adorner
         private readonly KeyTipAdorner parentAdorner;
-        KeyTipAdorner childAdorner;
+        private KeyTipAdorner childAdorner;
 
         private readonly Visibility[] backupedVisibilities;
         private readonly UIElement keyTipElementContainer;

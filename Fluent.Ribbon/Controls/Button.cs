@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -107,10 +106,10 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Button element = d as Button;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
+            var element = d as Button;
+            var oldElement = e.OldValue as FrameworkElement;
             if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
+            var newElement = e.NewValue as FrameworkElement;
             if (newElement != null) element.AddLogicalChild(newElement);
         }
         #endregion
@@ -184,22 +183,10 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
-            Type type = typeof(Button);
+            var type = typeof(Button);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(Button));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -240,7 +227,7 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            Button button = new Button();
+            var button = new Button();
             button.Click += ((sender, e) => this.RaiseEvent(e));
             RibbonControl.BindQuickAccessItem(this, button);
             return button;

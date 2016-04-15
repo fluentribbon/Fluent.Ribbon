@@ -43,13 +43,13 @@ namespace Fluent.Metro.Behaviours
 
         private static int GetIndexOf(BehaviorCollection itemBehaviors, Behavior behavior)
         {
-            int index = -1;
+            var index = -1;
 
-            Behavior orignalBehavior = GetOriginalBehavior(behavior);
+            var orignalBehavior = GetOriginalBehavior(behavior);
 
-            for (int i = 0; i < itemBehaviors.Count; i++)
+            for (var i = 0; i < itemBehaviors.Count; i++)
             {
-                Behavior currentBehavior = itemBehaviors[i];
+                var currentBehavior = itemBehaviors[i];
 
                 if (currentBehavior == behavior
                     || currentBehavior == orignalBehavior)
@@ -58,7 +58,7 @@ namespace Fluent.Metro.Behaviours
                     break;
                 }
 
-                Behavior currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
+                var currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
 
                 if (currentOrignalBehavior == behavior
                     || currentOrignalBehavior == orignalBehavior)
@@ -80,7 +80,7 @@ namespace Fluent.Metro.Behaviours
                 return;
             }
 
-            BehaviorCollection itemBehaviors = Interaction.GetBehaviors(uie);
+            var itemBehaviors = Interaction.GetBehaviors(uie);
 
             var newBehaviors = e.NewValue as StylizedBehaviorCollection;
             var oldBehaviors = e.OldValue as StylizedBehaviorCollection;
@@ -94,7 +94,7 @@ namespace Fluent.Metro.Behaviours
             {
                 foreach (var behavior in oldBehaviors)
                 {
-                    int index = GetIndexOf(itemBehaviors, behavior);
+                    var index = GetIndexOf(itemBehaviors, behavior);
 
                     if (index >= 0)
                     {
@@ -107,7 +107,7 @@ namespace Fluent.Metro.Behaviours
             {
                 foreach (var behavior in newBehaviors)
                 {
-                    int index = GetIndexOf(itemBehaviors, behavior);
+                    var index = GetIndexOf(itemBehaviors, behavior);
 
                     if (index < 0)
                     {

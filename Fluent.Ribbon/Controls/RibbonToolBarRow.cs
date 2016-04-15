@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -17,12 +16,12 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        readonly ObservableCollection<DependencyObject> children = new ObservableCollection<DependencyObject>();
+        private readonly ObservableCollection<DependencyObject> children = new ObservableCollection<DependencyObject>();
 
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// Gets rows
         /// </summary>
@@ -39,7 +38,7 @@ namespace Fluent
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RibbonToolBarRow(){}
+        public RibbonToolBarRow() { }
 
         #endregion
     }
