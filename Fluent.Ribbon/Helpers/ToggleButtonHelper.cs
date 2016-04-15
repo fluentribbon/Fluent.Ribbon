@@ -91,8 +91,8 @@
             var button = (IToggleButton)d;
 
             // Uncheck other toggle buttons
-            if (newValue.HasValue == false 
-                || newValue.Value == false 
+            if (newValue.HasValue == false
+                || newValue.Value == false
                 || button.GroupName == null)
             {
                 return;
@@ -120,13 +120,15 @@
                 else
                 {
                     // Uncheck all checked RadioButtons different from the current one
-                    if (currentButton != button 
-                        && currentButton.IsChecked == true 
+                    if (currentButton != button
+                        && currentButton.IsChecked == true
+                        && rootScope != null
+                        && PresentationSource.FromVisual((Visual)currentButton) != null
                         && rootScope == PresentationSource.FromVisual((Visual)currentButton))
                     {
                         currentButton.IsChecked = false;
                     }
-                    
+
                     i++;
                 }
             }
@@ -200,7 +202,7 @@
                 var weakReference = elements[i];
                 var element = weakReference.Target;
 
-                if (element == null 
+                if (element == null
                     || element == elementToRemove)
                 {
                     elements.RemoveAt(i);
