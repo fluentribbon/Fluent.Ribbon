@@ -40,5 +40,4 @@ packages/
 .tmp
 
 # Allowed files
-!Fluent.Ribbon/Themes/Generic.xaml
 !Fluent.Ribbon/Themes/XamlCombine.exe
