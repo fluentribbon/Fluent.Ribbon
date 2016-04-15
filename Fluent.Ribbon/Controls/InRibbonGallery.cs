@@ -45,8 +45,6 @@
         // Is visual currently snapped
         private bool isSnapped;
 
-        private Popup popup;
-
         // Thumb to resize in both directions
         private Thumb resizeBothThumb;
 
@@ -547,10 +545,7 @@
         /// <summary>
         /// Gets drop down popup
         /// </summary>
-        public Popup DropDownPopup
-        {
-            get { return this.popup; }
-        }
+        public Popup DropDownPopup { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether context menu is opened
@@ -1031,28 +1026,28 @@
                 this.dropDownButton.Click += this.OnDropDownClick;
             }
 
-            if (this.popup != null)
+            if (this.DropDownPopup != null)
             {
-                this.popup.Opened -= this.OnDropDownOpened;
-                this.popup.Closed -= this.OnDropDownClosed;
+                this.DropDownPopup.Opened -= this.OnDropDownOpened;
+                this.DropDownPopup.Closed -= this.OnDropDownClosed;
 
-                this.popup.PreviewMouseLeftButtonUp -= this.OnPopupPreviewMouseUp;
-                this.popup.PreviewMouseLeftButtonDown -= this.OnPopupPreviewMouseDown;
+                this.DropDownPopup.PreviewMouseLeftButtonUp -= this.OnPopupPreviewMouseUp;
+                this.DropDownPopup.PreviewMouseLeftButtonDown -= this.OnPopupPreviewMouseDown;
             }
 
-            this.popup = this.GetTemplateChild("PART_Popup") as Popup;
+            this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (this.popup != null)
+            if (this.DropDownPopup != null)
             {
-                this.popup.Opened += this.OnDropDownOpened;
-                this.popup.Closed += this.OnDropDownClosed;
+                this.DropDownPopup.Opened += this.OnDropDownOpened;
+                this.DropDownPopup.Closed += this.OnDropDownClosed;
 
-                this.popup.PreviewMouseLeftButtonUp += this.OnPopupPreviewMouseUp;
-                this.popup.PreviewMouseLeftButtonDown += this.OnPopupPreviewMouseDown;
+                this.DropDownPopup.PreviewMouseLeftButtonUp += this.OnPopupPreviewMouseUp;
+                this.DropDownPopup.PreviewMouseLeftButtonDown += this.OnPopupPreviewMouseDown;
 
-                KeyboardNavigation.SetControlTabNavigation(this.popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetDirectionalNavigation(this.popup, KeyboardNavigationMode.Cycle);
-                KeyboardNavigation.SetTabNavigation(this.popup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetControlTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
+                KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
             if (this.resizeVerticalThumb != null)

@@ -41,15 +41,11 @@ namespace Fluent
         #region Localization
 
         // Localizable properties
-        private static readonly RibbonLocalization localization = new RibbonLocalization();
 
         /// <summary>
         /// Gets localizable properties
         /// </summary>
-        public static RibbonLocalization Localization
-        {
-            get { return localization; }
-        }
+        public static RibbonLocalization Localization { get; } = new RibbonLocalization();
 
         #endregion
 
@@ -86,62 +82,62 @@ namespace Fluent
         private static Ribbon contextMenuOwner;
 
         // Context menu items
-        private static Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem addToQuickAccessMenuItem
         {
             get { return addToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem addGroupToQuickAccessMenuItem
         {
             get { return addGroupToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem addMenuToQuickAccessMenuItem
         {
             get { return addMenuToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem addGalleryToQuickAccessMenuItem
         {
             get { return addGalleryToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem removeFromQuickAccessMenuItem
         {
             get { return removeFromQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem showQuickAccessToolbarBelowTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarBelowTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem showQuickAccessToolbarAboveTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarAboveTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem minimizeTheRibbonMenuItem
         {
             get { return minimizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem customizeQuickAccessToolbarMenuItem
         {
             get { return customizeQuickAccessToolbarMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
         private static System.Windows.Controls.MenuItem customizeTheRibbonMenuItem
         {
             get { return customizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, Separator> firstSeparatorDictionary = new Dictionary<int, Separator>();
+        private static readonly Dictionary<int, Separator> firstSeparatorDictionary = new Dictionary<int, Separator>();
         private static Separator firstSeparator
         {
             get { return firstSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
-        private static Dictionary<int, Separator> secondSeparatorDictionary = new Dictionary<int, Separator>();
+        private static readonly Dictionary<int, Separator> secondSeparatorDictionary = new Dictionary<int, Separator>();
         private static Separator secondSeparator
         {
             get { return secondSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
@@ -347,7 +343,7 @@ namespace Fluent
                         firstSeparator.Visibility = Visibility.Visible;
 
                         // Check for value because remove is only possible in the context menu of items in QA which represent the value for QA-items
-                        if (ribbon.quickAccessElements.ContainsValue(control))
+                        if (ribbon.QuickAccessElements.ContainsValue(control))
                         {
                             // Control is on quick access
                             removeFromQuickAccessMenuItem.Visibility = Visibility.Visible;
@@ -357,8 +353,8 @@ namespace Fluent
                             // Control is menu item
                             addMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
                         }
-                        else if ((control is Gallery) ||
-                                 (control is InRibbonGallery))
+                        else if (control is Gallery ||
+                                 control is InRibbonGallery)
                         {
                             // Control is gallery
                             addGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
@@ -425,7 +421,6 @@ namespace Fluent
         private ObservableCollection<UIElement> toolBarItems;
 
         // Ribbon quick access toolbar
-        private QuickAccessToolBar quickAccessToolBar;
 
         // Ribbon layout root
         private Panel layoutRoot;
@@ -437,7 +432,6 @@ namespace Fluent
         private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
 
         // Currently added in QAT items
-        private readonly Dictionary<UIElement, UIElement> quickAccessElements = new Dictionary<UIElement, UIElement>();
 
         private Window ownerWindow;
 
@@ -613,13 +607,7 @@ namespace Fluent
         /// <summary>
         /// Gets the list of currently active quick access elements.
         /// </summary>
-        protected Dictionary<UIElement, UIElement> QuickAccessElements
-        {
-            get
-            {
-                return this.quickAccessElements;
-            }
-        }
+        protected Dictionary<UIElement, UIElement> QuickAccessElements { get; } = new Dictionary<UIElement, UIElement>();
 
         /// <summary>
         /// Gets ribbon titlebar
@@ -843,10 +831,7 @@ namespace Fluent
         /// <summary>
         /// Gets quick access toolbar associated with the ribbon
         /// </summary>
-        internal QuickAccessToolBar QuickAccessToolBar
-        {
-            get { return this.quickAccessToolBar; }
-        }
+        internal QuickAccessToolBar QuickAccessToolBar { get; private set; }
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
@@ -870,9 +855,9 @@ namespace Fluent
                     yield return this.StartScreen;
                 }
 
-                if (this.quickAccessToolBar != null)
+                if (this.QuickAccessToolBar != null)
                 {
-                    yield return this.quickAccessToolBar;
+                    yield return this.QuickAccessToolBar;
                 }
 
                 if (this.TabControl != null
@@ -913,9 +898,9 @@ namespace Fluent
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        if (this.quickAccessToolBar != null)
+                        if (this.QuickAccessToolBar != null)
                         {
-                            this.quickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
+                            this.QuickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -925,9 +910,9 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.quickAccessToolBar != null)
+                        if (this.QuickAccessToolBar != null)
                         {
-                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.QuickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
@@ -937,18 +922,18 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.quickAccessToolBar != null)
+                        if (this.QuickAccessToolBar != null)
                         {
-                            this.quickAccessToolBar.QuickAccessItems.Remove(menuItem);
+                            this.QuickAccessToolBar.QuickAccessItems.Remove(menuItem);
                         }
                         menuItem.Ribbon = null;
                     }
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.quickAccessToolBar != null)
+                        if (this.QuickAccessToolBar != null)
                         {
-                            this.quickAccessToolBar.QuickAccessItems.Add(menuItem);
+                            this.QuickAccessToolBar.QuickAccessItems.Add(menuItem);
                         }
                         menuItem.Ribbon = this;
                     }
@@ -1259,9 +1244,9 @@ namespace Fluent
                 return;
             }
 
-            if (ribbon.quickAccessToolBar != null)
+            if (ribbon.QuickAccessToolBar != null)
             {
-                var element = ribbon.quickAccessElements.First(x => x.Value == e.Parameter).Key;
+                var element = ribbon.QuickAccessElements.First(x => x.Value == e.Parameter).Key;
                 ribbon.RemoveFromQuickAccessToolBar(element);
             }
         }
@@ -1276,7 +1261,7 @@ namespace Fluent
                 return;
             }
 
-            if (ribbon.quickAccessToolBar != null)
+            if (ribbon.QuickAccessToolBar != null)
             {
                 ribbon.AddToQuickAccessToolBar(e.Parameter as UIElement);
             }
@@ -1352,7 +1337,7 @@ namespace Fluent
 
             if (ribbon.IsQuickAccessToolBarVisible)
             {
-                e.CanExecute = ribbon.quickAccessElements.ContainsValue(e.Parameter as UIElement);
+                e.CanExecute = ribbon.QuickAccessElements.ContainsValue(e.Parameter as UIElement);
             }
             else
             {
@@ -1563,7 +1548,7 @@ namespace Fluent
                 }
             }
 
-            if (this.quickAccessToolBar != null)
+            if (this.QuickAccessToolBar != null)
             {
                 if (this.AutomaticStateManagement == false
                     || this.ribbonState.IsStateLoaded)
@@ -1573,38 +1558,38 @@ namespace Fluent
 
                 this.ClearQuickAccessToolBar();
 
-                this.quickAccessToolBar.ItemsChanged -= this.OnQuickAccessItemsChanged;
+                this.QuickAccessToolBar.ItemsChanged -= this.OnQuickAccessItemsChanged;
 
                 foreach (var quickAccessMenuItem in this.QuickAccessItems)
                 {
-                    this.quickAccessToolBar.QuickAccessItems.Remove(quickAccessMenuItem);
+                    this.QuickAccessToolBar.QuickAccessItems.Remove(quickAccessMenuItem);
                 }
             }
 
-            this.quickAccessToolBar = this.GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
+            this.QuickAccessToolBar = this.GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
 
-            if (this.quickAccessToolBar != null)
+            if (this.QuickAccessToolBar != null)
             {
                 foreach (var quickAccessMenuItem in this.QuickAccessItems)
                 {
-                    this.quickAccessToolBar.QuickAccessItems.Add(quickAccessMenuItem);
+                    this.QuickAccessToolBar.QuickAccessItems.Add(quickAccessMenuItem);
                 }
 
-                this.quickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
+                this.QuickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
 
                 var binding = new Binding("CanQuickAccessLocationChanging")
                 {
                     Source = this,
                     Mode = BindingMode.OneWay
                 };
-                this.quickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
+                this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
 
-                if (this.quickAccessToolBar.Parent == null)
+                if (this.QuickAccessToolBar.Parent == null)
                 {
-                    this.AddLogicalChild(this.quickAccessToolBar);
+                    this.AddLogicalChild(this.QuickAccessToolBar);
                 }
 
-                this.quickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
+                this.QuickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
             }
         }
 
@@ -1655,7 +1640,7 @@ namespace Fluent
 
         private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
         {
-            this.quickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
+            this.QuickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
 
             this.ribbonState.LoadStateFromMemoryStream();
         }
@@ -1676,7 +1661,7 @@ namespace Fluent
                 return false;
             }
 
-            return this.quickAccessElements.ContainsKey(element);
+            return this.QuickAccessElements.ContainsKey(element);
         }
 
         /// <summary>
@@ -1718,8 +1703,8 @@ namespace Fluent
 
                 var control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
-                this.quickAccessElements.Add(element, control);
-                this.quickAccessToolBar.Items.Add(control);
+                this.QuickAccessElements.Add(element, control);
+                this.QuickAccessToolBar.Items.Add(control);
             }
         }
 
@@ -1751,9 +1736,9 @@ namespace Fluent
 
             if (this.IsInQuickAccessToolBar(element))
             {
-                var quickAccessItem = this.quickAccessElements[element];
-                this.quickAccessElements.Remove(element);
-                this.quickAccessToolBar.Items.Remove(quickAccessItem);
+                var quickAccessItem = this.QuickAccessElements[element];
+                this.QuickAccessElements.Remove(element);
+                this.QuickAccessToolBar.Items.Remove(quickAccessItem);
             }
         }
 
@@ -1762,10 +1747,10 @@ namespace Fluent
         /// </summary>
         public void ClearQuickAccessToolBar()
         {
-            this.quickAccessElements.Clear();
-            if (this.quickAccessToolBar != null)
+            this.QuickAccessElements.Clear();
+            if (this.QuickAccessToolBar != null)
             {
-                this.quickAccessToolBar.Items.Clear();
+                this.QuickAccessToolBar.Items.Clear();
             }
         }
 
@@ -1872,7 +1857,7 @@ namespace Fluent
             // Is this item in QAT
             var uielement = item as FrameworkElement;
             if (uielement != null
-                && this.quickAccessElements.ContainsKey(uielement))
+                && this.QuickAccessElements.ContainsKey(uielement))
             {
                 if (!paths.ContainsKey(uielement))
                 {
@@ -2101,7 +2086,7 @@ namespace Fluent
                 this.ribbon.TraverseLogicalTree(this.ribbon, "", paths);
 
                 // Foreach items and see whether path is found for the item
-                foreach (var element in this.ribbon.quickAccessElements)
+                foreach (var element in this.ribbon.QuickAccessElements)
                 {
                     string path;
                     var control = element.Key as FrameworkElement;
@@ -2115,7 +2100,7 @@ namespace Fluent
                     else
                     {
                         // Item is not found in logical tree, output to debug console
-                        var controlName = (control != null && string.IsNullOrEmpty(control.Name) == false)
+                        var controlName = control != null && string.IsNullOrEmpty(control.Name) == false
                             ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
                             : string.Empty;
 
@@ -2211,12 +2196,12 @@ namespace Fluent
                 // Load items
                 var items = splitted[1].Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (this.ribbon.quickAccessToolBar != null)
+                if (this.ribbon.QuickAccessToolBar != null)
                 {
-                    this.ribbon.quickAccessToolBar.Items.Clear();
+                    this.ribbon.QuickAccessToolBar.Items.Clear();
                 }
 
-                this.ribbon.quickAccessElements.Clear();
+                this.ribbon.QuickAccessElements.Clear();
 
                 for (var i = 0; i < items.Length; i++)
                 {

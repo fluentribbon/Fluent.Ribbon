@@ -334,7 +334,7 @@
 
             while (true)
             {
-                current = (VisualTreeHelper.GetParent(element)) as UIElement;
+                current = VisualTreeHelper.GetParent(element) as UIElement;
 
                 if (current == null)
                 {
@@ -686,7 +686,7 @@
                         0), this.AdornedElement);
                     this.keyTipPositions[i].Y = rows[3];
                 }
-                else if ((this.associatedElements[i] is InRibbonGallery && !((InRibbonGallery)this.associatedElements[i]).IsCollapsed))
+                else if (this.associatedElements[i] is InRibbonGallery && !((InRibbonGallery)this.associatedElements[i]).IsCollapsed)
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
@@ -701,7 +701,7 @@
                         0), this.AdornedElement);
                     this.keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
-                else if ((this.associatedElements[i] is RibbonTabItem) || (this.associatedElements[i] is Backstage))
+                else if (this.associatedElements[i] is RibbonTabItem || this.associatedElements[i] is Backstage)
                 {
                     // Ribbon Tab Item Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
@@ -749,10 +749,10 @@
                 else
                 {
                     if ((RibbonProperties.GetSize(this.associatedElements[i]) != RibbonControlSize.Large)
-                        || (this.associatedElements[i] is Spinner)
-                        || (this.associatedElements[i] is ComboBox)
-                        || (this.associatedElements[i] is TextBox)
-                        || (this.associatedElements[i] is CheckBox))
+                        || this.associatedElements[i] is Spinner
+                        || this.associatedElements[i] is ComboBox
+                        || this.associatedElements[i] is TextBox
+                        || this.associatedElements[i] is CheckBox)
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(this.associatedElements[i]);
                         var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.keyTips[i].DesiredSize.Width / 2.0, this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);

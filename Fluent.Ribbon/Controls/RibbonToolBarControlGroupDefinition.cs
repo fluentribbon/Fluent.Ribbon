@@ -24,7 +24,6 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        private readonly ObservableCollection<RibbonToolBarControlDefinition> children = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
 
@@ -34,10 +33,7 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarControlDefinition> Children
-        {
-            get { return this.children; }
-        }
+        public ObservableCollection<RibbonToolBarControlDefinition> Children { get; } = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
 
@@ -48,7 +44,7 @@ namespace Fluent
         /// </summary>
         public RibbonToolBarControlGroupDefinition()
         {
-            this.children.CollectionChanged += this.OnChildrenCollectionChanged;
+            this.Children.CollectionChanged += this.OnChildrenCollectionChanged;
         }
 
         private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

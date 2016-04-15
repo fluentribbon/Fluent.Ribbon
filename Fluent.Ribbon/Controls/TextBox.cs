@@ -51,7 +51,7 @@ namespace Fluent
         // TextBox in template
         private System.Windows.Controls.TextBox textBoxTemplated;
         // Local TextBox
-        private System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
+        private readonly System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
         // Content when the textbox got focus
         private string textBoxContentWhenGotFocus = null;
 

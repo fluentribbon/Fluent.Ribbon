@@ -255,7 +255,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
+                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
             }
         }
 
@@ -383,9 +383,7 @@ namespace Fluent
 
             var position = Mouse.PrimaryDevice.GetPosition(this);
 
-            if ((position.X >= 0.0 && position.X <= this.ActualWidth)
-                && (position.Y >= 0.0 && position.Y <= this.ActualHeight)
-                && e.ClickCount == 1)
+            if (position.X >= 0.0 && position.X <= this.ActualWidth && position.Y >= 0.0 && position.Y <= this.ActualHeight && e.ClickCount == 1)
             {
                 this.RaiseClick();
                 e.Handled = true;

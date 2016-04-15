@@ -407,7 +407,7 @@ namespace Fluent
         /// </summary>
         public object LauncherToolTip
         {
-            get { return (object)this.GetValue(LauncherToolTipProperty); }
+            get { return this.GetValue(LauncherToolTipProperty); }
             set { this.SetValue(LauncherToolTipProperty, value); }
         }
 

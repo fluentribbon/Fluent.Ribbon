@@ -143,7 +143,6 @@
     <Compile Include="Converters\IconConverter.cs" />
     <Compile Include="Controls\InRibbonGallery.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
-    <Compile Include="Controls\RibbonItemsControl.cs" />
     <Compile Include="RibbonLocalization.cs" />
     <Compile Include="Controls\RibbonScrollViewer.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroup.cs" />
@@ -330,10 +329,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <Page Include="Themes\Controls\RibbonScrollViewer.xaml">
+    <None Include="Themes\Controls\RibbonScrollViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </None>
     <None Include="Themes\Controls\ApplicationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

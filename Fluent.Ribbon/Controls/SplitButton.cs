@@ -452,7 +452,7 @@ namespace Fluent
         public override FrameworkElement CreateQuickAccessItem()
         {
             var button = new SplitButton();
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonProperties.SetSize(button, RibbonControlSize.Small);
             button.CanAddButtonToQuickAccessToolBar = false;
             this.BindQuickAccessItem(button);

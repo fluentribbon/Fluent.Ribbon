@@ -12,7 +12,7 @@
         /// </summary>
         public object LeftContent
         {
-            get { return (object)this.GetValue(LeftContentProperty); }
+            get { return this.GetValue(LeftContentProperty); }
             set { this.SetValue(LeftContentProperty, value); }
         }
 
@@ -27,7 +27,7 @@
         /// </summary>
         public object RightContent
         {
-            get { return (object)this.GetValue(RightContentProperty); }
+            get { return this.GetValue(RightContentProperty); }
             set { this.SetValue(RightContentProperty, value); }
         }
 

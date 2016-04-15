@@ -59,14 +59,14 @@ namespace Fluent
             // the tab selection and hover states is reached (regular tabs)
             var overflowWidth = desiredSize.Width - availableSize.Width;
             var whitespace = (this.InternalChildren[0] as RibbonTabItem).Indent;
-            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (x.IsContextual) && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
+            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => x.IsContextual && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed)).ToArray();
             double contextualTabsCount = contextualTabs.Length;
-            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => (!x.IsContextual) && (x.Visibility != Visibility.Collapsed));
+            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => !x.IsContextual && (x.Visibility != Visibility.Collapsed));
             double regularTabsCount = regularTabs.Count();//InternalChildren.Count - contextualTabsCount;
             var childrenCount = contextualTabsCount + regularTabsCount;
             if (overflowWidth < regularTabsCount * whitespace * 2)
             {
-                var decreaseValue = overflowWidth / (double)regularTabsCount;
+                var decreaseValue = overflowWidth / regularTabsCount;
                 foreach (var tab in regularTabs) tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));// tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
                 desiredSize = this.GetChildrenDesiredSize();
                 if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
@@ -83,8 +83,8 @@ namespace Fluent
             // the tab selection and hover states is reached (contextual tabs)
             if (overflowWidth < childrenCount * whitespace * 2)
             {
-                var regularTabsWhitespace = (double)regularTabsCount * whitespace * 2.0;
-                var decreaseValue = (overflowWidth - regularTabsWhitespace) / (double)contextualTabsCount;
+                var regularTabsWhitespace = regularTabsCount * whitespace * 2.0;
+                var decreaseValue = (overflowWidth - regularTabsWhitespace) / contextualTabsCount;
                 foreach (var tab in regularTabs)
                 {
                     //if (!tab.IsContextual)
@@ -175,7 +175,7 @@ namespace Fluent
             {
                 // Reduce regular tabs
                 var requiredWidth = sortedRegularTabItems[reduceCount].DesiredSize.Width;
-                if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / (double)reduceCount;
+                if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / reduceCount;
                 for (var i = 0; i < reduceCount; i++)
                 {
                     sortedRegularTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
@@ -199,7 +199,7 @@ namespace Fluent
 
             if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
             {
-                var settedWidth = (regularTabsWidth - overflowWidth) / (double)regularTabsCount;
+                var settedWidth = (regularTabsWidth - overflowWidth) / regularTabsCount;
                 for (var i = 0; i < regularTabsCount; i++)
                 {
                     sortedRegularTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
@@ -246,7 +246,7 @@ namespace Fluent
             {
                 // Reduce regular tabs
                 var requiredWidth = sortedContextualTabItems[reduceCount].DesiredSize.Width;
-                if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / (double)reduceCount;
+                if (reducedLength > overflowWidth) requiredWidth += (reducedLength - overflowWidth) / reduceCount;
                 for (var i = 0; i < reduceCount; i++)
                 {
                     sortedContextualTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
@@ -265,7 +265,7 @@ namespace Fluent
             {
                 var contextualTabsWidth = sortedContextualTabItems.Sum(x => x.DesiredSize.Width);
 
-                var settedWidth = Math.Max(MinimumRegularTabWidth, (contextualTabsWidth - overflowWidth) / (double)contextualTabsCount);
+                var settedWidth = Math.Max(MinimumRegularTabWidth, (contextualTabsWidth - overflowWidth) / contextualTabsCount);
                 for (var i = 0; i < sortedContextualTabItems.Length; i++)
                 {
                     sortedContextualTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
@@ -446,7 +446,7 @@ namespace Fluent
             // An empty rect has no size or position.  We can't meaningfully use it.
             if (rectangle.IsEmpty
                 || visual == null
-                || visual == (Visual)this
+                || visual == this
                 || !this.IsAncestorOf(visual))
             {
                 return Rect.Empty;
@@ -498,7 +498,7 @@ namespace Fluent
             bool fBelow = DoubleUtil.GreaterThan(bottomChild, bottomView) && DoubleUtil.GreaterThan(topChild, topView);*/
             var fAbove = (topChild < topView) && (bottomChild < bottomView);
             var fBelow = (bottomChild > bottomView) && (topChild > topView);
-            var fLarger = (bottomChild - topChild) > (bottomView - topView);
+            var fLarger = bottomChild - topChild > bottomView - topView;
 
             // Handle Cases:  1 & 4 above
             if ((fAbove && !fLarger)

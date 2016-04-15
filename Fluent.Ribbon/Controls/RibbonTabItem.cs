@@ -38,7 +38,6 @@ namespace Fluent
 
         // Ribbon groups container
         private readonly RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
-        private readonly ScrollViewer groupsContainer = new ScrollViewer();
 
         // Cached width
         private double cachedWidth;
@@ -69,10 +68,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon groups container
         /// </summary>
-        public ScrollViewer GroupsContainer
-        {
-            get { return this.groupsContainer; }
-        }
+        public ScrollViewer GroupsContainer { get; } = new ScrollViewer();
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
@@ -140,7 +136,7 @@ namespace Fluent
         {
             get
             {
-                yield return this.groupsContainer;
+                yield return this.GroupsContainer;
             }
         }
 
@@ -175,7 +171,7 @@ namespace Fluent
         {
             get
             {
-                return (ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl);
+                return ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl;
             }
         }
 
@@ -193,7 +189,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register("Indent", typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata((double)12.0));
+            DependencyProperty.Register("Indent", typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata(12.0));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -360,7 +356,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (object)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
@@ -404,7 +400,7 @@ namespace Fluent
                 var ribbon = control.FindParentRibbon();
                 if (ribbon != null)
                 {
-                    return ((bool)basevalue)
+                    return (bool)basevalue
                         && ribbon.Focusable;
                 }
             }
@@ -498,8 +494,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            this.AddLogicalChild(this.groupsContainer);
-            this.groupsContainer.Content = this.groupsInnerContainer;
+            this.AddLogicalChild(this.GroupsContainer);
+            this.GroupsContainer.Content = this.groupsInnerContainer;
 
             // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
             this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding("DataContext")
@@ -537,7 +533,7 @@ namespace Fluent
             this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
             var baseConstraint = base.MeasureOverride(constraint);
             var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
-            (this.contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
             if (totalWidth < headerWidth + this.Indent * 2)
             {
@@ -555,10 +551,10 @@ namespace Fluent
                 }
             }
 
-            if ((this.cachedWidth != baseConstraint.Width) && (this.IsContextual) && (this.Group != null))
+            if ((this.cachedWidth != baseConstraint.Width) && this.IsContextual && (this.Group != null))
             {
                 this.cachedWidth = baseConstraint.Width;
-                var parent = (VisualTreeHelper.GetParent(this.Group) as FrameworkElement);
+                var parent = VisualTreeHelper.GetParent(this.Group) as FrameworkElement;
                 if (parent != null) parent.InvalidateMeasure();
             }
 
@@ -636,7 +632,7 @@ namespace Fluent
             var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if ((container.TabControlParent != null) && (container.TabControlParent.SelectedItem is RibbonTabItem) && (container.TabControlParent.SelectedItem != container))
+                if ((container.TabControlParent != null) && container.TabControlParent.SelectedItem is RibbonTabItem && (container.TabControlParent.SelectedItem != container))
                     (container.TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }

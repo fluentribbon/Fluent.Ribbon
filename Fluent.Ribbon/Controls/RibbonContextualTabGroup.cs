@@ -18,7 +18,6 @@ namespace Fluent
         #region Fields
 
         // Collection of ribbon tab items
-        private readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
 
         private Window parentWidow;
 
@@ -55,10 +54,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of tab items
         /// </summary>
-        public List<RibbonTabItem> Items
-        {
-            get { return this.items; }
-        }
+        public List<RibbonTabItem> Items { get; } = new List<RibbonTabItem>();
 
         /// <summary>
         /// Gets or sets a value indicating whether parent window is maximized
@@ -226,12 +222,12 @@ namespace Fluent
 
         private RibbonTabItem GetFirstVisibleItem()
         {
-            return this.items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
+            return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
         private RibbonTabItem GetLastVisibleItem()
         {
-            return this.items.LastOrDefault(item => item.Visibility == Visibility.Visible);
+            return this.Items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
         /// <summary>
@@ -244,7 +240,7 @@ namespace Fluent
             var leftset = false;
             var rightset = false;
 
-            for (var i = 0; i < this.items.Count; i++)
+            for (var i = 0; i < this.Items.Count; i++)
             {
                 //if (i == 0) items[i].HasLeftGroupBorder = true;
                 //else items[i].HasLeftGroupBorder = false;
@@ -252,26 +248,26 @@ namespace Fluent
                 //else items[i].HasRightGroupBorder = false;
 
                 //Workaround so you can have inivisible Tabs on a Group
-                if (this.items[i].Visibility == Visibility.Visible
+                if (this.Items[i].Visibility == Visibility.Visible
                     && leftset == false)
                 {
-                    this.items[i].HasLeftGroupBorder = true;
+                    this.Items[i].HasLeftGroupBorder = true;
                     leftset = true;
                 }
                 else
                 {
-                    this.items[i].HasLeftGroupBorder = false;
+                    this.Items[i].HasLeftGroupBorder = false;
                 }
 
-                if (this.items[this.items.Count - 1 - i].Visibility == Visibility.Visible
+                if (this.Items[this.Items.Count - 1 - i].Visibility == Visibility.Visible
                     && rightset == false)
                 {
-                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = true;
+                    this.Items[this.Items.Count - 1 - i].HasRightGroupBorder = true;
                     rightset = true;
                 }
                 else
                 {
-                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = false;
+                    this.Items[this.Items.Count - 1 - i].HasRightGroupBorder = false;
                 }
             }
         }

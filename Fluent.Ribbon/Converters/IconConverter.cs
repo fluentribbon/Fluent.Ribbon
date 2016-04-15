@@ -26,7 +26,7 @@ namespace Fluent
                 {
                     try
                     {
-                        return GetDefaultIcon((new WindowInteropHelper(Application.Current.MainWindow)).Handle) as BitmapFrame;
+                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle) as BitmapFrame;
                     }
                     catch (InvalidOperationException)
                     {

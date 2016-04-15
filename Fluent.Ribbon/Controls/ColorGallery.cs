@@ -612,7 +612,7 @@
             gal.ThemeColors.Clear();
             if (e.NewValue != null)
             {
-                foreach (var color in (e.NewValue as IEnumerable<Color>))
+                foreach (var color in e.NewValue as IEnumerable<Color>)
                 {
                     gal.ThemeColors.Add(color);
                 }
@@ -956,14 +956,14 @@
         /// <returns>Brightness of the given color from 0..1</returns>
         private static double GetBrightness(Color color)
         {
-            var summ = ((double)color.R) + ((double)color.G) + ((double)color.B);
+            var summ = (double)color.R + color.G + color.B;
             return summ / (255.0 * 3.0);
         }
 
         // Makes the given color lighter 
         private static Color Lighter(Color color, double power)
         {
-            var totalAvailability = 255.0 * 3.0 - (double)color.R + (double)color.G + (double)color.B;
+            var totalAvailability = 255.0 * 3.0 - color.R + color.G + color.B;
             double redAvailability;
             double greenAvailability;
             double blueAvailability;
@@ -978,17 +978,17 @@
             }
             else
             {
-                redAvailability = (255.0 - (double)color.R) / totalAvailability;
-                greenAvailability = (255.0 - (double)color.G) / totalAvailability;
-                blueAvailability = (255.0 - (double)color.B) / totalAvailability;
-                needToBeAdded = ((double)color.R + (double)color.G + (double)color.B) * (power - 1);
+                redAvailability = (255.0 - color.R) / totalAvailability;
+                greenAvailability = (255.0 - color.G) / totalAvailability;
+                blueAvailability = (255.0 - color.B) / totalAvailability;
+                needToBeAdded = ((double)color.R + color.G + color.B) * (power - 1);
             }
 
 
             var result = Color.FromRgb(
-                (byte)(color.R + ((byte)(redAvailability * needToBeAdded))),
-                (byte)(color.G + ((byte)(greenAvailability * needToBeAdded))),
-                (byte)(color.B + ((byte)(blueAvailability * needToBeAdded))));
+                (byte)(color.R + (byte)(redAvailability * needToBeAdded)),
+                (byte)(color.G + (byte)(greenAvailability * needToBeAdded)),
+                (byte)(color.B + (byte)(blueAvailability * needToBeAdded)));
 
             return result;
         }
@@ -996,18 +996,18 @@
         // Makes the given color darker 
         private static Color Darker(Color color, double power)
         {
-            var totalAvailability = (double)color.R + (double)color.G + (double)color.B;
-            var redAvailability = ((double)color.R) / totalAvailability;
-            var greenAvailability = ((double)color.G) / totalAvailability;
-            var blueAvailability = ((double)color.B) / totalAvailability;
+            var totalAvailability = (double)color.R + color.G + color.B;
+            var redAvailability = color.R / totalAvailability;
+            var greenAvailability = color.G / totalAvailability;
+            var blueAvailability = color.B / totalAvailability;
 
-            var needToBeAdded = ((double)color.R + (double)color.G + (double)color.B);
+            var needToBeAdded = (double)color.R + color.G + color.B;
             needToBeAdded = needToBeAdded - needToBeAdded * power;
 
             var result = Color.FromRgb(
-                (byte)(color.R - ((byte)(redAvailability * needToBeAdded))),
-                (byte)(color.G - ((byte)(greenAvailability * needToBeAdded))),
-                (byte)(color.B - ((byte)(blueAvailability * needToBeAdded))));
+                (byte)(color.R - (byte)(redAvailability * needToBeAdded)),
+                (byte)(color.G - (byte)(greenAvailability * needToBeAdded)),
+                (byte)(color.B - (byte)(blueAvailability * needToBeAdded)));
 
             return result;
         }
@@ -1016,7 +1016,7 @@
         private static Color Rebright(Color color, double newBrightness)
         {
             var currentBrightness = GetBrightness(color);
-            var power = currentBrightness != 0.0 ? newBrightness / currentBrightness : (1.0 + newBrightness);
+            var power = currentBrightness != 0.0 ? newBrightness / currentBrightness : 1.0 + newBrightness;
 
             // TODO: round power to make nice numbers
             // ...
@@ -1039,7 +1039,7 @@
 
             for (var i = 0; i < count; i++)
             {
-                var brightness = lowBrightness + ((double)i) * (highBrightness - lowBrightness) / (double)count;
+                var brightness = lowBrightness + i * (highBrightness - lowBrightness) / count;
                 result[count - i - 1] = Rebright(color, brightness);
             }
 

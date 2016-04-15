@@ -24,10 +24,7 @@ namespace Fluent
         #region Fields
 
         // User defined children
-        private readonly ObservableCollection<FrameworkElement> children = new ObservableCollection<FrameworkElement>();
         // User defined layout definitions
-        private readonly ObservableCollection<RibbonToolBarLayoutDefinition> layoutDefinitions =
-            new ObservableCollection<RibbonToolBarLayoutDefinition>();
 
         // Actual children
         private readonly List<FrameworkElement> actualChildren = new List<FrameworkElement>();
@@ -70,18 +67,12 @@ namespace Fluent
         /// Gets children
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<FrameworkElement> Children
-        {
-            get { return this.children; }
-        }
+        public ObservableCollection<FrameworkElement> Children { get; } = new ObservableCollection<FrameworkElement>();
 
         /// <summary>
         /// Gets particular rules  for layout in this group box panel
         /// </summary>
-        public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions
-        {
-            get { return this.layoutDefinitions; }
-        }
+        public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions { get; } = new ObservableCollection<RibbonToolBarLayoutDefinition>();
 
         #endregion
 
@@ -94,7 +85,7 @@ namespace Fluent
         {
             get
             {
-                if (this.layoutDefinitions.Count == 0) return this.children.Count;
+                if (this.LayoutDefinitions.Count == 0) return this.Children.Count;
                 if (this.rebuildVisualAndLogicalChildren)
                 {
                     //TODO: Exception during theme changing
@@ -115,7 +106,7 @@ namespace Fluent
         /// if the provided index is out of range, an exception is thrown</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (this.layoutDefinitions.Count == 0) return this.children[index];
+            if (this.LayoutDefinitions.Count == 0) return this.Children[index];
             if (this.rebuildVisualAndLogicalChildren)
             {
                 // UpdateLayout();
@@ -131,7 +122,7 @@ namespace Fluent
         {
             get
             {
-                return this.children.GetEnumerator();
+                return this.Children.GetEnumerator();
             }
         }
 
@@ -156,8 +147,8 @@ namespace Fluent
         /// </summary>
         public RibbonToolBar()
         {
-            this.children.CollectionChanged += this.OnChildrenCollectionChanged;
-            this.layoutDefinitions.CollectionChanged += this.OnLayoutDefinitionsChanged;
+            this.Children.CollectionChanged += this.OnChildrenCollectionChanged;
+            this.LayoutDefinitions.CollectionChanged += this.OnLayoutDefinitionsChanged;
         }
 
         private void OnLayoutDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -183,16 +174,16 @@ namespace Fluent
         /// <returns>Layout definition or null</returns>
         internal RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
         {
-            if (this.layoutDefinitions.Count == 0) return null;
-            if (this.layoutDefinitions.Count == 1) return this.layoutDefinitions[0];
+            if (this.LayoutDefinitions.Count == 0) return null;
+            if (this.LayoutDefinitions.Count == 1) return this.LayoutDefinitions[0];
 
-            foreach (var definition in this.layoutDefinitions)
+            foreach (var definition in this.LayoutDefinitions)
             {
                 if (RibbonProperties.GetSize(definition) == RibbonProperties.GetSize(this)) return definition;
             }
 
             // TODO: try to find a better definition
-            return this.layoutDefinitions[0];
+            return this.LayoutDefinitions[0];
         }
 
         #endregion
@@ -307,7 +298,7 @@ namespace Fluent
             double resultHeight = 0;
 
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-            foreach (var child in this.children)
+            foreach (var child in this.Children)
             {
                 // Measuring
                 if (measure) child.Measure(infinity);
@@ -345,7 +336,7 @@ namespace Fluent
             return this.Children.FirstOrDefault(x => x.Name == name);
         }
 
-        private Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new Dictionary<object, RibbonToolBarControlGroup>();
+        private readonly Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new Dictionary<object, RibbonToolBarControlGroup>();
 
         private RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
         {
@@ -368,7 +359,7 @@ namespace Fluent
         #region Custom Layout
 
         // Cached separators (clear & set in Measure pass)
-        private Dictionary<int, Separator> separatorCache = new Dictionary<int, Separator>();
+        private readonly Dictionary<int, Separator> separatorCache = new Dictionary<int, Separator>();
 
         /// <summary>
         /// Layout logic for the given layout definition
@@ -393,7 +384,7 @@ namespace Fluent
 
             // Calculate whitespace
             var rowCountInColumn = Math.Min(layoutDefinition.RowCount, layoutDefinition.Rows.Count);
-            var whitespace = (availableHeight - ((double)rowCountInColumn * rowHeight)) / (double)(rowCountInColumn + 1);
+            var whitespace = (availableHeight - rowCountInColumn * rowHeight) / (rowCountInColumn + 1);
 
             double y = 0;
             double x = 0;
@@ -501,8 +492,8 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            control.IsFirstInRow = (i == 0);
-                            control.IsLastInRow = (i == row.Children.Count - 1);
+                            control.IsFirstInRow = i == 0;
+                            control.IsLastInRow = i == row.Children.Count - 1;
                             control.Measure(availableSize);
                         }
                         if (arrange)

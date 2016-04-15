@@ -16,7 +16,6 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        private readonly ObservableCollection<DependencyObject> children = new ObservableCollection<DependencyObject>();
 
         #endregion
 
@@ -26,19 +25,11 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<DependencyObject> Children
-        {
-            get { return this.children; }
-        }
+        public ObservableCollection<DependencyObject> Children { get; } = new ObservableCollection<DependencyObject>();
 
         #endregion
 
         #region Initialization
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public RibbonToolBarRow() { }
 
         #endregion
     }

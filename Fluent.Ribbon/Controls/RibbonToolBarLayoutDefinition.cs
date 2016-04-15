@@ -14,7 +14,6 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        private ObservableCollection<RibbonToolBarRow> rows = new ObservableCollection<RibbonToolBarRow>();
 
         #endregion
 
@@ -84,10 +83,7 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarRow> Rows
-        {
-            get { return this.rows; }
-        }
+        public ObservableCollection<RibbonToolBarRow> Rows { get; } = new ObservableCollection<RibbonToolBarRow>();
 
         #endregion
     }

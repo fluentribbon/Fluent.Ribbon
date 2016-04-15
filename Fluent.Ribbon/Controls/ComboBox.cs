@@ -277,7 +277,7 @@
             {
                 if (value == this.isSnapped) return;
                 if (this.snappedImage == null) return;
-                if ((value) && (((int)this.contentSite.ActualWidth > 0) && ((int)this.contentSite.ActualHeight > 0)))
+                if (value && ((int)this.contentSite.ActualWidth > 0) && ((int)this.contentSite.ActualHeight > 0))
                 {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
@@ -450,13 +450,13 @@
             this.quickAccessCombo.DropDownClosed += this.OnQuickAccessMenuClosed;
             this.quickAccessCombo.UpdateLayout();
             if (!this.isQuickAccessFocused)
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
-                {
-                    this.Freeze();
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Input, ((ThreadStart)(() => { if (this.quickAccessCombo.SelectedItem != null) (this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView(); }
-                        )));
-                }
-                    )));
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)(() =>
+                                                                                     {
+                                                                                         this.Freeze();
+                                                                                         this.Dispatcher.BeginInvoke(DispatcherPriority.Input, (ThreadStart)(() => { if (this.quickAccessCombo.SelectedItem != null) (this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView(); }
+                                                                                                                                                            ));
+                                                                                     }
+                                                                                    ));
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -702,8 +702,8 @@
             if (this.focusedElement != null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
-                if ((this.IsEditable) &&
-                    (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject))))
+                if (this.IsEditable &&
+                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
                 {
                     this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject);
                 }
@@ -716,7 +716,7 @@
         /// <param name="e">Event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            if ((this.IsEditable) && ((e.Key == Key.Down) || (e.Key == Key.Up)) && (!this.IsDropDownOpen))
+            if (this.IsEditable && ((e.Key == Key.Down) || (e.Key == Key.Up)) && !this.IsDropDownOpen)
             {
                 this.IsDropDownOpen = true;
                 e.Handled = true;
@@ -744,7 +744,7 @@
                     }
                     else
                     {
-                        if ((this.Items.Count > 0) && (!this.IsEditable))
+                        if ((this.Items.Count > 0) && !this.IsEditable)
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         }
@@ -760,7 +760,7 @@
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && (!this.IsEditable)) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && !this.IsEditable) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
@@ -784,7 +784,7 @@
                     }
                     else
                     {
-                        if ((this.Items.Count > 0) && (!this.IsEditable))
+                        if ((this.Items.Count > 0) && !this.IsEditable)
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
                         }
@@ -800,7 +800,7 @@
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && (!this.IsEditable)) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && !this.IsEditable) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
@@ -812,7 +812,7 @@
                 e.Handled = true;
                 return;
             }
-            else if ((e.Key == Key.Return) && (!this.IsEditable) && this.IsDropDownOpen)
+            else if ((e.Key == Key.Return) && !this.IsEditable && this.IsDropDownOpen)
             {
                 var element = Keyboard.FocusedElement as DependencyObject;
 

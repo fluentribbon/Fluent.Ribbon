@@ -399,7 +399,7 @@ namespace Fluent
             bool fBelow = DoubleUtil.GreaterThan(bottomChild, bottomView) && DoubleUtil.GreaterThan(topChild, topView);*/
             var fAbove = (topChild < topView) && (bottomChild < bottomView);
             var fBelow = (bottomChild > bottomView) && (topChild > topView);
-            var fLarger = (bottomChild - topChild) > (bottomView - topView);
+            var fLarger = bottomChild - topChild > bottomView - topView;
 
             // Handle Cases:  1 & 4 above
             if ((fAbove && !fLarger)

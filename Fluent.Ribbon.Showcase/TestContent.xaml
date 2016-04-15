@@ -194,19 +194,11 @@
                                 <TabControl Margin="20,5,20,5"
                                             Style="{DynamicResource InnerBackstageTabControlStyle}">
                                     <Fluent:SeparatorTabItem Header="Test1" />
-                                    <TabItem Header="1">
-
-                                    </TabItem>
-                                    <TabItem Header="2">
-
-                                    </TabItem>
-                                    <TabItem Header="3">
-
-                                    </TabItem>
+                                    <TabItem Header="1" />
+                                    <TabItem Header="2" />
+                                    <TabItem Header="3" />
                                     <Fluent:SeparatorTabItem Header="Test2" />
-                                    <TabItem Header="4">
-
-                                    </TabItem>
+                                    <TabItem Header="4" />
                                 </TabControl>
                             </Fluent:BackstageTabItem>
 
@@ -1249,8 +1241,8 @@
                         <!--You can also add items to context menu-->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
-                                <Fluent:MenuItem Header="Menu Item 1"></Fluent:MenuItem>
-                                <Fluent:MenuItem Header="Menu Item 2"></Fluent:MenuItem>
+                                <Fluent:MenuItem Header="Menu Item 1" />
+                                <Fluent:MenuItem Header="Menu Item 2" />
                             </Fluent:RibbonMenu>
                         </Fluent:InRibbonGallery.Menu>
                     </Fluent:InRibbonGallery>
@@ -1587,12 +1579,12 @@
                                          IsSplited="True"
                                          Command="Paste">
                             <Fluent:MenuItem Header="1"
-                                             Click="OnMenuItemClick"></Fluent:MenuItem>
+                                             Click="OnMenuItemClick" />
                             <Fluent:MenuItem Header="2"
-                                             Command="Paste"></Fluent:MenuItem>
+                                             Command="Paste" />
                         </Fluent:MenuItem>
                         <Fluent:MenuItem Header="Paste now"
-                                         Command="Paste"></Fluent:MenuItem>
+                                         Command="Paste" />
                     </Fluent:SplitButton>
                     <Fluent:Button x:Name="cutButton"
                                    KeyTip="X"
@@ -2084,8 +2076,7 @@
                                                  StandardColorGridRows="3"
                                                  Columns="10"
                                                  ThemeColorGridRows="5"
-                                                 IsNoColorButtonVisible="True">
-                            </Fluent:ColorGallery>
+                                                 IsNoColorButtonVisible="True" />
                         </Fluent:DropDownButton>
                     </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
@@ -2542,8 +2533,7 @@
                                   Visibility="Collapsed">
                 <Fluent:RibbonGroupBox Header="MUST BE HIDDEN"
                                        IsLauncherVisible="False"
-                                       Visibility="Collapsed">
-                </Fluent:RibbonGroupBox>
+                                       Visibility="Collapsed" />
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 

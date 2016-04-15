@@ -72,13 +72,6 @@ namespace Fluent
             FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));
         }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ContextMenu()
-        {
-        }
-
         #endregion
 
         #region Overrides
@@ -125,7 +118,7 @@ namespace Fluent
         /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is FrameworkElement);
+            return item is FrameworkElement;
         }
 
         #endregion

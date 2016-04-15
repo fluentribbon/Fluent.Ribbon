@@ -99,7 +99,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HorizontalAlignment.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static new readonly DependencyProperty HorizontalAlignmentProperty = DependencyProperty.RegisterAttached(
+        public new static readonly DependencyProperty HorizontalAlignmentProperty = DependencyProperty.RegisterAttached(
           "HorizontalAlignment",
           typeof(HorizontalAlignment),
           typeof(KeyTip),
@@ -161,7 +161,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for VerticalAlignment.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static new readonly DependencyProperty VerticalAlignmentProperty =
+        public new static readonly DependencyProperty VerticalAlignmentProperty =
             DependencyProperty.RegisterAttached("VerticalAlignment",
             typeof(VerticalAlignment), typeof(KeyTip),
             new UIPropertyMetadata(VerticalAlignment.Center));
@@ -198,7 +198,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Margin. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static new readonly DependencyProperty MarginProperty =
+        public new static readonly DependencyProperty MarginProperty =
             DependencyProperty.RegisterAttached("Margin", typeof(Thickness), typeof(KeyTip), new UIPropertyMetadata(new Thickness()));
 
         #endregion

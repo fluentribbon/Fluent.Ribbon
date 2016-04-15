@@ -27,7 +27,7 @@
                 return routedCommand.CanExecute(commandParameter, commandTarget);
             }
 
-            return command.CanExecute(commandParameter); ;
+            return command.CanExecute(commandParameter);
         }
 
         /// <summary>

@@ -256,7 +256,7 @@
         System.ComponentModel.Description("Help topic (it will be used to execute help)")]
         public object HelpTopic
         {
-            get { return (object)this.GetValue(HelpTopicProperty); }
+            get { return this.GetValue(HelpTopicProperty); }
             set { this.SetValue(HelpTopicProperty, value); }
         }
 

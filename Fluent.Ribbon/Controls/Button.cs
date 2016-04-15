@@ -76,7 +76,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (object)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
@@ -228,7 +228,7 @@ namespace Fluent
         public virtual FrameworkElement CreateQuickAccessItem()
         {
             var button = new Button();
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonControl.BindQuickAccessItem(this, button);
             return button;
         }

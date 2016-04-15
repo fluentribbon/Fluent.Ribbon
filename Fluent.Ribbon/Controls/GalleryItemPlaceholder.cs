@@ -8,21 +8,12 @@ namespace Fluent
     /// </summary>
     internal class GalleryItemPlaceholder : UIElement
     {
-        #region Fields
-
-        private UIElement target;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets the target of the placeholder
         /// </summary>
-        public UIElement Target
-        {
-            get { return this.target; }
-        }
+        public UIElement Target { get; }
 
         public Size ArrangedSize { get; private set; }
 
@@ -36,7 +27,7 @@ namespace Fluent
         /// <param name="target">Target</param>
         public GalleryItemPlaceholder(UIElement target)
         {
-            this.target = target;
+            this.Target = target;
         }
 
         #endregion
@@ -56,8 +47,8 @@ namespace Fluent
         /// indicate that the element will size to whatever content is available.</param>
         protected override Size MeasureCore(Size availableSize)
         {
-            this.target.Measure(availableSize);
-            return this.target.DesiredSize;
+            this.Target.Measure(availableSize);
+            return this.Target.DesiredSize;
         }
 
         /// <summary>

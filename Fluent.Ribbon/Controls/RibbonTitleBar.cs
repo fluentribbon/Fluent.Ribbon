@@ -366,7 +366,7 @@ namespace Fluent
                         {
                             var allTextWidthRight = Math.Max(0, constraint.Width - endX);
                             var allTextWidthLeft = Math.Max(0, startX - quickAccessToolbarWidth);
-                            var fitsRightButNotLeft = (allTextWidthRight >= this.headerHolder.DesiredSize.Width && allTextWidthLeft < this.headerHolder.DesiredSize.Width);
+                            var fitsRightButNotLeft = allTextWidthRight >= this.headerHolder.DesiredSize.Width && allTextWidthLeft < this.headerHolder.DesiredSize.Width;
 
                             if (((startX - quickAccessToolbarWidth < 150 || fitsRightButNotLeft) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                             {

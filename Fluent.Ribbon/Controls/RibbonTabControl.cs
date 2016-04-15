@@ -30,7 +30,6 @@
         private ObservableCollection<UIElement> toolBarItems;
 
         // ToolBar panel
-        private Panel toolbarPanel;
 
         #endregion
 
@@ -222,10 +221,7 @@
             }
         }
 
-        internal Panel ToolbarPanel
-        {
-            get { return this.toolbarPanel; }
-        }
+        internal Panel ToolbarPanel { get; private set; }
 
         // Handle toolbar iitems changes
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -263,7 +259,7 @@
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    this.toolbarPanel.Children.Clear();
+                    this.ToolbarPanel.Children.Clear();
                     foreach (var toolBarItem in this.ToolBarItems)
                     {
                         this.ToolbarPanel.Children.Add(toolBarItem);
@@ -371,7 +367,7 @@
                 }
             }
 
-            this.toolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
+            this.ToolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
 
             if (this.ToolbarPanel != null
                 && this.toolBarItems != null)
@@ -608,7 +604,7 @@
                     }
 
                     var nextItem = this.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
-                    if (((nextItem != null) && nextItem.IsEnabled) && (nextItem.Visibility == Visibility.Visible))
+                    if ((nextItem != null) && nextItem.IsEnabled && (nextItem.Visibility == Visibility.Visible))
                     {
                         return nextItem;
                     }

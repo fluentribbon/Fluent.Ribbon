@@ -249,7 +249,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
+                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
             }
         }
 

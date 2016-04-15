@@ -174,7 +174,7 @@ namespace Fluent
             var button = new CheckBox();
 
             RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonControl.BindQuickAccessItem(this, button);
 
             return button;

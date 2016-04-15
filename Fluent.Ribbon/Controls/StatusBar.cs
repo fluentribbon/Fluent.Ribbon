@@ -171,7 +171,7 @@ namespace Fluent
                 return;
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Delegate)new Action(this.RecreateMenu));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.RecreateMenu));
         }
 
         /// <summary>

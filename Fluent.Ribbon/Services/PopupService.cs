@@ -319,8 +319,7 @@
             }
 
             var position = Mouse.GetPosition(element);
-            return ((position.X >= 0.0) && (position.Y >= 0.0))
-                && ((position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height));
+            return (position.X >= 0.0) && (position.Y >= 0.0) && (position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height);
         }
 
         /// <summary>
