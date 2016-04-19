@@ -106,16 +106,10 @@
                 Value="True" />
         <Setter Property="UseAeroCaptionButtons"
                 Value="False" />
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource BlackColor}" />
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="{DynamicResource WhiteColor}" />
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Background"
+                Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
         <Style.Triggers>
