@@ -252,6 +252,11 @@
         private readonly VisualCollection visualCollection;
         private ItemContainerGeneratorAction itemContainerGeneratorAction;
 
+        private ItemContainerGeneratorAction ItemContainerGeneratorAction
+        {
+            get { return this.itemContainerGeneratorAction ?? (this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Invalidate)); }
+        }
+
         /// <summary>
         /// Gets the number of visual child elements within this element.
         /// </summary>
@@ -376,11 +381,6 @@
             }
 
             this.needsRefresh = false;
-
-            if (this.itemContainerGeneratorAction == null)
-            {
-                this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Refresh);
-            }
 
             // Clear currently used group containers 
             // and supply with new generated ones
@@ -609,12 +609,11 @@
         /// <param name="sender">The <see cref="T:System.Object"/> that raised the event.</param><param name="args">Provides data for the <see cref="E:System.Windows.Controls.ItemContainerGenerator.ItemsChanged"/> event.</param>
         protected override void OnItemsChanged(object sender, ItemsChangedEventArgs args)
         {
-            if (this.itemContainerGeneratorAction?.IsWaitingForGenerator == false)
-            {
-                this.itemContainerGeneratorAction?.QueueAction();
-            }
+            this.needsRefresh = true;
 
             base.OnItemsChanged(sender, args);
+
+            this.ItemContainerGeneratorAction.QueueAction();
         }
     }
 }
