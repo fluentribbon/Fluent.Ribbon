@@ -375,15 +375,13 @@
                                                       KeyboardNavigation.DirectionalNavigation="None"
                                                       VerticalAlignment="Stretch"
                                                       BorderThickness="0,0,0,1">
-                                            <Grid>
-                                                <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
-                                                                     Background="White"
-                                                                     GroupBy="{TemplateBinding GroupBy}"
-                                                                     IsItemsHost="True"
-                                                                     KeyboardNavigation.DirectionalNavigation="None"
-                                                                     ItemHeight="{TemplateBinding ItemHeight}"
-                                                                     Orientation="Vertical" />
-                                            </Grid>
+                                            <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
+                                                                 Background="White"
+                                                                 GroupBy="{TemplateBinding GroupBy}"
+                                                                 IsItemsHost="True"
+                                                                 KeyboardNavigation.DirectionalNavigation="None"
+                                                                 ItemHeight="{TemplateBinding ItemHeight}"
+                                                                 Orientation="Vertical" />
                                         </ScrollViewer>
                                         <ContentPresenter x:Name="menuPresenter"
                                                           ContentSource="Menu"
