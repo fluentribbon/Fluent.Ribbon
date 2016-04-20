@@ -7,6 +7,30 @@
 
     <Style x:Key="KeyTipStyle"
            TargetType="Fluent:KeyTip">
+        <Setter Property="Foreground"
+                Value="White" />
+        <Setter Property="Background"
+                Value="{DynamicResource KeyTipBackgroundBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource KeyTipBorderBrush}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Fluent:KeyTip">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Foreground="{TemplateBinding Foreground}"
+                                   Text="{TemplateBinding Content}"
+                                   TextWrapping="Wrap"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="4,-1,4,1" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -14,23 +38,5 @@
                         Value="0.5" />
             </Trigger>
         </Style.Triggers>
-        <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Fluent:KeyTip">
-                    <Grid>
-                        <Border Background="#FF525252">
-                            <TextBlock Text="{TemplateBinding Content}"
-                                       TextWrapping="Wrap"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Margin="4,-1,4,1"
-                                       Foreground="White" />
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 </ResourceDictionary>
