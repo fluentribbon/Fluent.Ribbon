@@ -30,6 +30,10 @@
         // Group name resolver
         private Func<object, string> groupByAdvanced;
 
+        private readonly VisualCollection visualCollection;
+
+        private ItemContainerGeneratorAction itemContainerGeneratorAction;
+
         #endregion
 
         #region Properties
@@ -249,9 +253,6 @@
 
         #region Visual Tree
 
-        private readonly VisualCollection visualCollection;
-        private ItemContainerGeneratorAction itemContainerGeneratorAction;
-
         private ItemContainerGeneratorAction ItemContainerGeneratorAction
         {
             get { return this.itemContainerGeneratorAction ?? (this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Invalidate)); }
@@ -405,7 +406,7 @@
                 }
 
                 // Resolve group name
-                string propertyValue = null;
+                string propertyValue;
 
                 if (this.GroupByAdvanced == null)
                 {
