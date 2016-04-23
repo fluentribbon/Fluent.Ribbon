@@ -24,7 +24,7 @@
         {
             this.InitializeComponent();
 
-            //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
+            //RibbonLocalization.Current.Localization.Culture = new CultureInfo("ru-RU");
 
             this.HookEvents();
 

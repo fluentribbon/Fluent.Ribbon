@@ -17,8 +17,8 @@
                 Width="22">
             <Border.ToolTip>
                 <Fluent:ScreenTip x:Name="screenTip"
-                                  Title="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=MinimizeButtonScreenTipTitle , Mode=OneWay}"
-                                  Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=MinimizeButtonScreenTipText , Mode=OneWay}" />
+                                  Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle , Mode=OneWay}"
+                                  Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText , Mode=OneWay}" />
             </Border.ToolTip>
             <Border x:Name="border1"
                     Height="Auto"
@@ -57,10 +57,10 @@
                         Value="Visible" />
                 <Setter Property="Title"
                         TargetName="screenTip"
-                        Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipTitle , Mode=OneWay}" />
+                        Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle , Mode=OneWay}" />
                 <Setter Property="Text"
                         TargetName="screenTip"
-                        Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ExpandButtonScreenTipText , Mode=OneWay}" />
+                        Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText , Mode=OneWay}" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">

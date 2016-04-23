@@ -78,7 +78,7 @@ namespace Fluent
 
         private static object CoerceKeyTipKeys(DependencyObject d, object basevalue)
         {
-            return basevalue ?? Ribbon.Localization.BackstageButtonKeyTip;
+            return basevalue ?? RibbonLocalization.Current.Localization.BackstageButtonKeyTip;
         }
 
         /// <summary>

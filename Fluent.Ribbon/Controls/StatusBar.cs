@@ -293,7 +293,7 @@ namespace Fluent
 
             // Adding header separator
             this.contextMenu.Items.Add(new GroupSeparatorMenuItem());
-            RibbonControl.Bind(Ribbon.Localization, this.contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonLocalization.Current.Localization, this.contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
 
             for (var i = 0; i < this.Items.Count; i++)
             {

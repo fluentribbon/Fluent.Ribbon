@@ -33,7 +33,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -47,7 +47,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -96,6 +96,45 @@
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\KeyEventUtility.cs" />
     <Compile Include="Internal\UIHelper.cs" />
+    <Compile Include="Localization\Languages\Arabic.cs" />
+    <Compile Include="Localization\Languages\Azerbaijani.cs" />
+    <Compile Include="Localization\Languages\Catalan.cs" />
+    <Compile Include="Localization\Languages\Chinese.cs" />
+    <Compile Include="Localization\Languages\Czech.cs" />
+    <Compile Include="Localization\Languages\Danish.cs" />
+    <Compile Include="Localization\Languages\Dutch.cs" />
+    <Compile Include="Localization\Languages\English.cs" />
+    <Compile Include="Localization\Languages\Estonian.cs" />
+    <Compile Include="Localization\Languages\Finnish.cs" />
+    <Compile Include="Localization\Languages\French.cs" />
+    <Compile Include="Localization\Languages\German.cs" />
+    <Compile Include="Localization\Languages\Greek.cs" />
+    <Compile Include="Localization\Languages\Hebrew.cs" />
+    <Compile Include="Localization\Languages\Hungarian.cs" />
+    <Compile Include="Localization\Languages\Italian.cs" />
+    <Compile Include="Localization\Languages\Japanese.cs" />
+    <Compile Include="Localization\Languages\Korean.cs" />
+    <Compile Include="Localization\Languages\Lithuanian.cs" />
+    <Compile Include="Localization\Languages\Norwegian.cs" />
+    <Compile Include="Localization\Languages\Norwegian_Bokmål.cs" />
+    <Compile Include="Localization\Languages\Norwegian_Nynorsk.cs" />
+    <Compile Include="Localization\Languages\Persian.cs" />
+    <Compile Include="Localization\Languages\Polish.cs" />
+    <Compile Include="Localization\Languages\Portuguese.cs" />
+    <Compile Include="Localization\Languages\Portuguese_Brazil.cs" />
+    <Compile Include="Localization\Languages\Romanian.cs" />
+    <Compile Include="Localization\Languages\Russian.cs" />
+    <Compile Include="Localization\Languages\Sinhala.cs" />
+    <Compile Include="Localization\Languages\Slovak.cs" />
+    <Compile Include="Localization\Languages\Slovenian.cs" />
+    <Compile Include="Localization\Languages\Spanish.cs" />
+    <Compile Include="Localization\Languages\Swedish.cs" />
+    <Compile Include="Localization\Languages\Turkish.cs" />
+    <Compile Include="Localization\Languages\Ukrainian.cs" />
+    <Compile Include="Localization\Languages\Vietnamese.cs" />
+    <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
+    <Compile Include="Localization\RibbonLocalizationBase.cs" />
+    <Compile Include="RibbonLocalization.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
@@ -143,7 +182,6 @@
     <Compile Include="Converters\IconConverter.cs" />
     <Compile Include="Controls\InRibbonGallery.cs" />
     <Compile Include="IScalableRibbonControl.cs" />
-    <Compile Include="RibbonLocalization.cs" />
     <Compile Include="Controls\RibbonScrollViewer.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroup.cs" />
     <Compile Include="Controls\RibbonToolBarControlDefinition.cs" />

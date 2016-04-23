@@ -76,9 +76,9 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="Header"
-                Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonText , Mode=OneWay}" />
+                Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText , Mode=OneWay}" />
         <Setter Property="Fluent:KeyTip.Keys"
-                Value="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=BackstageButtonKeyTip , Mode=OneWay}" />
+                Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip , Mode=OneWay}" />
         <Setter Property="HideAnimationDuration"
                 Value="0:0:0.2" />
         <Setter Property="HideContextTabsOnOpen"

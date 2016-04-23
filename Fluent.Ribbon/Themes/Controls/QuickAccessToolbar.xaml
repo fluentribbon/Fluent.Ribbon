@@ -310,18 +310,18 @@
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
-                                       ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
+                                       ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"
-                                                   Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuHeader, Mode=OneWay}" />
+                                                   Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuHeader, Mode=OneWay}" />
                     <StackPanel x:Name="PART_MenuPanel" />
                     <Separator x:Name="menuSeparator"
                                Style="{DynamicResource MenuSeparatorStyle}" />
                     <Fluent:MenuItem x:Name="PART_ShowBelow"
                                      CanAddToQuickAccessToolBar="False"
-                                     Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
+                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
                     <Fluent:MenuItem x:Name="PART_ShowAbove"
                                      CanAddToQuickAccessToolBar="False"
-                                     Header="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
+                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
@@ -337,7 +337,7 @@
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarExtender.png"
-                                   ToolTip="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
+                                   ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
                 <Fluent:DropDownButton.ContextMenu>
                     <ContextMenu />
                 </Fluent:DropDownButton.ContextMenu>

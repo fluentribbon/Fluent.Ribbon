@@ -95,7 +95,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock x:Name="disableReasonHeader"
                                            x:Uid="disableReasonHeader"
-                                           Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipDisableReasonHeader, Mode=OneWay}"
+                                           Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ScreenTipDisableReasonHeader, Mode=OneWay}"
                                            TextWrapping="Wrap"
                                            Margin="28,0,5,2"
                                            Foreground="#FF414141"
@@ -137,7 +137,7 @@
                                    Source="{DynamicResource ScreenTipHelpImage}" />
                             <TextBlock x:Uid="HelpText"
                                        x:Name="textBlock"
-                                       Text="{Binding Source={x:Static Fluent:Ribbon.Localization}, Path=ScreenTipF1LabelHeader, Mode=OneWay}"
+                                       Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ScreenTipF1LabelHeader, Mode=OneWay}"
                                        TextWrapping="Wrap"
                                        Margin="28,0,6,6"
                                        Foreground="#FF414141"
