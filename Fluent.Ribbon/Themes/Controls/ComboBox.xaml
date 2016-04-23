@@ -370,18 +370,14 @@
                                         <ScrollViewer Focusable="False"
                                                       BorderBrush="{DynamicResource GalleryBorderBrush}"
                                                       x:Name="PART_ScrollViewer"
+                                                      Background="White"
                                                       Margin="1"
                                                       SnapsToDevicePixels="True"
                                                       KeyboardNavigation.DirectionalNavigation="None"
                                                       VerticalAlignment="Stretch"
                                                       BorderThickness="0,0,0,1">
-                                            <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
-                                                                 Background="White"
-                                                                 GroupBy="{TemplateBinding GroupBy}"
-                                                                 IsItemsHost="True"
-                                                                 KeyboardNavigation.DirectionalNavigation="None"
-                                                                 ItemHeight="{TemplateBinding ItemHeight}"
-                                                                 Orientation="Vertical" />
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                         </ScrollViewer>
                                         <ContentPresenter x:Name="menuPresenter"
                                                           ContentSource="Menu"
@@ -428,35 +424,6 @@
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="ShowPopupOnTop"
-                     Value="True">
-                <Setter Property="Content"
-                        TargetName="downResizeContent"
-                        Value="{x:Null}" />
-                <Setter Property="Content"
-                        TargetName="upResizeContent"
-                        Value="{Binding ElementName=resizeBorder}" />
-                <Setter Property="CornerRadius"
-                        TargetName="resizeBorder"
-                        Value="1,1,0,0" />
-                <Setter Property="Cursor"
-                        TargetName="PART_ResizeBothThumb"
-                        Value="SizeNESW" />
-                <Setter Property="LayoutTransform"
-                        TargetName="PART_ResizeBothThumb">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1"
-                                        ScaleY="-1" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="LayoutTransform"
-                        TargetName="PART_ResizeVerticalThumb">
-                    <Setter.Value>
-                        <ScaleTransform ScaleX="1"
-                                        ScaleY="-1" />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
             <Trigger Property="Menu"
                      Value="{x:Null}">
                 <Setter Property="BorderThickness"

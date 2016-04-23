@@ -2,6 +2,8 @@
 
 namespace Fluent
 {
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents internal class to use it in 
     /// GalleryPanel as placeholder for GalleryItems
@@ -70,11 +72,11 @@ namespace Fluent
 
         #region Debug
 
-        /* FOR DEGUG
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
-        }*/
+        /* FOR DEGUG */
+        //protected override void OnRender(DrawingContext drawingContext)
+        //{
+        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
+        //}
 
         #endregion
     }

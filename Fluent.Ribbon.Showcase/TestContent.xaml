@@ -481,6 +481,11 @@
                                      InputWidth="150"
                                      Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
+                        <Fluent:ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </Fluent:ComboBox.ItemsPanel>
                         <Fluent:ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}"
@@ -1897,14 +1902,21 @@
                                          Height="22"
                                          BorderBrush="Gainsboro"
                                          Foreground="#FF222222"
-                                         GroupBy="Tag"
                                          DisplayMemberPath="Text"
                                          IsTextSearchEnabled="True"
                                          ResizeMode="Vertical"
                                          KeyTip="FF"
                                          SizeDefinition="Small"
+                                         ScrollViewer.CanContentScroll="False"
                                          SelectedIndex="0">
+                            <Fluent:ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Fluent:GalleryPanel GroupBy="Tag"
+                                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
+                                </ItemsPanelTemplate>
+                            </Fluent:ComboBox.ItemsPanel>
                             <TextBlock Text="Arial"
+                                       HorizontalAlignment="Stretch"
                                        Tag="Theme Fonts" />
                             <TextBlock Text="Tahoma"
                                        Tag="Theme Fonts" />

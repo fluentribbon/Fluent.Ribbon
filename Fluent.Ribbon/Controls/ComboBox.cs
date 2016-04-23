@@ -43,7 +43,7 @@
         // Is visual currently snapped
         private bool isSnapped;
 
-        private GalleryPanel galleryPanel;
+        //private GalleryPanel galleryPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -204,47 +204,6 @@
 
         #endregion
 
-        #region ItemHeight
-
-        /// <summary>
-        ///     Gets or sets items height
-        /// </summary>
-        public double ItemHeight
-        {
-            get { return (double)this.GetValue(ItemHeightProperty); }
-            set { this.SetValue(ItemHeightProperty, value); }
-        }
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
-        #endregion
-
-        #region GroupBy
-
-        /// <summary>
-        ///     Gets or sets name of property which
-        ///     will use to group items in the ComboBox.
-        /// </summary>
-        public string GroupBy
-        {
-            get { return (string)this.GetValue(GroupByProperty); }
-            set { this.SetValue(GroupByProperty, value); }
-        }
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for GroupBy.
-        ///     This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string),
-                typeof(ComboBox), new UIPropertyMetadata(null));
-
-        #endregion
-
         #region ResizeMode
 
         /// <summary>
@@ -326,28 +285,6 @@
 
         #endregion
 
-        #region ShowPopupOnTop
-
-        /// <summary>
-        ///     Gets a value indicating whether popup is shown on top;
-        /// </summary>
-        public bool ShowPopupOnTop
-        {
-            get { return (bool)this.GetValue(ShowPopupOnTopProperty); }
-            private set { this.SetValue(ShowPopupOnTopPropertyKey, value); }
-        }
-
-        // 
-        private static readonly DependencyPropertyKey ShowPopupOnTopPropertyKey = DependencyProperty.RegisterReadOnly("ShowPopupOnTop", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false));
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for ShowPopupOnTop.  This enables animation, styling, binding,
-        ///     etc...
-        /// </summary>
-        public static readonly DependencyProperty ShowPopupOnTopProperty = ShowPopupOnTopPropertyKey.DependencyProperty;
-
-        #endregion
-
         #endregion
 
         #region Constructors
@@ -401,10 +338,8 @@
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
-            RibbonControl.Bind(this, combo, "GroupBy", GroupByProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "ActualWidth", WidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "InputWidth", InputWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemHeight", ItemHeightProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "IsEditable", IsEditableProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, "ResizeMode", ResizeModeProperty, BindingMode.OneWay);
@@ -587,7 +522,6 @@
             this.contentBorder = this.GetTemplateChild("PART_ContentBorder") as Border;
             if (this.contentBorder != null) this.contentBorder.PreviewMouseDown += this.OnContentBorderPreviewMouseDown;
 
-            this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
             this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
@@ -619,11 +553,10 @@
 
             this.canSizeY = true;
 
-            this.galleryPanel.Width = double.NaN;
+            this.scrollViewer.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
 
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
-            var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
             var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
@@ -635,46 +568,6 @@
             if (this.scrollViewer.DesiredSize.Height > initialHeight)
             {
                 this.scrollViewer.Height = initialHeight;
-            }
-            else
-            {
-                initialHeight = this.scrollViewer.DesiredSize.Height;
-            }
-
-            var monitor = RibbonControl.GetControlMonitor(this);
-            var delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
-
-            if (delta >= 0)
-            {
-                this.ShowPopupOnTop = false;
-            }
-            else
-            {
-                var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
-
-                if (deltaTop > delta)
-                {
-                    this.ShowPopupOnTop = true;
-                }
-                else
-                {
-                    this.ShowPopupOnTop = false;
-                }
-
-                if (deltaTop < 0)
-                {
-                    delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
-
-                    if (delta > this.galleryPanel.GetItemSize().Height)
-                    {
-                        this.scrollViewer.Height = delta;
-                    }
-                    else
-                    {
-                        this.canSizeY = false;
-                        this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
-                    }
-                }
             }
 
             popupChild.UpdateLayout();
@@ -690,8 +583,7 @@
             if (Mouse.Captured == this) Mouse.Capture(null);
             if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
             this.focusedElement = null;
-            this.ShowPopupOnTop = false;
-            this.galleryPanel.Width = double.NaN;
+            this.scrollViewer.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
         }
 
@@ -890,24 +782,24 @@
 
             // Set width
             this.menuPanel.Width = double.NaN;
-            if (double.IsNaN(this.galleryPanel.Width))
+            if (double.IsNaN(this.scrollViewer.Width))
             {
-                this.galleryPanel.Width = this.galleryPanel.ActualWidth;
+                this.scrollViewer.Width = this.scrollViewer.ActualWidth;
             }
 
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
             var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
-            var deltaX = popupChild.ActualWidth - this.galleryPanel.ActualWidth;
-            var deltaBorders = this.dropDownBorder.ActualWidth - this.galleryPanel.ActualWidth;
+            var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
+            var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
 
             if (delta > 0)
             {
-                this.galleryPanel.Width = Math.Max(0, Math.Max(this.galleryPanel.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(this.scrollViewer.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
             }
             else
             {
-                this.galleryPanel.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, this.ActualWidth - deltaBorders));
             }
         }
 
@@ -929,41 +821,7 @@
                 this.scrollViewer.Height = this.scrollViewer.ActualHeight;
             }
 
-            if (this.ShowPopupOnTop)
-            {
-                var monitorTop = RibbonControl.GetControlMonitor(this).Top;
-
-                // Calc shadow height
-                var delta = this.PointToScreen(new Point()).Y - this.dropDownBorder.ActualHeight - e.VerticalChange - monitorTop;
-                if (delta > 0)
-                {
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
-                }
-                else
-                {
-                    delta = this.PointToScreen(new Point()).Y - this.dropDownBorder.ActualHeight - monitorTop;
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + delta), this.MaxDropDownHeight));
-                }
-            }
-            else
-            {
-                var monitorBottom = RibbonControl.GetControlMonitor(this).Bottom;
-                var popupChild = this.DropDownPopup.Child as FrameworkElement;
-                var delta = monitorBottom - this.PointToScreen(new Point()).Y - this.ActualHeight - popupChild.ActualHeight - e.VerticalChange;
-                if (delta > 0)
-                {
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
-                }
-                else
-                {
-                    delta = monitorBottom - this.PointToScreen(new Point()).Y - this.ActualHeight - popupChild.ActualHeight;
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + delta), this.MaxDropDownHeight));
-                }
-            }
+            this.scrollViewer.Height = Math.Max(0, this.scrollViewer.Height + e.VerticalChange);
         }
 
         #endregion

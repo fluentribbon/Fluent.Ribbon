@@ -702,18 +702,14 @@
                                                   Focusable="False"
                                                   BorderBrush="{DynamicResource GalleryBorderBrush}"
                                                   x:Name="PART_ScrollViewer"
+                                                  Background="White"
                                                   Margin="1"
                                                   SnapsToDevicePixels="True"
                                                   KeyboardNavigation.DirectionalNavigation="None"
                                                   VerticalAlignment="Stretch"
                                                   BorderThickness="0,0,0,1">
-                                        <Fluent:GalleryPanel Background="White"
-                                                             x:Name="PART_GalleryPanel"
-                                                             GroupBy="{TemplateBinding GroupBy}"
-                                                             IsItemsHost="True"
-                                                             KeyboardNavigation.DirectionalNavigation="None"
-                                                             ItemHeight="{TemplateBinding ItemHeight}"
-                                                             Orientation="Vertical" />
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                                     </ScrollViewer>
 
                                     <ContentPresenter Grid.Row="1"

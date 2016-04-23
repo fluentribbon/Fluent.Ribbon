@@ -7,32 +7,29 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Media;
     using System.Windows.Threading;
-    using Fluent.Internal;
 
     /// <summary>
     /// Represents panel for Gallery, InRibbonGallery, ComboBox 
     /// with grouping and filtering capabilities
     /// </summary>
-    public class GalleryPanel : VirtualizingStackPanel
+    public class GalleryPanel : StackPanel
     {
+        // todo: localization
+        private const string Undefined = "Undefined";
+
         #region Fields
 
         // Currently used group containers
         private readonly List<GalleryGroupContainer> galleryGroupContainers = new List<GalleryGroupContainer>();
 
         // Designate that gallery panel must be refreshed its groups
-        private bool needsRefresh = true;
+        private bool needsRefresh;
 
         // Group name resolver
         private Func<object, string> groupByAdvanced;
-
-        private readonly VisualCollection visualCollection;
-
-        private ItemContainerGeneratorAction itemContainerGeneratorAction;
 
         #endregion
 
@@ -55,7 +52,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
-            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel), new UIPropertyMetadata(true, OnIsGroupedChanged));
+            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel),
+            new UIPropertyMetadata(true, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -81,7 +79,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel), new UIPropertyMetadata(null, OnGroupByChanged));
+            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel),
+            new UIPropertyMetadata(null, OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -109,6 +108,34 @@
 
         #endregion
 
+        #region ItemContainerGenerator
+
+        /// <summary>
+        /// Gets or sets ItemContainerGenerator which generates the 
+        /// user interface (UI) on behalf of its host, such as an  ItemsControl. 
+        /// </summary>
+        public ItemContainerGenerator ItemContainerGenerator
+        {
+            get { return (ItemContainerGenerator)this.GetValue(ItemContainerGeneratorProperty); }
+            set { this.SetValue(ItemContainerGeneratorProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for ItemContainerGenerator.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty ItemContainerGeneratorProperty =
+            DependencyProperty.Register("ItemContainerGenerator", typeof(ItemContainerGenerator),
+            typeof(GalleryPanel), new UIPropertyMetadata(null, OnItemContainerGeneratorChanged));
+
+        private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryPanel = (GalleryPanel)d;
+            galleryPanel.Invalidate();
+        }
+
+        #endregion
+
         #region GroupStyle
 
         /// <summary>
@@ -125,7 +152,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style), typeof(GalleryPanel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("GroupHeaderStyle", typeof(Style),
+            typeof(GalleryPanel), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -146,7 +174,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register("ItemWidth", typeof(double),
+            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -167,7 +196,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register("ItemHeight", typeof(double),
+            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -187,7 +217,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
-            DependencyProperty.Register("Filter", typeof(string), typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
+            DependencyProperty.Register("Filter", typeof(string),
+            typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -213,7 +244,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata(1));
+            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            typeof(GalleryPanel), new UIPropertyMetadata(1));
 
         #endregion
 
@@ -233,7 +265,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
+            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -253,21 +286,12 @@
 
         #region Visual Tree
 
-        private ItemContainerGeneratorAction ItemContainerGeneratorAction
-        {
-            get { return this.itemContainerGeneratorAction ?? (this.itemContainerGeneratorAction = new ItemContainerGeneratorAction((ItemContainerGenerator)this.ItemContainerGenerator, this.Invalidate)); }
-        }
+        private readonly VisualCollection visualCollection;
 
         /// <summary>
         /// Gets the number of visual child elements within this element.
         /// </summary>
-        protected override int VisualChildrenCount
-        {
-            get
-            {
-                return base.VisualChildrenCount + this.visualCollection.Count;
-            }
-        }
+        protected override int VisualChildrenCount => base.VisualChildrenCount + this.visualCollection.Count;
 
         /// <summary>
         /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
@@ -371,18 +395,22 @@
             }
 
             this.needsRefresh = true;
-            this.Dispatcher.BeginInvoke((Action)this.Refresh, DispatcherPriority.Send);
+            this.Dispatcher.BeginInvoke((Action)this.RefreshDispatchered, DispatcherPriority.Send);
         }
 
-        private void Refresh()
+        private void RefreshDispatchered()
         {
             if (this.needsRefresh == false)
             {
                 return;
             }
 
+            this.Refresh();
             this.needsRefresh = false;
+        }
 
+        private void Refresh()
+        {
             // Clear currently used group containers 
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -412,36 +440,39 @@
                 {
                     propertyValue = this.ItemContainerGenerator == null
                                         ? this.GetPropertyValueAsString(item)
-                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
+                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
                 }
                 else
                 {
                     propertyValue = this.ItemContainerGenerator == null
                                         ? this.GroupByAdvanced(item)
-                                        : this.GroupByAdvanced(this.ItemContainerGenerator.GetItemContainerGeneratorForPanel(this).ItemFromContainer(item));
+                                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainer(item));
                 }
 
                 if (propertyValue == null)
                 {
-                    propertyValue = "Undefined";
+                    propertyValue = Undefined;
                 }
 
-                // Make invisible if it is not in filter
-                if (this.IsGrouped
-                    && filter != null
+                // Make invisible if it is not in filter (or is not grouped)
+                if (this.IsGrouped == false
+                    || (filter != null && filter.Contains(propertyValue) == false))
+                {
+                    item.Measure(new Size(0, 0));
+                    item.Arrange(new Rect(0, 0, 0, 0));
+                }
+
+                // Skip if it is not in filter
+                if (filter != null
                     && filter.Contains(propertyValue) == false)
                 {
-                    item.Visibility = Visibility.Collapsed;
                     continue;
                 }
-
-                // Make all not filtered items visible
-                item.Visibility = Visibility.Visible;
 
                 // To put all items in one group in case of IsGrouped = False
                 if (this.IsGrouped == false)
                 {
-                    propertyValue = "Undefined";
+                    propertyValue = Undefined;
                 }
 
                 if (dictionary.ContainsKey(propertyValue) == false)
@@ -450,7 +481,6 @@
                     {
                         Header = propertyValue
                     };
-
                     RibbonControl.Bind(this, galleryGroupContainer, "GroupStyle", GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
@@ -469,11 +499,34 @@
             if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
                 && this.galleryGroupContainers.Count != 0)
             {
-                // Make it without headers
+                // Make it without headers if there is only one group and we are not supposed to group
                 this.galleryGroupContainers[0].IsHeadered = false;
             }
 
+            this.UpdateMinAndMaxWidth();
             this.InvalidateMeasure();
+        }
+
+        /// <summary>
+        /// Invoked when the VisualCollection of a visual object is modified.
+        /// </summary>
+        /// <param name="visualAdded">The Visual that was added to the collection.</param>
+        /// <param name="visualRemoved">The Visual that was removed from the collection.</param>
+        protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
+        {
+            base.OnVisualChildrenChanged(visualAdded, visualRemoved);
+
+            if (visualRemoved is GalleryGroupContainer)
+            {
+                return;
+            }
+
+            if (visualAdded is GalleryGroupContainer)
+            {
+                return;
+            }
+
+            this.Invalidate();
         }
 
         #endregion
@@ -494,18 +547,8 @@
         /// the element will size to whatever content is available.</param>
         protected override Size MeasureOverride(Size availableSize)
         {
-            var baseSize = base.MeasureOverride(availableSize);
-
-            this.Refresh();
-
-            if (this.galleryGroupContainers.Count == 0)
-            {
-                return baseSize;
-            }
-
             double width = 0;
             double height = 0;
-
             foreach (var child in this.galleryGroupContainers)
             {
                 child.Measure(availableSize);
@@ -525,15 +568,6 @@
         /// element should use to arrange itself and its children.</param>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var baseSize = base.ArrangeOverride(finalSize);
-
-            this.Refresh();
-
-            if (this.galleryGroupContainers.Count == 0)
-            {
-                return baseSize;
-            }
-
             var finalRect = new Rect(finalSize);
 
             foreach (var item in this.galleryGroupContainers)
@@ -569,7 +603,7 @@
             if (item == null ||
                 this.GroupBy == null)
             {
-                return "Undefined";
+                return Undefined;
             }
 
             var property = item.GetType().GetProperty(this.GroupBy, BindingFlags.Public | BindingFlags.Instance);
@@ -577,7 +611,7 @@
             var result = property?.GetValue(item, null);
             if (result == null)
             {
-                return "Undefined";
+                return Undefined;
             }
 
             return result.ToString();
@@ -602,19 +636,6 @@
                     yield return this.GetVisualChild(i);
                 }
             }
-        }
-
-        /// <summary>
-        /// Called when the <see cref="P:System.Windows.Controls.ItemsControl.Items"/> collection that is associated with the <see cref="T:System.Windows.Controls.ItemsControl"/> for this <see cref="T:System.Windows.Controls.Panel"/> changes.
-        /// </summary>
-        /// <param name="sender">The <see cref="T:System.Object"/> that raised the event.</param><param name="args">Provides data for the <see cref="E:System.Windows.Controls.ItemContainerGenerator.ItemsChanged"/> event.</param>
-        protected override void OnItemsChanged(object sender, ItemsChangedEventArgs args)
-        {
-            this.needsRefresh = true;
-
-            base.OnItemsChanged(sender, args);
-
-            this.ItemContainerGeneratorAction.QueueAction();
         }
     }
 }
