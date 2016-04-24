@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Tento příkaz je aktuálně zakázán.";
         public override string ScreenTipF1LabelHeader { get; } = "Stiskni F1 pro nápovědu";
         public override string CustomizeStatusBar { get; } = "Přizpůsobit Status Bar";
+        public override string NoColor { get; } = "Bez barvy";
     }
 }

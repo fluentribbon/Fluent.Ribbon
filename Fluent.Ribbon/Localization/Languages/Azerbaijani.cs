@@ -26,8 +26,9 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuMinimizeRibbon { get; } = " Menyu lentini kiçilt";
         public override string RibbonContextMenuShowAbove { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin üstündə göstər ";
         public override string RibbonContextMenuShowBelow { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin altında göstər ";
-        public override string ScreenTipDisableReasonHeader { get; } = "This command is currently disabled.";
-        public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
-        public override string CustomizeStatusBar { get; } = "Customize Status Bar";
+        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string NoColor { get; } = "No rəng";
     }
 }

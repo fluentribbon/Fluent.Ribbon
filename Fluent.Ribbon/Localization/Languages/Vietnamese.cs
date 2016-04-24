@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Lệnh này hiện bị tắt.";
         public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
         public override string CustomizeStatusBar { get; } = "Tùy biến thanh Trạng thái";
+        public override string NoColor { get; } = "Không có màu";
     }
 }

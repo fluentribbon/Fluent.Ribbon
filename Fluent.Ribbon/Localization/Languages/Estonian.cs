@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "See käsk on praegu keelatud.";
         public override string ScreenTipF1LabelHeader { get; } = "Spikri kuvamiseks vajutage klahvi F1";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";
+        public override string NoColor { get; } = "Ei värvi";
     }
 }

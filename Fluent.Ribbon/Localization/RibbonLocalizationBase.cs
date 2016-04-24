@@ -6,12 +6,12 @@
     public abstract class RibbonLocalizationBase
     {
         /// <summary>
-        /// Gets or sets text of backstage button
+        /// Gets text of backstage button
         /// </summary>
         public abstract string BackstageButtonText { get; }
 
         /// <summary>
-        /// Gets or sets KeyTip of backstage button
+        /// Gets KeyTip of backstage button
         /// </summary>
         public abstract string BackstageButtonKeyTip { get; }
 
@@ -111,18 +111,23 @@
         public abstract string RibbonContextMenuShowBelow { get; }
 
         /// <summary>
-        /// Gets or sets ScreenTip's disable reason header
+        /// Gets ScreenTip's disable reason header
         /// </summary>
         public abstract string ScreenTipDisableReasonHeader { get; }
 
         /// <summary>
-        /// Gets or sets ScreenTip's disable reason header
+        /// Gets ScreenTip's disable reason header
         /// </summary>
         public abstract string ScreenTipF1LabelHeader { get; }
 
         /// <summary>
-        /// Gets or sets customize Status Bar
+        /// Gets customize Status Bar
         /// </summary>
         public abstract string CustomizeStatusBar { get; }
+
+        /// <summary>
+        /// Gets text for representing "No color"
+        /// </summary>
+        public virtual string NoColor { get; } = "No color";
     }
 }

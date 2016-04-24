@@ -27,7 +27,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowAbove { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට ඉහලින් පෙන්වන්න";
         public override string RibbonContextMenuShowBelow { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට පහලින් පෙන්වන්න";
         public override string ScreenTipDisableReasonHeader { get; } = "මෙම විධානය දැනට භාවිතා කළ නොහැක";
-        public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
         public override string CustomizeStatusBar { get; } = "තත්ව තීරුව අභිමත කරණය";
+        public override string NoColor { get; } = FallbackLocalization.NoColor;
     }
 }

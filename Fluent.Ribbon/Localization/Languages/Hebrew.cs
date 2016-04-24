@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "פקודה זו אינה זמינה כעת.";
         public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
         public override string CustomizeStatusBar { get; } = "התאמה אישית של שורת המצב";
+        public override string NoColor { get; } = "אין צבע";
     }
 }

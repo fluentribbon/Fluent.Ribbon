@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Bu komut şu anda devre dışı";
         public override string ScreenTipF1LabelHeader { get; } = "Yardım için F1'e basın.";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";
+        public override string NoColor { get; } = "Renk yok";
     }
 }

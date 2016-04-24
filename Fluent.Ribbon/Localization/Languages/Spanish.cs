@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente";
         public override string ScreenTipF1LabelHeader { get; } = "Pulse F1 para obtener más ayuda";
         public override string CustomizeStatusBar { get; } = "Personalizar barra de estado";
+        public override string NoColor { get; } = "No hay color";
     }
 }

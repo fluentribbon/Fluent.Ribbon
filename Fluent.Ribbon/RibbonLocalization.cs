@@ -7,7 +7,6 @@
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
     using Fluent.Localization;
     using Fluent.Localization.Languages;
 
@@ -93,7 +92,6 @@
             this.Culture = CultureInfo.CurrentUICulture;
         }
 
-        // Coerce all localized values
         private void LoadCulture(CultureInfo requestedCulture)
         {
             Type localizationClass;

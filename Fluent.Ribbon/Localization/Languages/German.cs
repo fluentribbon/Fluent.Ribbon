@@ -7,9 +7,9 @@ namespace Fluent.Localization.Languages
     {
         public override string BackstageButtonText { get; } = "Datei";
         public override string BackstageButtonKeyTip { get; } = "D";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Menüband minimieren (Strg+F1)";
+        public override string MinimizeButtonScreenTipTitle { get; } = "Menüband minimieren (Strg + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Sie benötigen etwas mehr Platz? Reduzieren Sie das Menüband, sodass nur die Registerkartennamen angezeigt werden.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Menüband erweitern (Strg+F1)";
+        public override string ExpandButtonScreenTipTitle { get; } = "Menüband erweitern (Strg + F1)";
         public override string ExpandButtonScreenTipText { get; } = "Ist es Ihnen lieber, wenn Sie das Menüband sehen? Lassen Sie es während der Arbeit geöffnet.";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Symbolleiste für den Schnellzugriff anpassen";
         public override string QuickAccessToolBarMoreControlsButtonTooltip { get; } = "Weitere Befehle";
@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Diese Funktion ist momentan deaktiviert.";
         public override string ScreenTipF1LabelHeader { get; } = "Drücken Sie F1 für die Hilfe";
         public override string CustomizeStatusBar { get; } = "Statusleiste anpassen";
+        public override string NoColor { get; } = "Keine Farbe";
     }
 }

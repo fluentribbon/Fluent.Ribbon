@@ -27,7 +27,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowAbove { get; } = "Vis verktøylinjen for hurtigtilgang over båndet";
         public override string RibbonContextMenuShowBelow { get; } = "Vis verktøylinjen for hurtigtilgang under båndet";
         public override string ScreenTipDisableReasonHeader { get; } = "Denne kommandoen er for øyeblikket deaktivert.";
-        public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
-        public override string CustomizeStatusBar { get; } = "Customize Status Bar";
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string NoColor { get; } = "Ingen farge";
     }
 }

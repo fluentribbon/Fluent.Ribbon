@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "Ta ukaz je trenutno onemogočen.";
         public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
         public override string CustomizeStatusBar { get; } = "Prilagodi vrstico stanja";
+        public override string NoColor { get; } = "Brez barve";
     }
 }

@@ -29,5 +29,6 @@ namespace Fluent.Localization.Languages
         public override string ScreenTipDisableReasonHeader { get; } = "このコマンドは現在無効になっています";
         public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";
+        public override string NoColor { get; } = "色なし";
     }
 }
