@@ -1,14 +1,16 @@
 ﻿namespace Fluent.Localization
 {
+    using Fluent.Localization.Languages;
+
     /// <summary>
     /// Base class for localizations.
     /// </summary>
     public abstract class RibbonLocalizationBase
     {
         /// <summary>
-        /// Gets text of backstage button
+        /// Fallback instance of <see cref="English"/> for localization.
         /// </summary>
-        public abstract string BackstageButtonText { get; }
+        public static RibbonLocalizationBase FallbackLocalization = new English();
 
         /// <summary>
         /// Gets KeyTip of backstage button
@@ -16,19 +18,14 @@
         public abstract string BackstageButtonKeyTip { get; }
 
         /// <summary>
-        /// Minimize Button ScreenTip Title
+        /// Gets text of backstage button
         /// </summary>
-        public abstract string MinimizeButtonScreenTipTitle { get; }
+        public abstract string BackstageButtonText { get; }
 
         /// <summary>
-        /// Minimize Button ScreenTip Text
+        /// Gets customize Status Bar
         /// </summary>
-        public abstract string MinimizeButtonScreenTipText { get; }
-
-        /// <summary>
-        /// Expand Button ScreenTip Title
-        /// </summary>
-        public abstract string ExpandButtonScreenTipTitle { get; }
+        public abstract string CustomizeStatusBar { get; }
 
         /// <summary>
         /// Expand Button ScreenTip Text
@@ -36,14 +33,29 @@
         public abstract string ExpandButtonScreenTipText { get; }
 
         /// <summary>
+        /// Expand Button ScreenTip Title
+        /// </summary>
+        public abstract string ExpandButtonScreenTipTitle { get; }
+
+        /// <summary>
+        /// Minimize Button ScreenTip Text
+        /// </summary>
+        public abstract string MinimizeButtonScreenTipText { get; }
+
+        /// <summary>
+        /// Minimize Button ScreenTip Title
+        /// </summary>
+        public abstract string MinimizeButtonScreenTipTitle { get; }
+
+        /// <summary>
+        /// Gets text for representing "No color"
+        /// </summary>
+        public abstract string NoColor { get; }
+
+        /// <summary>
         /// Quick Access ToolBar DropDown Button ToolTip
         /// </summary>
         public abstract string QuickAccessToolBarDropDownButtonTooltip { get; }
-
-        /// <summary>
-        /// Quick Access ToolBar MoreControls Button ToolTip
-        /// </summary>
-        public abstract string QuickAccessToolBarMoreControlsButtonTooltip { get; }
 
         /// <summary>
         /// Quick Access ToolBar  Menu Header
@@ -61,14 +73,9 @@
         public abstract string QuickAccessToolBarMenuShowBelow { get; }
 
         /// <summary>
-        /// Quick Access ToolBar Menu Add Item
+        /// Quick Access ToolBar MoreControls Button ToolTip
         /// </summary>
-        public abstract string RibbonContextMenuAddItem { get; }
-
-        /// <summary>
-        /// Quick Access ToolBar Menu Add Group
-        /// </summary>
-        public abstract string RibbonContextMenuAddGroup { get; }
+        public abstract string QuickAccessToolBarMoreControlsButtonTooltip { get; }
 
         /// <summary>
         /// Quick Access ToolBar Menu Add Gallery
@@ -76,14 +83,19 @@
         public abstract string RibbonContextMenuAddGallery { get; }
 
         /// <summary>
+        /// Quick Access ToolBar Menu Add Group
+        /// </summary>
+        public abstract string RibbonContextMenuAddGroup { get; }
+
+        /// <summary>
+        /// Quick Access ToolBar Menu Add Item
+        /// </summary>
+        public abstract string RibbonContextMenuAddItem { get; }
+
+        /// <summary>
         /// Quick Access ToolBar Menu Add Menu
         /// </summary>
         public abstract string RibbonContextMenuAddMenu { get; }
-
-        /// <summary>
-        /// Quick Access ToolBar Menu Remove Item
-        /// </summary>
-        public abstract string RibbonContextMenuRemoveItem { get; }
 
         /// <summary>
         /// Ribbon Context Menu Customize Quick Access Toolbar
@@ -99,6 +111,11 @@
         /// Ribbon Context Menu Minimize Quick Access Toolbar
         /// </summary>
         public abstract string RibbonContextMenuMinimizeRibbon { get; }
+
+        /// <summary>
+        /// Quick Access ToolBar Menu Remove Item
+        /// </summary>
+        public abstract string RibbonContextMenuRemoveItem { get; }
 
         /// <summary>
         /// Ribbon Context Menu Minimize Quick Access Toolbar
@@ -119,15 +136,5 @@
         /// Gets ScreenTip's disable reason header
         /// </summary>
         public abstract string ScreenTipF1LabelHeader { get; }
-
-        /// <summary>
-        /// Gets customize Status Bar
-        /// </summary>
-        public abstract string CustomizeStatusBar { get; }
-
-        /// <summary>
-        /// Gets text for representing "No color"
-        /// </summary>
-        public virtual string NoColor { get; } = "No color";
     }
 }

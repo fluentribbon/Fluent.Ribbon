@@ -103,7 +103,7 @@
 
             Trace.WriteLine($"Localization for culture \"{requestedCulture.DisplayName}\" with culture name \"{requestedCulture.Name}\" and LCID \"{requestedCulture.LCID}\" could not be found. Falling back to english.");
 
-            this.Localization = new English();
+            this.Localization = RibbonLocalizationBase.FallbackLocalization;
         }
 
         // ReSharper disable once ReturnTypeCanBeEnumerable.Local
