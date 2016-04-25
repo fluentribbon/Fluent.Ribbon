@@ -333,62 +333,71 @@ namespace Fluent
         /// <param name="source">Source item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
-            Bind(source, element, "DataContext", DataContextProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(source.DataContext), DataContextProperty, BindingMode.OneWay);
 
             if (source is ICommandSource)
             {
                 if (source is MenuItem)
                 {
-                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                    Bind(source, element, "CommandTarget", System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
-                    Bind(source, element, "Command", System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandParameter), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandTarget), System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.Command), System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
                 }
                 else
                 {
-                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                    Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
-                    Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandParameter), ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandTarget), ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.Command), ButtonBase.CommandProperty, BindingMode.OneWay);
                 }
             }
 
-            Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontFamily), FontFamilyProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontSize), FontSizeProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontStretch), FontStretchProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontStyle), FontStyleProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontWeight), FontWeightProperty, BindingMode.OneWay);
 
-            Bind(source, element, "FontFamily", FontFamilyProperty, BindingMode.OneWay);
-            Bind(source, element, "FontSize", FontSizeProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStretch", FontStretchProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStyle", FontStyleProperty, BindingMode.OneWay);
-            Bind(source, element, "FontWeight", FontWeightProperty, BindingMode.OneWay);
-
-            Bind(source, element, "Foreground", ForegroundProperty, BindingMode.OneWay);
-            Bind(source, element, "IsEnabled", IsEnabledProperty, BindingMode.OneWay);
-            Bind(source, element, "Opacity", OpacityProperty, BindingMode.OneWay);
-            Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(Foreground), ForegroundProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(IsEnabled), IsEnabledProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(Opacity), OpacityProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(SnapsToDevicePixels), SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
             Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
 
-            var sourceControl = source as IRibbonControl;
-            if (sourceControl != null)
-            {
-                if (sourceControl.Icon != null)
-                {
-                    var iconVisual = sourceControl.Icon as Visual;
-                    if (iconVisual != null)
-                    {
-                        var rect = new Rectangle();
-                        rect.Width = 16;
-                        rect.Height = 16;
-                        rect.Fill = new VisualBrush(iconVisual);
-                        ((IRibbonControl)element).Icon = rect;
-                    }
-                    else
-                    {
-                        Bind(source, element, "Icon", IconProperty, BindingMode.OneWay);
-                    }
-                }
+            var headeredControl = source as IHeaderedControl;
 
-                if (sourceControl.Header != null)
+            if (headeredControl != null)
+            {
+                Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+
+                if (source.ToolTip != null
+                    || BindingOperations.IsDataBound(source, ToolTipProperty))
                 {
-                    Bind(source, element, "Header", HeaderProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
+                }
+                else
+                {
+                    Bind(source, element, nameof(IHeaderedControl.Header), ToolTipProperty, BindingMode.OneWay);
+                }
+            }
+
+            var ribbonControl = source as IRibbonControl;
+            if (ribbonControl?.Icon != null)
+            {
+                var iconVisual = ribbonControl.Icon as Visual;
+                if (iconVisual != null)
+                {
+                    var rect = new Rectangle
+                    {
+                        Width = 16,
+                        Height = 16,
+                        Fill = new VisualBrush(iconVisual)
+                    };
+                    ((IRibbonControl)element).Icon = rect;
+                }
+                else
+                {
+                    Bind(source, element, nameof(IRibbonControl.Icon), IconProperty, BindingMode.OneWay);
                 }
             }
 

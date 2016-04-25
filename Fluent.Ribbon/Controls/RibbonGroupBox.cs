@@ -850,12 +850,12 @@ namespace Fluent
 
         private void OnPopupOpened(object sender, EventArgs e)
         {
-            if (this.DropDownOpened != null) this.DropDownOpened(this, e);
+            this.DropDownOpened?.Invoke(this, e);
         }
 
         private void OnPopupClosed(object sender, EventArgs e)
         {
-            if (this.DropDownClosed != null) this.DropDownClosed(this, e);
+            this.DropDownClosed?.Invoke(this, e);
         }
 
         /// <summary>
@@ -921,10 +921,7 @@ namespace Fluent
         /// <param name="e">the event data</param>
         private void OnDialogLauncherButtonClick(object sender, RoutedEventArgs e)
         {
-            if (this.LauncherClick != null)
-            {
-                this.LauncherClick(this, e);
-            }
+            this.LauncherClick?.Invoke(this, e);
         }
 
         // Handles popup closing
@@ -984,25 +981,19 @@ namespace Fluent
 
             groupBox.State = RibbonGroupBoxState.QuickAccess;
 
-            RibbonControl.Bind(this, groupBox, "ItemTemplateSelector", ItemTemplateSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "ItemsSource", ItemsSourceProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherCommandParameter", LauncherCommandParameterProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherCommand", LauncherCommandProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherCommandTarget", LauncherCommandTargetProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherIcon", LauncherIconProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherText", LauncherTextProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "LauncherToolTip", LauncherToolTipProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "IsLauncherEnabled", IsLauncherEnabledProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "IsLauncherVisible", IsLauncherVisibleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, "DialogLauncherButtonKeyTipKeys", DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.ItemTemplateSelector), ItemTemplateSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.ItemsSource), ItemsSourceProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandParameter), LauncherCommandParameterProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommand), LauncherCommandProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandTarget), LauncherCommandTargetProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherIcon), LauncherIconProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherText), LauncherTextProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherToolTip), LauncherToolTipProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherEnabled), IsLauncherEnabledProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherVisible), IsLauncherVisibleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherKeys), DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
             groupBox.LauncherClick += this.LauncherClick;
-
-            var toolTip = this.ToolTip as ToolTip;
-            if ((toolTip == null || toolTip.ToolTip == null) && this.Header != null)
-            {
-                RibbonControl.Bind(this, groupBox, "Header", ToolTipProperty, BindingMode.OneWay);
-            }
 
             if (this.Icon != null)
             {
@@ -1019,13 +1010,8 @@ namespace Fluent
                 }
                 else
                 {
-                    RibbonControl.Bind(this, groupBox, "Icon", RibbonControl.IconProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, groupBox, nameof(this.Icon), RibbonControl.IconProperty, BindingMode.OneWay);
                 }
-            }
-
-            if (this.Header != null)
-            {
-                RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
             }
 
             return groupBox;
