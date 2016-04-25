@@ -2023,13 +2023,13 @@ namespace Fluent
                 // Check whether automatic save is valid now
                 if (this.ribbon.AutomaticStateManagement == false)
                 {
-                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because automatic state management is disabled."));
+                    Debug.WriteLine("State not saved to isolated storage. Because automatic state management is disabled.");
                     return;
                 }
 
                 if (this.IsStateLoaded == false)
                 {
-                    Trace.WriteLine(string.Format("State not saved to isolated storage. Because state was not loaded before."));
+                    Debug.WriteLine("State not saved to isolated storage. Because state was not loaded before.");
                     return;
                 }
 
@@ -2044,7 +2044,7 @@ namespace Fluent
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(string.Format("Error while trying to save Ribbon state. Error: {0}", ex));
+                    Trace.WriteLine($"Error while trying to save Ribbon state. Error: {ex}");
                 }
             }
 
@@ -2120,7 +2120,7 @@ namespace Fluent
                 // Don't save or load state in design mode
                 if (DesignerProperties.GetIsInDesignMode(this.ribbon))
                 {
-                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because we are in design mode."));
+                    Debug.WriteLine("State not loaded from isolated storage. Because we are in design mode.");
                     this.IsStateLoaded = true;
                     return;
                 }
@@ -2128,7 +2128,7 @@ namespace Fluent
                 if (this.ribbon.AutomaticStateManagement == false)
                 {
                     this.IsStateLoaded = true;
-                    Trace.WriteLine(string.Format("State not loaded from isolated storage. Because automatic state management is disabled."));
+                    Debug.WriteLine("State not loaded from isolated storage. Because automatic state management is disabled.");
                     return;
                 }
 
@@ -2151,7 +2151,7 @@ namespace Fluent
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(string.Format("Error while trying to load Ribbon state. Error: {0}", ex));
+                    Trace.WriteLine($"Error while trying to load Ribbon state. Error: {ex}");
                 }
 
                 this.IsStateLoaded = true;
