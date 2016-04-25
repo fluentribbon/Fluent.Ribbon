@@ -6,6 +6,15 @@
   - Office 2010 and Windows 8 themes got removed. This was a [community voted decision](../../issues/282).
   - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
   - [#302](../../issues/302) - Rename Office 2013 theme to Generic
+  - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
+  - [#310](../../issues/310) - Refactoring of localization
+
+- ### Bug fixes
+  - [#305](../../issues/305) - Combobox items will be drawn above each other on scroll down
+  - [#311](../../issues/311) - State loading too verbose
+
+- ### Enhancements
+  - [#279](../../issues/279) - Localization of ColorGallery
 
 ## 4.0.3
 
