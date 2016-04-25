@@ -13,6 +13,12 @@
                 Value="68" />
         <Setter Property="Width"
                 Value="Auto" />
+        <Setter Property="Background"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource TransparentBrush}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="SnapsToDevicePixels"
@@ -45,9 +51,9 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    BorderThickness="0"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
                     Height="Auto"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
