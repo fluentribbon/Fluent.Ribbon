@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Finnish", "fi")]
     public class Finnish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automaattinen";
         public override string BackstageButtonKeyTip { get; } = "T";
         public override string BackstageButtonText { get; } = "Tiedosto";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Laajenna valintanauha (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Näytä valintanauhassa vain välilehtien nimet";
         public override string MinimizeButtonScreenTipTitle { get; } = "Pienennä valintanauha (Ctrl + F1)";
+        public override string MoreColors { get; } = "Lisää värejä...";
         public override string NoColor { get; } = "Ei väri";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Mukauta pikatyökaluriviä";
         public override string QuickAccessToolBarMenuHeader { get; } = "Mukauta pikatyökaluriviä";

@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Arabic", "ar")]
     public class Arabic : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "تلقائي";
         public override string BackstageButtonKeyTip { get; } = "م    ";
         public override string BackstageButtonText { get; } = "ملف    ";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "(Ctrl + F1)توسيع الشريط ";
         public override string MinimizeButtonScreenTipText { get; } = "إظهار أسماء علامات التبويب فقط على الشريط.";
         public override string MinimizeButtonScreenTipTitle { get; } = "(Ctrl + F1)تصغير الشريط ";
+        public override string MoreColors { get; } = "مزيد من الألوان...";
         public override string NoColor { get; } = "أي لون";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "تخصيص شريط أدوات الوصول السريع";
         public override string QuickAccessToolBarMenuHeader { get; } = "تخصيص شريط أدوات الوصول السريع";

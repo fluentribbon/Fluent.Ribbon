@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Korean", "ko")]
     public class Korean : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "자동 번역";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "파일";
         public override string CustomizeStatusBar { get; } = "상태 표시줄 사용자 지정";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "리본 메뉴를 표시합니다 (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "리본 메뉴를 표시하거나 숨깁니다\n\n리본 메뉴가 숨김 상태일때만,\n탭이름이 보여집니다";
         public override string MinimizeButtonScreenTipTitle { get; } = "리본 메뉴를 최소화 합니다 (Ctrl + F1)";
+        public override string MoreColors { get; } = "더 많은 색상...";
         public override string NoColor { get; } = "색 없음";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "빠른 실행 도구 모음 사용자 지정";
         public override string QuickAccessToolBarMenuHeader { get; } = "빠른 실행 도구 모음 사용자 지정";

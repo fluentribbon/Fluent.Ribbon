@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Turkish", "tr")]
     public class Turkish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Otomatik";
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Dosya";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Şeridi Sabitle (Ctrl+F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Daha fazla alana mı\nihtiyacınız var? Şeridi daraltın, yalnızca sekme isimleri görünsün.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Şeridi Daralt (Ctrl+F1)";
+        public override string MoreColors { get; } = "Daha fazla renk...";
         public override string NoColor { get; } = "Renk yok";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";
         public override string QuickAccessToolBarMenuHeader { get; } = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";

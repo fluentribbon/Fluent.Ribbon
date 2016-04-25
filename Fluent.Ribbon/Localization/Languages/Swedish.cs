@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Swedish", "sv")]
     public class Swedish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatisk";
         public override string BackstageButtonKeyTip { get; } = "A";
         public override string BackstageButtonText { get; } = "Arkiv";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Expandera menyfliksområdet (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas endast flikarna";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimera menyfliksområdet (Ctrl + F1)";
+        public override string MoreColors { get; } = "Fler färger...";
         public override string NoColor { get; } = "Ingen färg";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Anpassa verktygsfältet Snabbåtkomst ";
         public override string QuickAccessToolBarMenuHeader { get; } = " Anpassa verktygsfältet Snabbåtkomst";

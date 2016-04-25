@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Spanish", "es")]
     public class Spanish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automático";
         public override string BackstageButtonKeyTip { get; } = "A";
         public override string BackstageButtonText { get; } = "Archivo";
         public override string CustomizeStatusBar { get; } = "Personalizar barra de estado";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Expandir la cinta (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Muestra u oculta la cinta\n\nCuando la cinta está oculta, sólo se muestran los nombres de las pestañas";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimizar la cinta (Ctrl + F1)";
+        public override string MoreColors { get; } = "Más colores...";
         public override string NoColor { get; } = "No hay color";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizar barra de herramientas de acceso rápido";
         public override string QuickAccessToolBarMenuHeader { get; } = "Personalizar barra de herramientas de acceso rápido";

@@ -257,7 +257,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:ColorGallery}">
                     <StackPanel KeyboardNavigation.DirectionalNavigation="Contained">
                         <Fluent:MenuItem x:Name="PART_AutomaticColor"
-                                         Header="Automatic">
+                                         Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.Automatic, Mode=OneWay}">
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
@@ -301,7 +301,7 @@
                             </StackPanel>
                         </ScrollViewer>
                         <Fluent:MenuItem x:Name="PART_NoColor"
-                                         Header="No Color">
+                                         Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.NoColor, Mode=OneWay}">
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
@@ -320,7 +320,7 @@
                             </Separator.Template>
                         </Separator>
                         <Fluent:MenuItem x:Name="PART_MoreColors"
-                                         Header="More Colors..."
+                                         Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MoreColors, Mode=OneWay}"
                                          Icon="{DynamicResource MoreColorsIcon}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>

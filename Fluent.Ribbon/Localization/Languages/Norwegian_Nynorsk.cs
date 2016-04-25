@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Norwegian (Nynorsk)", "nn")]
     public class Norwegian_Nynorsk : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = FallbackLocalization.Automatic;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fil";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Utvider båndet (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Viser bare kategorinavnene på båndet";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimer båndet (Ctrl + F1)";
+        public override string MoreColors { get; } = FallbackLocalization.MoreColors;
         public override string NoColor { get; } = "Ingen farge";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tilpass verktøylinje for hurtigtilgang";
         public override string QuickAccessToolBarMenuHeader { get; } = "Tilpass verktøylinje for hurtigtilgang";

@@ -13,6 +13,11 @@
         public static RibbonLocalizationBase FallbackLocalization = new English();
 
         /// <summary>
+        /// Gets text for representing "Automatic"
+        /// </summary>
+        public abstract string Automatic { get; }
+
+        /// <summary>
         /// Gets KeyTip of backstage button
         /// </summary>
         public abstract string BackstageButtonKeyTip { get; }
@@ -46,6 +51,11 @@
         /// Minimize Button ScreenTip Title
         /// </summary>
         public abstract string MinimizeButtonScreenTipTitle { get; }
+
+        /// <summary>
+        /// Gets text for representing "More colors..."
+        /// </summary>
+        public abstract string MoreColors { get; }
 
         /// <summary>
         /// Gets text for representing "No color"

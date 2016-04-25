@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Sinhala", "si")]
     public class Sinhala : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = FallbackLocalization.Automatic;
         public override string BackstageButtonKeyTip { get; } = "න1";
         public override string BackstageButtonText { get; } = "ගොනුව";
         public override string CustomizeStatusBar { get; } = "තත්ව තීරුව අභිමත කරණය";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "රිබනය විහිදන්න (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "රිබනය මත පටිති නාම පමණක් පෙන්වන්න.";
         public override string MinimizeButtonScreenTipTitle { get; } = "රිබනය හකුළන්න (Ctrl + F1)";
+        public override string MoreColors { get; } = FallbackLocalization.MoreColors;
         public override string NoColor { get; } = FallbackLocalization.NoColor;
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය";
         public override string QuickAccessToolBarMenuHeader { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය";

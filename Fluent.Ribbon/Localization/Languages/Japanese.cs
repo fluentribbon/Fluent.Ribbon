@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Japanese", "ja")]
     public class Japanese : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "自動";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "ファイル";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "リボンの展開 (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "リボンの表示/非表示を切り替えます。\n\nリボンを非表示にすると、タブ名のみが表示されます。";
         public override string MinimizeButtonScreenTipTitle { get; } = "リボンの最小化 (Ctrl + F1)";
+        public override string MoreColors { get; } = "他の色.";
         public override string NoColor { get; } = "色なし";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "クイック アクセス ツール バーのユーザー設定";
         public override string QuickAccessToolBarMenuHeader { get; } = "クイック アクセス ツール バーのユーザー設定";

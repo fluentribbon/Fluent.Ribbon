@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Romanian", "ro")]
     public class Romanian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automată";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fișier";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Expandează Ribbon-ul (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt afișate doar numele taburilor";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimizează Ribbon-ul (Ctrl + F1)";
+        public override string MoreColors { get; } = "Mai multe culori...";
         public override string NoColor { get; } = "Nici o culoare";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizează Bara de Acces Rapid";
         public override string QuickAccessToolBarMenuHeader { get; } = "Personalizează Bara de Acces Rapid";

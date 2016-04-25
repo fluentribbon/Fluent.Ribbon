@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Polish", "pl")]
     public class Polish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatyczne";
         public override string BackstageButtonKeyTip { get; } = "P";
         public override string BackstageButtonText { get; } = "Plik";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Rozwiń Wstążkę (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko nazwy zakładek są widoczne";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimalizuj Wstążkę (Ctrl + F1)";
+        public override string MoreColors { get; } = "Więcej kolorów...";
         public override string NoColor { get; } = "Brak koloru";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Dostosuj pasek narzędzi Szybki dostęp";
         public override string QuickAccessToolBarMenuHeader { get; } = "Dostosuj pasek narzędzi Szybki dostęp";

@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Dutch", "nl")]
     public class Dutch : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatisch";
         public override string BackstageButtonKeyTip { get; } = "B";
         public override string BackstageButtonText { get; } = "Bestand";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Het lint Maximaliseren (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, zijn alleen de tabulatie namen zichtbaar";
         public override string MinimizeButtonScreenTipTitle { get; } = "Het lint minimaliseren (Ctrl + F1)";
+        public override string MoreColors { get; } = "Meer kleuren...";
         public override string NoColor { get; } = "Geen kleur";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Werkbalk snelle toegang aanpassen";
         public override string QuickAccessToolBarMenuHeader { get; } = " Werkbalk snelle toegang aanpassen ";

@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Hebrew", "he")]
     public class Hebrew : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "אוטומטי";
         public override string BackstageButtonKeyTip { get; } = "ק";
         public override string BackstageButtonText { get; } = "קובץ";
         public override string CustomizeStatusBar { get; } = "התאמה אישית של שורת המצב";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "הרחב את רצועת הכלים (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "הצג רק את שמות הכרטיסיות\nברצועת הכלים.";
         public override string MinimizeButtonScreenTipTitle { get; } = "מזער את רצועת הכלים (Ctrl + F1)";
+        public override string MoreColors { get; } = "צבעים יותר...";
         public override string NoColor { get; } = "אין צבע";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "התאמה אישית של סרגל הכלים לגישה מהירה";
         public override string QuickAccessToolBarMenuHeader { get; } = "התאמה אישית של סרגל הכלים לגישה מהירה";

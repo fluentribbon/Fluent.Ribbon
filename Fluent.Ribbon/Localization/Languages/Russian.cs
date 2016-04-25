@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Russian", "ru")]
     public class Russian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Автоматически";
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Настройка строки состояния";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Развернуть ленту (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только имена вкладок.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Свернуть ленту (Ctrl + F1)";
+        public override string MoreColors { get; } = "Больше цветов...";
         public override string NoColor { get; } = "Без цвета";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Настройка панели быстрого доступа";
         public override string QuickAccessToolBarMenuHeader { get; } = "Настройка панели быстрого доступа";

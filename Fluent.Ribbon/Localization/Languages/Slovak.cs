@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Slovak", "sk")]
     public class Slovak : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatické";
         public override string BackstageButtonKeyTip { get; } = "S";
         public override string BackstageButtonText { get; } = "Súbor";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Zobraziť pás s nástrojmi (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Zobraziť alebo skryť pás s nástrojmi\n\nKeď je pás s nástrojmi skrytý, sú zobrazené iba názvy kariet";
         public override string MinimizeButtonScreenTipTitle { get; } = "Skryť pás s nástrojmi (Ctrl + F1)";
+        public override string MoreColors { get; } = "Ďalšie farby...";
         public override string NoColor { get; } = "Žiadna farba";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Prispôsobenie panela s nástrojmi Rýchly prístup";
         public override string QuickAccessToolBarMenuHeader { get; } = "Prispôsobenie panela s nástrojmi Rýchly prístup";

@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Greek", "el")]
     public class Greek : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Αυτόματη";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = FallbackLocalization.BackstageButtonText;
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = FallbackLocalization.ExpandButtonScreenTipTitle;
         public override string MinimizeButtonScreenTipText { get; } = FallbackLocalization.MinimizeButtonScreenTipText;
         public override string MinimizeButtonScreenTipTitle { get; } = FallbackLocalization.MinimizeButtonScreenTipTitle;
+        public override string MoreColors { get; } = "Περισσότερα χρώματα...";
         public override string NoColor { get; } = "Κανένα χρώμα";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = FallbackLocalization.QuickAccessToolBarDropDownButtonTooltip;
         public override string QuickAccessToolBarMenuHeader { get; } = FallbackLocalization.QuickAccessToolBarMenuHeader;

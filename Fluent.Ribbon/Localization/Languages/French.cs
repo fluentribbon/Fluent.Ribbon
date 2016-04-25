@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("French", "fr")]
     public class French : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatique";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fichier";
         public override string CustomizeStatusBar { get; } = "Personnaliser la barre de statut";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Agrandir le Ruban (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul les noms sont affichés";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimiser le Ruban (Ctrl + F1)";
+        public override string MoreColors { get; } = "Plus de couleurs...";
         public override string NoColor { get; } = "Pas de couleur";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personnaliser la barre d'outils Accès Rapide";
         public override string QuickAccessToolBarMenuHeader { get; } = "Personnaliser la barre d'outil Accès Rapide";

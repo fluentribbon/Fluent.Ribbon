@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Persian", "fa")]
     public class Persian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "خودکار";
         public override string BackstageButtonKeyTip { get; } = "ف";
         public override string BackstageButtonText { get; } = "فایل";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "بزرگ کردن نوار (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "نمایش یا مخفی کردن نوار\n\nهنگامی که نوار مخفی است، تنها\nنام زبانه ها نمایش داده می شود.";
         public override string MinimizeButtonScreenTipTitle { get; } = "کوچک کردن نوار (Ctrl + F1)";
+        public override string MoreColors { get; } = "رنگهای بیشتر...";
         public override string NoColor { get; } = "بدون رنگ";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "دلخواه سازی میله ابزار دسترسی سریع";
         public override string QuickAccessToolBarMenuHeader { get; } = "دلخواه سازی میله ابزار دسترسی سریع";

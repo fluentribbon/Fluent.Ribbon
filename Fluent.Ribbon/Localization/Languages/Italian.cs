@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Italian", "it")]
     public class Italian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatico";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = FallbackLocalization.BackstageButtonText;
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Espandi la barra multifunzione (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Consente di visualizzare solo i nomi delle schede nella barra multifunzione.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Riduci a icona barra multifunzione (Ctrl + F1)";
+        public override string MoreColors { get; } = "Più colori...";
         public override string NoColor { get; } = "Nessun colore";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizza barra di accesso rapido";
         public override string QuickAccessToolBarMenuHeader { get; } = "Personalizza barra di accesso rapido";

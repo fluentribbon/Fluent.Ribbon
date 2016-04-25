@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Slovenian", "sl")]
     public class Slovenian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Samodejno";
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Datoteka";
         public override string CustomizeStatusBar { get; } = "Prilagodi vrstico stanja";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Razširi trak (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Pokaži ali skrij trak\n\nKo je trak skrit, so prikazani samo zavihki";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimiraj trak (Ctrl + F1)";
+        public override string MoreColors { get; } = "Več barv...";
         public override string NoColor { get; } = "Brez barve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Prilagodi orodno vrstico za hitri dostop";
         public override string QuickAccessToolBarMenuHeader { get; } = "Prilagodi orodno vrstico za hitri dostop";

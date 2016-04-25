@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Estonian", "et")]
     public class Estonian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automaatne";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fail";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Kinnita lint (Ctrl+F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Kas vajate rohkem ruumi? Ahendage lint, siis kuvatakse \nainult menüünimed.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Ahenda menüülint (Ctrl+F1)";
+        public override string MoreColors { get; } = "Rohkem värve...";
         public override string NoColor { get; } = "Ei värvi";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Kohanda kiirpääsuriba";
         public override string QuickAccessToolBarMenuHeader { get; } = "Kohanda kiirpääsuriba";

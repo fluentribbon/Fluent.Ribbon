@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Catalan", "ca")]
     public class Catalan : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automàtica";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fitxer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Expandeix la cinta (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només s'ensenyen els noms de les pestanyes";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimitza la cinta (Ctrl + F1)";
+        public override string MoreColors { get; } = "Més colors...";
         public override string NoColor { get; } = "Cap color";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalitza la barra d'eines d'accés ràpid";
         public override string QuickAccessToolBarMenuHeader { get; } = "Personalitza la barra d'eines d'accés ràpid";

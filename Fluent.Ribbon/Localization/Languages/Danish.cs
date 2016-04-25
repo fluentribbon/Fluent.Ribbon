@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Danish", "da")]
     public class Danish : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatisk";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Filer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Udvid båndet (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Vis kun fanenavnene på båndet.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimer båndet (Ctrl + F1)";
+        public override string MoreColors { get; } = "Flere farver...";
         public override string NoColor { get; } = "Ingen farve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tilpas værktøjslinjen Hurtig adgang";
         public override string QuickAccessToolBarMenuHeader { get; } = " Tilpas værktøjslinjen Hurtig adgang";

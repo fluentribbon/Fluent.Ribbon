@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("English", "en")]
     public class English : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatic";
         public override string BackstageButtonKeyTip { get; } = "F";
         public override string BackstageButtonText { get; } = "File";
         public override string CustomizeStatusBar { get; } = "Customize Status Bar";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Pin the Ribbon (Ctrl+F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Need a bit more space? Collapse the ribbon so only the tab names show.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Collapse the Ribbon (Ctrl+F1)";
+        public override string MoreColors { get; } = "More colors...";
         public override string NoColor { get; } = "No color";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Customize Quick Access Toolbar";
         public override string QuickAccessToolBarMenuHeader { get; } = "Customize Quick Access Toolbar";

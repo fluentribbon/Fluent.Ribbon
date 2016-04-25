@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Hungarian", "hu")]
     public class Hungarian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatikus";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fájl";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Menüszalag kibontása (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Csak a lapnevek megjelenítése a menüszalagon";
         public override string MinimizeButtonScreenTipTitle { get; } = "A menüszalag összecsukása (Ctrl + F1)";
+        public override string MoreColors { get; } = "További színek...";
         public override string NoColor { get; } = "Nincs szín";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Gyorselérési eszköztár testreszabása";
         public override string QuickAccessToolBarMenuHeader { get; } = "Gyorselérési eszköztár testreszabása";

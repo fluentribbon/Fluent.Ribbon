@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Lithuanian", "lt")]
     public class Lithuanian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatinis";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Failas";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Išplėsti juostelę (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Juostelėje rodyti tik skirtukų pavadinimus.";
         public override string MinimizeButtonScreenTipTitle { get; } = "Minimizuoti juostelę (Ctrl + F1)";
+        public override string MoreColors { get; } = "Daugiau spalvų...";
         public override string NoColor { get; } = "Spalvų";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tinkinti sparčiosios prieigos įrankių juostą";
         public override string QuickAccessToolBarMenuHeader { get; } = "Tinkinti sparčiosios prieigos įrankių juostą";

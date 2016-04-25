@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Ukrainian", "uk")]
     public class Ukrainian : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Автоматичні";
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Показати Стрічку (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Показати або сховати Стрічку\n\nКоли стрічка схована, видно тільки назви вкладок";
         public override string MinimizeButtonScreenTipTitle { get; } = "Сховати Стрічку (Ctrl + F1)";
+        public override string MoreColors { get; } = "Інші кольори...";
         public override string NoColor { get; } = "Без кольору";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Налаштувати Панель Інструментів Швидкого Доступу";
         public override string QuickAccessToolBarMenuHeader { get; } = "Налаштувати Панель Інструментів Швидкого Доступу";

@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Vietnamese", "vi")]
     public class Vietnamese : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Tự động";
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Tệp";
         public override string CustomizeStatusBar { get; } = "Tùy biến thanh Trạng thái";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Mở rộng Ruy băng (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ có tên thẻ được hiện";
         public override string MinimizeButtonScreenTipTitle { get; } = "Thu gọn Ruy băng (Ctrl + F1)";
+        public override string MoreColors { get; } = "Nhiều màu sắc...";
         public override string NoColor { get; } = "Không có màu";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tùy chỉnh thanh công cụ Truy cập nhanh";
         public override string QuickAccessToolBarMenuHeader { get; } = "Tùy chỉnh thanh công cụ Truy cập nhanh";

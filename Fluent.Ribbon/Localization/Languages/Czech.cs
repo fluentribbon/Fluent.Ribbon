@@ -5,6 +5,7 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Czech", "cs")]
     public class Czech : RibbonLocalizationBase
     {
+        public override string Automatic { get; } = "Automatické";
         public override string BackstageButtonKeyTip { get; } = "S";
         public override string BackstageButtonText { get; } = "Soubor";
         public override string CustomizeStatusBar { get; } = "Přizpůsobit Status Bar";
@@ -12,6 +13,7 @@ namespace Fluent.Localization.Languages
         public override string ExpandButtonScreenTipTitle { get; } = "Zobrazit pás karet (Ctrl + F1)";
         public override string MinimizeButtonScreenTipText { get; } = "Zobrazit nebo skrýt pás karet\n\nJe-li pás karet skrytý, jsou zobrazeny pouze názvy karet";
         public override string MinimizeButtonScreenTipTitle { get; } = "Skrýt pás karet (Ctrl + F1)";
+        public override string MoreColors { get; } = "Další barvy...";
         public override string NoColor { get; } = "Bez barvy";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Přizpůsobit panel nástrojů Rychlý přístup";
         public override string QuickAccessToolBarMenuHeader { get; } = "Přizpůsobit panel nástrojů Rychlý přístup";
