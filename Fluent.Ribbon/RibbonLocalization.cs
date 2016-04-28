@@ -101,6 +101,12 @@
                 return;
             }
 
+            if (this.localizationMap.TryGetValue(requestedCulture.TwoLetterISOLanguageName, out localizationClass))
+            {
+                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
+                return;
+            }
+
             Trace.WriteLine($"Localization for culture \"{requestedCulture.DisplayName}\" with culture name \"{requestedCulture.Name}\" and LCID \"{requestedCulture.LCID}\" could not be found. Falling back to english.");
 
             this.Localization = RibbonLocalizationBase.FallbackLocalization;
