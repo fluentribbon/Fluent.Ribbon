@@ -91,52 +91,6 @@
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D)));
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty DontUseDwmProperty =
-            DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false, OnDontUseDwmChanged));
-
-        /// <summary>
-        ///  Gets or sets whether DWM should be used.
-        /// </summary>
-        public bool DontUseDwm
-        {
-            get { return (bool)this.GetValue(DontUseDwmProperty); }
-            set { this.SetValue(DontUseDwmProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets wheter DWM can be used (<see cref="NativeMethods.IsDwmEnabled"/> is true and <see cref="DontUseDwm"/> is false).
-        /// </summary>
-        public bool CanUseDwm
-        {
-            get { return (bool)this.GetValue(CanUseDwmProperty); }
-            private set { this.SetValue(CanUseDwmPropertyKey, value); }
-        }
-
-        private static readonly DependencyPropertyKey CanUseDwmPropertyKey = DependencyProperty.RegisterReadOnly("CanUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanUseDwm.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
-
-        /// <summary>
-        /// Defines if the default window buttons should be used
-        /// </summary>
-        public bool UseAeroCaptionButtons
-        {
-            get { return (bool)this.GetValue(UseAeroCaptionButtonsProperty); }
-            set { this.SetValue(UseAeroCaptionButtonsProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for UseAeroCaptionButtons.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty UseAeroCaptionButtonsProperty =
-            DependencyProperty.Register("UseAeroCaptionButtons", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
-
-        /// <summary>
         /// Gets or sets whether icon is visible
         /// </summary>
         public bool IsIconVisible
@@ -212,17 +166,6 @@
         #region Overrides
 
         /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            this.UpdateCanUseDwm();
-        }
-
-        /// <summary>
         /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome
         /// </summary>
         private void InitializeWindowChromeBehavior()
@@ -232,18 +175,11 @@
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(UseAeroCaptionButtonsProperty), Source = this });
+            behavior.UseAeroCaptionButtons = false;
             Interaction.GetBehaviors(this).Add(behavior);
         }
 
         #endregion
-
-        private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = d as RibbonWindow;
-
-            window?.UpdateCanUseDwm();
-        }
 
         // Size change to collapse ribbon
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -269,20 +205,12 @@
             }
         }
 
-        private void UpdateCanUseDwm()
-        {
-            this.CanUseDwm = NativeMethods.IsDwmEnabled()
-                          && this.DontUseDwm == false;
-        }
-
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
         /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            this.UpdateCanUseDwm();
 
             if (this.iconImage != null)
             {

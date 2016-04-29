@@ -102,16 +102,14 @@
         <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
         <Setter Property="GlassFrameThickness"
                 Value="1" />
-        <Setter Property="DontUseDwm"
-                Value="True" />
-        <Setter Property="UseAeroCaptionButtons"
-                Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource BlackBrush}" />
         <Setter Property="Background"
                 Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
+        <Setter Property="WindowStyle"
+                Value="None" />
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">
