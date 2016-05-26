@@ -19,24 +19,26 @@ Fluent.Ribbon is a library that implements an Office-like user interface for the
 
 *   [More Screenshots](https://github.com/fluentribbon/Fluent.Ribbon/wiki/Screenshots)
 
-### Contact
-
+# Contact
 If you wish to contact me (batzen) directly please use [twitter](https://twitter.com/batzendev) or [gitter](https://gitter.im/batzen).
 
-### Contributing
+# Access to preview versions
+You can access preview versions through the [AppVeyor nuget feed](https://ci.appveyor.com/nuget/fluent-ribbon).
 
-#### What you can do to help us
+
+# Contributing
+## What you can do to help us
 *   We are accepting pull requests, so you are very welcome to create one
 *   [Fix some bugs](https://github.com/fluentribbon/Fluent.Ribbon/issues)
 *   Help us translating
 *   Help us updating the documentation and walkthrough
 
-### Development requirements
+## Development requirements
 * Visual Studio 2015
-* Optional but recommended
+* Optional (but recommended)
   * Editorconfig extension for Visual Studio 2015
 
-### Settings that should be used
+## Settings that should be used
 *   Visual Studio settings which should be used
   *  All languages
     * Indentation: 4 spaces (please don't use tabs)
@@ -44,19 +46,18 @@ If you wish to contact me (batzen) directly please use [twitter](https://twitter
     * Position each attribute on a separate line
       * Position first attribute on same line as start tag
 
-## Documentation
-
+# Documentation
 Please, [download walkthrough](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/Doc/Fluent%20Ribbon%20Control%20Suite%20Walkthrough.pdf?raw=true)
 This document covers the main features of this framework and highlights how to use it, but is pretty outdated right now.
 Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
 
-## History &amp; roadmap
+# History &amp; roadmap
 A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
 The roadmap is done by [milestones](../../milestones).
 
-## Feature List
+# Feature List
 | Office UI Element |  Status |
 | ----- | ----- |
 | **Backstage** |   |
@@ -124,8 +125,7 @@ The roadmap is done by [milestones](../../milestones).
 
 If you feel lack of some important features feel free to use [issues](https://github.com/fluentribbon/Fluent.Ribbon/issues) to create an issue/feature request.
 
-## Localizations
-
+# Localizations
 *   Arabic
 *   Azerbaijani
 *   Catalan
