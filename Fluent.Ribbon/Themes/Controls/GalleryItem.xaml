@@ -52,7 +52,7 @@
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Visibility"
-                        TargetName="selectedBorder"
+                        TargetName="hoverBorder"
                         Value="Visible" />
             </Trigger>
             <Trigger Property="IsPressed"
@@ -63,6 +63,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
     <Style x:Key="GalleryItemStyle"
            TargetType="{x:Type Fluent:GalleryItem}">
         <Setter Property="Template"
