@@ -1096,26 +1096,6 @@
             this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-
-            this.RunInDispatcherAsync(this.ForceContentRefreshToFixLayout, DispatcherPriority.ContextIdle);
-        }
-
-        /// <summary>
-        /// Hack: This fixes weird layout bugs. If someone ever finds out why the layout gets messed up without this, please notify me.
-        /// For example #123 (https://github.com/fluentribbon/Fluent.Ribbon/issues/123) gets fixed by this hack.
-        /// </summary>
-        private void ForceContentRefreshToFixLayout()
-        {
-            if (this.controlPresenter == null
-                || this.galleryPanel == null)
-            {
-                return;
-            }
-
-            this.controlPresenter.Content = null;
-            this.controlPresenter.Content = this.galleryPanel;
-
-            this.galleryPanel.UpdateMinAndMaxWidth();
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -1576,22 +1556,5 @@
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
-        /// </summary>
-        /// <returns>
-        /// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
-        /// </returns>
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                if (this.galleryPanel != null)
-                {
-                    yield return this.galleryPanel;
-                }
-            }
-        }
     }
 }
