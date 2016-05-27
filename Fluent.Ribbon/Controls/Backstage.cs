@@ -164,15 +164,29 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Backstage), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Backstage), new UIPropertyMetadata(null, OnContentChanged));
+
+        private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var backstage = (Backstage)d;
+            if (e.OldValue != null)
+            {
+                backstage.RemoveLogicalChild(e.OldValue);
+            }
+
+            if (e.NewValue != null)
+            {
+                backstage.AddLogicalChild(e.NewValue);
+            }
+        }
 
         #endregion
 
-        #region LogicalChildren
+        #region LogicalChildren 
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
+        /// <summary> 
+        /// Gets an enumerator for logical child elements of this element. 
+        /// </summary> 
         protected override IEnumerator LogicalChildren
         {
             get

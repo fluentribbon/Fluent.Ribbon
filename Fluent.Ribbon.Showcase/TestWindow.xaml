@@ -7,6 +7,7 @@
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
                      Title="{Binding DataContext.Title, ElementName=TestContent}"
+                     FlowDirection="LeftToRight"
                      Height="768"
                      Width="1024"
                      MinWidth="80"

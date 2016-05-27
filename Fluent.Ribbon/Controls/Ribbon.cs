@@ -444,7 +444,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         #endregion
 
@@ -461,7 +461,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         /// <summary>
         /// Window title
@@ -498,7 +498,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedTabItemProperty =
-            DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(Ribbon), new UIPropertyMetadata(null, OnSelectedTabItemChanged));
+            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(Ribbon), new UIPropertyMetadata(null, OnSelectedTabItemChanged));
 
         private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -554,6 +554,20 @@ namespace Fluent
             else
             {
                 ribbon.SelectedTabItem = null;
+            }
+        }
+
+        private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+            if (e.OldValue != null)
+            {
+                ribbon.RemoveLogicalChild(e.OldValue);
+            }
+
+            if (e.NewValue != null)
+            {
+                ribbon.AddLogicalChild(e.NewValue);
             }
         }
 
@@ -811,11 +825,6 @@ namespace Fluent
                 if (this.layoutRoot != null)
                 {
                     yield return this.layoutRoot;
-                }
-
-                if (this.Menu != null)
-                {
-                    yield return this.Menu;
                 }
 
                 if (this.StartScreen != null)
