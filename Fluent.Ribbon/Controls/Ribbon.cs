@@ -617,10 +617,7 @@ namespace Fluent
         private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            if (ribbon.TitleBar != null)
-            {
-                ribbon.TitleBar.InvalidateMeasure();
-            }
+            ribbon.TitleBar?.InvalidateMeasure();
 
             ribbon.ribbonState.SaveStateToMemoryStream();
         }
@@ -654,29 +651,29 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (this.TitleBar != null) this.TitleBar.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        this.TitleBar?.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
+                        this.TitleBar?.Items.Remove(item);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.TitleBar != null) this.TitleBar.Items.Remove(item);
+                        this.TitleBar?.Items.Remove(item);
                     }
                     foreach (var item in e.NewItems)
                     {
-                        if (this.TitleBar != null) this.TitleBar.Items.Add(item);
+                        this.TitleBar?.Items.Add(item);
                     }
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    if (this.TitleBar != null) this.TitleBar.Items.Clear();
+                    this.TitleBar?.Items.Clear();
                     break;
             }
 
@@ -774,29 +771,25 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (this.TabControl != null)
-                            this.TabControl.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        this.TabControl?.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.TabControl != null)
-                            this.TabControl.ToolBarItems.Remove(item as UIElement);
+                        this.TabControl?.ToolBarItems.Remove(item as UIElement);
                     }
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.TabControl != null)
-                            this.TabControl.ToolBarItems.Remove(item as UIElement);
+                        this.TabControl?.ToolBarItems.Remove(item as UIElement);
                     }
                     foreach (var item in e.NewItems)
                     {
-                        if (this.TabControl != null)
-                            this.TabControl.ToolBarItems.Add(item as UIElement);
+                        this.TabControl?.ToolBarItems.Add(item as UIElement);
                     }
                     break;
             }
@@ -872,10 +865,7 @@ namespace Fluent
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        if (this.QuickAccessToolBar != null)
-                        {
-                            this.QuickAccessToolBar.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
-                        }
+                        this.QuickAccessToolBar?.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         menuItem.Ribbon = this;
                     }
                     break;
@@ -884,10 +874,7 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.QuickAccessToolBar != null)
-                        {
-                            this.QuickAccessToolBar.QuickAccessItems.Remove(menuItem);
-                        }
+                        this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
                     break;
@@ -896,19 +883,13 @@ namespace Fluent
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.QuickAccessToolBar != null)
-                        {
-                            this.QuickAccessToolBar.QuickAccessItems.Remove(menuItem);
-                        }
+                        this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
-                        if (this.QuickAccessToolBar != null)
-                        {
-                            this.QuickAccessToolBar.QuickAccessItems.Add(menuItem);
-                        }
+                        this.QuickAccessToolBar?.QuickAccessItems.Add(menuItem);
                         menuItem.Ribbon = this;
                     }
                     break;
@@ -1002,10 +983,7 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            if (ribbon.IsMinimizedChanged != null)
-            {
-                ribbon.IsMinimizedChanged(ribbon, e);
-            }
+            ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
         }
 
         private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1052,10 +1030,7 @@ namespace Fluent
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            if (ribbon.IsCollapsedChanged != null)
-            {
-                ribbon.IsCollapsedChanged(ribbon, e);
-            }
+            ribbon.IsCollapsedChanged?.Invoke(ribbon, e);
         }
 
         /// <summary>
@@ -1165,8 +1140,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon != null
-                && ribbon.TabControl != null)
+            if (ribbon?.TabControl != null)
             {
                 e.CanExecute = ribbon.CanMinimize;
             }
@@ -1176,8 +1150,7 @@ namespace Fluent
         private static void OnToggleMinimizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             var ribbon = sender as Ribbon;
-            if (ribbon != null
-                && ribbon.TabControl != null)
+            if (ribbon?.TabControl != null)
             {
                 ribbon.TabControl.IsMinimized = !ribbon.TabControl.IsMinimized;
             }
@@ -1205,6 +1178,7 @@ namespace Fluent
             {
                 return;
             }
+
             ribbon.ShowQuickAccessToolBarAboveRibbon = true;
         }
 
@@ -1213,12 +1187,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.QuickAccessToolBar != null)
+            if (ribbon?.QuickAccessToolBar != null)
             {
                 var element = ribbon.QuickAccessElements.First(x => x.Value == e.Parameter).Key;
                 ribbon.RemoveFromQuickAccessToolBar(element);
@@ -1230,12 +1199,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.QuickAccessToolBar != null)
+            if (ribbon?.QuickAccessToolBar != null)
             {
                 ribbon.AddToQuickAccessToolBar(e.Parameter as UIElement);
             }
@@ -1246,15 +1210,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.CustomizeQuickAccessToolbar != null)
-            {
-                ribbon.CustomizeQuickAccessToolbar(sender, EventArgs.Empty);
-            }
+            ribbon?.CustomizeQuickAccessToolbar?.Invoke(sender, EventArgs.Empty);
         }
 
         // Occurs when customize the ribbon command executed
@@ -1262,15 +1218,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.CustomizeTheRibbon != null)
-            {
-                ribbon.CustomizeTheRibbon(sender, EventArgs.Empty);
-            }
+            ribbon?.CustomizeTheRibbon?.Invoke(sender, EventArgs.Empty);
         }
 
         // Occurs when customize quick access command can execute handles
@@ -1421,16 +1369,8 @@ namespace Fluent
         /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            if (this.TabControl == null)
-            {
-                return;
-            }
-
-            var ribbonTabItem = (RibbonTabItem)this.TabControl.SelectedItem;
-            if (ribbonTabItem != null)
-            {
-                ribbonTabItem.Focus();
-            }
+            var ribbonTabItem = (RibbonTabItem)this.TabControl?.SelectedItem;
+            ribbonTabItem?.Focus();
         }
 
         /// <summary>
@@ -1707,10 +1647,7 @@ namespace Fluent
         public void ClearQuickAccessToolBar()
         {
             this.QuickAccessElements.Clear();
-            if (this.QuickAccessToolBar != null)
-            {
-                this.QuickAccessToolBar.Items.Clear();
-            }
+            this.QuickAccessToolBar?.Items.Clear();
         }
 
         #endregion
@@ -1726,10 +1663,7 @@ namespace Fluent
                 this.SelectedTabIndex = this.TabControl.SelectedIndex;
             }
 
-            if (this.SelectedTabChanged != null)
-            {
-                this.SelectedTabChanged(this, e);
-            }
+            this.SelectedTabChanged?.Invoke(this, e);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -2222,10 +2156,7 @@ namespace Fluent
                     return;
                 }
 
-                if (this.memoryStream != null)
-                {
-                    this.memoryStream.Dispose();
-                }
+                this.memoryStream?.Dispose();
 
                 this.memoryStream = Stream.Null;
             }
