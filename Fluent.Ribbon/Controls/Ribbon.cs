@@ -444,7 +444,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -461,7 +461,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Window title
@@ -554,20 +554,6 @@ namespace Fluent
             else
             {
                 ribbon.SelectedTabItem = null;
-            }
-        }
-
-        private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-            if (e.OldValue != null)
-            {
-                ribbon.RemoveLogicalChild(e.OldValue);
-            }
-
-            if (e.NewValue != null)
-            {
-                ribbon.AddLogicalChild(e.NewValue);
             }
         }
 
@@ -849,8 +835,7 @@ namespace Fluent
                     yield return this.QuickAccessToolBar;
                 }
 
-                if (this.TabControl != null
-                    && this.TabControl.ToolbarPanel != null)
+                if (this.TabControl?.ToolbarPanel != null)
                 {
                     yield return this.TabControl.ToolbarPanel;
                 }
@@ -1455,17 +1440,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public override void OnApplyTemplate()
         {
-            if (this.layoutRoot != null)
-            {
-                this.RemoveLogicalChild(this.layoutRoot);
-            }
-
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;
-
-            if (this.layoutRoot != null)
-            {
-                this.AddLogicalChild(this.layoutRoot);
-            }
 
             if (this.TitleBar != null)
             {
@@ -1572,11 +1547,6 @@ namespace Fluent
                     Mode = BindingMode.OneWay
                 };
                 this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
-
-                if (this.QuickAccessToolBar.Parent == null)
-                {
-                    this.AddLogicalChild(this.QuickAccessToolBar);
-                }
 
                 this.QuickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
             }

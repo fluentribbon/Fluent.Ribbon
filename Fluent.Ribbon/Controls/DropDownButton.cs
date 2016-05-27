@@ -152,27 +152,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null, OnIconChanged));
-
-        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var element = (DropDownButton)d;
-
-            var oldElement = e.OldValue as FrameworkElement;
-
-            if (oldElement != null)
-            {
-                element.RemoveLogicalChild(oldElement);
-            }
-
-            var newElement = e.NewValue as FrameworkElement;
-
-            if (newElement != null
-                && LogicalTreeHelper.GetParent(newElement) == null)
-            {
-                element.AddLogicalChild(newElement);
-            }
-        }
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -732,7 +712,7 @@
 
                 control.Dispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
-                    (DispatcherOperationCallback)delegate(object arg)
+                    (DispatcherOperationCallback)delegate (object arg)
                     {
                         var ctrl = (DropDownButton)arg;
 
@@ -798,9 +778,9 @@
         public virtual FrameworkElement CreateQuickAccessItem()
         {
             var button = new DropDownButton
-                {
-                    Size = RibbonControlSize.Small
-                };
+            {
+                Size = RibbonControlSize.Small
+            };
 
             this.BindQuickAccessItem(button);
             RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
@@ -825,7 +805,7 @@
         /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;            
+            var buttonInQuickAccess = (DropDownButton)sender;
 
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
@@ -900,6 +880,11 @@
                 if (this.Icon != null)
                 {
                     yield return this.Icon;
+                }
+
+                if (this.LargeIcon != null)
+                {
+                    yield return this.LargeIcon;
                 }
 
                 foreach (var item in this.Items)
