@@ -14,6 +14,7 @@
   - [#300](../../issues/300) - Startscreen not working in 4.0.3
   - [#305](../../issues/305) - Combobox items will be drawn above each other on scroll down
   - [#311](../../issues/311) - State loading too verbose
+  - [#315](../../issues/315) - Menu button gets blurry
 
 - ### Enhancements
   - [#279](../../issues/279) - Localization of ColorGallery
