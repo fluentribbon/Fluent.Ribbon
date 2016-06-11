@@ -22,7 +22,9 @@ namespace Fluent
             if (value == null)
             {
                 if (Application.Current != null
-                    && Application.Current.MainWindow != null)
+                    && Application.Current.CheckAccess()
+                    && Application.Current.MainWindow != null
+                    && Application.Current.MainWindow.CheckAccess())
                 {
                     try
                     {

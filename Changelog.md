@@ -15,6 +15,7 @@
   - [#305](../../issues/305) - Combobox items will be drawn above each other on scroll down
   - [#311](../../issues/311) - State loading too verbose
   - [#315](../../issues/315) - Menu button gets blurry
+  - [#325](../../issues/325) - Running RibbonWindow not on the main thread.
 
 - ### Enhancements
   - [#279](../../issues/279) - Localization of ColorGallery

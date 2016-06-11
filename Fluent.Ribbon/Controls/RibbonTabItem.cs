@@ -718,7 +718,7 @@ namespace Fluent
             this.IsSelected = true;
 
             // This way keytips for delay loaded elements work correctly. Partially fixes #244.
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
         }
 
         /// <summary>

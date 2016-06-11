@@ -90,9 +90,9 @@
                 && imagePath.EndsWith(".ico"))
             {
                 return new Image
-                    {
-                        Source = ExtractImageFromIcoFile(imagePath, desiredSize)
-                    };
+                {
+                    Source = ExtractImageFromIcoFile(imagePath, desiredSize)
+                };
             }
 
             return new Image
@@ -160,7 +160,10 @@
         {
             var dpiFactor = 1.0;
 
-            if (Application.Current.MainWindow != null)
+            if (Application.Current != null
+                && Application.Current.CheckAccess()
+                && Application.Current.MainWindow != null
+                && Application.Current.MainWindow.CheckAccess())
             {
                 // dpi.M11 = dpiX, dpi.M22 = dpiY
                 var presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
