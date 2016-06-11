@@ -479,8 +479,14 @@ namespace Fluent
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
-            var box = d as RibbonGroupBox;
-            if ((box.State != RibbonGroupBoxState.Collapsed) && (box.State != RibbonGroupBoxState.QuickAccess)) return false;
+            var box = (RibbonGroupBox)d;
+
+            if ((box.State != RibbonGroupBoxState.Collapsed)
+                && (box.State != RibbonGroupBoxState.QuickAccess))
+            {
+                return false;
+            }
+
             return basevalue;
         }
 
@@ -534,6 +540,25 @@ namespace Fluent
             var newElement = e.NewValue as FrameworkElement;
             if (newElement != null) element.AddLogicalChild(newElement);
         }
+
+        #endregion
+
+        #region IsSeparatorVisible
+
+        /// <summary>
+        /// Gets or sets wether the groupbox shows a separator.
+        /// </summary>
+        public bool IsSeparatorVisible
+        {
+            get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
+            set { this.SetValue(IsSeparatorVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for <see cref="IsSeparatorVisible"/>
+        /// </summary>
+        public static readonly DependencyProperty IsSeparatorVisibleProperty =
+          DependencyProperty.Register("IsSeparatorVisible", typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true));
 
         #endregion
 
@@ -1022,7 +1047,7 @@ namespace Fluent
             if (!this.IsDropDownOpen
                 && !this.IsSnapped)
             {
-                var groupBox = sender as RibbonGroupBox;
+                var groupBox = (RibbonGroupBox)sender;
                 // Save state
                 this.IsSnapped = true;
 
@@ -1041,7 +1066,7 @@ namespace Fluent
 
         private void OnQuickAccessClosed(object sender, EventArgs e)
         {
-            var groupBox = sender as RibbonGroupBox;
+            var groupBox = (RibbonGroupBox)sender;
 
             if (this.ItemsSource == null)
             {

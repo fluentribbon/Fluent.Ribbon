@@ -953,7 +953,8 @@
             <Fluent:RibbonTabItem Header="Tests"
                                   KeyTip="TESTS">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
-                                       IsLauncherVisible="False">
+                                       IsLauncherVisible="False"
+                                       IsSeparatorVisible="False">
                     <Fluent:CheckBox>Text 1</Fluent:CheckBox>
                     <Fluent:CheckBox>Text 2</Fluent:CheckBox>
                     <Fluent:CheckBox>Text 3</Fluent:CheckBox>

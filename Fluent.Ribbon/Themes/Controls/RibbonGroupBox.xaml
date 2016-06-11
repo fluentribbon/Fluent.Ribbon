@@ -658,7 +658,8 @@
                            Width="1"
                            Height="Auto"
                            Grid.RowSpan="2"
-                           Margin="0,4" />
+                           Margin="0,4"
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
             <Image x:Name="PART_SnappedImage"
                    Visibility="Collapsed" />
