@@ -2158,21 +2158,15 @@ namespace Fluent
                 }
             }
 
-            private void Dispose(bool disposing)
-            {
-                if (disposing == false)
-                {
-                    return;
-                }
-
-                this.memoryStream?.Dispose();
-
-                this.memoryStream = Stream.Null;
-            }
-
             public void Dispose()
             {
-                this.Dispose(true);
+                if (this.memoryStream != null)
+                {
+                    this.memoryStream.Dispose();
+                }
+
+                this.memoryStream = null;
+
                 GC.SuppressFinalize(this);
             }
         }
