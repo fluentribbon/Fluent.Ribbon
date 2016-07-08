@@ -24,7 +24,7 @@
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider
     {
         #region Fields
 

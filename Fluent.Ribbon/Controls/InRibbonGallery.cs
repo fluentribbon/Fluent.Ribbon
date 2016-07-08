@@ -28,7 +28,7 @@
     /// </summary>
     [ContentProperty("Items")]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
-    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink
+    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
     {
         #region Fields
 
@@ -632,9 +632,9 @@
         /// <summary>
         /// Button large icon
         /// </summary>
-        public ImageSource LargeIcon
+        public object LargeIcon
         {
-            get { return (ImageSource)this.GetValue(LargeIconProperty); }
+            get { return (object)this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
         }
 
@@ -642,7 +642,7 @@
         /// Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(ImageSource), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.Register("LargeIcon", typeof(object), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         #endregion
 

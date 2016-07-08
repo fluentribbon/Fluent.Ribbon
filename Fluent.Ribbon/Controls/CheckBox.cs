@@ -9,7 +9,7 @@ namespace Fluent
     /// Represents Fluent UI specific CheckBox
     /// </summary>
     [ContentProperty("Header")]
-    public class CheckBox : System.Windows.Controls.CheckBox, IRibbonControl, IQuickAccessItemProvider
+    public class CheckBox : System.Windows.Controls.CheckBox, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 

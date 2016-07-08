@@ -8,7 +8,7 @@ namespace Fluent
     /// Represents button
     /// </summary>
     [ContentProperty("Header")]
-    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider
+    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 

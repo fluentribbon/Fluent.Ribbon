@@ -21,6 +21,7 @@
   - [#279](../../issues/279) - Localization of ColorGallery
   - [#299](../../issues/299) - Quick access items should show item text as tool tip if no tooltip is set
   - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
+  - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
 
 ## 4.0.3
 

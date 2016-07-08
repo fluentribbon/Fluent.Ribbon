@@ -9,7 +9,7 @@ namespace Fluent
     /// Represents toggle button
     /// </summary>
     [ContentProperty("Header")]
-    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 
