@@ -8,7 +8,6 @@
     using System.Linq;
     using System.Reflection;
     using Fluent.Localization;
-    using Fluent.Localization.Languages;
 
     /// <summary>
     /// Contains localizable Ribbon's properties. 
