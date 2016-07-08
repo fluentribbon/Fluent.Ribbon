@@ -16,6 +16,7 @@
   - [#311](../../issues/311) - State loading too verbose
   - [#315](../../issues/315) - Menu button gets blurry
   - [#325](../../issues/325) - Running RibbonWindow not on the main thread.
+  - [#329](../../issues/329) - ArgumentOutOfRangeException when adding StatusBarItem
 
 - ### Enhancements
   - [#279](../../issues/279) - Localization of ColorGallery
@@ -56,7 +57,7 @@
   - We switched to Visual Studio 2015 so we can use nameof etc. [#219](../../issues/219)
 
 - ### Bug fixes
-  - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly 
+  - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly
   - [#90](../../issues/90) - Window chrome turning black during window resize.
   - [#116](../../issues/116) - MenuItem: When the description is long the MenuItem does not expands in Width or Height, does not wrap text
   - [#129](../../issues/129) - DontUseDwm="True" case the window corner unpainted
@@ -224,7 +225,7 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#46](../../issues/46) Little Bug in Office2010 style
   - [#49](../../issues/49) Fluent:RibbonProperties.TitleBarHeight="0" no longer works!
   - [#50](../../issues/50) Blurred Window Icon in Office 2013 Style
-  - [#55](../../issues/55) Changing menu font size in Windows mess ups ribbon 
+  - [#55](../../issues/55) Changing menu font size in Windows mess ups ribbon
   - [#57](../../issues/57) Slimmer arrow on combo box
   - [#58](../../issues/58) ColorGallery SelectedColor
   - [#59](../../issues/59) Little style bug in Windows 8 theme

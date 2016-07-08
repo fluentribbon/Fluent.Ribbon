@@ -20,6 +20,8 @@ namespace Fluent
 
         private Window ownerWindow;
 
+        private bool waitingForItemContainerGenerator;
+
         #endregion
 
         #region Properties
@@ -182,8 +184,10 @@ namespace Fluent
         {
             base.OnItemsChanged(e);
 
-            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
+            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated
+                || this.waitingForItemContainerGenerator)
             {
+                this.waitingForItemContainerGenerator = true;
                 return;
             }
 
@@ -194,17 +198,18 @@ namespace Fluent
                         for (var i = 0; i < e.NewItems.Count; i++)
                         {
                             var container = this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]);
+                            var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
                             var item = container as StatusBarItem;
 
                             if (item != null)
                             {
                                 item.Checked += this.OnItemChecked;
                                 item.Unchecked += this.OnItemUnchecked;
-                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new StatusBarMenuItem(item));
+                                this.contextMenu.Items.Insert(containerIndex, new StatusBarMenuItem(item));
                             }
                             else
                             {
-                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new Separator());
+                                this.contextMenu.Items.Insert(containerIndex, new Separator());
                             }
                         }
                         break;
@@ -311,6 +316,8 @@ namespace Fluent
             }
 
             this.UpdateSeparartorsVisibility();
+
+            this.waitingForItemContainerGenerator = false;
         }
 
         // Updates separators visibility, to not duplicate
