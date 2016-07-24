@@ -92,11 +92,11 @@
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.DesiredSize.Width);
+
             this.UpdateHasOverflowItems();
             this.itemsHadChanged = true;
-            this.InvalidateMeasure();
 
-            this.InvalidateMeasureOfParentRibbon();
+            this.Refresh();
 
             this.UpdateKeyTips();
 
@@ -544,12 +544,11 @@
 
         private void InvalidateMeasureOfParentRibbon()
         {
-            var parentRibbon = this.Parent as Ribbon;
+            var parentRibbon = RibbonControl.GetParentRibbon(this);
 
-            if (parentRibbon != null)
-            {
-                parentRibbon.TitleBar.InvalidateMeasure();
-            }
+            parentRibbon?.TitleBar.InvalidateMeasure();
+
+            parentRibbon?.TitleBar.UpdateLayout();
         }
 
         // Updates keys for keytip access

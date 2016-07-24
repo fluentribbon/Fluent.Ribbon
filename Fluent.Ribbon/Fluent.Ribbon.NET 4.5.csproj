@@ -97,6 +97,7 @@
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\KeyEventUtility.cs" />
     <Compile Include="Internal\UIHelper.cs" />
+    <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
     <Compile Include="Localization\RibbonLocalizationBase.cs" />
     <Compile Include="RibbonLocalization.cs" />
+    <Compile Include="RibbonStateStorage.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />

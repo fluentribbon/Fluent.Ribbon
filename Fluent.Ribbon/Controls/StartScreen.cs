@@ -34,12 +34,12 @@
         /// </summary>
         protected override bool Show()
         {
-            var ribbon = this.GetParentRibbon();
-            
-            if (ribbon?.TitleBar != null)
+            var parentRibbon = RibbonControl.GetParentRibbon(this);
+
+            if (parentRibbon?.TitleBar != null)
             {
-                this.previousTitleBarIsCollapsed = ribbon.TitleBar.IsCollapsed;
-                ribbon.TitleBar.IsCollapsed = true;
+                this.previousTitleBarIsCollapsed = parentRibbon.TitleBar.IsCollapsed;
+                parentRibbon.TitleBar.IsCollapsed = true;
             }
 
             if (this.Shown)
@@ -57,10 +57,10 @@
         {
             base.Hide();
 
-            var ribbon = this.GetParentRibbon();
-            if (ribbon?.TitleBar != null)
+            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            if (parentRibbon?.TitleBar != null)
             {
-                ribbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
+                parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
             }
         }
     }

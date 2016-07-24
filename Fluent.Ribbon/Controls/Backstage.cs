@@ -285,23 +285,23 @@ namespace Fluent
 
             this.ShowAdorner();
 
-            var ribbon = this.GetParentRibbon();
-            if (ribbon != null)
+            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            if (parentRibbon != null)
             {
-                ribbon.TabControl.IsDropDownOpen = false;
-                ribbon.TabControl.HighlightSelectedItem = false;
-                ribbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
+                parentRibbon.TabControl.IsDropDownOpen = false;
+                parentRibbon.TabControl.HighlightSelectedItem = false;
+                parentRibbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
 
                 // Disable QAT & title bar
-                if (ribbon.QuickAccessToolBar != null)
+                if (parentRibbon.QuickAccessToolBar != null)
                 {
-                    ribbon.QuickAccessToolBar.IsEnabled = false;
+                    parentRibbon.QuickAccessToolBar.IsEnabled = false;
                 }
 
-                if (ribbon.TitleBar != null)
+                if (parentRibbon.TitleBar != null)
                 {
-                    ribbon.TitleBar.IsEnabled = false;
-                    ribbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
+                    parentRibbon.TitleBar.IsEnabled = false;
+                    parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
             }
 
@@ -457,23 +457,23 @@ namespace Fluent
 
             this.HideAdorner();
 
-            var ribbon = this.GetParentRibbon();
-            if (ribbon != null)
+            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            if (parentRibbon != null)
             {
-                ribbon.TabControl.HighlightSelectedItem = true;
-                ribbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
+                parentRibbon.TabControl.HighlightSelectedItem = true;
+                parentRibbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
 
                 // Restore enable under QAT & title bar
-                if (ribbon.QuickAccessToolBar != null)
+                if (parentRibbon.QuickAccessToolBar != null)
                 {
-                    ribbon.QuickAccessToolBar.IsEnabled = true;
-                    ribbon.QuickAccessToolBar.Refresh();
+                    parentRibbon.QuickAccessToolBar.IsEnabled = true;
+                    parentRibbon.QuickAccessToolBar.Refresh();
                 }
 
-                if (ribbon.TitleBar != null)
+                if (parentRibbon.TitleBar != null)
                 {
-                    ribbon.TitleBar.IsEnabled = true;
-                    ribbon.TitleBar.HideContextTabs = false;
+                    parentRibbon.TitleBar.IsEnabled = true;
+                    parentRibbon.TitleBar.HideContextTabs = false;
                 }
             }
 
@@ -505,34 +505,6 @@ namespace Fluent
             }
 
             this.collapsedElements.Clear();
-        }
-
-        /// <summary>
-        /// Get the parent <see cref="Ribbon"/>.
-        /// </summary>
-        /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
-        protected Ribbon GetParentRibbon()
-        {
-            DependencyObject item = this;
-
-            while (item != null
-                && item is Ribbon == false)
-            {
-                item = VisualTreeHelper.GetParent(item);
-            }
-
-            if (item == null)
-            {
-                item = this;
-
-                while (item != null &&
-                       item is Ribbon == false)
-                {
-                    item = LogicalTreeHelper.GetParent(item);
-                }
-            }
-
-            return (Ribbon)item;
         }
 
         private void SaveWindowMinSize(Window window)
