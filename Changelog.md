@@ -3,7 +3,7 @@
 ## 5.0.0 (preview)
 
 - ### Breaking changes
-  - Office 2010 and Windows 8 themes got removed. This was a [community voted decision](../../issues/282).
+  - Office 2010 and Windows 8 themes got removed. Office 2013 theme was moved from Themes/Office2013/Generic.xaml to Themes/Generic.xaml. This was a [community voted decision](../../issues/282).
   - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
   - [#302](../../issues/302) - Rename Office 2013 theme to Generic
   - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
@@ -17,6 +17,7 @@
   - [#315](../../issues/315) - Menu button gets blurry
   - [#325](../../issues/325) - Running RibbonWindow not on the main thread.
   - [#329](../../issues/329) - ArgumentOutOfRangeException when adding StatusBarItem
+  - [#333](../../issues/333) - NullReference Exception app.Run
 
 - ### Enhancements
   - [#276](../../issues/276) - Custom method for saving and restoring QAT items
