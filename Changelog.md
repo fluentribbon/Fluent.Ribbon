@@ -3,7 +3,9 @@
 ## 5.0.0 (preview)
 
 - ### Breaking changes
-  - Office 2010 and Windows 8 themes got removed. Office 2013 theme was moved from Themes/Office2013/Generic.xaml to Themes/Generic.xaml. This was a [community voted decision](../../issues/282).
+  - Office 2010 and Windows 8 themes got removed. 
+    Office 2013 theme was moved from "Themes/Office2013/Generic.xaml" to "Themes/Generic.xaml".
+    This was a [community voted decision](../../issues/282).
   - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
   - [#302](../../issues/302) - Rename Office 2013 theme to Generic
   - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
@@ -24,7 +26,8 @@
   - [#279](../../issues/279) - Localization of ColorGallery
   - [#299](../../issues/299) - Quick access items should show item text as tool tip if no tooltip is set
   - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
-  - [#326](../../issues/326) - Add interface for controls which provide LargeIcon  
+  - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
+  - [#334](../../issues/334) - Select all text in Spinner on focus
 
 ## 4.0.3
 

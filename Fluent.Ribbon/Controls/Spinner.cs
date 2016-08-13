@@ -73,20 +73,19 @@
             var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
 
-            if (spinner.ValueChanged != null)
-            {
-                spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
-            }
+            spinner.ValueChanged?.Invoke(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
         }
 
         private void ValueToTextBoxText()
         {
-            if (this.IsTemplateValid())
+            if (this.textBox == null)
             {
-                var newText = (string)this.TextToValueConverter.ConvertBack(this.Value, typeof(string), this.Format, CultureInfo.CurrentCulture);
-                this.textBox.Text = newText;
-                this.Text = newText;
+                return;
             }
+
+            var newText = (string)this.TextToValueConverter.ConvertBack(this.Value, typeof(string), this.Format, CultureInfo.CurrentCulture);
+            this.textBox.Text = newText;
+            this.Text = newText;
         }
 
         #endregion
@@ -327,6 +326,21 @@
 
         #endregion TextToValueConverter
 
+        /// <summary>
+        /// Defines wether all text should be select as soon as this control gets focus.
+        /// </summary>
+        public bool SelectAllTextOnFocus
+        {
+            get { return (bool)this.GetValue(SelectAllTextOnFocusProperty); }
+            set { this.SetValue(SelectAllTextOnFocusProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
+        /// </summary>
+        public static readonly DependencyProperty SelectAllTextOnFocusProperty =
+            DependencyProperty.Register("SelectAllTextOnFocus", typeof(bool), typeof(Spinner), new PropertyMetadata(false));
+
         #endregion
 
         #region Constructors
@@ -355,12 +369,22 @@
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (this.IsTemplateValid())
+            if (this.buttonUp != null)
             {
                 this.buttonUp.Click -= this.OnButtonUpClick;
+                BindingOperations.ClearAllBindings(this.buttonUp);
+            }
+
+            if (this.buttonDown != null)
+            {
                 this.buttonDown.Click -= this.OnButtonDownClick;
                 BindingOperations.ClearAllBindings(this.buttonDown);
-                BindingOperations.ClearAllBindings(this.buttonUp);
+            }
+
+            if (this.textBox != null)
+            {
+                this.textBox.LostKeyboardFocus -= this.OnTextBoxLostKeyboardFocus;
+                this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
             }
 
             // Get template childs
@@ -381,10 +405,10 @@
             Bind(this, this.buttonUp, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
             Bind(this, this.buttonDown, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
 
-
             // Events subscribing
             this.buttonUp.Click += this.OnButtonUpClick;
             this.buttonDown.Click += this.OnButtonDownClick;
+            this.textBox.GotFocus += this.HandleTextBoxGotFocus;
             this.textBox.LostKeyboardFocus += this.OnTextBoxLostKeyboardFocus;
             this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
 
@@ -407,24 +431,36 @@
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            if (this.IsTemplateValid() == false)
+            if (this.textBox == null)
             {
                 return;
             }
 
             // Use dispatcher to avoid focus moving to backup'ed element 
             // (focused element before keytips processing)
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                 (ThreadStart)(() =>
                 {
                     this.textBox.SelectAll();
                     this.textBox.Focus();
                 }));
-            base.OnKeyTipPressed();
+        }
+
+        private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.SelectAllTextOnFocus)
+            {
+                // Async because setting the carret happens after focus.
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                    (ThreadStart)(() =>
+                    {
+                        this.textBox.SelectAll();
+                    }));
+            }
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>

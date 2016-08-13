@@ -2187,7 +2187,8 @@
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                    SelectAllTextOnFocus="True" />
                     <Fluent:Spinner KeyTip="KC"
                                     InputWidth="75"
                                     Format="0 px"
