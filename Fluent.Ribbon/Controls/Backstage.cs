@@ -307,13 +307,18 @@ namespace Fluent
 
             var window = Window.GetWindow(this);
 
+            if (window == null
+                && this.Parent != null)
+            {
+                window = Window.GetWindow(this.Parent);
+            }
+
             this.SaveWindowSize(window);
             this.SaveWindowMinSize(window);
 
             if (window != null)
             {
                 window.KeyDown += this.HandleWindowKeyDown;
-
 
                 if (this.savedWindowMinWidth < 500)
                 {
