@@ -1666,11 +1666,13 @@ namespace Fluent
         // Handles tab control selection changed
         private void OnTabControlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.TabControl != null)
+            if (ReferenceEquals(e.OriginalSource, this.TabControl) == false)
             {
-                this.SelectedTabItem = this.TabControl.SelectedItem as RibbonTabItem;
-                this.SelectedTabIndex = this.TabControl.SelectedIndex;
+                return;
             }
+
+            this.SelectedTabItem = this.TabControl.SelectedItem as RibbonTabItem;
+            this.SelectedTabIndex = this.TabControl.SelectedIndex;
 
             this.SelectedTabChanged?.Invoke(this, e);
         }

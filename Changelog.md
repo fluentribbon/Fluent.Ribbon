@@ -20,6 +20,8 @@
   - [#325](../../issues/325) - Running RibbonWindow not on the main thread.
   - [#329](../../issues/329) - ArgumentOutOfRangeException when adding StatusBarItem
   - [#333](../../issues/333) - NullReference Exception app.Run
+  - [#339](../../issues/339) - SelectedTabChanged fired when selection of contained Selector changes
+  - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
 
 - ### Enhancements
   - [#276](../../issues/276) - Custom method for saving and restoring QAT items
