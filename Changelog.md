@@ -23,6 +23,7 @@
   - [#339](../../issues/339) - SelectedTabChanged fired when selection of contained Selector changes
   - [#341](../../issues/341) - Fix text going under custom window commands (thanks @chrfin)
   - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
+  - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
 
 - ### Enhancements
   - [#276](../../issues/276) - Custom method for saving and restoring QAT items
