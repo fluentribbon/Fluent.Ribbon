@@ -13,7 +13,13 @@
         <Grid>
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
                     <DockPanel x:Name="PART_TitleBar"
+							   Grid.Column="0"
                                Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Left"
@@ -29,13 +35,13 @@
 
                     <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
                                       x:Name="PART_WindowCommands"
+									  Grid.Column="1"
                                       Panel.ZIndex="1"
-                                      Grid.RowSpan="2"
                                       VerticalAlignment="Top"
                                       HorizontalAlignment="Right"
                                       Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
 
-                    <ContentPresenter x:Name="PART_ContentPresenter" />
+                    <ContentPresenter x:Name="PART_ContentPresenter" Grid.ColumnSpan="2" />
                 </Grid>
             </AdornerDecorator>
 
