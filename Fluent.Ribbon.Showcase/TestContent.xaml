@@ -2774,6 +2774,15 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="Airspace issue">
+                <DockPanel LastChildFill="True">
+                    <WindowsFormsHost HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch">
+                        <forms:TextBox Height="30"
+                                       Text="Test Windows.Forms.TextBox" />
+                    </WindowsFormsHost>
+                </DockPanel>
+            </TabItem>
         </TabControl>
 
         <Fluent:StatusBar HorizontalAlignment="Stretch"
