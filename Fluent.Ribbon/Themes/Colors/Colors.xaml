@@ -3,26 +3,22 @@
                     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                     xmlns:Fluent="clr-namespace:Fluent">
 
-    <!-- Theme Base Colors -->
+    <!-- Theme base colors -->
     <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#2B579A</Color>
     <SolidColorBrush x:Key="RibbonThemeColorBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" />
     
-    <!--BASE COLORS-->
+    <!-- Base colors -->
     <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
     <Color x:Key="Gray1">#FFCCCCCC</Color>
-    <Color x:Key="Gray5">#FFD8D8D9</Color>
 
     <Color x:Key="TransparentWhiteColor">#00FFFFFF</Color>
 
+    <!-- Base brushes -->
     <SolidColorBrush x:Key="TransparentBrush"
                      Color="#00000000" />
 
-    <!-- *************BRUSHES START************* -->
-    <!--PROJECT TEMPLATE BRUSHES -->
-
-    <!-- UNIVERSAL CONTROL BRUSHES -->
     <SolidColorBrush x:Key="WhiteBrush"
                      Color="{DynamicResource WhiteColor}" />
     <SolidColorBrush x:Key="BlackBrush"
@@ -30,9 +26,6 @@
 
     <SolidColorBrush x:Key="TransparentWhiteBrush"
                      Color="{DynamicResource TransparentWhiteColor}" />
-
-    <SolidColorBrush x:Key="TextBoxBorderBrush"
-                     Color="{DynamicResource Gray1}" />
 
     <!--Backstage-->
     <SolidColorBrush x:Key="BackstageBackgroundBrush"
@@ -261,6 +254,7 @@
     <!-- Slider -->
     <SolidColorBrush x:Key="SliderShadowBrush"
                      Color="White" />
+    
     <SolidColorBrush x:Key="SliderLightenBrush"
                      Color="White" />    
     
@@ -334,6 +328,9 @@
                      Color="#FFEDEDED" />
 
     <!-- TextBox -->
+    <SolidColorBrush x:Key="TextBoxBorderBrush"
+                     Color="{DynamicResource Gray1}" />    
+    
     <SolidColorBrush x:Key="TextBoxBackgroundBrush"
                      Color="White" />
     
