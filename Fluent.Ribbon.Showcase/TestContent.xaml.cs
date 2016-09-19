@@ -58,7 +58,7 @@
 
             var wnd = new Window
             {
-                Content = string.Format("Launcher-Window for: {0}", groupBox.Header),
+                Content = $"Launcher-Window for: {groupBox.Header}",
                 Owner = Window.GetWindow(this)
             };
 
@@ -192,7 +192,7 @@
                            ? frameworkElement.Name
                            : string.Empty;
 
-            return string.Format("[{0}] (Header: {1} || Name: {2})", element, header, name);
+            return $"[{element}] (Header: {header} || Name: {name})";
         }
 
         private void CheckLogicalTree(DependencyObject root)
@@ -202,9 +202,9 @@
             {
                 if (LogicalTreeHelper.GetParent(child) != root)
                 {
-                    Debug.WriteLine(string.Format("Incorrect logical parent for {0}", GetDebugInfo(child)));
-                    Debug.WriteLine(string.Format("\tExpected: {0}", GetDebugInfo(root)));
-                    Debug.WriteLine(string.Format("\tFound: {0}", GetDebugInfo(LogicalTreeHelper.GetParent(child))));
+                    Debug.WriteLine($"Incorrect logical parent for {GetDebugInfo(child)}");
+                    Debug.WriteLine($"\tExpected: {GetDebugInfo(root)}");
+                    Debug.WriteLine($"\tFound: {GetDebugInfo(LogicalTreeHelper.GetParent(child))}");
                 }
 
                 this.CheckLogicalTree(child);
@@ -246,7 +246,7 @@
             var stringBuilder = new StringBuilder();
             this.BuildBackLogicalTree(item.Tag as DependencyObject, stringBuilder);
 
-            MessageBox.Show(string.Format("From buttom to top:\n{0}", stringBuilder));
+            MessageBox.Show($"From buttom to top:\n{stringBuilder}");
         }
 
         private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)

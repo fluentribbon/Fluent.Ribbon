@@ -164,9 +164,9 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(string.Format("Sender         - {0}", sender));
-            Debug.WriteLine(string.Format("OriginalSource - {0}", e.OriginalSource));
-            Debug.WriteLine(string.Format("Mouse.Captured - {0}", Mouse.Captured));
+            Debug.WriteLine($"Sender         - {sender}");
+            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
+            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
 
             var control = sender as IDropDownControl;
 
@@ -210,7 +210,7 @@
                     && Mouse.Captured == null
                     && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
                 {
-                    Debug.WriteLine(string.Format("Setting mouse capture to: {0}", sender));
+                    Debug.WriteLine($"Setting mouse capture to: {sender}");
                     Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                     e.Handled = true;
                     return;

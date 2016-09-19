@@ -702,7 +702,7 @@
 
             control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
 
-            Debug.WriteLine(string.Format("{0} IsDropDownOpen: {1}", control.Header, newValue));
+            Debug.WriteLine($"{control.Header} IsDropDownOpen: {newValue}");
 
             if (newValue)
             {

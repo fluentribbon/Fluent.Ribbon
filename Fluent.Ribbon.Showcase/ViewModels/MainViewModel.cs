@@ -25,7 +25,7 @@
 
         public MainViewModel()
         {
-            this.Title = string.Format("Fluent.Ribbon {0}", GetVersionText());
+            this.Title = $"Fluent.Ribbon {GetVersionText()}";
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
@@ -48,17 +48,17 @@
 
             var attrib = attributes.FirstOrDefault();
 
-            return string.Format("{0} ({1})", version, attrib.InformationalVersion);
+            return $"{version} ({attrib.InformationalVersion})";
         }
 
         private void Preview(GalleryItem galleryItem)
         {
-            Trace.WriteLine(string.Format("Preview: {0}", galleryItem));
+            Trace.WriteLine($"Preview: {galleryItem}");
         }
 
         private void CancelPreview(GalleryItem galleryItem)
         {
-            Trace.WriteLine(string.Format("CancelPreview: {0}", galleryItem));
+            Trace.WriteLine($"CancelPreview: {galleryItem}");
         }
 
         public string Title { get; private set; }

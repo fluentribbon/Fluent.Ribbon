@@ -135,7 +135,7 @@
         /// </returns>
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}", this.Large, this.Middle, this.Small);
+            return $"{this.Large} {this.Middle} {this.Small}";
         }
     }
 }

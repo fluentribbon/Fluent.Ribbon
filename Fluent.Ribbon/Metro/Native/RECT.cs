@@ -58,7 +58,7 @@ namespace Fluent.Metro.Native
                 return "RECT {Empty}";
             }
 
-            return string.Format("RECT {{ left: {0} / top: {1} / right: {2} / bottom: {3} }}", this.left, this.top, this.right, this.bottom);
+            return $"RECT {{ left: {this.left} / top: {this.top} / right: {this.right} / bottom: {this.bottom} }}";
         }
 
         /// <summary> Determine if 2 RECT are equal (deep compare) </summary>

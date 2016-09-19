@@ -29,7 +29,7 @@
                 return new SolidColorBrush((Color)value);
             }
 
-            throw new InvalidOperationException(string.Format("Unsupported type [{0}], ColorToSolidColorBrushValueConverter.Convert()", value.GetType().Name));
+            throw new InvalidOperationException($"Unsupported type [{value.GetType().Name}], ColorToSolidColorBrushValueConverter.Convert()");
         }
 
         /// <summary>
@@ -52,7 +52,7 @@
                 return brush.Color;
             }
 
-            throw new InvalidOperationException(string.Format("Unsupported type [{0}], ColorToSolidColorBrushValueConverter.Convert()", value.GetType().Name));
+            throw new InvalidOperationException($"Unsupported type [{value.GetType().Name}], ColorToSolidColorBrushValueConverter.Convert()");
         }
     }
 }
