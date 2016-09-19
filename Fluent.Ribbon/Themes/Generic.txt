@@ -1,5 +1,4 @@
 Colors\Colors.xaml
-Colors\ColorsWhite.xaml
 Controls\Button.xaml
 Controls\WindowCommands.xaml
 Controls\EmptyFocusStyle.xaml

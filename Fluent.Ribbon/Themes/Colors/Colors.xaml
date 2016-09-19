@@ -2,6 +2,40 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
                     xmlns:Fluent="clr-namespace:Fluent">
+
+    <!-- Theme Base Colors -->
+    <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#2B579A</Color>
+    <SolidColorBrush x:Key="RibbonThemeColorBrush"
+                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}" />
+    
+    <!--BASE COLORS-->
+    <Color x:Key="BlackColor">#FF000000</Color>
+    <Color x:Key="WhiteColor">#FFFFFFFF</Color>
+    <Color x:Key="Gray1">#FFCCCCCC</Color>
+    <Color x:Key="Gray5">#FFD8D8D9</Color>
+
+    <Color x:Key="TransparentWhiteColor">#00FFFFFF</Color>
+
+    <SolidColorBrush x:Key="TransparentBrush"
+                     Color="#00000000" />
+
+    <!-- *************BRUSHES START************* -->
+    <!--PROJECT TEMPLATE BRUSHES -->
+
+    <!-- UNIVERSAL CONTROL BRUSHES -->
+    <SolidColorBrush x:Key="ControlBackgroundBrush"
+                     Color="{DynamicResource WhiteColor}" />
+    <SolidColorBrush x:Key="WhiteBrush"
+                     Color="{DynamicResource WhiteColor}" />
+    <SolidColorBrush x:Key="BlackBrush"
+                     Color="{DynamicResource BlackColor}" />
+
+    <SolidColorBrush x:Key="TransparentWhiteBrush"
+                     Color="{DynamicResource TransparentWhiteColor}" />
+
+    <SolidColorBrush x:Key="TextBoxBorderBrush"
+                     Color="{DynamicResource Gray1}" />
+
     <!--Backstage-->
     <SolidColorBrush x:Key="BackstageBackgroundBrush"
                      Color="{DynamicResource {x:Static SystemColors.WindowColorKey}}" />
@@ -25,6 +59,7 @@
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.3" />
 
+    <!-- CheckBox -->
     <SolidColorBrush x:Key="CheckBoxHoverBackgroundBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.12" />
@@ -38,6 +73,7 @@
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.3" />
 
+    <!-- Button -->    
     <SolidColorBrush x:Key="ButtonHoverOuterBackgroundBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.12" />
@@ -64,9 +100,41 @@
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
                      Opacity="0.3" />
 
-    <SolidColorBrush x:Key="TransparentBrush"
-                     Color="#00000000" />
+    <LinearGradientBrush x:Key="ButtonBackgroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#FFFFFFFF"
+                      Offset="0" />
+        <GradientStop Color="#FFF1F3F4"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ButtonBorderBrush"
+                     Color="#FFC6CACD" />
+    <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush"
+                     Color="#FFFAFAFA" />
+    <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
+                     Color="#FFE4E7EB" />
 
+    <LinearGradientBrush x:Key="RoundButtonBackgroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#FFF6F7F8"
+                      Offset="0" />
+        <GradientStop Color="#FFD2D5D9"
+                      Offset="1" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="RoundButtonBorderBrush"
+                     Color="#808893" />
+    <LinearGradientBrush x:Key="RoundButtonForegroundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="#FF828588"
+                      Offset="0" />
+        <GradientStop Color="#FF6A6D70"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- CheckBox -->
     <SolidColorBrush x:Key="CheckBoxOutterBorderBrush"
                      Color="#FF898B8C" />
     <SolidColorBrush x:Key="CheckBoxOutterBackgroundBrush"
@@ -124,20 +192,31 @@
                       Offset="1" />
     </LinearGradientBrush>
 
+    <!-- Gallery -->
     <SolidColorBrush x:Key="GalleryBorderBrush"
                      Color="#FFE2E4E7" />
     <SolidColorBrush x:Key="GalleryHeaderBackgroundBrush"
                      Color="#FF959595" />
+    <SolidColorBrush x:Key="GalleryBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="InRibbonGalleryBorderBrush"
+                     Color="#FFC6CACD" />    
 
+    <!-- KeyTip -->
     <SolidColorBrush x:Key="KeyTipBackgroundBrush"
                      Color="#FF525252" />
     <SolidColorBrush x:Key="KeyTipBorderBrush"
                      Color="#FF767676" />
 
+    <!-- MenuItem -->
+    <SolidColorBrush x:Key="MenuItemBackground"
+                     Color="#00000000" />
     <SolidColorBrush x:Key="MenuItemCheckBoxBackgroundBrush"
                      Color="#FFFCF1C2" />
     <SolidColorBrush x:Key="MenuItemCheckBoxBorderBrush"
                      Color="#FFF29536" />
+    
+    <!-- ContextMenu -->
     <SolidColorBrush x:Key="ContextMenuBarBackgroundBrush"
                      Color="White" />
     <SolidColorBrush x:Key="ContextMenuBarBorderBrush"
@@ -148,6 +227,21 @@
     <SolidColorBrush x:Key="ContextMenuSeparatorBrush"
                      Color="#FFE0E3E6" />
 
+    <SolidColorBrush x:Key="ContextMenuBarResizeBorderBrush"
+                     Color="#FFDDE7EE" />
+    
+    <LinearGradientBrush x:Key="ContextMenuBarResizeBackgoundBrush"
+                         EndPoint="0.5,1"
+                         StartPoint="0.5,0">
+        <GradientStop Color="White"
+                      Offset="0" />
+        <GradientStop Color="#FFD8DBDF"
+                      Offset="1" />
+        <GradientStop Color="#FFF2F4F5"
+                      Offset="0.529" />
+    </LinearGradientBrush>
+
+    <!-- ScrollViewer -->
     <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush"
                      Color="#FF79848C" />
     <LinearGradientBrush x:Key="ScrollViewerButtonBackgroundBrush"
@@ -159,32 +253,84 @@
                       Offset="1" />
     </LinearGradientBrush>
 
-    <!-- *************COLORS START************* -->
+    <!-- Slider -->
+    <SolidColorBrush x:Key="SliderShadowBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="SliderLightenBrush"
+                     Color="White" />    
+    
+    <!-- Ribbon -->
+    <SolidColorBrush x:Key="RibbonTopBorderBrush"
+                     Color="#FFE1E1E1" />
+    <SolidColorBrush x:Key="RibbonBackgoundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="ActiveTabBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="DefaultFontBrush"
+                     Color="#FF444444" />
+    <SolidColorBrush x:Key="BackstageFontBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="TabItemSelectedFontBrush"
+                     Color="#FF212121" />
+    <SolidColorBrush x:Key="TabItemFontBrush"
+                     Color="#FF212121" />
+    <SolidColorBrush x:Key="RibbonSeparatorBrush"
+                     Color="#FFE1E1E1" />
 
-    <!-- Theme Base Colors -->
+    <!-- Groups -->
+    <SolidColorBrush x:Key="GroupSeparatorBrush"
+                     Color="#FFE1E1E1" />
+    <SolidColorBrush x:Key="GroupHoverBrush"
+                     Color="#FFF7F7F7" />
+    <SolidColorBrush x:Key="GroupHighlightBrush"
+                     Color="#FFF0F0F0" />
 
-    <!--BASE COLORS-->
-    <Color x:Key="BlackColor">#FF000000</Color>
-    <Color x:Key="WhiteColor">#FFFFFFFF</Color>
-    <Color x:Key="Gray1">#FFCCCCCC</Color>
-    <Color x:Key="Gray5">#FFD8D8D9</Color>
+    <!-- GroupBox -->
+    <SolidColorBrush x:Key="GroupBoxFontBrush"
+                     Color="#FF666D7C" />
+    <SolidColorBrush x:Key="GroupBoxSeparatorBorderBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="GroupBoxSeparatorBackgroundBrush"
+                     Color="#FFE1E1E1" />
 
-    <Color x:Key="TransparentWhiteColor">#00FFFFFF</Color>
+    <!-- Scroll-Buttons -->
+    <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush"
+                     Color="#FFABABAB" />
+    <SolidColorBrush x:Key="ScrollButtonDefaultBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="ScrollButtonHoverBorderBrush"
+                     Color="#FF777777" />
+    <SolidColorBrush x:Key="ScrollButtonHoverBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="ScrollButtonPressedBorderBrush"
+                     Color="#FF777777" />
+    <SolidColorBrush x:Key="ScrollButtonPressedBackgroundBrush"
+                     Color="#FFF0F0F0" />
 
-    <!-- *************BRUSHES START************* -->
-    <!--PROJECT TEMPLATE BRUSHES -->
+    <SolidColorBrush x:Key="ScrollBackgroundBrush"
+                     Color="#FFEDEDED" />
+    <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush"
+                     Color="#FFEDEDED" />
 
-    <!-- UNIVERSAL CONTROL BRUSHES -->
-    <SolidColorBrush x:Key="ControlBackgroundBrush"
-                     Color="{DynamicResource WhiteColor}" />
-    <SolidColorBrush x:Key="WhiteBrush"
-                     Color="{DynamicResource WhiteColor}" />
-    <SolidColorBrush x:Key="BlackBrush"
-                     Color="{DynamicResource BlackColor}" />
-
-    <SolidColorBrush x:Key="TransparentWhiteBrush"
-                     Color="{DynamicResource TransparentWhiteColor}" />
-
+    <!-- TextBox -->
+    <SolidColorBrush x:Key="TextBoxBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="TextBoxHoverBackgroundBrush"
+                     Color="White" />
     <SolidColorBrush x:Key="TextBoxBorderBrush"
-                     Color="{DynamicResource Gray1}" />
+                     Color="#FFD3D6D9" />
+    <SolidColorBrush x:Key="TextBoxHoverBorderBrush"
+                     Color="#FFBBBFC4" />
+    <SolidColorBrush x:Key="TextBoxDisabledBackgroundBrush"
+                     Color="#FFFAFAFA" />
+    <SolidColorBrush x:Key="TextBoxDisabledBorderBrush"
+                     Color="#FFE4E7EB" />
+
+    <!-- Window -->
+    <SolidColorBrush x:Key="WindowContentBorderBrush"
+                     Color="#FF878C92" />
+
+    <!-- QuickAccessToolBar -->
+    <SolidColorBrush x:Key="QuickAccessToolbarPopupBackgrondBrush"
+                     Color="#FFE9EDF1" />
 </ResourceDictionary>
