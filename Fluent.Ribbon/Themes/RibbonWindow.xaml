@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:ControlzEx="urn:controlzex"
                     xmlns:internal="clr-namespace:Fluent.Internal"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    mc:Ignorable="d">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Fluent:IconConverter x:Key="IconConvert" />
@@ -13,35 +16,61 @@
         <Grid>
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                    <DockPanel x:Name="PART_TitleBar"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0"
 							   Grid.Column="0"
-                               Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Left"
-                               Background="Transparent">
+                               Background="Transparent"
+                               LastChildFill="True">
                         <Image x:Name="PART_Icon"
+                               DockPanel.Dock="Left"
                                Height="16"
                                Width="16"
                                Margin="4,1,0,0"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                                Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
                                SnapsToDevicePixels="True" />
+
+                        <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
+                                               Style="{DynamicResource RibbonTitleBarStyle}"
+                                               VerticalAlignment="Top"
+                                               HorizontalAlignment="Left"
+                                               IsCollapsed="{TemplateBinding IsCollapsed}">
+                            <Fluent:RibbonTitleBar.Header>
+                                <TextBlock x:Name="PART_Title"
+                                           Margin="-2,0"
+                                           VerticalAlignment="Center"
+                                           d:LayoutOverrides="Width"
+                                           HorizontalAlignment="Center"
+                                           Text="{TemplateBinding Title}"
+                                           Foreground="{TemplateBinding TitleForeground}"
+                                           TextWrapping="NoWrap"
+                                           TextTrimming="CharacterEllipsis" />
+                            </Fluent:RibbonTitleBar.Header>
+                        </Fluent:RibbonTitleBar>
                     </DockPanel>
 
-                    <ContentPresenter Content="{Binding WindowCommands, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}"
+                    <ContentPresenter Content="{TemplateBinding WindowCommands}"
                                       x:Name="PART_WindowCommands"
+                                      Grid.Row="0"
 									  Grid.Column="1"
                                       Panel.ZIndex="1"
                                       VerticalAlignment="Top"
-                                      HorizontalAlignment="Right"
-                                      Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                                      HorizontalAlignment="Right" />
 
-                    <ContentPresenter x:Name="PART_ContentPresenter" Grid.ColumnSpan="2" />
+                    <ContentPresenter x:Name="PART_ContentPresenter" 
+                                      Grid.Row="1"
+                                      Grid.ColumnSpan="2" />
                 </Grid>
             </AdornerDecorator>
 
@@ -110,6 +139,8 @@
                 Value="1" />
         <Setter Property="Foreground"
                 Value="{DynamicResource BlackBrush}" />
+        <Setter Property="TitleForeground"
+                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />        
         <Setter Property="Background"
                 Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Template"

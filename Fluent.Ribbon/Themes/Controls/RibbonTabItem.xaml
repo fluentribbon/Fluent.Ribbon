@@ -34,35 +34,35 @@
                   Margin="0"
                   Grid.ColumnSpan="1">
                 <Rectangle x:Name="rectangle"
-                           Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                           Fill="{TemplateBinding ActiveTabBackground}"
                            StrokeThickness="0"
                            Margin="0"
                            VerticalAlignment="Bottom"
                            Height="1" />
                 <Rectangle x:Name="rectangle1"
-                           Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                           Fill="{TemplateBinding ActiveTabBackground}"
                            StrokeThickness="0"
                            Margin="1.8,0"
                            VerticalAlignment="Bottom"
                            Height="1.2" />
                 <Rectangle x:Name="rectangle2"
-                           Fill="{DynamicResource ActiveTabBackgroundBrush}"
+                           Fill="{TemplateBinding ActiveTabBackground}"
                            StrokeThickness="0"
                            Margin="2,0"
                            VerticalAlignment="Bottom"
                            Height="2" />
                 <Border x:Name="border"
                         Margin="1,0,1,2"
-                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                         BorderThickness="1,1,1,0"
                         VerticalAlignment="Stretch"
-                        Background="{DynamicResource ActiveTabBackgroundBrush}">
+                        Background="{TemplateBinding ActiveTabBackground}">
                     <Border x:Name="border_Copy3"
                             Margin="0"
                             BorderThickness="1,1,1,0"
                             VerticalAlignment="Stretch"
                             CornerRadius="2,2,0,0"
-                            BorderBrush="{DynamicResource ActiveTabBackgroundBrush}">
+                            BorderBrush="{TemplateBinding ActiveTabBackground}">
                     </Border>
                 </Border>
                 <Border x:Name="border1"
@@ -71,7 +71,7 @@
                         VerticalAlignment="Bottom"
                         Width="2"
                         Height="2"
-                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                         BorderThickness="0,0,1,1" />
                 <Border x:Name="border2"
                         HorizontalAlignment="Right"
@@ -79,14 +79,14 @@
                         VerticalAlignment="Bottom"
                         Width="2"
                         Height="2"
-                        BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                         BorderThickness="1,0,0,1" />
                 <Border x:Name="bottomBorder"
                         HorizontalAlignment="Stretch"
                         Margin="0,0,0,-1"
                         VerticalAlignment="Bottom"
                         Height="1"
-                        BorderBrush="{DynamicResource ActiveTabBackgroundBrush}"
+                        BorderBrush="{TemplateBinding ActiveTabBackground}"
                         BorderThickness="0,1" />
             </Grid>
             <Grid x:Name="focusedGrid"
@@ -308,6 +308,34 @@
 
     <Style x:Key="RibbonTabItemStyle"
            TargetType="{x:Type Fluent:RibbonTabItem}">
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />        
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Height"
+                Value="Auto" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="IsMinimized"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
+        <Setter Property="IsOpen"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonTabItemControlTemplate}" />
+        <Setter Property="Indent"
+                Value="12" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource TabItemSelectedFontBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource RibbonTopBorderBrush}" />
+        <Setter Property="ActiveTabBackground"
+                Value="{DynamicResource ActiveTabBackgroundBrush}" />
+        <Setter Property="ActiveTabBorderBrush"
+                Value="{DynamicResource RibbonTopBorderBrush}" />
         <Style.Triggers>
             <Trigger Property="Group"
                      Value="{x:Null}">
@@ -320,29 +348,5 @@
                         Value="{DynamicResource TabItemFontBrush}" />
             </Trigger>
         </Style.Triggers>
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Height"
-                Value="Auto" />
-        <Setter Property="IsMinimized"
-                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
-        <Setter Property="IsOpen"
-                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonTabItemControlTemplate}" />
-        <Setter Property="IsTabStop"
-                Value="False" />
-        <Setter Property="Indent"
-                Value="12" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource TabItemSelectedFontBrush}" />
-        <Setter Property="Margin"
-                Value="0" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonTopBorderBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
 </ResourceDictionary>

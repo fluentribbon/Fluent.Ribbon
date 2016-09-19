@@ -234,6 +234,16 @@ namespace Fluent
             base.OnContextMenuClosing(e);
         }
 
+        private void OnQuickAccessContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            this.OnContextMenuOpening(e);
+        }
+
+        private void OnQuickAccessContextMenuClosing(object sender, ContextMenuEventArgs e)
+        {
+            this.OnContextMenuClosing(e);
+        }
+
         // Occurs when context menu is opening
         private static void OnContextMenuOpened(object sender, RoutedEventArgs e)
         {
@@ -447,8 +457,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Button. 
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
@@ -471,28 +480,6 @@ namespace Fluent
             DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         /// <summary>
-        /// Window title
-        /// </summary>
-        public string Title
-        {
-            get { return (string)this.GetValue(TitleProperty); }
-            set { this.SetValue(TitleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(Ribbon), new UIPropertyMetadata(string.Empty, OnTitleChanged));
-
-        private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-
-            ribbon?.TitleBar?.InvalidateMeasure();
-        }
-
-        /// <summary>
         /// Gets or sets selected tab item
         /// </summary>
         public RibbonTabItem SelectedTabItem
@@ -502,7 +489,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="SelectedTabItem"/>.
         /// </summary>
         public static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(Ribbon), new UIPropertyMetadata(null, OnSelectedTabItemChanged));
@@ -538,7 +525,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedTabindex.  This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="SelectedTabIndex"/>.
         /// </summary>
         public static readonly DependencyProperty SelectedTabIndexProperty =
             DependencyProperty.Register("SelectedTabIndex", typeof(int), typeof(Ribbon), new UIPropertyMetadata(-1, OnSelectedTabIndexChanged));
@@ -599,14 +586,58 @@ namespace Fluent
         public IDictionary<UIElement, UIElement> GetQuickAccessElements() => this.QuickAccessElements.ToDictionary(x => x.Key, y => y.Value);
 
         /// <summary>
-        /// Gets ribbon titlebar
-        /// </summary>
-        internal RibbonTitleBar TitleBar { get; private set; }
-
-        /// <summary>
         /// Gets the Ribbon tab control
         /// </summary>
         internal RibbonTabControl TabControl { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="RibbonTitleBar"/> which is used for displaying <see cref="QuickAccessToolBar"/> when <see cref="ShowQuickAccessToolBarAboveRibbon"/> is <c>true</c>.
+        /// </summary>
+        public RibbonTitleBar TitleBar
+        {
+            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            set { this.SetValue(TitleBarProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty =
+            DependencyProperty.Register(nameof(TitleBar), typeof(RibbonTitleBar), typeof(Ribbon), new PropertyMetadata(OnTitleBarChanged));
+
+        private static void OnTitleBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            var oldValue = e.OldValue as RibbonTitleBar;
+            var newValue = e.NewValue as RibbonTitleBar;
+
+            if (oldValue != null)
+            {
+                foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
+                {
+                    ribbon.TitleBar.Items.Remove(ribbonContextualTabGroup);
+                }
+
+                // Make sure everything is cleared
+                ribbon.TitleBar.Items.Clear();
+
+                ribbon.RemoveQuickAccessToolBarFromTitleBar();
+            }
+
+            if (newValue != null)
+            {
+                foreach (var contextualTabGroup in ribbon.ContextualGroups)
+                {
+                    ribbon.TitleBar.Items.Add(contextualTabGroup);
+                }
+
+                if (ribbon.ShowQuickAccessToolBarAboveRibbon)
+                {
+                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets whether quick access toolbar showes above ribbon
@@ -631,7 +662,20 @@ namespace Fluent
         private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            ribbon.TitleBar?.InvalidateMeasure();
+
+            if (ribbon.TitleBar != null)
+            {
+                if ((bool)e.NewValue)
+                {
+                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                }
+                else
+                {
+                    ribbon.RemoveQuickAccessToolBarFromTitleBar();
+                }
+
+                ribbon.TitleBar.InvalidateMeasure();
+            }            
 
             ribbon.RibbonStateStorage.SaveTemporary();
         }
@@ -690,7 +734,6 @@ namespace Fluent
                     this.TitleBar?.Items.Clear();
                     break;
             }
-
         }
 
         /// <summary>
@@ -1389,27 +1432,6 @@ namespace Fluent
         {
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;
 
-            if (this.TitleBar != null)
-            {
-                foreach (var ribbonContextualTabGroup in this.ContextualGroups)
-                {
-                    this.TitleBar.Items.Remove(ribbonContextualTabGroup);
-                }
-
-                // Make sure everything is cleared
-                this.TitleBar.Items.Clear();
-            }
-
-            this.TitleBar = this.GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
-
-            if (this.TitleBar != null)
-            {
-                foreach (var contextualTabGroup in this.ContextualGroups)
-                {
-                    this.TitleBar.Items.Add(contextualTabGroup);
-                }
-            }
-
             var selectedTab = this.SelectedTabItem;
             if (this.TabControl != null)
             {
@@ -1488,19 +1510,58 @@ namespace Fluent
 
                 this.QuickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
 
-                var binding = new Binding("CanQuickAccessLocationChanging")
                 {
-                    Source = this,
-                    Mode = BindingMode.OneWay
-                };
-                this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
+                    var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
+                                  {
+                                      Source = this,
+                                      Mode = BindingMode.OneWay
+                                  };
+                    this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
+                }
 
                 this.QuickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
+            }
+
+            if (this.ShowQuickAccessToolBarAboveRibbon)
+            {
+                this.MoveQuickAccessToolBarToTitleBar();
+            }
+        }
+
+        private void MoveQuickAccessToolBarToTitleBar()
+        {
+            if (this.TitleBar != null)
+            {
+                this.TitleBar.QuickAccessToolBar = this.QuickAccessToolBar;
+            }
+
+            if (this.QuickAccessToolBar != null)
+            {
+                // Prevent double add for handler if this method is called multiple times
+                this.QuickAccessToolBar.ContextMenuOpening -= this.OnQuickAccessContextMenuOpening;
+                this.QuickAccessToolBar.ContextMenuClosing -= this.OnQuickAccessContextMenuClosing;
+
+                this.QuickAccessToolBar.ContextMenuOpening += this.OnQuickAccessContextMenuOpening;
+                this.QuickAccessToolBar.ContextMenuClosing += this.OnQuickAccessContextMenuClosing;
+            }
+        }
+
+        private void RemoveQuickAccessToolBarFromTitleBar()
+        {
+            if (this.TitleBar != null)
+            {
+                this.TitleBar.QuickAccessToolBar = null;
+            }
+
+            if (this.QuickAccessToolBar != null)
+            {
+                this.QuickAccessToolBar.ContextMenuOpening -= this.OnQuickAccessContextMenuOpening;
+                this.QuickAccessToolBar.ContextMenuClosing -= this.OnQuickAccessContextMenuClosing;
             }
         }
 
         /// <summary>
-        /// Called when the <see cref="ownerWindow"/> is closed, so that we set it to null and clear the <see cref="TitleProperty"/>
+        /// Called when the <see cref="ownerWindow"/> is closed, so that we set it to null.
         /// </summary>
         private void OnOwnerWindowClosed(object sender, EventArgs e)
         {
@@ -1518,13 +1579,6 @@ namespace Fluent
                 this.ownerWindow.Closed += this.OnOwnerWindowClosed;
                 this.ownerWindow.SizeChanged += this.OnSizeChanged;
                 this.ownerWindow.KeyDown += this.OnKeyDown;
-
-                var binding = new Binding("Title")
-                {
-                    Mode = BindingMode.OneWay,
-                    Source = this.ownerWindow
-                };
-                this.SetBinding(TitleProperty, binding);
             }
         }
 
@@ -1539,8 +1593,6 @@ namespace Fluent
                 this.ownerWindow.Closed -= this.OnOwnerWindowClosed;
                 this.ownerWindow.SizeChanged -= this.OnSizeChanged;
                 this.ownerWindow.KeyDown -= this.OnKeyDown;
-
-                BindingOperations.ClearBinding(this, TitleProperty);
             }
 
             this.ownerWindow = null;

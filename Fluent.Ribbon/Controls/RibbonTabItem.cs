@@ -46,6 +46,40 @@ namespace Fluent
 
         #region Properties
 
+        #region Colors/Brushes
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the background if this <see cref="RibbonTabItem"/> is the currently active/selected one.
+        /// </summary>
+        public Brush ActiveTabBackground
+        {
+            get { return (Brush)this.GetValue(ActiveTabBackgroundProperty); }
+            set { this.SetValue(ActiveTabBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBackground"/>.
+        /// </summary>
+        public static readonly DependencyProperty ActiveTabBackgroundProperty =
+            DependencyProperty.Register("ActiveTabBackground", typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the border if this <see cref="RibbonTabItem"/> is the currently active/selected one.
+        /// </summary>
+        public Brush ActiveTabBorderBrush
+        {
+            get { return (Brush)this.GetValue(ActiveTabBorderBrushProperty); }
+            set { this.SetValue(ActiveTabBorderBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBorderBrush"/>.
+        /// </summary>
+        public static readonly DependencyProperty ActiveTabBorderBrushProperty =
+            DependencyProperty.Register("ActiveTabBorderBrush", typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+
+        #endregion
+
         #region KeyTip
 
         /// <summary>

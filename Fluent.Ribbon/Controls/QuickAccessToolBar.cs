@@ -130,7 +130,7 @@
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.InvalidateMeasureOfParentRibbon();
+            this.InvalidateMeasureOfTitleBar();
         }
 
         #endregion
@@ -534,21 +534,21 @@
         #region Methods
 
         /// <summary>
-        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfParentRibbon"/>
+        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfTitleBar"/>
         /// </summary>
         public void Refresh()
         {
             this.InvalidateMeasure();
-            this.InvalidateMeasureOfParentRibbon();
+            this.InvalidateMeasureOfTitleBar();
         }
 
-        private void InvalidateMeasureOfParentRibbon()
+        private void InvalidateMeasureOfTitleBar()
         {
             var parentRibbon = RibbonControl.GetParentRibbon(this);
 
-            parentRibbon?.TitleBar.InvalidateMeasure();
+            parentRibbon?.TitleBar?.InvalidateMeasure();
 
-            parentRibbon?.TitleBar.UpdateLayout();
+            parentRibbon?.TitleBar?.UpdateLayout();
         }
 
         // Updates keys for keytip access

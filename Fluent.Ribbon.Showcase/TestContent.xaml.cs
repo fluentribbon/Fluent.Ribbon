@@ -345,6 +345,11 @@
 
         private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
         {
+            new RibbonWindowWithoutVisibleRibbon().Show();
+        }
+
+        private void OpenRibbonWindowWithoutRibbon_OnClick(object sender, RoutedEventArgs e)
+        {
             new RibbonWindowWithoutRibbon().Show();
         }
 

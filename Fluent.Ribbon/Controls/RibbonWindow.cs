@@ -6,6 +6,7 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Interactivity;
+    using System.Windows.Media;
     using ControlzEx.Behaviors;
 
     using Fluent.Extensions;
@@ -32,9 +33,29 @@
         #region Properties
 
         /// <summary>
+        /// Gets ribbon titlebar
+        /// </summary>
+        public RibbonTitleBar TitleBar { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the window title.
+        /// </summary>
+        public Brush TitleForeground
+        {
+            get { return (Brush)this.GetValue(TitleForegroundProperty); }
+            set { this.SetValue(TitleForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleForeground"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleForegroundProperty =
+            DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
+
+        /// <summary>
         /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register("WindowCommands", typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register(nameof(WindowCommands), typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the window commands
@@ -211,6 +232,8 @@
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            this.TitleBar = this.GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
 
             if (this.iconImage != null)
             {

@@ -10,6 +10,10 @@
   - [#302](../../issues/302) - Rename Office 2013 theme to Generic
   - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
   - [#310](../../issues/310) - Refactoring of localization
+  - [#349](../../issues/349) - Move `RibbonTitleBar` from `Ribbon` to `RibbonWindow`
+    - `RibbonWindow` exposes `TitleBar` which is of type `RibbonTitleBar`.  
+      `Ribbon` uses the `TitleBar` provided by the `RibbonWindow` by default, through it's `Style`.  
+      This allows changing the `TitleBar` being used by the `Ribbon`.
 
 - ### Bug fixes
   - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed
@@ -26,12 +30,16 @@
   - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
 
 - ### Enhancements
+  - [#250](../../issues/250) - Enable change/hide of window title foreground
+    - `Foreground` of window titel can now be changed by setting `TitleForeground` on `RibbonWindow`.  
+    This is bound to `Foreground` of `RibbonWindow`.
   - [#276](../../issues/276) - Custom method for saving and restoring QAT items
   - [#279](../../issues/279) - Localization of ColorGallery
   - [#299](../../issues/299) - Quick access items should show item text as tool tip if no tooltip is set
   - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
   - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
   - [#334](../../issues/334) - Select all text in Spinner on focus
+  - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
 
 ## 4.0.3
 

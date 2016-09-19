@@ -2481,6 +2481,7 @@
 
             <Fluent:RibbonTabItem Header="LAYOUT"
                                   KeyTip="L"
+                                  ActiveTabBackground="#FF9D00"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -2747,6 +2748,8 @@
                                     Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                             <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                     Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
+                            <Button x:Name="OpenRibbonWindowWithoutRibbon"
+                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>                            
                             <Button x:Name="OpenModalRibbonWindow"
                                     Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
 

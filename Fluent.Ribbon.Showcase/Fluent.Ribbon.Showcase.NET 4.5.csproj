@@ -18,7 +18,7 @@
     <BaseIntermediateOutputPath>..\build\obj\NET 4.5</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
     <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20408.0</ExpressionBlendVersion>    
+    <ExpressionBlendVersion>4.0.20408.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -88,8 +88,11 @@
     <Compile Include="RegularWindow.xaml.cs">
       <DependentUpon>RegularWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RibbonWindowWithoutVisibileRibbon.xaml.cs">
-      <DependentUpon>RibbonWindowWithoutVisibileRibbon.xaml</DependentUpon>
+    <Compile Include="RibbonWindowWithoutRibbon.xaml.cs">
+      <DependentUpon>RibbonWindowWithoutRibbon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RibbonWindowWithoutVisibleRibbon.xaml.cs">
+      <DependentUpon>RibbonWindowWithoutVisibleRibbon.xaml</DependentUpon>
     </Compile>
     <Compile Include="TemplateSelectors\DynamicTemplateSelector.cs" />
     <Compile Include="Helpers\TemplateCollection.cs" />
@@ -115,7 +118,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RibbonWindowWithoutVisibileRibbon.xaml">
+    <Page Include="RibbonWindowWithoutRibbon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RibbonWindowWithoutVisibleRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,9 +14,11 @@
         <Grid Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
                               ContentSource="QuickAccessToolBar" />
+            
             <ContentPresenter x:Name="PART_HeaderHolder"
                               ContentSource="Header"
                               IsHitTestVisible="False" />
+            
             <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"
                                                     IsItemsHost="True" />
         </Grid>

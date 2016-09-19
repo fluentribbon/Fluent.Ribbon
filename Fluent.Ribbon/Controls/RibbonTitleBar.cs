@@ -7,6 +7,8 @@ using Fluent.Internal;
 
 namespace Fluent
 {
+    using ControlzEx.Microsoft.Windows.Shell;
+
     /// <summary>
     /// Represents title bar
     /// </summary>
@@ -155,6 +157,11 @@ namespace Fluent
             this.isAtLeastOneRequiredControlPresent = this.quickAccessToolbarHolder != null
                                      || this.headerHolder != null
                                      || this.itemsContainer != null;
+
+            if (this.quickAccessToolbarHolder != null)
+            {
+                WindowChrome.SetIsHitTestVisibleInChrome(this.quickAccessToolbarHolder, true);
+            }
         }
 
         /// <summary>
