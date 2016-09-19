@@ -4,7 +4,7 @@
 
     <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Foreground"
-                Value="White" />
+                Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Template">

@@ -40,10 +40,8 @@
     <ControlTemplate TargetType="{x:Type Thumb}"
                      x:Key="SliderThumbControlTemplate">
         <Grid Margin="2.5,0.5">
-            <!--<Path x:Name="path1" Data="M0,0L9,0 9,9 4.5,13 0,9z" Fill="{DynamicResource RoundButtonBackgroundBrush}" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RoundButtonBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="9" Height="13" HorizontalAlignment="Center"/>
-            <Path x:Name="path" Data="M0,0L9,0 9,9 4.5,13 0,9z" Fill="{DynamicResource RoundButtonBackgroundBrush}" Margin="0" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="{DynamicResource RoundButtonBorderBrush}" StrokeThickness="1" StrokeMiterLimit="10" StrokeLineJoin="Miter" VerticalAlignment="Center" Width="7" Height="11" HorizontalAlignment="Center"/>-->
             <Border Name="path"
-                    Background="White"
+                    Background="{DynamicResource WhiteBrush}"
                     Width="3"
                     Height="11">
                 <Border Name="hoverborder" />
@@ -85,7 +83,7 @@
         <Setter Property="Height"
                 Value="16" />
         <Setter Property="Foreground"
-                Value="White" />
+                Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource SliderRepeatButtonControlTemplate}" />
     </Style>
