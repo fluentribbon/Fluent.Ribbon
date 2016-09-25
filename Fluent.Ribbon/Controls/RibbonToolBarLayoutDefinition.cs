@@ -8,7 +8,7 @@ namespace Fluent
     /// <summary>
     /// Represents size definition for group box
     /// </summary>
-    [ContentProperty("Rows")]
+    [ContentProperty(nameof(Rows))]
     public class RibbonToolBarLayoutDefinition : DependencyObject
     {
         #region Fields
@@ -73,11 +73,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RowCountProperty =
-            DependencyProperty.Register("RowCount", typeof(int), typeof(RibbonToolBar), new UIPropertyMetadata(3));
-
+            DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(RibbonToolBar), new UIPropertyMetadata(3));
 
         #endregion
-
 
         /// <summary>
         /// Gets rows

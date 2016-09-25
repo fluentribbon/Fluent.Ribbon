@@ -127,7 +127,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register("Increment", typeof(double), typeof(Spinner), new UIPropertyMetadata(1.0d));
+            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new UIPropertyMetadata(1.0d));
 
         #endregion
 
@@ -233,7 +233,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FormatProperty =
-            DependencyProperty.Register("Format", typeof(string), typeof(Spinner), new UIPropertyMetadata("F1", OnFormatChanged));
+            DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new UIPropertyMetadata("F1", OnFormatChanged));
 
         private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -261,7 +261,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
-            DependencyProperty.Register("Delay", typeof(int), typeof(Spinner),
+            DependencyProperty.Register(nameof(Delay), typeof(int), typeof(Spinner),
             new UIPropertyMetadata(400));
 
         #endregion
@@ -284,7 +284,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IntervalProperty =
-            DependencyProperty.Register("Interval", typeof(int), typeof(Spinner), new UIPropertyMetadata(80));
+            DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new UIPropertyMetadata(80));
 
         #endregion
 
@@ -303,7 +303,7 @@
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -339,7 +339,7 @@
         /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
         /// </summary>
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
-            DependencyProperty.Register("SelectAllTextOnFocus", typeof(bool), typeof(Spinner), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(false));
 
         #endregion
 
@@ -353,9 +353,9 @@
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
 
-            MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
-            MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
-            ValueProperty = DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
+            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
+            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
+            ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
         }

@@ -52,7 +52,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
-            DependencyProperty.Register("IsGrouped", typeof(bool), typeof(GalleryPanel),
+            DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(GalleryPanel),
             new UIPropertyMetadata(true, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -79,7 +79,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(GalleryPanel),
+            DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel),
             new UIPropertyMetadata(null, OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -125,7 +125,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemContainerGeneratorProperty =
-            DependencyProperty.Register("ItemContainerGenerator", typeof(ItemContainerGenerator),
+            DependencyProperty.Register(nameof(ItemContainerGenerator), typeof(ItemContainerGenerator),
             typeof(GalleryPanel), new UIPropertyMetadata(null, OnItemContainerGeneratorChanged));
 
         private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -152,7 +152,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style),
+            DependencyProperty.Register(nameof(GroupHeaderStyle), typeof(Style),
             typeof(GalleryPanel), new UIPropertyMetadata(null));
 
         #endregion
@@ -174,7 +174,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double),
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double),
             typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
@@ -196,7 +196,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double),
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double),
             typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
 
         #endregion
@@ -217,7 +217,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
-            DependencyProperty.Register("Filter", typeof(string),
+            DependencyProperty.Register(nameof(Filter), typeof(string),
             typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -244,7 +244,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
             typeof(GalleryPanel), new UIPropertyMetadata(1));
 
         #endregion
@@ -265,7 +265,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
             typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
 
         #endregion

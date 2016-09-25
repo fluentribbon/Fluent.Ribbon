@@ -61,7 +61,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBackground"/>.
         /// </summary>
         public static readonly DependencyProperty ActiveTabBackgroundProperty =
-            DependencyProperty.Register("ActiveTabBackground", typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+            DependencyProperty.Register(nameof(ActiveTabBackground), typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the border if this <see cref="RibbonTabItem"/> is the currently active/selected one.
@@ -76,7 +76,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBorderBrush"/>.
         /// </summary>
         public static readonly DependencyProperty ActiveTabBorderBrushProperty =
-            DependencyProperty.Register("ActiveTabBorderBrush", typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+            DependencyProperty.Register(nameof(ActiveTabBorderBrush), typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
 
         #endregion
 
@@ -117,7 +117,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMinimized.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets whether ribbon is opened
@@ -132,7 +132,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets reduce order
@@ -223,7 +223,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register("Indent", typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata(12.0));
+            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata(12.0));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -238,7 +238,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSeparatorVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
-            DependencyProperty.Register("IsSeparatorVisible", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets ribbon contextual tab group
@@ -253,7 +253,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Group.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register("Group", typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnGroupChanged));
+            DependencyProperty.Register(nameof(Group), typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnGroupChanged));
 
         // handles Group property chanhged
         private static void OnGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -303,7 +303,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasLeftGroupBorderProperty =
-            DependencyProperty.Register("HasLeftGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasLeftGroupBorder), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets whether tab item has right group border
@@ -318,7 +318,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasRightGroupBorderProperty =
-            DependencyProperty.Register("HasRightGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasRightGroupBorder), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// get collection of ribbon groups
@@ -398,7 +398,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnHeaderChanged));
 
         // Header changed handler
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

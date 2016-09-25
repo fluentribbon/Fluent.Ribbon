@@ -39,7 +39,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup),
+            DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonContextualTabGroup),
             new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)

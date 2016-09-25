@@ -91,7 +91,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton),
+            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(ToggleButton),
             new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
@@ -169,7 +169,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object),
+            DependencyProperty.Register(nameof(LargeIcon), typeof(object),
             typeof(ToggleButton), new UIPropertyMetadata(null));
 
         #endregion
@@ -189,7 +189,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
 
         #endregion
 

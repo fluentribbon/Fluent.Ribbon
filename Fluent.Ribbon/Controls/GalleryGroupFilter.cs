@@ -21,7 +21,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), 
+            DependencyProperty.Register(nameof(Title), typeof(string), 
             typeof(GalleryGroupFilter), new UIPropertyMetadata("GalleryGroupFilter"));
                
         /// <summary>
@@ -38,7 +38,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
-            DependencyProperty.Register("Groups", typeof(string), 
+            DependencyProperty.Register(nameof(Groups), typeof(string), 
             typeof(GalleryGroupFilter), new UIPropertyMetadata(string.Empty));
     }
 }

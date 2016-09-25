@@ -152,7 +152,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register("ButtonBrush", typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
+        public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
         private string GetCaption(int id)
         {

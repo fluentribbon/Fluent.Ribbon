@@ -131,7 +131,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register("LargeIcon", typeof(object), typeof(CheckBox), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register(nameof(LargeIcon), typeof(object), typeof(CheckBox), new UIPropertyMetadata(null));
 
         #endregion
 

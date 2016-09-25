@@ -34,7 +34,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ReduceOrderProperty =
-            DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonGroupsContainer), new UIPropertyMetadata(ReduceOrderPropertyChanged));
+            DependencyProperty.Register(nameof(ReduceOrder), typeof(string), typeof(RibbonGroupsContainer), new UIPropertyMetadata(ReduceOrderPropertyChanged));
 
         // handles ReduseOrder property changed
         private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

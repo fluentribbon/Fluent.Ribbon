@@ -55,7 +55,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
             typeof(ContextMenu), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion

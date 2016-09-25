@@ -528,7 +528,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="SelectedTabIndex"/>.
         /// </summary>
         public static readonly DependencyProperty SelectedTabIndexProperty =
-            DependencyProperty.Register("SelectedTabIndex", typeof(int), typeof(Ribbon), new UIPropertyMetadata(-1, OnSelectedTabIndexChanged));
+            DependencyProperty.Register(nameof(SelectedTabIndex), typeof(int), typeof(Ribbon), new UIPropertyMetadata(-1, OnSelectedTabIndexChanged));
 
         private static void OnSelectedTabIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -652,7 +652,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
-            DependencyProperty.Register("ShowQuickAccessToolBarAboveRibbon", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
+            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
 
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
@@ -962,7 +962,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanCustomizeQuickAccessToolBar", typeof(bool),
+            DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBar), typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
         /// <summary>
@@ -979,7 +979,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarItemsProperty =
-            DependencyProperty.Register("CanCustomizeQuickAccessToolBarItems", typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBarItems), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets or sets whether Customize Ribbon menu item is shown
@@ -995,7 +995,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
-            DependencyProperty.Register("CanCustomizeRibbon", typeof(bool),
+            DependencyProperty.Register(nameof(CanCustomizeRibbon), typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false));
 
         /// <summary>
@@ -1021,14 +1021,14 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
-            DependencyProperty.Register("IsMinimized", typeof(bool),
+            DependencyProperty.Register(nameof(IsMinimized), typeof(bool),
             typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register("CanMinimize", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnCanMinimizeChanged));
 
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1060,7 +1060,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(Ribbon), new UIPropertyMetadata(5D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new UIPropertyMetadata(5D));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
@@ -1076,7 +1076,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsCollapsed"/>
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool),
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
             typeof(Ribbon), new FrameworkPropertyMetadata(false, OnIsCollapsedChanged));
 
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1099,7 +1099,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-            DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets or sets whether QAT is visible
@@ -1114,7 +1114,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsQuickAccessToolBarVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
-            DependencyProperty.Register("IsQuickAccessToolBarVisible", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
 
 
         /// <summary>
@@ -1130,7 +1130,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
 
 
         /// <summary>
@@ -1855,7 +1855,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register("AutomaticStateManagement", typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {

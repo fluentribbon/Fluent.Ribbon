@@ -50,7 +50,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty QuickAccessToolBarProperty =
-            DependencyProperty.Register("QuickAccessToolBar", typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null, OnQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(UIElement), typeof(RibbonTitleBar), new UIPropertyMetadata(null, OnQuickAccessToolbarChanged));
 
         // Handles QuickAccessToolBar property chages
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -72,7 +72,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
         /// </summary> 
         public static readonly DependencyProperty HeaderAlignmentProperty =
-            DependencyProperty.Register("HeaderAlignment", typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
+            DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new UIPropertyMetadata(HorizontalAlignment.Center));
 
         /// <summary>
         /// Defines whether title bar is collapsed
@@ -87,7 +87,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsCollapsed"/>
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private bool isAtLeastOneRequiredControlPresent;
 
@@ -95,7 +95,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HideContextTabsProperty =
-            DependencyProperty.Register("HideContextTabs", typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(false));
 
         /// <summary>
         ///  Gets or sets whether context tabs are hidden.

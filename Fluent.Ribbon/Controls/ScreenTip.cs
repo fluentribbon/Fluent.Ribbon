@@ -196,7 +196,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
 
         #endregion
 
@@ -219,7 +219,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
 
         #endregion
 
@@ -242,7 +242,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DisableReasonProperty =
-            DependencyProperty.Register("DisableReason", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
 
         #endregion
 
@@ -265,7 +265,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HelpTopicProperty =
-            DependencyProperty.Register("HelpTopic", typeof(object), typeof(ScreenTip), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(HelpTopic), typeof(object), typeof(ScreenTip), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -288,7 +288,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(ImageSource), typeof(ScreenTip), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -310,7 +310,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HelpLabelVisibilityProperty =
-            DependencyProperty.Register("HelpLabelVisibility", typeof(Visibility), typeof(ScreenTip), new UIPropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new UIPropertyMetadata(Visibility.Visible));
         #endregion
 
         #region Help Invocation
@@ -338,9 +338,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary> 
         public static readonly DependencyProperty IsRibbonAlignedProperty =
-            DependencyProperty.Register("BelowRibbon", typeof(bool), typeof(ScreenTip),
+            DependencyProperty.Register(nameof(IsRibbonAligned), typeof(bool), typeof(ScreenTip),
             new UIPropertyMetadata(true));
-
 
         #endregion
 

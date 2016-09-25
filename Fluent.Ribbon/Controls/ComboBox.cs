@@ -181,7 +181,7 @@
         ///     Using a DependencyProperty as the backing store for Menu.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(RibbonMenu), typeof(ComboBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Menu), typeof(RibbonMenu), typeof(ComboBox), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -200,7 +200,7 @@
         ///     Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -219,7 +219,7 @@
         ///     Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ComboBox), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode), typeof(ComboBox), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -281,7 +281,7 @@
         ///     etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register("InitialDropDownHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InitialDropDownHeight), typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
 
         #endregion
 

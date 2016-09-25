@@ -182,7 +182,7 @@
         /// Using a DependencyProperty as the backing store for MinItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInDropDownRowProperty =
-            DependencyProperty.Register("MinItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
+            DependencyProperty.Register(nameof(MinItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1));
 
         #endregion
 
@@ -201,7 +201,7 @@
         /// Using a DependencyProperty as the backing store for MaxItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInDropDownRowProperty =
-            DependencyProperty.Register("MaxItemsInDropDownRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(int.MaxValue));
+            DependencyProperty.Register(nameof(MaxItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -220,7 +220,7 @@
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -235,7 +235,7 @@
         /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -256,7 +256,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -275,7 +275,7 @@
         /// Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InRibbonGallery), new UIPropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(InRibbonGallery), new UIPropertyMetadata(Orientation.Horizontal));
 
         #endregion
 
@@ -384,7 +384,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter), typeof(InRibbonGallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
@@ -530,7 +530,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
-            DependencyProperty.Register("Selectable", typeof(bool),
+            DependencyProperty.Register(nameof(Selectable), typeof(bool),
             typeof(InRibbonGallery), new UIPropertyMetadata(true, OnSelectableChanged));
 
         private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -566,7 +566,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -585,7 +585,7 @@
         /// Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(InRibbonGallery), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode), typeof(InRibbonGallery), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -604,7 +604,7 @@
         /// Using a DependencyProperty as the backing store for CanCollapseToButton.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCollapseToButtonProperty =
-            DependencyProperty.Register("CanCollapseToButton", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanCollapseToButton), typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(true));
 
         #endregion
 
@@ -623,7 +623,7 @@
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -642,7 +642,7 @@
         /// Using a DependencyProperty as the backing store for SmallIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(LargeIcon), typeof(object), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -719,7 +719,7 @@
         /// Using a DependencyProperty as the backing store for Menu.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(RibbonMenu), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Menu), typeof(RibbonMenu), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -739,7 +739,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-                DependencyProperty.Register("MaxItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8, OnMaxItemsInRowChanged));
+                DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(8, OnMaxItemsInRowChanged));
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -768,7 +768,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-                DependencyProperty.Register("MinItemsInRow", typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1, OnMinItemsInRowChanged));
+                DependencyProperty.Register(nameof(MinItemsInRow), typeof(int), typeof(InRibbonGallery), new UIPropertyMetadata(1, OnMinItemsInRowChanged));
 
         private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -800,7 +800,7 @@
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
         #endregion
 
@@ -819,7 +819,7 @@
         /// Using a DependencyProperty as the backing store for MaxDropDownWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownWidthProperty =
-            DependencyProperty.Register("MaxDropDownWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(SystemParameters.PrimaryScreenWidth / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownWidth), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(SystemParameters.PrimaryScreenWidth / 3.0));
 
         #endregion
 
@@ -838,7 +838,7 @@
         /// /Using a DependencyProperty as the backing store for DropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register("DropDownHeight", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -857,7 +857,7 @@
         /// /Using a DependencyProperty as the backing store for DropDownWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownWidthProperty =
-            DependencyProperty.Register("DropDownWidth", typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownWidth), typeof(double), typeof(InRibbonGallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 

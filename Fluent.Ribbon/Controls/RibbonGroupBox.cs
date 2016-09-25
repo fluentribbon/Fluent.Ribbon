@@ -90,7 +90,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary> 
         public static readonly DependencyProperty StateProperty =
-            DependencyProperty.Register("State", typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new UIPropertyMetadata(RibbonGroupBoxState.Large, StatePropertyChanged));
+            DependencyProperty.Register(nameof(State), typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new UIPropertyMetadata(RibbonGroupBoxState.Large, StatePropertyChanged));
 
         /// <summary>
         /// On state property changed
@@ -233,7 +233,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata());
+            DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata());
 
         object IHeaderedControl.Header
         {
@@ -259,7 +259,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsLauncherVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLauncherVisibleProperty =
-            DependencyProperty.Register("IsLauncherVisible", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsLauncherVisible), typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -282,7 +282,7 @@ namespace Fluent
         /// LauncherKeys.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DialogLauncherButtonKeyTipKeysProperty =
-            DependencyProperty.Register("LauncherKeys",
+            DependencyProperty.Register(nameof(LauncherKeys),
             typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnDialogLauncherButtonKeyTipKeysChanged));
 
         private static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -311,7 +311,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LauncherIconProperty =
-            DependencyProperty.Register("LauncherIcon", typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
+            DependencyProperty.Register(nameof(LauncherIcon), typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null, OnIconChanged));
 
         #endregion
 
@@ -330,7 +330,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LauncherTextProperty =
-            DependencyProperty.Register("LauncherText", typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(LauncherText), typeof(string), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -387,16 +387,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register("LauncherCommandParameter", typeof(object), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register(nameof(LauncherCommandParameter), typeof(object), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
         /// <summary>
         /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register("LauncherCommand", typeof(ICommand), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register(nameof(LauncherCommand), typeof(ICommand), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register("LauncherCommandTarget", typeof(IInputElement), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register(nameof(LauncherCommandTarget), typeof(IInputElement), typeof(RibbonGroupBox), new FrameworkPropertyMetadata(null));
 
         #endregion
 
@@ -415,9 +415,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for LauncherToolTip.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LauncherToolTipProperty =
-            DependencyProperty.Register("LauncherToolTip", typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
-
-
+            DependencyProperty.Register(nameof(LauncherToolTip), typeof(object), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -436,7 +434,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsLauncherEnabled.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLauncherEnabledProperty =
-            DependencyProperty.Register("IsLauncherEnabled", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsLauncherEnabled), typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true));
 
         #endregion
 
@@ -475,7 +473,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -558,7 +556,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsSeparatorVisible"/>
         /// </summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
-          DependencyProperty.Register("IsSeparatorVisible", typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true));
+          DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true));
 
         #endregion
 
@@ -1095,7 +1093,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

@@ -51,7 +51,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SeparatorStyleProperty =
-            DependencyProperty.Register("SeparatorStyle", typeof(Style),
+            DependencyProperty.Register(nameof(SeparatorStyle), typeof(Style),
             typeof(RibbonToolBar), new UIPropertyMetadata(null, OnSeparatorStyleChanged));
 
         private static void OnSeparatorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

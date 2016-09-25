@@ -118,7 +118,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DescriptionProperty =
-            DependencyProperty.Register("Description", typeof(string), typeof(MenuItem), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new UIPropertyMetadata(""));
 
 
         #endregion
@@ -151,7 +151,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new UIPropertyMetadata(true));
 
         #endregion
 
@@ -171,7 +171,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
             typeof(MenuItem), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
 
@@ -192,7 +192,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(MenuItem), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
         #endregion
 
@@ -211,7 +211,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSplited.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsSplitedProperty =
-            DependencyProperty.Register("IsSplited", typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsSplited), typeof(bool), typeof(MenuItem), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -236,7 +236,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(MenuItem),
+            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(MenuItem),
             new UIPropertyMetadata(null, OnGroupNameChanged));
 
         // Group name changed

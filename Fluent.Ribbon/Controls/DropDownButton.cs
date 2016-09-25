@@ -172,7 +172,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object),
+            DependencyProperty.Register(nameof(LargeIcon), typeof(object),
             typeof(DropDownButton), new UIPropertyMetadata(null));
 
         #endregion
@@ -214,7 +214,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton),
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(DropDownButton),
             new UIPropertyMetadata(false, OnIsDropDownOpenChanged));
 
         #endregion
@@ -235,7 +235,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
             typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
@@ -255,7 +255,7 @@
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
         #endregion
 
@@ -274,7 +274,7 @@
         /// Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register("DropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -293,7 +293,7 @@
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDown.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownProperty =
-            DependencyProperty.Register("ClosePopupOnMouseDown", typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(ClosePopupOnMouseDown), typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
 
         #endregion
 
@@ -312,7 +312,7 @@
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDownDelay.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownDelayProperty =
-            DependencyProperty.Register("ClosePopupOnMouseDownDelay", typeof(int), typeof(DropDownButton), new PropertyMetadata(150));
+            DependencyProperty.Register(nameof(ClosePopupOnMouseDownDelay), typeof(int), typeof(DropDownButton), new PropertyMetadata(150));
 
         #endregion
 

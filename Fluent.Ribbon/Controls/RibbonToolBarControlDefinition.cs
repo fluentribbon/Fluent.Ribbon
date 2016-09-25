@@ -72,13 +72,13 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register("Target", typeof(string),
+            DependencyProperty.Register(nameof(Target), typeof(string),
             typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(null, OnTargetPropertyChanged));
 
         private static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
-            definition.Invalidate("Target");
+            definition.Invalidate(nameof(Target));
         }
 
         #endregion
@@ -99,12 +99,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register("Width", typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(double.NaN, OnWidthPropertyChanged));
+            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(double.NaN, OnWidthPropertyChanged));
 
         private static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
-            definition.Invalidate("Width");
+            definition.Invalidate(nameof(Width));
         }
 
         #endregion
@@ -118,8 +118,7 @@ namespace Fluent
 
         private void Invalidate(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

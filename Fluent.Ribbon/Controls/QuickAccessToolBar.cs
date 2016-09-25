@@ -261,7 +261,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
-            DependencyProperty.Register("ShowAboveRibbon", typeof(bool),
+            DependencyProperty.Register(nameof(ShowAboveRibbon), typeof(bool),
             typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
 
         #endregion
@@ -296,7 +296,7 @@
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
 
         #endregion
 

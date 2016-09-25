@@ -44,7 +44,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int),
+            DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
             typeof(Gallery), new UIPropertyMetadata(1));
 
         #endregion
@@ -65,7 +65,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register("MaxItemsInRow", typeof(int),
+            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
             typeof(Gallery), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
@@ -87,7 +87,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string), typeof(Gallery),
+            DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery),
             new UIPropertyMetadata(null));
 
         #endregion
@@ -108,7 +108,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation),
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
             typeof(Gallery), new UIPropertyMetadata(Orientation.Horizontal));
 
         #endregion
@@ -128,7 +128,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -143,7 +143,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -237,7 +237,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register("SelectedFilter", typeof(GalleryGroupFilter),
+            DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
             typeof(Gallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
@@ -361,7 +361,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
-            DependencyProperty.Register("Selectable", typeof(bool),
+            DependencyProperty.Register(nameof(Selectable), typeof(bool),
             typeof(Gallery), new UIPropertyMetadata(true, OnSelectableChanged));
 
         private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

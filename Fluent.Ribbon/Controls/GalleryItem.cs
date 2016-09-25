@@ -70,7 +70,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register("Group", typeof(string),
+            DependencyProperty.Register(nameof(Group), typeof(string),
             typeof(GalleryItem), new UIPropertyMetadata(null));
 
 
@@ -129,17 +129,17 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, OnCommandChanged));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
@@ -156,7 +156,7 @@ namespace Fluent
         /// Identifies the PreviewCommand dependency property.
         /// </summary>
         public static readonly DependencyProperty PreviewCommandProperty =
-            DependencyProperty.Register("PreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
@@ -173,7 +173,7 @@ namespace Fluent
         /// Identifies the PreviewCommand dependency property.
         /// </summary>
         public static readonly DependencyProperty CancelPreviewCommandProperty =
-            DependencyProperty.Register("CancelPreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CancelPreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Handles Command changed

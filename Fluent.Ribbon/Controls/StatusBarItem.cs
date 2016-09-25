@@ -24,7 +24,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(StatusBarItem), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new UIPropertyMetadata(null));
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(string), typeof(StatusBarItem),
+            DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
             new UIPropertyMetadata(null, OnValueChanged));
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -71,7 +71,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(StatusBarItem), new UIPropertyMetadata(true, OnIsCheckedChanged));
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new UIPropertyMetadata(true, OnIsCheckedChanged));
 
         // Handles IsChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

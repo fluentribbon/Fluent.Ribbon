@@ -75,7 +75,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(TextBox), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -95,7 +95,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(TextBox),
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextBox),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 null, null, true, UpdateSourceTrigger.LostFocus));
 
@@ -117,7 +117,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -137,7 +137,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CharacterCasingProperty =
-            DependencyProperty.Register("CharacterCasing", typeof(CharacterCasing), typeof(TextBox),
+            DependencyProperty.Register(nameof(CharacterCasing), typeof(CharacterCasing), typeof(TextBox),
             new UIPropertyMetadata(CharacterCasing.Normal));
 
         #endregion
@@ -158,7 +158,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxLengthProperty =
-            DependencyProperty.Register("MaxLength", typeof(int), typeof(TextBox), new UIPropertyMetadata(int.MaxValue));
+            DependencyProperty.Register(nameof(MaxLength), typeof(int), typeof(TextBox), new UIPropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -178,7 +178,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextAlignmentProperty =
-            DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(TextBox),
+            DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(TextBox),
             new UIPropertyMetadata(TextAlignment.Left));
 
         #endregion
@@ -199,7 +199,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextDecorationsProperty =
-            DependencyProperty.Register("TextDecorations", typeof(TextDecorationCollection), typeof(TextBox),
+            DependencyProperty.Register(nameof(TextDecorations), typeof(TextDecorationCollection), typeof(TextBox),
             new UIPropertyMetadata(new TextDecorationCollection()));
 
         #endregion
@@ -220,7 +220,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsUndoEnabledProperty =
-            DependencyProperty.Register("IsUndoEnabled", typeof(bool), typeof(TextBox),
+            DependencyProperty.Register(nameof(IsUndoEnabled), typeof(bool), typeof(TextBox),
             new UIPropertyMetadata(true));
 
         #endregion
@@ -241,7 +241,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty UndoLimitProperty =
-            DependencyProperty.Register("UndoLimit", typeof(int), typeof(TextBox), new UIPropertyMetadata(1000));
+            DependencyProperty.Register(nameof(UndoLimit), typeof(int), typeof(TextBox), new UIPropertyMetadata(1000));
 
         #endregion
 
@@ -261,7 +261,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutoWordSelectionProperty =
-            DependencyProperty.Register("AutoWordSelection", typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(AutoWordSelection), typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
 
         #endregion
 
@@ -281,7 +281,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectionBrushProperty =
-            DependencyProperty.Register("SelectionBrush", typeof(Brush), typeof(TextBox),
+            DependencyProperty.Register(nameof(SelectionBrush), typeof(Brush), typeof(TextBox),
             new UIPropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x99, 0xFF))));
 
         #endregion
@@ -302,7 +302,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectionOpacityProperty =
-            DependencyProperty.Register("SelectionOpacity", typeof(double), typeof(TextBox), new UIPropertyMetadata(0.4d));
+            DependencyProperty.Register(nameof(SelectionOpacity), typeof(double), typeof(TextBox), new UIPropertyMetadata(0.4d));
 
         #endregion
 
@@ -323,7 +323,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CaretBrushProperty =
-            DependencyProperty.Register("CaretBrush", typeof(Brush), typeof(TextBox),
+            DependencyProperty.Register(nameof(CaretBrush), typeof(Brush), typeof(TextBox),
             new UIPropertyMetadata(null));
 
         #endregion
