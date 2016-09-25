@@ -30,8 +30,7 @@ namespace Fluent
 
         private void RaiseTextChanged(TextChangedEventArgs args)
         {
-            if (this.TextChanged != null)
-                this.TextChanged(this, args);
+            this.TextChanged?.Invoke(this, args);
         }
 
         /// <summary>
@@ -41,8 +40,7 @@ namespace Fluent
 
         private void RaiseSelectionChanged()
         {
-            if (this.SelectionChanged != null)
-                this.SelectionChanged(this, EventArgs.Empty);
+            this.SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -383,7 +381,7 @@ namespace Fluent
         /// </summary>
         public bool CanUndo
         {
-            get { return this.textBoxTemplated == null ? false : this.textBoxTemplated.CanUndo; }
+            get { return this.textBoxTemplated != null && this.textBoxTemplated.CanUndo; }
         }
 
         /// <summary>
@@ -391,7 +389,7 @@ namespace Fluent
         /// </summary>
         public bool CanRedo
         {
-            get { return this.textBoxTemplated == null ? false : this.textBoxTemplated.CanRedo; }
+            get { return this.textBoxTemplated != null && this.textBoxTemplated.CanRedo; }
         }
 
         #endregion
@@ -416,23 +414,7 @@ namespace Fluent
             this.textBox.SelectionChanged += (s, e) => this.RaiseSelectionChanged();
             this.textBox.TextChanged += (s, e) => this.RaiseTextChanged(e);
 
-            var binding = new Binding("Text");
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            binding.Source = this;
-            binding.Mode = BindingMode.TwoWay;
-            this.textBox.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
-
-            Bind(this.textBox, this, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "IsUndoEnabled", TextBoxBase.IsUndoEnabledProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "UndoLimit", TextBoxBase.UndoLimitProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "AutoWordSelection", TextBoxBase.AutoWordSelectionProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "SelectionBrush", TextBoxBase.SelectionBrushProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "SelectionOpacity", TextBoxBase.SelectionOpacityProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "CaretBrush", TextBoxBase.CaretBrushProperty, BindingMode.TwoWay);
-            Bind(this.textBox, this, "IsReadOnly", TextBoxBase.IsReadOnlyProperty, BindingMode.TwoWay);
+            this.ForwardBindings(this.textBox, this);
         }
 
         #endregion
@@ -563,23 +545,7 @@ namespace Fluent
             // Bindings
             BindingOperations.ClearAllBindings(this.textBox);
 
-            var binding = new Binding("Text");
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-            binding.Source = this;
-            binding.Mode = BindingMode.TwoWay;
-            this.textBoxTemplated.SetBinding(System.Windows.Controls.TextBox.TextProperty, binding);
-
-            Bind(this, this.textBoxTemplated, "CharacterCasing", System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "MaxLength", System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "TextAlignment", System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "TextDecorations", System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "IsUndoEnabled", TextBoxBase.IsUndoEnabledProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "UndoLimit", TextBoxBase.UndoLimitProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "AutoWordSelection", TextBoxBase.AutoWordSelectionProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "SelectionBrush", TextBoxBase.SelectionBrushProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "SelectionOpacity", TextBoxBase.SelectionOpacityProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "CaretBrush", TextBoxBase.CaretBrushProperty, BindingMode.TwoWay);
-            Bind(this, this.textBoxTemplated, "IsReadOnly", TextBoxBase.IsReadOnlyProperty, BindingMode.TwoWay);
+            this.ForwardBindings(this, this.textBoxTemplated);
 
             this.textBoxTemplated.PreviewKeyDown += this.OnTextBoxTemplatedKeyDown;
             this.textBoxTemplated.SelectionChanged += this.OnTextBoxTemplatedSelectionChanged;
@@ -634,10 +600,7 @@ namespace Fluent
         {
             base.OnGotFocus(e);
 
-            if (this.textBoxTemplated != null)
-            {
-                this.textBoxTemplated.Focus();
-            }
+            this.textBoxTemplated?.Focus();
         }
 
         /// <summary>
@@ -648,7 +611,12 @@ namespace Fluent
         protected override void OnKeyUp(KeyEventArgs e)
         {
             // Avoid Click invocation (from RibbonControl)
-            if (e.Key == Key.Enter || e.Key == Key.Space) return;
+            if (e.Key == Key.Enter
+                || e.Key == Key.Space)
+            {
+                return;
+            }
+
             base.OnKeyUp(e);
         }
 
@@ -684,12 +652,11 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            var textBox = new TextBox();
+            var textBoxForQAT = new TextBox();
 
-            this.BindQuickAccessItem(textBox);
+            this.BindQuickAccessItem(textBoxForQAT);
 
-
-            return textBox;
+            return textBoxForQAT;
         }
 
         /// <summary>
@@ -705,21 +672,25 @@ namespace Fluent
             textBoxQAT.Width = this.Width;
             textBoxQAT.InputWidth = this.InputWidth;
 
-            Bind(this, textBoxQAT, "Text", TextProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
-            Bind(this, textBoxQAT, "CharacterCasing", CharacterCasingProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "MaxLength", MaxLengthProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "TextAlignment", TextAlignmentProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "TextDecorations", TextDecorationsProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "IsUndoEnabled", IsUndoEnabledProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "UndoLimit", UndoLimitProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "AutoWordSelection", AutoWordSelectionProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "SelectionBrush", SelectionBrushProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "SelectionOpacity", SelectionOpacityProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "CaretBrush", CaretBrushProperty, BindingMode.TwoWay);
-            Bind(this, textBoxQAT, "IsReadOnly", IsReadOnlyProperty, BindingMode.TwoWay);
+            this.ForwardBindings(this, textBoxQAT);
 
             RibbonControl.BindQuickAccessItem(this, element);
+        }
+
+        private void ForwardBindings(object source, FrameworkElement target)
+        {
+            Bind(source, target, nameof(this.Text), TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
+            Bind(source, target, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
+            Bind(source, target, nameof(this.CharacterCasing), CharacterCasingProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.MaxLength), MaxLengthProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.TextAlignment), TextAlignmentProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.TextDecorations), TextDecorationsProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.IsUndoEnabled), IsUndoEnabledProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.UndoLimit), UndoLimitProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.AutoWordSelection), AutoWordSelectionProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.SelectionBrush), SelectionBrushProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.SelectionOpacity), SelectionOpacityProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.CaretBrush), CaretBrushProperty, BindingMode.TwoWay);
         }
 
         #endregion

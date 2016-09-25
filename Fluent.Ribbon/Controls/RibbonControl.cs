@@ -439,13 +439,24 @@ namespace Fluent
             Bind(source, target, new PropertyPath(path), property, mode);
         }
 
+        internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
+        {
+            Bind(source, target, new PropertyPath(path), property, mode, updateSourceTrigger);
+        }
+
         internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode)
+        {
+            Bind(source, target, path, property, mode, UpdateSourceTrigger.Default);
+        }
+
+        internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
         {
             var binding = new Binding
             {
                 Path = path,
                 Source = source,
-                Mode = mode
+                Mode = mode,
+                UpdateSourceTrigger = updateSourceTrigger
             };
             target.SetBinding(property, binding);
         }
