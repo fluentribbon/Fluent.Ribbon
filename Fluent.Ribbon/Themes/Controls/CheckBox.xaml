@@ -199,34 +199,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="EmptyCheckBoxFocusVisual">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="1"
-                               SnapsToDevicePixels="true"
-                               Stroke="Black"
-                               StrokeDashArray="1 2"
-                               StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="CheckRadioFocusVisual">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="14,0,0,0"
-                               SnapsToDevicePixels="true"
-                               Stroke="Black"
-                               StrokeDashArray="1 2"
-                               StrokeThickness="1" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="RibbonCheckBoxStyle"
            TargetType="{x:Type Fluent:CheckBox}">
         <Setter Property="ToolTipService.ShowDuration"

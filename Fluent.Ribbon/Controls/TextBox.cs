@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Threading;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>

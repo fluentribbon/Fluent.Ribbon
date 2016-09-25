@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using Fluent.Extensibility;

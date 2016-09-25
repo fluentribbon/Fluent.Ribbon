@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.ComponentModel;

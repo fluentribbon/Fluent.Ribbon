@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>

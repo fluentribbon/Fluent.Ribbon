@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     /// <summary>
     /// Represents logical sizes of a ribbon control 

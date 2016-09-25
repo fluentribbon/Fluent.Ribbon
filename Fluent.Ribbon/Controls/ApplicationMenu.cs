@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>

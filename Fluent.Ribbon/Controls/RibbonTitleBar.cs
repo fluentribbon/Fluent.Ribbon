@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Fluent.Internal;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using ControlzEx.Microsoft.Windows.Shell;

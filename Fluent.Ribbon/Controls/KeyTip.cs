@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
@@ -100,7 +101,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public new static readonly DependencyProperty HorizontalAlignmentProperty = DependencyProperty.RegisterAttached(
-          "HorizontalAlignment",
+          nameof(HorizontalAlignment),
           typeof(HorizontalAlignment),
           typeof(KeyTip),
           new FrameworkPropertyMetadata(HorizontalAlignment.Center)
@@ -199,7 +200,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public new static readonly DependencyProperty MarginProperty =
-            DependencyProperty.RegisterAttached("Margin", typeof(Thickness), typeof(KeyTip), new UIPropertyMetadata(new Thickness()));
+            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new UIPropertyMetadata(new Thickness()));
 
         #endregion
 

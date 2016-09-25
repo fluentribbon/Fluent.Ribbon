@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using Fluent.Helpers;

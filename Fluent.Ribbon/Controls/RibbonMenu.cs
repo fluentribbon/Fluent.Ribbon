@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>

@@ -6,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Threading;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
