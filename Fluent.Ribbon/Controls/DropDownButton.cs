@@ -111,14 +111,6 @@
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
 
-        private bool HasCapture
-        {
-            get
-            {
-                return ReferenceEquals(Mouse.Captured, this);
-            }
-        }
-
         #region Header
 
         /// <summary>

@@ -106,12 +106,21 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as Button;
+            var element = (Button)d;
+
             var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
             var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
+
         #endregion
 
         #region LargeIcon

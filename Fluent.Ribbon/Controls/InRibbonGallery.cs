@@ -632,7 +632,7 @@
         /// </summary>
         public object LargeIcon
         {
-            get { return (object)this.GetValue(LargeIconProperty); }
+            get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
         }
 

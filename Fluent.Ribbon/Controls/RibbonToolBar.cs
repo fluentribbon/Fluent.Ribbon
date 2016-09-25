@@ -446,7 +446,7 @@ namespace Fluent
                     {
                         #region Add separator
 
-                        Separator separator = null;
+                        Separator separator;
                         if (!this.separatorCache.TryGetValue(rowIndex, out separator))
                         {
                             separator = new Separator();

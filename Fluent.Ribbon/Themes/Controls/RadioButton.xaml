@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="EmptyRadioButtonFocusVisual">
-        <Setter Property="Control.Template">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle Margin="1"
@@ -15,7 +15,7 @@
         </Setter>
     </Style>
     <Style x:Key="CheckRadioFocusVisual">
-        <Setter Property="Control.Template">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle Margin="14,0,0,0"
@@ -34,7 +34,7 @@
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
-                    <Setter Property="Control.Template">
+                    <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate>
                                 <Rectangle Margin="1"

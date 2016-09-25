@@ -53,7 +53,7 @@ namespace Fluent
         // Local TextBox
         private readonly System.Windows.Controls.TextBox textBox = new System.Windows.Controls.TextBox();
         // Content when the textbox got focus
-        private string textBoxContentWhenGotFocus = null;
+        private string textBoxContentWhenGotFocus;
 
         #endregion
 

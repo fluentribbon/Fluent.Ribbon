@@ -580,7 +580,7 @@
                 this.scrollViewer.Height = initialHeight;
             }
 
-            popupChild.UpdateLayout();
+            popupChild?.UpdateLayout();
         }
 
         /// <summary>
@@ -590,8 +590,17 @@
         protected override void OnDropDownClosed(EventArgs e)
         {
             base.OnDropDownClosed(e);
-            if (Mouse.Captured == this) Mouse.Capture(null);
-            if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+
+            if (ReferenceEquals(Mouse.Captured, this))
+            {
+                Mouse.Capture(null);
+            }
+
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            }
+
             this.focusedElement = null;
             this.scrollViewer.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
@@ -599,15 +608,21 @@
 
         private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            }            
+
             this.focusedElement = Keyboard.FocusedElement;
+
             if (this.focusedElement != null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
+
                 if (this.IsEditable &&
-                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement);
                 }
             }
         }
@@ -637,9 +652,11 @@
             if (e.Key == Key.Down)
             {
                 Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                if (this.Menu != null 
+                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfMSelectedItem != this.Menu.Items.Count - 1)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem + 1) as IInputElement);
@@ -653,23 +670,33 @@
                         else Keyboard.Focus(this.Menu.Items[0] as IInputElement);
                     }
                 }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfSelectedItem != this.Items.Count - 1)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem + 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && !this.IsEditable) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        if (this.Menu != null
+                            && this.Menu.Items.Count > 0
+                            && this.IsEditable == false)
+                        {
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        }
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         }
                     }
                 }
-                else if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                else if (this.SelectedItem != null)
+                {
+                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                }
+
                 e.Handled = true;
                 Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
                 return;
@@ -677,39 +704,55 @@
             else if (e.Key == Key.Up)
             {
                 Debug.WriteLine("Up pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+
+                if (this.Menu != null 
+                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfMSelectedItem != 0)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem - 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Items.Count > 0) && !this.IsEditable)
+                        if (this.Items.Count > 0
+                            && this.IsEditable == false)
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
                         }
-                        else Keyboard.Focus(this.Menu.Items[this.Menu.Items.Count - 1] as IInputElement);
+                        else
+                        {
+                            Keyboard.Focus(this.Menu.Items[this.Menu.Items.Count - 1] as IInputElement);
+                        }
                     }
                 }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
                     if (indexOfSelectedItem != 0)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem - 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && !this.IsEditable) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                        if (this.Menu != null
+                            && this.Menu.Items.Count > 0
+                            && this.IsEditable == false)
+                        {
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                        }
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
                         }
                     }
                 }
-                else if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                else if (this.SelectedItem != null)
+                {
+                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                }
+
                 Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
                 e.Handled = true;
                 return;
@@ -730,6 +773,7 @@
                     }
                 }
             }
+
             base.OnKeyDown(e);
         }
 
@@ -757,7 +801,7 @@
                 },
                 this);
 
-            if (!this.IsEditable)
+            if (this.IsEditable == false)
             {
                 this.IsDropDownOpen = true;
             }
@@ -799,6 +843,12 @@
 
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
+
+            if (popupChild == null)
+            {
+                return;
+            }
+
             var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
             var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
             var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
@@ -821,7 +871,7 @@
 
         private void SetDragHeight(DragDeltaEventArgs e)
         {
-            if (!this.canSizeY)
+            if (this.canSizeY == false)
             {
                 return;
             }

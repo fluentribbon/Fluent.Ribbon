@@ -4,8 +4,6 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                    
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
-                    xmlns:internal="clr-namespace:Fluent.Internal"
-                    xmlns:ControlzEx="urn:controlzex"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">

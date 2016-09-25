@@ -259,7 +259,7 @@ namespace Fluent
         // Remove from group
         private static void RemoveFromGroup(string groupName, MenuItem button)
         {
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
             var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) return;
             if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return;
@@ -273,7 +273,7 @@ namespace Fluent
             var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) groupedButtons.Add(threadId, new Dictionary<string, List<WeakReference>>());
 
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
             if (!groupedButtons[threadId].TryGetValue(groupName, out buttons))
             {
                 buttons = new List<WeakReference>();
@@ -289,7 +289,7 @@ namespace Fluent
             var threadId = Thread.CurrentThread.ManagedThreadId;
             if (!groupedButtons.ContainsKey(threadId)) return new List<MenuItem>();
 
-            List<WeakReference> buttons = null;
+            List<WeakReference> buttons;
             if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return new List<MenuItem>();
             return buttons.Where(x => x.IsAlive).Select(x => (MenuItem)x.Target);
         }

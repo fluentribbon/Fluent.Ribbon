@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+                    xmlns:Fluent="clr-namespace:Fluent"                    
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <ControlTemplate x:Key="CheckBoxControlTemplate"
@@ -201,7 +200,7 @@
     </ControlTemplate>
 
     <Style x:Key="EmptyCheckBoxFocusVisual">
-        <Setter Property="Control.Template">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle Margin="1"
@@ -215,7 +214,7 @@
     </Style>
 
     <Style x:Key="CheckRadioFocusVisual">
-        <Setter Property="Control.Template">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Rectangle Margin="14,0,0,0"

@@ -15,6 +15,7 @@ namespace Fluent
 {
     using System.Linq;
     using System.Windows.Data;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents ribbon tab item
@@ -195,7 +196,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSelected.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(OnIsSelectedChanged)));
+        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
 
         /// <summary>
         /// Gets ribbon tab control parent
@@ -259,10 +260,7 @@ namespace Fluent
         {
             var tab = (RibbonTabItem)d;
 
-            if (e.OldValue != null)
-            {
-                ((RibbonContextualTabGroup)e.OldValue).RemoveTabItem(tab);
-            }
+            ((RibbonContextualTabGroup)e.OldValue)?.RemoveTabItem(tab);
 
             if (e.NewValue != null)
             {
@@ -428,14 +426,12 @@ namespace Fluent
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
             var control = d as RibbonTabItem;
-            if (control != null)
+            var ribbon = control?.FindParentRibbon();
+
+            if (ribbon != null)
             {
-                var ribbon = control.FindParentRibbon();
-                if (ribbon != null)
-                {
-                    return (bool)basevalue
-                        && ribbon.Focusable;
-                }
+                return (bool)basevalue
+                       && ribbon.Focusable;
             }
 
             return basevalue;
@@ -487,10 +483,7 @@ namespace Fluent
                 return;
             }
 
-            if (item.Group != null)
-            {
-                item.Group.UpdateInnerVisiblityAndGroupBorders();
-            }
+            item.Group?.UpdateInnerVisiblityAndGroupBorders();
 
             if (item.IsSelected
                 && (Visibility)e.NewValue == Visibility.Collapsed)
@@ -568,6 +561,7 @@ namespace Fluent
             var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
             this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
+
             if (totalWidth < headerWidth + this.Indent * 2)
             {
                 var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
@@ -575,20 +569,28 @@ namespace Fluent
             }
             else
             {
-                if (this.desiredWidth != 0)
+                if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
                 {
                     // If header width is larger then tab increase tab width
-                    if ((constraint.Width > this.desiredWidth) && (this.desiredWidth > totalWidth)) baseConstraint.Width = this.desiredWidth;
+                    if (constraint.Width > this.desiredWidth
+                        && this.desiredWidth > totalWidth)
+                    {
+                        baseConstraint.Width = this.desiredWidth;
+                    }
                     else
+                    {
                         baseConstraint.Width = headerWidth + this.Indent * 2 + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
+                    }
                 }
             }
 
-            if ((this.cachedWidth != baseConstraint.Width) && this.IsContextual && (this.Group != null))
+            if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false 
+                && this.IsContextual 
+                && this.Group != null)
             {
                 this.cachedWidth = baseConstraint.Width;
                 var parent = VisualTreeHelper.GetParent(this.Group) as FrameworkElement;
-                if (parent != null) parent.InvalidateMeasure();
+                parent?.InvalidateMeasure();
             }
 
             return baseConstraint;
@@ -610,7 +612,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (e.Source == this
+            if (ReferenceEquals(e.Source, this)
                 && e.ClickCount == 2)
             {
                 e.Handled = true;
@@ -624,8 +626,8 @@ namespace Fluent
                     }
                 }
             }
-            else if (e.Source == this
-                || !this.IsSelected)
+            else if (ReferenceEquals(e.Source, this)
+                || this.IsSelected == false)
             {
                 if (this.Visibility == Visibility.Visible)
                 {
@@ -633,7 +635,7 @@ namespace Fluent
                     {
                         var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
 
-                        if (this.TabControlParent.SelectedTabItem == newItem)
+                        if (ReferenceEquals(this.TabControlParent.SelectedTabItem, newItem))
                         {
                             this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
                         }
@@ -661,20 +663,24 @@ namespace Fluent
         // Handles IsSelected property changes
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var container = d as RibbonTabItem;
+            var container = (RibbonTabItem)d;
             var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if ((container.TabControlParent != null) && container.TabControlParent.SelectedItem is RibbonTabItem && (container.TabControlParent.SelectedItem != container))
-                    (container.TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                if (container.TabControlParent?.SelectedItem is RibbonTabItem
+                    && ReferenceEquals(container.TabControlParent.SelectedItem, container) == false)
+                {
+                    ((RibbonTabItem)container.TabControlParent.SelectedItem).IsSelected = false;
+                }
+
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else
             {
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
             }
-
         }
+
         /// <summary>
         /// Handles selected
         /// </summary>
@@ -738,14 +744,11 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if (this.TabControlParent != null)
-            {
-                var currentSelectedItem = this.TabControlParent.SelectedItem as RibbonTabItem;
+            var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
 
-                if (currentSelectedItem != null)
-                {
-                    currentSelectedItem.IsSelected = false;
-                }
+            if (currentSelectedItem != null)
+            {
+                currentSelectedItem.IsSelected = false;
             }
 
             this.IsSelected = true;

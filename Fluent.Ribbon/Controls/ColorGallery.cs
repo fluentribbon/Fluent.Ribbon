@@ -10,6 +10,7 @@
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents color gallery modes
@@ -268,7 +269,7 @@
 
         private static void OnModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -418,7 +419,7 @@
 
         private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -449,7 +450,7 @@
 
         private static void OnStandardColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -473,7 +474,7 @@
 
         private static void OnThemeColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -608,11 +609,14 @@
 
         private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var gal = d as ColorGallery;
+            var gal = (ColorGallery)d;
             gal.ThemeColors.Clear();
-            if (e.NewValue != null)
+
+            var colors = e.NewValue as IEnumerable<Color>;
+
+            if (colors != null)
             {
-                foreach (var color in e.NewValue as IEnumerable<Color>)
+                foreach (var color in colors)
                 {
                     gal.ThemeColors.Add(color);
                 }
@@ -861,9 +865,9 @@
             this.noColorButton.IsChecked = true;
             this.automaticButton.IsChecked = false;
             // Remove selection from listboxes
-            for (var i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
-                this.listBoxes[i].SelectedItem = null;
+                listBox.SelectedItem = null;
             }
 
             this.SelectedColor = Colors.Transparent;
@@ -872,21 +876,32 @@
 
         private void OnListBoxSelectedChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.isSelectionChanging) return;
+            if (this.isSelectionChanging)
+            {
+                return;
+            }
+
             this.isSelectionChanging = true;
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
+
+            if (e.AddedItems != null 
+                && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
                 this.noColorButton.IsChecked = false;
                 this.automaticButton.IsChecked = false;
-                for (var i = 0; i < this.listBoxes.Count; i++)
+
+                foreach (var listBox in this.listBoxes)
                 {
-                    if (this.listBoxes[i] != sender)
-                        this.listBoxes[i].SelectedItem = null;
+                    if (ReferenceEquals(listBox, sender) == false)
+                    {
+                        listBox.SelectedItem = null;
+                    }
                 }
+
                 this.SelectedColor = (Color)e.AddedItems[0];
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
+
             this.isSelectionChanging = false;
         }
 
@@ -1016,13 +1031,19 @@
         private static Color Rebright(Color color, double newBrightness)
         {
             var currentBrightness = GetBrightness(color);
-            var power = currentBrightness != 0.0 ? newBrightness / currentBrightness : 1.0 + newBrightness;
+            var power = DoubleUtil.AreClose(currentBrightness, 0.0) == false 
+                ? newBrightness / currentBrightness 
+                : 1.0 + newBrightness;
 
             // TODO: round power to make nice numbers
             // ...
 
-            if (power > 1.0) return Lighter(color, power);
-            else return Darker(color, power);
+            if (power > 1.0)
+            {
+                return Lighter(color, power);
+            }
+
+            return Darker(color, power);
         }
 
         /// <summary>

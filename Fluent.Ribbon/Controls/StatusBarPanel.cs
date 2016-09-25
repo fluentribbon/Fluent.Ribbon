@@ -16,8 +16,8 @@ namespace Fluent
         private readonly List<UIElement> rightChildren = new List<UIElement>();
         private readonly List<UIElement> otherChildren = new List<UIElement>();
 
-        private int lastRightIndex = 0;
-        private int lastLeftIndex = 0;
+        private int lastRightIndex;
+        private int lastLeftIndex;
 
         #endregion
 
@@ -36,17 +36,25 @@ namespace Fluent
             this.leftChildren.Clear();
             this.rightChildren.Clear();
             this.otherChildren.Clear();
+
             for (var i = 0; i < this.InternalChildren.Count; i++)
             {
                 var child = this.InternalChildren[i] as FrameworkElement;
+
                 if (child != null)
                 {
                     if (child.HorizontalAlignment == HorizontalAlignment.Left)
+                    {
                         this.leftChildren.Add(child);
+                    }
                     else if (child.HorizontalAlignment == HorizontalAlignment.Right)
+                    {
                         this.rightChildren.Add(child);
+                    }
                     else
+                    {
                         this.otherChildren.Add(child);
+                    }
                 }
             }
 
@@ -59,6 +67,7 @@ namespace Fluent
             double width = 0;
             double height = 0;
             var canAdd = true;
+
             // Right children
             for (var i = 0; i < this.rightChildren.Count; i++)
             {
@@ -66,6 +75,7 @@ namespace Fluent
                 {
                     this.rightChildren[i].Measure(infinity);
                     height = Math.Max(this.rightChildren[i].DesiredSize.Height, height);
+
                     if (width + this.rightChildren[i].DesiredSize.Width <= availableSize.Width)
                     {
                         width += this.rightChildren[i].DesiredSize.Width;
@@ -91,6 +101,7 @@ namespace Fluent
                 {
                     this.leftChildren[i].Measure(infinity);
                     height = Math.Max(this.leftChildren[i].DesiredSize.Height, height);
+
                     if (width + this.leftChildren[i].DesiredSize.Width <= availableSize.Width)
                     {
                         width += this.leftChildren[i].DesiredSize.Width;
@@ -110,9 +121,9 @@ namespace Fluent
             }
 
             // Collapse other children
-            for (var i = 0; i < this.otherChildren.Count; i++)
+            foreach (var otherChild in this.otherChildren)
             {
-                this.otherChildren[i].Measure(zero);
+                otherChild.Measure(zero);
             }
 
             return new Size(width, height);
@@ -131,6 +142,7 @@ namespace Fluent
 
             // Right shift
             double rightShift = 0;
+
             // Arrange right
             for (var i = this.rightChildren.Count - 1; i >= 0; i--)
             {
@@ -145,6 +157,7 @@ namespace Fluent
 
             // Left shift
             double leftShift = 0;
+
             // Arrange left
             for (var i = 0; i < this.leftChildren.Count; i++)
             {
@@ -154,13 +167,15 @@ namespace Fluent
                     leftShift += this.leftChildren[i].DesiredSize.Width;
                 }
                 else
+                {
                     this.leftChildren[i].Arrange(zero);
+                }
             }
 
             // Arrange other
-            for (var i = 0; i < this.otherChildren.Count; i++)
+            foreach (var otherChild in this.otherChildren)
             {
-                this.otherChildren[i].Arrange(zero);
+                otherChild.Arrange(zero);
             }
 
             return finalSize;

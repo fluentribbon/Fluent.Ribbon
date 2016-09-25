@@ -153,7 +153,7 @@ namespace Fluent
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
@@ -527,7 +527,7 @@ namespace Fluent
         /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
         public static Ribbon GetParentRibbon(DependencyObject obj)
         {
-            DependencyObject item = obj;
+            var item = obj;
 
             while (item != null
                 && item is Ribbon == false)

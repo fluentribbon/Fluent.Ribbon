@@ -10,14 +10,12 @@
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using System.Windows.Threading;
     using Fluent;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
     public partial class TestContent
     {
-        private Theme? currentTheme;
         private readonly MainViewModel viewModel;
 
         public TestContent()
@@ -88,82 +86,13 @@
             {
                 Command = fooCommand1.ItemCommand,
                 Header = "Foo",
-                Icon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
-                LargeIcon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
+                LargeIcon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
             };
 
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
             return button;
         }
-
-        #region Theming
-
-        private enum Theme
-        {
-            Office2010,
-            Office2013,
-            Windows8
-        }
-
-        private void ChangeTheme(Theme theme, string color)
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                var owner = Window.GetWindow(this);
-                if (owner != null)
-                {
-                    owner.Resources.BeginInit();
-
-                    if (owner.Resources.MergedDictionaries.Count > 0)
-                    {
-                        owner.Resources.MergedDictionaries.RemoveAt(0);
-                    }
-
-                    if (string.IsNullOrEmpty(color) == false)
-                    {
-                        owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(color) });
-                    }
-
-                    owner.Resources.EndInit();
-                }
-
-                if (this.currentTheme != theme)
-                {
-                    Application.Current.Resources.BeginInit();
-                    switch (theme)
-                    {
-                        case Theme.Office2010:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                        case Theme.Office2013:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                        case Theme.Windows8:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Windows8/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                    }
-
-                    this.currentTheme = theme;
-                    Application.Current.Resources.EndInit();
-
-                    if (owner is RibbonWindow)
-                    {
-                        owner.Style = null;
-                        owner.Style = owner.FindResource("RibbonWindowStyle") as Style;
-                        owner.Style = null;
-
-                        // Resize Window to work around alignment issues caused by theme change
-                        ++owner.Width;
-                        --owner.Width;
-                    }
-                }
-            }));
-        }
-
-        #endregion Theming
 
         #region Logical tree
 

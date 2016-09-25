@@ -40,7 +40,7 @@ namespace Fluent
         private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new [] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
             ribbonPanel.InvalidateMeasure();
@@ -62,7 +62,6 @@ namespace Fluent
         /// Default constructor
         /// </summary>
         public RibbonGroupsContainer()
-            : base()
         {
             this.Focusable = false;
         }

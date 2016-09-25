@@ -254,10 +254,7 @@
         /// </summary> 
         public void Detach()
         {
-            if (this.childAdorner != null)
-            {
-                this.childAdorner.Detach();
-            }
+            this.childAdorner?.Detach();
 
             if (!this.attached)
             {
@@ -330,11 +327,9 @@
 
         private static UIElement GetTopLevelElement(UIElement element)
         {
-            var current = element;
-
             while (true)
             {
-                current = VisualTreeHelper.GetParent(element) as UIElement;
+                var current = VisualTreeHelper.GetParent(element) as UIElement;
 
                 if (current == null)
                 {
@@ -398,10 +393,7 @@
             {
                 //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
                 var control = element as IKeyTipedControl;
-                if (control != null)
-                {
-                    control.OnKeyTipPressed();
-                }
+                control?.OnKeyTipPressed();
             }
 
             var children = GetVisibleChildren(element);
@@ -600,20 +592,18 @@
 
             double[] rows = null;
             var groupBox = GetGroupBox(this.oneOfAssociatedElements);
-            if (groupBox != null)
+            var panel = groupBox?.GetPanel();
+
+            if (panel != null)
             {
-                var panel = groupBox.GetPanel();
-                if (panel != null)
-                {
-                    var height = groupBox.GetLayoutRoot().DesiredSize.Height;
-                    rows = new[]
-                        {
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
-                        };
-                }
+                var height = groupBox.GetLayoutRoot().DesiredSize.Height;
+                rows = new[]
+                       {
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
+                       };
             }
 
             for (var i = 0; i < this.keyTips.Count; i++)
@@ -726,8 +716,7 @@
                 }
                 else if (this.associatedElements[i] is MenuItem)
                 {
-                    // MenuItem Exclusive Placement
-                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    // MenuItem Exclusive Placement                    
                     var elementSize = this.associatedElements[i].DesiredSize;
                     this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
